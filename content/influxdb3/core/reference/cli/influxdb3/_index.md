@@ -32,6 +32,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [serve](/influxdb3/core/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/core/reference/cli/influxdb3/show/)       | List resources                      |
 | [test](/influxdb3/core/reference/cli/influxdb3/test/)       | Test plugins                        |
+| [update](/influxdb3/core/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/core/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
 ## Global options
@@ -39,7 +40,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | Option |                                       | Description                                                                                       |
 | :----- | :------------------------------------ | :------------------------------------------------------------------------------------------------ |
 |        | `--num-threads`                       | Maximum number of IO runtime threads to use                                                       |
-|        | `--io-runtime-type`                   | IO tokio runtime type (`current-thread`, `multi-thread` _(default)_, or `multi-thread-alt`)             |
+|        | `--io-runtime-type`                   | IO tokio runtime type (`current-thread`, `multi-thread` _(default)_, or `multi-thread-alt`)       |
 |        | `--io-runtime-disable-lifo-slot`      | Disable LIFO slot of IO runtime                                                                   |
 |        | `--io-runtime-event-interval`         | Number of scheduler ticks after which the IOtokio runtime scheduler will poll for external events |
 |        | `--io-runtime-global-queue-interval`  | Number of scheduler ticks after which the IO runtime scheduler will poll the global task queue    |
@@ -48,6 +49,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 |        | `--io-runtime-thread-keep-alive`      | Custom timeout for a thread in the blocking pool of the tokio IO runtime                          |
 |        | `--io-runtime-thread-priority`        | Set thread priority tokio IO runtime workers                                                      |
 | `-h`   | `--help`                              | Print help information                                                                            |
+|        | `--help-all`                          | Print detailed help information including runtime configuration options                                                                   |
 | `-V`   | `--version`                           | Print version                                                                                     |
 
 ### Option environment variables
@@ -102,7 +104,7 @@ influxdb3 -h
 influxdb3 --help
 ```
 
-### Run the {{< product-name >}} server with extra verbose logging
+### Run the {{% product-name %}} server with extra verbose logging
 
 <!--pytest.mark.skip-->
 
@@ -113,7 +115,7 @@ influxdb3 serve -v \
   --node-id my-host-01
 ```
 
-### Run {{< product-name >}} with debug logging using LOG_FILTER
+### Run {{% product-name %}} with debug logging using LOG_FILTER
 
 <!--pytest.mark.skip-->
 

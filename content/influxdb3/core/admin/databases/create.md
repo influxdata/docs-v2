@@ -17,9 +17,11 @@ list_code_example: |
   {{% /code-placeholders %}}
 related:
   - /influxdb3/core/reference/cli/influxdb3/create/database/
+  - /influxdb3/core/reference/naming-restrictions/
+  - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/create.md
 ---
 
 <!--
-The content of this file is located at content/shared/influxdb3-admin/databases/create.md
+//SOURCE content/shared/influxdb3-admin/databases/create.md
 -->

@@ -3,7 +3,8 @@
     <div class="notification {{ .level }} min" id="{{ .id }}" data-scope='{{ if .scope }}{{ delimit .scope "," }}{{ else }}/{{ end }}' data-exclude='{{ if .exclude }}{{ delimit .exclude ","}}{{ end }}'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
-        <h3>{{ .title }}</h3>
+        {{ if .title_tag }}<span class="title-tag">{{ .title_tag }}</span>{{ end }}
+        <h3>{{ .title | markdownify }}</h3>
       </div>
       {{ if .slug }}
       <div class="notification-slug">

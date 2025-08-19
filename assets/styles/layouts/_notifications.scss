@@ -99,6 +99,26 @@
       pre { background: rgba($r-basalt, .35); }
     }
 
+    &.ga-announcement {
+      background-image: url('/svgs/influxdb3-ga-background.svg');
+      background-size: cover;
+      a:hover { color: $br-dark-blue; }
+      code { color: $gr-gypsy; background: rgba($gr-gypsy, .25); }
+      pre { background: rgba($gr-gypsy, .25); }
+
+      h3 {font-size: 1.4rem !important;}
+      .notification-slug { font-size: 1.15rem;
+        .btn {
+          display: inline-block;
+          background: $g20-white;
+          color: $br-dark-blue;
+          padding: .5rem 1rem;
+          border-radius: $radius * 2;
+          font-size: 1rem;
+        }      
+      }
+    }
+
     //////////// Basic HTML element styles for notification content ////////////
 
     h1,h2,h3,h4,h5,h6 {
@@ -156,6 +176,16 @@
       }
       .show::before {content: "Show more"}
     }
+
+    .title-tag {
+      padding: .15rem .45rem;
+      text-transform: uppercase;
+      font-size: .85rem;
+      border-radius: $radius * 2;
+      font-family: $code;
+      background: $br-dark-blue;
+    }
+    .title-tag + h3 {margin-top: .75rem;}
   }
 }
 

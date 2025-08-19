@@ -17,7 +17,7 @@ Do the following:
 Before you begin, make sure you have access to the following:
 
 - InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
-- Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/version/install/) and permissions to install Telegraf on this machine
+- Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2/install/) and permissions to install Telegraf on this machine
 - Internet connectivity from the machine running InfluxDB OSS 2.x and Telegraf to InfluxDB Cloud
 - Sufficient resource availability to install the template (InfluxDB Cloud Free
   Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits))
@@ -53,9 +53,9 @@ InfluxDB OSS metrics to an InfluxDB endpoint and a dashboard that visualizes the
 By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 internal InfluxDB metrics in [Prometheus format](https://prometheus.io/docs/concepts/data_model/).
 
-1. Ensure the `/metrics` endpoint is [enabled](/influxdb/version/reference/config-options/#metrics-disabled).
+1. Ensure the `/metrics` endpoint is [enabled](/influxdb/v2/reference/config-options/#metrics-disabled).
    If you've changed the default settings to disable the `/metrics` endpoint,
-   [re-enable these settings](/influxdb/version/reference/config-options/#metrics-disabled).
+   [re-enable these settings](/influxdb/v2/reference/config-options/#metrics-disabled).
 2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
 
 ## Set up Telegraf

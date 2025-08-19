@@ -10,6 +10,14 @@ menu:
   enterprise_influxdb_v1:
     name: Flux VS Code extension
     parent: Tools
+draft: true
+prepend: |
+  > [!Important]
+  > #### Flux VS Code extension no longer available
+  >
+  > The `vsflux` extension is no longer available in the Visual Studio Marketplace.
+  >  `vsflux` and the `flux-lsp` Flux Language Server Protocol plugin are no longer maintained.
+  > Their repositories have been archived and are no longer receiving updates.
 ---
 
 The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux)

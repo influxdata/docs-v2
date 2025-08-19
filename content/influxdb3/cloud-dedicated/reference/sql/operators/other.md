@@ -14,7 +14,7 @@ list_code_example: |
   |     `\|\|`     | Concatenate strings      | `'Hello' \|\| ' world'`                 | `Hello world` |
   | `AT TIME ZONE` | Apply a time zone offset | _[View example](/influxdb3/cloud-dedicated/reference/sql/operators/other/#at-time-zone)_ |               |
 
-source: /content/shared/sql-reference/operators/other.md
+source: /shared/sql-reference/operators/other.md
 ---
 
 <!-- 

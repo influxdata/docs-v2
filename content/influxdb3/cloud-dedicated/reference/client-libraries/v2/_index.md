@@ -17,8 +17,7 @@ prepend: |
   > client libraries and the `influx` CLI, **can't** query an
   > {{% product-name omit=" Clustered" %}} cluster.
   > 
-  > [InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/)
-  > and [Flight SQL clients](/influxdb3/cloud-dedicated/reference/client-libraries/)
+  > [InfluxDB 3 client libraries](/influxdb3/{{% product-key %}}/reference/client-libraries/v3/)
   > are available that integrate with your code to write and query data stored
   > in {{% product-name %}}.
   > 

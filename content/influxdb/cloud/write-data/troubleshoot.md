@@ -11,7 +11,7 @@ menu:
     parent: Write data
 influxdb/cloud/tags: [write, line protocol, errors]
 related:
-  - /influxdb/cloud/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb/cloud/api/#tag/Write, InfluxDB v1 API /write endpoint
   - /influxdb/cloud/reference/internals
   - /influxdb/cloud/reference/cli/influx/write
   - influxdb/cloud/account-management/limits
@@ -19,4 +19,5 @@ source: /shared/influxdb-v2/write-data/troubleshoot.md
 ---
 
 <!-- The content of this file is at 
-// SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md-->
+// SOURCE content/shared/influxdb-v2/write-data/troubleshoot.md
+-->

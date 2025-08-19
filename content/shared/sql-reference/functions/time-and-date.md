@@ -209,6 +209,9 @@ date_bin_gapfill(interval, expression[, origin_timestamp])
   - hours
   - days
   - weeks
+
+<!-- https://github.com/influxdata/influxdb_iox/issues/9958 -->
+The following intervals are not currently supported:
   - months
   - years
   - century
@@ -882,9 +885,10 @@ LIMIT 1
 
 ## from_unixtime
 
-Converts an integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
-Input is parsed as a [Unix nanosecond timestamp](/influxdb/version/reference/glossary/#unix-timestamp)
-and returns the corresponding RFC3339 timestamp.
+Converts an integer (Unix timestamp in seconds) to a timestamp value.
+The underlying result is a timestamp (`Timestamp(TimeUnit::Second, None)`).
+If you output query results as JSON (default for the API), CSV, or pretty (default for the CLI), the timestamp is formatted as an ISO 8601 string (`YYYY-MM-DDTHH:MM:SS`, without a timezone indicator).
+When output to Parquet, the raw integer value (for example, `1641042000`) is preserved.
 
 ```sql
 from_unixtime(expression)
@@ -1451,7 +1455,7 @@ SELECT tz(time, 'Australia/Sydney') AS time_tz, time FROM home ORDER BY time LIM
 differ when the input timestamp **does not** have a timezone.
 
 - When using an input timestamp that does not have a timezone (the default behavior in InfluxDB) with the
-  `AT TIME ZONE` operator, the operator returns the the same timestamp, but with a timezone offset
+  `AT TIME ZONE` operator, the operator returns the same timestamp, but with a timezone offset
   (also known as the "wall clock" time)--for example:
 
   ```sql

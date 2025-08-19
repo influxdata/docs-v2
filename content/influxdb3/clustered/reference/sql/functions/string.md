@@ -9,7 +9,7 @@ menu:
     parent: sql-functions    
 weight: 307
 
-source: /content/shared/sql-reference/functions/string.md
+source: /shared/sql-reference/functions/string.md
 ---
 
 <!-- 

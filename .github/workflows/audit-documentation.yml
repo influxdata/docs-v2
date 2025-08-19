@@ -1,0 +1,429 @@
+name: Audit Documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to audit (must exist in git tags, e.g., v3.0.0 or "local" for dev containers)'
+        required: false
+        default: 'local'
+      create_issue:
+        description: 'Create GitHub issue with audit results'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  cli-3-core:
+    name: Audit InfluxDB 3 Core CLI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Set up Docker
+        if: github.event.inputs.version == 'local' || github.event_name == 'schedule'
+        run: |
+          docker compose up -d influxdb3-core
+          sleep 10  # Wait for containers to be ready
+      
+      - name: Run Core CLI audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js core $VERSION
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-audit-3-core-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/cli-audit/
+          retention-days: 30
+
+  cli-3-enterprise:
+    name: Audit InfluxDB 3 Enterprise CLI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Set up Docker
+        if: github.event.inputs.version == 'local' || github.event_name == 'schedule'
+        run: |
+          docker compose up -d influxdb3-enterprise
+          sleep 10  # Wait for containers to be ready
+      
+      - name: Run Enterprise CLI audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js enterprise $VERSION
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-audit-3-enterprise-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/cli-audit/
+          retention-days: 30
+
+  cli-3-influxctl:
+    name: Audit InfluxDB 3 influxctl CLI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Run influxctl CLI audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "influxctl CLI audit not yet implemented"
+          # TODO: Implement influxctl CLI audit
+          # node ./helper-scripts/influxdb3-distributed/audit-influxctl-cli.js $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/cli-audit
+          cat > helper-scripts/output/cli-audit/influxctl-audit-$VERSION.md << 'EOF'
+          # influxctl CLI Audit Report
+          
+          **CLI:** influxctl
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement influxctl CLI help extraction
+          - Compare against clustered and cloud-dedicated documentation
+          - Generate patches for missing documentation
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-audit-3-influxctl-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/cli-audit/
+          retention-days: 30
+
+  api-3-core:
+    name: Audit InfluxDB 3 Core API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Core API audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "Core API audit not yet implemented"
+          # TODO: Implement Core API audit
+          # node ./helper-scripts/influxdb3-monolith/audit-api-documentation.js core $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/api-audit
+          cat > helper-scripts/output/api-audit/core-api-audit-$VERSION.md << 'EOF'
+          # InfluxDB 3 Core API Audit Report
+          
+          **API:** InfluxDB 3 Core
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement API endpoint discovery
+          - Compare against OpenAPI specs
+          - Validate documentation examples
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-3-core-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  api-3-enterprise:
+    name: Audit InfluxDB 3 Enterprise API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Enterprise API audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "Enterprise API audit not yet implemented"
+          # TODO: Implement Enterprise API audit
+          # node ./helper-scripts/influxdb3-monolith/audit-api-documentation.js enterprise $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/api-audit
+          cat > helper-scripts/output/api-audit/enterprise-api-audit-$VERSION.md << 'EOF'
+          # InfluxDB 3 Enterprise API Audit Report
+          
+          **API:** InfluxDB 3 Enterprise
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement API endpoint discovery
+          - Compare against OpenAPI specs
+          - Validate documentation examples
+          - Check enterprise-specific endpoints
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-3-enterprise-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  api-3-cloud-dedicated:
+    name: Audit InfluxDB 3 Cloud Dedicated API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Cloud Dedicated API audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "Cloud Dedicated API audit not yet implemented"
+          # TODO: Implement Cloud Dedicated API audit
+          # node ./helper-scripts/influxdb3-distributed/audit-api-documentation.js cloud-dedicated $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/api-audit
+          cat > helper-scripts/output/api-audit/cloud-dedicated-api-audit-$VERSION.md << 'EOF'
+          # InfluxDB 3 Cloud Dedicated API Audit Report
+          
+          **API:** InfluxDB 3 Cloud Dedicated
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement management API audit
+          - Implement data API audit
+          - Compare against OpenAPI specs
+          - Validate documentation examples
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-3-cloud-dedicated-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  api-3-clustered:
+    name: Audit InfluxDB 3 Clustered API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Clustered API audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "Clustered API audit not yet implemented"
+          # TODO: Implement Clustered API audit
+          # node ./helper-scripts/influxdb3-distributed/audit-api-documentation.js clustered $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/api-audit
+          cat > helper-scripts/output/api-audit/clustered-api-audit-$VERSION.md << 'EOF'
+          # InfluxDB 3 Clustered API Audit Report
+          
+          **API:** InfluxDB 3 Clustered
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement management API audit
+          - Implement data API audit
+          - Compare against OpenAPI specs
+          - Validate documentation examples
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-3-clustered-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  api-3-cloud-serverless:
+    name: Audit InfluxDB 3 Cloud Serverless API
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Cloud Serverless API audit
+        run: |
+          VERSION="${{ github.event.inputs.version || 'local' }}"
+          echo "Cloud Serverless API audit not yet implemented"
+          # TODO: Implement Cloud Serverless API audit
+          # node ./helper-scripts/influxdb3-distributed/audit-api-documentation.js cloud-serverless $VERSION
+          
+          # Create placeholder report
+          mkdir -p helper-scripts/output/api-audit
+          cat > helper-scripts/output/api-audit/cloud-serverless-api-audit-$VERSION.md << 'EOF'
+          # InfluxDB 3 Cloud Serverless API Audit Report
+          
+          **API:** InfluxDB 3 Cloud Serverless
+          **Version:** $VERSION
+          **Date:** $(date)
+          **Status:** Placeholder - audit not yet implemented
+          
+          ## TODO
+          - Implement management API audit
+          - Implement data API audit
+          - Compare against OpenAPI specs
+          - Validate documentation examples
+          EOF
+      
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-audit-3-cloud-serverless-${{ github.event.inputs.version || 'local' }}
+          path: helper-scripts/output/api-audit/
+          retention-days: 30
+
+  create-audit-issues:
+    name: Create Issues from Audit Results
+    runs-on: ubuntu-latest
+    needs: [
+      cli-3-core,
+      cli-3-enterprise, 
+      cli-3-influxctl,
+      api-3-core,
+      api-3-enterprise,
+      api-3-cloud-dedicated,
+      api-3-clustered,
+      api-3-cloud-serverless
+    ]
+    if: always() && (github.event_name == 'schedule' || github.event.inputs.create_issue == 'true')
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all audit reports
+        uses: actions/download-artifact@v4
+        with:
+          path: audit-reports/
+      
+      - name: Create issues from audit results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Find all audit report directories
+            const reportDirs = fs.readdirSync('audit-reports');
+            
+            for (const reportDir of reportDirs) {
+              const reportPath = path.join('audit-reports', reportDir);
+              const files = fs.readdirSync(reportPath);
+              
+              for (const file of files) {
+                if (file.endsWith('.md')) {
+                  const content = fs.readFileSync(path.join(reportPath, file), 'utf8');
+                  
+                  // Only create issues if there are actual problems (not placeholders)
+                  const hasIssues = content.includes('⚠️ Missing from docs') || 
+                                  content.includes('ℹ️ Documented but not in CLI') ||
+                                  content.includes('API endpoint mismatch');
+                  
+                  if (hasIssues) {
+                    const auditType = reportDir.replace(/-(local|\d+\.\d+\.\d+)$/, '');
+                    
+                    await github.rest.issues.create({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      title: `Documentation Audit Issues - ${auditType}`,
+                      body: `## Audit Results\n\n${content}`,
+                      labels: ['documentation', 'audit', auditType.includes('cli') ? 'cli-audit' : 'api-audit']
+                    });
+                    
+                    console.log(`Created issue for ${auditType}`);
+                  }
+                }
+              }
+            }
+
+  audit-summary:
+    name: Generate Summary Report
+    runs-on: ubuntu-latest
+    needs: [
+      cli-3-core,
+      cli-3-enterprise, 
+      cli-3-influxctl,
+      api-3-core,
+      api-3-enterprise,
+      api-3-cloud-dedicated,
+      api-3-clustered,
+      api-3-cloud-serverless
+    ]
+    if: always()
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: audit-artifacts/
+      
+      - name: Generate summary
+        run: |
+          echo "# Documentation Audit Summary" > summary.md
+          echo "Date: $(date)" >> summary.md
+          echo "Version: ${{ github.event.inputs.version || 'local' }}" >> summary.md
+          echo "" >> summary.md
+          
+          # Add results from each audit type
+          for dir in audit-artifacts/*/; do
+            if [ -d "$dir" ]; then
+              echo "## $(basename "$dir")" >> summary.md
+              if [ -f "$dir"/*.md ]; then
+                cat "$dir"/*.md >> summary.md
+              fi
+              echo "" >> summary.md
+            fi
+          done
+      
+      - name: Upload summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-summary
+          path: summary.md
+          retention-days: 30

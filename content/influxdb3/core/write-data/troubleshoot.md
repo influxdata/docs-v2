@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot issues writing data
 seotitle: Troubleshoot issues writing data to InfluxDB
-weight: 106
+weight: 215
 description: >
   Troubleshoot issues writing data.
   Find response codes for failed writes.

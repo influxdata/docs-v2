@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { Datepicker } from 'vanillajs-datepicker';
 import { toggleModal } from './modals.js';
-import * as localStorage from './local-storage.js';
+import * as localStorage from './services/local-storage.js';
 
 // Placeholder start date used in InfluxDB custom timestamps
 const defaultStartDate = '2022-01-01';
@@ -53,65 +53,65 @@ function timeToUnixSeconds(time) {
   return unixSeconds;
 }
 
-  // Default time values in getting started sample data
-  const defaultTimes = [
-    {
-      rfc3339: `${defaultStartDate}T08:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T08:00:00Z`),
-    }, // 1641024000
-    {
-      rfc3339: `${defaultStartDate}T09:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T09:00:00Z`),
-    }, // 1641027600
-    {
-      rfc3339: `${defaultStartDate}T10:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T10:00:00Z`),
-    }, // 1641031200
-    {
-      rfc3339: `${defaultStartDate}T11:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T11:00:00Z`),
-    }, // 1641034800
-    {
-      rfc3339: `${defaultStartDate}T12:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T12:00:00Z`),
-    }, // 1641038400
-    {
-      rfc3339: `${defaultStartDate}T13:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T13:00:00Z`),
-    }, // 1641042000
-    {
-      rfc3339: `${defaultStartDate}T14:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T14:00:00Z`),
-    }, // 1641045600
-    {
-      rfc3339: `${defaultStartDate}T15:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T15:00:00Z`),
-    }, // 1641049200
-    {
-      rfc3339: `${defaultStartDate}T16:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T16:00:00Z`),
-    }, // 1641052800
-    {
-      rfc3339: `${defaultStartDate}T17:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T17:00:00Z`),
-    }, // 1641056400
-    {
-      rfc3339: `${defaultStartDate}T18:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T18:00:00Z`),
-    }, // 1641060000
-    {
-      rfc3339: `${defaultStartDate}T19:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T19:00:00Z`),
-    }, // 1641063600
-    {
-      rfc3339: `${defaultStartDate}T20:00:00Z`,
-      unix: timeToUnixSeconds(`${defaultStartDate}T20:00:00Z`),
-    }, // 1641067200
-  ];
+// Default time values in getting started sample data
+const defaultTimes = [
+  {
+    rfc3339: `${defaultStartDate}T08:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T08:00:00Z`),
+  }, // 1641024000
+  {
+    rfc3339: `${defaultStartDate}T09:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T09:00:00Z`),
+  }, // 1641027600
+  {
+    rfc3339: `${defaultStartDate}T10:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T10:00:00Z`),
+  }, // 1641031200
+  {
+    rfc3339: `${defaultStartDate}T11:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T11:00:00Z`),
+  }, // 1641034800
+  {
+    rfc3339: `${defaultStartDate}T12:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T12:00:00Z`),
+  }, // 1641038400
+  {
+    rfc3339: `${defaultStartDate}T13:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T13:00:00Z`),
+  }, // 1641042000
+  {
+    rfc3339: `${defaultStartDate}T14:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T14:00:00Z`),
+  }, // 1641045600
+  {
+    rfc3339: `${defaultStartDate}T15:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T15:00:00Z`),
+  }, // 1641049200
+  {
+    rfc3339: `${defaultStartDate}T16:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T16:00:00Z`),
+  }, // 1641052800
+  {
+    rfc3339: `${defaultStartDate}T17:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T17:00:00Z`),
+  }, // 1641056400
+  {
+    rfc3339: `${defaultStartDate}T18:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T18:00:00Z`),
+  }, // 1641060000
+  {
+    rfc3339: `${defaultStartDate}T19:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T19:00:00Z`),
+  }, // 1641063600
+  {
+    rfc3339: `${defaultStartDate}T20:00:00Z`,
+    unix: timeToUnixSeconds(`${defaultStartDate}T20:00:00Z`),
+  }, // 1641067200
+];
 
-function updateTimestamps (newStartDate, seedTimes=defaultTimes) {
+function updateTimestamps(newStartDate, seedTimes = defaultTimes) {
   // Update the times array with replacement times
-  const times = seedTimes.map(x => {
+  const times = seedTimes.map((x) => {
     var newStartTimestamp = x.rfc3339.replace(/^.*T/, newStartDate + 'T');
 
     return {
@@ -178,7 +178,7 @@ function updateTimestamps (newStartDate, seedTimes=defaultTimes) {
 
 /////////////////////// MODAL INTERACTIONS / DATE PICKER ///////////////////////
 
-function CustomTimeTrigger({component}) {
+function CustomTimeTrigger({ component }) {
   const $component = $(component);
   $component
     .find('a[data-action="open"]:first')
@@ -212,7 +212,7 @@ function CustomTimeTrigger({component}) {
 
     if (newDate != undefined) {
       newDate = formatDate(newDate);
-      
+
       // Update the last updated timestamps with the new date
       // and reassign the updated times.
       updatedTimes = updateTimestamps(newDate, updatedTimes);

@@ -93,7 +93,7 @@ that surround field names._
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
-  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
   --json '{
     "db": "mydb",
     "q": "SELECT * FROM information_schema.columns WHERE table_schema = '"'iox'"' AND table_name = '"'system_swap'"'",
@@ -120,7 +120,7 @@ To view recently executed queries, query the `queries` system table:
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
-  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN"
   --json '{
     "db": "mydb",
     "q": "SELECT * FROM system.queries LIMIT 2",

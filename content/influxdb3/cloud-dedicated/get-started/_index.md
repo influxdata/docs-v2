@@ -17,6 +17,8 @@ provides nearly unlimited series cardinality,
 improved query performance, and interoperability with widely used data
 processing tools and platforms.
 
+<a class="btn" href="{{< cta-link >}}">Run an {{% product-name %}} proof of concept (PoC)</a>
+
 **Time series data** is a sequence of data points indexed in time order. Data
 points typically consist of successive measurements made from the same source
 and are used to track changes over time. Examples of time series data include:
@@ -201,4 +203,4 @@ Manually-created management tokens authenticate directly with your InfluxDB
 cluster and don't require human interaction with your identity provider.
   <!-- - Infrastructure management -->
 
-{{< page-nav next="/influxdb/clustered/get-started/setup/" >}}
+{{< page-nav next="/influxdb3/cloud-dedicated/get-started/setup/" >}}

@@ -11,5 +11,6 @@ source: /shared/influxdb3-cli/show/_index.md
 ---
 
 <!--
-The content of this file is at content/shared/influxdb3-cli/show/_index.md
+The content of this file is at
+// SOURCE content/shared/influxdb3-cli/show/_index.md
 -->

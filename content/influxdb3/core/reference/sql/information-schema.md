@@ -8,7 +8,7 @@ menu:
     parent: SQL reference
 weight: 210
 
-source: /content/shared/sql-reference/information-schema.md
+source: /shared/sql-reference/information-schema.md
 ---
 
 <!-- 

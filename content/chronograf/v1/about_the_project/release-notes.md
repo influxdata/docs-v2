@@ -10,6 +10,22 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.10.8 {date="2025-08-15"}
+
+### Bug Fixes
+
+- Fix missing retention policies on the Databases page.
+
+## v1.10.7 {date="2025-04-15"}
+
+### Bug Fixes
+
+- Fix Hosts page loading.
+
+### Dependency updates
+
+- Upgrade Go to 1.23.8.
+
 ## v1.10.6 {date="2024-12-16"}
 
 ### Bug Fixes

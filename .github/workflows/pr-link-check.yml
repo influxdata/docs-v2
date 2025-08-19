@@ -1,0 +1,241 @@
+name: Link Check PR Changes
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'data/**/*.yml'
+      - 'layouts/**/*.html'
+    types: [opened, synchronize, reopened]
+
+jobs:
+  link-check:
+    name: Check links in affected files
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Detect content changes
+        id: detect
+        run: |
+          echo "🔍 Detecting changes between ${{ github.base_ref }} and ${{ github.sha }}"
+          
+          # For PRs, use the GitHub Files API to get changed files
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "Using GitHub API to detect PR changes..."
+            curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+              | jq -r '.[].filename' > all_changed_files.txt
+          else
+            echo "Using git diff to detect changes..."
+            git diff --name-only ${{ github.event.before }}..${{ github.sha }} > all_changed_files.txt
+          fi
+          
+          # Filter for content markdown files
+          CHANGED_FILES=$(grep '^content/.*\.md$' all_changed_files.txt || true)
+          
+          echo "📁 All changed files:"
+          cat all_changed_files.txt
+          echo ""
+          echo "📝 Content markdown files:"
+          echo "$CHANGED_FILES"
+          
+          if [[ -n "$CHANGED_FILES" ]]; then
+            echo "✅ Found $(echo "$CHANGED_FILES" | wc -l) changed content file(s)"
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "changed-content<<EOF" >> $GITHUB_OUTPUT
+            echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            # Check if any shared content files were modified
+            SHARED_CHANGES=$(echo "$CHANGED_FILES" | grep '^content/shared/' || true)
+            if [[ -n "$SHARED_CHANGES" ]]; then
+              echo "has-shared-content=true" >> $GITHUB_OUTPUT
+              echo "🔄 Detected shared content changes: $SHARED_CHANGES"
+            else
+              echo "has-shared-content=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ No content changes detected"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "has-shared-content=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Skip if no content changes
+        if: steps.detect.outputs.has-changes == 'false'
+        run: |
+          echo "No content changes detected in this PR - skipping link check"
+          echo "✅ **No content changes detected** - link check skipped" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Setup Node.js
+        if: steps.detect.outputs.has-changes == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          
+      - name: Install dependencies
+        if: steps.detect.outputs.has-changes == 'true'
+        run: yarn install --frozen-lockfile
+        
+      - name: Build Hugo site
+        if: steps.detect.outputs.has-changes == 'true'
+        run: npx hugo --minify
+        
+      - name: Download link-checker binary
+        if: steps.detect.outputs.has-changes == 'true'
+        run: |
+          echo "Downloading link-checker binary from docs-v2 releases..."
+          
+          # Download from docs-v2's own releases (always accessible)
+          curl -L -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o link-checker-info.json \
+            "https://api.github.com/repos/influxdata/docs-v2/releases/tags/link-checker-v1.2.2"
+          
+          # Extract download URL for linux binary
+          DOWNLOAD_URL=$(jq -r '.assets[] | select(.name | test("link-checker.*linux")) | .url' link-checker-info.json)
+          
+          if [[ "$DOWNLOAD_URL" == "null" || -z "$DOWNLOAD_URL" ]]; then
+            echo "❌ No linux binary found in release"
+            echo "Available assets:"
+            jq -r '.assets[].name' link-checker-info.json
+            exit 1
+          fi
+          
+          echo "📥 Downloading: $DOWNLOAD_URL"
+          curl -L -H "Accept: application/octet-stream" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o link-checker "$DOWNLOAD_URL"
+          
+          chmod +x link-checker
+          ./link-checker --version
+        
+      - name: Verify link checker config exists
+        if: steps.detect.outputs.has-changes == 'true'
+        run: |
+          if [[ ! -f .ci/link-checker/production.lycherc.toml ]]; then
+            echo "❌ Configuration file .ci/link-checker/production.lycherc.toml not found"
+            echo "Please copy production.lycherc.toml from docs-tooling/link-checker/"
+            exit 1
+          fi
+          echo "✅ Using configuration: .ci/link-checker/production.lycherc.toml"
+        
+      - name: Map changed content to public files
+        if: steps.detect.outputs.has-changes == 'true'
+        id: mapping
+        run: |
+          echo "Mapping changed content files to public HTML files..."
+          
+          # Create temporary file with changed content files
+          echo "${{ steps.detect.outputs.changed-content }}" > changed-files.txt
+          
+          # Map content files to public files
+          PUBLIC_FILES=$(cat changed-files.txt | xargs -r ./link-checker map --existing-only)
+          
+          if [[ -n "$PUBLIC_FILES" ]]; then
+            echo "Found affected public files:"
+            echo "$PUBLIC_FILES"
+            echo "public-files<<EOF" >> $GITHUB_OUTPUT
+            echo "$PUBLIC_FILES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            # Count files for summary
+            FILE_COUNT=$(echo "$PUBLIC_FILES" | wc -l)
+            echo "file-count=$FILE_COUNT" >> $GITHUB_OUTPUT
+          else
+            echo "No public files found to check"
+            echo "public-files=" >> $GITHUB_OUTPUT
+            echo "file-count=0" >> $GITHUB_OUTPUT
+          fi
+        
+      - name: Run link checker
+        if: steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
+        id: link-check
+        run: |
+          echo "Checking links in ${{ steps.mapping.outputs.file-count }} affected files..."
+          
+          # Create temporary file with public files list
+          echo "${{ steps.mapping.outputs.public-files }}" > public-files.txt
+          
+          # Run link checker with detailed JSON output
+          set +e  # Don't fail immediately on error
+          
+          cat public-files.txt | xargs -r ./link-checker check \
+            --config .ci/link-checker/production.lycherc.toml \
+            --format json \
+            --output link-check-results.json
+          
+          EXIT_CODE=$?
+          
+          if [[ -f link-check-results.json ]]; then
+            # Parse results
+            BROKEN_COUNT=$(jq -r '.summary.broken_count // 0' link-check-results.json)
+            TOTAL_COUNT=$(jq -r '.summary.total_checked // 0' link-check-results.json)
+            SUCCESS_RATE=$(jq -r '.summary.success_rate // 0' link-check-results.json)
+            
+            echo "broken-count=$BROKEN_COUNT" >> $GITHUB_OUTPUT
+            echo "total-count=$TOTAL_COUNT" >> $GITHUB_OUTPUT
+            echo "success-rate=$SUCCESS_RATE" >> $GITHUB_OUTPUT
+            
+            if [[ $BROKEN_COUNT -gt 0 ]]; then
+              echo "❌ Found $BROKEN_COUNT broken links out of $TOTAL_COUNT total links"
+              echo "check-result=failed" >> $GITHUB_OUTPUT
+            else
+              echo "✅ All $TOTAL_COUNT links are valid"
+              echo "check-result=passed" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ Link check failed to generate results"
+            echo "check-result=error" >> $GITHUB_OUTPUT
+          fi
+          
+          exit $EXIT_CODE
+          
+      - name: Process and report results
+        if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
+        run: |
+          if [[ -f link-check-results.json ]]; then
+            # Create detailed error annotations for broken links
+            if [[ "${{ steps.link-check.outputs.check-result }}" == "failed" ]]; then
+              echo "Creating error annotations for broken links..."
+              
+              jq -r '.broken_links[]? | 
+                "::error file=\(.file // "unknown"),line=\(.line // 1)::Broken link: \(.url) - \(.error // "Unknown error")"' \
+                link-check-results.json || true
+            fi
+            
+            # Generate summary comment
+            cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## Link Check Results
+          
+          **Files Checked:** ${{ steps.mapping.outputs.file-count }}  
+          **Total Links:** ${{ steps.link-check.outputs.total-count }}  
+          **Broken Links:** ${{ steps.link-check.outputs.broken-count }}  
+          **Success Rate:** ${{ steps.link-check.outputs.success-rate }}%
+          
+          EOF
+          
+            if [[ "${{ steps.link-check.outputs.check-result }}" == "failed" ]]; then
+              echo "❌ **Link check failed** - see annotations above for details" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "✅ **All links are valid**" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "⚠️ **Link check could not complete** - no results file generated" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+      - name: Upload detailed results
+        if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-results
+          path: |
+            link-check-results.json
+            changed-files.txt
+            public-files.txt
+          retention-days: 30

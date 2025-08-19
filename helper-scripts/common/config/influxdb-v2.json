@@ -1,0 +1,11 @@
+{
+  "outputFormat": "integrated",
+  "repositories": [
+    {
+      "name": "influxdb",
+      "path": "../influxdb",
+      "label": "influxdb",
+      "includePrLinks": true
+    }
+  ]
+}

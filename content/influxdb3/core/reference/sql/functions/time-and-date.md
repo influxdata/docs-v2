@@ -9,7 +9,7 @@ menu:
     parent: sql-functions    
 weight: 305
 
-source: /content/shared/sql-reference/functions/time-and-date.md
+source: /shared/sql-reference/functions/time-and-date.md
 ---
 
 <!-- 

@@ -4,12 +4,20 @@ description: Tools and utilities for interacting with InfluxDB.
 aliases:
     - /influxdb/v1/clients/
     - /influxdb/v1/write_protocols/json/
+    - /influxdb/v1/tools/flux-vscode/
 menu:
   influxdb_v1:
     name: Tools
     weight: 60
 alt_links:
   v2: /influxdb/v2/tools/
+prepend: |
+  > [!Important]
+  > #### Flux VS Code extension no longer available
+  >
+  > The `vsflux` extension is no longer available in the Visual Studio Marketplace.
+  >  `vsflux` and the `flux-lsp` Flux Language Server Protocol plugin are no longer maintained.
+  > Their repositories have been archived and are no longer receiving updates.
 ---
 
 This section covers the available tools for interacting with InfluxDB.
@@ -34,6 +42,7 @@ The list of [client libraries](/influxdb/v1/tools/api_client_libraries/) for int
 ## InfluxDB inch tool
 
 Use the [InfluxDB `inch` tool](/influxdb/v1/tools/inch/) to test InfluxDB performance. Adjust metrics such as the batch size, tag values, and concurrent write streams to test how ingesting different tag cardinalities and metrics affects performance.
+
 
 ## Graphs and dashboards
 
@@ -60,3 +69,12 @@ SHOW TAG VALUES FROM "your.system"."host_info" WITH KEY = “host”
 ```
 
 > **Note:** In Chronograf, you can also filter meta query results for a specified time range by [creating a `custom meta query` template variable](/chronograf/v1/guides/dashboard-template-variables/#create-custom-template-variables) and adding a time range filter.
+
+## Flux tools
+
+> [!NOTE]
+> #### vsflux and Flux-LSP no longer maintained
+>
+> The `vsflux` Flux VS Code extension and the `flux-lsp` language server plugin for Vim are no longer maintained.
+> Their repositories have been archived and are no longer receiving updates.
+> `vsflux` is no longer available in the Visual Studio Marketplace.

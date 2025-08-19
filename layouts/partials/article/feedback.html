@@ -8,9 +8,7 @@
 
 {{ if .File }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/" .File.Path) }}
-  {{ if .Page.HasShortcode "duplicate-oss" }}
-    {{ .Scratch.Set "pageGithubLink" (replaceRE "/cloud/" "/v2/" (.Scratch.Get "pageGithubLink")) }}
-  {{ else if .Params.Source }}
+  {{ if .Params.Source }}
     {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content" .Params.source) }}
   {{ end }}
 {{ else }}
@@ -53,11 +51,20 @@
       To find support, use the following resources:
     </p>
     <ul>
+      {{ if and (eq $product "influxdb3") (or (eq $version "core") (eq $version "enterprise") (eq $version "explorer")) }}
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong> <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
+      {{ else }}
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank"><strong>InfluxDB Discord Server</strong></a></li>
+      {{ end }}
       <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
-      <li><a class="slack" href="https://influxdata.com/slack" target="_blank">InfluxDB Community Slack</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
     </ul>
     {{ if not (in $supportBlacklist $product) }}
-      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.</p>
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         {{ if eq $version "enterprise" }}<strong>Customers using a trial license</strong> can email <a href="mailto:trial@influxdata.com">trial@influxdata.com</a> for assistance.</p>{{ end }}
+
     {{ end }}
   </div>
   <div class="actions">

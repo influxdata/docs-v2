@@ -9,18 +9,28 @@ menu:
     name: influxctl
     parent: CLIs
 weight: 101
+aliases:
+  - /influxdb3/cloud-dedicated/reference/cli/
 influxdb3/cloud-dedicated/tags: [cli]
 ---
 
 The `influxctl` command line interface (CLI) writes to, queries, and performs
-administrative tasks in an {{< product-name omit=" Clustered" >}} cluster.
+administrative tasks in an {{< product-name omit=" Clustered" >}} cluster and
+provides a scriptable way to manage your {{% product-name %}} resources.
 
+- [Key features](#key-features)
 - [Usage](#usage)
 - [Commands](#commands)
 - [Global flags](#global-flags)
 - [Download and install influxctl](#download-and-install-influxctl)
 - [Configure connection profiles](#configure-connection-profiles)
 - [Authentication](#authentication)
+
+## Key features
+
+- Authentication via environment variables or config file
+- JSON output for scripting and automation
+- Can be integrated into CI/CD pipelines
 
 ## Usage
 
@@ -162,11 +172,12 @@ To download the Linux `influxctl` package, do one of the following:
 {{% code-tab-content %}}
 
 ```sh
-# influxdata-archive_compat.key GPG fingerprint:
-#     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
-wget -q https://repos.influxdata.com/influxdata-archive_compat.key
-echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+# influxdata-archive.key GPG fingerprint:
+#   Primary key fingerprint: 24C9 75CB A61A 024E E1B6  3178 7C3D 5715 9FC2 F927
+#   Subkey fingerprint:      9D53 9D90 D332 8DC7 D6C8  D3B9 D8FF 8E1F 7DF8 B07E
+wget -q https://repos.influxdata.com/influxdata-archive.key
+gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' && cat influxdata-archive.key | gpg --dearmor | sudo tee /etc/apt/keyrings/influxdata-archive.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 
 sudo apt-get update && sudo apt-get install influxctl
 ```
@@ -175,15 +186,16 @@ sudo apt-get update && sudo apt-get install influxctl
 {{% code-tab-content %}}
 
 ```sh
-# influxdata-archive_compat.key GPG fingerprint:
-#     9D53 9D90 D332 8DC7 D6C8 D3B9 D8FF 8E1F 7DF8 B07E
+# influxdata-archive.key GPG fingerprint:
+#   Primary key fingerprint: 24C9 75CB A61A 024E E1B6  3178 7C3D 5715 9FC2 F927
+#   Subkey fingerprint:      9D53 9D90 D332 8DC7 D6C8  D3B9 D8FF 8E1F 7DF8 B07E
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
 [influxdata]
 name = InfluxData Repository - Stable
 baseurl = https://repos.influxdata.com/stable/\$basearch/main
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
+gpgkey = https://repos.influxdata.com/influxdata-archive.key
 EOF
 
 sudo yum install influxctl

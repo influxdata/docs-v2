@@ -13,7 +13,7 @@ menu:
 influxdb3/enterprise/tags: [query, influxql, python]
 metadata: [InfluxQL]
 related:
-  - /influxdb3/enterprise/api-compatibility/v1/
+  - /influxdb3/enterprise/write-data/http-api/compatibility-apis/
 aliases:
   - /influxdb3/enterprise/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |

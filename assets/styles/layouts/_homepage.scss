@@ -105,7 +105,7 @@
     .product {
       padding: 0 1rem;
       display: flex;
-      flex: 1 1 50%;
+      flex: 1 1 33%;
       flex-direction: column;
       justify-content: space-between;
       max-width: 33%;
@@ -118,11 +118,10 @@
           line-height: 1.5rem;
           color: rgba($article-text, .7);
         }
-      }
 
-      &.beta {
-        .product-info h3::after {
-          content: "beta";
+        h3[state] {
+          &::after {
+          content: attr(state);
           margin-left: .5rem;
           font-size: 1rem;
           padding: .25em .5em .25em .4em;
@@ -131,6 +130,8 @@
           border-radius: $radius * 2;
           font-style: italic;
           vertical-align: middle;
+        }
+
         }
       }
 
@@ -227,6 +228,30 @@
       background: $article-bg;
     }
 
+    .categories {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      // margin: 0 -1rem;
+      width: calc(100% + 2rem);
+
+      .category {
+        &.full-width {
+          width: 100%;
+        }
+        &.two-thirds {
+          width: 66.66%;
+          .product { max-width: 50%; }
+        }
+        &.one-third {
+          width: 33.33%;
+          .product {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+
     .category-head{
       margin: 1rem 0 2rem;
       &::after {
@@ -234,6 +259,7 @@
         display: block;
         border-top: 1px solid $article-hr;
         margin-top: -1.15rem;
+        width: calc(100% - 2rem);
       }
     }
   }
@@ -439,6 +465,16 @@
           max-width: 100%;
 
           ul {margin-bottom: 0;}
+        }
+      }
+      .categories .category {
+        &.two-thirds {
+          width: 100%;
+          .product { max-width: 100%; }
+        }
+        &.one-third {
+          width: 100%;
+          .product { max-width: 100%; }
         }
       }
     }

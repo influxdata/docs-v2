@@ -4,10 +4,7 @@ to create a database in {{< product-name >}}.
 Provide the following:
 
 - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
-- {{< product-name >}} authorization token
-
-  > [!Note]
-  > While in beta, {{< product-name >}} does not require an authorization token.
+- {{< product-name >}} {{% token-link "admin" "admin" %}} 
 
 <!--Allow fail for database create and delete: namespaces aren't reusable-->
 <!--pytest.mark.skip-->
@@ -69,24 +66,55 @@ The retention period value cannot be negative or contain whitespace.
 
 Database names must adhere to the following naming restrictions:
 
-- Alphanumeric characters
-- Dashes (`-`), underscores (`_`), and forward slashes (`/`) are allowed
-- Must start with a letter or number
-- Maximum length of 64 characters
+- **Length**: Maximum 64 characters
+- **Allowed characters**: Alphanumeric characters (a-z, A-Z, 0-9), underscore (`_`), dash (`-`), and forward-slash (`/`)
+- **Prohibited characters**: Cannot contain whitespace, punctuation, or other special characters
+- **Starting character**: Should start with a letter or number and should not start with underscore (`_`)
+- **Case sensitivity**: Database names are case-sensitive
+
+> [!Caution]
+> #### Underscore prefix reserved for system use
+>
+> Names starting with an underscore (`_`) may be reserved for InfluxDB system use.
+> While {{% product-name %}} might not explicitly reject these names, using them risks
+> conflicts with current or future system features and may result in
+> unexpected behavior or data loss.
+
+### Valid database name examples
+
+```text
+mydb
+sensor_data
+prod-metrics
+logs/application
+webserver123
+```
+
+### Invalid database name examples
+
+```text
+my database        # Contains whitespace
+sensor.data        # Contains period
+app@server         # Contains special character
+_internal          # Starts with underscore (reserved)
+very_long_database_name_that_exceeds_sixty_four_character_limit  # Too long
+```
+
+For comprehensive information about naming restrictions for all InfluxDB identifiers, 
+see [Naming restrictions and conventions](/influxdb3/version/reference/naming-restrictions/).
 
 ## InfluxQL DBRP naming convention
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 In {{% product-name %}}, databases and retention policies have been merged into
-_databases_; retention policies are no longer part of the data model.
-Because InfluxQL uses the 1.x data model, to support InfluxQL queries the use
-databases and retention policies, an {{< product-name >}} database must
-be mapped to a v1 database and retention policy (DBRP) to be queryable with InfluxQL.
+_databases_, where databases have a retention period, but retention policies
+are no longer part of the data model.
+Because InfluxQL uses the 1.x data model, a database must be mapped to a v1
+database and retention policy (DBRP) to be queryable with InfluxQL.
 
-**When naming a database that you want to query with InfluxQL**, use the
-following naming convention to automatically map v1 DBRP combinations to an
-{{% product-name %}} database:
+**When naming a database that you want to query with InfluxQL**, use the following
+naming convention to automatically map v1 DBRP combinations to an {{% product-name %}} database:
 
 ```text
 database_name/retention_policy_name
@@ -102,7 +130,12 @@ database_name/retention_policy_name
 
 ## Database limit
 
+{{% show-in "enterprise" %}}
+**Default maximum number of databases**: {{% influxdb3/limit "database" %}}
+{{% /show-in %}}
+{{% show-in "core" %}}
 **Maximum number of databases**: {{% influxdb3/limit "database" %}}
+{{% /show-in %}}
 
 _For more information about {{< product-name >}} database, table, and column limits,
 see [Database, table, and column limits](/influxdb3/version/admin/databases/#database-table-and-column-limits)._

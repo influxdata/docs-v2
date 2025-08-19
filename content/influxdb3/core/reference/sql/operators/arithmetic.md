@@ -18,7 +18,7 @@ list_code_example: |
   |   `/`    | Division       | `6 / 3` |    `2` |
   |   `%`    | Modulo         | `7 % 2` |    `1` |
 
-source: /content/shared/sql-reference/operators/arithmetic.md
+source: /shared/sql-reference/operators/arithmetic.md
 ---
 
 <!-- 

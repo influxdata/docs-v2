@@ -1,0 +1,29 @@
+name: 'Setup Documentation Environment'
+description: 'Sets up Node.js environment and installs dependencies for documentation workflows'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install
+      shell: bash
+    
+    - name: Verify Hugo installation
+      run: |
+        echo "Checking Hugo availability..."
+        if command -v hugo &> /dev/null; then
+          echo "✅ Hugo found on PATH: $(which hugo)"
+          hugo version
+        else
+          echo "⚠️ Hugo not found on PATH, will use project-local Hugo via yarn"
+        fi
+        
+        echo "Checking yarn hugo command..."
+        yarn hugo version || echo "⚠️ Project Hugo not available via yarn"
+      shell: bash

@@ -1,9 +1,9 @@
 ---
 title: Update a database token
 description: >
-  Use the [`influxctl token update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/)
+  Use the Admin UI, the [`influxctl token update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/),
     or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
-  to update a database token's permissions in your InfluxDB Cloud Dedicated cluster.
+  to update a database token's permissions in your {{< product-name omit=" Clustered" >}} cluster.
 menu:
   influxdb3_cloud_dedicated:
     parent: Database tokens
@@ -52,17 +52,74 @@ related:
   - /influxdb3/cloud-dedicated/reference/api/
 ---
 
-Use the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
+Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/),
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
 to update a database token's permissions {{< product-name omit=" Clustered" >}} cluster.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[Admin UI](#)
 [influxctl](#)
 [Management API](#)
 {{% /tabs %}}
 {{% tab-content %}}
+<!------------------------------BEGIN ADMIN UI ------------------------------>
+The InfluxDB Cloud Dedicated administrative UI includes a portal for creating
+and managing database tokens.
 
+Through this portal, administrators can edit a token's permissions to:
+
+- Add read and write permissions for specific databases
+- Edit a token's existing read and write permissions for a database
+
+### Open the Edit Database Token dialog
+
+1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+    <pre>
+    <a href="https://{{< influxdb/host >}}/">https://{{< influxdb/host >}}</a>
+    </pre>
+
+2.  Use the credentials provided by InfluxData to log into the Admin UI.
+    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+3.  After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
+    and the [list of clusters](/influxdb3/cloud-dedicated/admin/clusters/list/) associated with your account.
+    Use the sort and filter options above the list to find a specific cluster.
+4.  Click the row for the cluster that contains the database you want to manage tokens for.
+5.  Click the **Database Tokens** button in the upper right corner of the Cluster screen.
+6.  The Database Tokens portal displays the [list of database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/list/) associated with the cluster.
+    Use the sort and filter options above the list to find a specific token.
+7.  Click the **Options** button (three vertical dots) to the right of the token you want to edit.
+    
+    {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-database-token-options-menu.png" alt="Database token option menu" />}}
+
+8.  Click **Edit Token** in the dropdown menu. The **Edit Database Token** dialog displays.
+
+    {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-edit-database-token.png" alt="Edit Database Token dialog" />}}
+
+9.  In the **Edit Database Token** dialog, you can edit the token's **Description** and permissions.
+
+### Edit token permissions
+
+1. [Open the Edit Database Token dialog](#open-the-edit-database-token-dialog) for the database token.
+   
+   The **Edit Database Token** dialog displays the token's existing permissions.
+   Each permission consists of:
+
+   - A database (specific database name or **All Databases**)
+   - Action permissions (Read and Write)
+
+2. To change which database a permission applies to, click the **Database** dropdown and select a different database or **All Databases**.
+3. To adjust the access level of the permission, use the **Read** and **Write** buttons under **Actions** to toggle these permissions on or off for the selected database.
+
+### Add token permissions
+
+1. [Open the Edit Database Token dialog](#open-the-edit-database-token-dialog) for the database token.
+2. In the dialog, click **Add Permission**.
+3. For the new permission, select a database from the dropdown.
+4. Toggle the **Read** and **Write** buttons to set the access level.
+{{% /tab-content %}}
+{{% tab-content %}}
 <!------------------------------- BEGIN INFLUXCTL ----------------------------->
 Use the [`influxctl token update` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/update/)
 to update a database token's permissions in your {{< product-name omit=" Clustered" >}} cluster.

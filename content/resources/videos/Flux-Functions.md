@@ -1,7 +1,7 @@
 ---
 title: Flux Functions
 description: >
-  Functions are the building blocks of the Flux scripting language. Here, Scott Anderson describes what [Flux functions](/flux/v0.x/stdlib/all-functions/) are, how they work, and how to use them.
+  Functions are the building blocks of the Flux scripting language. Here, Scott Anderson describes what [Flux functions](/flux/v0/stdlib/all-functions/) are, how they work, and how to use them.
 menu:
   resources:
     parent: Videos

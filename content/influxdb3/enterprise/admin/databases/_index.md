@@ -12,6 +12,7 @@ influxdb3/enterprise/tags: [databases]
 related:
   - /influxdb3/enterprise/write-data/best-practices/schema-design/
   - /influxdb3/enterprise/reference/cli/influxdb3/
+  - /influxdb3/explorer/manage-databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
   cloud_dedicated: /influxdb3/cloud-dedicated/admin/databases/
@@ -21,5 +22,6 @@ source: /shared/influxdb3-admin/databases/_index.md
 ---
 
 <!--
-The content of this file is located at content/shared/influxdb3-admin/databases/_index.md
+The content of this file is located at
+// SOURCE content/shared/influxdb3-admin/databases/_index.md
 -->

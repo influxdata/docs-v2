@@ -9,7 +9,7 @@ menu:
     parent: SQL reference
 weight: 211
 
-source: /content/shared/sql-reference/operators/_index.md
+source: /shared/sql-reference/operators/_index.md
 ---
 
 <!-- 

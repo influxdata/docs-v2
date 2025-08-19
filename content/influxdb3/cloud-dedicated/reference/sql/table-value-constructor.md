@@ -8,7 +8,7 @@ menu:
     parent: SQL reference
 weight: 220
 
-source: /content/shared/sql-reference/table-value-constructor.md
+source: /shared/sql-reference/table-value-constructor.md
 ---
 
 <!-- 

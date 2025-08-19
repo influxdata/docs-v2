@@ -20,11 +20,13 @@ influxdb3 test wal_plugin [OPTIONS] --database <DATABASE_NAME> <PLUGIN_NAME>
 | :----- | :------------------ | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 | `-d`   | `--database`        | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`           | Authentication token                                                                     |
+|        | `--token`           | _({{< req >}})_ Authentication token                                                     |
 |        | `--lp`              | Line protocol to use as input                                                            |
 |        | `--file`            | Line protocol file to use as input                                                       |
 |        | `--input-arguments` | Map of string key-value pairs as to use as plugin input arguments                        |
+|        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`            | Print help information                                                                   |
+|        | `--help-all`        | Print detailed help information                                                          |
 
 
 ### Option environment variables
@@ -48,12 +50,14 @@ In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Database name
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
+  Authentication token
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: 
   Plugin directory name
 - {{% code-placeholder-key %}}`PLUGIN_NAME`{{% /code-placeholder-key %}}: 
   Plugin file name
 
-{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)" %}}
+{{% code-placeholders "(DATABASE|PLUGIN)_(NAME|DIR)|AUTH_TOKEN" %}}
 
 ### Test a WAL plugin
 
@@ -62,6 +66,7 @@ In the examples below, replace the following:
 ```bash
 influxdb3 test wal_plugin \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
 
@@ -73,6 +78,7 @@ influxdb3 test wal_plugin \
 influxdb3 test wal_plugin \
   --lp 'home,room=Kitchen temp=21.0,hum=35.9,co=0i' \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
 
@@ -84,6 +90,7 @@ influxdb3 test wal_plugin \
 influxdb3 test wal_plugin \
   --file PLUGIN_DIR/PLUGIN_NAME_test/input-file.lp`
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
 
@@ -95,6 +102,7 @@ influxdb3 test wal_plugin \
 influxdb3 test wal_plugin \
   --input-arguments arg1=foo,arg2=baz \
   --database DATABASE_NAME \
+  --token AUTH_TOKEN \
   PLUGIN_DIR/PLUGIN_NAME.py
 ```
 

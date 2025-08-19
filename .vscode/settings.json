@@ -1,12 +1,12 @@
 {
-    "commentAnchors.tags.anchors": 
-      { "SOURCE": {
-        "scope": "file",
-        "behavior": "link",
-        "iconColor": "#FF0000",
-        "highlightColor": "#FF0000",
-        "style": "bold"
-      }},
+  "commentAnchors.tags.anchors":
+    { "SOURCE": {
+      "scope": "file",
+      "behavior": "link",
+      "iconColor": "#FF0000",
+      "highlightColor": "#FF0000",
+      "style": "bold"
+    }},
     "commentAnchors.workspace.matchFiles": "**/*.{md,ini,json,yaml,yml}",
     "commentAnchors.workspace.enabled": true,
     "yaml.schemas": {
@@ -14,11 +14,7 @@
     },
     "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
     "vale.valeCLI.minAlertLevel": "warning",
-    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
-    "github.copilot.chat.codeGeneration.instructionFiles": [
-        {
-            "path": "${workspaceFolder}/.github/copilot-instructions.md",
-            "enabled": true
-        }
-    ],
+    "cSpell.words": [
+      "influxctl"
+    ]
 }

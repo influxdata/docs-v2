@@ -6,6 +6,7 @@
 #     - list of URL paths to show the notification on, no scope shows everywhere
 #   exclude:
 #     - list of URL paths to not show the notification on
+#   title_tag: (optional) Tag to include before the notification title
 #   title: Message title
 #   slug: (optional) Short notification summary
 #   message: |
@@ -39,25 +40,22 @@
   #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
   #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3-beta
+- id: influxdb3.3-explorer-1.1
   level: note
   scope:
     - /
-  title: InfluxDB 3 Core and Enterprise are now in Beta
+  title: New in InfluxDB 3.3
   slug: |
-    InfluxDB 3 Core and Enterprise are now available for beta testing, available
-    under MIT or Apache 2 license.
+    Key enhancements in InfluxDB 3.3 and the InfluxDB 3 Explorer 1.1.
+
+    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-3/">See the Blog Post</a>
   message: |
-    InfluxDB 3 Core is a high-speed, recent-data engine that collects and
-    processes data in real-time, while persisting it to local disk or object
-    storage. InfluxDB 3 Enterprise is a commercial product that builds on Core’s
-    foundation, adding high availability, read replicas, enhanced security, and
-    data compaction for faster queries. A free tier of InfluxDB 3 Enterprise
-    will also be available for at-home, non-commercial use for hobbyists to get
-    the full historical time series database set of capabilities.
+    InfluxDB 3.3 is now available for both Core and Enterprise, which introduces new
+    managed plugins for the Processing Engine. This makes it easier to address common
+    time series tasks with just a plugin. InfluxDB 3 Explorer 1.1 is also available,
+    which includes InfluxDB plugin management and other new features.
 
     For more information, check out:
-    
-    - [Beta announcement blog from Paul Dix](https://www.influxdata.com/blog/influxdb3-open-source-public-beta/)
-    - [Get Started with InfluxDB 3 Core](https://docs.influxdata.com/influxdb3/core/get-started/)
-    - [Get Started with InfluxDB 3 Enterprise](https://docs.influxdata.com/influxdb3/enterprise/get-started/)
+
+    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-3/)
+    - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)

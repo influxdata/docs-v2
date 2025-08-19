@@ -1,135 +1,117 @@
 #   Refer for explanation to following link:
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
-pre-push:
-  commands:
-    packages-audit:
-      tags: frontend security
-      run: yarn audit
+
 pre-commit:
-  parallel: true 
+  parallel: true
   commands:
+    eslint-debug-check:
+      glob: "assets/js/*.js"
+      run: yarn eslint {staged_files}
+      fail_text: "Debug helpers found! Remove debug imports and calls before committing."
+    build-agent-instructions:
+      glob: "CONTRIBUTING.md"
+      run: yarn build:agent:instructions
+    # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
-      glob: "content/**/*.md"
+      glob: "{CONTRIBUTING.md,content/*.md}"
       run: |
         docker compose run --rm --name remark-lint remark-lint '{staged_files}'
     cloud-lint:
       tags: lint,v2
-      glob: "content/influxdb/cloud/**/*.md"
+      glob: 'content/influxdb/cloud/*.md'
       run: '.ci/vale/vale.sh
         --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-dedicated-lint:
       tags: lint,v3
-      glob: "content/influxdb/cloud-dedicated/**/*.md"
+      glob:
+        - 'content/influxdb3/cloud-dedicated/*.md'
+        - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
-        --config=content/influxdb/cloud-dedicated/.vale.ini
+        --config=content/influxdb3/cloud-dedicated/.vale.ini
         --minAlertLevel=error {staged_files}'
     cloud-serverless-lint:
       tags: lint,v3
-      glob: "content/influxdb/cloud-serverless/**/*.md"
+      glob:
+        - 'content/influxdb3/cloud-serverless/*.md'
+        - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
-        --config=content/influxdb/cloud-serverless/.vale.ini
+        --config=content/influxdb3/cloud-serverless/.vale.ini
         --minAlertLevel=error {staged_files}'
     clustered-lint:
       tags: lint,v3
-      glob: "content/influxdb/clustered/**/*.md"
+      glob:
+        - 'content/influxdb3/clustered/*.md'
+        - 'content/shared/*.md'
       run: '.ci/vale/vale.sh
-        --config=content/influxdb/cloud-serverless/.vale.ini
+        --config=content/influxdb3/cloud-serverless/.vale.ini
+        --minAlertLevel=error {staged_files}'
+    core-lint:
+      tags: lint,v3
+      glob:
+        - 'content/influxdb3/core/*.md'
+        - 'content/shared/*.md'
+      run: '.ci/vale/vale.sh
+        --config=.vale.ini
+        --minAlertLevel=error {staged_files}'
+    enterprise-lint:
+      tags: lint,v3
+      glob:
+        - 'content/influxdb3/enterprise/*.md'
+        - 'content/shared/*.md'
+      run: '.ci/vale/vale.sh
+        --config=.vale.ini
+        --minAlertLevel=error {staged_files}'
+    explorer-lint:
+      tags: lint,clients
+      glob: 'content/influxdb3/explorer/*.md'
+      run: '.ci/vale/vale.sh
+        --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     telegraf-lint:
-      tags: lint,clients 
-      glob: "content/telegraf/**/*.md"
+      tags: lint,clients
+      glob: 'content/telegraf/*.md'
       run: '.ci/vale/vale.sh
         --config=.vale.ini
         --minAlertLevel=error {staged_files}'
     v2-lint:
       tags: lint,v2
-      glob: "content/influxdb/v2/**/*.md"
+      glob: 'content/influxdb/v2/*.md'
       run: '.ci/vale/vale.sh
         --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
-
-    # Link checking for InfluxDB v2
-    v2-links:
-      tags: test,links,v2
-      glob: "content/influxdb/v2/**/*.{md,html}"
-      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
-    
-    # Link checking for InfluxDB v3 core
-    v3-core-links:
-      tags: test,links,v3
-      glob: "content/influxdb3/core/**/*.{md,html}"
-      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
-    
-    # Link checking for InfluxDB v3 enterprise
-    v3-enterprise-links:
-      tags: test,links,v3
-      glob: "content/influxdb3/enterprise/**/*.{md,html}"
-      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
-    
-    # Link checking for Cloud products
-    cloud-links:
-      tags: test,links,cloud
-      glob: "content/influxdb/{cloud,cloud-dedicated,cloud-serverless}/**/*.{md,html}"
-      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
-    
-    # Link checking for Telegraf
-    telegraf-links:
-      tags: test,links
-      glob: "content/telegraf/**/*.{md,html}"
-      run: 'node cypress/support/map-files-to-urls.mjs {staged_files}'
-
-    cloud-pytest:
-      glob: content/influxdb/cloud/**/*.md
-      tags: test,codeblocks,v2
-      env:
-        - SERVICE: cloud-pytest
-      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
-    cloud-dedicated-pytest:
-      tags: test,codeblocks,v3
-      glob: content/influxdb/cloud-dedicated/**/*.md
-      env:
-        - SERVICE: cloud-dedicated-pytest
-      run: |
-        ./test/scripts/monitor-tests.sh start $SERVICE ;
-        docker compose run --name $SERVICE $SERVICE {staged_files} ;
-        ./test/scripts/monitor-tests.sh stop $SERVICE
-    cloud-serverless-pytest:
-      tags: test,codeblocks,v3
-      glob: content/influxdb/cloud-serverless/**/*.md
-      env:
-        - SERVICE: cloud-serverless-pytest
-      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
-    clustered-pytest:
-      tags: test,codeblocks,v3
-      glob: content/influxdb/clustered/**/*.md
-      env:
-        - SERVICE: clustered-pytest
-      run: |
-        ./test/scripts/monitor-tests.sh start $SERVICE ;
-        docker compose run --name $SERVICE $SERVICE {staged_files} ;
-        ./test/scripts/monitor-tests.sh stop $SERVICE
-    telegraf-pytest:
-      tags: test,codeblocks
-      glob: content/telegraf/**/*.md
-      env:
-        - SERVICE: telegraf-pytest
-      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
-    v2-pytest:
-      tags: test,codeblocks,v2
-      glob: content/influxdb/v2/**/*.md
-      env:
-        - SERVICE: v2-pytest
-      run: docker compose run --rm --name $SERVICE $SERVICE '{staged_files}'
     prettier:
-      tags: frontend,style
-      glob: "*.{css,js,ts,jsx,tsx}"
-      run: yarn prettier {staged_files}
-
-build:
+      tags: [frontend, style]
+      glob: '*.{css,js,ts,jsx,tsx}'
+      run: |
+        yarn prettier --write --loglevel silent "{staged_files}" > /dev/null 2>&1 ||
+          { echo "⚠️  Prettier found formatting issues. Automatic formatting applied."
+          git add {staged_files}
+        }
+    lint-js:
+      glob: "assets/js/*.{js,ts}"
+      run: yarn eslint {staged_files}
+      fail_text: "JavaScript linting failed. Fix errors before committing."
+pre-push:
   commands:
+    packages-audit:
+      tags: frontend security
+      run: yarn audit
+
+    e2e-shortcode-examples:
+      tags: [frontend, test]
+      glob:
+        - assets/*.{js,mjs,css,scss}
+        - layouts/*.html
+        - content/example.md
+      run: |
+        echo "Running shortcode examples test due to changes in: {staged_files}"
+        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js" content/example.md
+        exit $?
+
+    # Manage Docker containers
     prune-legacy-containers:
       priority: 1
       tags: test 
@@ -137,6 +119,49 @@ build:
           --filter label=tag=influxdata-docs
           --filter status=exited | xargs docker rm)
           || true'
-    rebuild-test-images:
+    build-pytest-image:
       tags: test
-      run: docker compose build pytest-codeblocks
+      run: yarn build:pytest:image
+
+    # Test code blocks in markdown files
+    cloud-pytest:
+      glob: content/influxdb/cloud/*.md
+      tags: test,codeblocks,v2
+      env:
+        SERVICE: cloud-pytest
+      run: yarn test:codeblocks:cloud '{staged_files}'
+
+    cloud-dedicated-pytest:
+      tags: test,codeblocks,v3
+      glob: content/influxdb3/cloud-dedicated/*.md
+      run: |
+        yarn test:codeblocks:cloud-dedicated '{staged_files}' &&
+        ./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest
+
+    cloud-serverless-pytest:
+      tags: test,codeblocks,v3
+      glob: content/influxdb3/cloud-serverless/*.md
+      env:
+        SERVICE: cloud-serverless-pytest
+      run: yarn test:codeblocks:cloud-serverless '{staged_files}'
+
+    clustered-pytest:
+      tags: test,codeblocks,v3
+      glob: content/influxdb3/clustered/*.md
+      run: |
+        yarn test:codeblocks:clustered '{staged_files}' &&
+        ./test/scripts/monitor-tests.sh stop clustered-pytest
+
+    telegraf-pytest:
+      tags: test,codeblocks
+      glob: content/telegraf/*.md
+      env:
+        SERVICE: telegraf-pytest
+      run: yarn test:codeblocks:telegraf '{staged_files}'
+
+    v2-pytest:
+      tags: test,codeblocks,v2
+      glob: content/influxdb/v2/*.md
+      env:
+        SERVICE: v2-pytest
+      run: yarn test:codeblocks:v2 '{staged_files}'

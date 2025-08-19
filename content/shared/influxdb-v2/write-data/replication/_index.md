@@ -1,5 +1,5 @@
 
-Running [InfluxDB OSS](/influxdb/version/install/) at the edge lets you collect, process, transform, and analyze high-precision data locally.
+Running [InfluxDB OSS](/influxdb/v2/install/) at the edge lets you collect, process, transform, and analyze high-precision data locally.
 **Edge Data Replication** lets you replicate data from distributed edge environments to [InfluxDB Cloud](/influxdb/cloud/sign-up/), aggregating and storing data for long-term management and analysis.
 
 {{< youtube qsj_TTpDyf4 >}}

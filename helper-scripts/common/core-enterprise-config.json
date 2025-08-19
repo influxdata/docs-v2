@@ -1,0 +1,15 @@
+{
+  "outputFormat": "core-enterprise",
+  "repositories": [
+    {
+      "name": "influxdb",
+      "path": "/Users/ja/Documents/github/influxdb",
+      "label": "influxdb"
+    },
+    {
+      "name": "influxdb_pro",
+      "path": "/Users/ja/Documents/github/influxdb_pro", 
+      "label": "influxdb_pro"
+    }
+  ]
+}

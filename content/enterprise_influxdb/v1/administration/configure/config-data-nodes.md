@@ -259,6 +259,29 @@ For detailed configuration information, see [`meta.ensure-fips`](/enterprise_inf
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
+#### raft-portal-auth-required {metadata="v1.12.0+"}
+
+Default is `false`.
+
+Require Raft clients to authenticate with server using the
+[`meta-internal-shared-secret`](#meta-internal-shared-secret).
+This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
+are configured with the correct `meta-internal-shared-secret`.
+
+Environment variable: `INFLUXDB_META_RAFT_PORTAL_AUTH_REQUIRED`
+
+#### raft-dialer-auth-required {metadata="v1.12.0+"}
+
+Default is `false`.
+
+Require Raft servers to authenticate Raft clients using the
+[`meta-internal-shared-secret`](#meta-internal-shared-secret).
+This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
+`raft-portal-auth-required=true`, and are configured with the correct
+`meta-internal-shared-secret`.
+
+Environment variable: `INFLUXDB_META_RAFT_DIALER_AUTH_REQUIRED`
+
 -----
 
 ## Data settings
@@ -303,7 +326,9 @@ Very useful for troubleshooting, but will log any sensitive data contained withi
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
-#### query-log-path
+#### query-log-path {metadata="v1.12.0+"}
+
+Default is `""`.
 
 An absolute path to the query log file.
 The default is `""` (queries aren't logged to a file).
@@ -326,6 +351,8 @@ The following is an example of a `logrotate` configuration:
 }
 ```
 
+Environment variable: `INFLUXDB_DATA_QUERY_LOG_PATH`
+-->
 #### wal-fsync-delay
 
 Default is `"0s"`.
@@ -421,6 +448,16 @@ Default is `"4h"`.
 The duration at which to compact all TSM and TSI files in a shard if it has not received a write or delete.
 
 Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
+
+#### aggressive-points-per-block {metadata="v1.12.0+"}
+
+Default is `10000`.
+
+The number of points per block to use during aggressive compaction. There are 
+certain cases where TSM files do not get fully compacted. This adjusts an 
+internal parameter to help ensure these files do get fully compacted.
+
+Environment variable: `INFLUXDB_DATA_AGGRESSIVE_POINTS_PER_BLOCK`
 
 #### index-version
 

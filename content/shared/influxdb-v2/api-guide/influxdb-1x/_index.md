@@ -7,11 +7,16 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 ## Authentication
 
 InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
-[API token](/influxdb/version/admin/tokens/) or 1.x-compatible
+[API token](/influxdb/version/admin/tokens/) or v1-compatible
 credentials.
 
-* [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
-* [Authenticate with a 1.x username and password scheme](#authenticate-with-a-username-and-password-scheme)
+> [!Important]
+> #### Authenticate with an API token or 1.x-compatible credentials
+> You can't use an InfluxDB 2.x username and password to authenticate with the InfluxDB 1.x compatibility API.
+
+- [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+- [Authenticate with a 1.x username and password scheme](#authenticate-with-a-username-and-password-scheme)
+- [Troubleshoot authentication issues](#troubleshoot-authentication-issues)
 
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
@@ -67,12 +72,12 @@ Username and password schemes require the following credentials:
 {{% note %}}
 #### Password or Token
 
-If you have [set a password](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
-If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/version/admin/tokens/) as the password.
+If you have [set a password](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the v1-compatible username, provide the v1-compatible password.
+If you haven't set a password for the v1-compatible username, provide the InfluxDB [authentication token](/influxdb/version/admin/tokens/) as the password.
 {{% /note %}}
 
 For more information, see how to create and manage
-[1.x-compatible authorizations](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+[v1-compatible authorizations](/influxdb/version/install/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 when manually upgrading from InfluxDB v1 to v2.
 
 {{% /show-in %}}
@@ -259,7 +264,44 @@ Replace the following:
 
 {{% /show-in %}}
 
-##### InfluxQL support
+### Troubleshoot authentication issues
+
+#### Unauthorized when using the initial username and password
+
+You can't use the InfluxDB 2.x username and password to authenticate with the InfluxDB 1.x compatibility API.
+For example, given the following Docker Compose configuration: 
+
+```yaml
+# Docker compose example
+  influx2:
+    image: influxdb:2.4.0
+    volumes:
+      - ./dev/influxdb2:/var/lib/influxdb2
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_USERNAME: dev
+      DOCKER_INFLUXDB_INIT_PASSWORD: 12345678
+      DOCKER_INFLUXDB_INIT_ORG: com.some
+      DOCKER_INFLUXDB_INIT_BUCKET: m2_dev
+      DOCKER_INFLUXDB_INIT_MODE: setup
+```
+
+The following query using the v1 `/query` endpoint and v2 initial username and password returns an `unauthorized` error:
+
+```bash
+# Using the initial username and password
+curl --get "http://localhost:8086/query" \
+    --data-urlencode "u=dev" \
+    --data-urlencode "p=12345678" \
+    --data-urlencode "db=m2_dev" \
+    --data-urlencode "q=SELECT * FROM default"
+```
+
+Instead, [authenticate with a token](#authenticate-with-the-token-scheme) or a [1.x username and password scheme](#authenticate-with-a-username-and-password-scheme).
+
+
+## InfluxQL support
 
 The compatibility API supports InfluxQL, with the following caveats:
 

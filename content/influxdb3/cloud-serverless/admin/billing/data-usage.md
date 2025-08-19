@@ -9,8 +9,8 @@ menu:
     parent: Manage billing
     name: View data usage
 related:
-  - /flux/v0.x/stdlib/experimental/usage/from/
-  - /flux/v0.x/stdlib/experimental/usage/limits/
+  - /flux/v0/stdlib/experimental/usage/from/
+  - /flux/v0/stdlib/experimental/usage/limits/
 alt_links:
   cloud: /influxdb/cloud/account-management/data-usage/
 aliases:

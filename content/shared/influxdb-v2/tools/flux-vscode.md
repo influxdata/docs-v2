@@ -1,4 +1,10 @@
 
+> [!Important]
+> #### vsflux and Flux-LSP no longer maintained
+> `vsflux` is no longer available in the Visual Studio Marketplace.
+> The `vsflux` Visual Studio Code extension and the `flux-lsp` Flux Language Server Protocol plugin are no longer maintained.
+> Their repositories have been archived and are no longer receiving updates.
+
 The [Flux Visual Studio Code (VS Code) extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux)
 provides Flux syntax highlighting, autocompletion, and a direct InfluxDB server
 integration that lets you run Flux scripts natively and show results in VS Code.

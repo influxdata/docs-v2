@@ -1,11 +1,13 @@
 plugins:
-  - '../../openapi/plugins/docs-plugin.js'
+  - '../../openapi/plugins/docs-plugin.cjs'
 extends:
   - recommended
   - docs/all
 x-influxdata-product-name: InfluxDB 3 Clustered
 
 apis:
+  management@0:
+    root: management/openapi.yml
   v2@2:
     root: v2/ref.yml
     x-influxdata-docs-aliases:

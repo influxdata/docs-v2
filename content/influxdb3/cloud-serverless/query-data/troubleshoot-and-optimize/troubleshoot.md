@@ -12,6 +12,7 @@ related:
   - /influxdb3/cloud-serverless/query-data/sql/
   - /influxdb3/cloud-serverless/query-data/influxql/
   - /influxdb3/cloud-serverless/reference/client-libraries/v3/
+  - /influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/query-timeout-best-practices/
 aliases:
   - /influxdb3/cloud-serverless/query-data/execute-queries/troubleshoot/
 ---
@@ -29,7 +30,9 @@ If a query doesn't return any data, it might be due to the following:
 
 - Your data falls outside the time range (or other conditions) in the query--for example, the InfluxQL `SHOW TAG VALUES` command uses a default time range of 1 day.
 - The query (InfluxDB server) timed out.
-- The query client timed out.
+- The query client timed out. 
+  See [Query timeout best practices](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/query-timeout-best-practices/) 
+  for guidance on setting appropriate timeouts.
 - The query return type is not supported by the client library.
   For example, array or list types may not be supported.
   In this case, use `array_to_string()` to convert the array value to a string--for example:

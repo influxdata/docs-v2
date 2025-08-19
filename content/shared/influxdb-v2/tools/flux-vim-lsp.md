@@ -1,4 +1,9 @@
 
+> [!Important]
+> #### Flux-LSP no longer maintained
+> The `flux-lsp` Flux Language Server Protocol plugin is no longer maintained.
+> The [`flux-lsp` repo](https://github.com/influxdata/flux-lsp) has been archived and is no longer receiving updates.
+
 ## Requirements
 
 - Vim 8+

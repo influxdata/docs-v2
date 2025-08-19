@@ -12,7 +12,7 @@ related:
   - /influxdb3/enterprise/query-data/execute-queries/analyze-query-plan/
   - /influxdb3/enterprise/query-data/execute-queries/troubleshoot/
 
-source: /content/shared/sql-reference/explain.md
+source: /shared/sql-reference/explain.md
 ---
 
 <!-- 
