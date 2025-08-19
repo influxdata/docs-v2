@@ -4,6 +4,10 @@ Always follow these instructions first and fallback to additional search and con
 
 ## Working Effectively
 
+### Collaboration approach
+
+Be a critical thinking partner, provide honest feedback, and identify potential issues.
+
 ### Bootstrap, Build, and Test the Repository
 
 Execute these commands in order to set up a complete working environment:
@@ -54,16 +58,18 @@ yarn test:codeblocks:v2
 yarn test:codeblocks:telegraf
 ```
 
-#### Link Validation (takes 10-30 minutes, NEVER CANCEL - set timeout to 45+ minutes):
+#### Link Validation (takes 1-5 minutes):
+
+Runs automatically on pull requests.
+Requires the **link-checker** binary from the repo release artifacts.
 
 ```bash
-# Test all links (very long-running)
-yarn test:links
-
 # Test specific files/products (faster)
-yarn test:links content/influxdb3/core/**/*.md
-yarn test:links:v3
-yarn test:links:v2
+# JSON format is required for accurate reporting
+link-checker map content/influxdb3/core/**/*.md \
+| link-checker check \
+    --config .ci/link-checker/production.lycherc.toml
+    --format json
 ```
 
 #### Style Linting (takes 30-60 seconds):
@@ -168,23 +174,14 @@ yarn test:links content/example.md
 - **Package Manager**: Yarn (1.22.22+) with Node.js (20.19.4+)
 - **Testing Framework**:
   - Pytest with pytest-codeblocks (for code examples)
-  - Cypress (for link validation and E2E tests)
+  - Cypress (for E2E tests)
+  - influxdata/docs-link-checker (for link validation)
   - Vale (for style and writing guidelines)
 - **Containerization**: Docker with Docker Compose
 - **Linting**: ESLint, Prettier, Vale
 - **Git Hooks**: Lefthook
 
 ## Common Tasks and Build Times
-
-### Time Expectations (CRITICAL - NEVER CANCEL)
-
-- **Dependency installation**: 4 seconds
-- **Hugo static build**: 75 seconds (NEVER CANCEL - timeout: 180+ seconds)
-- **Hugo server startup**: 92 seconds (NEVER CANCEL - timeout: 150+ seconds)
-- **Code block tests**: 5-15 minutes per product (NEVER CANCEL - timeout: 30+ minutes)
-- **Link validation**: 10-30 minutes (NEVER CANCEL - timeout: 45+ minutes)
-- **Style linting**: 30-60 seconds
-- **Docker image build**: 30+ seconds (may fail due to network restrictions)
 
 ### Network Connectivity Issues
 
