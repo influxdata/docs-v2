@@ -58,6 +58,11 @@ exclude = [
   "^https?://reddit\\.com",
   "^https?://.*\\.reddit\\.com",
 
+  # StackExchange network URLs (often block automated requests)
+  "^https?://.*\\.stackexchange\\.com",
+  "^https?://stackoverflow\\.com",
+  "^https?://.*\\.stackoverflow\\.com",
+
   # InfluxData support URLs (certificate/SSL issues in CI)
   "^https?://support\\.influxdata\\.com",
 

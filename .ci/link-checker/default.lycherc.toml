@@ -50,6 +50,11 @@ exclude = [
   # detection)
   "^https?://github\\.com",
 
+  # StackExchange network URLs (often block automated requests)
+  "^https?://.*\\.stackexchange\\.com",
+  "^https?://stackoverflow\\.com",
+  "^https?://.*\\.stackoverflow\\.com",
+
   # Common documentation placeholders
   "YOUR_.*",
   "REPLACE_.*",
