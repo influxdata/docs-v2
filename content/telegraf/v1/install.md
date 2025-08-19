@@ -329,7 +329,7 @@ Replace the following:
 Choose from the following options to install Telegraf binary files for Linux ARM:
 
 - To install on Linux ARMv7(32-bit), see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-arm-64)
+- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-armv8)
 
 ### Download and install on Linux ARMv8
 
