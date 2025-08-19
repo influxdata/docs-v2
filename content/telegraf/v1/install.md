@@ -388,7 +388,7 @@ To install using Homebrew, do the following:
 3. Choose one of the following methods to start Telegraf and begin collecting and processing metrics:
 
    - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
-   - [Run Telegraf as a service](#run-telegraf-as-a-service)
+   - [Run Telegraf as a service](#run-telegraf-as-a-background-service)
 
 ### Run Telegraf in your terminal
 
