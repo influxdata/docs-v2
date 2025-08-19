@@ -15,7 +15,7 @@ To install Telegraf, do the following:
 
 - [Review requirements](#requirements)
 - [Download and install Telegraf](#download-and-install-telegraf)
-- [Custom compile Telegraf](#custom-compile)
+- [Custom compile Telegraf](#custom-compile-telegraf)
 
 ## Requirements
 
