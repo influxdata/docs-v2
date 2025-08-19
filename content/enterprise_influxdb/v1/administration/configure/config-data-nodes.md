@@ -326,7 +326,7 @@ Very useful for troubleshooting, but will log any sensitive data contained withi
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
-#### query-log-path
+#### query-log-path {metadata="v1.12.0+"}
 
 Default is `""`.
 
@@ -352,7 +352,7 @@ The following is an example of a `logrotate` configuration:
 ```
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_PATH`
-
+-->
 #### wal-fsync-delay
 
 Default is `"0s"`.

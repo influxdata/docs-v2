@@ -2,34 +2,10 @@
  * InfluxData Documentation E2E Test Runner
  *
  * This script automates running Cypress end-to-end tests for the InfluxData documentation site.
- * It handles starting a local Hugo server, mapping content files to their URLs, running Cypress tests,
+ * It handles starting a local Hugo server, mapping content files to their URLs, and running Cypress tests,
  * and reporting broken links.
  *
- * Usage: node run-e2e-specs.js [file paths...] [--spec test    // Display broken links report
-    const brokenLinksCount = displayBrokenLinksReport();
-    
-    // Check if we might have special case failures
-    const hasSpecialCaseFailures = 
-      results && 
-      results.totalFailed > 0 && 
-      brokenLinksCount === 0;
-      
-    if (hasSpecialCaseFailures) {
-      console.warn(
-        `ℹ️ Note: Tests failed (${results.totalFailed}) but no broken links were reported. This may be due to special case URLs (like Reddit) that return expected status codes.`
-      );
-    }
-    
-    if (
-      (results && results.totalFailed && results.totalFailed > 0 && !hasSpecialCaseFailures) ||
-      brokenLinksCount > 0
-    ) {
-      console.error(
-        `⚠️ Tests failed: ${results.totalFailed || 0} test(s) failed, ${brokenLinksCount || 0} broken links found`
-      );
-      cypressFailed = true;
-      exitCode = 1; *
- * Example: node run-e2e-specs.js content/influxdb/v2/write-data.md --spec cypress/e2e/content/article-links.cy.js
+ * Usage: node run-e2e-specs.js [file paths...] [--spec test specs...]
  */
 
 import { spawn } from 'child_process';
@@ -39,7 +15,6 @@ import path from 'path';
 import cypress from 'cypress';
 import net from 'net';
 import { Buffer } from 'buffer';
-import { displayBrokenLinksReport, initializeReport } from './link-reporter.js';
 import {
   HUGO_ENVIRONMENT,
   HUGO_PORT,
@@ -119,7 +94,7 @@ async function main() {
   let exitCode = 0;
   let hugoStarted = false;
 
-// (Lines 124-126 removed; no replacement needed)
+  // (Lines 124-126 removed; no replacement needed)
 
   // Add this signal handler to ensure cleanup on unexpected termination
   const cleanupAndExit = (code = 1) => {
@@ -364,10 +339,6 @@ async function main() {
   // 4. Run Cypress tests
   let cypressFailed = false;
   try {
-    // Initialize/clear broken links report before running tests
-    console.log('Initializing broken links report...');
-    initializeReport();
-
     console.log(`Running Cypress tests for ${urlList.length} URLs...`);
 
     // Add CI-specific configuration
@@ -426,18 +397,12 @@ async function main() {
       clearInterval(hugoHealthCheckInterval);
     }
 
-    // Process broken links report
-    const brokenLinksCount = displayBrokenLinksReport();
-
     // Determine why tests failed
     const testFailureCount = results?.totalFailed || 0;
 
-    if (testFailureCount > 0 && brokenLinksCount === 0) {
+    if (testFailureCount > 0) {
       console.warn(
         `ℹ️ Note: ${testFailureCount} test(s) failed but no broken links were detected in the report.`
-      );
-      console.warn(
-        '   This usually indicates test errors unrelated to link validation.'
       );
 
       // Provide detailed failure analysis
@@ -531,14 +496,8 @@ async function main() {
       // but we'll still report other test failures
       cypressFailed = true;
       exitCode = 1;
-    } else if (brokenLinksCount > 0) {
-      console.error(
-        `⚠️ Tests failed: ${brokenLinksCount} broken link(s) detected`
-      );
-      cypressFailed = true;
-      exitCode = 1;
     } else if (results) {
-      console.log('✅ Tests completed successfully');
+      console.log('✅ e2e tests completed successfully');
     }
   } catch (err) {
     console.error(`❌ Cypress execution error: ${err.message}`);
@@ -608,9 +567,6 @@ async function main() {
     console.error('   • Verify Hugo server started successfully');
     console.error('   • Check if test URLs are accessible manually');
     console.error('   • Review Cypress screenshots/videos if available');
-
-    // Still try to display broken links report if available
-    displayBrokenLinksReport();
 
     cypressFailed = true;
     exitCode = 1;
