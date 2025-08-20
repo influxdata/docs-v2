@@ -61,7 +61,7 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
-## 20250814-1819052
+## 20250814-1819052 {date="2025-08-14"}
 
 ### Quickstart
 
