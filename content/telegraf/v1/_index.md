@@ -5,7 +5,7 @@ description: >
   time series platform, used to collect and report metrics. Telegraf supports four categories of plugins -- input, output, aggregator, and processor.
 menu:
   telegraf_v1:
-    name: Telegraf v1.35
+    name: Telegraf v1
 weight: 1
 related:
   - /resources/videos/intro-to-telegraf/
