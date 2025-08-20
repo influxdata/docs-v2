@@ -9,7 +9,7 @@ menu:
 ---
 
 
-We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.11.x). [Switch between TSI and inmem index types](#switch-index-types) as needed. To learn more about TSI, see:
+We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.11.x) because it removes RAM-based limits on series cardinality and provides better performance for high-cardinality datasets compared to the default in-memory index. [Switch between TSI and inmem index types](#switch-index-types) as needed. To learn more about TSI, see:
 
 - [Time Series Index (TSI) overview](/influxdb/v1/concepts/time-series-index/)
 - [Time Series Index (TSI) details](/influxdb/v1/concepts/tsi-details/)
@@ -53,8 +53,8 @@ Run the `buildtsi` command using the user account that you are going to run the 
 
 Switch index types at any time by doing one of the following:
 
-- To switch from to `inmem` to `tsi1`, complete steps 3 and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
-- To switch from to `tsi1` to `inmem`, change `tsi1` to `inmem` by completing steps 3a-3c and 4 above in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
+- To switch from `inmem` to `tsi1` (for example, when experiencing high memory usage or out-of-memory errors with high-cardinality data), complete steps 3 and 4 in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
+- To switch from `tsi1` to `inmem` (for example, for small datasets where memory is not a constraint), change `tsi1` to `inmem` by completing steps 3a-3c and 4 in [Upgrade to InfluxDB 1.11.x](#upgrade-to-influxdb-111x).
 
 ## Downgrade InfluxDB
 
