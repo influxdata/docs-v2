@@ -9,7 +9,7 @@ menu:
 ---
 
 
-We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.11.x). [Switch between TSM and TSI](#switch-index-types) as needed. To learn more about TSI, see:
+We recommend enabling Time Series Index (TSI) (step 3 of Upgrade to InfluxDB 1.11.x). [Switch between TSI and inmem index types](#switch-index-types) as needed. To learn more about TSI, see:
 
 - [Time Series Index (TSI) overview](/influxdb/v1/concepts/time-series-index/)
 - [Time Series Index (TSI) details](/influxdb/v1/concepts/tsi-details/)
