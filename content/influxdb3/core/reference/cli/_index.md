@@ -1,7 +1,10 @@
 ---
 title: Command line tools
 description: >
-  View command line tools used to manage and interact with InfluxDB 3 Core.
+  InfluxDB 3 Core provides powerful command line tools for database
+  administration, data management, and system operations. These CLI tools enable
+  you to efficiently manage your InfluxDB instance, write and query data, and
+  perform administrative tasks from the command line.
 menu:
   influxdb3_core:
     name: CLIs
@@ -9,6 +12,17 @@ menu:
 weight: 101
 ---
 
-View command line tools used to run, manage, and interact with InfluxDB 3 Core:
+InfluxDB 3 Core provides powerful command line tools for database administration, data management, and system operations.
+These CLI tools enable you to efficiently manage your InfluxDB instance, write and query data, and perform administrative tasks from the command line.
+
+The command line interface offers a streamlined way to:
+
+- Start and configure your InfluxDB 3 Core instance
+- Create and manage databases and tables
+- Write and query time series data
+- Perform system administration tasks
+- Automate database operations in scripts and workflows
+
+The following command line tools are available for InfluxDB 3 Core:
 
 {{< children >}}

@@ -1,10 +1,10 @@
 ---
 title: InfluxDB HTTP API
 description: >
-  The InfluxDB HTTP API for {{% product-name %}} provides a programmatic interface
-  for interactions with InfluxDB,
-  including writing, querying, and processing data, and managing an InfluxDB 3
-  instance.
+  The InfluxDB HTTP API provides a comprehensive programmatic interface for all 
+  interactions with InfluxDB 3 Core, including writing and querying time series data,
+  triggering Processing engine plugins, and managing your InfluxDB instance.
+  The API includes endpoints for backward compatibility with InfluxDB v1 and v2 workloads.
 menu:
   influxdb3_core:
     parent: Reference
