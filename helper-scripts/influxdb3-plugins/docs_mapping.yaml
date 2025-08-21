@@ -1,0 +1,122 @@
+# Mapping configuration for transforming plugin documentation from influxdb3_plugins to docs-v2
+# This file defines the source and target paths for each plugin's documentation
+
+plugins:
+  basic_transformation:
+    source: ../influxdb3_plugins/influxdata/basic_transformation/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md
+    category: official
+    additional_sections:
+      - schema_requirements
+      - logging
+  
+  downsampler:
+    source: ../influxdb3_plugins/influxdata/downsampler/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/downsampler.md
+    category: official
+    additional_sections:
+      - schema_management
+      - logging
+  
+  forecast_error_evaluator:
+    source: ../influxdb3_plugins/influxdata/forecast_error_evaluator/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/forecast-error-evaluator.md
+    category: official
+    additional_sections:
+      - logging
+  
+  influxdb_to_iceberg:
+    source: ../influxdb3_plugins/influxdata/influxdb_to_iceberg/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/influxdb-to-iceberg.md
+    category: official
+    additional_sections:
+      - logging
+  
+  mad_check:
+    source: ../influxdb3_plugins/influxdata/mad_check/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/mad-check.md
+    category: official
+    additional_sections:
+      - logging
+  
+  notifier:
+    source: ../influxdb3_plugins/influxdata/notifier/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/notifier.md
+    category: official
+    additional_sections:
+      - logging
+  
+  prophet_forecasting:
+    source: ../influxdb3_plugins/influxdata/prophet_forecasting/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/prophet-forecasting.md
+    category: official
+    additional_sections:
+      - logging
+  
+  state_change:
+    source: ../influxdb3_plugins/influxdata/state_change/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/state-change.md
+    category: official
+    additional_sections:
+      - logging
+  
+  stateless_adtk_detector:
+    source: ../influxdb3_plugins/influxdata/stateless_adtk_detector/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/stateless-adtk-detector.md
+    category: official
+    additional_sections:
+      - logging
+  
+  system_metrics:
+    source: ../influxdb3_plugins/influxdata/system_metrics/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/system-metrics.md
+    category: official
+    additional_sections:
+      - logging
+  
+  threshold_deadman_checks:
+    source: ../influxdb3_plugins/influxdata/threshold_deadman_checks/README.md
+    target: content/shared/influxdb3-plugins/plugins-library/official/threshold-deadman-checks.md
+    category: official
+    additional_sections:
+      - logging
+
+# Example plugins (if any exist in the examples directory)
+example_plugins:
+  # Add example plugins here when they are created
+  # example_name:
+  #   source: examples/example_name/README.md
+  #   target: ../docs-v2/content/shared/influxdb3-plugins/plugins-library/examples/example-name.md
+  #   category: examples
+
+# Community plugins (future expansion)
+community_plugins:
+  # Add community plugins here as they are contributed
+  # author_plugin:
+  #   source: community/author/plugin_name/README.md
+  #   target: ../docs-v2/content/shared/influxdb3-plugins/plugins-library/community/plugin-name.md
+  #   category: community
+
+# Configuration settings
+settings:
+  # Whether to validate links in transformed content
+  validate_links: true
+  
+  # Whether to check for template remnants
+  check_template_remnants: true
+  
+  # Whether to create backup of existing docs before overwriting
+  create_backup: false
+  
+  # Default category if not specified
+  default_category: official
+
+# Exceptions - plugins that require special handling
+exceptions:
+  # List plugins that should not be automatically synced
+  no_sync: []
+  
+  # Plugins that require manual review after transformation
+  manual_review:
+    - influxdb_to_iceberg  # Complex configuration may need manual verification
+    - forecast_error_evaluator  # Multiple notification options need review
