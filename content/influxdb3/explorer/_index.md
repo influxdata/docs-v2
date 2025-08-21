@@ -48,4 +48,4 @@ docker run --detach \
 
 
 <a class="btn" href="/influxdb3/explorer/install/">Install and run InfluxDB 3 Explorer</a>  
-<a class="btn" href="/influxdb3/explorer/get-started/">Get started with InfluxDB 3 Explorer</a>
+<a class="btn" href="/influxdb3/explorer/get-started/">Get started using InfluxDB 3 Explorer</a>
