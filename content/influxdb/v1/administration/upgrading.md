@@ -24,7 +24,7 @@ Upgrade to the latest version of InfluxDB OSS v1.
 > InfluxDB 1.11.x supports two index types:
 > 
 > - **Time Series Index (TSI)** - Recommended for most users. Removes RAM-based limits on series cardinality and provides better performance for high-cardinality datasets.
-> - **In-memory index (inmem)** - Default option that maintains compatibility with earlier versions but has RAM limitations.
+> - **In-memory index (inmem)** - Default option that maintains compatibility with earlier versions but is limited by available system RAM (series cardinality is limited by available RAM).
 > 
 > **When to use TSI:**
 > - General purpose production instances.
