@@ -8,9 +8,11 @@ menu:
     parent: Administer InfluxDB Clustered
     name: Scale your cluster
 weight: 207
-influxdb3/clustered/tags: [scale]
+influxdb3/clustered/tags: [scale, performance, Kubernetes]
 related:
   - /influxdb3/clustered/reference/internals/storage-engine/
+  - /influxdb3/clustered/write-data/best-practices/data-lifecycle/
+  - /influxdb3/clustered/query-data/troubleshoot-and-optimize/optimize-queries/
   - https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits, Kubernetes resource requests and limits
 ---
 
@@ -559,10 +561,13 @@ concurrency demands or reaches the hardware limits of your underlying nodes.
 
 ### Compactor
 
-- **Recommended**: Maintain **1 Compactor pod** and use [vertical scaling](#vertical-scaling) (especially
-increasing the available CPU) for the Compactor.
+- **Recommended**: Maintain **1 Compactor pod** and use [vertical scaling](#vertical-scaling) for the Compactor.
+Scale CPU and memory resources together, as compactor concurrency settings scale based on memory, not CPU count.
 - Because compaction is a compute-heavy process, horizontal scaling increases compaction throughput, but not as
 efficiently as vertical scaling.
+
+> [!Important]
+> When scaling the Compactor, scale CPU and memory resources together.
 
 ### Garbage collector
 

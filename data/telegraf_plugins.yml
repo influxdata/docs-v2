@@ -2940,8 +2940,8 @@ output:
       Explorer](https://docs.microsoft.com/en-us/azure/data-explorer), [Azure
       Synapse Data
       Explorer](https://docs.microsoft.com/en-us/azure/synapse-analytics/data-explorer/data-explorer-overview),
-      and [Real time analytics in
-      Fabric](https://learn.microsoft.com/en-us/fabric/real-time-analytics/overview)
+      and [Real-Time Intelligence in
+      Fabric](https://learn.microsoft.com/fabric/real-time-intelligence/overview)
       services.
 
       Azure Data Explorer is a distributed, columnar store, purpose built for

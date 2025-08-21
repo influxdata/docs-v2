@@ -1,0 +1,68 @@
+name: Sync Link Checker Binary from docs-tooling
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Link checker version to sync (e.g., v1.2.2)'
+        required: true
+        type: string
+
+jobs:
+  sync-binary:
+    name: Sync link-checker binary from docs-tooling
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download binary from docs-tooling release
+        run: |
+          echo "Downloading link-checker ${{ inputs.version }} from docs-tooling..."
+          
+          # Download binary from docs-tooling release
+          curl -L -H "Accept: application/octet-stream" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o link-checker-linux-x86_64 \
+            "https://github.com/influxdata/docs-tooling/releases/download/link-checker-${{ inputs.version }}/link-checker-linux-x86_64"
+          
+          # Download checksums
+          curl -L -H "Accept: application/octet-stream" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -o checksums.txt \
+            "https://github.com/influxdata/docs-tooling/releases/download/link-checker-${{ inputs.version }}/checksums.txt"
+          
+          # Verify downloads
+          ls -la link-checker-linux-x86_64 checksums.txt
+          
+      - name: Create docs-v2 release
+        run: |
+          echo "Creating link-checker-${{ inputs.version }} release in docs-v2..."
+          
+          gh release create \
+            --title "Link Checker Binary ${{ inputs.version }}" \
+            --notes "Link validation tooling binary for docs-v2 GitHub Actions workflows.
+
+          This binary is distributed from the docs-tooling repository release link-checker-${{ inputs.version }}.
+
+          ### Usage in GitHub Actions
+
+          The binary is automatically downloaded by docs-v2 workflows for link validation.
+
+          ### Manual Usage
+
+          \`\`\`bash
+          # Download and make executable
+          curl -L -o link-checker https://github.com/influxdata/docs-v2/releases/download/link-checker-${{ inputs.version }}/link-checker-linux-x86_64
+          chmod +x link-checker
+
+          # Verify installation
+          ./link-checker --version
+          \`\`\`
+
+          ### Changes in ${{ inputs.version }}
+
+          See the [docs-tooling release](https://github.com/influxdata/docs-tooling/releases/tag/link-checker-${{ inputs.version }}) for detailed changelog." \
+            link-checker-${{ inputs.version }} \
+            link-checker-linux-x86_64 \
+            checksums.txt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
