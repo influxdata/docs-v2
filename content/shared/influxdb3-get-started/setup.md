@@ -445,12 +445,10 @@ influxdb3 create token --admin
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "CONTAINER_NAME" %}}
-```bash
+```bash { placeholders="CONTAINER_NAME" }
 # With Docker — in a new terminal:
 docker exec -it CONTAINER_NAME influxdb3 create token --admin
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`CONTAINER_NAME`{{% /code-placeholder-key %}} with the name of your running Docker container.
 
@@ -494,30 +492,24 @@ token automatically:
 {{% /tabs %}}
 {{% tab-content %}}
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="YOUR_AUTH_TOKEN" }
 export INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```powershell
+```powershell { placeholders="YOUR_AUTH_TOKEN" }
 $env:INFLUXDB3_AUTH_TOKEN = "YOUR_AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```cmd
+```cmd { placeholders="YOUR_AUTH_TOKEN" }
 set INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN 
 # Make sure to include a space character at the end of this command.
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -527,23 +519,19 @@ set INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 
 Include the `--token` option with CLI commands:
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="YOUR_AUTH_TOKEN" }
 influxdb3 show databases --token YOUR_AUTH_TOKEN
 ```
-{{% /code-placeholders %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
-{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="YOUR_AUTH_TOKEN" }
 curl "http://{{< influxdb/host >}}/api/v3/configure/database" \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 #### Learn more about tokens and permissions
 
