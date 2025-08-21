@@ -35,6 +35,7 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
     - **Server URL**: The URL used to connect to your InfluxDB 3 server.
       - Select the protocol to use (http or https).
       - Provide the host and, if necessary, the port.
+        - _If connecting to a local, non-Docker instance, use host.docker.internal_
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
       

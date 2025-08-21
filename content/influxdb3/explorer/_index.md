@@ -42,7 +42,10 @@ docker run --detach \
   --publish 8889:8888 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
+
+# Visit http://localhost:8888 to begin using Explorer
 ```
+
 
 <a class="btn" href="/influxdb3/explorer/install/">Install and run InfluxDB 3 Explorer</a>  
 <a class="btn" href="/influxdb3/explorer/get-started/">Get started with InfluxDB 3 Explorer</a>
