@@ -199,7 +199,7 @@ influxdb3 serve
 
 #### cluster-id
 
-Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog.
+Specifies the cluster identifier that prefixes the object store path for the {{% product-name %}} Catalog.
 This value must be different than the [`--node-id`](#node-id) value.
 
 | influxdb3 serve option | Environment variable              |
@@ -1572,7 +1572,7 @@ Specifies how long to wait for a running ingestor during startup.
 #### num-cores
 
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
-When specified, InfluxDB automatically assigns the number of DataFusion threads and IO threads based on the core count.
+When specified, {{% product-name %}} automatically assigns the number of DataFusion threads and IO threads based on the core count.
 
 **Thread assignment logic:**
 
