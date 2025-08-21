@@ -27,14 +27,15 @@ Upgrade to the latest version of InfluxDB OSS v1.
 > - **In-memory index (inmem)** - Default option that maintains compatibility with earlier versions but has RAM limitations.
 > 
 > **When to use TSI:**
-> - High-cardinality datasets (many unique tag combinations)
-> - Experiencing high memory usage or out-of-memory errors
-> - Large production deployments
-> 
+> - General purpose production instances.
+> - Especially recommended for:
+>    - High-cardinality datasets (many unique tag combinations)
+>    - Experiencing high memory usage or out-of-memory errors
+>    - Large production deployments
+>
 > **When to use inmem:**
-> - Small datasets where memory is not a constraint
-> - Development or testing environments
-> - Maintaining compatibility with existing tooling
+> - Small datasets when memory is not a constraint
+> - Ephemeral deployments such as development or testing environments
 > 
 > To learn more about TSI, see [Time Series Index overview](/influxdb/v1/concepts/time-series-index/) and [TSI details](/influxdb/v1/concepts/tsi-details/).
 
