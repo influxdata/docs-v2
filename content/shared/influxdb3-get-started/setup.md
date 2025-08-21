@@ -486,11 +486,41 @@ In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-
 Set the `INFLUXDB3_AUTH_TOKEN` environment variable to have the CLI use your
 token automatically:
 
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[macOS and Linux](#)
+[PowerShell](#)
+[CMD](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
 {{% code-placeholders "YOUR_AUTH_TOKEN" %}}
 ```bash
 export INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 ```
 {{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
+```powershell
+$env:INFLUXDB3_AUTH_TOKEN = "YOUR_AUTH_TOKEN"
+```
+{{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+{{% code-placeholders "YOUR_AUTH_TOKEN" %}}
+```cmd
+set INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN 
+# Make sure to include a space character at the end of this command.
+```
+{{% /code-placeholders %}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
