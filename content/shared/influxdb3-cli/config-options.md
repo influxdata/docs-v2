@@ -112,7 +112,9 @@ influxdb3 serve
   - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+  {{% show-in "core" %}}
   - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  {{% /show-in %}}
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -200,7 +202,6 @@ influxdb3 serve
 #### cluster-id
 
 Specifies the cluster identifier that prefixes the object store path for the {{% product-name %}} Catalog.
-This value must be different than the [`--node-id`](#node-id) value.
 
 | influxdb3 serve option | Environment variable              |
 | :--------------------- | :-------------------------------- |
@@ -1004,7 +1005,9 @@ influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
 ### Memory
 
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+{{% show-in "core" %}}
 - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+{{% /show-in %}}
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### exec-mem-pool-bytes
@@ -1020,7 +1023,9 @@ example: `8000000000` or `10%`).
 | :---------------------- | :------------------------------ |
 | `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
 
-## {{% show-in "core" %}}
+---
+
+{{% show-in "core" %}}
 
 #### buffer-mem-limit-mb
 
