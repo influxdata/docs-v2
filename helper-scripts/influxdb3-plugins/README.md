@@ -33,7 +33,7 @@ For local testing and development:
 1. **Validate source content** (run from influxdb3_plugins directory):
    ```bash
    cd /path/to/influxdb3_plugins
-   python validate_readme.py
+   python scripts/validate_readme.py
    ```
 
 2. **Transform content** (run from docs-v2 root directory):
@@ -323,7 +323,7 @@ Plugin documentation location:
 
 ## Phase 3: Automation Implementation
 
-### 3.1 Validation Script (validate_readme.py)
+### 3.1 Validation Script (scripts/validate_readme.py)
 
 ```python
 #!/usr/bin/env python3
@@ -577,7 +577,7 @@ Plugin README change → Commit → Automatic comment with sync link
 
 **Process**:
 1. **Parse request** - Extract plugin names and source commit from issue
-2. **Validate source** - Run `validate_readme.py` on specified plugins
+2. **Validate source** - Run `scripts/validate_readme.py` on specified plugins
 3. **Transform content** - Apply docs-v2 formatting and enhancements
 4. **Generate screenshots** - Capture Hugo-rendered plugin pages
 5. **Create PR** - Submit changes with comprehensive summary
@@ -595,7 +595,7 @@ Plugin README change → Commit → Automatic comment with sync link
 
 ### Step 1: Update Source README
 1. Edit README in `influxdb3_plugins/influxdata/[plugin]/`
-2. Run validation: `python validate_readme.py`
+2. Run validation: `python scripts/validate_readme.py`
 3. Fix any validation errors
 
 ### Step 2: Transform Content
@@ -635,7 +635,7 @@ Plugin README change → Commit → Automatic comment with sync link
 
 Before merging any plugin documentation:
 
-- [ ] Source README passes validation (`validate_readme.py`)
+- [ ] Source README passes validation (`scripts/validate_readme.py`)
 - [ ] All required sections present and properly formatted
 - [ ] At least 2 complete usage examples with expected output
 - [ ] All configuration parameters documented

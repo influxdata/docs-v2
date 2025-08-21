@@ -83,7 +83,7 @@ jobs:
         run: |
           git clone --filter=blob:none --sparse https://github.com/influxdata/influxdb3_plugins.git influxdb3_plugins
           cd influxdb3_plugins
-          git sparse-checkout set influxdata/ validate_readme.py
+          git sparse-checkout set influxdata/ scripts/
           git checkout ${{ steps.inputs.outputs.source_commit }}
 
       - name: Setup Node.js
@@ -118,10 +118,10 @@ jobs:
           # Run validation
           if [[ -n "$PLUGINS" ]]; then
             echo "Validating specific plugins: $PLUGINS"
-            python validate_readme.py --plugins "$PLUGINS" 2>&1 | tee validation.log
+            python scripts/validate_readme.py --plugins "$PLUGINS" 2>&1 | tee validation.log
           else
             echo "Validating all plugins"
-            python validate_readme.py 2>&1 | tee validation.log
+            python scripts/validate_readme.py 2>&1 | tee validation.log
           fi
           
           # Check if validation passed
