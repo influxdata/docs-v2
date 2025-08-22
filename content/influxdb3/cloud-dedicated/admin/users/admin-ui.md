@@ -17,3 +17,11 @@ related:
   - /influxdb3/cloud-dedicated/admin/tokens/
 ---
 
+Use the {{% product-name %}} Admin UI to manage users and control access to your cluster through a web-based interface. The Admin UI provides self-service user management capabilities, allowing administrators to invite new users, assign roles, and manage invitations without contacting support.
+
+- [Access the Users page](#access-the-users-page)
+- [View existing users](#view-existing-users)
+- [Invite a user](#invite-a-user)
+- [Manage invitations](#manage-invitations)
+- [User roles and permissions](#user-roles-and-permissions)
+- [Limitations](#limitations)
