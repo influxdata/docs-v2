@@ -35,6 +35,7 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
     - **Server URL**: The URL used to connect to your InfluxDB 3 server.
       - Select the protocol to use (http or https).
       - Provide the host and, if necessary, the port.
+        - _If connecting to a local, non-Docker instance, use `host.docker.internal`._ For more information about host.docker.internal, see the [Docker documentation](https://docs.docker.com/desktop/features/networking).
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
       
@@ -86,7 +87,7 @@ To use {{% product-name %}} to query data from InfluxDB 3, navigate to
 The _Data Explorer_ lets you explore the
 schema of your database and automatically builds SQL queries by either
 selecting columns in the _Schema Browser_ or by using _Natural Language_ with
-the {{% product-name %}} OpenAI integration.
+the {{% product-name %}} AI integration.
 
 For this getting started guide, use the Schema Browser to build a SQL query
 that returns data from the newly written sample data set.

@@ -16,4 +16,4 @@ source: /shared/influxdb-v2/write-data/replication/replicate-data.md
 ---
 
 <!-- The content of this file is at 
-// SOURCE content/shared/influxdb-v2/write-data/replication/replicate-data.md-->
+// SOURCE content/shared/influxdb-v2/write-data/replication/replicate-data.md -->

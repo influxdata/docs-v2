@@ -14,7 +14,8 @@ related:
   - /influxdb3/clustered/write-data/use-telegraf/
 ---
 
-Use these tips to optimize performance and system overhead when writing data to InfluxDB.
+Use these tips to optimize performance and system overhead when writing data to
+{{% product-name %}}.
 
 - [Batch writes](#batch-writes)
 - [Sort tags by key](#sort-tags-by-key)
@@ -422,8 +423,22 @@ The following example creates sample data for two series (the combination of mea
 
 ### Avoid sending duplicate data
 
-Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup) to filter data whose field values are exact repetitions of previous values.
+When writing duplicate points (points with the same timestamp and tag set),
+InfluxDB deduplicates the data by creating a union of the duplicate points.
 Deduplicating your data can reduce your write payload size and resource usage.
+
+> [!Important]
+> #### Write ordering for duplicate points
+>
+> InfluxDB attempts to honor write ordering for duplicate points, with the most
+> recently written point taking precedence. However, when data is flushed from
+> the in-memory buffer to Parquet files—typically every 15 minutes, but
+> sometimes sooner—this ordering is not guaranteed if duplicate points are flushed
+> at the same time. As a result, the last written duplicate point may not always
+> be retained in storage.
+
+Use Telegraf and the [Dedup processor plugin](/telegraf/v1/plugins/#processor-dedup)
+to filter data whose field values are exact repetitions of previous values.
 
 The following example shows how to use Telegraf to remove points that repeat field values, and then write the data to InfluxDB:
 

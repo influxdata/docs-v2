@@ -5,7 +5,7 @@
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
 {{ $productData := index $.Site.Data.products $productKey }}
 {{ $displayName := $productData.name }}
-{{ $earlyAccessList := slice "influxdb3/explorer" }}
+{{ $earlyAccessList := slice "" }}
 
 {{ if in $earlyAccessList (print $product "/" $version )}}
 <div class="block special-state">

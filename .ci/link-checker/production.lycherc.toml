@@ -1,0 +1,116 @@
+# Production Link Checker Configuration for InfluxData docs-v2
+# Optimized for performance, reliability, and reduced false positives
+[lychee]
+# Performance settings
+
+# Maximum number of retries for failed checks
+
+max_retries = 3
+
+# Timeout for each link check (in seconds)
+timeout = 30
+
+# Maximum number of concurrent checks
+max_concurrency = 128
+
+skip_code_blocks = false
+
+# HTTP settings
+# Identify the tool to external services
+"User-Agent" = "Mozilla/5.0 (compatible; influxdata-link-checker/1.0; +https://github.com/influxdata/docs-v2)"
+accept = [200, 201, 202, 203, 204, 206, 301, 302, 303, 304, 307, 308]
+
+# Skip these URL schemes
+scheme = ["mailto", "tel"]
+
+# Performance optimizations
+cache = true
+max_cache_age = "1h"
+
+# Retry configuration for reliability
+include_verbatim = false
+
+# Exclusion patterns for docs-v2 (regex supported)
+exclude = [
+  # Localhost URLs
+  "^https?://localhost",
+  "^https?://127\\.0\\.0\\.1",
+
+  # Common CI/CD environments  
+  "^https?://.*\\.local",
+
+  # Example domains used in documentation
+  "^https?://example\\.(com|org|net)",
+
+  # Placeholder URLs from code block filtering
+  "https://example.com/REMOVED_FROM_CODE_BLOCK",
+  "example.com/INLINE_CODE_URL",
+
+  # URLs that require authentication
+  "^https?://.*\\.slack\\.com",
+  "^https?://.*\\.atlassian\\.net",
+
+  # GitHub URLs (often fail due to rate limiting and bot 
+  # detection)
+  "^https?://github\\.com",
+
+  # Social media URLs (often block bots)
+  "^https?://reddit\\.com",
+  "^https?://.*\\.reddit\\.com",
+
+  # StackExchange network URLs (often block automated requests)
+  "^https?://.*\\.stackexchange\\.com",
+  "^https?://stackoverflow\\.com",
+  "^https?://.*\\.stackoverflow\\.com",
+
+  # Docker Hub URLs (rate limiting and bot detection)
+  "^https?://hub\\.docker\\.com",
+
+  # InfluxData support URLs (certificate/SSL issues in CI)
+  "^https?://support\\.influxdata\\.com",
+
+  # Common documentation placeholders
+  "YOUR_.*",
+  "REPLACE_.*",
+  "<.*>",
+]
+
+# Request headers
+[headers]
+# Add custom headers here if needed
+# "Authorization" = "Bearer $GITHUB_TOKEN"
+"Accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+"Accept-Language" = "en-US,en;q=0.5"
+"Accept-Encoding" = "gzip, deflate"
+"DNT" = "1"
+"Connection" = "keep-alive"
+"Upgrade-Insecure-Requests" = "1"
+
+[ci]
+# CI-specific settings
+
+[ci.github_actions]
+output_format = "json"
+create_annotations = true
+fail_fast = false
+max_annotations = 50  # Limit to avoid overwhelming PR comments
+
+[ci.performance]
+# Performance tuning for CI environment
+parallel_requests = 32
+connection_timeout = 10
+read_timeout = 30
+
+# Resource limits
+max_memory_mb = 512
+max_execution_time_minutes = 10
+
+[reporting]
+# Report configuration
+include_fragments = false
+verbose = false
+no_progress = true  # Disable progress bar in CI
+
+# Summary settings
+show_success_count = true
+show_skipped_count = true 

@@ -15,7 +15,7 @@ To install Telegraf, do the following:
 
 - [Review requirements](#requirements)
 - [Download and install Telegraf](#download-and-install-telegraf)
-- [Custom compile Telegraf](#custom-compile)
+- [Custom compile Telegraf](#custom-compile-telegraf)
 
 ## Requirements
 
@@ -121,7 +121,7 @@ InfluxData uses [GPG (GnuPG)](https://www.gnupg.org/software/) to sign released 
 public key and encrypted private key (`.key` file) pairs that you can use to
 verify the integrity of packages and binaries from the InfluxData repository.
 
-Before running the [install](#install) sample code, substitute the key-pair compatible with your OS version:
+Before running the [install](#download-and-install-instructions) sample code, substitute the key-pair compatible with your OS version:
 
 For newer OS releases (for example, Ubuntu 20.04 LTS and newer, Debian Buster
 and newer) that support subkey verification:
@@ -180,8 +180,8 @@ gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
 | gpg --dearmor \
-| sudo tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
-&& echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
+| sudo tee /etc/apt/keyrings/influxdata-archive.gpg > /dev/null \
+&& echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main' \
 | sudo tee /etc/apt/sources.list.d/influxdata.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
@@ -198,8 +198,8 @@ gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive_compat.key
 | grep -q '^fpr:\+9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E:$' \
 && cat influxdata-archive_compat.key \
 | gpg --dearmor \
-| sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' \
+| sudo tee /etc/apt/keyrings/influxdata-archive_compat.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/keyrings/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' \
 | sudo tee /etc/apt/sources.list.d/influxdata.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
@@ -329,7 +329,7 @@ Replace the following:
 Choose from the following options to install Telegraf binary files for Linux ARM:
 
 - To install on Linux ARMv7(32-bit), see the [downloads page](https://www.influxdata.com/downloads/#telegraf).
-- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-arm-64)
+- [Download and install on Linux ARMv8 (64-bit)](#download-and-install-on-linux-armv8)
 
 ### Download and install on Linux ARMv8
 
@@ -388,7 +388,7 @@ To install using Homebrew, do the following:
 3. Choose one of the following methods to start Telegraf and begin collecting and processing metrics:
 
    - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
-   - [Run Telegraf as a service](#run-telegraf-as-a-service)
+   - [Run Telegraf as a service](#run-telegraf-as-a-background-service)
 
 ### Run Telegraf in your terminal
 
@@ -627,7 +627,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 ### Prerequisites
 
 -  Follow the instructions to install [Go](https://go.dev/) for your system.
--  [Create your Telegraf configuration file](#generate-a-custom-configuration-file) with the plugins you want to use.
+-  [Create your Telegraf configuration file](#generate-a-configuration-file) with the plugins you want to use.
 
 ### Build the custom builder tool
 
