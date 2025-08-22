@@ -7,8 +7,8 @@ description: >
 menu:
   influxdb3_enterprise:
     name: Back up and restore
-    parent: Administer InfluxDB Enterprise
-weight: 105
+    parent: Administer InfluxDB
+weight: 120
 influxdb3/enterprise/tags: [backup, restore, administration, cluster, object storage]
 related:
   - /influxdb3/enterprise/admin/databases/

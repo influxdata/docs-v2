@@ -7,8 +7,8 @@ description: >
 menu:
   influxdb3_core:
     name: Back up and restore
-    parent: Administer InfluxDB Core
-weight: 105
+    parent: Administer InfluxDB
+weight: 120
 influxdb3/core/tags: [backup, restore, administration, object storage]
 related:
   - /influxdb3/core/admin/databases/
