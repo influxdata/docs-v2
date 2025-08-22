@@ -439,6 +439,7 @@ for NODE_ID in "${ALL_NODES[@]}"; do
 done
 
 # 5. Set correct permissions
+# NOTE: Adjust 'influxdb:influxdb' to match your actual deployment user/group configuration.
 chown -R influxdb:influxdb ${DATA_DIR}
 
 # 6. Start InfluxDB Enterprise nodes
