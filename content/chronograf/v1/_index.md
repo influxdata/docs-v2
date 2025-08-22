@@ -6,7 +6,7 @@ description: >
   monitoring data and easily create alerting and automation rules.
 menu:
   chronograf_v1:
-    name: Chronograf v1.10
+    name: Chronograf
 weight: 1
 ---
 

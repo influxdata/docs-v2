@@ -14,17 +14,6 @@
     },
     "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
     "vale.valeCLI.minAlertLevel": "warning",
-    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
-    "github.copilot.chat.codeGeneration.instructions": [
-        {
-            "file": "${workspaceFolder}/.github/copilot-instructions.md",
-        }
-    ],
-    "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
-        {
-            "file": "${workspaceFolder}/.github/copilot-instructions.md",
-        }
-    ],
     "cSpell.words": [
       "influxctl"
     ]

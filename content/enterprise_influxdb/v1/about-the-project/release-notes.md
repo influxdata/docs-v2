@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Enterprise 1.11 release notes
+title: InfluxDB Enterprise v1 release notes
 description: >
   Important changes and what's new in each version InfluxDB Enterprise.
 menu:
@@ -7,9 +7,16 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+alt_links:
+  v1: /influxdb/v1/about_the_project/release-notes/
 ---
 
-## v1.12.1 {date="2025-06-26"}
+## v1.12.x {date="TBD"}
+
+> [!Important]
+> #### Pre-release documentation
+>
+> This release is not yet available. [**v{{% latest-patch %}}**](#v1118) is the latest InfluxDB Enterprise v1 release.
 
 > [!Important]
 > #### Upgrade meta nodes first
@@ -22,31 +29,53 @@ menu:
 - Add additional log output when using
   [`influx_inspect buildtsi`](/enterprise_influxdb/v1/tools/influx_inspect/#buildtsi) to
   rebuild the TSI index.
+<!-- TODO: Uncomment with 1.12.x release:
 - Use [`influx_inspect export`](/enterprise_influxdb/v1/tools/influx_inspect/#export) with
   [`-tsmfile` option](/enterprise_influxdb/v1/tools/influx_inspect/#--tsmfile-tsm_file-) to
+  export a single TSM file.
+-->
+<!-- TODO: Remove with 1.12.x release: -->
+- Use [`influx_inspect export`](/enterprise_influxdb/v1/tools/influx_inspect/#export) with
+  `-tsmfile` option to
   export a single TSM file.
 - Add `-m` flag to the [`influxd-ctl show-shards` command](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/)
   to output inconsistent shards.
 - Allow the specification of a write window for retention policies.
 - Add `fluxQueryRespBytes` metric to the `/debug/vars` metrics endpoint.
 - Log whenever meta gossip times exceed expiration.
+<!-- TODO: Uncomment with 1.12.x release:
 - Add [`query-log-path` configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#query-log-path)
   to data nodes.
 - Add [`aggressive-points-per-block` configuration option](/influxdb/v1/administration/config/#aggressive-points-per-block)
   to prevent TSM files from not getting fully compacted.
+-->
+<!-- TODO: Remove with 1.12.x release: -->
+- Add `query-log-path` configuration option  to data nodes.
+- Add `aggressive-points-per-block` configuration option to prevent TSM files from not getting fully compacted.
 - Log TLS configuration settings on startup.
 - Check for TLS certificate and private key permissions.
 - Add a warning if the TLS certificate is expired.
 - Add authentication to the Raft portal and add the following related _data_
   node configuration options:
+  <!-- Uncomment with 1.12.x release
   - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
   - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
+  -->
+  <!-- TODO: Remove with 1.12.x release: -->
+  - `[meta].raft-portal-auth-required`
+  - `[meta].raft-dialer-auth-required`
 - Improve error handling.
 - InfluxQL updates:
   - Delete series by retention policy.
+
+  <!-- TODO: Uncomment with 1.12.x release:
   - Allow retention policies to discard writes that fall within their range, but
     outside of [`FUTURE LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#future-limit)
     and [`PAST LIMIT`](/enterprise_influxdb/v1/query_language/manage-database/#past-limit).
+  -->
+  <!-- TODO: Remove with 1.12.x release: -->
+  - Allow retention policies to discard writes that fall within their range, but
+    outside of `FUTURE LIMIT` and `PAST LIMIT`.
 
 ## Bug fixes
 
