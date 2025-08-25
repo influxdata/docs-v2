@@ -8,7 +8,7 @@ menu:
   influxdb3_core:
     name: Use the InfluxDB MCP server
     parent: Administer InfluxDB
-weight: 110
+weight: 205
 influxdb3/core/tags: [MCP, LLM, AI]
 related:
   - https://github.com/influxdata/influxdb3_mcp_server, InfluxDB 3 MCP Server GitHub Repository
