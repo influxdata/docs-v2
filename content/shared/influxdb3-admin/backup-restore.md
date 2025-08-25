@@ -4,8 +4,7 @@ Back up your data by copying object storage files in a specific order to ensure 
 
 > [!Warning]
 > Currently, {{% product-name %}} does not include built-in backup and restore tools.
-> Because copying files during periods of activity is a transient process, the manual backup process _cannot guarantee 100% reliability_.
-> Follow the recommended procedures and copy order to minimize risk of creating inconsistent backups.
+> Because copying files during periods of activity is a transient process, we highly recommended you follow the below procedures and copy order to minimize risk of creating inconsistent backups.
 
 ## Supported object storage
 
@@ -283,6 +282,13 @@ Replace the following:
 
 {{% show-in "core" %}}
 
+**Recommended restore order:**
+1. Catalog checkpoint file
+2. Catalogs directory
+3. WAL directory
+4. Database (dbs) directory
+5. Snapshots directory
+
 #### File system restore example
 
 ```bash { placeholders="NODE_ID|BACKUP_DATE" }
@@ -347,6 +353,13 @@ Replace the following:
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
+
+**Recommended restore order:**
+1. Cluster catalog and checkpoint
+2. License files
+3. All nodes' snapshots, dbs, wal directories
+4. Compactor node directories (cs, cd, c)
+
 
 #### S3 restore example
 

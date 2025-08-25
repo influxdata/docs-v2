@@ -2,7 +2,7 @@
 title: Back up and restore data
 seotitle: Back up and restore {{< product-name >}}
 description: >
-  Manually back up and restore your {{< product-name >}} instance by copying
+  Back up and restore your {{< product-name >}} instance by copying
   object storage files in the recommended order.
 menu:
   influxdb3_core:
