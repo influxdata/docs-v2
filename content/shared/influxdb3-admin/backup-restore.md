@@ -28,9 +28,9 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | `<node_id>/`                              | Root directory for all node state                                                             |
 | `<node_id>/_catalog_checkpoint`           | Catalog state checkpoint file                                                                 |
 | `<node_id>/catalogs/`                     | Catalog log files tracking catalog state changes                                              |
-| `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                 |
-| `<node_id>/snapshots/`                    | Snapshot files summarizing persisted [Parquet files](/influxdb3/core/reference/internals/durability/#parquet-storage)                                            |
-| `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/core/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/core/admin/databases/), [table](/influxdb3/core/admin/tables/), and time |
+| `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                 |
+| `<node_id>/snapshots/`                    | Snapshot files summarizing persisted [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                            |
+| `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/version/admin/databases/), [table](/influxdb3/version/admin/tables/), and time |
 | `<node_id>/table-snapshots/<db>/<table>/` | Table snapshot files (regenerated on restart, optional for backup)                            |
 
 {{% /show-in %}}
@@ -41,18 +41,18 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | **Cluster files**                         |                                                                                                                                                                                                       |
 | `<cluster_id>/_catalog_checkpoint`        | Catalog state checkpoint file                                                                                                                                                                         |
 | `<cluster_id>/catalogs/`                  | Catalog log files tracking catalog state changes                                                                                                                                                      |
-| `<cluster_id>/commercial_license`         | Commercial [license](/influxdb3/enterprise/admin/license/) file (if applicable)                                                                                                                       |
-| `<cluster_id>/trial_or_home_license`      | Trial or home [license](/influxdb3/enterprise/admin/license/) file (if applicable)                                                                                                                       |
+| `<cluster_id>/commercial_license`         | Commercial [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
+| `<cluster_id>/trial_or_home_license`      | Trial or home [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/enterprise`                 | Enterprise configuration file                                                                                                                                                                         |
 | **Node files**                            |                                                                                                                                                                                                       |
-| `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                                   |
+| `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                                   |
 | `<node_id>/snapshots/`                    | Snapshot files                                                                                                                                                                                        |
-| `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/enterprise/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/enterprise/admin/databases/), [table](/influxdb3/enterprise/admin/tables/), and time |
+| `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/version/admin/databases/), [table](/influxdb3/version/admin/tables/), and time |
 | `<node_id>/table-snapshots/<db>/<table>/` | Table snapshot files (regenerated on restart, optional for backup)                                                                                                                                    |
 | **Compactor node additional files**       |                                                                                                                                                                                                       |
 | `<node_id>/cs`                            | Compaction summary files                                                                                                                                                                              |
 | `<node_id>/cd`                            | Compaction detail files                                                                                                                                                                               |
-| `<node_id>/c`                             | Generation detail and [Parquet files](/influxdb3/enterprise/reference/internals/durability/#parquet-storage)                                                                                             |
+| `<node_id>/c`                             | Generation detail and [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                                                                             |
 {{% /show-in %}}
 
 ## Backup process
@@ -95,7 +95,7 @@ cp $DATA_DIR/${NODE_ID}/_catalog_checkpoint "$BACKUP_DIR/"
 echo "Backup completed to $BACKUP_DIR"
 ```
 
-Replace {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}} with your [node ID](/influxdb3/core/reference/config-options/#node-id).
+Replace {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}} with your [node ID](/influxdb3/version/reference/config-options/#node-id).
 
 > [!Note]
 > This example works with Docker containers that use volume mounts for data persistence. Adjust the `DATA_DIR` path to match your volume mount configuration.
@@ -132,7 +132,7 @@ echo "Backup completed to s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}"
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: your [node ID](/influxdb3/core/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: your [node ID](/influxdb3/version/reference/config-options/#node-id)
 - {{% code-placeholder-key %}}`SOURCE_BUCKET`{{% /code-placeholder-key %}}: your InfluxDB data bucket
 - {{% code-placeholder-key %}}`BACKUP_BUCKET`{{% /code-placeholder-key %}}: your backup destination bucket
 
@@ -213,9 +213,9 @@ echo "Backup completed to s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}"
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/enterprise/reference/config-options/#cluster-id)
-- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/enterprise/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
-- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/enterprise/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/version/reference/config-options/#cluster-id)
+- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/version/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
+- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/version/reference/config-options/#node-id)
 - {{% code-placeholder-key %}}`SOURCE_BUCKET`{{% /code-placeholder-key %}}: your InfluxDB data bucket
 - {{% code-placeholder-key %}}`BACKUP_BUCKET`{{% /code-placeholder-key %}}: your backup destination bucket
 
@@ -267,9 +267,9 @@ echo "Backup completed to $BACKUP_DIR"
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/enterprise/reference/config-options/#cluster-id)
-- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/enterprise/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
-- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/enterprise/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/version/reference/config-options/#cluster-id)
+- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/version/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
+- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/version/reference/config-options/#node-id)
 
 <!-- END File system backup -->
 {{% /tab-content %}}
@@ -313,7 +313,7 @@ systemctl start influxdb3 || docker start influxdb3-core
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: your [node ID](/influxdb3/core/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: your [node ID](/influxdb3/version/reference/config-options/#node-id)
 - {{% code-placeholder-key %}}`BACKUP_DATE`{{% /code-placeholder-key %}}: backup directory timestamp (for example, 20240115-143022)
 
 #### S3 restore example
@@ -392,9 +392,9 @@ done
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/enterprise/reference/config-options/#cluster-id)
-- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/enterprise/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
-- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/enterprise/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/version/reference/config-options/#cluster-id)
+- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/version/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
+- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/version/reference/config-options/#node-id)
 - {{% code-placeholder-key %}}`BACKUP_DATE`{{% /code-placeholder-key %}}: backup timestamp
 - {{% code-placeholder-key %}}`BACKUP_BUCKET`{{% /code-placeholder-key %}}: bucket containing backup
 - {{% code-placeholder-key %}}`TARGET_BUCKET`{{% /code-placeholder-key %}}: target bucket for restoration
@@ -447,9 +447,9 @@ chown -R influxdb:influxdb ${DATA_DIR}
 ```
 
 Replace the following:
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/enterprise/reference/config-options/#cluster-id)
-- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/enterprise/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
-- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/enterprise/reference/config-options/#node-id)
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: your [cluster ID](/influxdb3/version/reference/config-options/#cluster-id)
+- {{% code-placeholder-key %}}`COMPACTOR_NODE`{{% /code-placeholder-key %}}: your [compactor](/influxdb3/version/get-started/multi-server/#high-availability-with-a-dedicated-compactor) node ID
+- {{% code-placeholder-key %}}`NODE1`, `NODE2`, `NODE3`{{% /code-placeholder-key %}}: your data [node IDs](/influxdb3/version/reference/config-options/#node-id)
 - {{% code-placeholder-key %}}`BACKUP_DATE`{{% /code-placeholder-key %}}: backup directory timestamp
 {{% /show-in %}}
 
