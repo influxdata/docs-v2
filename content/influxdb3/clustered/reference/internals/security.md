@@ -62,7 +62,7 @@ by periodically creating, recording, and writing test data into test buckets.
 The service periodically executes queries to ensure the data hasn't been lost or corrupted.
 A separate instance of this service lives within each InfluxDB cluster.
 Additionally, the service creates out-of-band backups in
-[line protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/),
+[line protocol](/influxdb/cloud/reference/syntax/line-protocol/),
 and ensures the backup data matches the data on disk.
 
 ## Cloud infrastructure
@@ -229,7 +229,7 @@ User accounts can be created by InfluxData on the InfluxDB Clustered system via 
 User accounts can create database tokens with data read and/or write permissions.
 API requests from custom applications require a database token with sufficient permissions.
 For more information on the types of tokens and ways to create them, see
-[Manage tokens](https://docs.influxdata.com/influxdb3/clustered/admin/tokens/).
+[Manage tokens](/influxdb3/clustered/admin/tokens/).
 
 ### Role-based access controls (RBAC)
 

@@ -1419,7 +1419,7 @@ This now enables the use of Azure blob storage.
 
 The "Install InfluxDB Clustered" instructions (formerly known as "GETTING_STARTED")
 are now available on the public
-[InfluxDB Clustered documentation](https://docs.influxdata.com/influxdb3/clustered/install/).
+[InfluxDB Clustered documentation](/influxdb3/clustered/install/).
 
 The `example-customer.yml` (also known as `myinfluxdb.yml`) example
 configuration file still lives in the release bundle alongside the `RELEASE_NOTES`.
