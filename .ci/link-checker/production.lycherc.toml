@@ -69,6 +69,15 @@ exclude = [
   # InfluxData support URLs (certificate/SSL issues in CI)
   "^https?://support\\.influxdata\\.com",
 
+  # AI platforms (often block automated requests)
+  "^https?://claude\\.ai",
+  "^https?://.*\\.claude\\.ai",
+
+  # Production site URLs (when testing locally, these should be relative)
+  # This excludes canonical URLs and other absolute production URLs
+  # TODO: Remove after fixing canonical URL generation or link-checker domain replacement
+  "^https://docs\\.influxdata\\.com/",
+
   # Common documentation placeholders
   "YOUR_.*",
   "REPLACE_.*",
