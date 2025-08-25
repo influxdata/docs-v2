@@ -1,4 +1,5 @@
 <!-- Comment to allow starting shortcode -->
+
 {{< product-name >}} lets you customize your server configuration by using
 `influxdb3 serve` command options or by setting environment variables.
 
@@ -40,20 +41,20 @@ influxdb3 serve
 ## Server configuration options
 
 - [General](#general)
-{{% show-in "enterprise" %}}  - [cluster-id](#cluster-id){{% /show-in %}}
+  {{% show-in "enterprise" %}} - [cluster-id](#cluster-id){{% /show-in %}}
   - [data-dir](#data-dir)
-{{% show-in "enterprise" %}}  - [license-email](#license-email)
+    {{% show-in "enterprise" %}} - [license-email](#license-email)
   - [license-file](#license-file)
   - [mode](#mode){{% /show-in %}}
   - [node-id](#node-id)
-{{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
+    {{% show-in "enterprise" %}} - [node-id-from-env](#node-id-from-env){{% /show-in %}}
   - [object-store](#object-store)
   - [tls-key](#tls-key)
   - [tls-cert](#tls-cert)
   - [tls-minimum-versions](#tls-minimum-version)
   - [without-auth](#without-auth)
   - [disable-authz](#disable-authz)
-{{% show-in "enterprise" %}}
+    {{% show-in "enterprise" %}}
   - [num-database-limit](#num-database-limit)
   - [num-table-limit](#num-table-limit)
   - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit){{% /show-in %}}
@@ -111,7 +112,9 @@ influxdb3 serve
   - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+  {{% show-in "core" %}}
   - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+  {{% /show-in %}}
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -121,7 +124,7 @@ influxdb3 serve
   - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
   - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
 - [Compaction](#compaction)
-{{% show-in "enterprise" %}}  - [compaction-row-limit](#compaction-row-limit)
+  {{% show-in "enterprise" %}} - [compaction-row-limit](#compaction-row-limit)
   - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
   - [compaction-gen2-duration](#compaction-gen2-duration)
   - [compaction-multipliers](#compaction-multipliers)
@@ -137,16 +140,16 @@ influxdb3 serve
   - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
   - [table-index-cache-max-entries](#table-index-cache-max-entries)
   - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
-{{% show-in "enterprise" %}}  - [last-value-cache-disable-from-history](#last-value-cache-disable-from-history){{% /show-in %}}
+    {{% show-in "enterprise" %}} - [last-value-cache-disable-from-history](#last-value-cache-disable-from-history){{% /show-in %}}
   - [last-cache-eviction-interval](#last-cache-eviction-interval)
-{{% show-in "enterprise" %}}  - [distinct-value-cache-disable-from-history](#distinct-value-cache-disable-from-history){{% /show-in %}}
+    {{% show-in "enterprise" %}} - [distinct-value-cache-disable-from-history](#distinct-value-cache-disable-from-history){{% /show-in %}}
   - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
   - [query-file-limit](#query-file-limit)
 - [Processing Engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
   - [virtual-env-location](#virtual-env-location)
   - [package-manager](#package-manager)
-{{% show-in "enterprise" %}}
+    {{% show-in "enterprise" %}}
 - [Cluster Management](#cluster-management)
   - [replication-interval](#replication-interval)
   - [catalog-sync-interval](#catalog-sync-interval)
@@ -156,7 +159,7 @@ influxdb3 serve
   - [num-database-limit](#num-database-limit)
   - [num-table-limit](#num-table-limit)
   - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
-{{% /show-in %}}
+    {{% /show-in %}}
 - [Data Lifecycle Management](#data-lifecycle-management)
   - [gen1-lookback-duration](#gen1-lookback-duration)
   - [retention-check-interval](#retention-check-interval)
@@ -168,42 +171,44 @@ influxdb3 serve
 - [TCP Listeners](#tcp-listeners)
   - [tcp-listener-file-path](#tcp-listener-file-path)
   - [admin-token-recovery-tcp-listener-file-path](#admin-token-recovery-tcp-listener-file-path)
-{{% show-in "enterprise" %}}
+    {{% show-in "enterprise" %}}
 - [Experimental Features](#experimental-features)
   - [use-pacha-tree](#use-pacha-tree)
-{{% /show-in %}}
+    {{% /show-in %}}
 
 ---
 
 ### General
 
 {{% show-in "enterprise" %}}
+
 - [cluster-id](#cluster-id)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [data-dir](#data-dir)
-{{% show-in "enterprise" %}}
+  {{% show-in "enterprise" %}}
 - [license-email](#license-email)
 - [license-file](#license-file)
 - [mode](#mode)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [node-id](#node-id)
-{{% show-in "enterprise" %}}
+  {{% show-in "enterprise" %}}
 - [node-id-from-env](#node-id-from-env)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
 
 {{% show-in "enterprise" %}}
+
 #### cluster-id
 
-Specifies the cluster identifier that prefixes the object store path for the Enterprise Catalog. 
-This value must be different than the [`--node-id`](#node-id) value.
+Specifies the cluster identifier that prefixes the object store path for the {{% product-name %}} Catalog.
 
-| influxdb3 serve option | Environment variable               |
-| :--------------------- | :--------------------------------- |
-| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID`  |
+| influxdb3 serve option | Environment variable              |
+| :--------------------- | :-------------------------------- |
+| `--cluster-id`         | `INFLUXDB3_ENTERPRISE_CLUSTER_ID` |
 
 ---
+
 {{% /show-in %}}
 
 #### data-dir
@@ -218,6 +223,7 @@ Required when using the `file` [object store](#object-store).
 ---
 
 {{% show-in "enterprise" %}}
+
 #### license-email
 
 Specifies the email address to associate with your {{< product-name >}} license
@@ -236,9 +242,9 @@ Specifies the path to a license file for {{< product-name >}}. When provided, th
 file's contents are used instead of requesting a new license.
 This option is mutually exclusive with [license-email](#license-email).
 
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+| influxdb3 serve option | Environment variable                |
+| :--------------------- | :---------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE` |
 
 ---
 
@@ -263,6 +269,7 @@ You can specify multiple modes using a comma-delimited list (for example, `inges
 | `--mode`               | `INFLUXDB3_ENTERPRISE_MODE` |
 
 ---
+
 {{% /show-in %}}
 
 #### node-id
@@ -276,6 +283,7 @@ configuration--for example, the same bucket.
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
 
 {{% show-in "enterprise" %}}
+
 #### node-id-from-env
 
 Specifies the node identifier used as a prefix in all object store file paths.
@@ -297,6 +305,7 @@ export DATABASE_NODE=node0 && influxdb3 serve \
 ```
 
 ---
+
 {{% /show-in %}}
 
 #### object-store
@@ -321,9 +330,9 @@ This option supports the following values:
 
 The path to a key file for TLS to be enabled.
 
-| influxdb3 serve option | Environment variable   |
-| :--------------------- | :--------------------- |
-| `--tls-key`            | `INFLUXDB3_TLS_KEY`    |
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--tls-key`            | `INFLUXDB3_TLS_KEY`  |
 
 ---
 
@@ -331,20 +340,20 @@ The path to a key file for TLS to be enabled.
 
 The path to a cert file for TLS to be enabled.
 
-| influxdb3 serve option | Environment variable   |
-| :--------------------- | :--------------------- |
-| `--tls-cert`           | `INFLUXDB3_TLS_CERT`   |
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--tls-cert`           | `INFLUXDB3_TLS_CERT` |
 
 ---
 
 #### tls-minimum-version
 
-The minimum version for TLS. 
+The minimum version for TLS.
 Valid values are `tls-1.2` or `tls-1.3`.
 Default is `tls-1.2`.
 
-| influxdb3 serve option  | Environment variable     |
-| :---------------------- | :----------------------- |
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
 | `--tls-minimum-version` | `INFLUXDB3_TLS_MINIMUM_VERSION` |
 
 ---
@@ -354,31 +363,30 @@ Default is `tls-1.2`.
 Disables authentication for all server actions (CLI commands and API requests).
 The server processes all requests without requiring tokens or authentication.
 
-| influxdb3 serve option | Environment variable          |
-| :--------------------- | :---------------------------- |
-| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH`|
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH` |
 
 ---
 
 #### disable-authz
 
-Optionally disable authz by passing in a comma separated list of resources. 
+Optionally disable authz by passing in a comma separated list of resources.
 Valid values are `health`, `ping`, and `metrics`.
 
 | influxdb3 serve option | Environment variable      |
 | :--------------------- | :------------------------ |
 | `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
 
-{{% show-in "enterprise" %}}
----
+## {{% show-in "enterprise" %}}
 
 #### num-database-limit
 
 Limits the total number of active databases.
 Default is {{% influxdb3/limit "database" %}}.
 
-| influxdb3 serve option  | Environment variable                      |
-| :---------------------- | :---------------------------------------- |
+| influxdb3 serve option | Environment variable                      |
+| :--------------------- | :---------------------------------------- |
 | `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
 
 ---
@@ -402,8 +410,8 @@ Default is {{% influxdb3/limit "column" %}}.
 | influxdb3 serve option                | Environment variable                                     |
 | :------------------------------------ | :------------------------------------------------------- |
 | `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
-{{% /show-in %}}
----
+
+## {{% /show-in %}}
 
 ### AWS
 
@@ -978,8 +986,8 @@ Enables an admin token recovery HTTP server on a separate port. This server allo
 
 **Default:** `127.0.0.1:8182` (when enabled)
 
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
+| influxdb3 serve option             | Environment variable                       |
+| :--------------------------------- | :----------------------------------------- |
 | `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
 
 ##### Example usage
@@ -997,7 +1005,9 @@ influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
 ### Memory
 
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
+{{% show-in "core" %}}
 - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
+{{% /show-in %}}
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### exec-mem-pool-bytes
@@ -1013,11 +1023,11 @@ example: `8000000000` or `10%`).
 | :---------------------- | :------------------------------ |
 | `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
 
-{{% show-in "core" %}}
 ---
 
-#### buffer-mem-limit-mb
+{{% show-in "core" %}}
 
+#### buffer-mem-limit-mb
 
 Specifies the size limit of the buffered data in MB. If this limit is exceeded,
 the server forces a snapshot.
@@ -1097,7 +1107,7 @@ flush must be executed and succeed.
 #### snapshotted-wal-files-to-keep
 
 Specifies the number of snapshotted WAL files to retain in the object store.
-Flushing the WAL files does not clear the WAL files immediately; 
+Flushing the WAL files does not clear the WAL files immediately;
 they are deleted when the number of snapshotted WAL files exceeds this number.
 
 **Default:** `300`
@@ -1114,9 +1124,9 @@ Determines whether WAL replay should fail when encountering errors.
 
 **Default:** `false`
 
-| influxdb3 serve option      | Environment variable                   |
-| :--------------------------- | :------------------------------------- |
-| `--wal-replay-fail-on-error` | `INFLUXDB3_WAL_REPLAY_FAIL_ON_ERROR`  |
+| influxdb3 serve option       | Environment variable                 |
+| :--------------------------- | :----------------------------------- |
+| `--wal-replay-fail-on-error` | `INFLUXDB3_WAL_REPLAY_FAIL_ON_ERROR` |
 
 ---
 
@@ -1126,25 +1136,27 @@ Sets the maximum number of concurrent WAL replay operations.
 
 **Default:** `16`
 
-| influxdb3 serve option            | Environment variable                        |
-| :--------------------------------- | :------------------------------------------ |
-| `--wal-replay-concurrency-limit`   | `INFLUXDB3_WAL_REPLAY_CONCURRENCY_LIMIT`   |
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--wal-replay-concurrency-limit` | `INFLUXDB3_WAL_REPLAY_CONCURRENCY_LIMIT` |
 
 ---
 
 ### Compaction
 
 {{% show-in "enterprise" %}}
+
 - [compaction-row-limit](#compaction-row-limit)
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
 - [compaction-cleanup-wait](#compaction-cleanup-wait)
 - [compaction-check-interval](#compaction-check-interval)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [gen1-duration](#gen1-duration)
 
 {{% show-in "enterprise" %}}
+
 #### compaction-row-limit
 
 Specifies the soft limit for the number of rows per file that the compactor
@@ -1218,11 +1230,12 @@ Specifies how often the compactor checks for new compaction work to perform.
 
 **Default:** `10s`
 
-| influxdb3 serve option         | Environment variable                              |
-| :----------------------------- | :------------------------------------------------ |
-| `--compaction-check-interval`  | `INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` |
+| influxdb3 serve option        | Environment variable                             |
+| :---------------------------- | :----------------------------------------------- |
+| `--compaction-check-interval` | `INFLUXDB3_ENTERPRISE_COMPACTION_CHECK_INTERVAL` |
 
 ---
+
 {{% /show-in %}}
 
 #### gen1-duration
@@ -1251,13 +1264,13 @@ compactor in InfluxDB 3 Enterprise can merge into larger generations{{% /show-in
 - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
 - [table-index-cache-max-entries](#table-index-cache-max-entries)
 - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
-{{% show-in "enterprise" %}}
+  {{% show-in "enterprise" %}}
 - [last-value-cache-disable-from-history](#last-value-cache-disable-from-history)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [last-cache-eviction-interval](#last-cache-eviction-interval)
-{{% show-in "enterprise" %}}
+  {{% show-in "enterprise" %}}
 - [distinct-value-cache-disable-from-history](#distinct-value-cache-disable-from-history)
-{{% /show-in %}}
+  {{% /show-in %}}
 - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
 
 #### preemptive-cache-age
@@ -1279,10 +1292,10 @@ Specifies the size of the in-memory Parquet cache{{% show-in "core" %}} in megab
 {{% show-in "core" %}}**Default:** `1000`{{% /show-in %}}
 {{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
 
-| influxdb3 serve option      | Environment variable                |
-| :---------------------------- | :---------------------------------- |
-{{% show-in "core" %}}| `--parquet-mem-cache-size-mb`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB`  |{{% /show-in %}}
-{{% show-in "enterprise" %}}| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |{{% /show-in %}}
+| influxdb3 serve option       | Environment variable          |
+| :--------------------------- | :---------------------------- | ------------------------------------- | ---------------- |
+| {{% show-in "core" %}}       | `--parquet-mem-cache-size-mb` | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB` | {{% /show-in %}} |
+| {{% show-in "enterprise" %}} | `--parquet-mem-cache-size`    | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`    | {{% /show-in %}} |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -1329,8 +1342,8 @@ If a query requests data from `2024-06-09` (old) and `2024-06-10 14:00` (recent)
 - **Cached**: Parquet files with data from `2024-06-10 14:00` (within 5-hour window)
 - **Not cached**: Parquet files with data from `2024-06-09` (outside 5-hour window)
 
-| influxdb3 serve option        | Environment variable                  |
-| :---------------------------- | :------------------------------------ |
+| influxdb3 serve option                    | Environment variable                              |
+| :---------------------------------------- | :------------------------------------------------ |
 | `--parquet-mem-cache-query-path-duration` | `INFLUXDB3_PARQUET_MEM_CACHE_QUERY_PATH_DURATION` |
 
 ---
@@ -1347,25 +1360,30 @@ Disables the in-memory Parquet cache. By default, the cache is enabled.
 
 #### table-index-cache-max-entries
 
-Specifies the maximum number of entries in the table index cache.
+Specifies the maximum number of table indices to cache in memory.
+This cache helps manage older snapshot/parquet files for retention purposes and
+improves database startup performance for longer-running databases.
+Set to `0` for unlimited cache size.
 
-**Default:** `1000`
+**Default:** `100`
 
-| influxdb3 serve option            | Environment variable                          |
-| :--------------------------------- | :-------------------------------------------- |
-| `--table-index-cache-max-entries`  | `INFLUXDB3_TABLE_INDEX_CACHE_MAX_ENTRIES`    |
+| influxdb3 serve option            | Environment variable                      |
+| :-------------------------------- | :---------------------------------------- |
+| `--table-index-cache-max-entries` | `INFLUXDB3_TABLE_INDEX_CACHE_MAX_ENTRIES` |
 
 ---
 
 #### table-index-cache-concurrency-limit
 
-Limits the concurrency level for table index cache operations.
+Limits the maximum number of concurrent operations between the table index cache and object store.
+This setting controls how many parallel requests can be made to object storage
+when loading or updating table indices.
 
-**Default:** `8`
+**Default:** `20`
 
-| influxdb3 serve option                   | Environment variable                               |
-| :---------------------------------------- | :------------------------------------------------- |
-| `--table-index-cache-concurrency-limit`  | `INFLUXDB3_TABLE_INDEX_CACHE_CONCURRENCY_LIMIT`   |
+| influxdb3 serve option                  | Environment variable                            |
+| :-------------------------------------- | :---------------------------------------------- |
+| `--table-index-cache-concurrency-limit` | `INFLUXDB3_TABLE_INDEX_CACHE_CONCURRENCY_LIMIT` |
 
 {{% show-in "enterprise" %}}
 
@@ -1376,9 +1394,9 @@ Limits the concurrency level for table index cache operations.
 Disables populating the last-N-value cache from historical data.
 If disabled, the cache is still populated with data from the write-ahead log (WAL).
 
-| influxdb3 serve option                    | Environment variable                                        |
-| :---------------------------------------- | :---------------------------------------------------------- |
-| `--last-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY`|
+| influxdb3 serve option                    | Environment variable                                         |
+| :---------------------------------------- | :----------------------------------------------------------- |
+| `--last-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_LAST_VALUE_CACHE_DISABLE_FROM_HISTORY` |
 
 {{% /show-in %}}
 
@@ -1395,18 +1413,16 @@ expressed as a human-readable duration--for example: `20s`, `1m`, `1h`.
 | :------------------------------- | :--------------------------------------- |
 | `--last-cache-eviction-interval` | `INFLUXDB3_LAST_CACHE_EVICTION_INTERVAL` |
 
-
-{{% show-in "enterprise" %}}
----
+## {{% show-in "enterprise" %}}
 
 #### distinct-value-cache-disable-from-history
 
 Disables populating the distinct value cache from historical data.
 If disabled, the cache is still populated with data from the write-ahead log (WAL).
 
-| influxdb3 serve option                        | Environment variable                                            |
-| :-------------------------------------------- | :-------------------------------------------------------------- |
-| `--distinct-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY`|
+| influxdb3 serve option                        | Environment variable                                             |
+| :-------------------------------------------- | :--------------------------------------------------------------- |
+| `--distinct-value-cache-disable-from-history` | `INFLUXDB3_ENTERPRISE_DISTINCT_VALUE_CACHE_DISABLE_FROM_HISTORY` |
 
 {{% /show-in %}}
 
@@ -1454,7 +1470,7 @@ the following side-effects:
 > that accesses an hour or more of data, [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
 > optimizes data storage by compacting and rearranging Parquet files to achieve
 > faster query performance.
-{{% /show-in %}}
+> {{% /show-in %}}
 
 | influxdb3 serve option | Environment variable         |
 | :--------------------- | :--------------------------- |
@@ -1483,9 +1499,9 @@ Specifies the local directory that contains Python plugins and their test files.
 Specifies the location of the Python virtual environment that the processing
 engine uses.
 
-| influxdb3 serve option   | Environment variable   |
-| :----------------------- | :--------------------- |
-| `--virtual-env-location` | `VIRTUAL_ENV`          |
+| influxdb3 serve option   | Environment variable |
+| :----------------------- | :------------------- |
+| `--virtual-env-location` | `VIRTUAL_ENV`        |
 
 ---
 
@@ -1521,9 +1537,9 @@ Specifies the interval at which data replication occurs between cluster nodes.
 
 **Default:** `250ms`
 
-| influxdb3 serve option     | Environment variable                         |
-| :------------------------- | :------------------------------------------- |
-| `--replication-interval`   | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
+| influxdb3 serve option   | Environment variable                        |
+| :----------------------- | :------------------------------------------ |
+| `--replication-interval` | `INFLUXDB3_ENTERPRISE_REPLICATION_INTERVAL` |
 
 ---
 
@@ -1533,9 +1549,9 @@ Defines how often the catalog synchronizes across cluster nodes.
 
 **Default:** `10s`
 
-| influxdb3 serve option      | Environment variable                        |
-| :--------------------------- | :------------------------------------------ |
-| `--catalog-sync-interval`    | `INFLUXDB3_ENTERPRISE_CATALOG_SYNC_INTERVAL`|
+| influxdb3 serve option    | Environment variable                         |
+| :------------------------ | :------------------------------------------- |
+| `--catalog-sync-interval` | `INFLUXDB3_ENTERPRISE_CATALOG_SYNC_INTERVAL` |
 
 ---
 
@@ -1545,14 +1561,13 @@ Specifies how long to wait for a running ingestor during startup.
 
 **Default:** `10s`
 
-| influxdb3 serve option          | Environment variable                              |
-| :------------------------------- | :------------------------------------------------ |
-| `--wait-for-running-ingestor`    | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` |
+| influxdb3 serve option        | Environment variable                             |
+| :---------------------------- | :----------------------------------------------- |
+| `--wait-for-running-ingestor` | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` |
 
 ---
 
 ### Resource Limits
-
 
 - [num-cores](#num-cores)
 - [num-database-limit](#num-database-limit)
@@ -1562,21 +1577,23 @@ Specifies how long to wait for a running ingestor during startup.
 #### num-cores
 
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
-When specified, InfluxDB automatically assigns the number of DataFusion threads and IO threads based on the core count.
+When specified, {{% product-name %}} automatically assigns the number of DataFusion threads and IO threads based on the core count.
 
 **Thread assignment logic:**
+
 - **1-2 cores**: 1 IO thread, 1 DataFusion thread
-- **3 cores**: 1 IO thread, 2 DataFusion threads  
+- **3 cores**: 1 IO thread, 2 DataFusion threads
 - **4+ cores**: 2 IO threads, (n-2) DataFusion threads
 
 **Constraints:**
+
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
 - Total thread count from other thread options cannot exceed the `num-cores` value
 
-| influxdb3 serve option | Environment variable              |
-| :--------------------- | :-------------------------------- |
-| `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES`  |
+| influxdb3 serve option | Environment variable             |
+| :--------------------- | :------------------------------- |
+| `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES` |
 
 ---
 
@@ -1584,9 +1601,9 @@ When specified, InfluxDB automatically assigns the number of DataFusion threads 
 
 Sets the maximum number of databases that can be created.
 
-| influxdb3 serve option    | Environment variable                      |
-| :------------------------ | :---------------------------------------- |
-| `--num-database-limit`    | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
+| influxdb3 serve option | Environment variable                      |
+| :--------------------- | :---------------------------------------- |
+| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
 
 ---
 
@@ -1595,8 +1612,8 @@ Sets the maximum number of databases that can be created.
 Defines the maximum number of tables that can be created across all databases.
 
 | influxdb3 serve option | Environment variable                   |
-| :---------------------- | :------------------------------------- |
-| `--num-table-limit`     | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
+| :--------------------- | :------------------------------------- |
+| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
 
 ---
 
@@ -1604,9 +1621,9 @@ Defines the maximum number of tables that can be created across all databases.
 
 Sets the maximum number of columns allowed per table.
 
-| influxdb3 serve option                  | Environment variable                                        |
-| :--------------------------------------- | :---------------------------------------------------------- |
-| `--num-total-columns-per-table-limit`   | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT`   |
+| influxdb3 serve option                | Environment variable                                     |
+| :------------------------------------ | :------------------------------------------------------- |
+| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
 
 {{% /show-in %}}
 
@@ -1625,9 +1642,9 @@ Specifies how far back to look when creating generation 1 Parquet files.
 
 **Default:** `24h`
 
-| influxdb3 serve option       | Environment variable                    |
-| :---------------------------- | :-------------------------------------- |
-| `--gen1-lookback-duration`    | `INFLUXDB3_GEN1_LOOKBACK_DURATION`     |
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--gen1-lookback-duration` | `INFLUXDB3_GEN1_LOOKBACK_DURATION` |
 
 ---
 
@@ -1637,9 +1654,9 @@ Defines how often the system checks for data that should be deleted according to
 
 **Default:** `1h`
 
-| influxdb3 serve option        | Environment variable                     |
-| :----------------------------- | :--------------------------------------- |
-| `--retention-check-interval`   | `INFLUXDB3_RETENTION_CHECK_INTERVAL`    |
+| influxdb3 serve option       | Environment variable                 |
+| :--------------------------- | :----------------------------------- |
+| `--retention-check-interval` | `INFLUXDB3_RETENTION_CHECK_INTERVAL` |
 
 ---
 
@@ -1649,9 +1666,9 @@ Specifies the grace period before permanently deleting data.
 
 **Default:** `24h`
 
-| influxdb3 serve option   | Environment variable               |
-| :------------------------ | :--------------------------------- |
-| `--delete-grace-period`   | `INFLUXDB3_DELETE_GRACE_PERIOD`   |
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--delete-grace-period` | `INFLUXDB3_DELETE_GRACE_PERIOD` |
 
 ---
 
@@ -1661,9 +1678,9 @@ Sets the default duration for hard deletion of data.
 
 **Default:** `90d`
 
-| influxdb3 serve option             | Environment variable                          |
-| :---------------------------------- | :-------------------------------------------- |
-| `--hard-delete-default-duration`   | `INFLUXDB3_HARD_DELETE_DEFAULT_DURATION`     |
+| influxdb3 serve option           | Environment variable                     |
+| :------------------------------- | :--------------------------------------- |
+| `--hard-delete-default-duration` | `INFLUXDB3_HARD_DELETE_DEFAULT_DURATION` |
 
 ---
 
@@ -1678,9 +1695,9 @@ Disables the upload of telemetry data to InfluxData.
 
 **Default:** `false`
 
-| influxdb3 serve option       | Environment variable                    |
-| :---------------------------- | :-------------------------------------- |
-| `--telemetry-disable-upload`  | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD`   |
+| influxdb3 serve option       | Environment variable                 |
+| :--------------------------- | :----------------------------------- |
+| `--telemetry-disable-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
 
 ---
 
@@ -1688,9 +1705,9 @@ Disables the upload of telemetry data to InfluxData.
 
 Specifies the endpoint for telemetry data uploads.
 
-| influxdb3 serve option  | Environment variable               |
-| :----------------------- | :--------------------------------- |
-| `--telemetry-endpoint`   | `INFLUXDB3_TELEMETRY_ENDPOINT`     |
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--telemetry-endpoint` | `INFLUXDB3_TELEMETRY_ENDPOINT` |
 
 ---
 
@@ -1703,9 +1720,9 @@ Specifies the endpoint for telemetry data uploads.
 
 Specifies the file path for the TCP listener configuration.
 
-| influxdb3 serve option     | Environment variable                 |
-| :-------------------------- | :----------------------------------- |
-| `--tcp-listener-file-path`  | `INFLUXDB3_TCP_LISTINER_FILE_PATH`   |
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--tcp-listener-file-path` | `INFLUXDB3_TCP_LISTINER_FILE_PATH` |
 
 ---
 
@@ -1713,12 +1730,11 @@ Specifies the file path for the TCP listener configuration.
 
 Specifies the TCP listener file path for admin token recovery operations.
 
-| influxdb3 serve option                         | Environment variable                                      |
-| :---------------------------------------------- | :-------------------------------------------------------- |
-| `--admin-token-recovery-tcp-listener-file-path` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_TCP_LISTENER_FILE_PATH`  |
+| influxdb3 serve option                          | Environment variable                                    |
+| :---------------------------------------------- | :------------------------------------------------------ |
+| `--admin-token-recovery-tcp-listener-file-path` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_TCP_LISTENER_FILE_PATH` |
 
-{{% show-in "enterprise" %}}
----
+## {{% show-in "enterprise" %}}
 
 ### Experimental Features
 
@@ -1733,8 +1749,8 @@ Enables the experimental PachaTree storage engine for improved performance.
 
 **Default:** `false`
 
-| influxdb3 serve option | Environment variable                   |
-| :---------------------- | :------------------------------------- |
-| `--use-pacha-tree`      | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` |
+| influxdb3 serve option | Environment variable                  |
+| :--------------------- | :------------------------------------ |
+| `--use-pacha-tree`     | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` |
 
 {{% /show-in %}}
