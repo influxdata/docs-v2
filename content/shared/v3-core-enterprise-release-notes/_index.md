@@ -5,6 +5,57 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.4.0 {date="2025-08-27"}
+
+### Core
+
+#### Features
+
+- **Token Provisioning**:
+  - 
+- **Azure Endpoint**:
+  - You can now specify the Azure endpoint for object-store connections using the `--azure-endpoint` parameter ([#26687](https://github.com/influxdata/influxdb/pull/26687))
+- **No_Sync via CLI**:
+  - The no_sync option can now be specified with the `--no-sync` parameter via the CLI on write commands ([#26703](https://github.com/influxdata/influxdb/pull/26703))
+  
+#### Bug Fixes
+- Tag and field names are validated when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
+
+
+#### Security & Misc
+- Overly verbose TableIndexCache log is now quiet ([#26709](https://github.com/influxdata/influxdb/pull/26709))
+- WAL replay concurrency limit now defaults to number of CPU cores, preventing possible OOM ([#26715](https://github.com/influxdata/influxdb/issues/26716))
+- Unsafe signal_handler code removed ([#26685](https://github.com/influxdata/influxdb/pull/26685))
+- Python version upgraded to 3.13.7-20250818 ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
+
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+
+
+#### Bug Fixes
+
+
+
+
+**Full Changelog**: https://github.com/influxdata/influxdb/compare/v3.3.0...v3.4.0
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## v3.3.0 {date="2025-07-29"}
 
 ### Core
