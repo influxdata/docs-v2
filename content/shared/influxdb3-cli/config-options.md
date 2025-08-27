@@ -116,7 +116,6 @@ influxdb3 serve
   - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -1080,7 +1079,6 @@ influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
 ### Memory
 
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### exec-mem-pool-bytes
@@ -1095,23 +1093,6 @@ example: `8000000000` or `10%`).
 | influxdb3 serve option  | Environment variable            |
 | :---------------------- | :------------------------------ |
 | `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
-
-{{% show-in "core" %}}
----
-
-#### buffer-mem-limit-mb
-
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
-
-{{% /show-in %}}
 
 ---
 
