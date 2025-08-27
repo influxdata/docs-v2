@@ -46,11 +46,6 @@ influxdb3 serve
   - [node-id](#node-id)
 {{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
   - [object-store](#object-store)
-  - [tls-key](#tls-key)
-  - [tls-cert](#tls-cert)
-  - [tls-minimum-versions](#tls-minimum-version)
-  - [without-auth](#without-auth)
-  - [disable-authz](#disable-authz)
 {{% show-in "enterprise" %}}
   - [num-database-limit](#num-database-limit)
   - [num-table-limit](#num-table-limit)
@@ -59,6 +54,15 @@ influxdb3 serve
   - [license-email](#license-email)
   - [license-file](#license-file)
   - [license-type](#license-type){{% /show-in %}}
+- [Security](#security)
+  - [tls-key](#tls-key)
+  - [tls-cert](#tls-cert)
+  - [tls-minimum-versions](#tls-minimum-version)
+  - [without-auth](#without-auth)
+  - [disable-authz](#disable-authz)
+  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
+  - [admin-token-file](#admin-token-file)
+  {{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}} 
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -113,7 +117,6 @@ influxdb3 serve
 - [HTTP](#http)
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
-  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
@@ -295,60 +298,6 @@ This option supports the following values:
 | :--------------------- | :----------------------- |
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
----
-
-#### tls-key
-
-The path to a key file for TLS to be enabled.
-
-| influxdb3 serve option | Environment variable   |
-| :--------------------- | :--------------------- |
-| `--tls-key`            | `INFLUXDB3_TLS_KEY`    |
-
----
-
-#### tls-cert
-
-The path to a cert file for TLS to be enabled.
-
-| influxdb3 serve option | Environment variable   |
-| :--------------------- | :--------------------- |
-| `--tls-cert`           | `INFLUXDB3_TLS_CERT`   |
-
----
-
-#### tls-minimum-version
-
-The minimum version for TLS. 
-Valid values are `tls-1.2` or `tls-1.3`.
-Default is `tls-1.2`.
-
-| influxdb3 serve option  | Environment variable     |
-| :---------------------- | :----------------------- |
-| `--tls-minimum-version` | `INFLUXDB3_TLS_MINIMUM_VERSION` |
-
----
-
-#### without-auth
-
-Disables authentication for all server actions (CLI commands and API requests).
-The server processes all requests without requiring tokens or authentication.
-
-| influxdb3 serve option | Environment variable          |
-| :--------------------- | :---------------------------- |
-| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH`|
-
----
-
-#### disable-authz
-
-Optionally disable authz by passing in a comma separated list of resources. 
-Valid values are `health`, `ping`, and `metrics`.
-
-| influxdb3 serve option | Environment variable      |
-| :--------------------- | :------------------------ |
-| `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
-
 {{% show-in "enterprise" %}}
 ---
 
@@ -425,6 +374,232 @@ interactive license prompt. Provide one of the following license types:
 | influxdb3 serve option | Environment variable                 |
 | :--------------------- | :----------------------------------- |
 | `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
+
+### Security
+
+- [tls-key](#tls-key)
+- [tls-cert](#tls-cert)
+- [tls-minimum-versions](#tls-minimum-version)
+- [without-auth](#without-auth)
+- [disable-authz](#disable-authz)
+- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
+- [admin-token-file](#admin-token-file)
+{{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}}
+
+#### tls-key
+
+The path to a key file for TLS to be enabled.
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--tls-key`            | `INFLUXDB3_TLS_KEY`    |
+
+---
+
+#### tls-cert
+
+The path to a cert file for TLS to be enabled.
+
+| influxdb3 serve option | Environment variable   |
+| :--------------------- | :--------------------- |
+| `--tls-cert`           | `INFLUXDB3_TLS_CERT`   |
+
+---
+
+#### tls-minimum-version
+
+The minimum version for TLS. 
+Valid values are `tls-1.2` or `tls-1.3`.
+Default is `tls-1.2`.
+
+| influxdb3 serve option  | Environment variable     |
+| :---------------------- | :----------------------- |
+| `--tls-minimum-version` | `INFLUXDB3_TLS_MINIMUM_VERSION` |
+
+---
+
+#### without-auth
+
+Disables authentication for all server actions (CLI commands and API requests).
+The server processes all requests without requiring tokens or authentication.
+
+| influxdb3 serve option | Environment variable          |
+| :--------------------- | :---------------------------- |
+| `--without-auth`       | `INFLUXDB3_START_WITHOUT_AUTH`|
+
+---
+
+#### disable-authz
+
+Optionally disable authz by passing in a comma separated list of resources. 
+Valid values are `health`, `ping`, and `metrics`.
+
+| influxdb3 serve option | Environment variable      |
+| :--------------------- | :------------------------ |
+| `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
+
+---
+
+#### admin-token-recovery-http-bind
+
+Enables an admin token recovery HTTP server on a separate port.
+This server allows regenerating lost admin tokens without existing authentication.
+The server automatically shuts down after a successful token regeneration.
+
+> [!Warning]
+> This option creates an unauthenticated endpoint that can regenerate admin tokens.
+> Only use this when you have lost access to your admin token and ensure the
+> server is only accessible from trusted networks.
+
+**Default:** `127.0.0.1:8182` (when enabled)
+
+| influxdb3 serve option             | Environment variable                       |
+| :--------------------------------- | :----------------------------------------- |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+
+##### Example usage
+
+```bash
+# Start server with recovery endpoint
+influxdb3 serve --admin-token-recovery-http-bind
+
+# In another terminal, regenerate the admin token
+influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
+```
+
+---
+
+#### admin-token-file
+
+Specifies an offline admin token file to use if no tokens exist when the server
+starts. Once started, you can interact with the server using the provided token.
+Offline admin tokens are designed to help with automated deployments.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--admin-token-file`   | `INFLUXDB3_ADMIN_TOKEN_FILE` |
+
+Offline admin tokens are defined in a JSON-formatted file.
+Use the following command to generate an offline admin token file:
+
+<!-- pytest.mark.skip -->
+```bash { placeholders="./path/to/admin-token.json" }
+influxdb3 create token \
+  --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline admin token file" %}}
+```json
+{
+  "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+  "name": "example-admin-token",
+  "expiry_millis": 1756400061529
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/admin-token.json" }
+# Generate and admin token offline
+influxdb3 create token \
+  --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --admin-token-file ./path/to/admin-token.json
+```
+
+---
+
+{{% show-in "enterprise" %}}
+#### permission-tokens-file
+
+Specifies an offline permission (resource) tokens file to use if no resource
+tokens exist when the server starts. Once started, you can interact with the
+server using the provided tokens. Offline permission tokens are designed to help
+with automated deployments.
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--permission-tokens-file` | `INFLUXDB3_PERMISSION_TOKENS_FILE` |
+
+Multiple tokens with database-level permissions can be defined.
+You can also specify databases to create at startup.
+Use the a command similar to the following to generate an offline permission
+token file:
+
+```bash { placeholders="./path/to/tokens.json" }
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline permission tokens file" %}}
+```json
+{
+  "create_databases": [
+    "db1",
+    "db2"
+  ],
+  "tokens": [
+    {
+      "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+      "name": "example-token",
+      "expiry_millis": 1756400061529,
+      "permissions": [
+        "db:db1,db2:read,write",
+        "db:db3:read"
+      ]
+    }
+  ]
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+> [!Note]
+> If you write a new offline permission token to an existing permission token file,
+> the command appends the new token to the existing output file.
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/tokens.json" }
+# Generate and admin token offline
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --permission-tokens-file ./path/to/tokens.json
+```
 
 ---
 {{% /show-in %}}
@@ -1025,7 +1200,6 @@ Provides custom configuration to DataFusion as a comma-separated list of
 
 - [max-http-request-size](#max-http-request-size)
 - [http-bind](#http-bind)
-- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 
 #### max-http-request-size
 
@@ -1048,31 +1222,6 @@ Defines the address on which InfluxDB serves HTTP API requests.
 | influxdb3 serve option | Environment variable       |
 | :--------------------- | :------------------------- |
 | `--http-bind`          | `INFLUXDB3_HTTP_BIND_ADDR` |
-
----
-
-#### admin-token-recovery-http-bind
-
-Enables an admin token recovery HTTP server on a separate port. This server allows regenerating lost admin tokens without existing authentication. The server automatically shuts down after a successful token regeneration.
-
-> [!Warning]
-> This option creates an unauthenticated endpoint that can regenerate admin tokens. Only use this when you have lost access to your admin token and ensure the server is only accessible from trusted networks.
-
-**Default:** `127.0.0.1:8182` (when enabled)
-
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
-
-##### Example usage
-
-```bash
-# Start server with recovery endpoint
-influxdb3 serve --admin-token-recovery-http-bind
-
-# In another terminal, regenerate the admin token
-influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
-```
 
 ---
 
