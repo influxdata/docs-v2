@@ -21,7 +21,7 @@
   - Use the `--no-sync` option with `influxdb3 write` to skip waiting for WAL persistence on write and immediately return a response to the write request. ([#26703](https://github.com/influxdata/influxdb/pull/26703))
   
 #### Bug Fixes
-- Tag and field names are validated when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
+- Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
 - Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
 #### Security & Misc
