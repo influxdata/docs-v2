@@ -125,7 +125,7 @@ For example, if you "bin" or "window" data into 15-minute intervals, an input ti
 date_bin(interval, expression[, origin_timestamp])
 ```
 
-##### Arguments:
+### Arguments
 
 - **interval**: Bin interval. Supports the following interval units:
 
@@ -197,7 +197,7 @@ date_bin_gapfill(interval, expression[, origin_timestamp])
 > `date_bin_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
 > in the `WHERE` clause.
 
-##### Arguments:
+### Arguments
 
 - **interval**: Bin interval. Supports the following interval units:
 
@@ -375,7 +375,7 @@ UTC offset of the input timestamp.
 date_bin_wallclock(interval, expression[, origin_timestamp])
 ```
 
-##### Arguments:
+### Arguments
 
 - **interval**: Bin interval. Supports the following interval units:
 
@@ -514,7 +514,7 @@ date_bin_wallclock_gapfill(interval, expression[, origin_timestamp])
 > `date_bin_wallclock_gapfill` requires [time bounds](/influxdb/version/query-data/sql/basic-query/#query-data-within-time-boundaries)
 > in the `WHERE` clause.
 
-##### Arguments:
+### Arguments
 
 - **interval**: Bin interval. Supports the following interval units:
 
@@ -690,7 +690,7 @@ Truncates a timestamp value to a specified precision.
 date_trunc(precision, expression) 
 ```
 
-##### Arguments:
+### Arguments
 
 - **precision**: Time precision to truncate to.
   The following precisions are supported:
@@ -778,7 +778,7 @@ Returns the specified part of the date as an integer.
 date_part(part, expression)
 ```
 
-##### Arguments:
+### Arguments
 
 - **part**: Part of the date to return.
   The following date parts are supported:
@@ -844,7 +844,7 @@ Similar to `date_part`, but with different arguments.
 extract(field FROM source)
 ```
 
-##### Arguments
+### Arguments
 
 - **field**: Part or field of the date to return.
   The following date fields are supported:
@@ -894,7 +894,7 @@ When output to Parquet, the raw integer value (for example, `1641042000`) is pre
 from_unixtime(expression)
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Integer expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -930,7 +930,7 @@ Returns a date using the component parts (year, month, day).
 make_date(year, month, day)
 ```
 
-##### Arguments
+### Arguments
 
 - **year**: Year to use when making the date.
   Can be a constant, column or function, and any combination of arithmetic operators.
@@ -1000,7 +1000,7 @@ a [Rust Chrono format string](https://docs.rs/chrono/latest/chrono/format/strfti
 to_char(expression, format)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function that results in a date, time, timestamp or duration.
@@ -1042,7 +1042,7 @@ Numeric values are interpreted as days since the
 to_date(expression[, ..., format_n])
 ```
 
-###### Arguments
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1082,7 +1082,7 @@ like daylight saving time (DST).
 to_local_time(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
@@ -1146,7 +1146,7 @@ and return the corresponding RFC3339 timestamp.
 to_timestamp(expression)
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1177,7 +1177,7 @@ and return the corresponding RFC3339 timestamp.
 to_timestamp_micros(expression[, ..., format_n])
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1223,7 +1223,7 @@ and return the corresponding RFC3339 timestamp.
 to_timestamp_millis(expression[, ..., format_n])
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1271,7 +1271,7 @@ and return the corresponding RFC3339 timestamp.
 to_timestamp_nanos(expression[, ..., format_n])
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1317,7 +1317,7 @@ and return the corresponding RFC3339 timestamp.
 to_timestamp_seconds(expression[, ..., format_n]) 
 ```
 
-##### Arguments:
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1364,7 +1364,7 @@ are provided.
 to_unixtime(expression[, ..., format_n])
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1413,7 +1413,7 @@ Converts a timestamp to a provided timezone. If the second argument is not provi
 tz(time_expression[, timezone])
 ```
 
-##### Arguments
+### Arguments
 
 - **time_expression**: time to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.

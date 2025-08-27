@@ -54,7 +54,7 @@ Returns the ASCII value of the first character in a string.
 ascii(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -95,7 +95,7 @@ Returns the bit length of a string.
 bit_length(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -134,7 +134,7 @@ of the input string.
 btrim(str[, trim_str])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -225,7 +225,7 @@ Concatenates multiple strings together.
 concat(str[, ..., str_n])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to concatenate.
   Can be a constant, column, or function, and any combination of string operators.
@@ -268,7 +268,7 @@ Concatenates multiple strings together with a specified separator.
 concat_ws(separator, str[, ..., str_n])
 ```
 
-##### Arguments
+### Arguments
 
 - **separator**: Separator to insert between concatenated strings.
 - **str**: String expression to concatenate.
@@ -313,7 +313,7 @@ Returns true if a string contains a search string (case-sensitive).
 contains(str, search_str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -327,7 +327,7 @@ Tests if a string ends with a substring.
 ends_with(str, substr)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to test.
   Can be a constant, column, or function, and any combination of string operators.
@@ -365,7 +365,7 @@ Returns 0 if the string is not in the list of substrings.
 find_in_set(str, strlist)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to find in `strlist`.
 - **strlist**: A string containing a comma-delimited list of substrings.
@@ -402,7 +402,7 @@ Words are delimited by non-alphanumeric characters.
 initcap(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -444,7 +444,7 @@ If the substring is not in the string, the function returns 0.
 instr(str, substr)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -484,7 +484,7 @@ Returns a specified number of characters from the left side of a string.
 left(str, n)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -526,7 +526,7 @@ Returns the number of characters in a string.
 length(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -570,7 +570,7 @@ between two strings.
 levenshtein(str1, str2)
 ```
 
-##### Arguments
+### Arguments
 - **str1**: First string expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
 - **str2**: Second string expression to operate on.
@@ -608,7 +608,7 @@ Converts a string to lower-case.
 lower(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -646,7 +646,7 @@ Pads the left side of a string with another string to a specified string length.
 lpad(str, n[, padding_str])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -687,7 +687,7 @@ Removes leading spaces from a string.
 ltrim(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -733,7 +733,7 @@ Returns the length of a string in bytes.
 octet_length(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -772,7 +772,7 @@ position and number of characters to replace.
 overlay(str PLACING substr FROM pos [FOR count])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -814,7 +814,7 @@ Returns the position of a substring in a string.
 position(substr IN str)
 ```
 
-##### Arguments
+### Arguments
 
 - **substr**: Substring expression to search for.
   Can be a constant, column, or function, and any combination of string operators.
@@ -852,7 +852,7 @@ Returns a string with an input string repeated a specified number of times.
 repeat(str, n)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to repeat.
   Can be a constant, column, or function, and any combination of string operators.
@@ -889,7 +889,7 @@ Replaces all occurrences of a specified substring in a string with a new substri
 replace(str, substr, replacement)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to repeat.
   Can be a constant, column, or function, and any combination of string operators.
@@ -926,7 +926,7 @@ Reverses the character order of a string.
 reverse(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to repeat.
   Can be a constant, column, or function, and any combination of string operators.
@@ -959,7 +959,7 @@ Returns a specified number of characters from the right side of a string.
 right(str, n)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -997,7 +997,7 @@ Pads the right side of a string with another string to a specified string length
 rpad(str, n[, padding_str])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1038,7 +1038,7 @@ Removes trailing spaces from a string.
 rtrim(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1081,7 +1081,7 @@ specified position.
 split_part(str, delimiter, pos)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to spit.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1119,7 +1119,7 @@ Tests if a string starts with a substring.
 starts_with(str, substr)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to test.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1159,7 +1159,7 @@ If the substring does not exist in the string, the function returns 0.
 strpos(str, substr)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1195,7 +1195,7 @@ starting position in a string.
 substr(str, start_pos[, length])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1237,7 +1237,7 @@ final delimiter (counting from the right).
 substr_index(str, delimiter, count)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1321,7 +1321,7 @@ Converts an integer to a hexadecimal string.
 to_hex(int)
 ```
 
-##### Arguments
+### Arguments
 
 - **int**: Integer expression to convert.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1357,7 +1357,7 @@ Removes leading and trailing spaces from a string.
 trim(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -1399,7 +1399,7 @@ Converts a string to upper-case.
 upper(str)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.

@@ -8,11 +8,12 @@ menu:
   influxdb3_cloud_dedicated:
     name: Window
     parent: sql-functions
-weight: 309
+weight: 311
 
 source: /shared/sql-reference/functions/window.md
 ---
 
 <!--
-The content for this page is at content/shared/sql-reference/functions/window.md
+The content for this page is at
+// SOURCE content/shared/sql-reference/functions/window.md
 -->
