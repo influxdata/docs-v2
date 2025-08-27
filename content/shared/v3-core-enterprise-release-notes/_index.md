@@ -39,7 +39,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 #### Features
 
 - **Token Provisioning**:
-  - In addition to admin token, you can now generate resource tokens offline that can then be loaded up by the database at runtime.
+  - Generate _resource_ and _admin_ tokens offline and use them when starting the database.
 
 - It's now possible to select a home or trial license without using an interactive terminal. Add a `--license-type` [home | trial | commercial] argument to the `serve` command to automate the selection of the license type.
 
