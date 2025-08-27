@@ -25,11 +25,11 @@
 - Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
 #### Security & Misc
-- Overly verbose TableIndexCache log is now quiet ([#26709](https://github.com/influxdata/influxdb/pull/26709))
-- WAL replay concurrency limit now defaults to number of CPU cores, preventing possible OOM ([#26715](https://github.com/influxdata/influxdb/issues/26716))
-- Unsafe signal_handler code removed ([#26685](https://github.com/influxdata/influxdb/pull/26685))
-- Python version upgraded to 3.13.7-20250818 ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
-- Fixed an issue where tags with / in the name broke the primary key
+- Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
+- WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/issues/26716))
+- Remove unsafe signal_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
+- Upgrade Python version to 3.13.7-20250818. ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
+- Tags with `/` in the name no longer break the primary key.
 
 
 ### Enterprise
