@@ -35,7 +35,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.1.0
+  latest_patch: 1.2.0
   placeholder_host: localhost:8888
   ai_sample_questions:
     - How do I query data using InfluxDB 3 Explorer?
