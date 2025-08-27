@@ -46,7 +46,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Bug Fixes
 
-- Fixed an issue causing the Processing Engine to be initialized regardless of the specified `--mode`.
+- Don't initialize the Processing Engine when the specified `--mode` does not require it.
 - Don't panic when `INFLUXDB3_PLUGIN_DIR` is set in containers without the Processing Engine enabled.
 
 
