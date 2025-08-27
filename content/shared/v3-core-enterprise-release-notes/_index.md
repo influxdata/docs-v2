@@ -18,7 +18,7 @@
 - **Azure Endpoint**:
   - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
 - **No_Sync via CLI**:
-  - The no_sync option can now be specified with the `--no-sync` parameter via the CLI on write commands ([#26703](https://github.com/influxdata/influxdb/pull/26703))
+  - Use the `--no-sync` option with `influxdb3 write` to skip waiting for WAL persistence on write and immediately return a response to the write request. ([#26703](https://github.com/influxdata/influxdb/pull/26703))
   
 #### Bug Fixes
 - Tag and field names are validated when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
