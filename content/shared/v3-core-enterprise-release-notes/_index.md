@@ -13,7 +13,7 @@
 
 - **Token Provisioning**:
   - Generate admin tokens offline and use them when starting the database if tokens do not already exist.
-    This is meant for for automated deployments and containerized environments.
+    This is meant for automated deployments and containerized environments.
     ([#26734](https://github.com/influxdata/influxdb/pull/26734))
 - **Azure Endpoint**:
   - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
@@ -26,7 +26,7 @@
 
 #### Security & Misc
 - Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
-- WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/issues/26716))
+- WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
 - Remove unsafe signal_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
 - Upgrade Python version to 3.13.7-20250818. ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
 - Tags with `/` in the name no longer break the primary key.
