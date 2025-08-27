@@ -16,7 +16,7 @@
     This is meant for for automated deployments and containerized environments.
     ([#26734](https://github.com/influxdata/influxdb/pull/26734))
 - **Azure Endpoint**:
-  - You can now specify the Azure endpoint for object-store connections using the `--azure-endpoint` parameter ([#26687](https://github.com/influxdata/influxdb/pull/26687))
+  - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
 - **No_Sync via CLI**:
   - The no_sync option can now be specified with the `--no-sync` parameter via the CLI on write commands ([#26703](https://github.com/influxdata/influxdb/pull/26703))
   
