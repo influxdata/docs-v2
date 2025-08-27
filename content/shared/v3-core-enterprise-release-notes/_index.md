@@ -12,7 +12,7 @@
 #### Features
 
 - **Token Provisioning**:
-  - 
+  - You can now generate admin tokens offline that can then be loaded up by the database at runtime if the tokens do not already exist, which works great for automated deployments and containerized environments. ([#26734](https://github.com/influxdata/influxdb/pull/26734))
 - **Azure Endpoint**:
   - You can now specify the Azure endpoint for object-store connections using the `--azure-endpoint` parameter ([#26687](https://github.com/influxdata/influxdb/pull/26687))
 - **No_Sync via CLI**:
@@ -20,13 +20,14 @@
   
 #### Bug Fixes
 - Tag and field names are validated when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
-
+- Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
 #### Security & Misc
 - Overly verbose TableIndexCache log is now quiet ([#26709](https://github.com/influxdata/influxdb/pull/26709))
 - WAL replay concurrency limit now defaults to number of CPU cores, preventing possible OOM ([#26715](https://github.com/influxdata/influxdb/issues/26716))
 - Unsafe signal_handler code removed ([#26685](https://github.com/influxdata/influxdb/pull/26685))
 - Python version upgraded to 3.13.7-20250818 ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
+- Fixed an issue where tags with / in the name broke the primary key
 
 
 ### Enterprise
@@ -35,24 +36,15 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Features
 
+- **Token Provisioning**:
+  - In addition to admin token, you can now generate resource tokens offline that can then be loaded up by the database at runtime.
 
+- It's now possible to select a home or trial license without using an interactive terminal. Add a `--license-type` [home | trial | commercial] argument to the `serve` command to automate the selection of the license type.
 
 #### Bug Fixes
 
-
-
-
-**Full Changelog**: https://github.com/influxdata/influxdb/compare/v3.3.0...v3.4.0
-
-
-
-
-
-
-
-
-
-
+- Fixed an issue causing the Processing Engine to be initialized regardless of the specified `--mode`.
+- Fixed a panic when `INFLUXDB3_PLUGIN_DIR` was set in containers without the Processing Engine enabled
 
 
 
