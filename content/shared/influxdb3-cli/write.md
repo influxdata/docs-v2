@@ -178,6 +178,7 @@ types of write errors--for example: malformed line protocol or type conflicts.
 > [!Tip]
 > Only use `--no-sync` when low write latency is more important than guaranteed data durability.
 > Avoid using this option for critical or irreplaceable data, as it increases the risk of silent data loss.
+
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
