@@ -12,7 +12,9 @@
 #### Features
 
 - **Token Provisioning**:
-  - You can now generate admin tokens offline that can then be loaded up by the database at runtime if the tokens do not already exist, which works great for automated deployments and containerized environments. ([#26734](https://github.com/influxdata/influxdb/pull/26734))
+  - Generate admin tokens offline and use them when starting the database if tokens do not already exist.
+    This is meant for for automated deployments and containerized environments.
+    ([#26734](https://github.com/influxdata/influxdb/pull/26734))
 - **Azure Endpoint**:
   - You can now specify the Azure endpoint for object-store connections using the `--azure-endpoint` parameter ([#26687](https://github.com/influxdata/influxdb/pull/26687))
 - **No_Sync via CLI**:
