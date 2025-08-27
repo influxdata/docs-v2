@@ -41,7 +41,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **Token Provisioning**:
   - Generate _resource_ and _admin_ tokens offline and use them when starting the database.
 
-- It's now possible to select a home or trial license without using an interactive terminal. Add a `--license-type` [home | trial | commercial] argument to the `serve` command to automate the selection of the license type.
+- Select a home or trial license without using an interactive terminal.
+  Use `--license-type` [home | trial | commercial] option to the `influxdb3 serve` command to automate the selection of the license type.
 
 #### Bug Fixes
 
