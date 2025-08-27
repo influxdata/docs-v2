@@ -42,9 +42,7 @@ influxdb3 serve
 - [General](#general)
 {{% show-in "enterprise" %}}  - [cluster-id](#cluster-id){{% /show-in %}}
   - [data-dir](#data-dir)
-{{% show-in "enterprise" %}}  - [license-email](#license-email)
-  - [license-file](#license-file)
-  - [mode](#mode){{% /show-in %}}
+{{% show-in "enterprise" %}}  - [mode](#mode){{% /show-in %}}
   - [node-id](#node-id)
 {{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
   - [object-store](#object-store)
@@ -56,7 +54,11 @@ influxdb3 serve
 {{% show-in "enterprise" %}}
   - [num-database-limit](#num-database-limit)
   - [num-table-limit](#num-table-limit)
-  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit){{% /show-in %}}
+  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
+- [Licensing](#licensing)
+  - [license-email](#license-email)
+  - [license-file](#license-file)
+  - [license-type](#license-type){{% /show-in %}}
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -65,11 +67,14 @@ influxdb3 serve
   - [aws-session-token](#aws-session-token)
   - [aws-allow-http](#aws-allow-http)
   - [aws-skip-signature](#aws-skip-signature)
+  - [aws-credentials-file](#aws-credentials-file)
 - [Google Cloud Service](#google-cloud-service)
   - [google-service-account](#google-service-account)
 - [Microsoft Azure](#microsoft-azure)
   - [azure-storage-account](#azure-storage-account)
   - [azure-storage-access-key](#azure-storage-access-key)
+  - [azure-endpoint](#azure-endpoint)
+  - [azure-allow-http](#azure-allow-http)
 - [Object Storage](#object-storage)
   - [bucket](#bucket)
   - [object-store-connection-limit](#object-store-connection-limit)
@@ -181,8 +186,6 @@ influxdb3 serve
 {{% /show-in %}}
 - [data-dir](#data-dir)
 {{% show-in "enterprise" %}}
-- [license-email](#license-email)
-- [license-file](#license-file)
 - [mode](#mode)
 {{% /show-in %}}
 - [node-id](#node-id)
@@ -217,30 +220,6 @@ Required when using the `file` [object store](#object-store).
 ---
 
 {{% show-in "enterprise" %}}
-#### license-email
-
-Specifies the email address to associate with your {{< product-name >}} license
-and automatically responds to the interactive email prompt when the server starts.
-This option is mutually exclusive with [license-file](#license-file).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
-
----
-
-#### license-file
-
-Specifies the path to a license file for {{< product-name >}}. When provided, the license
-file's contents are used instead of requesting a new license.
-This option is mutually exclusive with [license-email](#license-email).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
-
----
-
 #### mode
 
 Sets the mode to start the server in.
@@ -273,6 +252,8 @@ configuration--for example, the same bucket.
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
 
 {{% show-in "enterprise" %}}
 #### node-id-from-env
@@ -402,7 +383,51 @@ Default is {{% influxdb3/limit "column" %}}.
 | :------------------------------------ | :------------------------------------------------------- |
 | `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
 {{% /show-in %}}
+
 ---
+
+{{% show-in "enterprise" %}}
+### Licensing
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+
+---
+
+#### license-type
+
+Specifies the type of {{% product-name %}} license to use and bypasses the
+interactive license prompt. Provide one of the following license types:
+
+- `home`
+- `trial`
+- `commercial`
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
 
 ### AWS
 
@@ -413,6 +438,7 @@ Default is {{% influxdb3/limit "column" %}}.
 - [aws-session-token](#aws-session-token)
 - [aws-allow-http](#aws-allow-http)
 - [aws-skip-signature](#aws-skip-signature)
+- [aws-credentials-file](#aws-credentials-file)
 
 #### aws-access-key-id
 
@@ -490,6 +516,37 @@ If enabled, S3 object stores do not fetch credentials and do not sign requests.
 
 ---
 
+#### aws-credentials-file
+
+Specifies the path to your S3 credentials file.
+When using a credentials file, settings in the file override the corresponding
+CLI flags.
+
+S3 credential files are JSON-formatted and should contain the following:
+
+```json { placeholders="AWS_(ACCESS_KEY_ID|SECRET_ACCESS_KEY|SESSION_TOKEN)|UNIX_SECONDS_TIMESTAMP" }
+{
+  "aws_access_key_id": "AWS_ACCESS_KEY_ID",
+  "aws_secret_access_key": "AWS_SECRET_ACCESS_KEY",
+  "aws_session_token": "AWS_SESSION_TOKEN",
+  "expiry": "UNIX_SECONDS_TIMESTAMP"
+}
+```
+
+The `aws_session_token` and `expiry` fields are optional.
+The file is automatically checked for updates at the expiry time or at 1-hour
+intervals.
+
+If the object store returns an "Unauthenticated" error, InfluxDB will attempt to
+update its in-memory credentials from this file and then retry the object store
+request.
+
+| influxdb3 serve option   | Environment variable   |
+| :----------------------- | :--------------------- |
+| `--aws-credentials-file` | `AWS_CREDENTIALS_FILE` |
+
+---
+
 ### Google Cloud Service
 
 - [google-service-account](#google-service-account)
@@ -509,6 +566,8 @@ JSON file that contains the Google credentials.
 
 - [azure-storage-account](#azure-storage-account)
 - [azure-storage-access-key](#azure-storage-access-key)
+- [azure-endpoint](#azure-endpoint)
+- [azure-allow-http](#azure-allow-http)
 
 #### azure-storage-account
 
@@ -529,6 +588,30 @@ values in the Storage account's **Settings > Access keys**.
 | influxdb3 serve option       | Environment variable       |
 | :--------------------------- | :------------------------- |
 | `--azure-storage-access-key` | `AZURE_STORAGE_ACCESS_KEY` |
+
+---
+
+#### azure-endpoint
+
+When using Microsoft Azure as the object store, set this to the Azure Blob
+Storage endpoint.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-endpoint`     | `AZURE_ENDPOINT`     |
+
+---
+
+#### azure-allow-http
+
+When using Microsoft Azure as the object store, allow unencrypted HTTP requests
+to Azure Blob Storage.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-allow-http`   | `AZURE_ALLOW_HTTP`   |
 
 ---
 
