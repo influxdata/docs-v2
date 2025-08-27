@@ -169,12 +169,15 @@ home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
 ### Write line protocol and immediately return a response
 
 By default, {{% product-name %}} waits to respond to write requests until the
-written data is flush from the Write-Ahead Log (WAL) to object storage
+written data is flushed from the Write-Ahead Log (WAL) to object storage
 (every 1s by default).
 Use the `--no-sync` option to immediately return a response without waiting for
-the WAL to flush. This improves perceived write response times, but hides any
-potential write errors.
+the WAL to flush. This improves perceived write response times, but may hide certain
+types of write errors--for example: malformed line protocol or type conflicts.
 
+> [!Tip]
+> Only use `--no-sync` when low write latency is more important than guaranteed data durability.
+> Avoid using this option for critical or irreplaceable data, as it increases the risk of silent data loss.
 ```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
