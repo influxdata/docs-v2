@@ -604,6 +604,49 @@ influxdb3 serve --permission-tokens-file ./path/to/tokens.json
 ---
 {{% /show-in %}}
 
+{{% show-in "enterprise" %}}
+### Licensing
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+
+---
+
+#### license-type
+
+Specifies the type of {{% product-name %}} license to use and bypasses the
+interactive license prompt. Provide one of the following license types:
+
+- `home`
+- `trial`
+- `commercial`
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
+
 ### AWS
 
 - [aws-access-key-id](#aws-access-key-id)
