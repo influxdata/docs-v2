@@ -76,6 +76,7 @@ influxdb3 create token \
 > - Use a cryptographically secure pseudorandom number generator.
 > - Ensure sufficient length and entropy. Generate and base64-encode a random
 >   string of at least 16 bytes (128 bits).
+> - Prepend the generated string with `apiv3_` for InfluxDB compatibility.
 
 > [!Important]
 > #### Token file permissions
