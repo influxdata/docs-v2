@@ -10,6 +10,7 @@ weight: 201
 influxdb3/enterprise/tags: [cache]
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/create/distinct_cache/
+  - /influxdb3/explorer/manage-caches/distinct-value-caches/
 list_code_example: |
   {{% show-in "core" %}}
   <!--pytest.mark.skip-->
