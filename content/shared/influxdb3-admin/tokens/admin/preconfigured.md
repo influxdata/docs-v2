@@ -42,6 +42,15 @@ influxdb3 create token --admin \
 > offline admin token files easy, but it is not required.
 > You can also write or generate your own admin token files using the
 > [required JSON schema](#offline-admin-token-file-schema).
+>
+> ##### Token string security standards
+>
+> If writing or generating your own admin token file, ensure that the token
+> string is sufficiently secure. We recommend the following:
+>
+> - Use a cryptographically secure pseudorandom number generator.
+> - Ensure sufficient length and entropy. Generate and base64-encode a random
+>   string of at least 16 bytes (128 bits).
 
 > [!Important]
 > #### Token file permissions

@@ -67,6 +67,15 @@ influxdb3 create token \
 > offline permission tokens file easy, but it is not required.
 > You can write or generate your own permission tokens file using the
 > [required JSON schema](#offline-permission-tokens-file-schema).
+>
+> ##### Token string security standards
+>
+> If writing or generating your own permission tokens file, ensure that token
+> strings are sufficiently secure. We recommend the following:
+>
+> - Use a cryptographically secure pseudorandom number generator.
+> - Ensure sufficient length and entropy. Generate and base64-encode a random
+>   string of at least 16 bytes (128 bits).
 
 > [!Important]
 > #### Token file permissions
