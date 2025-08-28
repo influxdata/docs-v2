@@ -39,15 +39,14 @@ On the **Distinct Value Cache management page**:
 1.  Click **+ Create Cache**.
 2.  Provide the following:
 
-    - **Cache name**: A unique for the cache.
+    - **Cache name**: A unique name for the cache.
     - **Database**: The database the cache is associated with.
     - **Table**: The target table for the cache. As data is written to the table,
       it populates the cache.
       _You must select a database before you can select a table._
     - **Column names**: Select columns to cache distinct values from.
       These are typically InfluxDB tags, but you can also use fields.
-    - **Max Cardinality**: Specify the maximum number of distinct value
-      combinations to cache. Once exceed, InfluxDB drops the oldest cached
+      combinations to cache. Once this limit is exceeded, InfluxDB drops the oldest cached
       distinct values.
     - **Max Age**: Specify the maximum age of cached values as a duration in
       [humantime](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)

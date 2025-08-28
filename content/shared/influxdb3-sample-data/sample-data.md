@@ -167,7 +167,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-```bash  { placeholders="AUTH_TOKEN|DATABASE_NAME" }
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \

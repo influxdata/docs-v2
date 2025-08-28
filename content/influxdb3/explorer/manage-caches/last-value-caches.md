@@ -37,7 +37,7 @@ On the **Last Value Cache management page**:
 1.  Click **+ Create Cache**.
 2.  Provide the following:
 
-    - **Cache name**: A unique for the cache.
+    - **Cache name**: A unique name for the cache.
     - **Database**: The database the cache is associated with.
     - **Table**: The target table for the cache. As data is written to the table,
       it populates the cache.
