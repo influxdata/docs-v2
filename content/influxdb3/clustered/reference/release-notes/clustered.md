@@ -71,6 +71,11 @@ spec:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052
 ```
 
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250814-1819052/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250814-1819052/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Bug Fixes
 
 - Fix incorrect service address for tokens in Clustered auth sidecar. If you were overriding the `AUTHZ_TOKEN_SVC_ADDRESS` environment variable in your `AppInstance`, you can now remove that override.
@@ -81,7 +86,7 @@ spec:
 
 #### Database Engine
 
-- Update DataFusion to `48`.
+- Update DataFusion to v48.
 - Tweak compaction to reduce write amplification and querier cache churn in some circumstances.
 
 ---
@@ -212,8 +217,8 @@ spec:
 - Change the default of `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_INTERVAL` from `1h`
   to `4h`.
 - Introduce the following environment variables to help in cases where the
-  object store is large enough that the the garbage collector cannot keep up
-  when cleaning obsolete objects:
+  object store is large enough that the garbage collector cannot keep up when
+  cleaning obsolete objects:
 
   - `INFLUXDB_IOX_GC_PRIMARY_OBJECTSTORE_PARTITIONS`
   - `INFLUXDB_IOX_GC_SECONDARY_OBJECTSTORE_PARTITIONS`
