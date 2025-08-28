@@ -487,8 +487,7 @@ Use the following command to generate an offline admin token file:
 
 <!-- pytest.mark.skip -->
 ```bash { placeholders="./path/to/admin-token.json" }
-influxdb3 create token \
-  --admin \
+influxdb3 create token --admin \
   --name "example-admin-token" \
   --expiry 1d \
   --offline \
@@ -560,7 +559,8 @@ influxdb3 create token \
 {
   "create_databases": [
     "db1",
-    "db2"
+    "db2",
+    "d3"
   ],
   "tokens": [
     {
