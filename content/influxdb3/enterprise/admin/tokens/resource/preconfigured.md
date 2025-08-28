@@ -67,6 +67,8 @@ influxdb3 create token \
 > offline permission tokens file easy, but it is not required.
 > You can write or generate your own permission tokens file using the
 > [required JSON schema](#offline-permission-tokens-file-schema).
+> To ensure that your tokens are secure, we recommend using a strong and 
+> randomized hashing algorithm.
 
 > [!Important]
 > #### Token file permissions

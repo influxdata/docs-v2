@@ -36,12 +36,14 @@ influxdb3 create token --admin \
 ```
 
 > [!Note]
-> #### You can write or generate your own permission tokens file
+> #### You can write or generate your own admin tokens file
 >
 > The `influxdb3 create token --admin --offline` command makes generating
 > offline admin token files easy, but it is not required.
 > You can also write or generate your own admin token files using the
-> [required JSON schema](#offline-admin-token-file-schema).
+> [required JSON schema](#offline-admin-token-file-schema). 
+> To ensure that your tokens are secure, we recommend using a strong and 
+> randomized hashing algorithm.
 
 > [!Important]
 > #### Token file permissions
