@@ -939,6 +939,11 @@ Sets the filter directive for logs.
 
 Specifies the destination for logs.
 
+This option supports the following values:
+
+- `stdout` _(default)_
+- `stderr`
+
 **Default:** `stdout`
 
 | influxdb3 serve option | Environment variable |
