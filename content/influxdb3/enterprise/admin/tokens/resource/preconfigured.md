@@ -8,7 +8,11 @@ menu:
   influxdb3_enterprise:
     parent: Resource tokens
     name: Use preconfigured resource tokens
-weight: 202 
+weight: 202
+related:
+  - /influxdb3/enterprise/admin/tokens/admin/preconfigured/
+  - /influxdb3/enterprise/reference/config-options/#permission-tokens-file, Configuration options > permission-tokens-file
+  - /influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/
 ---
 
 Start {{% product-name %}} with a preconfigured "offline" permission (resource) tokens file.

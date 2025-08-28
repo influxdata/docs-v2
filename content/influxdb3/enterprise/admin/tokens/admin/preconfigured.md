@@ -8,7 +8,11 @@ menu:
   influxdb3_enterprise:
     parent: Admin tokens
     name: Use preconfigured admin token
-weight: 202 
+weight: 202
+related:
+  - /influxdb3/enterprise/admin/tokens/resource/preconfigured/
+  - /influxdb3/enterprise/reference/config-options/#admin-token-file, Configuration options > admin-token-file
+  - /influxdb3/enterprise/reference/cli/influxdb3/create/token/admin/
 source: /shared/influxdb3-admin/tokens/admin/preconfigured.md
 ---
 
