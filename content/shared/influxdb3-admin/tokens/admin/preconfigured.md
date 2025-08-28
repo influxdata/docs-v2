@@ -4,7 +4,7 @@ If no admin tokens already exist, InfluxDB automatically creates an admin token
 using the provided admin token file.
 Offline tokens are designed to help with automated deployments.
 
-- [Generate an offline admin token](#generate-an-offline-admin-token)
+- [Generate an offline admin token file](#generate-an-offline-admin-token-file)
   - [Offline admin token file schema](#offline-admin-token-file-schema)
 - [Start InfluxDB with the preconfigured admin token](#start-influxdb-with-the-preconfigured-admin-token)
 

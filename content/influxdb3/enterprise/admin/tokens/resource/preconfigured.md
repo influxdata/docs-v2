@@ -15,7 +15,11 @@ Start {{% product-name %}} with a preconfigured "offline" permission (resource) 
 If no tokens already exist, InfluxDB automatically creates resource tokens
 specified in the provided permission (resource) tokens file.
 
-### Generate an offline permissions (resource) tokens file
+- [Generate an offline permissions (resource) tokens file](#generate-an-offline-permissions-resource-tokens-file)
+  - [Offline permission tokens file schema](#offline-permission-tokens-file-schema)
+- [Start InfluxDB with the preconfigured permission tokens](#start-influxdb-with-the-preconfigured-permission-tokens)
+
+## Generate an offline permissions (resource) tokens file
 
 Use the `influxdb3 create token` command to generate an offline permission (resource)
 tokens file. You can also specify corresponding databases to create when starting InfluxDB.

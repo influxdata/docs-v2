@@ -56,9 +56,9 @@ The `--permission` option takes a value in the format `RESOURCE_TYPE:RESOURCE_NA
 - [Create a token with access to all databases](#create-a-token-with-access-to-all-databases)
 - [Create a token that expires in seven days](#create-a-token-that-expires-in-seven-days)
 - [Create a system token for health information](#create-a-system-token-for-health-information)
-- [Create a token with access to all system information ](#create-a-token-with-access-to-all-system-information-)
+- [Create a token with access to all system information](#create-a-token-with-access-to-all-system-information)
 - [Create a token with multiple permissions](#create-a-token-with-multiple-permissions)
-- [Generate an offline permissions (resource) token file](#generate-an-offline-permissions-resource-token-file)
+- [Generate an offline permission (resource) tokens file](#generate-an-offline-permission-resource-tokens-file)
 
 ### Create a token with read and write access to a database
 
@@ -126,7 +126,7 @@ influxdb3 create token \
   --name "Multi-permission token"
 ```
 
-### Generate an offline permissions (resource) tokens file
+### Generate an offline permission (resource) tokens file
 
 Generate an offline permission (resource) tokens file to use if no resource
 tokens exist when the server starts. Once started, you can interact with the
@@ -158,7 +158,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`TOKEN_NAME`{{% /code-placeholder-key %}}:
   Name for your offline permission token
 - {{% code-placeholder-key %}}`TOKEN_PERMISSIONS`{{% /code-placeholder-key %}}:
-  [Token permissions](#permissions-format).
+  [Token permissions](#permission-format).
 - {{% code-placeholder-key %}}`DURATION`{{% /code-placeholder-key %}}:
   Duration for the token to remain valid, in
   [humantime](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)
