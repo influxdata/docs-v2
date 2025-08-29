@@ -117,21 +117,13 @@ Click on any invitation in the table to view additional details, including:
 User roles are assigned when sending invitations and cannot currently be changed through the Admin UI. To modify a user's role, [contact InfluxData support](https://support.influxdata.com).
 {{% /note %}}
 
-## Limitations
+## Current limitations
 
-The current Admin UI user management feature has the following limitations:
+Based on the current Admin UI user management feature:
 
-- **Role modification**: User roles cannot be changed after invitation acceptance. Contact support to modify roles.
-- **User deletion**: Users cannot be removed from accounts through the UI. Contact support for user removal.
-- **Post-acceptance management**: After a user accepts an invitation, their role details are not visible in the UI.
+- **Post-acceptance role visibility**: Users cannot see or manage what roles a user has after they have accepted the invite
+- **Role modification**: User roles cannot be changed through the Admin UI after invitation acceptance
+- **User removal**: Users cannot delete accepted users from accounts through the UI
+- **Historical records**: Invitation records remain even after user removal; use `influxctl` list command to confirm current users
 
-### Alternative management methods
-
-For operations not available in the Admin UI:
-
-- **influxctl CLI**: Use the [`influxctl user list`](/influxdb3/cloud-dedicated/reference/cli/influxctl/user/list/) command to view comprehensive user information
-- **Support requests**: Contact [InfluxData support](https://support.influxdata.com) for role changes, user removal, or other advanced user management tasks
-
----
-
-The Admin UI provides essential self-service capabilities for day-to-day user management while InfluxData continues to expand functionality in future releases.
+For operations not available in the Admin UI, contact [InfluxData support](https://support.influxdata.com) for role changes, user removal, or other advanced user management tasks.
