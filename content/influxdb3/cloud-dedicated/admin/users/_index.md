@@ -48,7 +48,7 @@ A user can belong to the following groups, each with predefined privileges:
 
 ## User management methods
 
-Choose the appropriate method for your user managemnt needs:
+Choose the appropriate method for your user management needs:
 
 ### Admin UI (Self-service)
 Use the Admin UI for user management tasks (available to Admin users only):
