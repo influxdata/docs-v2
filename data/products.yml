@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.4.0
+  latest_patch: 1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -21,7 +21,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.4.0
+  latest_patch: 3.4.1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?

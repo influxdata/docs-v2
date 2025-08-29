@@ -5,6 +5,14 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.4.1 {date="2025-08-28"}
+
+### Core
+
+#### Bug Fixes
+- Upgrading from 3.3.0 to 3.4.x no longer causes possible catalog migration issues ([#26756](https://github.com/influxdata/influxdb/pull/26756))
+
+
 ## v3.4.0 {date="2025-08-27"}
 
 ### Core
@@ -68,7 +76,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 #### Bug Fixes
 
 - **Database reliability**:
-  - Fix URL encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
+  - Fix url encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
   - Allow hard deletion of existing soft-deleted schema ([#26574](https://github.com/influxdata/influxdb/pull/26574))
 - **Authentication**: Fix AWS S3 API error handling when tokens are expired ([#1013](https://github.com/influxdata/influxdb/pull/1013))
 - **Query processing**: Set nanosecond precision as default for V1 query API CSV output ([#26577](https://github.com/influxdata/influxdb/pull/26577))
@@ -172,8 +180,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management improvements**: 
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
-   - New CLI commands: `create table --retention-period` and `update table --retention-period`
-   - Set or clear table-specific retention policies independent of database settings
+  - New CLI commands: `create table --retention-period` and `update table --retention-period`
+  - Set or clear table-specific retention policies independent of database settings
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
