@@ -53,8 +53,8 @@ home sensor sample data to {{< product-name >}}.
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
@@ -85,15 +85,13 @@ home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
   --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
@@ -122,15 +120,13 @@ home,room=Kitchen temp=23.1,hum=36.6,co=22i 1735585200
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1735588800
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
   http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -165,15 +161,13 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -207,7 +201,6 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}

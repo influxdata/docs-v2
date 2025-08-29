@@ -12,6 +12,7 @@ weight: 105
 influxdb3/core/tags: [cache]
 related:
   - /influxdb3/core/reference/sql/functions/cache/#distinct_cache, distinct_cache SQL function
+  - /influxdb3/explorer/manage-caches/distinct-value-caches/
 source: /shared/influxdb3-admin/distinct-value-cache/_index.md
 ---
 

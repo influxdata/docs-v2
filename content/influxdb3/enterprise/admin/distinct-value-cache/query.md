@@ -19,6 +19,7 @@ list_code_example: |
   > InfluxQL does not support the `distinct_cache()` function.
 related:
   - /influxdb3/enterprise/reference/sql/functions/cache/#distinct_cache, distinct_cache SQL function
+  - /influxdb3/explorer/manage-caches/distinct-value-caches/
 source: /shared/influxdb3-admin/distinct-value-cache/query.md
 ---
 
