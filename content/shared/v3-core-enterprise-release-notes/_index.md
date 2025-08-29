@@ -5,6 +5,60 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.4.1 {date="2025-08-28"}
+
+### Core
+
+#### Bug Fixes
+- Upgrading from 3.3.0 to 3.4.x no longer causes possible catalog migration issues ([#26756](https://github.com/influxdata/influxdb/pull/26756))
+
+
+## v3.4.0 {date="2025-08-27"}
+
+### Core
+
+#### Features
+
+- **Token Provisioning**:
+  - Generate admin tokens offline and use them when starting the database if tokens do not already exist.
+    This is meant for automated deployments and containerized environments.
+    ([#26734](https://github.com/influxdata/influxdb/pull/26734))
+- **Azure Endpoint**:
+  - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
+- **No_Sync via CLI**:
+  - Use the `--no-sync` option with `influxdb3 write` to skip waiting for WAL persistence on write and immediately return a response to the write request. ([#26703](https://github.com/influxdata/influxdb/pull/26703))
+  
+#### Bug Fixes
+- Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
+- Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
+
+#### Security & Misc
+- Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
+- WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
+- Remove unsafe signal_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
+- Upgrade Python version to 3.13.7-20250818. ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
+- Tags with `/` in the name no longer break the primary key.
+
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Token Provisioning**:
+  - Generate _resource_ and _admin_ tokens offline and use them when starting the database.
+
+- Select a home or trial license without using an interactive terminal.
+  Use `--license-type` [home | trial | commercial] option to the `influxdb3 serve` command to automate the selection of the license type.
+
+#### Bug Fixes
+
+- Don't initialize the Processing Engine when the specified `--mode` does not require it.
+- Don't panic when `INFLUXDB3_PLUGIN_DIR` is set in containers without the Processing Engine enabled.
+
+
+
 ## v3.3.0 {date="2025-07-29"}
 
 ### Core
@@ -22,7 +76,7 @@
 #### Bug Fixes
 
 - **Database reliability**:
-  - Fix URL encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
+  - Fix url encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
   - Allow hard deletion of existing soft-deleted schema ([#26574](https://github.com/influxdata/influxdb/pull/26574))
 - **Authentication**: Fix AWS S3 API error handling when tokens are expired ([#1013](https://github.com/influxdata/influxdb/pull/1013))
 - **Query processing**: Set nanosecond precision as default for V1 query API CSV output ([#26577](https://github.com/influxdata/influxdb/pull/26577))
@@ -126,8 +180,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management improvements**: 
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
-   - New CLI commands: `create table --retention-period` and `update table --retention-period`
-   - Set or clear table-specific retention policies independent of database settings
+  - New CLI commands: `create table --retention-period` and `update table --retention-period`
+  - Set or clear table-specific retention policies independent of database settings
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring

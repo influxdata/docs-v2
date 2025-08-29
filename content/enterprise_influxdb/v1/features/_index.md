@@ -29,7 +29,7 @@ Certain configurations (e.g., 3 meta and 2 data node) provide high-availability 
 while making certain tradeoffs in query performance when compared to a single node.
 
 Further increasing the number of nodes can improve performance in both respects.
-For example, a cluster with 4 data nodes and a [replication factor](https://docs.influxdata.com/enterprise_influxdb/v1/concepts/glossary/#replication-factor)
+For example, a cluster with 4 data nodes and a [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor)
 of 2 can support a higher volume of write traffic than a single node could.
 It can also support a higher *query* workload, as the data is replicated
 in two locations. Performance of the queries may be on par with a single

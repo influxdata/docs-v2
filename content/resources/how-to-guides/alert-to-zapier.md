@@ -40,11 +40,11 @@ Zapier, August 2022
 
 ## Create an InfluxDB check
 
-[Create an InfluxDB check](https://docs.influxdata.com/influxdb/cloud/monitor-alert/checks/create) to query and alert on a metric you want to monitor.
+[Create an InfluxDB check](/influxdb/cloud/monitor-alert/checks/create) to query and alert on a metric you want to monitor.
 Use a default **threshold** check as the task. 
 _It is possible to use your own task written in Flux code, but for this guide, use the InfluxDB UI to create the check._
 
-Once the check is completed, [create a notification endpoint](https://docs.influxdata.com/influxdb/cloud/monitor-alert/notification-endpoints/create/). Select **HTTP** as an endpoint.
+Once the check is completed, [create a notification endpoint](/influxdb/cloud/monitor-alert/notification-endpoints/create/). Select **HTTP** as an endpoint.
 
 {{< img-hd src="static/img/resources/notification-endpoint.png" alt="Create a check" />}}
 {{% caption %}}

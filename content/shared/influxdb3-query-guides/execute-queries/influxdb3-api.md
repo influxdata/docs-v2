@@ -62,7 +62,7 @@ about your database server and table schemas in {{% product-name %}}.
 > In examples, tables with `"table_name":"system_` are user-created tables for CPU, memory, disk,
 > network, and other resource statistics collected and written
 > by the user--for example, using the `psutil` Python library or
-> [Telegraf](https://docs.influxdata.com/telegraf/v1/get-started/) to collect
+> [Telegraf](/telegraf/v1/get-started/) to collect
 > and write system metrics to an InfluxDB 3 database.
 
 ##### Show tables

@@ -1,6 +1,6 @@
 {{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
 <div data-component="custom-time-trigger" class="custom-time-trigger widget blue" data-tooltip="Select custom date for sample data">
-  <a href="#" class="custom-time-trigger__button" data-action="open">
+  <a role="button" class="custom-time-trigger__button" data-action="open">
     <span class="cf-icon Clock_New"></span>
   </a>
 </div>

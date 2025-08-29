@@ -67,7 +67,7 @@ by periodically creating, recording, and writing test data into test buckets.
 The service periodically executes queries to ensure the data hasn't been lost or corrupted.
 A separate instance of this service lives within each {{% product-name %}} cluster.
 Additionally, the service creates out-of-band backups in
-[line protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/),
+[line protocol](/influxdb/cloud/reference/syntax/line-protocol/),
 and ensures the backup data matches the data on disk.
 
 ## Cloud infrastructure
