@@ -96,6 +96,91 @@ less than or equal to  `08-19-2019T13:00:00Z`.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Filter data by dynamic date ranges
+
+Use date and time functions to filter data by relative time periods that automatically update.
+
+#### Get data from yesterday
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE "location" = 'santa_monica'
+  AND time >= DATE_TRUNC('day', NOW() - INTERVAL '1 day') 
+  AND time < DATE_TRUNC('day', NOW())
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+
+This query filters data to include only records from the previous calendar day:
+
+- `NOW() - INTERVAL '1 day'` calculates yesterday's timestamp
+- `DATE_TRUNC('day', ...)` truncates to the start of that day (00:00:00)
+- The range spans from yesterday at 00:00:00 to today at 00:00:00
+
+| level description | location     | time                     | water_level |
+| :---------------- | :----------- | :----------------------- | :---------- |
+| below 3 feet      | santa_monica | 2019-08-18T12:00:00.000Z | 2.533       |
+| below 3 feet      | santa_monica | 2019-08-18T12:06:00.000Z | 2.543       |
+| below 3 feet      | santa_monica | 2019-08-18T12:12:00.000Z | 2.385       |
+| below 3 feet      | santa_monica | 2019-08-18T12:18:00.000Z | 2.362       |
+| below 3 feet      | santa_monica | 2019-08-18T12:24:00.000Z | 2.405       |
+| below 3 feet      | santa_monica | 2019-08-18T12:30:00.000Z | 2.398       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Get data from the last 24 hours
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE time >= NOW() - INTERVAL '1 day' AND location = 'santa_monica'
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+
+This query returns data from exactly 24 hours before the current time. Unlike the "yesterday" example, this creates a rolling 24-hour window that moves with the current time.
+
+| level description | location     | time                     | water_level |
+| :---------------- | :----------- | :----------------------- | :---------- |
+| below 3 feet      | santa_monica | 2019-08-18T18:00:00.000Z | 2.120       |
+| below 3 feet      | santa_monica | 2019-08-18T18:06:00.000Z | 2.028       |
+| below 3 feet      | santa_monica | 2019-08-18T18:12:00.000Z | 1.982       |
+| below 3 feet      | santa_monica | 2019-08-19T06:00:00.000Z | 1.825       |
+| below 3 feet      | santa_monica | 2019-08-19T06:06:00.000Z | 1.753       |
+| below 3 feet      | santa_monica | 2019-08-19T06:12:00.000Z | 1.691       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+#### Get data from the current week
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE time >= DATE_TRUNC('week', NOW()) AND location = 'santa_monica'
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+
+This query returns all data from the start of the current week (Monday at 00:00:00) to the current time. The DATE_TRUNC('week', NOW()) function truncates the current timestamp to the beginning of the week.
+
+| level description | location     | time                     | water_level |
+| :---------------- | :----------- | :----------------------- | :---------- |
+| below 3 feet      | santa_monica | 2019-08-12T00:00:00.000Z | 2.064       |
+| below 3 feet      | santa_monica | 2019-08-14T09:30:00.000Z | 2.116       |
+| below 3 feet      | santa_monica | 2019-08-16T15:45:00.000Z | 1.952       |
+| below 3 feet      | santa_monica | 2019-08-18T12:00:00.000Z | 2.533       |
+| below 3 feet      | santa_monica | 2019-08-18T18:00:00.000Z | 2.385       |
+| below 3 feet      | santa_monica | 2019-08-19T10:30:00.000Z | 1.691       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### Filter data using the OR operator
 
 ```sql
