@@ -43,7 +43,7 @@ function getStartDate() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// If the user has not set the startDate cookie, default the startDate to yesterday
+// If the user has not set the startDate cookie, default startDate to yesterday
 var startDate = getStartDate() || yesterday();
 
 // Convert a time value to a Unix timestamp (seconds)
@@ -109,6 +109,49 @@ const defaultTimes = [
   }, // 1641067200
 ];
 
+// Helper function to update text while preserving code placeholder elements
+function updateTextNode(node, times) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    let text = node.textContent;
+    times.forEach(function (x) {
+      const oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));
+      const newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ''));
+      const rfc3339Regex = new RegExp(
+        `${oldDatePart.year}(.*?)${oldDatePart.month}(.*?)${oldDatePart.day}`,
+        'g'
+      );
+      const rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}`;
+
+      text = text
+        .replaceAll(x.unix, x.unix_new)
+        .replace(rfc3339Regex, rfc3339Repl);
+    });
+    node.textContent = text;
+  }
+}
+
+// Recursively update timestamps in DOM while preserving structure
+function updateTimestampsInElement(element, times) {
+  // Skip code placeholder elements to preserve their functionality
+  if (element.classList && element.classList.contains('code-placeholder')) {
+    return;
+  }
+
+  // Skip elements with data-component attribute (preserves all components)
+  if (element.hasAttribute && element.hasAttribute('data-component')) {
+    return;
+  }
+
+  const childNodes = Array.from(element.childNodes);
+  childNodes.forEach((child) => {
+    if (child.nodeType === Node.TEXT_NODE) {
+      updateTextNode(child, times);
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      updateTimestampsInElement(child, times);
+    }
+  });
+}
+
 function updateTimestamps(newStartDate, seedTimes = defaultTimes) {
   // Update the times array with replacement times
   const times = seedTimes.map((x) => {
@@ -129,40 +172,14 @@ function updateTimestamps(newStartDate, seedTimes = defaultTimes) {
     '.custom-timestamps table',
   ];
 
+  // Update block elements while preserving DOM structure
   $(updateBlockElWhitelist.join()).each(function () {
-    var wrapper = $(this)[0];
-
-    times.forEach(function (x) {
-      const oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));
-      const newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ''));
-      const rfc3339Regex = new RegExp(
-        `${oldDatePart.year}(.*?)${oldDatePart.month}(.*?)${oldDatePart.day}`,
-        'g'
-      );
-      const rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}`;
-
-      wrapper.innerHTML = wrapper.innerHTML
-        .replaceAll(x.unix, x.unix_new)
-        .replaceAll(rfc3339Regex, rfc3339Repl);
-    });
+    updateTimestampsInElement(this, times);
   });
 
+  // Update span elements
   $('span.custom-timestamps').each(function () {
-    var wrapper = $(this)[0];
-
-    times.forEach(function (x) {
-      const oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ''));
-      const newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ''));
-      const rfc3339Regex = new RegExp(
-        `${oldDatePart.year}-${oldDatePart.month}-${oldDatePart.day}`,
-        'g'
-      );
-      const rfc3339Repl = `${newDatePart.year}-${newDatePart.month}-${newDatePart.day}`;
-
-      wrapper.innerHTML = wrapper.innerHTML
-        .replaceAll(x.unix, x.unix_new)
-        .replaceAll(rfc3339Regex, rfc3339Repl);
-    });
+    updateTimestampsInElement(this, times);
   });
 
   // Create a new seed times array with new start time for next change
@@ -196,10 +213,11 @@ function CustomTimeTrigger({ component }) {
     prevArrow: '<',
   });
 
-  //////////////////////////////////// ACTIONS ///////////////////////////////////
+  /////////////////////////////////// ACTIONS //////////////////////////////////
 
-  // Initial update to yesterdays date ON PAGE LOAD
-  // Conditionally set the start date cookie it startDate is equal to the default value
+  // Initial update to yesterday's date ON PAGE LOAD
+  // Conditionally set the start date cookie if startDate is equal to the
+  // default value
   let updatedTimes = updateTimestamps(startDate, defaultTimes);
 
   if (startDate === yesterday()) {

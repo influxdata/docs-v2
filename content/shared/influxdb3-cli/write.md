@@ -31,7 +31,8 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 |        | `--token`          | _({{< req >}})_ Authentication token                                                     |
 | `-f`   | `--file`           | A file that contains line protocol to write                                              |
 |        | `--accept-partial` | Accept partial writes                                                                    |
-|      | `--precision`  | Precision of data timestamps (`ns`, `us`, `ms`, or `s`) |                     |
+|        | `--no-sync`        | Do not wait for WAL sync before acknowledging the write request                          |
+|        | `--precision`      | Precision of data timestamps (`ns`, `us`, `ms`, or `s`)                                  |
 |        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
 | `-h`   | `--help`           | Print help information                                                                   |
 |        | `--help-all`       | Print detailed help information                                                          |
@@ -50,6 +51,8 @@ You can use the following environment variables to set command options:
 
 - [Write line protocol to your InfluxDB 3 server](#write-line-protocol-to-your-influxdb-3-server)
 - [Write line protocol and accept partial writes](#write-line-protocol-and-accept-partial-writes)
+- [Write line protocol with specific timestamp precision](#write-line-protocol-with-specific-timestamp-precision)
+- [Write line protocol and immediately return a response](#write-line-protocol-and-immediately-return-a-response)
 
 In the examples below, replace the following:
 
@@ -57,8 +60,6 @@ In the examples below, replace the following:
   the name of the database to query
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
   Authentication token
-
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 
 ### Write line protocol to your InfluxDB 3 server
 
@@ -72,7 +73,7 @@ In the examples below, replace the following:
 {{% influxdb/custom-timestamps %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -83,7 +84,7 @@ influxdb3 write \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -93,7 +94,7 @@ influxdb3 write \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 cat ./data.lp | influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN
@@ -113,7 +114,7 @@ cat ./data.lp | influxdb3 write \
 {{% influxdb/custom-timestamps %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
@@ -125,7 +126,7 @@ influxdb3 write \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
@@ -136,7 +137,7 @@ influxdb3 write \
 {{% code-tab-content %}}
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 cat ./data.lp | influxdb3 write \
   --accept-partial \
   --database DATABASE_NAME \
@@ -145,14 +146,15 @@ cat ./data.lp | influxdb3 write \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-## Write line protocol with specific timestamp precision
+### Write line protocol with specific timestamp precision
 
-By default, in CLI and HTTP API write requests, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+By default, in CLI and HTTP API write requests, {{% product-name %}} uses the
+timestamp magnitude to auto-detect the precision.
 To avoid any ambiguity, specify  the `--precision {ns|us|ms|s}` option:
 
 <!--pytest.mark.skip--> 
 
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -163,4 +165,24 @@ home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
 home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
 '
 ```
-{{% /code-placeholders %}}
+
+### Write line protocol and immediately return a response
+
+By default, {{% product-name %}} waits to respond to write requests until the
+written data is flushed from the Write-Ahead Log (WAL) to object storage
+(every 1s by default).
+Use the `--no-sync` option to immediately return a response without waiting for
+the WAL to flush. This improves perceived write response times, but may hide certain
+types of write errors--for example: malformed line protocol or type conflicts.
+
+> [!Tip]
+> Only use `--no-sync` when low write latency is more important than guaranteed data durability.
+> Avoid using this option for critical or irreplaceable data, as it increases the risk of silent data loss.
+
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+influxdb3 write \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --no-sync \
+  'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
+```

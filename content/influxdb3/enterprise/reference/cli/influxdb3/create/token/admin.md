@@ -1,5 +1,5 @@
 ---
-title: influxdb3 create token --admin
+title: influxdb3 create token \--admin
 description: >
   The `influxdb3 create token --admin` subcommand creates an operator token or named admin token with full administrative privileges for server actions.
 menu:

@@ -20,6 +20,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/delete/distinct_cache/
+  - /influxdb3/explorer/manage-caches/distinct-value-caches/
 source: /shared/influxdb3-admin/distinct-value-cache/delete.md
 ---
 
