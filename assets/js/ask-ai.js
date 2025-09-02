@@ -46,7 +46,7 @@ function initializeChat({ onChatLoad, chatAttributes }) {
     modalSize: '640px',
     modalWithOverlay: 'false',
     modalInnerMaxWidth: '800px',
-    modalXOffset: 'calc(100% - 800px - .5rem)',
+    modalXOffset: 'calc(100% - 800px - (40rem * var(--mantine-scale))',
     modalYOffset: '10vh',
     userAnalyticsFingerprintEnabled: 'true',
     fontFamily: 'Proxima Nova, sans-serif',
