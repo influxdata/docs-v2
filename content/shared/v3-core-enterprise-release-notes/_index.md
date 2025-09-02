@@ -76,7 +76,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 #### Bug Fixes
 
 - **Database reliability**:
-  - Fix url encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
+  - Fix URL-encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
   - Allow hard deletion of existing soft-deleted schema ([#26574](https://github.com/influxdata/influxdb/pull/26574))
 - **Authentication**: Fix AWS S3 API error handling when tokens are expired ([#1013](https://github.com/influxdata/influxdb/pull/1013))
 - **Query processing**: Set nanosecond precision as default for V1 query API CSV output ([#26577](https://github.com/influxdata/influxdb/pull/26577))
