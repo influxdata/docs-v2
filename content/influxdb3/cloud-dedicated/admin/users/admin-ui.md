@@ -119,6 +119,6 @@ User roles are assigned when sending invitations and cannot currently be changed
 
 ## Current limitations
 
-- **Historical records**: Invitation records remain even after user removal; use the [`influxctl users list`](https://docs.influxdata.com/influxdb/cloud-dedicated/reference/influxctl/#list-users) command to confirm current users
+- **Historical records**: Invitation records remain even after user removal; use the [`influxctl users list`](https://docs.influxdata.com/influxdb3/cloud-dedicated/reference/influxctl/#list-users) command to confirm current users
 
 For operations not available in the Admin UI, contact [InfluxData support](https://support.influxdata.com) for role changes, user removal, or other advanced user management tasks.
