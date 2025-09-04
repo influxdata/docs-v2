@@ -13,5 +13,5 @@ source: /shared/sql-reference/functions/conditional.md
 ---
 
 <!-- 
-The content of this page is at /content/shared/sql-reference/functions/conditional.md
+// SOURCE content/shared/sql-reference/functions/conditional.md
 -->

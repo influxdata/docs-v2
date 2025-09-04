@@ -8,12 +8,11 @@ menu:
   influxdb3_enterprise:
     name: Hashing
     parent: sql-functions    
-weight: 309
+weight: 313
 
 source: /shared/sql-reference/functions/hashing.md
 ---
 
 <!-- 
-The content for this page is at
-// SOURCE /content/shared/sql-reference/functions/hashing.md
+// SOURCE content/shared/sql-reference/functions/hashing.md
 -->

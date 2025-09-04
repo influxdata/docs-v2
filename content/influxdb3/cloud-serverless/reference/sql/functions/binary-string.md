@@ -14,6 +14,5 @@ source: /shared/sql-reference/functions/binary-string.md
 ---
 
 <!-- 
-The content of this page is at
-// SOURCE /content/shared/sql-reference/functions/binary-string.md
+// SOURCE content/shared/sql-reference/functions/binary-string.md
 -->

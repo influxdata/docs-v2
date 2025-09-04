@@ -15,5 +15,5 @@ source: /shared/sql-reference/functions/aggregate.md
 ---
 
 <!-- 
-The content of this page is at /content/shared/sql-reference/functions/aggregate.md
+// SOURCE content/shared/sql-reference/functions/aggregate.md
 -->
