@@ -233,7 +233,7 @@ concat(str[, ..., str_n])
 
 ##### Related functions
 
-[contcat_ws](#contcat_ws)
+[concat_ws](#concat_ws)
 
 {{< expand-wrapper >}}
 {{% expand "View `concat` query example" %}}

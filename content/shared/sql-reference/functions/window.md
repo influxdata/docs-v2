@@ -36,7 +36,6 @@ ORDER BY
 {{% /influxdb/custom-timestamps %}}
 
 - [Window frames](#window-frames)
-- [Window function syntax](#window-function-syntax)
   - [OVER clause](#over-clause)
   - [PARTITION BY clause](#partition-by-clause)
   - [ORDER BY clause](#order-by-clause)
