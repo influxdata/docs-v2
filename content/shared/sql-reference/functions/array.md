@@ -336,7 +336,7 @@ _Alias of [empty](#empty)._
 
 ## array_except
 
-Returns an array of elements that appear in the first array but not in the second.
+Returns an array containing elements from the first array that are not present in the second array.
 
 ```sql
 array_except(array1, array2)
@@ -441,7 +441,7 @@ SELECT array_has_all([1, 2, 3, 4], [2, 3]) AS array_has_all
 
 ## array_has_any
 
-Returns `true` if any elements exist in both arrays.
+Returns `true` if at least one element appears in both arrays.
 
 ```sql
 array_has_any(array, sub-array)
@@ -479,7 +479,7 @@ _Alias of [array_position](#array_position)._
 
 ## array_intersect
 
-Returns an array of elements in the intersection of **array1** and **array2**.
+Returns an array containing only the elements that appear in both **array1** and **array2**.
 
 ```sql
 array_intersect(array1, array2)
@@ -1107,7 +1107,8 @@ SELECT array_replace_n(['John', 'Jane', 'James', 'John', 'John'], 'John', 'Joe',
 ## array_resize
 
 Resizes the list to contain size elements. Initializes new elements with value
-or empty if value is not set.
+Resizes the array to the specified size. If expanding, fills new elements with the
+specified value (or _NULL_ if not provided). If shrinking, truncates excess elements.
 
 ```sql
 array_resize(array, size, value)
@@ -1269,7 +1270,7 @@ SELECT
 
 ## array_to_string
 
-Converts an array to string-based representation with a specified delimiter.
+Converts an array to a string by joining all elements with the specified delimiter.
 
 ```sql
 array_to_string(array, delimiter[, null_string])
@@ -1318,7 +1319,8 @@ SELECT array_to_string([[1,2,3,4,5,NULL,7,8,NULL]], '-', '?') AS array_to_string
 ## array_union
 
 Returns an array of elements that are present in both arrays (all elements from
-both arrays) with out duplicates.
+Returns an array containing all unique elements from both input arrays, with
+duplicates removed.
 
 ```sql
 array_union(array1, array2)
@@ -1414,12 +1416,12 @@ SELECT empty(['apple']) AS empty
 
 ## flatten
 
-Converts an array of arrays to a flat array.
+Flattens nested arrays into a single-level array.
 
-- Applies to any depth of nested arrays
-- Does not change arrays that are already flat
+- Recursively flattens arrays at any depth of nesting
+- Returns unchanged if the array is already flat
 
-The flattened array contains all the elements from all source arrays.
+The result contains all elements from all nested arrays in a single flat array.
 
 ```sql
 flatten(array)

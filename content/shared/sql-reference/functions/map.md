@@ -15,7 +15,7 @@ _Alias of [map_extract](#map_extract)._
 
 ## make_map
 
-Returns an Arrow map with the specified key-value pair.
+Returns an Arrow map with the specified key and value.
 
 ```sql
 make_map(key, value)
@@ -62,6 +62,8 @@ Each _key_ must be unique and non-null.
 
 ```sql
 map(key_list, value_list)
+-- or
+map { key: value, ... }
 ```
 
 ### Arguments
@@ -142,7 +144,9 @@ SELECT
 ## map_extract
 
 Returns a list containing the value for the given key or an empty list if the
-key is not present in the map.
+Returns a list containing the value for the given key, or an empty list if the
+key is not present in the map. The returned list will contain exactly one element
+(the value) when the key is found.
 
 ```sql
 map_extract(map, key)
@@ -176,9 +180,9 @@ to perform the a query that:
 - Queries the weather sample data and use `date_part` to extract an integer
   representing the day of the week of the row's `time` value.
 - Uses `map_extract` and the output of `date_part` to return an array containing
-  the name of the data of the week.
+  the name of the day of the week.
 - Uses bracket notation (`[i]`) to reference an element by index in the returned
-  list (lists are 1-indexed).
+  list (SQL arrays are 1-indexed, so `[1]` retrieves the first element).
 
 ```sql
 WITH constants AS (

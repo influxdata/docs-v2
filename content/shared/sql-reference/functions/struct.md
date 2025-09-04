@@ -58,7 +58,8 @@ _Alias of [`struct`](#struct)._
 
 Returns an _Arrow struct_ using the specified input expressions optionally named.
 Fields in the returned struct use the optional name or the `cN` naming convention.
-For example: `c0`, `c1`, `c2`, etc.
+Fields in the returned struct use the `cN` naming convention (for example: `c0`, `c1`, `c2`, etc.) 
+unless you specify custom names using the `AS` operator within individual expressions.
 
 ```sql
 struct(expression1[, ..., expression_n])
@@ -67,7 +68,7 @@ struct(expression1[, ..., expression_n])
 ### Arguments
 
 - **expression1, expression_n**: Expression to include in the output struct.
-  Can be a constant, column, or function, any combination of arithmetic or
+  Can be a constant, column, or function, and any combination of arithmetic or
   string operators.
 
 ### Aliases
@@ -86,7 +87,7 @@ _The following example uses the
 
 ```sql
 SELECT
-  struct('time', time, 'temperature', temp, 'humidity', hum) AS struct
+  struct(time, temp, hum) AS struct
 FROM
   home
 WHERE
