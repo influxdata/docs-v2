@@ -13,8 +13,6 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 <!-- BEGIN TOC -->
 - [Quick start](#quick-start)
 - [Installation methods](#installation-methods)
-  - [Docker run](#docker-run)
-  - [Docker Compose](#docker-compose)
 - [Configuration options](#configuration-options)
   - [Persist data across restarts](#persist-data-across-restarts)
   - [Pre-configure InfluxDB connections](#pre-configure-influxdb-connections)
