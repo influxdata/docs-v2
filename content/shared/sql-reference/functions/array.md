@@ -252,7 +252,7 @@ array_distance(array1, array2)
 - `list_distance`
 
 {{< expand-wrapper >}}
-{{% expand "View `array_disance` example" %}}
+{{% expand "View `array_distance` example" %}}
 
 ```sql
 SELECT array_distance([1, 2], [1, 4]) AS array_distance
