@@ -3,6 +3,7 @@ for performing a variety of operations:
 
 - [arrow_cast](#arrow_cast)
 - [arrow_typeof](#arrow_typeof)
+- [get_field](#get_field)
 - [interpolate](#interpolate)
 - [locf](#locf)
 - [version](#version)
@@ -79,6 +80,66 @@ LIMIT 1
 | time                        | room                    | temp    | co    |
 | :-------------------------- | :---------------------- | :------ | :---- |
 | Timestamp(Nanosecond, None) | Dictionary(Int32, Utf8) | Float64 | Int64 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## get_field
+
+Returns a field from a map or a struct with the specified key.
+
+> [!Note]
+> Typically, `get_field` is indirectly invoked via field access syntax such as
+> `my_struct['field_name']` which results in the call:
+> `get_field(my_struct, 'field_name')`.
+
+```sql
+get_field(collection, field)
+```
+
+### Arguments
+
+- **collection**: The map or struct to retrieve a field from.
+- **field**: The name of field the field to retrieve from the map or struct.
+  Must evaluate to a string.
+
+{{< expand-wrapper >}}
+{{% expand "View `get_field` example with a struct column" %}}
+
+```sql
+SELECT
+  get_field(influxdb_struct, 'version') AS influxdb_version
+FROM
+  (VALUES (struct('influxdb' AS product, 'v1' AS version)),
+          (struct('influxdb' AS product, 'v2' AS version)),
+          (struct('influxdb' AS product, 'v3' AS version))
+  ) AS data(influxdb_struct)
+```
+
+| influxdb_version |
+| :--------------- |
+| v1               |
+| v2               |
+| v3               |
+
+{{% /expand %}}
+{{% expand "View `get_field` example with a amp column" %}}
+
+```sql
+SELECT
+  get_field(influxdb_map, 'version') AS influxdb_version
+FROM
+  (VALUES (map {'product': 'influxdb', 'version': 'v1'}),
+          (map {'product': 'influxdb', 'version': 'v2'}),
+          (map {'product': 'influxdb', 'version': 'v3'})
+  ) AS data(influxdb_map)
+```
+
+| influxdb_version |
+| :--------------- |
+| v1               |
+| v2               |
+| v3               |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

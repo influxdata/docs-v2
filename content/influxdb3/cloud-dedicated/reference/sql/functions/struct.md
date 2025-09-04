@@ -7,12 +7,11 @@ menu:
   influxdb3_cloud_dedicated:
     name: Struct
     parent: sql-functions    
-weight: 309
+weight: 311
 
 source: /shared/sql-reference/functions/struct.md
 ---
 
 <!-- 
-The content of this page is at
 // SOURCE content/shared/sql-reference/functions/struct.md
 -->

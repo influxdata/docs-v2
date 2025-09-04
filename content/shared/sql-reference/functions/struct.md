@@ -20,6 +20,10 @@ named_struct(expression1_name, expression1_input[, ..., expression_n_name, expre
   Can be a constant, column, or function, and any combination of arithmetic or
   string operators.
 
+##### Related functions
+
+[get_field](/influxdb3/version/reference/sql/functions/misc/#get_field)
+
 {{< expand-wrapper >}}
 {{% expand "View `named_struct` query example" %}}
 
@@ -48,7 +52,7 @@ LIMIT 4
 
 ## row
 
-_Alias of [struct](#struct)._
+_Alias of [`struct`](#struct)._
 
 ## struct
 
@@ -70,6 +74,10 @@ struct(expression1[, ..., expression_n])
 
 - row
 
+##### Related functions
+
+[get_field](/influxdb3/version/reference/sql/functions/misc/#get_field)
+
 {{< expand-wrapper >}}
 {{% expand "View `struct` query example" %}}
 
@@ -78,7 +86,7 @@ _The following example uses the
 
 ```sql
 SELECT
-  named_struct('time', time, 'temperature', temp, 'humidity', hum) AS named_struct
+  struct('time', time, 'temperature', temp, 'humidity', hum) AS struct
 FROM
   home
 WHERE
@@ -86,12 +94,16 @@ WHERE
 LIMIT 4
 ```
 
-| named_struct                                  |
+{{% influxdb/custom-timestamps %}}
+
+| struct                                        |
 | :-------------------------------------------- |
 | {c0: 2022-01-01T13:00:00, c1: 22.8, c2: 36.5} |
 | {c0: 2022-01-01T12:00:00, c1: 22.5, c2: 36.0} |
 | {c0: 2022-01-01T15:00:00, c1: 22.7, c2: 36.2} |
 | {c0: 2022-01-01T18:00:00, c1: 23.3, c2: 36.9} |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{% expand "View `struct` query example with named fields" %}}
@@ -104,7 +116,7 @@ _The following example uses the
 
 ```sql
 SELECT
-  named_struct(time AS 'time', temp AS 'temperature', hum) AS named_struct
+  struct(time AS 'time', temp AS 'temperature', hum) AS struct
 FROM
   home
 WHERE
@@ -112,12 +124,16 @@ WHERE
 LIMIT 4
 ```
 
-| named_struct                                             |
+{{% influxdb/custom-timestamps %}}
+
+| struct                                                   |
 | :------------------------------------------------------- |
 | {time: 2022-01-01T13:00:00, temperature: 22.8, c2: 36.5} |
 | {time: 2022-01-01T12:00:00, temperature: 22.5, c2: 36.0} |
 | {time: 2022-01-01T15:00:00, temperature: 22.7, c2: 36.2} |
 | {time: 2022-01-01T18:00:00, temperature: 23.3, c2: 36.9} |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

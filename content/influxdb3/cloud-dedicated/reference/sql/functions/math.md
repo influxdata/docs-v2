@@ -13,6 +13,5 @@ source: /shared/sql-reference/functions/math.md
 ---
 
 <!-- 
-The content of this page is at
 // SOURCE content/shared/sql-reference/functions/math.md
 -->

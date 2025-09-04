@@ -2,17 +2,12 @@ The {{< product-name >}} SQL implementation supports the following conditional
 functions for conditionally handling _null_ values:
 
 - [coalesce](#coalesce)
-- greatest
+- [greatest](#greatest)
 - [ifnull](#ifnull)
-- least
+- [least](#least)
 - [nullif](#nullif)
 - [nvl](#nvl)
 - [nvl2](#nvl2)
-
-<!-- Will come with next DataFusion upgrade
-- [greatest](#greatest)
-- [least](#least)
--->
 
 ## coalesce
 
@@ -97,7 +92,6 @@ SELECT time, greatest(a, b) AS greatest FROM numbers LIMIT 4
 ## ifnull
 
 _Alias of [nvl](#nvl)._
-
 
 ## least
 
