@@ -117,7 +117,7 @@ Click on any invitation in the table to view additional details, including:
 User roles are assigned when sending invitations and cannot currently be changed through the Admin UI. To modify a user's role, [contact InfluxData support](https://support.influxdata.com).
 {{% /note %}}
 
-## Current limitations
+## Limitations
 
 - **Historical records**: Invitation records remain even after user removal; use the [`influxctl users list`](https://docs.influxdata.com/influxdb3/cloud-dedicated/reference/influxctl/#list-users) command to confirm current users
 
