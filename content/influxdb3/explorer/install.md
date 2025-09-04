@@ -11,301 +11,535 @@ weight: 2
 Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
 
 <!-- BEGIN TOC -->
-- [Run the InfluxDB 3 Explorer Docker container](#run-the-influxdb-3-explorer-docker-container)
-- [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
-- [Pre-configure InfluxDB connection settings](#pre-configure-influxdb-connection-settings)
-- [Run in query or admin mode](#run-in-query-or-admin-mode)
-  - [Run in query mode](#run-in-query-mode)
-  - [Run in admin mode](#run-in-admin-mode)
-- [Environment Variables](#environment-variables)
-- [Volume Reference](#volume-reference)
-- [Exposed Ports](#exposed-ports)
-  - [Custom port mapping](#custom-port-mapping)
+- [Quick start](#quick-start)
+- [Installation methods](#installation-methods)
+  - [Docker run](#docker-run)
+  - [Docker Compose](#docker-compose)
+- [Configuration options](#configuration-options)
+  - [Persist data across restarts](#persist-data-across-restarts)
+  - [Pre-configure InfluxDB connections](#pre-configure-influxdb-connections)
+  - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
+  - [Choose operational mode](#choose-operational-mode)
+- [Advanced configuration](#advanced-configuration)
+  - [Environment variables](#environment-variables)
+  - [Volume reference](#volume-reference)
+  - [Port reference](#port-reference)
+- [Complete examples](#complete-examples)
 <!-- END TOC -->
 
-## Run the InfluxDB 3 Explorer Docker container
+## Quick start
 
-1.  **Install Docker**
+Get {{% product-name %}} running in minutes:
 
-    If you haven't already, install [Docker](https://docs.docker.com/engine/) or
-    [Docker Desktop](https://docs.docker.com/desktop/).
+1. **Run the Explorer container:**
 
-2.  **Pull the {{% product-name %}} Docker image**
+   ```bash
+   docker run --detach \
+     --name influxdb3-explorer \
+     --publish 8888:80 \
+     influxdata/influxdb3-ui:{{% latest-patch %}}
+   ```
 
-    ```bash
-    influxdata/influxdb3-ui:{{% latest-patch %}}
-    ```
+2. **Access the Explorer UI at <http://localhost:8888>**
 
-3.  **Create local directories** _(optional)_
-
-    {{% product-name %}} can mount the following directories on your local
-    machine:
-
-    | Directory  | Description                                                                                       | Permissions |
-    | :--------- | :------------------------------------------------------------------------------------------------ | :---------: |
-    | `./db`     | Stores {{% product-name %}} application data                                                      |     700     |
-    | `./config` | Stores [pre-configured InfluxDB connection settings](#pre-configure-influxdb-connection-settings) |     755     |
-    | `./ssl`    | Stores TLS/SSL certificates _(Required when [using TLS/SSL](#enable-tlsssl-https))_               |     755     |
-
-    > [!Important]
-    > If you don't create and mount a local `./db` directory, {{% product-name %}}
-    > stores application data in the container's file system.
-    > This data will be lost when the container is deleted.
-
-    To create these directories with the appropriate permissions, run the
-    following commands from your current working directory:
-
-    ```bash
-    mkdir -m 700 ./db
-    mkdir -m 755 ./config
-    mkdir -m 755 ./ssl
-    ```
-
-4.  **Run the {{% product-name %}} container**
-
-    Use the `docker run` command to start the {{% product-name %}} container.
-    Include the following:
-
-    - Port mappings:
-      - `8888` to `80` (or `443` if using TLS/SSL)
-      - `8889` to `8888`
-    - Mounted volumes:
-      - `$(pwd)/db:/db:rw`
-      - `$(pwd)/config:/app-root/config:ro`
-      - `$(pwd)/ssl:/etc/nginx/ssl:ro`
-    - Any of the available [environment variables](#environment-variables)
-      
-      > [!Note]
-      > To persist sessions across container restarts, see the detailed instructions
-      > on setting the [`SESSION_SECRET_KEY` environment variable](#session_secret_key).
-
-    ```bash
-    docker run --detach \
-      --name influxdb3-explorer \
-      --publish 8888:80 \
-      --publish 8889:8888 \
-      --volume $(pwd)/config:/app-root/config:ro \
-      --volume $(pwd)/db:/db:rw \
-      --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
-      influxdata/influxdb3-ui:{{% latest-patch %}} \
-      --mode=admin
-    ```
-
-5.  **Access the {{% product-name %}} user interface (UI) at <http://localhost:8888>**.
+3. **[Configure your InfluxDB connection in the UI](/influxdb3/explorer/get-started)**
 
 ---
 
-## Enable TLS/SSL (HTTPS)
+## Installation methods
 
-To enable TLS/SSL, mount valid certificate and key files into the container:
+### Prerequisites
 
-1.  **Place your TLS/SSL certificate files your local `./ssl` directory**
+Install [Docker](https://docs.docker.com/engine/) or [Docker Desktop](https://docs.docker.com/desktop/) if you haven't already.
 
-    Required files:
+### Basic setup
 
-    - Certificate: `server.crt` or `fullchain.pem`
-    - Private key: `server.key`
+> [!Tip]
+> To get the latest updates, run the following command before starting the container:
+> 
+> ```bash
+> docker pull influxdata/influxdb3-ui:{{% latest-patch %}}
+> ```
 
-2.  **When running your container, mount the SSL directory and map port 443 to port 8888**
-   
-    Include the following options when running your Docker container:
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker run](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
 
-    ```sh
-    --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
-    --publish 8888:443
-    ```
+{{% code-tab-content %}}
+```bash
+docker run --detach \
+  --name influxdb3-explorer \
+  --publish 8888:80 \
+  influxdata/influxdb3-ui:{{% latest-patch %}}
+```
+{{% /code-tab-content %}}
 
-The nginx web server automatically uses certificate files when they are present
-in the mounted path.
+{{% code-tab-content %}}
+```yaml
+# docker-compose.yml
+version: '3.8'
 
-> [!Note]
-> You can use a custom location for certificate and key files.
-> Use the [`SSL_CERT_PATH`](#ssl_cert_path) and [`SSL_KEY_PATH`](#ssl_key_path)
-> environment variables to identify the custom location.
-> Also update the SSL directory volume mount path inside the container.
-
-
----
-
-## Pre-configure InfluxDB connection settings
-
-You can predefine InfluxDB connection settings using a `config.json` file.
-
-{{% code-placeholders "INFLUXDB3_HOST|INFLUXDB_DATABASE_NAME|INFLUXDB3_AUTH_TOKEN|INFLUXDB3_SERVER_NAME" %}}
-
-1.  **Create a `config.json` file in your local `./config` directory**
-
-    ```json
-    {
-      "DEFAULT_INFLUX_SERVER": "INFLUXDB3_HOST",
-      "DEFAULT_INFLUX_DATABASE": "INFLUXDB_DATABASE_NAME",
-      "DEFAULT_API_TOKEN": "INFLUXDB3_AUTH_TOKEN",
-      "DEFAULT_SERVER_NAME": "INFLUXDB3_SERVER_NAME"
-    }
-    ```
-
-    > [!Important]
-    > If connecting to an InfluxDB 3 Core or Enterprise instance running on
-    > localhost (outside of the container), use the internal Docker network to
-    > in your InfluxDB 3 host value--for example:
-    >
-    > ```txt
-    > http://host.docker.internal:8181
-    > ```
-
-2.  **Mount the configuration directory**
-
-    Include the following option when running your Docker container:
-
-    ```sh
-    --volume $(pwd)/config:/app-root/config:ro
-    ```
-
-{{% /code-placeholders %}}
-
-These settings will be used as defaults when the container starts.
-
----
-
-## Run in query or admin mode
-
-{{% product-name %}} has the following operational modes:
-
-- **Query mode (default):** Read-only UI and query interface
-- **Admin mode:** Full UI and API access for administrators
-
-You can control the operational mode using the `--mode=` option in your
-`docker run` command (after the image name).
-
-### Run in query mode {note="(default)"}
-
-```sh
-docker run \
-  ...
-  --mode=query
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    ports:
+      - "8888:80"
+    volumes:
+      - ./config:/app-root/config:ro
+    restart: unless-stopped
 ```
 
-### Run in admin mode
+Start the container:
 
-```sh
-docker run \
-  ...
+```bash
+docker-compose up -d
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Production setup
+
+For production deployments with persistence, admin mode, and automatic image updates:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker run](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+docker run --detach \
+  --name influxdb3-explorer \
+  --pull always \
+  --publish 8888:80 \
+  --volume $(pwd)/db:/db:rw \
+  --volume $(pwd)/config:/app-root/config:ro \
+  --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
+  --restart unless-stopped \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
+{{% /code-tab-content %}}
 
-If `--mode` is not set, the container defaults to query mode.
+{{% code-tab-content %}}
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    pull_policy: always
+    command: ["--mode=admin"]
+    ports:
+      - "8888:80"
+    volumes:
+      - ./db:/db:rw
+      - ./config:/app-root/config:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    environment:
+      SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:-changeme123456789012345678901234}
+    restart: unless-stopped
+```
+
+Create a `.env` file that contains the following:
+
+```bash
+SESSION_SECRET_KEY=your_32_char_hex_string_here
+```
+
+Start the container:
+
+```bash
+docker-compose up -d
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 ---
 
-## Environment Variables
+## Configuration options
 
-Use the following environment variables to customize {{% product-name %}} settings
-in your container.
+### Persist data across restarts
 
-- [DATABASE_URL](#database_url)
-- [SESSION_SECRET_KEY](#session_secret_key)
-- [SSL_CERT_PATH](#ssl_cert_path)
-- [SSL_KEY_PATH](#ssl_key_path)
+{{% product-name %}} stores application data in a SQLite database. To persist this data across container restarts:
 
-### DATABASE_URL
+1. **Create a local directory:**
 
-Path to SQLite DB inside container. The default is `/db/sqlite.db`.
+   ```bash
+   mkdir -m 700 ./db
+   ```
 
-{{< expand-wrapper >}}
-{{% expand "View `DATABASE_URL` example" %}}
-<!-- pytest.mark.skip -->
+2. **Mount the directory when running the container:**
 
-```bash
-docker run --detach \
-  # ...
-  --volume $(pwd)/db:/custom/db-path:rw \
-  --env DATABASE_URL=/custom/db-path/sqlite.db \
-  influxdata/influxdb3-ui:{{% latest-patch %}}
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Docker](#)
+   [Docker Compose](#)
+   {{% /code-tabs %}}
 
-### SESSION_SECRET_KEY
+   {{% code-tab-content %}}
+   ```bash
+   docker run --detach \
+     --name influxdb3-explorer \
+     --publish 8888:80 \
+     --volume $(pwd)/db:/db:rw \
+     influxdata/influxdb3-ui:{{% latest-patch %}}
+   ```
+   {{% /code-tab-content %}}
 
-Specifies the secret key for session management. If none is provided, Explorer
-uses a random 32-byte hex string as the session secret key.
-
-{{< expand-wrapper >}}
-{{% expand "View `SESSION_SECRET_KEY` example" %}}
-<!-- pytest.mark.skip -->
-
-```bash
-docker run --detach \
-  # ...
-  --env SESSION_SECRET_KEY=xxX0Xx000xX0XxxxX0Xx000xX0XxX00x \
-  influxdata/influxdb3-ui:{{% latest-patch %}}
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+   {{% code-tab-content %}}
+   ```yaml
+   version: '3.8'
+   
+   services:
+     explorer:
+       image: influxdata/influxdb3-ui:{{% latest-patch %}}
+       container_name: influxdb3-explorer
+       ports:
+         - "8888:80"
+       volumes:
+         - ./db:/db:rw
+       restart: unless-stopped
+   ```
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
 
 > [!Important]
-> #### Always set SESSION_SECRET_KEY in production
+> Without a mounted `./db` directory, application data is lost when the container is deleted.
+
+### Pre-configure InfluxDB connections
+
+Instead of configuring connections through the UI, you can pre-define connection settings using a `config.json` file. This is useful for:
+- Automated deployments
+- Shared team configurations
+- Quick setup for known environments
+
+1. **Create a `config.json` file:**
+
+   ```bash
+   mkdir -p config
+   cat > config/config.json << 'EOF'
+   {
+     "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181",
+     "DEFAULT_INFLUX_DATABASE": "mydb",
+     "DEFAULT_API_TOKEN": "your-token-here",
+     "DEFAULT_SERVER_NAME": "Local InfluxDB 3"
+   }
+   EOF
+   ```
+
+   Customize the following properties for your InfluxDB 3 instance:
+
+   - **`DEFAULT_INFLUX_SERVER`**: your [InfluxDB 3 Core](/influxdb3/core/reference/config-options/#http-bind) or [Enterprise](/influxdb3/enterprise/reference/config-options/#http-bind) server URL
+   - **`DEFAULT_INFLUX_DATABASE`**: the name of your [InfluxDB 3 Core](/influxdb3/core/admin/databases/) or [Enterprise](/influxdb3/enterprise/admin/databases/) database
+   - **`DEFAULT_API_TOKEN`**: your [InfluxDB 3 Core](/influxdb3/core/admin/tokens/) or [Enterprise](/influxdb3/enterprise/admin/tokens/) authorization token with the necessary permissions to access your server
+   - **`DEFAULT_SERVER_NAME`**: a display name (only used by Explorer) for your [InfluxDB 3 Core](/influxdb3/core/get-started/setup/#start-influxdb) or [Enterprise](/influxdb3/enterprise/get-started/setup/#start-influxdb) server
+
+   > [!Note]
+   > If connecting to a local, _non-Docker_ instance, use `host.docker.internal` as your server host--for example:
+   >
+   > ```txt
+   > "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181"
+   > ```
+   >
+   > `host.docker.internal` allows the Docker container to connect to services running on your host machine.
+   > For more information, see the [Docker documentation](https://docs.docker.com/desktop/features/networking).
+
+2. **Mount the configuration directory:**
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Docker](#)
+   [Docker Compose](#)
+   {{% /code-tabs %}}
+
+   {{% code-tab-content %}}
+   ```bash
+   docker run --detach \
+     --name influxdb3-explorer \
+     --publish 8888:80 \
+     --volume $(pwd)/config:/app-root/config:ro \
+     influxdata/influxdb3-ui:{{% latest-patch %}}
+   ```
+   {{% /code-tab-content %}}
+
+   {{% code-tab-content %}}
+   ```yaml
+   version: '3.8'
+   
+   services:
+     explorer:
+       image: influxdata/influxdb3-ui:{{% latest-patch %}}
+       container_name: influxdb3-explorer
+       ports:
+         - "8888:80"
+       volumes:
+         - ./config:/app-root/config:ro
+       restart: unless-stopped
+   ```
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+### Enable TLS/SSL (HTTPS)
+
+To enable TLS/SSL for secure connections:
+
+1. **Create SSL directory and add certificate files:**
+
+   ```bash
+   mkdir -m 755 ./ssl
+   # Copy your certificate files to the ssl directory
+   cp /path/to/server.crt ./ssl/
+   cp /path/to/server.key ./ssl/
+   ```
+
+   Required files:
+   - Certificate: `server.crt` or `fullchain.pem`
+   - Private key: `server.key`
+
+2. **Run the container with SSL enabled:**
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Docker](#)
+   [Docker Compose](#)
+   {{% /code-tabs %}}
+
+   {{% code-tab-content %}}
+   ```bash
+   docker run --detach \
+     --name influxdb3-explorer \
+     --publish 8888:443 \
+     --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+     influxdata/influxdb3-ui:{{% latest-patch %}}
+   ```
+   {{% /code-tab-content %}}
+
+   {{% code-tab-content %}}
+   ```yaml
+   version: '3.8'
+   
+   services:
+     explorer:
+       image: influxdata/influxdb3-ui:{{% latest-patch %}}
+       container_name: influxdb3-explorer
+       ports:
+         - "8888:443"
+       volumes:
+         - ./ssl:/etc/nginx/ssl:ro
+       restart: unless-stopped
+   ```
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+3. **Access the Explorer UI at <https://localhost:8888>**
+
+> [!Note]
+> The nginx web server automatically detects and uses certificate files in the mounted path.
+
+### Choose operational mode
+
+{{% product-name %}} supports two operational modes:
+
+- **Query mode** (default): Read-only UI for querying data
+- **Admin mode**: Full UI with administrative capabilities
+
+Set the mode using the `--mode` parameter:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+# Query mode (default)
+docker run --detach \
+  --name influxdb3-explorer \
+  --publish 8888:80 \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
+  --mode=query
+
+# Admin mode
+docker run --detach \
+  --name influxdb3-explorer \
+  --publish 8888:80 \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
+  --mode=admin
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```yaml
+version: '3.8'
+
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    # For query mode (default), omit the command
+    # For admin mode, add:
+    command: ["--mode=admin"]
+    ports:
+      - "8888:80"
+    restart: unless-stopped
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+## Advanced configuration
+
+### Environment variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** |
+| `DATABASE_URL` | `/db/sqlite.db` | Path to SQLite database inside container |
+| `SSL_CERT_PATH` | `/etc/nginx/ssl/cert.pem` | Path to SSL certificate file |
+| `SSL_KEY_PATH` | `/etc/nginx/ssl/key.pem` | Path to SSL private key file |
+
+> [!Important]
+> Always set `SESSION_SECRET_KEY` in production to persist user sessions across container restarts.
+> Enter the following command to generate a secure key:
 >
-> When you restart the container, {{% product-name %}} generates a new key if
-> not explicitly set. For production use cases, always set the `SESSION_SECRET_KEY`
-> environment variable to persist sessions across restarts.
+> ```bash
+> openssl rand -hex 32
+> ```
 
-### SSL_CERT_PATH
+### Volume reference
 
-Defines the path to the SSL certificate file inside the container.
-Default is `/etc/nginx/ssl/cert.pem`.
+| Container Path | Purpose | Permissions | Required |
+|----------------|---------|-------------|----------|
+| `/db` | SQLite database storage | 700 | No (but recommended) |
+| `/app-root/config` | Connection configuration | 755 | No |
+| `/etc/nginx/ssl` | TLS/SSL certificates | 755 | Only for HTTPS |
 
-{{< expand-wrapper >}}
-{{% expand "View `SSL_CERT_PATH` example" %}}
-<!-- pytest.mark.skip -->
+### Port reference
+
+| Container Port | Protocol | Purpose | Common Host Mapping |
+|----------------|----------|---------|---------------------|
+| 80 | HTTP | Web UI (unencrypted) | 8888 |
+| 443 | HTTPS | Web UI (encrypted) | 8888 |
+
+---
+
+## Complete examples
+
+### Production setup with all features
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+# Create required directories
+mkdir -m 700 ./db
+mkdir -m 755 ./config ./ssl
+
+# Generate session secret
+export SESSION_SECRET=$(openssl rand -hex 32)
+
+# Create configuration
+cat > config/config.json << 'EOF'
+{
+  "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181",
+  "DEFAULT_INFLUX_DATABASE": "production",
+  "DEFAULT_API_TOKEN": "your-production-token",
+  "DEFAULT_SERVER_NAME": "Production InfluxDB 3"
+}
+EOF
+
+# Run Explorer with all features
+docker run --detach \
+  --name influxdb3-explorer \
+  --pull always \
+  --publish 8888:443 \
+  --volume $(pwd)/db:/db:rw \
+  --volume $(pwd)/config:/app-root/config:ro \
+  --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+  --env SESSION_SECRET_KEY=$SESSION_SECRET \
+  --restart unless-stopped \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
+  --mode=admin
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    pull_policy: always
+    command: ["--mode=admin"]
+    ports:
+      - "8888:443"
+    volumes:
+      - ./db:/db:rw
+      - ./config:/app-root/config:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    environment:
+      SESSION_SECRET_KEY: ${SESSION_SECRET_KEY}
+    restart: unless-stopped
+```
+
+Create a `.env` file that contains the following:
 
 ```bash
-docker run --detach \
-  # ...
-  --volume $(pwd)/ssl:/custom/ssl:ro \
-  --env SSL_CERT_PATH=/custom/ssl/cert.pem \
-  influxdata/influxdb3-ui:{{% latest-patch %}}
+SESSION_SECRET_KEY=your_32_char_hex_string_here
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
-### SSL_KEY_PATH
-
-Defines the path to the SSL private key file inside the container.
-Default is `/etc/nginx/ssl/key.pem`.
-
-{{< expand-wrapper >}}
-{{% expand "View `SSL_KEY_PATH` example" %}}
-<!-- pytest.mark.skip -->
+Start the container:
 
 ```bash
-docker run --detach \
-  # ...
-  --volume $(pwd)/ssl:/custom/ssl:ro \
-  --env SSL_KEY_PATH=/custom/ssl/key.pem \
+docker-compose up -d
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Development setup (minimal)
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+docker run --rm \
+  --name influxdb3-explorer-dev \
+  --publish 8888:80 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
+{{% /code-tab-content %}}
 
-## Volume Reference
+{{% code-tab-content %}}
+```yaml
+# docker-compose.yml
+version: '3.8'
 
-| Container Path       | Purpose                      | Host Example               |
-|----------------------|------------------------------|----------------------------|
-| `/db`                | SQLite DB storage            | `./db`                     |
-| `/app-root/config`   | JSON config for defaults     | `./config`                 |
-| `/etc/nginx/ssl`     | SSL certs for HTTPS          | `./ssl`                    |
-
-## Exposed Ports
-
-| Port | Protocol | Purpose                 |
-|------|----------|-------------------------|
-| 80   | HTTP     | Web access (unencrypted) |
-| 443  | HTTPS    | Web access (encrypted)   |
-
-### Custom port mapping
-
-```sh
-# Map ports to custom host values
---publish 8888:80 --publish 8443:443
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer-dev
+    ports:
+      - "8888:80"
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
