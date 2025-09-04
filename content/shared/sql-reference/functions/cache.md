@@ -17,7 +17,7 @@ distinct_cache(table_name, cache_name)
 
 - **table_name**: Name of the table associated with the distinct value cache
   _(formatted as a string literal)_.
-- **datatype**: Name of the distinct value cache to query 
+- **cache_name**: Name of the distinct value cache to query 
   _(formatted as a string literal)_.
 
 {{< expand-wrapper >}}
@@ -42,7 +42,7 @@ last_cache(table_name, cache_name)
 
 - **table_name**: Name of the table associated with the last value cache
   _(formatted as a string literal)_.
-- **datatype**: Name of the last value cache to query 
+- **cache_name**: Name of the last value cache to query 
   _(formatted as a string literal)_.
 
 {{< expand-wrapper >}}

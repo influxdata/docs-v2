@@ -123,7 +123,7 @@ FROM
 | v3               |
 
 {{% /expand %}}
-{{% expand "View `get_field` example with a amp column" %}}
+{{% expand "View `get_field` example with a map column" %}}
 
 ```sql
 SELECT
