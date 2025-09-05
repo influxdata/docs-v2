@@ -7,7 +7,7 @@ menu:
   influxdb3_enterprise:
     name: Cache
     parent: sql-functions
-weight: 311
+weight: 314
 
 source: /shared/sql-reference/functions/cache.md
 ---

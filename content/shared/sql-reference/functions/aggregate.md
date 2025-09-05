@@ -77,7 +77,7 @@ aggregate value.
 Returns an array created from the expression elements.
 
 > [!Note]
-> `array_agg` returns a `LIST` arrow type. Use bracket notation to reference the
+> `array_agg` returns a `LIST` Arrow type. Use bracket notation to reference the
 > index of an element in the returned array. Arrays are 1-indexed.
 
 ```sql
@@ -524,7 +524,7 @@ GROUP BY location
 
 ### mean
 
-_Alias of [avg](#avg)._
+_Alias of [`avg`](#avg)._
 
 ### median
 
@@ -1403,7 +1403,7 @@ GROUP BY room
 
 ### var_population
 
-_Alias of [var_pop](#var_pop)._
+_Alias of [`var_pop`](#var_pop)._
 
 ### var_samp
 

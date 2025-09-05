@@ -2,15 +2,12 @@ The {{< product-name >}} SQL implementation supports the following conditional
 functions for conditionally handling _null_ values:
 
 - [coalesce](#coalesce)
+- [greatest](#greatest)
 - [ifnull](#ifnull)
+- [least](#least)
 - [nullif](#nullif)
 - [nvl](#nvl)
 - [nvl2](#nvl2)
-
-<!-- Will come with next DataFusion upgrade
-- [greatest](#greatest)
-- [least](#least)
--->
 
 ## coalesce
 
@@ -56,7 +53,7 @@ FROM
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!--
+
 ## greatest
 
 Returns the greatest value in a list of expressions.
@@ -79,25 +76,23 @@ _The following example uses the
 [Random numbers sample dataset](/influxdb/version/reference/sample-data/#random-numbers-sample-data)._
 
 ```sql
-SELECT greatest(a, b) AS greatest FROM numbers LIMIT 4
+SELECT time, greatest(a, b) AS greatest FROM numbers LIMIT 4
 ```
 
-| time                |            greatest |
-| ------------------- | ------------------: |
-| 2023-01-01T00:02:00 |  -0.482943221384294 |
-| 2023-01-01T00:03:00 | -0.0729732928756677 |
-| 2023-01-01T00:04:00 |    1.77857552719844 |
-| 2023-01-01T00:05:00 |   0.741147445214238 |
+| time                |           greatest |
+| :------------------ | -----------------: |
+| 2023-01-01T01:20:00 | -0.515490223280789 |
+| 2023-01-01T01:21:00 |  0.803201312042983 |
+| 2023-01-01T01:22:00 |  0.970938142399892 |
+| 2023-01-01T01:23:00 | 0.0493748366311344 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
--->
 
 ## ifnull
 
 _Alias of [nvl](#nvl)._
 
-<!--
 ## least
 
 Returns the least value in a list of expressions.
@@ -120,19 +115,18 @@ _The following example uses the
 [Random numbers sample dataset](/influxdb/version/reference/sample-data/#random-numbers-sample-data)._
 
 ```sql
-SELECT least(a, b) AS least FROM numbers LIMIT 4
+SELECT time, least(a, b) AS least FROM numbers LIMIT 4
 ```
 
 | time                |              least |
-| ------------------- | -----------------: |
-| 2023-01-01T00:02:00 | -0.921037167720451 |
-| 2023-01-01T00:03:00 |  -0.73880754843378 |
-| 2023-01-01T00:04:00 | -0.905980032168252 |
-| 2023-01-01T00:05:00 | -0.891164752631417 |
+| :------------------ | -----------------: |
+| 2023-01-01T00:10:00 |  -1.08759833527982 |
+| 2023-01-01T00:11:00 | -0.187620086586211 |
+| 2023-01-01T00:12:00 |  -0.81371037157091 |
+| 2023-01-01T00:13:00 | -0.339781659874945 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
--->
 
 ## nullif
 
