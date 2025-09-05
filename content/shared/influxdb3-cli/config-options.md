@@ -175,10 +175,6 @@ influxdb3 serve
 - [TCP Listeners](#tcp-listeners)
   - [tcp-listener-file-path](#tcp-listener-file-path)
   - [admin-token-recovery-tcp-listener-file-path](#admin-token-recovery-tcp-listener-file-path)
-{{% show-in "enterprise" %}}
-- [Experimental Features](#experimental-features)
-  - [use-pacha-tree](#use-pacha-tree)
-{{% /show-in %}}
 
 ---
 
@@ -1977,25 +1973,3 @@ Specifies the TCP listener file path for admin token recovery operations.
 | influxdb3 serve option                         | Environment variable                                      |
 | :---------------------------------------------- | :-------------------------------------------------------- |
 | `--admin-token-recovery-tcp-listener-file-path` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_TCP_LISTENER_FILE_PATH`  |
-
-{{% show-in "enterprise" %}}
----
-
-### Experimental Features
-
-- [use-pacha-tree](#use-pacha-tree)
-
-#### use-pacha-tree
-
-Enables the experimental PachaTree storage engine for improved performance.
-
-> [!Warning]
-> This is an experimental feature and should not be used in production environments.
-
-**Default:** `false`
-
-| influxdb3 serve option | Environment variable                   |
-| :---------------------- | :------------------------------------- |
-| `--use-pacha-tree`      | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` |
-
-{{% /show-in %}}

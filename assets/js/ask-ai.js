@@ -45,8 +45,6 @@ function initializeChat({ onChatLoad, chatAttributes }) {
     modalOverrideOpenClassAskAi: 'ask-ai-open',
     modalSize: '640px',
     modalWithOverlay: 'false',
-    modalInnerMaxWidth: '800px',
-    modalXOffset: 'calc(100% - 800px - .5rem)',
     modalYOffset: '10vh',
     userAnalyticsFingerprintEnabled: 'true',
     fontFamily: 'Proxima Nova, sans-serif',

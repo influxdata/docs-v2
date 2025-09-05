@@ -31,6 +31,9 @@
         padding: 0;
         margin: 0;
       }
+      #kapa-widget-container {
+        font-family: 'Proxima Nova', sans-serif;
+      }
     </style>
     {{#unless disableGoogleFont}}<link
         href="https://fonts.googleapis.com/css?family=Roboto+Mono:500,500i,700,700i|Roboto:400,400i,700,700i|Rubik:400,400i,500,500i,700,700i"
@@ -41,6 +44,7 @@
     <script>
       // Load Kapa AI widget after DOM content is loaded
       document.addEventListener('DOMContentLoaded', function() {
+      const fontFamily = 'Proxima Nova, sans-serif';
       const askAI = document.createElement('script');
       askAI.type = 'text/javascript';
       askAI.async = true;
@@ -53,8 +57,8 @@
       askAI.setAttribute('data-project-logo', '/img/influx-logo-cubo-white.png');
       askAI.setAttribute('data-modal-disclaimer', 'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).');
       askAI.setAttribute('data-modal-example-questions', 'How do I write and query data with the {{title}}?, How do I use client libraries for the {{title}}?');
-      askAI.setAttribute('data-button-height', '65px');
-      askAI.setAttribute('data-button-width', '65px');
+      askAI.setAttribute('data-button-height', '50px');
+      askAI.setAttribute('data-button-width', '50px');
       if (window.matchMedia('(max-width: 800px)').matches) {
         // For mobile devices (smaller than 600px)
         askAI.setAttribute('data-button-position-bottom', '130px');
@@ -62,25 +66,23 @@
         // For larger screens
         askAI.setAttribute('data-button-position-bottom', '20px');
       }
+      askAI.setAttribute('data-button-text-font-family', fontFamily);
+      askAI.setAttribute('data-button-text-font-size', '12.8px');
       askAI.setAttribute('data-button-text', 'Ask AI');
       askAI.setAttribute('data-conversation-button-icons-only', 'true');
-      askAI.setAttribute('data-font-family', 'Proxima Nova, sans-serif');
+      askAI.setAttribute('data-font-family', fontFamily);
       askAI.setAttribute('data-modal-example-questions-col-span', '8');
       askAI.setAttribute('data-modal-full-screen-on-mobile', 'true');
       askAI.setAttribute('data-modal-header-bg-color', '#d30971');
       askAI.setAttribute('data-modal-header-border-bottom', 'none');
       askAI.setAttribute('data-modal-header-padding', '.5rem');
       askAI.setAttribute('data-modal-header-text-color', '#ffffff');
-      askAI.setAttribute('data-modal-x-offset', '0');
+      askAI.setAttribute('data-modal-size', '640px');
       askAI.setAttribute('data-modal-y-offset', '0');
       askAI.setAttribute('data-modal-with-overlay', 'false');
       askAI.setAttribute('data-modal-inner-flex-direction', 'column');
       askAI.setAttribute('data-modal-inner-justify-content', 'end');
-      askAI.setAttribute('data-modal-inner-max-width', '600px');
-      askAI.setAttribute('data-modal-inner-position-left', 'auto');
-      askAI.setAttribute('data-modal-inner-position-right', '50px');
       askAI.setAttribute('data-modal-inner-position-bottom', 'calc(2.5rem + 25px)');
-      askAI.setAttribute('data-modal-size', '640px');
       askAI.setAttribute('data-modal-title-color', '#fff');
       askAI.setAttribute('data-modal-title-font-size', '1.25rem');
       askAI.setAttribute('data-modal-lock-scroll', 'false');

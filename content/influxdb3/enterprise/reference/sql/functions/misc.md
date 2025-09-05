@@ -7,11 +7,11 @@ menu:
   influxdb3_enterprise:
     name: Miscellaneous
     parent: sql-functions
-weight: 310
+weight: 314
 
 source: /shared/sql-reference/functions/misc.md
 ---
 
 <!-- 
-The content of this page is at /content/shared/sql-reference/functions/misc.md
+// SOURCE content/shared/sql-reference/functions/misc.md
 -->

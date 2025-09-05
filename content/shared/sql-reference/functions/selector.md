@@ -61,7 +61,7 @@ Returns the smallest value of a selected column and a timestamp.
 selector_min(expression, timestamp)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of string or
@@ -103,7 +103,7 @@ Returns the largest value of a selected column and a timestamp.
 selector_max(expression, timestamp)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of string or
@@ -145,7 +145,7 @@ Returns the first value ordered by time ascending.
 selector_first(expression, timestamp)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of string or
@@ -187,7 +187,7 @@ Returns the last value ordered by time ascending.
 selector_last(expression, timestamp)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of string or
