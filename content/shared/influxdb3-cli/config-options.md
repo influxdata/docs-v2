@@ -175,10 +175,6 @@ influxdb3 serve
 - [TCP Listeners](#tcp-listeners)
   - [tcp-listener-file-path](#tcp-listener-file-path)
   - [admin-token-recovery-tcp-listener-file-path](#admin-token-recovery-tcp-listener-file-path)
-{{% show-in "enterprise" %}}
-- [Experimental Features](#experimental-features)
-  - [use-pacha-tree](#use-pacha-tree)
-{{% /show-in %}}
 
 ---
 
