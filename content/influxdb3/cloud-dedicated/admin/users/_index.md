@@ -62,7 +62,7 @@ Use the Admin UI for user management tasks (available to Admin users only):
 >
 > Auditor role users can view the invite list but cannot send or revoke invitations. Member role users cannot access the invite list.
 
-For detailed instructions, [Manage users in the Admin UI](/influxdb3/cloud-dedicated/admin/users/admin-ui/).
+For more information, see [Manage users in the Admin UI](/influxdb3/cloud-dedicated/admin/users/admin-ui/).
 
 ### Contact support (Advanced operations)
 For operations not available in the Admin UI:
