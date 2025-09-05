@@ -112,10 +112,11 @@ Click on any invitation in the table to view additional details, including:
 - Can see user invitations but cannot create or revoke them
 - Cannot modify any resources or create tokens
 
-{{% note %}}
-#### Role assignment
-User roles are assigned when sending invitations and cannot currently be changed through the Admin UI. To modify a user's role, [contact InfluxData support](https://support.influxdata.com).
-{{% /note %}}
+> [!Note]
+> #### Role assignment
+>
+> User roles are assigned when sending invitations and cannot currently be changed through the Admin UI.
+> To modify a user's role, [contact InfluxData support](https://support.influxdata.com).
 
 ## Limitations
 
