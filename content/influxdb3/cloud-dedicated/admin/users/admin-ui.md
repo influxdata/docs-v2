@@ -92,7 +92,7 @@ Click on any invitation in the table to view additional details, including:
 
 ## User roles and permissions
 
-{{% product-name %}} uses role-based access control to manage user permissions:
+{{% product-name %}} uses role-based access control to manage user permissions for the following roles:
 
 ### Admin
 - Full read and write permissions on all cluster resources
