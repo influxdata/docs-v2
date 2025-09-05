@@ -13,7 +13,7 @@ Decode binary data from textual representation in string.
 decode(expression, format)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: Expression containing encoded string data.
   Can be a constant, column, or function, and any combination of string operators.
@@ -33,7 +33,7 @@ Encode binary data into a textual representation.
 encode(expression, format)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: Expression containing string or binary data.
   Can be a constant, column, or function, and any combination of string operators.

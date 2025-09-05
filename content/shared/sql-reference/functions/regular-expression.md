@@ -17,7 +17,7 @@ Returns the number of matches that a regular expression has in a string.
 regexp_count(str, regexp[, start, flags])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -62,7 +62,7 @@ false otherwise.
 regexp_like(str, regexp[, flags])
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -104,7 +104,7 @@ Returns a list of regular expression matches in a string.
 regexp_match(str, regexp, flags)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
@@ -147,7 +147,7 @@ Replaces substrings in a string that match a regular expression.
 regexp_replace(str, regexp, replacement, flags)
 ```
 
-##### Arguments
+### Arguments
 
 - **str**: String expression to operate on.
   Can be a constant, column, or function, and any combination of string operators.
