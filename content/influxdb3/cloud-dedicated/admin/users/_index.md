@@ -57,7 +57,10 @@ Use the Admin UI for user management tasks (available to Admin users only):
 - **Invite new users** - Send invitations with role assignment (Admin, Member, Auditor)
 - **Revoke pending invitations** - Cancel invitations that haven't been accepted
 
-> [!Note]  Auditor role users can view the invite list but cannot send or revoke invitations. Member role users cannot access the invite list.
+> [!Note] 
+> #### Role permissions
+>
+> Auditor role users can view the invite list but cannot send or revoke invitations. Member role users cannot access the invite list.
 
 For detailed instructions, [Manage users in the Admin UI](/influxdb3/cloud-dedicated/admin/users/admin-ui/).
 
