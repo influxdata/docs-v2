@@ -1,0 +1,89 @@
+name: Sync Plugin Documentation
+description: Request synchronization of plugin documentation from influxdb3_plugins repository
+title: "Sync plugin docs: [PLUGIN_NAMES]"
+labels: ["sync-plugin-docs", "documentation", "automation"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Plugin Documentation Sync Request
+        
+        This will trigger an automated workflow to sync plugin documentation from the influxdb3_plugins repository to docs-v2.
+        
+        The workflow will:
+        1. ✅ Validate source READMEs against template requirements
+        2. 🔄 Transform content for docs-v2 compatibility  
+        3. 🏗️ Build Hugo site and generate screenshots
+        4. 📝 Create a pull request with the changes
+        
+        **Note**: All plugin READMEs must pass validation before sync can proceed.
+
+  - type: input
+    id: plugins
+    attributes:
+      label: Plugin Names
+      description: |
+        Comma-separated list of plugins to sync (e.g., `basic_transformation, downsampler`) or `all` to sync all plugins.
+        Plugin names should match the directory names in `influxdata/` (without the `influxdata/` prefix).
+      placeholder: "basic_transformation, downsampler"
+      value: "all"
+    validations:
+      required: true
+
+  - type: input
+    id: source_commit
+    attributes:
+      label: Source Commit/Branch
+      description: |
+        Commit SHA, branch name, or tag from influxdb3_plugins repository to sync from.
+        Leave as `master` to sync from the latest main branch.
+      placeholder: "master"
+      value: "master"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: |
+        Optional: Provide any additional context about this sync request, such as:
+        - What changes were made to the plugins
+        - Any special considerations for review
+        - Links to related issues or PRs
+      placeholder: "Updated basic_transformation plugin to support new data types..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-sync Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: Plugin READMEs in influxdb3_plugins follow the [README_TEMPLATE.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README_TEMPLATE.md) structure
+          required: true
+        - label: All required sections are present (Description, Configuration, Installation steps, Example usage, Troubleshooting)
+          required: true
+        - label: Plugin metadata includes proper emoji indicators (⚡ triggers, 🏷️ tags, 🔧 compatibility)
+          required: true
+        - label: Code examples include expected outputs where applicable
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **What happens next?**
+        1. Creating this issue will automatically trigger the sync workflow
+        2. The workflow will validate all specified plugin READMEs
+        3. If validation passes, content will be transformed and a PR will be created
+        4. If validation fails, you'll receive feedback on what needs to be fixed
+        5. This issue will be automatically closed when the process completes
+        
+        **Need help?**
+        - See the [plugin documentation workflow guide](https://github.com/influxdata/docs-v2/blob/master/helper-scripts/influxdb3-plugins/README.md)
+        - Check the [plugin template requirements](https://github.com/influxdata/influxdb3_plugins/blob/master/README_TEMPLATE.md)
+        - Review existing [plugin documentation](https://docs.influxdata.com/influxdb3/core/reference/plugins/)
