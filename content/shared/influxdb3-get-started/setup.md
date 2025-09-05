@@ -185,7 +185,6 @@ services:
     ports:
       - 8181:8181 
     command:
-      - influxdb3
       - serve
       - --node-id=node0
       - --cluster-id=cluster0
