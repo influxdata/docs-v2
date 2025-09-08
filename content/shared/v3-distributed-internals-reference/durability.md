@@ -29,16 +29,13 @@ The Ingester holds the data in memory to ensure leading edge data is available f
 
 ### Write-ahead log (WAL) persistence 
 
-InfluxDB writes yet-to-be persisted data to multiple Write-Ahead-Log (WAL) files on local
-storage on the [Ingester](/influxdb3/version/reference/internals/storage-engine/#ingester) node before acknowledging the write request.
+The Ingester persists the contents of
+the WAL to Parquet files in object storage and updates the [Catalog](/influxdb3/version/reference/internals/storage-engine/#catalog) to
+reference the newly created Parquet files.
 {{% hide-in "clustered" %}}
 Parquet data files in object storage are redundantly stored on multiple devices
 across a minimum of three availability zones in a cloud region.
 {{% /hide-in %}}
-
-The Ingester then writes the contents of
-the WAL to Parquet files in object storage and updates the [Catalog](/influxdb3/version/reference/internals/storage-engine/#catalog) to
-reference the newly created Parquet files.
 
 If an Ingester node is gracefully shut down (for example, during a new software deployment), it flushes the contents of the WAL to the Parquet files before shutting down.
 {{% product-name %}} retains WALs until the data is persisted to Parquet files in object storage.
