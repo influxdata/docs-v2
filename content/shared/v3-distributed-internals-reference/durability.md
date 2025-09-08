@@ -6,21 +6,18 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 
 <span class="caption">Figure: Write request, response, and ingest flow for {{% product-name %}}</span>
 
-- [How data flows through {{% product-name %}}](#how-data-flows-through--product-name-)
 - [Data ingest](#data-ingest)
-  1. [Write validation](#write-validation)
-  2. [Write-ahead log (WAL) persistence](#write-ahead-log-wal-persistence)
 - [Data storage](#data-storage)
 - [Data deletion](#data-deletion)
 - [Backups](#backups)
-- [Recovery](#recovery)
+{{% hide-in "clustered" %}}- [Recovery](#recovery){{% /hide-in %}}
 
 ## Data ingest
 
 1. [Write validation and memory buffer](#write-validation-and-memory-buffer)
 2. [Write-ahead log (WAL) persistence](#write-ahead-log-wal-persistence)
 
-### Write validation
+### Write validation and memory buffer
 
 The [Router](/influxdb3/version/reference/internals/storage-engine/#router) validates incoming data to prevent malformed or unsupported data from entering the system.
 {{% product-name %}} writes accepted data to multiple write-ahead-log (WAL) files on local
