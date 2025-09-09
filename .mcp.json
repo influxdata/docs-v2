@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/refs/heads/main/schema/2025-06-18/schema.json",
+  "description": "InfluxData documentation assistance via MCP server - Node.js execution",
+  "mcpServers": {
+    "influxdata": {
+      "comment": "Use Node to run Docs MCP. To install and setup, see https://github.com/influxdata/docs-mcp-server",
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${DOCS_MCP_SERVER_PATH}/dist/index.js"
+      ],
+      "env": {
+        "DOCS_API_KEY_FILE": "${DOCS_API_KEY_FILE:-$HOME/.env.docs-kapa-api-key}",
+        "DOCS_MODE": "external-only",
+        "MCP_LOG_LEVEL": "${MCP_LOG_LEVEL:-info}",
+        "NODE_ENV": "${NODE_ENV:-production}"
+      }
+    }
+  }
+}
