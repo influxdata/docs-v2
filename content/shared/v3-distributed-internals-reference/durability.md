@@ -20,22 +20,17 @@ When data is written to {{% product-name %}}, it progresses through multiple sta
 ### Write validation and memory buffer
 
 The [Router](/influxdb3/version/reference/internals/storage-engine/#router) validates incoming data to prevent malformed or unsupported data from entering the system.
-{{% product-name %}} writes accepted data to multiple write-ahead-log (WAL) files on local
-storage on the [Ingester](/influxdb3/version/reference/internals/storage-engine/#ingester) node before acknowledging the write request.
-The Ingester holds the data in memory to ensure leading edge data is available for querying.
+{{% product-name %}} writes accepted data to multiple write-ahead log (WAL) files on [Ingester](/influxdb3/version/reference/internals/storage-engine/#ingester) pods' local storage (default is 2 for redundancy) before acknowledging the write request.
+The Ingester holds the data in memory to ensure leading-edge data is available for querying.
 
 ### Write-ahead log (WAL) persistence 
 
-The Ingester persists the contents of
+Ingesters persist the contents of
 the WAL to Parquet files in object storage and updates the [Catalog](/influxdb3/version/reference/internals/storage-engine/#catalog) to
 reference the newly created Parquet files.
-{{% hide-in "clustered" %}}
-Parquet data files in object storage are redundantly stored on multiple devices
-across a minimum of three availability zones in a cloud region.
-{{% /hide-in %}}
+{{% product-name %}} retains WALs until the data is persisted.
 
 If an Ingester node is gracefully shut down (for example, during a new software deployment), it flushes the contents of the WAL to the Parquet files before shutting down.
-{{% product-name %}} retains WALs until the data is persisted to Parquet files in object storage.
 
 ## Data storage
 
@@ -44,6 +39,11 @@ In {{< product-name >}}, all measurements are stored in
 point-in-time snapshot of the data. The Parquet files are immutable and are
 never replaced nor modified. Parquet files are stored in object storage and
 referenced in the [Catalog](/influxdb3/version/reference/internals/storage-engine/#catalog), which InfluxDB uses to find the appropriate Parquet files for a particular set of data.
+
+{{% hide-in "clustered" %}}
+Parquet data files in object storage are redundantly stored on multiple devices
+across a minimum of three availability zones in a cloud region.
+{{% /hide-in %}}
 
 ## Data deletion
 
