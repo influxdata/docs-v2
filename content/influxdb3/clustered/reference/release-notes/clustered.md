@@ -390,6 +390,43 @@ spec:
 # ...[remaining configuration]
 ```
 
+### `clustered-auth` service routes to removed `gateway` service instead of `core` service
+
+If you have the `clusteredAuth` feature flag enabled, the `clustered-auth` service will be deployed.
+The service currently routes to the recently removed `gateway` service instead of the new `core` service.
+
+#### Temporary workaround for service routing
+
+Until you upgrade to release `20250805-1812019`, you will need to override the `clustered-auth`
+service to point to the new `core` service by adding the following `env` overrides to your `AppInstance`:
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241024-1354148
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      components:
+        querier:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+        router:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+# ...remaining configuration...
+```
+
 ### Highlights
 
 #### AppInstance image override bug fix
