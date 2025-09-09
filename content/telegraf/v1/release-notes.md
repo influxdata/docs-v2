@@ -15,7 +15,7 @@ menu:
 
 ### Bugfixes
 
-- [#17451](https://github.com/influxdata/telegraf/pull/17451) `agent` Update help message for CLI flag --test
+- [#17451](https://github.com/influxdata/telegraf/pull/17451) `agent` Update help message for `--test` CLI flag
 - [#17413](https://github.com/influxdata/telegraf/pull/17413) `inputs.gnmi` Handle empty updates in gnmi notification response
 - [#17445](https://github.com/influxdata/telegraf/pull/17445) `inputs.redfish` Log correct address on HTTP error
 
