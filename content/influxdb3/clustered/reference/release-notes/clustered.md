@@ -397,7 +397,7 @@ The service currently routes to the recently removed `gateway` service instead o
 
 #### Temporary workaround for service routing
 
-Until you upgrade to release `20250805-1812019`, you will need to override the `clustered-auth`
+Until you upgrade to release `20250805-1812019`, you need to override the `clustered-auth`
 service to point to the new `core` service by adding the following `env` overrides to your `AppInstance`:
 
 ```yaml
