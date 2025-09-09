@@ -1278,7 +1278,7 @@ We now expose a `google` object within the `objectStore` configuration, which
 enables support for using Google Cloud's GCS as a backing object store for IOx
 components. This supports both
 [GKE workload identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity)
-and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform#step_3_create_service_account_credentials)
+and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#kubernetes-sa-to-iam)
 authentication methods.
 
 #### Support for bypassing identity provider configuration for database/token management
