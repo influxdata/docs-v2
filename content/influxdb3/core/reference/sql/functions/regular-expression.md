@@ -7,12 +7,12 @@ menu:
   influxdb3_core:
     name: Regular expression
     parent: sql-functions    
-weight: 308
+weight: 312
 influxdb3/core/tags: [regular expressions, sql]
 
 source: /shared/sql-reference/functions/regular-expression.md
 ---
 
 <!-- 
-The content of this page is at /content/shared/sql-reference/functions/regular-expression.md
+// SOURCE content/shared/sql-reference/functions/regular-expression.md
 -->

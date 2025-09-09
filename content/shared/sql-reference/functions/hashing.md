@@ -17,7 +17,7 @@ Computes the binary hash of an expression using the specified algorithm.
 digest(expression, algorithm)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -63,7 +63,7 @@ Computes an MD5 128-bit checksum for a string expression.
 md5(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -98,7 +98,7 @@ Computes the SHA-224 hash of a binary string.
 sha224(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -133,7 +133,7 @@ Computes the SHA-256 hash of a binary string.
 sha256(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -168,7 +168,7 @@ Computes the SHA-384 hash of a binary string.
 sha384(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -203,7 +203,7 @@ Computes the SHA-512 hash of a binary string.
 sha512(expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression**: String expression to operate on.
   Can be a constant, column, or function, and any combination of operators.

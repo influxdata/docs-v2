@@ -36,7 +36,6 @@ ORDER BY
 {{% /influxdb/custom-timestamps %}}
 
 - [Window frames](#window-frames)
-- [Window function syntax](#window-function-syntax)
   - [OVER clause](#over-clause)
   - [PARTITION BY clause](#partition-by-clause)
   - [ORDER BY clause](#order-by-clause)
@@ -566,7 +565,7 @@ ranking order.
 ntile(expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: An integer. The number of groups to split the partition into.
 
@@ -823,7 +822,7 @@ Returns the value from the first row of the window frame.
 first_value(expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on. Can be a constant, column, or
   function, and any combination of arithmetic operators.
@@ -879,7 +878,7 @@ the function returns the specified default.
 lag(expression, offset, default)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic or 
@@ -938,7 +937,7 @@ Returns the value from the last row of the window frame.
 last_value(expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on. Can be a constant, column, or
   function, and any combination of arithmetic operators.
@@ -995,7 +994,7 @@ the function returns the specified default.
 lead(expression, offset, default)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic or 
@@ -1055,7 +1054,7 @@ Returns the value from the row that is the nth row of the window frame
 nth_value(expression, n)
 ```
 
-##### Arguments
+#### Arguments
 
 - **expression**: The expression to operator on.
   Can be a constant, column, or function, and any combination of arithmetic or 

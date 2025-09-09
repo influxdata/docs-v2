@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.4.0
+  latest_patch: 3.4.1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -21,7 +21,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.4.0
+  latest_patch: 3.4.1
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
@@ -143,7 +143,7 @@ telegraf:
   versions: [v1]
   latest: v1.35
   latest_patches:
-    v1: 1.35.3
+    v1: 1.35.4
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?
@@ -171,7 +171,7 @@ kapacitor:
   versions: [v1]
   latest: v1.8
   latest_patches:
-    v1: 1.8.0
+    v1: 1.8.1
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom Kapacitor task?
