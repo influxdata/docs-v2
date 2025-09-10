@@ -131,7 +131,7 @@ When creating an InfluxDB data source that uses InfluxQL to query data:
 2.  Under **InfluxDB Details**:
 
     - **Database**: Provide a database name to query.
-      Use the database name that is mapped to your InfluxBD bucket.
+      Use the database name that is mapped to your InfluxDB bucket.
     - **User**: Provide an arbitrary string.
       _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb3/cloud-serverless/admin/tokens/)
