@@ -329,8 +329,8 @@ each frame that the window function operates on.
 
 - [UNBOUNDED PRECEDING](#unbounded-preceding)
 - [offset PRECEDING](#offset-preceding)
-- CURRENT_ROW](#current-row)
-- [offset> FOLLOWING](#offset-following)
+- [CURRENT_ROW](#current-row)
+- [offset FOLLOWING](#offset-following)
 - [UNBOUNDED FOLLOWING](#unbounded-following)
 
 ##### UNBOUNDED PRECEDING
@@ -365,18 +365,6 @@ For example, `3 FOLLOWING` includes 3 rows after the current row.
 
 ```sql
 <offset> FOLLOWING
-```
-
-##### UNBOUNDED FOLLOWING
-
-Starts at the current row and ends at the last row of the partition.
-##### offset FOLLOWING
-
-Use a specified offset of [frame units](#frame-units) _after_ the current row
-as a frame boundary.
-
-```sql
-offset FOLLOWING
 ```
 
 ##### UNBOUNDED FOLLOWING
