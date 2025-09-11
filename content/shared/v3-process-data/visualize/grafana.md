@@ -19,7 +19,7 @@ Use [Grafana](https://grafana.com/) to query and visualize data stored in
 If using the open source version of **Grafana**, follow the
 [Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
 to install Grafana for your operating system.
-If using **Grafana Cloud**, login to your Grafana Cloud instance.
+If using **Grafana Cloud**, log in to your Grafana Cloud instance.
 
 ## InfluxDB data source
 
@@ -134,15 +134,7 @@ use Grafana to build, run, and inspect queries against your InfluxDB {{% show-in
 
 > [!Note]
 > {{% sql/sql-schema-intro %}}
-{{% show-in "cloud-serverless" %}}
 > To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
-{{% /show-in %}}
-{{% show-in "cloud-dedicated" %}}
-> To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
-{{% /show-in %}}
-{{% show-in "clustered" %}}
-> To learn more, see [Query Data](/influxdb3/version/query-data/sql/).
-{{% /show-in %}}
 
 1. Click **Explore**.
 2. In the dropdown, select the saved InfluxDB data source to query.
