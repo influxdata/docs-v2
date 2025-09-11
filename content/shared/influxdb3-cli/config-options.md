@@ -1278,7 +1278,7 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 Specifies the size of memory pool used during query execution.
 Can be given as absolute value in bytes or as a percentage of the total available memory--for
-example: `8000000000` or `10%`).
+example: `8000000000` or `10%`.
 
 {{% show-in "core" %}}**Default:** `8589934592`{{% /show-in %}}
 {{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
@@ -1316,6 +1316,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 Specifies the interval to flush buffered data to a WAL file. Writes that wait
 for WAL confirmation take up to this interval to complete.
+Can be `s` for seconds or `ms` for miliseconds. 100ms is suggested for local disks.
 
 **Default:** `1s`
 
