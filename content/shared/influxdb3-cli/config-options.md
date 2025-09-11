@@ -1316,7 +1316,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 Specifies the interval to flush buffered data to a WAL file. Writes that wait
 for WAL confirmation take up to this interval to complete.
-Can be `s` for seconds or `ms` for miliseconds. 100ms is suggested for local disks.
+Use `s` for seconds or `ms` for milliseconds. For local disks, `100 ms` is recommended.
 
 **Default:** `1s`
 
