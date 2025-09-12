@@ -48,23 +48,35 @@ Descriptions should follow consistent patterns:
 
 ## Hugo shortcodes in Markdown
 
-- `{{% code-placeholders "PLACEHOLDER1|PLACEHOLDER2" %}}`: Use this shortcode to define placeholders in code snippets.
-- `{{% /code-placeholders %}}`: End the shortcode.
-- `{{% code-placeholder-key %}}`: Use this shortcode to define a specific placeholder key.
-- `{{% /code-placeholder-key %}}`: End the specific placeholder key shortcode.
+**Syntax**:
+
+- Use the `placeholders` code block attribute to define placeholder patterns:
+  ```<language> { placeholders="<expr>" }
+  function sampleCode () {};
+  ```
+**Old (deprecated) syntax**:
+
+- `{{% code-placeholders "PLACEHOLDER1|PLACEHOLDER2" %}}`
+- `{{% /code-placeholders %}}`
+
+**Define a placeholder key (typically following the example)**:
+
+- `{{% code-placeholder-key %}}`: Use this shortcode to define a placeholder key
+- `{{% /code-placeholder-key %}}`: Use this shortcode to close the key name
+- Follow with a description
 
 ## Language-Specific Placeholder Formatting
 
 - **Bash/Shell**: Use uppercase variables with no quotes or prefix
-  ```bash
+  ```bash { placeholders="DATABASE_NAME" }
   --database DATABASE_NAME
   ```
 - Python: Use string literals with quotes
-  ```python
+  ```python { placeholders="DATABASE_NAME" }
   database_name='DATABASE_NAME'
   ```
 - JSON: Use key-value pairs with quotes
-  ```json
+  ```json { placeholders="DATABASE_NAME" }
   {
     "database": "DATABASE_NAME"
   }
@@ -75,8 +87,7 @@ Descriptions should follow consistent patterns:
 ### InfluxDB CLI Commands
 This pattern appears frequently in CLI documentation:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash { placeholders="DATABASE_NAME|AUTH_TOKEN" }
 influxdb3 write \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \

@@ -47,6 +47,7 @@ influxdb3 serve
 {{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
   - [object-store](#object-store)
 {{% show-in "enterprise" %}}
+  - [num-cores](#num-cores)
   - [num-database-limit](#num-database-limit)
   - [num-table-limit](#num-table-limit)
   - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
@@ -295,6 +296,23 @@ This option supports the following values:
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 {{% show-in "enterprise" %}}
+---
+
+#### num-cores
+
+Limits the total number of CPU cores that can be used by the server.
+Default is determined by your {{% product-name %}} license:
+
+- **Trial**: up to 256 cores
+- **At-Home**: 2 cores
+- **Commercial**: per contract
+
+| influxdb3 serve option | Environment variable               |
+| :--------------------- | :--------------------------------- |
+| `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES`  |
+
+For more information about licensing, see [Manage license](/influxdb3/enterprise/admin/license).
+
 ---
 
 #### num-database-limit
@@ -1380,9 +1398,11 @@ Determines whether WAL replay should fail when encountering errors.
 
 #### wal-replay-concurrency-limit
 
-Sets the maximum number of concurrent WAL replay operations.
+Concurrency limit during WAL replay.
+Setting this number too high can lead to OOM.
+The default is dynamically determined.
 
-**Default:** `16`
+**Default:** `max(num_cpus, 10)`
 
 | influxdb3 serve option            | Environment variable                        |
 | :--------------------------------- | :------------------------------------------ |
@@ -1891,9 +1911,10 @@ Specifies how far back to look when creating generation 1 Parquet files.
 
 #### retention-check-interval
 
-Defines how often the system checks for data that should be deleted according to retention policies.
+The interval at which retention policies are checked and enforced.
+Enter as a human-readable time--for example: `30m` or `1h`.
 
-**Default:** `1h`
+**Default:** `30m`
 
 | influxdb3 serve option        | Environment variable                     |
 | :----------------------------- | :--------------------------------------- |
