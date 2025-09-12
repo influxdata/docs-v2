@@ -65,7 +65,23 @@ paths:
           schema:
             type: string
           required: true
-          description: Bucket to write to. If none exists, InfluxDB creates a bucket with a default 3-day retention policy.
+          description: |
+            The database to write to.
+
+            **Database targeting:** In InfluxDB Clustered, databases can be named using the `database_name/retention_policy_name` convention for InfluxQL compatibility. InfluxDB Clustered does not use DBRP mappings. The db and rp parameters are used to construct the target database name following this naming convention.
+
+            **Auto-creation behavior:** InfluxDB Clustered requires databases to be created before writing data. The v1 `/write` API does not automatically create databases. If the specified
+            database does not exist, the write request will fail.
+
+            Authentication: Requires a valid API token with _write_ permissions for the target database.
+
+            ### Related
+
+            - [Write data to InfluxDB Clustered](/influxdb3/clustered/write-data/)
+            - [Use the InfluxDB v1 API with InfluxDB Clustered](/influxdb3/clustered/guides/api-compatibility/v1/)
+            - [Manage databases in InfluxDB Clustered](/influxdb3/clustered/admin/databases/)
+            - [InfluxQL DBRP naming convention in InfluxDB Clustered](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention)
+            - [Migrate data from InfluxDB v1 to InfluxDB Clustered](/influxdb3/clustered/guides/migrate-data/migrate-1x-to-clustered/)
         - in: query
           name: rp
           schema:
@@ -136,6 +152,141 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   /query:
+    get:
+      operationId: GetQueryV1
+      tags:
+        - Query
+      summary: Query using the InfluxDB v1 HTTP API
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - $ref: '#/components/parameters/AuthUserV1'
+        - $ref: '#/components/parameters/AuthPassV1'
+        - in: header
+          name: Accept
+          schema:
+            type: string
+            description: Specifies how query results should be encoded in the response. **Note:** With `application/csv`, query results include epoch timestamps instead of RFC3339 timestamps.
+            default: application/json
+            enum:
+              - application/json
+              - application/csv
+              - text/csv
+              - application/x-msgpack
+        - in: header
+          name: Accept-Encoding
+          description: The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.
+          schema:
+            type: string
+            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
+            default: identity
+            enum:
+              - gzip
+              - identity
+        - in: query
+          name: chunked
+          description: |
+            If true, the response is divided into chunks of size `chunk_size`.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: chunk_size
+          description: |
+            The number of records that will go into a chunk.
+            This parameter is only used if `chunked=true`.
+          schema:
+            type: integer
+            default: 10000
+        - in: query
+          name: db
+          schema:
+            type: string
+          required: true
+          description: The database to query from.
+        - in: query
+          name: pretty
+          description: |
+            If true, the JSON response is formatted in a human-readable format.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: q
+          description: Defines the InfluxQL query to run.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: rp
+          schema:
+            type: string
+          description: Retention policy name.
+        - name: epoch
+          description: |
+            Formats timestamps as unix (epoch) timestamps with the specified precision
+            instead of RFC3339 timestamps with nanosecond precision.
+          in: query
+          schema:
+            type: string
+            enum:
+              - h
+              - m
+              - s
+              - ms
+              - u
+              - µ
+              - ns
+      responses:
+        '200':
+          description: Query results
+          headers:
+            Content-Encoding:
+              description: The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body
+              schema:
+                type: string
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
+                default: identity
+                enum:
+                  - gzip
+                  - identity
+            Trace-Id:
+              description: The Trace-Id header reports the request's trace ID, if one was generated.
+              schema:
+                type: string
+                description: Specifies the request's trace ID.
+          content:
+            application/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxQLCSVResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/InfluxQLCSVResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfluxQLResponse'
+              examples:
+                influxql-chunk_size_2:
+                  value: |
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:55Z",90,"1"],["2016-05-19T18:37:56Z",90,"1"]],"partial":true}],"partial":true}]}
+                    {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag"],"values":[["2016-05-19T18:37:57Z",90,"1"],["2016-05-19T18:37:58Z",90,"1"]]}]}]}
+            application/x-msgpack:
+              schema:
+                type: string
+                format: binary
+        '429':
+          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
+          headers:
+            Retry-After:
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
+              schema:
+                type: integer
+                format: int32
+        default:
+          description: Error processing query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       operationId: PostQueryV1
       tags:
@@ -147,6 +298,64 @@ paths:
           text/plain:
             schema:
               type: string
+          application/json:
+            schema:
+              type: object
+              properties:
+                db:
+                  type: string
+                  description: Database to query.
+                rp:
+                  description: |
+                    The retention policy name for InfluxQL compatibility
+
+                    Optional parameter that, when combined with the db parameter, forms the complete database name to query. In InfluxDB Clustered, databases can be named using the
+                    database_name/retention_policy_name convention for InfluxQL compatibility.
+
+                    When a request specifies both `db` and `rp`, InfluxDB Clustered combines them as `db/rp` to target the database--for example:
+
+                    - If `db=mydb` and `rp=autogen`, the query targets the database named `mydb/autogen`
+                    - If only `db=mydb` is provided (no `rp`), the query targets the database named `mydb`
+
+                    Unlike InfluxDB v1 and Cloud Serverless, InfluxDB Clustered does not use DBRP mappings or separate retention policy objects. This parameter exists solely for v1 API
+                    compatibility and database naming conventions.
+
+                    Note: The retention policy name does not control data retention in InfluxDB Clustered. Data retention is determined by the database's _retention period_ setting.
+
+                    ### Related
+
+                    - [Use the v1 query API and InfluxQL to query data in InfluxDB Clustered](/influxdb3/clustered/query-data/execute-queries/influxdb-v1-api/)
+                    - [Use the InfluxDB v1 API with InfluxDB Clustered](/influxdb3/clustered/guides/api-compatibility/v1/)
+                    - [Manage databases in InfluxDB Clustered](/influxdb3/clustered/admin/databases/)
+                    - [InfluxQL DBRP naming convention in InfluxDB Clustered](/influxdb3/clustered/admin/databases/create/#influxql-dbrp-naming-convention)
+                    - [Migrate data from InfluxDB v1 to InfluxDB Clustered](/influxdb3/clustered/guides/migrate-data/migrate-1x-to-clustered/)
+                  type: string  
+                q:
+                  description: |
+                    Defines the InfluxQL query to run.
+                  type: string
+                chunked:
+                  description: |
+                    If true, the response is divided into chunks of size `chunk_size`.
+                  type: boolean
+                chunk_size:
+                  description: |
+                    The number of records that will go into a chunk.
+                    This parameter is only used if `chunked=true`.
+                  type: integer
+                  default: 10000
+                epoch:
+                  description: |
+                    A unix timestamp precision.
+                  type: string
+                  enum:
+                    - h
+                    - m
+                    - s
+                    - ms
+                    - u
+                    - µ
+                    - ns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - $ref: '#/components/parameters/AuthUserV1'

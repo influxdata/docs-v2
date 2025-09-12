@@ -44,7 +44,7 @@ _**Data type:** [String](#string)_
 
 ### Tag set
 
-_**Optional**_ –
+(_**Optional**_)
 All tag key-value pairs for the point.
 Key-value relationships are denoted with the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
@@ -75,8 +75,8 @@ _**Value data type:** [Float](#float) | [Integer](#integer) | [UInteger](#uinteg
 
 ### Timestamp
 
-_**Optional**_ –
-The [unix timestamp](/influxdb3/version/reference/glossary/#unix-timestamp) for the data point.
+(_**Optional**_)
+The [Unix timestamp](/influxdb3/version/reference/glossary/#unix-timestamp) for the data point.
 InfluxDB accepts one timestamp per point.
 If no timestamp is provided, InfluxDB uses the system time (UTC) of its host machine.
 
@@ -282,3 +282,15 @@ A point is uniquely identified by the table name, tag set, and timestamp.
 If you submit line protocol with the same table, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
+
+{{% show-in "cloud-dedicated,clustered" %}}
+> [!Important]
+> #### Write ordering for duplicate points
+>
+> {{% product-name %}} attempts to honor write ordering for duplicate points,
+> with the most recently written point taking precedence. However, when data is
+> flushed from the in-memory buffer to Parquet files—typically every 15 minutes,
+> but sometimes sooner—this ordering is not guaranteed if duplicate points are
+> flushed at the same time. As a result, the last written duplicate point may
+> not always be retained in storage.
+{{% /show-in %}}

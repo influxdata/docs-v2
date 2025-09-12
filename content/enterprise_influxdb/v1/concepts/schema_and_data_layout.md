@@ -16,6 +16,7 @@ We recommend the following design guidelines for most use cases:
   - [Where to store data (tag or field)](#where-to-store-data-tag-or-field)
   - [Avoid too many series](#avoid-too-many-series)
   - [Use recommended naming conventions](#use-recommended-naming-conventions)
+  - [Writing data with future timestamps](#writing-data-with-future-timestamps)
   - [Shard Group Duration Management](#shard-group-duration-management)
 
 ## Where to store data (tag or field)
@@ -207,6 +208,38 @@ from(bucket:"<database>/<retention_policy>")
 
 # Schema 2 - Query for data encoded in multiple tags
 > SELECT mean("temp") FROM "weather_sensor" WHERE region = 'north'
+```
+
+## Writing data with future timestamps
+
+When designing schemas for applications that write data with future timestamps--such as forecast data from machine learning models, predictions, or scheduled events--consider the following implications for InfluxDB Enterprise v1 cluster operations and data integrity.
+
+### Understanding future data behavior
+
+InfluxDB Enterprise v1 creates shards based on time ranges.
+When you write data with future timestamps, InfluxDB creates shards that cover future time periods.
+
+> [!Caution]
+> #### Risks of rebalancing with future data
+>
+> Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+> can lead to overlapping shards and data duplication.
+> For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
+> or [contact InfluxData support](https://support.influxdata.com).
+
+### Use separate databases for future data
+
+When planning for data that contains future timestamps, consider isolating it in dedicated databases to:
+
+- Minimize impact on real-time data operations
+- Allow targeted maintenance operations on current vs. future data
+- Simplify backup and recovery strategies for different data types
+
+```sql
+# Example: Separate databases for different data types
+CREATE DATABASE "realtime_metrics"
+CREATE DATABASE "ml_forecasts"
+CREATE DATABASE "scheduled_predictions"
 ```
 
 ## Shard group duration management

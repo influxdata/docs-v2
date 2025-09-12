@@ -49,7 +49,7 @@ Returns the absolute value of a number.
 abs(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -80,7 +80,7 @@ Returns the arc cosine or inverse cosine of a number.
 acos(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -111,7 +111,7 @@ Returns the area hyperbolic cosine or inverse hyperbolic cosine of a number.
 acosh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -142,7 +142,7 @@ Returns the arc sine or inverse sine of a number.
 asin(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -173,7 +173,7 @@ Returns the area hyperbolic sine or inverse hyperbolic sine of a number.
 asinh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -204,7 +204,7 @@ Returns the arc tangent or inverse tangent of a number.
 atan(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -235,7 +235,7 @@ Returns the area hyperbolic tangent or inverse hyperbolic tangent of a number.
 atanh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -266,7 +266,7 @@ Returns the arc tangent or inverse tangent of `expression_y / expression_x`.
 atan2(expression_y, expression_x)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression_y**: First numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -299,7 +299,7 @@ Returns the cube root of a number.
 cbrt(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -330,7 +330,7 @@ Returns the nearest integer greater than or equal to a number.
 ceil(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -361,7 +361,7 @@ Returns the cosine of a number.
 cos(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -392,7 +392,7 @@ Returns the hyperbolic cosine of a number.
 cosh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -423,7 +423,7 @@ Returns the cotangent of a number.
 cot(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of operators.
@@ -455,7 +455,7 @@ Converts radians to degrees.
 degrees(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -487,7 +487,7 @@ Returns the base-e exponential of a number.
 exp(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to use as the exponent.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -518,7 +518,7 @@ Returns 1 if value is less than 2.
 factorial(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Must be an integer (`BIGINT`).
@@ -551,7 +551,7 @@ Returns the nearest integer less than or equal to a number.
 floor(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -583,7 +583,7 @@ Returns `0` if both inputs are zero.
 gcd(expression_x, expression_y)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression_x**: First numeric expression to operate on.
   Must be an integer (`BIGINT`).
@@ -619,7 +619,7 @@ Returns `true` if a given number is ±NaN, otherwise returns `false`.
 isnan(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Must be a float (`DOUBLE`).
@@ -658,7 +658,7 @@ Returns `true` if the given number is ±0.0, otherwise returns `false`.
 iszero(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -697,7 +697,7 @@ Returns `0` if either input is zero.
 lcm(expression_x, expression_y)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression_x**: First numeric expression to operate on.
   Must be an integer (`BIGINT`).
@@ -733,7 +733,7 @@ Returns the natural logarithm of a number.
 ln(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -805,7 +805,7 @@ Returns the base-10 logarithm of a number.
 log10(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -836,7 +836,7 @@ Returns the base-2 logarithm of a number.
 log2(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -868,7 +868,7 @@ Otherwise returns the second argument.
 nanvl(expression_x, expression_y)
 ```
 
-##### Arguments
+### Arguments
 
 - **expression_x**: Numeric expression to return if it’s not `NaN`.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -934,7 +934,7 @@ power(base, exponent)
 
 - `pow`
 
-##### Arguments
+### Arguments
 
 - **base**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -971,7 +971,7 @@ Converts degrees to radians.
 radians(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1033,7 +1033,7 @@ Rounds a number to the nearest integer.
 round(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1066,7 +1066,7 @@ Zero and positive numbers return `1`.
 signum(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1097,7 +1097,7 @@ Returns the sine of a number.
 sin(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1128,7 +1128,7 @@ Returns the hyperbolic sine of a number.
 sinh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1159,7 +1159,7 @@ Returns the square root of a number.
 sqrt(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1190,7 +1190,7 @@ Returns the tangent of a number.
 tan(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1221,7 +1221,7 @@ Returns the hyperbolic tangent of a number.
 tanh(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -1253,7 +1253,7 @@ Truncates a number toward zero (at the decimal point).
 trunc(numeric_expression)
 ```
 
-##### Arguments
+### Arguments
 
 - **numeric_expression**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.

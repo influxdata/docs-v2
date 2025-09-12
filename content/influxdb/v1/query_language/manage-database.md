@@ -307,7 +307,7 @@ See
 [Shard group duration management](/influxdb/v1/concepts/schema_and_data_layout/#shard-group-duration-management)
 for recommended configurations.
 
-##### `PAST LIMIT`
+##### `PAST LIMIT` {metadata="v1.12.0+"}
 
 The `PAST LIMIT` clause defines a time boundary before and relative to _now_
 in which points written to the retention policy are accepted. If a point has a
@@ -318,7 +318,7 @@ For example, if a write request tries to write data to a retention policy with a
 `PAST LIMIT 6h` and there are points in the request with timestamps older than
 6 hours, those points are rejected.
 
-##### `FUTURE LIMIT`
+##### `FUTURE LIMIT` {metadata="v1.12.0+"}
 
 The `FUTURE LIMIT` clause defines a time boundary after and relative to _now_
 in which points written to the retention policy are accepted. If a point has a

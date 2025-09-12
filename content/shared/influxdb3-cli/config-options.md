@@ -42,21 +42,27 @@ influxdb3 serve
 - [General](#general)
 {{% show-in "enterprise" %}}  - [cluster-id](#cluster-id){{% /show-in %}}
   - [data-dir](#data-dir)
-{{% show-in "enterprise" %}}  - [license-email](#license-email)
-  - [license-file](#license-file)
-  - [mode](#mode){{% /show-in %}}
+{{% show-in "enterprise" %}}  - [mode](#mode){{% /show-in %}}
   - [node-id](#node-id)
 {{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
   - [object-store](#object-store)
+{{% show-in "enterprise" %}}
+  - [num-database-limit](#num-database-limit)
+  - [num-table-limit](#num-table-limit)
+  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
+- [Licensing](#licensing)
+  - [license-email](#license-email)
+  - [license-file](#license-file)
+  - [license-type](#license-type){{% /show-in %}}
+- [Security](#security)
   - [tls-key](#tls-key)
   - [tls-cert](#tls-cert)
   - [tls-minimum-versions](#tls-minimum-version)
   - [without-auth](#without-auth)
   - [disable-authz](#disable-authz)
-{{% show-in "enterprise" %}}
-  - [num-database-limit](#num-database-limit)
-  - [num-table-limit](#num-table-limit)
-  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit){{% /show-in %}}
+  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
+  - [admin-token-file](#admin-token-file)
+  {{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}} 
 - [AWS](#aws)
   - [aws-access-key-id](#aws-access-key-id)
   - [aws-secret-access-key](#aws-secret-access-key)
@@ -65,11 +71,14 @@ influxdb3 serve
   - [aws-session-token](#aws-session-token)
   - [aws-allow-http](#aws-allow-http)
   - [aws-skip-signature](#aws-skip-signature)
+  - [aws-credentials-file](#aws-credentials-file)
 - [Google Cloud Service](#google-cloud-service)
   - [google-service-account](#google-service-account)
 - [Microsoft Azure](#microsoft-azure)
   - [azure-storage-account](#azure-storage-account)
   - [azure-storage-access-key](#azure-storage-access-key)
+  - [azure-endpoint](#azure-endpoint)
+  - [azure-allow-http](#azure-allow-http)
 - [Object Storage](#object-storage)
   - [bucket](#bucket)
   - [object-store-connection-limit](#object-store-connection-limit)
@@ -108,10 +117,8 @@ influxdb3 serve
 - [HTTP](#http)
   - [max-http-request-size](#max-http-request-size)
   - [http-bind](#http-bind)
-  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
   - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
   - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
   - [wal-flush-interval](#wal-flush-interval)
@@ -168,10 +175,6 @@ influxdb3 serve
 - [TCP Listeners](#tcp-listeners)
   - [tcp-listener-file-path](#tcp-listener-file-path)
   - [admin-token-recovery-tcp-listener-file-path](#admin-token-recovery-tcp-listener-file-path)
-{{% show-in "enterprise" %}}
-- [Experimental Features](#experimental-features)
-  - [use-pacha-tree](#use-pacha-tree)
-{{% /show-in %}}
 
 ---
 
@@ -182,8 +185,6 @@ influxdb3 serve
 {{% /show-in %}}
 - [data-dir](#data-dir)
 {{% show-in "enterprise" %}}
-- [license-email](#license-email)
-- [license-file](#license-file)
 - [mode](#mode)
 {{% /show-in %}}
 - [node-id](#node-id)
@@ -218,30 +219,6 @@ Required when using the `file` [object store](#object-store).
 ---
 
 {{% show-in "enterprise" %}}
-#### license-email
-
-Specifies the email address to associate with your {{< product-name >}} license
-and automatically responds to the interactive email prompt when the server starts.
-This option is mutually exclusive with [license-file](#license-file).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
-
----
-
-#### license-file
-
-Specifies the path to a license file for {{< product-name >}}. When provided, the license
-file's contents are used instead of requesting a new license.
-This option is mutually exclusive with [license-email](#license-email).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
-
----
-
 #### mode
 
 Sets the mode to start the server in.
@@ -274,6 +251,8 @@ configuration--for example, the same bucket.
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
 
 {{% show-in "enterprise" %}}
 #### node-id-from-env
@@ -315,7 +294,96 @@ This option supports the following values:
 | :--------------------- | :----------------------- |
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
+{{% show-in "enterprise" %}}
 ---
+
+#### num-database-limit
+
+Limits the total number of active databases.
+Default is {{% influxdb3/limit "database" %}}.
+
+| influxdb3 serve option  | Environment variable                      |
+| :---------------------- | :---------------------------------------- |
+| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
+
+---
+
+#### num-table-limit
+
+Limits the total number of active tables across all databases.
+Default is {{% influxdb3/limit "table" %}}.
+
+| influxdb3 serve option | Environment variable                   |
+| :--------------------- | :------------------------------------- |
+| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
+
+---
+
+#### num-total-columns-per-table-limit
+
+Limits the total number of columns per table.
+Default is {{% influxdb3/limit "column" %}}.
+
+| influxdb3 serve option                | Environment variable                                     |
+| :------------------------------------ | :------------------------------------------------------- |
+| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
+{{% /show-in %}}
+
+---
+
+{{% show-in "enterprise" %}}
+### Licensing
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+
+---
+
+#### license-type
+
+Specifies the type of {{% product-name %}} license to use and bypasses the
+interactive license prompt. Provide one of the following license types:
+
+- `home`
+- `trial`
+- `commercial`
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
+
+### Security
+
+- [tls-key](#tls-key)
+- [tls-cert](#tls-cert)
+- [tls-minimum-versions](#tls-minimum-version)
+- [without-auth](#without-auth)
+- [disable-authz](#disable-authz)
+- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
+- [admin-token-file](#admin-token-file)
+{{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}}
 
 #### tls-key
 
@@ -369,41 +437,211 @@ Valid values are `health`, `ping`, and `metrics`.
 | :--------------------- | :------------------------ |
 | `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
 
+---
+
+#### admin-token-recovery-http-bind
+
+Enables an admin token recovery HTTP server on a separate port.
+This server allows regenerating lost admin tokens without existing authentication.
+The server automatically shuts down after a successful token regeneration.
+
+> [!Warning]
+> This option creates an unauthenticated endpoint that can regenerate admin tokens.
+> Only use this when you have lost access to your admin token and ensure the
+> server is only accessible from trusted networks.
+
+**Default:** `127.0.0.1:8182` (when enabled)
+
+| influxdb3 serve option             | Environment variable                       |
+| :--------------------------------- | :----------------------------------------- |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+
+##### Example usage
+
+```bash
+# Start server with recovery endpoint
+influxdb3 serve --admin-token-recovery-http-bind
+
+# In another terminal, regenerate the admin token
+influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
+```
+
+---
+
+#### admin-token-file
+
+Specifies an offline admin token file to use if no tokens exist when the server
+starts. Once started, you can interact with the server using the provided token.
+Offline admin tokens are designed to help with automated deployments.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--admin-token-file`   | `INFLUXDB3_ADMIN_TOKEN_FILE` |
+
+Offline admin tokens are defined in a JSON-formatted file.
+Use the following command to generate an offline admin token file:
+
+<!-- pytest.mark.skip -->
+```bash { placeholders="./path/to/admin-token.json" }
+influxdb3 create token --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline admin token file" %}}
+```json
+{
+  "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+  "name": "example-admin-token",
+  "expiry_millis": 1756400061529
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/admin-token.json" }
+# Generate and admin token offline
+influxdb3 create token \
+  --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --admin-token-file ./path/to/admin-token.json
+```
+
+---
+
 {{% show-in "enterprise" %}}
+#### permission-tokens-file
+
+Specifies an offline permission (resource) tokens file to use if no resource
+tokens exist when the server starts. Once started, you can interact with the
+server using the provided tokens. Offline permission tokens are designed to help
+with automated deployments.
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--permission-tokens-file` | `INFLUXDB3_PERMISSION_TOKENS_FILE` |
+
+Multiple tokens with database-level permissions can be defined.
+You can also specify databases to create at startup.
+Use the a command similar to the following to generate an offline permission
+token file:
+
+```bash { placeholders="./path/to/tokens.json" }
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline permission tokens file" %}}
+```json
+{
+  "create_databases": [
+    "db1",
+    "db2",
+    "d3"
+  ],
+  "tokens": [
+    {
+      "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+      "name": "example-token",
+      "expiry_millis": 1756400061529,
+      "permissions": [
+        "db:db1,db2:read,write",
+        "db:db3:read"
+      ]
+    }
+  ]
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+> [!Note]
+> If you write a new offline permission token to an existing permission token file,
+> the command appends the new token to the existing output file.
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/tokens.json" }
+# Generate and admin token offline
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --permission-tokens-file ./path/to/tokens.json
+```
+
 ---
-
-#### num-database-limit
-
-Limits the total number of active databases.
-Default is {{% influxdb3/limit "database" %}}.
-
-| influxdb3 serve option  | Environment variable                      |
-| :---------------------- | :---------------------------------------- |
-| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
-
----
-
-#### num-table-limit
-
-Limits the total number of active tables across all databases.
-Default is {{% influxdb3/limit "table" %}}.
-
-| influxdb3 serve option | Environment variable                   |
-| :--------------------- | :------------------------------------- |
-| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
-
----
-
-#### num-total-columns-per-table-limit
-
-Limits the total number of columns per table.
-Default is {{% influxdb3/limit "column" %}}.
-
-| influxdb3 serve option                | Environment variable                                     |
-| :------------------------------------ | :------------------------------------------------------- |
-| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
 {{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+### Licensing
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
 ---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+
+---
+
+#### license-type
+
+Specifies the type of {{% product-name %}} license to use and bypasses the
+interactive license prompt. Provide one of the following license types:
+
+- `home`
+- `trial`
+- `commercial`
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
 
 ### AWS
 
@@ -414,6 +652,7 @@ Default is {{% influxdb3/limit "column" %}}.
 - [aws-session-token](#aws-session-token)
 - [aws-allow-http](#aws-allow-http)
 - [aws-skip-signature](#aws-skip-signature)
+- [aws-credentials-file](#aws-credentials-file)
 
 #### aws-access-key-id
 
@@ -491,6 +730,37 @@ If enabled, S3 object stores do not fetch credentials and do not sign requests.
 
 ---
 
+#### aws-credentials-file
+
+Specifies the path to your S3 credentials file.
+When using a credentials file, settings in the file override the corresponding
+CLI flags.
+
+S3 credential files are JSON-formatted and should contain the following:
+
+```json { placeholders="AWS_(ACCESS_KEY_ID|SECRET_ACCESS_KEY|SESSION_TOKEN)|UNIX_SECONDS_TIMESTAMP" }
+{
+  "aws_access_key_id": "AWS_ACCESS_KEY_ID",
+  "aws_secret_access_key": "AWS_SECRET_ACCESS_KEY",
+  "aws_session_token": "AWS_SESSION_TOKEN",
+  "expiry": "UNIX_SECONDS_TIMESTAMP"
+}
+```
+
+The `aws_session_token` and `expiry` fields are optional.
+The file is automatically checked for updates at the expiry time or at 1-hour
+intervals.
+
+If the object store returns an "Unauthenticated" error, InfluxDB will attempt to
+update its in-memory credentials from this file and then retry the object store
+request.
+
+| influxdb3 serve option   | Environment variable   |
+| :----------------------- | :--------------------- |
+| `--aws-credentials-file` | `AWS_CREDENTIALS_FILE` |
+
+---
+
 ### Google Cloud Service
 
 - [google-service-account](#google-service-account)
@@ -510,6 +780,8 @@ JSON file that contains the Google credentials.
 
 - [azure-storage-account](#azure-storage-account)
 - [azure-storage-access-key](#azure-storage-access-key)
+- [azure-endpoint](#azure-endpoint)
+- [azure-allow-http](#azure-allow-http)
 
 #### azure-storage-account
 
@@ -530,6 +802,30 @@ values in the Storage account's **Settings > Access keys**.
 | influxdb3 serve option       | Environment variable       |
 | :--------------------------- | :------------------------- |
 | `--azure-storage-access-key` | `AZURE_STORAGE_ACCESS_KEY` |
+
+---
+
+#### azure-endpoint
+
+When using Microsoft Azure as the object store, set this to the Azure Blob
+Storage endpoint.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-endpoint`     | `AZURE_ENDPOINT`     |
+
+---
+
+#### azure-allow-http
+
+When using Microsoft Azure as the object store, allow unencrypted HTTP requests
+to Azure Blob Storage.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-allow-http`   | `AZURE_ALLOW_HTTP`   |
 
 ---
 
@@ -638,6 +934,11 @@ Sets the filter directive for logs.
 #### log-destination
 
 Specifies the destination for logs.
+
+This option supports the following values:
+
+- `stdout` _(default)_
+- `stderr`
 
 **Default:** `stdout`
 
@@ -943,7 +1244,6 @@ Provides custom configuration to DataFusion as a comma-separated list of
 
 - [max-http-request-size](#max-http-request-size)
 - [http-bind](#http-bind)
-- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 
 #### max-http-request-size
 
@@ -969,42 +1269,16 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ---
 
-#### admin-token-recovery-http-bind
-
-Enables an admin token recovery HTTP server on a separate port. This server allows regenerating lost admin tokens without existing authentication. The server automatically shuts down after a successful token regeneration.
-
-> [!Warning]
-> This option creates an unauthenticated endpoint that can regenerate admin tokens. Only use this when you have lost access to your admin token and ensure the server is only accessible from trusted networks.
-
-**Default:** `127.0.0.1:8182` (when enabled)
-
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
-
-##### Example usage
-
-```bash
-# Start server with recovery endpoint
-influxdb3 serve --admin-token-recovery-http-bind
-
-# In another terminal, regenerate the admin token
-influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
-```
-
----
-
 ### Memory
 
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### exec-mem-pool-bytes
 
 Specifies the size of memory pool used during query execution.
 Can be given as absolute value in bytes or as a percentage of the total available memory--for
-example: `8000000000` or `10%`).
+example: `8000000000` or `10%`.
 
 {{% show-in "core" %}}**Default:** `8589934592`{{% /show-in %}}
 {{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
@@ -1012,23 +1286,6 @@ example: `8000000000` or `10%`).
 | influxdb3 serve option  | Environment variable            |
 | :---------------------- | :------------------------------ |
 | `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
-
-{{% show-in "core" %}}
----
-
-#### buffer-mem-limit-mb
-
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
-
-{{% /show-in %}}
 
 ---
 
@@ -1059,6 +1316,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 Specifies the interval to flush buffered data to a WAL file. Writes that wait
 for WAL confirmation take up to this interval to complete.
+Use `s` for seconds or `ms` for milliseconds. For local disks, `100 ms` is recommended.
 
 **Default:** `1s`
 
@@ -1716,25 +1974,3 @@ Specifies the TCP listener file path for admin token recovery operations.
 | influxdb3 serve option                         | Environment variable                                      |
 | :---------------------------------------------- | :-------------------------------------------------------- |
 | `--admin-token-recovery-tcp-listener-file-path` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_TCP_LISTENER_FILE_PATH`  |
-
-{{% show-in "enterprise" %}}
----
-
-### Experimental Features
-
-- [use-pacha-tree](#use-pacha-tree)
-
-#### use-pacha-tree
-
-Enables the experimental PachaTree storage engine for improved performance.
-
-> [!Warning]
-> This is an experimental feature and should not be used in production environments.
-
-**Default:** `false`
-
-| influxdb3 serve option | Environment variable                   |
-| :---------------------- | :------------------------------------- |
-| `--use-pacha-tree`      | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` |
-
-{{% /show-in %}}

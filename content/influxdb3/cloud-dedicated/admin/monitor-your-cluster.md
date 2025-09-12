@@ -328,7 +328,7 @@ following levels:
 - **L3**: 4 L2 files compacted together
 
 Parquet files store data partitioned by time and optionally tags
-_(see [Manage data partition](https://docs.influxdata.com/influxdb3/cloud-dedicated/admin/custom-partitions/))_.
+_(see [Manage data partition](/influxdb3/cloud-dedicated/admin/custom-partitions/))_.
 After four L0 files accumulate for a partition, they're eligible for compaction.
 If the compactor is keeping up with the incoming write load, all compaction
 events have exactly four files.

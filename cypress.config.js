@@ -2,14 +2,6 @@ import { defineConfig } from 'cypress';
 import { cwd as _cwd } from 'process';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-import {
-  BROKEN_LINKS_FILE,
-  FIRST_BROKEN_LINK_FILE,
-  initializeReport,
-  readBrokenLinksReport,
-  saveCacheStats,
-  saveValidationStrategy,
-} from './cypress/support/link-reporter.js';
 
 export default defineConfig({
   e2e: {
@@ -85,98 +77,6 @@ export default defineConfig({
           } catch (error) {
             console.error(`Error reading file ${path}: ${error.message}`);
             return { error: error.message };
-          }
-        },
-
-        // Broken links reporting tasks
-        initializeBrokenLinksReport() {
-          return initializeReport();
-        },
-
-        // Special case domains are now handled directly in the test without additional reporting
-        // This task is kept for backward compatibility but doesn't do anything special
-        reportSpecialCaseLink(linkData) {
-          console.log(
-            `✅ Expected status code: ${linkData.url} (status: ${linkData.status}) is valid for this domain`
-          );
-          return true;
-        },
-
-        reportBrokenLink(linkData) {
-          try {
-            // Validate link data
-            if (!linkData || !linkData.url || !linkData.page) {
-              console.error('Invalid link data provided');
-              return false;
-            }
-
-            // Read current report
-            const report = readBrokenLinksReport();
-
-            // Find or create entry for this page
-            let pageReport = report.find((r) => r.page === linkData.page);
-            if (!pageReport) {
-              pageReport = { page: linkData.page, links: [] };
-              report.push(pageReport);
-            }
-
-            // Check if link is already in the report to avoid duplicates
-            const isDuplicate = pageReport.links.some(
-              (link) => link.url === linkData.url && link.type === linkData.type
-            );
-
-            if (!isDuplicate) {
-              // Add the broken link to the page's report
-              pageReport.links.push({
-                url: linkData.url,
-                status: linkData.status,
-                type: linkData.type,
-                linkText: linkData.linkText,
-              });
-
-              // Write updated report back to file
-              fs.writeFileSync(
-                BROKEN_LINKS_FILE,
-                JSON.stringify(report, null, 2)
-              );
-
-              // Store first broken link if not already recorded
-              const firstBrokenLinkExists =
-                fs.existsSync(FIRST_BROKEN_LINK_FILE) &&
-                fs.readFileSync(FIRST_BROKEN_LINK_FILE, 'utf8').trim() !== '';
-
-              if (!firstBrokenLinkExists) {
-                // Store first broken link with complete information
-                const firstBrokenLink = {
-                  url: linkData.url,
-                  status: linkData.status,
-                  type: linkData.type,
-                  linkText: linkData.linkText,
-                  page: linkData.page,
-                  time: new Date().toISOString(),
-                };
-
-                fs.writeFileSync(
-                  FIRST_BROKEN_LINK_FILE,
-                  JSON.stringify(firstBrokenLink, null, 2)
-                );
-
-                console.error(
-                  `🔴 FIRST BROKEN LINK: ${linkData.url} (${linkData.status}) - ${linkData.type} on page ${linkData.page}`
-                );
-              }
-
-              // Log the broken link immediately to console
-              console.error(
-                `❌ BROKEN LINK: ${linkData.url} (${linkData.status}) - ${linkData.type} on page ${linkData.page}`
-              );
-            }
-
-            return true;
-          } catch (error) {
-            console.error(`Error reporting broken link: ${error.message}`);
-            // Even if there's an error, we want to ensure the test knows there was a broken link
-            return true;
           }
         },
 

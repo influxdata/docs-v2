@@ -5,7 +5,7 @@ description: >
   create alerts, run ETL jobs and detect anomalies.
 menu:
   kapacitor_v1:
-    name: Kapacitor v1.7
+    name: Kapacitor
 weight: 1
 ---
 

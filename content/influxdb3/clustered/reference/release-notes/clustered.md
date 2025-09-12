@@ -61,6 +61,36 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20250814-1819052 {date="2025-08-14"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250814-1819052/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250814-1819052/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Bug Fixes
+
+- Fix incorrect service address for tokens in Clustered auth sidecar. If you were overriding the `AUTHZ_TOKEN_SVC_ADDRESS` environment variable in your `AppInstance`, you can now remove that override.
+- Remove default `fallbackScrapeProtocol` environment variable for prometheus-operator.
+- Update Grafana to `12.1.1` to address CVE-2025-6023 and CVE-2025-6197.
+
+### Changes
+
+#### Database Engine
+
+- Update DataFusion to v48.
+- Tweak compaction to reduce write amplification and querier cache churn in some circumstances.
+
+---
+
 ## 20250721-1796368 {date="2025-07-21"}
 
 ### Quickstart
@@ -187,8 +217,8 @@ spec:
 - Change the default of `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_INTERVAL` from `1h`
   to `4h`.
 - Introduce the following environment variables to help in cases where the
-  object store is large enough that the the garbage collector cannot keep up
-  when cleaning obsolete objects:
+  object store is large enough that the garbage collector cannot keep up when
+  cleaning obsolete objects:
 
   - `INFLUXDB_IOX_GC_PRIMARY_OBJECTSTORE_PARTITIONS`
   - `INFLUXDB_IOX_GC_SECONDARY_OBJECTSTORE_PARTITIONS`
@@ -358,6 +388,43 @@ spec:
           - name: 'influxdb2-artifacts/granite/granite'
             newFQIN: 'us-docker.pkg.dev/influxdb2-artifacts/granite/granite:7acf9ca6e1ad15db80b22cd0bc071acdb561eb51'
 # ...[remaining configuration]
+```
+
+### `clustered-auth` service routes to removed `gateway` service instead of `core` service
+
+If you have the `clusteredAuth` feature flag enabled, the `clustered-auth` service will be deployed.
+The service currently routes to the recently removed `gateway` service instead of the new `core` service.
+
+#### Temporary workaround for service routing
+
+Until you upgrade to release `20250805-1812019`, you need to override the `clustered-auth`
+service to point to the new `core` service by adding the following `env` overrides to your `AppInstance`:
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241024-1354148
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      components:
+        querier:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+        router:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+# ...remaining configuration...
 ```
 
 ### Highlights
@@ -1211,7 +1278,7 @@ We now expose a `google` object within the `objectStore` configuration, which
 enables support for using Google Cloud's GCS as a backing object store for IOx
 components. This supports both
 [GKE workload identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity)
-and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform#step_3_create_service_account_credentials)
+and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#kubernetes-sa-to-iam)
 authentication methods.
 
 #### Support for bypassing identity provider configuration for database/token management
@@ -1394,7 +1461,7 @@ This now enables the use of Azure blob storage.
 
 The "Install InfluxDB Clustered" instructions (formerly known as "GETTING_STARTED")
 are now available on the public
-[InfluxDB Clustered documentation](https://docs.influxdata.com/influxdb3/clustered/install/).
+[InfluxDB Clustered documentation](/influxdb3/clustered/install/).
 
 The `example-customer.yml` (also known as `myinfluxdb.yml`) example
 configuration file still lives in the release bundle alongside the `RELEASE_NOTES`.

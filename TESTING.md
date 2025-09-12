@@ -121,95 +121,250 @@ Potential causes:
   # This is ignored
   ```
 
-## Link Validation Testing
+## Link Validation with Link-Checker
 
-Link validation uses Cypress for e2e browser-based testing against the Hugo site to ensure all internal and external links work correctly.
+Link validation uses the `link-checker` tool to validate internal and external links in documentation files.
 
 ### Basic Usage
 
+#### Installation
+
+**Option 1: Build from source (macOS/local development)**
+
+For local development on macOS, build the link-checker from source:
+
 ```bash
-# Test specific files
-yarn test:links content/influxdb3/core/**/*.md
+# Clone and build link-checker
+git clone https://github.com/influxdata/docs-tooling.git
+cd docs-tooling/link-checker
+cargo build --release
 
-# Test all links (may take a long time)
-yarn test:links
-
-# Test by product (may take a long time)
-yarn test:links:v3
-yarn test:links:v2  
-yarn test:links:telegraf
-yarn test:links:chronograf
-yarn test:links:kapacitor
+# Copy binary to your PATH or use directly
+cp target/release/link-checker /usr/local/bin/
+# OR use directly: ./target/release/link-checker
 ```
 
-### How Link Validation Works
+**Option 2: Download pre-built binary (GitHub Actions/Linux)**
 
-The tests:
-1. Start a Hugo development server
-2. Navigate to each page in a browser
-3. Check all links for validity
-4. Report broken or invalid links
+The link-checker binary is distributed via docs-v2 releases for reliable access from GitHub Actions workflows:
+
+```bash
+# Download Linux binary from docs-v2 releases
+curl -L -o link-checker \
+  https://github.com/influxdata/docs-v2/releases/download/link-checker-v1.0.0/link-checker-linux-x86_64
+chmod +x link-checker
+
+# Verify installation
+./link-checker --version
+```
+
+> [!Note]
+> Pre-built binaries are currently Linux x86_64 only. For macOS development, use Option 1 to build from source.
+
+```bash
+# Clone and build link-checker
+git clone https://github.com/influxdata/docs-tooling.git
+cd docs-tooling/link-checker
+cargo build --release
+
+# Copy binary to your PATH or use directly
+cp target/release/link-checker /usr/local/bin/
+```
+
+#### Binary Release Process
+
+**For maintainers:** To create a new link-checker release in docs-v2:
+
+1. **Create release in docs-tooling** (builds and releases binary automatically):
+   ```bash
+   cd docs-tooling
+   git tag link-checker-v1.2.x
+   git push origin link-checker-v1.2.x
+   ```
+
+2. **Manually distribute to docs-v2** (required due to private repository access):
+   ```bash
+   # Download binary from docs-tooling release
+   curl -L -H "Authorization: Bearer $(gh auth token)" \
+     -o link-checker-linux-x86_64 \
+     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/link-checker-linux-x86_64"
+   
+   curl -L -H "Authorization: Bearer $(gh auth token)" \
+     -o checksums.txt \
+     "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/checksums.txt"
+   
+   # Create docs-v2 release
+   gh release create \
+     --repo influxdata/docs-v2 \
+     --title "Link Checker Binary v1.2.x" \
+     --notes "Link validation tooling binary for docs-v2 GitHub Actions workflows." \
+     link-checker-v1.2.x \
+     link-checker-linux-x86_64 \
+     checksums.txt
+   ```
+
+3. **Update workflow reference** (if needed):
+   ```bash
+   # Update .github/workflows/pr-link-check.yml line 98 to use new version
+   sed -i 's/link-checker-v[0-9.]*/link-checker-v1.2.x/' .github/workflows/pr-link-check.yml
+   ```
+
+> [!Note]
+> The manual distribution is required because docs-tooling is a private repository and the default GitHub token doesn't have cross-repository access for private repos.
+
+#### Core Commands
+
+```bash
+# Map content files to public HTML files
+link-checker map content/path/to/file.md
+
+# Check links in HTML files
+link-checker check public/path/to/file.html
+
+# Generate configuration file
+link-checker config
+```
+
+### Link Resolution Behavior
+
+The link-checker automatically handles relative link resolution based on the input type:
+
+**Local Files → Local Resolution**
+```bash
+# When checking local files, relative links resolve to the local filesystem
+link-checker check public/influxdb3/core/admin/scale-cluster/index.html
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → /path/to/public/influxdb3/clustered/tags/kubernetes/index.html
+```
+
+**URLs → Production Resolution**
+```bash
+# When checking URLs, relative links resolve to the production site
+link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluster/
+# Relative link /influxdb3/clustered/tags/kubernetes/ becomes:
+# → https://docs.influxdata.com/influxdb3/clustered/tags/kubernetes/
+```
+
+**Why This Matters**
+- **Testing new content**: Tag pages generated locally will be found when testing local files
+- **Production validation**: Production URLs validate against the live site
+- **No false positives**: New content won't appear broken when testing locally before deployment
+
+### Content Mapping Workflows
+
+#### Scenario 1: Map and check InfluxDB 3 Core content
+
+```bash
+# Map Markdown files to HTML
+link-checker map content/influxdb3/core/get-started/
+
+# Check links in mapped HTML files
+link-checker check public/influxdb3/core/get-started/
+```
+
+#### Scenario 2: Map and check shared CLI content
+
+```bash
+# Map shared content files
+link-checker map content/shared/influxdb3-cli/
+
+# Check the mapped output files
+# (link-checker map outputs the HTML file paths)
+link-checker map content/shared/influxdb3-cli/ | \
+  xargs link-checker check
+```
+
+#### Scenario 3: Direct HTML checking
+
+```bash
+# Check HTML files directly without mapping
+link-checker check public/influxdb3/core/get-started/
+```
+
+#### Combined workflow for changed files
+
+```bash
+# Check only files changed in the last commit
+git diff --name-only HEAD~1 HEAD | grep '\.md$' | \
+  xargs link-checker map | \
+  xargs link-checker check
+```
+
+### Configuration Options
+
+#### Local usage (default configuration)
+
+```bash
+# Uses default settings or test.lycherc.toml if present
+link-checker check public/influxdb3/core/get-started/
+```
+
+#### Production usage (GitHub Actions)
+
+```bash
+# Use production configuration with comprehensive exclusions
+link-checker check \
+  --config .ci/link-checker/production.lycherc.toml \
+  public/influxdb3/core/get-started/
+```
 
 ### GitHub Actions Integration
 
-#### Composite Action
+**Automated Integration (docs-v2)**
 
-The `.github/actions/validate-links/` composite action provides reusable link validation:
+The docs-v2 repository includes automated link checking for pull requests:
+
+- **Trigger**: Runs automatically on PRs that modify content files
+- **Binary distribution**: Downloads latest pre-built binary from docs-v2 releases
+- **Smart detection**: Only checks files affected by PR changes
+- **Production config**: Uses optimized settings with exclusions for GitHub, social media, etc.
+- **Results reporting**: Broken links reported as GitHub annotations with detailed summaries
+
+The workflow automatically:
+1. Detects content changes in PRs using GitHub Files API
+2. Downloads latest link-checker binary from docs-v2 releases
+3. Builds Hugo site and maps changed content to public HTML files
+4. Runs link checking with production configuration
+5. Reports results with annotations and step summaries
+
+**Manual Integration (other repositories)**
+
+For other repositories, you can integrate link checking manually:
 
 ```yaml
-- uses: ./.github/actions/validate-links
-  with:
-    files: "content/influxdb3/core/file.md content/influxdb/v2/file2.md"
-    product-name: "core"
-    cache-enabled: "true"
-    cache-key: "link-validation"
+name: Link Check
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download link-checker
+        run: |
+          curl -L -o link-checker \
+            https://github.com/influxdata/docs-tooling/releases/latest/download/link-checker-linux-x86_64
+          chmod +x link-checker
+          cp target/release/link-checker ../../link-checker
+          cd ../..
+          
+      - name: Build Hugo site
+        run: |
+          npm install
+          npx hugo --minify
+          
+      - name: Check changed files
+        run: |
+          git diff --name-only origin/main HEAD | \
+            grep '\.md$' | \
+            xargs ./link-checker map | \
+            xargs ./link-checker check \
+              --config .ci/link-checker/production.lycherc.toml
 ```
-
-#### Matrix Generator
-
-The `.github/scripts/matrix-generator.js` script provides intelligent strategy selection:
-
-- **Sequential validation**: For small changes (< 10 files) or single-product changes
-- **Parallel validation**: For large changes across multiple products (up to 5 concurrent jobs)
-
-Test locally:
-
-```bash
-node .github/scripts/matrix-generator.js content/influxdb3/core/file1.md content/influxdb/v2/file2.md
-```
-
-Configuration options:
-- `--max-concurrent <n>`: Maximum parallel jobs (default: 5)
-- `--force-sequential`: Force sequential execution
-- `--min-files-parallel <n>`: Minimum files for parallel (default: 10)
-
-### Caching for Link Validation
-
-Link validation supports caching to improve performance:
-
-- **Cache location**: `.cache/link-validation/` (local), GitHub Actions cache (CI)
-- **Cache keys**: Based on content file hashes
-- **TTL**: 30 days by default, configurable
-
-#### Cache Configuration Options
-
-```bash
-# Use 7-day cache for more frequent validation
-yarn test:links --cache-ttl=7 content/influxdb3/**/*.md
-
-# Use 1-day cache via environment variable
-LINK_CACHE_TTL_DAYS=1 yarn test:links content/**/*.md
-
-# Clean up expired cache entries
-node .github/scripts/incremental-validator.js --cleanup
-```
-
-#### How Caching Works
-
-- **Cache key**: Based on file path + content hash (file changes invalidate cache immediately)
-- **External links**: Cached for the TTL period since URLs rarely change
-- **Internal links**: Effectively cached until file content changes
-- **Automatic cleanup**: Expired entries are removed on access and via `--cleanup`
 
 ## Style Linting (Vale)
 
