@@ -15,12 +15,7 @@ menu:
 
 ### Important Changes
 
-- PR [#17355](https://github.com/influxdata/telegraf/pull/17355) changes the `profiles` support
-  of `inputs.opentelemetry` from the `v1 experimental` to the `v1 development` as this experimental API
-  is updated upstream. This will change the metric by for example removing the no-longer reported
-  `frame_type`, `stack_trace_id`, `build_id`, and `build_id_type` fields. Also, the value format of other fields
-  or tags might have changed. Please refer to the
-  [OpenTelemetry documentation](https://opentelemetry.io/docs/) for more details.
+- Pull request [#17355](https://github.com/influxdata/telegraf/pull/17355) updates `profiles` support in `inputs.opentelemetry` from v1 experimental to v1 development, following upstream changes to the experimental API. This update modifies metric output. For example, the `frame_type`, `stack_trace_id`, `build_id`, and `build_id_type` fields are no longer reported. The value format of other fields or tags might also have changed. For more information, see the [OpenTelemetry documentation](https://opentelemetry.io/docs/).
 
 ### New Plugins
 
