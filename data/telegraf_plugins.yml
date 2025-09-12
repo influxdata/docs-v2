@@ -502,8 +502,8 @@ input:
       Docker containers.
 
       > [!NOTE]
-      > Make sure Telegraf has sufficient permissions to access the
-      > configured endpoint.
+      > Make sure Telegraf has sufficient permissions to access the configured
+      > endpoint.
     introduced: v0.1.9
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers]
@@ -515,9 +515,9 @@ input:
       Docker containers.
 
       > [!NOTE]
-      > This plugin works only for containers with the `local` or `json-file` or
-      > `journald` logging driver. Please make sure Telegraf has sufficient
-      > permissions to access the configured endpoint.
+      > This plugin works only for containers with the `local`, `json-file`, or
+      > `journald` logging driver. Make sure Telegraf has sufficient permissions
+      > to access the configured endpoint.
     introduced: v1.12.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [containers, logging]
@@ -1970,6 +1970,11 @@ input:
       This service plugin receives traces, metrics, logs and profiles from
       [OpenTelemetry](https://opentelemetry.io) clients and compatible agents
       via gRPC.
+
+      > [!NOTE]
+      > Telegraf v1.32 through v1.35 support the Profiles signal using the **v1
+      > experimental API**. Telegraf v1.36+ supports the Profiles signal using the
+      > **v1 development API**.
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
@@ -2672,6 +2677,19 @@ input:
     introduced: v0.3.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [testing]
+  - name: Turbostat
+    id: turbostat
+    description: |
+      This service plugin monitors system performance using the
+      [turbostat](https://github.com/torvalds/linux/tree/master/tools/power/x86/turbostat)
+      command.
+
+      > [!IMPORTANT]
+      > This plugin requires the `turbostat` executable to be installed on the
+      > system.
+    introduced: v1.36.0
+    os_support: [linux]
+    tags: [hardware, system]
   - name: Twemproxy
     id: twemproxy
     description: |
@@ -2835,7 +2853,8 @@ input:
     description: |
       This plugin provides information about
       [X.509](https://en.wikipedia.org/wiki/X.509) certificates accessible e.g.
-      via local file, tcp, udp, https or smtp protocols.
+      via local file, tcp, udp, https or smtp protocols and the Windows
+      Certificate Store.
 
       > [!NOTE]
       > When using a UDP address as a certificate source, the server must
@@ -2940,8 +2959,8 @@ output:
       Explorer](https://docs.microsoft.com/en-us/azure/data-explorer), [Azure
       Synapse Data
       Explorer](https://docs.microsoft.com/en-us/azure/synapse-analytics/data-explorer/data-explorer-overview),
-      and [Real-Time Intelligence in
-      Fabric](https://learn.microsoft.com/fabric/real-time-intelligence/overview)
+      and [Real time analytics in
+      Fabric](https://learn.microsoft.com/en-us/fabric/real-time-analytics/overview)
       services.
 
       Azure Data Explorer is a distributed, columnar store, purpose built for
@@ -3299,9 +3318,17 @@ output:
   - name: Microsoft Fabric
     id: microsoft_fabric
     description: |
-      This plugin writes metrics to [Real time analytics in
-      Fabric](https://learn.microsoft.com/en-us/fabric/real-time-analytics/overview)
-      services.
+      This plugin writes metrics to [Fabric
+      Eventhouse](https://learn.microsoft.com/fabric/real-time-intelligence/eventhouse)
+      and [Fabric
+      Eventstream](https://learn.microsoft.com/fabric/real-time-intelligence/event-streams/overview?tabs=enhancedcapabilities)
+      artifacts of [Real-Time Intelligence in Microsoft
+      Fabric](https://learn.microsoft.com/fabric/real-time-intelligence/overview).
+
+      Real-Time Intelligence is a SaaS service in Microsoft Fabric that allows
+      you to extract insights and visualize data in motion. It offers an
+      end-to-end solution for event-driven scenarios, streaming data, and data
+      logs.
     introduced: v1.35.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
@@ -4026,6 +4053,17 @@ processor:
     introduced: v1.15.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [annotation]
+  - name: Round
+    id: round
+    description: |
+      This plugin rounds numerical field values to the configured
+      precision. This is particularly useful in combination with the [dedup
+      processor](/telegraf/v1/plugins/#processor-dedup) to reduce the number of
+      metrics sent to the output when a lower precision is required for the
+      values.
+    introduced: v1.36.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [transformation]
   - name: S2 Geo
     id: s2geo
     description: |
@@ -4122,7 +4160,7 @@ processor:
   - name: Template
     id: template
     description: |
-      This plugin applies templates to metrics for generatuing a new tag. The
+      This plugin applies templates to metrics for generating a new tag. The
       primary use case of this plugin is to create a tag that can be used for
       dynamic routing to multiple output plugins or using an output specific
       routing option.
