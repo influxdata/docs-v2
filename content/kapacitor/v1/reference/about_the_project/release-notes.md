@@ -9,6 +9,13 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.1 {date="2025-09-08}
+
+### Dependency updates
+
+- Upgrade golang.org/x/oauth2 from 0.23.0 to 0.27.0
+- Upgrade Go to 1.24.6
+
 ## v1.8.0 {date="2025-06-26"}
 
 > [!Warning]
