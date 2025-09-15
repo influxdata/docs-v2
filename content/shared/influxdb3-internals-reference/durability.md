@@ -19,14 +19,14 @@ As written data moves through {{% product-name %}}, it follows a structured path
 
 - **Process**: InfluxDB validates incoming data before accepting it into the system.
 - **Impact**: Prevents malformed or unsupported data from entering the database.
-- **Details**: The database validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
+- **Details**: The database validates incoming data and stores it in the write buffer (in memory). If `no_sync=true`, the server sends a response to acknowledge the write [without waiting for persistence](/influxdb3/version/reference/cli/influxdb3/write/#write-line-protocol-and-immediately-return-a-response).
 
 ### Write-ahead log (WAL) persistence
 
 - **Process**: The database flushes the write buffer to the WAL every second (default).
 - **Impact**: Ensures durability by persisting data to object storage.
 - **Tradeoff**: More frequent flushing improves durability but increases I/O overhead.
-- **Details**: Every second (default), the database flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
+- **Details**: Every second (default), the database flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the object store. If `no_sync=false` (default), the server sends a response to acknowledge the write.
 
 ### Query availability
 
