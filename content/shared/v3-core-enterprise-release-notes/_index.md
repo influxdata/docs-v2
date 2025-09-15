@@ -5,6 +5,46 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.4.2 {date="2025-09-11"}
+
+### Core
+
+#### Features
+
+- No new features in this release
+
+#### Bug fixes
+
+- **Database reliability**:
+  - TableIndexCache initialization and ObjectStore improvements
+  - Persister doesn't need a TableIndexCache
+
+#### HTTP API changes
+
+- **v2 write API**: Standardized `/api/v2/write` error response format to match other InfluxDB editions. Error responses now use the consistent format: `{"code": "<code>", "message": "<detailed message>"}` ([#26787](https://github.com/influxdata/influxdb/pull/26787))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Storage engine**: Pass in root CA and disable TLS verify for object store
+- **Support**: Add support for manually stopping a node
+
+#### Bug fixes
+
+- **Bug fix**: Generation detail path calculation panic
+- **Database reliability**: Pass TableIndexCache through to PersistedFiles
+
+#### Operational improvements
+
+- **Compaction optimizations**:
+  - Compaction cleaner now waits for 1 hour by default (previously 10 minutes)
+  - Compaction producer now waits for 10 seconds before starting compaction cycle
+- **Catalog synchronization**: Background catalog update is synchronized every 1 second (previously 10 seconds)
+- **Logging improvements**: Added clear logging to indicate what sequence is persisted on producer side and what is consumed by the consumer side
+
 ## v3.4.1 {date="2025-08-28"}
 
 ### Core
