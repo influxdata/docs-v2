@@ -1294,7 +1294,9 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 #### exec-mem-pool-bytes
 
-Specifies the size of memory pool used during query execution.
+Specifies the size of the memory pool used for query processing and data operations.
+This memory pool is used when {{% product-name %}} processes queries and performs
+internal data management tasks.
 Can be given as absolute value in bytes or as a percentage of the total available memory--for
 example: `8000000000` or `10%`.
 
