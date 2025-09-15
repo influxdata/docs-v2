@@ -13,7 +13,6 @@ alt_links:
   enterprise_v1: /enterprise_influxdb/v1/about-the-project/release-notes/
 ---
 
-<span id="v1.12.x"></span>
 
 ## v1.12.2 {date="2025-09-15"}
 
