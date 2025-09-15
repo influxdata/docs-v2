@@ -37,6 +37,14 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **Bug fix**: Generation detail path calculation panic
 - **Database reliability**: Pass TableIndexCache through to PersistedFiles
 
+#### Operational improvements
+
+- **Compaction optimizations**:
+  - Compaction cleaner now waits for 1 hour by default (previously 10 minutes)
+  - Compaction producer now waits for 10 seconds before starting compaction cycle
+- **Catalog synchronization**: Background catalog update is synchronized every 1 second (previously 10 seconds)
+- **Logging improvements**: Added clear logging to indicate what sequence is persisted on producer side and what is consumed by the consumer side
+
 ## v3.4.1 {date="2025-08-28"}
 
 ### Core
