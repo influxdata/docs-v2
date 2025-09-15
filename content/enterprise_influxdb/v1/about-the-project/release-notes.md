@@ -230,26 +230,24 @@ alt_links:
 
 ## v1.11.3 {date="2023-10-12"}
 
-{{% warn %}}
-#### Series file compaction on startup
-
-With InfluxDB Enterprise v1.11.3, on startup, InfluxDB runs the
-`influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
-Series files are stored in `_series` directories inside the
-[InfluxDB data directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout). Default: `/var/lib/data/<db-name>/_series`
-
-- InfluxDB Enterprise v1.11.4+ introduces a configuration setting to optionally
-  compact series on startup.
-- If any series files are corrupt, the `influx_inspect` or `influxd` processes on
-  the data node may fail to start. In both cases, delete the series file
-  directories before restarting the database. InfluxDB will automatically
-  regenerate the deleted series files when the database is restarted.
-- To check if series files are corrupt before starting the database, run the
-  [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
-  while the database is off-line.
-- If series files are large (20+ gigabytes), it may also be faster to delete the
-  series file directories before starting the database.
-{{% /warn %}}
+> [!Important]
+> #### Series file compaction on startup
+> 
+> With InfluxDB Enterprise v1.11.3, on startup, InfluxDB runs the
+> `influxd_inspect -compact-series-file` command to [compact series files](/enterprise_influxdb/v1/tools/influx_inspect/#--compact-series-file-) before data nodes are started.
+> Series files are stored in `_series` directories inside the
+> [InfluxDB data directory](/enterprise_influxdb/v1/concepts/file-system-layout/#data-node-file-system-layout). Default: `/var/lib/data/<db-name>/_series`
+> 
+> - InfluxDB Enterprise v1.11.4+ introduces a configuration setting to optionally
+>   compact series on startup.
+> - If any series files are corrupt, the `influx_inspect` or `influxd` processes on
+>   the data node may fail to start. In both cases, delete the series file directories and [rebuild the indexes](/enterprise_influxdb/v1/administration/upgrading/#rebuild-tsi-indexes) before restarting the database. InfluxDB automatically
+>   regenerates the deleted series files when the database restarts.
+> - To check if series files are corrupt before starting the database, run the
+>   [`influx_inspect verify-seriesfile` command](/enterprise_influxdb/v1/tools/influx_inspect/#verify-seriesfile)
+>   while the database is off-line.
+> - If series files are large (20+ gigabytes), it may be faster to delete the
+>   series file directories before starting the database.
 
 ### Bug Fixes
 
@@ -1181,7 +1179,8 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/relea
 
 ## v1.5.0 {date="2018-03-06"}
 
-> ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
+> [!Note]
+> This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
 > notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1/about_the_project/whats_new/).
