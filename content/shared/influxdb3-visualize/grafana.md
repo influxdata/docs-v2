@@ -1,4 +1,4 @@
-Use [Grafana](https://grafana.com/) to query and visualize data from 
+Use [Grafana](https://grafana.com/) to query and visualize data from
 {{% product-name %}}.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
@@ -7,6 +7,10 @@ Use [Grafana](https://grafana.com/) to query and visualize data from
 > data into insightful graphs and visualizations.
 >
 > {{% cite %}}-- [Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
+
+
+> [!Note]
+> {{< influxdb-version-detector >}}
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
