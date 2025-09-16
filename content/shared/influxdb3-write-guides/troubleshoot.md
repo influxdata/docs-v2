@@ -6,6 +6,7 @@ Learn how to avoid unexpected results and recover from errors when writing to
   - [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
+{{% show-in "core,enterprise" %}}- [Troubleshoot write performance issues](#troubleshoot-write-performance-issues){{% /show-in %}}
 
 ## Handle write responses
 
@@ -65,3 +66,43 @@ InfluxDB rejects points that don't match the schema of existing data.
 Check for [field data type](/influxdb3/version/reference/syntax/line-protocol/#data-types-and-format)
 differences between the rejected data point and points within the same
 database--for example, did you attempt to write `string` data to an `int` field?
+
+{{% show-in "core,enterprise" %}}
+
+## Troubleshoot write performance issues
+
+If you experience slow write performance or timeouts during high-volume ingestion,
+consider the following:
+
+### Memory configuration
+
+{{% product-name %}} uses memory for both query processing and internal data operations,
+including converting data to Parquet format during persistence.
+For write-heavy workloads, insufficient memory allocation can cause performance issues.
+
+**Symptoms of memory-related write issues:**
+- Slow write performance during data persistence (typically every 10 minutes)
+- Increased response times during high-volume ingestion
+- Memory-related errors in server logs
+
+**Solutions:**
+- Increase the [`exec-mem-pool-bytes`](/influxdb3/version/reference/config-options/#exec-mem-pool-bytes)
+  configuration to allocate more memory for data operations.
+  For write-heavy workloads, consider setting this to 30-40% of available memory.
+- Monitor memory usage during peak write periods to identify bottlenecks.
+- Adjust the [`gen1-duration`](/influxdb3/version/reference/config-options/#gen1-duration)
+  to control how frequently data is persisted to Parquet format.
+
+### Example configuration for write-heavy workloads
+
+```bash { placeholders="PERCENTAGE" }
+influxdb3 serve \
+  --exec-mem-pool-bytes PERCENTAGE \
+  --gen1-duration 15m \
+  # ... other options
+```
+
+Replace {{% code-placeholder-key %}}`PERCENTAGE`{{% /code-placeholder-key %}} with the percentage
+of available memory to allocate (for example, `35%` for write-heavy workloads).
+
+{{% /show-in %}}
