@@ -29,7 +29,7 @@
     "winston": "^3.16.0"
   },
   "dependencies": {
-    "axios": "^1.8.4",
+    "axios": "^1.12.0",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
