@@ -82,6 +82,10 @@ pre-commit:
       run: '.ci/vale/vale.sh
         --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
+    build-typescript:
+      glob: "assets/js/*.ts"
+      run: yarn build:ts
+      stage_fixed: true
     prettier:
       tags: [frontend, style]
       glob: '*.{css,js,ts,jsx,tsx}'
