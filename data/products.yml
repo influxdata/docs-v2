@@ -100,7 +100,7 @@ influxdb:
   latest: v2.7
   latest_patches:
     v2: 2.7.12
-    v1: 1.11.8
+    v1: 1.12.2
   latest_cli:
     v2: 2.7.5
   ai_sample_questions:
@@ -183,9 +183,9 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
-  latest: v1.11
+  latest: v1.12
   latest_patches:
-    v1: 1.11.8
+    v1: 1.12.2
   ai_sample_questions:
   - How can I configure my InfluxDB v1 Enterprise server?
   - How do I replicate data between InfluxDB v1 Enterprise and OSS?
