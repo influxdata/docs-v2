@@ -515,7 +515,7 @@ input:
       Docker containers.
 
       > [!NOTE]
-      > This plugin works only for containers with the `local`, `json-file`, or
+      > This plugin works only for containers with the `local` or `json-file` or
       > `journald` logging driver. Make sure Telegraf has sufficient permissions
       > to access the configured endpoint.
     introduced: v1.12.0
@@ -1972,9 +1972,9 @@ input:
       via gRPC.
 
       > [!NOTE]
-      > Telegraf v1.32 through v1.35 support the Profiles signal using the **v1
-      > experimental API**. Telegraf v1.36+ supports the Profiles signal using the
-      > **v1 development API**.
+      > Telegraf v1.32 through v1.35 support the Profiles signal using the v1
+      > experimental API. Telegraf v1.36+ supports the Profiles signal using the
+      > v1 development API.
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
@@ -4056,10 +4056,10 @@ processor:
   - name: Round
     id: round
     description: |
-      This plugin rounds numerical field values to the configured
+      This plugin allows to round numerical field values to the configured
       precision. This is particularly useful in combination with the [dedup
       processor](/telegraf/v1/plugins/#processor-dedup) to reduce the number of
-      metrics sent to the output when a lower precision is required for the
+      metrics sent to the output if only a lower precision is required for the
       values.
     introduced: v1.36.0
     os_support: [freebsd, linux, macos, solaris, windows]
