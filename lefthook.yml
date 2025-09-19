@@ -112,7 +112,7 @@ pre-push:
         - content/example.md
       run: |
         echo "Running shortcode examples test due to changes in: {staged_files}"
-        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js" content/example.md
+        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/index.cy.js" content/example.md
         exit $?
 
     # Manage Docker containers

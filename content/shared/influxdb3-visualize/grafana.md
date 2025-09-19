@@ -8,11 +8,9 @@ Use [Grafana](https://grafana.com/) to query and visualize data from
 >
 > {{% cite %}}-- [Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
 
-## Identify your InfluxDB version
 
-If you're unsure which InfluxDB product you're using, use our interactive version detector to help identify it:
-
-{{< influxdb-version-detector >}}
+> [!Note]
+> {{< influxdb-version-detector >}}
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)

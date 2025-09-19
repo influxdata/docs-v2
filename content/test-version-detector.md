@@ -1,10 +1,9 @@
 ---
 title: Test InfluxDB Version Detector
 description: Test page for the InfluxDB version detector component
-draft: true
+weight: 1000
+test_only: true  # Custom parameter to indicate test-only content
 ---
-
-# Test InfluxDB Version Detector
 
 This is a test page for the InfluxDB version detector component.
 

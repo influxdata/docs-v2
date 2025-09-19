@@ -35,7 +35,7 @@ import DocSearch from './components/doc-search.js';
 import FeatureCallout from './feature-callouts.js';
 import FluxGroupKeysDemo from './flux-group-keys.js';
 import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
-import InfluxDBVersionDetector from '../../dist/influxdb-version-detector.js';
+import InfluxDBVersionDetector from './influxdb-version-detector.ts';
 import KeyBinding from './keybindings.js';
 import ListFilters from './list-filters.js';
 import ProductSelector from './version-selector.js';
@@ -115,7 +115,10 @@ function initComponents(globals) {
     if (ComponentConstructor) {
       // Initialize the component and store its instance in the global namespace
       try {
-        const instance = ComponentConstructor({ component });
+        // Prepare component options
+        const options = { component };
+
+        const instance = ComponentConstructor(options);
         globals[componentName] = ComponentConstructor;
 
         // Optionally store component instances for future reference
