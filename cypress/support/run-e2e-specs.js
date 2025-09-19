@@ -2,8 +2,7 @@
  * InfluxData Documentation E2E Test Runner
  *
  * This script automates running Cypress end-to-end tests for the InfluxData documentation site.
- * It handles starting a local Hugo server, mapping content files to their URLs, and running Cypress tests,
- * and reporting broken links.
+ * It handles starting a local Hugo server, mapping content files to their URLs, and running Cypress tests.
  *
  * Usage: node run-e2e-specs.js [file paths...] [--spec test specs...]
  */
@@ -303,7 +302,7 @@ async function main() {
   try {
     const screenshotsDir = path.resolve('cypress/screenshots');
     const videosDir = path.resolve('cypress/videos');
-    const specScreenshotDir = path.join(screenshotsDir, 'article-links.cy.js');
+    const specScreenshotDir = path.join(screenshotsDir, 'content');
 
     // Ensure base directories exist
     ensureDirectoryExists(screenshotsDir);
@@ -402,7 +401,7 @@ async function main() {
 
     if (testFailureCount > 0) {
       console.warn(
-        `ℹ️ Note: ${testFailureCount} test(s) failed but no broken links were detected in the report.`
+        `ℹ️ Note: ${testFailureCount} test(s) failed.`
       );
 
       // Provide detailed failure analysis

@@ -1,0 +1,25 @@
+{{/*
+  InfluxDB Version Detector Modal Template
+
+  This modal contains the interactive version detector component that helps users
+  identify which InfluxDB product they're using through a guided questionnaire.
+*/}}
+
+{{/* Process products data into detector format */}}
+{{ $detectorProducts := dict }}
+{{ range $key, $product := site.Data.products }}
+  {{ if $product.detector_config }}
+    {{/* Include detector_config plus placeholder_host for configuration guidance */}}
+    {{ $productData := $product.detector_config }}
+    {{ if $product.placeholder_host }}
+      {{ $productData = merge $productData (dict "placeholder_host" $product.placeholder_host) }}
+    {{ end }}
+    {{ $detectorProducts = merge $detectorProducts (dict $key $productData) }}
+  {{ end }}
+{{ end }}
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{{ $detectorProducts | jsonify }}'
+       data-influxdb-urls='{{ site.Data.influxdb_urls | jsonify }}'></div>
+</div>

@@ -26,7 +26,8 @@
   .modal-body {
     position: relative;
     display: flex;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     // width: 100%;
     max-width: 650px;
     max-height: 97.5vh;
@@ -37,6 +38,27 @@
     color: $article-text;
     font-size: 1rem;
     transition: margin .4s;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; // iOS smooth scrolling
+
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba($article-hr, 0.2);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba($article-text, 0.3);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba($article-text, 0.5);
+      }
+    }
   }
 
   &.open {
@@ -62,6 +84,7 @@
     overflow: visible;
     width: 586px;
     max-width: 100%;
+    flex-shrink: 0;
 
     h3 {
       color: $article-heading;

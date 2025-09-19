@@ -141,6 +141,84 @@ Before your license expires, your InfluxData sales representative will
 contact you about license renewal.
 You may also contact your sales representative at any time.
 
+### Apply your renewed license
+
+When you receive your renewed license file from InfluxData:
+
+1. Use `kubectl` to apply the updated license:
+
+   <!--pytest.mark.skip-->
+
+   ```sh
+   kubectl apply --filename license.yml --namespace influxdb
+   ```
+
+   > [!Note]
+   > You may see a warning about missing `kubectl.kubernetes.io/last-applied-configuration` annotation.
+   > This warning is expected and can be safely ignored—the license will be applied successfully.
+
+2. [Verify the license update](#verify-your-license) by checking that:
+   - The `iox-license` secret is updated
+   - Database pods remain in `Running` state
+   - No license-related errors appear in pod logs
+
+### License validation timing
+
+InfluxDB Clustered validates licenses:
+- When pods start up
+- Periodically during operation (roughly once per hour)
+
+After applying a renewed license, the system should automatically detect and use the new license during the next validation cycle.
+
+### Troubleshooting license renewal
+
+If you experience query failures with "no license found" errors after applying a renewed license:
+
+1. **Check the license secret**:
+
+   <!--pytest.mark.skip-->
+
+   ```sh
+   kubectl get secret iox-license --namespace influxdb -o yaml
+   ```
+
+   Verify the secret was updated with the new license data.
+
+2. **Check license controller logs**:
+
+   <!--pytest.mark.skip-->
+
+   ```sh
+   kubectl logs deployment/license-controller --namespace influxdb
+   ```
+
+   Look for successful license processing messages or any errors.
+
+3. **Verify pod status**:
+
+   <!--pytest.mark.skip-->
+
+   ```sh
+   kubectl get pods -l app=iox --namespace influxdb
+   ```
+
+   Ensure all pods are in `Running` state and not crash-looping.
+
+4. **If issues persist**, you may need to restart affected services:
+
+   <!--pytest.mark.skip-->
+
+   ```sh
+   # Scale down the querier service
+   kubectl scale deployment iox-shared-querier --replicas=0 --namespace influxdb
+
+   # Wait for pods to terminate, then scale back up
+   kubectl scale deployment iox-shared-querier --replicas=1 --namespace influxdb
+   ```
+
+   > [!Important]
+   > Service restart should not be routinely necessary. If you consistently need to restart services after license renewal, contact InfluxData support.
+
 ---
 
 ## License enforcement

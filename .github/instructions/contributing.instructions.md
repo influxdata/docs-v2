@@ -246,6 +246,15 @@ docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini -
 
 _See full CONTRIBUTING.md for complete details._
 
+
+#### Design Guidelines
+
+##### Documentation Standards
+
+- **No decorative icons**: Don't add cute icons, emojis, or decorative symbols to documentation content
+- **Professional presentation**: Keep the interface clean and focused on functionality
+- **Content over preOkOsentation**: Prioritize clear, helpful information over visual embellishments
+
 #### JavaScript in the documentation UI
 
 The InfluxData documentation UI uses JavaScript with ES6+ syntax and
