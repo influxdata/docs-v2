@@ -2,13 +2,16 @@
 *~
 public
 .*.swp
-node_modules
-package-lock.json
 .config*
 **/.env*
 *.log
 /resources
 .hugo_build.lock
+
+# JavaScript/TypeScript
+node_modules
+package-lock.json
+**/dist/
 
 # Content generation
 /content/influxdb*/**/api/**/*.html
