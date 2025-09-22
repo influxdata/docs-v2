@@ -36,7 +36,7 @@ tmp
 **/config.toml
 
 # TypeScript build output
-dist/
+**/dist/
 
 # User context files for AI assistant tools
 .context/*

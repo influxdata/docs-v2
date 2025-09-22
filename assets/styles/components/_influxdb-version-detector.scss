@@ -285,25 +285,25 @@
 
     &.success {
       background: $article-bg;
-      border: 2px solid $g4-onyx;
+      border-left: 3px solid $article-note-base;
       color: $article-text;
     }
 
     &.error {
       background: $r-flan;
-      border: 1px solid $r-fire;
+      border-left: 3px solid $article-caution-base;
       color: $r-basalt;
     }
 
     &.info {
       background: $article-note-base;
-      border: 1px solid $article-note-base;
+      border-left: 3px solid $article-note-base;
       color: $article-note-text;
     }
 
     &.warning {
       background: $article-warning-bg;
-      border: 1px solid $article-warning-base;
+      border-left: 3px solid $article-warning-base;
       color: $article-warning-text;
     }
   }
@@ -322,11 +322,10 @@
   // URL pre-filled indicator
   .url-prefilled-indicator {
     font-size: 0.85em;
-    color: $g12-forge;
+    color: $article-note-text;
     margin-bottom: 8px;
     padding: 4px 8px;
     background: rgba($article-link, 0.1);
-    border-radius: 4px;
     border-left: 3px solid $article-link;
   }
 
