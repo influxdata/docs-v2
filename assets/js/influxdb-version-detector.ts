@@ -527,7 +527,7 @@ class InfluxDBVersionDetector {
     }
 
     let html = `
-      <div class="configuration-guidance" style="margin-top: 1.5rem; padding: 1rem; background: rgba(var(--article-link-rgb, 59, 130, 246), 0.1); border-left: 4px solid var(--article-link, #3b82f6); border-radius: 6px;">
+      <div class="configuration-guidance" style="margin-top: 1.5rem; padding: 1rem; background: rgba(var(--article-link-rgb, 59, 130, 246), 0.1); border-left: 4px solid var(--article-link, #3b82f6);">
         <h4 style="margin: 0 0 0.75rem 0; color: var(--article-link, #3b82f6);">Configuration Parameter Meanings for ${productName}</h4>
         <p style="margin: 0 0 1rem 0; font-size: 0.9em;">When configuring Grafana or other tools to connect to your ${productName} instance, these parameters mean:</p>
     `;
