@@ -29,7 +29,7 @@ If you are unsure which InfluxDB product you are using, use our interactive vers
        window.gtag('event', 'influxdb_version_detector', {
          'custom_map.interaction_type': 'modal_trigger',
          'custom_map.section': location.pathname,
-         'custom_map.context': '{{ $context }}'
+         'custom_map.context': {{ $context | js }}
        });
      }
      window.influxdatadocs.toggleModal('#influxdb-version-detector');
