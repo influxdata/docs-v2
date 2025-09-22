@@ -19,40 +19,42 @@
 <p>
 If you are unsure which InfluxDB product you are using, use our interactive version detector to help identify it:</p>
 
-{{ if $context }}
-<a href="#"
-   class="btn influxdb-detector-trigger"
-   data-context="{{ $context }}"
-   {{ if $aiInstruction }}data-ai-instruction="{{ $aiInstruction }}"{{ end }}
-   onclick="
-     if (window.gtag) {
-       window.gtag('event', 'influxdb_version_detector', {
-         'custom_map.interaction_type': 'modal_trigger',
-         'custom_map.section': location.pathname,
-         'custom_map.context': {{ $context | js }}
-       });
-     }
-     window.influxdatadocs.toggleModal('#influxdb-version-detector');
-     return false;
-   ">
-  Detect my InfluxDB version
-</a>
-{{ else }}
-<a href="#"
-   class="btn influxdb-detector-trigger"
-   onclick="
-     if (window.gtag) {
-       window.gtag('event', 'influxdb_version_detector', {
-         'custom_map.interaction_type': 'modal_trigger',
-         'custom_map.section': location.pathname
-       });
-     }
-     window.influxdatadocs.toggleModal('#influxdb-version-detector');
-     return false;
-   ">
-  Detect my InfluxDB version
-</a>
-{{ end }}
+<p>
+  {{ if $context }}
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    data-context="{{ $context }}"
+    {{ if $aiInstruction }}data-ai-instruction="{{ $aiInstruction }}"{{ end }}
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname,
+          'custom_map.context': '{{ $context }}'
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  {{ else }}
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  {{ end }}
+</p>
 
 {{ if and $context $aiInstruction }}
 <!-- Ask AI integration will be implemented in the TypeScript component -->
