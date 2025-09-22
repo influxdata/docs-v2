@@ -1578,6 +1578,8 @@ approx_percentile_cont_with_weight(weight, percentile [, centroids]) WITHIN GROU
 approx_percentile_cont_with_weight(expression, weight, percentile)
 ```
 
+##### Arguments
+
 - **expression**: Expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 - **weight**: Expression to use as weight.
