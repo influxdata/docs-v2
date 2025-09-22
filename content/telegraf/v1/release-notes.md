@@ -11,6 +11,12 @@ menu:
     weight: 60
 ---
 
+## v1.36.1 {date="2025-09-08"}
+
+### Bugfixes
+
+- [#17605](https://github.com/influxdata/telegraf/pull/17605) `outputs.influxdb` Fix crash on init
+
 ## v1.36.0 {date="2025-09-08"}
 
 ### Important Changes
