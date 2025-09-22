@@ -36,7 +36,7 @@ influxctl table undelete <DATABASE_NAME> <TABLE_ID>
 > ```
 >
 > Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
-> with the name of the database associate with the table you want to undelete.
+> with the name of the database associated with the table you want to undelete.
 
 ## Flags
 

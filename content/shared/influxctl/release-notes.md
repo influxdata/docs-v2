@@ -7,7 +7,7 @@
 
 ### Bug Fixes
 
-- Allow changing only maxTables or maxColums individually.
+- Allow changing only maxTables or maxColumns individually.
 
 ### Dependency updates
 
