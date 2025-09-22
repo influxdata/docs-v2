@@ -24,15 +24,5 @@ formatting, and commonly used shortcodes.
 See @TESTING.md for comprehensive testing information, including code block
 testing, link validation, style linting, and advanced testing procedures.
 
-See @.github/instructions/shortcodes-reference.instructions.md for detailed
-information about shortcodes used in this project.
-
-See @.github/instructions/frontmatter-reference.instructions.md for detailed
-information about frontmatter used in this project.
-
-See @.github/instructions/influxdb3-code-placeholders.instructions.md for using
-placeholders in code samples and CLI commands.
-
 See @api-docs/README.md for information about the API reference documentation, how to
 generate it, and how to contribute to it.
-
