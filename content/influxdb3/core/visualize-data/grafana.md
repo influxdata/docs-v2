@@ -16,7 +16,7 @@ alt_links:
   cloud: /influxdb/cloud/tools/grafana/
   cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/grafana/
   cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/grafana/
-  clustered: /influxdb3/cloud-clustered/process-data/visualize/grafana/
+  clustered: /influxdb3/clustered/process-data/visualize/grafana/
 source: /shared/influxdb3-visualize/grafana.md
 ---
 
