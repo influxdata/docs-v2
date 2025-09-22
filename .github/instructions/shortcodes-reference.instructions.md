@@ -4,19 +4,8 @@ applyTo: "content/**/*.md, layouts/**/*.html"
 
 ### Complete Shortcodes Reference
 
-#### Notes and warnings
-
-Shortcodes are available for formatting notes and warnings in each article:
-
-```md
-{{% note %}}
-Insert note markdown content here.
-{{% /note %}}
-
-{{% warn %}}
-Insert warning markdown content here.
-{{% /warn %}}
-```
+influxdata/docs-v2 uses a variety of custom Hugo shortcodes to add functionality.
+For more usage examples, see the shortcode test page at `/content/example.md`.
 
 #### Product data
 
@@ -1161,22 +1150,65 @@ Supported argument values:
 {{< influxdb/host "serverless" >}}
 ```
 
-##### User-populated placeholders
+#### Placeholders in code samples
 
-Use the `code-placeholders` shortcode to format placeholders
-as text fields that users can populate with their own values.
-The shortcode takes a regular expression for matching placeholder names.
-Use the `code-placeholder-key` shortcode to format the placeholder names in 
-text that describes the placeholder--for example:
+ ##### Best Practices
 
-```markdown
-{{% code-placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" %}}
-```sh
+- Use UPPERCASE for placeholders to make them easily identifiable
+- Don't use pronouns in placeholders (e.g., "your", "this")
+- List placeholders in the same order they appear in the code
+- Provide clear descriptions including:
+- - Expected data type or format
+- - Purpose of the value
+- - Any constraints or requirements
+- Mark optional placeholders as "Optional:" in their descriptions
+- Placeholder key descriptions should fit the context of the code snippet
+- Include examples for complex formats
+
+##### Writing Placeholder Descriptions
+
+Descriptions should follow consistent patterns:
+
+1. **Admin Authentication tokens**: 
+   - Recommended: "a {{% token-link "admin" %}} for your {{< product-name >}} instance"
+   - Avoid: "your token", "the token", "an authorization token"
+2. **Database resource tokens**:
+   - Recommended: "your {{% token-link "database" %}}"{{% show-in "enterprise" %}} with permissions on the specified database{{% /show-in %}}
+   - Avoid: "your token", "the token", "an authorization token"
+3. **Database names**:
+   - Recommended: "the name of the database to [action]" 
+   - Avoid: "your database", "the database name"
+4. **Conditional content**:
+   - Use `{{% show-in "enterprise" %}}` for content specific to enterprise versions
+   - Example: "your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}"
+
+##### Common placeholders for InfluxDB 3
+
+- `AUTH_TOKEN`: your {{% token-link %}}
+- `DATABASE_NAME`: the database to use
+- `TABLE_NAME`: Name of the table/measurement to query or write to
+- `NODE_ID`: Node ID for a specific node in a cluster
+- `CLUSTER_ID`: Cluster ID for a specific cluster
+- `HOST`: InfluxDB server hostname or URL
+- `PORT`: InfluxDB server port (typically 8181)
+- `QUERY`: SQL or InfluxQL query string
+- `LINE_PROTOCOL`: Line protocol data for writes
+- `PLUGIN_FILENAME`: Name of plugin file to use
+- `CACHE_NAME`: Name for a new or existing cache
+
+##### Syntax
+
+-  `{ placeholders }`: Use this code block attribute to define placeholder patterns
+- `{{% code-placeholder-key %}}`: Use this shortcode to define a placeholder key
+- `{{% /code-placeholder-key %}}`: Use this shortcode to close the key name
+
+##### Example usage
+
+```sh { placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
   --header "Authorization: Token API_TOKEN" \
   --data-binary @path/to/line-protocol.txt
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -1184,6 +1216,40 @@ Replace the following:
 - {{% code-placeholder-key %}}`USERNAME`{{% /code-placeholder-key %}}: your [InfluxDB 1.x username](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
 - {{% code-placeholder-key %}}`PASSWORD_OR_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2/reference/api/influxdb-1x/#manage-credentials)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [InfluxDB API token](/influxdb/v2/admin/tokens/)
+
+**Old (deprecated) syntax**:
+
+Replace the following syntax with the new syntax shown above.
+
+- `{{% code-placeholders "PLACEHOLDER1|PLACEHOLDER2" %}}`
+- `{{% /code-placeholders %}}`
+
+## Notes and warnings
+
+```md
+> [!Note]
+> Insert note markdown content here.
+
+> [!Warning]
+> Insert warning markdown content here.
+
+> [!Caution]
+> Insert caution markdown content here.
+
+> [!Important]
+> Insert important markdown content here.
+
+> [!Tip]
+> Insert tip markdown content here.
 ```
 
+## Required elements
 
+```md
+{{< req >}}
+{{< req type="key" >}}
+
+- {{< req "\*" >}} **This element is required**
+- {{< req "\*" >}} **This element is also required**
+- **This element is NOT required**
+```
