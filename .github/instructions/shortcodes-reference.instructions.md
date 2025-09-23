@@ -1198,7 +1198,7 @@ Descriptions should follow consistent patterns:
 
 ##### Syntax
 
--  `{ placeholders }`: Use this code block attribute to define placeholder patterns
+-  `{ placeholders="PATTERN1|PATTERN2" }`: Use this code block attribute to define placeholder patterns
 - `{{% code-placeholder-key %}}`: Use this shortcode to define a placeholder key
 - `{{% /code-placeholder-key %}}`: Use this shortcode to close the key name
 
