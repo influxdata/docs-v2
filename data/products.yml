@@ -106,7 +106,7 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-cloud-dedicated/"
-  latest_cli: 2.10.3
+  latest_cli: 2.10.4
   placeholder_host: cluster-id.a.influxdb.io
   detector_config:
     query_languages:
