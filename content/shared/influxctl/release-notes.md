@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- Update warnings for `influxctl database delete` command.
+- Update warnings for the `influxctl database delete` command.
 
 ## 2.10.4 {date="2025-09-22"}
 
