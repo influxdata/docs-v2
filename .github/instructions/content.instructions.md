@@ -2,10 +2,22 @@
 applyTo: "content/**/*.md, layouts/**/*.html"
 ---
 
-### Complete Frontmatter Reference
+## Frontmatter Requirements
 
-Every documentation page includes frontmatter which specifies information about the page.
+Documentation pages include frontmatter which specifies information about the page.
+Include proper frontmatter for pages in `/content/`, except `/content/shared/`.
 Frontmatter populates variables in page templates and the site's navigation menu.
+
+```yaml
+title: # Page title (h1)
+seotitle: # SEO title
+description: # SEO description
+menu:
+  product_version:
+weight: # Page order (1-99, 101-199, etc.)
+```
+
+### Complete Frontmatter Reference
 
 ```yaml
 title: # Title of the page used in the page's h1
@@ -196,3 +208,15 @@ When building shared content, use the `show-in` and `hide-in` shortcodes to show
 or hide blocks of content based on the current InfluxDB product/version.
 For more information, see [show-in](#show-in) and [hide-in](#hide-in).
 
+#### Shortcodes in Markdown files
+
+For the complete shortcodes reference, see `/.github/instructions/shortcodes-reference.instructions.md`.
+
+### Style Guidelines
+
+- Follow Google Developer Documentation style guidelines
+- Use semantic line feeds (one sentence per line)
+- Format code examples to fit within 80 characters
+- Use long options in command line examples (`--option` instead of `-o`)
+- Use GitHub callout syntax for notes and warnings
+- Image naming: `project/version-context-description.png`
