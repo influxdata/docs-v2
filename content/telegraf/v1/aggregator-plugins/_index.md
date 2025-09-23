@@ -1,6 +1,6 @@
 ---
 title: "Telegraf Aggregator Plugins"
-description: "Telegraf aggregator plugins aggregator data across multiple metrics."
+description: "Telegraf aggregator plugins aggregate data across multiple metrics."
 menu:
   telegraf_v1_ref:
     name: Aggregator plugins
