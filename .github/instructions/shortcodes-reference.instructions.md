@@ -1158,9 +1158,9 @@ Supported argument values:
 - Don't use pronouns in placeholders (e.g., "your", "this")
 - List placeholders in the same order they appear in the code
 - Provide clear descriptions including:
-- - Expected data type or format
-- - Purpose of the value
-- - Any constraints or requirements
+  - Expected data type or format
+  - Purpose of the value
+  - Any constraints or requirements
 - Mark optional placeholders as "Optional:" in their descriptions
 - Placeholder key descriptions should fit the context of the code snippet
 - Include examples for complex formats
