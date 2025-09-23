@@ -1219,7 +1219,7 @@ Replace the following:
 
 **Old (deprecated) syntax**:
 
-Replace the following syntax with the new syntax shown above.
+Replace the following syntax with the new `placeholders` syntax shown above.
 
 - `{{% code-placeholders "PLACEHOLDER1|PLACEHOLDER2" %}}`
 - `{{% /code-placeholders %}}`
