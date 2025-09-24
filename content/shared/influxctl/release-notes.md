@@ -1,9 +1,18 @@
+## 2.10.5 {date="2025-09-23"}
+
+### Bug Fixes
+
+- Update warnings for the `influxctl database delete` command.
+
 ## 2.10.4 {date="2025-09-22"}
 
 ### Features
 
 - Add the [`influxctl table undelete` command](/influxdb3/version/reference/cli/influxctl/table/undelete/).
-- Add `--filter-status` flag to the [`influxctl database list` command](/influxdb3/version/reference/cli/influxctl/database/list/).
+- Add `--filter-status` flag to the
+  [`influxctl database list`](/influxdb3/version/reference/cli/influxctl/database/list/)
+  and [`influxctl table list`](/influxdb3/version/reference/cli/influxctl/table/list/)
+  commands.
 
 ### Bug Fixes
 
