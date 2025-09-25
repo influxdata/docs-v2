@@ -208,6 +208,23 @@ When building shared content, use the `show-in` and `hide-in` shortcodes to show
 or hide blocks of content based on the current InfluxDB product/version.
 For more information, see [show-in](#show-in) and [hide-in](#hide-in).
 
+#### Links in shared content
+
+When creating links in shared content files, use `/influxdb3/version/` instead of the `{{% product-key %}}` shortcode.
+The keyword `version` gets replaced during the build process with the appropriate product version.
+
+**Use this in shared content:**
+```markdown
+[Configuration options](/influxdb3/version/reference/config-options/)
+[CLI serve command](/influxdb3/version/reference/cli/influxdb3/serve/)
+```
+
+**Not this:**
+```markdown
+[Configuration options](/influxdb3/{{% product-key %}}/reference/config-options/)
+[CLI serve command](/influxdb3/{{% product-key %}}/reference/cli/influxdb3/serve/)
+```
+
 #### Shortcodes in Markdown files
 
 For the complete shortcodes reference, see `/.github/instructions/shortcodes-reference.instructions.md`.
