@@ -1,26 +1,48 @@
 <!-- Comment to allow starting shortcode -->
-{{< product-name >}} lets you customize your server configuration by using
-`influxdb3 serve` command options or by setting environment variables.
+{{< product-name >}} lets you customize your configuration by using
+`influxdb3` command options or by setting environment variables.
 
 ## Configure your server
 
-Pass configuration options to the `influxdb serve` server using either command
-options or environment variables. Command options take precedence over
-environment variables.
+Pass configuration options using either command options or environment variables.
+Command options take precedence over environment variables.
 
-##### Example `influxdb3 serve` command options
+### Global vs serve-specific options
 
+Some options are **global** (specified before the command) while others are **serve-specific** (specified after `serve`):
+
+- **Global options**: Apply to the `influxdb3` CLI itself (for example, `--num-io-threads`)
+- **Serve options**: Apply only to the `serve` command (for example, `--node-id`, `--object-store`, `--verbose`)
+
+#### Example command with global and serve-specific options
+
+{{% show-in "core" %}}
 <!--pytest.mark.skip-->
 
 ```sh
-influxdb3 serve \
+influxdb3 --num-io-threads=4 serve \
   --node-id node0 \
-{{% show-in "enterprise" %}}  --cluster-id cluster0 \
-  --license-email example@email.com \{{% /show-in %}}
   --object-store file \
   --data-dir ~/.influxdb3 \
+  --verbose \
   --log-filter info
 ```
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 --num-io-threads=4 serve \
+  --node-id node0 \
+  --cluster-id cluster0 \
+  --license-email example@email.com \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --verbose \
+  --log-filter info
+```
+{{% /show-in %}}
 
 ##### Example environment variables
 
@@ -36,6 +58,30 @@ export LOG_FILTER=info
 
 influxdb3 serve
 ```
+
+## Global configuration options
+
+The following options apply to the `influxdb3` CLI globally and must be specified **before** any subcommand (for example, `serve`):
+
+### num-io-threads
+
+Sets the number of threads allocated to the IO runtime thread pool. IO threads handle HTTP request serving, line protocol parsing, and file operations.
+
+> [!Important]
+> This is a **global option** that must be specified before the `serve` command.
+
+```bash
+# Set IO threads (global option before serve)
+influxdb3 --num-io-threads=8 serve --node-id=node0 --object-store=file
+```
+
+For detailed information about thread allocation, see the [Resource Limits](#resource-limits) section.
+
+| influxdb3 option | Environment variable       |
+| :--------------- | :------------------------- |
+| `--num-io-threads` | `INFLUXDB3_NUM_IO_THREADS` |
+
+---
 
 ## Server configuration options
 
@@ -104,14 +150,16 @@ influxdb3 serve
   - [traces-jaeger-max-msgs-per-second](#traces-jaeger-max-msgs-per-second)
 - [DataFusion](#datafusion)
   - [datafusion-num-threads](#datafusion-num-threads)
-  - [datafusion-runtime-type](#datafusion-runtime-type)
-  - [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
-  - [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
-  - [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
-  - [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
-  - [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
-  - [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
-  - [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
+  <!-- DEV-ONLY FLAGS: DO NOT DOCUMENT IN PRODUCTION - TOKIO RUNTIME FLAGS
+  - datafusion-runtime-type
+  - datafusion-runtime-disable-lifo-slot
+  - datafusion-runtime-event-interval
+  - datafusion-runtime-global-queue-interval
+  - datafusion-runtime-max-blocking-threads
+  - datafusion-runtime-max-io-events-per-tick
+  - datafusion-runtime-thread-keep-alive
+  - datafusion-runtime-thread-priority
+  END DEV-ONLY FLAGS -->
   - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
   - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
   - [datafusion-config](#datafusion-config)
@@ -222,7 +270,7 @@ Required when using the `file` [object store](#object-store).
 {{% show-in "enterprise" %}}
 #### mode
 
-Sets the mode to start the server in.
+Sets the mode to start the server in, allowing you to create specialized nodes in a distributed cluster.
 
 This option supports the following values:
 
@@ -235,6 +283,32 @@ This option supports the following values:
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
 **Default:** `all`
+
+> [!Important]
+> **Thread allocation for different modes:**
+>
+> - **Ingest mode**: Benefits from additional IO threads for line protocol parsing. For high-throughput
+>   scenarios with multiple concurrent writers, consider increasing [`--num-io-threads`](#num-io-threads) (global option)
+>   to 8-16+ to optimize performance. DataFusion threads are still needed for snapshot operations.
+>
+> - **Query mode**: Benefits from maximizing DataFusion threads. Use most available cores for DataFusion
+>   with minimal IO threads (2-4).
+>
+> - **Compact mode**: Primarily uses DataFusion threads for sort/dedupe operations.
+>
+> - **All mode**: Requires balanced thread allocation based on your workload mix.
+
+**Example configurations:**
+```bash
+# High-throughput ingest node (32 cores)
+influxdb3 --num-io-threads=12 serve --mode=ingest --num-datafusion-threads=20
+
+# Query-optimized node (32 cores)
+influxdb3 --num-io-threads=4 serve --mode=query --num-datafusion-threads=28
+
+# Balanced all-in-one (32 cores)
+influxdb3 --num-io-threads=6 serve --mode=all --num-datafusion-threads=26
+```
 
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
@@ -1125,102 +1199,25 @@ Sets the maximum number of DataFusion runtime threads to use.
 
 ---
 
-#### datafusion-runtime-type
+<!-- DEV-ONLY FLAGS: DO NOT DOCUMENT TOKIO RUNTIME FLAGS - THEY ARE INTERNAL TUNING PARAMETERS AND MAY BE REMOVED OR CHANGED AT ANY TIME
+--datafusion-runtime-type, INFLUXDB3_DATAFUSION_RUNTIME_TYPE
+  This flag will be removed in InfluxDB 3.5 Enterprise.
+  Only multi-thread mode should be used (which is the default).
+  The current-thread option is deprecated and will be removed.
+  Future editors: Keep this commented out.
 
-Specifies the DataFusion tokio runtime type.
+--datafusion-runtime-event-interval, INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL
 
-This option supports the following values:
+--datafusion-runtime-global-queue-interval, INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL
+--datafusion-runtime-max-blocking-threads, INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS
 
-- `current-thread`
-- `multi-thread` _(default)_
-- `multi-thread-alt`
+--datafusion-runtime-max-io-events-per-tick, INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK
 
-**Default:** `multi-thread`
+--datafusion-runtime-thread-keep-alive, INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE
 
-| influxdb3 serve option      | Environment variable                |
-| :-------------------------- | :---------------------------------- |
-| `--datafusion-runtime-type` | `INFLUXDB3_DATAFUSION_RUNTIME_TYPE` |
+--datafusion-runtime-thread-priority, INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY
 
----
-
-#### datafusion-runtime-disable-lifo-slot
-
-Disables the LIFO slot of the DataFusion runtime.
-
-This option supports the following values:
-
-- `true`
-- `false`
-
-| influxdb3 serve option                   | Environment variable                             |
-| :--------------------------------------- | :----------------------------------------------- |
-| `--datafusion-runtime-disable-lifo-slot` | `INFLUXDB3_DATAFUSION_RUNTIME_DISABLE_LIFO_SLOT` |
-
----
-
-#### datafusion-runtime-event-interval
-
-Sets the number of scheduler ticks after which the scheduler of the DataFusion
-tokio runtime polls for external events--for example: timers, I/O.
-
-| influxdb3 serve option                | Environment variable                          |
-| :------------------------------------ | :-------------------------------------------- |
-| `--datafusion-runtime-event-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL` |
-
----
-
-#### datafusion-runtime-global-queue-interval
-
-Sets the number of scheduler ticks after which the scheduler of the DataFusion
-runtime polls the global task queue.
-
-| influxdb3 serve option                       | Environment variable                                 |
-| :------------------------------------------- | :--------------------------------------------------- |
-| `--datafusion-runtime-global-queue-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL` |
-
----
-
-#### datafusion-runtime-max-blocking-threads
-
-Specifies the limit for additional threads spawned by the DataFusion runtime.
-
-| influxdb3 serve option                      | Environment variable                                |
-| :------------------------------------------ | :-------------------------------------------------- |
-| `--datafusion-runtime-max-blocking-threads` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS` |
-
----
-
-#### datafusion-runtime-max-io-events-per-tick
-
-Configures the maximum number of events processed per tick by the tokio
-DataFusion runtime.
-
-| influxdb3 serve option                        | Environment variable                                  |
-| :-------------------------------------------- | :---------------------------------------------------- |
-| `--datafusion-runtime-max-io-events-per-tick` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK` |
-
----
-
-#### datafusion-runtime-thread-keep-alive
-
-Sets a custom timeout for a thread in the blocking pool of the tokio DataFusion
-runtime.
-
-| influxdb3 serve option                   | Environment variable                             |
-| :--------------------------------------- | :----------------------------------------------- |
-| `--datafusion-runtime-thread-keep-alive` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE` |
-
----
-
-#### datafusion-runtime-thread-priority
-
-Sets the thread priority for tokio DataFusion runtime workers.
-
-**Default:** `10`
-
-| influxdb3 serve option                 | Environment variable                           |
-| :------------------------------------- | :--------------------------------------------- |
-| `--datafusion-runtime-thread-priority` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY` |
+END DEV-ONLY TOKIO RUNTIME FLAGS -->
 
 ---
 
@@ -1833,28 +1830,68 @@ Specifies how long to wait for a running ingestor during startup.
 
 
 - [num-cores](#num-cores)
+{{% show-in "enterprise" %}}- [num-datafusion-threads](#num-datafusion-threads){{% /show-in %}}
+- _[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)_
 - [num-database-limit](#num-database-limit)
 - [num-table-limit](#num-table-limit)
 - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
 
 #### num-cores
 
+{{% show-in "enterprise" %}}
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
 When specified, InfluxDB automatically assigns the number of DataFusion threads and IO threads based on the core count.
 
-**Thread assignment logic:**
+**Default thread assignment logic when `num-cores` is set:**
 - **1-2 cores**: 1 IO thread, 1 DataFusion thread
-- **3 cores**: 1 IO thread, 2 DataFusion threads  
+- **3 cores**: 1 IO thread, 2 DataFusion threads
 - **4+ cores**: 2 IO threads, (n-2) DataFusion threads
+
+> [!Note]
+> You can override the automatic thread assignment by explicitly setting [`--num-io-threads`](#num-io-threads) (global option)
+> and [`--num-datafusion-threads`](#num-datafusion-threads).
+> This is particularly important for specialized
+> workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
 **Constraints:**
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
-- Total thread count from other thread options cannot exceed the `num-cores` value
+- Total thread count from `--num-io-threads` (global option) and `--num-datafusion-threads` cannot exceed the `num-cores` value
 
 | influxdb3 serve option | Environment variable              |
 | :--------------------- | :-------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES`  |
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+
+> [!Note]
+> The [`--num-io-threads`](#num-io-threads) option is a global flag.
+---
+
+#### num-datafusion-threads
+
+Sets the number of threads allocated to the DataFusion runtime thread pool. DataFusion threads handle:
+- Query execution and processing
+- Data aggregation and transformation
+- Snapshot creation (sort/dedupe operations)
+- Parquet file generation
+
+**Default behavior:**
+- If not specified and `--num-cores` is not set: All available cores minus IO threads
+- If not specified and `--num-cores` is set: Automatically determined based on core count (see [`--num-cores`](#num-cores))
+
+> [!Note]
+> DataFusion threads are used for both query processing and snapshot operations.
+> Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
+
+**Constraints:**
+- When used with `--num-cores`, the sum of `--num-io-threads` and `--num-datafusion-threads` cannot exceed the `num-cores` value
+
+| influxdb3 serve option         | Environment variable                    |
+| :----------------------------- | :-------------------------------------- |
+| `--num-datafusion-threads`     | `INFLUXDB3_NUM_DATAFUSION_THREADS`     |
+{{% /show-in %}}
 
 ---
 
