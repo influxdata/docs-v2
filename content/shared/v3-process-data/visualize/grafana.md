@@ -37,14 +37,23 @@ both InfluxQL and SQL.
 
 ## Create an InfluxDB data source
 
-Which data source you create depends on which query language you want to use to
-query {{% product-name %}}:
+### Navigate to data source configuration
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **InfluxDB** plugin.
-4.  Provide a name for your data source.
-5.  Under **Query Language**, select either **SQL** or **InfluxQL**:
+1. In your Grafana interface, click **Connections** in the left sidebar
+2. Click **Data sources**
+3. Click **Add new data source**
+4. Under **Time series databases**, click **InfluxDB**
+
+### Configure basic settings
+
+The configuration form is organized into numbered sections. The form dynamically 
+adapts based on your product and query language selections.
+
+**Configure the following:**
+
+1. **Name**: Enter a descriptive name for your data source (for example, `InfluxDB-Production`)
+
+2. **URL**: Enter your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}: https://{{< influxdb/host >}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
