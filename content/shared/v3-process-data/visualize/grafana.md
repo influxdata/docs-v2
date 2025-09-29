@@ -37,14 +37,12 @@ both InfluxQL and SQL.
 
 ## Before you begin
 
-## Create an InfluxDB data source
-
 **Prerequisites:**
 - Grafana 10.3 or later
 - Administrator role in Grafana
 - {{% show-in "cloud-serverless" %}}InfluxDB Cloud Serverless account and [API token](/influxdb3/version/admin/tokens/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} instance and [database token](/influxdb3/version/admin/tokens/#database-tokens){{% /hide-in %}}
 
-### Navigate to data source configuration
+## Create an InfluxDB data source
 
 1. In your Grafana interface, click **Connections** in the left sidebar
 2. Click **Data sources**
@@ -58,7 +56,7 @@ adapts based on your product and query language selections.
 
 **Configure the following:**
 
-1. **Name**: Enter a descriptive name for your data source (for example, `InfluxDB-Production`)
+1. **Name**: Enter a descriptive name for your data source 
 
 2. **URL**: Enter your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}: https://{{< influxdb/host >}}
 
