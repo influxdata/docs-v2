@@ -10,7 +10,7 @@ introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/statsd/README.md, StatsD Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/statsd/README.md, StatsD Plugin Source
 ---
 
 # StatsD Input Plugin
@@ -261,8 +261,13 @@ metric type:
         period are below x. The most common value that people use for `P` is the
         `90`, this is a great number to try to optimize.
 - Distributions
-  - The Distribution metric represents the global statistical distribution of a set of values calculated across your entire distributed infrastructure in one time interval. A Distribution can be used to instrument logical objects, like services, independently from the underlying hosts.
-  - Unlike the Histogram metric type, which aggregates on the Agent during a given time interval, a Distribution metric sends all the raw data during a time interval.
+  - The Distribution metric represents the global statistical distribution of a
+    set of values calculated across your entire distributed infrastructure in
+    one time interval. A Distribution can be used to instrument logical objects,
+    like services, independently from the underlying hosts.
+  - Unlike the Histogram metric type, which aggregates on the Agent during a
+    given time interval, a Distribution metric sends all the raw data during a
+    time interval.
 
 ## Plugin arguments
 
@@ -270,7 +275,8 @@ metric type:
 - **max_tcp_connections** []int: Maximum number of concurrent TCP connections
 to allow. Used when protocol is set to tcp.
 - **tcp_keep_alive** boolean: Enable TCP keep alive probes
-- **tcp_keep_alive_period** duration: Specifies the keep-alive period for an active network connection
+- **tcp_keep_alive_period** duration: Specifies the keep-alive period for an
+                                      active network connection
 - **service_address** string: Address to listen for statsd UDP packets on
 - **delete_gauges** boolean: Delete gauges on every collection interval
 - **delete_counters** boolean: Delete counters on every collection interval
@@ -284,11 +290,22 @@ per-measurement in the calculation of percentiles. Raising this limit increases
 the accuracy of percentiles but also increases the memory usage and cpu time.
 - **templates** []string: Templates for transforming statsd buckets into influx
 measurements and tags.
-- **parse_data_dog_tags** boolean: Enable parsing of tags in DataDog's dogstatsd format (<http://docs.datadoghq.com/guides/dogstatsd/>)
-- **datadog_extensions** boolean: Enable parsing of DataDog's extensions to dogstatsd format (<http://docs.datadoghq.com/guides/dogstatsd/>)
-- **datadog_distributions** boolean: Enable parsing of the Distribution metric in DataDog's dogstatsd format (<https://docs.datadoghq.com/developers/metrics/types/?tab=distribution#definition>)
-- **datadog_keep_container_tag** boolean: Keep or drop the container id as tag. Included as optional field in DogStatsD protocol v1.2 if source is running in Kubernetes.
-- **max_ttl** config.Duration: Max duration (TTL) for each metric to stay cached/reported without being updated.
+- **parse_data_dog_tags** boolean:        Enable parsing of tags in DataDog's
+                                          [dogstatsd format](http://docs.datadoghq.com/guides/dogstatsd/)
+- **datadog_extensions** boolean:         Enable parsing of DataDog's extensions
+                                          to [dogstatsd format](http://docs.datadoghq.com/guides/dogstatsd/)
+                                          and more
+- **datadog_distributions** boolean:      Enable parsing of the Distribution metric
+                                          in [DataDog's distribution format](https://docs.datadoghq.com/developers/metrics/types/?tab=distribution#definition)
+- **datadog_keep_container_tag** boolean: Keep or drop the container id as tag.
+                                          Included as optional field in
+                                          DogStatsD protocol v1.2 if source is
+                                          running in Kubernetes.
+- **max_ttl** config.Duration:            Max duration (TTL) for each metric to
+                                          stay cached/reported without being updated.
+
+[dogstatsd_format]: http://docs.datadoghq.com/guides/dogstatsd/
+[dogstatsd_distri_format]: https://docs.datadoghq.com/developers/metrics/types/?tab=distribution#definition
 
 ## Statsd bucket -> InfluxDB line-protocol Templates
 

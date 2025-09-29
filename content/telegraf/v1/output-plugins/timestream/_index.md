@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/timestream/README.md, Amazon Timestream Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/timestream/README.md, Amazon Timestream Plugin Source
 ---
 
 # Amazon Timestream Output Plugin
@@ -34,8 +34,12 @@ API endpoint. In the following order the plugin will attempt to authenticate.
 credentials are evaluated from subsequent rules). The `endpoint_url` attribute
 is used only for Timestream service. When fetching credentials, STS global
 endpoint will be used.
-1. Web identity provider credentials via STS if `role_arn` and `web_identity_token_file` are specified
-1. [Assumed credentials via STS](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/credentials/stscreds) if `role_arn` attribute is specified (source credentials are evaluated from subsequent rules). The `endpoint_url` attribute is used only for Timestream service. When fetching credentials, STS global endpoint will be used.
+1. Web identity provider credentials via STS if `role_arn` and
+   `web_identity_token_file` are specified
+1. [Assumed credentials via STS](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/credentials/stscreds) if `role_arn` attribute is
+   specified (source credentials are evaluated from subsequent rules). The
+   `endpoint_url` attribute is used only for Timestream service. When fetching
+   credentials, STS global endpoint will be used.
 1. Explicit credentials from `access_key`, `secret_key`, and `token` attributes
 1. Shared profile from `profile` attribute
 1. [Environment Variables](https://github.com/aws/aws-sdk-go/wiki/configuring-sdk#environment-variables)

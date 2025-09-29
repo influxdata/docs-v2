@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/processors/reverse_dns/README.md, Reverse DNS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/reverse_dns/README.md, Reverse DNS Plugin Source
 ---
 
 # Reverse DNS Processor Plugin

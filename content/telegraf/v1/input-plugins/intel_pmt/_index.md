@@ -10,7 +10,7 @@ introduced: "v1.28.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/intel_pmt/README.md, Intel® Platform Monitoring Technology Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/intel_pmt/README.md, Intel® Platform Monitoring Technology Plugin Source
 ---
 
 # Intel® Platform Monitoring Technology Input Plugin

@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/opentelemetry/README.md, OpenTelemetry Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/opentelemetry/README.md, OpenTelemetry Plugin Source
 ---
 
 # OpenTelemetry Input Plugin
@@ -20,7 +20,8 @@ This service plugin receives traces, metrics, logs and profiles from
 
 > [!NOTE]
 > Telegraf v1.32 through v1.35 support the Profiles signal using the v1 experimental API.
-> Telegraf v1.36+ supports the Profiles signal using the v1 development API.
+> Telegraf v1.36 supports the Profiles signal using the v1 development API before v0.1.0.
+> Telegraf v1.37+ supports the Profiles signal using the v1 development API v0.1.0.
 
 **Introduced in:** Telegraf v1.19.0
 **Tags:** logging, messaging

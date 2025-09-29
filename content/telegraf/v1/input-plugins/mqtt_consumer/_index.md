@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
 ---
 
 # MQTT Consumer Input Plugin
@@ -58,9 +58,9 @@ using the `startup_error_behavior` setting. Available values are:
 - `retry`:  Telegraf will try to startup the plugin in every gather or write
             cycle in case of startup errors. The plugin is disabled until
             the startup succeeds.
-- `probe`:  Telegraf will probe the plugin's function (if possible) and disables the plugin
-            in case probing fails. If the plugin does not support probing, Telegraf will
-            behave as if `ignore` was set instead.
+- `probe`:  Telegraf will probe the plugin's function (if possible) and disables
+            the plugin in case probing fails. If the plugin does not support
+            probing, Telegraf will behave as if `ignore` was set instead.
 
 ## Secret-store support
 
@@ -228,10 +228,8 @@ cpu,host=pop-os,tag=telegraf,topic=telegraf/one/cpu/23 value=45,test=23i 1637014
 
 ## Field Pivoting Example
 
-You can use the pivot processor to rotate single
-valued metrics into a multi field metric.
-For more info check out the pivot processors
-[here](https://github.com/influxdata/telegraf/tree/master/plugins/processors/pivot).
+You can use the pivot processor to rotate single valued metrics into a
+multi-field metric. For more info check out the [pivot processor](/telegraf/v1/plugins/#processor-pivot).
 
 For this example these are the topics:
 
@@ -271,7 +269,7 @@ Will result in the following metric:
 sensors,site=CLE,version=v1,device_name=device5 temp=390,rpm=45.0,ph=1.45
 ```
 
-[1]: <https://github.com/influxdata/telegraf/tree/master/plugins/processors/pivot> "Pivot Processor"
+[plugin_pivot]: /plugins/processors/pivot/README.md
 
 ## Metrics
 
@@ -281,8 +279,10 @@ sensors,site=CLE,version=v1,device_name=device5 temp=390,rpm=45.0,ph=1.45
 - example when [[inputs.mqtt_consumer.topic_parsing]] is set
 
 - when [[inputs.internal]] is set:
-  - payload_size (int): get the cumulative size in bytes that have been received from incoming messages
-  - messages_received (int): count of the number of messages that have been received from mqtt
+  - payload_size (int): get the cumulative size in bytes that have been received
+                        from incoming messages
+  - messages_received (int): count of the number of messages that have been
+                            received from mqtt
 
 This will result in the following metric:
 
