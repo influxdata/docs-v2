@@ -78,25 +78,17 @@ selections above. Configure the appropriate settings for your setup:
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-When creating an InfluxDB data source that uses SQL to query data:
+#### SQL configuration
 
-1.  Under **HTTP**:
+When you select **SQL** as the query language, configure the following fields:
 
-    - **URL**: Provide your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}
-      {{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}} using the HTTPS protocol:
+- **Database**: {{% show-in "cloud-serverless" %}}Your [bucket](/influxdb3/version/admin/buckets/) name. In {{< product-name >}}, buckets function as databases.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-      ```
-      https://{{< influxdb/host >}}
-      ```
-2.  Under **InfluxDB Details**:
+- **Token**: {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database.{{% /hide-in %}}
 
-    - **Database**: Provide a default {{% show-in "cloud-serverless" %}}[bucket](/influxdb3/version/admin/buckets/) name to query. In {{< product-name >}}, a bucket functions as a database.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}[database](/influxdb3/version/admin/databases/) name to query.{{% /hide-in %}}
-    - **Token**: Provide {{% show-in "cloud-serverless" %}}an [API token](/influxdb3/version/admin/tokens/) with read access to the buckets you want to query.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}a [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the databases you want to query.{{% /hide-in %}}
-3.  Click **Save & test**.
-
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}{{% /show-in %}}
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Dedicated that uses SQL" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/clustered-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Clustered that uses SQL" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Cloud Serverless" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Cloud Dedicated" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Clustered" />}}{{% /show-in %}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
