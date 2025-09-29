@@ -95,41 +95,32 @@ When you select **SQL** as the query language, configure the following fields:
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-When creating an InfluxDB data source that uses InfluxQL to query data:
+#### InfluxQL configuration
 
 {{% show-in "cloud-serverless" %}}
-> [!Note]
-> #### Map databases and retention policies to buckets
+> [!Important]
+> #### DBRP mapping required
 > 
-> To query {{% product-name %}} with InfluxQL, first map database and retention policy
-> (DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
-> [Map databases and retention policies to buckets](/influxdb3/version/query-data/influxql/dbrp/).
+> To query {{% product-name %}} with InfluxQL, you must first map database and 
+> retention policy (DBRP) combinations to your InfluxDB Cloud buckets. The 
+> configuration form displays a warning if DBRP mapping is not configured.
+>
+> For more information, see [Map databases and retention policies to buckets](/influxdb3/version/query-data/influxql/dbrp/).
 {{% /show-in %}}
 
-1.  Under **HTTP**:
+When you select **InfluxQL** as the query language, configure the following fields:
 
-    - **URL**: Provide your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}
-    using the HTTPS protocol:
+- **Database**: {{% show-in "cloud-serverless" %}}The database name mapped to your InfluxDB bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-      ```
-      https://{{< influxdb/host >}}
-      ```
-2.  Under **InfluxDB Details**:
+- **User**: An arbitrary string. This field is required but the value is ignored by {{% product-name %}}.
 
-    - **Database**: Provide a {{% show-in "cloud-serverless" %}}database name to query.
-      Use the database name that is mapped to your InfluxDB bucket{{% /show-in %}}{{% hide-in "cloud-serverless" %}}default [database](/influxdb3/version/admin/databases/) name to query{{% /hide-in %}}.
-    - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide {{% show-in "cloud-serverless" %}}an [API token](/influxdb3/version/admin/tokens/) with read access to the buckets you want to query{{% /show-in %}}{{% hide-in "cloud-serverless" %}}a [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the databases you want to query{{% /hide-in %}}.
-    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
+- **Password**: {{% show-in "cloud-serverless" %}}Your [API token](/influxdb3/version/admin/tokens/) with read access to the bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database.{{% /hide-in %}}
 
-        - **POST** ({{< req text="Recommended" >}})
-        - **GET**
-3.  Click **Save & test**.
+- **HTTP Method**: Select **POST** (recommended) or **GET**
 
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Dedicated using InfluxQL" />}}{{% /show-in %}}
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/clustered-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Clustered using InfluxQL" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud Serverless with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud Dedicated" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Clustered" />}}{{% /show-in %}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
