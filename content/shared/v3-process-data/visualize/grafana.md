@@ -33,9 +33,16 @@ both InfluxQL and SQL.
 > The instructions below are for **Grafana 10.3+** which introduced the newest
 > version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}.
+> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selections.
+
+## Before you begin
 
 ## Create an InfluxDB data source
+
+**Prerequisites:**
+- Grafana 10.3 or later
+- Administrator role in Grafana
+- {{% show-in "cloud-serverless" %}}InfluxDB Cloud Serverless account and [API token](/influxdb3/version/admin/tokens/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} instance and [database token](/influxdb3/version/admin/tokens/#database-tokens){{% /hide-in %}}
 
 ### Navigate to data source configuration
 
