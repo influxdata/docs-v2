@@ -1762,7 +1762,7 @@ Specifies the local directory that contains Python plugins and their test files.
 
 Specifies the remote repository to use for 'gh:' prefixed plugins.
 
-**Default:** `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
+**Default:** The official InfluxDB 3 plugins repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
 
 | influxdb3 serve option | Environment variable    |
 | :--------------------- | :---------------------- |
