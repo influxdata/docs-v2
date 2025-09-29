@@ -152,6 +152,7 @@ influxdb3 serve
   - [query-file-limit](#query-file-limit)
 - [Processing Engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
+  - [plugin-repo](#plugin-repo)
   - [virtual-env-location](#virtual-env-location)
   - [package-manager](#package-manager)
 {{% show-in "enterprise" %}}
@@ -1743,6 +1744,7 @@ the following side-effects:
 ### Processing Engine
 
 - [plugin-dir](#plugin-dir)
+- [plugin-repo](#plugin-repo)
 - [virtual-env-location](#virtual-env-location)
 - [package-manager](#package-manager)
 
@@ -1753,6 +1755,18 @@ Specifies the local directory that contains Python plugins and their test files.
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
+
+---
+
+#### plugin-repo
+
+Specifies the remote repository to use for 'gh:' prefixed plugins.
+
+**Default:** `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
+
+| influxdb3 serve option | Environment variable    |
+| :--------------------- | :---------------------- |
+| `--plugin-repo`        | `INFLUXDB3_PLUGIN_REPO` |
 
 ---
 
