@@ -60,6 +60,16 @@ adapts based on your product and query language selections.
 
 2. **URL**: Enter your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}: https://{{< influxdb/host >}}
 
+3. **Product**: From the dropdown, select:
+{{% show-in "cloud-serverless" %}}**InfluxDB Cloud Serverless**{{% /show-in %}}{{% show-in "cloud-dedicated" %}}**InfluxDB Cloud Dedicated**{{% /show-in %}}{{% show-in "clustered" %}}**InfluxDB Clustered**{{% /hide-in %}}
+
+4. **Query Language**: Select the query language for your queries
+
+### Configure database settings
+
+The database configuration fields change based on your product and query language 
+selections above. Configure the appropriate settings for your setup:
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [SQL](#)
