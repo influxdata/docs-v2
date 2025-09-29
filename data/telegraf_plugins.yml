@@ -1973,8 +1973,9 @@ input:
 
       > [!NOTE]
       > Telegraf v1.32 through v1.35 support the Profiles signal using the v1
-      > experimental API. Telegraf v1.36+ supports the Profiles signal using the
-      > v1 development API.
+      > experimental API. Telegraf v1.36 supports the Profiles signal using the
+      > v1 development API before v0.1.0. Telegraf v1.37+ supports the Profiles
+      > signal using the v1 development API v0.1.0.
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
@@ -2917,8 +2918,8 @@ output:
     description: |
       This plugin writes metrics to [Amon monitoring
       platform](https://www.amon.cx). It requires a `serverkey` and
-      `amoninstance` URL which can be obtained
-      [here](https://www.amon.cx/docs/monitoring/) for your account.
+      `amoninstance` URL which can be obtained from the
+      [website](https://www.amon.cx/docs/monitoring/) for your account.
 
       > [!IMPORTANT]
       > If point values being sent cannot be converted to a `float64`, the
@@ -3053,9 +3054,12 @@ output:
     description: |
       This plugin writes metrics to the [Datadog Metrics
       API](https://docs.datadoghq.com/api/v1/metrics/#submit-metrics) and
-      requires an `apikey` which can be obtained
-      [here](https://app.datadoghq.com/account/settings#api) for the account. >
-      [!NOTE] This plugin supports the v1 API.
+      requires an `apikey` which can be obtained on the
+      [website](https://app.datadoghq.com/account/settings#api) for the
+      account.
+
+      > [!NOTE]
+      > This plugin supports the v1 API.
     introduced: v0.1.6
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, cloud, datastore]
@@ -3282,7 +3286,8 @@ output:
     description: |
       This plugin writes metrics to the [Librato](https://www.librato.com/)
       service. It requires an `api_user` and `api_token` which can be obtained
-      [here](https://metrics.librato.com/account/api_tokens) for your account.
+      on the [website](https://metrics.librato.com/account/api_tokens) for your
+      account.
 
       The `source_tag` option in the Configuration file is used to send
       contextual information from Point Tags to the API. Besides from this, the
