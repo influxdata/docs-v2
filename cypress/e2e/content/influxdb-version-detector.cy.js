@@ -119,7 +119,8 @@ describe('InfluxDB Version Detector Component', function () {
               .then((text) => {
                 // Should mention multiple editions
                 const mentionsCoreAndEnterprise =
-                  text.includes('InfluxDB 3 Core') && text.includes('InfluxDB 3 Enterprise');
+                  text.includes('InfluxDB 3 Core') &&
+                  text.includes('InfluxDB 3 Enterprise');
                 expect(mentionsCoreAndEnterprise).to.be.true;
               });
           });
@@ -171,8 +172,14 @@ describe('InfluxDB Version Detector Component', function () {
     describe.skip('Cloud Dedicated and Clustered URLs', function () {
       const clusterUrlTests = [
         // v3 Cloud Dedicated
-        { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Cloud Dedicated' },
-        { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+        {
+          url: 'https://cluster-id.a.influxdb.io',
+          expectedText: 'Cloud Dedicated',
+        },
+        {
+          url: 'https://my-cluster.a.influxdb.io',
+          expectedText: 'Cloud Dedicated',
+        },
 
         // v1 Enterprise/v3 Clustered
         { url: 'https://cluster-host.com', expectedText: 'Clustered' },
@@ -190,11 +197,17 @@ describe('InfluxDB Version Detector Component', function () {
       });
     });
 
-        describe.skip('Cloud Dedicated and Clustered URLs', function () {
+    describe.skip('Cloud Dedicated and Clustered URLs', function () {
       const clusterUrlTests = [
         // v3 Cloud Dedicated
-        { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Cloud Dedicated' },
-        { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+        {
+          url: 'https://cluster-id.a.influxdb.io',
+          expectedText: 'Cloud Dedicated',
+        },
+        {
+          url: 'https://my-cluster.a.influxdb.io',
+          expectedText: 'Cloud Dedicated',
+        },
 
         // v1 Enterprise/v3 Clustered
         { url: 'https://cluster-host.com', expectedText: 'Clustered' },
@@ -211,7 +224,6 @@ describe('InfluxDB Version Detector Component', function () {
         });
       });
     });
-    
 
     it('should handle cloud context detection', function () {
       // Click "Yes, I know the URL" first
