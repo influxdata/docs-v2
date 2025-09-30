@@ -10,7 +10,7 @@ introduced: "v1.1.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/nats/README.md, NATS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/nats/README.md, NATS Plugin Source
 ---
 
 # NATS Output Plugin
@@ -155,8 +155,8 @@ If you’re using JetStream the value of subject determines where messages
 are published.
 
 > [!IMPORTANT]
-> When using a dynamic subject template, Telegraf does not automatically register the
-> generated subjects with the JetStream stream.
+> When using a dynamic subject template, Telegraf does not automatically
+> register the generated subjects with the JetStream stream.
 
 For dynamic `subject`s you must explicitly define matching subjects in
 `outputs.nats.jetstream.subjects` to ensure your stream can receive and

@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/execd/README.md, Executable Daemon Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/execd/README.md, Executable Daemon Plugin Source
 ---
 
 # Executable Daemon Output Plugin
