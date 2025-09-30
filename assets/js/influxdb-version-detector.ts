@@ -1906,7 +1906,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             </thead>
             <tbody>
               <tr>
-                <td class="product-name">InfluxDB 3 Enterprise</td>
+                <td class="product-name"><a href="/influxdb3/enterprise/">InfluxDB 3 Enterprise</a></td>
                 <td>Paid only</td>
                 <td>Self-hosted</td>
                 <td>8181</td>
@@ -1914,7 +1914,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>SQL, InfluxQL</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB 3 Core</td>
+                <td class="product-name"><a href="/influxdb3/core/">InfluxDB 3 Core</a></td>
                 <td>Free only</td>
                 <td>Self-hosted</td>
                 <td>8181</td>
@@ -1922,7 +1922,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>SQL, InfluxQL</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB Enterprise</td>
+                <td class="product-name"><a href="/enterprise_influxdb/v1/">InfluxDB Enterprise</a></td>
                 <td>Paid only</td>
                 <td>Self-hosted</td>
                 <td>8086</td>
@@ -1930,7 +1930,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>InfluxQL, Flux</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB Clustered</td>
+                <td class="product-name"><a href="/influxdb3/clustered/">InfluxDB Clustered</a></td>
                 <td>Paid only</td>
                 <td>Self-hosted</td>
                 <td>Varies</td>
@@ -1938,7 +1938,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>SQL, InfluxQL</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB OSS 1.x</td>
+                <td class="product-name"><a href="/influxdb/v1/">InfluxDB OSS 1.x</a></td>
                 <td>Free only</td>
                 <td>Self-hosted</td>
                 <td>8086</td>
@@ -1946,7 +1946,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>InfluxQL</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB OSS 2.x</td>
+                <td class="product-name"><a href="/influxdb/v2/">InfluxDB OSS 2.x</a></td>
                 <td>Free only</td>
                 <td>Self-hosted</td>
                 <td>8086</td>
@@ -1954,7 +1954,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>InfluxQL, Flux</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB Cloud Dedicated</td>
+                <td class="product-name"><a href="/influxdb3/cloud-dedicated/">InfluxDB Cloud Dedicated</a></td>
                 <td>Paid only</td>
                 <td>Cloud</td>
                 <td>N/A</td>
@@ -1962,7 +1962,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>SQL, InfluxQL</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB Cloud Serverless</td>
+                <td class="product-name"><a href="/influxdb3/cloud-serverless/">InfluxDB Cloud Serverless</a></td>
                 <td>Free + Paid</td>
                 <td>Cloud</td>
                 <td>N/A</td>
@@ -1970,7 +1970,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                 <td>SQL, InfluxQL, Flux</td>
               </tr>
               <tr>
-                <td class="product-name">InfluxDB Cloud (TSM)</td>
+                <td class="product-name"><a href="/influxdb/cloud/">InfluxDB Cloud (TSM)</a></td>
                 <td>Free + Paid</td>
                 <td>Cloud</td>
                 <td>N/A</td>
