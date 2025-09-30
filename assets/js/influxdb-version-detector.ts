@@ -502,7 +502,6 @@ class InfluxDBVersionDetector {
       serverless: 'InfluxDB Cloud Serverless',
       core: 'InfluxDB 3 Core',
       enterprise: 'InfluxDB 3 Enterprise',
-      'core or enterprise': 'InfluxDB 3 Core or Enterprise',
       dedicated: 'InfluxDB Cloud Dedicated',
       clustered: 'InfluxDB Clustered',
       custom: 'Custom URL',
@@ -518,6 +517,8 @@ class InfluxDBVersionDetector {
       enterprise_influxdb: 'InfluxDB Enterprise v1.x',
       influxdb: 'InfluxDB OSS v2.x',
     };
+    displayNames['core or enterprise'] =
+      `${displayNames.core} or ${displayNames.enterprise}`;
     return displayNames[product] || product;
   }
 
@@ -1551,9 +1552,15 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     // Apply scoring logic based on answers
     this.applyScoring(scores);
 
-    // Sort by score
+    // Sort by score and filter out vague products
     const ranked = Object.entries(scores)
-      .filter(([, score]) => score > -50)
+      .filter(([product, score]) => {
+        // Filter by score threshold
+        if (score <= -50) return false;
+        // Exclude generic "InfluxDB" product (too vague for results)
+        if (product === 'InfluxDB') return false;
+        return true;
+      })
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
 
@@ -1738,13 +1745,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB 3 Core'] += 25;
       scores['InfluxDB OSS 1.x'] += 25;
       scores['InfluxDB OSS 2.x'] += 25;
+      scores['InfluxDB'] += 25; // Generic InfluxDB (OSS v2.x)
       scores['InfluxDB Cloud Serverless'] += 10;
       scores['InfluxDB Cloud (TSM)'] += 10;
 
-      scores['InfluxDB 3 Enterprise'] = -100;
-      scores['InfluxDB Enterprise'] = -100;
-      scores['InfluxDB Clustered'] = -100;
-      scores['InfluxDB Cloud Dedicated'] = -100;
+      scores['InfluxDB 3 Enterprise'] = -1000;
+      scores['InfluxDB Enterprise'] = -1000;
+      scores['InfluxDB Clustered'] = -1000;
+      scores['InfluxDB Cloud Dedicated'] = -1000;
     } else if (this.answers.paid === 'paid') {
       scores['InfluxDB 3 Enterprise'] += 25;
       scores['InfluxDB Enterprise'] += 20;
@@ -1753,9 +1761,10 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB Cloud Serverless'] += 15;
       scores['InfluxDB Cloud (TSM)'] += 15;
 
-      scores['InfluxDB 3 Core'] = -100;
-      scores['InfluxDB OSS 1.x'] = -100;
-      scores['InfluxDB OSS 2.x'] = -100;
+      scores['InfluxDB 3 Core'] = -1000;
+      scores['InfluxDB OSS 1.x'] = -1000;
+      scores['InfluxDB OSS 2.x'] = -1000;
+      scores['InfluxDB'] = -1000; // Generic InfluxDB (OSS v2.x)
     }
 
     // Time-aware age-based scoring
@@ -1801,10 +1810,12 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
 
       scores['InfluxDB OSS 1.x'] = -1000;
       scores['InfluxDB OSS 2.x'] = -1000;
+      scores['InfluxDB'] = -1000; // Generic InfluxDB (OSS v2.x)
       scores['InfluxDB Enterprise'] = -1000;
       scores['InfluxDB Cloud (TSM)'] = -1000;
     } else if (this.answers.language === 'flux') {
       scores['InfluxDB OSS 2.x'] += 30;
+      scores['InfluxDB'] += 30; // Generic InfluxDB (OSS v2.x)
       scores['InfluxDB Cloud (TSM)'] += 40;
       scores['InfluxDB Cloud Serverless'] += 20;
       scores['InfluxDB Enterprise'] += 20; // v1.x Enterprise supports Flux
@@ -1819,6 +1830,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB OSS 1.x'] += 30;
       scores['InfluxDB Enterprise'] += 30;
       scores['InfluxDB OSS 2.x'] += 20;
+      scores['InfluxDB'] += 20; // Generic InfluxDB (OSS v2.x)
       scores['InfluxDB Cloud (TSM)'] += 20;
       scores['InfluxDB 3 Core'] += 25;
       scores['InfluxDB 3 Enterprise'] += 25;
@@ -2135,7 +2147,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         if (versionMatch) {
           const version = versionMatch[1];
           if (version.startsWith('3.')) {
-            detectedProduct = 'InfluxDB 3 Core or Enterprise';
+            detectedProduct = 'InfluxDB 3 Core or InfluxDB 3Enterprise';
           } else if (version.startsWith('2.')) {
             detectedProduct = 'InfluxDB OSS 2.x';
           } else if (version.startsWith('1.')) {

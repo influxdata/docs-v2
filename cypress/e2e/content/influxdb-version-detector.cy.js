@@ -1,5 +1,137 @@
 /// <reference types="cypress" />
 
+/**
+ * InfluxDB Version Detector E2E Test Suite
+ *
+ * COMPREHENSIVE TEST SCENARIOS CHECKLIST:
+ *
+ * URL Detection Scenarios:
+ * -------------------------
+ * Cloud URLs (Definitive Detection):
+ * - [ ] Dedicated: https://cluster-id.influxdb.io → InfluxDB Cloud Dedicated (confidence 1.0)
+ * - [ ] Serverless US: https://us-east-1-1.aws.cloud2.influxdata.com → InfluxDB Cloud Serverless
+ * - [ ] Serverless EU: https://eu-central-1-1.aws.cloud2.influxdata.com → InfluxDB Cloud Serverless
+ * - [ ] Cloud TSM: https://us-west-2-1.aws.cloud2.influxdata.com → InfluxDB Cloud v2 (TSM)
+ * - [ ] Cloud v1: https://us-west-1-1.influxcloud.net → InfluxDB Cloud v1
+ *
+ * Localhost URLs (Port-based Detection):
+ * - [ ] Core/Enterprise Port: http://localhost:8181 → Should suggest ping test
+ * - [ ] OSS Port: http://localhost:8086 → Should suggest version check
+ * - [ ] Custom Port: http://localhost:9999 → Should fall back to questionnaire
+ *
+ * Edge Cases:
+ * - [ ] Empty URL: Submit without entering URL → Should show error
+ * - [ ] Invalid URL: "not-a-url" → Should fall back to questionnaire
+ * - [ ] Cloud keyword: "cloud 2" → Should start questionnaire with cloud context
+ * - [ ] Mixed case: HTTP://LOCALHOST:8181 → Should detect port correctly
+ *
+ * Airgapped/Manual Analysis Scenarios:
+ * -------------------------------------
+ * Ping Headers Analysis:
+ * - [ ] v3 Core headers: x-influxdb-build: core → InfluxDB 3 Core
+ * - [ ] v3 Enterprise headers: x-influxdb-build: enterprise → InfluxDB 3 Enterprise
+ * - [ ] v2 OSS headers: X-Influxdb-Version: 2.7.8 → InfluxDB OSS 2.x
+ * - [ ] v1 headers: X-Influxdb-Version: 1.8.10 → InfluxDB OSS 1.x
+ * - [ ] 401 Response: Headers showing 401/403 → Should show auth required message
+ * - [ ] Empty headers: Submit without text → Should show error
+ * - [ ] Example content: Submit with placeholder text → Should show error
+ *
+ * Docker Output Analysis:
+ * - [ ] Explicit v3 Core: "InfluxDB 3 Core" in output → InfluxDB 3 Core
+ * - [ ] Explicit v3 Enterprise: "InfluxDB 3 Enterprise" in output → InfluxDB 3 Enterprise
+ * - [ ] Generic v3: x-influxdb-version: 3.1.0 but no build header → Core or Enterprise
+ * - [ ] v2 version: "InfluxDB v2.7.8" in output → InfluxDB OSS 2.x
+ * - [ ] v1 OSS: "InfluxDB v1.8.10" in output → InfluxDB OSS 1.x
+ * - [ ] v1 Enterprise: "InfluxDB 1.8.10" + "Enterprise" → InfluxDB Enterprise
+ * - [ ] Empty output: Submit without text → Should show error
+ * - [ ] Example content: Submit with placeholder text → Should show error
+ *
+ * Questionnaire Flow Scenarios:
+ * ------------------------------
+ * License-based Paths:
+ * - [ ] Free → Self-hosted → Recent → SQL → Should rank Core/OSS highly
+ * - [ ] Paid → Self-hosted → Recent → SQL → Should rank Enterprise highly
+ * - [ ] Free → Cloud → Recent → Flux → Should rank Cloud Serverless/TSM
+ * - [ ] Paid → Cloud → Recent → SQL → Should rank Dedicated highly
+ * - [ ] Unknown license → Should not eliminate products
+ *
+ * Age-based Scoring:
+ * - [ ] Recent (< 1 year) → Should favor v3 products
+ * - [ ] 1-5 years → Should favor v2 era products
+ * - [ ] 5+ years → Should favor v1 products only
+ * - [ ] Unknown age → Should not affect scoring
+ *
+ * Language-based Elimination:
+ * - [ ] SQL only → Should eliminate v1, v2, Cloud TSM
+ * - [ ] Flux only → Should eliminate v1, all v3 products
+ * - [ ] InfluxQL only → Should favor v1, but not eliminate others
+ * - [ ] Multiple languages → Should not eliminate products
+ * - [ ] Unknown language → Should not affect scoring
+ *
+ * Combined Detection Scenarios:
+ * -----------------------------
+ * URL + Questionnaire:
+ * - [ ] Port 8181 + Free license → Should show Core as high confidence
+ * - [ ] Port 8181 + Paid license → Should show Enterprise as high confidence
+ * - [ ] Port 8086 + Free + Recent + SQL → Mixed signals, show ranked results
+ * - [ ] Cloud URL pattern + Paid → Should favor Dedicated/Serverless
+ *
+ * UI/UX Scenarios:
+ * ----------------
+ * Navigation:
+ * - [ ] Back button: From URL input → Should return to "URL known" question
+ * - [ ] Back button: From questionnaire Q2 → Should return to Q1
+ * - [ ] Back button: From first question → Should stay at first question
+ * - [ ] Progress bar: Should update with each question
+ *
+ * Results Display:
+ * - [ ] High confidence (score > 60): Should show "Most Likely" label
+ * - [ ] Medium confidence (30-60): Should show confidence rating
+ * - [ ] Low confidence (< 30): Should show multiple candidates
+ * - [ ] Score gap ≥ 15: Top result should stand out
+ * - [ ] Score gap < 15: Should show multiple options
+ *
+ * Interactive Elements:
+ * - [ ] Start questionnaire button: From detection results → Should hide results and start questions
+ * - [ ] Restart button: Should clear all answers and return to start
+ * - [ ] Grafana links: Should display for detected products
+ * - [ ] Configuration guidance: Should display for top results
+ * - [ ] Quick reference table: Should expand/collapse
+ *
+ * Pre-filled Values:
+ * - [ ] Stored URL: Should pre-fill URL input from localStorage
+ * - [ ] URL indicator: Should show when URL is pre-filled
+ * - [ ] Clear indicator: Should hide when user edits URL
+ *
+ * Analytics Tracking Scenarios:
+ * -----------------------------
+ * - [ ] Modal opened: Track when component initializes
+ * - [ ] Question answered: Track each answer with question_id and value
+ * - [ ] URL detection: Track with detection_method: "url_analysis"
+ * - [ ] Product detected: Track with detected_product and completion_status
+ * - [ ] Restart: Track restart action
+ *
+ * Accessibility Scenarios:
+ * ------------------------
+ * - [ ] Keyboard navigation: Tab through buttons and inputs
+ * - [ ] Focus management: Should focus on heading after showing result
+ * - [ ] Screen reader: Labels and ARIA attributes present
+ * - [ ] Color contrast: Results visible in different themes
+ *
+ * Error Handling:
+ * ---------------
+ * - [ ] Missing products data: Component should handle gracefully
+ * - [ ] Missing influxdb_urls data: Should use fallback values
+ * - [ ] Invalid JSON in data attributes: Should log warning and continue
+ *
+ * Edge Cases:
+ * -----------
+ * - [ ] Modal initialization: Component in modal should wait for modal to open
+ * - [ ] Multiple instances: Each instance should work independently
+ * - [ ] Page navigation: State should persist if using back button
+ * - [ ] URL query params: Should update with detection results
+ */
+
 const modalTriggerSelector = 'a.btn.influxdb-detector-trigger';
 
 describe('InfluxDB Version Detector Component', function () {

@@ -9,8 +9,11 @@
 {{ $detectorProducts := dict }}
 {{ range $key, $product := site.Data.products }}
   {{ if $product.detector_config }}
-    {{/* Include detector_config plus placeholder_host for configuration guidance */}}
+    {{/* Include detector_config plus name and placeholder_host for configuration guidance */}}
     {{ $productData := $product.detector_config }}
+    {{ if $product.name }}
+      {{ $productData = merge $productData (dict "name" $product.name) }}
+    {{ end }}
     {{ if $product.placeholder_host }}
       {{ $productData = merge $productData (dict "placeholder_host" $product.placeholder_host) }}
     {{ end }}
