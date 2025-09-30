@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+const modalTriggerSelector = 'a.btn.influxdb-detector-trigger';
+
 describe('InfluxDB Version Detector Component', function () {
   // Remove the global beforeEach to optimize for efficient running
   // Each describe block will visit the page once
@@ -8,10 +10,7 @@ describe('InfluxDB Version Detector Component', function () {
     beforeEach(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
-      cy.contains(
-        'a.btn.influxdb-detector-trigger',
-        'Detect my InfluxDB version'
-      ).click();
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
     });
 
     it('should not throw JavaScript console errors', function () {
@@ -39,23 +38,20 @@ describe('InfluxDB Version Detector Component', function () {
     });
   });
 
-  describe('Port 8086', function () {
+  describe('URL with port 8086', function () {
     before(() => {
       cy.visit('/test-version-detector/');
-      // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
       cy.get('[data-component="influxdb-version-detector"]')
         .eq(0)
         .within(() => {
           cy.get('.option-button').contains('Yes, I know the URL').click();
-
-          it('should suggest multiple products for custom URL or hostname with port 8086', function () {
+          it('should suggest legacy editions for custom URL or hostname', function () {
             cy.get('#url-input', { timeout: 10000 })
               .clear()
               .type('http://willieshotchicken.com:8086');
             cy.get('.submit-button').click();
 
-            cy.get('.result', { timeout: 15000 }).should('be.visible');
             cy.get('.result')
               .invoke('text')
               .then((text) => {
@@ -72,11 +68,10 @@ describe('InfluxDB Version Detector Component', function () {
               .type('willieshotchicken.com:8086');
             cy.get('.submit-button').click();
 
-            cy.get('.result', { timeout: 15000 }).should('be.visible');
             cy.get('.result')
               .invoke('text')
               .then((text) => {
-                // Should mention multiple products for port 8086
+                // Should mention multiple products
                 const mentionsLegacyEditions =
                   text.includes('OSS 1.x') ||
                   text.includes('OSS 2.x') ||
@@ -84,89 +79,139 @@ describe('InfluxDB Version Detector Component', function () {
                 expect(mentionsLegacyEditions).to.be.true;
               });
           });
-          it('should suggest OSS for localhost with port 8086', function () {
+          it('should suggest OSS for localhost', function () {
             cy.get('#url-input', { timeout: 10000 })
               .should('be.visible')
               .clear()
               .type('http://localhost:8086');
             cy.get('.submit-button').click();
 
-            // Should progress to either result or questionnaire
-            cy.get('body', { timeout: 15000 }).then(($body) => {
-              if ($body.find('.result').length > 0) {
-                cy.get('.result').should('be.visible');
-              } else {
-                cy.get('.question.active').should('be.visible');
-              }
-            });
+            cy.get('.result')
+              .invoke('text')
+              .then((text) => {
+                // Should mention multiple editions
+                const mentionsLegacyOSS =
+                  text.includes('OSS 1.x') || text.includes('OSS 2.x');
+                expect(mentionsLegacyOSS).to.be.true;
+              });
           });
         });
     });
 
-    const urlTests = [
-      // OSS URLs
-      { url: 'http://localhost:8086', expectedText: 'OSS' },
+    describe.skip('URL with port 8181', function () {
+      const port8181UrlTests = [
+        // InfluxDB 3 Core/Enterprise URLs
+        {
+          url: 'http://localhost:8181',
+        },
+        {
+          url: 'https://my-server.com:8181',
+        },
+      ];
+      port8181UrlTests.forEach(({ url }) => {
+        it(`should detect Core and Enterprise 3 for ${url}`, function () {
+          cy.visit('/test-version-detector/');
+          cy.get('body').then(($body) => {
+            cy.get('#influxdb-url').clear().type(url);
+            cy.get('.submit-button').click();
+            cy.get('.result')
+              .invoke('text')
+              .then((text) => {
+                // Should mention multiple editions
+                const mentionsCoreAndEnterprise =
+                  text.includes('InfluxDB 3 Core') && text.includes('InfluxDB 3 Enterprise');
+                expect(mentionsCoreAndEnterprise).to.be.true;
+              });
+          });
+        });
+      });
+    });
 
-      // InfluxDB 3 Core/Enterprise URLs
-      {
-        url: 'http://localhost:8181',
-        expectedText: 'InfluxDB 3 Core or Enterprise',
-      },
-      {
-        url: 'https://my-server.com:8181',
-        expectedText: 'InfluxDB 3 Core or Enterprise',
-      },
+    describe.skip('Cloud URLs', function () {
+      const cloudUrlTests = [
+        {
+          url: 'https://us-west-2-1.aws.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+        {
+          url: 'https://us-east-1-1.aws.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+        {
+          url: 'https://eu-central-1-1.aws.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+        {
+          url: 'https://us-central1-1.gcp.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+        {
+          url: 'https://westeurope-1.azure.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+        {
+          url: 'https://eastus-1.azure.cloud2.influxdata.com',
+          expectedText: 'Cloud',
+        },
+      ];
 
-      // Cloud URLs
-      {
-        url: 'https://us-west-2-1.aws.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-      {
-        url: 'https://us-east-1-1.aws.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-      {
-        url: 'https://eu-central-1-1.aws.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-      {
-        url: 'https://us-central1-1.gcp.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-      {
-        url: 'https://westeurope-1.azure.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-      {
-        url: 'https://eastus-1.azure.cloud2.influxdata.com',
-        expectedText: 'Cloud',
-      },
-
-      // v3 Cloud Dedicated
-      { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Dedicated' },
-      { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Dedicated' },
-
-      // v1 Enterprise/v3 Clustered
-      { url: 'https://cluster-host.com', expectedText: 'Clustered' },
-    ];
-
-    urlTests.forEach(({ url, expectedText }) => {
-      it.skip(`should detect ${expectedText} for ${url}`, function () {
-        cy.get('body').then(($body) => {
-          if ($body.find('#influxdb-url').length > 0) {
+      cloudUrlTests.forEach(({ url, expectedText }) => {
+        it(`should detect ${expectedText} for ${url}`, function () {
+          cy.visit('/test-version-detector/');
+          cy.get('body').then(($body) => {
             cy.get('#influxdb-url').clear().type(url);
             cy.get('.submit-button').click();
 
             cy.get('.result').should('be.visible').and('contain', expectedText);
-          } else {
-            cy.log(
-              'URL input not available - component may not be initialized'
-            );
-          }
+          });
         });
       });
     });
+
+    describe.skip('Cloud Dedicated and Clustered URLs', function () {
+      const clusterUrlTests = [
+        // v3 Cloud Dedicated
+        { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+        { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+
+        // v1 Enterprise/v3 Clustered
+        { url: 'https://cluster-host.com', expectedText: 'Clustered' },
+      ];
+      clusterUrlTests.forEach(({ url, expectedText }) => {
+        it(`should detect ${expectedText} for ${url}`, function () {
+          cy.visit('/test-version-detector/');
+          cy.get('body').then(($body) => {
+            cy.get('#influxdb-url').clear().type(url);
+            cy.get('.submit-button').click();
+
+            cy.get('.result').should('be.visible').and('contain', expectedText);
+          });
+        });
+      });
+    });
+
+        describe.skip('Cloud Dedicated and Clustered URLs', function () {
+      const clusterUrlTests = [
+        // v3 Cloud Dedicated
+        { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+        { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Cloud Dedicated' },
+
+        // v1 Enterprise/v3 Clustered
+        { url: 'https://cluster-host.com', expectedText: 'Clustered' },
+      ];
+      clusterUrlTests.forEach(({ url, expectedText }) => {
+        it(`should detect ${expectedText} for ${url}`, function () {
+          cy.visit('/test-version-detector/');
+          cy.get('body').then(($body) => {
+            cy.get('#influxdb-url').clear().type(url);
+            cy.get('.submit-button').click();
+
+            cy.get('.result').should('be.visible').and('contain', expectedText);
+          });
+        });
+      });
+    });
+    
 
     it('should handle cloud context detection', function () {
       // Click "Yes, I know the URL" first
@@ -218,7 +263,7 @@ describe('InfluxDB Version Detector Component', function () {
     beforeEach(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
     });
     it('should start questionnaire for unknown URL', function () {
       // Click "Yes, I know the URL" first
@@ -589,7 +634,7 @@ describe('InfluxDB Version Detector Component', function () {
     beforeEach(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
     });
 
     it('should handle empty URL input gracefully', function () {
@@ -619,7 +664,7 @@ describe('InfluxDB Version Detector Component', function () {
     beforeEach(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
     });
 
     it('should only show InfluxDB 3 products when SQL is selected', function () {
