@@ -1760,13 +1760,37 @@ Specifies the local directory that contains Python plugins and their test files.
 
 #### plugin-repo
 
-Specifies the remote repository to use for 'gh:' prefixed plugins.
+Specifies the base URL of the remote repository used when referencing plugins with the `gh:` prefix.
+When you create a trigger with a plugin filename starting with `gh:`, InfluxDB fetches
+the plugin code from this repository URL.
+
+The URL construction automatically handles trailing slashes—both formats work identically:
+- `https://example.com/plugins/` (with trailing slash)
+- `https://example.com/plugins` (without trailing slash)
 
 **Default:** The official InfluxDB 3 plugins repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
 
 | influxdb3 serve option | Environment variable    |
 | :--------------------- | :---------------------- |
 | `--plugin-repo`        | `INFLUXDB3_PLUGIN_REPO` |
+
+##### Example usage
+
+```bash
+# Use a custom organization repository
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://raw.githubusercontent.com/myorg/influxdb-plugins/main/"
+
+# Use an internal mirror
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://internal.company.com/influxdb-plugins/"
+
+# Set via environment variable
+export INFLUXDB3_PLUGIN_REPO="https://custom-repo.example.com/plugins/"
+influxdb3 serve --plugin-dir ~/.plugins
+```
 
 ---
 
