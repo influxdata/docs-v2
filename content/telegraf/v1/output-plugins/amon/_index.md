@@ -10,14 +10,14 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/amon/README.md, Amon Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/amon/README.md, Amon Plugin Source
 ---
 
 # Amon Output Plugin
 
 This plugin writes metrics to [Amon monitoring platform](https://www.amon.cx). It requires a
-`serverkey` and `amoninstance` URL which can be obtained [here](https://www.amon.cx/docs/monitoring/)
-for your account.
+`serverkey` and `amoninstance` URL which can be obtained from the
+[website](https://www.amon.cx/docs/monitoring/) for your account.
 
 > [!IMPORTANT]
 > If point values being sent cannot be converted to a `float64`, the metric is

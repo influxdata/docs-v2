@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/application_insights/README.md, Azure Application Insights Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/application_insights/README.md, Azure Application Insights Plugin Source
 ---
 
 # Azure Application Insights Output Plugin

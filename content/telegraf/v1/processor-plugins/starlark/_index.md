@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/processors/starlark/README.md, Starlark Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/starlark/README.md, Starlark Plugin Source
 ---
 
 # Starlark Processor Plugin
@@ -138,10 +138,26 @@ While Starlark is similar to Python, there are important differences to note:
 The ability to load external scripts other than your own is pretty limited. The
 following libraries are available for loading:
 
-- json: `load("json.star", "json")` provides the following functions: `json.encode()`, `json.decode()`, `json.indent()`. See json.star for an example. For more details about the functions, please refer to [the documentation of this library](https://pkg.go.dev/go.starlark.net/lib/json).
-- log: `load("logging.star", "log")` provides the following functions: `log.debug()`, `log.info()`, `log.warn()`, `log.error()`. See logging.star` provides [the following functions and constants](https://pkg.go.dev/go.starlark.net/lib/math). See math.star`. See time_date.star, time_duration.star and/or time_timestamp.star for an example. For more details about the functions, please refer to [the documentation of this library](https://pkg.go.dev/go.starlark.net/lib/time).
+- json: `load("json.star", "json")` provides the functions `json.encode()`,
+        `json.decode()`, `json.indent()`. See json.star
+        for an example. For more details about the functions, please refer to the
+        [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
+- log:  `load("logging.star", "log")` provides the functions `log.debug()`,
+        `log.info()`, `log.warn()`, `log.error()`. See
+         logging.star` provides the function
+         [documented in the library](https://pkg.go.dev/go.starlark.net/lib/math). See
+         math.star`. See
+         time_date.star,
+         time_duration.star and
+         time_timestamp.star for examples. For
+         more details about the functions, please refer to the
+         [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
 
 If you would like to see support for something else here, please open an issue.
+
+[json_lib]: https://pkg.go.dev/go.starlark.net/lib/json
+[math_lib]: https://pkg.go.dev/go.starlark.net/lib/math
+[time_lib]: https://pkg.go.dev/go.starlark.net/lib/time
 
 ### Common Questions
 
@@ -259,28 +275,30 @@ or return the value as a floating-point number.
 
 ### Examples
 
-- drop string fields - Drop fields containing string values.
-- drop fields with unexpected type - Drop fields containing unexpected value types.
-- iops
-- json - an example of processing JSON from a field in a metric
-- math - Use a math function to compute the value of a field. [The list of the supported math functions and constants](https://pkg.go.dev/go.starlark.net/lib/math).
-- number logic - transform a numerical value to another numerical value
-- pivot - Pivots a key's value to be the key for another key.
-- ratio - Compute the ratio of two integer fields
-- rename - Rename tags or fields using a name mapping.
-- scale - Multiply any field by a number
-- time date - Parse a date and extract the year, month and day from it.
-- time duration - Parse a duration and convert it into a total amount of seconds.
-- time timestamp - Filter metrics based on the timestamp in seconds.
-- time timestamp nanoseconds - Filter metrics based on the timestamp with nanoseconds.
-- time timestamp current - Setting the metric timestamp to the current/local time.
-- value filter - Remove a metric based on a field value.
-- logging - Log messages with the logger of Telegraf
-- multiple metrics - Return multiple metrics by using [a list](https://docs.bazel.build/versions/master/skylark/lib/list.html) of metrics.
-- multiple metrics from json array - Builds a new metric from each element of a json array then returns all the created metrics.
-- custom error - Return a custom error with [fail](https://docs.bazel.build/versions/master/skylark/lib/globals.html#fail).
-- compare with previous metric - Compare the current metric with the previous one using the shared state.
-- rename prometheus remote write - Rename prometheus remote write measurement name with fieldname and rename fieldname to value.
+- drop fields containing string values
+- drop fields with unexpected types](testdata/iops.star)
+- process JSON in a metric field - see
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+- use math function to compute a field value - see
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+- transform numerical values
+- pivot a key's value to be the key for another field
+- compute the ratio of two integer fields
+- rename tags or fields using a name mapping
+- scale field values
+- parse date and extract year, month and day - see
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+- parse duration and convert into seconds
+- filter metrics based on timestamp in seconds
+- filter metrics based on the timestamp with nanoseconds
+- setting metric timestamp to current/local time
+- filter metric based on field value
+- log messages with Telegraf logger
+- return multiple metrics using a list
+- return multiple metrics from JSON array
+- return custom error using `fail`
+- compare metric with previous metric using a shared state
+- rename prometheus remote-write measurement name
 
 All examples are in the testdata folder.
 

@@ -10,7 +10,7 @@ introduced: "v1.30.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/zabbix/README.md, Zabbix Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/zabbix/README.md, Zabbix Plugin Source
 ---
 
 # Zabbix Output Plugin

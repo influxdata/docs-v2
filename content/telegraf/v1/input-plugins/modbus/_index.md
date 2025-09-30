@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/modbus/README.md, Modbus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/modbus/README.md, Modbus Plugin Source
 ---
 
 <!-- markdownlint-disable MD024 -->
@@ -432,7 +432,8 @@ This is the original style used by this plugin. It allows a per-register
 configuration for a single slave-device.
 
 > [!NOTE]
-> For legacy reasons this configuration style is not completely consistent with the other styles.
+> For legacy reasons this configuration style is not completely consistent with
+> the other styles.
 
 #### Usage of `data_type`
 
