@@ -161,9 +161,9 @@ interface AnalyticsEventData {
 declare global {
   interface Window {
     gtag?: (
-      event: string,
-      action: string,
-      parameters?: Record<string, unknown>
+      _event: string,
+      _action: string,
+      _parameters?: Record<string, unknown>
     ) => void;
   }
 }
@@ -288,12 +288,9 @@ class InfluxDBVersionDetector {
       (pingHeaders as HTMLTextAreaElement).value = exampleContent;
 
       // Select all text when user clicks in the textarea so they can easily replace it
-      pingHeaders.addEventListener(
-        'focus',
-        function (this: HTMLTextAreaElement) {
-          this.select();
-        }
-      );
+      pingHeaders.addEventListener('focus', () => {
+        (pingHeaders as HTMLTextAreaElement).select();
+      });
     }
   }
 
@@ -322,12 +319,9 @@ class InfluxDBVersionDetector {
       (dockerOutput as HTMLTextAreaElement).value = exampleContent;
 
       // Select all text when user clicks in the textarea so they can easily replace it
-      dockerOutput.addEventListener(
-        'focus',
-        function (this: HTMLTextAreaElement) {
-          this.select();
-        }
-      );
+      dockerOutput.addEventListener('focus', () => {
+        (dockerOutput as HTMLTextAreaElement).select();
+      });
     }
   }
 
@@ -1552,6 +1546,13 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     // Apply scoring logic based on answers
     this.applyScoring(scores);
 
+    // Check if user answered "unknown" to all questions
+    const allUnknown =
+      (!this.answers.paid || this.answers.paid === 'unknown') &&
+      (!this.answers.hosted || this.answers.hosted === 'unknown') &&
+      (!this.answers.age || this.answers.age === 'unknown') &&
+      (!this.answers.language || this.answers.language === 'unknown');
+
     // Sort by score and filter out vague products
     const ranked = Object.entries(scores)
       .filter(([product, score]) => {
@@ -1565,7 +1566,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       .slice(0, 5);
 
     // Display results
-    this.displayRankedResults(ranked);
+    this.displayRankedResults(ranked, allUnknown);
   }
 
   /**
@@ -1840,39 +1841,55 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     }
   }
 
-  private displayRankedResults(ranked: [string, number][]): void {
+  private displayRankedResults(
+    ranked: [string, number][],
+    allUnknown: boolean = false
+  ): void {
     const topScore = ranked[0]?.[1] || 0;
     const secondScore = ranked[1]?.[1] || 0;
     const hasStandout = topScore > 30 && topScore - secondScore >= 15;
 
-    let html =
-      '<strong>Based on your answers, here are the most likely InfluxDB products:</strong><br><br>';
+    let html = '';
 
-    ranked.forEach(([product, score], index) => {
-      const confidence = score > 60 ? 'High' : score > 30 ? 'Medium' : 'Low';
-      const isTopResult = index === 0 && hasStandout;
+    // If all answers were "I'm not sure", show a helpful message
+    if (allUnknown) {
+      html =
+        '<strong>Unable to determine your InfluxDB product</strong><br><br>' +
+        '<p>Since you answered "I\'m not sure" to all questions, we don\'t have enough information to identify your InfluxDB product.</p>' +
+        '<p>Please check the <strong>InfluxDB version quick reference</strong> table below to identify your product based on its characteristics.</p><br>';
+    } else {
+      html =
+        '<strong>Based on your answers, here are the most likely InfluxDB products:</strong><br><br>';
+    }
 
-      // Use unified product result generation with ranking number
-      let productHtml = this.generateProductResult(
-        product,
-        isTopResult,
-        confidence,
-        true
-      );
+    // Only show ranked products if we have meaningful answers
+    if (!allUnknown) {
+      ranked.forEach(([product, score], index) => {
+        const confidence = score > 60 ? 'High' : score > 30 ? 'Medium' : 'Low';
+        const isTopResult = index === 0 && hasStandout;
 
-      // Add ranking number to the product title
-      productHtml = productHtml.replace(
-        '<div class="product-title">',
-        `<div class="product-title">${index + 1}. `
-      );
+        // Use unified product result generation with ranking number
+        let productHtml = this.generateProductResult(
+          product,
+          isTopResult,
+          confidence,
+          true
+        );
 
-      html += productHtml;
-    });
+        // Add ranking number to the product title
+        productHtml = productHtml.replace(
+          '<div class="product-title">',
+          `<div class="product-title">${index + 1}. `
+        );
 
-    // Add Quick Reference table
+        html += productHtml;
+      });
+    }
+
+    // Add Quick Reference table (open by default if all answers unknown)
     html += `
       <div class="quick-reference">
-        <details>
+        <details${allUnknown ? ' open' : ''}>
           <summary class="reference-summary">
             InfluxDB version quick reference
           </summary>
