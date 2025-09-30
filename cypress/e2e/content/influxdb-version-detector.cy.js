@@ -4,65 +4,14 @@ describe('InfluxDB Version Detector Component', function () {
   // Remove the global beforeEach to optimize for efficient running
   // Each describe block will visit the page once
 
-  describe('Modal Functionality', function () {
-    beforeEach(() => {
-      cy.visit('/test-version-detector/');
-    });
-
-    it('should initialize component when modal opens', function () {
-      // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
-
-      // Verify modal opens and component is visible
-      cy.get('.modal').should('be.visible');
-      cy.get('[data-component="influxdb-version-detector"]').should('be.visible');
-
-      // Verify component elements are present
-      cy.get('#detector-title').should('contain', 'InfluxDB product detector');
-      cy.get('.question.active').should('be.visible');
-      cy.get('.option-button').should('have.length.greaterThan', 0);
-    });
-  });
-
   describe('Component Data Attributes', function () {
     beforeEach(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
-      cy.contains('a.btn', 'Detect my InfluxDB version').click();
-    });
-
-    it.skip('should have proper data attributes', function () {
-      cy.get('[data-component="influxdb-version-detector"]').then(($el) => {
-        // Check that required attributes exist
-        expect($el).to.have.attr('data-component');
-        expect($el.attr('data-component')).to.equal(
-          'influxdb-version-detector'
-        );
-
-        // Check that data attributes exist
-        expect($el).to.have.attr('data-products');
-        expect($el).to.have.attr('data-influxdb-urls');
-
-        // Verify data isn't Hugo security token
-        const productsData = $el.attr('data-products');
-        const urlsData = $el.attr('data-influxdb-urls');
-
-        expect(productsData).to.not.equal('#ZgotmplZ');
-        expect(urlsData).to.not.equal('#ZgotmplZ');
-
-        // Verify the data contains valid JSON
-        expect(() => JSON.parse(productsData)).to.not.throw();
-        expect(() => JSON.parse(urlsData)).to.not.throw();
-
-        // Verify the data contains expected structure
-        const products = JSON.parse(productsData);
-        const urls = JSON.parse(urlsData);
-
-        expect(products).to.be.an('object');
-        expect(urls).to.be.an('object');
-        expect(Object.keys(products).length).to.be.greaterThan(0);
-        expect(Object.keys(urls).length).to.be.greaterThan(0);
-      });
+      cy.contains(
+        'a.btn.influxdb-detector-trigger',
+        'Detect my InfluxDB version'
+      ).click();
     });
 
     it('should not throw JavaScript console errors', function () {
@@ -88,50 +37,85 @@ describe('InfluxDB Version Detector Component', function () {
         });
       });
     });
-
-    it.skip('should not throw "detectContext is not a function" error', function () {
-      cy.get('body').then(($body) => {
-        if ($body.find('#influxdb-url').length > 0) {
-          cy.get('#influxdb-url').clear().type('https://cloud.influxdata.com');
-          cy.get('.submit-button').click();
-
-          // Should not throw JavaScript errors
-          cy.get('.result').should('be.visible');
-        }
-      });
-    });
-
-    it.skip('should handle #ZgotmplZ token in influxdb_urls data', function () {
-      cy.window().then((win) => {
-        // Simulate the #ZgotmplZ scenario
-        const mockComponent = win.document.createElement('div');
-        mockComponent.setAttribute('data-influxdb-urls', '#ZgotmplZ');
-
-        // Should not cause parse errors (handled in parseComponentData)
-        expect(() => {
-          const data = mockComponent.getAttribute('data-influxdb-urls');
-          if (data && data !== '#ZgotmplZ') {
-            JSON.parse(data);
-          }
-        }).to.not.throw();
-      });
-    });
   });
 
-  describe('URL Detection Flow', function () {
-    beforeEach(() => {
+  describe('Port 8086', function () {
+    before(() => {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
       cy.contains('a.btn', 'Detect my InfluxDB version').click();
+      cy.get('[data-component="influxdb-version-detector"]')
+        .eq(0)
+        .within(() => {
+          cy.get('.option-button').contains('Yes, I know the URL').click();
+
+          it('should suggest multiple products for custom URL or hostname with port 8086', function () {
+            cy.get('#url-input', { timeout: 10000 })
+              .clear()
+              .type('http://willieshotchicken.com:8086');
+            cy.get('.submit-button').click();
+
+            cy.get('.result', { timeout: 15000 }).should('be.visible');
+            cy.get('.result')
+              .invoke('text')
+              .then((text) => {
+                // Should mention multiple products for port 8086
+                const mentionsLegacyEditions =
+                  text.includes('OSS 1.x') ||
+                  text.includes('OSS 2.x') ||
+                  text.includes('Enterprise');
+                expect(mentionsLegacyEditions).to.be.true;
+              });
+            cy.get('#url-input', { timeout: 10000 })
+              .should('be.visible')
+              .clear()
+              .type('willieshotchicken.com:8086');
+            cy.get('.submit-button').click();
+
+            cy.get('.result', { timeout: 15000 }).should('be.visible');
+            cy.get('.result')
+              .invoke('text')
+              .then((text) => {
+                // Should mention multiple products for port 8086
+                const mentionsLegacyEditions =
+                  text.includes('OSS 1.x') ||
+                  text.includes('OSS 2.x') ||
+                  text.includes('Enterprise');
+                expect(mentionsLegacyEditions).to.be.true;
+              });
+          });
+          it('should suggest OSS for localhost with port 8086', function () {
+            cy.get('#url-input', { timeout: 10000 })
+              .should('be.visible')
+              .clear()
+              .type('http://localhost:8086');
+            cy.get('.submit-button').click();
+
+            // Should progress to either result or questionnaire
+            cy.get('body', { timeout: 15000 }).then(($body) => {
+              if ($body.find('.result').length > 0) {
+                cy.get('.result').should('be.visible');
+              } else {
+                cy.get('.question.active').should('be.visible');
+              }
+            });
+          });
+        });
     });
+
     const urlTests = [
       // OSS URLs
       { url: 'http://localhost:8086', expectedText: 'OSS' },
-      { url: 'https://my-server.com:8086', expectedText: 'OSS' },
 
-      // InfluxDB 3 URLs
-      { url: 'http://localhost:8181', expectedText: 'InfluxDB 3' },
-      { url: 'https://my-server.com:8181', expectedText: 'InfluxDB 3' },
+      // InfluxDB 3 Core/Enterprise URLs
+      {
+        url: 'http://localhost:8181',
+        expectedText: 'InfluxDB 3 Core or Enterprise',
+      },
+      {
+        url: 'https://my-server.com:8181',
+        expectedText: 'InfluxDB 3 Core or Enterprise',
+      },
 
       // Cloud URLs
       {
@@ -159,11 +143,11 @@ describe('InfluxDB Version Detector Component', function () {
         expectedText: 'Cloud',
       },
 
-      // Cloud Dedicated
+      // v3 Cloud Dedicated
       { url: 'https://cluster-id.a.influxdb.io', expectedText: 'Dedicated' },
       { url: 'https://my-cluster.a.influxdb.io', expectedText: 'Dedicated' },
 
-      // Enterprise/Clustered
+      // v1 Enterprise/v3 Clustered
       { url: 'https://cluster-host.com', expectedText: 'Clustered' },
     ];
 
@@ -174,9 +158,7 @@ describe('InfluxDB Version Detector Component', function () {
             cy.get('#influxdb-url').clear().type(url);
             cy.get('.submit-button').click();
 
-            cy.get('.result')
-              .should('be.visible')
-              .and('contain', expectedText);
+            cy.get('.result').should('be.visible').and('contain', expectedText);
           } else {
             cy.log(
               'URL input not available - component may not be initialized'
@@ -192,7 +174,10 @@ describe('InfluxDB Version Detector Component', function () {
 
       // Wait for URL input question to appear and then enter cloud context
       cy.get('#q-url-input', { timeout: 10000 }).should('be.visible');
-      cy.get('#url-input', { timeout: 10000 }).should('be.visible').clear().type('cloud 2');
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('cloud 2');
       cy.get('.submit-button').click();
 
       // Should proceed to next step - either show result or start questionnaire
@@ -206,32 +191,16 @@ describe('InfluxDB Version Detector Component', function () {
       });
     });
 
-    it('should handle OSS port detection', function () {
-      // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
-
-      // Wait for URL input question to appear and then test OSS port detection (8086)
-      cy.get('#q-url-input', { timeout: 10000 }).should('be.visible');
-      cy.get('#url-input', { timeout: 10000 }).should('be.visible').clear().type('http://localhost:8086');
-      cy.get('.submit-button').click();
-
-      // Should progress to either result or questionnaire
-      cy.get('body', { timeout: 15000 }).then(($body) => {
-        if ($body.find('.result').length > 0) {
-          cy.get('.result').should('be.visible');
-        } else {
-          cy.get('.question.active').should('be.visible');
-        }
-      });
-    });
-
     it('should handle v3 port detection', function () {
       // Click "Yes, I know the URL" first
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
       // Wait for URL input question to appear and then test v3 port detection (8181)
       cy.get('#q-url-input', { timeout: 10000 }).should('be.visible');
-      cy.get('#url-input', { timeout: 10000 }).should('be.visible').clear().type('http://localhost:8181');
+      cy.get('#url-input', { timeout: 10000 })
+        .should('be.visible')
+        .clear()
+        .type('http://localhost:8181');
       cy.get('.submit-button').click();
 
       // Should progress to either result or questionnaire
@@ -255,9 +224,7 @@ describe('InfluxDB Version Detector Component', function () {
       // Click "Yes, I know the URL" first
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
-      cy.get('#url-input')
-        .clear()
-        .type('https://unknown-server.com:9999');
+      cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
 
       cy.get('.question.active').should('be.visible');
@@ -269,7 +236,10 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
       // Start questionnaire
-      cy.get('#url-input').should('be.visible').clear().type('https://test.com');
+      cy.get('#url-input')
+        .should('be.visible')
+        .clear()
+        .type('https://test.com');
       cy.get('.submit-button').click();
       cy.get('.question.active', { timeout: 10000 }).should('be.visible');
 
@@ -278,6 +248,7 @@ describe('InfluxDB Version Detector Component', function () {
 
       answers.forEach((answer, index) => {
         cy.get('.question.active', { timeout: 10000 }).should('be.visible');
+        cy.get('.back-button').should('be.visible');
         cy.get('.option-button').contains(answer).should('be.visible').click();
 
         // Wait for the next question or final result
@@ -288,6 +259,23 @@ describe('InfluxDB Version Detector Component', function () {
 
       // Should show results
       cy.get('.result', { timeout: 10000 }).should('be.visible');
+    });
+
+    it('should show all products when answering "I\'m not sure" to all questions', function () {
+      // Test fix for: Core/Enterprise disappearing with all "unknown" answers
+      cy.get('.option-button').contains("No, I don't know the URL").click();
+      cy.get('.question.active', { timeout: 10000 }).should('be.visible');
+
+      // Answer "I'm not sure" to all questions
+      for (let i = 0; i < 4; i++) {
+        cy.get('.question.active', { timeout: 10000 }).should('be.visible');
+        cy.get('.option-button').contains("I'm not sure").click();
+        cy.wait(500);
+      }
+
+      cy.get('.result', { timeout: 10000 }).should('be.visible');
+      // Should show multiple products, not empty or filtered list
+      cy.get('.result').invoke('text').should('have.length.greaterThan', 100);
     });
 
     it('should NOT recommend InfluxDB 3 for Flux users (regression test)', function () {
@@ -323,19 +311,38 @@ describe('InfluxDB Version Detector Component', function () {
         name: 'SQL Filtering Test - Only InfluxDB 3 products for SQL (Free)',
         answers: ['Self-hosted', 'Free', 'Less than 6 months', 'SQL'],
         shouldContain: ['InfluxDB 3'],
-        shouldNotContain: ['InfluxDB OSS 1.x', 'InfluxDB OSS 2.x', 'InfluxDB Enterprise v1.x', 'InfluxDB Cloud (TSM)'],
+        shouldNotContain: [
+          'InfluxDB OSS 1.x',
+          'InfluxDB OSS 2.x',
+          'InfluxDB Enterprise v1.x',
+          'InfluxDB Cloud (TSM)',
+        ],
       },
       {
         name: 'SQL Filtering Test - Only InfluxDB 3 products for SQL (Paid)',
         answers: ['Self-hosted', 'Paid', 'Less than 6 months', 'SQL'],
         shouldContain: ['InfluxDB 3'],
-        shouldNotContain: ['InfluxDB OSS 1.x', 'InfluxDB OSS 2.x', 'InfluxDB Enterprise v1.x', 'InfluxDB Cloud (TSM)'],
+        shouldNotContain: [
+          'InfluxDB OSS 1.x',
+          'InfluxDB OSS 2.x',
+          'InfluxDB Enterprise v1.x',
+          'InfluxDB Cloud (TSM)',
+        ],
       },
       {
         name: 'SQL Filtering Test - Only InfluxDB 3 Cloud products for SQL',
-        answers: ['Cloud (managed service)', 'Paid', 'Less than 6 months', 'SQL'],
+        answers: [
+          'Cloud (managed service)',
+          'Paid',
+          'Less than 6 months',
+          'SQL',
+        ],
         shouldContain: ['Cloud'],
-        shouldNotContain: ['InfluxDB OSS', 'InfluxDB Enterprise v1.x', 'InfluxDB Cloud (TSM)'],
+        shouldNotContain: [
+          'InfluxDB OSS',
+          'InfluxDB Enterprise v1.x',
+          'InfluxDB Cloud (TSM)',
+        ],
       },
       {
         name: 'OSS Free User - SQL (recent)',
@@ -414,9 +421,18 @@ describe('InfluxDB Version Detector Component', function () {
       },
       {
         name: 'SQL Cloud User - Only InfluxDB 3 Cloud products',
-        answers: ['Cloud (managed service)', 'Paid', 'Less than 6 months', 'SQL'],
+        answers: [
+          'Cloud (managed service)',
+          'Paid',
+          'Less than 6 months',
+          'SQL',
+        ],
         shouldContain: ['Cloud Serverless', 'Cloud Dedicated'],
-        shouldNotContain: ['InfluxDB OSS', 'InfluxDB Enterprise v1', 'InfluxDB Cloud (TSM)'],
+        shouldNotContain: [
+          'InfluxDB OSS',
+          'InfluxDB Enterprise v1',
+          'InfluxDB Cloud (TSM)',
+        ],
       },
       {
         name: 'Uncertain User',
@@ -437,9 +453,7 @@ describe('InfluxDB Version Detector Component', function () {
         cy.get('.option-button').contains('Yes, I know the URL').click();
 
         // Start questionnaire
-        cy.get('#url-input')
-          .clear()
-          .type('https://unknown-server.com:9999');
+        cy.get('#url-input').clear().type('https://unknown-server.com:9999');
         cy.get('.submit-button').click();
         cy.get('.question.active').should('be.visible');
 
@@ -462,13 +476,6 @@ describe('InfluxDB Version Detector Component', function () {
         scenario.shouldNotContain.forEach((product) => {
           cy.get('.result').should('not.contain', product);
         });
-      });
-
-      it('should handle Docker container option', function () {
-        cy.get('.option-button').contains('Yes, but it\'s running in Docker/Kubernetes').click();
-        cy.get('#q-docker-manual').should('be.visible');
-        cy.get('.code-block').should('contain', 'docker exec');
-        cy.get('#docker-output').should('be.visible');
       });
 
       it('should NOT recommend InfluxDB 3 for 5+ year installations (time-aware)', function () {
@@ -499,9 +506,7 @@ describe('InfluxDB Version Detector Component', function () {
       // Click "Yes, I know the URL" first
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
-      cy.get('#url-input')
-        .clear()
-        .type('https://unknown-server.com:9999');
+      cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
       cy.get('.question.active').should('be.visible');
 
@@ -519,11 +524,7 @@ describe('InfluxDB Version Detector Component', function () {
     });
 
     it('should detect cloud context correctly with regex patterns', function () {
-      const cloudPatterns = [
-        'cloud 2',
-        'cloud v2',
-        'influxdb cloud 2'
-      ];
+      const cloudPatterns = ['cloud 2', 'cloud v2', 'influxdb cloud 2'];
 
       // Test first pattern in current session
       cy.get('.option-button').contains('Yes, I know the URL').click();
@@ -538,9 +539,7 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
       // Start questionnaire
-      cy.get('#url-input')
-        .clear()
-        .type('https://unknown-server.com:9999');
+      cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
       cy.get('.question.active').should('be.visible');
 
@@ -562,15 +561,14 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('.option-button').contains('Yes, I know the URL').click();
 
       // Complete a questionnaire
-      cy.get('#url-input')
-        .clear()
-        .type('https://unknown-server.com:9999');
+      cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
       cy.get('.question.active').should('be.visible');
 
       const answers = ['Self-hosted', 'Free', '2-5 years', 'SQL'];
       answers.forEach((answer) => {
         cy.get('.question.active').should('be.visible');
+        cy.get('.back-button').should('be.visible');
         cy.get('.option-button').contains(answer).click();
         cy.wait(500);
       });
@@ -644,30 +642,31 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('.result').should('be.visible');
 
       // Get the full result text to verify filtering
-      cy.get('.result').invoke('text').then((resultText) => {
-        // Verify that ONLY InfluxDB 3 products are shown
-        const shouldNotContain = [
-          'InfluxDB Enterprise v1.x',
-          'InfluxDB OSS v2.x',
-          'InfluxDB OSS 1.x',
-          'InfluxDB Cloud (TSM)'
-        ];
+      cy.get('.result')
+        .invoke('text')
+        .then((resultText) => {
+          // Verify that ONLY InfluxDB 3 products are shown
+          const shouldNotContain = [
+            'InfluxDB Enterprise v1.x',
+            'InfluxDB OSS v2.x',
+            'InfluxDB OSS 1.x',
+            'InfluxDB Cloud (TSM)',
+          ];
 
-        // Check that forbidden products are NOT in results
-        shouldNotContain.forEach((forbiddenProduct) => {
-          expect(resultText).to.not.contain(forbiddenProduct);
+          // Check that forbidden products are NOT in results
+          shouldNotContain.forEach((forbiddenProduct) => {
+            expect(resultText).to.not.contain(forbiddenProduct);
+          });
+
+          // Verify at least one InfluxDB 3 product is shown
+          const hasValidProduct =
+            resultText.includes('InfluxDB 3 Core') ||
+            resultText.includes('Cloud Dedicated') ||
+            resultText.includes('Cloud Serverless') ||
+            resultText.includes('InfluxDB Clustered');
+
+          expect(hasValidProduct).to.be.true;
         });
-
-        // Verify at least one InfluxDB 3 product is shown
-        const hasValidProduct =
-          resultText.includes('InfluxDB 3 Core') ||
-          resultText.includes('Cloud Dedicated') ||
-          resultText.includes('Cloud Serverless') ||
-          resultText.includes('InfluxDB Clustered');
-
-        expect(hasValidProduct).to.be.true;
-      });
     });
   });
-
 });

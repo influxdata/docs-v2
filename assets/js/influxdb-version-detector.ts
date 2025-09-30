@@ -114,6 +114,7 @@ interface QueryLanguageConfig {
 }
 
 interface ProductConfig {
+  name?: string;
   query_languages: Record<string, QueryLanguageConfig>;
   characteristics: string[];
   placeholder_host?: string;
@@ -159,7 +160,11 @@ interface AnalyticsEventData {
 // Global gtag function type declaration
 declare global {
   interface Window {
-    gtag?: (event: string, action: string, parameters?: Record<string, unknown>) => void;
+    gtag?: (
+      event: string,
+      action: string,
+      parameters?: Record<string, unknown>
+    ) => void;
   }
 }
 
@@ -171,6 +176,7 @@ class InfluxDBVersionDetector {
   private initialized: boolean = false;
   private questionFlow: string[] = [];
   private currentQuestionIndex = 0;
+  private questionHistory: string[] = []; // Track question history for back navigation
   private progressBar: HTMLElement | null = null;
   private resultDiv: HTMLElement | null = null;
   private restartBtn: HTMLElement | null = null;
@@ -225,7 +231,7 @@ class InfluxDBVersionDetector {
     } else {
       console.debug(
         'InfluxDB URLs data not available or blocked by template security. ' +
-        'This is expected when Hugo data is unavailable.'
+          'This is expected when Hugo data is unavailable.'
       );
       influxdbUrls = {}; // Fallback to empty object
     }
@@ -243,7 +249,7 @@ class InfluxDBVersionDetector {
     // Track modal opening
     this.trackAnalyticsEvent({
       interaction_type: 'modal_opened',
-      section: this.getCurrentPageSection()
+      section: this.getCurrentPageSection(),
     });
   }
 
@@ -276,15 +282,18 @@ class InfluxDBVersionDetector {
         '',
         '# InfluxDB v1:',
         'HTTP/1.1 204 No Content',
-        'X-Influxdb-Version: 1.8.10'
+        'X-Influxdb-Version: 1.8.10',
       ].join('\n');
 
       (pingHeaders as HTMLTextAreaElement).value = exampleContent;
 
       // Select all text when user clicks in the textarea so they can easily replace it
-      pingHeaders.addEventListener('focus', function(this: HTMLTextAreaElement) {
-        this.select();
-      });
+      pingHeaders.addEventListener(
+        'focus',
+        function (this: HTMLTextAreaElement) {
+          this.select();
+        }
+      );
     }
   }
 
@@ -307,22 +316,25 @@ class InfluxDBVersionDetector {
         '',
         '# Startup logs:',
         '2024-01-01T00:00:00.000Z  info  InfluxDB starting',
-        '2024-01-01T00:00:00.000Z  info  InfluxDB 3.1.0 (git: abc123)'
+        '2024-01-01T00:00:00.000Z  info  InfluxDB 3.1.0 (git: abc123)',
       ].join('\n');
 
       (dockerOutput as HTMLTextAreaElement).value = exampleContent;
 
       // Select all text when user clicks in the textarea so they can easily replace it
-      dockerOutput.addEventListener('focus', function(this: HTMLTextAreaElement) {
-        this.select();
-      });
+      dockerOutput.addEventListener(
+        'focus',
+        function (this: HTMLTextAreaElement) {
+          this.select();
+        }
+      );
     }
   }
 
   private getCurrentPageSection(): string {
     // Extract meaningful section from current page
     const path = window.location.pathname;
-    const pathSegments = path.split('/').filter(segment => segment);
+    const pathSegments = path.split('/').filter((segment) => segment);
 
     // Try to get a meaningful section name
     if (pathSegments.length >= 3) {
@@ -392,14 +404,19 @@ class InfluxDBVersionDetector {
 
       // Add additional tracking parameters
       if (eventData.detection_method) {
-        currentUrl.searchParams.set('detection_method', eventData.detection_method);
+        currentUrl.searchParams.set(
+          'detection_method',
+          eventData.detection_method
+        );
       }
       if (eventData.completion_status) {
         currentUrl.searchParams.set('completion', eventData.completion_status);
       }
       if (eventData.section) {
-        currentUrl.searchParams.set('section',
-          encodeURIComponent(eventData.section));
+        currentUrl.searchParams.set(
+          'section',
+          encodeURIComponent(eventData.section)
+        );
       }
 
       // Update browser history without triggering page reload
@@ -421,8 +438,8 @@ class InfluxDBVersionDetector {
           custom_map: {
             dimension1: eventData.detected_product,
             dimension2: eventData.detection_method,
-            dimension3: pageContext
-          }
+            dimension3: pageContext,
+          },
         });
       }
     } catch (error) {
@@ -437,11 +454,13 @@ class InfluxDBVersionDetector {
     if (!modalContent) return;
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' &&
-            mutation.attributeName === 'style') {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'style'
+        ) {
           const target = mutation.target as HTMLElement;
-          const isVisible = target.style.display !== 'none' &&
-                           target.style.display !== '';
+          const isVisible =
+            target.style.display !== 'none' && target.style.display !== '';
 
           if (isVisible && !this.initialized) {
             // Modal just opened and component not yet initialized
@@ -455,7 +474,7 @@ class InfluxDBVersionDetector {
     // Start observing the modal content for style changes
     observer.observe(modalContent, {
       attributes: true,
-      attributeFilter: ['style']
+      attributeFilter: ['style'],
     });
 
     // Also check if modal is already visible
@@ -489,15 +508,15 @@ class InfluxDBVersionDetector {
       custom: 'Custom URL',
 
       // Raw product keys from products.yml (used in scoring)
-      'influxdb3_core': 'InfluxDB 3 Core',
-      'influxdb3_enterprise': 'InfluxDB 3 Enterprise',
-      'influxdb3_cloud_serverless': 'InfluxDB Cloud Serverless',
-      'influxdb3_cloud_dedicated': 'InfluxDB Cloud Dedicated',
-      'influxdb3_clustered': 'InfluxDB Clustered',
-      'influxdb_v1': 'InfluxDB OSS v1.x',
-      'influxdb_v2': 'InfluxDB OSS v2.x',
-      'enterprise_influxdb': 'InfluxDB Enterprise v1.x',
-      'influxdb': 'InfluxDB OSS v2.x',
+      influxdb3_core: 'InfluxDB 3 Core',
+      influxdb3_enterprise: 'InfluxDB 3 Enterprise',
+      influxdb3_cloud_serverless: 'InfluxDB Cloud Serverless',
+      influxdb3_cloud_dedicated: 'InfluxDB Cloud Dedicated',
+      influxdb3_clustered: 'InfluxDB Clustered',
+      influxdb_v1: 'InfluxDB OSS v1.x',
+      influxdb_v2: 'InfluxDB OSS v2.x',
+      enterprise_influxdb: 'InfluxDB Enterprise v1.x',
+      influxdb: 'InfluxDB OSS v2.x',
     };
     return displayNames[product] || product;
   }
@@ -505,13 +524,13 @@ class InfluxDBVersionDetector {
   private generateConfigurationGuidance(productKey: string): string {
     // Map from result product names to products.yml keys
     const productMapping: Record<string, string> = {
-      'core': 'influxdb3_core',
-      'enterprise': 'influxdb3_enterprise',
-      'serverless': 'influxdb3_cloud_serverless',
-      'dedicated': 'influxdb3_cloud_dedicated',
-      'clustered': 'influxdb3_clustered',
+      core: 'influxdb3_core',
+      enterprise: 'influxdb3_enterprise',
+      serverless: 'influxdb3_cloud_serverless',
+      dedicated: 'influxdb3_cloud_dedicated',
+      clustered: 'influxdb3_clustered',
       'oss-v1': 'influxdb_v1',
-      'oss-v2': 'influxdb_v2'
+      'oss-v2': 'influxdb_v2',
     };
 
     const dataKey = productMapping[productKey];
@@ -522,7 +541,10 @@ class InfluxDBVersionDetector {
     const productConfig = this.products[dataKey];
     const productName = this.getProductDisplayName(productKey);
 
-    if (!productConfig.query_languages || Object.keys(productConfig.query_languages).length === 0) {
+    if (
+      !productConfig.query_languages ||
+      Object.keys(productConfig.query_languages).length === 0
+    ) {
       return '';
     }
 
@@ -603,19 +625,21 @@ class InfluxDBVersionDetector {
         return host;
       } else {
         // Default to http for localhost, https for others
-        return host.includes('localhost') ? `http://${host}` : `https://${host}`;
+        return host.includes('localhost')
+          ? `http://${host}`
+          : `https://${host}`;
       }
     }
 
     // Fallback based on product type
     const hostExamples: Record<string, string> = {
-      'influxdb3_core': 'http://localhost:8181',
-      'influxdb3_enterprise': 'http://localhost:8181',
-      'influxdb3_cloud_serverless': 'https://cloud2.influxdata.com',
-      'influxdb3_cloud_dedicated': 'https://cluster-id.a.influxdb.io',
-      'influxdb3_clustered': 'https://cluster-host.com',
-      'influxdb_v1': 'http://localhost:8086',
-      'influxdb_v2': 'http://localhost:8086'
+      influxdb3_core: 'http://localhost:8181',
+      influxdb3_enterprise: 'http://localhost:8181',
+      influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
+      influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
+      influxdb3_clustered: 'https://cluster-host.com',
+      influxdb_v1: 'http://localhost:8086',
+      influxdb_v2: 'http://localhost:8086',
     };
 
     return hostExamples[productDataKey] || 'http://localhost:8086';
@@ -631,10 +655,13 @@ class InfluxDBVersionDetector {
     return false;
   }
 
-  private getAuthenticationInfo(productConfig: ProductConfig): { description: string; details: string } {
+  private getAuthenticationInfo(productConfig: ProductConfig): {
+    description: string;
+    details: string;
+  } {
     // Check if any query language requires Token
     const requiresToken = Object.values(productConfig.query_languages).some(
-      lang => lang.required_params.includes('Token')
+      (lang) => lang.required_params.includes('Token')
     );
 
     // Determine if this product uses "database" or "bucket" terminology
@@ -644,12 +671,13 @@ class InfluxDBVersionDetector {
     if (requiresToken) {
       return {
         description: 'Token-based authentication required',
-        details: `You need a valid API token with appropriate permissions for your ${resourceName}`
+        details: `You need a valid API token with appropriate permissions for your ${resourceName}`,
       };
     } else {
       return {
         description: 'No authentication required by default',
-        details: 'This instance typically runs without authentication, though it may be optionally configured'
+        details:
+          'This instance typically runs without authentication, though it may be optionally configured',
       };
     }
   }
@@ -693,7 +721,7 @@ class InfluxDBVersionDetector {
       // Check for specific Serverless regions
       const serverlessRegions = [
         'us-east-1-1.aws.cloud2.influxdata.com',
-        'eu-central-1-1.aws.cloud2.influxdata.com'
+        'eu-central-1-1.aws.cloud2.influxdata.com',
       ];
 
       for (const region of serverlessRegions) {
@@ -719,7 +747,7 @@ class InfluxDBVersionDetector {
         return {
           likelyProduct: 'oss',
           confidence: 0.8,
-          suggestion: 'version-check'
+          suggestion: 'version-check',
         };
       }
 
@@ -735,16 +763,19 @@ class InfluxDBVersionDetector {
         return {
           likelyProduct: 'core or enterprise',
           confidence: 0.7,
-          suggestion: 'ping-test'
+          suggestion: 'ping-test',
         };
       }
     }
 
     // Then check cloud products with provider regions
     // Skip this check if URL is localhost (cannot be cloud)
-    const isLocalhost = urlLower.includes('localhost') || urlLower.includes('127.0.0.1');
+    const isLocalhost =
+      urlLower.includes('localhost') || urlLower.includes('127.0.0.1');
     if (!isLocalhost) {
-      for (const [productKey, productData] of Object.entries(this.influxdbUrls)) {
+      for (const [productKey, productData] of Object.entries(
+        this.influxdbUrls
+      )) {
         if (!productData || typeof productData !== 'object') continue;
 
         const providers = (productData as Record<string, unknown>).providers;
@@ -793,12 +824,21 @@ class InfluxDBVersionDetector {
       }
     }
 
+    // Port-based suggestions for unknown/invalid URLs
     if (urlLower.includes(':8086')) {
-      return { likelyProduct: 'oss', confidence: 0.5 };
+      return {
+        likelyProduct: 'oss-port',
+        confidence: 0.4,
+        suggestion: 'multiple-candidates-8086',
+      };
     }
 
     if (urlLower.includes(':8181')) {
-      return { likelyProduct: 'core', confidence: 0.5 };
+      return {
+        likelyProduct: 'v3-port',
+        confidence: 0.4,
+        suggestion: 'multiple-candidates-8181',
+      };
     }
 
     return { likelyProduct: null, confidence: 0 };
@@ -934,6 +974,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                     data-value="unknown">
               I'm not sure
             </button>
+            <button class="back-button" data-action="go-back">Back</button>
           </div>
 
           <!-- Question: Cloud vs Self-hosted -->
@@ -960,6 +1001,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
                     data-value="unknown">
               I'm not sure
             </button>
+            <button class="back-button" data-action="go-back">Back</button>
           </div>
 
           <!-- Question: Server Age -->
@@ -977,6 +1019,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             <button class="option-button" data-action="answer" data-category="age" data-value="unknown">
               I'm not sure
             </button>
+            <button class="back-button" data-action="go-back">Back</button>
           </div>
 
           <!-- Question: Query Language -->
@@ -997,6 +1040,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             <button class="option-button" data-action="answer" data-category="language" data-value="unknown">
               I'm not sure
             </button>
+            <button class="back-button" data-action="go-back">Back</button>
           </div>
         </div>
 
@@ -1031,14 +1075,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
               interaction_type: 'question_answered',
               question_id: 'url-known',
               answer_value: target.dataset.value || '',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.handleUrlKnown(target.dataset.value);
             break;
           case 'go-back':
             this.trackAnalyticsEvent({
               interaction_type: 'navigation',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.goBack();
             break;
@@ -1046,7 +1090,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             this.trackAnalyticsEvent({
               interaction_type: 'url_detection_attempt',
               detection_method: 'url_analysis',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.detectByUrl();
             break;
@@ -1054,7 +1098,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             this.trackAnalyticsEvent({
               interaction_type: 'manual_analysis',
               detection_method: 'ping_headers',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.analyzePingHeaders();
             break;
@@ -1062,7 +1106,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
             this.trackAnalyticsEvent({
               interaction_type: 'manual_analysis',
               detection_method: 'docker_output',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.analyzeDockerOutput();
             break;
@@ -1071,7 +1115,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
               interaction_type: 'question_answered',
               question_id: target.dataset.category || '',
               answer_value: target.dataset.value || '',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.answerQuestion(
               target.dataset.category!,
@@ -1083,7 +1127,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
               interaction_type: 'auth_help_response',
               question_id: target.dataset.category || '',
               answer_value: target.dataset.value || '',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.handleAuthorizationHelp(
               target.dataset.category!,
@@ -1093,14 +1137,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
           case 'restart':
             this.trackAnalyticsEvent({
               interaction_type: 'restart',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             this.restart();
             break;
           case 'start-questionnaire': {
             this.trackAnalyticsEvent({
               interaction_type: 'start_questionnaire',
-              section: this.getCurrentPageSection()
+              section: this.getCurrentPageSection(),
             });
             // Hide result and restart button first
             if (this.resultDiv) {
@@ -1132,7 +1176,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     }
   }
 
-  private showQuestion(questionId: string): void {
+  private showQuestion(questionId: string, addToHistory: boolean = true): void {
     const questions = this.container.querySelectorAll('.question');
     questions.forEach((q) => q.classList.remove('active'));
 
@@ -1144,6 +1188,11 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       if (questionId === 'q-url-input') {
         this.enhanceUrlInputWithSuggestions();
       }
+    }
+
+    // Track question history for back navigation
+    if (addToHistory) {
+      this.questionHistory.push(questionId);
     }
 
     this.updateProgress();
@@ -1166,7 +1215,9 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     if (storedUrl && storedUrl !== 'http://localhost:8086') {
       urlInput.value = storedUrl;
       // Add indicator that URL was pre-filled (only if one doesn't already exist)
-      const existingIndicator = urlInput.parentElement?.querySelector('.url-prefilled-indicator');
+      const existingIndicator = urlInput.parentElement?.querySelector(
+        '.url-prefilled-indicator'
+      );
       if (!existingIndicator) {
         const indicator = document.createElement('div');
         indicator.className = 'url-prefilled-indicator';
@@ -1218,8 +1269,30 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
   }
 
   private goBack(): void {
-    this.currentQuestionIndex = 0;
-    this.showQuestion('q-url-known');
+    // Remove current question from history
+    if (this.questionHistory.length > 0) {
+      this.questionHistory.pop();
+    }
+
+    // Go to previous question if available
+    if (this.questionHistory.length > 0) {
+      const previousQuestion =
+        this.questionHistory[this.questionHistory.length - 1];
+      // Remove it from history before showing (showQuestion will re-add it)
+      this.questionHistory.pop();
+
+      // Decrement question index
+      if (this.currentQuestionIndex > 0) {
+        this.currentQuestionIndex--;
+      }
+
+      // Show previous question
+      this.showQuestion(previousQuestion);
+    } else {
+      // No history - go to first question
+      this.currentQuestionIndex = 0;
+      this.showQuestion('q-url-known');
+    }
   }
 
   private async detectByUrl(): Promise<void> {
@@ -1250,6 +1323,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         // Show OSS version check suggestion
         this.showOSSVersionCheckSuggestion(urlInput);
         return;
+      } else if (analysisResult.suggestion === 'multiple-candidates-8086') {
+        // Show multiple product suggestions for port 8086
+        this.showMultipleCandidatesSuggestion(urlInput, '8086');
+        return;
+      } else if (analysisResult.suggestion === 'multiple-candidates-8181') {
+        // Show multiple product suggestions for port 8181
+        this.showMultipleCandidatesSuggestion(urlInput, '8181');
+        return;
       } else {
         // Direct detection
         this.showDetectedVersion(analysisResult.likelyProduct);
@@ -1258,10 +1339,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     }
 
     // URL not recognized - start questionnaire with context
-    this.showResult(
-      'info',
-      'Analyzing your InfluxDB server...'
-    );
+    this.showResult('info', 'Analyzing your InfluxDB server...');
 
     // Check if this is a cloud context (like "cloud 2")
     const contextResult = this.detectContext(urlInput);
@@ -1365,9 +1443,13 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
 
     // Check if we're in the context of localhost:8181 detection
     // If so, we can provide a high-confidence result
-    const currentUrl = (this.container.querySelector('#url-input') as HTMLInputElement)?.value?.toLowerCase() || '';
-    const isLocalhost8181 = (currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')) &&
-                            currentUrl.includes(':8181');
+    const currentUrl =
+      (
+        this.container.querySelector('#url-input') as HTMLInputElement
+      )?.value?.toLowerCase() || '';
+    const isLocalhost8181 =
+      (currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')) &&
+      currentUrl.includes(':8181');
 
     if (isLocalhost8181) {
       // For localhost:8181, we can give high-confidence results based on license
@@ -1407,8 +1489,10 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         licenseGuidance.className = 'license-guidance';
         licenseGuidance.style.marginTop = '1rem';
         licenseGuidance.style.padding = '0.75rem';
-        licenseGuidance.style.backgroundColor = 'rgba(var(--article-link-rgb, 0, 163, 255), 0.1)';
-        licenseGuidance.style.borderLeft = '4px solid var(--article-link, #00A3FF)';
+        licenseGuidance.style.backgroundColor =
+          'rgba(var(--article-link-rgb, 0, 163, 255), 0.1)';
+        licenseGuidance.style.borderLeft =
+          '4px solid var(--article-link, #00A3FF)';
         licenseGuidance.style.borderRadius = '4px';
 
         if (answer === 'free') {
@@ -1457,9 +1541,11 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
   private showRankedResults(): void {
     const scores: Record<string, number> = {};
 
-    // Initialize all products with base score
-    Object.keys(this.products).forEach((product) => {
-      scores[product] = 0;
+    // Initialize all products with base score using their full display names
+    // The scoring logic uses full names like 'InfluxDB 3 Core', not keys like 'influxdb3_core'
+    Object.entries(this.products).forEach(([key, config]) => {
+      const fullName = config.name || key;
+      scores[fullName] = 0;
     });
 
     // Apply scoring logic based on answers
@@ -1482,14 +1568,16 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const GRAFANA_LINKS: Record<string, string> = {
       'InfluxDB 3 Core': '/influxdb3/core/visualize-data/grafana/',
       'InfluxDB 3 Enterprise': '/influxdb3/enterprise/visualize-data/grafana/',
-      'InfluxDB Cloud Dedicated': '/influxdb3/cloud-dedicated/visualize-data/grafana/',
-      'InfluxDB Cloud Serverless': '/influxdb3/cloud-serverless/visualize-data/grafana/',
+      'InfluxDB Cloud Dedicated':
+        '/influxdb3/cloud-dedicated/visualize-data/grafana/',
+      'InfluxDB Cloud Serverless':
+        '/influxdb3/cloud-serverless/visualize-data/grafana/',
       'InfluxDB OSS 1.x': '/influxdb/v1/tools/grafana/',
       'InfluxDB OSS 2.x': '/influxdb/v2/visualize-data/grafana/',
       'InfluxDB Enterprise': '/influxdb/enterprise/visualize-data/grafana/',
       'InfluxDB Clustered': '/influxdb3/clustered/visualize-data/grafana/',
       'InfluxDB Cloud (TSM)': '/influxdb/cloud/visualize-data/grafana/',
-      'InfluxDB Cloud v1': '/influxdb/cloud/visualize-data/grafana/'
+      'InfluxDB Cloud v1': '/influxdb/cloud/visualize-data/grafana/',
     };
 
     return GRAFANA_LINKS[productName] || null;
@@ -1506,7 +1594,9 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
   ): string {
     const displayName = this.getProductDisplayName(productName) || productName;
     const grafanaLink = this.getGrafanaLink(displayName);
-    const resultClass = isTopResult ? 'product-ranking top-result' : 'product-ranking';
+    const resultClass = isTopResult
+      ? 'product-ranking top-result'
+      : 'product-ranking';
 
     // Get characteristics from products data
     const characteristics = this.products[productName]?.characteristics;
@@ -1565,16 +1655,16 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
    */
   private mapProductKeyToFullName(productKey: string): string | null {
     const KEY_TO_FULL_NAME_MAP: Record<string, string> = {
-      'core': 'InfluxDB 3 Core',
-      'enterprise': 'InfluxDB 3 Enterprise',
-      'serverless': 'InfluxDB Cloud Serverless',
-      'dedicated': 'InfluxDB Cloud Dedicated',
-      'clustered': 'InfluxDB Clustered',
+      core: 'InfluxDB 3 Core',
+      enterprise: 'InfluxDB 3 Enterprise',
+      serverless: 'InfluxDB Cloud Serverless',
+      dedicated: 'InfluxDB Cloud Dedicated',
+      clustered: 'InfluxDB Clustered',
       'cloud-v2-tsm': 'InfluxDB Cloud (TSM)',
       'cloud-v1': 'InfluxDB Cloud v1',
-      'oss': 'InfluxDB OSS 2.x',
+      oss: 'InfluxDB OSS 2.x',
       'oss-1x': 'InfluxDB OSS 1.x',
-      'enterprise-1x': 'InfluxDB Enterprise'
+      'enterprise-1x': 'InfluxDB Enterprise',
     };
 
     return KEY_TO_FULL_NAME_MAP[productKey] || null;
@@ -1598,20 +1688,33 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
 
     // Apply URL detection boost if available
     if (this.answers.detectedProduct && this.answers.detectedConfidence) {
-      const fullProductName = this.mapProductKeyToFullName(this.answers.detectedProduct as string);
-      if (fullProductName && scores[fullProductName] !== undefined) {
-        const confidence = typeof this.answers.detectedConfidence === 'number'
+      const detectedProduct = this.answers.detectedProduct as string;
+      const confidence =
+        typeof this.answers.detectedConfidence === 'number'
           ? this.answers.detectedConfidence
           : parseFloat(this.answers.detectedConfidence as string);
-        // Strong confidence boost for definitive URL pattern matches
-        if (confidence >= 1.0) {
-          scores[fullProductName] += 100; // Definitive match
-        } else if (confidence >= 0.9) {
-          scores[fullProductName] += 80; // Very high confidence
-        } else if (confidence >= 0.7) {
-          scores[fullProductName] += 60; // High confidence
-        } else if (confidence >= 0.5) {
-          scores[fullProductName] += 40; // Medium confidence
+
+      // Determine confidence boost value
+      let boostValue = 0;
+      if (confidence >= 1.0) {
+        boostValue = 100; // Definitive match
+      } else if (confidence >= 0.9) {
+        boostValue = 80; // Very high confidence
+      } else if (confidence >= 0.7) {
+        boostValue = 60; // High confidence
+      } else if (confidence >= 0.5) {
+        boostValue = 40; // Medium confidence
+      }
+
+      // Handle special case: 'core or enterprise' should boost BOTH products equally
+      if (detectedProduct === 'core or enterprise') {
+        scores['InfluxDB 3 Core'] += boostValue;
+        scores['InfluxDB 3 Enterprise'] += boostValue;
+      } else {
+        // Normal case: boost single detected product
+        const fullProductName = this.mapProductKeyToFullName(detectedProduct);
+        if (fullProductName && scores[fullProductName] !== undefined) {
+          scores[fullProductName] += boostValue;
         }
       }
     }
@@ -1704,7 +1807,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       scores['InfluxDB OSS 2.x'] += 30;
       scores['InfluxDB Cloud (TSM)'] += 40;
       scores['InfluxDB Cloud Serverless'] += 20;
-      scores['InfluxDB Enterprise'] += 20;  // v1.x Enterprise supports Flux
+      scores['InfluxDB Enterprise'] += 20; // v1.x Enterprise supports Flux
 
       scores['InfluxDB OSS 1.x'] = -1000;
       scores['InfluxDB 3 Core'] = -1000;
@@ -1738,7 +1841,12 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       const isTopResult = index === 0 && hasStandout;
 
       // Use unified product result generation with ranking number
-      let productHtml = this.generateProductResult(product, isTopResult, confidence, true);
+      let productHtml = this.generateProductResult(
+        product,
+        isTopResult,
+        confidence,
+        true
+      );
 
       // Add ranking number to the product title
       productHtml = productHtml.replace(
@@ -1860,9 +1968,16 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     }
 
     // Check if user is trying to analyze the example content
-    if (headersText.includes('# Replace this with your actual response headers') ||
-        headersText.includes('# Example formats:')) {
-      this.showResult('error', 'Please replace the example content with your actual ping response headers');
+    if (
+      headersText.includes(
+        '# Replace this with your actual response headers'
+      ) ||
+      headersText.includes('# Example formats:')
+    ) {
+      this.showResult(
+        'error',
+        'Please replace the example content with your actual ping response headers'
+      );
       return;
     }
 
@@ -1962,9 +2077,14 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     }
 
     // Check if user is trying to analyze the example content
-    if (dockerOutput.includes('# Replace this with your actual command output') ||
-        dockerOutput.includes('# Example formats:')) {
-      this.showResult('error', 'Please replace the example content with your actual Docker command output');
+    if (
+      dockerOutput.includes('# Replace this with your actual command output') ||
+      dockerOutput.includes('# Example formats:')
+    ) {
+      this.showResult(
+        'error',
+        'Please replace the example content with your actual Docker command output'
+      );
       return;
     }
 
@@ -1978,9 +2098,15 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     } else if (dockerOutput.includes('InfluxDB v3')) {
       // Generic v3 detection - need more info
       detectedProduct = 'InfluxDB 3 Core or Enterprise';
-    } else if (dockerOutput.includes('InfluxDB v2') || dockerOutput.includes('InfluxDB 2.')) {
+    } else if (
+      dockerOutput.includes('InfluxDB v2') ||
+      dockerOutput.includes('InfluxDB 2.')
+    ) {
       detectedProduct = 'InfluxDB OSS 2.x';
-    } else if (dockerOutput.includes('InfluxDB v1') || dockerOutput.includes('InfluxDB 1.')) {
+    } else if (
+      dockerOutput.includes('InfluxDB v1') ||
+      dockerOutput.includes('InfluxDB 1.')
+    ) {
       if (dockerOutput.includes('Enterprise')) {
         detectedProduct = 'InfluxDB Enterprise';
       } else {
@@ -2003,7 +2129,9 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
 
       // If no build header, check version headers (case-insensitive)
       if (!detectedProduct) {
-        const versionMatch = dockerOutput.match(/x-influxdb-version:\s*([\d.]+)/i);
+        const versionMatch = dockerOutput.match(
+          /x-influxdb-version:\s*([\d.]+)/i
+        );
         if (versionMatch) {
           const version = versionMatch[1];
           if (version.startsWith('3.')) {
@@ -2011,7 +2139,9 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
           } else if (version.startsWith('2.')) {
             detectedProduct = 'InfluxDB OSS 2.x';
           } else if (version.startsWith('1.')) {
-            detectedProduct = dockerOutput.includes('Enterprise') ? 'InfluxDB Enterprise' : 'InfluxDB OSS 1.x';
+            detectedProduct = dockerOutput.includes('Enterprise')
+              ? 'InfluxDB Enterprise'
+              : 'InfluxDB OSS 1.x';
           }
         }
       }
@@ -2136,6 +2266,48 @@ docker logs &lt;container&gt; 2>&1 | head -20
     this.showResult('success', html);
   }
 
+  private showMultipleCandidatesSuggestion(url: string, port: string): void {
+    let candidates: string[] = [];
+    let portDescription = '';
+
+    if (port === '8086') {
+      candidates = [
+        'InfluxDB OSS 1.x',
+        'InfluxDB OSS 2.x',
+        'InfluxDB Enterprise',
+      ];
+      portDescription =
+        'Port 8086 is used by InfluxDB OSS v1.x, OSS v2.x, and Enterprise v1.x';
+    } else if (port === '8181') {
+      candidates = ['InfluxDB 3 Core', 'InfluxDB 3 Enterprise'];
+      portDescription = 'Port 8181 is used by InfluxDB 3 Core and Enterprise';
+    }
+
+    const candidatesList = candidates
+      .map((product) =>
+        this.generateProductResult(product, false, 'Medium', false)
+      )
+      .join('');
+
+    const html = `
+      <strong>Based on the port pattern in your URL, here are the possible products:</strong><br><br>
+
+      <p style="margin: 1rem 0;">${portDescription}. Without additional information, we cannot determine which specific version you're using.</p>
+
+      <div class="product-candidates" style="margin: 1rem 0;">
+        <strong>Possible products:</strong><br>
+        ${candidatesList}
+      </div>
+
+      <div class="action-section">
+        <strong>To narrow this down:</strong>
+        <button class="option-button" data-action="start-questionnaire" data-context="port-detected">
+          Answer a few questions
+        </button>
+      </div>
+    `;
+    this.showResult('info', html);
+  }
 
   private showDetectedVersion(productName: string): void {
     // Track successful detection
@@ -2143,7 +2315,7 @@ docker logs &lt;container&gt; 2>&1 | head -20
       interaction_type: 'product_detected',
       detected_product: productName.toLowerCase().replace(/\s+/g, '_'),
       completion_status: 'success',
-      section: this.getCurrentPageSection()
+      section: this.getCurrentPageSection(),
     });
 
     const html = `
@@ -2157,6 +2329,7 @@ docker logs &lt;container&gt; 2>&1 | head -20
     this.answers = {};
     this.questionFlow = [];
     this.currentQuestionIndex = 0;
+    this.questionHistory = [];
 
     // Clear inputs
     const urlInput = this.container.querySelector(
@@ -2195,7 +2368,6 @@ docker logs &lt;container&gt; 2>&1 | head -20
       this.progressBar.style.width = '0%';
     }
   }
-
 }
 
 // Export as component initializer
