@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/suricata/README.md, Suricata Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/suricata/README.md, Suricata Plugin Source
 ---
 
 # Suricata Input Plugin
@@ -117,7 +117,8 @@ All fields for Suricata stats are numeric.
 
 - suricata
   - tags:
-    - thread: `Global` for global statistics (if enabled), thread IDs (e.g. `W#03-enp0s31f6`) for thread-specific statistics
+    - thread: `Global` for global statistics (if enabled), thread IDs
+              (e.g. `W#03-enp0s31f6`) for thread-specific statistics
   - fields:
     - app_layer_flow_dcerpc_udp
     - app_layer_flow_dns_tcp

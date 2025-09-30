@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
 ---
 
 # Data Plane Development Kit (DPDK) Input Plugin

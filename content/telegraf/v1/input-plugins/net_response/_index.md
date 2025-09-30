@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/net_response/README.md, Network Response Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/net_response/README.md, Network Response Plugin Source
 ---
 
 # Network Response Input Plugin
@@ -71,7 +71,8 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
     - result
   - fields:
     - response_time (float, seconds)
-    - result_code (int, success = 0, timeout = 1, connection_failed = 2, read_failed = 3, string_mismatch = 4)
+    - result_code (int) success = 0, timeout = 1, connection_failed = 2,
+                        read_failed = 3, string_mismatch = 4
     - result_type (string) **DEPRECATED in 1.7; use result tag**
     - string_found (boolean) **DEPRECATED in 1.4; use result tag**
 

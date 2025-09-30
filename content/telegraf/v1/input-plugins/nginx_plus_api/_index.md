@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/nginx_plus_api/README.md, Nginx Plus API Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/nginx_plus_api/README.md, Nginx Plus API Plugin Source
 ---
 
 # Nginx Plus API Input Plugin
@@ -248,7 +248,9 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   - source
   - port
 
-- nginx_plus_api_http_server_zones, nginx_plus_api_upstream_server_zones, nginx_plus_api_http_location_zones, nginx_plus_api_resolver_zones, nginx_plus_api_slabs_pages
+- nginx_plus_api_http_server_zones, nginx_plus_api_upstream_server_zones,
+  nginx_plus_api_http_location_zones, nginx_plus_api_resolver_zones,
+  nginx_plus_api_slabs_pages
   - source
   - port
   - zone

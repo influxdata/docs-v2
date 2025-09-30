@@ -10,7 +10,7 @@ introduced: "v1.6.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/processors/override/README.md, Override Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/override/README.md, Override Plugin Source
 ---
 
 # Override Processor Plugin

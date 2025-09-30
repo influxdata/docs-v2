@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/ras/README.md, RAS Daemon Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/ras/README.md, RAS Daemon Plugin Source
 ---
 
 # RAS Daemon Input Plugin
