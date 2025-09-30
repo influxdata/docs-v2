@@ -77,6 +77,9 @@
     - /kapacitor/
     - /chronograf/
     - /enterprise_influxdb/
+    - /influxdb3/explorer/
+    - /influxdb3/cloud
+    - /influxdb/cloud
   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
   slug: |
     On **November 1, 2025**, the `latest` tag for InfluxDB Docker images will
