@@ -121,6 +121,117 @@ Potential causes:
   # This is ignored
   ```
 
+### Metrics Endpoint Testing
+
+The metrics testing suite validates InfluxDB 3 Core and Enterprise metrics in two phases:
+
+1. **Phase 1: Direct metrics validation** - Validates metric format, existence, and types by directly querying InfluxDB endpoints
+2. **Phase 2: Prometheus integration** - Validates Prometheus configuration, scraping, and relabeling work as documented
+
+#### Phase 1: Direct Metrics Validation
+
+The `test/influxdb3/metrics_endpoint_test.py` suite validates that InfluxDB 3 metrics endpoints expose all documented metrics in correct Prometheus format.
+
+**Basic Usage:**
+
+```bash
+# Using the wrapper script (recommended)
+./test/run-metrics-tests.sh
+
+# Direct execution with Docker Compose
+docker compose run --rm influxdb3-core-pytest test/influxdb3/metrics_endpoint_test.py
+
+# Run specific test
+docker compose run --rm influxdb3-core-pytest test/influxdb3/metrics_endpoint_test.py -k test_http_grpc_metrics
+```
+
+**Verbose Output:**
+
+Set `VERBOSE_METRICS_TEST=true` to see detailed output showing which metrics are searched and the actual matching lines from the Prometheus endpoint:
+
+```bash
+# With wrapper script
+VERBOSE_METRICS_TEST=true ./test/run-metrics-tests.sh
+
+# With Docker Compose
+VERBOSE_METRICS_TEST=true docker compose run --rm \
+  -e VERBOSE_METRICS_TEST \
+  influxdb3-core-pytest \
+  test/influxdb3/metrics_endpoint_test.py
+```
+
+Example verbose output:
+```
+TEST: HTTP/gRPC Metrics
+================================================================================
+
+✓ Searching for: http_requests_total
+  Found 12 total occurrences
+  Matches:
+    # HELP http_requests_total accumulated total requests
+    # TYPE http_requests_total counter
+    http_requests_total{method="GET",path="/metrics",status="aborted"} 0
+```
+
+#### Phase 2: Prometheus Integration Testing
+
+The `test/influxdb3/prometheus_integration_test.py` suite validates that Prometheus can scrape InfluxDB metrics and that the documented relabeling configuration works correctly.
+
+**What it validates:**
+- Prometheus service discovers InfluxDB targets
+- Scrape configuration works with authentication
+- Relabeling adds `node_name` and `node_role` labels correctly
+- Regex patterns in relabel_configs match documentation
+- PromQL queries using relabeled metrics work
+- Example queries from documentation execute successfully
+
+**Basic Usage:**
+
+```bash
+# Using the wrapper script (recommended)
+./test/run-metrics-tests.sh --prometheus
+
+# Run both direct and Prometheus tests
+./test/run-metrics-tests.sh --all
+
+# Direct execution
+./test/influxdb3/run-prometheus-tests.sh
+
+# With verbose output
+VERBOSE_PROMETHEUS_TEST=true ./test/influxdb3/run-prometheus-tests.sh
+```
+
+**What happens during Prometheus tests:**
+
+1. Starts Prometheus service with documented configuration from `test/influxdb3/prometheus.yml`
+2. Waits for Prometheus to discover and scrape both InfluxDB instances
+3. Validates relabeling adds `node_name` label (extracted from `__address__`)
+4. Validates relabeling adds `node_role` label (based on node name pattern)
+5. Tests PromQL queries can filter by node labels
+6. Validates example rate() and histogram_quantile() queries work
+
+**Prerequisites:**
+- All Phase 1 prerequisites (see below)
+- Prometheus service enabled with: `docker compose --profile monitoring up -d`
+
+#### Authentication
+
+Tests require authentication tokens for InfluxDB 3 instances. Store tokens in:
+- `~/.env.influxdb3-core-admin-token` (for Core)
+- `~/.env.influxdb3-enterprise-admin-token` (for Enterprise)
+
+Or set environment variables directly:
+- `INFLUXDB3_CORE_TOKEN`
+- `INFLUXDB3_ENTERPRISE_TOKEN`
+
+#### Prerequisites
+
+- Docker and Docker Compose installed
+- Running InfluxDB 3 Core container (`influxdb3-core:8181`)
+- Running InfluxDB 3 Enterprise container (`influxdb3-enterprise:8181`)
+- Valid authentication tokens
+- For Phase 2: Prometheus service (`docker compose --profile monitoring up -d`)
+
 ## Link Validation with Link-Checker
 
 Link validation uses the `link-checker` tool to validate internal and external links in documentation files.
