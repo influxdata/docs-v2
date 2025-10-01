@@ -306,8 +306,8 @@ services:
     working_dir: /app
   influxdb3-core:
     container_name: influxdb3-core
-    image: influxdb:3-core
-    pull_policy: always
+    image: influxdb:3.5.0-core-arm64
+    pull_policy: never
     # Set variables (except your auth token) for Core in the .env.3core file.
     env_file:
       - .env.3core
@@ -338,8 +338,8 @@ services:
       - influxdb3-core-admin-token
   influxdb3-enterprise:
     container_name: influxdb3-enterprise
-    image: influxdb:3-enterprise
-    pull_policy: always
+    image: influxdb:3.5.0-enterprise-arm64
+    pull_policy: never
     # Set license email and other variables (except your auth token) for Enterprise in the .env.3ent file.
     env_file:
       - .env.3ent
@@ -499,7 +499,7 @@ services:
   remark-lint:
     container_name: remark-lint
     build:
-      context: . 
+      context: .
       dockerfile: .ci/Dockerfile.remark
     profiles:
       - lint
@@ -510,6 +510,39 @@ services:
       - type: bind
         source: ./CONTRIBUTING.md
         target: /app/CONTRIBUTING.md
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    environment:
+      - INFLUXDB3_CORE_TOKEN=${INFLUXDB3_CORE_TOKEN}
+      - INFLUXDB3_ENTERPRISE_TOKEN=${INFLUXDB3_ENTERPRISE_TOKEN}
+    volumes:
+      - type: bind
+        source: ./test/influxdb3/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        read_only: true
+      - type: volume
+        source: prometheus-data
+        target: /prometheus
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo "$$INFLUXDB3_CORE_TOKEN" > /tmp/core-token
+        echo "$$INFLUXDB3_ENTERPRISE_TOKEN" > /tmp/enterprise-token
+        exec /bin/prometheus \
+          --config.file=/etc/prometheus/prometheus.yml \
+          --storage.tsdb.path=/prometheus \
+          --web.console.libraries=/usr/share/prometheus/console_libraries \
+          --web.console.templates=/usr/share/prometheus/consoles \
+          --web.enable-lifecycle
+    depends_on:
+      - influxdb3-core
+      - influxdb3-enterprise
+    profiles:
+      - monitoring
 volumes:
   test-content:
   cloud-tmp:
@@ -518,3 +551,7 @@ volumes:
   clustered-tmp:
   telegraf-tmp:
   v2-tmp:
+  influxdb3-core-tmp:
+  influxdb2-data:
+  influxdb2-config:
+  prometheus-data:
