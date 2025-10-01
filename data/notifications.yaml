@@ -90,8 +90,8 @@
     InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
     your Docker deployments. For example, if using Docker to run InfluxDB v2,
     replace the `latest` version tag with a specific version tag in your Docker
-    run command--for example:
+    pull command--for example:
 
     ```sh
-    docker run influxdb:2
+    docker pull influxdb:2
     ```
