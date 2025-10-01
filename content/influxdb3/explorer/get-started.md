@@ -26,6 +26,9 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 
 - [InfluxDB 3 Core](/influxdb3/core/)
 - [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
+- [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/)  (Query Mode Only)
+- [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/)  (Query Mode Only)
+  
 
 1.  Navigate to **Configure** > **Servers**.
 2.  Click **+ Connect Your First Server**.
