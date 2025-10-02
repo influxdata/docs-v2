@@ -10,7 +10,7 @@ introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/syslog/README.md, Syslog Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/syslog/README.md, Syslog Plugin Source
 ---
 
 # Syslog Output Plugin
@@ -57,9 +57,9 @@ using the `startup_error_behavior` setting. Available values are:
 - `retry`:  Telegraf will try to startup the plugin in every gather or write
             cycle in case of startup errors. The plugin is disabled until
             the startup succeeds.
-- `probe`:  Telegraf will probe the plugin's function (if possible) and disables the plugin
-            in case probing fails. If the plugin does not support probing, Telegraf will
-            behave as if `ignore` was set instead.
+- `probe`:  Telegraf will probe the plugin's function (if possible) and disables
+            the plugin in case probing fails. If the plugin does not support
+            probing, Telegraf will behave as if `ignore` was set instead.
 
 ## Configuration
 

@@ -10,7 +10,7 @@ introduced: "v0.11.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/kernel/README.md, Kernel Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/kernel/README.md, Kernel Plugin Source
 ---
 
 # Kernel Input Plugin
@@ -68,27 +68,33 @@ in [kernel documentation](https://www.kernel.org/doc/html/latest/accounting/psi.
 ## Metrics
 
 - kernel
-  - boot_time (integer, seconds since epoch, `btime`)
-  - context_switches (integer, `ctxt`)
-  - disk_pages_in (integer, `page (0)`)
-  - disk_pages_out (integer, `page (1)`)
-  - interrupts (integer, `intr`)
-  - processes_forked (integer, `processes`)
-  - entropy_avail (integer, `entropy_available`)
-  - ksm_full_scans (integer, how many times all mergeable areas have been scanned, `full_scans`)
-  - ksm_max_page_sharing (integer, maximum sharing allowed for each KSM page, `max_page_sharing`)
-  - ksm_merge_across_nodes (integer, whether pages should be merged across NUMA nodes, `merge_across_nodes`)
-  - ksm_pages_shared (integer, how many shared pages are being used, `pages_shared`)
-  - ksm_pages_sharing (integer,how many more sites are sharing them , `pages_sharing`)
-  - ksm_pages_to_scan (integer, how many pages to scan before ksmd goes to sleep, `pages_to_scan`)
-  - ksm_pages_unshared (integer, how many pages unique but repeatedly checked for merging, `pages_unshared`)
-  - ksm_pages_volatile (integer, how many pages changing too fast to be placed in a tree, `pages_volatile`)
-  - ksm_run (integer, whether ksm is running or not, `run`)
-  - ksm_sleep_millisecs (integer, how many milliseconds ksmd should sleep between scans, `sleep_millisecs`)
-  - ksm_stable_node_chains (integer, the number of KSM pages that hit the max_page_sharing limit, `stable_node_chains`)
-  - ksm_stable_node_chains_prune_millisecs (integer, how frequently KSM checks the metadata of the pages that hit the deduplication limit, `stable_node_chains_prune_millisecs`)
-  - ksm_stable_node_dups (integer, number of duplicated KSM pages, `stable_node_dups`)
-  - ksm_use_zero_pages (integer, whether empty pages should be treated specially, `use_zero_pages`)
+  - boot_time              (int) - seconds since epoch, `btime`
+  - context_switches       (int) - number of context switches `ctxt`
+  - disk_pages_in          (int) - `page (0)`
+  - disk_pages_out         (int) - `page (1)`
+  - interrupts             (int) - number of interrupts `intr`
+  - processes_forked       (int) - number of forked processes `processes`
+  - entropy_avail          (int) - entropy currently available `entropy_available`
+  - ksm_full_scans         (int) - number of scans of all mergeable areas `full_scans`
+  - ksm_max_page_sharing   (int) - maximum sharing allowed for each KSM page `max_page_sharing`
+  - ksm_merge_across_nodes (int) - flag for merging of pages across NUMA nodes `merge_across_nodes`
+  - ksm_pages_shared       (int) - number of shared pages are being used `pages_shared`
+  - ksm_pages_sharing      (int) - number of sites sharing pages `pages_sharing`
+  - ksm_pages_to_scan      (int) - number of pages to scan before ksmd  sleep `pages_to_scan`
+  - ksm_pages_unshared     (int) - number of pages unique but repeatedly checked
+                                   for merging `pages_unshared`
+  - ksm_pages_volatile     (int) - number of pages changing too fast to be
+                                   placed in a tree `pages_volatile`
+  - ksm_run                (int) - flag for ksm is running or not `run`
+  - ksm_sleep_millisecs    (int) - sleep time for ksmd between scans `sleep_millisecs`
+  - ksm_stable_node_chains (int) - number of KSM pages hitting the
+                                   max_page_sharing limit `stable_node_chains`
+  - ksm_stable_node_chains_prune_millisecs (int) - frequency for KSM checks of
+                                                   page metadata hitting the
+                                                   deduplication limit `stable_node_chains_prune_millisecs`
+  - ksm_stable_node_dups   (int) - number of duplicated KSM pages, `stable_node_dups`
+  - ksm_use_zero_pages     (int) - flag for empty pages being treated specially
+                                   `use_zero_pages`
 
 - pressure (if `psi` is included in `collect`)
   - tags:

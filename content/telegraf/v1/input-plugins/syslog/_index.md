@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/syslog/README.md, Syslog Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/syslog/README.md, Syslog Plugin Source
 ---
 
 # Syslog Input Plugin
@@ -212,9 +212,11 @@ echo "<13>1 2018-10-01T12:00:00.0Z example.org root - - - test" | nc -u 127.0.0.
 
 The `source` tag stores the remote IP address of the syslog sender.
 To resolve these IPs to DNS names, use the
-`reverse_dns` processor.
+[`reverse_dns` processor]()
 
 You can send debugging messages directly to the input plugin using netcat:
+
+[plugin_reverse_dns]: /plugins/processors/reverse_dns/README.md
 
 ### RFC3164
 

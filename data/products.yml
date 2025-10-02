@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.4.2
+  latest_patch: 3.5.0
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
@@ -21,7 +21,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.4.2
+  latest_patch: 3.5.0
   placeholder_host: localhost:8181
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
@@ -35,7 +35,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.2.0
+  latest_patch: 1.3.0
   placeholder_host: localhost:8888
   ai_sample_questions:
     - How do I query data using InfluxDB 3 Explorer?
@@ -143,7 +143,7 @@ telegraf:
   versions: [v1]
   latest: v1.36
   latest_patches:
-    v1: 1.36.1
+    v1: 1.36.2
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?

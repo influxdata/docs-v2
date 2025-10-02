@@ -10,7 +10,7 @@ introduced: "v0.1.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/net/README.md, Network Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/net/README.md, Network Plugin Source
 ---
 
 # Network Input Plugin
@@ -64,7 +64,8 @@ Fields (all platforms):
 * err_out - The total number of transmit errors detected by the interface
 * drop_in - The total number of received packets dropped by the interface
 * drop_out - The total number of transmitted packets dropped by the interface
-* speed - The interface's latest or current speed value, in Mbits/sec. May be -1 if unsupported by the interface
+* speed - The interface's latest or current speed value, in Mbits/sec. May be
+          -1 if unsupported by the interface
 
 Different platforms gather the data above with different mechanisms. Telegraf
 uses the ([gopsutil](https://github.com/shirou/gopsutil)) package, which under

@@ -10,7 +10,7 @@ introduced: "v1.26.0"
 os_support: "windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/win_wmi/README.md, Windows Management Instrumentation Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/win_wmi/README.md, Windows Management Instrumentation Plugin Source
 ---
 
 # Windows Management Instrumentation Input Plugin
