@@ -10,6 +10,7 @@ Use [Grafana](https://grafana.com/) to query and visualize data stored in
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
+- [Before you begin](#before-you-begin)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
@@ -49,26 +50,16 @@ both InfluxQL and SQL.
 3. Click **Add new data source**
 4. Under **Time series databases**, click **InfluxDB**
 
+The configuration form displays with four numbered sections. Section 2 (Database settings) displays different fields based on your query language selection.
+
+5. **Name**: Enter a descriptive name for your data source
+6. **URL**: Enter your {{% product-name %}} cluster URL: `https://{{< influxdb/host >}}`
+7. **Product**: From the dropdown, select **InfluxDB Enterprise 3.x**
+8. **Query Language**: Select **SQL** or **InfluxQL**
+
 ### Configure basic settings
 
-The configuration form is organized into numbered sections. The form dynamically 
-adapts based on your product and query language selections.
-
-**Configure the following:**
-
-1. **Name**: Enter a descriptive name for your data source 
-
-2. **URL**: Enter your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}: https://{{< influxdb/host >}}
-
-3. **Product**: From the dropdown, select:
-{{% show-in "cloud-serverless" %}}**InfluxDB Cloud Serverless**{{% /show-in %}}{{% show-in "cloud-dedicated" %}}**InfluxDB Cloud Dedicated**{{% /show-in %}}{{% show-in "clustered" %}}**InfluxDB Clustered**{{% /hide-in %}}
-
-4. **Query Language**: Select the query language for your queries
-
-### Configure database settings
-
-The database configuration fields change based on your product and query language 
-selections above. Configure the appropriate settings for your setup:
+The fields in this section change based on your query language selection.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
