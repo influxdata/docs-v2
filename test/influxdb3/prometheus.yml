@@ -1,0 +1,87 @@
+# Prometheus configuration for testing InfluxDB 3 metrics
+# Based on documentation in content/shared/influxdb3-admin/monitor-metrics.md
+# This configuration matches the examples provided in PR #6422
+
+# NOTE: If your InfluxDB instance requires authentication for the /metrics endpoint,
+# you'll need to configure bearer_token or bearer_token_file in the scrape configs below.
+# See: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config
+
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+  external_labels:
+    monitor: 'influxdb3-test'
+
+# Scrape configurations
+scrape_configs:
+  # InfluxDB 3 Core
+  # Documentation reference: lines 563-571 in monitor-metrics.md
+  - job_name: 'influxdb3-core'
+    static_configs:
+      - targets: ['influxdb3-core:8181']
+        labels:
+          environment: 'test'
+          product: 'core'
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    # Authentication - uses credential file
+    # Token is written to /tmp/core-token by docker-compose entrypoint
+    authorization:
+      credentials_file: /tmp/core-token
+    # Fallback protocol for targets that don't send Content-Type
+    fallback_scrape_protocol: 'PrometheusText0.0.4'
+
+    # Relabeling to add node identification (same as Enterprise)
+    relabel_configs:
+      # Extract node name from address
+      - source_labels: [__address__]
+        target_label: node_name
+        regex: '([^:]+):.*'
+        replacement: '${1}'
+      # Add node role based on name pattern
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: '.*core.*'
+        replacement: 'all-in-one-core'
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: '.*enterprise.*'
+        replacement: 'all-in-one-enterprise'
+
+  # InfluxDB 3 Enterprise
+  # Documentation reference: lines 399-418 in monitor-metrics.md
+  # Includes relabeling from lines 536-553
+  - job_name: 'influxdb3-enterprise'
+    static_configs:
+      - targets: ['influxdb3-enterprise:8181']
+        labels:
+          environment: 'test'
+          product: 'enterprise'
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    # Authentication - uses credential file
+    # Token is written to /tmp/enterprise-token by docker-compose entrypoint
+    authorization:
+      credentials_file: /tmp/enterprise-token
+    # Fallback protocol for targets that don't send Content-Type
+    fallback_scrape_protocol: 'PrometheusText0.0.4'
+
+    # Relabeling to add node identification
+    # Documentation reference: lines 536-553
+    relabel_configs:
+      # Extract node name from address
+      - source_labels: [__address__]
+        target_label: node_name
+        regex: '([^:]+):.*'
+        replacement: '${1}'
+      # Add node role based on name pattern
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: '.*core.*'
+        replacement: 'all-in-one-core'
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: '.*enterprise.*'
+        replacement: 'all-in-one-enterprise'
