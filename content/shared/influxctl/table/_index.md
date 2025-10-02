@@ -17,7 +17,7 @@ influxctl table [subcommand] [flags]
 | [iceberg](/influxdb3/version/reference/cli/influxctl/table/iceberg/)   | Manage iceberg exports for a table |
 | [list](/influxdb3/version/reference/cli/influxctl/table/list/)         | List tables                        |
 | [rename](/influxdb3/version/reference/cli/influxctl/table/rename/)     | Rename a table                     |
-| [undelete](/influxdb3/version/reference/cli/influxctl/table/undelete/) | Undelete a deleted table           |
+| [undelete](/influxdb3/version/reference/cli/influxctl/table/undelete/) | Undelete a table                   |
 | help, h                                                                | Output command help                |
 
 ## Flags

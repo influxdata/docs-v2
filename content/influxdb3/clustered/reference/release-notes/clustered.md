@@ -78,7 +78,7 @@ spec:
 
 ### Highlights
 
-#### Tables rename and undelete
+#### Rename and undelete tables
 
 Tables can now be renamed and undeleted with [influxctl v2.10.5](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#2105) or later.
 
