@@ -126,6 +126,14 @@ When you select **InfluxQL** as the query language, configure the following fiel
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+
+### test the connection
+
+1. Click **Save & test**
+2. Verify that the "Data source is working" message appears
+
+If the connection test fails, verify your URL, credentials, and network connectivity.
+
 ## Query InfluxDB with Grafana
 
 After you [configure and save an InfluxDB datasource](#create-an-influxdb-data-source),

@@ -33,15 +33,14 @@ both SQL and InfluxQL.
 > The instructions below are for **Grafana 10.3+** which introduced the newest
 > version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}.
+> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selections .
 
 ## Create an InfluxDB data source
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **InfluxDB** plugin.
-4.  Provide a name for your data source.
-5.  Under **Query Language**, select either **SQL** or **InfluxQL**:
+1. In your Grafana interface, click **Connections** in the left sidebar
+2. Click **Data sources**
+3. Click **Add new data source**
+4. Under **Time series databases**, select **InfluxDB**
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
