@@ -426,7 +426,7 @@ rate(object_store_transfer_objects_total[5m])
 {{% show-in "enterprise" %}}
 ## Distributed monitoring setup
 
-### Collect metrics with Telegraf (recommended)
+### Collect metrics with Telegraf
 
 Use Telegraf to collect metrics from all cluster nodes and store them in a separate {{< product-name >}} instance for centralized monitoring.
 
@@ -434,27 +434,53 @@ Use Telegraf to collect metrics from all cluster nodes and store them in a separ
 
 Create a Telegraf configuration file (`telegraf.conf`) to scrape metrics from your cluster nodes:
 
-```toml
+```toml { placeholders="MONITORING_AUTH_TOKEN|INGESTER_AUTH_TOKEN|QUERY_AUTH_TOKEN|COMPACTOR_AUTH_TOKEN" }
 # Telegraf configuration for InfluxDB 3 Enterprise monitoring
 
 # Output to monitoring InfluxDB instance
-[[outputs.influxdb_v3]]
+[[outputs.influxdb_v2]]
   urls = ["http://monitoring-influxdb:8181"]
-  database = "monitoring"
   token = "MONITORING_AUTH_TOKEN"
+  organization = ""
+  bucket = "monitoring"
 
-# Scrape metrics from cluster nodes
+# Scrape metrics from ingest nodes
 [[inputs.prometheus]]
   urls = [
     "http://ingester-01:8181/metrics",
-    "http://ingester-02:8181/metrics",
-    "http://query-01:8181/metrics",
-    "http://query-02:8181/metrics",
-    "http://compactor-01:8181/metrics"
+    "http://ingester-02:8181/metrics"
   ]
   metric_version = 2
 
-  # Add node identification from URL
+  # Authentication for metrics endpoint
+  [inputs.prometheus.headers]
+    Authorization = "Token INGESTER_AUTH_TOKEN"
+
+  [inputs.prometheus.tags]
+    cluster = "production"
+
+# Scrape metrics from query nodes
+[[inputs.prometheus]]
+  urls = [
+    "http://query-01:8181/metrics",
+    "http://query-02:8181/metrics"
+  ]
+  metric_version = 2
+
+  [inputs.prometheus.headers]
+    Authorization = "Token QUERY_AUTH_TOKEN"
+
+  [inputs.prometheus.tags]
+    cluster = "production"
+
+# Scrape metrics from compactor nodes
+[[inputs.prometheus]]
+  urls = ["http://compactor-01:8181/metrics"]
+  metric_version = 2
+
+  [inputs.prometheus.headers]
+    Authorization = "Token COMPACTOR_AUTH_TOKEN"
+
   [inputs.prometheus.tags]
     cluster = "production"
 
@@ -478,6 +504,9 @@ Create a Telegraf configuration file (`telegraf.conf`) to scrape metrics from yo
 Replace the following:
 
 - {{% code-placeholder-key %}}`MONITORING_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} for the monitoring InfluxDB instance
+- {{% code-placeholder-key %}}`INGESTER_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} with `system:metrics:read` permission for the ingest nodes
+- {{% code-placeholder-key %}}`QUERY_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} with `system:metrics:read` permission for the query nodes
+- {{% code-placeholder-key %}}`COMPACTOR_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} with `system:metrics:read` permission for the compactor node
 
 #### Start Telegraf
 
@@ -514,31 +543,7 @@ WHERE time >= now() - INTERVAL '1 hour'
 GROUP BY node_name;
 ```
 
-### Alternative: Prometheus configuration
-
-If you prefer Prometheus, configure it to scrape all cluster nodes:
-
-```yaml
-# prometheus.yml
-scrape_configs:
-  - job_name: 'influxdb3-enterprise'
-    static_configs:
-      - targets:
-          - 'ingester-01:8181'
-          - 'ingester-02:8181'
-          - 'query-01:8181'
-          - 'query-02:8181'
-          - 'compactor-01:8181'
-          - 'processor-01:8181'
-    metrics_path: '/metrics'
-    scrape_interval: 30s
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: node_name
-        regex: '([^:]+):.*'
-        replacement: '${1}'
-```
-
+<!--TODO - Add example Grafana dashboards
 ### Grafana dashboards
 
 Create role-specific dashboards with the following suggested metrics for each dashboard:
@@ -567,12 +572,16 @@ Create role-specific dashboards with the following suggested metrics for each da
 - Processing engine trigger rates
 - System health indicators
 
+-->
+
+<!--TODO - Use the processing engine for alerting
+
 ### Alerting for clusters
 
 Set up cluster-aware alerting rules:
 
 ```yaml
-# Prometheus alerting rules
+# Sample Prometheus alerting rules
 groups:
   - name: influxdb3_enterprise_cluster
     rules:
@@ -614,10 +623,11 @@ groups:
         annotations:
           summary: "Slow inter-node communication detected"
 ```
+-->
 
 ### Add node identification with Prometheus
 
-If using Prometheus instead of Telegraf, add node identification through relabeling:
+If using Prometheus instead of Telegraf, add node identification through _relabeling_:
 
 ```yaml
 # prometheus.yml
@@ -648,22 +658,12 @@ scrape_configs:
         regex: 'compactor-.*'
         replacement: 'compact'
 ```
-
-Query metrics with node labels in PromQL:
-
-```promql
-# Request rate by node and role
-sum(rate(http_requests_total[5m])) by (node_name, node_role)
-
-# Filter metrics for specific node role
-http_requests_total{node_role="ingest"}
-```
 {{% /show-in %}}
 
 {{% show-in "core" %}}
 ## Integration with monitoring tools
 
-### Collect metrics with Telegraf (recommended)
+### Collect metrics with Telegraf
 
 Use Telegraf to collect metrics and store them in a separate {{< product-name >}} instance for monitoring.
 
@@ -671,22 +671,30 @@ Use Telegraf to collect metrics and store them in a separate {{< product-name >}
 
 Create a Telegraf configuration file (`telegraf.conf`):
 
-```toml
+```toml { placeholders="MONITORING_AUTH_TOKEN|AUTH_TOKEN" }
 # Telegraf configuration for InfluxDB 3 Core monitoring
 
 # Output to monitoring InfluxDB instance
-[[outputs.influxdb_v3]]
+[[outputs.influxdb_v2]]
   urls = ["http://monitoring-influxdb:8181"]
-  database = "monitoring"
   token = "MONITORING_AUTH_TOKEN"
+  organization = ""
+  bucket = "monitoring"
 
 # Scrape metrics from InfluxDB 3 Core
 [[inputs.prometheus]]
   urls = ["http://localhost:8181/metrics"]
   metric_version = 2
+
+  # Authentication for metrics endpoint (if required)
+  # [inputs.prometheus.headers]
+  #   Authorization = "Token AUTH_TOKEN"
 ```
 
-Replace {{% code-placeholder-key %}}`MONITORING_AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link %}} for the monitoring InfluxDB instance.
+Replace the following:
+
+- {{% code-placeholder-key %}}`MONITORING_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} for the monitoring InfluxDB instance
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} (if uncommented): your {{% token-link %}} for accessing the `/metrics` endpoint
 
 #### Start Telegraf
 
@@ -723,20 +731,7 @@ WHERE time >= now() - INTERVAL '1 hour'
 GROUP BY status;
 ```
 
-### Alternative: Prometheus configuration
-
-If you prefer Prometheus, add {{< product-name >}} to your Prometheus configuration:
-
-```yaml
-# prometheus.yml
-scrape_configs:
-  - job_name: 'influxdb3-core'
-    static_configs:
-      - targets: ['localhost:8181']
-    metrics_path: '/metrics'
-    scrape_interval: 30s
-```
-
+<!--TODO - Add example Grafana dashboards
 ### Grafana dashboard
 
 Create dashboards with key metrics:
@@ -745,7 +740,9 @@ Create dashboards with key metrics:
 2. **Query Performance**: Query latency, throughput, memory per query
 3. **Storage**: Object store operations, cache hit rates, file counts
 4. **Runtime Health**: Task counts, worker utilization, panic rates
+-->
 
+<!--TODO - Use the processing engine for alerting
 ### Alerting rules
 
 Set up alerts for critical conditions:
@@ -779,6 +776,7 @@ groups:
         annotations:
           summary: "Low cache hit rate in InfluxDB 3 Core"
 ```
+-->
 {{% /show-in %}}
 
 ## Best practices
