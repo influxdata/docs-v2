@@ -85,7 +85,7 @@ When you select **SQL** as the query language, configure the following:
 When you select **InfluxQL** as the query language, configure the following:
 
 - **Database**: Your [database](/influxdb3/version/admin/databases/) name
-- **User**: An arbitrary string. This field is required but the value is ignored by {{% product-name %}}.
+- **User**: Enter a username. 
 - **Password**: A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database
 - **HTTP Method**: Select **POST** (recommended) or **GET**
 

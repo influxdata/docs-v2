@@ -5,20 +5,18 @@ to visualize data from your **InfluxDB {{< current-version >}}** instance.
 The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
 {{% /note %}}
 
-1.  {{% show-in "cloud,cloud-serverless" %}}[Log into InfluxDB Cloud](https://cloud2.influxdata.com).{{% /show-in %}}
-    {{% show-in "v2" %}}[Start InfluxDB](/influxdb/version/install/#configure-and-start-influxdb).{{% /show-in %}}
-2.  [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
-    [download and install Grafana](https://grafana.com/grafana/download).
-3.  Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
-    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
-    <http://localhost:3000> in your browser.
-4.  In the left navigation of the Grafana UI, open the **Connections** section
-    and select **Add new connection**.
-5.  Select **InfluxDB** from the list of available data sources and click
-    **Add new data source**.
-6.  On the **Data Source configuration page**, enter a **name** for your InfluxDB data source.
-7.  In the **Query Language** drop-down menu, select one of the query languages
-    supported by InfluxDB {{< current-version >}} (Flux or InfluxQL):
+- [Install Grafana](#install-grafana)
+- [Create an InfluxDB data source](#create-an-influxdb-data-source)
+- [Query and visualize data](#query-and-visualize-data)
+
+## Install Grafana
+
+1. [Start InfluxDB OSS 2.x](/influxdb/v2/install/#configure-and-start-influxdb).
+2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
+   [download and install Grafana](https://grafana.com/grafana/download).
+3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
+   [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
+   <http://localhost:3000> in your browser.
 
     {{% note %}}
 SQL is only supported in InfluxDB 3.
