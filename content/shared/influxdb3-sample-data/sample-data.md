@@ -6,6 +6,7 @@ Use the following sample datasets to replicate provided examples.
 - [Home sensor data](#home-sensor-data)
 - [Home sensor actions data](#home-sensor-actions-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
+- [European Union wind data](#european-union-wind-data)
 - [Bitcoin price data](#bitcoin-price-data)
 - [Random numbers sample data](#random-numbers-sample-data)
 
@@ -92,7 +93,11 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200'
 
 {{% influxdb/custom-timestamps %}}
 ```bash { placeholders="AUTH_TOKEN|DATABASE_NAME" }
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
   --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1735545600
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1735549200
@@ -266,8 +271,7 @@ home sensor actions sample data to {{< product-name >}}.
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
@@ -280,16 +284,18 @@ home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide l
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200'
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=true" \
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
   --data-raw "home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23°C). Cooling to 22°C.\" 1739437200
 home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.3°C). Cooling to 22°C.\" 1739469600
 home_actions,room=Kitchen,action=cool,level=ok description=\"Temperature at or above 23°C (23.1°C). Cooling to 22°C.\" 1739473200
@@ -299,15 +305,13 @@ home_actions,room=Kitchen,action=alert,level=warn description=\"Carbon monoxide 
 home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 14 ppm.\" 1739473200
 home_actions,room=Living Room,action=alert,level=warn description=\"Carbon monoxide level above normal: 17 ppm.\" 1739476800"
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -324,15 +328,13 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
 '
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -348,7 +350,6 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
 '
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
@@ -407,30 +408,29 @@ NOAA Bay Area weather sample data to {{< product-name >}}.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -438,20 +438,113 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Replace the following in the sample script:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  the name of database to write to
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}:
+  your {{< product-name >}} {{% token-link %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## European Union wind data
+
+The European Union (EU) wind sample dataset provides hourly measurements of
+wind speed and wind direction from various cities in the EU.
+The dataset includes a hierarchical tag set of country, county, and city.
+
+##### Time Range
+
+**2025-10-01T00:00:00Z** to **2025-10-01T23:00:00Z**
+
+##### Schema
+
+- wind_data <em style="opacity: .5">(table)</em>
+  - **tags**:
+    - country
+      - _20 countries_
+    - county
+      - _111 counties_
+    - city 
+      - _129 cities_
+  - **fields**:
+    - wind_speed <em style="opacity: .5">(float)</em>
+    - wind_direction <em style="opacity: .5">(integer)</em>
+
+{{< expand-wrapper >}}
+{{% expand "Write the EU wind sample data to InfluxDB" %}}
+
+#### Write the EU wind sample data to InfluxDB
+
+Use the `influxdb3` CLI, InfluxDB v3 API, InfluxDB v2 API, or InfluxDB v1 API to write the
+EU wind sample data to {{< product-name >}}.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3](#)
+[v3 API](#)
+[v2 API](#)
+[v1 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+influxdb3 write \
+  --token AUTH_TOKEN \
+  --database DATABASE_NAME \
+  "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
+
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -513,37 +606,47 @@ Bitcoin price sample data to {{< product-name >}}.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -593,30 +696,29 @@ random number sample data to {{< product-name >}}.
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 influxdb3 write \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
-curl -v "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto&accept_partial=false" \
-  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v3/write_lp?db=DATABASE_NAME&precision=auto&accept_partial=false \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
@@ -624,20 +726,17 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
-```sh
+```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
 curl --request POST \
   http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
