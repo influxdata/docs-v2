@@ -49,8 +49,19 @@ curl -s http://compactor-01:8181/metrics
 {{% /show-in %}}
 
 ```
+# Write endpoints
 http_requests_total{method="POST",method_path="POST /api/v3/write_lp",path="/api/v3/write_lp",status="ok"} 1
+http_requests_total{method="POST",method_path="POST /api/v2/write",path="/api/v2/write",status="ok"} 1
+http_requests_total{method="POST",method_path="POST /write",path="/write",status="ok"} 1
+
+# Query endpoints
+http_requests_total{method="POST",method_path="POST /api/v3/query_sql",path="/api/v3/query_sql",status="ok"} 1
+http_requests_total{method="POST",method_path="POST /api/v3/query_influxql",path="/api/v3/query_influxql",status="ok"} 1
+http_requests_total{method="GET",method_path="GET /query",path="/query",status="ok"} 1
 ```
+
+> [!Note]
+> Monitor all write endpoints (`/api/v3/write_lp`, `/api/v2/write`, `/write`) and query endpoints (`/api/v3/query_sql`, `/api/v3/query_influxql`, `/query`) for comprehensive request tracking.
 
 ### http_request_duration_seconds
 - **Type:** Histogram
@@ -551,12 +562,12 @@ Focus on these metrics for cluster health:
 Monitor different metrics based on [node specialization](/influxdb3/enterprise/admin/clustering/):
 
 - **Ingest nodes or all-in-one nodes handling writes**:
-  - `http_requests_total{path="/api/v3/write_lp"}` - Write operations via HTTP
+  - `http_requests_total{path=~"/api/v3/write_lp|/api/v2/write|/write"}` - Write operations via HTTP (all endpoints)
   - `grpc_requests_total{path="/api/v3/write_lp"}` - Write operations via gRPC
   - `grpc_request_duration_seconds{path="/api/v3/write_lp"}` - Write operation latency
   - `object_store_transfer_bytes_total{op="put"}` - Data written to object storage
 - **Query nodes or all-in-one nodes handling queries**:
-  - `http_requests_total{path="/api/v3/query_sql"}` - SQL query requests
+  - `http_requests_total{path=~"/api/v3/query_sql|/api/v3/query_influxql|/query"}` - Query requests (all endpoints)
   - `influxdb_iox_query_log_execute_duration_seconds` - Query execution time
   - `influxdb3_parquet_cache_access_total` - Parquet cache performance
 - **All nodes (configuration and management)**:
@@ -570,7 +581,7 @@ Monitor different metrics based on [node specialization](/influxdb3/enterprise/a
 
 ## Prometheus format
 
-InfluxDB metrics are exposed in Prometheus exposition format, a text-based format that includes metric names, labels, and values. Each metric follows this structure:
+InfluxDB exposes metrics in Prometheus exposition format, a text-based format that includes metric names, labels, and values. Each metric follows this structure:
 
 ```
 metric_name{label1="value1",label2="value2"} metric_value timestamp

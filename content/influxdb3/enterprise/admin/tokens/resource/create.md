@@ -404,7 +404,7 @@ In your terminal, run the `influxdb3 create token --permission` command and prov
 
 The following example shows how to create specific system tokens:
 
-{{% code-placeholders "(System [a-z]+ token|1y" %}}
+{{% code-placeholders "(System [a-z]*\s?token)|1y" %}}
 ```bash
 influxdb3 create token \
   --permission "system:health:read" \
@@ -458,7 +458,7 @@ In the request body, provide the following parameters:
 
 The following example shows how to use the HTTP API to create specific system tokens:
 
-{{% code-placeholders "AUTH_TOKEN|(System [a-z]+ token)|300000" %}}
+{{% code-placeholders "AUTH_TOKEN|(System [a-z]*\s?token)|1y|300000" %}}
 
 ```bash
 curl \

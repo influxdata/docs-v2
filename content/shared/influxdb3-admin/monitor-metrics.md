@@ -1,6 +1,25 @@
 Use InfluxDB metrics to monitor {{% show-in "enterprise" %}}distributed cluster {{% /show-in %}}system performance, resource usage, and operational health
 with monitoring tools like Prometheus, Grafana, or other observability platforms.
 
+{{% show-in "core" %}}
+- [Access metrics](#access-metrics)
+- [Metric categories](#metric-categories)
+- [Key metrics for monitoring](#key-metrics-for-monitoring)
+- [Example monitoring queries](#example-monitoring-queries)
+- [Integration with monitoring tools](#integration-with-monitoring-tools)
+- [Best practices](#best-practices)
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+- [Access metrics](#access-metrics)
+- [Metric categories](#metric-categories)
+- [Cluster-specific metrics](#cluster-specific-metrics)
+- [Node-specific monitoring](#node-specific-monitoring)
+- [Example monitoring queries](#example-monitoring-queries)
+- [Distributed monitoring setup](#distributed-monitoring-setup)
+- [Best practices](#best-practices)
+{{% /show-in %}}
+
 ## Access metrics
 
 An {{< product-name >}} node exposes metrics at the `/metrics` endpoint on the HTTP port (default: 8181).
@@ -58,7 +77,8 @@ done
 
 ### Metrics format
 
-Metrics are exposed in [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format):
+InfluxDB exposes metrics in [Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format), a format supported by many tools, including [Telegraf](#collect-metrics-with-telegraf).
+Each metric follows this structure:
 
 ```
 # HELP metric_name Description of the metric
@@ -109,6 +129,9 @@ Monitor API request patterns{{% show-in "enterprise" %}} across the cluster{{% /
 - **`grpc_requests_total`**: Total gRPC requests{{% show-in "enterprise" %}} for inter-node communication{{% /show-in %}}
 - **`grpc_request_duration_seconds`**: gRPC request latency distribution
 
+> [!Note]
+> Monitor all write endpoints (`/api/v3/write_lp`, `/api/v2/write`, `/write`) and query endpoints (`/api/v3/query_sql`, `/api/v3/query_influxql`, `/query`) for comprehensive request tracking.
+
 ### Database operations
 
 Monitor database{{% show-in "enterprise" %}}-specific and distributed cluster{{% /show-in %}} operations:
@@ -122,14 +145,14 @@ Monitor database{{% show-in "enterprise" %}}-specific and distributed cluster{{%
 Different metrics are more relevant depending on node [mode configuration](/influxdb3/version/admin/clustering/#configure-node-modes):
 
 #### Ingest nodes (mode: ingest)
-- **`http_requests_total{path="/api/v3/write"}`**: Write request volume
+- **`http_requests_total{path=~"/api/v3/write_lp|/api/v2/write|/write"}`**: Write request volume (all endpoints)
 - **`object_store_transfer_bytes_total`**: WAL-to-Parquet snapshot activity
 - **`datafusion_mem_pool_bytes`**: Memory usage for snapshot operations
 
 #### Query nodes (mode: query)
 - **`influxdb_iox_query_log_*`**: Query execution performance
 - **`influxdb3_parquet_cache_*`**: Cache performance for query acceleration
-- **`http_requests_total{path~"/api/v3/query.*"}`**: Query request patterns
+- **`http_requests_total{path=~"/api/v3/query_sql|/api/v3/query_influxql|/query"}`**: Query request patterns (all endpoints)
 
 #### Compactor nodes (mode: compact)
 - **`object_store_op_duration_seconds`**: Compaction operation performance
@@ -189,27 +212,15 @@ Monitor runtime health and resource usage:
 {{% show-in "enterprise" %}}
 ## Cluster-specific metrics
 
-### Node coordination
-
-Monitor how nodes work together:
-
-```bash
-# Check ingester response coordination
-curl -s http://query-node:8181/metrics | grep 'influxdb_iox_query_log_ingester_latency'
-
-# Monitor catalog operation conflicts
-curl -s http://any-node:8181/metrics | grep 'influxdb3_catalog_operation_retries_total'
-```
-
 ### Load distribution
 
 Monitor workload distribution across nodes:
 
 ```bash
-# Write load across ingest nodes
+# Write load across ingest nodes (all write endpoints)
 for node in ingester-01 ingester-02; do
   echo "Node $node:"
-  curl -s http://$node:8181/metrics | grep 'http_requests_total.*v3/write.*status="ok"'
+  curl -s http://$node:8181/metrics | grep 'http_requests_total.*\(api/v3/write_lp\|api/v2/write\|/write\).*status="ok"'
 done
 
 # Query load across query nodes
@@ -226,8 +237,8 @@ done
 Monitor data ingestion performance:
 
 ```bash
-# Ingest throughput
-curl -s http://ingester-01:8181/metrics | grep 'http_requests_total.*v3/write'
+# Ingest throughput (all write endpoints)
+curl -s http://ingester-01:8181/metrics | grep 'http_requests_total.*\(api/v3/write_lp\|api/v2/write\|/write\)'
 
 # Snapshot creation activity
 curl -s http://ingester-01:8181/metrics | grep 'object_store_transfer_bytes_total.*put'
@@ -272,8 +283,8 @@ curl -s http://compactor-01:8181/metrics | grep 'object_store_transfer_objects_t
 Monitor data ingestion:
 
 ```bash
-# HTTP requests to write endpoints
-curl -s http://localhost:8181/metrics | grep 'http_requests_total.*v3/write\|http_requests_total.*v2/write'
+# HTTP requests to write endpoints (all endpoints)
+curl -s http://localhost:8181/metrics | grep 'http_requests_total.*\(api/v3/write_lp\|api/v2/write\|/write\)'
 
 # Object store writes (Parquet file creation)
 curl -s http://localhost:8181/metrics | grep 'object_store_transfer.*total.*put'
@@ -338,8 +349,8 @@ Use these queries in Prometheus or Grafana dashboards:
 # Total requests per second across all nodes
 sum(rate(http_requests_total[5m])) by (instance)
 
-# Write requests per second by ingest node
-sum(rate(http_requests_total{path="/api/v3/write"}[5m])) by (instance)
+# Write requests per second by ingest node (all write endpoints)
+sum(rate(http_requests_total{path=~"/api/v3/write_lp|/api/v2/write|/write"}[5m])) by (instance)
 ```
 
 #### Query performance across nodes
@@ -778,6 +789,14 @@ groups:
 ```
 -->
 {{% /show-in %}}
+
+### Extend monitoring with InfluxDB 3 plugins
+
+Use {{< product-name >}} plugins to extend monitoring and alerting capabilities:
+
+- [Notifier plugin](/influxdb3/version/plugins/library/official/notifier/): Send alerts to external systems based on custom logic.
+- [Threshold deadman checks plugin](/influxdb3/version/plugins/library/official/threshold-deadman-checks/): Monitor metrics and trigger alerts when thresholds are breached.
+- [System metrics plugin](/influxdb3/version/plugins/library/official/system-metrics/): Collect and visualize system-level metrics.
 
 ## Best practices
 
