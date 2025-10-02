@@ -15,7 +15,6 @@ related:
   - /influxdb3/clustered/reference/cli/influxctl/table/undelete/
   - /influxdb3/clustered/admin/tables/delete/
   - /influxdb3/clustered/admin/tokens/table/create/
-draft: true # hide until next clustered release
 ---
 
 Use the [`influxctl table undelete` command](/influxdb3/clustered/reference/cli/influxctl/table/undelete/)

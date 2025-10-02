@@ -9,7 +9,6 @@ menu:
 weight: 301
 metadata: [influxctl 2.10.4+]
 source: /shared/influxctl/table/undelete.md
-draft: true # hide until next clustered release
 ---
 
 <!-- //SOURCE content/shared/influxctl/table/undelete.md -->

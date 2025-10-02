@@ -60,6 +60,7 @@ directory. This new directory contains artifacts associated with the specified r
 {{< release-toc >}}
 
 ---
+
 ## 20250925-1878107 {date="2025-09-25"}
 
 ### Quickstart
@@ -69,9 +70,15 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250925-1878107
 ```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250925-1878107/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250925-1878107/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
 ### Highlights
 
-#### Tables rename and undelete
+#### Rename and undelete tables
 
 Tables can now be renamed and undeleted with [influxctl v2.10.5](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#2105) or later.
 
@@ -98,7 +105,10 @@ To enable hard delete of soft-deleted tables in active namespaces (soft-deleted 
 
 ### Known Bugs
 
-Customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint` (e.g. "https://$BUCKET.$REGION.amazonaws.com") and the bucket in `spec.package.spec.objectStore.bucket` need to disable the `CATALOG_BACKUP_DATA_SNAPSHOT` feature:
+Customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint`
+(for example: "https://$BUCKET.$REGION.amazonaws.com") and the bucket in
+`spec.package.spec.objectStore.bucket` need to disable the
+`CATALOG_BACKUP_DATA_SNAPSHOT` feature:
 
 ```yaml
  spec:
