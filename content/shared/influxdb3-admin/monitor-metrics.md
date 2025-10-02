@@ -426,9 +426,97 @@ rate(object_store_transfer_objects_total[5m])
 {{% show-in "enterprise" %}}
 ## Distributed monitoring setup
 
-### Prometheus configuration
+### Collect metrics with Telegraf (recommended)
 
-Configure Prometheus to scrape all cluster nodes:
+Use Telegraf to collect metrics from all cluster nodes and store them in a separate {{< product-name >}} instance for centralized monitoring.
+
+#### Configure Telegraf
+
+Create a Telegraf configuration file (`telegraf.conf`) to scrape metrics from your cluster nodes:
+
+```toml
+# Telegraf configuration for InfluxDB 3 Enterprise monitoring
+
+# Output to monitoring InfluxDB instance
+[[outputs.influxdb_v3]]
+  urls = ["http://monitoring-influxdb:8181"]
+  database = "monitoring"
+  token = "MONITORING_AUTH_TOKEN"
+
+# Scrape metrics from cluster nodes
+[[inputs.prometheus]]
+  urls = [
+    "http://ingester-01:8181/metrics",
+    "http://ingester-02:8181/metrics",
+    "http://query-01:8181/metrics",
+    "http://query-02:8181/metrics",
+    "http://compactor-01:8181/metrics"
+  ]
+  metric_version = 2
+
+  # Add node identification from URL
+  [inputs.prometheus.tags]
+    cluster = "production"
+
+# Extract node name and role from URL
+[[processors.regex]]
+  namepass = ["*"]
+
+  [[processors.regex.tags]]
+    key = "url"
+    pattern = "^http://([^:]+):.*"
+    replacement = "${1}"
+    result_key = "node_name"
+
+  [[processors.regex.tags]]
+    key = "node_name"
+    pattern = "^(ingester|query|compactor|processor)-.*"
+    replacement = "${1}"
+    result_key = "node_role"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`MONITORING_AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} for the monitoring InfluxDB instance
+
+#### Start Telegraf
+
+```bash
+# Start Telegraf with the configuration
+telegraf --config telegraf.conf
+
+# Run as a service (systemd example)
+sudo systemctl start telegraf
+sudo systemctl enable telegraf
+```
+
+#### Query collected metrics
+
+Query the monitoring database using SQL:
+
+```sql
+-- Request rate by node
+SELECT
+  node_name,
+  node_role,
+  COUNT(*) as request_count
+FROM http_requests_total
+WHERE time >= now() - INTERVAL '5 minutes'
+GROUP BY node_name, node_role
+ORDER BY request_count DESC;
+
+-- Query latency percentiles by node
+SELECT
+  node_name,
+  APPROX_PERCENTILE_CONT(value, 0.95) as p95_latency_seconds
+FROM http_request_duration_seconds
+WHERE time >= now() - INTERVAL '1 hour'
+GROUP BY node_name;
+```
+
+### Alternative: Prometheus configuration
+
+If you prefer Prometheus, configure it to scrape all cluster nodes:
 
 ```yaml
 # prometheus.yml
@@ -527,72 +615,117 @@ groups:
           summary: "Slow inter-node communication detected"
 ```
 
-### Node identification
+### Add node identification with Prometheus
 
-To enrich metrics with node identification, you can use either Telegraf or Prometheus-specific relabeling:
-
-#### Using Telegraf (platform-agnostic)
-
-Configure the Prometheus input plugin with processor plugins to add node identification:
-
-```toml
-[[inputs.prometheus]]
-  urls = ["http://ingester-01:8181/metrics", "http://query-01:8181/metrics"]
-
-  # Add node name from URL
-  [inputs.prometheus.tags]
-    node_name = "$1"
-
-[[processors.regex]]
-  # Extract node role from node name
-  [[processors.regex.tags]]
-    key = "node_name"
-    pattern = '^(ingester|query|compactor)-.*'
-    replacement = "${1}"
-    result_key = "node_role"
-
-  # Simplify role names
-  [[processors.regex.tags]]
-    key = "node_role"
-    pattern = '^ingester$'
-    replacement = "ingest"
-  [[processors.regex.tags]]
-    key = "node_role"
-    pattern = '^compactor$'
-    replacement = "compact"
-```
-
-#### Using Prometheus relabeling
-
-If you use Prometheus to monitor your cluster, use relabeling to add node identification:
+If using Prometheus instead of Telegraf, add node identification through relabeling:
 
 ```yaml
-relabel_configs:
-  - source_labels: [__address__]
-    target_label: node_name
-    regex: '([^:]+):.*'
-    replacement: '${1}'
-  - source_labels: [node_name]
-    target_label: node_role
-    regex: 'ingester-.*'
-    replacement: 'ingest'
-  - source_labels: [node_name]
-    target_label: node_role
-    regex: 'query-.*'
-    replacement: 'query'
-  - source_labels: [node_name]
-    target_label: node_role
-    regex: 'compactor-.*'
-    replacement: 'compact'
+# prometheus.yml
+scrape_configs:
+  - job_name: 'influxdb3-enterprise'
+    static_configs:
+      - targets:
+          - 'ingester-01:8181'
+          - 'query-01:8181'
+    relabel_configs:
+      # Extract node name from address
+      - source_labels: [__address__]
+        target_label: node_name
+        regex: '([^:]+):.*'
+        replacement: '${1}'
+
+      # Assign node role based on hostname pattern
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: 'ingester-.*'
+        replacement: 'ingest'
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: 'query-.*'
+        replacement: 'query'
+      - source_labels: [node_name]
+        target_label: node_role
+        regex: 'compactor-.*'
+        replacement: 'compact'
+```
+
+Query metrics with node labels in PromQL:
+
+```promql
+# Request rate by node and role
+sum(rate(http_requests_total[5m])) by (node_name, node_role)
+
+# Filter metrics for specific node role
+http_requests_total{node_role="ingest"}
 ```
 {{% /show-in %}}
 
 {{% show-in "core" %}}
 ## Integration with monitoring tools
 
-### Prometheus configuration
+### Collect metrics with Telegraf (recommended)
 
-Add {{< product-name >}} to your Prometheus configuration:
+Use Telegraf to collect metrics and store them in a separate {{< product-name >}} instance for monitoring.
+
+#### Configure Telegraf
+
+Create a Telegraf configuration file (`telegraf.conf`):
+
+```toml
+# Telegraf configuration for InfluxDB 3 Core monitoring
+
+# Output to monitoring InfluxDB instance
+[[outputs.influxdb_v3]]
+  urls = ["http://monitoring-influxdb:8181"]
+  database = "monitoring"
+  token = "MONITORING_AUTH_TOKEN"
+
+# Scrape metrics from InfluxDB 3 Core
+[[inputs.prometheus]]
+  urls = ["http://localhost:8181/metrics"]
+  metric_version = 2
+```
+
+Replace {{% code-placeholder-key %}}`MONITORING_AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link %}} for the monitoring InfluxDB instance.
+
+#### Start Telegraf
+
+```bash
+# Start Telegraf with the configuration
+telegraf --config telegraf.conf
+
+# Run as a service (systemd example)
+sudo systemctl start telegraf
+sudo systemctl enable telegraf
+```
+
+#### Query collected metrics
+
+Query the monitoring database using SQL:
+
+```sql
+-- Request rate over time
+SELECT
+  date_bin(INTERVAL '5 minutes', time) as time_bucket,
+  COUNT(*) as request_count
+FROM http_requests_total
+WHERE time >= now() - INTERVAL '1 hour'
+GROUP BY time_bucket
+ORDER BY time_bucket DESC;
+
+-- Error rate
+SELECT
+  status,
+  COUNT(*) as error_count
+FROM http_requests_total
+WHERE time >= now() - INTERVAL '1 hour'
+  AND status IN ('client_error', 'server_error')
+GROUP BY status;
+```
+
+### Alternative: Prometheus configuration
+
+If you prefer Prometheus, add {{< product-name >}} to your Prometheus configuration:
 
 ```yaml
 # prometheus.yml
