@@ -1,0 +1,153 @@
+---
+description: "Telegraf plugin for transforming metrics using Execd"
+menu:
+  telegraf_v1_ref:
+    parent: processor_plugins_reference
+    name: Execd
+    identifier: processor-execd
+tags: [Execd, "processor-plugins", "configuration", "general purpose"]
+introduced: "v1.15.0"
+os_support: "freebsd, linux, macos, solaris, windows"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/execd/README.md, Execd Plugin Source
+---
+
+# Execd Processor Plugin
+
+This plugin runs an external program as a separate process and pipes metrics in
+to the process's `stdin` and reads processed metrics from its `stdout`. Program
+output on `stderr` is logged.
+
+**Introduced in:** Telegraf v1.15.0
+**Tags:** general purpose
+**OS support:** all
+
+## Caveats
+
+- Metrics with tracking will be considered "delivered" as soon as they are
+  passed to the external process. There is currently no way to match up which
+  metric coming out of the execd process relates to which metric going in (keep
+  in mind that processors can add and drop metrics, and that this is all done
+  asynchronously).
+- it's not currently possible to use a data_format other than "influx", due to
+  the requirement that it is serialize-parse symmetrical and does not lose any
+  critical type data.
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Run executable as long-running processor plugin
+[[processors.execd]]
+  ## One program to run as daemon.
+  ## NOTE: process and each argument should each be their own string
+  ## eg: command = ["/path/to/your_program", "arg1", "arg2"]
+  command = ["cat"]
+
+  ## Environment variables
+  ## Array of "key=value" pairs to pass as environment variables
+  ## e.g. "KEY=value", "USERNAME=John Doe",
+  ## "LD_LIBRARY_PATH=/opt/custom/lib64:/usr/local/libs"
+  # environment = []
+
+  ## Delay before the process is restarted after an unexpected termination
+  # restart_delay = "10s"
+
+  ## Serialization format for communicating with the executed program
+  ## Please note that the corresponding data-format must exist both in
+  ## parsers and serializers
+  # data_format = "influx"
+```
+
+## Example
+
+### Go daemon example
+
+This go daemon reads a metric from stdin, multiplies the "count" field by 2,
+and writes the metric back out.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+
+    "github.com/influxdata/telegraf/metric"
+    "github.com/influxdata/telegraf/plugins/parsers/influx"
+    serializers_influx "github.com/influxdata/telegraf/plugins/serializers/influx"
+)
+
+func main() {
+    parser := influx.NewStreamParser(os.Stdin)
+    serializer := serializers_influx.Serializer{}
+    if err := serializer.Init(); err != nil {
+        fmt.Fprintf(os.Stderr, "serializer init failed: %v\n", err)
+        os.Exit(1)
+    }
+
+    for {
+        metric, err := parser.Next()
+        if err != nil {
+            if err == influx.EOF {
+                return // stream ended
+            }
+            if parseErr, isParseError := err.(*influx.ParseError); isParseError {
+                fmt.Fprintf(os.Stderr, "parse ERR %v\n", parseErr)
+                os.Exit(1)
+            }
+            fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+            os.Exit(1)
+        }
+
+        c, found := metric.GetField("count")
+        if !found {
+            fmt.Fprintf(os.Stderr, "metric has no count field\n")
+            os.Exit(1)
+        }
+        switch t := c.(type) {
+        case float64:
+            t *= 2
+            metric.AddField("count", t)
+        case int64:
+            t *= 2
+            metric.AddField("count", t)
+        default:
+            fmt.Fprintf(os.Stderr, "count is not an unknown type, it's a %T\n", c)
+            os.Exit(1)
+        }
+        b, err := serializer.Serialize(metric)
+        if err != nil {
+            fmt.Fprintf(os.Stderr, "ERR %v\n", err)
+            os.Exit(1)
+        }
+        fmt.Fprint(os.Stdout, string(b))
+    }
+}
+```
+
+to run it, you'd build the binary using go, eg `go build -o multiplier.exe
+main.go`
+
+```toml
+[[processors.execd]]
+  command = ["multiplier.exe"]
+```
+
+### Ruby daemon
+
+- See Ruby daemon
+
+```toml
+[[processors.execd]]
+  command = ["ruby", "plugins/processors/execd/examples/multiplier_line_protocol/multiplier_line_protocol.rb"]
+```

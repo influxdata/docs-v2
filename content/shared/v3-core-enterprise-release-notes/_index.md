@@ -5,13 +5,55 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
-## v3.4.2 {date="2025-09-11"}
+## v3.5.0 {date="2025-09-30"}
 
 ### Core
 
 #### Features
 
-- No new features in this release
+- **Custom Plugin Repository**: 
+  - Use the `--plugin-repo` option with `influxdb3 serve` to specify custom plugin repositories. This enables loading plugins from personal repos or disabling remote repo access.
+
+#### Bug fixes
+
+- **Database reliability**:
+  - Table index updates now complete atomically before creating new indices, preventing race conditions that could corrupt database state ([#26838](https://github.com/influxdata/influxdb/pull/26838))
+  - Delete operations are now idempotent, preventing errors during object store cleanup ([#26839](https://github.com/influxdata/influxdb/pull/26839))
+- **Write path**: 
+  - Write operations to soft-deleted databases are now rejected, preventing data loss ([#26722](https://github.com/influxdata/influxdb/pull/26722))
+- **Runtime stability**: 
+  - Fixed a compatibility issue that could cause deadlocks for concurrent operations ([#26804](https://github.com/influxdata/influxdb/pull/26804))
+- Other bug fixes and performance improvements
+
+#### Security & Misc
+
+- Sensitive environment variable values are now hidden in CLI output and log messages ([#26837](https://github.com/influxdata/influxdb/pull/26837))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Cache optimization**: 
+  - Last Value Cache (LVC) and Distinct Value Cache (DVC) now populate on creation and only on query nodes, reducing resource usage on ingest nodes.
+
+#### Bug fixes
+
+- **Object store reliability**: 
+  - Object store operations now use retryable mechanisms with better error handling
+
+#### Operational improvements
+
+- **Compaction optimizations**:
+  - Compaction producer now waits 10 seconds before starting cycles, reducing resource contention during startup
+  - Enhanced scheduling algorithms distribute compaction work more efficiently across available resources
+- **System tables**: 
+  - System tables now provide consistent data across different node modes (ingest, query, compact), enabling better monitoring in multi-node deployments
+
+## v3.4.2 {date="2025-09-11"}
+
+### Core
 
 #### Bug fixes
 
@@ -267,8 +309,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Tokens can now be granted `CREATE` permission for creating databases
 
 #### Additional Updates
-- Last value caches populate on creation and reload on restart
-- Distinct value caches populate on creation and reload on restart
+- Last value caches reload on restart
+- Distinct value caches reload on restart
 - Other performance improvements
 - Replaces remaining "INFLUXDB_IOX" Dockerfile environment variables with the following:
   - `ENV INFLUXDB3_OBJECT_STORE=file`

@@ -59,8 +59,19 @@ On the **Distinct Value Cache management page**:
 
 ## Query a Distinct Value Cache
 
-Use the `distinct_cache` SQL function to query a DVC. For more information, see
-[Query a Distinct Value Cache](/influxdb3/enterprise/admin/distinct-value-cache/query/).
+Use the **Data Explorer** to query a DVC:
+
+1.  In the left navigation, select **Query Data** > **Data Explorer**.
+2.  Select the database you want to query from the **Select database** dropdown menu.
+3.  Click the <strong class="icon-chevron-down"></strong> icon next to the table
+    associated with the DVC you want to query to expand the table.
+    Tables with DVCs have a <span class="badge dvc">DVC</span> badge below the
+    <strong class="icon-chevron-down"></strong> icon.
+4.  Under the **Caches** section of the expanded table, DVCs are identified by
+    the <span class="badge dvc">DVC</span> badge. Click the name of the DVC to
+    generate a SQL query that queries everything from the DVC. You can
+    also expand the DVC and select specific columns to query.
+5.  Click **Run Query** to execute the query and return results from the cache.
 
 ## Delete a Distinct Value Cache
 

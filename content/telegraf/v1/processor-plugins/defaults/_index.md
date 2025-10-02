@@ -1,0 +1,81 @@
+---
+description: "Telegraf plugin for transforming metrics using Defaults"
+menu:
+  telegraf_v1_ref:
+    parent: processor_plugins_reference
+    name: Defaults
+    identifier: processor-defaults
+tags: [Defaults, "processor-plugins", "configuration", "transformation"]
+introduced: "v1.15.0"
+os_support: "freebsd, linux, macos, solaris, windows"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/defaults/README.md, Defaults Plugin Source
+---
+
+# Defaults Processor Plugin
+
+This plugin allows to specify default values for fields and tags for cases
+where the tag or field does not exist or has an empty value.
+
+**Introduced in:** Telegraf v1.15.0
+**Tags:** transformation
+**OS support:** all
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+## Set default fields and tags on your metric(s) when they are nil or empty
+[[processors.defaults]]
+  ## Ensures a set of fields or tags always exists on your metric(s) with their
+  ## respective default value.
+  ## For any given field/tag pair (key = default), if it's not set, a field/tag
+  ## is set on the metric with the specified default.
+  ##
+  ## A field is considered not set if it is nil on the incoming metric;
+  ## or it is not nil but its value is an empty string or is a string
+  ## of one or more spaces.
+  ##   <target-field> = <value>
+  [processors.defaults.fields]
+    field_1 = "bar"
+    time_idle = 0
+    is_error = true
+  ## A tag is considered not set if it is nil on the incoming metric;
+  ## or it is not nil but it is empty string or a string of one or
+  ## more spaces.
+  ## <target-tag> = <value>
+  [processors.defaults.tags]
+    tag_1 = "foo"
+```
+
+## Example
+
+Ensure a _status\_code_ field with _N/A_ is inserted in the metric when one is
+not set in the metric by default:
+
+```toml
+[[processors.defaults]]
+  [processors.defaults.fields]
+    status_code = "N/A"
+```
+
+```diff
+- lb,http_method=GET cache_status=HIT,latency=230
++ lb,http_method=GET cache_status=HIT,latency=230,status_code="N/A"
+```
+
+Ensure an empty string gets replaced by a default:
+
+```diff
+- lb,http_method=GET cache_status=HIT,latency=230,status_code=""
++ lb,http_method=GET cache_status=HIT,latency=230,status_code="N/A"
+```

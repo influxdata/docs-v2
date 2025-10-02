@@ -1,0 +1,77 @@
+---
+description: "Telegraf plugin for collecting metrics from Hashicorp Vault"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: Hashicorp Vault
+    identifier: input-vault
+tags: [Hashicorp Vault, "input-plugins", "configuration", "server"]
+introduced: "v1.22.0"
+os_support: "freebsd, linux, macos, solaris, windows"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/vault/README.md, Hashicorp Vault Plugin Source
+---
+
+# Hashicorp Vault Input Plugin
+
+This plugin collects metrics from every [Vault](https://www.hashicorp.com/de/products/vault) agent of a cluster.
+
+> [!NOTE]
+> This plugin requires Vault v1.8.5+
+
+**Introduced in:** Telegraf v1.22.0
+**Tags:** server
+**OS support:** all
+
+[vault]: https://www.hashicorp.com/de/products/vault
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Read metrics from the Vault API
+[[inputs.vault]]
+  ## URL for the Vault agent
+  # url = "http://127.0.0.1:8200"
+
+  ## Use Vault token for authorization.
+  ## Vault token configuration is mandatory.
+  ## If both are empty or both are set, an error is thrown.
+  # token_file = "/path/to/auth/token"
+  ## OR
+  token = "s.CDDrgg5zPv5ssI0Z2P4qxJj2"
+
+  ## Set response_timeout (default 5 seconds)
+  # response_timeout = "5s"
+
+  ## Optional TLS Config
+  # tls_ca = /path/to/cafile
+  # tls_cert = /path/to/certfile
+  # tls_key = /path/to/keyfile
+```
+
+## Metrics
+
+For a more deep understanding of Vault monitoring, please have a look at the
+following Vault [telemetry](https://www.vaultproject.io/docs/internals/telemetry) and [monitoring](https://learn.hashicorp.com/tutorials/vault/monitor-telemetry-audit-splunk?in=vault/monitoring)
+documentation.
+
+[telemetry]: https://www.vaultproject.io/docs/internals/telemetry
+[monitoring]: https://learn.hashicorp.com/tutorials/vault/monitor-telemetry-audit-splunk?in=vault/monitoring
+
+## Example Output
+
+```text
+vault.raft.replication.appendEntries.logs,peer_id=clustnode-02 count=130i,max=1i,mean=0.015384615384615385,min=0i,rate=0.2,stddev=0.12355304447984486,sum=2i 1638287340000000000
+vault.core.unsealed,cluster=vault-cluster-23b671c7 value=1i 1638287340000000000
+vault.token.lookup count=5135i,max=16.22449493408203,mean=0.1698389152269865,min=0.06690400093793869,rate=87.21228296905755,stddev=0.24637634000854705,sum=872.1228296905756 1638287340000000000
+```
