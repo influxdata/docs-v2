@@ -26,6 +26,11 @@ curl -s -H "Authorization: Token AUTH_TOKEN" http://node:8181/metrics
 {{% show-in "enterprise" %}}
 ### View metrics from specific nodes
 
+> [!Note]
+> {{< product-name >}} supports two token types for the `/metrics` endpoint:
+> - {{% token-link "Admin" %}}: Full access to all metrics
+> - {{% token-link "Fine-grained" "resource/" %}} with `system:metrics:read` permission: Read-only access to metrics
+
 ```bash { placeholders="AUTH_TOKEN" }
 # View metrics from specific nodes
 curl -s http://ingester-01:8181/metrics
@@ -60,6 +65,27 @@ Metrics are exposed in [Prometheus exposition format](https://prometheus.io/docs
 # TYPE metric_name counter|gauge|histogram
 metric_name{label1="value1",label2="value2"} 42.0
 ```
+
+### Node identification in metrics
+
+{{< product-name >}} metrics don't include automatic node identification labels.
+To identify which node produced each metric, you must configure your monitoring tool to add node labels during scraping.
+
+{{% show-in "enterprise" %}}
+For multi-node clusters, node identification is essential for troubleshooting and monitoring individual node performance.
+Many monitoring tools support adding static or dynamic labels during the scrape process (Prometheus calls this "relabeling")--for example:
+
+1. **Extract node hostname or IP** from the scrape target address
+2. **Add extracted labels to metrics** during the scrape process 
+
+| Hostname                   | Node Identification | Recommended?      |
+| -------------------------- | ------------------- | ----------------- |
+| `ingester-01`, `query-02`  | Extract role and ID | Yes             |
+| `node-01.cluster.internal` | Extract ID          | Consider adding role information |
+| `192.168.1.10`             | IP address only     | No, consider renaming with ID and role |
+
+For configuration examples, see [Add node identification with Prometheus](#add-node-identification-with-prometheus).
+{{% /show-in %}}
 
 ## Metric categories
 

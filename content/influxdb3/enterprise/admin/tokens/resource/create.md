@@ -402,11 +402,23 @@ In your terminal, run the `influxdb3 create token --permission` command and prov
     - `health`: The specific system resource to grant permissions to.
     - `read`: The permission to grant to the token (system tokens are always read-only).
 
-{{% code-placeholders "System health token|1y" %}}
+The following example shows how to create specific system tokens:
+
+{{% code-placeholders "(System [a-z]+ token|1y" %}}
 ```bash
 influxdb3 create token \
   --permission "system:health:read" \
   --name "System health token" \
+  --expiry 1y
+
+influxdb3 create token \
+  --permission "system:metrics:read" \
+  --name "System metrics token" \
+  --expiry 1y
+
+influxdb3 create token \
+  --permission "system:ping:read" \
+  --name "System ping token" \
   --expiry 1y
 ```
 {{% /code-placeholders %}}
@@ -444,9 +456,9 @@ In the request body, provide the following parameters:
 - `permissions`: an array of token permission actions (only `"read"` for system tokens)
 - `expiry_secs`: Specify the token expiration time in seconds.
 
-The following example shows how to use the HTTP API to create a system token:
+The following example shows how to use the HTTP API to create specific system tokens:
 
-{{% code-placeholders "AUTH_TOKEN|System health token|300000" %}}
+{{% code-placeholders "AUTH_TOKEN|(System [a-z]+ token)|300000" %}}
 
 ```bash
 curl \
@@ -459,6 +471,36 @@ curl \
   "permissions": [{
   "resource_type": "system",
   "resource_identifier": ["health"],
+  "actions": ["read"]
+   }],
+   "expiry_secs": 300000
+}'
+
+curl \
+"http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header "Authorization: Bearer AUTH_TOKEN" \
+--data '{
+  "token_name": "System metrics token",
+  "permissions": [{
+  "resource_type": "system",
+  "resource_identifier": ["metrics"],
+  "actions": ["read"]
+   }],
+   "expiry_secs": 300000
+}'
+
+curl \
+"http://{{< influxdb/host >}}/api/v3/enterprise/configure/token" \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header "Authorization: Bearer AUTH_TOKEN" \
+--data '{
+  "token_name": "System ping token",
+  "permissions": [{
+  "resource_type": "system",
+  "resource_identifier": ["ping"],
   "actions": ["read"]
    }],
    "expiry_secs": 300000
