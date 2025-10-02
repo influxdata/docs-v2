@@ -75,37 +75,21 @@ When you select **SQL** as the query language, configure the following:
 - **Database**: Your [database](/influxdb3/version/admin/databases/) name
 - **Token**: A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database
 
-{{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-sql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses SQL" />}}
+    {{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-sql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses SQL" />}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-When creating an InfluxDB data source that uses InfluxQL to query data:
+When you select **InfluxQL** as the query language, configure the following:
 
-1.  Under **HTTP**:
+- **Database**: Your [database](/influxdb3/version/admin/databases/) name
+- **User**: An arbitrary string. This field is required but the value is ignored by {{% product-name %}}.
+- **Password**: A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database
+- **HTTP Method**: Select **POST** (recommended) or **GET**
 
-    - **URL**: Provide your {{% product-name %}} URL:
-
-      ```
-      https://{{< influxdb/host >}}
-      ```
-
-2.  Under **InfluxDB Details**:
-
-    - **Database**: Provide a default database name to query.
-    - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide an arbitrary string.
-    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
-
-      - **POST** ({{< req text="Recommended" >}})
-      - **GET**
-
-3.  Click **Save & test**.
-
-    {{< img-hd src="/img/influxdb3/influxdb3-grafana-influxql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses InfluxQL" />}}
+    {{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-influxql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses InfluxQL" />}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
