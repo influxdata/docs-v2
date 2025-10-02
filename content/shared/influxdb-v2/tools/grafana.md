@@ -22,60 +22,53 @@ The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
 SQL is only supported in InfluxDB 3.
     {{% /note %}}
 
+## Create an InfluxDB data source
+
+1. In your Grafana interface, click **Connections** in the left sidebar
+2. Click **Data sources**
+3. Click **Add new connection**
+4. Locate and click the **InfluxDB** card
+
+   The InfluxDB configuration page displays with four numbered sections in the left sidebar.
+
+5. **Name**: Enter a descriptive name for your data source
+6. **URL**: Enter your [InfluxDB URL](/influxdb/v2/reference/urls/): http://localhost:8086
+
+7. **Product**: From the dropdown, select **InfluxDB OSS 2.x**
+8. **Query Language**: Select **Flux** or **InfluxQL**
+
+   After selecting your query language, section 2 (Database settings) displays fields specific to your selection.
+
+### Configure database settings
+
+The fields in this section change based on your query language selection.
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [Flux](#)                 
 [InfluxQL](#)
 {{% /tabs %}}
 {{% tab-content %}}
+<!--------------------------------- BEGIN FLUX --------------------------------->
+
 ## Configure Grafana to use Flux
 
-With **Flux** selected as the query language in your InfluxDB data source,
-configure your InfluxDB connection:
+When you select **Flux** as the query language, configure the following:
 
-1.  Under **HTTP**, enter the following:
+- **Organization**: Your InfluxDB [organization name or ID](/influxdb/v2/admin/organizations/view-orgs/)
+- **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries
+- **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
-    - **URL**: Your
-      {{% show-in "v2" %}}[InfluxDB URL](/influxdb/version/reference/urls/).{{% /show-in %}}
-      {{% show-in "cloud,cloud-serverless" %}}[InfluxDB Cloud region URL](/influxdb/version/reference/regions/).{{% /show-in %}}
+{{< img-hd src="/img/influxdb/v2-grafana-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}
 
-        ```sh
-        http://localhost:8086/
-        ```
+Click **Save & Test**. Grafana attempts to connect to InfluxDB OSS 2.x and returns the results of the test.
 
-2.  Under **InfluxDB Details**, enter the following:
-
-    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/version/admin/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [API token](/influxdb/version/admin/tokens/).
-    - **Default Bucket**: The default [bucket](/influxdb/version/admin/buckets/) to
-      use in Flux queries.
-    - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
-      Default is `10s`
-    - **Max series**: The maximum number of series or tables Grafana will process.
-      Default is `1000`.
-
-3.  Click **Save & Test**. Grafana attempts to connect to the InfluxDB {{< current-version >}}
-    datasource and returns the results of the test.
-
-{{% show-in "cloud,cloud-serverless" %}}
-  {{< img-hd src="/img/influxdb/cloud-tools-grafana-flux.png" alt="Use Grafana with InfluxDB Cloud and Flux" />}}
-{{% /show-in %}}
-
-{{% show-in "v2" %}}
-  {{< img-hd src="/img/influxdb/version-tools-grafana-flux.png" alt="Use Grafana with InfluxDB and Flux" />}}
-{{% /show-in %}}
-
+<!---------------------------------- END FLUX ---------------------------------->
 {{% /tab-content %}}
-<!----------------------------- END FLUX CONTENT ----------------------------->
-<!-------------------------- BEGIN INFLUXQL CONTENT -------------------------->
 {{% tab-content %}}
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
 
 ## Configure Grafana to use InfluxQL
-
-<!---------------------------------------------------------------------------->
-<!------------------------- BEGIN OSS InfluxQL setup ------------------------->
-<!---------------------------------------------------------------------------->
-{{% show-in "v2" %}}
 
 To query InfluxDB {{< current-version >}} with InfluxQL, find your use case below,
 and then complete the instructions to configure Grafana:
