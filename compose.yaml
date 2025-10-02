@@ -369,6 +369,74 @@ services:
         target: /var/lib/influxdb3/plugins/custom
     secrets:
       - influxdb3-enterprise-admin-token
+  influxdb3-enterprise-write:
+    container_name: influxdb3-enterprise-write
+    image: influxdb:3.5.0-enterprise-arm64
+    pull_policy: never
+    # Set license email and other variables (except your auth token) for Enterprise in the .env.3ent file.
+    env_file:
+      - .env.3ent
+    ports:
+      - 8183:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=writer-0
+      - --mode=ingest
+      - --cluster-id=cluster0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --log-filter=debug
+      - --verbose
+    environment:
+      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
+    volumes:
+      - type: bind 
+        source: test/.influxdb3/enterprise/data
+        target: /var/lib/influxdb3/data
+      - type: bind 
+        source: test/.influxdb3/plugins/influxdata
+        target: /var/lib/influxdb3/plugins
+      - type: bind 
+        source: test/.influxdb3/enterprise/plugins
+        target: /var/lib/influxdb3/plugins/custom
+    secrets:
+      - influxdb3-enterprise-admin-token
+  influxdb3-enterprise-query:
+    container_name: influxdb3-enterprise-query
+    image: influxdb:3.5.0-enterprise-arm64
+    pull_policy: never
+    # Set license email and other variables (except your auth token) for Enterprise in the .env.3ent file.
+    env_file:
+      - .env.3ent
+    ports:
+      - 8184:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=querier-0
+      - --mode=query
+      - --cluster-id=cluster0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --log-filter=debug
+      - --verbose
+    environment:
+      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
+    volumes:
+      - type: bind 
+        source: test/.influxdb3/enterprise/data
+        target: /var/lib/influxdb3/data
+      - type: bind 
+        source: test/.influxdb3/plugins/influxdata
+        target: /var/lib/influxdb3/plugins
+      - type: bind 
+        source: test/.influxdb3/enterprise/plugins
+        target: /var/lib/influxdb3/plugins/custom
+    secrets:
+      - influxdb3-enterprise-admin-token
   telegraf-pytest:
     container_name: telegraf-pytest
     image: influxdata/docs-pytest

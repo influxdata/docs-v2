@@ -91,6 +91,14 @@ For configuration examples, see [Add node identification with Prometheus](#add-n
 
 {{< product-name >}} exposes the following{{% show-in "enterprise" %}} base{{% /show-in %}} categories of metrics{{% show-in "enterprise" %}}, plus additional cluster-aware metrics{{% /show-in %}}:
 
+{{% show-in "enterprise" %}}
+> [!Note]
+> #### Metrics reporting across node modes
+> All nodes in an {{< product-name >}} cluster report the same set of metrics regardless of their configured [mode](/influxdb3/enterprise/reference/config-options/#mode) (ingest, query, compact, process, or all).
+> The difference between nodes is in the metric _values_ and labels, which reflect the actual activity on each node.
+> For example, an ingest-only node reports query-related metrics with minimal or zero values.
+{{% /show-in %}}
+
 ### HTTP and gRPC metrics
 
 Monitor API request patterns{{% show-in "enterprise" %}} across the cluster{{% /show-in %}}:

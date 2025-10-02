@@ -523,6 +523,16 @@ influxdb3_parquet_cache_access_total{status="miss"} 200
 {{% show-in "enterprise" %}}
 ## Cluster-specific considerations
 
+### Metrics reporting across node modes
+
+All nodes in an InfluxDB 3 Enterprise cluster report the same set of metrics regardless of their configured [mode](/influxdb3/enterprise/reference/config-options/#mode) (ingest, query, compact, process, or all).
+Metrics are not filtered based on node specialization.
+The difference between nodes is in the metric _values_ and labels, which reflect the actual activity on each node.
+
+For example:
+- An ingest-only node reports query-related metrics, but with minimal or zero values
+- A query-only node reports write-related metrics, but with minimal or zero values
+
 ### Node identification
 
 For information on enriching metrics with node identification using Telegraf or Prometheus relabeling, see [Node identification in Monitor metrics](/influxdb3/enterprise/admin/monitor-metrics/#node-identification).
