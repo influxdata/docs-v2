@@ -118,7 +118,7 @@ When you select **InfluxQL** as the query language, configure the following fiel
 {{< /tabs-wrapper >}}
 
 
-### test the connection
+### Test the connection
 
 1. Click **Save & test**
 2. Verify that the "Data source is working" message appears
