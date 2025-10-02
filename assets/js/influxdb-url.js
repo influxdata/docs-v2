@@ -34,7 +34,8 @@ export function InfluxDBUrl() {
   const elementSelector = '.article--content pre:not(.preserve)';
 
   ///////////////////// Stored preference management ///////////////////////
-  // Retrieve the user's InfluxDB preference (cloud or oss) from the influxdb_pref local storage key. Default is cloud.
+  // Retrieve the user's InfluxDB preference (cloud or oss) from the
+  // influxdb_pref local storage key. Default is cloud.
   function getURLPreference() {
     return getPreference('influxdb_url');
   }
@@ -100,9 +101,9 @@ export function InfluxDBUrl() {
     removeInfluxDBUrl(product);
   }
 
-  ////////////////////////////////////////////////////////////////////////////////
-  //////////////////////// InfluxDB URL utility functions ////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  /////////////////////// InfluxDB URL utility functions ///////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // Preserve URLs in codeblocks that come just after or are inside a div
   // with the class, .keep-url
@@ -110,7 +111,8 @@ export function InfluxDBUrl() {
     $('.keep-url').each(function () {
       // For code blocks with no syntax highlighting
       $(this).next('pre').addClass('preserve');
-      // For code blocks with no syntax highlighting inside of a link (API endpoint blocks)
+      // For code blocks with no syntax highlighting inside of a link
+      // (API endpoint blocks)
       $(this).next('a').find('pre').addClass('preserve');
       // For code blocks with syntax highlighting
       $(this).next('.highlight').find('pre').addClass('preserve');
@@ -127,8 +129,8 @@ export function InfluxDBUrl() {
     return { oss, cloud, core, enterprise, serverless, dedicated, clustered };
   }
 
-  // Retrieve the previously selected URLs from the from the urls local storage object.
-  // This is used to update URLs whenever you switch between browser tabs.
+  // Retrieve the previously selected URLs from the from the urls local storage
+  // object. This updates URLs when switching between browser tabs.
   function getPrevUrls() {
     const {
       prev_cloud: cloud,
@@ -291,7 +293,7 @@ export function InfluxDBUrl() {
       });
   }
 
-  // Append the URL selector button to each codeblock containing a placeholder URL
+  // Append the URL selector button to codeblocks that contain a placeholder URL
   function appendUrlSelector(
     urls = {
       cloud: '',
@@ -320,19 +322,29 @@ export function InfluxDBUrl() {
       return contextText[context];
     };
 
-    appendToUrls.forEach(function (url) {
-      $(elementSelector).each(function () {
-        var code = $(this).html();
-        if (code.includes(url)) {
-          $(this).after(
-            "<div class='select-url'><a class='url-trigger' href='#'>" +
-              getBtnText(PRODUCT_CONTEXT) +
-              '</a></div>'
-          );
-          $('.select-url').fadeIn(400);
-        }
+    // Process each code block only once
+    $(elementSelector).each(function () {
+      var code = $(this).html();
+      var $codeBlock = $(this);
+
+      // Check if this code block contains any of the URLs
+      var containsUrl = appendToUrls.some(function (url) {
+        return url && code.includes(url);
       });
+
+      // If the code block contains at least one URL and doesn't already have a
+      // URL selector button
+      if (containsUrl && !$codeBlock.next('.select-url').length) {
+        $codeBlock.after(
+          "<div class='select-url'><a class='url-trigger' href='#'>" +
+            getBtnText(PRODUCT_CONTEXT) +
+            '</a></div>'
+        );
+      }
     });
+
+    // Fade in all select-url elements after they've been added
+    $('.select-url').fadeIn(400);
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -365,9 +377,9 @@ export function InfluxDBUrl() {
   // Set active radio button on page load
   setRadioButtons(getUrls());
 
-  ////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////// Modal window interactions ///////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  ///////////////////////// Modal window interactions //////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // General modal window interactions are controlled in modals.js
 
@@ -513,9 +525,9 @@ export function InfluxDBUrl() {
   // Toggled preferred service on load
   showPreference();
 
-  ////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////// Custom URLs //////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// Custom URLs /////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // Validate custom URLs
   function validateUrl(url) {
@@ -536,7 +548,7 @@ export function InfluxDBUrl() {
       const domain = url.replace(protocol, '');
 
       // First use the regex to check for an HTTP protocol and valid domain
-      // --JS URL validation can't differentiate host:port string from a protocol.
+      // JS URL validation can't differentiate host:port string from a protocol.
       if (validProtocol.test(protocol) == false) {
         return { valid: false, error: 'Invalid protocol, use http[s]' };
       } else if (validDomain.test(domain) == false) {
@@ -598,7 +610,9 @@ export function InfluxDBUrl() {
       removeCustomUrl();
       hideValidationMessage();
       $(
-        `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="${DEFAULT_STORAGE_URLS[PRODUCT_CONTEXT]}"]`
+        `input[name="influxdb-${PRODUCT_CONTEXT}-url"][value="` +
+          DEFAULT_STORAGE_URLS[PRODUCT_CONTEXT] +
+          '"]'
       ).trigger('click');
     }
   }
@@ -659,7 +673,7 @@ export function InfluxDBUrl() {
     '#clustered-url-field',
   ].join();
 
-  // Store the custom InfluxDB URL or product-specific URL when exiting the field
+  // Store the custom InfluxDB URL or product-specific URL when exiting fields
   $(urlValueElements).blur(function () {
     !['dedicated', 'clustered'].includes(PRODUCT_CONTEXT)
       ? applyCustomUrl()
@@ -694,9 +708,9 @@ export function InfluxDBUrl() {
     $(`#${productEl}-url-field`).val(productUrlCookie);
   });
 
-  ////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////// Dynamically update URLs ////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// Dynamically update URLs ///////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
 
   // Check if the referrerHost is one of the cloud URLs
   // cloudUrls is built dynamically in layouts/partials/footer/javascript.html
