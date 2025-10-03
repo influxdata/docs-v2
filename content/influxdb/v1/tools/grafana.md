@@ -97,7 +97,7 @@ When you select **Flux** as the query language, configure the following:
 
    - **Organization**: Provide an arbitrary value (InfluxDB 1.x does not use organizations)
    - **Default Bucket**: Provide a default database and retention policy
-   - **Token**: If [InfluxDB authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/)
+   - **Token**: If [InfluxDB authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/) provide your InfluxDB username and password
 
 {{< img-hd src="/img/influxdb3/OSS-v1-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB OSS 1.x" />}}
 
