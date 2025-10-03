@@ -75,8 +75,8 @@ The fields in this section change based on your query language selection.
 When you select **InfluxQL** as the query language, configure the following:
 
 - **Database**: Your database name
-- **User**: Your InfluxDB username _(if [authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/))_
-- **Password**: Your InfluxDB password _(if [authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/))_
+- **User**: Your InfluxDB username _(if [authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/)); leave blank if authentication is disabled._
+- **Password**: Your InfluxDB password _(if [authentication is enabled](/influxdb/v1/administration/authentication_and_authorization/)); leave blank if authentication is disabled._
 
 {{< img-hd src="/img/influxdb3/OSS-v1-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB OSS 1.x" />}}
 
