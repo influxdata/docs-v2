@@ -30,6 +30,16 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 > [!NOTE]
 > `--node-id` supports alphanumeric strings with optional hyphens.
 
+> [!Important]
+> #### Global configuration options
+> Some configuration options (like [`--num-io-threads`](/influxdb3/core/reference/config-options/#num-io-threads)) are **global** and must be specified **before** the `serve` command:
+>
+> ```bash
+> influxdb3 --num-io-threads=8 serve --node-id=node0 --object-store=file --verbose
+> ```
+>
+> See [Global configuration options](/influxdb3/core/reference/config-options/#global-configuration-options) for the complete list.
+
 ## Options
 
 | Option           |                                                      | Description                                                                                                               |
@@ -116,7 +126,6 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--traces-jaeger-debug-name`                         | _See [configuration options](/influxdb3/core/reference/config-options/#traces-jaeger-debug-name)_                         |
 |                  | `--traces-jaeger-max-msgs-per-second`                | _See [configuration options](/influxdb3/core/reference/config-options/#traces-jaeger-max-msgs-per-second)_                |
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/core/reference/config-options/#traces-jaeger-tags)_                               |
-| `-v`             | `--verbose`                                          | Enable verbose output                                                                                                     |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/core/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/core/reference/config-options/#wal-flush-interval)_                               |
 |                  | `--wal-max-write-buffer-size`                        | _See [configuration options](/influxdb3/core/reference/config-options/#wal-max-write-buffer-size)_                        |
@@ -164,10 +173,10 @@ influxdb3 serve \
 
 ```bash
 influxdb3 serve \
-  --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01
+  --verbose
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
