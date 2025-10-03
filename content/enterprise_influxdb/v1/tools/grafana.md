@@ -14,14 +14,13 @@ canonical: /influxdb/v2/tools/grafana/
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
 to visualize data from your **InfluxDB Enterprise** cluster.
 
-{{% note %}}
-#### Required
-- The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
-  For information about using InfluxDB with other versions of Grafana,
-  see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/).
-- To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/enterprise_influxdb/v1/flux/installation/)
-  in your InfluxDB data nodes.
-{{% /note %}}
+> [!Note]
+> #### Required
+> - The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
+>   For information about using InfluxDB with other versions of Grafana,
+>   see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/).
+> - To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/enterprise_influxdb/v1/flux/installation/)
+>   in your InfluxDB data nodes.
 
 - [Install Grafana](#install-grafana)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
@@ -36,23 +35,34 @@ to visualize data from your **InfluxDB Enterprise** cluster.
    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
    <http://localhost:3000> in your browser.
 
-{{% note %}}
-SQL is only supported in InfluxDB 3.
-{{% /note %}}
+> [!Note]
+> #### Query language support
+> - InfluxQL is supported in InfluxDB Enterprise v1.8.x and later.
+> - Flux is supported in InfluxDB Enterprise v1.8.1 and later.
+> - SQL is only supported in InfluxDB 3.
 
 ## Create an InfluxDB data source
 
 1. In your Grafana interface, click **Connections** in the left sidebar
 2. Click **Data sources**
-3. Click **Add new connection**
-4. Locate and click the **InfluxDB** card
+3. In the **Data sources** page, click **Add new data source**
+4. In the **Add data source** page, locate and click the **InfluxDB** card
+
+   The InfluxDB configuration page displays with four numbered sections in the left sidebar:
+
+   1. **URL and authentication**
+   2. **Database settings**
+   3. **Private data source connect**
+   4. **Save & test**
+5. Click **Add new connection**
+6. Locate and click the **InfluxDB** card
 
    The InfluxDB configuration page displays with four numbered sections in the left sidebar.
 
-5. **Name**: Enter a descriptive name for your data source
-6. **URL**: Enter your InfluxDB Enterprise URL or load balancer URL: `http://localhost:8086`
-7. **Product**: From the dropdown, select **InfluxDB Enterprise 1.x**
-8. **Query Language**: Select **InfluxQL** or **Flux**
+7. **Name**: Enter a descriptive name for your data source
+8. **URL**: Enter your InfluxDB Enterprise URL or load balancer URL: `http://localhost:8086`
+9. **Product**: From the dropdown, select **InfluxDB Enterprise 1.x**
+10. **Query Language**: Select **InfluxQL** or **Flux**
 
    After selecting your query language, section 2 (Database settings) displays fields specific to your selection.
 
