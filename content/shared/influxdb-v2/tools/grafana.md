@@ -106,7 +106,13 @@ InfluxDB DBRP mappings associate database and retention policy combinations with
 #### View existing DBRP mappings
 
 Use the [`influx v1 dbrp list`](/influxdb/v2/reference/cli/influx/v1/dbrp/list/) command:
+```sh
+influx v1 dbrp list
+```
 
+### Create a DBRP mapping
+
+Use the influx v1 dbrp create command:
 ```sh
 influx v1 dbrp create \
   --db example-db \
@@ -127,21 +133,22 @@ Provide:
 Each unique database and retention policy combination used by Grafana must be mapped to an InfluxDB OSS 2.x bucket.
 {{% /note %}}
 
-For more information, see Database and retention policy mapping.
+For more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/).
 
 **Create v1 authorizations**
+
 InfluxDB OSS 2.x provides a v1-compatible authentication API for username/password authentication.
 
 **View existing v1 authorizations**
 
-Use the `influx v1 auth list` command:
+Use the [`influx v1 auth list`](/influxdb/v2/reference/cli/influx/v1/auth/list/) command:
 ```sh
 influx v1 auth list
 ```
 
 **Create a v1 authorization**
 
-Use the `influx v1 auth create` command:
+Use the [`influx v1 auth create`](/influxdb/v2/reference/cli/influx/v1/auth/create/) command:
 ```sh
 influx v1 auth create \
   --read-bucket 00xX00o0X001 \
