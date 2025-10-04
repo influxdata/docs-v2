@@ -34,7 +34,7 @@ SQL is only supported in InfluxDB 3.
 5. **Name**: Enter a descriptive name for your data source
 6. **URL**: Enter your [InfluxDB URL](/influxdb/v2/reference/urls/): http://localhost:8086
 
-7. **Product**: From the dropdown, select **InfluxDB OSS 2.x**
+7. **Product**: From the dropdown, select {{% show-in "v2" %}}**InfluxDB OSS 2.x**{{% /show-in %}}{{% show-in "cloud" %}}**InfluxDB Cloud (TSM)**{{% /show-in %}}
 8. **Query Language**: Select **Flux** or **InfluxQL**
 
    After selecting your query language, section 2 (Database settings) displays fields specific to your selection.
@@ -59,9 +59,10 @@ When you select **Flux** as the query language, configure the following:
 - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries
 - **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
-{{< img-hd src="/img/influxdb3/OSS-v2-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}
+{{% show-in "v2" %}}{{< img-hd src="/img/influxdb/OSS-v2-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}{{% /show-in %}}
+{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/cloud-tools-grafana-flux.png" alt="Flux configuration for InfluxDB Cloud (TSM)" />}}{{% /show-in %}}
 
-Click **Save & Test**. Grafana attempts to connect to InfluxDB OSS 2.x and returns the results of the test.
+Click **Save & Test**. Grafana attempts to connect to {{% show-in "v2" %}}InfluxDB OSS 2.x{{% /show-in %}}{{% show-in "cloud" %}}InfluxDB Cloud{{% /show-in %}} and returns the results of the test.
 
 <!---------------------------------- END FLUX ---------------------------------->
 {{% /tab-content %}}
@@ -94,9 +95,10 @@ Configure the following fields:
 - **User**: Your [v1 authorization username](#create-v1-authorizations)
 - **Password**: Your [v1 authorization password](#create-v1-authorizations)
 
-{{< img-hd src="/img/influxdb3/OSS-v2-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB OSS 2.x with DBRP warning" />}}
+{{% show-in "v2" %}}{{< img-hd src="/img/influxdb/OSS-v2-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB OSS 2.x with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/influxdb-v2-cloud-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud (TSM) with v1 auth" />}}{{% /show-in %}}
 
-Click **Save & Test**. Grafana attempts to connect to InfluxDB OSS 2.x and returns the results of the test.
+Click **Save & Test**. Grafana attempts to connect to {{% show-in "v2" %}}InfluxDB OSS 2.x{{% /show-in %}}{{% show-in "cloud" %}}InfluxDB Cloud{{% /show-in %}} and returns the results of the test.
 
 ### Create DBRP mappings
 
