@@ -10,6 +10,7 @@ Use [Grafana](https://grafana.com/) to query and visualize data stored in
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
+- [Before you begin](#before-you-begin)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
@@ -33,18 +34,32 @@ both InfluxQL and SQL.
 > The instructions below are for **Grafana 10.3+** which introduced the newest
 > version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}.
+> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selections.
+
+## Before you begin
+
+**Prerequisites:**
+- Grafana 10.3 or later
+- Administrator role in Grafana
+- {{% show-in "cloud-serverless" %}}InfluxDB Cloud Serverless account and [API token](/influxdb3/version/admin/tokens/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} instance and [database token](/influxdb3/version/admin/tokens/#database-tokens){{% /hide-in %}}
 
 ## Create an InfluxDB data source
 
-Which data source you create depends on which query language you want to use to
-query {{% product-name %}}:
+1. In your Grafana interface, click **Connections** in the left sidebar
+2. Click **Data sources**
+3. Click **Add new data source**
+4. Under **Time series databases**, click **InfluxDB**
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **InfluxDB** plugin.
-4.  Provide a name for your data source.
-5.  Under **Query Language**, select either **SQL** or **InfluxQL**:
+The configuration form displays with four numbered sections. Section 2 (Database settings) displays different fields based on your query language selection.
+
+5. **Name**: Enter a descriptive name for your data source
+6. **URL**: Enter your {{% product-name %}} cluster URL: `https://{{< influxdb/host >}}`
+7. **Product**: From the dropdown, select **InfluxDB Enterprise 3.x**
+8. **Query Language**: Select **SQL** or **InfluxQL**
+
+### Configure basic settings
+
+The fields in this section change based on your query language selection.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -54,70 +69,61 @@ query {{% product-name %}}:
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-When creating an InfluxDB data source that uses SQL to query data:
+#### SQL configuration
 
-1.  Under **HTTP**:
+When you select **SQL** as the query language, configure the following fields:
 
-    - **URL**: Provide your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}
-      {{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}} using the HTTPS protocol:
+- **Database**: {{% show-in "cloud-serverless" %}}Your [bucket](/influxdb3/version/admin/buckets/) name. In {{< product-name >}}, buckets function as databases.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-      ```
-      https://{{< influxdb/host >}}
-      ```
-2.  Under **InfluxDB Details**:
+- **Token**: {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database.{{% /hide-in %}}
 
-    - **Database**: Provide a default {{% show-in "cloud-serverless" %}}[bucket](/influxdb3/version/admin/buckets/) name to query. In {{< product-name >}}, a bucket functions as a database.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}[database](/influxdb3/version/admin/databases/) name to query.{{% /hide-in %}}
-    - **Token**: Provide {{% show-in "cloud-serverless" %}}an [API token](/influxdb3/version/admin/tokens/) with read access to the buckets you want to query.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}a [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the databases you want to query.{{% /hide-in %}}
-3.  Click **Save & test**.
-
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless that uses SQL" />}}{{% /show-in %}}
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Dedicated that uses SQL" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/clustered-grafana-influxdb-data-source-sql.png" alt="Grafana InfluxDB data source for InfluxDB Clustered that uses SQL" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Cloud Serverless" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Cloud Dedicated" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-sql.png" alt="SQL configuration for InfluxDB Clustered" />}}{{% /show-in %}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-When creating an InfluxDB data source that uses InfluxQL to query data:
+#### InfluxQL configuration
 
 {{% show-in "cloud-serverless" %}}
-> [!Note]
-> #### Map databases and retention policies to buckets
+> [!Important]
+> #### DBRP mapping required
 > 
-> To query {{% product-name %}} with InfluxQL, first map database and retention policy
-> (DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
-> [Map databases and retention policies to buckets](/influxdb3/version/query-data/influxql/dbrp/).
+> To query {{% product-name %}} with InfluxQL, you must first map database and 
+> retention policy (DBRP) combinations to your InfluxDB Cloud buckets. The 
+> configuration form displays a warning if DBRP mapping is not configured.
+>
+> For more information, see [Map databases and retention policies to buckets](/influxdb3/version/query-data/influxql/dbrp/).
 {{% /show-in %}}
 
-1.  Under **HTTP**:
+When you select **InfluxQL** as the query language, configure the following fields:
 
-    - **URL**: Provide your {{% show-in "cloud-serverless" %}}[{{< product-name >}} region URL](/influxdb3/version/reference/regions/){{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name omit=" Clustered" %}} cluster URL{{% /hide-in %}}
-    using the HTTPS protocol:
+- **Database**: {{% show-in "cloud-serverless" %}}The database name mapped to your InfluxDB bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-      ```
-      https://{{< influxdb/host >}}
-      ```
-2.  Under **InfluxDB Details**:
+- **User**: Enter a username.
 
-    - **Database**: Provide a {{% show-in "cloud-serverless" %}}database name to query.
-      Use the database name that is mapped to your InfluxDB bucket{{% /show-in %}}{{% hide-in "cloud-serverless" %}}default [database](/influxdb3/version/admin/databases/) name to query{{% /hide-in %}}.
-    - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide {{% show-in "cloud-serverless" %}}an [API token](/influxdb3/version/admin/tokens/) with read access to the buckets you want to query{{% /show-in %}}{{% hide-in "cloud-serverless" %}}a [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the databases you want to query{{% /hide-in %}}.
-    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
+- **Password**: {{% show-in "cloud-serverless" %}}Your [API token](/influxdb3/version/admin/tokens/) with read access to the bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database.{{% /hide-in %}}
 
-        - **POST** ({{< req text="Recommended" >}})
-        - **GET**
-3.  Click **Save & test**.
+- **HTTP Method**: Select **POST** (recommended) or **GET**
 
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Dedicated using InfluxQL" />}}{{% /show-in %}}
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Cloud Serverless using InfluxQL" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/clustered-grafana-influxdb-data-source-influxql.png" alt="Grafana InfluxDB data source for InfluxDB Clustered using InfluxQL" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud Serverless with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud Dedicated" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB Clustered" />}}{{% /show-in %}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+
+### Test the connection
+
+1. Click **Save & test**
+2. Verify that the "Data source is working" message appears
+
+If the connection test fails, verify your URL, credentials, and network connectivity.
 
 ## Query InfluxDB with Grafana
 
