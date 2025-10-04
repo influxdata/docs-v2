@@ -431,7 +431,7 @@ LEFTHOOK=0 git commit
 yarn test:e2e
 
 # Run specific E2E specs
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js"
+node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/index.cy.js"
 ```
 
 ### JavaScript Testing and Debugging
