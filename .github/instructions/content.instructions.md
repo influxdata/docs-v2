@@ -201,6 +201,7 @@ those frontmatter keys. Frontmatter defined on the page overrides frontmatter
 
 #### Use shared content in a page
 
+This repository makes heavy use of shared content to avoid duplication across InfluxDB editions and versions.
 Use the `source` frontmatter to specify a shared file to use to populate the
 page content. Shared files are typically stored in the `/content/shared` directory.
 
@@ -224,6 +225,9 @@ The keyword `version` gets replaced during the build process with the appropriat
 [Configuration options](/influxdb3/{{% product-key %}}/reference/config-options/)
 [CLI serve command](/influxdb3/{{% product-key %}}/reference/cli/influxdb3/serve/)
 ```
+
+Don't list links to related content at the bottom of shared content files.
+Instead, add the `related` frontmatter to the individual pages that use the shared content.
 
 #### Shortcodes in Markdown files
 

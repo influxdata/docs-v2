@@ -176,4 +176,3 @@ docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini -
 #### Configure style rules
 
 _See full CONTRIBUTING.md for complete details._
-
