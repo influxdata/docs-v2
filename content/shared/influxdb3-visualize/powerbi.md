@@ -1,6 +1,8 @@
 Use [Microsoft Power BI Desktop](https://powerbi.microsoft.com/) with the
 InfluxDB 3 custom connector to query and visualize data from {{% product-name %}}.
 
+Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
+
 > Microsoft Power BI is a collection of software services, apps, and connectors
 > that work together to turn your unrelated sources of data into coherent,
 > visually immersive, and interactive insights.
@@ -8,10 +10,11 @@ InfluxDB 3 custom connector to query and visualize data from {{% product-name %}
 > {{% cite %}}-- [Microsoft Power BI documentation](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview){{% /cite %}}
 
 > [!Important]
-> This tutorial is for Power BI Desktop only and uses a custom connector.
+> These Instructions are for Power BI Desktop only; it uses a custom connector.
 
 - [Prerequisites](#prerequisites)
 - [Install the Power BI connector](#install-the-power-bi-connector)
+- [Install the Arrow Flight SQL ODBC Driver](#install-the-arrow-flight-sql-odbc-driver)
 - [Enable the connector in Power BI](#enable-the-connector-in-power-bi)
 - [Connect Power BI to InfluxDB](#connect-power-bi-to-influxdb)
 - [Query and visualize data](#query-and-visualize-data)
@@ -30,7 +33,7 @@ InfluxDB 3 custom connector to query and visualize data from {{% product-name %}
 ## Install the Power BI connector
 
 The InfluxDB 3 custom connector for Power BI Desktop enables you to connect to
-{{% product-name %}} and query data using SQL or InfluxQL.
+{{% product-name %}} and query data using SQL.
 
 ### Install the Arrow Flight SQL ODBC Driver
 
@@ -104,7 +107,7 @@ After installing the connector and restarting Power BI Desktop:
      - {{% show-in "cloud-serverless" %}}`https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "cloud-dedicated" %}}`https://cluster-id.a.influxdb.io`{{% /show-in %}}{{% show-in "clustered" %}}`https://cluster-host.com`{{% /show-in %}}{{% show-in "enterprise,core" %}}`http://localhost`{{% /show-in %}})
    - **Database**: Your database name
    - **Port**: Your server port (for example, {{% show-in "cloud-serverless,cloud-dedicated,clustered" %}}`443` (HTTPS){{% /show-in %}}{{% show-in "enterprise,core" %}}`8181` (default){{% /show-in %}})
-   - **Native Query** (optional): Enter a SQL or InfluxQL query to limit the data loaded
+   - **Native Query** (optional): Enter a SQL query to limit the data loaded
 
 6. Select **DirectQuery** as the **Data Connectivity mode**
 7. Click **OK**
@@ -128,7 +131,7 @@ After installing the connector and restarting Power BI Desktop:
 ### Use Native Queries
 
 When connecting to InfluxDB 3, you can use the **Native Query** option to
-execute custom SQL or InfluxQL queries:
+execute custom SQL queries:
 
 1. In the connection dialog, enable **Native Query**
 2. Enter your query in the provided field:
