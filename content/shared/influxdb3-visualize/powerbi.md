@@ -39,13 +39,7 @@ The InfluxDB 3 custom connector for Power BI Desktop enables you to connect to
 
 The custom connector requires the Arrow Flight SQL ODBC Driver.
 
-#### Download and install the ODBC driver
-
-Download the Arrow Flight SQL ODBC driver:
-
-```sh
-https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi
-```
+<a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
 
 Or use PowerShell to download and install:
 
@@ -72,15 +66,9 @@ Follow the installation wizard using default settings.
 > [!Note]
 > For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
 
-### Install the connector file
+### Install the Power BI connector file
 
-#### Download the Power BI connector
-
-Download the InfluxDB 3 Power BI connector:
-
-```sh
-https://docs.influxdata.com/downloads/InfluxDB.pqx
-```
+<a class="btn" href="https://docs.influxdata.com/downloads/InfluxDB.pqx">Download the InfluxDB 3 Power BI connector</a>
 
 Or use PowerShell to download:
 
@@ -147,7 +135,7 @@ After installing the connector and restarting Power BI Desktop:
 5. In the **InfluxDB 3** connection dialog, configure the following:
 
    - **Server**: Your {{% product-name %}} URL without the port, (for example,
-     - {{% show-in "cloud-serverless" %}}`https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "cloud-dedicated" %}}`https://cluster-id.a.influxdb.io`{{% /show-in %}}{{% show-in "clustered" %}}`https://cluster-host.com`{{% /show-in %}}{{% show-in "enterprise,core" %}}`http://localhost`{{% /show-in %}})
+     {{% show-in "cloud-serverless" %}}`https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "cloud-dedicated" %}}`https://cluster-id.a.influxdb.io`{{% /show-in %}}{{% show-in "clustered" %}}`https://cluster-host.com`{{% /show-in %}}{{% show-in "enterprise,core" %}}`http://localhost`{{% /show-in %}})
    - **Database**: Your database name
    - **Port**: Your server port (for example, {{% show-in "cloud-serverless,cloud-dedicated,clustered" %}}`443` (HTTPS){{% /show-in %}}{{% show-in "enterprise,core" %}}`8181` (default){{% /show-in %}})
    - **Native Query** (optional): Enter a SQL query to limit the data loaded

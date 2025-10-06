@@ -20,9 +20,7 @@ Download the Arrow Flight SQL ODBC driver for your operating system:
 
 #### Windows (x64)
 
-```sh
-https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi
-```
+<a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
 
 #### macOS and Linux
 

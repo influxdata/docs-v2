@@ -1,13 +1,15 @@
 ---
 title: Use Grafana with InfluxDB
-seotitle: Use Grafana with InfluxDB v1.11
+seotitle: Use Grafana with InfluxDB v1.x
 description: >
-  Configure Grafana to query and visualize data from InfluxDB v1.11.
+  Configure Grafana to query and visualize data from InfluxDB v1.x.
 menu:
   influxdb_v1:
     name: Grafana
     weight: 60
     parent: Tools
+related:
+  - /flux/v0/get-started/, Get started with Flux
 alt_links:
   v2: /influxdb/v2/tools/grafana/
   core: /influxdb3/core/visualize-data/grafana/
@@ -19,7 +21,7 @@ canonical: /influxdb/v2/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
-to visualize data from your **InfluxDB v1.11** instance.
+to visualize data from your {{% product-name %}} instance.
 
 > [!Note]
 > {{< influxdb-version-detector >}}
@@ -122,10 +124,14 @@ Click **Save & Test**. Grafana attempts to connect to InfluxDB and returns the r
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Query and visualize data
-
 With your InfluxDB connection configured, use Grafana to query and visualize time series data.
 
-For more information, see:
-- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
-- [Get started with Flux](/flux/v0/get-started/)
+## Build visualizations with Grafana
+
+For a comprehensive walk-through of creating visualizations with
+Grafana, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/).
+
+## Query inspection in Grafana 
+
+To learn more about query management and inspection in Grafana, see the
+[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).

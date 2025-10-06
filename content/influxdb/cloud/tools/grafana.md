@@ -12,6 +12,7 @@ related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/cloud/query-data/get-started/
   - /influxdb/cloud/query-data/influxql/
+  - /flux/v0/get-started/, Get started with Flux
 alt_links:
   v1: /influxdb/v1/tools/grafana/
   enterprise_v1: /enterprise_influxdb/v1/tools/grafana/
