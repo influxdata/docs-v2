@@ -12,32 +12,45 @@ applications to connect to {{% product-name %}} and query data using SQL.
 
 ## Download and install the ODBC driver
 
-{{% product-name %}} uses the [Arrow Flight SQL ODBC driver](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/)
-to enable ODBC connectivity.
+{{% product-name %}} uses the Arrow Flight SQL ODBC driver to enable ODBC connectivity.
+
+### Download the driver
 
 Download the Arrow Flight SQL ODBC driver for your operating system:
 
-- [**Windows (x64)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-win64.msi)
+#### Windows (x64)
+
+```sh
+https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi
+```
+
+#### macOS and Linux
+
+For macOS and Linux, download from Dremio:
+
 - [**macOS (Universal)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-universal.pkg)
 - [**Linux (x86_64)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-linux-x86_64.tar.gz)
+
+> [!Note]
+> For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
 
 ### Install on Windows
 
 #### Using PowerShell (recommended)
 
-Run the following PowerShell commands:
+Run the following PowerShell commands to download and install:
 
 {{% code-placeholders "YOUR_USER" %}}
 ```powershell
 # Download the driver
-Invoke-WebRequest -Uri "https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-win64.msi" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"
+Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi" `
+  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
 
 # Mark as trusted
-Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"
+Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
 
 # Install
-Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"'
+Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"'
 ```
 {{% /code-placeholders %}}
 

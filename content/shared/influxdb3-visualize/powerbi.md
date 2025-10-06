@@ -10,7 +10,7 @@ Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
 > {{% cite %}}-- [Microsoft Power BI documentation](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview){{% /cite %}}
 
 > [!Important]
-> These Instructions are for Power BI Desktop only; it uses a custom connector.
+> These instructions are for Power BI Desktop only; it uses a custom connector.
 
 - [Prerequisites](#prerequisites)
 - [Install the Power BI connector](#install-the-power-bi-connector)
@@ -27,8 +27,8 @@ Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
   (A free trial is available)
 - **{{% product-name %}}**: A running instance with data to query
 - **Database token**: Your {{% show-in "cloud-dedicated, clustered" %}}{{% token-link "database" %}}{{% /show-in %}}{{% show-in "cloud-serverless" %}}{{% token-link %}}{{% /show-in %}}{{% show-in "core, enterprise" %}}{{% token-link "admin" "database" %}}{{% /show-in %}}{{% show-in "enterprise" %}} with query permissions for the target database{{% /show-in %}}
-- **Arrow Flight SQL ODBC Driver**: [Download and install](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/)
-- **InfluxDB 3 connector**: Download the Power BI Desktop InfluxDB 3 connector `.pqx` file
+
+The following steps guide you through downloading and installing the Arrow Flight SQL ODBC Driver and the InfluxDB 3 custom connector.
 
 ## Install the Power BI connector
 
@@ -38,19 +38,28 @@ The InfluxDB 3 custom connector for Power BI Desktop enables you to connect to
 ### Install the Arrow Flight SQL ODBC Driver
 
 The custom connector requires the Arrow Flight SQL ODBC Driver.
-To install on Windows, run the following PowerShell commands:
+
+#### Download and install the ODBC driver
+
+Download the Arrow Flight SQL ODBC driver:
+
+```sh
+https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi
+```
+
+Or use PowerShell to download and install:
 
 {{% code-placeholders "YOUR_USER" %}}
 ```powershell
 # Download the driver
-Invoke-WebRequest -Uri "https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-win64.msi" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"
+Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi" `
+  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
 
 # Mark as trusted
-Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"
+Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
 
 # Install
-Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-win64.msi"'
+Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"'
 ```
 {{% /code-placeholders %}}
 
@@ -60,9 +69,36 @@ Replace the following:
 
 Follow the installation wizard using default settings.
 
+> [!Note]
+> For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
+
 ### Install the connector file
 
-Copy the `.pqx` connector file to the Power BI custom connectors directory:
+#### Download the Power BI connector
+
+Download the InfluxDB 3 Power BI connector:
+
+```sh
+https://docs.influxdata.com/downloads/InfluxDB.pqx
+```
+
+Or use PowerShell to download:
+
+{{% code-placeholders "YOUR_USER" %}}
+```powershell
+# Download the connector
+Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/InfluxDB.pqx" `
+  -OutFile "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx"
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
+
+#### Install the connector
+
+Move the `.pqx` connector file to the Power BI custom connectors directory:
 
 1. Create the custom connectors folder if it doesn't exist:
 
@@ -72,9 +108,16 @@ Copy the `.pqx` connector file to the Power BI custom connectors directory:
 
 2. Move the connector file to the custom connectors folder:
 
+   {{% code-placeholders "YOUR_USER" %}}
    ```powershell
-   Move-Item InfluxDB.pqx "$env:USERPROFILE\Documents\Power BI Desktop\Custom Connectors\"
+   Move-Item "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx" `
+     "$env:USERPROFILE\Documents\Power BI Desktop\Custom Connectors\"
    ```
+   {{% /code-placeholders %}}
+
+   Replace the following:
+
+   - {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
 
 ## Enable the connector in Power BI
 
@@ -230,5 +273,3 @@ For better query performance:
 - Select only the columns you need
 - Use the `LIMIT` clause to restrict result size
 - Consider using **DirectQuery** mode instead of **Import** for large datasets
-
-
