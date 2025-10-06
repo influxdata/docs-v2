@@ -22,6 +22,9 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB v1.11** instance.
 
 > [!Note]
+> {{< influxdb-version-detector >}}
+
+> [!Note]
 > #### Required
 > - The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
 >   For information about using InfluxDB with other versions of Grafana,

@@ -2,6 +2,9 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB {{< current-version >}}** instance.
 
 > [!Note]
+> {{< influxdb-version-detector >}}
+
+> [!Note]
 > The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
 
 - [Install Grafana](#install-grafana)

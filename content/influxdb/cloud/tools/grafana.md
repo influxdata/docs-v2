@@ -13,7 +13,12 @@ related:
   - /influxdb/cloud/query-data/get-started/
   - /influxdb/cloud/query-data/influxql/
 alt_links:
-  cloud-serverless: /influxdb3/cloud-serverless/visualize-data/grafana/
+  v1: /influxdb/v1/tools/grafana/
+  enterprise_v1: /enterprise_influxdb/v1/tools/grafana/
+  v2: /influxdb/v2/tools/grafana/
+  core: /influxdb3/core/visualize-data/grafana/
+  enterprise: /influxdb3/enterprise/visualize-data/grafana/
+  cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/grafana/
   cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/grafana/
   clustered: /influxdb3/clustered/process-data/visualize/grafana/
 source: /shared/influxdb-v2/tools/grafana.md
