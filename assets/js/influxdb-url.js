@@ -129,7 +129,7 @@ export function InfluxDBUrl() {
     return { oss, cloud, core, enterprise, serverless, dedicated, clustered };
   }
 
-  // Retrieve the previously selected URLs from the from the urls local storage
+  // Retrieve the previously selected URLs from the urls local storage
   // object. This updates URLs when switching between browser tabs.
   function getPrevUrls() {
     const {
@@ -530,7 +530,12 @@ export function InfluxDBUrl() {
   //////////////////////////////////////////////////////////////////////////////
 
   // Validate custom URLs
-  function validateUrl(url) {
+    /** Match 3 possible types of hosts:
+     * Named host = (unreserved | pct-encoded | sub-delims)+
+     * IPv6 host = \[([a-f0-9:.]+)\]
+     * IPvFuture host = \[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\]
+     * Port = [0-9]+
+     */
     /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
     const validDomain = new RegExp(
       `([a-z0-9\-._~%]+` +
