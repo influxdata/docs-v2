@@ -14,6 +14,7 @@ Use [Grafana](https://grafana.com/) to query and visualize data from
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [InfluxDB data source](#influxdb-data-source)
+- [Before you begin](#before-you-begin)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
@@ -37,15 +38,33 @@ both SQL and InfluxQL.
 > The instructions below are for **Grafana 10.3+** which introduced the newest
 > version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}.
+> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selections.
+
+
+## Before you begin
+
+**Prerequisites:**
+- Grafana 10.3 or later
+- Administrator role in Grafana
+- {{% product-name %}} instance and [database token](/influxdb3/version/admin/tokens/#database-tokens)
 
 ## Create an InfluxDB data source
 
-1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add new data source**.
-3.  Search for and select the **InfluxDB** plugin.
-4.  Provide a name for your data source.
-5.  Under **Query Language**, select either **SQL** or **InfluxQL**:
+1. In your Grafana interface, click **Connections** in the left sidebar
+2. Click **Data sources**
+3. Click **Add new data source**
+4. Under **Time series databases**, select **InfluxDB**
+
+The configuration form displays with four numbered sections. Section 2 (Database settings) displays different fields based on your query language selection.
+
+5. **Name**: Enter a descriptive name for your data source
+6. **URL**: Enter your {{% product-name %}} cluster URL: `https://{{< influxdb/host >}}`
+7. **Product**: From the dropdown, select **InfluxDB Enterprise 3.x**
+8. **Query Language**: Select **SQL** or **InfluxQL**
+
+### Configure database settings
+
+The fields in this section change based on your query language selection.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -55,59 +74,26 @@ both SQL and InfluxQL.
 {{% tab-content %}}
 <!--------------------------------- BEGIN SQL --------------------------------->
 
-When creating an InfluxDB data source that uses SQL to query data:
+When you select **SQL** as the query language, configure the following:
 
-1.  Under **HTTP**:
+- **Database**: Your [database](/influxdb3/version/admin/databases/) name
+- **Token**: A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database
 
-    - **URL**: Provide your {{% product-name %}} URL:
-
-      ```
-      http://{{< influxdb/host >}}
-      ```
-
-    > [!Note]
-    > If you are _not_ using HTTPS, enable the **Insecure Connection** option
-    > under **InfluxDB Details**.
-
-2.  Under **InfluxDB Details**:
-
-    - **Database**: Provide a default database name to query.
-    - **Token**: Provide an arbitrary, non-empty string.
-    - **Insecure Connection**: If _not_ using HTTPS, enable this option.
-
-3.  Click **Save & test**.
-
-    {{< img-hd src="/img/influxdb3/influxdb3-grafana-sql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses SQL" />}}
+    {{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-sql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses SQL" />}}
 
 <!---------------------------------- END SQL ---------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-When creating an InfluxDB data source that uses InfluxQL to query data:
+When you select **InfluxQL** as the query language, configure the following:
 
-1.  Under **HTTP**:
+- **Database**: Your [database](/influxdb3/version/admin/databases/) name
+- **User**: Enter a username. 
+- **Password**: A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database
+- **HTTP Method**: Select **POST** (recommended) or **GET**
 
-    - **URL**: Provide your {{% product-name %}} URL:
-
-      ```
-      https://{{< influxdb/host >}}
-      ```
-
-2.  Under **InfluxDB Details**:
-
-    - **Database**: Provide a default database name to query.
-    - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
-    - **Password**: Provide an arbitrary string.
-    - **HTTP Method**: Choose one of the available HTTP request methods to use when querying data:
-
-      - **POST** ({{< req text="Recommended" >}})
-      - **GET**
-
-3.  Click **Save & test**.
-
-    {{< img-hd src="/img/influxdb3/influxdb3-grafana-influxql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses InfluxQL" />}}
+    {{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-influxql.png" alt="Grafana InfluxDB data source for InfluxDB 3 that uses InfluxQL" />}}
 
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{% /tab-content %}}
