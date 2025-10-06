@@ -8,6 +8,9 @@ menu:
     name: Grafana
     weight: 60
     parent: Tools
+related:
+  - /flux/v0/get-started/, Get started with Flux
+  - https://grafana.com/docs/, Grafana documentation
 alt_links:
   core: /influxdb3/core/visualize-data/grafana/
   enterprise: /influxdb3/enterprise/visualize-data/grafana/
@@ -123,10 +126,14 @@ Click **Save & Test**. Grafana attempts to connect to InfluxDB Enterprise and re
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Query and visualize data
-
 With your InfluxDB connection configured, use Grafana to query and visualize time series data.
 
-For more information, see:
-- [Grafana documentation](https://grafana.com/docs/grafana/latest/)
-- [Get started with Flux](/flux/v0/get-started/)
+## Build visualizations with Grafana
+
+For a comprehensive walk-through of creating visualizations with
+Grafana, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/).
+
+## Query inspection in Grafana 
+
+To learn more about query management and inspection in Grafana, see the
+[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
