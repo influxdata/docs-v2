@@ -530,6 +530,7 @@ export function InfluxDBUrl() {
   //////////////////////////////////////////////////////////////////////////////
 
   // Validate custom URLs
+  function validateUrl(url) {
     /** Match 3 possible types of hosts:
      * Named host = (unreserved | pct-encoded | sub-delims)+
      * IPv6 host = \[([a-f0-9:.]+)\]
