@@ -10,20 +10,24 @@ menu:
     parent: Tools
 alt_links:
   v2: /influxdb/v2/tools/grafana/
+  core: /influxdb3/core/visualize-data/grafana/
+  enterprise: /influxdb3/enterprise/visualize-data/grafana/
+  cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/grafana/
+  cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/grafana/
+  clustered: /influxdb3/clustered/process-data/visualize/grafana/
 canonical: /influxdb/v2/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
 to visualize data from your **InfluxDB v1.11** instance.
 
-{{% note %}}
-#### Required
-- The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
-  For information about using InfluxDB with other versions of Grafana,
-  see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/).
-- To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/influxdb/v1/flux/installation/)
-  in your InfluxDB configuration file.
-{{% /note %}}
+> [!Note]
+> #### Required
+> - The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
+>   For information about using InfluxDB with other versions of Grafana,
+>   see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/).
+> - To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/influxdb/v1/flux/installation/)
+>   in your InfluxDB configuration file.
 
 - [Install Grafana](#install-grafana)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
@@ -38,25 +42,22 @@ to visualize data from your **InfluxDB v1.11** instance.
    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
    <http://localhost:3000> in your browser.
 
-{{% note %}}
-SQL is only supported in InfluxDB 3.
-{{% /note %}}
+> [!Note]
+> SQL is only supported in InfluxDB 3.
+> For more information, see how to [get started with InfluxDB 3 Core](/influxdb3/core/get-started/).
 
 ## Create an InfluxDB data source
 
 1. In your Grafana interface, click **Connections** in the left sidebar
 2. Click **Data sources**
 3. Click **Add new connection**
-4. Locate and click the **InfluxDB** card
+4. Search for and select **InfluxDB**. The InfluxDB data source configuration page displays.
+5. In the **Settings** tab, configure the following:
 
-   The InfluxDB configuration page displays with four numbered sections in the left sidebar.
-
-5. **Name**: Enter a descriptive name for your data source
-6. **URL**: Enter your InfluxDB URL: `http://localhost:8086`
-7. **Product**: From the dropdown, select **InfluxDB OSS 1.x**
-8. **Query Language**: Select **InfluxQL** or **Flux**
-
-   After selecting your query language, section 2 (Database settings) displays fields specific to your selection.
+   - **Name**: A descriptive name for your data source
+   - **URL**: Your server URL--for example, `https://{{< influxdb/host >}}`
+   - **Product**: From the dropdown, select **InfluxDB OSS 1.x**
+   - **Query Language**: Select **InfluxQL** or **Flux**
 
 ### Configure database settings
 

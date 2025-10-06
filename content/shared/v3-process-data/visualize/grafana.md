@@ -48,9 +48,9 @@ both SQL and InfluxQL.
 | Configuration | Value |
 |:------------- |:----- |
 | **Product selection** | {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Core 3.x**{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}} |
-| **Default URL** | {{% show-in "core, enterprise" %}}`http://localhost:8181`{{% /show-in %}}{{% show-in "cloud-serverless, cloud-dedicated, clustered" %}}`https://{{< influxdb/host >}}`{{% /show-in %}} |
+| **URL** | {{% show-in "cloud-dedicated,clustered" %}} Cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [Region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}}Server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}} |
 | **Query languages** | SQL (requires HTTP/2), InfluxQL |
-| **Authentication** | {{% show-in "cloud-serverless" %}}Required (API token){{% /show-in %}}{{% show-in "core" %}}Optional (admin token){{% /show-in %}}{{% show-in "enterprise" %}}Optional (admin or database token){{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}Required (database token){{% /show-in %}} |
+| **Authentication** | {{% show-in "cloud-serverless" %}}Required (API token){{% /show-in %}}{{% show-in "core" %}}Admin token (if authentication is enabled){{% /show-in %}}{{% show-in "enterprise" %}}Admin or database token (if authentication is enabled){{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}Required (database token){{% /show-in %}} |
 | **Database/Bucket** | {{% show-in "cloud-serverless" %}}Bucket name{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Database name{{% /hide-in %}} |
 
 ## Create an InfluxDB data source
@@ -61,8 +61,8 @@ both SQL and InfluxQL.
 4. Search for and select **InfluxDB**. The InfluxDB data source configuration page displays.
 5. In the **Settings** tab, configure the following:
 
-   - **Name**: Enter a descriptive name for your data source
-   - **URL**: Enter your {{% product-name %}}{{% show-in "cloud-dedicated, clustered" %}} cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} region URL{{% /show-in %}}{{% show-in "core, enterprise" %}} instance URL{{% /show-in %}}: `https://{{< influxdb/host >}}`
+   - **Name**: A descriptive name for your data source
+   - **URL**: Your {{% product-name %}}{{% show-in "cloud-dedicated,clustered" %}} cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}} server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}}
    - **Product**: From the dropdown, select {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Core 3.x**{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}}
    - **Query Language**: Select **SQL** or **InfluxQL**
 
@@ -125,7 +125,7 @@ When you select **InfluxQL** as the query language, configure the following fiel
 
 - **Database**: {{% show-in "cloud-serverless" %}}The database name mapped to your InfluxDB bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-- **User**: Enter a username (can be any non-empty value).
+- **User**: A username (can be any non-empty value).
 
 - **Password**: {{% show-in "cloud-serverless" %}}Your [API token](/influxdb3/version/admin/tokens/) with read access to the bucket.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database.{{% /hide-in %}}
 
@@ -134,7 +134,8 @@ When you select **InfluxQL** as the query language, configure the following fiel
 {{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 {{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 {{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
-{{% show-in "core, enterprise" %}}{{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
+<!-- Grafana hasn't added Core as a product option yet -->
+{{% show-in "enterprise" %}}{{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 
 Click **Save & test**. Grafana attempts to connect to {{% product-name %}} and returns the result of the test.
 

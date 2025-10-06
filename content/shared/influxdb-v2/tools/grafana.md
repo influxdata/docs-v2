@@ -1,9 +1,8 @@
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
 to visualize data from your **InfluxDB {{< current-version >}}** instance.
 
-{{% note %}}
-The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
-{{% /note %}}
+> [!Note]
+> The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
 
 - [Install Grafana](#install-grafana)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
@@ -18,26 +17,34 @@ The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
    <http://localhost:3000> in your browser.
 
-    {{% note %}}
-SQL is only supported in InfluxDB 3.
-    {{% /note %}}
+> [!Note]
+> SQL is only supported in InfluxDB 3.
+> {{% show-in "v2" %}}For more information, see how to [get-started with InfluxDB 3 Core](/influxdb3/core/get-started/).{{% /show-in %}}{{% show-in "cloud" %}}For more information, see how to upgrade to [InfluxDB Cloud Serverless](/influxdb/cloud/upgrade/v2-to-cloud/).{{% /show-in %}}
+
+## Quick reference
+
+| Configuration | Value |
+|:------------- |:----- |
+| **Product selection** | {{% show-in "v2" %}}**InfluxDB OSS 2.x**{{% /show-in %}}{{% show-in "cloud" %}}**InfluxDB Cloud (TSM)**{{% /show-in %}} |
+| **URL** | {{% show-in "v2" %}}[Server URL](/influxdb/v2/reference/urls/)--for example, `https://{{< influxdb/host >}}`{{% /show-in %}}{{% show-in "cloud" %}}[Region URL](/influxdb/cloud/reference/regions/)--for example, `https://us-east-2-1.aws.cloud2.influxdata.com`{{% /show-in %}} |
+| **Query languages** | Flux, InfluxQL |
+| **Authentication** | API token or v1 username/password |
+| **Organization** | Organization name or ID (Flux only) |
+| **Default Bucket** | Default bucket for Flux queries (Flux only) |
+| **Database** | Database name mapped to bucket (InfluxQL only) |
 
 ## Create an InfluxDB data source
 
 1. In your Grafana interface, click **Connections** in the left sidebar
 2. Click **Data sources**
 3. Click **Add new connection**
-4. Locate and click the **InfluxDB** card
+4. Search for and select **InfluxDB**. The InfluxDB data source configuration page displays.
+5. In the **Settings** tab, configure the following:
 
-   The InfluxDB configuration page displays with four numbered sections in the left sidebar.
-
-5. **Name**: Enter a descriptive name for your data source
-6. **URL**: Enter your [InfluxDB URL](/influxdb/v2/reference/urls/): http://localhost:8086
-
-7. **Product**: From the dropdown, select {{% show-in "v2" %}}**InfluxDB OSS 2.x**{{% /show-in %}}{{% show-in "cloud" %}}**InfluxDB Cloud (TSM)**{{% /show-in %}}
-8. **Query Language**: Select **Flux** or **InfluxQL**
-
-   After selecting your query language, section 2 (Database settings) displays fields specific to your selection.
+   - **Name**: A descriptive name for your data source
+   - **URL**: Your {{% show-in "v2" %}}[server URL](/influxdb/v2/reference/urls/)--for example, `https://{{< influxdb/host >}}`{{% /show-in %}}{{% show-in "cloud" %}}[region URL](/influxdb/cloud/reference/regions/)--for example, `https://us-east-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}
+   - **Product**: From the dropdown, select {{% show-in "v2" %}}**InfluxDB OSS 2.x**{{% /show-in %}}{{% show-in "cloud" %}}**InfluxDB Cloud (TSM)**{{% /show-in %}}
+   - **Query Language**: Select **Flux** or **InfluxQL**
 
 ### Configure database settings
 
@@ -60,7 +67,7 @@ When you select **Flux** as the query language, configure the following:
 - **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
 {{% show-in "v2" %}}{{< img-hd src="/img/influxdb/OSS-v2-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}{{% /show-in %}}
-{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/cloud-tools-grafana-flux.png" alt="Flux configuration for InfluxDB Cloud (TSM)" />}}{{% /show-in %}}
+{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/influxdb-v2-cloud-flux.png" alt="Flux configuration for InfluxDB Cloud (TSM)" />}}{{% /show-in %}}
 
 Click **Save & Test**. Grafana attempts to connect to {{% show-in "v2" %}}InfluxDB OSS 2.x{{% /show-in %}}{{% show-in "cloud" %}}InfluxDB Cloud{{% /show-in %}} and returns the results of the test.
 
@@ -130,10 +137,9 @@ Provide:
 - `--bucket-id:` Bucket ID
 - `--default:` (Optional) Make this the default retention policy for the database
 
-{{% note %}}
-**Repeat for each DBRP combination**
-Each unique database and retention policy combination used by Grafana must be mapped to an InfluxDB OSS 2.x bucket.
-{{% /note %}}
+> [!Note]
+> **Repeat for each DBRP combination**
+> Each unique database and retention policy combination used by Grafana must be mapped to an InfluxDB OSS 2.x bucket.
 
 For more information, see [Database and retention policy mapping](/influxdb/v2/api-guide/influxdb-1x/dbrp/).
 

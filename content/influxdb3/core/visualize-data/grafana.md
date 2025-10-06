@@ -11,12 +11,14 @@ menu:
     parent: Visualize data
 influxdb3/core/tags: [query, visualization]
 alt_links:
-  v1: /influxdb/v1/tools/grafana/
-  v2: /influxdb/v2/tools/grafana/
-  cloud: /influxdb/cloud/tools/grafana/
+  enterprise: /influxdb3/enterprise/visualize-data/grafana/
+  enterprise_v1: /enterprise_influxdb/v1/tools/grafana/
   cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/grafana/
   cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/grafana/
   clustered: /influxdb3/clustered/process-data/visualize/grafana/
+  v1: /influxdb/v1/tools/grafana/
+  v2: /influxdb/v2/tools/grafana/
+  cloud: /influxdb/cloud/tools/grafana/
 source: /content/shared/v3-process-data/visualize/grafana.md
 ---
 
