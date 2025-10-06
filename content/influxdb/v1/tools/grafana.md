@@ -46,6 +46,17 @@ to visualize data from your **InfluxDB v1.11** instance.
    <http://localhost:3000> in your browser.
 
 > [!Note]
+> #### Using Grafana Cloud with a local InfluxDB instance
+>
+> If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
+> as this avoids the need to expose your database to the internet.
+>
+> To use InfluxDB running on your private network with Grafana Cloud, you must
+> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
+> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
+> with {{% product-name %}} running on `http://localhost:8086`.
+
+> [!Note]
 > SQL is only supported in InfluxDB 3.
 > For more information, see how to [get started with InfluxDB 3 Core](/influxdb3/core/get-started/).
 

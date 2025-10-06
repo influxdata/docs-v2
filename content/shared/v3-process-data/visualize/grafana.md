@@ -25,6 +25,32 @@ If using the open source version of **Grafana**, follow the
 to install Grafana for your operating system.
 If using **Grafana Cloud**, log in to your Grafana Cloud instance.
 
+{{% show-in "core,enterprise" %}}
+> [!Note]
+> #### Using Grafana Cloud with a local InfluxDB instance
+>
+> If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
+> as this avoids the need to expose your database to the internet.
+>
+> To use InfluxDB running on your private network with Grafana Cloud, you must
+> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
+> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
+> with {{% product-name %}} running on `http://localhost:8181`.
+{{% /show-in %}}
+
+{{% show-in "clustered" %}}
+> [!Note]
+> #### Using Grafana Cloud with a local InfluxDB instance
+>
+> If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
+> as this avoids the need to expose your database to the internet.
+>
+> To use InfluxDB running on your private network with Grafana Cloud, you must
+> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
+> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
+> with {{% product-name %}} running on `http://localhost`.
+{{% /show-in %}}
+
 ## InfluxDB data source
 
 The InfluxDB data source plugin is included in the Grafana core distribution.
@@ -50,7 +76,7 @@ both SQL and InfluxQL.
 
 | Configuration | Value |
 |:------------- |:----- |
-| **Product selection** | {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Core 3.x**{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}} |
+| **Product selection** | {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Enterprise 3.x** _(currently, no **Core** menu option)_{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}} |
 | **URL** | {{% show-in "cloud-dedicated,clustered" %}} Cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [Region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}}Server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}} |
 | **Query languages** | SQL (requires HTTP/2), InfluxQL |
 | **Authentication** | {{% show-in "cloud-serverless" %}}Required (API token){{% /show-in %}}{{% show-in "core" %}}Admin token (if authentication is enabled){{% /show-in %}}{{% show-in "enterprise" %}}Admin or database token (if authentication is enabled){{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}Required (database token){{% /show-in %}} |
@@ -66,7 +92,7 @@ both SQL and InfluxQL.
 
    - **Name**: A descriptive name for your data source
    - **URL**: Your {{% product-name %}}{{% show-in "cloud-dedicated,clustered" %}} cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}} server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}}
-   - **Product**: From the dropdown, select {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Core 3.x**{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}}
+   - **Product**: From the dropdown, select {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Enterprise 3.x** _(currently, no **Core** menu option)_{{% /show-in %}}{{% show-in "core,enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}}
    - **Query Language**: Select **SQL** or **InfluxQL**
 
 ### Configure database settings
