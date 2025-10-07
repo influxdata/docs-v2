@@ -15,8 +15,7 @@ to query and visualize data from {{% product-name %}}.
 - [InfluxDB data source](#influxdb-data-source)
 - [Before you begin](#before-you-begin)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
-- [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
-- [Build visualizations with Grafana](#build-visualizations-with-grafana)
+- [Query and visualize data](#query-and-visualize-data)
 
 ## Install Grafana or log in to Grafana Cloud
 
@@ -172,7 +171,11 @@ Click **Save & test**. Grafana attempts to connect to {{% product-name %}} and r
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Query InfluxDB with Grafana
+## Query and visualize data
+
+With your InfluxDB connection configured, use Grafana to query and visualize time series data.
+
+### Query InfluxDB with Grafana
 
 After you [configure and save an InfluxDB datasource](#create-an-influxdb-data-source),
 use Grafana to build, run, and inspect queries against {{% show-in "cloud-serverless" %}}your InfluxDB bucket{{% /show-in %}}{{% hide-in "cloud-serverless" %}}{{% product-name %}}{{% /hide-in %}}.
@@ -245,12 +248,12 @@ use Grafana to build, run, and inspect queries against {{% show-in "cloud-server
 
 With your InfluxDB connection configured, use Grafana to query and visualize time series data.
 
-## Build visualizations with Grafana
+### Build visualizations with Grafana
 
 For a comprehensive walk-through of creating visualizations with
 Grafana, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/).
 
-## Query inspection in Grafana 
+### Query inspection in Grafana 
 
 To learn more about query management and inspection in Grafana, see the
 [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).

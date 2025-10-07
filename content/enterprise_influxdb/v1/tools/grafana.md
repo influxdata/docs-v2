@@ -126,14 +126,16 @@ Click **Save & Test**. Grafana attempts to connect to InfluxDB Enterprise and re
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+## Query and visualize data
+
 With your InfluxDB connection configured, use Grafana to query and visualize time series data.
 
-## Build visualizations with Grafana
+### Query inspection in Grafana 
+
+To learn about query management and inspection in Grafana, see the
+[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
+
+### Build visualizations with Grafana
 
 For a comprehensive walk-through of creating visualizations with
 Grafana, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/).
-
-## Query inspection in Grafana 
-
-To learn more about query management and inspection in Grafana, see the
-[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
