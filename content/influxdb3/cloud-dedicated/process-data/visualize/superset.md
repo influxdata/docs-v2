@@ -13,6 +13,7 @@ menu:
 influxdb3/cloud-dedicated/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
+  - /influxdb3/cloud-dedicated/visualize-data/superset/
   - /influxdb3/cloud-dedicated/query-data/tools/superset/
   - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/
   - /influxdb3/cloud-dedicated/process-data/tools/superset/

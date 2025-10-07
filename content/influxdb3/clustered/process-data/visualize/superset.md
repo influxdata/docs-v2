@@ -13,6 +13,7 @@ menu:
 influxdb3/clustered/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb3/clustered/query-data/execute-queries/flight-sql/superset/
+  - /influxdb3/clustered/visualize-data/superset/
   - /influxdb3/clustered/query-data/tools/superset/
   - /influxdb3/clustered/query-data/sql/execute-queries/superset/
   - /influxdb3/clustered/process-data/tools/superset/
