@@ -20,8 +20,6 @@ Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol
 - Synchronize InfluxDB and LDAP so each LDAP request doesn't need to be queried
 
 {{% note %}}
-LDAP **requires** JWT authentication.  For more information, see [Configure authentication using JWT tokens](/enterprise_influxdb/v1/administration/configure/security/authentication/#configure-authentication-using-jwt-tokens). 
-
 To configure InfluxDB Enterprise to support LDAP, all users must be managed in the remote LDAP service. If LDAP is configured and enabled, users **must** authenticate through LDAP, including users who may have existed before enabling LDAP.
 {{% /note %}}
 
@@ -44,9 +42,7 @@ Update the following settings in each data node configuration file (`/etc/influx
 
 1. Under `[http]`, enable HTTP authentication by setting `auth-enabled` to `true`.
    (Or set the corresponding environment variable `INFLUXDB_HTTP_AUTH_ENABLED` to `true`.)
-2. Configure the HTTP shared secret to validate requests using JSON web tokens (JWT) and sign each HTTP payload with the secret and username.
-   Set the `[http]` configuration setting for `shared-secret`, or the corresponding environment variable `INFLUXDB_HTTP_SHARED_SECRET`.
-3. If you're enabling authentication on meta nodes, you must also include the following configurations:
+2. If you're enabling authentication on meta nodes, you must also include the following configurations:
    - `INFLUXDB_META_META_AUTH_ENABLED` environment variable, or `[http]` configuration setting `meta-auth-enabled`, is set to `true`.
      This value must be the same value as the meta node's `meta.auth-enabled` configuration.
    - `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`,
