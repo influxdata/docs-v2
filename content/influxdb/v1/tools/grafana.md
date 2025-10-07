@@ -43,7 +43,73 @@ to visualize data from your {{% product-name %}} instance.
 1. [Start InfluxDB](/influxdb/v1/introduction/get-started/).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
-3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
+3. If running Grafana locally, enable the `newInfluxDSConfigPageDesign` feature flag to use the latest InfluxDB data source plugin.
+
+   {{< expand-wrapper >}}
+   {{% expand "Option 1: Configuration file (recommended)" %}}
+
+   Add the following to your `grafana.ini` configuration file:
+
+   ```ini
+   [feature_toggles]
+   enable = newInfluxDSConfigPageDesign
+   ```
+
+   Configuration file locations:
+   - **Linux**: `/etc/grafana/grafana.ini`
+   - **macOS (Homebrew)**: `/opt/homebrew/etc/grafana/grafana.ini`
+   - **Windows**: `<GRAFANA_INSTALL_DIR>\conf\grafana.ini`
+
+   {{% /expand %}}
+
+   {{% expand "Option 2: Command line" %}}
+
+   Enable the feature flag when starting Grafana:
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Linux](#)
+   [macOS (Homebrew)](#)
+   [Windows](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+
+   ```sh
+   grafana-server --config /etc/grafana/grafana.ini \
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+
+   ```sh
+   /opt/homebrew/opt/grafana/bin/grafana server \
+     --config /opt/homebrew/etc/grafana/grafana.ini \
+     --homepath /opt/homebrew/opt/grafana/share/grafana \
+     --packaging=brew \
+     cfg:default.paths.logs=/opt/homebrew/var/log/grafana \
+     cfg:default.paths.data=/opt/homebrew/var/lib/grafana \
+     cfg:default.paths.plugins=/opt/homebrew/var/lib/grafana/plugins \
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+
+   ```powershell
+   grafana-server.exe --config <GRAFANA_INSTALL_DIR>\conf\grafana.ini `
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+   {{% /expand %}}
+   {{< /expand-wrapper >}}
+
+   For more information, see [Configure feature toggles](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/) in the Grafana documentation.
+
+4. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
    [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
    <http://localhost:3000> in your browser.
 
@@ -53,10 +119,8 @@ to visualize data from your {{% product-name %}} instance.
 > If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
 > as this avoids the need to expose your database to the internet.
 >
-> To use InfluxDB running on your private network with Grafana Cloud, you must
-> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
-> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
-> with {{% product-name %}} running on `http://localhost:8086`.
+> To use InfluxDB running on your private network with Grafana Cloud, you must configure a
+> [private data source for Grafana Cloud](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
 
 > [!Note]
 > SQL is only supported in InfluxDB 3.
@@ -64,20 +128,24 @@ to visualize data from your {{% product-name %}} instance.
 
 ## Create an InfluxDB data source
 
-1. In your Grafana interface, click **Connections** in the left sidebar
-2. Click **Data sources**
-3. Click **Add new connection**
+1. In your Grafana interface, click **Connections** in the left sidebar.
+2. Click **Data sources**.
+3. Click **Add new connection**.
 4. Search for and select **InfluxDB**. The InfluxDB data source configuration page displays.
-5. In the **Settings** tab, configure the following:
+5. In the **Settings** tab, enter a **Name** for your data source.
 
-   - **Name**: A descriptive name for your data source
-   - **URL**: Your server URL--for example, `https://{{< influxdb/host >}}`
-   - **Product**: From the dropdown, select **InfluxDB OSS 1.x**
-   - **Query Language**: Select **InfluxQL** or **Flux**
+### Configure URL and authentication
+
+In the **URL and authentication** section, configure the following:
+
+- **URL**: Your server URL--for example, `https://{{< influxdb/host >}}`
+- **Product**: From the dropdown, select **InfluxDB OSS 1.x**
+- **Query Language**: Select **InfluxQL** or **Flux**
+- _(Optional)_ **Advanced HTTP Settings**, **Auth**, and **TLS/SSL Settings** as needed for your environment
 
 ### Configure database settings
 
-The fields in this section change based on your query language selection.
+The fields in this section change based on your query language selection in [URL and authentication](#configure-url-authentication).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
