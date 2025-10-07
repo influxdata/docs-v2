@@ -14,41 +14,33 @@ applications to connect to {{% product-name %}} and query data using SQL.
 
 {{% product-name %}} uses the Arrow Flight SQL ODBC driver to enable ODBC connectivity.
 
-### Download the driver
-
-Download the Arrow Flight SQL ODBC driver for your operating system:
-
-#### Windows (x64)
-
-<a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
-
-#### macOS and Linux
-
-For macOS and Linux, download from Dremio:
-
-- [**macOS (Universal)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-universal.pkg)
-- [**Linux (x86_64)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-linux-x86_64.tar.gz)
-
 > [!Note]
 > For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
 
-### Install on Windows
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Windows (PowerShell)](#)
+[Windows (Manual)](#)
+[macOS and Linux](#)
+{{% /tabs %}}
 
-#### Using PowerShell (recommended)
-
+{{% tab-content %}}
 Run the following PowerShell commands to download and install:
 
 {{% code-placeholders "YOUR_USER" %}}
 ```powershell
+# Set the driver path
+$driverPath = "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
+
 # Download the driver
 Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
+  -OutFile $driverPath
 
 # Mark as trusted
-Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
+Unblock-File $driverPath
 
 # Install
-Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"'
+Start-Process msiexec.exe -Wait -ArgumentList "/i `"$driverPath`""
 ```
 {{% /code-placeholders %}}
 
@@ -56,7 +48,16 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
 
-#### Manual installation
+#### Verify installation
+
+1. Open **ODBC Data Source Administrator (64-bit)**
+2. Navigate to the **Drivers** tab
+3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+<a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
 
 1. Run the downloaded `.msi` installer
 2. Follow the installation wizard using default settings
@@ -68,22 +69,22 @@ Replace the following:
 2. Navigate to the **Drivers** tab
 3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
 
-### Install on macOS
+{{% /tab-content %}}
+
+{{% tab-content %}}
+Download from Dremio:
+
+- [**macOS (Universal)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-universal.pkg)
+- [**Linux (x86_64)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-linux-x86_64.tar.gz)
+
+#### Install on macOS
 
 1. Run the downloaded `.pkg` installer
 2. Follow the installation prompts
 3. Enter your administrator password when prompted
 4. Complete the installation
 
-To verify installation:
-
-```bash
-odbcinst -q -d
-```
-
-The output should include **Arrow Flight SQL**.
-
-### Install on Linux
+#### Install on Linux
 
 1. Extract the downloaded archive:
 
@@ -106,19 +107,31 @@ The output should include **Arrow Flight SQL**.
    Driver = /opt/arrow-flight-sql-odbc/lib/libarrow-odbc.so
    ```
 
-To verify installation:
+#### Verify installation
+
+To verify the driver is installed correctly, run:
 
 ```bash
 odbcinst -q -d
 ```
+
+The output should include **Arrow Flight SQL**.
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Configure a data source
 
 After installing the Arrow Flight SQL ODBC driver, configure a data source to
 connect to {{% product-name %}}.
 
-### Windows
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Windows](#)
+[macOS and Linux](#)
+{{% /tabs %}}
 
+{{% tab-content %}}
 1. Open **ODBC Data Source Administrator (64-bit)**
 2. Navigate to the **System DSN** or **User DSN** tab
 3. Click **Add**
@@ -127,16 +140,17 @@ connect to {{% product-name %}}.
 
    - **Data Source Name**: Provide a descriptive name (for example, `InfluxDB3`)
    - **Host**: Your {{% product-name %}} host (for example, {{% show-in "cloud-serverless" %}}`us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "enterprise,core" %}}`localhost`{{% /show-in %}}{{% show-in "cloud-dedicated" %}}`cluster-id.a.influxdb.io`{{% /show-in %}}{{% show-in "clustered" %}}`cluster-host.com`{{% /show-in %}})
-   - **Port**: Your InfluxDB URL port{{% show-in "cloud-serverless,cloud-dedicated,clustered" %}}(for example, `443` (HTTPS){{% /show-in %}}){{% show-in "enterprise,core" %}}`8181` (default){{% /show-in %}})
+   - **Port**: Your InfluxDB URL port {{% show-in "cloud-serverless,cloud-dedicated,clustered" %}}(for example, `443` (HTTPS){{% /show-in %}}{{% show-in "enterprise,core" %}}`8181` (default){{% /show-in %}})
    - **Database**: Your database name
-   - **Auth Token**: Your {{% show-in "cloud-dedicated, clustered" %}}{{% token-link "database" %}}{{% /show-in %}}{{% show-in "cloud-serverless" %}}{{% token-link %}}{{% /show-in %}}{{% show-in "core, enterprise" %}}{{% token-link "admin" "database" %}}{{% /show-in %}}{{% hide-in "core" %}} with query permissions for the target database{{% /hide-in %}}
+   - **Auth Token**: Your {{% show-in "cloud-dedicated,clustered" %}}{{% token-link "database" %}}{{% /show-in %}}{{% show-in "cloud-serverless" %}}{{% token-link %}}{{% /show-in %}}{{% show-in "core,enterprise" %}}{{% token-link "admin" "database" %}}{{% /show-in %}}{{% show-in "cloud-dedicated,clustered,enterprise" %}}&nbsp;with query permissions for the target database{{% /show-in %}}
    - **Use Encryption**: Enable for HTTPS connections
 
 6. Click **Test** to verify the connection
 7. Click **OK** to save
 
-### macOS and Linux
+{{% /tab-content %}}
 
+{{% tab-content %}}
 Create or edit `~/.odbc.ini` (user DSN) or `/etc/odbc.ini` (system DSN):
 
 {{% show-in "enterprise,core" %}}
@@ -205,6 +219,9 @@ Test the connection:
 ```bash
 isql -v InfluxDB3
 ```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Connect and query from applications
 
@@ -447,17 +464,33 @@ DisableCertificateVerification = 0
 
 If applications cannot find the Arrow Flight SQL ODBC driver:
 
-**Windows**:
-- Open **ODBC Data Source Administrator (64-bit)**
-- Navigate to the **Drivers** tab
-- Verify **Arrow Flight SQL ODBC Driver** appears in the list
-- If not listed, reinstall the driver
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Windows](#)
+[macOS and Linux](#)
+{{% /tabs %}}
 
-**macOS/Linux**:
-- Run `odbcinst -q -d` to list installed drivers
-- Verify **Arrow Flight SQL** appears in the output
-- Check `/etc/odbcinst.ini` for proper driver configuration
-- Ensure the driver library path is correct
+{{% tab-content %}}
+1. Open **ODBC Data Source Administrator (64-bit)**
+2. Navigate to the **Drivers** tab
+3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
+4. If not listed, reinstall the driver
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+1. Run the following command to list installed drivers:
+
+   ```bash
+   odbcinst -q -d
+   ```
+
+2. Verify **Arrow Flight SQL** appears in the output
+3. Check `/etc/odbcinst.ini` for proper driver configuration
+4. Ensure the driver library path is correct
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ### Connection failures
 
