@@ -19,50 +19,103 @@ to query and visualize data from {{% product-name %}}.
 
 ## Install Grafana or log in to Grafana Cloud
 
-If using the open source version of **Grafana**, follow the
-[Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
-to install Grafana for your operating system.
-If using **Grafana Cloud**, log in to your Grafana Cloud instance.
+1. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or follow the
+   [Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+   to install Grafana for your operating system.
+2. If running Grafana locally, enable the `newInfluxDSConfigPageDesign` feature flag to use the latest InfluxDB data source plugin.
 
-{{% show-in "core,enterprise" %}}
+   {{< expand-wrapper >}}
+   {{% expand "Option 1: Configuration file (recommended)" %}}
+
+   Add the following to your `grafana.ini` configuration file:
+
+   ```ini
+   [feature_toggles]
+   enable = newInfluxDSConfigPageDesign
+   ```
+
+   Configuration file locations:
+   - **Linux**: `/etc/grafana/grafana.ini`
+   - **macOS (Homebrew)**: `/opt/homebrew/etc/grafana/grafana.ini`
+   - **Windows**: `<GRAFANA_INSTALL_DIR>\conf\grafana.ini`
+
+   {{% /expand %}}
+
+   {{% expand "Option 2: Command line" %}}
+
+   Enable the feature flag when starting Grafana:
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [Linux](#)
+   [macOS (Homebrew)](#)
+   [Windows](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+
+   ```sh
+   grafana-server --config /etc/grafana/grafana.ini \
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+
+   ```sh
+   /opt/homebrew/opt/grafana/bin/grafana server \
+     --config /opt/homebrew/etc/grafana/grafana.ini \
+     --homepath /opt/homebrew/opt/grafana/share/grafana \
+     --packaging=brew \
+     cfg:default.paths.logs=/opt/homebrew/var/log/grafana \
+     cfg:default.paths.data=/opt/homebrew/var/lib/grafana \
+     cfg:default.paths.plugins=/opt/homebrew/var/lib/grafana/plugins \
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+
+   ```powershell
+   grafana-server.exe --config <GRAFANA_INSTALL_DIR>\conf\grafana.ini `
+     cfg:default.feature_toggles.enable=newInfluxDSConfigPageDesign
+   ```
+
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+   {{% /expand %}}
+   {{< /expand-wrapper >}}
+
+   For more information, see [Configure feature toggles](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/) in the Grafana documentation.
+
+3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
+   [start Grafana](https://grafana.com/docs/grafana/latest/installation/) and visit
+   <http://localhost:3000> in your browser.
+
+{{% show-in "core,enterprise,clustered" %}}
 > [!Note]
 > #### Using Grafana Cloud with a local InfluxDB instance
 >
 > If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
 > as this avoids the need to expose your database to the internet.
 >
-> To use InfluxDB running on your private network with Grafana Cloud, you must
-> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
-> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
-> with {{% product-name %}} running on `http://localhost:8181`.
-{{% /show-in %}}
-
-{{% show-in "clustered" %}}
-> [!Note]
-> #### Using Grafana Cloud with a local InfluxDB instance
->
-> If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
-> as this avoids the need to expose your database to the internet.
->
-> To use InfluxDB running on your private network with Grafana Cloud, you must
-> [configure a private data source](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
-> See the Grafana documentation for instructions on configuring a Grafana Cloud private data source
-> with {{% product-name %}} running on `http://localhost`.
+> To use InfluxDB running on your private network with Grafana Cloud, you must configure a
+> [private data source for Grafana Cloud](https://grafana.com/docs/grafana-cloud/data-sources/private-data-sources/).
 {{% /show-in %}}
 
 ## InfluxDB data source
 
 The InfluxDB data source plugin is included in the Grafana core distribution.
 Use the plugin to query and visualize data from {{< product-name >}} with
-both SQL and InfluxQL. 
+both SQL and InfluxQL.
 
 > [!Note]
 > #### Grafana 10.3+
-> 
+>
 > The instructions below are for **Grafana 10.3+** which introduced the newest
 > version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selections.
+> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selection in [URL and authentication](#configure-url-authentication)s.
 
 ## Before you begin
 
@@ -87,16 +140,20 @@ both SQL and InfluxQL.
 2. Click **Data sources**.
 3. Click **Add new data source**.
 4. Search for and select **InfluxDB**. The InfluxDB data source configuration page displays.
-5. In the **Settings** tab, configure the following:
+5. In the **Settings** tab, enter a **Name** for your data source.
 
-   - **Name**: A descriptive name for your data source
-   - **URL**: Your {{% product-name %}}{{% show-in "cloud-dedicated,clustered" %}} cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}} server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}}
-   - **Product**: From the dropdown, select {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Enterprise 3.x** _(currently, no **Core** menu option)_{{% /show-in %}}{{% show-in "core,enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}}
-   - **Query Language**: Select **SQL** or **InfluxQL**
+### Configure URL and authentication
+
+In the **URL and authentication** section, configure the following:
+
+- **URL**: Your {{% product-name %}}{{% show-in "cloud-dedicated,clustered" %}} cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}} server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}}
+- **Product**: From the dropdown, select {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Enterprise 3.x** _(currently, no **Core** menu option)_{{% /show-in %}}{{% show-in "core,enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}}
+- **Query Language**: Select **SQL** or **InfluxQL**
+- _(Optional)_ **Advanced HTTP Settings**, **Auth**, and **TLS/SSL Settings** as needed for your environment
 
 ### Configure database settings
 
-The fields in this section change based on your query language selection.
+The fields in this section change based on your query language selection in [URL and authentication](#configure-url-authentication).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -253,7 +310,7 @@ With your InfluxDB connection configured, use Grafana to query and visualize tim
 For a comprehensive walk-through of creating visualizations with
 Grafana, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/).
 
-### Query inspection in Grafana 
+### Query inspection in Grafana
 
 To learn more about query management and inspection in Grafana, see the
 [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
