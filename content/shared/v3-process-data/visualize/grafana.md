@@ -69,7 +69,7 @@ both SQL and InfluxQL.
 **Prerequisites:**
 - Grafana 10.3 or later
 - Administrator role in Grafana
-- {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core,enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
+- {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core,enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
 
 ### Quick reference: {{< product-name >}} configuration
 
@@ -78,7 +78,7 @@ both SQL and InfluxQL.
 | **Product selection** | {{% hide-in "core,enterprise" %}}**{{% product-name %}}**{{% /hide-in %}}{{% show-in "core" %}}**InfluxDB Enterprise 3.x** _(currently, no **Core** menu option)_{{% /show-in %}}{{% show-in "enterprise" %}}**InfluxDB Enterprise 3.x**{{% /show-in %}} |
 | **URL** | {{% show-in "cloud-dedicated,clustered" %}} Cluster URL{{% /show-in %}}{{% show-in "cloud-serverless" %}} [Region URL](/influxdb3/cloud-serverless/reference/regions/)--for example, `https://us-west-2-1.aws.cloud2.influxdata.com`{{% /show-in %}}{{% show-in "core,enterprise" %}}Server URL{{% /show-in %}}{{% hide-in "cloud-serverless" %}}--for example, `https://{{< influxdb/host >}}`{{% /hide-in %}} |
 | **Query languages** | SQL (requires HTTP/2), InfluxQL |
-| **Authentication** | {{% show-in "cloud-serverless" %}}Required (API token){{% /show-in %}}{{% show-in "core" %}}Admin token (if authentication is enabled){{% /show-in %}}{{% show-in "enterprise" %}}Admin or database token (if authentication is enabled){{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}Required (database token){{% /show-in %}} |
+| **Authentication** | {{% show-in "cloud-serverless" %}}Required (API token){{% /show-in %}}{{% show-in "core" %}}Admin token (if authentication is enabled){{% /show-in %}}{{% show-in "enterprise" %}}Admin or database token (if authentication is enabled){{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}Required (database token){{% /show-in %}} |
 | **Database/Bucket** | {{% show-in "cloud-serverless" %}}Bucket name{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Database name{{% /hide-in %}} |
 
 ## Create an InfluxDB data source
@@ -112,7 +112,7 @@ When you select **SQL** as the query language, configure the following fields:
 
 - **Database**: {{% show-in "cloud-serverless" %}}Your [bucket](/influxdb3/version/admin/buckets/) name. In {{< product-name >}}, buckets function as databases.{{% /show-in %}}{{% hide-in "cloud-serverless" %}}Your [database](/influxdb3/version/admin/databases/) name.{{% /hide-in %}}
 
-- **Token**: {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated, clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core, enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
+- **Token**: {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core,enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
 
 {{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
 {{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
