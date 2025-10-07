@@ -35,6 +35,9 @@ tmp
 .idea
 **/config.toml
 
+# TypeScript build output
+**/dist/
+
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
