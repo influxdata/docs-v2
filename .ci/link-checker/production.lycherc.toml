@@ -83,6 +83,10 @@ exclude = [
   # Scarf analytics tracking pixels (certificate/network errors)
   "^https?://static\\.scarf\\.sh",
 
+  # Grafana documentation (bot detection/rate limiting)
+  "^https?://grafana\\.com",
+  "^https?://.*\\.grafana\\.com",
+
   # Production site URLs (when testing locally, these should be relative)
   # This excludes canonical URLs and other absolute production URLs
   # TODO: Remove after fixing canonical URL generation or link-checker domain replacement
