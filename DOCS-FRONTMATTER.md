@@ -212,7 +212,7 @@ source: /shared/influxdb3-admin/databases/_index.md
 
 When building shared content, use the `show-in` and `hide-in` shortcodes to show
 or hide blocks of content based on the current InfluxDB product/version.
-For more information, see [show-in](/.github/instructions/shortcodes-reference.instructions.md#show-in) and [hide-in](/.github/instructions/shortcodes-reference.instructions.md#hide-in).
+For more information, see [show-in](DOCS-SHORTCODES.md#show-in) and [hide-in](DOCS-SHORTCODES.md#hide-in).
 
 #### Links in shared content
 
