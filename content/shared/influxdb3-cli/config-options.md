@@ -1819,7 +1819,7 @@ This option supports the following values:
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
-| `--package-manager`    | `PACKAGE_MANAGER`    |
+| `--package-manager`    | `INFLUXDB3_PACKAGE_MANAGER`    |
 
 {{% show-in "enterprise" %}}
 
