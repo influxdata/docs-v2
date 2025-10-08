@@ -322,8 +322,8 @@ Push your changes up to your forked repository, then [create a new pull request]
 
 For detailed reference documentation, see:
 
-- **[FRONTMATTER.md](FRONTMATTER.md)** - Complete frontmatter field reference with all available options
-- **[SHORTCODES.md](SHORTCODES.md)** - Complete shortcodes reference with usage examples for all available shortcodes
+- **[DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md)** - Complete frontmatter field reference with all available options
+- **[DOCS-SHORTCODES.md](DOCS-SHORTCODES.md)** - Complete shortcodes reference with usage examples for all available shortcodes
 
 <!-- agent:instruct: condense -->
 ### Advanced Configuration
