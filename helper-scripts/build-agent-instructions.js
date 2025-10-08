@@ -20,7 +20,6 @@ export { buildPlatformReference };
   }
 })();
 
-
 /**
  * Build PLATFORM_REFERENCE.md from data/products.yml
  * This generates a reference document for AI agents to understand
@@ -71,9 +70,12 @@ Use the following information to help determine which InfluxDB version and produ
     if (product.versions && product.versions.length > 1) {
       // Generate entries for each version
       for (const version of product.versions) {
-        const versionName = version === 'v2' ? `${product.name} OSS ${version}` :
-                           version === 'v1' ? `${product.name} OSS ${version}` :
-                           `${product.name} ${version}`;
+        const versionName =
+          version === 'v2'
+            ? `${product.name} OSS ${version}`
+            : version === 'v1'
+              ? `${product.name} OSS ${version}`
+              : `${product.name} ${version}`;
 
         content += `${versionName}:\n`;
 
@@ -85,7 +87,9 @@ Use the following information to help determine which InfluxDB version and produ
 
         // Query languages
         if (product.detector_config?.query_languages) {
-          const languages = Object.keys(product.detector_config.query_languages).join(' and ');
+          const languages = Object.keys(
+            product.detector_config.query_languages
+          ).join(' and ');
           content += `  - Query languages: ${languages}\n`;
         }
 
@@ -109,7 +113,9 @@ Use the following information to help determine which InfluxDB version and produ
 
       // Query languages
       if (product.detector_config?.query_languages) {
-        const languages = Object.keys(product.detector_config.query_languages).join(' and ');
+        const languages = Object.keys(
+          product.detector_config.query_languages
+        ).join(' and ');
         content += `  - Query languages: ${languages}\n`;
       }
 
@@ -218,7 +224,10 @@ function generateClientsInfo(productKey, product) {
     return 'Telegraf, influxdb3 CLI, v3 client libraries, InfluxDB 3 Explorer';
   } else if (v3Products.includes(productKey)) {
     return 'Telegraf, influxctl CLI, v3 client libraries';
-  } else if (productKey === 'influxdb' || productKey === 'enterprise_influxdb') {
+  } else if (
+    productKey === 'influxdb' ||
+    productKey === 'enterprise_influxdb'
+  ) {
     return 'Telegraf, influx CLI, v1/v2 client libraries';
   } else if (productKey === 'influxdb_cloud') {
     return 'Telegraf, influx CLI, v2 client libraries';
