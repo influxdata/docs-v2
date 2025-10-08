@@ -28,7 +28,7 @@ Be a critical thinking partner, provide honest feedback, and identify potential 
 
 ### Testing
 
-For comprehensive testing procedures, see **[TESTING.md](../TESTING.md)**.
+For comprehensive testing procedures, see **[DOCS-TESTING.md](../DOCS-TESTING.md)**.
 
 **Quick reference** (NEVER CANCEL long-running tests):
 - **Code blocks**: `yarn test:codeblocks:all` (15-45 minutes)
@@ -56,11 +56,15 @@ yarn test:links content/example.md
 ### Content Organization
 
 - **InfluxDB 3**: `/content/influxdb3/` (core, enterprise, cloud-dedicated, cloud-serverless, clustered, explorer)
-- **InfluxDB v2**: `/content/influxdb/` (v2, cloud, enterprise_influxdb, v1)
+- **InfluxDB v2**: `/content/influxdb/` (v2, cloud)
+- **InfluxDB v1**: `/content/influxdb/v1`
+- **InfluxDB Enterprise (v1)**: `/content/enterprise_influxdb/v1/`
 - **Telegraf**: `/content/telegraf/v1/`
-- **Other tools**: `/content/kapacitor/`, `/content/chronograf/`, `/content/flux/`
-- **Shared content**: `/content/shared/`
+- **Kapacitor**: `/content/kapacitor/`
+- **Chronograf**: `/content/chronograf/`
+- **Flux**: `/content/flux/`
 - **Examples**: `/content/example.md` (comprehensive shortcode reference)
+- **Shared content**: `/content/shared/`
 
 ### Key Files
 
@@ -71,8 +75,8 @@ yarn test:links content/example.md
 
 ## Technology Stack
 
-- **Hugo** (0.148.2+ extended) - Static site generator
-- **Node.js/Yarn** (20.19.4+/1.22.22+) - Package management
+- **Hugo** - Static site generator
+- **Node.js/Yarn** - Package management
 - **Testing**: Pytest, Cypress, link-checker, Vale
 - **Tools**: Docker, ESLint, Prettier, Lefthook
 
@@ -109,9 +113,12 @@ npx hugo --quiet
 ### Writing Documentation
 
 For detailed guidelines, see:
-- **Frontmatter**: `.github/instructions/content.instructions.md`
-- **Shortcodes**: `.github/instructions/shortcodes-reference.instructions.md`
-- **Contributing**: `.github/instructions/contributing.instructions.md`
+- **Workflow**: [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) - Contribution guidelines and workflow
+- **Shortcodes**: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) - Complete shortcode reference
+  - **Examples**: [content/example.md](../content/example.md) - Working examples for testing
+- **Frontmatter**: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) - Complete page metadata reference
+- **Testing**: [DOCS-TESTING.md](../DOCS-TESTING.md) - Testing procedures
+- **API Docs**: [api-docs/README.md](../api-docs/README.md) - API documentation workflow
 
 ### Code Examples
 
@@ -144,12 +151,11 @@ For detailed information on specific topics:
 
 | Topic | File | Description |
 |-------|------|-------------|
-| **Content** | [content.instructions.md](instructions/content.instructions.md) | Frontmatter, metadata, page structure |
-| **Shortcodes** | [shortcodes-reference.instructions.md](instructions/shortcodes-reference.instructions.md) | All available Hugo shortcodes |
-| **Contributing** | [contributing.instructions.md](instructions/contributing.instructions.md) | Style guide, workflow, CLA |
-| **API Docs** | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec management |
-| **Testing** | [TESTING.md](../TESTING.md) | Comprehensive testing procedures |
-| **Assets** | [assets.instructions.md](instructions/assets.instructions.md) | JavaScript and CSS development |
+| **Content** | [content.instructions.md](instructions/content.instructions.md) | Lightweight pointer to frontmatter and shortcode references |
+| **Layouts** | [layouts.instructions.md](instructions/layouts.instructions.md) | Shortcode implementation patterns and testing |
+| **API Docs** | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec workflow |
+| **Assets** | [assets.instructions.md](instructions/assets.instructions.md) | TypeScript/JavaScript and CSS development |
+| **Testing** | [DOCS-TESTING.md](../DOCS-TESTING.md) | Comprehensive testing procedures |
 
 ## Important Notes
 
