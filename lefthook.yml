@@ -10,12 +10,12 @@ pre-commit:
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
     build-agent-instructions:
-      glob: "CONTRIBUTING.md"
+      glob: "data/products.yml"
       run: yarn build:agent:instructions
     # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
-      glob: "{CONTRIBUTING.md,content/*.md}"
+      glob: "{README.md,DOCS-*.md,api-docs/README.md,content/*.md}"
       run: |
         docker compose run --rm --name remark-lint remark-lint '{staged_files}'
     cloud-lint:

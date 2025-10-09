@@ -9,11 +9,27 @@ This repository contains the InfluxDB 2.x documentation published at [docs.influ
 ## Contributing
 
 We welcome and encourage community contributions.
-For information about contributing to the InfluxData documentation, see [Contribution guidelines](CONTRIBUTING.md).
+For information about contributing to the InfluxData documentation, see [Contribution guidelines](DOCS-CONTRIBUTING.md).
 
 ## Testing
 
-For information about testing the documentation, including code block testing, link validation, and style linting, see [Testing guide](TESTING.md).
+For information about testing the documentation, including code block testing, link validation, and style linting, see [Testing guide](DOCS-TESTING.md).
+
+## Documentation
+
+Comprehensive reference documentation for contributors:
+
+- **[Contributing Guide](DOCS-CONTRIBUTING.md)** - Workflow and contribution guidelines
+- **[Shortcodes Reference](DOCS-SHORTCODES.md)** - Complete Hugo shortcode documentation
+  - [Working examples](content/example.md) - Test shortcodes in the browser
+- **[Frontmatter Reference](DOCS-FRONTMATTER.md)** - Complete page metadata documentation
+- **[Testing Guide](DOCS-TESTING.md)** - Testing procedures and requirements
+- **[API Documentation](api-docs/README.md)** - API reference generation
+
+### Quick Links
+- [Style guidelines](DOCS-CONTRIBUTING.md#style-guidelines)
+- [Commit guidelines](DOCS-CONTRIBUTING.md#commit-guidelines)
+- [Code block testing](DOCS-TESTING.md#code-block-testing)
 
 ## Reporting a Vulnerability
 
@@ -42,7 +58,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
           yarn install
           ```
 
-       _**Note:** The most recent version of Hugo tested with this documentation is **0.123.8**._
+       _**Note:** The most recent version of Hugo tested with this documentation is **0.149.0**._
 
 3. To generate the API docs, see [api-docs/README.md](api-docs/README.md).
 
