@@ -45,10 +45,11 @@ weight:      # Sort order (1-99, 101-199, 201-299...)
 ```
 
 **Code placeholders**:
-```markdown
+~~~markdown
 ```sh { placeholders="DATABASE_NAME|API_TOKEN" }
 curl -X POST https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME
 ```
+~~~
 
 Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your database name
