@@ -15,7 +15,7 @@ Every content file needs:
 title:       # Page h1 heading
 description: # SEO meta description
 menu:
-  product_version:
+  product_menu_key: # Identifies the Hugo menu specific to the current product
     name:    # Navigation link text
     parent:  # Parent menu item (if nested)
 weight:      # Sort order (1-99, 101-199, 201-299...)
