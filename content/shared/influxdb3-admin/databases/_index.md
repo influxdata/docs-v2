@@ -41,7 +41,7 @@ rules, and deletion behavior, see
 A database **retention period** is the maximum age of data stored in the database.
 The age of data is determined by the timestamp associated with each point.
 When a point's timestamp is beyond the retention period (relative to now), the
-point is not queryable.
+point is not queryable and will be deleted.
 
 By default, data does not expire. When you [create a database](/influxdb3/version/admin/databases/create/),
 you can optionally set a retention period. Retention periods can be as short as one hour
