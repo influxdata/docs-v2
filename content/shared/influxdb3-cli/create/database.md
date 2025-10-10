@@ -72,7 +72,8 @@ influxdb3 create database --token AUTH_TOKEN DATABASE_NAME
 
 ### Create a database with a retention period
 
-Creates a database with a specific retention period.
+Creates a database with a 30-day retention period.
+Data older than 30 days will not be queryable.
 
 <!--pytest.mark.skip-->
 
@@ -80,4 +81,84 @@ Creates a database with a specific retention period.
 influxdb3 create database --retention-period 30d DATABASE_NAME
 ```
 
+### Create a database with infinite retention
+
+Creates a database with no retention period (data never expires).
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create database --retention-period none DATABASE_NAME
+```
+
+### Create a database with a 90-day retention period
+
+Creates a database with a 90-day retention period using an authentication token.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create database \
+  --retention-period 90d \
+  --token AUTH_TOKEN \
+  DATABASE_NAME
+```
+
+### Create a database with a 1-year retention period
+
+Creates a database with a 1-year retention period.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create database --retention-period 1y DATABASE_NAME
+```
+
+### Create a database with a combined duration
+
+Creates a database with a retention period of 30 days and 12 hours.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 create database --retention-period 30d12h DATABASE_NAME
+```
+
 {{% /code-placeholders %}}
+
+## Retention period duration formats
+
+Retention periods are specified as [duration](/influxdb3/version/reference/glossary/#duration)
+values using a numeric value plus a duration unit.
+
+### Valid duration units
+
+| Unit | Description |
+|:-----|:------------|
+| `h`  | hour        |
+| `d`  | day         |
+| `w`  | week        |
+| `mo` | month (30 days) |
+| `y`  | year (365 days) |
+
+> [!Note]
+> - **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
+>   Setting `0<unit>` (for example, `0d`) marks all data for immediate deletion.
+> - **Unsupported units**: Minute (`m`) and second (`s`) units are not supported.
+
+### Example duration values
+
+- `1h` - 1 hour
+- `24h` - 24 hours
+- `7d` - 7 days
+- `4w` - 4 weeks
+- `30d` - 30 days
+- `1mo` - 1 month (30 days)
+- `90d` - 90 days
+- `1y` - 1 year (365 days)
+- `none` - infinite (data never expires)
+
+You can combine units: `30d12h` (30.5 days), `1y6mo` (545 days)
+
+For complete details about retention periods, see
+[Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).

@@ -22,8 +22,33 @@ When a point's timestamp is beyond the retention period (relative to now), the
 point is marked for deletion and is removed from the database the next time the
 retention enforcement service runs.
 
-The _maximum_ retention period is infinite (`none`) meaning data does not expire
-and will never be removed by the retention enforcement service.
+By default, data does not expire. When you [create a database](/influxdb3/version/admin/databases/create/),
+you can optionally set a retention period. Retention periods can be as short as an hour
+or infinite (`none`).
+
+Database retention periods can be [updated after creation](/influxdb3/version/reference/cli/influxdb3/update/database/).
+For tables within a database, you can [set table-specific retention periods](/influxdb3/version/admin/tables/create/#create-a-table-with-a-retention-period)
+that override the database retention period.
+
+For complete details about retention periods, including duration formats, precedence
+rules, and deletion behavior, see
+[Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+## Retention periods
+
+A database **retention period** is the maximum age of data stored in the database.
+The age of data is determined by the timestamp associated with each point.
+When a point's timestamp is beyond the retention period (relative to now), the
+point is not queryable.
+
+By default, data does not expire. When you [create a database](/influxdb3/version/admin/databases/create/),
+you can optionally set a retention period. Retention periods can be as short as one hour
+(`1h`) or infinite (`none`).
+
+For complete details about retention periods, including duration formats and limitations,
+see [Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).
 {{% /show-in %}}
 
 ## Database, table, and column limits
