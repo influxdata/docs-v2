@@ -154,7 +154,7 @@ In the **URL and authentication** section, configure the following:
 
 ### Configure database settings
 
-The fields in this section change based on your query language selection in [URL and authentication](#configure-url-authentication).
+The fields in this section change based on your query language selection in [URL and authentication](#configure-url-and-authentication).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
