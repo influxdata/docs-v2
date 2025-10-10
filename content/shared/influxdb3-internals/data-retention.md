@@ -8,12 +8,11 @@ are filtered out of query results, even though the data may still exist in stora
 - [Table retention period](#table-retention-period)
 {{% /show-in %}}
 - [Retention period duration formats](#retention-period-duration-formats)
-{{% show-in "core" %}}
 - [Set database retention period](#set-database-retention-period)
+{{% show-in "core" %}}
 - [Retention period limitations](#retention-period-limitations)
 {{% /show-in %}}
 {{% show-in "enterprise" %}}
-- [Set retention periods](#set-retention-periods)
 - [Update retention periods](#update-retention-periods)
 - [Retention period precedence](#retention-period-precedence)
 - [When does data actually get deleted?](#when-does-data-actually-get-deleted)

@@ -11,7 +11,7 @@ the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint
 Provide the following:
 
   - _(Optional)_ [Output format](#output-formats) with the `--format` option
-  - _(Optional)_ [Show deleted databases](list-deleted-databasese) with the
+  - _(Optional)_ [Show deleted databases](list-deleted-databases) with the
     `--show-deleted` option
   - {{< product-name >}} {{% token-link "admin" "admin" %}} with the `-t`, `--token` option
 
