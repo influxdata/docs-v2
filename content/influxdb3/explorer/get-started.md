@@ -36,9 +36,26 @@ InfluxDB 3 Explorer supports the following InfluxDB 3 products:
 
     - **Server name**: A name to identify the InfluxDB 3 server you're connecting to.
     - **Server URL**: The URL used to connect to your InfluxDB 3 server.
+      - The URL depends on how and where your InfluxDB 3 instance is running. See [When to use `host.docker.internal`](#when-to-use-hostdockerinternal) for more information.
       - Select the protocol to use (http or https).
       - Provide the host and, if necessary, the port.
-        - _If connecting to a local, non-Docker instance, use `host.docker.internal`._ For more information about host.docker.internal, see the [Docker documentation](https://docs.docker.com/desktop/features/networking).
+  
+       > [!Note]
+       > #### When to use `host.docker.internal`
+       >
+       > If your InfluxDB 3 instance is running in Docker (not the same container as Explorer),
+       > use `host.docker.internal` as your server host to allow the Explorer container to
+       > connect to the InfluxDB container on the host--for example:
+       >
+       > ```txt
+       > "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181"
+       > ```
+       >
+       > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
+       > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
+       >
+       > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+
     - **Token**: The authorization token to use to connect to your InfluxDB 3 server.
       We recommend using an InfluxDB 3 _admin_ token.
       
@@ -122,7 +139,7 @@ The Results pane provides three view options:
 > - Ensure that you query the `time` column
 > - Update the query to include an `ORDER BY time` clause.
 
-Congratulations! You have successfully used {{% product-name %}} to connect to,
+You have successfully used {{% product-name %}} to connect to,
 write data to, and query data from an InfluxDB 3 instance.
 
 ## Video walkthrough
