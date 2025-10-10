@@ -5,7 +5,12 @@ to visualize data from your **InfluxDB {{< current-version >}}** instance.
 > {{< influxdb-version-detector >}}
 
 > [!Note]
-> The instructions in this guide require **Grafana Cloud** or **Grafana 10.3+**.
+> #### Grafana 12.2+
+>
+> The instructions below are for **Grafana 12.2+** with the `newInfluxDSConfigPageDesign`
+> feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
+> The interface dynamically adapts based on your product and query language
+> selection in [URL and authentication](#configure-url-and-authentication).
 
 - [Install Grafana](#install-grafana)
 - [Create an InfluxDB data source](#create-an-influxdb-data-source)
@@ -150,8 +155,8 @@ When you select **Flux** as the query language, configure the following:
 - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries
 - **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
-{{% show-in "v2" %}}{{< img-hd src="/img/influxdb/OSS-v2-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}{{% /show-in %}}
-{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/influxdb-v2-cloud-flux.png" alt="Flux configuration for InfluxDB Cloud (TSM)" />}}{{% /show-in %}}
+{{% show-in "v2" %}}{{< img-hd src="/img/grafana/influxdb-v2-grafana-influxql-flux.png" alt="Flux configuration for InfluxDB OSS 2.x" />}}{{% /show-in %}}
+{{% show-in "cloud" %}}{{< img-hd src="/img/grafana/influxdb-cloud-grafana-flux.png" alt="Flux configuration for InfluxDB Cloud (TSM)" />}}{{% /show-in %}}
 
 Click **Save & Test**. Grafana attempts to connect to {{% show-in "v2" %}}InfluxDB OSS 2.x{{% /show-in %}}{{% show-in "cloud" %}}InfluxDB Cloud{{% /show-in %}} and returns the results of the test.
 
@@ -186,8 +191,8 @@ Configure the following fields:
 - **User**: Your [v1 authorization username](#create-v1-authorizations)
 - **Password**: Your [v1 authorization password](#create-v1-authorizations)
 
-{{% show-in "v2" %}}{{< img-hd src="/img/influxdb/OSS-v2-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for InfluxDB OSS 2.x with DBRP warning" />}}{{% /show-in %}}
-{{% show-in "cloud" %}}{{< img-hd src="/img/influxdb/influxdb-v2-cloud-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud (TSM) with v1 auth" />}}{{% /show-in %}}
+{{% show-in "v2" %}}{{< img-hd src="/img/grafana/influxdb-v2-grafana-influxql.png" alt="InfluxQL configuration for InfluxDB OSS 2.x with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud" %}}{{< img-hd src="/img/grafana/influxdb-cloud-grafana-influxql.png" alt="InfluxQL configuration for InfluxDB Cloud (TSM) with v1 auth" />}}{{% /show-in %}}
 
 Click **Save & Test**. Grafana attempts to connect to {{% show-in "v2" %}}InfluxDB OSS 2.x{{% /show-in %}}{{% show-in "cloud" %}}InfluxDB Cloud{{% /show-in %}} and returns the results of the test.
 

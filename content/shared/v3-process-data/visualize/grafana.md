@@ -110,17 +110,18 @@ Use the plugin to query and visualize data from {{< product-name >}} with
 both SQL and InfluxQL.
 
 > [!Note]
-> #### Grafana 10.3+
+> #### Grafana 12.2+
 >
-> The instructions below are for **Grafana 10.3+** which introduced the newest
-> version of the InfluxDB core plugin.
+> The instructions below are for **Grafana 12.2+** with the `newInfluxDSConfigPageDesign`
+> feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
 > The updated plugin includes **SQL support** for InfluxDB 3-based products such
-> as {{< product-name >}}, and the interface dynamically adapts based on your product and query language selection in [URL and authentication](#configure-url-authentication)s.
+> as {{< product-name >}}, and the interface dynamically adapts based on your
+> product and query language selection in [URL and authentication](#configure-url-and-authentication).
 
 ## Before you begin
 
 **Prerequisites:**
-- Grafana 10.3 or later
+- Grafana 12.2 or later
 - Administrator role in Grafana
 - {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core,enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
 
@@ -171,10 +172,22 @@ When you select **SQL** as the query language, configure the following fields:
 
 - **Token**: {{% show-in "cloud-serverless" %}}An [API token](/influxdb3/version/admin/tokens/) with read access to the bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}A [database token](/influxdb3/version/admin/tokens/#database-tokens) with read access to the database{{% /show-in %}}{{% show-in "core,enterprise" %}}Your {{% token-link "admin" "database" %}} with read access to the database{{% /show-in %}}
 
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
-{{% show-in "core, enterprise" %}}{{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-serverless-grafana-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-dedicated-grafana-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/grafana/influxdb3-clustered-grafana-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "core" %}}{{< img-hd src="/img/grafana/influxdb3-core-grafana-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "enterprise" %}}{{< img-hd src="/img/grafana/influxdb3-enterprise-grafana-sql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+
+{{% show-in "core,enterprise,clustered" %}}
+#### Use SQL without TLS/SSL
+If using SQL to query {{% product-name %}} without TLS/SSL, enable the 
+**Insecure Connection** option in your InfluxDB datasource configuration:
+
+1. Under **Database settings**, enable **Advanced Database Settings**.
+2. Enable **Insecure Connection**.
+
+{{% img-hd src="/img/grafana/grafana-sql-insecure-connection.png" alt="Query InfluxDB using SQL without TLS/SSL" /%}}
+{{% /show-in %}}
 
 > [!Important]
 > #### Grafana queries through a proxy require HTTP/2
@@ -216,11 +229,11 @@ When you select **InfluxQL** as the query language, configure the following fiel
 
 - **HTTP Method**: Select **POST** (recommended) or **GET**
 
-{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/influxdb3/cloud-serverless-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
-{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/influxdb3/cloud-dedicated-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
-{{% show-in "clustered" %}}{{< img-hd src="/img/influxdb3/cluster-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
-<!-- Grafana hasn't added Core as a product option yet -->
-{{% show-in "enterprise" %}}{{< img-hd src="/img/influxdb3/enterprise-v3-grafana-product-dropdown-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud-serverless" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-serverless-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-dedicated-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "clustered" %}}{{< img-hd src="/img/grafana/influxdb3-clustered-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
+{{% show-in "core" %}}{{< img-hd src="/img/grafana/influxdb3-core-grafana-influxql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "enterprise" %}}{{< img-hd src="/img/grafana/influxdb3-enterprise-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 
 Click **Save & test**. Grafana attempts to connect to {{% product-name %}} and returns the result of the test.
 
