@@ -232,7 +232,7 @@ When you select **InfluxQL** as the query language, configure the following fiel
 {{% show-in "cloud-serverless" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-serverless-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 {{% show-in "cloud-dedicated" %}}{{< img-hd src="/img/grafana/influxdb3-cloud-dedicated-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 {{% show-in "clustered" %}}{{< img-hd src="/img/grafana/influxdb3-clustered-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
-{{% show-in "core" %}}{{< img-hd src="/img/grafana/influxdb3-core-grafana-influxql.png" alt="SQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
+{{% show-in "core" %}}{{< img-hd src="/img/grafana/influxdb3-core-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}}" />}}{{% /show-in %}}
 {{% show-in "enterprise" %}}{{< img-hd src="/img/grafana/influxdb3-enterprise-grafana-influxql.png" alt="InfluxQL configuration for {{% product-name %}} with DBRP warning" />}}{{% /show-in %}}
 
 Click **Save & test**. Grafana attempts to connect to {{% product-name %}} and returns the result of the test.
