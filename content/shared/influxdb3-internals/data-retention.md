@@ -9,9 +9,6 @@ are filtered out of query results, even though the data may still exist in stora
 {{% /show-in %}}
 - [Retention period duration formats](#retention-period-duration-formats)
 - [Set database retention period](#set-database-retention-period)
-{{% show-in "core" %}}
-- [Retention period limitations](#retention-period-limitations)
-{{% /show-in %}}
 {{% show-in "enterprise" %}}
 - [Update retention periods](#update-retention-periods)
 - [Retention period precedence](#retention-period-precedence)
