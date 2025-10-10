@@ -27,8 +27,18 @@ to visualize data from your {{% product-name %}} instance.
 > {{< influxdb-version-detector >}}
 
 > [!Note]
+> #### Grafana 12.2+
+>
+> The instructions below are for **Grafana 12.2+** with the `newInfluxDSConfigPageDesign`
+> feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
+> The updated plugin includes **SQL support** for InfluxDB 3-based products such
+> as {{< product-name >}}, and the interface dynamically adapts based on your
+> product and query language selection in [URL and authentication](#configure-url-and-authentication).
+
+> [!Note]
 > #### Required
-> - The instructions in this guide require **Grafana Cloud** or **Grafana v10.3+**.
+> - The instructions below are for **Grafana 12.2+** with the `newInfluxDSConfigPageDesign`
+>   feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
 >   For information about using InfluxDB with other versions of Grafana,
 >   see the [Grafana documentation](https://grafana.com/docs/grafana/latest/datasources/influxdb/).
 > - To use **Flux**, use **InfluxDB 1.8.1+** and [enable Flux](/influxdb/v1/flux/installation/)
@@ -145,7 +155,7 @@ In the **URL and authentication** section, configure the following:
 
 ### Configure database settings
 
-The fields in this section change based on your query language selection in [URL and authentication](#configure-url-authentication).
+The fields in this section change based on your query language selection in [URL and authentication](#configure-url-and-authentication).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

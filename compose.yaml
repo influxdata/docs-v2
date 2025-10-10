@@ -369,6 +369,18 @@ services:
         target: /var/lib/influxdb3/plugins/custom
     secrets:
       - influxdb3-enterprise-admin-token
+  influxdb3-explorer:
+    container_name: influxdb3-explorer
+    image: influxdata/influxdb3-ui:latest
+    pull_policy: always
+    ports:
+      - 8888:80
+      - 8889:8888
+    command:
+      - --mode=admin
+    profiles:
+      - explorer
+      - influxdb3
   telegraf-pytest:
     container_name: telegraf-pytest
     image: influxdata/docs-pytest

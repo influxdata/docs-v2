@@ -240,14 +240,20 @@ Instead of configuring connections through the UI, you can pre-define connection
    - **`DEFAULT_SERVER_NAME`**: a display name (only used by Explorer) for your [InfluxDB 3 Core](/influxdb3/core/get-started/setup/#start-influxdb) or [Enterprise](/influxdb3/enterprise/get-started/setup/#start-influxdb) server
 
    > [!Note]
-   > If connecting to a local, _non-Docker_ instance, use `host.docker.internal` as your server host--for example:
+   > #### When to use `host.docker.internal`
+   >
+   > If your InfluxDB 3 instance is running in Docker (not the same container as Explorer),
+   > use `host.docker.internal` as your server host to allow the Explorer container to
+   > connect to the InfluxDB container on the host--for example:
    >
    > ```txt
    > "DEFAULT_INFLUX_SERVER": "http://host.docker.internal:8181"
    > ```
    >
-   > `host.docker.internal` allows the Docker container to connect to services running on your host machine.
-   > For more information, see the [Docker documentation](https://docs.docker.com/desktop/features/networking).
+   > - If both Explorer and InfluxDB are in the same Docker network, use the container name instead.
+   > - If InfluxDB is running natively on your machine (not in Docker), use `localhost`.
+   >
+   > For more information, see the [Docker networking documentation](https://docs.docker.com/desktop/features/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host).
 
 2. **Mount the configuration directory:**
 

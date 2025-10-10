@@ -114,6 +114,15 @@ to visualize data from your **InfluxDB Enterprise** cluster.
    <http://localhost:3000> in your browser.
 
 > [!Note]
+> #### Grafana 12.2+
+>
+> The instructions below are for **Grafana 12.2+** with the `newInfluxDSConfigPageDesign`
+> feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
+> The updated plugin includes **SQL support** for InfluxDB 3-based products such
+> as {{< product-name >}}, and the interface dynamically adapts based on your
+> product and query language selection in [URL and authentication](#configure-url-and-authentication).
+
+> [!Note]
 > #### Using Grafana Cloud with a local InfluxDB instance
 >
 > If you need to keep your database local, consider running Grafana locally instead of using Grafana Cloud,
@@ -147,7 +156,7 @@ In the **URL and authentication** section, configure the following:
 
 ### Configure database settings
 
-The fields in this section change based on your query language selection in [URL and authentication](#configure-url-authentication).
+The fields in this section change based on your query language selection in [URL and authentication](#configure-url-and-authentication).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -165,7 +174,7 @@ When you select **InfluxQL** as the query language, configure the following:
 - **User**: Your InfluxDB username _(if [authentication is enabled](/enterprise_influxdb/v1/administration/authentication_and_authorization/))_
 - **Password**: Your InfluxDB password _(if [authentication is enabled](/enterprise_influxdb/v1/administration/authentication_and_authorization/))_
 
-{{< img-hd src="/img/influxdb3/enterprise-v1-grafana-product-dropdown-flux.png" alt="InfluxQL configuration for InfluxDB Enterprise 1.x" />}}
+{{< img-hd src="/img/grafana/enterprise-influxdb-v1-grafana-influxql.png" alt="InfluxQL configuration for InfluxDB Enterprise 1.x" />}}
 
 Click **Save & Test**. Grafana attempts to connect to InfluxDB Enterprise and returns the result of the test.
 
@@ -186,7 +195,7 @@ When you select **Flux** as the query language, configure the following:
    - **Default Bucket**: Provide a default database and retention policy 
    - **Token**: If [InfluxDB authentication is enabled](/enterprise_influxdb/v1/administration/authentication_and_authorization/)
 
-{{< img-hd src="/img/influxdb3/enterprise-v1-grafana-product-dropdown-flux.png" alt="Flux configuration for InfluxDB Enterprise 1.x" />}}
+{{< img-hd src="/img/grafana/enterprise-influxdb-v1-grafana-flux.png" alt="Flux configuration for InfluxDB Enterprise 1.x" />}}
 
 Click **Save & Test**. Grafana attempts to connect to InfluxDB Enterprise and returns the result of the test.
 

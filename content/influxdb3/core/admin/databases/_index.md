@@ -12,6 +12,8 @@ influxdb3/core/tags: [databases]
 related:
   - /influxdb3/core/write-data/best-practices/schema-design/
   - /influxdb3/core/reference/cli/influxdb3/
+  - /influxdb3/core/api/v3/#tag/Database, Database API reference
+  - /influxdb3/core/reference/internals/data-retention/
   - /influxdb3/explorer/manage-databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/
@@ -22,5 +24,5 @@ source: /shared/influxdb3-admin/databases/_index.md
 ---
 
 <!--
-The content of this file is located at content/shared/influxdb3-admin/databases/_index.md
+//SOURCE - content/shared/influxdb3-admin/databases/_index.md
 -->
