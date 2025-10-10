@@ -142,9 +142,16 @@ values using a numeric value plus a duration unit.
 | `y`  | year (365 days) |
 
 > [!Note]
+> Minute (`m`) and second (`s`) units are not supported for retention periods.
+
+> [!Warning]
+> #### Retention period constraints
+>
 > - **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
->   Setting `0<unit>` (for example, `0d`) marks all data for immediate deletion.
-> - **Unsupported units**: Minute (`m`) and second (`s`) units are not supported.
+> - **Zero-duration periods**: Setting a retention period to `0<unit>` (for example,
+>   `0d` or `0h`) is allowed but marks all data for immediate deletion at query time.
+>   _This differs from InfluxDB 1.x and 2.x where `0d` meant infinite retention._
+> - **Infinite retention**: Use `none` to set an infinite retention period.
 
 ### Example duration values
 

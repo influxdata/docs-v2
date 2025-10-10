@@ -76,7 +76,7 @@ be negative or contain whitespace.
 > - **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
 > - **Zero-duration periods**: Setting a retention period to `0<unit>` (for example,
 >   `0d` or `0h`) is allowed but marks all data for immediate deletion at query time.
->   This differs from InfluxDB 1.x and 2.x where `0d` meant infinite retention.
+>   _This differs from InfluxDB 1.x and 2.x where `0d` meant infinite retention._
 > - **Infinite retention**: Use `none` to set an infinite retention period.
 
 ### Example retention period values
@@ -163,17 +163,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
 
 {{% show-in "core" %}}
-## Retention period limitations
 
-{{< product-name >}} has the following limitations for retention periods:
-
-- **Immutable**: Retention periods cannot be changed after a database is created.
-  To change the retention period, you must create a new database and migrate your data.
-- **Database-only**: Retention periods apply to entire databases.
-- **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
-  Setting `0<unit>` is allowed but marks all data for immediate deletion.
-- **Query-time enforcement**: Data beyond the retention period is filtered from queries
-  but may still exist in storage until the retention enforcement service runs.
 
 > [!Note]
 > #### Retention periods are immutable in Core

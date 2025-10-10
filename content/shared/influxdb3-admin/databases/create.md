@@ -148,7 +148,6 @@ By default, data does not expire. When creating a database, set a _retention per
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
 For example, `30d` means 30 days.
-A zero duration (`0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
 #### Valid durations units include
@@ -159,6 +158,15 @@ The retention period value cannot be negative or contain whitespace.
 - **w**: week
 - **mo**: month
 - **y**: year
+
+> [!Warning]
+> #### Retention period constraints
+>
+> - **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
+> - **Zero-duration periods**: Setting a retention period to `0<unit>` (for example,
+>   `0d` or `0h`) is allowed but marks all data for immediate deletion at query time.
+>   _This differs from InfluxDB 1.x and 2.x where `0d` meant infinite retention._
+> - **Infinite retention**: Use `none` to set an infinite retention period.
 
 For more information about retention periods, see [Data retention](/influxdb3/version/reference/internals/data-retention/).
 

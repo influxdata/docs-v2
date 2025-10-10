@@ -23,8 +23,8 @@ point is marked for deletion and is removed from the database the next time the
 retention enforcement service runs.
 
 By default, data does not expire. When you [create a database](/influxdb3/version/admin/databases/create/),
-you can optionally set a retention period. Retention periods can be as short as an hour
-or infinite (`none`).
+you can optionally set a retention period.
+The minimum practical retention period is 1 hour (`1h`).
 
 Database retention periods can be [updated after creation](/influxdb3/version/reference/cli/influxdb3/update/database/).
 For tables within a database, you can [set table-specific retention periods](/influxdb3/version/admin/tables/create/#create-a-table-with-a-retention-period)
@@ -44,8 +44,8 @@ When a point's timestamp is beyond the retention period (relative to now), the
 point is not queryable and will be deleted.
 
 By default, data does not expire. When you [create a database](/influxdb3/version/admin/databases/create/),
-you can optionally set a retention period. Retention periods can be as short as one hour
-(`1h`) or infinite (`none`).
+you can optionally set a retention period.
+The minimum practical retention period is 1 hour (`1h`).
 
 For complete details about retention periods, including duration formats and limitations,
 see [Data retention in {{< product-name >}}](/influxdb3/version/reference/internals/data-retention/).
