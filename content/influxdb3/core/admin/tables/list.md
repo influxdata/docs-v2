@@ -1,25 +1,25 @@
 ---
 title: List tables
 description: >
-  Use the [`influxdb3 query` command](/influxdb3/core/reference/cli/influxdb3/query/)
-  or the [HTTP API](/influxdb3/core/api/v3/) to list tables in a specified database in {{< product-name >}}.
+  Use the influxdb3 CLI or HTTP API to list tables in a specified database
+  in {{< product-name >}}.
   Use SQL SHOW TABLES or InfluxQL SHOW MEASUREMENTS statements.
 menu:
   influxdb3_core:
     parent: Manage tables
 weight: 202
 list_code_example: |
-  ```sh
-  # CLI
+  ```sh{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+  # influxdb3 CLI
   influxdb3 query \
-    --database <DATABASE_NAME> \
-    --token <AUTH_TOKEN> \
+    --database DATABASE_NAME \
+    --token AUTH_TOKEN \
     "SHOW TABLES"
 
   # HTTP API
   curl --get "http://localhost:8181/api/v3/query_sql" \
-    --header "Authorization: Bearer <AUTH_TOKEN>" \
-    --data-urlencode "db=<DATABASE_NAME>" \
+    --header "Authorization: Bearer AUTH_TOKEN" \
+    --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SHOW TABLES"
   ```
 related:
