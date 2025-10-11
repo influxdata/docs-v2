@@ -6,6 +6,9 @@ menu:
     name: Monitor
     parent: Administration
     weight: 50
+aliases:
+  - /enterprise_influxdb/v1/administration/monitor-enterprise/monitor-with-cloud/
+  - /enterprise_influxdb/v1/administration/monitor/monitor-with-cloud/
 ---
 
 Monitoring is the act of observing changes in data over time.
