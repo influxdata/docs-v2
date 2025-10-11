@@ -49,7 +49,7 @@ weight: 1
 > [!Note]
 > #### New InfluxDB Cloud signups use InfluxDB 3
 >
-> New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdata/cloud-serverless/).
+> New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdb3/cloud-serverless/).
 >
 > If you are looking to use InfluxDB v2 (TSM), consider self-hosting [InfluxDB OSS v2](/influxdata/v2/).
 
