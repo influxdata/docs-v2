@@ -29,7 +29,7 @@
     "winston": "^3.16.0"
   },
   "dependencies": {
-    "axios": "^1.8.4",
+    "axios": "^1.12.0",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
@@ -42,6 +42,8 @@
   "scripts": {
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
+    "build:ts": "tsc --project tsconfig.json --outDir dist",
+    "build:ts:watch": "tsc --project tsconfig.json --outDir dist --watch",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
@@ -55,7 +57,7 @@
     "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
     "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
-    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/article-links.cy.js\" content/example.md"
+    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md"
   },
   "type": "module",
   "browserslist": [

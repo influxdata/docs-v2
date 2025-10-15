@@ -6,8 +6,22 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.4.1
+  latest_patch: 3.5.0
   placeholder_host: localhost:8181
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database']
+        optional_params: []
+    characteristics: ['Free', 'Self-hosted', 'SQL/InfluxQL', 'No auth required', 'Databases']
+    detection:
+      ping_headers:
+        x-influxdb-version: '^3\.'
+        x-influxdb-build: 'Core'
+      url_contains: ['localhost:8181']
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Core?
     - How do I write a plugin for the Python Processing engine?
@@ -21,8 +35,22 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.4.1
+  latest_patch: 3.5.0
   placeholder_host: localhost:8181
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Self-hosted', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      ping_headers:
+        x-influxdb-version: '^3\.'
+        x-influxdb-build: 'Enterprise'
+      url_contains: ['localhost:8181']
   ai_sample_questions:
     - How do I install and run InfluxDB 3 Enterprise?
     - Help me write a plugin for the Python Processing engine?
@@ -35,7 +63,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.2.0
+  latest_patch: 1.3.0
   placeholder_host: localhost:8888
   ai_sample_questions:
     - How do I query data using InfluxDB 3 Explorer?
@@ -51,6 +79,20 @@ influxdb3_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Bucket', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Bucket', 'Token']
+        optional_params: []
+      Flux:
+        required_params: ['Host', 'Organization', 'Token', 'Default bucket']
+        optional_params: []
+    characteristics: ['Paid/Free', 'Cloud', 'All languages', 'Token', 'Buckets']
+    detection:
+      url_contains: ['us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com']
   ai_sample_questions:
     - How do I migrate from InfluxDB Cloud 2 to InfluxDB Cloud Serverless?
     - What tools can I use to write data to InfluxDB Cloud Serverless?
@@ -64,8 +106,19 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-cloud-dedicated/"
-  latest_cli: 2.10.3
+  latest_cli: 2.10.5
   placeholder_host: cluster-id.a.influxdb.io
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Cloud', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      url_contains: ['influxdb.io']
   ai_sample_questions:
     - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
     - What tools can I use to write data to Cloud Dedicated?
@@ -81,6 +134,18 @@ influxdb3_clustered:
   latest: clustered
   link: "https://www.influxdata.com/contact-sales-influxdb-clustered/"
   placeholder_host: cluster-host.com
+  detector_config:
+    query_languages:
+      SQL:
+        required_params: ['Host', 'Database', 'Token']
+        optional_params: []
+      InfluxQL:
+        required_params: ['URL', 'Database', 'Token']
+        optional_params: []
+    characteristics: ['Paid', 'Self-hosted', 'SQL/InfluxQL', 'Token', 'Databases']
+    detection:
+      ping_headers:
+        x-influxdb-version: 'influxqlbridged-development'
   ai_sample_questions:
     - How do I use a Helm chart to configure Clustered?
     - What tools can I use to write data to Clustered?
@@ -100,9 +165,23 @@ influxdb:
   latest: v2.7
   latest_patches:
     v2: 2.7.12
-    v1: 1.11.8
+    v1: 1.12.2
   latest_cli:
     v2: 2.7.5
+  detector_config:
+    query_languages:
+      InfluxQL:
+        required_params: ['URL', 'Database', 'Auth Type (Basic or Token)']
+        optional_params: []
+      Flux:
+        required_params: ['URL', 'Token', 'Default bucket']
+        optional_params: []
+    characteristics: ['Free', 'Self-hosted', 'InfluxQL/Flux', 'Token or Username/Password', 'Buckets']
+    detection:
+      ping_headers:
+        x-influxdb-build: 'OSS'
+        x-influxdb-version: '^(1|2)\.'
+      url_contains: ['localhost:8086']
   ai_sample_questions:
     - How do I write and query data with InfluxDB v2 OSS?
     - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core?
@@ -117,6 +196,17 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  detector_config:
+    query_languages:
+      InfluxQL:
+        required_params: ['URL', 'Database', 'Token']
+        optional_params: []
+      Flux:
+        required_params: ['URL', 'Organization', 'Token', 'Default bucket']
+        optional_params: []
+    characteristics: ['Paid/Free', 'Cloud', 'InfluxQL/Flux', 'Token', 'Databases/Buckets']
+    detection:
+      url_contains: ['us-west-2-1.aws.cloud2.influxdata.com', 'us-west-2-2.aws.cloud2.influxdata.com', 'us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com', 'us-central1-1.gcp.cloud2.influxdata.com', 'westeurope-1.azure.cloud2.influxdata.com', 'eastus-1.azure.cloud2.influxdata.com']
   ai_sample_questions:
     - How do I write and query data with InfluxDB Cloud 2?
     - How is Cloud 2 different from Cloud Serverless?
@@ -143,7 +233,7 @@ telegraf:
   versions: [v1]
   latest: v1.36
   latest_patches:
-    v1: 1.36.0
+    v1: 1.36.2
   ai_sample_questions:
     - How do I install and configure Telegraf?
     - How do I write a custom Telegraf plugin?
@@ -171,7 +261,7 @@ kapacitor:
   versions: [v1]
   latest: v1.8
   latest_patches:
-    v1: 1.8.1
+    v1: 1.8.2
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom Kapacitor task?
@@ -183,9 +273,21 @@ enterprise_influxdb:
   menu_category: self-managed
   list_order: 5
   versions: [v1]
-  latest: v1.11
+  latest: v1.12
   latest_patches:
-    v1: 1.11.8
+    v1: 1.12.2
+  detector_config:
+    query_languages:
+      InfluxQL:
+        required_params: ['URL', 'Database', 'User', 'Password']
+        optional_params: []
+      Flux:
+        required_params: ['URL', 'User', 'Password', 'Default database']
+        optional_params: []
+    characteristics: ['Paid', 'Self-hosted', 'InfluxQL/Flux', 'Username/Password', 'Databases']
+    detection:
+      ping_headers:
+        x-influxdb-build: 'Enterprise'
   ai_sample_questions:
   - How can I configure my InfluxDB v1 Enterprise server?
   - How do I replicate data between InfluxDB v1 Enterprise and OSS?

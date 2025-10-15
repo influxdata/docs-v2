@@ -1,3 +1,38 @@
+## 2.10.5 {date="2025-09-23"}
+
+### Bug Fixes
+
+- Update warnings for the `influxctl database delete` command.
+
+## 2.10.4 {date="2025-09-22"}
+
+### Features
+
+- Add the [`influxctl table undelete` command](/influxdb3/version/reference/cli/influxctl/table/undelete/).
+- Add `--filter-status` flag to the
+  [`influxctl database list`](/influxdb3/version/reference/cli/influxctl/database/list/)
+  and [`influxctl table list`](/influxdb3/version/reference/cli/influxctl/table/list/)
+  commands.
+
+### Bug Fixes
+
+- Allow changing only maxTables or maxColumns individually.
+
+### Dependency updates
+
+- Update `github.com/apache/arrow-go/v18` from 18.4.0 to 18.4.1.
+- Update `github.com/golang-jwt/jwt/v5` from 5.2.3 to 5.3.0.
+- Update `github.com/stretchr/testify` from 1.10.0 to 1.11.1.
+- Update `golang.org/x/mod` from 0.26.0 to 0.28.0.
+- Update `golang.org/x/oauth2` from 0.30.0 to 0.31.0.
+- Update `google.golang.org/grpc` from 1.74.2 to 1.75.1.
+- Update `google.golang.org/protobuf` from 1.36.6 to 1.36.9.
+- Update `helm.sh/helm/v3` from 3.18.4 to 3.18.5.
+- Update IOxProxy Protobuf.
+- Update IOxProxy proto to include `UndeleteTable`.
+- Upgrade Go to 1.25.1.
+- Upgrade `make` dependencies.
+
 ## 2.10.3 {date="2025-07-30"}
 
 ### Features

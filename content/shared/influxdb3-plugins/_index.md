@@ -32,7 +32,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 ## Set up the Processing Engine
 
-To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files. 
+To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
@@ -50,6 +50,14 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: Unique identifier for your instance
 - {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: Type of object store (for example, file or s3)
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: Absolute path to the directory where plugin files are stored. Store all plugin files in this directory or its subdirectories.
+
+> [!Note]
+> #### Use custom plugin repositories
+>
+> By default, plugins referenced with the `gh:` prefix are fetched from the official
+> [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository.
+> To use a custom repository, add the `--plugin-repo` flag when starting the server.
+> See [Use a custom plugin repository](#option-3-use-a-custom-plugin-repository) for details.
 
 ### Configure distributed environments
 
@@ -131,6 +139,42 @@ This approach:
 - Ensures you're using the latest version
 - Simplifies updates and maintenance
 - Reduces local storage requirements
+
+##### Option 3: Use a custom plugin repository
+
+For organizations that maintain their own plugin repositories or need to use private/internal plugins,
+configure a custom plugin repository URL:
+
+```bash
+# Start the server with a custom plugin repository
+influxdb3 serve \
+  --node-id node0 \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://internal.company.com/influxdb-plugins/"
+```
+
+Then reference plugins from your custom repository using the `gh:` prefix:
+
+```bash
+# Fetches from: https://internal.company.com/influxdb-plugins/myorg/custom_plugin.py
+influxdb3 create trigger \
+  --trigger-spec "every:5m" \
+  --plugin-filename "gh:myorg/custom_plugin.py" \
+  --database my_database \
+  custom_trigger
+```
+
+**Use cases for custom repositories:**
+
+- **Private plugins**: Host proprietary plugins not suitable for public repositories
+- **Air-gapped environments**: Use internal mirrors when external internet access is restricted
+- **Development and staging**: Test plugins from development branches before production deployment
+- **Compliance requirements**: Meet data governance policies requiring internal hosting
+
+The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files.
+See the [plugin-repo configuration option](/influxdb3/version/reference/config-options/#plugin-repo) for more details.
 
 Plugins have various functions such as: 
 

@@ -14,6 +14,14 @@ Using InfluxDB 3's IOx-specific Flight RPC protocol, clients send a single `DoGe
 **Flight SQL clients** use the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) for querying an SQL database server.
 They can use SQL to query data stored in an {{% product-name %}} database, but they can't use InfuxQL.
 
+> [!Important]
+> #### Flight SQL requires HTTP/2
+>
+> Flight SQL uses gRPC, which requires **HTTP/2**.
+> If you connect to {{% product-name %}} through a proxy (such as HAProxy, nginx, or a load balancer),
+> verify that your proxy is configured to support HTTP/2.
+> Without HTTP/2 support, Flight SQL connections will fail.
+
 Clients are maintained by Apache Arrow projects or third-parties.
 For specifics about a Flight client, see the client's GitHub repository.
 
