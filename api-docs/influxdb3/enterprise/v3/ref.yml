@@ -1239,11 +1239,13 @@ paths:
           required: true
           schema:
             type: string
+          descriptiion: Thename of the table containing the distinct cache.
         - name: name
           in: query
           required: true
           schema:
             type: string
+          description: The name of the distinct cache to delete.
       responses:
         '200':
           description: Success. The distinct cache has been deleted.
@@ -1292,11 +1294,13 @@ paths:
           required: true
           schema:
             type: string
+          description: The name of the table containing the last cache.
         - name: name
           in: query
           required: true
           schema:
             type: string
+          description: The name of the last cache to delete.
       responses:
         '200':
           description: Success. The last cache has been deleted.
