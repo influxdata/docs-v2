@@ -46,7 +46,7 @@ To activate the Processing Engine, start your {{% product-name %}} server with t
 >   - python/
 > {{< /filesystem-diagram >}}
 >
-> Add the directory (not just the binary) to your PATH. Moving only the binary will cause Python runtime errors.
+> Add the parent directory that contains both influxdb3 and python/ to your PATH; do not move the binary out of this directory.
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
