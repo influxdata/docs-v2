@@ -82,7 +82,7 @@
     - /influxdb/cloud
   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
   slug: |
-    On **February 1, 2026**, the `latest` tag for InfluxDB Docker images will
+    On **February 3, 2026**, the `latest` tag for InfluxDB Docker images will
     point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
     tags in your Docker deployments.
   message: |
