@@ -19,7 +19,8 @@ These are the two main approaches to Monitoring your TICK stack:
 
 ## Internal monitoring
 
-{{% warn %}}Not recommended for production environments.{{% /warn %}}
+> [!Warning]
+> Not recommended for production environments.
 
 By default, the InfluxData platform is configured to monitor itself.
 Telegraf collects metrics from the host on which it's running for things such as
