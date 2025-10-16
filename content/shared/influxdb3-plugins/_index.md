@@ -311,7 +311,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 After writing your plugin:
 
 - [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
-- [Install any Python dependencies](#install-python-dependencies) your plugin requires
+- [Install any Python dependencies](#manage-plugin-dependencies) your plugin requires
 - Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
 
 ## Set up a trigger
@@ -592,7 +592,7 @@ These examples install the specified Python package (for example, pandas) into t
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
 > Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
->For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
+>For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md).
 
 {{% /code-placeholders %}}
 
