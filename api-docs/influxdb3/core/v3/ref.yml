@@ -1168,7 +1168,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The name of the table containing the distinct cache. 
+          description: The name of the table containing the distinct cache.
         - name: name
           in: query
           required: true
