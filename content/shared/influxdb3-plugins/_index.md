@@ -37,18 +37,15 @@ To activate the Processing Engine, start your {{% product-name %}} server with t
 > [!Important]
 > #### Keep influxdb3 and python/ together
 >
-> The `influxdb3` tar archive includes the `influxdb3` binary and a `python/` directory.
-> If you move the `influxdb3` binary, ensure that the `influxdb3` binary and the `python/`
-> directory remain together.
+> The influxdb3 binary requires the adjacent `python/` directory to function. 
+> If you manually extract from tar.gz, keep them in the same parent directory:
+> ```
+> your-install-location/
+> ├── influxdb3
+> └── python/
+> ```
 >
-> {{< filesystem-diagram >}}
-> - your-install-location/
->   - influxdb3
->   - python/
-> {{< /filesystem-diagram >}}
->
-> Add the parent directory that contains both the `influxdb3` binary and the `python/` directory
-> to your system $PATH.
+> Add the parent directory to your PATH; do not move the binary out of this directory.
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
