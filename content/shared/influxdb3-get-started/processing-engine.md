@@ -49,7 +49,7 @@ when starting the {{% product-name %}} server.
 the processing engine to run.
 
 > [!Note]
-> If you manually installed from tar.gz, ensure the `influxdb3` binary and `python/` directory remain in the same parent location. The install script handles this automatically.
+> If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.
 
 {{% code-placeholders "PLUGIN_DIR" %}}
 <!-- pytest.mark.skip -->
