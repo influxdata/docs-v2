@@ -1228,6 +1228,36 @@ paths:
             Bad request.
 
             The server responds with status `400` if the request would overwrite an existing cache with a different configuration.
+    delete:
+      operationId: DeleteConfigureDistinctCache
+      summary: Delete distinct cache
+      description: Deletes a distinct cache.
+      parameters:
+        - $ref: '#/components/parameters/db'
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The name of the table containing the distinct cache.
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The name of the distinct cache to delete.
+      responses:
+        '200':
+          description: Success. The distinct cache has been deleted.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Cache not found.
+      tags:
+        - Cache data
+        - Table      
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1264,11 +1294,13 @@ paths:
           required: true
           schema:
             type: string
+          description: The name of the table containing the last cache.
         - name: name
           in: query
           required: true
           schema:
             type: string
+          description: The name of the last cache to delete.
       responses:
         '200':
           description: Success. The last cache has been deleted.
