@@ -1,3 +1,40 @@
+## 2.11.0 {date="2025-10-17"}
+
+### Features
+
+- Update the output of the `token create` and `management create` commands to include table output as well as the token string.
+
+Before example:
+
+```
+warn	please copy the token and store in a safe place
+warn	this is the *only time* you will see the token
+<REDACTED_TOKEN_STRING>
+```
+
+After example:
+
+```
++-------------+--------------------------------------+
+|          id | 11111111-1111-1111-1111-111111111111 |
+| description | Example Token                        |
+|  expires at | 2025-10-24T00:00:00Z                 |
+|  revoked at |                                      |
++-------------+--------------------------------------+
+warn	please copy the token and store in a safe place
+warn	this is the *only time* you will see the token
+<REDACTED_TOKEN_STRING>
+```
+
+### Dependency updates
+
+- Upgrade Go to 1.25.3.
+- Update `github.com/go-git/go-git/v5` from 5.16.2 to 5.16.3.
+- Update `golang.org/x/mod` from 0.28.0 to 0.29.0.
+- Update `golang.org/x/oauth2` from 0.31.0 to 0.32.0.
+- Update `google.golang.org/grpc` from 1.75.1 to 1.76.0.
+- Update `google.golang.org/protobuf` from 1.36.9 to 1.36.10.
+
 ## 2.10.5 {date="2025-09-23"}
 
 ### Bug Fixes
@@ -19,7 +56,7 @@
 - Allow changing only maxTables or maxColumns individually.
 
 ### Dependency updates
-
+ 
 - Update `github.com/apache/arrow-go/v18` from 18.4.0 to 18.4.1.
 - Update `github.com/golang-jwt/jwt/v5` from 5.2.3 to 5.3.0.
 - Update `github.com/stretchr/testify` from 1.10.0 to 1.11.1.
