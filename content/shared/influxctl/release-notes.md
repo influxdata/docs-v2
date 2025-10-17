@@ -35,11 +35,15 @@ warn	this is the *only time* you will see the token
 - Update `google.golang.org/grpc` from 1.75.1 to 1.76.0.
 - Update `google.golang.org/protobuf` from 1.36.9 to 1.36.10.
 
+---
+
 ## 2.10.5 {date="2025-09-23"}
 
 ### Bug Fixes
 
 - Update warnings for the `influxctl database delete` command.
+
+---
 
 ## 2.10.4 {date="2025-09-22"}
 
@@ -69,6 +73,8 @@ warn	this is the *only time* you will see the token
 - Update IOxProxy proto to include `UndeleteTable`.
 - Upgrade Go to 1.25.1.
 - Upgrade `make` dependencies.
+
+---
 
 ## 2.10.3 {date="2025-07-30"}
 
