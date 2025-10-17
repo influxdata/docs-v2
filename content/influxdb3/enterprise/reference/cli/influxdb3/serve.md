@@ -33,6 +33,16 @@ influxdb3 serve [OPTIONS] \
 > [!NOTE]
 > `--node-id` and `--cluster-id` support alphanumeric strings with optional hyphens.
 
+> [!Important]
+> #### Global configuration options
+> Some configuration options (like [`--num-io-threads`](/influxdb3/enterprise/reference/config-options/#num-io-threads)) are **global** and must be specified **before** the `serve` command:
+>
+> ```bash
+> influxdb3 --num-io-threads=8 serve --node-id=node0 --cluster-id=cluster0 --verbose
+> ```
+>
+> See [Global configuration options](/influxdb3/enterprise/reference/config-options/#global-configuration-options) for the complete list.
+
 ## Options
 
 | Option           |                                                      | Description                                                                                                                     |
@@ -100,6 +110,7 @@ influxdb3 serve [OPTIONS] \
 | {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
 |                  | `--node-id-from-env`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id-from-env)_                                 |
 |                  | `--num-cores`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-cores)_                                        |
+|                  | `--num-datafusion-threads`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-datafusion-threads)_                           |
 |                  | `--num-database-limit`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-database-limit)_                               |
 |                  | `--num-table-limit`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-table-limit)_                                  |
 |                  | `--num-total-columns-per-table-limit`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit)_                |
@@ -140,7 +151,6 @@ influxdb3 serve [OPTIONS] \
 |                  | `--traces-jaeger-max-msgs-per-second`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-max-msgs-per-second)_                |
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-tags)_                               |
 |                  | `--use-pacha-tree`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#use-pacha-tree)_                                   |
-| `-v`             | `--verbose`                                          | Enable verbose output                                                                                                           |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wait-for-running-ingestor`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wait-for-running-ingestor)_                        |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)_                               |
@@ -220,11 +230,11 @@ influxdb3 serve \
 
 ```bash
 influxdb3 serve \
-  --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01
+  --verbose
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER
