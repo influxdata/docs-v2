@@ -35,18 +35,20 @@ Once you have all the prerequisites in place, follow these steps to implement th
 To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
 
 > [!Important]
-> **Keep influxdb3 and python/ together.**
+> #### Keep influxdb3 and python/ together
 >
-> The influxdb3 binary requires the adjacent `python/` directory to function. 
-> If you manually extract from tar.gz, keep them in the same parent directory:
+> The `influxdb3` tar archive includes the `influxdb3` binary and a `python/` directory.
+> If you move the `influxdb3` binary, ensure that the `influxdb3` binary and the `python/`
+> directory remain together.
 >
 > {{< filesystem-diagram >}}
->   - your-install-location/
+> - your-install-location/
 >   - influxdb3
 >   - python/
 > {{< /filesystem-diagram >}}
 >
-> Add the parent directory that contains both influxdb3 and python/ to your PATH; do not move the binary out of this directory.
+> Add the parent directory that contains both the `influxdb3` binary and the `python/` directory
+> to your system $PATH.
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
