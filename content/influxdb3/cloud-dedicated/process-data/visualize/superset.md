@@ -58,7 +58,7 @@ To set up Superset to run in Docker containers with Flight SQL, follow these ste
 > [!Warning]
 > **Superset** is not officially supported on Windows. For more information about running Superset with
 > Windows and Docker, see the
-> [Superset documentation](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose#1-install-a-docker-engine-and-docker-compose).
+> [Superset documentation](https://superset.apache.org/docs/installation/docker-compose).
 
 1.  Follow the instructions to download and install Docker and docker-compose for your system:
 
