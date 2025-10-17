@@ -60,7 +60,7 @@ To set up Superset to run in Docker containers with Flight SQL, follow these ste
 > Windows and Docker, see the
 > [Superset documentation](https://superset.apache.org/docs/installation/docker-compose).
 
-1.  Follow the instructions to download and install Docker and docker-compose for your system:
+1.  Follow the instructions to download and install Docker and Docker Compose for your system:
 
     - **macOS**: [Install Docker for macOS](https://docs.docker.com/desktop/install/mac-install/)
     - **Linux**: [Install Docker for Linux](https://docs.docker.com/desktop/install/linux-install/)
