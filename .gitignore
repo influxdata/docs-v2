@@ -38,3 +38,4 @@ tmp
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
+influxdb3_plugins/

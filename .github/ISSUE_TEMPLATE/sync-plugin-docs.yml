@@ -37,9 +37,9 @@ body:
       label: Source Commit/Branch
       description: |
         Commit SHA, branch name, or tag from influxdb3_plugins repository to sync from.
-        Leave as `master` to sync from the latest main branch.
-      placeholder: "master"
-      value: "master"
+        Leave as `main` to sync from the latest main branch.
+      placeholder: "main"
+      value: "main"
     validations:
       required: true
 
