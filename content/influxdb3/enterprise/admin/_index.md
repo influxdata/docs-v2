@@ -11,5 +11,5 @@ source: /shared/influxdb3-admin/_index.md
 ---
 
 <!--
-The content of this file is located at content/shared/influxdb3-admin/_index.md
+//SOURCE - content/shared/influxdb3-admin/_index.md
 -->

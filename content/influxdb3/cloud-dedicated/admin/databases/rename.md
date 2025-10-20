@@ -25,6 +25,10 @@ to rename a database in your {{< product-name omit=" Cluster" >}} cluster.
 > or update [database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/).
 > After renaming a database, any existing database tokens will stop working and you
 > must create new tokens with permissions for the renamed database.
+>
+> If you create a new database using the previous database name, tokens
+> associated with that database name will grant access to the newly created
+> database.
 
 ## Rename a database using the influxctl CLI
 

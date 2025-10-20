@@ -10,7 +10,7 @@ introduced: "v1.23.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/slab/README.md, Slab Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/slab/README.md, Slab Plugin Source
 ---
 
 # Slab Input Plugin

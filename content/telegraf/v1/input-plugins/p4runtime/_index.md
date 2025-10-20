@@ -10,7 +10,7 @@ introduced: "v1.26.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/p4runtime/README.md, P4 Runtime Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/p4runtime/README.md, P4 Runtime Plugin Source
 ---
 
 # P4 Runtime Input Plugin

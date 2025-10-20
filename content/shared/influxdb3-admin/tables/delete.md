@@ -16,18 +16,15 @@ You can also schedule a hard deletion to permanently remove the table and its da
 
 ## Delete a table using the influxdb3 CLI
 
-1. If you haven't already, [download and install the `influxdb3` CLI](/influxdb3/version/reference/cli/influxdb3/#download-and-install-the-influxdb3-cli).
 
-2. Use the `influxdb3 delete table` command to delete a table:
+Use the `influxdb3 delete table` command to delete a table:
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-```sh
+```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 influxdb3 delete table \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -39,29 +36,25 @@ Replace the following:
 
 To permanently delete a table and its data immediately, use the `--hard-delete now` flag:
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-```sh
+```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 influxdb3 delete table \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --hard-delete now \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 ### Schedule a hard deletion
 
 To schedule a table for hard deletion at a specific time, use the `--hard-delete` flag with a timestamp:
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-```sh
+```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 influxdb3 delete table \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   --hard-delete "2025-12-31T23:59:59Z" \
   TABLE_NAME
 ```
-{{% /code-placeholders %}}
 
 ## Delete a table using the HTTP API
 
@@ -80,12 +73,10 @@ Include the following in your request:
 
 ### Soft delete a table
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -97,12 +88,10 @@ Replace the following:
 
 To schedule a hard deletion at a specific time, include the `hard_delete_at` parameter with an ISO 8601 timestamp:
 
-{{% code-placeholders "DATABASE_NAME|TABLE_NAME|AUTH_TOKEN" %}}
-```bash
+```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
 curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&hard_delete_at=2025-12-31T23:59:59Z" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
-{{% /code-placeholders %}}
 
 ### Response
 

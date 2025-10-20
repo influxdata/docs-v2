@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/dynatrace/README.md, Dynatrace Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/dynatrace/README.md, Dynatrace Plugin Source
 ---
 
 # Dynatrace Output Plugin
@@ -109,9 +109,9 @@ The endpoint for the Dynatrace Metrics API v2 is
   api_token = "your API token here" // hard-coded for illustration only, should be read from environment
 ```
 
-You can learn more about how to use the Dynatrace API
-[here](https://docs.dynatrace.com/docs/shortlink/section-api).
+You can learn more about how to use the [Dynatrace API](https://docs.dynatrace.com/docs/shortlink/section-api).
 
+[api]: https://docs.dynatrace.com/docs/shortlink/section-api
 [api-auth]: https://docs.dynatrace.com/docs/shortlink/api-authentication
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->

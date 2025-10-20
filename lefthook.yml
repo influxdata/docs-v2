@@ -10,12 +10,12 @@ pre-commit:
       run: yarn eslint {staged_files}
       fail_text: "Debug helpers found! Remove debug imports and calls before committing."
     build-agent-instructions:
-      glob: "CONTRIBUTING.md"
+      glob: "data/products.yml"
       run: yarn build:agent:instructions
     # Report linting warnings and errors, don't output files to stdout
     lint-markdown:
       tags: lint
-      glob: "{CONTRIBUTING.md,content/*.md}"
+      glob: "{README.md,DOCS-*.md,api-docs/README.md,content/*.md}"
       run: |
         docker compose run --rm --name remark-lint remark-lint '{staged_files}'
     cloud-lint:
@@ -82,6 +82,10 @@ pre-commit:
       run: '.ci/vale/vale.sh
         --config=content/influxdb/v2/.vale.ini
         --minAlertLevel=error {staged_files}'
+    build-typescript:
+      glob: "assets/js/*.ts"
+      run: yarn build:ts
+      stage_fixed: true
     prettier:
       tags: [frontend, style]
       glob: '*.{css,js,ts,jsx,tsx}'
@@ -108,7 +112,7 @@ pre-push:
         - content/example.md
       run: |
         echo "Running shortcode examples test due to changes in: {staged_files}"
-        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/article-links.cy.js" content/example.md
+        node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/index.cy.js" content/example.md
         exit $?
 
     # Manage Docker containers

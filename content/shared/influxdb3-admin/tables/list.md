@@ -9,9 +9,7 @@ This guide shows how to retrieve a list of all tables (measurements) in a databa
 
 ## List tables using the influxdb3 CLI
 
-1. If you haven't already, [download and install the `influxdb3` CLI](/influxdb3/version/reference/cli/influxdb3/#download-and-install-the-influxdb3-cli).
-
-2. Use the `influxdb3 query` command with the `SHOW TABLES` SQL statement:
+Use the `influxdb3 query` command with the `SHOW TABLES` SQL statement:
 
 {{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
 ```sh

@@ -10,7 +10,7 @@ introduced: "v0.12.1"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/sysstat/README.md, System Performance Statistics Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/sysstat/README.md, System Performance Statistics Plugin Source
 ---
 
 # System Performance Statistics Input Plugin

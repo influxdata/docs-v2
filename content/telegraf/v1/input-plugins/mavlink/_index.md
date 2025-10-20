@@ -10,7 +10,7 @@ introduced: "v1.35.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/mavlink/README.md, MavLink Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/mavlink/README.md, MavLink Plugin Source
 ---
 
 # MavLink Input Plugin
@@ -23,7 +23,11 @@ Currently the ArduPilot-specific Mavlink dialect is used, check the
 messages available.
 
 > [!WARNING]
-> This plugin potentially generates a large amount of data. If your output plugin cannot handle the rate of messages, use [Metric filters](/telegraf/v1/configuration/#metric-filtering) to limit the metrics written to outputs, and/or the `filters` configuration parameter to limit which Mavlink messages this plugin parses.
+> This plugin potentially generates a large amount of data. If your output
+> plugin cannot handle the rate of messages, use
+> [Metric filters](/telegraf/v1/configuration/#metric-filtering) to limit the metrics written to outputs,
+> and/or the `filters` configuration parameter to limit which Mavlink messages
+> this plugin parses.
 
 **Introduced in:** Telegraf v1.35.0
 **Tags:** iot
@@ -67,15 +71,15 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   ## prefix removed, eg: "global_position_int", "attitude"
   # filter = []
 
-  ## Mavlink system ID for Telegraf. Only used if the mavlink plugin is sending 
+  ## Mavlink system ID for Telegraf. Only used if the mavlink plugin is sending
   ## messages, eg. when `stream_request_frequency` is 0 (see below.)
   # system_id = 254
 
   ## Determines whether the plugin sends requests to subscribe to data.
   ## In mavlink, stream rates must be configured before data is received.
   ## This config item sets the rate in Hz, with 0 disabling the request.
-  ## 
-  ## This frequency should be set to 0 if your software already controls the 
+  ##
+  ## This frequency should be set to 0 if your software already controls the
   ## rates using REQUEST_DATA_STREAM or MAV_CMD_SET_MESSAGE_INTERVAL
   ## (See https://mavlink.io/en/mavgen_python/howto_requestmessages.html)
   # stream_request_frequency = 4

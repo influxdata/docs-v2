@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/outputs/wavefront/README.md, Wavefront Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/wavefront/README.md, Wavefront Plugin Source
 ---
 
 # Wavefront Output Plugin
@@ -187,8 +187,10 @@ The expected input for Wavefront is specified in the following way:
 <metric> <value> [<timestamp>] <source|host>=<sourceTagValue> [tagk1=tagv1 ...tagkN=tagvN]
 ```
 
-More information about the Wavefront data format is available
-[here](https://community.wavefront.com/docs/DOC-1031)
+More information about the Wavefront data format is available in the
+[documentation](https://community.wavefront.com/docs/DOC-1031).
+
+[docs]: https://community.wavefront.com/docs/DOC-1031
 
 ### Allowed values for metrics
 
