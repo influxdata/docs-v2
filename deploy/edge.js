@@ -84,10 +84,14 @@ exports.handler = (event, context, callback) => {
     '.txt': true,
     '.woff': true,
     '.woff2': true,
+    '.xml': true,
     '.yaml': true,
     '.yml': true,
     '.zip': true,
   };
+
+  // Remove multiple slashes from path
+  // permanentRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
 
   // Remove index.html from path
   permanentRedirect(
@@ -143,7 +147,7 @@ exports.handler = (event, context, callback) => {
   ////////////// CLI InfluxQL link (catch before latest redirect) //////////////
   permanentRedirect(
     /\/influxdb\/latest\/query_language\/spec/.test(request.uri),
-    request.uri.replace(/latest/, 'v1')
+    request.uri.replace(/latest/, 'v1.8')
   );
 
   ////////////////////////// Latest version redirects //////////////////////////

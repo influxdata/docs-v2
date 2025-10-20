@@ -1,0 +1,61 @@
+{{/*
+  InfluxDB Version Detector Modal Trigger Shortcode
+  Usage: {{< influxdb-version-detector >}}
+  Usage with Ask AI integration: {{< influxdb-version-detector context="grafana" ai_instruction="Help me use [context] with [influxdb_version]" >}}
+
+  This shortcode creates a button that opens a modal with the InfluxDB version detector component.
+  The component helps users identify which InfluxDB product they're using through a guided questionnaire.
+
+  Parameters:
+  - context: Optional context for Ask AI integration (e.g., "grafana")
+  - ai_instruction: Optional instruction template for Ask AI with placeholders [context] and [influxdb_version]
+*/}}
+
+{{ $context := .Get "context" }}
+{{ $aiInstruction := .Get "ai_instruction" }}
+
+<h4>Identify your InfluxDB version</h4>
+
+<p>
+If you are unsure which InfluxDB product you are using, use our interactive version detector to help identify it:</p>
+
+<p>
+  {{ if $context }}
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    data-context="{{ $context }}"
+    {{ if $aiInstruction }}data-ai-instruction="{{ $aiInstruction }}"{{ end }}
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname,
+          'custom_map.context': '{{ $context }}'
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  {{ else }}
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  {{ end }}
+</p>
+
+{{ if and $context $aiInstruction }}
+<!-- Ask AI integration will be implemented in the TypeScript component -->
+{{ end }}

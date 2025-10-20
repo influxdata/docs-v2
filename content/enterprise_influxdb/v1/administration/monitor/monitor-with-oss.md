@@ -14,7 +14,7 @@ aliases:
   - /enterprise_influxdb/v1/administration/monitor-enterprise/monitor-with-oss/
 ---
 
-Use [InfluxDB OSS](/influxdb/v2/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
+Use [InfluxDB OSS 2.x](/influxdb/v2/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
 
 Do the following:
 

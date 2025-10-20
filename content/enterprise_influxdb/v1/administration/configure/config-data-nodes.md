@@ -1679,9 +1679,10 @@ max-version = "tls1.3"
 Default is `"tls1.3"`.
 
 Minimum version of the TLS protocol that will be negotiated.
-Valid values include: `tls1.0`, `tls1.1`, and `tls1.3`.
+Valid values include: `tls1.0`, `tls1.1`, `tls1.2`, and `tls1.3`.
 If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants).
-In this example, `tls1.3` specifies the minimum version as TLS 1.3.
+
+In the preceding example, `min-version = "tls1.3"` specifies the minimum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 
@@ -1690,9 +1691,10 @@ Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 Default is `"tls1.3"`.
 
 The maximum version of the TLS protocol that will be negotiated.
-Valid values include: `tls1.0`, `tls1.1`, and `tls1.3`.
+Valid values include: `tls1.0`, `tls1.1`, `tls1.2`, and `tls1.3`.
 If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants).
-In this example, `tls1.3` specifies the maximum version as TLS 1.3.
+
+In the preceding example, `max-version = "tls1.3"` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 

@@ -1,0 +1,136 @@
+---
+description: "Telegraf plugin for collecting metrics from Kernel"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: Kernel
+    identifier: input-kernel
+tags: [Kernel, "input-plugins", "configuration", "system"]
+introduced: "v0.11.0"
+os_support: "linux"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/kernel/README.md, Kernel Plugin Source
+---
+
+# Kernel Input Plugin
+
+This plugin gathers metrics about the [Linux kernel](https://kernel.org/) including, among
+others, the [available entropy](https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html#random), [Kernel Samepage Merging](https://www.kernel.org/doc/html/latest/mm/ksm.html) and
+[Pressure Stall Information](https://www.kernel.org/doc/html/latest/accounting/psi.html).
+
+**Introduced in:** Telegraf v0.11.0
+**Tags:** system
+**OS support:** linux
+
+[kernel]: https://kernel.org/
+[entropy]: https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html#random
+[ksm]: https://www.kernel.org/doc/html/latest/mm/ksm.html
+[psi]: https://www.kernel.org/doc/html/latest/accounting/psi.html
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Plugin to collect various Linux kernel statistics.
+# This plugin ONLY supports Linux
+[[inputs.kernel]]
+  ## Additional gather options
+  ## Possible options include:
+  ## * ksm - kernel same-page merging
+  ## * psi - pressure stall information
+  # collect = []
+```
+
+Please check the documentation of the underlying kernel interfaces in the
+`/proc/stat` section of the [proc man page](http://man7.org/linux/man-pages/man5/proc.5.html), as well as in the
+`/proc interfaces` section of the [random man page](https://man7.org/linux/man-pages/man4/random.4.html).
+
+Kernel Samepage Merging is generally documented in the
+[kernel documentation](https://www.kernel.org/doc/html/latest/accounting/psi.html) and the available metrics exposed via sysfs
+are documented in the [admin guide](https://www.kernel.org/doc/html/latest/admin-guide/mm/ksm.html#ksm-daemon-sysfs-interface).
+
+Pressure Stall Information is exposed through `/proc/pressure` and is documented
+in [kernel documentation](https://www.kernel.org/doc/html/latest/accounting/psi.html). Kernel version 4.20+ is required.
+
+[ksm_admin]: https://www.kernel.org/doc/html/latest/admin-guide/mm/ksm.html#ksm-daemon-sysfs-interface
+[man_proc]: http://man7.org/linux/man-pages/man5/proc.5.html
+[man_random]: https://man7.org/linux/man-pages/man4/random.4.html
+
+## Metrics
+
+- kernel
+  - boot_time              (int) - seconds since epoch, `btime`
+  - context_switches       (int) - number of context switches `ctxt`
+  - disk_pages_in          (int) - `page (0)`
+  - disk_pages_out         (int) - `page (1)`
+  - interrupts             (int) - number of interrupts `intr`
+  - processes_forked       (int) - number of forked processes `processes`
+  - entropy_avail          (int) - entropy currently available `entropy_available`
+  - ksm_full_scans         (int) - number of scans of all mergeable areas `full_scans`
+  - ksm_max_page_sharing   (int) - maximum sharing allowed for each KSM page `max_page_sharing`
+  - ksm_merge_across_nodes (int) - flag for merging of pages across NUMA nodes `merge_across_nodes`
+  - ksm_pages_shared       (int) - number of shared pages are being used `pages_shared`
+  - ksm_pages_sharing      (int) - number of sites sharing pages `pages_sharing`
+  - ksm_pages_to_scan      (int) - number of pages to scan before ksmd  sleep `pages_to_scan`
+  - ksm_pages_unshared     (int) - number of pages unique but repeatedly checked
+                                   for merging `pages_unshared`
+  - ksm_pages_volatile     (int) - number of pages changing too fast to be
+                                   placed in a tree `pages_volatile`
+  - ksm_run                (int) - flag for ksm is running or not `run`
+  - ksm_sleep_millisecs    (int) - sleep time for ksmd between scans `sleep_millisecs`
+  - ksm_stable_node_chains (int) - number of KSM pages hitting the
+                                   max_page_sharing limit `stable_node_chains`
+  - ksm_stable_node_chains_prune_millisecs (int) - frequency for KSM checks of
+                                                   page metadata hitting the
+                                                   deduplication limit `stable_node_chains_prune_millisecs`
+  - ksm_stable_node_dups   (int) - number of duplicated KSM pages, `stable_node_dups`
+  - ksm_use_zero_pages     (int) - flag for empty pages being treated specially
+                                   `use_zero_pages`
+
+- pressure (if `psi` is included in `collect`)
+  - tags:
+    - resource: cpu, memory, or io
+    - type: some or full
+  - floating-point fields: avg10, avg60, avg300
+  - integer fields: total
+
+## Example Output
+
+Default config:
+
+```text
+kernel boot_time=1690487872i,context_switches=321398652i,entropy_avail=256i,interrupts=141868628i,processes_forked=946492i 1691339564000000000
+```
+
+If `ksm` is included in `collect`:
+
+```text
+kernel boot_time=1690487872i,context_switches=321252729i,entropy_avail=256i,interrupts=141783427i,ksm_full_scans=0i,ksm_max_page_sharing=256i,ksm_merge_across_nodes=1i,ksm_pages_shared=0i,ksm_pages_sharing=0i,ksm_pages_to_scan=100i,ksm_pages_unshared=0i,ksm_pages_volatile=0i,ksm_run=0i,ksm_sleep_millisecs=20i,ksm_stable_node_chains=0i,ksm_stable_node_chains_prune_millisecs=2000i,ksm_stable_node_dups=0i,ksm_use_zero_pages=0i,processes_forked=946467i 1691339522000000000
+```
+
+If `psi` is included in `collect`:
+
+```text
+pressure,resource=cpu,type=some avg10=1.53,avg60=1.87,avg300=1.73 1700000000000000000
+pressure,resource=memory,type=some avg10=0.00,avg60=0.00,avg300=0.00 1700000000000000000
+pressure,resource=memory,type=full avg10=0.00,avg60=0.00,avg300=0.00 1700000000000000000
+pressure,resource=io,type=some avg10=0.0,avg60=0.0,avg300=0.0 1700000000000000000
+pressure,resource=io,type=full avg10=0.0,avg60=0.0,avg300=0.0 1700000000000000000
+pressure,resource=cpu,type=some total=1088168194i 1700000000000000000
+pressure,resource=memory,type=some total=3463792i 1700000000000000000
+pressure,resource=memory,type=full total=1429641i 1700000000000000000
+pressure,resource=io,type=some total=68568296i 1700000000000000000
+pressure,resource=io,type=full total=54982338i 1700000000000000000
+```
+
+Note that the combination for `resource=cpu,type=full` is omitted because it is
+always zero.

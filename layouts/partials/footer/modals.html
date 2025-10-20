@@ -6,6 +6,7 @@
       <a id="modal-close"href="#"><span class="icon-remove"></span></a>
       <!-- Modal window content blocks-->
       {{ partial "footer/modals/influxdb-url.html" . }}
+      {{ partial "footer/modals/influxdb-version-detector.html" . }}
       {{ partial "footer/modals/page-feedback.html" . }}
       {{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
         {{ partial "footer/modals/influxdb-gs-date-select.html" . }}

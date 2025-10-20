@@ -16,7 +16,7 @@ alt_links:
   cloud: /influxdb/cloud/tools/tableau/
   cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/tableau/
   cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/tableau/
-  clustered: /influxdb3/cloud-clustered/process-data/visualize/tableau/
+  clustered: /influxdb3/clustered/process-data/visualize/tableau/
 metadata: [SQL only]
 draft: true 
 source: /shared/influxdb3-visualize/tableau.md

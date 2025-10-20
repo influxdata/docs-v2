@@ -9,7 +9,13 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
-## v1.8.1 {date="2025-09-08}
+## v1.8.2 {date="2025-09-29"}
+
+### Features
+
+- Enhanced support for InfluxDB 3
+
+## v1.8.1 {date="2025-09-08"}
 
 ### Dependency updates
 

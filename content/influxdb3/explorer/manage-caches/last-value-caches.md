@@ -61,8 +61,19 @@ On the **Last Value Cache management page**:
 
 ## Query a Last Value Cache
 
-Use the `last_cache` SQL function to query an LVC. For more information, see
-[Query a Last Value Cache](/influxdb3/enterprise/admin/last-value-cache/query/).
+Use the **Data Explorer** to query a LVC:
+
+1.  In the left navigation, select **Query Data** > **Data Explorer**.
+2.  Select the database you want to query from the **Select database** dropdown menu.
+3.  Click the <strong class="icon-chevron-down"></strong> icon next to the table
+    associated with the LVC you want to query to expand the table.
+    Tables with LVCs have a <span class="badge lvc">LVC</span> badge below the
+    <strong class="icon-chevron-down"></strong> icon.
+4.  Under the **Caches** section of the expanded table, LVCs are identified by
+    the <span class="badge lvc">LVC</span> badge. Click the name of the LVC to
+    generate a SQL query that queries everything from the LVC. You can
+    also expand the LVC and select specific columns to query.
+5.  Click **Run Query** to execute the query and return results from the cache.
 
 ## Delete a Last Value Cache
 
