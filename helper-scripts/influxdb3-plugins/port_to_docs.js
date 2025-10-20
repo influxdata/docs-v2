@@ -476,7 +476,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Run main function
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url.endsWith(process.argv[1])) {
   main().catch((error) => {
     console.error('❌ Fatal error:', error.message);
     process.exit(1);
