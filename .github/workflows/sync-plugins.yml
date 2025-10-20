@@ -178,7 +178,7 @@ jobs:
           cd docs-v2
           
           # Set PLUGIN_DIR for the transformation script
-          export INFLUXDB3_PLUGINS_PATH="../influxdb3_plugins"
+          export INFLUXDB3_PLUGINS_PATH=".ext/influxdb3_plugins"
           
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
