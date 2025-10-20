@@ -1,6 +1,6 @@
 ---
 title: Monitor the InfluxData Platform
-description: How to use the InfluxData to monitor itself and other instances to identify and alert on anomalies.
+description: Use InfluxDB to monitor your stack's health and identify issues before they impact operations.
 menu:
   platform:
     name: Monitor the InfluxData Platform
@@ -9,27 +9,33 @@ menu:
     parent: Monitor
 ---
 
-One of the primary use cases for the InfluxData Platform is as server and infrastructure
-monitoring solution. No matter what type of data you're using the platform to collect and
-store, it's important to monitor the health of your stack and identify any potential issues.
+Monitoring your stack's health is essential for identifying and addressing issues before they impact operations.
+The InfluxData Platform is built to collect, process, transform, and store event and time series data, making it well-suited for server and infrastructure monitoring.
 
-To **monitor the InfluxDB 2.0 platform**, see [Monitor InfluxDB 2.0](/influxdb/v2/monitor-alert/).
+## Monitor with InfluxDB 3
 
-To **monitor the InfluxData 1.x platform**, see the following pages for information about setting up a 1.x TICK stack that monitors
-another OSS or Enterprise TICK stack. They cover different potential monitoring strategies
-and visualizing the monitoring data in a way that makes it easy to recognize, alert on,
-and address anomalies as they happen.
+InfluxDB 3 delivers high-performance time series data management at scale with SQL and
+InfluxQL querying and built-in data processing capabilities.
 
-Leverage [InfluxDB Cloud](/influxdb/cloud/) and pre-built [InfluxDB templates](/influxdb/cloud/tools/influxdb-templates/)
-to monitoring your InfluxDB setup.
-Start using InfluxDB Cloud at no cost with the Free Plan.
-Use it as much and as long as you like within the plan’s rate-limits.
-Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
-Monitoring a single InfluxDB OSS instance or even a modest InfluxDB Enterprise
-cluster should easily fit within the free plan limits.
-If you exceed the plan [limits](/influxdb/cloud/account-management/limits/) because of high resolution data or longer data retention,
-upgrade to the [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+- Collect and label metrics with [Telegraf](/telegraf/v1/) and send them to your InfluxDB 3 instance
+- Store and query metrics using [InfluxDB 3 Core](/influxdb3/core/) or [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
+- Process and analyze data directly in the database with the built-in Python processing engine—use and extend pre-built plugins to run analysis, generate alerts, and send notifications in real-time, on-demand, or on a schedule:
+  - [Use and extend plugins for InfluxDB 3 Core](/influxdb3/core/process-data/python/plugins/)
+  - [Use and extend plugins for InfluxDB 3 Enterprise](/influxdb3/enterprise/process-data/python/plugins/)
+- Visualize metrics and explore your data with [InfluxDB 3 Explorer](/influxdb3/explorer/)
 
-Start monitoring your InfluxDB instance by signing up for an [InfluxDB Cloud account](https://cloud2.influxdata.com/signup).
+## Monitor with other InfluxDB versions
+
+### InfluxDB 2.x
+
+See [Monitor InfluxDB 2.0](/influxdb/v2/monitor-alert/) for monitoring strategies specific to InfluxDB 2.x.
+
+### InfluxDB Enterprise v1
+
+See [Monitor InfluxDB Enterprise](/enterprise_influxdb/v1/administration/monitor/) for Enterprise v1 monitoring documentation.
+
+### InfluxDB v1.x (TICK stack)
+
+The following pages provide monitoring strategies, visualizations, and alerting approaches using the TICK stack:
 
 {{< children >}}

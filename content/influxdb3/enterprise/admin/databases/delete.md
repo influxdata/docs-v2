@@ -1,25 +1,28 @@
 ---
 title: Delete a database
 description: >
-  Use the [`influxdb3 delete database` command](/influxdb3/enterprise/reference/cli/influxdb3/delete/database/)
-  to delete a database from {{< product-name >}}.
-  Provide the name of the database you want to delete.
+  Use the influxdb3 CLI, HTTP API, or InfluxDB 3 Explorer to delete a database
+  from {{< product-name >}}.
 menu:
   influxdb3_enterprise:
     parent: Manage databases
 weight: 203
 list_code_example: |
-  {{% code-placeholders "DATABASE_NAME" %}}
-  ```sh
+  ```sh{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+  # influxdb3 CLI
   influxdb3 delete database DATABASE_NAME
+
+  # HTTP API
+  curl --request DELETE "http://localhost:8181/api/v3/configure/database?db=DATABASE_NAME" \
+    --header "Authorization: Bearer AUTH_TOKEN"
   ```
-  {{% /code-placeholders %}}
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/delete/database/
+  - /influxdb3/enterprise/api/v3/#operation/DeleteConfigureDatabase, Delete database API
   - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/delete.md
 ---
 
 <!--
-The content of this file is located at content/shared/influxdb3-admin/databases/delete.md
+//SOURCE - content/shared/influxdb3-admin/databases/delete.md
 -->

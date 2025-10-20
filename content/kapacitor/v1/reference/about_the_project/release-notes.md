@@ -9,6 +9,19 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.2 {date="2025-09-29"}
+
+### Features
+
+- Enhanced support for InfluxDB 3
+
+## v1.8.1 {date="2025-09-08"}
+
+### Dependency updates
+
+- Upgrade golang.org/x/oauth2 from 0.23.0 to 0.27.0
+- Upgrade Go to 1.24.6
+
 ## v1.8.0 {date="2025-06-26"}
 
 > [!Warning]
@@ -162,7 +175,7 @@ aliases:
 - Add new `auto-attributes` configuration option to BigPanda node.
 - Ability to add new headers to HTTP posts directly in `env var` config. 
 - `Topic queue length` is now configurable. This allows you to set a `topic-buffer-length` parameter in the Kapacitor config file in the
-[alert](https://docs.influxdata.com/kapacitor/v1/administration/configuration/#alert) section. The default is 5000. Minimum length
+[alert](/kapacitor/v1/administration/configuration/#alert) section. The default is 5000. Minimum length
 is 1000.
 - Add new `address template` to email alert. Email addresses no longer need to be hardcoded; can be derived directly from data.
 

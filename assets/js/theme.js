@@ -6,6 +6,7 @@ const PROPS = {
   style_domain: 'docs.influxdata.com',
 };
 
+// Get the user's theme preference
 function getPreferredTheme() {
   return `${getPreference(PROPS.style_preference_name)}-theme`;
 }

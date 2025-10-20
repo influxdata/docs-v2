@@ -27,7 +27,7 @@ point-in-time snapshot of the data. The Parquet files are immutable and are
 never replaced nor modified. Parquet files are stored in object storage.
 
 <span id="influxdb-catalog"></span>
-The _InfluxDB catalog_ is a relational, PostreSQL-compatible database that
+The _InfluxDB catalog_ is a relational, PostgreSQL-compatible database that
 contains references to all Parquet files in object storage and is used as an
 index to find the appropriate Parquet files for a particular set of data.
 

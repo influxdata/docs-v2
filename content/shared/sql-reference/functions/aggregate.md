@@ -77,7 +77,7 @@ aggregate value.
 Returns an array created from the expression elements.
 
 > [!Note]
-> `array_agg` returns a `LIST` arrow type. Use bracket notation to reference the
+> `array_agg` returns a `LIST` Arrow type. Use bracket notation to reference the
 > index of an element in the returned array. Arrays are 1-indexed.
 
 ```sql
@@ -524,7 +524,7 @@ GROUP BY location
 
 ### mean
 
-_Alias of [avg](#avg)._
+_Alias of [`avg`](#avg)._
 
 ### median
 
@@ -1403,7 +1403,7 @@ GROUP BY room
 
 ### var_population
 
-_Alias of [var_pop](#var_pop)._
+_Alias of [`var_pop`](#var_pop)._
 
 ### var_samp
 
@@ -1492,7 +1492,7 @@ GROUP BY room
 ### approx_median
 
 Returns the approximate median (50th percentile) of input values.
-It is an alias of `approx_percentile_cont(x, 0.5)`.
+It is an alias of `approx_percentile_cont(0.5) WITHIN GROUP (ORDER BY expression)`.
 
 ```sql
 approx_median(expression)
@@ -1529,15 +1529,18 @@ GROUP BY room
 Returns the approximate percentile of input values using the t-digest algorithm.
 
 ```sql
+approx_percentile_cont(percentile [, centroids]) WITHIN GROUP (ORDER BY expression)
+-- OR
 approx_percentile_cont(expression, percentile, centroids)
 ```
 
 ##### Arguments
 
-- **expression**: Expression to operate on.
-  Can be a constant, column, or function, and any combination of arithmetic operators.
 - **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
 - **centroids**: Number of centroids to use in the t-digest algorithm. _Default is 100_.
+  A higher number results in more accurate approximation but requires more memory.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
   If there are this number or fewer unique values, you can expect an exact result.
   A higher number of centroids results in a more accurate approximation, but
@@ -1551,7 +1554,7 @@ _The following example uses the {{< influxdb3/home-sample-link >}}._
 ```sql
 SELECT
   room,
-  approx_percentile_cont(temp, 0.99) AS "99th_percentile"
+  approx_percentile_cont(0.99) WITHIN GROUP (ORDER BY temp) AS "99th_percentile"
 FROM home
 GROUP BY room
 ```
@@ -1570,6 +1573,8 @@ Returns the weighted approximate percentile of input values using the
 t-digest algorithm.
 
 ```sql
+approx_percentile_cont_with_weight(weight, percentile [, centroids]) WITHIN GROUP (ORDER BY expression)
+-- OR
 approx_percentile_cont_with_weight(expression, weight, percentile)
 ```
 
@@ -1580,6 +1585,8 @@ approx_percentile_cont_with_weight(expression, weight, percentile)
 - **weight**: Expression to use as weight.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 - **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
+- **centroids**: Number of centroids to use in the t-digest algorithm. _Default is 100._
+  A higher number results in more accurate approximation but requires more memory.
 
 {{< expand-wrapper >}}
 {{% expand "View `approx_percentile_cont_with_weight` query example" %}}
@@ -1589,7 +1596,7 @@ _The following example uses the {{< influxdb3/home-sample-link >}}._
 ```sql
 SELECT
   room,
-  approx_percentile_cont_with_weight(temp, co, 0.99) AS "co_weighted_99th_percentile"
+  approx_percentile_cont_with_weight(co, 0.99) WITHIN GROUP (ORDER BY temp) AS "co_weighted_99th_percentile"
 FROM home
 GROUP BY room
 ```

@@ -33,23 +33,36 @@ influxdb3 serve [OPTIONS] \
 > [!NOTE]
 > `--node-id` and `--cluster-id` support alphanumeric strings with optional hyphens.
 
+> [!Important]
+> #### Global configuration options
+> Some configuration options (like [`--num-io-threads`](/influxdb3/enterprise/reference/config-options/#num-io-threads)) are **global** and must be specified **before** the `serve` command:
+>
+> ```bash
+> influxdb3 --num-io-threads=8 serve --node-id=node0 --cluster-id=cluster0 --verbose
+> ```
+>
+> See [Global configuration options](/influxdb3/enterprise/reference/config-options/#global-configuration-options) for the complete list.
+
 ## Options
 
 | Option           |                                                      | Description                                                                                                                     |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
 |                  | `--admin-token-recovery-http-bind`                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-recovery-http-bind)_                   |
 |                  | `--admin-token-recovery-tcp-listener-file-path`      | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-recovery-tcp-listener-file-path)_      |
+|                  | `--admin-token-file`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-file)_                                 |
 |                  | `--aws-access-key-id`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-access-key-id)_                                |
 |                  | `--aws-allow-http`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-allow-http)_                                   |
+|                  | `--aws-credentials-file`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-credentials-file)_                             |
 |                  | `--aws-default-region`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-default-region)_                               |
 |                  | `--aws-endpoint`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-endpoint)_                                     |
 |                  | `--aws-secret-access-key`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-secret-access-key)_                            |
 |                  | `--aws-session-token`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-session-token)_                                |
 |                  | `--aws-skip-signature`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#aws-skip-signature)_                               |
+|                  | `--azure-allow-http`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#azure-allow-http)_                                 |
+|                  | `--azure-endpoint`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/##azure-endpoint)_                                  |
 |                  | `--azure-storage-access-key`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#azure-storage-access-key)_                         |
 |                  | `--azure-storage-account`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#azure-storage-account)_                            |
 |                  | `--bucket`                                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#bucket)_                                           |
-|                  | `--buffer-mem-limit-mb`                              | _See [configuration options](/influxdb3/enterprise/reference/config-options/#buffer-mem-limit-mb)_                              |
 |                  | `--catalog-sync-interval`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#catalog-sync-interval)_                            |
 | {{< req "\*" >}} | `--cluster-id`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#cluster-id)_                                       |
 |                  | `--compaction-check-interval`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-check-interval)_                        |
@@ -97,6 +110,7 @@ influxdb3 serve [OPTIONS] \
 | {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
 |                  | `--node-id-from-env`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id-from-env)_                                 |
 |                  | `--num-cores`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-cores)_                                        |
+|                  | `--num-datafusion-threads`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-datafusion-threads)_                           |
 |                  | `--num-database-limit`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-database-limit)_                               |
 |                  | `--num-table-limit`                                  | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-table-limit)_                                  |
 |                  | `--num-total-columns-per-table-limit`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-total-columns-per-table-limit)_                |
@@ -112,6 +126,7 @@ influxdb3 serve [OPTIONS] \
 |                  | `--parquet-mem-cache-prune-percentage`               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-prune-percentage)_               |
 |                  | `--parquet-mem-cache-query-path-duration`            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-query-path-duration)_            |
 |                  | `--parquet-mem-cache-size`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#parquet-mem-cache-size)_                           |
+|                  | `--permission-tokens-file`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#permission-tokens-file)_                           |
 |                  | `--plugin-dir`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#plugin-dir)_                                       |
 |                  | `--preemptive-cache-age`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#preemptive-cache-age)_                             |
 |                  | `--query-file-limit`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#query-file-limit)_                                 |
@@ -136,7 +151,6 @@ influxdb3 serve [OPTIONS] \
 |                  | `--traces-jaeger-max-msgs-per-second`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-max-msgs-per-second)_                |
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-tags)_                               |
 |                  | `--use-pacha-tree`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#use-pacha-tree)_                                   |
-| `-v`             | `--verbose`                                          | Enable verbose output                                                                                                           |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wait-for-running-ingestor`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wait-for-running-ingestor)_                        |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)_                               |
@@ -216,11 +230,11 @@ influxdb3 serve \
 
 ```bash
 influxdb3 serve \
-  --verbose \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01
+  --verbose
 ```
 
 ### Run InfluxDB 3 with debug logging using LOG_FILTER

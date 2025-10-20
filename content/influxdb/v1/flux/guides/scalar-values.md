@@ -232,7 +232,7 @@ The temperature was ${string(v: lastReported._value)}°F."
 
 The following sample data set represents fictional temperature metrics collected
 from three locations.
-It's formatted in [annotated CSV](https://v2.docs.influxdata.com/v2.0/reference/syntax/annotated-csv/) and imported
+It's formatted in [annotated CSV](/influxdb/v2/reference/syntax/annotated-csv/) and imported
 into the Flux query using the [`csv.from()` function](/flux/v0/stdlib/csv/from/).
 
 Place the following at the beginning of your query to use the sample data:

@@ -13,6 +13,7 @@ influxdb3/cloud-serverless/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb3/cloud-serverless/query-data/tools/superset/
   - /influxdb3/cloud-serverless/query-data/sql/execute-queries/superset/
+  - /influxdb3/cloud-serverless/visualize-data/superset/
   - /influxdb3/cloud-serverless/process-data/tools/superset/
 alt_links:
   core: /influxdb3/core/visualize-data/superset/
