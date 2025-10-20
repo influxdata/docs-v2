@@ -7,7 +7,9 @@ based on your workload characteristics.
 - [Common performance issues](#common-performance-issues)
 - [Configuration examples by workload](#configuration-examples-by-workload)
 - [Thread allocation details](#thread-allocation-details)
+{{% show-in "enterprise" %}}
 - [Enterprise mode-specific tuning](#enterprise-mode-specific-tuning)
+{{% /show-in %}}
 - [Memory tuning](#memory-tuning)
 - [Advanced tuning options](#advanced-tuning-options)
 - [Monitoring and validation](#monitoring-and-validation)
@@ -151,7 +153,7 @@ influxdb3 --exec-mem-pool-bytes=60% serve \
 ```
 {{% /show-in %}}
 
-### Parquet cache ({{% show-in "core" %}}--parquet-mem-cache-size-mb{{% /show-in %}}{{% show-in "enterprise" %}}--parquet-mem-cache-size{{% /show-in %}})
+### Parquet cache (--parquet-mem-cache-size{{% show-in "core" %}}-mb{{% /show-in %}})
 
 Caches frequently accessed data files in memory.
 
@@ -202,7 +204,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Increasing write response times, timeouts, points dropped
 
 **Solutions:**
-1. Increase [IO threads](#thread-allocation-num-io-threads) (default is only 2)
+1. Increase [IO threads](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}}) (default is only 2)
 2. Reduce [WAL flush interval](#wal-flush-interval-wal-flush-interval) (from 1s to 100ms)
 3. Check disk IO performance
 
@@ -211,7 +213,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Long execution times, high memory usage, query timeouts
 
 **Solutions:**
-1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-datafusion-threads)
+1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-num-datafusion-threads)
 2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 90%)
 3. Enable [Parquet caching](#parquet-cache-parquet-mem-cache-size{{% show-in "core" %}}-mb{{% /show-in %}})
 
