@@ -14,10 +14,11 @@ influxctl database list [--format=table|json]
 
 ## Flags
 
-| Flag |            | Description                                   |
-| :--- | :--------- | :-------------------------------------------- |
-|      | `--format` | Output format (`table` _(default)_ or `json`) |
-| `-h` | `--help`   | Output command help                           |
+| Flag |                   | Description                                                                    |
+| :--- | :---------------- | :----------------------------------------------------------------------------- |
+|      | `--filter-status` | Only list databases with a specific status (`active` _(default)_ or `deleted`) |
+|      | `--format`        | Output format (`table` _(default)_ or `json`)                                  |
+| `-h` | `--help`          | Output command help                                                            |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb3/version/reference/cli/influxctl/#global-flags)._

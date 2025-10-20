@@ -48,6 +48,9 @@ when starting the {{% product-name %}} server.
 `PLUGIN_DIR` is your file system location for storing [plugin](#plugin) files for
 the processing engine to run.
 
+> [!Note]
+> If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.
+
 {{% code-placeholders "PLUGIN_DIR" %}}
 <!-- pytest.mark.skip -->
 ```bash

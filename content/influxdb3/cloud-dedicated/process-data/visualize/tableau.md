@@ -13,6 +13,7 @@ menu:
 influxdb3/cloud-dedicated/tags: [Flight client, query, flightsql, tableau, sql]
 aliases:
   - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/tableau/
+  - /influxdb3/cloud-dedicated/visualize-data/tableau/
   - /influxdb3/cloud-dedicated/query-data/tools/tableau/
   - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/tableau/
   - /influxdb3/cloud-dedicated/process-data/tools/tableau/

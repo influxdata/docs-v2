@@ -12,7 +12,9 @@ influxdb3/enterprise/tags: [tables]
 related:
   - /influxdb3/enterprise/write-data/best-practices/schema-design/
   - /influxdb3/enterprise/reference/cli/influxdb3/
+  - /influxdb3/enterprise/api/v3/#tag/Table, Table API reference
   - /influxdb3/enterprise/reference/naming-restrictions/
+  - /influxdb3/enterprise/reference/internals/data-retention/
 source: /shared/influxdb3-admin/tables/_index.md
 ---
 
