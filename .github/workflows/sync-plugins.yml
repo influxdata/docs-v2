@@ -106,7 +106,7 @@ jobs:
       - name: Validate plugin READMEs
         id: validate
         run: |
-          cd influxdb3_plugins
+          cd .ext/influxdb3_plugins
           
           # Determine which plugins to validate
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
