@@ -52,7 +52,7 @@ stored in an InfluxDB database.
 
 ### Install prerequisites for Superset and Flight SQL
 
-We recommend using **Docker and Docker Compose v2** to run Superset.
+We recommend using **Docker and Docker Compose** to run Superset.
 To set up Superset to run in Docker containers with Flight SQL, follow these steps:
 
 > [!Warning]
