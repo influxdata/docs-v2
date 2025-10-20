@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/rabbitmq/README.md, RabbitMQ Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/rabbitmq/README.md, RabbitMQ Plugin Source
 ---
 
 # RabbitMQ Input Plugin
@@ -192,7 +192,7 @@ to use them.
     - consumer_utilisation (float, percent)
     - consumers (int, int)
     - idle_since (string, time - e.g., "2006-01-02 15:04:05")
-    - head_message_timestamp (int, unix timestamp - only emitted if available from API)
+    - head_message_timestamp (int, unix timestamp - only emitted if available)
     - memory (int, bytes)
     - message_bytes (int, bytes)
     - message_bytes_persist (int, bytes)

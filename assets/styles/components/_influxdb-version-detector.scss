@@ -1,0 +1,647 @@
+// InfluxDB Version Detector Component Styles
+
+.influxdb-version-detector {
+  // CSS Custom Properties
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --spacing-sm: 0.625rem;
+  --spacing-md: 1.25rem;
+
+  margin: 2rem auto;
+
+  .detector-title {
+    color: $article-heading;
+    margin-bottom: 0.625rem;
+    font-size: 1.8em;
+    font-weight: 600;
+  }
+
+  .detector-subtitle {
+    color: $article-text;
+    margin-bottom: 1.875rem;
+    font-size: 0.95em;
+    opacity: 0.8;
+  }
+
+  // Progress bar
+  .progress {
+    margin-bottom: 1.5625rem;
+    height: 6px;
+    background: $article-hr;
+    border-radius: 3px;
+    overflow: hidden;
+
+    .progress-bar {
+      height: 100%;
+      background: $article-link;
+      transition: width var(--transition-normal);
+    }
+  }
+
+  // Question container
+  .question-container {
+    min-height: 150px;
+
+    .question {
+      display: none;
+      animation: fadeIn var(--transition-normal);
+
+      &.active {
+        display: block;
+      }
+
+      .question-text {
+        font-size: 1.1em;
+        color: $article-heading;
+        margin-bottom: 1.25rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Buttons - Base styles and variants
+  %button-base {
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+
+    &:focus {
+      outline: 2px solid $article-link;
+      outline-offset: 2px;
+    }
+  }
+
+  .option-button {
+    @extend %button-base;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.75rem;
+    padding: 0.875rem 1.125rem;
+    background: $article-bg;
+    color: $article-text;
+    border: 2px solid $article-hr;
+    font-size: 15px;
+
+    &:hover {
+      border-color: $article-link;
+      background: $article-bg;
+      transform: translateX(3px);
+    }
+
+    &:active {
+      transform: translateX(1px);
+    }
+  }
+
+  .submit-button {
+    @extend %button-base;
+    background: $article-link;
+    color: $g20-white;
+    padding: 0.75rem 1.5rem;
+    font-size: 15px;
+    font-weight: 500;
+
+    &:hover {
+      background: $b-ocean;
+      color: $g20-white;
+    }
+
+    &:disabled {
+      background: $g8-storm;
+      cursor: not-allowed;
+    }
+  }
+
+  .back-button {
+    @extend %button-base;
+    background: $g8-storm;
+    color: $g20-white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 14px;
+    margin-right: var(--spacing-sm);
+
+    &:hover {
+      background: $g9-mountain;
+    }
+  }
+
+  .restart-button {
+    @extend .back-button;
+    margin-top: var(--spacing-md);
+    margin-right: 0;
+  }
+
+  // Input fields
+  %input-base {
+    width: 100%;
+    border: 2px solid $article-hr;
+    border-radius: var(--border-radius);
+    transition: border-color var(--transition-fast);
+    background: $article-bg;
+    color: $article-text;
+
+    &:focus {
+      outline: none;
+      border-color: $article-link;
+    }
+  }
+
+  .input-group {
+    margin-bottom: var(--spacing-md);
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: $article-text;
+      font-weight: 500;
+    }
+
+    input {
+      @extend %input-base;
+      padding: 0.75rem;
+      font-size: 14px;
+    }
+  }
+
+  textarea {
+    @extend %input-base;
+    padding: var(--spacing-sm);
+    font-family: var(--font-mono, 'Courier New', monospace);
+    font-size: 12px;
+    resize: vertical;
+    min-height: 120px;
+
+    &::placeholder {
+      color: rgba($article-text, 0.6);
+      opacity: 1; // Firefox fix
+    }
+
+    &::-webkit-input-placeholder {
+      color: rgba($article-text, 0.6);
+    }
+
+    &::-moz-placeholder {
+      color: rgba($article-text, 0.6);
+      opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+      color: rgba($article-text, 0.6);
+    }
+  }
+
+  // Code block - match site standards
+  .code-block {
+    background: $article-code-bg;
+    color: $article-code;
+    padding: 1.75rem 1.75rem 1.25rem;
+    border-radius: $radius;
+    font-family: $code;
+    font-size: 1rem;
+    margin: 2rem 0 2.25rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    line-height: 1.7rem;
+    white-space: pre;
+  }
+
+  // URL pattern hint
+  .url-pattern-hint {
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: $article-note-base;
+    border: 1px solid $article-note-base;
+    border-radius: var(--border-radius);
+    color: $article-note-text;
+    font-size: 13px;
+  }
+
+  // URL suggestions
+  .url-suggestions {
+    margin-bottom: var(--spacing-md);
+
+    .suggestions-header {
+      color: $article-heading;
+      margin-bottom: var(--spacing-sm);
+      font-size: 14px;
+    }
+
+    .suggestion-button {
+      @extend %button-base;
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin-bottom: var(--spacing-sm);
+      padding: var(--spacing-sm);
+      background: $article-bg;
+      border: 1px solid $article-hr;
+
+      &:hover {
+        border-color: $article-link;
+        background: $article-bg;
+      }
+
+      .suggestion-url {
+        font-family: var(--font-mono, 'Courier New', monospace);
+        font-size: 13px;
+        color: $article-link;
+        margin-bottom: 2px;
+      }
+
+      .suggestion-product {
+        font-size: 12px;
+        color: $article-text;
+        opacity: 0.8;
+      }
+
+      .suggestion-pattern {
+        font-size: 11px;
+        color: $article-link;
+        font-style: italic;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  // Results
+  .result {
+    display: none;
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    animation: fadeIn var(--transition-normal);
+
+    &.show {
+      display: block;
+    }
+
+    &.success {
+      background: $article-bg;
+      border-left: 3px solid $article-note-base;
+      color: $article-text;
+    }
+
+    &.error {
+      background: $r-flan;
+      border-left: 3px solid $article-caution-base;
+      color: $r-basalt;
+    }
+
+    &.info {
+      background: $article-note-base;
+      border-left: 3px solid $article-note-base;
+      color: $article-note-text;
+    }
+
+    &.warning {
+      background: $article-warning-bg;
+      border-left: 3px solid $article-warning-base;
+      color: $article-warning-text;
+    }
+  }
+
+  .detected-version {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: $article-link;
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba($article-link, 0.1);
+    border-radius: 4px;
+    border-left: 4px solid $article-link;
+  }
+
+  // URL pre-filled indicator
+  .url-prefilled-indicator {
+    font-size: 0.85em;
+    color: $article-note-text;
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    background: rgba($article-link, 0.1);
+    border-left: 3px solid $article-link;
+  }
+
+  // Loading animation
+  .loading {
+    display: inline-block;
+    margin-left: var(--spacing-sm);
+
+    &:after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+  }
+
+  @keyframes dots {
+    0%, 20% {
+      content: '.';
+    }
+    40% {
+      content: '..';
+    }
+    60%, 100% {
+      content: '...';
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+
+    .detector-title {
+      font-size: 1.5em;
+    }
+
+    .option-button {
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+    }
+
+    .submit-button,
+    .back-button {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+
+    .detector-title {
+      font-size: 1.3em;
+    }
+
+    .detector-subtitle {
+      font-size: 0.9em;
+    }
+
+    .question-text {
+      font-size: 1em;
+    }
+  }
+
+
+  // Product ranking results
+  .product-ranking {
+    margin-bottom: var(--spacing-sm);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid $article-hr;
+    background: $article-bg;
+
+    &.top-result {
+      background: rgba($article-link, 0.1);
+      border-color: $article-link;
+    }
+
+    .product-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .most-likely-label {
+      color: $article-link;
+      font-size: 0.9em;
+      margin-left: var(--spacing-sm);
+    }
+
+    .product-details {
+      color: $article-text;
+      font-size: 0.9em;
+      margin-top: 0.25rem;
+      opacity: 0.8;
+    }
+  }
+
+  // Grafana networking tips
+  .grafana-tips {
+    margin-top: var(--spacing-md);
+    padding: 1rem;
+    background: rgba($article-link, 0.1);
+    border-left: 4px solid $article-link;
+    border-radius: var(--border-radius);
+
+    .tips-title {
+      margin: 0 0 var(--spacing-sm) 0;
+      color: $article-link;
+      font-size: 1.1em;
+    }
+
+    .tips-description {
+      margin: 0 0 var(--spacing-sm) 0;
+      font-size: 0.9em;
+    }
+
+    .tips-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      font-size: 0.85em;
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+
+      code {
+        background: rgba($article-link, 0.15);
+        padding: 0.125rem 0.25rem;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+    }
+
+    .tips-link {
+      margin: var(--spacing-sm) 0 0 0;
+      font-size: 0.85em;
+    }
+  }
+
+  // Expected results section
+  .expected-results {
+    margin: 1rem 0;
+
+    .results-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-list {
+      margin: 0;
+      padding-left: 1rem;
+      font-size: 0.9em;
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+
+  // Question text styling
+  .question-text-spaced {
+    margin-top: 1rem;
+    font-weight: normal;
+    font-size: 0.95em;
+  }
+
+  .question-options {
+    margin-top: 1rem;
+  }
+
+  // Command help section
+  .command-help {
+    margin-top: var(--spacing-md);
+  }
+
+  // Grafana links styling
+  .grafana-link {
+    color: $article-link;
+    text-decoration: underline;
+
+    &:hover {
+      color: $article-link-hover;
+    }
+  }
+
+  // Manual command output
+  .manual-output {
+    margin: 1rem 0;
+    padding: var(--spacing-sm);
+    background: $article-bg;
+    border-left: 4px solid $article-link;
+    border-radius: var(--border-radius);
+  }
+
+  // Action section with buttons
+  .action-section {
+    margin-top: var(--spacing-md);
+  }
+
+  // Quick Reference expandable section
+  .quick-reference {
+    margin-top: 2rem;
+
+    details {
+      border: 1px solid $article-hr;
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+    }
+
+    .reference-summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      user-select: none;
+      color: $article-link;
+
+      &:hover {
+        color: $article-link-hover;
+      }
+    }
+  }
+
+  // Expandable summary styling (for Docker Commands, etc.)
+  .expandable-summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    user-select: none;
+    color: $article-link;
+    position: relative;
+    padding-left: 1.5rem; // Make room for custom icon
+
+    &:hover {
+      color: $article-link-hover;
+    }
+
+    // Hide the default disclosure triangle
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    // Add custom plus/minus icon
+    &::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1rem;
+      height: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: $article-link;
+      border: 1px solid $article-link;
+      border-radius: 3px;
+      background: transparent;
+    }
+
+    // Change to minus when expanded
+    details[open] & {
+      &::before {
+        content: '−';
+      }
+    }
+
+    &:hover::before {
+      color: $article-link-hover;
+      border-color: $article-link-hover;
+    }
+  }
+
+  // Quick Reference expandable section
+  .quick-reference {
+    margin-top: 2rem;
+
+    details {
+      border: 1px solid $article-hr;
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+    }
+
+    .reference-table {
+      margin-top: 1rem;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9em;
+
+      th, td {
+        padding: 0.5rem;
+        text-align: left;
+        border: 1px solid $article-hr;
+      }
+
+      th {
+        padding: 0.75rem 0.5rem;
+        background: rgba($article-link, 0.1);
+        font-weight: 600;
+      }
+
+      tbody tr:nth-child(even) {
+        background: rgba($article-text, 0.02);
+      }
+
+      .product-name {
+        font-weight: 600;
+      }
+    }
+  }
+
+}

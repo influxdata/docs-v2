@@ -10,7 +10,7 @@ introduced: "v1.21.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/intel_pmu/README.md, Intel Performance Monitoring Unit Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/intel_pmu/README.md, Intel Performance Monitoring Unit Plugin Source
 ---
 
 # Intel Performance Monitoring Unit Plugin

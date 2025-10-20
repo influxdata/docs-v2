@@ -10,7 +10,7 @@ introduced: "v1.22.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/processors/noise/README.md, Noise Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/noise/README.md, Noise Plugin Source
 ---
 
 # Noise Processor Plugin
@@ -70,7 +70,9 @@ distribution functions are available.
 ### Laplacian
 
 - `noise_type = laplacian`
-- `scale`: also referred to as _diversity_ parameter, regulates the width & height of the function, a bigger `scale` value means a higher probability of larger noise, default set to 1.0
+- `scale`: also referred to as _diversity_ parameter, regulates the width and
+           height of the function, a bigger `scale` value means a higher
+           probability of larger noise, default set to 1.0
 - `mu`: location of the curve, default set to 0.0
 
 ### Gaussian

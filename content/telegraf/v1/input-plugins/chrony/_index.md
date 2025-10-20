@@ -10,7 +10,7 @@ introduced: "v0.13.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/chrony/README.md, chrony Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/chrony/README.md, chrony Plugin Source
 ---
 
 # chrony Input Plugin

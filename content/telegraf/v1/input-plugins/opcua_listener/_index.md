@@ -10,7 +10,7 @@ introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.1/plugins/inputs/opcua_listener/README.md, OPC UA Client Listener Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/opcua_listener/README.md, OPC UA Client Listener Plugin Source
 ---
 
 # OPC UA Client Listener Input Plugin
@@ -309,9 +309,12 @@ to use them.
 An OPC UA node ID may resemble: "ns=3;s=Temperature". In this example:
 
 - ns=3 is indicating the `namespace` is 3
-- s=Temperature is indicting that the `identifier_type` is a string and `identifier` value is 'Temperature'
+- s=Temperature is indicting that the `identifier_type` is a string and
+  `identifier` value is 'Temperature'
 - This example temperature node has a value of 79.0
-To gather data from this node enter the following line into the 'nodes' property above:
+
+To gather data from this node enter the following line into the 'nodes'
+property above:
 
 ```text
 {name="temp", namespace="3", identifier_type="s", identifier="Temperature"},

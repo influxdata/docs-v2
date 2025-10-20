@@ -200,6 +200,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
   - [query-file-limit](#query-file-limit)
 - [Processing Engine](#processing-engine)
   - [plugin-dir](#plugin-dir)
+  - [plugin-repo](#plugin-repo)
   - [virtual-env-location](#virtual-env-location)
   - [package-manager](#package-manager)
 {{% show-in "enterprise" %}}
@@ -1740,6 +1741,7 @@ the following side-effects:
 ### Processing Engine
 
 - [plugin-dir](#plugin-dir)
+- [plugin-repo](#plugin-repo)
 - [virtual-env-location](#virtual-env-location)
 - [package-manager](#package-manager)
 
@@ -1750,6 +1752,42 @@ Specifies the local directory that contains Python plugins and their test files.
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
+
+---
+
+#### plugin-repo
+
+Specifies the base URL of the remote repository used when referencing plugins with the `gh:` prefix.
+When you create a trigger with a plugin filename starting with `gh:`, InfluxDB fetches
+the plugin code from this repository URL.
+
+The URL construction automatically handles trailing slashes—both formats work identically:
+- `https://example.com/plugins/` (with trailing slash)
+- `https://example.com/plugins` (without trailing slash)
+
+**Default:** The official InfluxDB 3 plugins repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
+
+| influxdb3 serve option | Environment variable    |
+| :--------------------- | :---------------------- |
+| `--plugin-repo`        | `INFLUXDB3_PLUGIN_REPO` |
+
+##### Example usage
+
+```bash
+# Use a custom organization repository
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://raw.githubusercontent.com/myorg/influxdb-plugins/main/"
+
+# Use an internal mirror
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://internal.company.com/influxdb-plugins/"
+
+# Set via environment variable
+export INFLUXDB3_PLUGIN_REPO="https://custom-repo.example.com/plugins/"
+influxdb3 serve --plugin-dir ~/.plugins
+```
 
 ---
 
@@ -1778,7 +1816,7 @@ This option supports the following values:
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
-| `--package-manager`    | `PACKAGE_MANAGER`    |
+| `--package-manager`    | `INFLUXDB3_PACKAGE_MANAGER`    |
 
 {{% show-in "enterprise" %}}
 
