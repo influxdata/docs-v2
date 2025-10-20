@@ -3,7 +3,7 @@
 
 plugins:
   basic_transformation:
-    source: ./influxdb3_plugins/influxdata/basic_transformation/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/basic_transformation/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/basic-transformation.md
     category: official
     additional_sections:
@@ -11,7 +11,7 @@ plugins:
       - logging
   
   downsampler:
-    source: ./influxdb3_plugins/influxdata/downsampler/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/downsampler/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/downsampler.md
     category: official
     additional_sections:
@@ -19,63 +19,63 @@ plugins:
       - logging
   
   forecast_error_evaluator:
-    source: ./influxdb3_plugins/influxdata/forecast_error_evaluator/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/forecast_error_evaluator/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/forecast-error-evaluator.md
     category: official
     additional_sections:
       - logging
   
   influxdb_to_iceberg:
-    source: ./influxdb3_plugins/influxdata/influxdb_to_iceberg/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/influxdb_to_iceberg/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/influxdb-to-iceberg.md
     category: official
     additional_sections:
       - logging
   
   mad_check:
-    source: ./influxdb3_plugins/influxdata/mad_check/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/mad_check/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/mad-check.md
     category: official
     additional_sections:
       - logging
   
   notifier:
-    source: ./influxdb3_plugins/influxdata/notifier/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/notifier/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/notifier.md
     category: official
     additional_sections:
       - logging
   
   prophet_forecasting:
-    source: ./influxdb3_plugins/influxdata/prophet_forecasting/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/prophet_forecasting/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/prophet-forecasting.md
     category: official
     additional_sections:
       - logging
   
   state_change:
-    source: ./influxdb3_plugins/influxdata/state_change/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/state_change/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/state-change.md
     category: official
     additional_sections:
       - logging
   
   stateless_adtk_detector:
-    source: ./influxdb3_plugins/influxdata/stateless_adtk_detector/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/stateless_adtk_detector/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/stateless-adtk-detector.md
     category: official
     additional_sections:
       - logging
   
   system_metrics:
-    source: ./influxdb3_plugins/influxdata/system_metrics/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/system_metrics/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/system-metrics.md
     category: official
     additional_sections:
       - logging
   
   threshold_deadman_checks:
-    source: ./influxdb3_plugins/influxdata/threshold_deadman_checks/README.md
+    source: ./.ext/influxdb3_plugins/influxdata/threshold_deadman_checks/README.md
     target: content/shared/influxdb3-plugins/plugins-library/official/threshold-deadman-checks.md
     category: official
     additional_sections:
