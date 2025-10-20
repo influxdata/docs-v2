@@ -202,8 +202,8 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Increasing write response times, timeouts, points dropped
 
 **Solutions:**
-1. Increase [IO threads](#thread-allocation---num-io-threads---num-datafusion-threads) (default is only 2)
-2. Reduce [WAL flush interval](#wal-flush-interval---wal-flush-interval) (from 1s to 100ms)
+1. Increase [IO threads](#thread-allocation-num-io-threads) (default is only 2)
+2. Reduce [WAL flush interval](#wal-flush-interval-wal-flush-interval) (from 1s to 100ms)
 3. Check disk IO performance
 
 ### Slow query performance
@@ -211,16 +211,16 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Long execution times, high memory usage, query timeouts
 
 **Solutions:**
-1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation---num-io-threads---num-datafusion-threads)
-2. {{% /show-in %}}Increase [execution memory pool](#memory-pool---exec-mem-pool-bytes) (to 90%)
-3. Enable [Parquet caching](#parquet-cache---parquet-mem-cache-size-mb---parquet-mem-cache-size)
+1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-datafusion-threads)
+2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 90%)
+3. Enable [Parquet caching](#parquet-cache-parquet-mem-cache-size{{% show-in "core" %}}-mb{{% /show-in %}})
 
 ### Memory pressure
 
 **Symptoms:** OOM errors, swapping, high memory usage
 
 **Solutions:**
-1. Reduce [execution memory pool](#memory-pool---exec-mem-pool-bytes) (to 60%)
+1. Reduce [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 60%)
 2. Lower snapshot threshold (`--force-snapshot-mem-threshold=70%`)
 
 ### CPU bottlenecks
@@ -228,7 +228,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** 100% CPU utilization, uneven thread usage (only 2 cores for writes)
 
 **Solutions:**
-1. Rebalance [thread allocation](#thread-allocation---num-io-threads---num-datafusion-threads)
+1. Rebalance [thread allocation](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}})
 2. Check if only 2 cores are used for write parsing (increase IO threads)
 
 > [!Important]

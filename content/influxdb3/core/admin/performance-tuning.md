@@ -2,7 +2,7 @@
 title: Performance tuning
 seotitle: InfluxDB 3 Core performance tuning and optimization
 description: >
-  Optimize InfluxDB 3 Core performance by tuning thread allocation,
+  Optimize {{% product-name %}} performance by tuning thread allocation,
   memory settings, and other configuration options for your specific workload.
 weight: 205
 menu:
