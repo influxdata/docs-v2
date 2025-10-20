@@ -3,7 +3,7 @@ title: Manage users
 seotitle: Manage users and permissions in InfluxDB Cloud Dedicated
 description: >
   Manage users and access to resources in your InfluxDB Cloud Dedicated cluster.
-  Assign user groups for role-based access control and security.
+  Use the Admin UI for self-service user management or contact support for advanced operations
 menu:
   influxdb3_cloud_dedicated:
     parent: Administer InfluxDB Cloud
@@ -24,7 +24,7 @@ Attribute-Based Access Control (ABAC) security model which grants access based o
 user attributes, resource types, and environment context.
 
 - [Available user groups](#available-user-groups)
-- [Manage users](#manage-users)
+- [User management methods](#user-management-methods)
 
 ## Available user groups
 
@@ -46,45 +46,29 @@ A user can belong to the following groups, each with predefined privileges:
 > in your account are initially assigned to the Admin group, retaining full
 > access to resources in your cluster.
 
-## Manage users
+## User management methods
 
-- [Assign a user to a different group](#assign-a-user-to-a-different-group)
-- [Invite a user to your account](#invite-a-user-to-your-account)
+Choose the appropriate method for your user management needs:
 
-### Assign a user to a different group
+### Admin UI (Self-service)
+Use the Admin UI for user management tasks (available to Admin users only):
 
-To assign existing users in your account to different
-groups, [contact InfluxData support](https://support.influxdata.com/s/login/)
-and provide the list of users and the desired [user groups](#available-user-groups)
-for each.
+- **View users and invitations** - View existing users, invite status, invite ID, and invitation date
+- **Invite new users** - Send invitations with role assignment (Admin, Member, Auditor)
+- **Revoke pending invitations** - Cancel invitations that haven't been accepted
 
-### Invite a user to your account
+> [!Note] 
+> #### Role permissions
+>
+> Auditor role users can view the invite list but cannot send or revoke invitations. Member role users cannot access the invite list.
 
-For new users that you want to add to your account, the InfluxData Support Team
-configures invitations with the attributes and groups that you specify. 
+For more information, see [Manage users in the Admin UI](/influxdb3/cloud-dedicated/admin/users/admin-ui/).
 
-1. [Contact InfluxData support](https://support.influxdata.com/s/login/)
-   to invite a user to your account.
-   In your request, provide the user details, including email address, desired
-   [user groups](#available-user-groups), and other attributes for the user.
-2. InfluxData support creates the user account and emails the user an invitation
-   that includes following:
+### Contact support (Advanced operations)
+For operations not available in the Admin UI:
 
-   - A login URL to authenticate access to the cluster
-   - The {{% product-name %}} **account ID**
-   - The {{% product-name %}} **cluster ID**
-   - The {{% product-name %}} **cluster URL**
-   - A password reset email for setting the login password
+- View or change user roles after invitation acceptance
+- Remove accepted users from your account
+- Advanced user configurations
 
-3. The user accepts the invitation to your account
-
-With a valid password, the user can access cluster resources by interacting with the
-[`influxctl`](/influxdb3/cloud-dedicated/reference/influxctl/) command line tool.
-The assigned user groups determine the user's access to resources.
-
-> [!Note]
-> #### Use database tokens to authorize data reads and writes
-> 
-> In {{% product-name %}}, user groups control access for managing cluster resources.
-> [Database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/) control access
-> for reading and writing data in cluster databases.
+{{< children >}}
