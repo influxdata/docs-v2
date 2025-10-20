@@ -1,0 +1,14 @@
+{
+  "summary": {
+    "total_checked": 79,
+    "broken_count": 0,
+    "success_rate": 100.0,
+    "duration_ms": null
+  },
+  "broken_links": [],
+  "metadata": {
+    "timestamp": "2025-10-20T16:47:58.217901+00:00",
+    "ci_mode": "Local",
+    "version": "0.1.0"
+  }
+}

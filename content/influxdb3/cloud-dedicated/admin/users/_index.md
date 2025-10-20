@@ -24,7 +24,7 @@ Attribute-Based Access Control (ABAC) security model which grants access based o
 user attributes, resource types, and environment context.
 
 - [Available user groups](#available-user-groups)
-- [Manage users](#manage-users)
+- [User management methods](#user-management-methods)
 
 ## Available user groups
 
