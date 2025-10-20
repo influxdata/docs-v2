@@ -12,7 +12,7 @@ on:
       source_commit:
         description: 'influxdb3_plugins commit SHA or branch'
         required: false
-        default: 'master'
+        default: 'main'
 
 permissions:
   contents: write
@@ -42,7 +42,7 @@ jobs:
             const commitMatch = body.match(/### Source Commit\/Branch\s*\n\s*(.+)/);
             
             const plugins = pluginsMatch ? pluginsMatch[1].trim() : 'all';
-            const sourceCommit = commitMatch ? commitMatch[1].trim() : 'master';
+            const sourceCommit = commitMatch ? commitMatch[1].trim() : 'main';
             
             core.setOutput('plugins', plugins);
             core.setOutput('source_commit', sourceCommit);
@@ -158,7 +158,7 @@ jobs:
                 ${validationLog}
                 \`\`\`
                 
-                See [README_TEMPLATE.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README_TEMPLATE.md) for requirements.`
+                See [README_TEMPLATE.md](https://github.com/influxdata/influxdb3_plugins/blob/main/README_TEMPLATE.md) for requirements.`
               });
               
               await github.rest.issues.update({
