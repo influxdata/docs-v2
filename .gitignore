@@ -28,6 +28,7 @@ package-lock.json
 test-results.xml
 /influxdb3cli-build-scripts/content
 tmp
+.tmp
 
 # IDE files
 .vscode/*
