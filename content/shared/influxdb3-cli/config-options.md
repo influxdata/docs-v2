@@ -75,7 +75,9 @@ Sets the number of threads allocated to the IO runtime thread pool. IO threads h
 influxdb3 --num-io-threads=8 serve --node-id=node0 --object-store=file
 ```
 
+{{% show-in "enterprise" %}}
 For detailed information about thread allocation, see the [Resource Limits](#resource-limits) section.
+{{% /show-in %}}
 
 | influxdb3 option | Environment variable       |
 | :--------------- | :------------------------- |
@@ -86,7 +88,7 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 ## Server configuration options
 
 - [General](#general)
-- [Licensing](#licensing)
+{{% show-in "enterprise" %}}- [Licensing](#licensing){{% /show-in %}}
 - [Security](#security)
 - [AWS](#aws)
 - [Google Cloud Service](#google-cloud-service)
@@ -103,8 +105,8 @@ For detailed information about thread allocation, see the [Resource Limits](#res
 - [Processing Engine](#processing-engine)
 {{% show-in "enterprise" %}}
 - [Cluster Management](#cluster-management)
-- [Resource Limits](#resource-limits)
 {{% /show-in %}}
+- [Resource Limits](#resource-limits)
 - [Data Lifecycle Management](#data-lifecycle-management)
 - [Telemetry](#telemetry)
 - [TCP Listeners](#tcp-listeners)
@@ -966,17 +968,19 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 ### DataFusion
 
 - [datafusion-num-threads](#datafusion-num-threads)
-- [datafusion-runtime-type](#datafusion-runtime-type)
-- [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
-- [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
-- [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
-- [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
-- [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
-- [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
-- [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
 - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
 - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
 - [datafusion-config](#datafusion-config)
+  <!-- DEV-ONLY FLAGS: DO NOT DOCUMENT IN PRODUCTION - TOKIO RUNTIME FLAGS
+  - datafusion-runtime-type
+  - datafusion-runtime-disable-lifo-slot
+  - datafusion-runtime-event-interval
+  - datafusion-runtime-global-queue-interval
+  - datafusion-runtime-max-blocking-threads
+  - datafusion-runtime-max-io-events-per-tick
+  - datafusion-runtime-thread-keep-alive
+  - datafusion-runtime-thread-priority
+  END DEV-ONLY FLAGS -->
 
 #### datafusion-num-threads
 
@@ -985,28 +989,6 @@ Sets the maximum number of DataFusion runtime threads to use.
 | influxdb3 serve option     | Environment variable               |
 | :------------------------- | :--------------------------------- |
 | `--datafusion-num-threads` | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
-
----
-
-<!-- DEV-ONLY FLAGS: DO NOT DOCUMENT TOKIO RUNTIME FLAGS - THEY ARE INTERNAL TUNING PARAMETERS AND MAY BE REMOVED OR CHANGED AT ANY TIME
---datafusion-runtime-type, INFLUXDB3_DATAFUSION_RUNTIME_TYPE
-  This flag will be removed in InfluxDB 3.5 Enterprise.
-  Only multi-thread mode should be used (which is the default).
-  The current-thread option is deprecated and will be removed.
-  Future editors: Keep this commented out.
-
---datafusion-runtime-event-interval, INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL
-
---datafusion-runtime-global-queue-interval, INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL
---datafusion-runtime-max-blocking-threads, INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS
-
---datafusion-runtime-max-io-events-per-tick, INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK
-
---datafusion-runtime-thread-keep-alive, INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE
-
---datafusion-runtime-thread-priority, INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY
-
-END DEV-ONLY TOKIO RUNTIME FLAGS -->
 
 ---
 
@@ -1652,22 +1634,21 @@ Specifies how long to wait for a running ingestor during startup.
 
 {{% /show-in %}}
 
-{{% show-in "enterprise" %}}
-
 ---
 
 ### Resource Limits
 
+{{% show-in "enterprise" %}}
 - [num-cores](#num-cores)
+{{% /show-in %}}
 - [num-datafusion-threads](#num-datafusion-threads)
 - _[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)_
+{{% show-in "enterprise" %}}
 - [num-database-limit](#num-database-limit)
 - [num-table-limit](#num-table-limit)
 - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
 
 #### num-cores
-
-{{% show-in "enterprise" %}}
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
 
 Default is determined by your {{% product-name %}} license:
@@ -1705,6 +1686,8 @@ When specified, InfluxDB automatically assigns the number of DataFusion threads 
 > The [`--num-io-threads`](#num-io-threads) option is a global flag.
 ---
 
+{{% /show-in %}}
+
 #### num-datafusion-threads
 
 Sets the number of threads allocated to the DataFusion runtime thread pool.
@@ -1728,8 +1711,8 @@ DataFusion threads handle:
 | influxdb3 serve option         | Environment variable                    |
 | :----------------------------- | :-------------------------------------- |
 | `--num-datafusion-threads`     | `INFLUXDB3_NUM_DATAFUSION_THREADS`     |
-{{% /show-in %}}
 
+{{% show-in "enterprise" %}}
 ---
 
 #### num-database-limit
