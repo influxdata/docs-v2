@@ -18,6 +18,7 @@ Use the following sample datasets to replicate provided examples.
 - [Get started home sensor data](#get-started-home-sensor-data)
 - [Home sensor actions data](#home-sensor-actions-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
+- [European Union wind data](#european-union-wind-data)
 - [Bitcoin price data](#bitcoin-price-data)
 - [Random numbers sample data](#random-numbers-sample-data)
 
@@ -344,6 +345,78 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
   an [API token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient
   permissions to the bucket
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## European Union wind data
+
+The European Union (EU) wind sample dataset provides hourly measurements of
+wind speed and wind direction from various cities in the EU.
+The dataset includes a hierarchical tag set of country, county, and city.
+
+##### Time Range
+
+**2025-10-01T00:00:00Z** to **2025-10-01T23:00:00Z**
+
+##### Schema
+
+- wind_data <em style="opacity: .5">(table)</em>
+  - **tags**:
+    - country
+      - _20 countries_
+    - county
+      - _111 counties_
+    - city 
+      - _129 cities_
+  - **fields**:
+    - wind_speed <em style="opacity: .5">(float)</em>
+    - wind_direction <em style="opacity: .5">(integer)</em>
+
+{{< expand-wrapper >}}
+{{% expand "Write the EU wind sample data to InfluxDB" %}}
+
+#### Write the EU wind sample data to InfluxDB
+
+Use the InfluxDB v2 or v1 API to write the EU wind sample data to {{< product-name >}}.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[v2 API](#)
+[v1 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="DATABASE_(TOKEN|NAME)"}
+curl --request POST \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+```sh {placeholders="DATABASE_(TOKEN|NAME)"}
+curl --request POST \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
+```
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Replace the following in the sample script:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  your {{% product-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb3/version/admin/tokens/#database-tokens)
+  with sufficient permissions to the specified database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -1,0 +1,56 @@
+---
+description: "Telegraf plugin for collecting metrics from Swap"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: Swap
+    identifier: input-swap
+tags: [Swap, "input-plugins", "configuration", "system"]
+introduced: "v1.7.0"
+os_support: "freebsd, linux, macos, solaris, windows"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/swap/README.md, Swap Plugin Source
+---
+
+# Swap Input Plugin
+
+This plugin collects metrics on the operating-system's swap memory.
+
+**Introduced in:** Telegraf v1.7.0
+**Tags:** system
+**OS support:** all
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Read metrics about swap memory usage
+[[inputs.swap]]
+  # no configuration
+```
+
+## Metrics
+
+- swap
+  - fields:
+    - free (int, bytes): free swap memory
+    - total (int, bytes): total swap memory
+    - used (int, bytes): used swap memory
+    - used_percent (float, percent): percentage of swap memory used
+    - in (int, bytes): data swapped in since last boot calculated from page number
+    - out (int, bytes): data swapped out since last boot calculated from page number
+
+## Example Output
+
+```text
+swap total=20855394304i,used_percent=45.43883523785713,used=9476448256i,free=1715331072i 1511894782000000000
+```

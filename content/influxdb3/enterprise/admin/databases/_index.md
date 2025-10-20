@@ -12,6 +12,8 @@ influxdb3/enterprise/tags: [databases]
 related:
   - /influxdb3/enterprise/write-data/best-practices/schema-design/
   - /influxdb3/enterprise/reference/cli/influxdb3/
+  - /influxdb3/enterprise/api/v3/#tag/Database, Database API reference
+  - /influxdb3/enterprise/reference/internals/data-retention/
   - /influxdb3/explorer/manage-databases/
 alt_links:
   cloud: /influxdb/cloud/admin/buckets/

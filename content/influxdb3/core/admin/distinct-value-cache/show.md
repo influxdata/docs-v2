@@ -18,6 +18,8 @@ list_code_example: |
     --token 00xoXX0xXXx0000XxxxXx0Xx0xx0 \
     table distinct_caches
   ```
+related:
+  - /influxdb3/explorer/manage-caches/distinct-value-caches/
 source: /shared/influxdb3-admin/distinct-value-cache/show.md
 ---
 

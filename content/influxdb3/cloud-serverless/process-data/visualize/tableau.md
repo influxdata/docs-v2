@@ -11,6 +11,7 @@ menu:
 influxdb3/cloud-serverless/tags: [Flight client, query, flightsql, tableau, sql]
 aliases:
   - /influxdb3/cloud-serverless/query-data/sql/execute-queries/tableau/
+  - /influxdb3/cloud-serverless/visualize-data/tableau/
 alt_links:
   core: /influxdb3/core/visualize-data/tableau/
   enterprise: /influxdb3/enterprise/visualize-data/tableau/

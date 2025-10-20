@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:20.12.1
+      - image: cimg/node:24.5.0
         environment:
           S3DEPLOY_VERSION: "2.11.0"
           # From https://github.com/bep/s3deploy/releases

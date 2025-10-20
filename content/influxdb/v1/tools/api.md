@@ -20,7 +20,7 @@ Responses use standard HTTP response codes and JSON format.
 To send API requests, you can use
 the [InfluxDB v1 client libraries](/influxdb/v1/tools/api_client_libraries/),
 the [InfluxDB v2 client libraries](/influxdb/v1/tools/api_client_libraries/),
-[Telegraf](https://docs.influxdata.com/telegraf/v1/),
+[Telegraf](/telegraf/v1/),
 or the client of your choice.
 
 {{% note %}}

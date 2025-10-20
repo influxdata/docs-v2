@@ -13,5 +13,5 @@ source: /shared/sql-reference/functions/string.md
 ---
 
 <!-- 
-The content of this page is at /content/shared/sql-reference/functions/string.md
+// SOURCE content/shared/sql-reference/functions/string.md
 -->
