@@ -204,7 +204,26 @@ tags:
   - name: Token
     description: Manage tokens for authentication and authorization
   - name: Write data
-    description: Write data to InfluxDB 3
+    description: |
+      Write data to InfluxDB 3 using line protocol format.
+
+      #### Timestamp precision across write APIs
+
+      InfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.
+      The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
+      | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
+      |-----------|---------------|----------------------|-------------------------|
+      | **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
+      | **Seconds** | ✅ `s` | ✅ `s` | ✅ `s` or `second` |
+      | **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `ms` or `millisecond` |
+      | **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `us` or `microsecond` |
+      | **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `ns` or `nanosecond` |
+      | **Minutes** | ✅ `m` | ❌ No | ❌ No |
+      | **Hours** | ✅ `h` | ❌ No | ❌ No |
+      | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
+      All timestamps are stored internally as nanoseconds.
 paths:
   /write:
     post:
@@ -430,10 +449,20 @@ paths:
         Use query parameters to specify options for writing data.
         
         #### Features
-        
+
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
-        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response times but sacrificing durability guarantees  
+        - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
+
+        #### Auto precision detection
+
+        When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
+        the timestamp precision based on the magnitude of the timestamp value:
+
+        - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
+        - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
+        - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
+        - Larger timestamps → Nanosecond precision (no conversion needed)
 
         #### Related
         
@@ -2043,13 +2072,24 @@ components:
     PrecisionWrite:
       enum:
         - auto
-        - millisecond
-        - second
-        - microsecond
+        - ns
         - nanosecond
+        - us
+        - microsecond
+        - ms
+        - millisecond
+        - s
+        - second
       type: string
       description: |
         The precision for unix timestamps in the line protocol batch.
+
+        Supported values (both short and long forms are accepted):
+        - `auto` (default): Automatically detects precision based on timestamp magnitude
+        - `ns` or `nanosecond`: Nanoseconds
+        - `us` or `microsecond`: Microseconds
+        - `ms` or `millisecond`: Milliseconds
+        - `s` or `second`: Seconds
     QueryRequestObject:
       type: object
       properties:
