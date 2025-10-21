@@ -10,7 +10,7 @@ introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/google_cloud_storage/README.md, Google Cloud Storage Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/google_cloud_storage/README.md, Google Cloud Storage Plugin Source
 ---
 
 # Google Cloud Storage Input Plugin

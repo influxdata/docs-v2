@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/zfs/README.md, ZFS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/zfs/README.md, ZFS Plugin Source
 ---
 
 # ZFS Input Plugin
@@ -56,7 +56,27 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
   ## By default, don't gather dataset stats
   # datasetMetrics = false
+
+  ## Report fields as the type defined by ZFS (Linux only)
+  ## This is disabled for backward compatibility but is STRONGLY RECOMMENDED
+  ## to be enabled to avoid overflows. This requires UINT support on the output
+  ## for most fields.
+  ## useNativeTypes = false
 ```
+
+OpenZFS on Linux reports the type of fields especially for the dataset metrics.
+By default this plugin will ignore the provided type and will report metrics as
+signed 64-bit integers.
+
+It is **highly recommended** to use the reported type by setting
+`useNativeTypes` to `true` for avoiding overflows of field values as most fields
+are reported as **unsigned** 64-bit integers. Additionally, you must make sure
+your output supports reporting unsigned values!
+
+> [!WARNING]
+> Changing the setting for `useNativeTypes` will generate metrics with
+> conflicting field types so you need to either migrate existing data or clear
+> your database for e.g. InfluxDB outputs!
 
 ## Metrics
 

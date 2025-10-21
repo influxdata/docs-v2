@@ -10,7 +10,7 @@ introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/outputs/mqtt/README.md, MQTT Producer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/mqtt/README.md, MQTT Producer Plugin Source
 ---
 
 # MQTT Producer Output Plugin

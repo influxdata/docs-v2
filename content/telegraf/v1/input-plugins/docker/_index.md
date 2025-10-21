@@ -10,7 +10,7 @@ introduced: "v0.1.9"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/docker/README.md, Docker Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/docker/README.md, Docker Plugin Source
 ---
 
 # Docker Input Plugin
@@ -74,6 +74,12 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   ## Timeout for docker list, info, and stats commands
   timeout = "5s"
 
+  ## Podman compatibility settings (auto-enabled when Podman detected)
+  ## Cache TTL for accurate CPU percentage calculation (default: 60s)
+  ## Set higher than your collection interval for accurate measurements
+  ## Set to 0 to keep cache entries forever (not recommended for dynamic environments)
+  # podman_cache_ttl = "60s"
+
   ## Specifies for which classes a per-device metric should be issued
   ## Possible values are 'cpu' (cpu0, cpu1, ...), 'blkio' (8:0, 8:1, ...) and 'network' (eth0, eth1, ...)
   # perdevice_include = ["cpu"]
@@ -113,6 +119,17 @@ could result in an attacker gaining root access to a machine. This is especially
 relevant if the telegraf configuration can be changed by untrusted users.
 
 [4]: https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+
+### Podman Compatibility
+
+This plugin is compatible with Podman through its Docker-compatible API.
+When connected to Podman:
+
+- The plugin automatically detects Podman by examining the server version and
+  endpoint
+- Uses an intelligent caching mechanism to calculate accurate CPU percentages
+- Configure Podman socket endpoint, for example:
+  `endpoint = "unix:///run/podman/podman.sock"`
 
 ### Docker Daemon Permissions
 

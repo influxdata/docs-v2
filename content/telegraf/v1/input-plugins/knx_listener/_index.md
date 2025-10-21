@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/knx_listener/README.md, KNX Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/knx_listener/README.md, KNX Plugin Source
 ---
 
 # KNX Input Plugin
