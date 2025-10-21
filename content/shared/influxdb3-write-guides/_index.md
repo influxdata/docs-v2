@@ -1,29 +1,60 @@
 
-Use tools like the `influxctl` CLI, Telegraf, and InfluxDB client libraries to
-to write time series data to {{< product-name >}}. [Line protocol](#line-protocol)
-is the text-based format used to write data to InfluxDB. There are tools
-available to covert other formats (for example—[CSV](/influxdb3/version/write-data/use-telegraf/csv/))
-to line protocol.
+Use tools like the {{% show-in "cloud-dedicated,clustered" %}}`influxctl`{{% /show-in %}}{{% show-in "cloud-serverless" %}}`influx`{{% /show-in %}}{{% show-in "core,enterprise" %}}`influxdb3`{{% /show-in %}}
+ CLI, Telegraf, and InfluxDB client libraries
+to write time series data to {{< product-name >}}.
+[line protocol](#line-protocol)
+is the text-based format used to write data to InfluxDB.
 
+> [!Tip]
+> Tools are available to convert other formats (for example—[CSV](/influxdb3/version/write-data/use-telegraf/csv/)) to line protocol.
+
+{{% show-in "core,enterprise" %}}
+- [Choose the write endpoint for your workload](#choose-the-write-endpoint-for-your-workload)
+  - [Timestamp precision across write APIs](#timestamp-precision-across-write-apis)
+{{% /show-in %}}
 - [Line protocol](#line-protocol)
   - [Line protocol elements](#line-protocol-elements)
 - [Write data to InfluxDB](#write-data-to-influxdb)
   {{< children type="anchored-list" >}}
 
 {{% show-in "core,enterprise" %}}
-> [!Note]
-> 
+
+> [!Tip]
 > #### Choose the write endpoint for your workload
 > 
 > When creating new write workloads, use the
 > [InfluxDB HTTP API `/api/v3/write_lp` endpoint](influxdb3/version/write-data/http-api/v3-write-lp/)
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
-> When bringing existing v1 write workloads, use the {{% product-name %}}
+> When bringing existing _v1_ write workloads, use the {{% product-name %}}
 > HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
 >
-> When bringing existing v2 write workloads, use the {{% product-name %}}
+> When bringing existing _v2_ write workloads, use the {{% product-name %}}
 > HTTP API [`/api/v2/write` endpoint]([/influxdb3/version/api/v3/#operation/PostV1Write](/influxdb3/version/api/v3/#operation/PostV2Write)).
+>
+> **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) or v2.x [`outputs.influxdb_v2`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) output plugins.
+> See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
+
+## Timestamp precision across write APIs
+
+{{% product-name %}} provides multiple write endpoints for compatibility with different InfluxDB versions.
+The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
+| Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
+|-----------|---------------|----------------------|-------------------------|
+| **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
+| **Seconds** | ✅ `s` | ✅ `s` | ✅ `s` or `second` |
+| **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `ms` or `millisecond` |
+| **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `us` or `microsecond` |
+| **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `ns` or `nanosecond` |
+| **Minutes** | ✅ `m` | ❌ No | ❌ No |
+| **Hours** | ✅ `h` | ❌ No | ❌ No |
+| **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
+- All write endpoints accept timestamps in line protocol format.
+- {{% product-name %}} multiplies timestamps by the appropriate precision value to convert them to nanoseconds for internal storage.
+- All timestamps are stored internally as nanoseconds regardless of the precision specified when writing.
+
 {{% /show-in %}}
 
 {{% hide-in "core,enterprise" %}}

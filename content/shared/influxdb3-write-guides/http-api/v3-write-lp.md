@@ -3,24 +3,81 @@ Use the `/api/v3/write_lp` endpoint to write data to {{% product-name %}}.
 This endpoint accepts the same [line protocol](/influxdb3/version/reference/line-protocol/)
 syntax as previous versions of InfluxDB, and supports the following:
 
-##### Query parameters
+## Query parameters
 
 - `?accept_partial=<BOOLEAN>`: Accept or reject partial writes (default is `true`).
 - `?no_sync=<BOOLEAN>`: Control when writes are acknowledged:
   - `no_sync=true`: Acknowledges writes before WAL persistence completes.
   - `no_sync=false`: Acknowledges writes after WAL persistence completes (default).
 - `?precision=<PRECISION>`: Specify the precision of the timestamp.
-  By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision.
+  By default, {{% product-name %}} uses the timestamp magnitude to auto-detect the precision (`auto`).
   To avoid any ambiguity, you can specify the precision of timestamps in your data.
-  
-  The {{< product-name >}} `/api/v3/write_lp` API endpoint supports the following timestamp precisions:
-  
-  - `ns` (nanoseconds)
-  - `us` (microseconds)
-  - `ms` (milliseconds)
-  - `s` (seconds)
 
-##### Request body
+  The {{< product-name >}} `/api/v3/write_lp` API endpoint supports the following timestamp precisions:
+
+  - `auto` (automatic detection, default)
+  - `ns` or `nanosecond` (nanoseconds)
+  - `us` or `microsecond` (microseconds)
+  - `ms` or `millisecond` (milliseconds)
+  - `s` or `second` (seconds)
+
+### Auto precision detection
+
+When you use `precision=auto` (or omit the parameter), {{% product-name %}} automatically detects the timestamp precision based on the magnitude of the timestamp value:
+
+- Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
+- Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
+- Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
+- Larger timestamps → Nanosecond precision (no conversion needed)
+
+### Precision examples
+
+The following examples show how to write data with different timestamp precisions:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Auto (default)](#)
+[Nanoseconds](#)
+[Milliseconds](#)
+[Seconds](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+# Auto precision (default) - timestamp magnitude determines precision
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0 1708976567"
+```
+
+The timestamp `1708976567` is automatically detected as seconds.
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+# Explicit nanosecond precision
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=ns" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0 1708976567000000000"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+# Millisecond precision
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=ms" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0 1708976567000"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+# Second precision
+curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=s" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0 1708976567"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+## Request body
 
 - Line protocol
 
