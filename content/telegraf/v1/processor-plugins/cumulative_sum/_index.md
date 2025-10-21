@@ -10,7 +10,7 @@ introduced: "v1.35.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/cumulative_sum/README.md, Cumulative Sum Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/cumulative_sum/README.md, Cumulative Sum Plugin Source
 ---
 
 # Cumulative Sum Processor Plugin

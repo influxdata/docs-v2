@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/processors/s2geo/README.md, S2 Geo Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/s2geo/README.md, S2 Geo Plugin Source
 ---
 
 # S2 Geo Processor Plugin

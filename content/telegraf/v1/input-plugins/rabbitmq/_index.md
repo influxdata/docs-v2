@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/rabbitmq/README.md, RabbitMQ Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/rabbitmq/README.md, RabbitMQ Plugin Source
 ---
 
 # RabbitMQ Input Plugin
@@ -188,6 +188,8 @@ to use them.
     - node
     - durable
     - auto_delete
+    - type (queue type as returned by RabbitMQ, if empty it defaults to
+      "classic"; only included when include_queue_type_tag = true)
   - fields:
     - consumer_utilisation (float, percent)
     - consumers (int, int)

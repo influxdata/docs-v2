@@ -10,7 +10,7 @@ introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/nsq_consumer/README.md, NSQ Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nsq_consumer/README.md, NSQ Consumer Plugin Source
 ---
 
 # NSQ Consumer Input Plugin

@@ -10,7 +10,7 @@ introduced: "v1.24.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/linux_sysctl_fs/README.md, Linux Sysctl Filesystem Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/linux_sysctl_fs/README.md, Linux Sysctl Filesystem Plugin Source
 ---
 
 # Linux Sysctl Filesystem Input Plugin
