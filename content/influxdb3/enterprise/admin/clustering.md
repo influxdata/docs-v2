@@ -25,43 +25,18 @@ cluster efficiency.
 - [Specialize nodes for specific workloads](#specialize-nodes-for-specific-workloads)
 - [Configure node modes](#configure-node-modes)
 - [Allocate threads by node type](#allocate-threads-by-node-type)
-  - [Critical concept: Thread pools](#critical-concept-thread-pools)
 - [Configure ingest nodes](#configure-ingest-nodes)
-  - [Example medium ingester (32 cores)](#example-medium-ingester-32-cores)
-  - [Monitor ingest performance](#monitor-ingest-performance)
 - [Configure query nodes](#configure-query-nodes)
-  - [Analytical query node (64 cores)](#analytical-query-node-64-cores)
-  - [Real-time query node (32 cores)](#real-time-query-node-32-cores)
-  - [Optimize query settings](#optimize-query-settings)
 - [Configure compactor nodes](#configure-compactor-nodes)
-  - [Dedicated compactor (32 cores)](#dedicated-compactor-32-cores)
-  - [Tune compaction parameters](#tune-compaction-parameters)
 - [Configure process nodes](#configure-process-nodes)
-  - [Processing node (16 cores)](#processing-node-16-cores)
 - [Multi-mode configurations](#multi-mode-configurations)
-  - [Ingest + Query node (48 cores)](#ingest--query-node-48-cores)
-  - [Query + Compact node (32 cores)](#query--compact-node-32-cores)
 - [Cluster architecture examples](#cluster-architecture-examples)
-  - [Small cluster (3 nodes)](#small-cluster-3-nodes)
-  - [Medium cluster (6 nodes)](#medium-cluster-6-nodes)
-  - [Large cluster (12+ nodes)](#large-cluster-12-nodes)
 - [Scale your cluster](#scale-your-cluster)
-  - [Vertical scaling limitations](#vertical-scaling-limitations)
-  - [Scale queries horizontally](#scale-queries-horizontally)
 - [Monitor performance](#monitor-performance)
-  - [Node-specific metrics](#node-specific-metrics)
-  - [Monitor cluster-wide metrics](#monitor-cluster-wide-metrics)
-  - [Monitor and respond to performance issues](#monitor-and-respond-to-performance-issues)
 - [Troubleshoot node configurations](#troubleshoot-node-configurations)
-  - [Ingest node issues](#ingest-node-issues)
-  - [Query node issues](#query-node-issues)
-  - [Compactor node issues](#compactor-node-issues)
 - [Best practices](#best-practices)
 - [Migrate to specialized nodes](#migrate-to-specialized-nodes)
-  - [From all-in-one to specialized](#from-all-in-one-to-specialized)
 - [Manage configurations](#manage-configurations)
-  - [Use configuration files](#use-configuration-files)
-  - [Configure using environment variables](#configure-using-environment-variables)
 
 
 ## Specialize nodes for specific workloads
@@ -118,11 +93,11 @@ for line protocol parsing.
 
 ```bash
 influxdb3 \
-  --num-cores=32 \
   --num-io-threads=12 \
-  --num-datafusion-threads=20 \
-  --exec-mem-pool-bytes=60% \
   serve \
+  --num-cores=32 \
+  --datafusion-num-threads=20 \
+  --exec-mem-pool-bytes=60% \
   --mode=ingest \
   --node-id=ingester-01
 ```
@@ -171,12 +146,12 @@ Query nodes execute complex analytical queries and need maximum DataFusion threa
 
 ```bash
 influxdb3 \
-  --num-cores=64 \
   --num-io-threads=4 \
-  --num-datafusion-threads=60 \
+  serve \
+  --num-cores=64 \
+  --datafusion-num-threads=60 \
   --exec-mem-pool-bytes=90% \
   --parquet-mem-cache-size=8GB \
-  serve \
   --mode=query \
   --node-id=query-01 \
   --cluster-id=prod-cluster
@@ -192,12 +167,12 @@ influxdb3 \
 
 ```bash
 influxdb3 \
-  --num-cores=32 \
   --num-io-threads=6 \
-  --num-datafusion-threads=26 \
+  serve \
+  --num-cores=32 \
+  --datafusion-num-threads=26 \
   --exec-mem-pool-bytes=80% \
   --parquet-mem-cache-size=4GB \
-  serve \
   --mode=query \
   --node-id=query-02
 ```
@@ -207,9 +182,8 @@ influxdb3 \
 You can configure `datafusion` properties for additional tuning of query nodes:
 
 ```bash
-influxdb3 \
+influxdb3 serve \
   --datafusion-config "datafusion.execution.batch_size:16384,datafusion.execution.target_partitions:60" \
-  serve \
   --mode=query
 ```
 
@@ -221,22 +195,24 @@ Compactor nodes optimize stored data through background compaction processes.
 
 ```bash
 influxdb3 \
-  --num-cores=32 \
   --num-io-threads=2 \
-  --num-datafusion-threads=30 \
-  --compaction-row-limit=2000000 \
+  serve \
+  --num-cores=32 \
+  --datafusion-num-threads=30 \
   --compaction-gen2-duration=24h \
   --compaction-check-interval=5m \
-  serve \
   --mode=compact \
   --node-id=compactor-01 \
   --cluster-id=prod-cluster
+
+# Note: --compaction-row-limit option is not yet released in v3.5.0
+# Uncomment when available in a future release:
+# --compaction-row-limit=2000000 \
 ```
 
 **Configuration rationale:**
 - **2 IO threads**: Minimal, compaction is DataFusion-intensive
 - **30 DataFusion threads**: Maximum threads for sort/merge operations
-- **2M row limit**: Larger files for better compression
 - **24h gen2 duration**: Time-based compaction strategy
 
 ### Tune compaction parameters
@@ -258,11 +234,11 @@ Process nodes handle data transformations and processing plugins.
 
 ```bash
 influxdb3 \
-  --num-cores=16 \
   --num-io-threads=4 \
-  --num-datafusion-threads=12 \
-  --plugin-dir=/path/to/plugins \
   serve \
+  --num-cores=16 \
+  --datafusion-num-threads=12 \
+  --plugin-dir=/path/to/plugins \
   --mode=process \
   --node-id=processor-01 \
   --cluster-id=prod-cluster
@@ -276,11 +252,11 @@ Some deployments benefit from nodes handling multiple responsibilities.
 
 ```bash
 influxdb3 \
-  --num-cores=48 \
   --num-io-threads=12 \
-  --num-datafusion-threads=36 \
-  --exec-mem-pool-bytes=75% \
   serve \
+  --num-cores=48 \
+  --datafusion-num-threads=36 \
+  --exec-mem-pool-bytes=75% \
   --mode=ingest,query \
   --node-id=hybrid-01
 ```
@@ -289,10 +265,10 @@ influxdb3 \
 
 ```bash
 influxdb3 \
-  --num-cores=32 \
   --num-io-threads=4 \
-  --num-datafusion-threads=28 \
   serve \
+  --num-cores=32 \
+  --datafusion-num-threads=28 \
   --mode=query,compact \
   --node-id=qc-01
 ```
@@ -390,10 +366,10 @@ Query nodes can scale horizontally since they all access the same object store:
 # Add query nodes as needed
 for i in {1..10}; do
   influxdb3 \
-    --num-cores=32 \
     --num-io-threads=4 \
-    --num-datafusion-threads=28 \
     serve \
+    --num-cores=32 \
+    --datafusion-num-threads=28 \
     --mode=query \
     --node-id=query-$i &
 done
@@ -566,7 +542,7 @@ top -H -p $(pgrep influxdb3)
 ```bash
 # Check: DataFusion threads at 100% during data snapshots to Parquet
 # Solution: Reserve more DataFusion threads for snapshot operations
---num-datafusion-threads=40
+--datafusion-num-threads=40
 ```
 
 ### Query node issues
@@ -592,7 +568,7 @@ free -h
 ```bash
 # Check: Compaction queue length
 # Solution: Add more compactor nodes or increase threads
---num-datafusion-threads=30
+--datafusion-num-threads=30
 ```
 
 ## Best practices
@@ -638,7 +614,7 @@ cluster-id = "prod"
 mode = "ingest"
 num-cores = 96
 num-io-threads = 20
-num-datafusion-threads = 76
+datafusion-num-threads = 76
 
 # query.toml
 node-id = "query-01"
@@ -646,7 +622,7 @@ cluster-id = "prod"
 mode = "query"
 num-cores = 64
 num-io-threads = 4
-num-datafusion-threads = 60
+datafusion-num-threads = 60
 ```
 
 Launch with configuration:
@@ -660,7 +636,7 @@ influxdb3 serve --config ingester.toml
 # Set environment variables for node type
 export INFLUXDB3_ENTERPRISE_MODE=ingest
 export INFLUXDB3_NUM_IO_THREADS=20
-export INFLUXDB3_NUM_DATAFUSION_THREADS=76
+export INFLUXDB3_DATAFUSION_NUM_THREADS=76
 
 influxdb3 serve --node-id=$HOSTNAME --cluster-id=prod
 ```
