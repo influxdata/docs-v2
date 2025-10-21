@@ -10,6 +10,7 @@ is the text-based format used to write data to InfluxDB.
 
 {{% show-in "core,enterprise" %}}
 - [Choose the write endpoint for your workload](#choose-the-write-endpoint-for-your-workload)
+  - [Timestamp precision across write APIs](#timestamp-precision-across-write-apis)
 {{% /show-in %}}
 - [Line protocol](#line-protocol)
   - [Line protocol elements](#line-protocol-elements)
@@ -33,6 +34,29 @@ is the text-based format used to write data to InfluxDB.
 >
 > **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) or v2.x [`outputs.influxdb_v2`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) output plugins.
 > See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
+
+## Timestamp precision across write APIs
+
+{{% product-name %}} provides multiple write endpoints for compatibility with different InfluxDB versions.
+The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
+| Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
+|-----------|---------------|----------------------|-------------------------|
+| **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
+| **Seconds** | ✅ `s` | ✅ `s` | ✅ `second` |
+| **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `millisecond` |
+| **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `microsecond` |
+| **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `nanosecond` |
+| **Minutes** | ✅ `m` | ❌ No | ❌ No |
+| **Hours** | ✅ `h` | ❌ No | ❌ No |
+| **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
+> [!Note]
+> A bug currently prevents abbreviated precision values (`ns`, `n`, `us`, `u`, `ms`, `s`) from working with the `/api/v3/write_lp` endpoint. Use the full names (`nanosecond`, `microsecond`, `millisecond`, `second`) instead. Abbreviated values will be supported in a future release.
+
+- All write endpoints accept timestamps in line protocol format.
+- {{% product-name %}} multiplies timestamps by the appropriate precision value to convert them to nanoseconds for internal storage.
+- All timestamps are stored internally as nanoseconds regardless of the precision specified when writing.
 
 {{% /show-in %}}
 
