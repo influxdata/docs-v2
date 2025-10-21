@@ -417,6 +417,13 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 ### Core
 
+#### Breaking Changes
+
+- **Parquet cache configuration**: Replaced `--parquet-mem-cache-size-mb` option with `--parquet-mem-cache-size`. The new option accepts values in megabytes (as an integer) or as a percentage of total available memory (for example, `20%`). The default value changed from `1000` MB to `20%` of total available memory. The environment variable `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB` was replaced with `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`. ([#26023](https://github.com/influxdata/influxdb/pull/26023))
+- **Memory settings updates**:
+  - Force snapshot memory threshold now defaults to `50%` of available memory
+  - DataFusion execution memory pool now defaults to `20%` of available memory
+
 #### General Updates
 
 - Performance and reliability improvements.
