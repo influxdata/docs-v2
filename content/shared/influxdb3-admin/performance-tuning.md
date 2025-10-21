@@ -79,12 +79,12 @@ Use the following to tune performance in _all-in-one_ deployments:
 
 {{% show-in "core" %}}
 > [!Note]
-> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can only configure `--num-io-threads`.
+> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can use the `--num-io-threads` global option to set the number of IO threads.
 {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 > [!Note]
-> {{% product-name %}} lets you configure both thread pools explicitly with `--num-io-threads` and `--num-datafusion-threads`.
+> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--num-datafusion-threads` global options.
 {{% /show-in %}}
 
 {{% show-in "core" %}}
