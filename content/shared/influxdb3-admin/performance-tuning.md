@@ -72,20 +72,13 @@ Use the following to tune performance in _all-in-one_ deployments:
 > For specialized cluster nodes (ingest-only, query-only, etc.), see [Configure specialized cluster nodes](/influxdb3/version/admin/clustering/) for mode-specific optimizations.
 {{% /show-in %}}
 
-### Thread allocation (--num-io-threads{{% show-in "enterprise" %}}, --num-datafusion-threads{{% /show-in %}})
+### Thread allocation (--num-io-threads{{% show-in "enterprise" %}}, --datafusion-num-threads{{% /show-in %}})
 
 **IO threads** handle HTTP requests and line protocol parsing. **Default: 2** (often insufficient).
 {{% show-in "enterprise" %}}**DataFusion threads** process queries and snapshots.{{% /show-in %}}
 
-{{% show-in "core" %}}
 > [!Note]
-> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can use the `--num-io-threads` global option to set the number of IO threads.
-{{% /show-in %}}
-
-{{% show-in "enterprise" %}}
-> [!Note]
-> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--num-datafusion-threads` global options.
-{{% /show-in %}}
+> {{% product-name %}} automatically allocates remaining cores to DataFusion after reserving IO threads. You can configure both thread pools explicitly by setting the `--num-io-threads` and `--datafusion-num-threads` options.
 
 {{% show-in "core" %}}
 ```bash
@@ -104,12 +97,14 @@ influxdb3 --num-io-threads=4 serve \
 {{% show-in "enterprise" %}}
 ```bash
 # Write-heavy: More IO threads, adequate DataFusion
-influxdb3 --num-io-threads=12 --num-datafusion-threads=20 serve \
+influxdb3 --num-io-threads=12 serve \
+  --datafusion-num-threads=20 \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 
 # Query-heavy: Fewer IO threads, more DataFusion
-influxdb3 --num-io-threads=4 --num-datafusion-threads=28 serve \
+influxdb3 --num-io-threads=4 serve \
+  --datafusion-num-threads=28 \
   --node-id=node0 --cluster-id=cluster0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -153,14 +148,15 @@ influxdb3 --exec-mem-pool-bytes=60% serve \
 ```
 {{% /show-in %}}
 
-### Parquet cache (--parquet-mem-cache-size{{% show-in "core" %}}-mb{{% /show-in %}})
+### Parquet cache (--parquet-mem-cache-size)
 
 Caches frequently accessed data files in memory.
 
 {{% show-in "core" %}}
 ```bash
 # Enable caching for better query performance
-influxdb3 --parquet-mem-cache-size-mb=4096 serve \
+influxdb3 serve \
+  --parquet-mem-cache-size=4096 \
   --node-id=node0 \
   --object-store=file --data-dir=~/.influxdb3
 ```
@@ -204,7 +200,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Increasing write response times, timeouts, points dropped
 
 **Solutions:**
-1. Increase [IO threads](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}}) (default is only 2)
+1. Increase [IO threads](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-datafusion-num-threads{{% /show-in %}}) (default is only 2)
 2. Reduce [WAL flush interval](#wal-flush-interval-wal-flush-interval) (from 1s to 100ms)
 3. Check disk IO performance
 
@@ -213,9 +209,9 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** Long execution times, high memory usage, query timeouts
 
 **Solutions:**
-1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-num-datafusion-threads)
+1. {{% show-in "enterprise" %}}Increase [DataFusion threads](#thread-allocation-num-io-threads-datafusion-num-threads)
 2. {{% /show-in %}}Increase [execution memory pool](#memory-pool-exec-mem-pool-bytes) (to 90%)
-3. Enable [Parquet caching](#parquet-cache-parquet-mem-cache-size{{% show-in "core" %}}-mb{{% /show-in %}})
+3. Enable [Parquet caching](#parquet-cache-parquet-mem-cache-size)
 
 ### Memory pressure
 
@@ -230,7 +226,7 @@ influxdb3 --wal-flush-interval=100ms serve \
 **Symptoms:** 100% CPU utilization, uneven thread usage (only 2 cores for writes)
 
 **Solutions:**
-1. Rebalance [thread allocation](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-num-datafusion-threads{{% /show-in %}})
+1. Rebalance [thread allocation](#thread-allocation-num-io-threads{{% show-in "enterprise" %}}-datafusion-num-threads{{% /show-in %}})
 2. Check if only 2 cores are used for write parsing (increase IO threads)
 
 > [!Important]
@@ -258,11 +254,10 @@ influxdb3 --num-io-threads=12 \
 {{% show-in "enterprise" %}}
 ```bash
 # 32-core system, high ingest rate
-influxdb3 --num-io-threads=12 \
-  --num-datafusion-threads=20 \
+influxdb3 --num-io-threads=12 serve \
+  --datafusion-num-threads=20 \
   --exec-mem-pool-bytes=80% \
   --wal-flush-interval=100ms \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -275,10 +270,9 @@ influxdb3 --num-io-threads=12 \
 {{% show-in "core" %}}
 ```bash
 # 32-core system, analytical queries
-influxdb3 --num-io-threads=4 \
+influxdb3 --num-io-threads=4 serve \
   --exec-mem-pool-bytes=90% \
-  --parquet-mem-cache-size-mb=2048 \
-  serve \
+  --parquet-mem-cache-size=2048 \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -288,11 +282,10 @@ influxdb3 --num-io-threads=4 \
 {{% show-in "enterprise" %}}
 ```bash
 # 32-core system, analytical queries
-influxdb3 --num-io-threads=4 \
-  --num-datafusion-threads=28 \
+influxdb3 --num-io-threads=4 serve \
+  --datafusion-num-threads=28 \
   --exec-mem-pool-bytes=90% \
   --parquet-mem-cache-size=2GB \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -305,10 +298,9 @@ influxdb3 --num-io-threads=4 \
 {{% show-in "core" %}}
 ```bash
 # 32-core system, balanced operations
-influxdb3 --num-io-threads=8 \
+influxdb3 --num-io-threads=8 serve \
   --exec-mem-pool-bytes=70% \
-  --parquet-mem-cache-size-mb=1024 \
-  serve \
+  --parquet-mem-cache-size=1024 \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -318,11 +310,10 @@ influxdb3 --num-io-threads=8 \
 {{% show-in "enterprise" %}}
 ```bash
 # 32-core system, balanced operations
-influxdb3 --num-io-threads=8 \
-  --num-datafusion-threads=24 \
+influxdb3 --num-io-threads=8 serve \
+  --datafusion-num-threads=24 \
   --exec-mem-pool-bytes=70% \
   --parquet-mem-cache-size=1GB \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -352,10 +343,9 @@ DataFusion threads = N - IO threads
 {{% show-in "core" %}}
 ```bash
 # Balanced configuration
-influxdb3 --num-io-threads=2 \
+influxdb3 --num-io-threads=2 serve \
   --exec-mem-pool-bytes=10GB \
-  --parquet-mem-cache-size-mb=500 \
-  serve \
+  --parquet-mem-cache-size=500 \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -381,10 +371,9 @@ influxdb3 --num-io-threads=2 \
 {{% show-in "core" %}}
 ```bash
 # Write-optimized configuration
-influxdb3 --num-io-threads=6 \
+influxdb3 --num-io-threads=6 serve \
   --exec-mem-pool-bytes=45GB \
-  --parquet-mem-cache-size-mb=2048 \
-  serve \
+  --parquet-mem-cache-size=2048 \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -394,11 +383,10 @@ influxdb3 --num-io-threads=6 \
 {{% show-in "enterprise" %}}
 ```bash
 # Write-optimized configuration
-influxdb3 --num-io-threads=6 \
-  --num-datafusion-threads=10 \
+influxdb3 --num-io-threads=6 serve \
+  --datafusion-num-threads=10 \
   --exec-mem-pool-bytes=45GB \
   --parquet-mem-cache-size=2GB \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -411,11 +399,10 @@ influxdb3 --num-io-threads=6 \
 {{% show-in "core" %}}
 ```bash
 # Query-optimized configuration
-influxdb3 --num-io-threads=8 \
+influxdb3 --num-io-threads=8 serve \
   --exec-mem-pool-bytes=200GB \
-  --parquet-mem-cache-size-mb=10240 \
+  --parquet-mem-cache-size=10240 \
   --object-store-connection-limit=200 \
-  serve \
   --node-id=node0 \
   --object-store=file \
   --data-dir=~/.influxdb3
@@ -425,12 +412,11 @@ influxdb3 --num-io-threads=8 \
 {{% show-in "enterprise" %}}
 ```bash
 # Query-optimized configuration
-influxdb3 --num-io-threads=8 \
-  --num-datafusion-threads=56 \
+influxdb3 --num-io-threads=8 serve \
+  --datafusion-num-threads=56 \
   --exec-mem-pool-bytes=200GB \
   --parquet-mem-cache-size=10GB \
   --object-store-connection-limit=200 \
-  serve \
   --node-id=node0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -447,12 +433,11 @@ Dedicated ingest nodes require significant IO threads:
 
 ```bash
 # High-throughput ingester (96 cores)
-influxdb3 --mode=ingest \
+influxdb3 --num-io-threads=24 serve \
+  --mode=ingest \
   --num-cores=96 \
-  --num-io-threads=24 \
-  --num-datafusion-threads=72 \
+  --datafusion-num-threads=72 \
   --force-snapshot-mem-threshold=90% \
-  serve \
   --node-id=ingester0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -469,13 +454,12 @@ Query nodes should maximize DataFusion threads:
 
 ```bash
 # Query-optimized node (64 cores)
-influxdb3 --mode=query \
+influxdb3 --num-io-threads=4 serve \
+  --mode=query \
   --num-cores=64 \
-  --num-io-threads=4 \
-  --num-datafusion-threads=60 \
+  --datafusion-num-threads=60 \
   --exec-mem-pool-bytes=90% \
   --parquet-mem-cache-size=4GB \
-  serve \
   --node-id=query0 \
   --cluster-id=cluster0 \
   --object-store=file \
@@ -488,16 +472,18 @@ Compaction is DataFusion-intensive:
 
 ```bash
 # Dedicated compactor (32 cores)
-influxdb3 --mode=compact \
+influxdb3 --num-io-threads=2 serve \
+  --mode=compact \
   --num-cores=32 \
-  --num-io-threads=2 \
-  --num-datafusion-threads=30 \
-  --compaction-row-limit=1000000 \
-  serve \
+  --datafusion-num-threads=30 \
   --node-id=compactor0 \
   --cluster-id=cluster0 \
   --object-store=file \
   --data-dir=~/.influxdb3
+
+# Note: --compaction-row-limit option is not yet released in v3.5.0
+# Uncomment when available in a future release:
+# --compaction-row-limit=1000000 \
 ```
 {{% /show-in %}}
 
@@ -663,7 +649,7 @@ iostat -x 1
 {{% show-in "core" %}}1. Increase execution memory pool: `--exec-mem-pool-bytes=90%`
 2. Enable Parquet caching: `--parquet-mem-cache-size=4GB`
 3. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}
-{{% show-in "enterprise" %}}1. Increase DataFusion threads: `--num-datafusion-threads=30`
+{{% show-in "enterprise" %}}1. Increase DataFusion threads: `--datafusion-num-threads=30`
 2. Increase execution memory pool: `--exec-mem-pool-bytes=90%`
 3. Enable Parquet caching: `--parquet-mem-cache-size=4GB`
 4. Optimize query patterns (smaller time ranges, fewer fields){{% /show-in %}}

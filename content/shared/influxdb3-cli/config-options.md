@@ -68,7 +68,11 @@ The following options apply to the `influxdb3` CLI globally and must be specifie
 Sets the number of threads allocated to the IO runtime thread pool. IO threads handle HTTP request serving, line protocol parsing, and file operations.
 
 > [!Important]
-> This is a **global option** that must be specified before the `serve` command.
+> `--num-io-threads` is a **global option** that must be specified before the `serve` command.
+
+{{% show-in "enterprise" %}}
+**Default:** `2`
+{{% /show-in %}}
 
 ```bash
 # Set IO threads (global option before serve)
@@ -187,13 +191,13 @@ You can specify multiple modes using a comma-delimited list (for example, `inges
 **Example configurations:**
 ```bash
 # High-throughput ingest node (32 cores)
-influxdb3 --num-io-threads=12 serve --mode=ingest --num-datafusion-threads=20
+influxdb3 --num-io-threads=12 serve --mode=ingest --datafusion-num-threads=20
 
 # Query-optimized node (32 cores)
-influxdb3 --num-io-threads=4 serve --mode=query --num-datafusion-threads=28
+influxdb3 --num-io-threads=4 serve --mode=query --datafusion-num-threads=28
 
 # Balanced all-in-one (32 cores)
-influxdb3 --num-io-threads=6 serve --mode=all --num-datafusion-threads=26
+influxdb3 --num-io-threads=6 serve --mode=all --datafusion-num-threads=26
 ```
 
 | influxdb3 serve option | Environment variable        |
@@ -1181,7 +1185,7 @@ The default is dynamically determined.
 ### Compaction
 
 {{% show-in "enterprise" %}}
-- [compaction-row-limit](#compaction-row-limit)
+<!--- [compaction-row-limit](#compaction-row-limit) - NOT YET RELEASED in v3.5.0 -->
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
@@ -1191,7 +1195,10 @@ The default is dynamically determined.
 - [gen1-duration](#gen1-duration)
 
 {{% show-in "enterprise" %}}
+<!---
 #### compaction-row-limit
+
+NOTE: This option is not yet released in v3.5.0. Uncomment when available in a future release.
 
 Specifies the soft limit for the number of rows per file that the compactor
 writes. The compactor may write more rows than this limit.
@@ -1203,6 +1210,7 @@ writes. The compactor may write more rows than this limit.
 | `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
 
 ---
+-->
 
 #### compaction-max-num-files-per-plan
 
@@ -1320,15 +1328,20 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 
 #### parquet-mem-cache-size
 
-Specifies the size of the in-memory Parquet cache{{% show-in "core" %}} in megabytes (MB){{% /show-in %}}{{% show-in "enterprise" %}} in megabytes or percentage of total available memory{{% /show-in %}}.
+Specifies the size of the in-memory Parquet cache. Accepts values in megabytes (as an integer) or as a percentage of total available memory (for example, `20%`, `4096`).
 
-{{% show-in "core" %}}**Default:** `1000`{{% /show-in %}}
-{{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
+**Default:** `20%`
+
+> [!Note]
+> #### Breaking change in v3.0.0
+>
+> In v3.0.0, `--parquet-mem-cache-size-mb` was replaced with `--parquet-mem-cache-size`.
+> The new option accepts both megabytes (integer) and percentage values.
+> The default changed from `1000` MB to `20%` of total available memory.
 
 | influxdb3 serve option      | Environment variable                |
 | :---------------------------- | :---------------------------------- |
-{{% show-in "core" %}}| `--parquet-mem-cache-size-mb`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB`  |{{% /show-in %}}
-{{% show-in "enterprise" %}}| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |{{% /show-in %}}
+| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -1641,7 +1654,7 @@ Specifies how long to wait for a running ingestor during startup.
 {{% show-in "enterprise" %}}
 - [num-cores](#num-cores)
 {{% /show-in %}}
-- [num-datafusion-threads](#num-datafusion-threads)
+- [datafusion-num-threads](#datafusion-num-threads)
 - _[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)_
 {{% show-in "enterprise" %}}
 - [num-database-limit](#num-database-limit)
@@ -1651,7 +1664,9 @@ Specifies how long to wait for a running ingestor during startup.
 #### num-cores
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
 
-Default is determined by your {{% product-name %}} license:
+**Default:** All available cores on the system
+
+Maximum cores allowed is determined by your {{% product-name %}} license:
 
 - **Trial**: up to 256 cores
 - **At-Home**: 2 cores
@@ -1664,31 +1679,25 @@ When specified, InfluxDB automatically assigns the number of DataFusion threads 
 - **3 cores**: 1 IO thread, 2 DataFusion threads
 - **4+ cores**: 2 IO threads, (n-2) DataFusion threads
 
+This automatic allocation applies when you don't explicitly set [`--num-io-threads`](#num-io-threads) and [`--datafusion-num-threads`](#datafusion-num-threads).
+
 > [!Note]
-> You can override the automatic thread assignment by explicitly setting [`--num-io-threads`](#num-io-threads) (global option)
-> and [`--num-datafusion-threads`](#num-datafusion-threads).
+> You can override the automatic thread assignment by explicitly setting [`--num-io-threads`](#num-io-threads)
+> and [`--datafusion-num-threads`](#datafusion-num-threads).
 > This is particularly important for specialized
 > workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
 **Constraints:**
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
-- Total thread count from `--num-io-threads` (global option) and `--num-datafusion-threads` cannot exceed the `num-cores` value
+- Total thread count from `--num-io-threads` (global option) and `--datafusion-num-threads` cannot exceed the `num-cores` value
 
 | influxdb3 serve option | Environment variable              |
 | :--------------------- | :-------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES`  |
 {{% /show-in %}}
 
-{{% show-in "enterprise" %}}
-
-> [!Note]
-> The [`--num-io-threads`](#num-io-threads) option is a global flag.
----
-
-{{% /show-in %}}
-
-#### num-datafusion-threads
+#### datafusion-num-threads
 
 Sets the number of threads allocated to the DataFusion runtime thread pool.
 DataFusion threads handle:
@@ -1697,7 +1706,15 @@ DataFusion threads handle:
 - Snapshot creation (sort/dedupe operations)
 - Parquet file generation
 
-**Default behavior:**
+{{% show-in "core" %}}
+**Default:** All available cores minus IO threads
+
+> [!Note]
+> DataFusion threads are used for both query processing and snapshot operations.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+**Default:**
 - If not specified and `--num-cores` is not set: All available cores minus IO threads
 - If not specified and `--num-cores` is set: Automatically determined based on core count (see [`--num-cores`](#num-cores))
 
@@ -1705,12 +1722,15 @@ DataFusion threads handle:
 > DataFusion threads are used for both query processing and snapshot operations.
 > Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
 
-**Constraints:**
-- When used with `--num-cores`, the sum of `--num-io-threads` and `--num-datafusion-threads` cannot exceed the `num-cores` value
+**Constraints:** When used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value
+{{% /show-in %}}
 
 | influxdb3 serve option         | Environment variable                    |
 | :----------------------------- | :-------------------------------------- |
-| `--num-datafusion-threads`     | `INFLUXDB3_NUM_DATAFUSION_THREADS`     |
+| `--datafusion-num-threads`     | `INFLUXDB3_DATAFUSION_NUM_THREADS`     |
+
+> [!Note]
+> [`--num-io-threads`](#num-io-threads) is a [global configuration option](#global-configuration-options).
 
 {{% show-in "enterprise" %}}
 ---
