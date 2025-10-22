@@ -64,7 +64,7 @@ username and password to authenticate bucket reads and writes by passing an [API
 When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [API token](/influxdb3/cloud-serverless/admin/tokens/).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.
 
-Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token)):
+Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token-scheme)):
 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
@@ -144,8 +144,8 @@ curl --get "https://{{< influxdb/host >}}/query" \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-v1-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-v1-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 ### Authenticate with a token scheme
@@ -187,8 +187,8 @@ influx bucket delete -n DATABASE_NAME/RETENTION_POLICY_NAME
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-v1-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-v1-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 ## Responses
@@ -228,7 +228,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
   ```
 
   The `?precision=` parameter contains an unknown value.
-  Provide a [timestamp precision](#timestamp-precision).
+  Provide a [timestamp precision]/influxdb3/cloud-serverless/reference/glossary/#timestamp-precision).
 
 ## Map v1 databases and retention policies to buckets
 
@@ -336,7 +336,7 @@ Include the following:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization).
+- {{< req "\*" >}} a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket.
 - {{< req "\*" >}} the **database name** to map
 - {{< req "\*" >}} the **retention policy** name to map
 - {{< req "\*" >}} the [bucket ID](/influxdb3/cloud-serverless/admin/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
@@ -376,7 +376,7 @@ influx v1 dbrp delete --id $test_dbrp
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the database name to map to the bucket
 - {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: the retention policy name to map to the bucket
 - {{% code-placeholder-key %}}`BUCKET_ID`{{% /code-placeholder-key %}}: the [bucket ID](/influxdb3/cloud-serverless/admin/buckets/view-buckets/) to map to
@@ -395,7 +395,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+  - **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:
 
@@ -485,7 +485,7 @@ Include the following:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` scheme with your [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+  - **Authorization:** `Token` scheme with your [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - **Query parameters:**
   {{< req type="key" >}}
   - {{< req "\*" >}} **orgID:** your [organization ID](/influxdb3/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
@@ -545,7 +545,7 @@ Use the [`influx v1 dbrp update` command](/influxdb3/cloud-serverless/reference/
 to update a DBRP mapping.
 Include the following:
 
-- a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - **DBRP mapping ID** to update
 - Optional: **Retention policy** name to update to
 - Optional: **Default flag** to set the retention policy as the [default DBRP mapping](#default-dbrp) for the database name.
@@ -577,7 +577,7 @@ influx v1 dbrp update \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
 - {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: a retention policy name to map to the bucket
 
@@ -596,7 +596,7 @@ Include the following:
 
 - **Request method:** `PATCH`
 - **Headers:**
-  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - **Path parameters:**
   - {{< req "\*" >}} **id:** the DBRP mapping ID to update
 - **Query parameters:**
@@ -622,7 +622,7 @@ curl --request PATCH \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
 - {{% code-placeholder-key %}}`RETENTION_POLICY_NAME`{{% /code-placeholder-key %}}: a retention policy name to map to the bucket
 
@@ -648,7 +648,7 @@ Include the following:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{< req "\*" >}} a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - {{< req "\*" >}} **DBRP mapping ID** to delete
 
 
@@ -689,7 +689,7 @@ Include the following:
 
 - **Request method:** `DELETE`
 - **Headers:**
-  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+  - {{< req "\*" >}} the **Authorization:** `Token` scheme with a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - **Path parameters:**
   - {{< req "\*" >}} **id:** DBRP mapping ID to update
 - **Query parameters:**
@@ -708,7 +708,7 @@ curl --request DELETE \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the [necessary permissions](#authorization)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) that has the necessary permissions to the mapped bucket
 - {{% code-placeholder-key %}}`DBRP_ID`{{% /code-placeholder-key %}}: the DBRP ID to update
 - {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}}: the [organization ID](/influxdb3/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id)
 
