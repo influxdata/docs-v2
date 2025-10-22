@@ -66,7 +66,7 @@ To add any of the available [Telegraf plugins](/telegraf/v1/plugins/), follow th
 ### Enable and configure the InfluxDB v2 output plugin
 
 To send data to {{< product-name >}}, enable the
-[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+[`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 in the `telegraf.conf`.
 
 {{% code-placeholders "BUCKET_NAME" %}}

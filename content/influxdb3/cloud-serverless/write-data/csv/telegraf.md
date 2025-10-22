@@ -69,7 +69,7 @@ metrics from different sources and writes them to specified destinations.
 ## Configure Telegraf to write to InfluxDB
 
 To send data to {{< product-name >}}, enable the
-[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+[`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 in the `telegraf.conf`.
 
 {{% code-placeholders "BUCKET_NAME" %}}
@@ -145,4 +145,4 @@ The preceding examples describe Telegraf configurations necessary for writing to
 The output plugin provides several other options for configuring the Telegraf client:
 
 - `influx_uint_support`: supported by the InfluxDB 3 storage engine.
-- See [`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) on GitHub.
+- See [`influxdb_v2` plugin options](/telegraf/v1/output-plugins/influxdb_v2/) on GitHub.
