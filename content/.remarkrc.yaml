@@ -4,6 +4,7 @@ settings:
 plugins:
   # Before you can configure plugins for remark here, you need to add them to
   # the `devDependencies` in the `package.json` file--for CI: `/.ci/app/package.json`.
+  - remark-gfm
   - remark-frontmatter
   - remark-lint-frontmatter-schema
   - remark-lint-no-shell-dollars
