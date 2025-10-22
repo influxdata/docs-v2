@@ -120,6 +120,10 @@ docs-v2 contains a `./.vscode/settings.json` that configures the following exten
 
 ### Style Guidelines
 
+#### Content Guidelines
+
+Content follows Google Developer Documentation Style Guide and YouTube API documentation patterns with a few InfluxData-specific adaptations.
+
 #### Markdown
 
 Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
