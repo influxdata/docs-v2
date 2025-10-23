@@ -131,7 +131,7 @@ Clone the `influxdata/influxdb3_plugins` repository and copy plugins to your con
 git clone https://github.com/influxdata/influxdb3_plugins.git
    
 # Copy a plugin to your configured plugin directory
-cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
+cp influxdb3_plugins/influxdata/system_metrics/system_metrics.py /path/to/plugins/
 ```
 
 ##### Option 2: Reference plugins directly from GitHub
@@ -142,7 +142,7 @@ Skip downloading plugins by referencing them directly from GitHub using the `gh:
 # Create a trigger using a plugin from GitHub
 influxdb3 create trigger \
   --trigger-spec "every:1m" \
-  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+  --plugin-filename "gh:influxdata/system_metrics/system_metrics.py" \
   --database my_database \
   system_metrics
 ```
