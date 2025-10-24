@@ -97,10 +97,12 @@ export default [
 
   // Configuration for Node.js helper scripts
   {
-    files: ['helper-scripts/**/*.js'],
+    files: ['helper-scripts/**/*.js', 'scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node,
+        // Claude Code environment globals
+        Task: 'readonly', // Available when run by Claude Code
       },
     },
     rules: {

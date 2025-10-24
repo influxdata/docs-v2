@@ -133,5 +133,41 @@
   & table:last-child { margin-bottom: 0; }
 }
 
+/* Prevent tabbed layouts from breaking list numbering/indentation
+   when placed inside <li> elements. Overrides broad selectors that
+   set `.tabs p { display: flex }` and similar rules.
+
+   Notes:
+   - We limit the override to list-item descendants to avoid affecting
+     top-level tab groups.
+   - Keep rules minimal and specific to avoid regressions.
+*/
+
+li .tabs p,
+li .tabs-wrapper p,
+li .code-tabs-wrapper p {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Align the tab wrapper content with the normal list text.
+   Adjust as needed to match your list indent (1.25rem is typical). */
+li .tabs-wrapper,
+li .code-tabs-wrapper {
+  margin-left: 1.25rem;
+}
+
+/* Keep code blocks inside list items scrollable and readable.
+   Use pre-wrap so long lines wrap if desired, but preserve horizontal
+   scroll for formatted code blocks. */
+li pre,
+li .code-tab-content pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin: 0;
+  padding: .5rem 0;
+}
+
 .tab-content:not(:first-of-type) { display: none; }
 .code-tab-content:not(:first-of-type) { display: none; }
