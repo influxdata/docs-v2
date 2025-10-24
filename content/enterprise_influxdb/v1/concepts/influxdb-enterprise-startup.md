@@ -52,7 +52,7 @@ This information helps with database troubleshooting and performance analysis.
 
 ### Cluster
 The Cluster service provides implementations of InfluxDB OSS v1.x interfaces
-that operate on an InfluxDB v1 Enterprise cluster.
+that operate on an InfluxDB Enterprise v1 cluster.
 
 ### Precreator
 The Precreator service creates shards before they are needed.
