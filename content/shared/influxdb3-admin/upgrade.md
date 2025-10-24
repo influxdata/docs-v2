@@ -151,7 +151,7 @@ Some versions introduce catalog version updates that affect how nodes can intero
 > - **3.2.x to 3.5.x**: Nodes running 3.2.1 can temporarily coexist with nodes running 3.5.0, but catalog modifications are blocked until all nodes complete the upgrade.
 
 During a rolling upgrade across a catalog version boundary, nodes running older versions cannot modify the catalog.
-This affects writes that add new measurements, tags, or fields, but allows writes to existing measurements, tags, and fields.
+This affects writes that add new tables, tags, or fields, but allows writes to existing tables, tags, and fields.
 
 
 
