@@ -43,5 +43,5 @@ tmp
 .context/*
 !.context/README.md
 
-# External repos 
+# External repos
 .ext/*

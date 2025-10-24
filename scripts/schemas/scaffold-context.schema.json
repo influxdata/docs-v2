@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Content Scaffolding Context",
+  "description": "Context data prepared by docs-create.js for AI analysis",
+  "type": "object",
+  "required": ["draft", "products", "productHints", "versionInfo", "structure", "conventions"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["create", "edit"],
+      "description": "Operation mode: create new content or edit existing content"
+    },
+    "urls": {
+      "type": "array",
+      "description": "URL analysis results (for URL-based workflow)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string" },
+          "parsed": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "product": { "type": "string" },
+              "section": { "type": "string" },
+              "pagePath": { "type": "string" },
+              "isSection": { "type": "boolean" }
+            }
+          },
+          "exists": { "type": "boolean" },
+          "files": {
+            "type": "object",
+            "properties": {
+              "main": { "type": "string" },
+              "isShared": { "type": "boolean" },
+              "sharedSource": { "type": ["string", "null"] },
+              "variants": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "existingContent": {
+      "type": "object",
+      "description": "Existing file contents (for edit mode)",
+      "patternProperties": {
+        ".*": { "type": "string" }
+      }
+    },
+    "draft": {
+      "type": "object",
+      "description": "Draft content and metadata",
+      "required": ["path", "content", "existingFrontmatter"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the draft file"
+        },
+        "content": {
+          "type": "string",
+          "description": "Markdown content of the draft"
+        },
+        "existingFrontmatter": {
+          "type": "object",
+          "description": "Frontmatter from draft (if any)"
+        }
+      }
+    },
+    "products": {
+      "type": "object",
+      "description": "Available InfluxDB products from data/products.yml",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "key": { "type": "string" },
+            "name": { "type": "string" },
+            "namespace": { "type": "string" },
+            "menu_category": { "type": "string" },
+            "versions": { "type": "array", "items": { "type": "string" } },
+            "latest": { "type": "string" }
+          }
+        }
+      }
+    },
+    "productHints": {
+      "type": "object",
+      "description": "Product recommendations from content analysis",
+      "required": ["mentioned", "suggested"],
+      "properties": {
+        "mentioned": {
+          "type": "array",
+          "description": "Products explicitly mentioned in draft content",
+          "items": { "type": "string" }
+        },
+        "suggested": {
+          "type": "array",
+          "description": "Products suggested based on analysis",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "versionInfo": {
+      "type": "object",
+      "description": "Detected InfluxDB version and tools",
+      "required": ["version", "tools", "apis"],
+      "properties": {
+        "version": {
+          "type": ["string", "null"],
+          "description": "Detected version (3.x, 2.x, 1.x, or null)"
+        },
+        "tools": {
+          "type": "array",
+          "description": "CLI tools and utilities mentioned",
+          "items": { "type": "string" }
+        },
+        "apis": {
+          "type": "array",
+          "description": "API endpoints mentioned",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "description": "Repository structure analysis",
+      "required": ["sections", "existingPaths", "siblingWeights"],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "description": "Available documentation sections",
+          "items": { "type": "string" }
+        },
+        "existingPaths": {
+          "type": "array",
+          "description": "All existing directory paths",
+          "items": { "type": "string" }
+        },
+        "siblingWeights": {
+          "type": "object",
+          "description": "Weight values from sibling pages by section",
+          "patternProperties": {
+            ".*": {
+              "type": "array",
+              "items": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "description": "Documentation conventions and guidelines",
+      "required": ["sharedContentDir", "menuKeyPattern", "weightLevels", "namingRules", "testing"],
+      "properties": {
+        "sharedContentDir": {
+          "type": "string",
+          "description": "Directory for shared content"
+        },
+        "menuKeyPattern": {
+          "type": "string",
+          "description": "Pattern for menu keys"
+        },
+        "weightLevels": {
+          "type": "object",
+          "description": "Weight ranges by navigation level"
+        },
+        "namingRules": {
+          "type": "object",
+          "description": "File and directory naming conventions"
+        },
+        "testing": {
+          "type": "object",
+          "description": "Testing conventions for code samples"
+        }
+      }
+    }
+  }
+}

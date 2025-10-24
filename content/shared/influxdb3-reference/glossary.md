@@ -119,6 +119,18 @@ Cardinality is the number of unique values in a set.
 Series cardinality is the number of unique [series](#series) in a database as a whole.
 With the InfluxDB 3 storage engine, high series cardinality _does not_ affect performance.
 
+### catalog
+
+{{% show-in "core,enterprise" %}}
+A metadata service that tracks schema details and the location of data in object storage,
+providing essential information for both writers and queriers.
+The catalog stores information about databases, tables, columns, data types, and file locations.
+
+Related entries:
+[database](#database),
+[schema](#schema)
+{{% /show-in %}}
+
 ### cluster
 
 A collection of servers or processes that work together as a single unit.
