@@ -164,7 +164,7 @@ Follow these steps to upgrade your {{% product-name %}} deployment with minimal 
 The order in which you upgrade nodes affects the availability of catalog modifications during the upgrade.
 Different node modes have different impacts on catalog updates:
 
-- **Ingest nodes**: Primarily update the catalog when accepting writes that add new measurements, tags, or fields via line protocol.
+- **Ingest nodes**: Primarily update the catalog when accepting writes that add new tables, tags, or fields via line protocol.
 - **Query nodes**: Can accept API requests that update the catalog (for example, `influxdb3 create table`), but less frequently than ingest nodes.
 - **Compactor nodes**: Rarely modify the catalog during normal operation.
 - **Process nodes**: Process data without modifying the catalog structure.
