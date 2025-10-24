@@ -173,7 +173,7 @@ Different node modes have different impacts on catalog updates:
 
 1. **Ingest nodes**: Upgrade ingest nodes first to restore catalog modification capability as quickly as possible.
    If you have multiple ingest nodes and can route traffic while one is down, upgrade them sequentially.
-2. **Query nodes**: Upgrade query nodes after all ingest nodes complete.
+2. **Query nodes**: Upgrade query nodes after upgrading all ingest nodes.
 3. **Compactor nodes**: Upgrade compactor nodes last, as they have minimal impact on catalog modifications.
 4. **Process nodes**: Can be upgraded at any time, as they don't modify the catalog.
 
