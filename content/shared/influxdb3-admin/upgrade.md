@@ -141,7 +141,7 @@ When upgrading multi-node clusters, you need to understand catalog version const
 
 ### Catalog version compatibility
 
-{{% product-name %}} uses a catalog to track metadata about measurements, tags, and fields.
+{{% product-name %}} uses a catalog to track metadata about tables, tags, and fields.
 Some versions introduce catalog version updates that affect how nodes can interoperate during rolling upgrades.
 
 > [!Important]
