@@ -45,7 +45,7 @@ The command returns version information similar to the following:
 <!--pytest-codeblocks:expected-output-->
 
 ```
-influxdb3 3.5.0
+influxdb3 {{% latest-patch %}}
 ```
 
 > [!Tip]
