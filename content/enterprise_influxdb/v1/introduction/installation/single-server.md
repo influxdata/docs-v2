@@ -1,7 +1,7 @@
 ---
-title: Install InfluxDB Enterprise on a single server
+title: Install InfluxDB Enterprise v1 on a single server
 description: >
-  Learn how to install and run InfluxDB Enterprise on a single server.
+  Learn how to install and run InfluxDB Enterprise v1 on a single server.
 menu:
   enterprise_influxdb_v1:
     name: Install on a single server

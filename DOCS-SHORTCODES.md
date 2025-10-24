@@ -113,25 +113,6 @@ Display the short version name (part of the key used in `products.yml`) from the
 {{% product-key %}}
 ```
 
-### Enterprise name
-
-The name used to refer to InfluxData's enterprise offering is subject to change. To facilitate easy updates in the future, use the `enterprise-name` shortcode when referencing the enterprise product. This shortcode accepts a `"short"` parameter which uses the "short-name".
-
-```md
-This is content that references {{< enterprise-name >}}.
-This is content that references {{< enterprise-name "short" >}}.
-```
-
-Product names are stored in `data/products.yml`.
-
-### Enterprise link
-
-References to InfluxDB Enterprise are often accompanied with a link to a page where visitors can get more information about the Enterprise offering. This link is subject to change. Use the `enterprise-link` shortcode when including links to more information about InfluxDB Enterprise.
-
-```md
-Find more info [here][{{< enterprise-link >}}]
-```
-
 ## Version Information
 
 ### Latest patch version

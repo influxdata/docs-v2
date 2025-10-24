@@ -1,7 +1,7 @@
 ---
 title: Manage node labels
 description: >
-  Assign user-defined labels to nodes in your InfluxDB Enterprise cluster.
+  Assign user-defined labels to nodes in your InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     name: Manage node labels

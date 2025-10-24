@@ -1,7 +1,7 @@
 ---
 title: Renew or update a license key or file
 description: >
-  Renew or update a license key or file for your InfluxDB enterprise cluster.
+  Renew or update a license key or file for your InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     name: Renew a license

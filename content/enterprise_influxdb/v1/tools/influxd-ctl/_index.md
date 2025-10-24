@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl CLI
 description: >
-  Use the `influxd-ctl` CLI to manage your InfluxDB Enterprise cluster.
+  Use the `influxd-ctl` CLI to manage your InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     weight: 11

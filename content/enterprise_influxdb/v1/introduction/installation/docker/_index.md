@@ -1,6 +1,6 @@
 ---
-title: Install and run InfluxDB v1 Enterprise with Docker
-description: Install and run InfluxDB v1 Enterprise using Docker images for meta nodes and data nodes.
+title: Install and run InfluxDB Enterprise v1 with Docker
+description: Install and run InfluxDB Enterprise v1 using Docker images for meta nodes and data nodes.
 menu:
   enterprise_influxdb_v1:
     name: Install with Docker
@@ -21,7 +21,6 @@ Using Docker allows you to quickly set up and run InfluxDB Enterprise clusters w
 > [!Important]
 > #### Enterprise license required
 > You must have a valid license to run InfluxDB Enterprise.
-> Contact <sales@influxdata.com> for licensing information or obtain a 14-day demo license via the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/new).
 
 - [Docker image variants](#docker-image-variants)
 - [Requirements](#requirements)

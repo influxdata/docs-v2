@@ -1,7 +1,7 @@
 ---
-title: Manage authorization with the InfluxDB Enterprise Meta API
+title: Manage authorization with the InfluxDB Enterprise v1 Meta API
 description: >
-  Manage users and permissions with the InfluxDB Enterprise Meta API.
+  Manage users and permissions with the InfluxDB Enterprise v1 Meta API.
 menu:
   enterprise_influxdb_v1:
     name: Manage authorization with the API

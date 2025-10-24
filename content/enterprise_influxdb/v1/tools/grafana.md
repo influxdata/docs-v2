@@ -1,8 +1,7 @@
 ---
-title: Use Grafana with InfluxDB Enterprise
-seotitle: Use Grafana with InfluxDB Enterprise v1.8
+title: Use Grafana with InfluxDB Enterprise v1
 description: >
-  Configure Grafana to query and visualize data from InfluxDB Enterprise v1.8.
+  Configure Grafana to query and visualize data from InfluxDB Enterprise v1.
 menu:
   enterprise_influxdb_v1:
     name: Grafana

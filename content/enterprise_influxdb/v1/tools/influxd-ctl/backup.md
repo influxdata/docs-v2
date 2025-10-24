@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl backup
 description: >
-  The `influxd-ctl backup` command backs up an InfluxDB Enterprise cluster's
+  The `influxd-ctl backup` command backs up an InfluxDB Enterprise v1 cluster's
   [metastore](/enterprise_influxdb/v1/concepts/glossary/#metastore) and
   [shard](/enterprise_influxdb/v1/concepts/glossary/#shard) data at that point in
   time and stores the copy in the specified directory.
