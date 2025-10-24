@@ -1,5 +1,5 @@
 ---
-title: Install InfluxDB Enterprise meta nodes
+title: Install InfluxDB Enterprise v1 meta nodes
 aliases:
     - /enterprise_influxdb/v1/installation/meta_node_installation/
     - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/meta_node_installation/

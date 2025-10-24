@@ -1,5 +1,5 @@
 ---
-title: Install an InfluxDB Enterprise cluster
+title: Install an InfluxDB Enterprise v1 cluster
 description: Install InfluxDB Enterprise in your own on-premise environment.
 aliases:
     - /enterprise_influxdb/v1/installation/

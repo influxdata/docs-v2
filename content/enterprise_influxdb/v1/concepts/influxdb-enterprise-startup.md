@@ -1,7 +1,7 @@
 ---
-title: InfluxDB Enterprise startup process
+title: InfluxDB Enterprise v1 startup process
 description: >
-  On startup, InfluxDB Enterprise starts all subsystems and services in a deterministic order.
+  On startup, InfluxDB Enterprise v1 starts all subsystems and services in a deterministic order.
 menu:
   enterprise_influxdb_v1:
     weight: 10
@@ -51,8 +51,8 @@ The Monitor service provides statistical and diagnostic information to InfluxDB 
 This information helps with database troubleshooting and performance analysis.
 
 ### Cluster
-The Cluster service provides implementations of InfluxDB OSS v1.8 interfaces
-that operate on an InfluxDB Enterprise v1.8 cluster.
+The Cluster service provides implementations of InfluxDB OSS v1.x interfaces
+that operate on an InfluxDB Enterprise v1 cluster.
 
 ### Precreator
 The Precreator service creates shards before they are needed.

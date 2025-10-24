@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl add-data
 description: >
-  The `influxd-ctl add-data` command adds a data node to an InfluxDB Enterprise cluster.
+  The `influxd-ctl add-data` command adds a data node to an InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl

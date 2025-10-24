@@ -1,5 +1,5 @@
 ---
-title: Log and trace InfluxDB Enterprise operations
+title: Log and trace InfluxDB Enterprise v1 operations
 description: >
   Learn about logging locations, redirecting HTTP request logging, structured logging, and tracing.
 menu:

@@ -1,5 +1,5 @@
 ---
-title: Monitor InfluxDB Enterprise
+title: Monitor InfluxDB Enterprise v1
 description: Monitor InfluxDB Enterprise with InfluxDB Cloud or OSS.
 menu:
   enterprise_influxdb_v1:
