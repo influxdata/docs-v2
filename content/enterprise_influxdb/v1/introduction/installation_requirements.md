@@ -14,7 +14,7 @@ menu:
 
 Review the installation requirements below, and then check out available options to [install and deploy InfluxDB v1 Enterprise](/enterprise_influxdb/v1/introduction/installation/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB v1 Enterprise](/enterprise_influxdb/v1/concepts/clustering/).
 
-## Requirements for InfluxDB v1 Enterprise clusters
+## Requirements for InfluxDB Enterprise v1 clusters
 
 InfluxDB Enterprise clusters require a license. To use a license key, all nodes in the cluster must be able to contact https://portal.influxdata.com via port `80` or port `443`. If nodes in the cluster cannot communicate with https://portal.influxdata.com, you must use the `license-path` configuration setting. For more information, see [Enterprise license settings](/enterprise_influxdb/v1/administration/config-data-nodes/#enterprise-license-settings).
 
