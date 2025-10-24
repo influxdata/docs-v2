@@ -310,7 +310,7 @@ Understand the constraints that apply during rolling upgrades to avoid unexpecte
 
 #### Writes during catalog version transitions
 
-During a rolling upgrade that crosses a catalog version boundary, nodes running older versions cannot modify the catalog.
+When upgrading from v3.3.x (or earlier) to v3.4.x, nodes running older versions cannot modify the catalog during the rolling upgrade.
 
 **Behavior by write type:**
 
@@ -352,5 +352,16 @@ If nodes fail to communicate after an upgrade, verify that all nodes are running
 
 1. **Connect to each node** and [verify the version](#verify-your-current-version)
 2. Review the [release notes](/influxdb3/enterprise/reference/release-notes/) for your target version to identify any breaking changes or compatibility requirements.
+
+#### Catalog version constraints
+
+Different version transitions may have different catalog version constraints.
+The v3.3.x → v3.4.x transition has specific constraints, but other version transitions may differ.
+
+**Before upgrading**, review the [release notes](/influxdb3/enterprise/reference/release-notes/) for your target version to understand:
+
+- Whether the upgrade crosses a catalog version boundary
+- How long catalog modifications may be blocked during the upgrade
+- Any special upgrade procedures or constraints
 
 {{% /show-in %}}
