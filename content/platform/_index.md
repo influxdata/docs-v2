@@ -29,7 +29,7 @@ weight: 1
 
 - [InfluxDB 3 Core](/influxdb3/core/): open source time series database with object storage support and built-in data processing capabilities
 - [InfluxDB 3 Enterprise](/influxdb3/enterprise/): extends **Core** with clustering, high availability, and advanced security features
-- [InfluxDB Clustered 3](/influxdb3/clustered/): a highly available InfluxDB 3 cluster hosted and managed on your own infrastructure
+- [InfluxDB Clustered](/influxdb3/clustered/): a highly available InfluxDB 3 cluster hosted and managed using Kubernetes on your own infrastructure
 
 ### Hosted
 

@@ -1,7 +1,7 @@
 ---
-title: Monitor InfluxDB Enterprise with InfluxDB OSS 
+title: Monitor InfluxDB Enterprise v1 with InfluxDB OSS 
 description: >
-  Monitor your InfluxDB Enterprise instance using InfluxDB OSS and
+  Monitor your InfluxDB Enterprise v1 instance using InfluxDB OSS and
   a pre-built InfluxDB template.
 menu:
   enterprise_influxdb_v1:

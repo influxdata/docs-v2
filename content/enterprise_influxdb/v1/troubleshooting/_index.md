@@ -1,5 +1,5 @@
 ---
-title: Troubleshoot InfluxDB Enterprise
+title: Troubleshoot InfluxDB Enterprise v1
 description: Troubleshoot InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/troubleshooting/

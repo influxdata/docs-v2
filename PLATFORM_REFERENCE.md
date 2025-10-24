@@ -13,7 +13,7 @@ InfluxDB OSS v1:
   - Query languages: InfluxQL and Flux
   - Clients: Telegraf, influx CLI, v1/v2 client libraries
 
-InfluxDB Enterprise:
+InfluxDB Enterprise v1:
   - Documentation: https://docs.influxdata.com/enterprise_influxdb/v1.12/
   - Query languages: InfluxQL and Flux
   - Clients: Telegraf, influx CLI, v1/v2 client libraries

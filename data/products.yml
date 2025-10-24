@@ -268,7 +268,7 @@ kapacitor:
     - How do I create tasks using InfluxDB 3 Core?
 
 enterprise_influxdb:
-  name: "InfluxDB Enterprise"
+  name: "InfluxDB Enterprise v1"
   namespace: enterprise_influxdb
   menu_category: self-managed
   list_order: 5
