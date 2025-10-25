@@ -8,8 +8,12 @@
 
 {{% show-in "enterprise" %}}
 > [!Note]
+> #### Multi-node cluster setup
 > For information about setting up a multi-node {{% product-name %}} cluster,
 > see [Create a multi-node cluster](/influxdb3/enterprise/get-started/multi-server/) in the Get started guide.
+>
+> For steps to upgrade an existing InfluxDB 3 Enterprise cluster,
+> see [Upgrade InfluxDB](/influxdb3/enterprise/admin/upgrade/).
 {{% /show-in %}}
 
 ## System Requirements
