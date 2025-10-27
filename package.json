@@ -41,6 +41,8 @@
   },
   "scripts": {
     "docs:create": "node scripts/docs-create.js",
+    "docs:edit": "node scripts/docs-edit.js",
+    "docs:add-placeholders": "node scripts/add-placeholders.js",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
