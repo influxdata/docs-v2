@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/opcua/README.md, OPC UA Client Reader Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/opcua/README.md, OPC UA Client Reader Plugin Source
 ---
 
 # OPC UA Client Reader Input Plugin

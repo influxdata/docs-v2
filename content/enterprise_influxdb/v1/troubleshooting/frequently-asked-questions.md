@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Enterprise frequently asked questions
+title: InfluxDB Enterprise v1 frequently asked questions
 description: Common issues with InfluxDB Enterprise.
 aliases:
   - /enterprise_influxdb/v1/troubleshooting/frequently_encountered_issues/

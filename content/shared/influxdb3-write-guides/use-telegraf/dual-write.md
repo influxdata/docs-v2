@@ -44,8 +44,8 @@ Specifically, it uses the following:
 ```
 
 Telegraf lets you dual write data to any version of InfluxDB using the
-[`influxdb` (InfluxDB v1)](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md)
-and [`influxdb_v2` output plugins](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md).
+[`influxdb` (InfluxDB v1)](/telegraf/v1/output-plugins/influxdb/
+and [`influxdb_v2` output plugins](/telegraf/v1/output-plugins/influxdb_v2/).
 A single Telegraf agent sends identical data sets to all target outputs.
 You cannot filter data based on the output.
 

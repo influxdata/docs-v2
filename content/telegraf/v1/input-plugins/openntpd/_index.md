@@ -10,7 +10,7 @@ introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/openntpd/README.md, OpenNTPD Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/openntpd/README.md, OpenNTPD Plugin Source
 ---
 
 # OpenNTPD Input Plugin

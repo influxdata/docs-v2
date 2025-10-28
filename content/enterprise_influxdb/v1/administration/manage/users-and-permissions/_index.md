@@ -1,6 +1,6 @@
 ---
 title: Manage users and permissions
-description: Manage authorization in InfluxDB Enterprise clusters with users, roles, and permissions.
+description: Manage authorization in InfluxDB Enterprise v1 clusters with users, roles, and permissions.
 menu:
   enterprise_influxdb_v1:
     name: Manage users and permissions

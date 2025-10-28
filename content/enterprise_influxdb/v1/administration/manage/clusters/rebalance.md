@@ -1,6 +1,6 @@
 ---
-title: Rebalance InfluxDB Enterprise clusters
-description: Manually rebalance an InfluxDB Enterprise cluster.
+title: Rebalance InfluxDB Enterprise v1 clusters
+description: Manually rebalance an InfluxDB Enterprise v1 cluster.
 aliases:
     - /enterprise_influxdb/v1/guides/rebalance/
     - /enterprise_influxdb/v1/guides/rebalance/

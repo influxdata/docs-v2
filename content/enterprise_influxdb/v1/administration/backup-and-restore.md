@@ -1,7 +1,7 @@
 ---
 title: Back up and restore
 description: >
-  Back up and restore InfluxDB enterprise clusters to prevent data loss.
+  Back up and restore InfluxDB Enterprise v1 clusters to prevent data loss.
 aliases:
     - /enterprise/v1.10/guides/backup-and-restore/
 menu:

@@ -10,13 +10,15 @@ influxctl table [subcommand] [flags]
 
 ## Subcommands
 
-| Subcommand                                                           | Description                        |
-| :------------------------------------------------------------------- | :--------------------------------- |
-| [create](/influxdb3/version/reference/cli/influxctl/table/create/)   | Create a table                     |
-| [delete](/influxdb3/version/reference/cli/influxctl/table/delete/)   | Delete a table                     |
-| [iceberg](/influxdb3/version/reference/cli/influxctl/table/iceberg/) | Manage iceberg exports for a table |
-| [list](/influxdb3/version/reference/cli/influxctl/table/list/)       | List tables                        |
-| help, h                                                              | Output command help                |
+| Subcommand                                                             | Description                        |
+| :--------------------------------------------------------------------- | :--------------------------------- |
+| [create](/influxdb3/version/reference/cli/influxctl/table/create/)     | Create a table                     |
+| [delete](/influxdb3/version/reference/cli/influxctl/table/delete/)     | Delete a table                     |
+| [iceberg](/influxdb3/version/reference/cli/influxctl/table/iceberg/)   | Manage iceberg exports for a table |
+| [list](/influxdb3/version/reference/cli/influxctl/table/list/)         | List tables                        |
+| [rename](/influxdb3/version/reference/cli/influxctl/table/rename/)     | Rename a table                     |
+| [undelete](/influxdb3/version/reference/cli/influxctl/table/undelete/) | Undelete a table                   |
+| help, h                                                                | Output command help                |
 
 ## Flags
 

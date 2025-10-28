@@ -1,7 +1,7 @@
 ---
 title: InfluxDB file system layout
 description: >
-  The InfluxDB Enterprise file system layout depends on the operating system, package manager,
+  The InfluxDB Enterprise v1 file system layout depends on the operating system, package manager,
   or containerization platform used to install InfluxDB.
 weight: 102
 menu:

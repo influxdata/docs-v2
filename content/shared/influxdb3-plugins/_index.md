@@ -34,6 +34,19 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
 
+> [!Important]
+> #### Keep the influxdb3 binary with its python directory
+>
+> The influxdb3 binary requires the adjacent `python/` directory to function. 
+> If you manually extract from tar.gz, keep them in the same parent directory:
+> ```
+> your-install-location/
+> ├── influxdb3
+> └── python/
+> ```
+>
+> Add the parent directory to your PATH; do not move the binary out of this directory.
+
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
 ```bash
@@ -118,7 +131,7 @@ Clone the `influxdata/influxdb3_plugins` repository and copy plugins to your con
 git clone https://github.com/influxdata/influxdb3_plugins.git
    
 # Copy a plugin to your configured plugin directory
-cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
+cp influxdb3_plugins/influxdata/system_metrics/system_metrics.py /path/to/plugins/
 ```
 
 ##### Option 2: Reference plugins directly from GitHub
@@ -129,7 +142,7 @@ Skip downloading plugins by referencing them directly from GitHub using the `gh:
 # Create a trigger using a plugin from GitHub
 influxdb3 create trigger \
   --trigger-spec "every:1m" \
-  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+  --plugin-filename "gh:influxdata/system_metrics/system_metrics.py" \
   --database my_database \
   system_metrics
 ```
@@ -297,7 +310,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 After writing your plugin:
 
 - [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
-- [Install any Python dependencies](#install-python-dependencies) your plugin requires
+- [Install any Python dependencies](#manage-plugin-dependencies) your plugin requires
 - Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
 
 ## Set up a trigger
@@ -578,7 +591,7 @@ These examples install the specified Python package (for example, pandas) into t
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
 > Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
->For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
+>For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md).
 
 {{% /code-placeholders %}}
 

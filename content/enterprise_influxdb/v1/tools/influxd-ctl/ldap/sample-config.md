@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl ldap sample-config
 description: >
-  The `influxd-ctl ldap sample-config` command prints a sample InfluxDB Enterprise
+  The `influxd-ctl ldap sample-config` command prints a sample InfluxDB Enterprise v1
   LDAP configuration to stdout.
 menu:
   enterprise_influxdb_v1:

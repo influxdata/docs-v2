@@ -1,42 +1,156 @@
 
-Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/)
+Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/),
+the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/explorer/)
 to create a database in {{< product-name >}}.
-Provide the following:
 
-- Database name _(see [Database naming restrictions](#database-naming-restrictions))_
-- {{< product-name >}} {{% token-link "admin" "admin" %}} 
-
-<!--Allow fail for database create and delete: namespaces aren't reusable-->
-<!--pytest.mark.skip-->
-
-{{% code-placeholders "DATABASE_NAME" %}}
-
-```sh
-influxdb3 create database DATABASE_NAME
-```
-
-{{% /code-placeholders %}}
-
+- [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)
+- [Create a database using the HTTP API](#create-a-database-using-the-http-api)
+- [Create a database using InfluxDB 3 Explorer](#create-a-database-using-influxdb-3-explorer)
+- [Retention period](#retention-period)
 - [Database naming restrictions](#database-naming-restrictions)
 - [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
 - [Database limit](#database-limit)
 
-<!--
-## Retention period syntax
+## Create a database using the influxdb3 CLI
 
-Use the `--retention-period` flag to define a specific
-[retention period](/influxdb3/version/admin/databases/#retention-periods)
-for the database.
+Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/)
+to create a database. Provide the following:
+
+- Database name _(see [Database naming restrictions](#database-naming-restrictions))_
+- {{< product-name >}} {{% token-link "admin" "admin" %}}
+- _(Optional)_ [Retention period](#retention-period). If omitted, data doesn't expire.
+
+{{% show-in "core" %}}
+> [!Important]
+> #### Retention periods are immutable in Core
+>
+> In {{< product-name >}}, retention periods can only be set when creating a database
+> and cannot be changed afterward. If you need to change a retention period, you must
+> create a new database with the desired retention period and migrate your data.
+{{% /show-in %}}
+
+<!--pytest.mark.skip-->
+
+```sh{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+# Create a database with a 30-day retention period
+influxdb3 create database --retention-period 30d DATABASE_NAME
+
+# Create a database with a 90-day retention period using authentication
+influxdb3 create database \
+  --retention-period 90d \
+  --token AUTH_TOKEN \
+  DATABASE_NAME
+
+# Create a database with infinite retention (default)
+influxdb3 create database DATABASE_NAME
+```
+
+Replace the following:
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
+## Create a database using the HTTP API
+
+To create a database using the HTTP API, send a `POST` request to the `/api/v3/configure/database` endpoint:
+
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer` with your {{% token-link "admin" %}}
+- **Request body** (JSON object):
+  - `db` _(string, required)_: Database name
+  - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, data doesn't expire.
+
+{{% show-in "core" %}}
+> [!Important]
+> #### Retention periods are immutable in Core
+>
+> In {{< product-name >}}, retention periods can only be set when creating a database
+> and cannot be changed afterward. If you need to change a retention period, you must
+> create a new database with the desired retention period and migrate your data.
+{{% /show-in %}}
+
+```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
+# Create a database with a 30-day retention period
+curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "retention_period": "30d"
+  }'
+
+# Create a database with a 90-day retention period
+curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "retention_period": "90d"
+  }'
+
+# Create a database with infinite retention (default)
+curl --request POST "{{< influxdb/host >}}/api/v3/configure/database" \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data '{
+    "db": "DATABASE_NAME"
+  }'
+```
+
+Replace the following:
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to create
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
+### Response
+
+A successful request returns HTTP status `200` with the database configuration.
+
+## Create a database using InfluxDB 3 Explorer
+
+> [!Caution]
+> Currently, you can't set a retention period when creating a database in Explorer.
+> To create a database with a retention period, see one of the following:
+> - [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)
+> - [Create a database using the HTTP API](#create-a-database-using-the-http-api)
+
+{{% show-in "core" %}}
+> [!Important]
+> #### Retention periods are immutable in Core
+>
+> After creating a database in {{< product-name >}}, you cannot change its retention period.
+{{% /show-in %}}
+
+Use the [InfluxDB 3 Explorer](/influxdb3/explorer/) web interface to create a database in {{% product-name %}}:
+
+1. If you haven't already, see how to [get started with Explorer and connect to your {{% product-name %}} server](/influxdb3/explorer/get-started/).
+2. In Explorer, click **Manage Databases** in the left navigation.
+3. Click **+ Create New**.
+4. Enter a database name.
+5. Click **Create Database**.
+
+For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+
+- [Retention period](#retention-period)
+- [Database naming restrictions](#database-naming-restrictions)
+- [InfluxQL DBRP naming convention](#influxql-dbrp-naming-convention)
+- [Database limit](#database-limit)
+
+## Retention period
+
+By default, data does not expire. When creating a database, set a _retention period_ to automatically delete expired data and optimize storage.
+
+### Retention period syntax
+
 The retention period value is a time duration value made up of a numeric value
 plus a duration unit.
 For example, `30d` means 30 days.
-A zero duration (`0d`) retention period is infinite and data won't expire.
 The retention period value cannot be negative or contain whitespace.
 
-{{< flex >}}
-{{% flex-content "half" %}}
-
-##### Valid durations units include
+#### Valid durations units include
 
 - **m**: minute
 - **h**: hour
@@ -45,22 +159,39 @@ The retention period value cannot be negative or contain whitespace.
 - **mo**: month
 - **y**: year
 
-{{% /flex-content %}}
-{{% flex-content "half" %}}
+> [!Warning]
+> #### Retention period constraints
+>
+> - **Minimum for data retention**: The practical minimum retention period is 1 hour (`1h`).
+> - **Zero-duration periods**: Setting a retention period to `0<unit>` (for example,
+>   `0d` or `0h`) is allowed but marks all data for immediate deletion at query time.
+>   _This differs from InfluxDB 1.x and 2.x where `0d` meant infinite retention._
+> - **Infinite retention**: Use `none` to set an infinite retention period.
 
-##### Example retention period values
+For more information about retention periods, see [Data retention](/influxdb3/version/reference/internals/data-retention/).
 
-- `0d`: infinite/none
-- `3d`: 3 days
-- `6w`: 6 weeks
-- `1mo`: 1 month (30 days)
-- `1y`: 1 year
-- `30d30d`: 60 days
-- `2.5d`: 60 hours
+{{% show-in "core" %}}
+> [!Important]
+> #### Retention periods are immutable in Core
+>
+> In {{< product-name >}}, retention periods can only be set when creating a database
+> and cannot be changed afterward. If you need to change a retention period, you must
+> create a new database with the desired retention period and migrate your data.
+>
+> For mutable retention periods and table-level retention, consider upgrading to
+> [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+{{% /show-in %}}
 
-{{% /flex-content %}}
-{{< /flex >}}
--->
+{{% show-in "enterprise" %}}
+> [!Note]
+> #### Database retention serves as default for tables
+>
+> The database retention period serves as the default retention period for all tables in
+> the database, unless a table has its own retention period defined. Table-level retention
+> periods override database retention periods.
+>
+> For more information, see [Retention period precedence](/influxdb3/enterprise/reference/internals/data-retention/#retention-period-precedence).
+{{% /show-in %}}
 
 ## Database naming restrictions
 

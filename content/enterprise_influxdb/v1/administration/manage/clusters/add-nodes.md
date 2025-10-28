@@ -1,6 +1,6 @@
 ---
 title: Add node to existing cluster
-description: Add nodes to an existing InfluxDB Enterprise cluster.
+description: Add nodes to an existing InfluxDB Enterprise v1 cluster.
 aliases:
 menu:
   enterprise_influxdb_v1:

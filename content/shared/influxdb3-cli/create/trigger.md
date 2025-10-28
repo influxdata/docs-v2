@@ -38,7 +38,7 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--help-all`        | Print detailed help information                                                                          |
 
 If you want to use a plugin from the [Plugin Library](https://github.com/influxdata/influxdb3_plugins) repo, use the URL path with `gh:` specified as the prefix.
-For example, to use the [System Metrics](https://github.com/influxdata/influxdb3_plugins/blob/main/examples/schedule/system_metrics/system_metrics.py) plugin, the plugin filename is `gh:examples/schedule/system_metrics/system_metrics.py`.
+For example, to use the [System Metrics](https://github.com/influxdata/influxdb3_plugins/blob/main/influxdata/system_metrics/system_metrics.py) plugin, the plugin filename is `gh:influxdata/system_metrics/system_metrics.py`.
 
 
 ### Option environment variables

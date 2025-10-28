@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/zipkin/README.md, Zipkin Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/zipkin/README.md, Zipkin Plugin Source
 ---
 
 # Zipkin Input Plugin
