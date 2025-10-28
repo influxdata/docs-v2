@@ -17,7 +17,7 @@ file as a `source` in their frontmatter.
    source: /shared/influxql-v3-reference/regular-expressions.md
    ```
 
-5. In the doc body, remove the shared Markdown text and add a comment that points to the shared file, in case someone happens upon the page in the repo--for example, in `/content/3/core/reference/influxql/regular-expressions.md`, add the following:
+5. In the doc body, remove the shared Markdown text and add a comment that points to the shared file, in case someone happens upon the page in the repo--for example, in `/content/influxdb3/core/reference/influxql/regular-expressions.md`, add the following:
 
 <!-- 
 //SOURCE - /content/shared/influxql-v3-reference/regular-expressions.md
