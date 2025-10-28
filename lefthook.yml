@@ -12,12 +12,43 @@ pre-commit:
     build-agent-instructions:
       glob: "data/products.yml"
       run: yarn build:agent:instructions
-    # Report linting warnings and errors, don't output files to stdout
-    lint-markdown:
+    # Auto-fix markdown formatting for instruction and README files (like prettier)
+    lint-markdown-instructions:
       tags: lint
-      glob: "{README.md,DOCS-*.md,api-docs/README.md,content/*.md}"
+      glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md}"
       run: |
-        docker compose run --rm --name remark-lint remark-lint '{staged_files}'
+        # Prepend /workdir/ to staged files since repository is mounted at /workdir in container
+        files=$(echo '{staged_files}' | sed 's|^|/workdir/|g; s| | /workdir/|g')
+        docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
+          { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
+      stage_fixed: true
+    # Report markdown formatting issues in content/api-docs without auto-fixing
+    lint-markdown-content:
+      tags: lint
+      glob: "{api-docs/**/*.md,content/**/*.md}"
+      run: |
+        # Prepend /workdir/ to staged files since repository is mounted at /workdir in container
+        files=$(echo '{staged_files}' | sed 's|^|/workdir/|g; s| | /workdir/|g')
+        # Run remark to check for formatting differences (without --output, shows diff in stdout)
+        # If output differs from input, fail the commit
+        for file in $files; do
+          original=$(cat "${file#/workdir/}")
+          formatted=$(docker compose run --rm --name remark-lint-content remark-lint "$file" 2>/dev/null | tail -n +2)
+          if [ "$original" != "$formatted" ]; then
+            echo "❌ Markdown formatting issues in ${file#/workdir/}"
+            echo "   Run: docker compose run --rm remark-lint $file --output"
+            echo "   Or manually fix the formatting to match remark style"
+            exit 1
+          fi
+        done
+        echo "✅ All content files are properly formatted"
+    # Lint instruction and repository documentation files with generic Vale config
+    lint-instructions:
+      tags: lint
+      glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md}"
+      run: '.ci/vale/vale.sh
+        --config=.vale-instructions.ini
+        --minAlertLevel=warning {staged_files}'
     cloud-lint:
       tags: lint,v2
       glob: 'content/influxdb/cloud/*.md'

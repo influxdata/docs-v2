@@ -511,17 +511,18 @@ services:
   remark-lint:
     container_name: remark-lint
     build:
-      context: . 
+      context: .
       dockerfile: .ci/Dockerfile.remark
     profiles:
       - lint
     volumes:
+      # Mount repository to /workdir to avoid overwriting /app/ node_modules
+      # Remark will receive paths like /workdir/content/file.md or /workdir/README.md
+      # Writable mount allows auto-fixing instruction files (README.md, DOCS-*.md, etc.)
       - type: bind
-        source: ./content
-        target: /app/content
-      - type: bind
-        source: ./CONTRIBUTING.md
-        target: /app/CONTRIBUTING.md
+        source: .
+        target: /workdir
+        read_only: false
 volumes:
   test-content:
   cloud-tmp:
