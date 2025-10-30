@@ -32,7 +32,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Operational improvements
 
-- **Storage engine**: Docker-based license service development environment improvements
+- **Storage engine**: improvements to the Docker-based license service development environment
 - **Catalog consistency**: Node management fixes for catalog edge cases
 - Other enhancements and performance improvements
 
