@@ -145,14 +145,24 @@ Your test findings and associated debug information
 from your Kubernetes environment can help recommend configuration changes to
 improve query performance as your usage scales.
 
-<!-- Don't mention dashboards until they're working working in a future Clustered release --
+### Capture dashboard screenshots
 
-### Capture dashboard screens
+For query performance issues, always capture screenshots of the Querier Dashboard as a first step.
 
 If you have set up alerts and dashboards for monitoring your cluster, capture
 screenshots of dashboard events for Queriers, Compactors, and Ingesters.
 
--->
+On the Querier dashboard, capture screenshots showing:
+
+- **CPU utilization**: Is it running high (close to the limits you set)?
+- **Object Store Traffic/Latency**: Often a major contributor to performance issues
+- **Cache Requests bytes**: Shows cache misses as separate series
+- **Query concurrency and rate metrics**:
+  - grpc Requests
+  - Query Rate
+  - Query Concurrency (note the 10-minute maximum limitation)
+- **Parquet files per query**: Number of files accessed per query
+- **Request Duration...DoGet**: Query execution timing
 
 ### Gather debug information
 
@@ -316,6 +326,27 @@ curl --get "https://{{< influxdb/host >}}/query" \
 {{< /code-tabs-wrapper >}}
 
 {{% /code-placeholders %}}
+
+ ```suggestion
+Include `EXPLAIN ANALYZE` output.
+
+When using the output for troubleshooting performance, focus on the sections with the highest `elapsed_compute` times, as these indicate performance bottlenecks.
+For example, here is extracted timing data from an ANALYZE output showing the most time-consuming operations:
+
+```text
+DeduplicateExec
+   └→ elapsed_compute=3.514663491s                                           3514.66ms
+SortPreservingMergeExec
+   └→ elapsed_compute=12.440516244s                                         12440.52ms
+SortExec
+   └→ elapsed_compute=993.952663ms                                            993.95ms
+AggregateExec
+   └→ elapsed_compute=406.163116ms                                            406.16ms
+ParquetExec
+   └→ time_elapsed_scanning_total=1044.149737489s                         1044149.74ms
+   └→ time_elapsed_opening=3.001925899s                                      3001.93ms
+   └→ time_elapsed_processing=2.255025048s                                   2255.03ms
+```
 
 ### Gather system information
 
