@@ -18,16 +18,17 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 serve [OPTIONS] \
-  --node-id <NODE_IDENTIFIER_PREFIX> \
-  --cluster-id <CLUSTER_IDENTIFIER_PREFIX>
+influxdb3 serve [OPTIONS]
 ```
 
-## Required parameters
+## Parameters
+
+The following parameters are required for production deployments but optional when using [quick-start mode](#quick-start-mode):
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
 - **cluster-id**: A unique identifier for your cluster. Must be different from any node-id in your cluster.
 - **object-store**: Determines where time series data is stored.
+- **data-dir**: Directory path for storing data (required when using `file` object store).
 - Other object store parameters depending on the selected `object-store` type.
 
 > [!NOTE]
@@ -64,7 +65,7 @@ influxdb3 serve [OPTIONS] \
 |                  | `--azure-storage-account`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#azure-storage-account)_                            |
 |                  | `--bucket`                                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#bucket)_                                           |
 |                  | `--catalog-sync-interval`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#catalog-sync-interval)_                            |
-| {{< req "\*" >}} | `--cluster-id`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#cluster-id)_                                       |
+|                  | `--cluster-id`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#cluster-id)_                                       |
 |                  | `--compaction-check-interval`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-check-interval)_                        |
 |                  | `--compaction-cleanup-wait`                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-cleanup-wait)_                          |
 |                  | `--compaction-gen2-duration`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#compaction-gen2-duration)_                         |
@@ -107,7 +108,7 @@ influxdb3 serve [OPTIONS] \
 |                  | `--log-format`                                       | _See [configuration options](/influxdb3/enterprise/reference/config-options/#log-format)_                                       |
 |                  | `--max-http-request-size`                            | _See [configuration options](/influxdb3/enterprise/reference/config-options/#max-http-request-size)_                            |
 |                  | `--mode`                                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#mode)_                                             |
-| {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
+|                  | `--node-id`                                          | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id)_                                          |
 |                  | `--node-id-from-env`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#node-id-from-env)_                                 |
 |                  | `--num-cores`                                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-cores)_                                        |
 |                  | `--num-datafusion-threads`                           | _See [configuration options](/influxdb3/enterprise/reference/config-options/#num-datafusion-threads)_                           |
@@ -160,15 +161,53 @@ influxdb3 serve [OPTIONS] \
 |                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-snapshot-size)_                                |
 |                  | `--without-auth`                                     | _See [configuration options](/influxdb3/enterprise/reference/config-options/#without-auth)_                                     |
 
-{{< caption >}}
-{{< req text="\* Required options" >}}
-{{< /caption >}}
-
 ### Option environment variables
 
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
 [Configuration options](/influxdb3/enterprise/reference/config-options/).
+
+## Quick-Start Mode
+
+For development, testing, and home use, you can start {{< product-name >}} by running `influxdb3` without the `serve` subcommand or any configuration parameters. The system automatically generates required values:
+
+- **`node-id`**: `{hostname}-node` (fallback: `primary-node`)
+- **`cluster-id`**: `{hostname}-cluster` (fallback: `primary-cluster`)
+- **`object-store`**: `file`
+- **`data-dir`**: `~/.influxdb`
+
+The system displays warning messages showing the auto-generated identifiers:
+
+```
+Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id
+Using auto-generated cluster id: mylaptop-cluster. For production deployments, explicitly set --cluster-id
+```
+
+### Quick-start examples
+
+<!--pytest.mark.skip-->
+
+```bash
+# Zero-config startup
+influxdb3
+
+# Override specific defaults
+influxdb3 --object-store memory
+
+# Use environment variables to override defaults
+INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+```
+
+> [!Important]
+> #### Production deployments
+>
+> Quick-start mode is designed for development and testing environments.
+> For production deployments, use explicit configuration with the `serve` subcommand
+> and specify all required parameters as shown in the [Examples](#examples) below.
+
+**Configuration precedence**: CLI flags > environment variables > auto-generated defaults
+
+For more information about quick-start mode, see [Get started](/influxdb3/enterprise/get-started/setup/#quick-start-mode-development).
 
 ## Examples
 

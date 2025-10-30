@@ -1587,15 +1587,20 @@ engine uses.
 
 #### package-manager
 
-Specifies the Python package manager that the processing engine uses.
+Specifies the Python package manager that the Processing Engine uses to install plugin dependencies.
 
 This option supports the following values:
 
-- `discover` _(default)_: Automatically discover available package manager
-- `pip`: Use pip package manager
-- `uv`: Use uv package manager
+- `discover` _(default)_: Automatically detect and use available package manager (`uv` or `pip`)
+- `pip`: Use pip package manager exclusively
+- `uv`: Use uv package manager exclusively
+- `disabled`: Disable automatic package installation (all dependencies must be pre-installed)
 
 **Default:** `discover`
+
+Use `disabled` for air-gapped deployments or environments with strict security requirements where automatic package installation isn't permitted. When disabled, you must manually pre-install all required Python packages in the server's Python environment before loading plugins.
+
+For more information about plugins and package management, see [Processing Engine plugins](/influxdb3/version/plugins/).
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
