@@ -52,7 +52,7 @@
   message: |
     InfluxDB 3.6 is now available for both Core and Enterprise. This release introduces
     the 1.4 update to InfluxDB 3 Explorer, featuring the beta launch of Ask AI, along
-    with new capabilities for simple startup and expanded functionality in the Processing Engine. 
+    with new capabilities for simple startup and expanded functionality in the Processing Engine.
 
     For more information, check out:
 
