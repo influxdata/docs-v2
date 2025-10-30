@@ -1598,8 +1598,6 @@ This option supports the following values:
 
 **Default:** `discover`
 
-Use `disabled` for air-gapped deployments or environments with strict security requirements where automatic package installation isn't permitted. When disabled, you must manually pre-install all required Python packages in the server's Python environment before loading plugins.
-
 For more information about plugins and package management, see [Processing Engine plugins](/influxdb3/version/plugins/).
 
 | influxdb3 serve option | Environment variable |
