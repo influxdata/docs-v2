@@ -21,13 +21,10 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 influxdb3 serve [OPTIONS]
 ```
 
-## Parameters
-
-The following parameters are required for production deployments but optional when using [quick-start mode](#quick-start-mode):
+## Required Parameters
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
 - **object-store**: Determines where time series data is stored.
-- **data-dir**: Directory path for storing data (required when using `file` object store).
 - Other object store parameters depending on the selected `object-store` type.
 
 > [!NOTE]
@@ -47,8 +44,8 @@ The following parameters are required for production deployments but optional wh
 
 | Option           |                                                      | Description                                                                                                               |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-|                  | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |
-|                  | `--object-store`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#object-store)_                                     |
+| {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |
+| {{< req "\*" >}} | `--object-store`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#object-store)_                                     |
 |                  | `--admin-token-recovery-http-bind`                   | _See [configuration options](/influxdb3/core/reference/config-options/#admin-token-recovery-http-bind)_                   |
 |                  | `--admin-token-recovery-tcp-listener-file-path`      | _See [configuration options](/influxdb3/core/reference/config-options/#admin-token-recovery-tcp-listener-file-path)_      |
 |                  | `--admin-token-file`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-file)_                           |

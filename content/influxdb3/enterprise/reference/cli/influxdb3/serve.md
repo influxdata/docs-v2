@@ -21,14 +21,11 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 influxdb3 serve [OPTIONS]
 ```
 
-## Parameters
-
-The following parameters are required for production deployments but optional when using [quick-start mode](#quick-start-mode):
+## Required Parameters
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
 - **cluster-id**: A unique identifier for your cluster. Must be different from any node-id in your cluster.
 - **object-store**: Determines where time series data is stored.
-- **data-dir**: Directory path for storing data (required when using `file` object store).
 - Other object store parameters depending on the selected `object-store` type.
 
 > [!NOTE]
