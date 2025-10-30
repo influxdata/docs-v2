@@ -15,7 +15,7 @@
   - `influxdb3` now supports running without arguments for instant database startup, automatically generating IDs and storage flags values based on your system's setup.
 - **Processing Engine**:
   - Plugins now support multiple files instead of single-file limitations. 
-  - Plugin uploads now supported directly from your local machine when creating triggers using the `--upload` flag. 
+  - When creating a trigger, you can upload a plugin directly from your local machine using the `--upload` flag.
   - Existing plugin files can now be updated at runtime without recreating triggers. 
   - New `system.plugin_files` table and `show plugins` CLI command now provide visibility into all loaded plugin files.
   - Custom plugin repositories are now supported via `--plugin-repo` CLI flag.
