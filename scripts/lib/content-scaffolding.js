@@ -4,7 +4,7 @@
  */
 
 import { readdirSync, readFileSync, existsSync, statSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 import matter from 'gray-matter';
@@ -314,12 +314,19 @@ export function findSiblingWeights(dirPath) {
 
 /**
  * Prepare complete context for AI analysis
- * @param {string} draftPath - Path to draft file
+ * @param {string|object} draftPathOrObject - Path to draft file or draft object
  * @returns {object} Context object
  */
-export function prepareContext(draftPath) {
-  // Read draft
-  const draft = readDraft(draftPath);
+export function prepareContext(draftPathOrObject) {
+  // Read draft - handle both file path and draft object
+  let draft;
+  if (typeof draftPathOrObject === 'string') {
+    draft = readDraft(draftPathOrObject);
+    draft.path = draftPathOrObject;
+  } else {
+    // Already a draft object from stdin
+    draft = draftPathOrObject;
+  }
 
   // Load products
   const products = loadProducts();
@@ -349,7 +356,7 @@ export function prepareContext(draftPath) {
   // Build context
   const context = {
     draft: {
-      path: draftPath,
+      path: draft.path || draftPathOrObject,
       content: draft.content,
       existingFrontmatter: draft.frontmatter,
     },
@@ -754,6 +761,130 @@ export function analyzeURLs(parsedURLs) {
     }
 
     results.push(result);
+  }
+
+  return results;
+}
+
+/**
+ * Extract and categorize links from markdown content
+ * @param {string} content - Markdown content
+ * @returns {object} {localFiles: string[], external: string[]}
+ */
+export function extractLinks(content) {
+  const localFiles = [];
+  const external = [];
+
+  // Match markdown links: [text](url)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+
+  while ((match = linkRegex.exec(content)) !== null) {
+    const url = match[2];
+
+    // Skip anchor links and mailto
+    if (url.startsWith('#') || url.startsWith('mailto:')) {
+      continue;
+    }
+
+    // Local file paths (relative paths) - automatically followed
+    if (url.startsWith('../') || url.startsWith('./')) {
+      localFiles.push(url);
+    }
+    // All HTTP/HTTPS URLs (including docs.influxdata.com) - user selects
+    else if (url.startsWith('http://') || url.startsWith('https://')) {
+      external.push(url);
+    }
+    // Absolute paths starting with / are ignored (no base context to resolve)
+  }
+
+  return {
+    localFiles: [...new Set(localFiles)],
+    external: [...new Set(external)],
+  };
+}
+
+/**
+ * Follow local file links (relative paths)
+ * @param {string[]} links - Array of relative file paths
+ * @param {string} basePath - Base path to resolve relative links from
+ * @returns {object[]} Array of {url, title, content, path, frontmatter}
+ */
+export function followLocalLinks(links, basePath = REPO_ROOT) {
+  const results = [];
+
+  for (const link of links) {
+    try {
+      // Resolve relative path from base path
+      const filePath = resolve(basePath, link);
+
+      // Check if file exists
+      if (existsSync(filePath)) {
+        const fileContent = readFileSync(filePath, 'utf8');
+        const parsed = matter(fileContent);
+
+        results.push({
+          url: link,
+          title: parsed.data?.title || 'Untitled',
+          content: parsed.content,
+          path: filePath.replace(REPO_ROOT + '/', ''),
+          frontmatter: parsed.data,
+          type: 'local',
+        });
+      } else {
+        results.push({
+          url: link,
+          error: 'File not found',
+          type: 'local',
+        });
+      }
+    } catch (error) {
+      results.push({
+        url: link,
+        error: error.message,
+        type: 'local',
+      });
+    }
+  }
+
+  return results;
+}
+
+/**
+ * Fetch external URLs
+ * @param {string[]} urls - Array of external URLs
+ * @returns {Promise<object[]>} Array of {url, title, content, type}
+ */
+export async function fetchExternalLinks(urls) {
+  // Dynamic import axios
+  const axios = (await import('axios')).default;
+  const results = [];
+
+  for (const url of urls) {
+    try {
+      const response = await axios.get(url, {
+        timeout: 10000,
+        headers: { 'User-Agent': 'InfluxData-Docs-Bot/1.0' },
+      });
+
+      // Extract title from HTML or use URL
+      const titleMatch = response.data.match(/<title>([^<]+)<\/title>/i);
+      const title = titleMatch ? titleMatch[1] : url;
+
+      results.push({
+        url,
+        title,
+        content: response.data,
+        type: 'external',
+        contentType: response.headers['content-type'],
+      });
+    } catch (error) {
+      results.push({
+        url,
+        error: error.message,
+        type: 'external',
+      });
+    }
   }
 
   return results;

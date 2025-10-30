@@ -23,7 +23,12 @@ import {
   loadProducts,
   analyzeStructure,
 } from './lib/content-scaffolding.js';
-import { writeJson, readJson, fileExists } from './lib/file-operations.js';
+import {
+  writeJson,
+  readJson,
+  fileExists,
+  readDraft,
+} from './lib/file-operations.js';
 import { parseMultipleURLs } from './lib/url-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -91,8 +96,7 @@ function divider() {
 function parseArguments() {
   const { values, positionals } = parseArgs({
     options: {
-      draft: { type: 'string' },
-      from: { type: 'string' },
+      'from-draft': { type: 'string' },
       url: { type: 'string', multiple: true },
       urls: { type: 'string' },
       products: { type: 'string' },
@@ -103,18 +107,16 @@ function parseArguments() {
       'dry-run': { type: 'boolean', default: false },
       yes: { type: 'boolean', default: false },
       help: { type: 'boolean', default: false },
+      'follow-external': { type: 'boolean', default: false },
     },
     allowPositionals: true,
   });
 
   // First positional argument is treated as draft path
-  if (positionals.length > 0 && !values.draft && !values.from) {
+  if (positionals.length > 0 && !values['from-draft']) {
     values.draft = positionals[0];
-  }
-
-  // --from is an alias for --draft
-  if (values.from && !values.draft) {
-    values.draft = values.from;
+  } else if (values['from-draft']) {
+    values.draft = values['from-draft'];
   }
 
   // Normalize URLs into array
@@ -142,19 +144,35 @@ ${colors.bright}Documentation Content Scaffolding${colors.reset}
 
 ${colors.bright}Usage:${colors.reset}
   yarn docs:create <draft-path>           Create from draft
-  yarn docs:create --url <url> --draft <path>  Create at URL with draft content
+  yarn docs:create --url <url> --from-draft <path>  Create at URL with draft
 
 ${colors.bright}Options:${colors.reset}
-  <draft-path>      Path to draft markdown file (positional argument)
-  --draft <path>    Path to draft markdown file
-  --from <path>     Alias for --draft
-  --url <url>       Documentation URL for new content location
-  --context-only    Stop after context preparation
-                    (for non-Claude tools)
-  --proposal <path> Import and execute proposal from JSON file
-  --dry-run         Show what would be created without creating
-  --yes             Skip confirmation prompt
-  --help            Show this help message
+  <draft-path>        Path to draft markdown file (positional argument)
+  --from-draft <path> Path to draft markdown file
+  --url <url>         Documentation URL for new content location
+  --follow-external   Include external (non-docs.influxdata.com) URLs
+                      when extracting links from draft. Without this flag,
+                      only local documentation links are followed.
+  --context-only      Stop after context preparation
+                      (for non-Claude tools)
+  --proposal <path>   Import and execute proposal from JSON file
+  --dry-run           Show what would be created without creating
+  --yes               Skip confirmation prompt
+  --help              Show this help message
+
+${colors.bright}Stdin Support:${colors.reset}
+  cat draft.md | yarn docs:create        Read draft from stdin
+  echo "# Content" | yarn docs:create    Create from piped content
+
+${colors.bright}Link Following:${colors.reset}
+  By default, the script extracts links from your draft and prompts you
+  to select which ones to include as context. This helps the AI:
+  - Maintain consistent terminology
+  - Avoid duplicating content
+  - Add appropriate \`related\` frontmatter links
+
+  Local documentation links are always available for selection.
+  Use --follow-external to also include external URLs (GitHub, etc.)
 
 ${colors.bright}Workflow (Create from draft):${colors.reset}
   1. Create a draft markdown file with your content
@@ -166,7 +184,7 @@ ${colors.bright}Workflow (Create at specific URL):${colors.reset}
   1. Create draft: vim drafts/new-feature.md
   2. Run: yarn docs:create \\
           --url https://docs.influxdata.com/influxdb3/core/admin/new-feature/ \\
-          --draft drafts/new-feature.md
+          --from-draft drafts/new-feature.md
   3. Script determines structure from URL and uses draft content
   4. Review and confirm to create files
 
@@ -184,10 +202,20 @@ ${colors.bright}Examples:${colors.reset}
 
   # Create at specific URL with draft content
   yarn docs:create --url /influxdb3/core/admin/new-feature/ \\
-                   --draft drafts/new-feature.md
+                   --from-draft drafts/new-feature.md
+
+  # Create with linked context (prompts for link selection)
+  yarn docs:create drafts/new-feature.md
+
+  # Include external links for selection
+  yarn docs:create --follow-external drafts/api-guide.md
+
+  # Pipe content from stdin
+  cat drafts/quick-note.md | yarn docs:create
+  echo "# Test Content" | yarn docs:create
 
   # Preview changes
-  yarn docs:create --draft drafts/new-feature.md --dry-run
+  yarn docs:create --from-draft drafts/new-feature.md --dry-run
 
 ${colors.bright}Note:${colors.reset}
   To edit existing pages, use: yarn docs:edit <url>
@@ -197,7 +225,7 @@ ${colors.bright}Note:${colors.reset}
 /**
  * Phase 1a: Prepare context from URLs
  */
-async function prepareURLPhase(urls, draftPath, options) {
+async function prepareURLPhase(urls, draftPath, options, stdinContent = null) {
   log('\n🔍 Analyzing URLs and finding files...', 'bright');
 
   try {
@@ -258,9 +286,18 @@ async function prepareURLPhase(urls, draftPath, options) {
 
     // Build context (include URL analysis)
     let context = null;
-    if (draftPath) {
+    let draft;
+
+    if (stdinContent) {
+      // Use stdin content
+      draft = stdinContent;
+      log('✓ Using draft from stdin', 'green');
+      context = prepareContext(draft);
+    } else if (draftPath) {
       // Use draft content if provided
-      context = prepareContext(draftPath);
+      draft = readDraft(draftPath);
+      draft.path = draftPath;
+      context = prepareContext(draft);
     } else {
       // Minimal context for editing existing pages
       const products = loadProducts();
@@ -351,18 +388,83 @@ async function prepareURLPhase(urls, draftPath, options) {
 /**
  * Phase 1b: Prepare context from draft
  */
-async function preparePhase(draftPath, options) {
+async function preparePhase(draftPath, options, stdinContent = null) {
   log('\n🔍 Analyzing draft and repository structure...', 'bright');
 
-  // Validate draft exists
-  if (!fileExists(draftPath)) {
-    log(`✗ Draft file not found: ${draftPath}`, 'red');
-    process.exit(1);
+  let draft;
+
+  // Handle stdin vs file
+  if (stdinContent) {
+    draft = stdinContent;
+    log('✓ Using draft from stdin', 'green');
+  } else {
+    // Validate draft exists
+    if (!fileExists(draftPath)) {
+      log(`✗ Draft file not found: ${draftPath}`, 'red');
+      process.exit(1);
+    }
+    draft = readDraft(draftPath);
+    draft.path = draftPath;
   }
 
   try {
     // Prepare context
-    const context = prepareContext(draftPath);
+    const context = prepareContext(draft);
+
+    // Extract links from draft
+    const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
+      './lib/content-scaffolding.js'
+    );
+
+    const links = extractLinks(draft.content);
+
+    if (links.localFiles.length > 0 || links.external.length > 0) {
+      // Filter external links if flag not set
+      if (!options['follow-external']) {
+        links.external = [];
+      }
+
+      // Let user select which external links to follow
+      // (local files are automatically included)
+      const selected = await selectLinksToFollow(links);
+
+      // Follow selected links
+      const linkedContent = [];
+
+      if (selected.selectedLocal.length > 0) {
+        log('\n📄 Loading local files...', 'cyan');
+        // Determine base path for resolving relative links
+        const basePath = draft.path
+          ? dirname(join(REPO_ROOT, draft.path))
+          : REPO_ROOT;
+        const localResults = followLocalLinks(selected.selectedLocal, basePath);
+        linkedContent.push(...localResults);
+        const successCount = localResults.filter((r) => !r.error).length;
+        log(`✓ Loaded ${successCount} local file(s)`, 'green');
+      }
+
+      if (selected.selectedExternal.length > 0) {
+        log('\n🌐 Fetching external URLs...', 'cyan');
+        const externalResults = await fetchExternalLinks(
+          selected.selectedExternal
+        );
+        linkedContent.push(...externalResults);
+        const successCount = externalResults.filter((r) => !r.error).length;
+        log(`✓ Fetched ${successCount} external page(s)`, 'green');
+      }
+
+      // Add to context
+      if (linkedContent.length > 0) {
+        context.linkedContent = linkedContent;
+
+        // Show any errors
+        const errors = linkedContent.filter((lc) => lc.error);
+        if (errors.length > 0) {
+          log('\n⚠️  Some links could not be loaded:', 'yellow');
+          errors.forEach((e) => log(`  • ${e.url}: ${e.error}`, 'yellow'));
+        }
+      }
+    }
 
     // Write context to temp file
     writeJson(CONTEXT_FILE, context);
@@ -382,6 +484,12 @@ async function preparePhase(draftPath, options) {
       `✓ Found ${context.structure.existingPaths.length} existing pages`,
       'green'
     );
+    if (context.linkedContent) {
+      log(
+        `✓ Included ${context.linkedContent.length} linked page(s) as context`,
+        'green'
+      );
+    }
     log(
       `✓ Prepared context → ${CONTEXT_FILE.replace(REPO_ROOT, '.')}`,
       'green'
@@ -440,6 +548,19 @@ async function selectProducts(context, options) {
       productMap[product.name] = key;
     }
   }
+
+  // Sort products: detected first, then alphabetically within each group
+  allProducts.sort((a, b) => {
+    const aDetected = detected.includes(a);
+    const bDetected = detected.includes(b);
+
+    // Detected products first
+    if (aDetected && !bDetected) return -1;
+    if (!aDetected && bDetected) return 1;
+
+    // Then alphabetically
+    return a.localeCompare(b);
+  });
 
   // Case 1: Explicit flag provided
   if (options.products) {
@@ -515,6 +636,74 @@ async function selectProducts(context, options) {
 }
 
 /**
+ * Prompt user to select which external links to include
+ * Local file paths are automatically followed
+ * @param {object} links - {localFiles, external} from extractLinks
+ * @returns {Promise<object>} {selectedLocal, selectedExternal}
+ */
+async function selectLinksToFollow(links) {
+  // Local files are followed automatically (no user prompt)
+  // External links require user selection
+  if (links.external.length === 0) {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  log('\n🔗 Found external links in draft:\n', 'bright');
+
+  const allLinks = [];
+  let index = 1;
+
+  // Show external links for selection
+  links.external.forEach((link) => {
+    log(`    ${index}. ${link}`, 'yellow');
+    allLinks.push({ type: 'external', url: link });
+    index++;
+  });
+
+  const answer = await promptUser(
+    '\nSelect external links to include as context ' +
+      '(comma-separated numbers, or "all"): '
+  );
+
+  if (!answer || answer.toLowerCase() === 'none') {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  let selectedIndices;
+  if (answer.toLowerCase() === 'all') {
+    selectedIndices = Array.from({ length: allLinks.length }, (_, i) => i);
+  } else {
+    selectedIndices = answer
+      .split(',')
+      .map((s) => parseInt(s.trim()) - 1)
+      .filter((i) => i >= 0 && i < allLinks.length);
+  }
+
+  const selectedExternal = [];
+
+  selectedIndices.forEach((i) => {
+    const link = allLinks[i];
+    selectedExternal.push(link.url);
+  });
+
+  log(
+    `\n✓ Following ${links.localFiles?.length || 0} local file(s) ` +
+      `and ${selectedExternal.length} external link(s)`,
+    'green'
+  );
+  return {
+    selectedLocal: links.localFiles || [],
+    selectedExternal,
+  };
+}
+
+/**
  * Run single content generator agent with direct file generation (Claude Code)
  */
 async function runAgentsWithTaskTool(
@@ -577,6 +766,30 @@ function generateClaudePrompt(
 **Target Products**: Use \`context.selectedProducts\` field (${selectedProducts.join(', ')})
 **Mode**: ${mode === 'edit' ? 'Edit existing content' : 'Create new documentation'}
 ${isURLBased ? `**URLs**: ${context.urls.map((u) => u.url).join(', ')}` : ''}
+${
+  context.linkedContent?.length > 0
+    ? `
+**Linked References**: The draft references ${context.linkedContent.length} page(s) from existing documentation.
+
+These are provided for context to help you:
+- Maintain consistent terminology and style
+- Avoid duplicating existing content
+- Understand related concepts and their structure
+- Add appropriate links to the \`related\` frontmatter field
+
+Linked content details available in \`context.linkedContent\`:
+${context.linkedContent
+  .map((lc) =>
+    lc.error
+      ? `- ❌ ${lc.url} (${lc.error})`
+      : `- ✓ [${lc.type}] ${lc.title} (${lc.path || lc.url})`
+  )
+  .join('\n')}
+
+**Important**: Use this content for context and reference, but do not copy it verbatim. Consider adding relevant pages to the \`related\` field in frontmatter.
+`
+    : ''
+}
 
 **Your Task**: Generate complete documentation files directly (no proposal step).
 
@@ -908,16 +1121,27 @@ async function executePhase(options) {
 async function main() {
   const options = parseArguments();
 
-  // Show help
+  // Show help first (don't wait for stdin)
   if (options.help) {
     printUsage();
     process.exit(0);
   }
 
+  // Check for stdin only if no draft file was provided
+  const hasStdin = !process.stdin.isTTY;
+  let stdinContent = null;
+
+  if (hasStdin && !options.draft) {
+    // Import readDraftFromStdin
+    const { readDraftFromStdin } = await import('./lib/file-operations.js');
+    log('📥 Reading draft from stdin...', 'cyan');
+    stdinContent = await readDraftFromStdin();
+  }
+
   // Determine workflow
   if (options.url && options.url.length > 0) {
     // URL-based workflow requires draft content
-    if (!options.draft) {
+    if (!options.draft && !stdinContent) {
       log('\n✗ Error: --url requires --draft <path>', 'red');
       log('The --url option specifies WHERE to create content.', 'yellow');
       log(
@@ -934,7 +1158,12 @@ async function main() {
       process.exit(1);
     }
 
-    const context = await prepareURLPhase(options.url, options.draft, options);
+    const context = await prepareURLPhase(
+      options.url,
+      options.draft,
+      options,
+      stdinContent
+    );
 
     if (options['context-only']) {
       // Stop after context preparation
@@ -947,9 +1176,9 @@ async function main() {
 
     // Execute proposal (Phase 3)
     await executePhase(options);
-  } else if (options.draft) {
-    // Draft-based workflow
-    const context = await preparePhase(options.draft, options);
+  } else if (options.draft || stdinContent) {
+    // Draft-based workflow (from file or stdin)
+    const context = await preparePhase(options.draft, options, stdinContent);
 
     if (options['context-only']) {
       // Stop after context preparation
