@@ -5,6 +5,37 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.6.0 {date="2025-10-30"}
+
+### Core
+
+#### Features
+
+- **Quick-Start Developer Experience**:
+  - `influxdb3` now supports running without arguments for instant database startup, automatically generating IDs and storage flags values based on your system's setup.
+- **Processing Engine**:
+  - Plugins now support multiple files instead of single-file limitations. 
+  - Plugin uploads now supported directly from your local machine when creating triggers using the `--upload` flag. 
+  - Existing plugin files can now be updated at runtime without recreating triggers. 
+  - New `system.plugin_files` table and `show plugins` CLI command now provide visibility into all loaded plugin files.
+  - Custom plugin repositories are now supported via `--plugin-repo` CLI flag.
+  - Python package installation can now be disabled with `--package-manager disabled` for locked-down environments. 
+  - Plugin file path validation now prevents directory traversal attacks by blocking relative and absolute path patterns.
+
+#### Bug fixes
+
+- **Token management**: Token display now works correctly for hard-deleted databases
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Operational improvements
+
+- **Storage engine**: Docker-based license service development environment improvements
+- **Catalog consistency**: Node management fixes for catalog edge cases
+- Other enhancements and performance improvements
+
 ## v3.5.0 {date="2025-09-30"}
 
 ### Core
