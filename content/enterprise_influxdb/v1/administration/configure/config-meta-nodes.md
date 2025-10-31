@@ -1,7 +1,7 @@
 ---
-title: Configure InfluxDB Enterprise meta nodes
+title: Configure InfluxDB Enterprise v1 meta nodes
 description: >
-  Configure InfluxDB Enterprise data node settings and environmental variables.
+  Configure InfluxDB Enterprise v1 data node settings and environmental variables.
 menu:
   enterprise_influxdb_v1:
     name: Configure meta nodes

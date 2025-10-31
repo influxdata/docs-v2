@@ -24,15 +24,32 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 - [Set up the Processing Engine](#set-up-the-processing-engine)
 - [Add a Processing Engine plugin](#add-a-processing-engine-plugin)
+  - [Upload plugins from local machine](#upload-plugins-from-local-machine)
+  - [Update existing plugins](#update-existing-plugins)
+  - [View loaded plugins](#view-loaded-plugins)
 - [Set up a trigger](#set-up-a-trigger)
 - [Manage plugin dependencies](#manage-plugin-dependencies)
+- [Plugin security](#plugin-security)
 {{% show-in "enterprise" %}}
 - [Distributed cluster considerations](#distributed-cluster-considerations)
 {{% /show-in %}}
 
 ## Set up the Processing Engine
 
-To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files. 
+To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
+
+> [!Important]
+> #### Keep the influxdb3 binary with its python directory
+>
+> The influxdb3 binary requires the adjacent `python/` directory to function. 
+> If you manually extract from tar.gz, keep them in the same parent directory:
+> ```
+> your-install-location/
+> ├── influxdb3
+> └── python/
+> ```
+>
+> Add the parent directory to your PATH; do not move the binary out of this directory.
 
 {{% code-placeholders "NODE_ID|OBJECT_STORE_TYPE|PLUGIN_DIR" %}}
 
@@ -50,6 +67,14 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`NODE_ID`{{% /code-placeholder-key %}}: Unique identifier for your instance
 - {{% code-placeholder-key %}}`OBJECT_STORE_TYPE`{{% /code-placeholder-key %}}: Type of object store (for example, file or s3)
 - {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}: Absolute path to the directory where plugin files are stored. Store all plugin files in this directory or its subdirectories.
+
+> [!Note]
+> #### Use custom plugin repositories
+>
+> By default, plugins referenced with the `gh:` prefix are fetched from the official
+> [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository.
+> To use a custom repository, add the `--plugin-repo` flag when starting the server.
+> See [Use a custom plugin repository](#option-3-use-a-custom-plugin-repository) for details.
 
 ### Configure distributed environments
 
@@ -110,7 +135,7 @@ Clone the `influxdata/influxdb3_plugins` repository and copy plugins to your con
 git clone https://github.com/influxdata/influxdb3_plugins.git
    
 # Copy a plugin to your configured plugin directory
-cp influxdb3_plugins/examples/schedule/system_metrics/system_metrics.py /path/to/plugins/
+cp influxdb3_plugins/influxdata/system_metrics/system_metrics.py /path/to/plugins/
 ```
 
 ##### Option 2: Reference plugins directly from GitHub
@@ -121,7 +146,7 @@ Skip downloading plugins by referencing them directly from GitHub using the `gh:
 # Create a trigger using a plugin from GitHub
 influxdb3 create trigger \
   --trigger-spec "every:1m" \
-  --plugin-filename "gh:examples/schedule/system_metrics/system_metrics.py" \
+  --plugin-filename "gh:influxdata/system_metrics/system_metrics.py" \
   --database my_database \
   system_metrics
 ```
@@ -131,6 +156,42 @@ This approach:
 - Ensures you're using the latest version
 - Simplifies updates and maintenance
 - Reduces local storage requirements
+
+##### Option 3: Use a custom plugin repository
+
+For organizations that maintain their own plugin repositories or need to use private/internal plugins,
+configure a custom plugin repository URL:
+
+```bash
+# Start the server with a custom plugin repository
+influxdb3 serve \
+  --node-id node0 \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://internal.company.com/influxdb-plugins/"
+```
+
+Then reference plugins from your custom repository using the `gh:` prefix:
+
+```bash
+# Fetches from: https://internal.company.com/influxdb-plugins/myorg/custom_plugin.py
+influxdb3 create trigger \
+  --trigger-spec "every:5m" \
+  --plugin-filename "gh:myorg/custom_plugin.py" \
+  --database my_database \
+  custom_trigger
+```
+
+**Use cases for custom repositories:**
+
+- **Private plugins**: Host proprietary plugins not suitable for public repositories
+- **Air-gapped environments**: Use internal mirrors when external internet access is restricted
+- **Development and staging**: Test plugins from development branches before production deployment
+- **Compliance requirements**: Meet data governance policies requiring internal hosting
+
+The `--plugin-repo` option accepts any HTTP/HTTPS URL that serves raw plugin files.
+See the [plugin-repo configuration option](/influxdb3/version/reference/config-options/#plugin-repo) for more details.
 
 Plugins have various functions such as: 
 
@@ -170,9 +231,50 @@ Choose a plugin type based on your automation goals:
 
 #### Create your plugin file
 
+Plugins now support both single-file and multifile architectures:
+
+**Single-file plugins:**
 - Create a `.py` file in your plugins directory
 - Add the appropriate function signature based on your chosen plugin type
 - Write your processing logic inside the function
+
+**Multifile plugins:**
+- Create a directory in your plugins directory
+- Add an `__init__.py` file as the entry point (required)
+- Organize supporting modules in additional `.py` files
+- Import and use modules within your plugin code
+
+##### Example multifile plugin structure
+
+```
+my_plugin/
+├── __init__.py       # Required - entry point with trigger function
+├── utils.py          # Supporting module
+├── processors.py     # Data processing functions
+└── config.py         # Configuration helpers
+```
+
+The `__init__.py` file must contain your trigger function:
+
+```python
+# my_plugin/__init__.py
+from .processors import process_data
+from .config import get_settings
+
+def process_writes(influxdb3_local, table_batches, args=None):
+    settings = get_settings()
+    for table_batch in table_batches:
+        process_data(influxdb3_local, table_batch, settings)
+```
+
+Supporting modules can contain helper functions:
+
+```python
+# my_plugin/processors.py
+def process_data(influxdb3_local, table_batch, settings):
+    # Processing logic here
+    pass
+```
 
 After writing your plugin, [create a trigger](#use-the-create-trigger-command) to connect it to a database event and define when it runs.
 
@@ -253,8 +355,124 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 After writing your plugin:
 
 - [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
-- [Install any Python dependencies](#install-python-dependencies) your plugin requires
+- [Install any Python dependencies](#manage-plugin-dependencies) your plugin requires
 - Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
+
+### Upload plugins from local machine
+
+For local development and testing, you can upload plugin files directly from your machine when creating triggers. This eliminates the need to manually copy files to the server's plugin directory.
+
+Use the `--upload` flag with `--path` to transfer local files or directories:
+
+```bash
+# Upload single-file plugin
+influxdb3 create trigger \
+  --trigger-spec "every:10s" \
+  --path "/local/path/to/plugin.py" \
+  --upload \
+  --database metrics \
+  my_trigger
+
+# Upload multifile plugin directory
+influxdb3 create trigger \
+  --trigger-spec "every:30s" \
+  --path "/local/path/to/plugin-dir" \
+  --upload \
+  --database metrics \
+  complex_trigger
+```
+
+> [!Important]
+> #### Admin privileges required
+>
+> Plugin uploads require an admin token. This security measure prevents unauthorized code execution on the server.
+
+**When to use plugin upload:**
+- Local plugin development and testing
+- Deploying plugins without SSH access to the server
+- Rapid iteration on plugin code
+- Automating plugin deployment in CI/CD pipelines
+
+For more information, see the [`influxdb3 create trigger` CLI reference](/influxdb3/version/reference/cli/influxdb3/create/trigger/).
+
+### Update existing plugins
+
+Modify plugin code for running triggers without recreating them. This allows you to iterate on plugin development while preserving trigger configuration and history.
+
+Use the `influxdb3 update trigger` command:
+
+```bash
+# Update single-file plugin
+influxdb3 update trigger \
+  --database metrics \
+  --trigger-name my_trigger \
+  --path "/path/to/updated/plugin.py"
+
+# Update multifile plugin
+influxdb3 update trigger \
+  --database metrics \
+  --trigger-name complex_trigger \
+  --path "/path/to/updated/plugin-dir"
+```
+
+The update operation:
+- Replaces plugin files immediately
+- Preserves trigger configuration (spec, schedule, arguments)
+- Requires admin token for security
+- Works with both local paths and uploaded files
+
+For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/reference/cli/influxdb3/update/trigger/).
+
+### View loaded plugins
+
+Monitor which plugins are loaded in your system for operational visibility and troubleshooting.
+
+**Option 1: Use the CLI command**
+
+```bash
+# List all plugins
+influxdb3 show plugins --token $ADMIN_TOKEN
+
+# JSON format for programmatic access
+influxdb3 show plugins --format json --token $ADMIN_TOKEN
+```
+
+**Option 2: Query the system table**
+
+The `system.plugin_files` table in the `_internal` database provides detailed plugin file information:
+
+```bash
+influxdb3 query \
+  -d _internal \
+  "SELECT * FROM system.plugin_files ORDER BY plugin_name" \
+  --token $ADMIN_TOKEN
+```
+
+**Available columns:**
+- `plugin_name` (String): Trigger name
+- `file_name` (String): Plugin file name
+- `file_path` (String): Full server path
+- `size_bytes` (Int64): File size
+- `last_modified` (Int64): Modification timestamp (milliseconds)
+
+**Example queries:**
+
+```sql
+-- Find plugins by name
+SELECT * FROM system.plugin_files WHERE plugin_name = 'my_trigger';
+
+-- Find large plugins
+SELECT plugin_name, size_bytes
+FROM system.plugin_files
+WHERE size_bytes > 10000;
+
+-- Check modification times
+SELECT plugin_name, file_name, last_modified
+FROM system.plugin_files
+ORDER BY last_modified DESC;
+```
+
+For more information, see the [`influxdb3 show plugins` reference](/influxdb3/version/reference/cli/influxdb3/show/plugins/) and [Query system data](/influxdb3/version/admin/query-system-data/#query-plugin-files).
 
 ## Set up a trigger
 
@@ -534,11 +752,120 @@ These examples install the specified Python package (for example, pandas) into t
 > If you need to create a custom virtual environment, use the Python interpreter bundled with InfluxDB 3. Don't use the system Python.
 > Creating a virtual environment with the system Python (for example, using `python -m venv`) can lead to runtime errors and plugin failures.
 > 
->For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md#official-builds).
+>For more information, see the [processing engine README](https://github.com/influxdata/influxdb/blob/main/README_processing_engine.md).
 
 {{% /code-placeholders %}}
 
 InfluxDB creates a Python virtual environment in your plugins directory with the specified packages installed.
+
+### Disable package installation for secure environments
+
+For air-gapped deployments or environments with strict security requirements, you can disable Python package installation while maintaining Processing Engine functionality.
+
+Start the server with `--package-manager disabled`:
+
+```bash
+influxdb3 serve \
+  --node-id node0 \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --plugin-dir ~/.plugins \
+  --package-manager disabled
+```
+
+When package installation is disabled:
+- The Processing Engine continues to function normally for triggers
+- Plugin code executes without restrictions
+- Package installation commands are blocked
+- Pre-installed dependencies in the virtual environment remain available
+
+**Pre-install required dependencies:**
+
+Before disabling the package manager, install all required Python packages:
+
+```bash
+# Install packages first
+influxdb3 install package pandas requests numpy
+
+# Then start with disabled package manager
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --package-manager disabled
+```
+
+**Use cases for disabled package management:**
+- Air-gapped environments without internet access
+- Compliance requirements prohibiting runtime package installation
+- Centrally managed dependency environments
+- Security policies requiring pre-approved packages only
+
+For more configuration options, see [--package-manager](/influxdb3/version/reference/config-options/#package-manager).
+
+## Plugin security
+
+The Processing Engine includes security features to protect your {{% product-name %}} instance from unauthorized code execution and file system attacks.
+
+### Plugin path validation
+
+All plugin file paths are validated to prevent directory traversal attacks. The system blocks:
+
+- **Relative paths with parent directory references** (`../`, `../../`)
+- **Absolute paths** (`/etc/passwd`, `/usr/bin/script.py`)
+- **Symlinks that escape the plugin directory**
+
+When creating or updating triggers, plugin paths must resolve within the configured `--plugin-dir`.
+
+**Example of blocked paths:**
+
+```bash
+# These will be rejected
+influxdb3 create trigger \
+  --path "../../../etc/passwd" \  # Blocked: parent directory traversal
+  ...
+
+influxdb3 create trigger \
+  --path "/tmp/malicious.py" \    # Blocked: absolute path
+  ...
+```
+
+**Valid plugin paths:**
+
+```bash
+# These are allowed
+influxdb3 create trigger \
+  --path "myapp/plugin.py" \      # Relative to plugin-dir
+  ...
+
+influxdb3 create trigger \
+  --path "transforms/data.py" \    # Subdirectory in plugin-dir
+  ...
+```
+
+### Upload and update permissions
+
+Plugin upload and update operations require admin tokens to prevent unauthorized code deployment:
+
+- `--upload` flag requires admin privileges
+- `update trigger` command requires admin token
+- Standard resource tokens cannot upload or modify plugin code
+
+This security model ensures only administrators can introduce or modify executable code in your database.
+
+### Best practices
+
+**For development:**
+- Use the `--upload` flag to deploy plugins during development
+- Test plugins in non-production environments first
+- Review plugin code before deployment
+
+**For production:**
+- Pre-deploy plugins to the server's plugin directory via secure file transfer
+- Use custom plugin repositories for vetted, approved plugins
+- Disable package installation (`--package-manager disabled`) in locked-down environments
+- Audit plugin files using the [`system.plugin_files` table](#view-loaded-plugins)
+- Implement change control processes for plugin updates
+
+For more security configuration options, see [Configuration options](/influxdb3/version/reference/config-options/).
 
 {{% show-in "enterprise" %}}
 

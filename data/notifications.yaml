@@ -12,50 +12,80 @@
 #   message: |
 #     Markdown message content.
 
-- id: future-of-flux-new
-  level: note
-  scope:
-    - /flux/v0
-    - /influxdb/v1/flux/
-    - /influxdb/v2/query-data/get-started/
-    - /influxdb/cloud/query-data/get-started/
-  exclude:
-    - /flux/v0/future-of-flux/
-  title: The future of Flux
-  slug: |
-    Flux is going into maintenance mode. You can continue using it as you
-    currently are without any changes to your code.
+# - id: future-of-flux-new
+#   level: note
+#   scope:
+#     - /flux/v0
+#     - /influxdb/v1/flux/
+#     - /influxdb/v2/query-data/get-started/
+#     - /influxdb/cloud/query-data/get-started/
+#   exclude:
+#     - /flux/v0/future-of-flux/
+#   title: The future of Flux
+#   slug: |
+#     Flux is going into maintenance mode. You can continue using it as you
+#     currently are without any changes to your code.
+#
+#     [Read more](/flux/v0/future-of-flux)
+#   message: |
+#     Flux is going into maintenance mode and will not be supported in InfluxDB 3.0.
+#     This was a decision based on the broad demand for SQL and the continued growth
+#     and adoption of InfluxQL. We are continuing to support Flux for users in 1.x
+#     and 2.x so you can continue using it with no changes to your code.
+#     If you are interested in transitioning to InfluxDB 3.0 and want to
+#     future-proof your code, we suggest using InfluxQL.
+#
+#     For information about the future of Flux, see the following:
+#
+#     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
+#     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-    [Read more](/flux/v0/future-of-flux)
-  # message: |
-  #   Flux is going into maintenance mode and will not be supported in InfluxDB 3.0.
-  #   This was a decision based on the broad demand for SQL and the continued growth
-  #   and adoption of InfluxQL. We are continuing to support Flux for users in 1.x
-  #   and 2.x so you can continue using it with no changes to your code.
-  #   If you are interested in transitioning to InfluxDB 3.0 and want to
-  #   future-proof your code, we suggest using InfluxQL.
-
-  #   For information about the future of Flux, see the following:
-
-  #   - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
-  #   - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
-
-- id: influxdb3.3-explorer-1.1
+- id: influxdb3.6-explorer-1.4
   level: note
   scope:
     - /
-  title: New in InfluxDB 3.3
+  title: New in InfluxDB 3.6
   slug: |
-    Key enhancements in InfluxDB 3.3 and the InfluxDB 3 Explorer 1.1.
+    Key enhancements in InfluxDB 3.6 and the InfluxDB 3 Explorer 1.4.
 
-    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-3/">See the Blog Post</a>
+    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-6/">See the Blog Post</a>
   message: |
-    InfluxDB 3.3 is now available for both Core and Enterprise, which introduces new
-    managed plugins for the Processing Engine. This makes it easier to address common
-    time series tasks with just a plugin. InfluxDB 3 Explorer 1.1 is also available,
-    which includes InfluxDB plugin management and other new features.
+    InfluxDB 3.6 is now available for both Core and Enterprise. This release introduces
+    the 1.4 update to InfluxDB 3 Explorer, featuring the beta launch of Ask AI, along
+    with new capabilities for simple startup and expanded functionality in the Processing Engine.
 
     For more information, check out:
 
-    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-3/)
+    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-6/)
+    - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
+    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
     - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)
+
+- id: influxdb-docker-latest-tag
+  level: warn
+  scope:
+    - /
+  exclude:
+    - /telegraf/
+    - /platform/
+    - /kapacitor/
+    - /chronograf/
+    - /enterprise_influxdb/
+    - /influxdb3/explorer/
+    - /influxdb3/cloud
+    - /influxdb/cloud
+  title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
+  slug: |
+    On **February 3, 2026**, the `latest` tag for InfluxDB Docker images will
+    point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+    tags in your Docker deployments.
+  message: |
+    If using Docker to install and run InfluxDB, the `latest` tag will point to
+    InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+    your Docker deployments. For example, if using Docker to run InfluxDB v2,
+    replace the `latest` version tag with a specific version tag in your Docker
+    pull command--for example:
+
+    ```sh
+    docker pull influxdb:2
+    ```

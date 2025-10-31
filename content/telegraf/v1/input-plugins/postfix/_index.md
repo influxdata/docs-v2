@@ -1,0 +1,92 @@
+---
+description: "Telegraf plugin for collecting metrics from Postfix"
+menu:
+  telegraf_v1_ref:
+    parent: input_plugins_reference
+    name: Postfix
+    identifier: input-postfix
+tags: [Postfix, "input-plugins", "configuration", "server"]
+introduced: "v1.5.0"
+os_support: "freebsd, linux, macos, solaris"
+related:
+  - /telegraf/v1/configure_plugins/
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/postfix/README.md, Postfix Plugin Source
+---
+
+# Postfix Input Plugin
+
+This plugin collects metrics on a local [Postfix](https://www.postfix.org/) instance reporting
+the length, size and age of the active, hold, incoming, maildrop, and deferred
+[queues](https://www.postfix.org/QSHAPE_README.html#queues).
+
+**Introduced in:** Telegraf v1.5.0
+**Tags:** server
+**OS support:** freebsd, linux, macos, solaris
+
+[postfix]: https://www.postfix.org/
+[queues]: https://www.postfix.org/QSHAPE_README.html#queues
+
+## Global configuration options <!-- @/docs/includes/plugin_config.md -->
+
+In addition to the plugin-specific configuration settings, plugins support
+additional global and plugin configuration settings. These settings are used to
+modify metrics, tags, and field or create aliases and configure ordering, etc.
+See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+
+[CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
+
+## Configuration
+
+```toml @sample.conf
+# Measure postfix queue statistics
+# This plugin ONLY supports non-Windows
+[[inputs.postfix]]
+  ## Postfix queue directory. If not provided, telegraf will try to use
+  ## 'postconf -h queue_directory' to determine it.
+  # queue_directory = "/var/spool/postfix"
+```
+
+### Permissions
+
+Telegraf will need read access to the files in the queue directory.  You may
+need to alter the permissions of these directories to provide access to the
+telegraf user.
+
+This can be setup either using standard unix permissions or with Posix ACLs,
+you will only need to use one method:
+
+Unix permissions:
+
+```sh
+sudo chgrp -R telegraf /var/spool/postfix/{active,hold,incoming,deferred}
+sudo chmod -R g+rXs /var/spool/postfix/{active,hold,incoming,deferred}
+sudo usermod -a -G postdrop telegraf
+sudo chmod g+r /var/spool/postfix/maildrop
+```
+
+Posix ACL:
+
+```sh
+sudo setfacl -Rm g:telegraf:rX /var/spool/postfix/
+sudo setfacl -dm g:telegraf:rX /var/spool/postfix/
+```
+
+## Metrics
+
+- postfix_queue
+  - tags:
+    - queue
+  - fields:
+    - length (integer)
+    - size (integer, bytes)
+    - age (integer, seconds)
+
+## Example Output
+
+```text
+postfix_queue,queue=active length=3,size=12345,age=9
+postfix_queue,queue=hold length=0,size=0,age=0
+postfix_queue,queue=maildrop length=1,size=2000,age=2
+postfix_queue,queue=incoming length=1,size=1020,age=0
+postfix_queue,queue=deferred length=400,size=76543210,age=3600
+```

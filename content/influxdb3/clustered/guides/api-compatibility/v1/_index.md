@@ -76,7 +76,7 @@ username and password to authenticate database reads and writes by passing a [da
 When authenticating requests to the v1 API `/write` and `/query` endpoints, {{% product-name %}} checks that the `password` (`p`) value is an authorized [database token](/influxdb3/clustered/admin/tokens/#database-tokens).
 {{% product-name %}} ignores the `username` (`u`) parameter in the request.
 
-Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token)):
+Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token-scheme)):
 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
@@ -246,7 +246,7 @@ Write data with your existing workloads that already use the InfluxDB v1 or v1.x
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" %}}
 
-- [`/api/v2/write` parameters](#v1-api-write-parameters)
+- [`/write` parameters](#v1-api-write-parameters)
 - [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
 
 #### v1 API /write parameters
@@ -288,7 +288,7 @@ The following tools work with the {{% product-name %}} `/write` endpoint:
 #### Telegraf
 
 If you have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](/telegraf/v1/output-plugins/influxdb/) to write data.
 
 > [!Note]
 > See how to [use Telegraf and the v2 API](/influxdb3/clustered/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
@@ -328,7 +328,7 @@ Replace the following:
 
 `influx_uint_support`: supported in InfluxDB 3.
 
-For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
+For more plugin options, see [`influxdb`](/telegraf/v1/output-plugins/influxdb/) on GitHub.
 
 #### Interactive clients
 
@@ -338,7 +338,7 @@ Include the following in your request:
 
 - A `db` query string parameter with the name of the database to write to.
 - A request body that contains a string of data in [line protocol](/influxdb3/clustered/reference/syntax/line-protocol/) syntax.
-- A [database token](/influxdb3/clustered/admin/tokens/#database-tokens) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
+- A [database token](/influxdb3/clustered/admin/tokens/#database-tokens) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token-scheme).
 - Optional [parameters](#v1-api-write-parameters).
 
 The following example shows how to use the **cURL** command line tool and the {{% product-name %}} v1 API to write line protocol data to a database:

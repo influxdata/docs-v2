@@ -1,26 +1,48 @@
 <!-- Comment to allow starting shortcode -->
-{{< product-name >}} lets you customize your server configuration by using
-`influxdb3 serve` command options or by setting environment variables.
+{{< product-name >}} lets you customize your configuration by using
+`influxdb3` command options or by setting environment variables.
 
 ## Configure your server
 
-Pass configuration options to the `influxdb serve` server using either command
-options or environment variables. Command options take precedence over
-environment variables.
+Pass configuration options using either command options or environment variables.
+Command options take precedence over environment variables.
 
-##### Example `influxdb3 serve` command options
+### Global vs serve-specific options
 
+Some options are **global** (specified before the command) while others are **serve-specific** (specified after `serve`):
+
+- **Global options**: Apply to the `influxdb3` CLI itself (for example, `--num-io-threads`)
+- **Serve options**: Apply only to the `serve` command (for example, `--node-id`, `--object-store`, `--verbose`)
+
+#### Example command with global and serve-specific options
+
+{{% show-in "core" %}}
 <!--pytest.mark.skip-->
 
 ```sh
-influxdb3 serve \
+influxdb3 --num-io-threads=4 serve \
   --node-id node0 \
-{{% show-in "enterprise" %}}  --cluster-id cluster0 \
-  --license-email example@email.com \{{% /show-in %}}
   --object-store file \
   --data-dir ~/.influxdb3 \
+  --verbose \
   --log-filter info
 ```
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 --num-io-threads=4 serve \
+  --node-id node0 \
+  --cluster-id cluster0 \
+  --license-email example@email.com \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --verbose \
+  --log-filter info
+```
+{{% /show-in %}}
 
 ##### Example environment variables
 
@@ -37,141 +59,61 @@ export LOG_FILTER=info
 influxdb3 serve
 ```
 
+## Global configuration options
+
+The following options apply to the `influxdb3` CLI globally and must be specified **before** any subcommand (for example, `serve`):
+
+### num-io-threads
+
+Sets the number of threads allocated to the IO runtime thread pool. IO threads handle HTTP request serving, line protocol parsing, and file operations.
+
+> [!Important]
+> `--num-io-threads` is a **global option** that must be specified before the `serve` command.
+
+{{% show-in "enterprise" %}}
+**Default:** `2`
+{{% /show-in %}}
+
+```bash
+# Set IO threads (global option before serve)
+influxdb3 --num-io-threads=8 serve --node-id=node0 --object-store=file
+```
+
+{{% show-in "enterprise" %}}
+For detailed information about thread allocation, see the [Resource Limits](#resource-limits) section.
+{{% /show-in %}}
+
+| influxdb3 option | Environment variable       |
+| :--------------- | :------------------------- |
+| `--num-io-threads` | `INFLUXDB3_NUM_IO_THREADS` |
+
+---
+
 ## Server configuration options
 
 - [General](#general)
-{{% show-in "enterprise" %}}  - [cluster-id](#cluster-id){{% /show-in %}}
-  - [data-dir](#data-dir)
-{{% show-in "enterprise" %}}  - [license-email](#license-email)
-  - [license-file](#license-file)
-  - [mode](#mode){{% /show-in %}}
-  - [node-id](#node-id)
-{{% show-in "enterprise" %}}  - [node-id-from-env](#node-id-from-env){{% /show-in %}}
-  - [object-store](#object-store)
-  - [tls-key](#tls-key)
-  - [tls-cert](#tls-cert)
-  - [tls-minimum-versions](#tls-minimum-version)
-  - [without-auth](#without-auth)
-  - [disable-authz](#disable-authz)
-{{% show-in "enterprise" %}}
-  - [num-database-limit](#num-database-limit)
-  - [num-table-limit](#num-table-limit)
-  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit){{% /show-in %}}
+{{% show-in "enterprise" %}}- [Licensing](#licensing){{% /show-in %}}
+- [Security](#security)
 - [AWS](#aws)
-  - [aws-access-key-id](#aws-access-key-id)
-  - [aws-secret-access-key](#aws-secret-access-key)
-  - [aws-default-region](#aws-default-region)
-  - [aws-endpoint](#aws-endpoint)
-  - [aws-session-token](#aws-session-token)
-  - [aws-allow-http](#aws-allow-http)
-  - [aws-skip-signature](#aws-skip-signature)
 - [Google Cloud Service](#google-cloud-service)
-  - [google-service-account](#google-service-account)
 - [Microsoft Azure](#microsoft-azure)
-  - [azure-storage-account](#azure-storage-account)
-  - [azure-storage-access-key](#azure-storage-access-key)
 - [Object Storage](#object-storage)
-  - [bucket](#bucket)
-  - [object-store-connection-limit](#object-store-connection-limit)
-  - [object-store-http2-only](#object-store-http2-only)
-  - [object-store-http2-max-frame-size](#object-store-http2-max-frame-size)
-  - [object-store-max-retries](#object-store-max-retries)
-  - [object-store-retry-timeout](#object-store-retry-timeout)
-  - [object-store-cache-endpoint](#object-store-cache-endpoint)
 - [Logs](#logs)
-  - [log-filter](#log-filter)
-  - [log-destination](#log-destination)
-  - [log-format](#log-format)
-  - [query-log-size](#query-log-size)
 - [Traces](#traces)
-  - [traces-exporter](#traces-exporter)
-  - [traces-exporter-jaeger-agent-host](#traces-exporter-jaeger-agent-host)
-  - [traces-exporter-jaeger-agent-port](#traces-exporter-jaeger-agent-port)
-  - [traces-exporter-jaeger-service-name](#traces-exporter-jaeger-service-name)
-  - [traces-exporter-jaeger-trace-context-header-name](#traces-exporter-jaeger-trace-context-header-name)
-  - [traces-jaeger-debug-name](#traces-jaeger-debug-name)
-  - [traces-jaeger-tags](#traces-jaeger-tags)
-  - [traces-jaeger-max-msgs-per-second](#traces-jaeger-max-msgs-per-second)
 - [DataFusion](#datafusion)
-  - [datafusion-num-threads](#datafusion-num-threads)
-  - [datafusion-runtime-type](#datafusion-runtime-type)
-  - [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
-  - [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
-  - [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
-  - [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
-  - [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
-  - [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
-  - [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
-  - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
-  - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
-  - [datafusion-config](#datafusion-config)
 - [HTTP](#http)
-  - [max-http-request-size](#max-http-request-size)
-  - [http-bind](#http-bind)
-  - [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 - [Memory](#memory)
-  - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-  - [buffer-mem-limit-mb](#buffer-mem-limit-mb)
-  - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 - [Write-Ahead Log (WAL)](#write-ahead-log-wal)
-  - [wal-flush-interval](#wal-flush-interval)
-  - [wal-snapshot-size](#wal-snapshot-size)
-  - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
-  - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
-  - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
-  - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
 - [Compaction](#compaction)
-{{% show-in "enterprise" %}}  - [compaction-row-limit](#compaction-row-limit)
-  - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
-  - [compaction-gen2-duration](#compaction-gen2-duration)
-  - [compaction-multipliers](#compaction-multipliers)
-  - [compaction-cleanup-wait](#compaction-cleanup-wait)
-  - [compaction-check-interval](#compaction-check-interval){{% /show-in %}}
-  - [gen1-duration](#gen1-duration)
 - [Caching](#caching)
-  - [preemptive-cache-age](#preemptive-cache-age)
-  - [parquet-mem-cache-size](#parquet-mem-cache-size)
-  - [parquet-mem-cache-prune-percentage](#parquet-mem-cache-prune-percentage)
-  - [parquet-mem-cache-prune-interval](#parquet-mem-cache-prune-interval)
-  - [parquet-mem-cache-query-path-duration](#parquet-mem-cache-query-path-duration)
-  - [disable-parquet-mem-cache](#disable-parquet-mem-cache)
-  - [table-index-cache-max-entries](#table-index-cache-max-entries)
-  - [table-index-cache-concurrency-limit](#table-index-cache-concurrency-limit)
-{{% show-in "enterprise" %}}  - [last-value-cache-disable-from-history](#last-value-cache-disable-from-history){{% /show-in %}}
-  - [last-cache-eviction-interval](#last-cache-eviction-interval)
-{{% show-in "enterprise" %}}  - [distinct-value-cache-disable-from-history](#distinct-value-cache-disable-from-history){{% /show-in %}}
-  - [distinct-cache-eviction-interval](#distinct-cache-eviction-interval)
-  - [query-file-limit](#query-file-limit)
 - [Processing Engine](#processing-engine)
-  - [plugin-dir](#plugin-dir)
-  - [virtual-env-location](#virtual-env-location)
-  - [package-manager](#package-manager)
 {{% show-in "enterprise" %}}
 - [Cluster Management](#cluster-management)
-  - [replication-interval](#replication-interval)
-  - [catalog-sync-interval](#catalog-sync-interval)
-  - [wait-for-running-ingestor](#wait-for-running-ingestor)
+{{% /show-in %}}
 - [Resource Limits](#resource-limits)
-  - [num-cores](#num-cores)
-  - [num-database-limit](#num-database-limit)
-  - [num-table-limit](#num-table-limit)
-  - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
-{{% /show-in %}}
 - [Data Lifecycle Management](#data-lifecycle-management)
-  - [gen1-lookback-duration](#gen1-lookback-duration)
-  - [retention-check-interval](#retention-check-interval)
-  - [delete-grace-period](#delete-grace-period)
-  - [hard-delete-default-duration](#hard-delete-default-duration)
 - [Telemetry](#telemetry)
-  - [telemetry-disable-upload](#telemetry-disable-upload)
-  - [telemetry-endpoint](#telemetry-endpoint)
 - [TCP Listeners](#tcp-listeners)
-  - [tcp-listener-file-path](#tcp-listener-file-path)
-  - [admin-token-recovery-tcp-listener-file-path](#admin-token-recovery-tcp-listener-file-path)
-{{% show-in "enterprise" %}}
-- [Experimental Features](#experimental-features)
-  - [use-pacha-tree](#use-pacha-tree)
-{{% /show-in %}}
 
 ---
 
@@ -182,8 +124,6 @@ influxdb3 serve
 {{% /show-in %}}
 - [data-dir](#data-dir)
 {{% show-in "enterprise" %}}
-- [license-email](#license-email)
-- [license-file](#license-file)
 - [mode](#mode)
 {{% /show-in %}}
 - [node-id](#node-id)
@@ -218,33 +158,9 @@ Required when using the `file` [object store](#object-store).
 ---
 
 {{% show-in "enterprise" %}}
-#### license-email
-
-Specifies the email address to associate with your {{< product-name >}} license
-and automatically responds to the interactive email prompt when the server starts.
-This option is mutually exclusive with [license-file](#license-file).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
-
----
-
-#### license-file
-
-Specifies the path to a license file for {{< product-name >}}. When provided, the license
-file's contents are used instead of requesting a new license.
-This option is mutually exclusive with [license-email](#license-email).
-
-| influxdb3 serve option | Environment variable                 |
-| :--------------------- | :----------------------------------- |
-| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
-
----
-
 #### mode
 
-Sets the mode to start the server in.
+Sets the mode to start the server in, allowing you to create specialized nodes in a distributed cluster.
 
 This option supports the following values:
 
@@ -257,6 +173,32 @@ This option supports the following values:
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
 **Default:** `all`
+
+> [!Important]
+> **Thread allocation for different modes:**
+>
+> - **Ingest mode**: Benefits from additional IO threads for line protocol parsing. For high-throughput
+>   scenarios with multiple concurrent writers, consider increasing [`--num-io-threads`](#num-io-threads) (global option)
+>   to 8-16+ to optimize performance. DataFusion threads are still needed for snapshot operations.
+>
+> - **Query mode**: Benefits from maximizing DataFusion threads. Use most available cores for DataFusion
+>   with minimal IO threads (2-4).
+>
+> - **Compact mode**: Primarily uses DataFusion threads for sort/dedupe operations.
+>
+> - **All mode**: Requires balanced thread allocation based on your workload mix.
+
+**Example configurations:**
+```bash
+# High-throughput ingest node (32 cores)
+influxdb3 --num-io-threads=12 serve --mode=ingest --datafusion-num-threads=20
+
+# Query-optimized node (32 cores)
+influxdb3 --num-io-threads=4 serve --mode=query --datafusion-num-threads=28
+
+# Balanced all-in-one (32 cores)
+influxdb3 --num-io-threads=6 serve --mode=all --datafusion-num-threads=26
+```
 
 | influxdb3 serve option | Environment variable        |
 | :--------------------- | :-------------------------- |
@@ -274,6 +216,8 @@ configuration--for example, the same bucket.
 | influxdb3 serve option | Environment variable               |
 | :--------------------- | :--------------------------------- |
 | `--node-id`            | `INFLUXDB3_NODE_IDENTIFIER_PREFIX` |
+
+---
 
 {{% show-in "enterprise" %}}
 #### node-id-from-env
@@ -316,6 +260,60 @@ This option supports the following values:
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ---
+
+{{% show-in "enterprise" %}}
+### Licensing
+
+#### license-email
+
+Specifies the email address to associate with your {{< product-name >}} license
+and automatically responds to the interactive email prompt when the server starts.
+This option is mutually exclusive with [license-file](#license-file).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-email`      | `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` |
+
+---
+
+#### license-file
+
+Specifies the path to a license file for {{< product-name >}}. When provided, the license
+file's contents are used instead of requesting a new license.
+This option is mutually exclusive with [license-email](#license-email).
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-file`       | `INFLUXDB3_ENTERPRISE_LICENSE_FILE`  |
+
+---
+
+#### license-type
+
+Specifies the type of {{% product-name %}} license to use and bypasses the
+interactive license prompt. Provide one of the following license types:
+
+- `home`
+- `trial`
+- `commercial`
+
+| influxdb3 serve option | Environment variable                 |
+| :--------------------- | :----------------------------------- |
+| `--license-type`       | `INFLUXDB3_ENTERPRISE_LICENSE_TYPE`  |
+
+---
+{{% /show-in %}}
+
+### Security
+
+- [tls-key](#tls-key)
+- [tls-cert](#tls-cert)
+- [tls-minimum-versions](#tls-minimum-version)
+- [without-auth](#without-auth)
+- [disable-authz](#disable-authz)
+- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
+- [admin-token-file](#admin-token-file)
+{{% show-in "enterprise" %}}- [permission-tokens-file](#permission-tokens-file){{% /show-in %}}
 
 #### tls-key
 
@@ -369,41 +367,168 @@ Valid values are `health`, `ping`, and `metrics`.
 | :--------------------- | :------------------------ |
 | `--disable-authz`      | `INFLUXDB3_DISABLE_AUTHZ` |
 
+---
+
+#### admin-token-recovery-http-bind
+
+Enables an admin token recovery HTTP server on a separate port.
+This server allows regenerating lost admin tokens without existing authentication.
+The server automatically shuts down after a successful token regeneration.
+
+> [!Warning]
+> This option creates an unauthenticated endpoint that can regenerate admin tokens.
+> Only use this when you have lost access to your admin token and ensure the
+> server is only accessible from trusted networks.
+
+**Default:** `127.0.0.1:8182` (when enabled)
+
+| influxdb3 serve option             | Environment variable                       |
+| :--------------------------------- | :----------------------------------------- |
+| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
+
+##### Example usage
+
+```bash
+# Start server with recovery endpoint
+influxdb3 serve --admin-token-recovery-http-bind
+
+# In another terminal, regenerate the admin token
+influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
+```
+
+---
+
+#### admin-token-file
+
+Specifies an offline admin token file to use if no tokens exist when the server
+starts. Once started, you can interact with the server using the provided token.
+Offline admin tokens are designed to help with automated deployments.
+
+| influxdb3 serve option | Environment variable         |
+| :--------------------- | :--------------------------- |
+| `--admin-token-file`   | `INFLUXDB3_ADMIN_TOKEN_FILE` |
+
+Offline admin tokens are defined in a JSON-formatted file.
+Use the following command to generate an offline admin token file:
+
+<!-- pytest.mark.skip -->
+```bash { placeholders="./path/to/admin-token.json" }
+influxdb3 create token --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline admin token file" %}}
+```json
+{
+  "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+  "name": "example-admin-token",
+  "expiry_millis": 1756400061529
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/admin-token.json" }
+# Generate an admin token offline
+influxdb3 create token \
+  --admin \
+  --name "example-admin-token" \
+  --expiry 1d \
+  --offline \
+  --output-file ./path/to/admin-token.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --admin-token-file ./path/to/admin-token.json
+```
+
+---
+
 {{% show-in "enterprise" %}}
+#### permission-tokens-file
+
+Specifies an offline permission (resource) tokens file to use if no resource
+tokens exist when the server starts. Once started, you can interact with the
+server using the provided tokens. Offline permission tokens are designed to help
+with automated deployments.
+
+| influxdb3 serve option     | Environment variable               |
+| :------------------------- | :--------------------------------- |
+| `--permission-tokens-file` | `INFLUXDB3_PERMISSION_TOKENS_FILE` |
+
+Multiple tokens with database-level permissions can be defined.
+You can also specify databases to create at startup.
+Use the a command similar to the following to generate an offline permission
+token file:
+
+```bash { placeholders="./path/to/tokens.json" }
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example offline permission tokens file" %}}
+```json
+{
+  "create_databases": [
+    "db1",
+    "db2",
+    "d3"
+  ],
+  "tokens": [
+    {
+      "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
+      "name": "example-token",
+      "expiry_millis": 1756400061529,
+      "permissions": [
+        "db:db1,db2:read,write",
+        "db:db3:read"
+      ]
+    }
+  ]
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+> [!Note]
+> If you write a new offline permission token to an existing permission token file,
+> the command appends the new token to the existing output file.
+
+##### Example usage
+
+<!-- pytest.mark.skip -->
+
+```bash { placeholders="./path/to/tokens.json" }
+# Generate an admin token offline
+influxdb3 create token \
+  --name "example-token" \
+  --permission "db:db1,db2:read,write" \
+  --permission "db:db3:read" \
+  --expiry 1d \
+  --offline \
+  --create-databases db1,db2 \
+  --output-file ./path/to/tokens.json
+
+# Start {{% product-name %}} using the generated token
+influxdb3 serve --permission-tokens-file ./path/to/tokens.json
+```
+
 ---
-
-#### num-database-limit
-
-Limits the total number of active databases.
-Default is {{% influxdb3/limit "database" %}}.
-
-| influxdb3 serve option  | Environment variable                      |
-| :---------------------- | :---------------------------------------- |
-| `--num-database-limit` | `INFLUXDB3_ENTERPRISE_NUM_DATABASE_LIMIT` |
-
----
-
-#### num-table-limit
-
-Limits the total number of active tables across all databases.
-Default is {{% influxdb3/limit "table" %}}.
-
-| influxdb3 serve option | Environment variable                   |
-| :--------------------- | :------------------------------------- |
-| `--num-table-limit`    | `INFLUXDB3_ENTERPRISE_NUM_TABLE_LIMIT` |
-
----
-
-#### num-total-columns-per-table-limit
-
-Limits the total number of columns per table.
-Default is {{% influxdb3/limit "column" %}}.
-
-| influxdb3 serve option                | Environment variable                                     |
-| :------------------------------------ | :------------------------------------------------------- |
-| `--num-total-columns-per-table-limit` | `INFLUXDB3_ENTERPRISE_NUM_TOTAL_COLUMNS_PER_TABLE_LIMIT` |
 {{% /show-in %}}
----
 
 ### AWS
 
@@ -414,6 +539,7 @@ Default is {{% influxdb3/limit "column" %}}.
 - [aws-session-token](#aws-session-token)
 - [aws-allow-http](#aws-allow-http)
 - [aws-skip-signature](#aws-skip-signature)
+- [aws-credentials-file](#aws-credentials-file)
 
 #### aws-access-key-id
 
@@ -491,6 +617,37 @@ If enabled, S3 object stores do not fetch credentials and do not sign requests.
 
 ---
 
+#### aws-credentials-file
+
+Specifies the path to your S3 credentials file.
+When using a credentials file, settings in the file override the corresponding
+CLI flags.
+
+S3 credential files are JSON-formatted and should contain the following:
+
+```json { placeholders="AWS_(ACCESS_KEY_ID|SECRET_ACCESS_KEY|SESSION_TOKEN)|UNIX_SECONDS_TIMESTAMP" }
+{
+  "aws_access_key_id": "AWS_ACCESS_KEY_ID",
+  "aws_secret_access_key": "AWS_SECRET_ACCESS_KEY",
+  "aws_session_token": "AWS_SESSION_TOKEN",
+  "expiry": "UNIX_SECONDS_TIMESTAMP"
+}
+```
+
+The `aws_session_token` and `expiry` fields are optional.
+The file is automatically checked for updates at the expiry time or at 1-hour
+intervals.
+
+If the object store returns an "Unauthenticated" error, InfluxDB will attempt to
+update its in-memory credentials from this file and then retry the object store
+request.
+
+| influxdb3 serve option   | Environment variable   |
+| :----------------------- | :--------------------- |
+| `--aws-credentials-file` | `AWS_CREDENTIALS_FILE` |
+
+---
+
 ### Google Cloud Service
 
 - [google-service-account](#google-service-account)
@@ -510,6 +667,8 @@ JSON file that contains the Google credentials.
 
 - [azure-storage-account](#azure-storage-account)
 - [azure-storage-access-key](#azure-storage-access-key)
+- [azure-endpoint](#azure-endpoint)
+- [azure-allow-http](#azure-allow-http)
 
 #### azure-storage-account
 
@@ -530,6 +689,30 @@ values in the Storage account's **Settings > Access keys**.
 | influxdb3 serve option       | Environment variable       |
 | :--------------------------- | :------------------------- |
 | `--azure-storage-access-key` | `AZURE_STORAGE_ACCESS_KEY` |
+
+---
+
+#### azure-endpoint
+
+When using Microsoft Azure as the object store, set this to the Azure Blob
+Storage endpoint.
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-endpoint`     | `AZURE_ENDPOINT`     |
+
+---
+
+#### azure-allow-http
+
+When using Microsoft Azure as the object store, allow unencrypted HTTP requests
+to Azure Blob Storage.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable |
+| :--------------------- | :------------------- |
+| `--azure-allow-http`   | `AZURE_ALLOW_HTTP`   |
 
 ---
 
@@ -638,6 +821,11 @@ Sets the filter directive for logs.
 #### log-destination
 
 Specifies the destination for logs.
+
+This option supports the following values:
+
+- `stdout` _(default)_
+- `stderr`
 
 **Default:** `stdout`
 
@@ -784,17 +972,19 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 ### DataFusion
 
 - [datafusion-num-threads](#datafusion-num-threads)
-- [datafusion-runtime-type](#datafusion-runtime-type)
-- [datafusion-runtime-disable-lifo-slot](#datafusion-runtime-disable-lifo-slot)
-- [datafusion-runtime-event-interval](#datafusion-runtime-event-interval)
-- [datafusion-runtime-global-queue-interval](#datafusion-runtime-global-queue-interval)
-- [datafusion-runtime-max-blocking-threads](#datafusion-runtime-max-blocking-threads)
-- [datafusion-runtime-max-io-events-per-tick](#datafusion-runtime-max-io-events-per-tick)
-- [datafusion-runtime-thread-keep-alive](#datafusion-runtime-thread-keep-alive)
-- [datafusion-runtime-thread-priority](#datafusion-runtime-thread-priority)
 - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
 - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
 - [datafusion-config](#datafusion-config)
+  <!-- DEV-ONLY FLAGS: DO NOT DOCUMENT IN PRODUCTION - TOKIO RUNTIME FLAGS
+  - datafusion-runtime-type
+  - datafusion-runtime-disable-lifo-slot
+  - datafusion-runtime-event-interval
+  - datafusion-runtime-global-queue-interval
+  - datafusion-runtime-max-blocking-threads
+  - datafusion-runtime-max-io-events-per-tick
+  - datafusion-runtime-thread-keep-alive
+  - datafusion-runtime-thread-priority
+  END DEV-ONLY FLAGS -->
 
 #### datafusion-num-threads
 
@@ -803,105 +993,6 @@ Sets the maximum number of DataFusion runtime threads to use.
 | influxdb3 serve option     | Environment variable               |
 | :------------------------- | :--------------------------------- |
 | `--datafusion-num-threads` | `INFLUXDB3_DATAFUSION_NUM_THREADS` |
-
----
-
-#### datafusion-runtime-type
-
-Specifies the DataFusion tokio runtime type.
-
-This option supports the following values:
-
-- `current-thread`
-- `multi-thread` _(default)_
-- `multi-thread-alt`
-
-**Default:** `multi-thread`
-
-| influxdb3 serve option      | Environment variable                |
-| :-------------------------- | :---------------------------------- |
-| `--datafusion-runtime-type` | `INFLUXDB3_DATAFUSION_RUNTIME_TYPE` |
-
----
-
-#### datafusion-runtime-disable-lifo-slot
-
-Disables the LIFO slot of the DataFusion runtime.
-
-This option supports the following values:
-
-- `true`
-- `false`
-
-| influxdb3 serve option                   | Environment variable                             |
-| :--------------------------------------- | :----------------------------------------------- |
-| `--datafusion-runtime-disable-lifo-slot` | `INFLUXDB3_DATAFUSION_RUNTIME_DISABLE_LIFO_SLOT` |
-
----
-
-#### datafusion-runtime-event-interval
-
-Sets the number of scheduler ticks after which the scheduler of the DataFusion
-tokio runtime polls for external events--for example: timers, I/O.
-
-| influxdb3 serve option                | Environment variable                          |
-| :------------------------------------ | :-------------------------------------------- |
-| `--datafusion-runtime-event-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_EVENT_INTERVAL` |
-
----
-
-#### datafusion-runtime-global-queue-interval
-
-Sets the number of scheduler ticks after which the scheduler of the DataFusion
-runtime polls the global task queue.
-
-| influxdb3 serve option                       | Environment variable                                 |
-| :------------------------------------------- | :--------------------------------------------------- |
-| `--datafusion-runtime-global-queue-interval` | `INFLUXDB3_DATAFUSION_RUNTIME_GLOBAL_QUEUE_INTERVAL` |
-
----
-
-#### datafusion-runtime-max-blocking-threads
-
-Specifies the limit for additional threads spawned by the DataFusion runtime.
-
-| influxdb3 serve option                      | Environment variable                                |
-| :------------------------------------------ | :-------------------------------------------------- |
-| `--datafusion-runtime-max-blocking-threads` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_BLOCKING_THREADS` |
-
----
-
-#### datafusion-runtime-max-io-events-per-tick
-
-Configures the maximum number of events processed per tick by the tokio
-DataFusion runtime.
-
-| influxdb3 serve option                        | Environment variable                                  |
-| :-------------------------------------------- | :---------------------------------------------------- |
-| `--datafusion-runtime-max-io-events-per-tick` | `INFLUXDB3_DATAFUSION_RUNTIME_MAX_IO_EVENTS_PER_TICK` |
-
----
-
-#### datafusion-runtime-thread-keep-alive
-
-Sets a custom timeout for a thread in the blocking pool of the tokio DataFusion
-runtime.
-
-| influxdb3 serve option                   | Environment variable                             |
-| :--------------------------------------- | :----------------------------------------------- |
-| `--datafusion-runtime-thread-keep-alive` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_KEEP_ALIVE` |
-
----
-
-#### datafusion-runtime-thread-priority
-
-Sets the thread priority for tokio DataFusion runtime workers.
-
-**Default:** `10`
-
-| influxdb3 serve option                 | Environment variable                           |
-| :------------------------------------- | :--------------------------------------------- |
-| `--datafusion-runtime-thread-priority` | `INFLUXDB3_DATAFUSION_RUNTIME_THREAD_PRIORITY` |
 
 ---
 
@@ -943,7 +1034,6 @@ Provides custom configuration to DataFusion as a comma-separated list of
 
 - [max-http-request-size](#max-http-request-size)
 - [http-bind](#http-bind)
-- [admin-token-recovery-http-bind](#admin-token-recovery-http-bind)
 
 #### max-http-request-size
 
@@ -969,42 +1059,16 @@ Defines the address on which InfluxDB serves HTTP API requests.
 
 ---
 
-#### admin-token-recovery-http-bind
-
-Enables an admin token recovery HTTP server on a separate port. This server allows regenerating lost admin tokens without existing authentication. The server automatically shuts down after a successful token regeneration.
-
-> [!Warning]
-> This option creates an unauthenticated endpoint that can regenerate admin tokens. Only use this when you have lost access to your admin token and ensure the server is only accessible from trusted networks.
-
-**Default:** `127.0.0.1:8182` (when enabled)
-
-| influxdb3 serve option | Environment variable |
-| :--------------------- | :------------------- |
-| `--admin-token-recovery-http-bind` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_HTTP_BIND` |
-
-##### Example usage
-
-```bash
-# Start server with recovery endpoint
-influxdb3 serve --admin-token-recovery-http-bind
-
-# In another terminal, regenerate the admin token
-influxdb3 create token --admin --regenerate --host http://127.0.0.1:8182
-```
-
----
-
 ### Memory
 
 - [exec-mem-pool-bytes](#exec-mem-pool-bytes)
-- [buffer-mem-limit-mb](#buffer-mem-limit-mb)
 - [force-snapshot-mem-threshold](#force-snapshot-mem-threshold)
 
 #### exec-mem-pool-bytes
 
 Specifies the size of memory pool used during query execution.
 Can be given as absolute value in bytes or as a percentage of the total available memory--for
-example: `8000000000` or `10%`).
+example: `8000000000` or `10%`.
 
 {{% show-in "core" %}}**Default:** `8589934592`{{% /show-in %}}
 {{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
@@ -1012,23 +1076,6 @@ example: `8000000000` or `10%`).
 | influxdb3 serve option  | Environment variable            |
 | :---------------------- | :------------------------------ |
 | `--exec-mem-pool-bytes` | `INFLUXDB3_EXEC_MEM_POOL_BYTES` |
-
-{{% show-in "core" %}}
----
-
-#### buffer-mem-limit-mb
-
-
-Specifies the size limit of the buffered data in MB. If this limit is exceeded,
-the server forces a snapshot.
-
-**Default:** `5000`
-
-| influxdb3 serve option  | Environment variable            |
-| :---------------------- | :------------------------------ |
-| `--buffer-mem-limit-mb` | `INFLUXDB3_BUFFER_MEM_LIMIT_MB` |
-
-{{% /show-in %}}
 
 ---
 
@@ -1059,6 +1106,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 Specifies the interval to flush buffered data to a WAL file. Writes that wait
 for WAL confirmation take up to this interval to complete.
+Use `s` for seconds or `ms` for milliseconds. For local disks, `100 ms` is recommended.
 
 **Default:** `1s`
 
@@ -1122,9 +1170,11 @@ Determines whether WAL replay should fail when encountering errors.
 
 #### wal-replay-concurrency-limit
 
-Sets the maximum number of concurrent WAL replay operations.
+Concurrency limit during WAL replay.
+Setting this number too high can lead to OOM.
+The default is dynamically determined.
 
-**Default:** `16`
+**Default:** `max(num_cpus, 10)`
 
 | influxdb3 serve option            | Environment variable                        |
 | :--------------------------------- | :------------------------------------------ |
@@ -1135,7 +1185,7 @@ Sets the maximum number of concurrent WAL replay operations.
 ### Compaction
 
 {{% show-in "enterprise" %}}
-- [compaction-row-limit](#compaction-row-limit)
+<!--- [compaction-row-limit](#compaction-row-limit) - NOT YET RELEASED in v3.5.0 -->
 - [compaction-max-num-files-per-plan](#compaction-max-num-files-per-plan)
 - [compaction-gen2-duration](#compaction-gen2-duration)
 - [compaction-multipliers](#compaction-multipliers)
@@ -1145,7 +1195,10 @@ Sets the maximum number of concurrent WAL replay operations.
 - [gen1-duration](#gen1-duration)
 
 {{% show-in "enterprise" %}}
+<!---
 #### compaction-row-limit
+
+NOTE: This option is not yet released in v3.5.0. Uncomment when available in a future release.
 
 Specifies the soft limit for the number of rows per file that the compactor
 writes. The compactor may write more rows than this limit.
@@ -1157,6 +1210,7 @@ writes. The compactor may write more rows than this limit.
 | `--compaction-row-limit` | `INFLUXDB3_ENTERPRISE_COMPACTION_ROW_LIMIT` |
 
 ---
+-->
 
 #### compaction-max-num-files-per-plan
 
@@ -1274,15 +1328,20 @@ Specifies the interval to prefetch into the Parquet cache during compaction.
 
 #### parquet-mem-cache-size
 
-Specifies the size of the in-memory Parquet cache{{% show-in "core" %}} in megabytes (MB){{% /show-in %}}{{% show-in "enterprise" %}} in megabytes or percentage of total available memory{{% /show-in %}}.
+Specifies the size of the in-memory Parquet cache. Accepts values in megabytes (as an integer) or as a percentage of total available memory (for example, `20%`, `4096`).
 
-{{% show-in "core" %}}**Default:** `1000`{{% /show-in %}}
-{{% show-in "enterprise" %}}**Default:** `20%`{{% /show-in %}}
+**Default:** `20%`
+
+> [!Note]
+> #### Breaking change in v3.0.0
+>
+> In v3.0.0, `--parquet-mem-cache-size-mb` was replaced with `--parquet-mem-cache-size`.
+> The new option accepts both megabytes (integer) and percentage values.
+> The default changed from `1000` MB to `20%` of total available memory.
 
 | influxdb3 serve option      | Environment variable                |
 | :---------------------------- | :---------------------------------- |
-{{% show-in "core" %}}| `--parquet-mem-cache-size-mb`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB`  |{{% /show-in %}}
-{{% show-in "enterprise" %}}| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |{{% /show-in %}}
+| `--parquet-mem-cache-size`  | `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`  |
 
 #### parquet-mem-cache-prune-percentage
 
@@ -1465,6 +1524,7 @@ the following side-effects:
 ### Processing Engine
 
 - [plugin-dir](#plugin-dir)
+- [plugin-repo](#plugin-repo)
 - [virtual-env-location](#virtual-env-location)
 - [package-manager](#package-manager)
 
@@ -1475,6 +1535,42 @@ Specifies the local directory that contains Python plugins and their test files.
 | influxdb3 serve option | Environment variable   |
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
+
+---
+
+#### plugin-repo
+
+Specifies the base URL of the remote repository used when referencing plugins with the `gh:` prefix.
+When you create a trigger with a plugin filename starting with `gh:`, InfluxDB fetches
+the plugin code from this repository URL.
+
+The URL construction automatically handles trailing slashes—both formats work identically:
+- `https://example.com/plugins/` (with trailing slash)
+- `https://example.com/plugins` (without trailing slash)
+
+**Default:** The official InfluxDB 3 plugins repository at `https://raw.githubusercontent.com/influxdata/influxdb3_plugins/main/`
+
+| influxdb3 serve option | Environment variable    |
+| :--------------------- | :---------------------- |
+| `--plugin-repo`        | `INFLUXDB3_PLUGIN_REPO` |
+
+##### Example usage
+
+```bash
+# Use a custom organization repository
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://raw.githubusercontent.com/myorg/influxdb-plugins/main/"
+
+# Use an internal mirror
+influxdb3 serve \
+  --plugin-dir ~/.plugins \
+  --plugin-repo "https://internal.company.com/influxdb-plugins/"
+
+# Set via environment variable
+export INFLUXDB3_PLUGIN_REPO="https://custom-repo.example.com/plugins/"
+influxdb3 serve --plugin-dir ~/.plugins
+```
 
 ---
 
@@ -1491,19 +1587,22 @@ engine uses.
 
 #### package-manager
 
-Specifies the Python package manager that the processing engine uses.
+Specifies the Python package manager that the Processing Engine uses to install plugin dependencies.
 
 This option supports the following values:
 
-- `discover` _(default)_: Automatically discover available package manager
-- `pip`: Use pip package manager
-- `uv`: Use uv package manager
+- `discover` _(default)_: Automatically detect and use available package manager (`uv` or `pip`)
+- `pip`: Use pip package manager exclusively
+- `uv`: Use uv package manager exclusively
+- `disabled`: Disable automatic package installation (all dependencies must be pre-installed)
 
 **Default:** `discover`
 
+For more information about plugins and package management, see [Processing Engine plugins](/influxdb3/version/plugins/).
+
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |
-| `--package-manager`    | `PACKAGE_MANAGER`    |
+| `--package-manager`    | `INFLUXDB3_PACKAGE_MANAGER`    |
 
 {{% show-in "enterprise" %}}
 
@@ -1549,40 +1648,100 @@ Specifies how long to wait for a running ingestor during startup.
 | :------------------------------- | :------------------------------------------------ |
 | `--wait-for-running-ingestor`    | `INFLUXDB3_ENTERPRISE_WAIT_FOR_RUNNING_INGESTOR` |
 
+{{% /show-in %}}
+
 ---
 
 ### Resource Limits
 
-
+{{% show-in "enterprise" %}}
 - [num-cores](#num-cores)
+{{% /show-in %}}
+- [datafusion-num-threads](#datafusion-num-threads)
+- _[num-io-threads](#num-io-threads) - See [Global configuration options](#global-configuration-options)_
+{{% show-in "enterprise" %}}
 - [num-database-limit](#num-database-limit)
 - [num-table-limit](#num-table-limit)
 - [num-total-columns-per-table-limit](#num-total-columns-per-table-limit)
 
 #### num-cores
-
 Limits the number of CPU cores that the InfluxDB 3 Enterprise process can use when running on systems where resources are shared.
+
+**Default:** All available cores on the system
+
+Maximum cores allowed is determined by your {{% product-name %}} license:
+
+- **Trial**: up to 256 cores
+- **At-Home**: 2 cores
+- **Commercial**: per contract
+
 When specified, InfluxDB automatically assigns the number of DataFusion threads and IO threads based on the core count.
 
-**Thread assignment logic:**
+**Default thread assignment logic when `num-cores` is set:**
 - **1-2 cores**: 1 IO thread, 1 DataFusion thread
-- **3 cores**: 1 IO thread, 2 DataFusion threads  
+- **3 cores**: 1 IO thread, 2 DataFusion threads
 - **4+ cores**: 2 IO threads, (n-2) DataFusion threads
+
+This automatic allocation applies when you don't explicitly set [`--num-io-threads`](#num-io-threads) and [`--datafusion-num-threads`](#datafusion-num-threads).
+
+> [!Note]
+> You can override the automatic thread assignment by explicitly setting [`--num-io-threads`](#num-io-threads)
+> and [`--datafusion-num-threads`](#datafusion-num-threads).
+> This is particularly important for specialized
+> workloads like [ingest mode](#mode) where you may need more IO threads than the default allocation.
 
 **Constraints:**
 - Must be at least 2
 - Cannot exceed the number of cores available on the system
-- Total thread count from other thread options cannot exceed the `num-cores` value
+- Total thread count from `--num-io-threads` (global option) and `--datafusion-num-threads` cannot exceed the `num-cores` value
 
 | influxdb3 serve option | Environment variable              |
 | :--------------------- | :-------------------------------- |
 | `--num-cores`          | `INFLUXDB3_ENTERPRISE_NUM_CORES`  |
+{{% /show-in %}}
 
+#### datafusion-num-threads
+
+Sets the number of threads allocated to the DataFusion runtime thread pool.
+DataFusion threads handle:
+- Query execution and processing
+- Data aggregation and transformation
+- Snapshot creation (sort/dedupe operations)
+- Parquet file generation
+
+{{% show-in "core" %}}
+**Default:** All available cores minus IO threads
+
+> [!Note]
+> DataFusion threads are used for both query processing and snapshot operations.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+**Default:**
+- If not specified and `--num-cores` is not set: All available cores minus IO threads
+- If not specified and `--num-cores` is set: Automatically determined based on core count (see [`--num-cores`](#num-cores))
+
+> [!Note]
+> DataFusion threads are used for both query processing and snapshot operations.
+> Even ingest-only nodes use DataFusion threads during WAL snapshot creation.
+
+**Constraints:** When used with `--num-cores`, the sum of `--num-io-threads` and `--datafusion-num-threads` cannot exceed the `num-cores` value
+{{% /show-in %}}
+
+| influxdb3 serve option         | Environment variable                    |
+| :----------------------------- | :-------------------------------------- |
+| `--datafusion-num-threads`     | `INFLUXDB3_DATAFUSION_NUM_THREADS`     |
+
+> [!Note]
+> [`--num-io-threads`](#num-io-threads) is a [global configuration option](#global-configuration-options).
+
+{{% show-in "enterprise" %}}
 ---
 
 #### num-database-limit
 
-Sets the maximum number of databases that can be created.
+Limits the total number of active databases.
+Default is {{% influxdb3/limit "database" %}}.
 
 | influxdb3 serve option    | Environment variable                      |
 | :------------------------ | :---------------------------------------- |
@@ -1592,7 +1751,8 @@ Sets the maximum number of databases that can be created.
 
 #### num-table-limit
 
-Defines the maximum number of tables that can be created across all databases.
+Limits the total number of active tables across all databases.
+Default is {{% influxdb3/limit "table" %}}.
 
 | influxdb3 serve option | Environment variable                   |
 | :---------------------- | :------------------------------------- |
@@ -1602,7 +1762,8 @@ Defines the maximum number of tables that can be created across all databases.
 
 #### num-total-columns-per-table-limit
 
-Sets the maximum number of columns allowed per table.
+Limits the total number of columns per table.
+Default is {{% influxdb3/limit "column" %}}.
 
 | influxdb3 serve option                  | Environment variable                                        |
 | :--------------------------------------- | :---------------------------------------------------------- |
@@ -1633,9 +1794,10 @@ Specifies how far back to look when creating generation 1 Parquet files.
 
 #### retention-check-interval
 
-Defines how often the system checks for data that should be deleted according to retention policies.
+The interval at which retention policies are checked and enforced.
+Enter as a human-readable time--for example: `30m` or `1h`.
 
-**Default:** `1h`
+**Default:** `30m`
 
 | influxdb3 serve option        | Environment variable                     |
 | :----------------------------- | :--------------------------------------- |
@@ -1716,25 +1878,3 @@ Specifies the TCP listener file path for admin token recovery operations.
 | influxdb3 serve option                         | Environment variable                                      |
 | :---------------------------------------------- | :-------------------------------------------------------- |
 | `--admin-token-recovery-tcp-listener-file-path` | `INFLUXDB3_ADMIN_TOKEN_RECOVERY_TCP_LISTENER_FILE_PATH`  |
-
-{{% show-in "enterprise" %}}
----
-
-### Experimental Features
-
-- [use-pacha-tree](#use-pacha-tree)
-
-#### use-pacha-tree
-
-Enables the experimental PachaTree storage engine for improved performance.
-
-> [!Warning]
-> This is an experimental feature and should not be used in production environments.
-
-**Default:** `false`
-
-| influxdb3 serve option | Environment variable                   |
-| :---------------------- | :------------------------------------- |
-| `--use-pacha-tree`      | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE` |
-
-{{% /show-in %}}

@@ -5,6 +5,22 @@ The `/api/v2/write` (v2-compatible) and `/write` (v1-compatible) HTTP API
 endpoints work with InfluxDB [client libraries](/influxdb3/version/reference/client-libraries/), [Telegraf](/telegraf/v1/), and third-party integrations 
 to write points as line protocol data to {{% product-name %}}.
 
+> [!Tip]
+> #### Choose the write endpoint for your workload
+> 
+> When creating new write workloads, use the
+> [InfluxDB HTTP API `/api/v3/write_lp` endpoint](/influxdb3/version/write-data/http-api/v3-write-lp/)
+> and [client libraries](/influxdb3/version/write-data/client-libraries/).
+>
+> When bringing existing v1 write workloads, use the {{% product-name %}}
+> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
+>
+> When bringing existing v2 write workloads, use the {{% product-name %}}
+> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#operation/PostV2Write).
+>
+> **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
+> See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
+
 > [!Note]
 > #### Compatibility APIs differ from native APIs
 > 
@@ -251,8 +267,8 @@ v1 client libraries send data in [line protocol](/influxdb3/version/reference/sy
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Node.js](#nodejs)
-[Python](#python)
+[Node.js](#)
+[Python](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!-- Start NodeJS -->
@@ -311,7 +327,7 @@ For more information about using v2 client libraries, see [v2 client libraries](
 ## Telegraf configuration
 
 If you have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](/telegraf/v1/output-plugins/influxdb/) to write data.
 
 The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{< product-name >}} v1 API:
 

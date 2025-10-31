@@ -9,7 +9,15 @@ menu:
 weight: 2
 ---
 
-To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2/get-started/).
+To get started with **InfluxDB 3**:
+
+1. Install [InfluxDB 3 Core](/influxdb3/core/get-started/) or [InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/) (a trial license is available).
+
+2. Install [InfluxDB 3 Explorer](/influxdb3/explorer/get-started/) to visualize and explore your data.
+
+3. Install [Telegraf](/telegraf/v1/get_started/) to collect and send data to your InfluxDB 3 instance.
+
+## Other versions of InfluxDB
 
 To get started with the **InfluxData 1.x** platform, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/), and then follow the steps below.
 
@@ -52,3 +60,5 @@ Now that you've explored your data with queries, you can build a dashboard in Ch
 Since InfluxDB is running on `localhost:8086`, Kapacitor finds it during start up and creates several subscriptions on InfluxDB. These subscriptions tell InfluxDB to send all the data it receives from Telegraf to Kapacitor.
 
 For step-by-step instructions on how to set up an alert in Kapacitor based on your data, see [Creating Chronograf alert rules](/chronograf/v1/guides/create-alert-rules/).
+
+To get started with the **InfluxDB 2.x** platform, see [**InfluxDB OSS 2.x**](/influxdb/v2/get-started/).

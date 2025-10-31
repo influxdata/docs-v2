@@ -16,10 +16,11 @@ influxctl table list [flags] <DATABASE_NAME>
 
 ## Flags
 
-| Flag |            | Description                                   |
-| :--- | :--------- | :-------------------------------------------- |
-|      | `--format` | Output format (`table` _(default)_ or `json`) |
-| `-h` | `--help`   | Output command help                           |
+| Flag |                   | Description                                                                 |
+| :--- | :---------------- | :-------------------------------------------------------------------------- |
+|      | `--filter-status` | Only list tables with a specific status (`active` _(default)_ or `deleted`) |
+|      | `--format`        | Output format (`table` _(default)_ or `json`)                               |
+| `-h` | `--help`          | Output command help                                                         |
 
 {{% caption %}}
 _Also see [`influxctl` global flags](/influxdb3/version/reference/cli/influxctl/#global-flags)._

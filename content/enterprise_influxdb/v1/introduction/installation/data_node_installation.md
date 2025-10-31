@@ -1,5 +1,5 @@
 ---
-title: Install InfluxDB Enterprise data nodes
+title: Install InfluxDB Enterprise v1 data nodes
 aliases:
     - /enterprise_influxdb/v1/installation/data_node_installation/
     - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/data_node_installation/

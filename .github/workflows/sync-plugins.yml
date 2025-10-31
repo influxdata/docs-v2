@@ -81,8 +81,13 @@ jobs:
 
       - name: Checkout influxdb3_plugins (sparse)
         run: |
+<<<<<<< HEAD
           git clone --filter=blob:none --sparse https://github.com/influxdata/influxdb3_plugins.git influxdb3_plugins
           cd influxdb3_plugins
+=======
+          git clone --filter=blob:none --sparse https://github.com/influxdata/influxdb3_plugins.git .ext/influxdb3_plugins
+          cd .ext/influxdb3_plugins
+>>>>>>> origin/master
           git sparse-checkout set influxdata/ scripts/
           git checkout ${{ steps.inputs.outputs.source_commit }}
 
@@ -106,7 +111,11 @@ jobs:
       - name: Validate plugin READMEs
         id: validate
         run: |
+<<<<<<< HEAD
           cd influxdb3_plugins
+=======
+          cd .ext/influxdb3_plugins
+>>>>>>> origin/master
           
           # Determine which plugins to validate
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
@@ -175,6 +184,7 @@ jobs:
       - name: Transform plugin documentation
         if: steps.validate.outputs.validation_passed == 'true'
         run: |
+<<<<<<< HEAD
           cd docs-v2/helper-scripts/influxdb3-plugins
               
           # Set PLUGIN_DIR for the transformation script
@@ -183,13 +193,27 @@ jobs:
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
               node port_to_docs.js
+=======
+          cd docs-v2
+          
+          # Set PLUGIN_DIR for the transformation script
+          export INFLUXDB3_PLUGINS_PATH=".ext/influxdb3_plugins"
+          
+          # Run the transformation
+          if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
+            node helper-scripts/influxdb3-plugins/port_to_docs.js
+>>>>>>> origin/master
           else
             # Transform specific plugins
             IFS=',' read -ra PLUGIN_ARRAY <<< "${{ steps.inputs.outputs.plugins }}"
             for plugin in "${PLUGIN_ARRAY[@]}"; do
               plugin=$(echo "$plugin" | xargs)  # trim whitespace
               echo "Transforming plugin: $plugin"
+<<<<<<< HEAD
               node port_to_docs.js --plugin "$plugin"
+=======
+              node helper-scripts/influxdb3-plugins/port_to_docs.js --plugin "$plugin"
+>>>>>>> origin/master
             done
           fi
 

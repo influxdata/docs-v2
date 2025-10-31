@@ -20,6 +20,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/core/reference/cli/influxdb3/delete/last_cache/
+  - /influxdb3/explorer/manage-caches/last-value-caches/
 source: /shared/influxdb3-admin/last-value-cache/delete.md
 ---
 

@@ -3,7 +3,7 @@ title: Troubleshoot systemd errors
 list_title: systemd permission errors
 description: Troubleshoot errors with InfluxDB and systemd permissions
 menu:
-  platform:
+  influxdb_v1:
     name: systemd errors
     parent: Troubleshoot
     weight: 1

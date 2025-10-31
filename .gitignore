@@ -28,6 +28,7 @@ package-lock.json
 test-results.xml
 /influxdb3cli-build-scripts/content
 tmp
+.tmp
 
 # IDE files
 .vscode/*
@@ -35,7 +36,16 @@ tmp
 .idea
 **/config.toml
 
+# TypeScript build output
+**/dist/
+
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
+<<<<<<< HEAD
 influxdb3_plugins/
+=======
+
+# External repos
+.ext/*
+>>>>>>> origin/master

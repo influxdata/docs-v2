@@ -1,6 +1,6 @@
 ---
-title: Rebalance InfluxDB Enterprise clusters
-description: Manually rebalance an InfluxDB Enterprise cluster.
+title: Rebalance InfluxDB Enterprise v1 clusters
+description: Manually rebalance an InfluxDB Enterprise v1 cluster.
 aliases:
     - /enterprise_influxdb/v1/guides/rebalance/
     - /enterprise_influxdb/v1/guides/rebalance/
@@ -40,11 +40,20 @@ cluster, and they use the
 [`influxd-ctl` tool](/enterprise_influxdb/v1/tools/influxd-ctl/) available on
 all meta nodes.
 
-{{% warn %}}
-Before you begin, stop writing historical data to InfluxDB.
-Historical data have timestamps that occur at anytime in the past.
-Performing a rebalance while writing historical data can lead to data loss.
-{{% /warn %}}
+> [!Warning]
+> #### Stop writing data before rebalancing
+>
+> Before you begin, stop writing historical data to InfluxDB.
+> Historical data have timestamps that occur at anytime in the past.
+> Performing a rebalance while writing historical data can lead to data loss.
+
+> [!Caution]
+> #### Risks of rebalancing with future data
+>
+> Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+> can lead to overlapping shards and data duplication.
+> For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
+> or [contact InfluxData support](https://support.influxdata.com).
 
 ## Rebalance Procedure 1: Rebalance a cluster to create space
 
@@ -61,18 +70,23 @@ data node to expand the total disk capacity of the cluster.
 In the next steps, you will safely move shards from one of the two original data
 nodes to the new data node.
 
-### Step 1: Truncate Hot Shards
+### Step 1: Truncate hot shards
 
-Hot shards are shards that are currently receiving writes.
+Hot shards are shards that currently receive writes.
 Performing any action on a hot shard can lead to data inconsistency within the
 cluster which requires manual intervention from the user.
 
-To prevent data inconsistency, truncate hot shards before moving any shards
+> [!Caution]
+> #### Risks of rebalancing with future data
+>
+> Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+> can lead to overlapping shards and data duplication.
+> For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
+> or [contact InfluxData support](https://support.influxdata.com).
+
+To prevent data inconsistency, truncate shards before moving any shards
 across data nodes.
-The command below creates a new hot shard which is automatically distributed
-across all data nodes in the cluster, and the system writes all new points to
-that shard.
-All previous writes are now stored in cold shards.
+The following command truncates all hot shards and creates new shards to write data to:
 
 ```
 influxd-ctl truncate-shards
@@ -84,10 +98,11 @@ The expected output of this command is:
 Truncated shards.
 ```
 
-Once you truncate the shards, you can work on redistributing the cold shards
-without the threat of data inconsistency in the cluster.
-Any hot or new shards are now evenly distributed across the cluster and require
-no further intervention.
+New shards are automatically distributed across all data nodes, and InfluxDB writes new points to them.
+Previous writes are stored in cold shards.
+
+After truncating shards, you can redistribute cold shards without data inconsistency.
+Hot and new shards are evenly distributed and require no further intervention.
 
 ### Step 2: Identify Cold Shards
 
@@ -292,18 +307,23 @@ name     duration  shardGroupDuration  replicaN  default
 autogen  0s        1h0m0s              3 #👍     true
 ```
 
-### Step 2: Truncate Hot Shards
+### Step 2: Truncate hot shards
 
-Hot shards are shards that are currently receiving writes.
+Hot shards are shards that currently receive writes.
 Performing any action on a hot shard can lead to data inconsistency within the
 cluster which requires manual intervention from the user.
 
-To prevent data inconsistency, truncate hot shards before copying any shards
+> [!Caution]
+> #### Risks of rebalancing with future data
+>
+> Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+> can lead to overlapping shards and data duplication.
+> For more information, see [`truncate-shards` and future data](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data)
+> or [contact InfluxData support](https://support.influxdata.com).
+
+To prevent data inconsistency, truncate shards before copying any shards
 to the new data node.
-The command below creates a new hot shard which is automatically distributed
-across the three data nodes in the cluster, and the system writes all new points
-to that shard.
-All previous writes are now stored in cold shards.
+The following command truncates all hot shards and creates new shards to write data to:
 
 ```
 influxd-ctl truncate-shards
@@ -315,10 +335,11 @@ The expected output of this command is:
 Truncated shards.
 ```
 
-Once you truncate the shards, you can work on distributing the cold shards
-without the threat of data inconsistency in the cluster.
-Any hot or new shards are now automatically distributed across the cluster and
-require no further intervention.
+New shards are automatically distributed across all data nodes, and InfluxDB writes new points to them.
+Previous writes are stored in cold shards.
+
+After truncating shards, you can redistribute cold shards without data inconsistency.
+Hot and new shards are evenly distributed and require no further intervention.
 
 ### Step 3: Identify Cold Shards
 

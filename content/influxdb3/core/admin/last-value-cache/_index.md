@@ -13,6 +13,7 @@ weight: 104
 influxdb3/core/tags: [cache]
 related:
   - /influxdb3/core/reference/sql/functions/cache/#last_cache, last_cache SQL function
+  - /influxdb3/explorer/manage-caches/last-value-caches/
 source: /shared/influxdb3-admin/last-value-cache/_index.md
 ---
 

@@ -16,13 +16,13 @@ aliases:
   - /influxdb3/clustered/install/licensing/
 ---
 
-Install your InfluxDB Clustered license in your cluster to authorize the use
-of the InfluxDB Clustered software.
+Install your {{% product-name %}} license in your cluster to authorize the use
+of the {{% product-name %}} software.
 
-## Install your InfluxDB license
+## Install your {{% product-name %}} license
 
 1.  If you haven't already,
-    [request an InfluxDB Clustered license](https://influxdata.com/contact-sales).
+    [request an {{% product-name %}} license](https://influxdata.com/contact-sales).
 2.  InfluxData provides you with a `license.yml` file that encapsulates your
     license token as a custom Kubernetes resource.
 3.  Use `kubectl` to apply and create the `License` resource in your InfluxDB
@@ -34,28 +34,28 @@ of the InfluxDB Clustered software.
     kubectl apply --filename license.yml --namespace influxdb
     ```
 
-InfluxDB Clustered detects the `License` resource and extracts the credentials
-into a secret required by InfluxDB Clustered Kubernetes pods.
+{{% product-name %}} detects the `License` resource and extracts the credentials
+into a secret required by {{% product-name %}} Kubernetes pods.
 Pods validate the license secret both at startup and periodically (roughly once
 per hour) while running.
 
 ## Upgrade from a non-licensed release
 
-If you are currently using a non-licensed preview release of InfluxDB Clustered
+If you are currently using a non-licensed preview release of {{% product-name %}}
 and want to upgrade to a licensed release, do the following:
 
-1.  [Install an InfluxDB license](#install-your-influxdb-license)
+1.  [Install an {{% product-name %}} license](#install-your-influxdb-clustered-license)
 2.  If you [use the `AppInstance` resource configuration](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/)
     to configure your cluster, in your `myinfluxdb.yml`, update the package
     version defined in `spec.package.image` to use a licensed release.
     
-    If using the InfluxDB Clustered Helm chart, update the `image.tag` property
+    If using the {{% product-name %}} Helm chart, update the `image.tag` property
     in your `values.yaml`to use a licensed release.
 
     > [!Warning]
     > #### Upgrade to checkpoint releases first
     > 
-    > When upgrading InfluxDB Clustered, always upgrade to each
+    > When upgrading {{% product-name %}}, always upgrade to each
     > [checkpoint release](/influxdb3/clustered/admin/upgrade/#checkpoint-releases)
     > first, before proceeding to newer versions.
     > Upgrading past a checkpoint release without first upgrading to it may result in
@@ -103,6 +103,33 @@ the version number to upgrade to.
 After you have activated your license, use the following signals to verify the
 license is active and functioning.
 
+In your commands, replace the following:
+
+- {{% code-placeholder-key %}}`NAMESPACE`{{% /code-placeholder-key %}}:
+  your [InfluxDB namespace](/influxdb3/clustered/install/set-up-cluster/configure-cluster/#create-a-namespace-for-influxdb)
+- {{% code-placeholder-key %}}`POD_NAME`{{% /code-placeholder-key %}}:
+  your [InfluxDB Kubernetes pod](/influxdb3/clustered/install/set-up-cluster/deploy/#inspect-cluster-pods)
+
+### Verify database components
+
+After you [install your license](#install-your-influxdb-clustered-license),
+run the following command to check that database pods start up and are in the
+`Running` state:
+
+<!--pytest.mark.skip-->
+
+```bash
+kubectl get pods -l app=iox --namespace influxdb
+```
+
+If a `Pod` fails to start, run the following command to view pod information:
+
+<!--pytest.mark.skip-->
+
+```sh { placeholders="POD_NAME" }
+kubectl describe pod POD_NAME --namespace influxdb
+```
+
 ### Verify the `Secret` exists 
 
 Run the following command to verify that the licensing activation created a
@@ -116,7 +143,8 @@ kubectl get secret iox-license --namespace influxdb
 
 If the secret doesn't exist,
 [view `license-controller` logs](#view-license-controller-logs) for more
-information or errors.
+information or errors. For troubleshooting guidance, see
+[Manage your {{% product-name %}} license](/influxdb3/clustered/admin/licensing/).
 
 ### View `license controller` logs
 
@@ -130,7 +158,20 @@ following command:
 kubectl logs deployment/license-controller --namespace influxdb
 ```
 
-For more information about InfluxDB Clustered licensing, see
-[Manage your InfluxDB Clustered license](/influxdb3/clustered/admin/licensing/)
+## Renew your license
+
+> [!Tip]
+> Before your license expires, your InfluxData sales representative will
+> contact you about license renewal.
+> You may also contact your sales representative at any time.
+
+If you have an expired license, follow the same process to [install your renewed license](#install-your-influxdb-clustered-license) using the new `license.yml` file provided by InfluxData.
+
+> [!Important]
+> #### Recover from an expired license
+> If your license has already expired and your cluster pods are in a `CrashLoopBackoff` state, applying a valid renewed license will restore normal operation. For more information about license enforcement and recovery, see [Manage your {{% product-name %}} license](/influxdb3/clustered/admin/licensing/).
+
+For more information about {{% product-name %}} licensing, including license enforcement, grace periods, and detailed troubleshooting, see
+[Manage your {{% product-name %}} license](/influxdb3/clustered/admin/licensing/).
 
 {{< page-nav prev="/influxdb3/clustered/install/set-up-cluster/configure-cluster/" prevText="Configure your cluster" next="/influxdb3/clustered/install/set-up-cluster/deploy/" nextText="Deploy your cluster" keepTab=true >}}

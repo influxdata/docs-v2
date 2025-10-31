@@ -97,10 +97,12 @@ export default [
 
   // Configuration for Node.js helper scripts
   {
-    files: ['helper-scripts/**/*.js'],
+    files: ['helper-scripts/**/*.js', 'scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node,
+        // Claude Code environment globals
+        Task: 'readonly', // Available when run by Claude Code
       },
     },
     rules: {
@@ -150,8 +152,19 @@ export default [
   },
   {
     files: ['**/*.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+    },
     rules: {
-      // Rules specific to TypeScript files
+      // TypeScript-specific rules
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   {
@@ -160,6 +173,7 @@ export default [
       '**/node_modules/**',
       '**/public/**',
       '**/resources/**',
+      '**/dist/**',
       '**/.hugo_build.lock',
     ],
   },

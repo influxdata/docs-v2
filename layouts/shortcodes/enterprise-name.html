@@ -1,6 +1,0 @@
-{{ $length := .Get 0 | default "long" }}
-{{- if eq $length "long" }}
-  {{- .Site.Data.products.enterprise.name -}}
-{{ else if eq $length "short" }}
-  {{- .Site.Data.products.enterprise.shortname -}}
-{{ end -}}

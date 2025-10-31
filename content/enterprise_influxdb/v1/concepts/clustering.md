@@ -1,7 +1,7 @@
 ---
-title: Clustering in InfluxDB Enterprise
+title: Clustering in InfluxDB Enterprise v1
 description: >
-  Learn how meta nodes and data nodes interact in InfluxDB Enterprise.
+  Learn how meta nodes and data nodes interact in InfluxDB Enterprise v1.
 aliases:
     - /enterprise/v1.10/concepts/clustering/
     - /enterprise_influxdb/v1/high_availability/clusters/

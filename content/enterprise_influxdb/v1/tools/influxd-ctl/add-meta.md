@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl add-meta
 description: >
-  The `influxd-ctl add-meta` command adds a meta node to an InfluxDB Enterprise cluster.
+  The `influxd-ctl add-meta` command adds a meta node to an InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl

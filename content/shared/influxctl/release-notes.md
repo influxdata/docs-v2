@@ -1,3 +1,81 @@
+## 2.11.0 {date="2025-10-17"}
+
+### Features
+
+- Update the output of the `token create` and `management create` commands to include table output as well as the token string.
+
+Before example:
+
+```
+warn	please copy the token and store in a safe place
+warn	this is the *only time* you will see the token
+<REDACTED_TOKEN_STRING>
+```
+
+After example:
+
+```
++-------------+--------------------------------------+
+|          id | 11111111-1111-1111-1111-111111111111 |
+| description | Example Token                        |
+|  expires at | 2025-10-24T00:00:00Z                 |
+|  revoked at |                                      |
++-------------+--------------------------------------+
+warn	please copy the token and store in a safe place
+warn	this is the *only time* you will see the token
+<REDACTED_TOKEN_STRING>
+```
+
+### Dependency updates
+
+- Upgrade Go to 1.25.3.
+- Update `github.com/go-git/go-git/v5` from 5.16.2 to 5.16.3.
+- Update `golang.org/x/mod` from 0.28.0 to 0.29.0.
+- Update `golang.org/x/oauth2` from 0.31.0 to 0.32.0.
+- Update `google.golang.org/grpc` from 1.75.1 to 1.76.0.
+- Update `google.golang.org/protobuf` from 1.36.9 to 1.36.10.
+
+---
+
+## 2.10.5 {date="2025-09-23"}
+
+### Bug Fixes
+
+- Update warnings for the `influxctl database delete` command.
+
+---
+
+## 2.10.4 {date="2025-09-22"}
+
+### Features
+
+- Add the [`influxctl table undelete` command](/influxdb3/version/reference/cli/influxctl/table/undelete/).
+- Add `--filter-status` flag to the
+  [`influxctl database list`](/influxdb3/version/reference/cli/influxctl/database/list/)
+  and [`influxctl table list`](/influxdb3/version/reference/cli/influxctl/table/list/)
+  commands.
+
+### Bug Fixes
+
+- Allow changing only maxTables or maxColumns individually.
+
+### Dependency updates
+ 
+- Update `github.com/apache/arrow-go/v18` from 18.4.0 to 18.4.1.
+- Update `github.com/golang-jwt/jwt/v5` from 5.2.3 to 5.3.0.
+- Update `github.com/stretchr/testify` from 1.10.0 to 1.11.1.
+- Update `golang.org/x/mod` from 0.26.0 to 0.28.0.
+- Update `golang.org/x/oauth2` from 0.30.0 to 0.31.0.
+- Update `google.golang.org/grpc` from 1.74.2 to 1.75.1.
+- Update `google.golang.org/protobuf` from 1.36.6 to 1.36.9.
+- Update `helm.sh/helm/v3` from 3.18.4 to 3.18.5.
+- Update IOxProxy Protobuf.
+- Update IOxProxy proto to include `UndeleteTable`.
+- Upgrade Go to 1.25.1.
+- Upgrade `make` dependencies.
+
+---
+
 ## 2.10.3 {date="2025-07-30"}
 
 ### Features

@@ -5,6 +5,173 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.6.0 {date="2025-10-30"}
+
+### Core
+
+#### Features
+
+- **Quick-Start Developer Experience**:
+  - `influxdb3` now supports running without arguments for instant database startup, automatically generating IDs and storage flags values based on your system's setup.
+- **Processing Engine**:
+  - Plugins now support multiple files instead of single-file limitations. 
+  - When creating a trigger, you can upload a plugin directly from your local machine using the `--upload` flag.
+  - Existing plugin files can now be updated at runtime without recreating triggers. 
+  - New `system.plugin_files` table and `show plugins` CLI command now provide visibility into all loaded plugin files.
+  - Custom plugin repositories are now supported via `--plugin-repo` CLI flag.
+  - Python package installation can now be disabled with `--package-manager disabled` for locked-down environments. 
+  - Plugin file path validation now prevents directory traversal attacks by blocking relative and absolute path patterns.
+
+#### Bug fixes
+
+- **Token management**: Token display now works correctly for hard-deleted databases
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Operational improvements
+
+- **Storage engine**: improvements to the Docker-based license service development environment
+- **Catalog consistency**: Node management fixes for catalog edge cases
+- Other enhancements and performance improvements
+
+## v3.5.0 {date="2025-09-30"}
+
+### Core
+
+#### Features
+
+- **Custom Plugin Repository**: 
+  - Use the `--plugin-repo` option with `influxdb3 serve` to specify custom plugin repositories. This enables loading plugins from personal repos or disabling remote repo access.
+
+#### Bug fixes
+
+- **Database reliability**:
+  - Table index updates now complete atomically before creating new indices, preventing race conditions that could corrupt database state ([#26838](https://github.com/influxdata/influxdb/pull/26838))
+  - Delete operations are now idempotent, preventing errors during object store cleanup ([#26839](https://github.com/influxdata/influxdb/pull/26839))
+- **Write path**: 
+  - Write operations to soft-deleted databases are now rejected, preventing data loss ([#26722](https://github.com/influxdata/influxdb/pull/26722))
+- **Runtime stability**: 
+  - Fixed a compatibility issue that could cause deadlocks for concurrent operations ([#26804](https://github.com/influxdata/influxdb/pull/26804))
+- Other bug fixes and performance improvements
+
+#### Security & Misc
+
+- Sensitive environment variable values are now hidden in CLI output and log messages ([#26837](https://github.com/influxdata/influxdb/pull/26837))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Cache optimization**: 
+  - Last Value Cache (LVC) and Distinct Value Cache (DVC) now populate on creation and only on query nodes, reducing resource usage on ingest nodes.
+
+#### Bug fixes
+
+- **Object store reliability**: 
+  - Object store operations now use retryable mechanisms with better error handling
+
+#### Operational improvements
+
+- **Compaction optimizations**:
+  - Compaction producer now waits 10 seconds before starting cycles, reducing resource contention during startup
+  - Enhanced scheduling algorithms distribute compaction work more efficiently across available resources
+- **System tables**: 
+  - System tables now provide consistent data across different node modes (ingest, query, compact), enabling better monitoring in multi-node deployments
+
+## v3.4.2 {date="2025-09-11"}
+
+### Core
+
+#### Bug fixes
+
+- **Database reliability**:
+  - TableIndexCache initialization and ObjectStore improvements
+  - Persister doesn't need a TableIndexCache
+
+#### HTTP API changes
+
+- **v2 write API**: Standardized `/api/v2/write` error response format to match other InfluxDB editions. Error responses now use the consistent format: `{"code": "<code>", "message": "<detailed message>"}` ([#26787](https://github.com/influxdata/influxdb/pull/26787))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Storage engine**: Pass in root CA and disable TLS verify for object store
+- **Support**: Add support for manually stopping a node
+
+#### Bug fixes
+
+- **Bug fix**: Generation detail path calculation panic
+- **Database reliability**: Pass TableIndexCache through to PersistedFiles
+
+#### Operational improvements
+
+- **Compaction optimizations**:
+  - Compaction cleaner now waits for 1 hour by default (previously 10 minutes)
+  - Compaction producer now waits for 10 seconds before starting compaction cycle
+- **Catalog synchronization**: Background catalog update is synchronized every 1 second (previously 10 seconds)
+- **Logging improvements**: Added clear logging to indicate what sequence is persisted on producer side and what is consumed by the consumer side
+
+## v3.4.1 {date="2025-08-28"}
+
+### Core
+
+#### Bug Fixes
+- Upgrading from 3.3.0 to 3.4.x no longer causes possible catalog migration issues ([#26756](https://github.com/influxdata/influxdb/pull/26756))
+
+
+## v3.4.0 {date="2025-08-27"}
+
+### Core
+
+#### Features
+
+- **Token Provisioning**:
+  - Generate admin tokens offline and use them when starting the database if tokens do not already exist.
+    This is meant for automated deployments and containerized environments.
+    ([#26734](https://github.com/influxdata/influxdb/pull/26734))
+- **Azure Endpoint**:
+  - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
+- **No_Sync via CLI**:
+  - Use the `--no-sync` option with `influxdb3 write` to skip waiting for WAL persistence on write and immediately return a response to the write request. ([#26703](https://github.com/influxdata/influxdb/pull/26703))
+  
+#### Bug Fixes
+- Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
+- Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
+
+#### Security & Misc
+- Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
+- WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
+- Remove unsafe signal_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
+- Upgrade Python version to 3.13.7-20250818. ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
+- Tags with `/` in the name no longer break the primary key.
+
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Token Provisioning**:
+  - Generate _resource_ and _admin_ tokens offline and use them when starting the database.
+
+- Select a home or trial license without using an interactive terminal.
+  Use `--license-type` [home | trial | commercial] option to the `influxdb3 serve` command to automate the selection of the license type.
+
+#### Bug Fixes
+
+- Don't initialize the Processing Engine when the specified `--mode` does not require it.
+- Don't panic when `INFLUXDB3_PLUGIN_DIR` is set in containers without the Processing Engine enabled.
+
+
+
 ## v3.3.0 {date="2025-07-29"}
 
 ### Core
@@ -22,7 +189,7 @@
 #### Bug Fixes
 
 - **Database reliability**:
-  - Fix URL encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
+  - Fix URL-encoded table name handling failures ([#26586](https://github.com/influxdata/influxdb/pull/26586))
   - Allow hard deletion of existing soft-deleted schema ([#26574](https://github.com/influxdata/influxdb/pull/26574))
 - **Authentication**: Fix AWS S3 API error handling when tokens are expired ([#1013](https://github.com/influxdata/influxdb/pull/1013))
 - **Query processing**: Set nanosecond precision as default for V1 query API CSV output ([#26577](https://github.com/influxdata/influxdb/pull/26577))
@@ -126,8 +293,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management improvements**: 
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
-   - New CLI commands: `create table --retention-period` and `update table --retention-period`
-   - Set or clear table-specific retention policies independent of database settings
+  - New CLI commands: `create table --retention-period` and `update table --retention-period`
+  - Set or clear table-specific retention policies independent of database settings
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
@@ -173,8 +340,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Tokens can now be granted `CREATE` permission for creating databases
 
 #### Additional Updates
-- Last value caches populate on creation and reload on restart
-- Distinct value caches populate on creation and reload on restart
+- Last value caches reload on restart
+- Distinct value caches reload on restart
 - Other performance improvements
 - Replaces remaining "INFLUXDB_IOX" Dockerfile environment variables with the following:
   - `ENV INFLUXDB3_OBJECT_STORE=file`
@@ -280,6 +447,13 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 ## v3.0.0 {date="2025-04-14"}
 
 ### Core
+
+#### Breaking Changes
+
+- **Parquet cache configuration**: Replaced `--parquet-mem-cache-size-mb` option with `--parquet-mem-cache-size`. The new option accepts values in megabytes (as an integer) or as a percentage of total available memory (for example, `20%`). The default value changed from `1000` MB to `20%` of total available memory. The environment variable `INFLUXDB3_PARQUET_MEM_CACHE_SIZE_MB` was replaced with `INFLUXDB3_PARQUET_MEM_CACHE_SIZE`. ([#26023](https://github.com/influxdata/influxdb/pull/26023))
+- **Memory settings updates**:
+  - Force snapshot memory threshold now defaults to `50%` of available memory
+  - DataFusion execution memory pool now defaults to `20%` of available memory
 
 #### General Updates
 

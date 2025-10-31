@@ -13,6 +13,7 @@ menu:
 influxdb3/cloud-dedicated/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb3/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
+  - /influxdb3/cloud-dedicated/visualize-data/superset/
   - /influxdb3/cloud-dedicated/query-data/tools/superset/
   - /influxdb3/cloud-dedicated/query-data/sql/execute-queries/superset/
   - /influxdb3/cloud-dedicated/process-data/tools/superset/
@@ -51,15 +52,15 @@ stored in an InfluxDB database.
 
 ### Install prerequisites for Superset and Flight SQL
 
-We recommend using **Docker and docker-compose** to run Superset.
+We recommend using **Docker and Docker Compose** to run Superset.
 To set up Superset to run in Docker containers with Flight SQL, follow these steps:
 
 > [!Warning]
 > **Superset** is not officially supported on Windows. For more information about running Superset with
 > Windows and Docker, see the
-> [Superset documentation](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose#1-install-a-docker-engine-and-docker-compose).
+> [Superset documentation](https://superset.apache.org/docs/installation/docker-compose).
 
-1.  Follow the instructions to download and install Docker and docker-compose for your system:
+1.  Follow the instructions to download and install Docker and Docker Compose for your system:
 
     - **macOS**: [Install Docker for macOS](https://docs.docker.com/desktop/install/mac-install/)
     - **Linux**: [Install Docker for Linux](https://docs.docker.com/desktop/install/linux-install/)
@@ -153,7 +154,7 @@ pip3 install flightsql-dbapi
 3.  Use the `docker-compose pull` command to fetch dependencies for the Docker containers.
 
     ```sh
-    docker-compose -f docker-compose-non-dev.yml pull
+    docker compose -f docker-compose-non-dev.yml pull
     ```
 
     The process might take several seconds to complete.
@@ -164,7 +165,7 @@ pip3 install flightsql-dbapi
 To start the containers and run Superset, enter the `docker-compose up` command and pass the `-f` flag with the setup file name:
 
 ```sh
-docker-compose -f docker-compose-non-dev.yml up
+docker compose -f docker-compose-non-dev.yml up
 ```
 
 This might take several seconds to complete.

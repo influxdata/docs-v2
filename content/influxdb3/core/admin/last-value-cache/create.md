@@ -10,6 +10,7 @@ weight: 201
 influxdb3/core/tags: [cache]
 related:
   - /influxdb3/core/reference/cli/influxdb3/create/last_cache/
+  - /influxdb3/explorer/manage-caches/last-value-caches/
 list_code_example: |
   {{% show-in "core" %}}
   <!--pytest.mark.skip-->

@@ -1,7 +1,7 @@
 ---
-title: InfluxDB Enterprise tools
+title: InfluxDB Enterprise v1 tools
 description: >
-  Learn more about available tools for working with InfluxDB Enterprise.
+  Learn more about available tools for working with InfluxDB Enterprise v1.
 menu:
   enterprise_influxdb_v1:
     name: Tools
@@ -22,5 +22,5 @@ Use the following tools to work with InfluxDB Enterprise:
 {{< children >}}
 
 ## InfluxDB open source tools
-Tools built for InfluxDB OSS v1.8 also work with InfluxDB Enterprise v1.8.
+Tools built for InfluxDB OSS v1.8+ also work with InfluxDB v1 Enterprise.
 For more information, see [InfluxDB tools](/enterprise_influxdb/v1/tools/).

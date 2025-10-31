@@ -643,7 +643,7 @@ to migrate InfluxDB key-value metadata schemas to earlier 2.x versions when nece
 
 #### Telegraf
 
-- Add the following new [Telegraf plugins](https://docs.influxdata.com/telegraf/v1/plugins/) to the Load Data page:
+- Add the following new [Telegraf plugins](/telegraf/v1/plugins/) to the Load Data page:
   - Alibaba (Aliyun) CloudMonitor Service Statistics (`aliyuncms`)
   - AMD ROCm System Management Interface (SMI) (`amd_rocm_smi`)
   - Counter-Strike: Global Offensive (CS:GO) (`csgo`)

@@ -12,12 +12,12 @@ weight: 201
 
 > [!Note]
 > ## Checkpoint releases {.checkpoint}
-> 
+>
 > Some InfluxDB Clustered releases are checkpoint releases that introduce a
 > breaking change to an InfluxDB component.
 > When [upgrading InfluxDB Clustered](/influxdb3/clustered/admin/upgrade/),
 > **always upgrade to each checkpoint release first, before proceeding to newer versions**.
-> 
+>
 > Checkpoint releases are only made when absolutely necessary and are clearly
 > identified below with the <span class="cf-icon Shield pink"></span> icon.
 
@@ -61,6 +61,69 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20250925-1878107 {date="2025-09-25"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250925-1878107
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250925-1878107/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250925-1878107/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+#### Rename and undelete tables
+
+Tables can now be renamed and undeleted with [influxctl v2.10.5](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#2105) or later.
+
+To enable hard delete of soft-deleted namespaces:
+- Set `INFLUXDB_IOX_ENABLE_NAMESPACE_ROW_DELETION` to `true`.
+ - If needed, adjust how long a namespace remains soft-deleted (and eligible for undeletion) by setting `INFLUXDB_IOX_GC_NAMESPACE_CUTOFF` (default: `14d`)
+ - If needed, adjust how long the garbage collector should sleep between runs of the namespace deletion task with `INFLUXDB_IOX_GC_NAMESPACE_SLEEP_INTERVAL` The default is `24h` which should be suitable for ongoing cleanup, but if there is a backlog of soft-deleted namespaces to clean up, you may want to run this more frequently until the garbage collector has caught up.
+ - If needed, adjust the maximum number of namespaces that will get hard deleted in one run of the namespace deletion task with `INFLUXDB_IOX_GC_NAMESPACE_LIMIT` The default is `1000` which should be suitable for ongoing cleanup, but if you have a large number of namespaces and you're running the task very frequently, you may need to lower this to delete fewer records per run if each individual run is timing out.
+
+To enable hard delete of soft-deleted tables in active namespaces (soft-deleted tables in soft-deleted namespaces get cleaned up when the namespace gets cleaned up):
+- Set `INFLUXDB_IOX_ENABLE_TABLE_ROW_DELETION` to `true`, and if needed, adjust these settings that work in the same way as the corresponding namespace flags:
+  - `INFLUXDB_IOX_GC_TABLE_CUTOFF` (default: `14d`)
+  - `INFLUXDB_IOX_GC_TABLE_SLEEP_INTERVAL` (default: `24h`)
+  - `INFLUXDB_IOX_GC_TABLE_LIMIT` (default: `1000`)
+
+### Changes
+
+- Update Prometheus to `2.55.1`.
+
+#### Database Engine
+
+- Update DataFusion to `49`.
+- Improve performance of retention checking and reduce memory impact of Data Snapshots.
+
+### Known Bugs
+
+Customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint`
+(for example: "https://$BUCKET.$REGION.amazonaws.com") and the bucket in
+`spec.package.spec.objectStore.bucket` need to disable the
+`CATALOG_BACKUP_DATA_SNAPSHOT` feature:
+
+```yaml
+ spec:
+   package:
+     spec:
++      components:
++        garbage-collector:
++          template:
++            containers:
++              iox:
++                env:
++                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'false'
++                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: 'false'
+```
+
 ## 20250814-1819052 {date="2025-08-14"}
 
 ### Quickstart
@@ -70,6 +133,11 @@ spec:
   package:
     image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052
 ```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20250814-1819052/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20250814-1819052/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
 
 ### Bug Fixes
 
@@ -81,7 +149,7 @@ spec:
 
 #### Database Engine
 
-- Update DataFusion to `48`.
+- Update DataFusion to v48.
 - Tweak compaction to reduce write amplification and querier cache churn in some circumstances.
 
 ---
@@ -212,8 +280,8 @@ spec:
 - Change the default of `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_INTERVAL` from `1h`
   to `4h`.
 - Introduce the following environment variables to help in cases where the
-  object store is large enough that the the garbage collector cannot keep up
-  when cleaning obsolete objects:
+  object store is large enough that the garbage collector cannot keep up when
+  cleaning obsolete objects:
 
   - `INFLUXDB_IOX_GC_PRIMARY_OBJECTSTORE_PARTITIONS`
   - `INFLUXDB_IOX_GC_SECONDARY_OBJECTSTORE_PARTITIONS`
@@ -272,7 +340,7 @@ spec:
 
 ### Bug Fixes
 
-This release fixes a bug in the 20241217-1494922 release where the default 
+This release fixes a bug in the 20241217-1494922 release where the default
 Prometheus CPU limit was set to an integer instead of a string.
 
 ### Changes
@@ -362,7 +430,7 @@ Due to incorrect parsing of the
 `POSTGRES_DSN` environment variable, the `influxdb&options=-c%20search_path=` string is
 interpreted as the database name.
 
-To work around this bug, in your AppInstance, 
+To work around this bug, in your AppInstance,
 include a `spec.package.spec.images.overrides` section to override the
 `core` pods built-in image with an image that has the bugfix for the DSN
 parsing error--for example:
@@ -383,6 +451,43 @@ spec:
           - name: 'influxdb2-artifacts/granite/granite'
             newFQIN: 'us-docker.pkg.dev/influxdb2-artifacts/granite/granite:7acf9ca6e1ad15db80b22cd0bc071acdb561eb51'
 # ...[remaining configuration]
+```
+
+### `clustered-auth` service routes to removed `gateway` service instead of `core` service
+
+If you have the `clusteredAuth` feature flag enabled, the `clustered-auth` service will be deployed.
+The service currently routes to the recently removed `gateway` service instead of the new `core` service.
+
+#### Temporary workaround for service routing
+
+Until you upgrade to release `20250805-1812019`, you need to override the `clustered-auth`
+service to point to the new `core` service by adding the following `env` overrides to your `AppInstance`:
+
+```yaml
+apiVersion: kubecfg.dev/v1alpha1
+kind: AppInstance
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241024-1354148
+    apiVersion: influxdata.com/v1alpha1
+    spec:
+      components:
+        querier:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+        router:
+          template:
+            containers:
+              clustered-auth:
+                env:
+                  AUTHZ_TOKEN_SVC_ADDRESS: 'http://core:8091/'
+# ...remaining configuration...
 ```
 
 ### Highlights
@@ -456,7 +561,7 @@ For more information about defining variables in your InfluxDB cluster, see
 ##### Write API behaviors
 
 When submitting a write request that includes invalid or malformed line protocol,
-The InfluxDB write API returns a 400 response code and does the following: 
+The InfluxDB write API returns a 400 response code and does the following:
 
 - With partial writes _enabled_:
 
@@ -599,7 +704,7 @@ customer workloads.
 - A best-effort, pre-populated `influxctl` config file is provided as a
   `ConfigMap` for your convenience.
 - Limit garbage collector replicas to 1, see the
-  [documentation](/influxdb3/clustered/reference/internals/storage-engine/#garbage-collector-scaling-strategies) 
+  [documentation](/influxdb3/clustered/reference/internals/storage-engine/#garbage-collector-scaling-strategies)
   for further details.
 
 #### Database engine
@@ -937,7 +1042,7 @@ Kubernetes scheduler's default behavior. For further details, please consult the
 - Improve compactor concurrency heuristics.
 - Fix gRPC reflection to only include services served by a particular listening
   port.
-  
+
   > [!Note]
   > `arrow.flight.protocol.FlightService` is known to be missing in the
   > `iox-shared-querier`'s reflection service even though `iox-shared-querier`
@@ -965,7 +1070,7 @@ spec:
 
 #### Deployment
 
-- Gossip communication between the `global-router`, `iox-shared-compactor`, and 
+- Gossip communication between the `global-router`, `iox-shared-compactor`, and
   iox-shared-ingester` now works as expected.
 - Provide sane defaults to the `global-router` for maximum number of concurrent
   requests.
@@ -1096,7 +1201,7 @@ these are automatically created for you.
 
 As part of a `partition_id` migration that runs, if you have more than 10
 million rows in the `parquet_file` table, reach out to your Sales representative
-before proceeding. You can confirm this with the following query: 
+before proceeding. You can confirm this with the following query:
 
 ```sql
 SELECT count(*) FROM iox_catalog.parquet_file
@@ -1236,7 +1341,7 @@ We now expose a `google` object within the `objectStore` configuration, which
 enables support for using Google Cloud's GCS as a backing object store for IOx
 components. This supports both
 [GKE workload identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity)
-and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform#step_3_create_service_account_credentials)
+and [IAM Service Account](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#kubernetes-sa-to-iam)
 authentication methods.
 
 #### Support for bypassing identity provider configuration for database/token management
@@ -1419,7 +1524,7 @@ This now enables the use of Azure blob storage.
 
 The "Install InfluxDB Clustered" instructions (formerly known as "GETTING_STARTED")
 are now available on the public
-[InfluxDB Clustered documentation](https://docs.influxdata.com/influxdb3/clustered/install/).
+[InfluxDB Clustered documentation](/influxdb3/clustered/install/).
 
 The `example-customer.yml` (also known as `myinfluxdb.yml`) example
 configuration file still lives in the release bundle alongside the `RELEASE_NOTES`.

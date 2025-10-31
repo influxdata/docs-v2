@@ -15,6 +15,7 @@
     "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
     "vale.valeCLI.minAlertLevel": "warning",
     "cSpell.words": [
-      "influxctl"
+      "influxctl",
+      "preconfigured"
     ]
 }

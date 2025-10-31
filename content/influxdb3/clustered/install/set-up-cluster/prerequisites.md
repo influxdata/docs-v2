@@ -189,12 +189,12 @@ update an InfluxDB cluster.
 > separately. The Helm chart installs the kubit operator.
 
 Use `kubectl` to install the [kubecfg kubit](https://github.com/kubecfg/kubit)
-operator **v0.0.18 or later**.
+operator **v0.0.22 or later**.
 
 <!-- pytest.mark.skip -->
 
 ```bash
-kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.19'
+kubectl apply -k 'https://github.com/kubecfg/kubit//kustomize/global?ref=v0.0.22'
 ```
 
 ### Set up a Kubernetes ingress controller

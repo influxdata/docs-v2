@@ -9,7 +9,7 @@ menu:
     parent: Execute queries
     name: Use visualization tools
     identifier: query-with-visualization-tools
-influxdb3/clustered/tags: [query, sql, influxql]
+influxdb3/clustered/tags: [query, sql, influxql, visualization]
 metadata: [SQL, InfluxQL]
 aliases:
   - /influxdb3/clustered/query-data/influxql/execute-queries/visualization-tools/
@@ -27,6 +27,7 @@ Use visualization tools to query data stored in {{% product-name %}} with SQL.
 The following visualization tools support querying InfluxDB with SQL:
 
 - [Grafana](/influxdb3/clustered/process-data/visualize/grafana/)
+- [Power BI](/influxdb3/clustered/process-data/visualize/powerbi/)
 - [Superset](/influxdb3/clustered/process-data/visualize/superset/)
 - [Tableau](/influxdb3/clustered/process-data/visualize/tableau/)
 

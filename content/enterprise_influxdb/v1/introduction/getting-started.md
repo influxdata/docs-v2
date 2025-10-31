@@ -1,5 +1,5 @@
 ---
-title: Getting started with InfluxDB Enterprise
+title: Getting started with InfluxDB Enterprise v1
 description: Set up your cluster as a data source in Chronograf.
 aliases:
   - /enterprise_influxdb/v1/introduction/getting_started/

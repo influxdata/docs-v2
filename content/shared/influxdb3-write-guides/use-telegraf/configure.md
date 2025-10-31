@@ -1,5 +1,5 @@
 
-Use the Telegraf [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+Use the Telegraf [`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 to collect and write metrics to {{< product-name >}}.
 This plugin uses the InfluxDB v2 HTTP API write endpoint available with 
 {{% product-name %}}.
@@ -47,7 +47,7 @@ the steps below.
 ### Enable and configure the InfluxDB v2 output plugin
 
 To send data to {{< product-name >}}, enable the
-[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+[`influxdb_v2` output plugin](/telegraf/v1/output-plugins/influxdb_v2/)
 in the `telegraf.conf`.
 
 {{% code-placeholders "AUTH_TOKEN|DATABASE_NAME" %}}
@@ -113,7 +113,7 @@ The name of the {{% product-name %}} database to write data to.
 ### Other Telegraf configuration options
 
 For more plugin configuration options, see the
-[`influxdb_v2` output plugin README](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+[`influxdb_v2` output plugin README](/telegraf/v1/output-plugins/influxdb_v2/)
 on GitHub.
 
 ## Start Telegraf

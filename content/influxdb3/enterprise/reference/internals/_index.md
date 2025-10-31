@@ -12,5 +12,5 @@ source: /shared/influxdb3-internals-reference/_index.md
 
 <!--
 The content for this page is at
-// SOURCE /shared/influxdb3-internals-reference/_index.md
+// SOURCE content/shared/influxdb3-internals-reference/_index.md
 ->

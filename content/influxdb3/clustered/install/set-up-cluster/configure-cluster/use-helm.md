@@ -284,9 +284,8 @@ In addition to the InfluxDB images, copy the kubit operator images:
 ```bash
 # Create a list of kubit-related images
 cat > /tmp/kubit-images.txt << EOF
-ghcr.io/kubecfg/kubit:v0.0.20
+ghcr.io/kubecfg/kubit:v0.0.22
 ghcr.io/kubecfg/kubecfg/kubecfg:latest
-bitnami/kubectl:1.27.5
 registry.k8s.io/kubectl:v1.28.0
 EOF
 
@@ -307,8 +306,8 @@ images:
 # Configure kubit operator images
 kubit:
   controller:
-    image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubit:v0.0.20
-  apply_step_image: REGISTRY_HOSTNAME/bitnami/kubectl:1.27.5
+    image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubit:v0.0.22
+  apply_step_image: REGISTRY_HOSTNAME/registry.k8s.io/kubectl:v1.28.0
   render_step_image: REGISTRY_HOSTNAME/registry.k8s.io/kubectl:v1.28.0
   kubecfg_image: REGISTRY_HOSTNAME/ghcr.io/kubecfg/kubecfg/kubecfg:latest
 

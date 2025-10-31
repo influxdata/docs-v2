@@ -1,7 +1,7 @@
 ---
-title: Monitor InfluxDB Enterprise with InfluxDB OSS 
+title: Monitor InfluxDB Enterprise v1 with InfluxDB OSS 
 description: >
-  Monitor your InfluxDB Enterprise instance using InfluxDB OSS and
+  Monitor your InfluxDB Enterprise v1 instance using InfluxDB OSS and
   a pre-built InfluxDB template.
 menu:
   enterprise_influxdb_v1:
@@ -14,7 +14,7 @@ aliases:
   - /enterprise_influxdb/v1/administration/monitor-enterprise/monitor-with-oss/
 ---
 
-Use [InfluxDB OSS](/influxdb/v2/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
+Use [InfluxDB OSS 2.x](/influxdb/v2/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
 
 Do the following:
 
