@@ -623,7 +623,7 @@ export function detectSharedContent(filePath) {
     if (parsed.data && parsed.data.source) {
       return parsed.data.source;
     }
-  } catch (error) {
+  } catch (_error) {
     // Can't parse, assume not shared
     return null;
   }
@@ -670,13 +670,13 @@ export function findSharedContentVariants(sourcePath) {
               const relativePath = fullPath.replace(REPO_ROOT + '/', '');
               variants.push(relativePath);
             }
-          } catch (error) {
+          } catch (_error) {
             // Skip files that can't be parsed
             continue;
           }
         }
       }
-    } catch (error) {
+    } catch (_error) {
       // Skip directories we can't read
     }
   }
