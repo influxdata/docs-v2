@@ -64,15 +64,11 @@ function log(message, color = 'reset') {
  * Prompt user for input (works in TTY and non-TTY environments)
  */
 async function promptUser(question) {
-  // For non-TTY environments, return empty string
-  if (!process.stdin.isTTY) {
-    return '';
-  }
-
   const readline = await import('readline');
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
+    terminal: process.stdin.isTTY !== undefined ? process.stdin.isTTY : true,
   });
 
   return new Promise((resolve) => {
@@ -150,6 +146,8 @@ ${colors.bright}Options:${colors.reset}
   <draft-path>        Path to draft markdown file (positional argument)
   --from-draft <path> Path to draft markdown file
   --url <url>         Documentation URL for new content location
+  --products <list>   Comma-separated product keys (required for stdin)
+                      Examples: influxdb3_core, influxdb3_enterprise
   --follow-external   Include external (non-docs.influxdata.com) URLs
                       when extracting links from draft. Without this flag,
                       only local documentation links are followed.
@@ -161,8 +159,10 @@ ${colors.bright}Options:${colors.reset}
   --help              Show this help message
 
 ${colors.bright}Stdin Support:${colors.reset}
-  cat draft.md | yarn docs:create        Read draft from stdin
-  echo "# Content" | yarn docs:create    Create from piped content
+  When piping content from stdin, you must specify target products:
+
+  cat draft.md | yarn docs:create --products influxdb3_core
+  echo "# Content" | yarn docs:create --products influxdb3_core,influxdb3_enterprise
 
 ${colors.bright}Link Following:${colors.reset}
   By default, the script extracts links from your draft and prompts you
@@ -210,9 +210,9 @@ ${colors.bright}Examples:${colors.reset}
   # Include external links for selection
   yarn docs:create --follow-external drafts/api-guide.md
 
-  # Pipe content from stdin
-  cat drafts/quick-note.md | yarn docs:create
-  echo "# Test Content" | yarn docs:create
+  # Pipe content from stdin (requires --products)
+  cat drafts/quick-note.md | yarn docs:create --products influxdb3_core
+  echo "# Test Content" | yarn docs:create --products influxdb3_core
 
   # Preview changes
   yarn docs:create --from-draft drafts/new-feature.md --dry-run
@@ -1132,6 +1132,16 @@ async function main() {
   let stdinContent = null;
 
   if (hasStdin && !options.draft) {
+    // Stdin requires --products option
+    if (!options.products) {
+      log(
+        '\n✗ Error: --products is required when piping content from stdin',
+        'red'
+      );
+      log('Example: echo "# Content" | yarn docs:create --products influxdb3_core', 'yellow');
+      process.exit(1);
+    }
+
     // Import readDraftFromStdin
     const { readDraftFromStdin } = await import('./lib/file-operations.js');
     log('📥 Reading draft from stdin...', 'cyan');
