@@ -29,9 +29,10 @@ To compare these tools and deployment methods, see [Choose the right deployment 
 ## Prerequisites
 
 If you haven't already set up and configured your cluster, see how to
-[install InfluxDB Clustered](/influxdb3/clustered/install/). 
+[install InfluxDB Clustered](/influxdb3/clustered/install/).
 
 <!-- Hidden anchor for links to the kubectl/kubit/helm tabs -->
+
 <span id="kubectl-kubit-helm"></span>
 
 {{< tabs-wrapper >}}
@@ -41,7 +42,9 @@ If you haven't already set up and configured your cluster, see how to
 [helm](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 <!------------------------------- BEGIN kubectl ------------------------------->
+
 - [`kubectl` standard deployment (with internet access)](#kubectl-standard-deployment-with-internet-access)
 - [`kubectl` air-gapped deployment](#kubectl-air-gapped-deployment)
 
@@ -56,34 +59,37 @@ kubectl apply \
   --namespace influxdb
 ```
 
-> [!Note]
+> \[!Note]
 > Due to the additional complexity and maintenance requirements, using `kubectl apply` isn't
 > recommended for air-gapped environments.
 > Instead, consider using the [`kubit` CLI approach](#kubit-cli), which is specifically designed for air-gapped deployments.
 
 <!-------------------------------- END kubectl -------------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-------------------------------- BEGIN kubit CLI -------------------------------->
+
 ## Standard and air-gapped deployments
 
-_This approach avoids the need for installing the kubit operator in the cluster,
-making it ideal for air-gapped clusters._
+*This approach avoids the need for installing the kubit operator in the cluster,
+making it ideal for air-gapped clusters.*
 
-> [!Important]
+> \[!Important]
 > For air-gapped deployment, ensure you have [configured access to a private registry for InfluxDB images](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/#configure-access-to-the-influxDB-container-registry).
 
 1. On a machine with internet access, download the [`kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)--for example:
 
    ```bash
-   curl -L -o kubit https://github.com/kubecfg/kubit/archive/refs/tags/v0.0.20.tar.gz
+   curl -L -o kubit https://github.com/kubecfg/kubit/archive/refs/tags/v0.0.22.tar.gz
    chmod +x kubit
    ```
 
-   Replace {{% code-placeholder-key %}}`v0.0.20`{{% /code-placeholder-key%}} with the [latest release version](https://github.com/kubecfg/kubit/releases/latest).
+   Replace {{% code-placeholder-key %}}`v0.0.22`{{% /code-placeholder-key%}} with the [latest release version](https://github.com/kubecfg/kubit/releases/latest).
 
 2. If deploying InfluxDB in an air-gapped environment (without internet access),
-    transfer the binary to your air-gapped environment.
+   transfer the binary to your air-gapped environment.
 
 3. Use the `kubit local apply` command to process your [custom-configured `myinfluxdb.yml`](/influxdb3/clustered/install/set-up-cluster/configure-cluster/directly/) locally
    and apply the resulting resources to your cluster:
@@ -108,7 +114,9 @@ applies the resulting Kubernetes resources directly to your cluster.
 
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!-------------------------------- BEGIN Helm --------------------------------->
+
 - [Helm standard deployment (with internet access)](#helm-standard-deployment-with-internet-access)
 - [Helm air-gapped deployment](#helm-air-gapped-deployment)
 
@@ -145,7 +153,7 @@ helm upgrade influxdb influxdata/influxdb3-clustered \
 
 ## Helm air-gapped deployment
 
-> [!Important]
+> \[!Important]
 > For air-gapped deployment, ensure you have [configured access to a private registry for InfluxDB images and the kubit operator](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#configure-access-to-the-influxDB-container-registry).
 
 1. On a machine with internet access, download the Helm chart:
@@ -153,14 +161,14 @@ helm upgrade influxdb influxdata/influxdb3-clustered \
    ```bash
    # Add the InfluxData repository
    helm repo add influxdata https://helm.influxdata.com/
-   
+
    # Update the repositories
    helm repo update
-   
+
    # Download the chart as a tarball
    helm pull influxdata/influxdb3-clustered --version X.Y.Z
    ```
-   
+
    Replace `X.Y.Z` with the specific chart version you want to use.
 
 2. Transfer the chart tarball to your air-gapped environment using your secure file transfer method.
@@ -188,7 +196,8 @@ helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
   --namespace influxdb
 ```
 
-> [!Note]
+> \[!Note]
+>
 > #### kubit's role in air-gapped environments
 >
 > When deploying with Helm in an air-gapped environment:
@@ -200,6 +209,7 @@ helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
 > This is why you need to [mirror InfluxDB images and kubit operator images](/influxdb3/clustered/install/set-up-cluster/configure-cluster/use-helm/#mirror-influxdb-images) for air-gapped deployments.
 
 <!--------------------------------- END Helm ---------------------------------->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -208,7 +218,7 @@ helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
 Kubernetes deployments take some time to complete. To check on the status of a
 deployment, use the `kubectl get` command:
 
-> [!Note]
+> \[!Note]
 > The following example uses the [`yq` command-line YAML parser](https://github.com/mikefarah/yq)
 > to parse and format the YAML output.
 > You can also specify the output as `json` and use the

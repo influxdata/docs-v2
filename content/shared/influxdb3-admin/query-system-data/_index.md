@@ -1,5 +1,6 @@
 <!--Shortcode-->
-{{% product-name %}} stores data related to the database server, queries, and tables in _system tables_.
+
+{{% product-name %}} stores data related to the database server, queries, and tables in *system tables*.
 You can query the system tables for information about your running server, databases, and and table schemas.
 
 ## Query system tables
@@ -8,11 +9,12 @@ You can query the system tables for information about your running server, datab
   - [Examples](#examples)
     - [Show tables](#show-tables)
     - [View column information for a table](#view-column-information-for-a-table)
+    - [Recently executed queries](#recently-executed-queries)
+    - [Query plugin files](#query-plugin-files)
 
-### Use the HTTP query API 
+### Use the HTTP query API
 
 Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information about your database server and table schemas in {{% product-name %}}.
-
 
 To execute a query, send a `GET` or `POST` request to the endpoint:
 
@@ -21,16 +23,17 @@ To execute a query, send a `GET` or `POST` request to the endpoint:
 
 Include the following parameters:
 
-- `q`: _({{< req >}})_ The SQL query to execute.
-- `db`: _({{< req >}})_ The database to execute the query against.
-- `params`: A JSON object containing parameters to be used in a _parameterized query_.
+- `q`: *({{< req >}})* The SQL query to execute.
+- `db`: *({{< req >}})* The database to execute the query against.
+- `params`: A JSON object containing parameters to be used in a *parameterized query*.
 - `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
   JSONL (`jsonl`) is preferred because it streams results back to the client.
   `pretty` is for human-readable output. Default is `json`.
 
 #### Examples
 
-> [!Note]
+> \[!Note]
+>
 > #### system\_ sample data
 >
 > In examples, tables with `"table_name":"system_` are user-created tables for CPU, memory, disk,
@@ -88,8 +91,8 @@ A table has one of the following `table_schema` values:
 The following query sends a `POST` request that executes an SQL query to
 retrieve information about columns in the sample `system_swap` table schema:
 
-_Note: when you send a query in JSON, you must escape single quotes
-that surround field names._
+*Note: when you send a query in JSON, you must escape single quotes
+that surround field names.*
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
@@ -133,4 +136,59 @@ The output is similar to the following:
 ```jsonl
 {"id":"cdd63409-1822-4e65-8e3a-d274d553dbb3","phase":"success","issue_time":"2025-01-20T17:01:40.690067","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.032689S","permit_duration":"PT0.000202S","execute_duration":"PT0.000223S","end2end_duration":"PT0.033115S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
 {"id":"47f8d312-5e75-4db2-837a-6fcf94c09927","phase":"success","issue_time":"2025-01-20T17:02:32.627782","query_type":"sql","query_text":"show tables","partitions":0,"parquet_files":0,"plan_duration":"PT0.000583S","permit_duration":"PT0.000015S","execute_duration":"PT0.000063S","end2end_duration":"PT0.000662S","compute_duration":"P0D","max_memory":0,"success":true,"running":false,"cancelled":false}
+```
+
+#### Query plugin files
+
+To view loaded Processing Engine plugins, query the `plugin_files` system table in the `_internal` database.
+
+The `system.plugin_files` table provides information about plugin files loaded by the Processing Engine:
+
+**Columns:**
+
+- `plugin_name` (String): Name of a trigger using this plugin
+- `file_name` (String): Plugin filename
+- `file_path` (String): Full server path to the plugin file
+- `size_bytes` (Int64): File size in bytes
+- `last_modified` (Int64): Last modification timestamp (milliseconds since epoch)
+
+```bash
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "_internal",
+    "q": "SELECT * FROM system.plugin_files",
+    "format": "jsonl"
+  }'
+```
+
+The output is similar to the following:
+
+```jsonl
+{"plugin_name":"my_trigger","file_name":"my_plugin.py","file_path":"/path/to/plugins/my_plugin.py","size_bytes":2048,"last_modified":1704067200000}
+{"plugin_name":"scheduled_trigger","file_name":"scheduler.py","file_path":"/path/to/plugins/scheduler.py","size_bytes":4096,"last_modified":1704153600000}
+```
+
+**Filter plugins by trigger name:**
+
+```bash
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "_internal",
+    "q": "SELECT * FROM system.plugin_files WHERE plugin_name = '"'my_trigger'"'",
+    "format": "jsonl"
+  }'
+```
+
+**Find plugins by file pattern:**
+
+```bash
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --json '{
+    "db": "_internal",
+    "q": "SELECT * FROM system.plugin_files WHERE file_name LIKE '"'%scheduler%'"'",
+    "format": "jsonl"
+  }'
 ```
