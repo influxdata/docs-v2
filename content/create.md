@@ -7,7 +7,10 @@ test_only: true
 
 Learn how to create and edit InfluxData documentation.
 
-## Common workflows
+- [Submit an issue to request new or updated documentation](#submit-an-issue-to-request-new-or-updated-documentation)
+- [Edit an existing page in your browser](#edit-an-existing-page-in-your-browser)
+- [Create and edit locally with the docs-v2 repository](#create-and-edit-locally-with-the-docs-v2-repository)
+- [Helpful resources](#other-resources)
 
 ## Submit an issue to request new or updated documentation
 
@@ -21,21 +24,40 @@ Learn how to create and edit InfluxData documentation.
 1. Visit <https://docs.influxdata.com> public docs
 2. Search, Ask AI, or navigate to find the page to edit--for example, <https://docs.influxdata.com/influxdb3/cloud-serverless/get-started/>
 3. Click the "Edit this page" link at the bottom of the page.
-4. This opens the GitHub repository to the file that generates the page
-5. Click the pencil icon to edit the file in your browser
-6. [Commit and create a pull request](#commit-and-create-a-pull-request)
+   This opens the GitHub repository to the file that generates the page
+4. Click the pencil icon to edit the file in your browser
+5. [Commit and create a pull request](#commit-and-create-a-pull-request)
 
-**Example**: Editing a shared content page
+## Create and edit locally with the docs-v2 repository
 
-Navigate to <https://docs.influxdata.com/influxdb3/core/>
+Use `docs` scripts with AI agents to help you create and edit documentation locally, especially when working with shared content for multiple products.
 
-## Edit locally with the docs-v2 repository
+**Prerequisites**:
 
-**Prerquisites**:
+1. [Clone or fork the docs-v2 repository](https://github.com/influxdata/docs-v2/):
 
-- [Fork the docs-v2 repository](https://github.com/influxdata/docs-v2/fork)
-- [Install Yarn](https://yarnpkg.com/getting-started/install)
-- Optional: [Set up GitHub CLI](https://cli.github.com/manual/)
+   ```bash
+   git clone https://github.com/influxdata/docs-v2.git
+   cd docs-v2
+   ```
+2. [Install Yarn](https://yarnpkg.com/getting-started/install)
+3. Run `yarn` in the repository root to install dependencies
+4. Optional: [Set up GitHub CLI](https://cli.github.com/manual/)
+
+> \[!Tip]
+> To run and test your changes locally, enter the following command in your terminal:
+>
+> ```bash
+> yarn hugo server
+> ```
+>
+> *To refresh shared content after making changes, `touch` or edit the frontmatter file, or stop the server (Ctrl+C) and restart it.*
+>
+> To list all available scripts, run:
+>
+> ```bash
+> yarn run
+> ```
 
 ### Edit an existing page locally
 
@@ -45,48 +67,61 @@ Use the `yarn docs:edit` command to open an existing page in your editor.
 yarn docs:edit https://docs.influxdata.com/influxdb3/enterprise/get-started/
 ```
 
-### Create shared content for multiple versions
+### Create content locally
+
+Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatter and generate new content.
+
+- The `yarn docs:create` command generates a prompt file from a draft and your product selections.
+- AI agents (`claude`, Copilot Agent mode, `codex`) can use the prompt file to generate content and frontmatter.
+
+> \[!Tip]
+>
+> `docs-v2` contains custom configuration for agents like Claude and Copilot Agent mode.
 
 <!-- Coming soon: generate content from an issue with labels -->
 
-### Generate content and frontmatter from the command line
-
-#### Example
-
-Navigate to the page you want to edit on `https://docs.influxdata.com`--for example, <https://docs.influxdata.com/influxdb3/core/>
-
-```console
-  yarn docs:create <draft-path>           Create from draft
-  yarn docs:create <url>                  Create page at URL
-  yarn docs:create --url <url>            Create page at URL
-  yarn docs:create --url <url> --draft <path>  Create at URL with draft content
-  yarn docs:create --url url1 --url url2  Process multiple URLs
-
-  <draft-path>      Path to draft markdown file (positional argument)
-  <url>             Documentation URL (positional, if starts with / or
-                    contains docs.influxdata.com)
-  --draft <path>    Path to draft markdown file
-  --from <path>     Alias for --draft
-  --url <url>       Documentation URL (can specify multiple times)
-  --urls <list>     Comma-separated list of URLs
-  --context-only    Stop after context preparation
-                    (for non-Claude tools)
-```
-
 ### Generate content and frontmatter from a draft
 
-1. Run the `docs:create` command with the path to your draft file.
+{{% tabs-wrapper %}}
+{{% tabs %}}
+[Claude Code](#)
+[Other AI agents](#)
+{{% /tabs %}}
+{{% tab-content %}}
 
-   - If run in a Claude Code prompt, it generates content and frontmatter based on the draft and the products you select.
-   - If run in your shell, it generates a prompt for use with any agent (Claude, Copilot Agent mode, OpenAI GPT).
+1. Open a Claude Code prompt:
 
    ```bash
-   yarn docs:create --draft .context/drafts/"Upgrading Enterprise 3 (draft).md"
+   claude code
    ```
 
-2. [Review, commit, and create a pull request](#review-commit-and-create-a-pull-request)
+2. In the prompt, run the `docs:create` command with the path to your draft file.
+
+   ```bash
+   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md"
+   ```
+
+3. When prompted, select the products to associate with the content.
+
+The script first generates a prompt file, then the agent automatically uses it to generate content and frontmatter based on the draft and the products you select.
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+1. In your terminal, run the `docs:create` command with the path to your draft file.
+
+   ```bash
+   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md"
+   ```
+2. When prompted, select the products to associate with the content.
+   The script generates a prompt file and returns the file path.
+3. Provide the prompt file to your preferred agent (`claude`, Copilot Agent mode, `codex`) to generate content and frontmatter based on the draft and the products you selected.
+   {{% /tab-content %}}
+   {{< /tabs-wrapper >}}
 
 ## Review, commit, and create a pull request
+
+After you create or edit content, test and review your changes, and then create a pull request.
 
 > \[!Important]
 >
@@ -95,18 +130,41 @@ Navigate to the page you want to edit on `https://docs.influxdata.com`--for exam
 > Always review and validate AI-generated content for accuracy.
 > Make sure example commands are correct for the version you're documenting.
 
+### Test and review your changes
+
+Run a local Hugo server to preview your changes:
+
+```bash
+yarn hugo server
+```
+
+Visit <http://localhost:1313> to review your changes in the browser.
+
+> \[!Note]
+> If you need to preview changes in a live production-like environment
+> that you can also share with others,
+> the Docs team can deploy your branch to the staging site.
+
 ### Commit and create a pull request
 
 1. Commit your changes to a new branch
 2. Fix any issues found by automated checks
 3. Push the branch to your fork or to the docs-v2 repository
 
+```bash
+git add content
+git commit -m "feat(product): Your commit message"
+git push origin your-branch-name
+```
+
 ### Create a pull request
 
 1. Create a pull request against the `master` branch of the docs-v2 repository
-2. Wait for automated checks (Hugo build and link checks) to complete
-3. Add reviewers and request reviews
-4. After approval, merge the pull request
+2. Add reviewers:
+   - `@influxdata/docs-team`
+   - team members familiar with the product area
+   - Optionally, assign Copilot to review
+3. After approval and automated checks are successful, merge the pull request (if you have permissions) or wait for the docs team to merge it.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -116,15 +174,20 @@ Navigate to the page you want to edit on `https://docs.influxdata.com`--for exam
 {{% tab-content %}}
 
 1. Visit [influxdata/docs-v2 pull requests on GitHub](https://github.com/influxdata/docs-v2/pulls)
-2. Edit PR title and description
+2. Optional: edit PR title and description
 3. Optional: set to draft if it needs more work
-4. Assign reviewers
-5. Optionally, assign Copilot to review
-   {{% /tab-content %}}
-   {{% tab-content %}}
+4. When ready for review, assign `@influxdata/docs-team` and other reviewers
+
+{{% /tab-content %}}
+{{% tab-content %}}
 
 ```bash
-gh pr create
+gh pr create \
+  --base master \
+  --head your-branch-name \
+  --title "Your PR title" \
+  --body "Your PR description" \
+  --reviewer influxdata/docs-team,<other-reviewers>
 ```
 
 {{% /tab-content %}}
@@ -132,5 +195,6 @@ gh pr create
 
 ## Other resources
 
-<http://localhost:1313/example/>
-<https://app.kapa.ai>
+- `DOCS-*.md`: Documentation standards and guidelines
+- <http://localhost:1313/example/>: View shortcode examples
+- <https://app.kapa.ai>: Review content gaps identified from Ask AI answers
