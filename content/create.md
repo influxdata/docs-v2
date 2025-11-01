@@ -76,7 +76,7 @@ Use the `npx docs create` command with your AI agent tool to scaffold frontmatte
 - `npx docs create` is designed to work automatically with `claude`, but you can
   use the generated prompt file with any AI agent (for example, `copilot` or `codex`)
 
-> \[!Tip]
+> [!Tip]
 >
 > `docs-v2` contains custom configuration for agents like Claude and Copilot Agent mode.
 
