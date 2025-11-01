@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "InfluxDB documentation",
   "license": "MIT",
+  "bin": {
+    "docs": "scripts/docs-cli.js"
+  },
   "resolutions": {
     "serialize-javascript": "^6.0.2"
   },

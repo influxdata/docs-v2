@@ -73,10 +73,16 @@ function isClaudeCode() {
 /**
  * Output prompt for use with external tools
  * @param {string} prompt - The generated prompt text
- * @param {boolean} printPrompt - If true, print to stdout; else save to file
+ * @param {boolean} printPrompt - If true, force print to stdout
  */
 function outputPromptForExternalUse(prompt, printPrompt = false) {
-  if (printPrompt) {
+  // Auto-detect if stdout is being piped
+  const isBeingPiped = !process.stdout.isTTY;
+
+  // Print prompt text if explicitly requested OR if being piped
+  const shouldPrintText = printPrompt || isBeingPiped;
+
+  if (shouldPrintText) {
     // Output prompt text to stdout
     console.log(prompt);
   } else {
@@ -167,8 +173,12 @@ function printUsage() {
 ${colors.bright}Documentation Content Scaffolding${colors.reset}
 
 ${colors.bright}Usage:${colors.reset}
-  yarn docs:create <draft-path>           Create from draft
-  yarn docs:create --url <url> --from-draft <path>  Create at URL with draft
+  docs create <draft-path>                Create from draft
+  docs create --url <url> --from-draft <path>  Create at URL with draft
+
+  # Or use with yarn:
+  yarn docs:create <draft-path>
+  yarn docs:create --url <url> --from-draft <path>
 
 ${colors.bright}Options:${colors.reset}
   <draft-path>        Path to draft markdown file (positional argument)
@@ -181,8 +191,7 @@ ${colors.bright}Options:${colors.reset}
                       only local documentation links are followed.
   --context-only      Stop after context preparation
                       (for non-Claude tools)
-  --print-prompt      Output prompt text to stdout instead of file path
-                      (when running outside Claude Code)
+  --print-prompt      Force prompt text output (auto-enabled when piping)
   --proposal <path>   Import and execute proposal from JSON file
   --dry-run           Show what would be created without creating
   --yes               Skip confirmation prompt
@@ -191,8 +200,8 @@ ${colors.bright}Options:${colors.reset}
 ${colors.bright}Stdin Support:${colors.reset}
   When piping content from stdin, you must specify target products:
 
-  cat draft.md | yarn docs:create --products influxdb3_core
-  echo "# Content" | yarn docs:create --products influxdb3_core,influxdb3_enterprise
+  cat draft.md | docs create --products influxdb3_core
+  echo "# Content" | docs create --products influxdb3_core,influxdb3_enterprise
 
 ${colors.bright}Link Following:${colors.reset}
   By default, the script extracts links from your draft and prompts you
@@ -204,69 +213,54 @@ ${colors.bright}Link Following:${colors.reset}
   Local documentation links are always available for selection.
   Use --follow-external to also include external URLs (GitHub, etc.)
 
-${colors.bright}Workflow (Create from draft):${colors.reset}
+${colors.bright}Workflow (Inside Claude Code):${colors.reset}
   1. Create a draft markdown file with your content
-  2. Run: yarn docs:create drafts/new-feature.md
+  2. Run: docs create drafts/new-feature.md
   3. Script runs all agents automatically
   4. Review and confirm to create files
 
-${colors.bright}Workflow (Create at specific URL):${colors.reset}
+${colors.bright}Workflow (Pipe to external agent):${colors.reset}
   1. Create draft: vim drafts/new-feature.md
-  2. Run: yarn docs:create \\
-          --url https://docs.influxdata.com/influxdb3/core/admin/new-feature/ \\
-          --from-draft drafts/new-feature.md
-  3. Script determines structure from URL and uses draft content
-  4. Review and confirm to create files
-
-${colors.bright}Workflow (Manual - for non-Claude tools):${colors.reset}
-  1. Prepare context:
-     yarn docs:create --context-only drafts/new-feature.md
-  2. Run your AI tool with templates from scripts/templates/
-  3. Save proposal to .tmp/scaffold-proposal.json
-  4. Execute:
-     yarn docs:create --proposal .tmp/scaffold-proposal.json
+  2. Pipe to your AI tool (prompt auto-detected):
+     docs create drafts/new-feature.md --products X | claude -p
+     docs create drafts/new-feature.md --products X | copilot -p
+  3. AI generates files based on prompt
 
 ${colors.bright}Examples:${colors.reset}
-  # Create from draft (AI determines location)
+  # Inside Claude Code - automatic execution
+  docs create drafts/new-feature.md
+
+  # Pipe to external AI tools - prompt auto-detected
+  docs create drafts/new-feature.md --products influxdb3_core | claude -p
+  docs create drafts/new-feature.md --products influxdb3_core | copilot -p
+
+  # Pipe from stdin
+  cat drafts/quick-note.md | docs create --products influxdb3_core | claude -p
+  echo "# Quick note" | docs create --products influxdb3_core | copilot -p
+
+  # Get prompt file path (when not piping)
+  docs create drafts/new-feature.md  # Outputs: .tmp/scaffold-prompt.txt
+
+  # Still works with yarn
   yarn docs:create drafts/new-feature.md
 
-  # Create at specific URL with draft content
-  yarn docs:create --url /influxdb3/core/admin/new-feature/ \\
-                   --from-draft drafts/new-feature.md
+  # Include external links for context selection
+  docs create --follow-external drafts/api-guide.md
 
-  # Create with linked context (prompts for link selection)
-  yarn docs:create drafts/new-feature.md
+${colors.bright}Smart Behavior:${colors.reset}
+  INSIDE Claude Code:
+    → Automatically runs Task() agent to generate files
 
-  # Include external links for selection
-  yarn docs:create --follow-external drafts/api-guide.md
+  PIPING to another tool:
+    → Auto-detects piping and outputs prompt text
+    → No --print-prompt flag needed
 
-  # Pipe content from stdin (requires --products)
-  cat drafts/quick-note.md | yarn docs:create --products influxdb3_core
-  echo "# Test Content" | yarn docs:create --products influxdb3_core
-
-  # Output prompt for use with other AI tools
-  # (Outside Claude Code: outputs file path by default)
-  yarn docs:create drafts/new-feature.md  # Outputs: .tmp/scaffold-prompt.txt
-
-  # Use --print-prompt to output prompt text to stdout
-  yarn docs:create --print-prompt drafts/new-feature.md | llm -m gpt-4
-  yarn docs:create --print-prompt drafts/new-feature.md > prompt.txt
-
-  # Preview changes
-  yarn docs:create --from-draft drafts/new-feature.md --dry-run
-
-${colors.bright}Environment-Aware Behavior:${colors.reset}
-  When running INSIDE Claude Code:
-    - Automatically runs AI analysis with Task() agent
-    - Creates file structure based on AI recommendations
-
-  When running OUTSIDE Claude Code:
-    - Outputs prompt file path to stdout by default
-    - Use --print-prompt to output prompt text instead
-    - Use the prompt with other AI tools (llm, ChatGPT, etc.)
+  INTERACTIVE (not piping):
+    → Outputs prompt file path: .tmp/scaffold-prompt.txt
+    → Use with: code .tmp/scaffold-prompt.txt
 
 ${colors.bright}Note:${colors.reset}
-  To edit existing pages, use: yarn docs:edit <url>
+  To edit existing pages, use: docs edit <url>
 `);
 }
 
