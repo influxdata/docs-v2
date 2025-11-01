@@ -85,7 +85,7 @@ In the examples below, replace the following:
 
 {{% code-placeholders "my-host-01|my-cluster-01" %}}
 
-### Quick-start influxdb3 server 
+### Quick-start influxdb3 server
 
 <!--pytest.mark.skip-->
 

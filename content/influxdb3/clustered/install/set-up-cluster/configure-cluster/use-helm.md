@@ -22,14 +22,14 @@ provides an alternative method for deploying your InfluxDB cluster using
 resource. When using Helm, apply configuration options in a
 a `values.yaml` on your local machine.
 
- InfluxData provides the following items:
+InfluxData provides the following items:
 
 - **`influxdb-docker-config.json`**: an authenticated Docker configuration file.
   The InfluxDB Clustered software is in a secure container registry.
   This file grants access to the collection of container images required to
   install InfluxDB Clustered.
 
----
+***
 
 ## Configuration data
 
@@ -40,23 +40,24 @@ available:
   API endpoints
 - **PostgreSQL-style data source name (DSN)**: used to access your
   PostgreSQL-compatible database that stores the InfluxDB Catalog.
-- **Object store credentials** _(AWS S3 or S3-compatible)_
+- **Object store credentials** *(AWS S3 or S3-compatible)*
   - Endpoint URL
   - Access key
   - Bucket name
   - Region (required for S3, may not be required for other object stores)
-- **Local storage information** _(for ingester pods)_
+- **Local storage information** *(for ingester pods)*
   - Storage class
   - Storage size
 
 InfluxDB is deployed to a Kubernetes namespace which, throughout the following
-installation procedure, is referred to as the _target_ namespace.
+installation procedure, is referred to as the *target* namespace.
 For simplicity, we assume this namespace is `influxdb`, however
 you may use any name you like.
 
-> [!Note]
+> \[!Note]
+>
 > #### Set namespaceOverride if using a namespace other than influxdb
-> 
+>
 > If you use a namespace name other than `influxdb`, update the `namespaceOverride`
 > field in your `values.yaml` to use your custom namespace name.
 
@@ -85,21 +86,21 @@ which simplifies the installation and management of the InfluxDB Clustered packa
 It manages the application of the jsonnet templates used to install, manage, and
 update an InfluxDB cluster.
 
-> [!Note]
+> \[!Note]
 > If you already installed the `kubecfg kubit` operator separately when
 > [setting up prerequisites](/influxdb3/clustered/install/set-up-cluster/prerequisites/#install-the-kubecfg-kubit-operator)
 > for your cluster, in your `values.yaml`, set `skipOperator` to `true`.
-> 
+>
 > ```yaml
 > skipOperator: true
 > ```
 
 ## Configure your cluster
 
-1.  [Install Helm](#install-helm)
-2.  [Create a values.yaml file](#create-a-valuesyaml-file)
-3.  [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
-4.  [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
+1. [Install Helm](#install-helm)
+2. [Create a values.yaml file](#create-a-valuesyaml-file)
+3. [Configure access to the InfluxDB container registry](#configure-access-to-the-influxdb-container-registry)
+4. [Modify the configuration file to point to prerequisites](#modify-the-configuration-file-to-point-to-prerequisites)
 
 ### Install Helm
 
@@ -136,11 +137,11 @@ In both scenarios, you need a valid container registry secret file.
 Use [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
 to create a container registry secret file.
 
-1.  [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
-2.  Use the following command to create a container registry secret file and
-    retrieve the necessary secrets:
+1. [Install crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane#installation)
+2. Use the following command to create a container registry secret file and
+   retrieve the necessary secrets:
 
-{{% code-placeholders "PACKAGE_VERSION" %}}
+{{% code-placeholders "PACKAGE\_VERSION" %}}
 
 ```sh
 mkdir /tmp/influxdbsecret
@@ -152,12 +153,12 @@ DOCKER_CONFIG=/tmp/influxdbsecret \
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace {{% code-placeholder-key %}}`PACKAGE_VERSION`{{% /code-placeholder-key %}}
 with your InfluxDB Clustered package version.
 
----
+***
 
 If your Docker configuration is valid and you’re able to connect to the container
 registry, the command succeeds and the output is the JSON manifest for the Docker
@@ -206,6 +207,7 @@ Error: fetching manifest us-docker.pkg.dev/influxdb2-artifacts/clustered/influxd
 {{% /tabs %}}
 
 {{% tab-content %}}
+
 <!--------------------------- BEGIN Public Registry --------------------------->
 
 #### Public registry
@@ -229,8 +231,10 @@ If you change the name of this secret, you must also change the value of the
 `imagePullSecrets.name` field in your `values.yaml`.
 
 <!---------------------------- END Public Registry ---------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!--------------------------- BEGIN Private Registry -------------------------->
 
 #### Private registry (air-gapped)
@@ -297,7 +301,8 @@ cat /tmp/kubit-images.txt | xargs -I% crane cp % YOUR_PRIVATE_REGISTRY/%
 
 Configure your `values.yaml` to use your private registry:
 
-{{% code-placeholders "REGISTRY_HOSTNAME" %}}
+{{% code-placeholders "REGISTRY\_HOSTNAME" %}}
+
 ```yaml
 # Configure registry override for all images
 images:
@@ -315,6 +320,7 @@ kubit:
 imagePullSecrets:
   - name: your-registry-pull-secret
 ```
+
 {{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`REGISTRY_HOSTNAME`{{% /code-placeholder-key %}} with your private registry hostname.
@@ -344,13 +350,13 @@ To configure ingress, provide values for the following fields in your
   Provide the hostnames that Kubernetes should use to expose the InfluxDB API
   endpoints--for example: `{{< influxdb/host >}}`.
 
-  _You can provide multiple hostnames. The ingress layer accepts incoming
+  *You can provide multiple hostnames. The ingress layer accepts incoming
   requests for all listed hostnames. This can be useful if you want to have
-  distinct paths for your internal and external traffic._
+  distinct paths for your internal and external traffic.*
 
-  > [!Note]
+  > \[!Note]
   > You are responsible for configuring and managing DNS. Options include:
-  > 
+  >
   > - Manually managing DNS records
   > - Using [external-dns](https://github.com/kubernetes-sigs/external-dns) to
   >   synchronize exposed Kubernetes services and ingresses with DNS providers.
@@ -360,16 +366,16 @@ To configure ingress, provide values for the following fields in your
   (Optional): Provide the name of the secret that contains your TLS certificate
   and key. The examples in this guide use the name `ingress-tls`.
 
-  _The `tlsSecretName` field is optional. You may want to use it if you already
-  have a TLS certificate for your DNS name._
+  *The `tlsSecretName` field is optional. You may want to use it if you already
+  have a TLS certificate for your DNS name.*
 
-  > [!Note]
+  > \[!Note]
   > Writing to and querying data from InfluxDB does not require TLS.
   > For simplicity, you can wait to enable TLS before moving into production.
   > For more information, see Phase 4 of the InfluxDB Clustered installation
   > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
- {{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
+{{% code-callout "ingress-tls|cluster-host.com" "green" %}}
 
 ```yaml
 ingress:
@@ -404,14 +410,14 @@ following fields in your `values.yaml`:
   - `bucket`: Object storage bucket name
   - `s3`:
     - `endpoint`: Object storage endpoint URL
-    - `allowHttp`: _Set to `true` to allow unencrypted HTTP connections_
+    - `allowHttp`: *Set to `true` to allow unencrypted HTTP connections*
     - `accessKey.value`: Object storage access key
-      _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
+      *(can use a `value` literal or `valueFrom` to retrieve the value from a secret)*
     - `secretKey.value`: Object storage secret key
-      _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
+      *(can use a `value` literal or `valueFrom` to retrieve the value from a secret)*
     - `region`: Object storage region
 
-{{% code-placeholders "S3_(URL|ACCESS_KEY|SECRET_KEY|BUCKET_NAME|REGION)" %}}
+{{% code-placeholders "S3\_(URL|ACCESS\_KEY|SECRET\_KEY|BUCKET\_NAME|REGION)" %}}
 
 ```yml
 objectStore:
@@ -441,7 +447,7 @@ objectStore:
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace the following:
 
@@ -451,7 +457,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`S3_SECRET_KEY`{{% /code-placeholder-key %}}: Object storage secret key
 - {{% code-placeholder-key %}}`S3_REGION`{{% /code-placeholder-key %}}: Object storage region
 
----
+***
 
 <!----------------------------------- END S3 ---------------------------------->
 
@@ -467,11 +473,11 @@ following fields in your `values.yaml`:
   - `bucket`: Azure Blob Storage bucket name
   - `azure`:
     - `accessKey.value`: Azure Blob Storage access key
-      _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
+      *(can use a `value` literal or `valueFrom` to retrieve the value from a secret)*
     - `account.value`: Azure Blob Storage account ID
-      _(can use a `value` literal or `valueFrom` to retrieve the value from a secret)_
+      *(can use a `value` literal or `valueFrom` to retrieve the value from a secret)*
 
-{{% code-placeholders "AZURE_(BUCKET_NAME|ACCESS_KEY|STORAGE_ACCOUNT)" %}}
+{{% code-placeholders "AZURE\_(BUCKET\_NAME|ACCESS\_KEY|STORAGE\_ACCOUNT)" %}}
 
 ```yml
 objectStore:
@@ -492,7 +498,7 @@ objectStore:
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace the following:
 
@@ -500,7 +506,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`AZURE_ACCESS_KEY`{{% /code-placeholder-key %}}: Azure Blob Storage access key
 - {{% code-placeholder-key %}}`AZURE_STORAGE_ACCOUNT`{{% /code-placeholder-key %}}: Azure Blob Storage account ID
 
----
+***
 
 <!--------------------------------- END AZURE --------------------------------->
 
@@ -520,7 +526,7 @@ following fields in your `values.yaml`:
     - `serviceAccountSecret.key`: the key inside of your Google IAM secret that
       contains your Google IAM account credentials
 
-{{% code-placeholders "GOOGLE_(BUCKET_NAME|IAM_SECRET|CREDENTIALS_KEY)" %}}
+{{% code-placeholders "GOOGLE\_(BUCKET\_NAME|IAM\_SECRET|CREDENTIALS\_KEY)" %}}
 
 ```yml
 objectStore:
@@ -540,7 +546,7 @@ objectStore:
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace the following:
 
@@ -549,11 +555,11 @@ Replace the following:
 - {{% code-placeholder-key %}}`GOOGLE_IAM_SECRET`{{% /code-placeholder-key %}}:
   the Kubernetes Secret name that contains your Google IAM service account
   credentials
-- {{% code-placeholder-key %}}`GOOGLE_CREDENTIALS_KEY`{{% /code-placeholder-key %}}: 
+- {{% code-placeholder-key %}}`GOOGLE_CREDENTIALS_KEY`{{% /code-placeholder-key %}}:
   the key inside of your Google IAM secret that contains your Google IAM account
   credentials
 
----
+***
 
 <!--------------------------------- END AZURE --------------------------------->
 
@@ -567,7 +573,7 @@ metadata about your time series data.
 To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `values.yaml`:
 
-> [!Note]
+> \[!Note]
 > We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
 > as secrets in your Kubernetes cluster.
 
@@ -575,7 +581,7 @@ provide values for the following fields in your `values.yaml`:
   - `SecretName`: Secret name
   - `SecretKey`: Key in the secret that contains the DSN
 
-{{% code-placeholders "SECRET_(NAME|KEY)" %}}
+{{% code-placeholders "SECRET\_(NAME|KEY)" %}}
 
 ```yml
 catalog:
@@ -590,7 +596,7 @@ catalog:
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace the following:
 
@@ -599,58 +605,64 @@ Replace the following:
 - {{% code-placeholder-key %}}`SECRET_KEY`{{% /code-placeholder-key %}}:
   Key in the secret that references your PostgreSQL-compatible DSN
 
----
+***
 
-> [!Warning]
+> \[!Warning]
 >
 > ##### Percent-encode special symbols in PostgreSQL DSNs
-> 
+>
 > Special symbols in PostgreSQL DSNs should be percent-encoded to ensure they
 > are parsed correctly by InfluxDB Clustered. This is important to consider when
 > using DSNs containing auto-generated passwords which may include special
 > symbols to make passwords more secure.
-> 
+>
 > A DSN with special characters that are not percent-encoded result in an error
 > similar to:
-> 
+>
 > ```txt
 > Catalog DSN error: A catalog error occurred: unhandled external error: error with configuration: invalid port number
 > ```
-> 
+>
 > For more information, see the [PostgreSQL Connection URI docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
 >
 > {{< expand-wrapper >}}
-{{% expand "View percent-encoded DSN example" %}}
-To use the following DSN containing special characters:
+> {{% expand "View percent-encoded DSN example" %}}
+> To use the following DSN containing special characters:
 
 {{% code-callout "#" %}}
+
 ```txt
 postgresql://postgres:meow#meow@my-fancy.cloud-database.party:5432/postgres
 ```
+
 {{% /code-callout %}}
 
 You must percent-encode the special characters in the connection string:
 
 {{% code-callout "%23" %}}
+
 ```txt
 postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 ```
+
 {{% /code-callout %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-> [!Note]
-> 
+> \[!Note]
+>
 > ##### PostgreSQL instances without TLS or SSL
-> 
+>
 > If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
 > the `sslmode=disable` parameter in the DSN. For example:
-> 
+>
 > {{% code-callout "sslmode=disable" %}}
+
 ```
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
+
 {{% /code-callout %}}
 
 #### Configure local storage for ingesters
@@ -665,7 +677,7 @@ following fields in your `values.yaml`:
     This differs based on the Kubernetes environment and desired storage characteristics.
   - `storage`: Storage size. We recommend a minimum of 2 gibibytes (`2Gi`).
 
-{{% code-placeholders "STORAGE_(CLASS|SIZE)" %}}
+{{% code-placeholders "STORAGE\_(CLASS|SIZE)" %}}
 
 ```yaml
 ingesterStorage:
@@ -679,7 +691,7 @@ ingesterStorage:
 
 {{% /code-placeholders %}}
 
----
+***
 
 Replace the following:
 
@@ -688,7 +700,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`STORAGE_SIZE`{{% /code-placeholder-key %}}:
   Storage size (example: `2Gi`)
 
----
+***
 
 ### Deploy your cluster
 
@@ -774,6 +786,7 @@ helm upgrade influxdb ./influxdb3-clustered-X.Y.Z.tgz \
 ```
 
 {{% note %}}
+
 #### Understanding kubit's role in air-gapped environments
 
 When deploying with Helm in an air-gapped environment:
@@ -795,9 +808,10 @@ This is why mirroring both the InfluxDB images and the kubit operator images is 
 ### Common issues
 
 1. **Image pull errors**
-   
+
    ```
    Error: failed to create labeled resources: failed to create resources: failed to create resources: 
    Internal error occurred: failed to create pod sandbox: rpc error: code = Unknown 
    desc = failed to pull image "us-docker.pkg.dev/...": failed to pull and unpack image "...": 
    failed to resolve reference "...": failed to do request: ... i/o timeout
+   ```

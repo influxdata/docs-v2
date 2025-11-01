@@ -1,5 +1,6 @@
 <!--Shortcode-->
-{{% product-name %}} stores data related to the database server, queries, and tables in _system tables_.
+
+{{% product-name %}} stores data related to the database server, queries, and tables in *system tables*.
 You can query the system tables for information about your running server, databases, and and table schemas.
 
 ## Query system tables
@@ -11,10 +12,9 @@ You can query the system tables for information about your running server, datab
     - [Recently executed queries](#recently-executed-queries)
     - [Query plugin files](#query-plugin-files)
 
-### Use the HTTP query API 
+### Use the HTTP query API
 
 Use the HTTP API `/api/v3/query_sql` endpoint to retrieve system information about your database server and table schemas in {{% product-name %}}.
-
 
 To execute a query, send a `GET` or `POST` request to the endpoint:
 
@@ -23,16 +23,17 @@ To execute a query, send a `GET` or `POST` request to the endpoint:
 
 Include the following parameters:
 
-- `q`: _({{< req >}})_ The SQL query to execute.
-- `db`: _({{< req >}})_ The database to execute the query against.
-- `params`: A JSON object containing parameters to be used in a _parameterized query_.
+- `q`: *({{< req >}})* The SQL query to execute.
+- `db`: *({{< req >}})* The database to execute the query against.
+- `params`: A JSON object containing parameters to be used in a *parameterized query*.
 - `format`: The format of the response (`json`, `jsonl`, `csv`, `pretty`, or `parquet`).
   JSONL (`jsonl`) is preferred because it streams results back to the client.
   `pretty` is for human-readable output. Default is `json`.
 
 #### Examples
 
-> [!Note]
+> \[!Note]
+>
 > #### system\_ sample data
 >
 > In examples, tables with `"table_name":"system_` are user-created tables for CPU, memory, disk,
@@ -90,8 +91,8 @@ A table has one of the following `table_schema` values:
 The following query sends a `POST` request that executes an SQL query to
 retrieve information about columns in the sample `system_swap` table schema:
 
-_Note: when you send a query in JSON, you must escape single quotes
-that surround field names._
+*Note: when you send a query in JSON, you must escape single quotes
+that surround field names.*
 
 ```bash
 curl "http://localhost:8181/api/v3/query_sql" \
@@ -144,6 +145,7 @@ To view loaded Processing Engine plugins, query the `plugin_files` system table 
 The `system.plugin_files` table provides information about plugin files loaded by the Processing Engine:
 
 **Columns:**
+
 - `plugin_name` (String): Name of a trigger using this plugin
 - `file_name` (String): Plugin filename
 - `file_path` (String): Full server path to the plugin file

@@ -19,21 +19,21 @@ influxdb3 update trigger [OPTIONS] \
 
 ## Options
 
-| Option |                      | Description                                                                                                                                      |
-| :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
-| `-d`   | `--database`         | _({{< req >}})_ Name of the database containing the trigger                                                                                       |
-|        | `--trigger-name`     | _({{< req >}})_ Name of the trigger to update                                                                                                     |
-| `-p`   | `--path`             | Path to plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins). Can be local path (with `--upload`) or server path. |
-|        | `--upload`           | Upload local plugin files to the server. Requires admin token. Use with `--path` to specify local files.                                         |
-|        | `--trigger-arguments`| Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`)                        |
-|        | `--disabled`         | Set the trigger state to disabled                                                                                                                 |
-|        | `--enabled`          | Set the trigger state to enabled                                                                                                                  |
-|        | `--error-behavior`   | Error handling behavior: `log`, `retry`, or `disable`                                                                                             |
-|        | `--token`            | Authentication token                                                                                                                             |
-|        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
-| `-h`   | `--help`             | Print help information                                                                                                                           |
-|        | `--help-all`         | Print detailed help information                                                                                                                  |
+| Option |                       | Description                                                                                                                                                           |
+| :----- | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-H`   | `--host`              | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                                              |
+| `-d`   | `--database`          | *({{< req >}})* Name of the database containing the trigger                                                                                                           |
+|        | `--trigger-name`      | *({{< req >}})* Name of the trigger to update                                                                                                                         |
+| `-p`   | `--path`              | Path to plugin file or directory (single `.py` file or directory containing `__init__.py` for multifile plugins). Can be local path (with `--upload`) or server path. |
+|        | `--upload`            | Upload local plugin files to the server. Requires admin token. Use with `--path` to specify local files.                                                              |
+|        | `--trigger-arguments` | Additional arguments for the trigger, in the format `key=value`, separated by commas (for example, `arg1=val1,arg2=val2`)                                             |
+|        | `--disabled`          | Set the trigger state to disabled                                                                                                                                     |
+|        | `--enabled`           | Set the trigger state to enabled                                                                                                                                      |
+|        | `--error-behavior`    | Error handling behavior: `log`, `retry`, or `disable`                                                                                                                 |
+|        | `--token`             | Authentication token                                                                                                                                                  |
+|        | `--tls-ca`            | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                                                  |
+| `-h`   | `--help`              | Print help information                                                                                                                                                |
+|        | `--help-all`          | Print detailed help information                                                                                                                                       |
 
 ### Option environment variables
 
@@ -56,7 +56,7 @@ The following examples show how to update triggers in different scenarios.
 - [Enable or disable a trigger](#enable-or-disable-a-trigger)
 - [Update error handling behavior](#update-error-handling-behavior)
 
----
+***
 
 Replace the following placeholders with your values:
 
@@ -64,7 +64,7 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: Authentication token
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the trigger to update
 
-{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" %}}
+{{% code-placeholders "(DATABASE|TRIGGER)\_NAME|AUTH\_TOKEN" %}}
 
 ### Update trigger plugin code
 

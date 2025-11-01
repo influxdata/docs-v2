@@ -23,7 +23,12 @@ import {
   loadProducts,
   analyzeStructure,
 } from './lib/content-scaffolding.js';
-import { writeJson, readJson, fileExists } from './lib/file-operations.js';
+import {
+  writeJson,
+  readJson,
+  fileExists,
+  readDraft,
+} from './lib/file-operations.js';
 import { parseMultipleURLs } from './lib/url-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +41,7 @@ const REPO_ROOT = join(__dirname, '..');
 const TMP_DIR = join(REPO_ROOT, '.tmp');
 const CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
 const PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+const PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
 
 // Colors for console output
 const colors = {
@@ -49,25 +55,53 @@ const colors = {
 };
 
 /**
- * Print colored output
+ * Print colored output to stderr (so it doesn't interfere with piped output)
  */
 function log(message, color = 'reset') {
-  console.log(`${colors[color]}${message}${colors.reset}`);
+  // Write to stderr so logs don't interfere with stdout (prompt path/text)
+  console.error(`${colors[color]}${message}${colors.reset}`);
+}
+
+/**
+ * Check if running in Claude Code environment
+ * @returns {boolean} True if Task function is available (Claude Code)
+ */
+function isClaudeCode() {
+  return typeof Task !== 'undefined';
+}
+
+/**
+ * Output prompt for use with external tools
+ * @param {string} prompt - The generated prompt text
+ * @param {boolean} printPrompt - If true, force print to stdout
+ */
+function outputPromptForExternalUse(prompt, printPrompt = false) {
+  // Auto-detect if stdout is being piped
+  const isBeingPiped = !process.stdout.isTTY;
+
+  // Print prompt text if explicitly requested OR if being piped
+  const shouldPrintText = printPrompt || isBeingPiped;
+
+  if (shouldPrintText) {
+    // Output prompt text to stdout
+    console.log(prompt);
+  } else {
+    // Write prompt to file and output file path
+    writeFileSync(PROMPT_FILE, prompt, 'utf8');
+    console.log(PROMPT_FILE);
+  }
+  process.exit(0);
 }
 
 /**
  * Prompt user for input (works in TTY and non-TTY environments)
  */
 async function promptUser(question) {
-  // For non-TTY environments, return empty string
-  if (!process.stdin.isTTY) {
-    return '';
-  }
-
   const readline = await import('readline');
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
+    terminal: process.stdin.isTTY !== undefined ? process.stdin.isTTY : true,
   });
 
   return new Promise((resolve) => {
@@ -91,30 +125,28 @@ function divider() {
 function parseArguments() {
   const { values, positionals } = parseArgs({
     options: {
-      draft: { type: 'string' },
-      from: { type: 'string' },
+      'from-draft': { type: 'string' },
       url: { type: 'string', multiple: true },
       urls: { type: 'string' },
       products: { type: 'string' },
       ai: { type: 'string', default: 'claude' },
       execute: { type: 'boolean', default: false },
       'context-only': { type: 'boolean', default: false },
+      'print-prompt': { type: 'boolean', default: false },
       proposal: { type: 'string' },
       'dry-run': { type: 'boolean', default: false },
       yes: { type: 'boolean', default: false },
       help: { type: 'boolean', default: false },
+      'follow-external': { type: 'boolean', default: false },
     },
     allowPositionals: true,
   });
 
   // First positional argument is treated as draft path
-  if (positionals.length > 0 && !values.draft && !values.from) {
+  if (positionals.length > 0 && !values['from-draft']) {
     values.draft = positionals[0];
-  }
-
-  // --from is an alias for --draft
-  if (values.from && !values.draft) {
-    values.draft = values.from;
+  } else if (values['from-draft']) {
+    values.draft = values['from-draft'];
   }
 
   // Normalize URLs into array
@@ -141,63 +173,101 @@ function printUsage() {
 ${colors.bright}Documentation Content Scaffolding${colors.reset}
 
 ${colors.bright}Usage:${colors.reset}
-  yarn docs:create <draft-path>           Create from draft
-  yarn docs:create --url <url> --draft <path>  Create at URL with draft content
+  docs create <draft-path>                Create from draft
+  docs create --url <url> --from-draft <path>  Create at URL with draft
+
+  # Or use with yarn:
+  yarn docs:create <draft-path>
+  yarn docs:create --url <url> --from-draft <path>
 
 ${colors.bright}Options:${colors.reset}
-  <draft-path>      Path to draft markdown file (positional argument)
-  --draft <path>    Path to draft markdown file
-  --from <path>     Alias for --draft
-  --url <url>       Documentation URL for new content location
-  --context-only    Stop after context preparation
-                    (for non-Claude tools)
-  --proposal <path> Import and execute proposal from JSON file
-  --dry-run         Show what would be created without creating
-  --yes             Skip confirmation prompt
-  --help            Show this help message
+  <draft-path>        Path to draft markdown file (positional argument)
+  --from-draft <path> Path to draft markdown file
+  --url <url>         Documentation URL for new content location
+  --products <list>   Comma-separated product keys (required for stdin)
+                      Examples: influxdb3_core, influxdb3_enterprise
+  --follow-external   Include external (non-docs.influxdata.com) URLs
+                      when extracting links from draft. Without this flag,
+                      only local documentation links are followed.
+  --context-only      Stop after context preparation
+                      (for non-Claude tools)
+  --print-prompt      Force prompt text output (auto-enabled when piping)
+  --proposal <path>   Import and execute proposal from JSON file
+  --dry-run           Show what would be created without creating
+  --yes               Skip confirmation prompt
+  --help              Show this help message
 
-${colors.bright}Workflow (Create from draft):${colors.reset}
+${colors.bright}Stdin Support:${colors.reset}
+  When piping content from stdin, you must specify target products:
+
+  cat draft.md | docs create --products influxdb3_core
+  echo "# Content" | docs create --products influxdb3_core,influxdb3_enterprise
+
+${colors.bright}Link Following:${colors.reset}
+  By default, the script extracts links from your draft and prompts you
+  to select which ones to include as context. This helps the AI:
+  - Maintain consistent terminology
+  - Avoid duplicating content
+  - Add appropriate \`related\` frontmatter links
+
+  Local documentation links are always available for selection.
+  Use --follow-external to also include external URLs (GitHub, etc.)
+
+${colors.bright}Workflow (Inside Claude Code):${colors.reset}
   1. Create a draft markdown file with your content
-  2. Run: yarn docs:create drafts/new-feature.md
+  2. Run: docs create drafts/new-feature.md
   3. Script runs all agents automatically
   4. Review and confirm to create files
 
-${colors.bright}Workflow (Create at specific URL):${colors.reset}
+${colors.bright}Workflow (Pipe to external agent):${colors.reset}
   1. Create draft: vim drafts/new-feature.md
-  2. Run: yarn docs:create \\
-          --url https://docs.influxdata.com/influxdb3/core/admin/new-feature/ \\
-          --draft drafts/new-feature.md
-  3. Script determines structure from URL and uses draft content
-  4. Review and confirm to create files
-
-${colors.bright}Workflow (Manual - for non-Claude tools):${colors.reset}
-  1. Prepare context:
-     yarn docs:create --context-only drafts/new-feature.md
-  2. Run your AI tool with templates from scripts/templates/
-  3. Save proposal to .tmp/scaffold-proposal.json
-  4. Execute:
-     yarn docs:create --proposal .tmp/scaffold-proposal.json
+  2. Pipe to your AI tool (prompt auto-detected):
+     docs create drafts/new-feature.md --products X | claude -p
+     docs create drafts/new-feature.md --products X | copilot -p
+  3. AI generates files based on prompt
 
 ${colors.bright}Examples:${colors.reset}
-  # Create from draft (AI determines location)
+  # Inside Claude Code - automatic execution
+  docs create drafts/new-feature.md
+
+  # Pipe to external AI tools - prompt auto-detected
+  docs create drafts/new-feature.md --products influxdb3_core | claude -p
+  docs create drafts/new-feature.md --products influxdb3_core | copilot -p
+
+  # Pipe from stdin
+  cat drafts/quick-note.md | docs create --products influxdb3_core | claude -p
+  echo "# Quick note" | docs create --products influxdb3_core | copilot -p
+
+  # Get prompt file path (when not piping)
+  docs create drafts/new-feature.md  # Outputs: .tmp/scaffold-prompt.txt
+
+  # Still works with yarn
   yarn docs:create drafts/new-feature.md
 
-  # Create at specific URL with draft content
-  yarn docs:create --url /influxdb3/core/admin/new-feature/ \\
-                   --draft drafts/new-feature.md
+  # Include external links for context selection
+  docs create --follow-external drafts/api-guide.md
 
-  # Preview changes
-  yarn docs:create --draft drafts/new-feature.md --dry-run
+${colors.bright}Smart Behavior:${colors.reset}
+  INSIDE Claude Code:
+    → Automatically runs Task() agent to generate files
+
+  PIPING to another tool:
+    → Auto-detects piping and outputs prompt text
+    → No --print-prompt flag needed
+
+  INTERACTIVE (not piping):
+    → Outputs prompt file path: .tmp/scaffold-prompt.txt
+    → Use with: code .tmp/scaffold-prompt.txt
 
 ${colors.bright}Note:${colors.reset}
-  To edit existing pages, use: yarn docs:edit <url>
+  To edit existing pages, use: docs edit <url>
 `);
 }
 
 /**
  * Phase 1a: Prepare context from URLs
  */
-async function prepareURLPhase(urls, draftPath, options) {
+async function prepareURLPhase(urls, draftPath, options, stdinContent = null) {
   log('\n🔍 Analyzing URLs and finding files...', 'bright');
 
   try {
@@ -258,9 +328,18 @@ async function prepareURLPhase(urls, draftPath, options) {
 
     // Build context (include URL analysis)
     let context = null;
-    if (draftPath) {
+    let draft;
+
+    if (stdinContent) {
+      // Use stdin content
+      draft = stdinContent;
+      log('✓ Using draft from stdin', 'green');
+      context = prepareContext(draft);
+    } else if (draftPath) {
       // Use draft content if provided
-      context = prepareContext(draftPath);
+      draft = readDraft(draftPath);
+      draft.path = draftPath;
+      context = prepareContext(draft);
     } else {
       // Minimal context for editing existing pages
       const products = loadProducts();
@@ -351,18 +430,83 @@ async function prepareURLPhase(urls, draftPath, options) {
 /**
  * Phase 1b: Prepare context from draft
  */
-async function preparePhase(draftPath, options) {
+async function preparePhase(draftPath, options, stdinContent = null) {
   log('\n🔍 Analyzing draft and repository structure...', 'bright');
 
-  // Validate draft exists
-  if (!fileExists(draftPath)) {
-    log(`✗ Draft file not found: ${draftPath}`, 'red');
-    process.exit(1);
+  let draft;
+
+  // Handle stdin vs file
+  if (stdinContent) {
+    draft = stdinContent;
+    log('✓ Using draft from stdin', 'green');
+  } else {
+    // Validate draft exists
+    if (!fileExists(draftPath)) {
+      log(`✗ Draft file not found: ${draftPath}`, 'red');
+      process.exit(1);
+    }
+    draft = readDraft(draftPath);
+    draft.path = draftPath;
   }
 
   try {
     // Prepare context
-    const context = prepareContext(draftPath);
+    const context = prepareContext(draft);
+
+    // Extract links from draft
+    const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
+      './lib/content-scaffolding.js'
+    );
+
+    const links = extractLinks(draft.content);
+
+    if (links.localFiles.length > 0 || links.external.length > 0) {
+      // Filter external links if flag not set
+      if (!options['follow-external']) {
+        links.external = [];
+      }
+
+      // Let user select which external links to follow
+      // (local files are automatically included)
+      const selected = await selectLinksToFollow(links);
+
+      // Follow selected links
+      const linkedContent = [];
+
+      if (selected.selectedLocal.length > 0) {
+        log('\n📄 Loading local files...', 'cyan');
+        // Determine base path for resolving relative links
+        const basePath = draft.path
+          ? dirname(join(REPO_ROOT, draft.path))
+          : REPO_ROOT;
+        const localResults = followLocalLinks(selected.selectedLocal, basePath);
+        linkedContent.push(...localResults);
+        const successCount = localResults.filter((r) => !r.error).length;
+        log(`✓ Loaded ${successCount} local file(s)`, 'green');
+      }
+
+      if (selected.selectedExternal.length > 0) {
+        log('\n🌐 Fetching external URLs...', 'cyan');
+        const externalResults = await fetchExternalLinks(
+          selected.selectedExternal
+        );
+        linkedContent.push(...externalResults);
+        const successCount = externalResults.filter((r) => !r.error).length;
+        log(`✓ Fetched ${successCount} external page(s)`, 'green');
+      }
+
+      // Add to context
+      if (linkedContent.length > 0) {
+        context.linkedContent = linkedContent;
+
+        // Show any errors
+        const errors = linkedContent.filter((lc) => lc.error);
+        if (errors.length > 0) {
+          log('\n⚠️  Some links could not be loaded:', 'yellow');
+          errors.forEach((e) => log(`  • ${e.url}: ${e.error}`, 'yellow'));
+        }
+      }
+    }
 
     // Write context to temp file
     writeJson(CONTEXT_FILE, context);
@@ -382,6 +526,12 @@ async function preparePhase(draftPath, options) {
       `✓ Found ${context.structure.existingPaths.length} existing pages`,
       'green'
     );
+    if (context.linkedContent) {
+      log(
+        `✓ Included ${context.linkedContent.length} linked page(s) as context`,
+        'green'
+      );
+    }
     log(
       `✓ Prepared context → ${CONTEXT_FILE.replace(REPO_ROOT, '.')}`,
       'green'
@@ -441,25 +591,69 @@ async function selectProducts(context, options) {
     }
   }
 
+  // Sort products: detected first, then alphabetically within each group
+  allProducts.sort((a, b) => {
+    const aDetected = detected.includes(a);
+    const bDetected = detected.includes(b);
+
+    // Detected products first
+    if (aDetected && !bDetected) return -1;
+    if (!aDetected && bDetected) return 1;
+
+    // Then alphabetically
+    return a.localeCompare(b);
+  });
+
   // Case 1: Explicit flag provided
   if (options.products) {
-    const requested = options.products.split(',').map((p) => p.trim());
-    const invalid = requested.filter((p) => !allProducts.includes(p));
+    const requestedKeys = options.products.split(',').map((p) => p.trim());
 
-    if (invalid.length > 0) {
+    // Map product keys to display names
+    const requestedNames = [];
+    const invalidKeys = [];
+
+    for (const key of requestedKeys) {
+      const product = context.products[key];
+
+      if (product) {
+        // Valid product key found
+        if (product.versions && product.versions.length > 1) {
+          // Multi-version product: add all versions
+          product.versions.forEach((version) => {
+            const displayName = `${product.name} ${version}`;
+            if (allProducts.includes(displayName)) {
+              requestedNames.push(displayName);
+            }
+          });
+        } else {
+          // Single version product
+          if (allProducts.includes(product.name)) {
+            requestedNames.push(product.name);
+          }
+        }
+      } else if (allProducts.includes(key)) {
+        // It's already a display name (backwards compatibility)
+        requestedNames.push(key);
+      } else {
+        invalidKeys.push(key);
+      }
+    }
+
+    if (invalidKeys.length > 0) {
+      const validKeys = Object.keys(context.products).join(', ');
       log(
-        `\n✗ Invalid products: ${invalid.join(', ')}\n` +
-          `Valid products: ${allProducts.join(', ')}`,
+        `\n✗ Invalid product keys: ${invalidKeys.join(', ')}\n` +
+          `Valid keys: ${validKeys}`,
         'red'
       );
       process.exit(1);
     }
 
     log(
-      `✓ Using products from --products flag: ${requested.join(', ')}`,
+      `✓ Using products from --products flag: ${requestedNames.join(', ')}`,
       'green'
     );
-    return requested;
+    return requestedNames;
   }
 
   // Case 2: Unambiguous (single product detected)
@@ -512,6 +706,74 @@ async function selectProducts(context, options) {
   const selected = indices.map((i) => allProducts[i]);
   log(`\n✓ Selected products: ${selected.join(', ')}`, 'green');
   return selected;
+}
+
+/**
+ * Prompt user to select which external links to include
+ * Local file paths are automatically followed
+ * @param {object} links - {localFiles, external} from extractLinks
+ * @returns {Promise<object>} {selectedLocal, selectedExternal}
+ */
+async function selectLinksToFollow(links) {
+  // Local files are followed automatically (no user prompt)
+  // External links require user selection
+  if (links.external.length === 0) {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  log('\n🔗 Found external links in draft:\n', 'bright');
+
+  const allLinks = [];
+  let index = 1;
+
+  // Show external links for selection
+  links.external.forEach((link) => {
+    log(`    ${index}. ${link}`, 'yellow');
+    allLinks.push({ type: 'external', url: link });
+    index++;
+  });
+
+  const answer = await promptUser(
+    '\nSelect external links to include as context ' +
+      '(comma-separated numbers, or "all"): '
+  );
+
+  if (!answer || answer.toLowerCase() === 'none') {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  let selectedIndices;
+  if (answer.toLowerCase() === 'all') {
+    selectedIndices = Array.from({ length: allLinks.length }, (_, i) => i);
+  } else {
+    selectedIndices = answer
+      .split(',')
+      .map((s) => parseInt(s.trim()) - 1)
+      .filter((i) => i >= 0 && i < allLinks.length);
+  }
+
+  const selectedExternal = [];
+
+  selectedIndices.forEach((i) => {
+    const link = allLinks[i];
+    selectedExternal.push(link.url);
+  });
+
+  log(
+    `\n✓ Following ${links.localFiles?.length || 0} local file(s) ` +
+      `and ${selectedExternal.length} external link(s)`,
+    'green'
+  );
+  return {
+    selectedLocal: links.localFiles || [],
+    selectedExternal,
+  };
 }
 
 /**
@@ -577,6 +839,30 @@ function generateClaudePrompt(
 **Target Products**: Use \`context.selectedProducts\` field (${selectedProducts.join(', ')})
 **Mode**: ${mode === 'edit' ? 'Edit existing content' : 'Create new documentation'}
 ${isURLBased ? `**URLs**: ${context.urls.map((u) => u.url).join(', ')}` : ''}
+${
+  context.linkedContent?.length > 0
+    ? `
+**Linked References**: The draft references ${context.linkedContent.length} page(s) from existing documentation.
+
+These are provided for context to help you:
+- Maintain consistent terminology and style
+- Avoid duplicating existing content
+- Understand related concepts and their structure
+- Add appropriate links to the \`related\` frontmatter field
+
+Linked content details available in \`context.linkedContent\`:
+${context.linkedContent
+  .map((lc) =>
+    lc.error
+      ? `- ❌ ${lc.url} (${lc.error})`
+      : `- ✓ [${lc.type}] ${lc.title} (${lc.path || lc.url})`
+  )
+  .join('\n')}
+
+**Important**: Use this content for context and reference, but do not copy it verbatim. Consider adding relevant pages to the \`related\` field in frontmatter.
+`
+    : ''
+}
 
 **Your Task**: Generate complete documentation files directly (no proposal step).
 
@@ -908,16 +1194,40 @@ async function executePhase(options) {
 async function main() {
   const options = parseArguments();
 
-  // Show help
+  // Show help first (don't wait for stdin)
   if (options.help) {
     printUsage();
     process.exit(0);
   }
 
+  // Check for stdin only if no draft file was provided
+  const hasStdin = !process.stdin.isTTY;
+  let stdinContent = null;
+
+  if (hasStdin && !options.draft) {
+    // Stdin requires --products option
+    if (!options.products) {
+      log(
+        '\n✗ Error: --products is required when piping content from stdin',
+        'red'
+      );
+      log(
+        'Example: echo "# Content" | yarn docs:create --products influxdb3_core',
+        'yellow'
+      );
+      process.exit(1);
+    }
+
+    // Import readDraftFromStdin
+    const { readDraftFromStdin } = await import('./lib/file-operations.js');
+    log('📥 Reading draft from stdin...', 'cyan');
+    stdinContent = await readDraftFromStdin();
+  }
+
   // Determine workflow
   if (options.url && options.url.length > 0) {
     // URL-based workflow requires draft content
-    if (!options.draft) {
+    if (!options.draft && !stdinContent) {
       log('\n✗ Error: --url requires --draft <path>', 'red');
       log('The --url option specifies WHERE to create content.', 'yellow');
       log(
@@ -934,29 +1244,75 @@ async function main() {
       process.exit(1);
     }
 
-    const context = await prepareURLPhase(options.url, options.draft, options);
+    const context = await prepareURLPhase(
+      options.url,
+      options.draft,
+      options,
+      stdinContent
+    );
 
     if (options['context-only']) {
       // Stop after context preparation
       process.exit(0);
     }
 
-    // Continue with AI analysis (Phase 2)
+    // Generate prompt for product selection
+    const selectedProducts = await selectProducts(context, options);
+    const mode = context.urls?.length > 0 ? 'create' : 'create';
+    const isURLBased = true;
+    const hasExistingContent =
+      context.existingContent &&
+      Object.keys(context.existingContent).length > 0;
+
+    const prompt = generateClaudePrompt(
+      context,
+      selectedProducts,
+      mode,
+      isURLBased,
+      hasExistingContent
+    );
+
+    // Check environment and handle prompt accordingly
+    if (!isClaudeCode()) {
+      // Not in Claude Code: output prompt for external use
+      outputPromptForExternalUse(prompt, options['print-prompt']);
+    }
+
+    // In Claude Code: continue with AI analysis (Phase 2)
     log('\n🤖 Running AI analysis with specialized agents...\n', 'bright');
     await runAgentAnalysis(context, options);
 
     // Execute proposal (Phase 3)
     await executePhase(options);
-  } else if (options.draft) {
-    // Draft-based workflow
-    const context = await preparePhase(options.draft, options);
+  } else if (options.draft || stdinContent) {
+    // Draft-based workflow (from file or stdin)
+    const context = await preparePhase(options.draft, options, stdinContent);
 
     if (options['context-only']) {
       // Stop after context preparation
       process.exit(0);
     }
 
-    // Continue with AI analysis (Phase 2)
+    // Generate prompt for product selection
+    const selectedProducts = await selectProducts(context, options);
+    const mode = 'create';
+    const isURLBased = false;
+
+    const prompt = generateClaudePrompt(
+      context,
+      selectedProducts,
+      mode,
+      isURLBased,
+      false
+    );
+
+    // Check environment and handle prompt accordingly
+    if (!isClaudeCode()) {
+      // Not in Claude Code: output prompt for external use
+      outputPromptForExternalUse(prompt, options['print-prompt']);
+    }
+
+    // In Claude Code: continue with AI analysis (Phase 2)
     log('\n🤖 Running AI analysis with specialized agents...\n', 'bright');
     await runAgentAnalysis(context, options);
 
