@@ -71,8 +71,10 @@ yarn docs:edit https://docs.influxdata.com/influxdb3/enterprise/get-started/
 
 Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatter and generate new content.
 
-- The `yarn docs:create` command generates a prompt file from a draft and your product selections.
-- AI agents (`claude`, Copilot Agent mode, `codex`) can use the prompt file to generate content and frontmatter.
+- The `yarn docs:create` command accepts draft input from stdin or from a file path and generates a prompt file from the draft and your product selections
+- The prompt file makes AI agents aware of InfluxData docs guidelines, shared content, and product-specific requirements
+- `yarn docs:create` is designed to work automatically with `claude`, but you can
+  use the generated prompt file with any AI agent (for example, `copilot` or `codex`)
 
 > \[!Tip]
 >
@@ -80,13 +82,16 @@ Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatt
 
 <!-- Coming soon: generate content from an issue with labels -->
 
-### Generate content and frontmatter from a draft
+#### Generate content and frontmatter from a draft
 
 {{% tabs-wrapper %}}
 {{% tabs %}}
-[Claude Code](#)
-[Other AI agents](#)
+[Interactive (Claude Code)](#)
+[Non-interactive (any agent)](#)
 {{% /tabs %}}
+{{% tab-content %}}
+
+{{% /tab-content %}}
 {{% tab-content %}}
 
 1. Open a Claude Code prompt:
@@ -96,28 +101,34 @@ Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatt
    ```
 
 2. In the prompt, run the `docs:create` command with the path to your draft file.
+   Optionally, include the `--products` flag and product namespaces to preselect products--for example:
 
    ```bash
-   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md"
+   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
+     --products influxdb3_enterprise,influxdb3_core
    ```
 
-3. When prompted, select the products to associate with the content.
+   If you don't include the `--products` flag, you'll be prompted to select products after running the command.
 
 The script first generates a prompt file, then the agent automatically uses it to generate content and frontmatter based on the draft and the products you select.
 
 {{% /tab-content %}}
 {{% tab-content %}}
 
-1. In your terminal, run the `docs:create` command with the path to your draft file.
+Use `docs:create` to generate a prompt file and then pipe it to your preferred AI agent.
+Include the `--products` flag and product namespaces to preselect products
 
-   ```bash
-   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md"
-   ```
-2. When prompted, select the products to associate with the content.
-   The script generates a prompt file and returns the file path.
-3. Provide the prompt file to your preferred agent (`claude`, Copilot Agent mode, `codex`) to generate content and frontmatter based on the draft and the products you selected.
-   {{% /tab-content %}}
-   {{< /tabs-wrapper >}}
+The following example uses Copilot to process a draft file:
+
+```bash
+yarn --silent \
+  docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
+  --products "influxdb3_enterprise,influxdb3_core" | \
+  copilot --prompt --allow-all-tools
+```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Review, commit, and create a pull request
 
