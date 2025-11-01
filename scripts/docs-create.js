@@ -55,10 +55,11 @@ const colors = {
 };
 
 /**
- * Print colored output
+ * Print colored output to stderr (so it doesn't interfere with piped output)
  */
 function log(message, color = 'reset') {
-  console.log(`${colors[color]}${message}${colors.reset}`);
+  // Write to stderr so logs don't interfere with stdout (prompt path/text)
+  console.error(`${colors[color]}${message}${colors.reset}`);
 }
 
 /**
