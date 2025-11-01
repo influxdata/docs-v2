@@ -146,7 +146,7 @@ Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
 - **api-ref**: Link the endpoint to a specific place in the API documentation
-- **influxdb\_host**: Specify which InfluxDB product host to use *if the `endpoint` contains the `influxdb/host` shortcode*. Uses the current InfluxDB product as default. Supports the following product values:
+- **influxdb_host**: Specify which InfluxDB product host to use *if the `endpoint` contains the `influxdb/host` shortcode*. Uses the current InfluxDB product as default. Supports the following product values:
   - oss
   - cloud
   - serverless
