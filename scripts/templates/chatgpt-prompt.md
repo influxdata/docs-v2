@@ -50,7 +50,7 @@ For each file, create complete frontmatter with:
 - **weight**: Sequential weight based on siblings
 - **source**: (for frontmatter-only files) Path to shared content
 - **related**: 3-5 relevant related articles from `structure.existingPaths`
-- **alt\_links**: Map equivalent pages across products for cross-product navigation
+- **alt_links**: Map equivalent pages across products for cross-product navigation
 
 ### 4. Code Sample Considerations
 
