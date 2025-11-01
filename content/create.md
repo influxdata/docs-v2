@@ -133,7 +133,7 @@ npx docs create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
 
 After you create or edit content, test and review your changes, and then create a pull request.
 
-> \[!Important]
+> [!Important]
 >
 > #### Check AI-generated content
 >
