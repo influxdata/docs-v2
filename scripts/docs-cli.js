@@ -2,11 +2,12 @@
 
 /**
  * Main CLI entry point for docs tools
- * Supports subcommands: create, edit, etc.
+ * Supports subcommands: create, edit, placeholders
  *
  * Usage:
  *   docs create <draft-path> [options]
  *   docs edit <url> [options]
+ *   docs placeholders <file.md> [options]
  */
 
 import { fileURLToPath } from 'url';
@@ -24,6 +25,7 @@ const args = process.argv.slice(3);
 const subcommands = {
   create: 'docs-create.js',
   edit: 'docs-edit.js',
+  placeholders: 'add-placeholders.js',
 };
 
 /**
@@ -36,14 +38,17 @@ Usage: docs <command> [options]
 Commands:
   create <draft-path>     Create new documentation from draft
   edit <url>              Edit existing documentation
+  placeholders <file.md>  Add placeholder syntax to code blocks
 
 Examples:
   docs create drafts/new-feature.md --products influxdb3_core
   docs edit https://docs.influxdata.com/influxdb3/core/admin/
+  docs placeholders content/influxdb3/core/admin/upgrade.md
 
 For command-specific help:
   docs create --help
   docs edit --help
+  docs placeholders --help
 `);
 }
 

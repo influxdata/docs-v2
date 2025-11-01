@@ -43,6 +43,7 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
+    "postinstall": "node scripts/setup-local-bin.js",
     "docs:create": "node scripts/docs-create.js",
     "docs:edit": "node scripts/docs-edit.js",
     "docs:add-placeholders": "node scripts/add-placeholders.js",

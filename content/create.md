@@ -61,19 +61,19 @@ Use `docs` scripts with AI agents to help you create and edit documentation loca
 
 ### Edit an existing page locally
 
-Use the `yarn docs:edit` command to open an existing page in your editor.
+Use the `npx docs edit` command to open an existing page in your editor.
 
 ```bash
-yarn docs:edit https://docs.influxdata.com/influxdb3/enterprise/get-started/
+npx docs edit https://docs.influxdata.com/influxdb3/enterprise/get-started/
 ```
 
 ### Create content locally
 
-Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatter and generate new content.
+Use the `npx docs create` command with your AI agent tool to scaffold frontmatter and generate new content.
 
-- The `yarn docs:create` command accepts draft input from stdin or from a file path and generates a prompt file from the draft and your product selections
+- The `npx docs create` command accepts draft input from stdin or from a file path and generates a prompt file from the draft and your product selections
 - The prompt file makes AI agents aware of InfluxData docs guidelines, shared content, and product-specific requirements
-- `yarn docs:create` is designed to work automatically with `claude`, but you can
+- `npx docs create` is designed to work automatically with `claude`, but you can
   use the generated prompt file with any AI agent (for example, `copilot` or `codex`)
 
 > \[!Tip]
@@ -100,11 +100,11 @@ Use the `yarn docs:create` command with your AI agent tool to scaffold frontmatt
    claude code
    ```
 
-2. In the prompt, run the `docs:create` command with the path to your draft file.
+2. In the prompt, run the `docs create` command with the path to your draft file.
    Optionally, include the `--products` flag and product namespaces to preselect products--for example:
 
    ```bash
-   yarn docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
+   npx docs create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
      --products influxdb3_enterprise,influxdb3_core
    ```
 
@@ -115,14 +115,13 @@ The script first generates a prompt file, then the agent automatically uses it t
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use `docs:create` to generate a prompt file and then pipe it to your preferred AI agent.
+Use `npx docs create` to generate a prompt file and then pipe it to your preferred AI agent.
 Include the `--products` flag and product namespaces to preselect products
 
 The following example uses Copilot to process a draft file:
 
 ```bash
-yarn --silent \
-  docs:create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
+npx docs create .context/drafts/"Upgrading Enterprise 3 (draft).md" \
   --products "influxdb3_enterprise,influxdb3_core" | \
   copilot --prompt --allow-all-tools
 ```
