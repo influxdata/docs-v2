@@ -44,7 +44,7 @@ Use `docs` scripts with AI agents to help you create and edit documentation loca
 3. Run `yarn` in the repository root to install dependencies
 4. Optional: [Set up GitHub CLI](https://cli.github.com/manual/)
 
-> \[!Tip]
+> [!Tip]
 > To run and test your changes locally, enter the following command in your terminal:
 >
 > ```bash
