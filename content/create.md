@@ -150,7 +150,7 @@ yarn hugo server
 
 Visit <http://localhost:1313> to review your changes in the browser.
 
-> \[!Note]
+> [!Note]
 > If you need to preview changes in a live production-like environment
 > that you can also share with others,
 > the Docs team can deploy your branch to the staging site.
