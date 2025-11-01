@@ -564,23 +564,54 @@ async function selectProducts(context, options) {
 
   // Case 1: Explicit flag provided
   if (options.products) {
-    const requested = options.products.split(',').map((p) => p.trim());
-    const invalid = requested.filter((p) => !allProducts.includes(p));
+    const requestedKeys = options.products.split(',').map((p) => p.trim());
 
-    if (invalid.length > 0) {
+    // Map product keys to display names
+    const requestedNames = [];
+    const invalidKeys = [];
+
+    for (const key of requestedKeys) {
+      const product = context.products[key];
+
+      if (product) {
+        // Valid product key found
+        if (product.versions && product.versions.length > 1) {
+          // Multi-version product: add all versions
+          product.versions.forEach((version) => {
+            const displayName = `${product.name} ${version}`;
+            if (allProducts.includes(displayName)) {
+              requestedNames.push(displayName);
+            }
+          });
+        } else {
+          // Single version product
+          if (allProducts.includes(product.name)) {
+            requestedNames.push(product.name);
+          }
+        }
+      } else if (allProducts.includes(key)) {
+        // It's already a display name (backwards compatibility)
+        requestedNames.push(key);
+      } else {
+        invalidKeys.push(key);
+      }
+    }
+
+    if (invalidKeys.length > 0) {
+      const validKeys = Object.keys(context.products).join(', ');
       log(
-        `\n✗ Invalid products: ${invalid.join(', ')}\n` +
-          `Valid products: ${allProducts.join(', ')}`,
+        `\n✗ Invalid product keys: ${invalidKeys.join(', ')}\n` +
+          `Valid keys: ${validKeys}`,
         'red'
       );
       process.exit(1);
     }
 
     log(
-      `✓ Using products from --products flag: ${requested.join(', ')}`,
+      `✓ Using products from --products flag: ${requestedNames.join(', ')}`,
       'green'
     );
-    return requested;
+    return requestedNames;
   }
 
   // Case 2: Unambiguous (single product detected)
@@ -1138,7 +1169,10 @@ async function main() {
         '\n✗ Error: --products is required when piping content from stdin',
         'red'
       );
-      log('Example: echo "# Content" | yarn docs:create --products influxdb3_core', 'yellow');
+      log(
+        'Example: echo "# Content" | yarn docs:create --products influxdb3_core',
+        'yellow'
+      );
       process.exit(1);
     }
 
