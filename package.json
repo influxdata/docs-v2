@@ -78,5 +78,8 @@
     "test": "test"
   },
   "keywords": [],
-  "author": ""
+  "author": "",
+  "optionalDependencies": {
+    "copilot": "^0.0.2"
+  }
 }

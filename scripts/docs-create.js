@@ -99,6 +99,7 @@ function parseArguments() {
       ai: { type: 'string', default: 'claude' },
       execute: { type: 'boolean', default: false },
       'context-only': { type: 'boolean', default: false },
+      'print-prompt': { type: 'boolean', default: false },
       proposal: { type: 'string' },
       'dry-run': { type: 'boolean', default: false },
       yes: { type: 'boolean', default: false },
@@ -153,6 +154,8 @@ ${colors.bright}Options:${colors.reset}
                       only local documentation links are followed.
   --context-only      Stop after context preparation
                       (for non-Claude tools)
+  --print-prompt      Output the AI prompt to stdout and exit
+                      (for piping to other tools)
   --proposal <path>   Import and execute proposal from JSON file
   --dry-run           Show what would be created without creating
   --yes               Skip confirmation prompt
@@ -213,6 +216,10 @@ ${colors.bright}Examples:${colors.reset}
   # Pipe content from stdin (requires --products)
   cat drafts/quick-note.md | yarn docs:create --products influxdb3_core
   echo "# Test Content" | yarn docs:create --products influxdb3_core
+
+  # Output prompt for use with other AI tools
+  yarn docs:create --print-prompt drafts/new-feature.md > prompt.txt
+  yarn docs:create --print-prompt drafts/new-feature.md | llm -m gpt-4
 
   # Preview changes
   yarn docs:create --from-draft drafts/new-feature.md --dry-run
@@ -1214,6 +1221,25 @@ async function main() {
       process.exit(0);
     }
 
+    if (options['print-prompt']) {
+      // Generate and print prompt
+      const selectedProducts = await selectProducts(context, options);
+      const mode = context.urls?.length > 0 ? 'create' : 'create';
+      const isURLBased = true;
+      const hasExistingContent =
+        context.existingContent && Object.keys(context.existingContent).length > 0;
+
+      const prompt = generateClaudePrompt(
+        context,
+        selectedProducts,
+        mode,
+        isURLBased,
+        hasExistingContent
+      );
+      console.log(prompt);
+      process.exit(0);
+    }
+
     // Continue with AI analysis (Phase 2)
     log('\n🤖 Running AI analysis with specialized agents...\n', 'bright');
     await runAgentAnalysis(context, options);
@@ -1226,6 +1252,24 @@ async function main() {
 
     if (options['context-only']) {
       // Stop after context preparation
+      process.exit(0);
+    }
+
+    if (options['print-prompt']) {
+      // Generate and print prompt
+      const selectedProducts = await selectProducts(context, options);
+      const mode = 'create';
+      const isURLBased = false;
+      const hasExistingContent = false;
+
+      const prompt = generateClaudePrompt(
+        context,
+        selectedProducts,
+        mode,
+        isURLBased,
+        hasExistingContent
+      );
+      console.log(prompt);
       process.exit(0);
     }
 
