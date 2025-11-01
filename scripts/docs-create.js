@@ -41,6 +41,7 @@ const REPO_ROOT = join(__dirname, '..');
 const TMP_DIR = join(REPO_ROOT, '.tmp');
 const CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
 const PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+const PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
 
 // Colors for console output
 const colors = {
@@ -58,6 +59,31 @@ const colors = {
  */
 function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
+}
+
+/**
+ * Check if running in Claude Code environment
+ * @returns {boolean} True if Task function is available (Claude Code)
+ */
+function isClaudeCode() {
+  return typeof Task !== 'undefined';
+}
+
+/**
+ * Output prompt for use with external tools
+ * @param {string} prompt - The generated prompt text
+ * @param {boolean} printPrompt - If true, print to stdout; else save to file
+ */
+function outputPromptForExternalUse(prompt, printPrompt = false) {
+  if (printPrompt) {
+    // Output prompt text to stdout
+    console.log(prompt);
+  } else {
+    // Write prompt to file and output file path
+    writeFileSync(PROMPT_FILE, prompt, 'utf8');
+    console.log(PROMPT_FILE);
+  }
+  process.exit(0);
 }
 
 /**
@@ -154,8 +180,8 @@ ${colors.bright}Options:${colors.reset}
                       only local documentation links are followed.
   --context-only      Stop after context preparation
                       (for non-Claude tools)
-  --print-prompt      Output the AI prompt to stdout and exit
-                      (for piping to other tools)
+  --print-prompt      Output prompt text to stdout instead of file path
+                      (when running outside Claude Code)
   --proposal <path>   Import and execute proposal from JSON file
   --dry-run           Show what would be created without creating
   --yes               Skip confirmation prompt
@@ -218,11 +244,25 @@ ${colors.bright}Examples:${colors.reset}
   echo "# Test Content" | yarn docs:create --products influxdb3_core
 
   # Output prompt for use with other AI tools
-  yarn docs:create --print-prompt drafts/new-feature.md > prompt.txt
+  # (Outside Claude Code: outputs file path by default)
+  yarn docs:create drafts/new-feature.md  # Outputs: .tmp/scaffold-prompt.txt
+
+  # Use --print-prompt to output prompt text to stdout
   yarn docs:create --print-prompt drafts/new-feature.md | llm -m gpt-4
+  yarn docs:create --print-prompt drafts/new-feature.md > prompt.txt
 
   # Preview changes
   yarn docs:create --from-draft drafts/new-feature.md --dry-run
+
+${colors.bright}Environment-Aware Behavior:${colors.reset}
+  When running INSIDE Claude Code:
+    - Automatically runs AI analysis with Task() agent
+    - Creates file structure based on AI recommendations
+
+  When running OUTSIDE Claude Code:
+    - Outputs prompt file path to stdout by default
+    - Use --print-prompt to output prompt text instead
+    - Use the prompt with other AI tools (llm, ChatGPT, etc.)
 
 ${colors.bright}Note:${colors.reset}
   To edit existing pages, use: yarn docs:edit <url>
@@ -1221,26 +1261,29 @@ async function main() {
       process.exit(0);
     }
 
-    if (options['print-prompt']) {
-      // Generate and print prompt
-      const selectedProducts = await selectProducts(context, options);
-      const mode = context.urls?.length > 0 ? 'create' : 'create';
-      const isURLBased = true;
-      const hasExistingContent =
-        context.existingContent && Object.keys(context.existingContent).length > 0;
+    // Generate prompt for product selection
+    const selectedProducts = await selectProducts(context, options);
+    const mode = context.urls?.length > 0 ? 'create' : 'create';
+    const isURLBased = true;
+    const hasExistingContent =
+      context.existingContent &&
+      Object.keys(context.existingContent).length > 0;
 
-      const prompt = generateClaudePrompt(
-        context,
-        selectedProducts,
-        mode,
-        isURLBased,
-        hasExistingContent
-      );
-      console.log(prompt);
-      process.exit(0);
+    const prompt = generateClaudePrompt(
+      context,
+      selectedProducts,
+      mode,
+      isURLBased,
+      hasExistingContent
+    );
+
+    // Check environment and handle prompt accordingly
+    if (!isClaudeCode()) {
+      // Not in Claude Code: output prompt for external use
+      outputPromptForExternalUse(prompt, options['print-prompt']);
     }
 
-    // Continue with AI analysis (Phase 2)
+    // In Claude Code: continue with AI analysis (Phase 2)
     log('\n🤖 Running AI analysis with specialized agents...\n', 'bright');
     await runAgentAnalysis(context, options);
 
@@ -1255,25 +1298,26 @@ async function main() {
       process.exit(0);
     }
 
-    if (options['print-prompt']) {
-      // Generate and print prompt
-      const selectedProducts = await selectProducts(context, options);
-      const mode = 'create';
-      const isURLBased = false;
-      const hasExistingContent = false;
+    // Generate prompt for product selection
+    const selectedProducts = await selectProducts(context, options);
+    const mode = 'create';
+    const isURLBased = false;
 
-      const prompt = generateClaudePrompt(
-        context,
-        selectedProducts,
-        mode,
-        isURLBased,
-        hasExistingContent
-      );
-      console.log(prompt);
-      process.exit(0);
+    const prompt = generateClaudePrompt(
+      context,
+      selectedProducts,
+      mode,
+      isURLBased,
+      false
+    );
+
+    // Check environment and handle prompt accordingly
+    if (!isClaudeCode()) {
+      // Not in Claude Code: output prompt for external use
+      outputPromptForExternalUse(prompt, options['print-prompt']);
     }
 
-    // Continue with AI analysis (Phase 2)
+    // In Claude Code: continue with AI analysis (Phase 2)
     log('\n🤖 Running AI analysis with specialized agents...\n', 'bright');
     await runAgentAnalysis(context, options);
 
