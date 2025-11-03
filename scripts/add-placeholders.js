@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { parseArgs } from 'node:util';
 
 // Parse command-line arguments
-const { positionals } = parseArgs({
+const { positionals, values } = parseArgs({
   allowPositionals: true,
   options: {
     dry: {
@@ -24,19 +24,47 @@ const { positionals } = parseArgs({
       short: 'd',
       default: false,
     },
+    help: {
+      type: 'boolean',
+      short: 'h',
+      default: false,
+    },
   },
 });
 
+// Show help if requested
+if (values.help) {
+  console.log(`
+Add placeholder syntax to code blocks
+
+Usage:
+  docs placeholders <file.md> [options]
+
+Options:
+  --dry, -d     Preview changes without modifying files
+  --help, -h    Show this help message
+
+Examples:
+  docs placeholders content/influxdb3/enterprise/admin/upgrade.md
+  docs placeholders content/influxdb3/core/admin/databases/create.md --dry
+
+What it does:
+  1. Finds UPPERCASE placeholders in code blocks
+  2. Adds { placeholders="PATTERN1|PATTERN2" } attribute to code fences
+  3. Wraps placeholder descriptions with {{% code-placeholder-key %}} shortcodes
+`);
+  process.exit(0);
+}
+
 if (positionals.length === 0) {
-  console.error('Usage: node scripts/add-placeholders.js <file.md> [--dry]');
-  console.error(
-    'Example: node scripts/add-placeholders.js content/influxdb3/enterprise/admin/upgrade.md'
-  );
+  console.error('Error: Missing file path argument');
+  console.error('Usage: docs placeholders <file.md> [--dry]');
+  console.error('Run "docs placeholders --help" for more information');
   process.exit(1);
 }
 
 const filePath = positionals[0];
-const isDryRun = process.argv.includes('--dry') || process.argv.includes('-d');
+const isDryRun = values.dry;
 
 /**
  * Extract UPPERCASE placeholders from a code block

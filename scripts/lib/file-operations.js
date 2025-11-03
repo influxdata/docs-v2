@@ -29,6 +29,38 @@ export function readDraft(filePath) {
 }
 
 /**
+ * Read draft content from stdin
+ * @returns {Promise<{content: string, frontmatter: object, raw: string, path: string}>}
+ */
+export async function readDraftFromStdin() {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    process.stdin.setEncoding('utf8');
+
+    process.stdin.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    process.stdin.on('end', () => {
+      try {
+        // Parse with gray-matter to extract frontmatter if present
+        const parsed = matter(data);
+        resolve({
+          content: parsed.content,
+          frontmatter: parsed.data || {},
+          raw: data,
+          path: '<stdin>',
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    process.stdin.on('error', reject);
+  });
+}
+
+/**
  * Write a markdown file with frontmatter
  * @param {string} filePath - Path to write to
  * @param {object} frontmatter - Frontmatter object

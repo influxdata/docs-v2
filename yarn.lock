@@ -194,6 +194,11 @@
   resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.12.3.tgz#081eca59a6d33646616af844244ce6842cd6b5a5"
   integrity sha512-MtXIt8h+EVTv5tCGLzh9UwbA/LRv6esdPJOHlxr8NDKHbFnbo8PvU5uVQcm3PAQTd4DZN3HoyokqrwGwntoq6w==
 
+"@github/copilot@latest":
+  version "0.0.353"
+  resolved "https://registry.yarnpkg.com/@github/copilot/-/copilot-0.0.353.tgz#3c8d8a072b3defbd2200c9fe4fb636d633ac7f1e"
+  integrity sha512-OYgCB4Jf7Y/Wor8mNNQcXEt1m1koYm/WwjGsr5mwABSVYXArWUeEfXqVbx+7O87ld5b+aWy2Zaa2bzKV8dmqaw==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
@@ -1363,6 +1368,13 @@ confbox@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/confbox/-/confbox-0.2.2.tgz#8652f53961c74d9e081784beed78555974a9c110"
   integrity sha512-1NB+BKqhtNipMsov4xI/NnhCKp9XG9NamYp5PVm9klAT0fsrNPjaFICsCFhNhwZJKNh7zB/3q8qXz0E9oaMNtQ==
+
+copilot@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/copilot/-/copilot-0.0.2.tgz#4712810c9182cd784820ed44627bedd32dd377f9"
+  integrity sha512-nedf34AaYj9JnFhRmiJEZemAno2WDXMypq6FW5aCVR0N+QdpQ6viukP1JpvJDChpaMEVvbUkMjmjMifJbO/AgQ==
+  dependencies:
+    "@github/copilot" latest
 
 core-util-is@1.0.2:
   version "1.0.2"
