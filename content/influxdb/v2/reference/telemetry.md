@@ -42,7 +42,7 @@ For each InfluxDB 2.x installation, we collect the following at startup and then
 | user\_agent           | Typically, this is set by the browser, InfluxDB client libraries (includes the language \[Go, JavaScript, Java, C#, Ruby, Python, etc.] and version), and other technologies \[such as third-party dashboarding applications, etc.]. |
 | version               | InfluxDB version                                                                                                                                                                                                                     |
 
-With those tag elements, we then leverage a combination of the unique combination of id, ip, and storage system specifics (where applicable) to capture usage counts of the various subsystems within InfluxDB.
+With those tag elements, we then leverage a combination of the unique combination of `id`, `ip`, and storage system specifics (where applicable) to capture usage counts of the various subsystems within InfluxDB.
 
 ### Fields
 
