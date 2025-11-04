@@ -76,11 +76,11 @@ making it ideal for air-gapped clusters._
 1. On a machine with internet access, download the [`kubit` CLI](https://github.com/kubecfg/kubit#cli-tool)--for example:
 
    ```bash
-   curl -L -o kubit https://github.com/kubecfg/kubit/archive/refs/tags/v0.0.20.tar.gz
+   curl -L -o kubit https://github.com/kubecfg/kubit/archive/refs/tags/v0.0.22.tar.gz
    chmod +x kubit
    ```
 
-   Replace {{% code-placeholder-key %}}`v0.0.20`{{% /code-placeholder-key%}} with the [latest release version](https://github.com/kubecfg/kubit/releases/latest).
+   Replace {{% code-placeholder-key %}}`v0.0.22`{{% /code-placeholder-key%}} with the [latest release version](https://github.com/kubecfg/kubit/releases/latest).
 
 2. If deploying InfluxDB in an air-gapped environment (without internet access),
     transfer the binary to your air-gapped environment.

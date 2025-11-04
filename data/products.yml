@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.5.0
+  latest_patch: 3.6.0
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -35,7 +35,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.5.0
+  latest_patch: 3.6.0
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -63,7 +63,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.3.0
+  latest_patch: 1.4.0
   placeholder_host: localhost:8888
   ai_sample_questions:
     - How do I query data using InfluxDB 3 Explorer?
@@ -211,19 +211,6 @@ influxdb_cloud:
     - How do I write and query data with InfluxDB Cloud 2?
     - How is Cloud 2 different from Cloud Serverless?
     - How do I manage auth tokens in InfluxDB Cloud 2?
-
-explorer:
-  name: InfluxDB 3 Explorer
-  namespace: explorer
-  menu_category: other
-  list_order: 4
-  versions: [v1]
-  latest: explorer
-  latest_patch: 1.1.0
-  ai_sample_questions:
-    - How do I use InfluxDB 3 Explorer to visualize data?
-    - How do I create a dashboard in InfluxDB 3 Explorer?
-    - How do I query data using InfluxDB 3 Explorer?
 
 telegraf:
   name: Telegraf
