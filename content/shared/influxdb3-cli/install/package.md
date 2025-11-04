@@ -15,12 +15,12 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 
 | Option                                          | Description                                                         | Default                 | Environment Variable        |
 | :---------------------------------------------- | :------------------------------------------------------------------ | :---------------------- | :-------------------------- |
-| `-H`, `--host <HOST_URL>`                       | The host URL of the running {{< product-name >}} server             | `http://127.0.0.1:8181` | `INFLUXDB3_HOST_URL`        |
+| `-H`, `--host <HOST_URL>`                       | The host url of the running {{< product-name >}} server             | `http://127.0.0.1:8181` | `INFLUXDB3_HOST_URL`        |
 | `--token <AUTH_TOKEN>`                          | The token for authentication with the {{< product-name >}} server   |                         | `INFLUXDB3_AUTH_TOKEN`      |
 | `--plugin-dir <PLUGIN_DIR>`                     | Location of the plugins directory                                   | `/plugins`              | `INFLUXDB3_PLUGIN_DIR`      |
 | `--virtual-env-location <VIRTUAL_ENV_LOCATION>` | Custom virtual environment location                                 |                         | `VIRTUAL_ENV`               |
 | `--package-manager <PACKAGE_MANAGER>`           | Package manager to use: `discover`, `pip`, `uv`, or `disabled`      | `discover`              | `INFLUXDB3_PACKAGE_MANAGER` |
-| `--plugin-repo <PLUGIN_REPO>`                   | Plugin repository URL                                               |                         | `INFLUXDB3_PLUGIN_REPO`     |
+| `--plugin-repo <PLUGIN_REPO>`                   | Plugin repository url                                               |                         | `INFLUXDB3_PLUGIN_REPO`     |
 | `-r`, `--requirements <REQUIREMENTS>`           | Path to a `requirements.txt` file                                   |                         |                             |
 | `--tls-ca <CA_CERT>`                            | Custom CA certificate for TLS (useful for self-signed certificates) |                         | `INFLUXDB3_TLS_CA`          |
 | `-h`, `--help`                                  | Print help information                                              |                         |                             |
@@ -98,3 +98,12 @@ If package installation fails:
 3. **Review logs**: Check {{< product-name >}} server logs for detailed error messages
 4. **Test with pip**: Try installing the package directly with `pip` to verify it's available
 5. **Use requirements file**: For complex dependencies, use a `requirements.txt` file with version pinning
+6. **Check Docker disk space** (Docker environments only): If running {{< product-name >}} in Docker and seeing "No space left on device" errors, free up disk space:
+   ```bash
+   # Check Docker disk usage
+   docker system df
+
+   # Remove unused images and build cache
+   docker image prune -af
+   docker buildx prune -af
+   ```
