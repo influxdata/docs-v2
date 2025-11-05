@@ -51,6 +51,8 @@ Default is `""`.
 The hostname of the [meta node](/enterprise_influxdb/v1/concepts/glossary/#meta-node).
 This must be resolvable and reachable by all other members of the cluster.
 
+If HTTPS is enabled with [`https-enabled`](#https-enabled), `hostname` must match a hostname or wildcard in the TLS certificate specified by [`https-certificate`](#https-certificate). If `hostname` does not match, then `http: TLS handshake error from 127.0.0.1` errors will occur in the meta node logs and the cluster will not function properly.
+
 Environment variable: `INFLUXDB_HOSTNAME`
 
 -----
@@ -151,6 +153,8 @@ Use either:
 
 * PEM-encoded bundle with both the certificate and key (`[bundled-crt-and-key].pem`)
 * Certificate only (`[certificate].crt`)
+
+When HTTPS is enabled, [`hostname`](#hostname) must match a hostname or wildcard in the certificate.
 
 Environment variable: `INFLUXDB_META_HTTPS_CERTIFICATE`
 
