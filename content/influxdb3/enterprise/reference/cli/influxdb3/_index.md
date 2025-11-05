@@ -31,6 +31,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
+| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Mark nodes as stopped               |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
 | [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
@@ -85,7 +86,7 @@ In the examples below, replace the following:
 
 {{% code-placeholders "my-host-01|my-cluster-01" %}}
 
-### Quick-start influxdb3 server 
+### Quick-start influxdb3 server
 
 <!--pytest.mark.skip-->
 
