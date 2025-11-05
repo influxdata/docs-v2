@@ -1,7 +1,7 @@
 ---
 title: About the project
 description: >
-  Release notes, licenses, and third-party software details for InfluxDB Enterprise.
+  Release notes, licenses, and third-party software details for InfluxDB Enterprise v1.
 menu:
   enterprise_influxdb_v1_ref:
     weight: 10

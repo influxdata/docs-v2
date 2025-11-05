@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "InfluxDB documentation",
   "license": "MIT",
+  "bin": {
+    "docs": "scripts/docs-cli.js"
+  },
   "resolutions": {
     "serialize-javascript": "^6.0.2"
   },
@@ -40,6 +43,10 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
+    "postinstall": "node scripts/setup-local-bin.js",
+    "docs:create": "node scripts/docs-create.js",
+    "docs:edit": "node scripts/docs-edit.js",
+    "docs:add-placeholders": "node scripts/add-placeholders.js",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
@@ -57,7 +64,10 @@
     "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
     "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
-    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md"
+    "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md",
+    "sync-plugins": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js",
+    "sync-plugins:dry-run": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --dry-run",
+    "validate-plugin-config": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --validate"
   },
   "type": "module",
   "browserslist": [
@@ -72,5 +82,8 @@
     "test": "test"
   },
   "keywords": [],
-  "author": ""
+  "author": "",
+  "optionalDependencies": {
+    "copilot": "^0.0.2"
+  }
 }

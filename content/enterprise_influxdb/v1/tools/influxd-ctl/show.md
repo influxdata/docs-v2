@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl show
 description: >
-  The `influxd-ctl show` command lists all nodes in an InfluxDB Enterprise cluster.
+  The `influxd-ctl show` command lists all nodes in an InfluxDB Enterprise v1 cluster.
 menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl

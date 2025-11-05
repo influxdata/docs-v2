@@ -1,5 +1,5 @@
 ---
-title: Upgrade InfluxDB Enterprise clusters
+title: Upgrade InfluxDB Enterprise v1 clusters
 description: Upgrade to the latest version of InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.10/administration/upgrading/

@@ -18,10 +18,10 @@ The `influxdb3 serve` command starts the {{< product-name >}} server.
 <!--pytest.mark.skip-->
 
 ```bash
-influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
+influxdb3 serve [OPTIONS]
 ```
 
-## Required parameters
+## Required Parameters
 
 - **node-id**: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.
 - **object-store**: Determines where time series data is stored.
@@ -45,7 +45,7 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 | Option           |                                                      | Description                                                                                                               |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |
-|                  | `--object-store`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#object-store)_                                     |
+| {{< req "\*" >}} | `--object-store`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#object-store)_                                     |
 |                  | `--admin-token-recovery-http-bind`                   | _See [configuration options](/influxdb3/core/reference/config-options/#admin-token-recovery-http-bind)_                   |
 |                  | `--admin-token-recovery-tcp-listener-file-path`      | _See [configuration options](/influxdb3/core/reference/config-options/#admin-token-recovery-tcp-listener-file-path)_      |
 |                  | `--admin-token-file`                                 | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-file)_                           |
@@ -134,15 +134,51 @@ influxdb3 serve [OPTIONS] --node-id <HOST_IDENTIFIER_PREFIX>
 |                  | `--wal-snapshot-size`                                | _See [configuration options](/influxdb3/core/reference/config-options/#wal-snapshot-size)_                                |
 |                  | `--without-auth`                                     | _See [configuration options](/influxdb3/core/reference/config-options/#without-auth)_                                     |
 
-{{< caption >}}
-{{< req text="\* Required options" >}}
-{{< /caption >}}
-
 ### Option environment variables
 
 You can use environment variables to define most `influxdb3 serve` options.
 For more information, see
 [Configuration options](/influxdb3/core/reference/config-options/).
+
+## Quick-Start Mode
+
+For development, testing, and home use, you can start {{< product-name >}} by running `influxdb3` without the `serve` subcommand or any configuration parameters. The system automatically generates required values:
+
+- **`node-id`**: `{hostname}-node` (fallback: `primary-node`)
+- **`object-store`**: `file`
+- **`data-dir`**: `~/.influxdb`
+
+The system displays warning messages showing the auto-generated identifiers:
+
+```
+Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id
+```
+
+### Quick-start examples
+
+<!--pytest.mark.skip-->
+
+```bash
+# Zero-config startup
+influxdb3
+
+# Override specific defaults
+influxdb3 --object-store memory
+
+# Use environment variables to override defaults
+INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+```
+
+> [!Important]
+> #### Production deployments
+>
+> Quick-start mode is designed for development and testing environments.
+> For production deployments, use explicit configuration with the `serve` subcommand
+> and specify all required parameters as shown in the [Examples](#examples) below.
+
+**Configuration precedence**: CLI flags > environment variables > auto-generated defaults
+
+For more information about quick-start mode, see [Get started](/influxdb3/core/get-started/setup/#quick-start-mode-development).
 
 ## Examples
 

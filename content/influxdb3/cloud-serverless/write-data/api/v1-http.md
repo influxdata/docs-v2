@@ -26,18 +26,18 @@ list_code_example: |
 Use the InfluxDB v1 HTTP API `/write` endpoint and InfluxQL to write data stored in {{< product-name >}}.
 The `/write` endpoint provides compatibility for InfluxDB 1.x workloads that you bring to InfluxDB 3.
 
-_The v1 write and query APIs require [mapping databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets)._
+_The v1 write and query APIs require [mapping databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)._
 
-- [Map databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets)
+- [Map v1 databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets)
   - [Autogenerate a bucket and DBRP mapping](#autogenerate-a-bucket-and-dbrp-mapping)
   - [Create a bucket and DBRP mapping](#create-a-bucket-and-dbrp-mapping)
 - [Write to the v1 HTTP `/write` endpoint](#write-to-the-v1-http-write-endpoint)
-  - [Parameters](#parameters)
+  - [Parameters](#v1-api-write-parameters)
   - [Data](#data)
   - [Authorization](#authorization)
   - [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
 
-## Map databases and retention policies to buckets
+## Map v1 databases and retention policies to buckets
 
 The v1 write and query APIs require mapping databases and retention policies to buckets.
 
@@ -53,7 +53,7 @@ To let InfluxDB autogenerate a bucket and an associated DBRP mapping, pass the f
 
 If no bucket exists with the name `DATABASE_NAME/RETENTION_POLICY_NAME`, InfluxDB creates a bucket and a DBRP before writing the data to the bucket.
 
-To learn more about DBRP mapping, see the [v1 API compatibility guide](/influxdb3/cloud-serverless/guides/api-compatibility/v1/#map-v1-databases-and-retention-policies-to-buckets).
+To learn more about DBRP mapping, see the [v1 API compatibility guide](#map-v1-databases-and-retention-policies-to-buckets).
 
 ### Create a bucket and DBRP mapping
 
@@ -69,19 +69,19 @@ If the `db=DATABASE_NAME` and `rp=RETENTION_POLICY` parameters in your `/write` 
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" %}}
 
-- [`/api/v2/write` parameters](#v1-api-write-parameters)
+- [`/write` parameters](#v1-api-write-parameters)
 - [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
 
-### Parameters
+### v1 API /write parameters
 
 For {{% product-name %}} v1 API `/write` requests, set parameters as listed in the following table:
 
 Parameter              | Allowed in   | Ignored                  | Value
 -----------------------|--------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 `consistency`          | Query string | Ignored                  | N/A
-`db` {{% req " \*" %}} | Query string | Honored                  | Database (see how to [map databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets))
+`db` {{% req " \*" %}} | Query string | Honored                  | Database (see how to [map databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets))
 `precision`            | Query string | Honored                  | [Timestamp precision](#timestamp-precision)
-`rp`                   | Query string | Honored                  | Retention policy (see how to [map databases and retention policies to buckets](#map-databases-and-retention-policies-to-buckets))
+`rp`                   | Query string | Honored                  | Retention policy (see how to [map databases and retention policies to buckets](#map-v1-databases-and-retention-policies-to-buckets))
 [`Authorization` header or `u` and `p`](#authorization)  | | | [Token](#authorization)
 
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
@@ -121,7 +121,7 @@ The following tools work with the {{% product-name %}} `/write` endpoint:
 #### Telegraf
 
 If you have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](/telegraf/v1/output-plugins/influxdb/) to write data.
 
 > [!Note]
 > See how to [use Telegraf and the v2 API](/influxdb3/cloud-serverless/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
@@ -154,15 +154,15 @@ To configure the v1.x output plugin for writing to {{% product-name %}}, add the
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-v1-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-v1-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 ##### Other Telegraf configuration options
 
 `influx_uint_support`: supported in InfluxDB 3.
 
-For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
+For more plugin options, see [`influxdb`](/telegraf/v1/output-plugins/influxdb/) on GitHub.
 
 #### Interactive clients
 
@@ -212,8 +212,8 @@ curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&rp=RETENTION_POLIC
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-v1-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-v1-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions to the mapped bucket
 
 #### v1 influx CLI (not supported)
@@ -287,6 +287,6 @@ client = InfluxDBClient(
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-databases-and-retention-policies-to-buckets)
-- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the [database](#map-v1-databases-and-retention-policies-to-buckets)
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: the [retention policy](#map-v1-databases-and-retention-policies-to-buckets)
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb3/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket

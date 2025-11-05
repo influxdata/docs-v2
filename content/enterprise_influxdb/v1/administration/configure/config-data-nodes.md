@@ -1,7 +1,7 @@
 ---
-title: Configure InfluxDB Enterprise data nodes
+title: Configure InfluxDB Enterprise v1 data nodes
 description: >
-  Configure InfluxDB Enterprise data node settings and environmental variables.
+  Configure InfluxDB Enterprise v1 data node settings and environmental variables.
 menu:
   enterprise_influxdb_v1:
     name: Configure data nodes

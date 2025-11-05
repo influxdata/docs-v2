@@ -1,5 +1,6 @@
 <!-- TOC -->
 - [Prerequisites](#prerequisites)
+- [Quick-Start Mode (Development)](#quick-start-mode-development)
 - [Start InfluxDB](#start-influxdb)
   - [Object store examples](#object-store-examples)
 {{% show-in "enterprise" %}}
@@ -20,6 +21,56 @@ To get started, you'll need:
 - If you want to persist data, have access to one of the following:
   - A directory on your local disk where you can persist data (used by examples in this guide)
   - S3-compatible object store and credentials
+
+## Quick-Start Mode (Development)
+
+For development, testing, and home use, you can start {{% product-name %}} without
+any arguments. The system automatically generates required configuration values
+based on your system's hostname:
+
+```bash
+influxdb3
+```
+
+When you run `influxdb3` without arguments, the following values are auto-generated:
+
+{{% show-in "enterprise" %}}
+- **`node-id`**: `{hostname}-node` (or `primary-node` if hostname is unavailable)
+- **`cluster-id`**: `{hostname}-cluster` (or `primary-cluster` if hostname is unavailable)
+{{% /show-in %}}
+{{% show-in "core" %}}
+- **`node-id`**: `{hostname}-node` (or `primary-node` if hostname is unavailable)
+{{% /show-in %}}
+- **`object-store`**: `file`
+- **`data-dir`**: `~/.influxdb`
+
+The system displays warning messages showing the auto-generated identifiers:
+
+{{% show-in "enterprise" %}}
+```
+Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id
+Using auto-generated cluster id: mylaptop-cluster. For production deployments, explicitly set --cluster-id
+```
+{{% /show-in %}}
+{{% show-in "core" %}}
+```
+Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id
+```
+{{% /show-in %}}
+
+> [!Important]
+> #### When to use quick-start mode
+>
+> Quick-start mode is designed for development, testing, and home lab environments
+> where simplicity is prioritized over explicit configuration.
+>
+> **For production deployments**, use explicit configuration values with the
+> [`influxdb3 serve` command](/influxdb3/version/reference/cli/influxdb3/serve/)
+> as shown in the [Start InfluxDB](#start-influxdb) section below.
+
+**Configuration precedence**: Environment variables override auto-generated defaults.
+For example, if you set `INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node`, the system
+uses `my-node` instead of generating `{hostname}-node`.
 
 ## Start InfluxDB
 

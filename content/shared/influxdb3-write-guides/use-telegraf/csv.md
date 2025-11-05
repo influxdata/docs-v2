@@ -123,5 +123,5 @@ CSV data to {{% product-name %}}.
 The preceding examples describe Telegraf configurations necessary for writing to
 {{% product-name %}}. The `influxdb_v2` output plugin provides several other
 configuration options. For more information, see the
-[`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+[`influxdb_v2` plugin options](/telegraf/v1/output-plugins/influxdb_v2/)
 on GitHub.

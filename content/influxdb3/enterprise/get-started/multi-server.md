@@ -11,6 +11,8 @@ menu:
     identifier: gs-multi-node-cluster 
 weight: 102
 influxdb3/enterprise/tags: [cluster, multi-node, multi-server]
+related:
+  - /influxdb3/enterprise/admin/upgrade/
 ---
 
 Create a multi-node {{% product-name %}} cluster for high availability, performance, and workload isolation.

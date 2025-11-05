@@ -19,7 +19,7 @@ Complete reference for custom Hugo shortcodes used in InfluxData documentation.
 - [Content Management](#content-management)
 - [Special Purpose](#special-purpose)
 
----
+***
 
 ## Notes and Warnings
 
@@ -113,25 +113,6 @@ Display the short version name (part of the key used in `products.yml`) from the
 {{% product-key %}}
 ```
 
-### Enterprise name
-
-The name used to refer to InfluxData's enterprise offering is subject to change. To facilitate easy updates in the future, use the `enterprise-name` shortcode when referencing the enterprise product. This shortcode accepts a `"short"` parameter which uses the "short-name".
-
-```md
-This is content that references {{< enterprise-name >}}.
-This is content that references {{< enterprise-name "short" >}}.
-```
-
-Product names are stored in `data/products.yml`.
-
-### Enterprise link
-
-References to InfluxDB Enterprise are often accompanied with a link to a page where visitors can get more information about the Enterprise offering. This link is subject to change. Use the `enterprise-link` shortcode when including links to more information about InfluxDB Enterprise.
-
-```md
-Find more info [here][{{< enterprise-link >}}]
-```
-
 ## Version Information
 
 ### Latest patch version
@@ -165,7 +146,7 @@ Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
 - **api-ref**: Link the endpoint to a specific place in the API documentation
-- **influxdb_host**: Specify which InfluxDB product host to use _if the `endpoint` contains the `influxdb/host` shortcode_. Uses the current InfluxDB product as default. Supports the following product values:
+- **influxdb_host**: Specify which InfluxDB product host to use *if the `endpoint` contains the `influxdb/host` shortcode*. Uses the current InfluxDB product as default. Supports the following product values:
   - oss
   - cloud
   - serverless
@@ -287,11 +268,11 @@ To link to tabbed content, click on the tab and use the URL parameter shown. It 
 
 Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page. These are useful for guiding users through a set of docs that should be read in sequential order. The shortcode has the following parameters:
 
-- **prev:** path of the previous document _(optional)_
-- **next:** path of the next document _(optional)_
-- **prevText:** override the button text linking to the previous document _(optional)_
-- **nextText:** override the button text linking to the next document _(optional)_
-- **keepTab:** include the currently selected tab in the button link _(optional)_
+- **prev:** path of the previous document *(optional)*
+- **next:** path of the next document *(optional)*
+- **prevText:** override the button text linking to the previous document *(optional)*
+- **nextText:** override the button text linking to the next document *(optional)*
+- **keepTab:** include the currently selected tab in the button link *(optional)*
 
 The shortcode generates buttons that link to both the previous and next documents. By default, the shortcode uses either the `list_title` or the `title` of the linked document, but you can use `prevText` and `nextText` to override button text.
 
@@ -327,7 +308,7 @@ The children shortcode can also be used to list only "section" articles (those w
 {{< children show="pages" >}}
 ```
 
-_By default, it displays both sections and pages._
+*By default, it displays both sections and pages.*
 
 Use the `type` argument to specify the format of the children list.
 
@@ -344,7 +325,7 @@ The following list types are available:
 
 #### Include a "Read more" link
 
-To include a "Read more" link with each child summary, set `readmore=true`. _Only the `articles` list type supports "Read more" links._
+To include a "Read more" link with each child summary, set `readmore=true`. *Only the `articles` list type supports "Read more" links.*
 
 ```md
 {{< children readmore=true >}}
@@ -352,7 +333,7 @@ To include a "Read more" link with each child summary, set `readmore=true`. _Onl
 
 #### Include a horizontal rule
 
-To include a horizontal rule after each child summary, set `hr=true`. _Only the `articles` list type supports horizontal rules._
+To include a horizontal rule after each child summary, set `hr=true`. *Only the `articles` list type supports horizontal rules.*
 
 ```md
 {{< children hr=true >}}
@@ -409,11 +390,11 @@ This is useful for maintaining and referencing sample code variants in their nat
 
 #### Include specific files from the same directory
 
-> [!Caution]
+> \[!Caution]
 > **Don't use for code examples**
 > Using this and `get-shared-text` shortcodes to include code examples prevents the code from being tested.
 
-To include the text from one file in another file in the same directory, use the `{{< get-leaf-text >}}` shortcode. The directory that contains both files must be a Hugo [_Leaf Bundle_](https://gohugo.io/content-management/page-bundles/#leaf-bundles), a directory that doesn't have any child directories.
+To include the text from one file in another file in the same directory, use the `{{< get-leaf-text >}}` shortcode. The directory that contains both files must be a Hugo [*Leaf Bundle*](https://gohugo.io/content-management/page-bundles/#leaf-bundles), a directory that doesn't have any child directories.
 
 In the following example, `api` is a leaf bundle. `content` isn't.
 
@@ -466,13 +447,13 @@ Each children list `type` uses frontmatter properties when generating the list o
 
 | Frontmatter          | articles | list | functions |
 | :------------------- | :------: | :--: | :-------: |
-| `list_title`         |    ✓     |  ✓   |     ✓     |
-| `description`        |    ✓     |      |           |
-| `external_url`       |    ✓     |  ✓   |           |
-| `list_image`         |    ✓     |      |           |
-| `list_note`          |          |  ✓   |           |
-| `list_code_example`  |    ✓     |      |           |
-| `list_query_example` |    ✓     |      |           |
+| `list_title`         |     ✓    |   ✓  |     ✓     |
+| `description`        |     ✓    |      |           |
+| `external_url`       |     ✓    |   ✓  |           |
+| `list_image`         |     ✓    |      |           |
+| `list_note`          |          |   ✓  |           |
+| `list_code_example`  |     ✓    |      |           |
+| `list_query_example` |     ✓    |      |           |
 
 ## Visual Elements
 
@@ -714,7 +695,7 @@ Column 2
 
 The following options are available:
 
-- half _(Default)_
+- half *(Default)*
 - third
 - quarter
 
@@ -740,10 +721,10 @@ Click {{< caps >}}Add Data{{< /caps >}}
 
 ### Authentication token link
 
-Use the `{{% token-link "<descriptor>" "<link_append>%}}` shortcode to automatically generate links to token management documentation. The shortcode accepts two _optional_ arguments:
+Use the `{{% token-link "<descriptor>" "<link_append>%}}` shortcode to automatically generate links to token management documentation. The shortcode accepts two *optional* arguments:
 
 - **descriptor**: An optional token descriptor
-- **link_append**: An optional path to append to the token management link path, `/<product>/<version>/admin/tokens/`.
+- **link\_append**: An optional path to append to the token management link path, `/<product>/<version>/admin/tokens/`.
 
 ```md
 {{% token-link "database" "resource/" %}}
@@ -794,7 +775,7 @@ Descriptions should follow consistent patterns:
    - Recommended: "your {{% token-link "database" %}}"{{% show-in "enterprise" %}} with permissions on the specified database{{% /show-in %}}
    - Avoid: "your token", "the token", "an authorization token"
 3. **Database names**:
-   - Recommended: "the name of the database to [action]"
+   - Recommended: "the name of the database to \[action]"
    - Avoid: "your database", "the database name"
 4. **Conditional content**:
    - Use `{{% show-in "enterprise" %}}` for content specific to enterprise versions
@@ -816,13 +797,75 @@ Descriptions should follow consistent patterns:
 
 #### Syntax
 
--  `{ placeholders="PATTERN1|PATTERN2" }`: Use this code block attribute to define placeholder patterns
+- `{ placeholders="PATTERN1|PATTERN2" }`: Use this code block attribute to define placeholder patterns
 - `{{% code-placeholder-key %}}`: Use this shortcode to define a placeholder key
 - `{{% /code-placeholder-key %}}`: Use this shortcode to close the key name
 
-_The `placeholders` attribute supercedes the deprecated `code-placeholders` shortcode._
+*The `placeholders` attribute supercedes the deprecated `code-placeholders` shortcode.*
 
-#### Example usage
+#### Automated placeholder syntax
+
+Use the `docs placeholders` command to automatically add placeholder syntax to code blocks and descriptions:
+
+```bash
+# Process a file
+npx docs placeholders content/influxdb3/core/admin/upgrade.md
+
+# Preview changes without modifying the file
+npx docs placeholders content/influxdb3/core/admin/upgrade.md --dry
+
+# Get help
+npx docs placeholders --help
+```
+
+**What it does:**
+
+1. Detects UPPERCASE placeholders in code blocks
+2. Adds `{ placeholders="..." }` attribute to code fences
+3. Wraps placeholder descriptions with `{{% code-placeholder-key %}}` shortcodes
+
+**Example transformation:**
+
+Before:
+
+````markdown
+```bash
+influxdb3 query \
+  --database SYSTEM_DATABASE \
+  --token ADMIN_TOKEN \
+  "SELECT * FROM system.version"
+```
+
+Replace the following:
+
+- **`SYSTEM_DATABASE`**: The name of your system database
+- **`ADMIN_TOKEN`**: An admin token with read permissions
+````
+
+After:
+
+````markdown
+```bash { placeholders="ADMIN_TOKEN|SYSTEM_DATABASE" }
+influxdb3 query \
+  --database SYSTEM_DATABASE \
+  --token ADMIN_TOKEN \
+  "SELECT * FROM system.version"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`SYSTEM_DATABASE`{{% /code-placeholder-key %}}: The name of your system database
+- {{% code-placeholder-key %}}`ADMIN_TOKEN`{{% /code-placeholder-key %}}: An admin token with read permissions
+````
+
+**How it works:**
+
+- Pattern: Matches words with 2+ characters, all uppercase, can include underscores
+- Excludes common words: HTTP verbs (GET, POST), protocols (HTTP, HTTPS), SQL keywords (SELECT, FROM), etc.
+- Idempotent: Running multiple times won't duplicate syntax
+- Preserves existing `placeholders` attributes and already-wrapped descriptions
+
+#### Manual placeholder usage
 
 ```sh { placeholders "DATABASE_NAME|USERNAME|PASSWORD_OR_TOKEN|API_TOKEN|exampleuser@influxdata.com" }
 curl --request POST http://localhost:8086/write?db=DATABASE_NAME \
@@ -858,7 +901,7 @@ Sample dataset to output. Use either `set` argument name or provide the set as t
 
 #### includeNull
 
-Specify whether or not to include _null_ values in the dataset. Use either `includeNull` argument name or provide the boolean value as the second argument.
+Specify whether or not to include *null* values in the dataset. Use either `includeNull` argument name or provide the boolean value as the second argument.
 
 #### includeRange
 
@@ -1134,6 +1177,6 @@ The InfluxDB host placeholder that gets replaced by custom domains differs betwe
 {{< influxdb/host "serverless" >}}
 ```
 
----
+***
 
 **For working examples**: Test all shortcodes in [content/example.md](content/example.md)

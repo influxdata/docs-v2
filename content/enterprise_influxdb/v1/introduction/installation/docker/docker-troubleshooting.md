@@ -1,6 +1,6 @@
 ---
-title: Docker troubleshooting for InfluxDB v1 Enterprise
-description: Common Docker-specific issues and solutions for InfluxDB v1 Enterprise deployments.
+title: Docker troubleshooting for InfluxDB Enterprise v1
+description: Common Docker-specific issues and solutions for InfluxDB Enterprise v1 deployments.
 menu:
   enterprise_influxdb_v1:
     name: Docker troubleshooting

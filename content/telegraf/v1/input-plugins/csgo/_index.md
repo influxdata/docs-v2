@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/csgo/README.md, Counter-Strike Global Offensive (CSGO) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/csgo/README.md, Counter-Strike Global Offensive (CSGO) Plugin Source
 ---
 
 # Counter-Strike: Global Offensive (CSGO) Input Plugin
