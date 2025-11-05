@@ -32,8 +32,8 @@ Use the `--regenerate` flag with the
 {{% code-placeholders "OPERATOR_TOKEN" %}}
 ```bash
 influxdb3 create token --admin \
-  --regenerate
-  OPERATOR_TOKEN
+  --regenerate \
+  --token OPERATOR_TOKEN
 ```
 {{% /code-placeholders %}}
 
