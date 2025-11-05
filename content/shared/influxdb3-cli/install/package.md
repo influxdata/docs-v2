@@ -31,7 +31,7 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 ### Install a single package
 
 ```bash
-influxdb3 install package pint
+influxdb3 install package pandas
 ```
 
 ### Install multiple packages
