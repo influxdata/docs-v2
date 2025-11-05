@@ -46,7 +46,7 @@ When you run this command:
 3. Other nodes in the cluster see the update after their catalog sync interval (default 10 seconds)
 4. The command requires authentication if the server has auth enabled
 
-> \[!Warning]
+> [!Warning]
 > **Stop the instance first**
 >
 > This command only updates catalog metadata.
