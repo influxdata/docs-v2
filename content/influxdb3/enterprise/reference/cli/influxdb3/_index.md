@@ -22,8 +22,8 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 
 ## Commands
 
-| Command                                                           | Description                      |
-| :--------------------------------------------------------------| :---------------------------------- |
+| Command                                                           | Description                         |
+| :---------------------------------------------------------------- | :---------------------------------- |
 | [create](/influxdb3/enterprise/reference/cli/influxdb3/create/)   | Create resources                    |
 | [delete](/influxdb3/enterprise/reference/cli/influxdb3/delete/)   | Delete resources                    |
 | [disable](/influxdb3/enterprise/reference/cli/influxdb3/disable/) | Disable resources                   |
@@ -31,32 +31,75 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [query](/influxdb3/enterprise/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
 | [serve](/influxdb3/enterprise/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/enterprise/reference/cli/influxdb3/show/)       | List resources                      |
+| [stop](/influxdb3/enterprise/reference/cli/influxdb3/stop/)       | Mark nodes as stopped               |
 | [test](/influxdb3/enterprise/reference/cli/influxdb3/test/)       | Test plugins                        |
 | [update](/influxdb3/enterprise/reference/cli/influxdb3/update/)   | Update resources                    |
 | [write](/influxdb3/enterprise/reference/cli/influxdb3/write/)     | Write to {{% product-name %}}       |
 
 ## Global options
 
-| Option |                   | Description                                                           |
-| :----- | :---------------- | :-------------------------------------------------------------------- |
-| `-h`   | `--help`          | Print help information                                                |
-|        | `--help-all`      | Print detailed help information including runtime configuration options |
-| `-V`   | `--version`       | Print version                                                         |
+| Option |              | Description                                                             |
+| :----- | :----------- | :---------------------------------------------------------------------- |
+| `-h`   | `--help`     | Print help information                                                  |
+|        | `--help-all` | Print detailed help information including runtime configuration options |
+| `-V`   | `--version`  | Print version                                                           |
 
 For advanced global configuration options (including `--num-io-threads` and other runtime settings), see [Configuration options](/influxdb3/enterprise/reference/config-options/#global-configuration-options).
 
+## Quick-Start Mode
+
+For development, testing, and home use, you can start {{< product-name >}} by running `influxdb3` without the `serve` subcommand or any configuration parameters. The system automatically generates required values:
+
+- **`node-id`**: `{hostname}-node` (fallback: `primary-node`)
+- **`cluster-id`**: `{hostname}-cluster` (fallback: `primary-cluster`)
+- **`object-store`**: `file`
+- **`data-dir`**: `~/.influxdb`
+
+The system displays warning messages showing the auto-generated identifiers:
+
+```
+Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id
+Using auto-generated cluster id: mylaptop-cluster. For production deployments, explicitly set --cluster-id
+```
+
+> \[!Important]
+>
+> #### Production deployments
+>
+> Quick-start mode is designed for development and testing environments.
+> For production deployments, use explicit configuration with the `serve` subcommand
+> and specify all required parameters as shown in the [Examples](#examples) below.
+
+**Configuration precedence**: CLI flags > environment variables > auto-generated defaults
+
+For more information about quick-start mode, see [Get started](/influxdb3/enterprise/get-started/setup/#quick-start-mode-development).
 
 ## Examples
 
 In the examples below, replace the following:
 
 - {{% code-placeholder-key %}}`my-host-01`{{% /code-placeholder-key %}}:
-a unique identifier for your {{< product-name >}} server.
+  a unique identifier for your {{< product-name >}} server.
 - {{% code-placeholder-key %}}`my-cluster-01`{{% /code-placeholder-key %}}:
-a unique identifier for your {{< product-name >}} cluster.
-The value you use must be different from `--node-id` values in the cluster.
+  a unique identifier for your {{< product-name >}} cluster.
+  The value you use must be different from `--node-id` values in the cluster.
 
 {{% code-placeholders "my-host-01|my-cluster-01" %}}
+
+### Quick-start influxdb3 server
+
+<!--pytest.mark.skip-->
+
+```bash
+# Zero-config startup
+influxdb3
+
+# Override specific defaults
+influxdb3 --object-store memory
+
+# Use environment variables to override defaults
+INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node influxdb3
+```
 
 ### Run the InfluxDB 3 server
 
@@ -111,7 +154,7 @@ influxdb3 serve \
   --verbose
 ```
 
-### Run {{% product-name %}} with debug logging using LOG_FILTER
+### Run {{% product-name %}} with debug logging using LOG\_FILTER
 
 <!--pytest.mark.skip-->
 
@@ -123,4 +166,4 @@ LOG_FILTER=debug influxdb3 serve \
   --cluster-id my-cluster-01
 ```
 
-{{% /code-placeholders %}} 
+{{% /code-placeholders %}}

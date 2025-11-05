@@ -80,7 +80,7 @@ Updates a database retention period to 30 days.
 <!--pytest.mark.skip-->
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-influxdb3 update database --retention-period 30d DATABASE_NAME
+influxdb3 update database --retention-period 30d --database DATABASE_NAME
 ```
 
 ### Clear a database retention period
@@ -90,7 +90,7 @@ Removes the retention period from a database by setting it to `none`.
 <!--pytest.mark.skip-->
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-influxdb3 update database --retention-period none DATABASE_NAME
+influxdb3 update database --retention-period none --database DATABASE_NAME
 ```
 
 ### Update a database with authentication
@@ -100,7 +100,7 @@ Updates a database using an authentication token.
 <!--pytest.mark.skip-->
 
 ```bash{placeholders="DATABASE_NAME|AUTH_TOKEN"}
-influxdb3 update database --token AUTH_TOKEN --retention-period 7d DATABASE_NAME
+influxdb3 update database --token AUTH_TOKEN --retention-period 7d --database DATABASE_NAME
 ```
 
 {{% /show-in %}}

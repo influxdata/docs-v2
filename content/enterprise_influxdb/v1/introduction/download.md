@@ -1,6 +1,6 @@
 ---
-title: InfluxDB Enterprise downloads
-description: Download InfluxDB Enterprise.
+title: InfluxDB Enterprise v1 downloads
+description: Download InfluxDB Enterprise v1.
 aliases:
     - /enterprise/v1.8/introduction/download/
 
@@ -12,10 +12,9 @@ menu:
 ---
 
 You must have a valid license to run InfluxDB Enterprise.
-You may obtain a 14-day demo license via the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/new).
 
-If you have purchased a license or already obtained a demo license,
-log in to the [InfluxDB Enterprise portal](https://portal.influxdata.com/users/sign_in)
+If you have purchased an InfluxDB v1 Enterprise license or already obtained a demo license,
+log in to the [InfluxDB v1 Enterprise portal](https://portal.influxdata.com/users/sign_in)
 to get your license key and download URLs.
 
 See the [installation documentation](/enterprise_influxdb/v1/introduction/installation/)

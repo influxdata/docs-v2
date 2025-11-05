@@ -31,7 +31,8 @@ LogicalPlan
 [Mm]onitor
 MBs?
 PBs?
-Parquet|\b\w*-*parquet-\w*\b|\b--\w*parquet\w*\b|`[^`]*parquet[^`]*`
+Parquet
+\w*-?\w*parquet\w*-\w*
 Redoc
 SQLAlchemy
 SQLAlchemy
@@ -41,9 +42,11 @@ System.Data.Odbc
 TBs?
 \bUI\b
 URL
+\w*-?\w*url\w*-\w*
 US (East|West|Central|North|South|Northeast|Northwest|Southeast|Southwest)
 Unix
 WALs?
+\w*-?wal-\w*
 Webpack
 [pP]y.*\b
 \b\w+_\w+\b
@@ -82,7 +85,6 @@ quoteChar
 retentionRules
 sourceBucket
 tagKey
-url[s]?
 v2
 v3
 venv

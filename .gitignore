@@ -28,6 +28,7 @@ package-lock.json
 test-results.xml
 /influxdb3cli-build-scripts/content
 tmp
+.tmp
 
 # IDE files
 .vscode/*
@@ -41,3 +42,6 @@ tmp
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
+
+# External repos
+.ext/*

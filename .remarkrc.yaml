@@ -1,0 +1,9 @@
+settings:
+  bullet: "-"
+
+plugins:
+  # GitHub-flavored Markdown support (tables, task lists, strikethrough, etc.)
+  - remark-gfm
+  - remark-frontmatter
+  # Check that markdown is consistent (list items have the same indentation)
+  - remark-preset-lint-consistent

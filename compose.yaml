@@ -334,6 +334,7 @@ services:
         target: /var/lib/influxdb3/plugins/custom
     environment:
       - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-core-admin-token
+      - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
     secrets:
       - influxdb3-core-admin-token
   influxdb3-enterprise:
@@ -357,14 +358,15 @@ services:
       - --verbose
     environment:
       - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
+      - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
     volumes:
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/enterprise/data
         target: /var/lib/influxdb3/data
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/plugins/influxdata
         target: /var/lib/influxdb3/plugins
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/enterprise/plugins
         target: /var/lib/influxdb3/plugins/custom
     secrets:
@@ -511,17 +513,18 @@ services:
   remark-lint:
     container_name: remark-lint
     build:
-      context: . 
+      context: .
       dockerfile: .ci/Dockerfile.remark
     profiles:
       - lint
     volumes:
+      # Mount repository to /workdir to avoid overwriting /app/ node_modules
+      # Remark will receive paths like /workdir/content/file.md or /workdir/README.md
+      # Writable mount allows auto-fixing instruction files (README.md, DOCS-*.md, etc.)
       - type: bind
-        source: ./content
-        target: /app/content
-      - type: bind
-        source: ./CONTRIBUTING.md
-        target: /app/CONTRIBUTING.md
+        source: .
+        target: /workdir
+        read_only: false
 volumes:
   test-content:
   cloud-tmp:

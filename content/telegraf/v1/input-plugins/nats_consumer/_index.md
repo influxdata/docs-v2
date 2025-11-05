@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.2/plugins/inputs/nats_consumer/README.md, NATS Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nats_consumer/README.md, NATS Consumer Plugin Source
 ---
 
 # NATS Consumer Input Plugin
