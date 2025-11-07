@@ -33,9 +33,6 @@ call_lefthook()
     then
       "$dir/node_modules/lefthook/bin/index.js" "$@"
     
-    elif go tool lefthook -h >/dev/null 2>&1
-    then
-      go tool lefthook "$@"
     elif bundle exec lefthook -h >/dev/null 2>&1
     then
       bundle exec lefthook "$@"
@@ -45,21 +42,12 @@ call_lefthook()
     elif pnpm lefthook -h >/dev/null 2>&1
     then
       pnpm lefthook "$@"
-    elif swift package lefthook >/dev/null 2>&1
+    elif swift package plugin lefthook >/dev/null 2>&1
     then
-      swift package --build-path .build/lefthook --disable-sandbox lefthook "$@"
+      swift package --disable-sandbox plugin lefthook "$@"
     elif command -v mint >/dev/null 2>&1
     then
       mint run csjones/lefthook-plugin "$@"
-    elif uv run lefthook -h >/dev/null 2>&1
-    then
-      uv run lefthook "$@"
-    elif mise exec -- lefthook -h >/dev/null 2>&1
-    then
-      mise exec -- lefthook "$@"
-    elif devbox run lefthook -h >/dev/null 2>&1
-    then
-      devbox run lefthook "$@"
     else
       echo "Can't find lefthook in PATH"
     fi
