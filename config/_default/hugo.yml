@@ -55,6 +55,26 @@ outputFormats:
     mediaType: application/json
     baseName: pages
     isPlainText: true
+  markdown:
+    mediaType: text/markdown
+    baseName: index
+    isPlainText: true
+    notAlternative: false
+    permalinkable: true
+    suffixes:
+      - md
+    rel: alternate
+
+outputs:
+  page:
+    - HTML
+    - markdown
+  section:
+    - HTML
+    - markdown
+  home:
+    - HTML
+    - markdown
 
 # Asset processing configuration for development
 build:
