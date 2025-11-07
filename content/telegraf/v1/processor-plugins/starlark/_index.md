@@ -141,17 +141,19 @@ following libraries are available for loading:
 - json: `load("json.star", "json")` provides the functions `json.encode()`,
         `json.decode()`, `json.indent()`. See json.star
         for an example. For more details about the functions, please refer to the
-        [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
+        [library documentation](https://pkg.go.dev/go.starlark.net/lib/json).
 - log:  `load("logging.star", "log")` provides the functions `log.debug()`,
-        `log.info()`, `log.warn()`, `log.error()`. See
-         logging.star` provides the function
-         [documented in the library](https://pkg.go.dev/go.starlark.net/lib/math). See
-         math.star`. See
-         time_date.star,
-         time_duration.star and
-         time_timestamp.star for examples. For
-         more details about the functions, please refer to the
-         [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
+        `log.info()`, `log.warn()`, `log.error()`. See logging.star` for an example.
+- math: `load('math.star', 'math')` provides basic mathematical constants and functions.
+        See math.star for an example. For more details, please refer to the
+        [library documentation](https://pkg.go.dev/go.starlark.net/lib/math).
+- time: `load('time.star', 'time')` provides time-related constants and functions.
+        See
+        time_date.star,
+        time_duration.star and
+        time_timestamp.star for examples. For
+        more details about the functions, please refer to the
+        [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
 
 If you would like to see support for something else here, please open an issue.
 
