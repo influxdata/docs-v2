@@ -600,15 +600,15 @@ plugin and is sent onwards to the next stage of processing.
   CEL language definition as well as in the extension documentation or the CEL language introduction.
   
   > [!Note]
-  > *As CEL is an *interpreted* language. This type of filtering is much slower
-  > than to `namepass`/`namedrop` and others.
+  > *As CEL is an _interpreted_ language. This type of filtering is much slower
+  > than `namepass`, `namedrop`, and others.
   > Consider using the more restrictive filter options where possible in case of
   > high-throughput scenarios.
 
 #### Modifiers
 
 Modifier filters remove tags and fields from a metric.
-If all fields are removed the metric is removed and as result not passed through
+If all fields are removed, the metric is removed and as a result not passed through
 to the following processors or any output plugin.
 Tags and fields are modified before a metric is passed to a processor,
 aggregator, or output plugin.
