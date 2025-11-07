@@ -1,0 +1,70 @@
+{{- /*
+  Generate llms.txt file for a section following https://llmstxt.org specification
+
+  Required: H1 with project/product name
+  Optional: Blockquote with brief summary
+  Optional: Content sections (NO HEADINGS allowed)
+  Optional: H2-delimited file list sections with curated links
+*/ -}}
+{{- $productKey := "" -}}
+{{- $productName := "" -}}
+{{- $productDescription := "" -}}
+{{- $sectionName := .Title -}}
+
+{{- /* Detect product from URL path */ -}}
+{{- if hasPrefix .RelPermalink "/influxdb3/core/" -}}
+  {{- $productKey = "influxdb3_core" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb3/enterprise/" -}}
+  {{- $productKey = "influxdb3_enterprise" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb3/cloud-dedicated/" -}}
+  {{- $productKey = "influxdb3_cloud_dedicated" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb3/cloud-serverless/" -}}
+  {{- $productKey = "influxdb3_cloud_serverless" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb3/clustered/" -}}
+  {{- $productKey = "influxdb3_clustered" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb/cloud/" -}}
+  {{- $productKey = "influxdb_cloud" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb/v2" -}}
+  {{- $productKey = "influxdb" -}}
+{{- else if hasPrefix .RelPermalink "/telegraf/" -}}
+  {{- $productKey = "telegraf" -}}
+{{- else if hasPrefix .RelPermalink "/chronograf/" -}}
+  {{- $productKey = "chronograf" -}}
+{{- else if hasPrefix .RelPermalink "/kapacitor/" -}}
+  {{- $productKey = "kapacitor" -}}
+{{- else if hasPrefix .RelPermalink "/flux/" -}}
+  {{- $productKey = "flux" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb3_explorer/" -}}
+  {{- $productKey = "influxdb3_explorer" -}}
+{{- end -}}
+
+{{- /* Get product data from products.yml */ -}}
+{{- if $productKey -}}
+  {{- $product := index .Site.Data.products $productKey -}}
+  {{- if $product -}}
+    {{- $productName = $product.name -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Use product name for root product sections, otherwise use section title */ -}}
+{{- $h1Title := $sectionName -}}
+{{- if and $productName (or (eq .RelPermalink (printf "/influxdb3/core/")) (eq .RelPermalink (printf "/influxdb3/enterprise/")) (eq .RelPermalink (printf "/influxdb3/cloud-dedicated/")) (eq .RelPermalink (printf "/influxdb3/cloud-serverless/")) (eq .RelPermalink (printf "/influxdb3/clustered/")) (eq .RelPermalink (printf "/influxdb/cloud/")) (eq .RelPermalink (printf "/influxdb/v2/")) (eq .RelPermalink (printf "/telegraf/v1/")) (eq .RelPermalink (printf "/chronograf/v1/")) (eq .RelPermalink (printf "/kapacitor/v1/")) (eq .RelPermalink (printf "/flux/v0/")) (eq .RelPermalink (printf "/influxdb3_explorer/"))) -}}
+  {{- $h1Title = $productName -}}
+{{- end -}}
+
+# {{ $h1Title }}
+{{- with .Description }}
+
+> {{ . }}
+{{- end }}
+{{- with .Content }}
+{{ . | plainify | truncate 500 }}
+{{- end }}
+{{- /* Only show child pages if there are any */ -}}
+{{- if .Pages }}
+
+## Pages in this section
+{{ range .Pages }}
+- [{{ .Title }}]({{ .RelPermalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+{{- end -}}
