@@ -1,0 +1,23 @@
+{
+  "name": "docs-markdown-generator-lambda",
+  "version": "1.0.0",
+  "description": "Lambda@Edge function for on-demand markdown generation from HTML",
+  "main": "index.js",
+  "scripts": {
+    "install-deps": "npm install",
+    "package": "zip -r function.zip index.js lib/ node_modules/",
+    "deploy": "aws lambda update-function-code --function-name docs-markdown-generator --zip-file fileb://function.zip --region us-east-1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.484.0",
+    "jsdom": "^23.0.1",
+    "js-yaml": "^4.1.0",
+    "turndown": "^7.1.2"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "InfluxData",
+  "license": "MIT"
+}

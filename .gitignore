@@ -38,6 +38,7 @@ tmp
 
 # TypeScript build output
 **/dist/
+**/dist-lambda/
 
 # User context files for AI assistant tools
 .context/*
@@ -45,3 +46,17 @@ tmp
 
 # External repos
 .ext/*
+
+# Lambda deployment artifacts
+deploy/llm-markdown/lambda-edge/markdown-generator/*.zip
+deploy/llm-markdown/lambda-edge/markdown-generator/package-lock.json
+deploy/llm-markdown/lambda-edge/markdown-generator/.package-tmp/
+deploy/llm-markdown/lambda-edge/markdown-generator/yarn.lock
+deploy/llm-markdown/lambda-edge/markdown-generator/config.json
+
+# JavaScript/TypeScript build artifacts
+*.tsbuildinfo
+*.d.ts
+*.d.ts.map
+*.js.map
+.eslintcache
