@@ -19,14 +19,14 @@ As written data moves through {{% product-name %}}, it follows a structured path
 
 - **Process**: InfluxDB validates incoming data before accepting it into the system.
 - **Impact**: Prevents malformed or unsupported data from entering the database.
-- **Details**: The database validates incoming data and stores it in the write buffer (in memory). If [`no_sync=true`](#no-sync-write-option), the server sends a response to acknowledge the write.
+- **Details**: The database validates incoming data and stores it in the write buffer (in memory). If `no_sync=true`, the server sends a response to acknowledge the write [without waiting for persistence](/influxdb3/version/reference/cli/influxdb3/write/#write-line-protocol-and-immediately-return-a-response).
 
 ### Write-ahead log (WAL) persistence
 
 - **Process**: The database flushes the write buffer to the WAL every second (default).
 - **Impact**: Ensures durability by persisting data to object storage.
 - **Tradeoff**: More frequent flushing improves durability but increases I/O overhead.
-- **Details**: Every second (default), the database flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the Object store. If [`no_sync=false`](#no-sync-write-option) (default), the server sends a response to acknowledge the write.
+- **Details**: Every second (default), the database flushes the write buffer to the Write-Ahead Log (WAL) for persistence in the object store. If `no_sync=false` (default), the server sends a response to acknowledge the write.
 
 ### Query availability
 
@@ -40,7 +40,8 @@ As written data moves through {{% product-name %}}, it follows a structured path
 - **Process**: Every ten minutes (default), data is persisted to Parquet files in object storage.
 - **Impact**: Provides durable, long-term storage.
 - **Tradeoff**: More frequent persistence reduces reliance on the WAL but increases I/O costs.
-- **Details**: Every ten minutes (default), the {{% product-name %}} persists the oldest data from the queryable buffer to the Object store in Parquet format, and keeps the remaining data (the most recent 5 minutes) in memory.
+- **Memory usage**: The persistence process uses memory from the configured memory pool ([`exec-mem-pool-bytes`](/influxdb3/version/reference/config-options/#exec-mem-pool-bytes)) when converting data to Parquet format. For write-heavy workloads, ensure adequate memory is allocated.
+- **Details**: Every ten minutes (default), {{% product-name %}} persists the oldest data from the queryable buffer to the object store in Parquet format, and keeps the remaining data (the most recent 5 minutes) in memory.
 
 ### In-memory cache
 

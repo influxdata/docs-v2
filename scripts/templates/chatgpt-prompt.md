@@ -7,6 +7,7 @@ You are analyzing a documentation draft to generate an intelligent file structur
 **Context file**: `.tmp/scaffold-context.json`
 
 Read and analyze the context file, which contains:
+
 - **draft**: The markdown content and any existing frontmatter
 - **products**: Available InfluxDB products (Core, Enterprise, Cloud, etc.)
 - **productHints**: Products mentioned or suggested based on content analysis
@@ -54,6 +55,7 @@ For each file, create complete frontmatter with:
 ### 4. Code Sample Considerations
 
 Based on `versionInfo`:
+
 - Use version-specific CLI commands (influxdb3, influx, influxctl)
 - Reference appropriate API endpoints (/api/v3, /api/v2)
 - Note testing requirements from `conventions.testing`
@@ -61,6 +63,7 @@ Based on `versionInfo`:
 ### 5. Style Compliance
 
 Follow conventions from `conventions.namingRules`:
+
 - Files: Use lowercase with hyphens (e.g., `manage-databases.md`)
 - Directories: Use lowercase with hyphens
 - Shared content: Place in appropriate `/content/shared/` subdirectory
@@ -133,4 +136,8 @@ Generate a JSON proposal matching the schema in `scripts/schemas/scaffold-propos
 4. Generate complete frontmatter for all files
 5. Save the proposal to `.tmp/scaffold-proposal.json`
 
-The proposal will be validated and used by `yarn docs:create --proposal .tmp/scaffold-proposal.json` to create the files.
+The following command validates and creates files from the proposal:
+
+```bash
+npx docs create --proposal .tmp/scaffold-proposal.json
+```
