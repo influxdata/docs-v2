@@ -915,6 +915,93 @@ ORDER BY room, time
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
+
+{{% expand "Calculate the difference from a previous value" %}}
+
+Use `LAG` with arithmetic to calculate the difference between the current value and a previous value.
+This is useful for detecting changes over time.
+
+The following query calculates the temperature change from the previous reading:
+
+```sql
+SELECT
+  time,
+  room,
+  temp,
+  temp - lag(temp, 1) OVER (
+    PARTITION BY room
+    ORDER BY time
+  ) AS temp_change
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time < '2022-01-01T11:00:00Z'
+ORDER BY room, time
+```
+
+| time                | room        | temp | temp_change |
+|:--------------------|:------------|-----:|------------:|
+| 2022-01-01T08:00:00 | Kitchen     | 21.0 | NULL        |
+| 2022-01-01T09:00:00 | Kitchen     | 23.0 | 2.0         |
+| 2022-01-01T10:00:00 | Kitchen     | 22.7 | -0.3        |
+| 2022-01-01T08:00:00 | Living Room | 21.1 | NULL        |
+| 2022-01-01T09:00:00 | Living Room | 21.4 | 0.3         |
+| 2022-01-01T10:00:00 | Living Room | 21.8 | 0.4         |
+
+{{% /expand %}}
+
+{{% expand "Calculate the difference from a value at a specific time offset" %}}
+
+For regularly spaced data, use `LAG` with an offset to compare values from a specific time period ago.
+
+The following query compares temperature values that are 1 hour apart (assuming hourly data):
+
+```sql
+SELECT
+  time,
+  room,
+  temp,
+  lag(temp, 1) OVER (
+    PARTITION BY room
+    ORDER BY time
+  ) AS temp_1h_ago,
+  temp - lag(temp, 1) OVER (
+    PARTITION BY room
+    ORDER BY time
+  ) AS hourly_change
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time < '2022-01-01T12:00:00Z'
+ORDER BY room, time
+```
+
+{{% /expand %}}
+
+{{% expand "Use a self-join for irregularly spaced data" %}}
+
+For irregularly spaced time series data where you need to compare values from an exact time offset (like exactly 1 hour ago), use a self-join with interval arithmetic:
+
+```sql
+SELECT
+  current.time,
+  current.room,
+  current.temp AS current_temp,
+  previous.temp AS temp_1h_ago,
+  current.temp - previous.temp AS hourly_diff
+FROM home AS current
+LEFT JOIN home AS previous
+  ON current.room = previous.room
+  AND previous.time = current.time - INTERVAL '1 hour'
+WHERE
+  current.time >= '2022-01-01T08:00:00Z'
+  AND current.time < '2022-01-01T12:00:00Z'
+ORDER BY current.room, current.time
+```
+
+This approach works when your data points don't fall at regular intervals, or when you need to compare against a specific time offset regardless of when the previous data point occurred.
+
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
 ### last_value
@@ -1063,21 +1150,21 @@ SELECT
   temp,
   nth_value(temp, 2) OVER (
     PARTITION BY room
-  ) AS "2nd_temp"
+  ) AS second_temp
 FROM home
-WHERE  
+WHERE
   time >= '2025-02-10T08:00:00Z'
   AND time < '2025-02-10T11:00:00Z'
 ```
 
-| time                | room        | temp | 2nd_temp |
-| :------------------ | :---------- | ---: | -------: |
-| 2025-02-10T08:00:00 | Kitchen     | 21.0 |     22.7 |
-| 2025-02-10T10:00:00 | Kitchen     | 22.7 |     22.7 |
-| 2025-02-10T09:00:00 | Kitchen     | 23.0 |     22.7 |
-| 2025-02-10T08:00:00 | Living Room | 21.1 |     21.8 |
-| 2025-02-10T10:00:00 | Living Room | 21.8 |     21.8 |
-| 2025-02-10T09:00:00 | Living Room | 21.4 |     21.8 |
+| time                | room        | temp | second_temp |
+| :------------------ | :---------- | ---: | ----------: |
+| 2025-02-10T08:00:00 | Kitchen     | 21.0 |        22.7 |
+| 2025-02-10T10:00:00 | Kitchen     | 22.7 |        22.7 |
+| 2025-02-10T09:00:00 | Kitchen     | 23.0 |        22.7 |
+| 2025-02-10T08:00:00 | Living Room | 21.1 |        21.8 |
+| 2025-02-10T10:00:00 | Living Room | 21.8 |        21.8 |
+| 2025-02-10T09:00:00 | Living Room | 21.4 |        21.8 |
 
 {{% /influxdb/custom-timestamps %}}
 
