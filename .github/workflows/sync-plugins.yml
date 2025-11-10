@@ -80,11 +80,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout influxdb3_plugins (sparse)
-        run: |
-          git clone --filter=blob:none --sparse https://github.com/influxdata/influxdb3_plugins.git .ext/influxdb3_plugins
-          cd .ext/influxdb3_plugins
-          git sparse-checkout set influxdata/ scripts/
-          git checkout ${{ steps.inputs.outputs.source_commit }}
+        uses: actions/checkout@v4
+        with:
+          repository: influxdata/influxdb3_plugins
+          token: ${{ secrets.PLUGINS_CONTENT_READ_TOKEN }}
+          path: .ext/influxdb3_plugins
+          sparse-checkout: |
+              influxdata/
+              scripts/
+          ref: ${{ steps.inputs.outputs.source_commit }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
