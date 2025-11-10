@@ -23,9 +23,10 @@ influxdb3_core:
         x-influxdb-build: 'Core'
       url_contains: ['localhost:8181']
   ai_sample_questions:
-    - How do I install and run InfluxDB 3 Core?
-    - How do I write a plugin for the Python Processing engine?
-    - How do I write data using the HTTP API for InfluxDB 3 Core?
+    - How do I install and run the database?
+    - Help me write a plugin for the Python Processing engine
+    - How do I write data using the HTTP API?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
@@ -52,9 +53,10 @@ influxdb3_enterprise:
         x-influxdb-build: 'Enterprise'
       url_contains: ['localhost:8181']
   ai_sample_questions:
-    - How do I install and run InfluxDB 3 Enterprise?
-    - Help me write a plugin for the Python Processing engine?
-    - How do I start a read replica node with InfluxDB 3 Enterprise?
+    - How do I install and run the database?
+    - Help me write a plugin for the Python Processing engine
+    - How do I start a read replica node?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
@@ -66,9 +68,10 @@ influxdb3_explorer:
   latest_patch: 1.4.0
   placeholder_host: localhost:8888
   ai_sample_questions:
-    - How do I query data using InfluxDB 3 Explorer?
-    - How do I use InfluxDB 3 Explorer to visualize data?
-    - How do I install InfluxDB 3 Explorer?
+    - How do I query data?
+    - How do I visualize data?
+    - How do I install and run?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -94,8 +97,9 @@ influxdb3_cloud_serverless:
     detection:
       url_contains: ['us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com']
   ai_sample_questions:
-    - How do I migrate from InfluxDB Cloud 2 to InfluxDB Cloud Serverless?
-    - What tools can I use to write data to InfluxDB Cloud Serverless?
+    - How do I migrate from Cloud (TSM)?
+    - What tools can I use to write data?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -120,9 +124,10 @@ influxdb3_cloud_dedicated:
     detection:
       url_contains: ['influxdb.io']
   ai_sample_questions:
-    - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
-    - What tools can I use to write data to Cloud Dedicated?
-    - How do I use SQL and parameterized queries with Cloud Dedicated?
+    - How do I migrate from v1?
+    - What tools can I use to write data?
+    - How do I use SQL and parameterized queries?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_clustered:
   name: InfluxDB Clustered
@@ -147,9 +152,10 @@ influxdb3_clustered:
       ping_headers:
         x-influxdb-version: 'influxqlbridged-development'
   ai_sample_questions:
-    - How do I use a Helm chart to configure Clustered?
-    - What tools can I use to write data to Clustered?
-    - How do I use SQL and parameterized queries with InfluxDB Clustered?
+    - How do I use a Helm chart to configure the cluster?
+    - What tools can I use to write data?
+    - How do I use SQL and parameterized queries?
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb:
   name: InfluxDB
@@ -183,9 +189,15 @@ influxdb:
         x-influxdb-version: '^(1|2)\.'
       url_contains: ['localhost:8086']
   ai_sample_questions:
-    - How do I write and query data with InfluxDB v2 OSS?
-    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core?
-    - How do I manage auth tokens in InfluxDB v2 OSS?
+    - How do I write and query data?
+    - How can I migrate to InfluxDB 3?
+    - How do I manage auth tokens?
+  ai_source_group_ids: "3e905caa-dd6f-464b-abf9-c3880e09f128"
+  ai_sample_questions__v1:
+    - How do I query data with InfluxQL?
+    - How do I set up continuous queries?
+    - How do I manage retention policies?
+  ai_source_group_ids__v1: "d809f67b-867d-4f17-95f0-c33dbadbf15f"
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -208,9 +220,10 @@ influxdb_cloud:
     detection:
       url_contains: ['us-west-2-1.aws.cloud2.influxdata.com', 'us-west-2-2.aws.cloud2.influxdata.com', 'us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com', 'us-central1-1.gcp.cloud2.influxdata.com', 'westeurope-1.azure.cloud2.influxdata.com', 'eastus-1.azure.cloud2.influxdata.com']
   ai_sample_questions:
-    - How do I write and query data with InfluxDB Cloud 2?
-    - How is Cloud 2 different from Cloud Serverless?
-    - How do I manage auth tokens in InfluxDB Cloud 2?
+    - How do I write and query data?
+    - How is Cloud (TSM) different from Cloud Serverless?
+    - How do I manage auth tokens?
+  ai_source_group_ids: "3e905caa-dd6f-464b-abf9-c3880e09f128"
 
 telegraf:
   name: Telegraf
@@ -222,7 +235,7 @@ telegraf:
   latest_patches:
     v1: 1.36.4
   ai_sample_questions:
-    - How do I install and configure Telegraf?
+    - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
     - How do I use Telegraf for MQTT?
 
@@ -276,9 +289,10 @@ enterprise_influxdb:
       ping_headers:
         x-influxdb-build: 'Enterprise'
   ai_sample_questions:
-  - How can I configure my InfluxDB v1 Enterprise server?
-  - How do I replicate data between InfluxDB v1 Enterprise and OSS?
-  - How do I query data stored in InfluxDB v1?
+  - How can I configure the server?
+  - How do I replicate data between Enterprise and OSS?
+  - How do I query data?
+  ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f"
 
 flux:
   name: Flux
@@ -288,6 +302,7 @@ flux:
   versions: [v0]
   latest: v0.x
   ai_sample_questions:
-    - How do I write a Flux query for InfluxDB v2 (TSM)?
-    - How do I use Flux to transform data stored in InfluxDB v2?
+    - How do I write a Flux query?
+    - How do I use Flux to transform data?
     - How do I join data with Flux?
+  ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f,3e905caa-dd6f-464b-abf9-c3880e09f128"
