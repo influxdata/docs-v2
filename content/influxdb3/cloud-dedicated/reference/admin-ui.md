@@ -72,7 +72,7 @@ To view all accounts across your organization:
 
 To view all clusters across accounts:
 
-1. Click **Overview** in the sidebar to access cluster views
+1. Click All Clusters from the cluster switcher menu
 2. Navigate to the clusters list to see all available clusters
 3. View cluster IDs, status, creation dates, and size information
 4. Use available actions to copy cluster IDs or URLs, or observe clusters in Grafana (if enabled)
