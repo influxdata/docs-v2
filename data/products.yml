@@ -68,9 +68,9 @@ influxdb3_explorer:
   latest_patch: 1.4.0
   placeholder_host: localhost:8888
   ai_sample_questions:
-    - How do I install and run?
-    - How do I query data?
-    - How do I visualize data?
+    - How do I install and run Explorer?
+    - How do I query data using Explorer?
+    - How do I visualize data using Explorer?
 
   ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
@@ -265,7 +265,7 @@ kapacitor:
     v1: 1.8.2
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
-    - How do I write a custom Kapacitor task?
+    - How do I write a custom task for Kapacitor?
     - How do I create tasks using InfluxDB 3 Core?
 
 enterprise_influxdb:
@@ -291,7 +291,7 @@ enterprise_influxdb:
         x-influxdb-build: 'Enterprise'
   ai_sample_questions:
   - How can I configure the server?
-  - How do I replicate data between Enterprise and OSS?
+  - How do I replicate data from OSS?
   - How do I query data?
   ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f"
 
@@ -303,7 +303,7 @@ flux:
   versions: [v0]
   latest: v0.x
   ai_sample_questions:
-    - How do I write a Flux query?
-    - How do I use Flux to transform data?
+    - How do I query with Flux?
+    - How do I transform data with Flux?
     - How do I join data with Flux?
   ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f,3e905caa-dd6f-464b-abf9-c3880e09f128"
