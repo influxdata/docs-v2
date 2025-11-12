@@ -9,7 +9,7 @@ function getCurrentProductData() {
   const mappings = [
     {
       pattern: /\/influxdb\/cloud\//,
-      product: products.cloud,
+      product: products.influxdb_cloud,
       urls: influxdbUrls.influxdb_cloud,
     },
     {

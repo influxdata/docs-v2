@@ -162,6 +162,63 @@ describe('Ask AI Widget Configuration', function () {
         expect(questions).to.include('configure the server');
         expect(questions).to.include('replicate data from OSS');
         expect(questions).to.include('query data');
+        expect(questions).to.include('My version: InfluxDB Enterprise v1');
+      });
+    });
+  });
+
+  describe('InfluxDB OSS v2', function () {
+    it('should configure v2-specific questions with version name in Kapa widget', function () {
+      cy.visit('/influxdb/v2/get-started/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        // Check for v2-specific questions
+        expect(questions).to.include('How do I write and query data?');
+        expect(questions).to.include('How can I migrate to InfluxDB 3?');
+        expect(questions).to.include('How do I manage auth tokens?');
+        // Verify version-specific naming
+        expect(questions).to.include('My version: InfluxDB OSS v2');
+        // Should NOT have v1-specific questions
+        expect(questions).to.not.include('continuous queries');
+        expect(questions).to.not.include('retention policies');
+      });
+    });
+  });
+
+  describe('InfluxDB OSS v1', function () {
+    it('should configure v1-specific questions with version name in Kapa widget', function () {
+      cy.visit('/influxdb/v1/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        // Check for v1-specific questions
+        expect(questions).to.include('How do I query data with InfluxQL?');
+        expect(questions).to.include('How do I set up continuous queries?');
+        expect(questions).to.include('How do I manage retention policies?');
+        // Verify version-specific naming
+        expect(questions).to.include('My version: InfluxDB OSS v1');
+        // Should NOT have v2-specific questions
+        expect(questions).to.not.include('migrate to InfluxDB 3');
+        expect(questions).to.not.include('auth tokens');
+      });
+    });
+  });
+
+  describe('InfluxDB Cloud (TSM)', function () {
+    it('should configure Cloud-specific questions with correct naming in Kapa widget', function () {
+      cy.visit('/influxdb/cloud/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        // Check for Cloud-specific questions
+        expect(questions).to.include('How do I write and query data?');
+        expect(questions).to.include(
+          'How is Cloud (TSM) different from Cloud Serverless?'
+        );
+        expect(questions).to.include('How do I manage auth tokens?');
+        // Verify version-specific naming includes "(TSM)"
+        expect(questions).to.include('My version: InfluxDB Cloud (TSM)');
       });
     });
   });

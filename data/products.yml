@@ -160,6 +160,8 @@ influxdb3_clustered:
 
 influxdb:
   name: InfluxDB
+  name__v2: InfluxDB OSS v2
+  name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
   succeeded_by: influxdb3_core
@@ -202,6 +204,7 @@ influxdb:
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
+  name__vcloud: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
   namespace: influxdb
   menu_category: managed
