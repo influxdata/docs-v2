@@ -152,7 +152,9 @@ async function main() {
   // If --no-mapping is used, file paths are optional
   if (!noMapping && fileArgs.length === 0) {
     console.error('No file paths provided.');
-    console.error('Use --no-mapping flag to skip content mapping for functionality tests.');
+    console.error(
+      'Use --no-mapping flag to skip content mapping for functionality tests.'
+    );
     process.exit(1);
   }
 
@@ -437,9 +439,7 @@ async function main() {
     const testFailureCount = results?.totalFailed || 0;
 
     if (testFailureCount > 0) {
-      console.warn(
-        `ℹ️ Note: ${testFailureCount} test(s) failed.`
-      );
+      console.warn(`ℹ️ Note: ${testFailureCount} test(s) failed.`);
 
       // Provide detailed failure analysis
       if (results) {
