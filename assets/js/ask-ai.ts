@@ -192,7 +192,7 @@ function getProductExampleQuestions(): string {
 
   // Append version hint to each question
   const questionsWithHint = questions.map((question) => {
-    return `${question} (My version: ${productName})`;
+    return `${question} My version: ${productName}`;
   });
 
   return questionsWithHint.join(',');
