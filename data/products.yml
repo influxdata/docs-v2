@@ -68,9 +68,10 @@ influxdb3_explorer:
   latest_patch: 1.4.0
   placeholder_host: localhost:8888
   ai_sample_questions:
+    - How do I install and run?
     - How do I query data?
     - How do I visualize data?
-    - How do I install and run?
+
   ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_cloud_serverless:
