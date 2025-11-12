@@ -1,5 +1,4 @@
-
-Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
+Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and API features analyze your times series data.
 
 In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
 and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
@@ -23,16 +22,16 @@ For complete InfluxQL reference documentation, see the
 ## Verify buckets have a mapping
 
 1. To verify the buckets you want to query are mapped to a database and retention policy, use the [`influx` CLI](/influxdb/version/reference/cli/influx/) or the [InfluxDB API](/influxdb/version/reference/api/).
-_For examples, see [List DBRP mappings](/influxdb/version/query-data/influxql/dbrp/#list-dbrp-mappings)._
+   *For examples, see [List DBRP mappings](/influxdb/version/query-data/influxql/dbrp/#list-dbrp-mappings).*
 
 2. If you **do not find a DBRP mapping for a bucket**, [create a new DBRP mapping](/influxdb/version/query-data/influxql/dbrp/#create-dbrp-mappings) to
-map the unmapped bucket.
+   map the unmapped bucket.
 
 ## Create DBRP mappings for unmapped buckets
 
 - Use the [`influx` CLI](/influxdb/version/reference/cli/influx/) or the [InfluxDB API](/influxdb/version/reference/api/)
-to manually create DBRP mappings for unmapped buckets.
-_For examples, see [Create DBRP mappings](/influxdb/version/query-data/influxql/dbrp/#create-dbrp-mappings)._
+  to manually create DBRP mappings for unmapped buckets.
+  *For examples, see [Create DBRP mappings](/influxdb/version/query-data/influxql/dbrp/#create-dbrp-mappings).*
 
 ## Query a mapped bucket with InfluxQL
 
@@ -42,6 +41,7 @@ _For examples, see [Create DBRP mappings](/influxdb/version/query-data/influxql/
 [InfluxDB API](#)
 {{% /tabs %}}
 {{% tab-content %}}
+
 <!---------------------------- BEGIN InfluxQL shell --------------------------->
 
 The [`influx` CLI](/influxdb/version/reference/cli/influx/) provides an [InfluxQL shell](/influxdb/version/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
@@ -66,8 +66,10 @@ The [`influx` CLI](/influxdb/version/reference/cli/influx/) provides an [InfluxQ
    For more information, see how to [use the InfluxQL shell](/influxdb/version/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/version/query-data/influxql/dbrp/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
+
 {{% /tab-content %}}
 {{% tab-content %}}
+
 <!----------------------------- BEGIN InfluxDB API ---------------------------->
 
 The [InfluxDB 1.x compatibility API](/influxdb/version/reference/api/influxdb-1x/) supports
@@ -77,10 +79,10 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
 
    - **Request method:** `GET`
    - **Headers:**
-     - **Authorization:** _See [compatibility API authentication](/influxdb/version/reference/api/influxdb-1x/#authentication)_
+     - **Authorization:** *See [compatibility API authentication](/influxdb/version/reference/api/influxdb-1x/#authentication)*
    - **Query parameters:**
      - **db**: 1.x database to query
-     - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
+     - **rp**: 1.x retention policy to query *(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)*
      - **q**: URL-encoded InfluxQL query
 
        {{% api/url-encode-note %}}
@@ -96,7 +98,9 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
 
 For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/version/query-data/influxql/dbrp/).
+
 <!------------------------------ END InfluxDB API ----------------------------->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -107,12 +111,13 @@ InfluxDB OSS 2.x supports the following InfluxQL statements and clauses. See sup
 {{< flex >}}
 {{< flex-content >}}
 {{% note %}}
+
 ##### Supported InfluxQL queries
 
-- `DELETE`*
-- `DROP MEASUREMENT`*
+- `DELETE`\*
+- `DROP MEASUREMENT`\*
 - `EXPLAIN ANALYZE`
-- `SELECT` _(read-only)_
+- `SELECT` *(read-only)*
 - `SHOW DATABASES`
 - `SHOW SERIES`
 - `SHOW MEASUREMENTS`
@@ -133,11 +138,11 @@ InfluxDB OSS 2.x supports the following InfluxQL statements and clauses. See sup
 - `SELECT INTO`
 - `ALTER`
 - `CREATE`
-- `DROP` _(limited support)_
+- `DROP` *(limited support)*
 - `GRANT`
 - `KILL`
 - `REVOKE`
 - `SHOW SERIES CARDINALITY`
-{{% /warn %}}
-{{< /flex-content >}}
-{{< /flex >}}
+  {{% /warn %}}
+  {{< /flex-content >}}
+  {{< /flex >}}

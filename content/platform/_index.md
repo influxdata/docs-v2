@@ -21,6 +21,21 @@ weight: 1
 
 **InfluxData platform** is the leading modern [time series](/platform/faq/#what-is-time-series-data) platform, built for metrics and events.
 
+> \[!Note]
+>
+> #### What's my InfluxDB version?
+>
+> With multiple InfluxDB deployment options available, identifying which one you're using is important for accessing the correct documentation and features.
+>
+> **[Identify your InfluxDB version](/platform/identify-version/)** using:
+>
+> - Interactive version detector
+> - URL pattern recognition
+> - Command-line tools
+> - HTTP API headers
+>
+> Or browse the product lineup below to find yours.
+
 ## InfluxDB 3
 
 **InfluxDB 3** is InfluxDB’s next generation that unlocks series limitations present in the Time Structured Merge Tree (TSM) storage engine and allows infinite series cardinality without any impact on overall database performance. It also brings with it native SQL support and improved InfluxQL performance.
@@ -46,7 +61,8 @@ weight: 1
 
 ## InfluxDB 2
 
-> [!Note]
+> \[!Note]
+>
 > #### New InfluxDB Cloud signups use InfluxDB 3
 >
 > New InfluxDB Cloud signups are for [InfluxDB Cloud Serverless, powered by the InfluxDB 3 storage engine](/influxdb3/cloud-serverless/).
@@ -55,11 +71,12 @@ weight: 1
 
 The **InfluxDB 2 platform** consolidates InfluxDB, Chronograf, and Kapacitor from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
 
-  - [InfluxDB OSS 2.x](/influxdb/v2/get-started/): open source platform solution in a single binary
-  - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
-  - [Telegraf](#telegraf): collect data
+- [InfluxDB OSS 2.x](/influxdb/v2/get-started/): open source platform solution in a single binary
+- [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
+- [Telegraf](#telegraf): collect data
 
-> [!Note]
+> \[!Note]
+>
 > #### Integrate InfluxDB 2.0 applications with InfluxDB Enterprise 1.8+
 >
 > Use [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/tools/api/#influxdb-20-api-compatibility-endpoints) to integrate applications built on InfluxDB 2.0 or InfluxDB Cloud with InfluxDB Enterprise 1.8+:
@@ -71,16 +88,16 @@ The **InfluxDB 2 platform** consolidates InfluxDB, Chronograf, and Kapacitor fro
 
 The **InfluxData 1.x platform** includes the following open source components ([TICK stack](#influxdata-1-x-tick-stack)):
 
-  - [Telegraf](#telegraf): collect data
-  - [InfluxDB](#influxdb): store data
-  - [Chronograf](#chronograf): visualize data
-  - [Kapacitor](#kapacitor): process data and alerts
+- [Telegraf](#telegraf): collect data
+- [InfluxDB](#influxdb): store data
+- [Chronograf](#chronograf): visualize data
+- [Kapacitor](#kapacitor): process data and alerts
 
 **InfluxData 1.x** also includes the following **commercial offerings**:
 
-  - [InfluxDB Enterprise](#influxdb-enterprise)
-  - [Kapacitor Enterprise](#kapacitor-enterprise)
-  - [InfluxCloud 1.x](https://help.influxcloud.net) (hosted cloud solution)
+- [InfluxDB Enterprise](#influxdb-enterprise)
+- [Kapacitor Enterprise](#kapacitor-enterprise)
+- [InfluxCloud 1.x](https://help.influxcloud.net) (hosted cloud solution)
 
 ## InfluxData 1.x TICK stack
 
@@ -116,7 +133,7 @@ based on user-defined logic, and running ETL jobs.
 
 InfluxDB Enterprise and Kapacitor Enterprise provide clustering, access control, and incremental backup functionality for production infrastructures at scale. You'll also receive direct support from the InfluxData support team.
 
-> [!Note]
+> \[!Note]
 > InfluxDB Enterprise and Kapacitor Enterprise are compatible with open source versions of Telegraf and Chronograf.
 
 ### InfluxDB Enterprise

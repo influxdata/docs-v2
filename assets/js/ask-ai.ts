@@ -47,6 +47,8 @@ type KapaFunction = (command: string, options?: unknown) => void;
 
 interface ChatAttributes extends Record<string, string | undefined> {
   modalExampleQuestions?: string;
+  modalAskAiInputPlaceholder?: string;
+  modalDisclaimer?: string;
   sourceGroupIdsInclude?: string;
 }
 
@@ -96,6 +98,7 @@ function initializeChat({
 
   const optionalAttributes = {
     modalDisclaimer:
+      chatAttributes.modalDisclaimer ||
       'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).',
     modalExampleQuestions:
       'Use Python to write data to InfluxDB 3,How do I query using SQL?,How do I use MQTT with Telegraf?',
@@ -175,27 +178,7 @@ function getProductExampleQuestions(): string {
     return '';
   }
 
-  // Only add version hints for InfluxDB database products
-  // Other tools like Explorer, Telegraf, Chronograf, Kapacitor,
-  // Flux don't need version hints
-  const productNamespace = productData?.product?.namespace;
-  const shouldAddVersionHint =
-    productNamespace === 'influxdb' ||
-    productNamespace === 'influxdb3' ||
-    productNamespace === 'enterprise_influxdb';
-
-  if (!shouldAddVersionHint) {
-    return questions.join(',');
-  }
-
-  const productName = productData?.product?.name || 'InfluxDB';
-
-  // Append version hint to each question
-  const questionsWithHint = questions.map((question) => {
-    return `${question} My version: ${productName}`;
-  });
-
-  return questionsWithHint.join(',');
+  return questions.join(',');
 }
 
 function getProductSourceGroupIds(): string {
@@ -205,60 +188,37 @@ function getProductSourceGroupIds(): string {
   return sourceGroupIds || '';
 }
 
-function getVersionContext(): string {
-  // Only add version context for InfluxDB database products
-  const productNamespace = productData?.product?.namespace;
-  const shouldAddVersionContext =
-    productNamespace === 'influxdb' ||
-    productNamespace === 'influxdb3' ||
-    productNamespace === 'enterprise_influxdb';
+function getProductInputPlaceholder(): string {
+  const placeholder = getVersionSpecificConfig('ai_input_placeholder') as
+    | string
+    | undefined;
 
-  if (!shouldAddVersionContext) {
-    return '';
-  }
-
-  const productName = productData?.product?.name || 'InfluxDB';
-
-  return `My version: ${productName}`;
+  // Return product-specific placeholder or default
+  return (
+    placeholder ||
+    'Ask questions about InfluxDB. Specify your product and version ' +
+      'for better results'
+  );
 }
 
-function setupVersionPrefill(): void {
-  const versionContext = getVersionContext();
-  if (!versionContext) {
-    return;
-  }
+function getProductDisclaimer(): string {
+  // Build version-specific note if version is available
+  const versionNote =
+    version && version !== 'n/a' && productData?.product?.name
+      ? `**Viewing documentation for ${productData.product.name}**\n\n`
+      : '';
 
-  // Wait for Kapa to be available
-  const checkKapa = (): void => {
-    if (!window.Kapa || typeof window.Kapa !== 'function') {
-      setTimeout(checkKapa, 100);
-      return;
-    }
+  // Check for product-specific custom disclaimer note
+  const customNote = getVersionSpecificConfig('ai_disclaimer_note') as
+    | string
+    | undefined;
+  const noteContent = customNote ? `${customNote}\n\n` : '';
 
-    // Find the Ask AI button and add click handler to prefill version
-    const askAIButton = document.querySelector('.ask-ai-open');
-    if (askAIButton) {
-      askAIButton.addEventListener(
-        'click',
-        (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          window.Kapa('open', { query: versionContext });
-        },
-        true
-      ); // Use capture phase to run before Kapa's handler
-    }
+  // Base disclaimer with privacy policy link
+  const baseDisclaimer =
+    'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).';
 
-    // Listen for conversation reset to re-fill version context
-    window.Kapa('onAskAIConversationReset', () => {
-      // Small delay to ensure the reset is complete
-      setTimeout(() => {
-        window.Kapa('open', { query: versionContext });
-      }, 100);
-    });
-  };
-
-  checkKapa();
+  return `${versionNote}${noteContent}${baseDisclaimer}`;
 }
 
 /**
@@ -277,16 +237,18 @@ export default function AskAI({
   ...chatParams
 }: AskAIParams): void {
   const modalExampleQuestions = getProductExampleQuestions();
+  const modalAskAiInputPlaceholder = getProductInputPlaceholder();
+  const modalDisclaimer = getProductDisclaimer();
   const sourceGroupIds = getProductSourceGroupIds();
   const chatAttributes: ChatAttributes = {
     ...(modalExampleQuestions && { modalExampleQuestions }),
+    ...(modalAskAiInputPlaceholder && { modalAskAiInputPlaceholder }),
+    ...(modalDisclaimer && { modalDisclaimer }),
     ...(sourceGroupIds && { sourceGroupIdsInclude: sourceGroupIds }),
     ...(chatParams as Record<string, string>),
   };
 
   const wrappedOnChatLoad = (): void => {
-    // Setup version pre-fill after widget loads
-    setupVersionPrefill();
     // Call original onChatLoad if provided
     if (onChatLoad) {
       onChatLoad();
