@@ -188,7 +188,9 @@ function getProductExampleQuestions(): string {
     return questions.join(',');
   }
 
-  const productName = productData?.product?.name || 'InfluxDB';
+  // Get version-specific product name if available
+  const productName =
+    (getVersionSpecificConfig('name') as string | undefined) || 'InfluxDB';
 
   // Append version hint to each question
   const questionsWithHint = questions.map((question) => {
@@ -217,7 +219,9 @@ function getVersionContext(): string {
     return '';
   }
 
-  const productName = productData?.product?.name || 'InfluxDB';
+  // Get version-specific product name if available
+  const productName =
+    (getVersionSpecificConfig('name') as string | undefined) || 'InfluxDB';
 
   return `My version: ${productName}`;
 }
