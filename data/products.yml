@@ -235,7 +235,7 @@ telegraf:
   latest_patches:
     v1: 1.36.3
   ai_sample_questions:
-    - How do I install and configure Telegraf?
+    - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
     - How do I use Telegraf for MQTT?
 
