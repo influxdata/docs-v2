@@ -113,6 +113,60 @@ describe('Page Context - Product Mapping', function () {
   });
 });
 
+describe('Ask AI Widget Configuration', function () {
+  describe('InfluxDB 3 Products', function () {
+    it('should configure Explorer-specific questions in Kapa widget', function () {
+      cy.visit('/influxdb3/explorer/');
+
+      // Check the Kapa widget script tag has correct data-modal-example-questions attribute
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        expect(questions).to.include('install and run Explorer');
+        expect(questions).to.include('query data using Explorer');
+        expect(questions).to.include('visualize data using Explorer');
+        // Should NOT have Core/Enterprise specific questions
+        expect(questions).to.not.include('plugin');
+        expect(questions).to.not.include('read replica');
+      });
+    });
+
+    it('should configure Core-specific questions in Kapa widget', function () {
+      cy.visit('/influxdb3/core/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        expect(questions).to.include('install and run');
+        expect(questions).to.include('plugin for the Python Processing engine');
+        // Should NOT have read replica question
+        expect(questions).to.not.include('read replica');
+      });
+    });
+
+    it('should configure Enterprise-specific questions in Kapa widget', function () {
+      cy.visit('/influxdb3/enterprise/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        expect(questions).to.include('install and run');
+        expect(questions).to.include('read replica node');
+      });
+    });
+  });
+
+  describe('InfluxDB v1 Products', function () {
+    it('should configure Enterprise v1-specific questions in Kapa widget', function () {
+      cy.visit('/enterprise_influxdb/v1/');
+
+      cy.get('script[src*="kapa-widget.bundle.js"]').should(($script) => {
+        const questions = $script.attr('data-modal-example-questions');
+        expect(questions).to.include('configure the server');
+        expect(questions).to.include('replicate data from OSS');
+        expect(questions).to.include('query data');
+      });
+    });
+  });
+});
+
 describe('Product Data Validation - AI Questions', function () {
   describe('InfluxDB 3 Products', function () {
     it('should have correct Explorer AI configuration', function () {
