@@ -19,6 +19,32 @@ declare global {
 // eslint-disable-next-line no-unused-vars
 type KapaFunction = (command: string, options?: unknown) => void;
 
+// Preinitialize Kapa widget to queue commands before script loads
+(function () {
+  const k = window.Kapa;
+  if (!k) {
+    /* eslint-disable no-unused-vars */
+    interface KapaQueue {
+      (...args: unknown[]): void;
+      q?: unknown[][];
+      c?: (args: unknown[]) => void;
+    }
+    /* eslint-enable no-unused-vars */
+    const i = function (...args: unknown[]) {
+      if (i.c) {
+        i.c(args);
+      }
+    } as KapaQueue;
+    i.q = [];
+    i.c = function (args: unknown[]) {
+      if (i.q) {
+        i.q.push(args);
+      }
+    };
+    window.Kapa = i as unknown as KapaFunction;
+  }
+})();
+
 interface ChatAttributes extends Record<string, string | undefined> {
   modalExampleQuestions?: string;
   sourceGroupIdsInclude?: string;
@@ -199,82 +225,37 @@ function getVersionContext(): string {
 function setupVersionPrefill(): void {
   const versionContext = getVersionContext();
   if (!versionContext) {
-    console.log('[AskAI] No version context needed');
     return;
   }
-
-  console.log('[AskAI] Version context:', versionContext);
 
   // Wait for Kapa to be available
   const checkKapa = (): void => {
     if (!window.Kapa || typeof window.Kapa !== 'function') {
-      console.log('[AskAI] Waiting for Kapa...');
       setTimeout(checkKapa, 100);
       return;
     }
 
-    console.log('[AskAI] Kapa found (preinitialized)');
+    // Find the Ask AI button and add click handler to prefill version
+    const askAIButton = document.querySelector('.ask-ai-open');
+    if (askAIButton) {
+      askAIButton.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.Kapa('open', { query: versionContext });
+        },
+        true
+      ); // Use capture phase to run before Kapa's handler
+    }
 
-    // Use Kapa event system to intercept modal opens
-    window.Kapa('onModalOpen', () => {
-      console.log('[AskAI] Modal opened');
-
-      // Try multiple times with different delays to find the textarea
-      const trySetValue = (attempt = 0): void => {
-        console.log(`[AskAI] Attempt ${attempt + 1} to find textarea`);
-
-        // Try multiple selectors
-        const selectors = [
-          'textarea[placeholder*="Ask"]',
-          'textarea[placeholder*="ask"]',
-          'textarea',
-          '#kapa-widget-container textarea',
-          '[data-kapa-widget] textarea',
-        ];
-
-        let textarea: HTMLTextAreaElement | null = null;
-        for (const selector of selectors) {
-          textarea = document.querySelector<HTMLTextAreaElement>(selector);
-          if (textarea) {
-            console.log(`[AskAI] Found textarea with selector: ${selector}`);
-            break;
-          }
-        }
-
-        if (textarea) {
-          // Check if it already has a value
-          if (!textarea.value || textarea.value.trim() === '') {
-            console.log('[AskAI] Setting textarea value to:', versionContext);
-            textarea.value = versionContext;
-
-            // Dispatch multiple events to ensure React picks it up
-            const inputEvent = new Event('input', { bubbles: true });
-            const changeEvent = new Event('change', { bubbles: true });
-            textarea.dispatchEvent(inputEvent);
-            textarea.dispatchEvent(changeEvent);
-
-            // Focus at the beginning so user can start typing
-            textarea.setSelectionRange(0, 0);
-            textarea.focus();
-
-            console.log('[AskAI] Version context added to input');
-          } else {
-            console.log('[AskAI] Textarea already has value:', textarea.value);
-          }
-        } else if (attempt < 5) {
-          // Try again with increasing delays
-          const delay = (attempt + 1) * 100;
-          console.log(`[AskAI] Textarea not found, retrying in ${delay}ms`);
-          setTimeout(() => trySetValue(attempt + 1), delay);
-        } else {
-          console.log('[AskAI] Failed to find textarea after 5 attempts');
-        }
-      };
-
-      trySetValue();
+    // Listen for conversation reset to re-fill version context
+    window.Kapa('onAskAIConversationReset', () => {
+      // Small delay to ensure the reset is complete
+      setTimeout(() => {
+        window.Kapa('open', { query: versionContext });
+      }, 100);
     });
-
-    console.log('[AskAI] Version pre-fill setup complete');
   };
 
   checkKapa();
