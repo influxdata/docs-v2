@@ -80,7 +80,7 @@ Every node has two thread pools that must be properly configured:
 1. **IO threads**: Parse line protocol, handle HTTP requests
 2. **DataFusion threads**: Execute queries, create data snapshots (convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal) to Parquet files), perform compaction
 
-> \[!Note]
+> [!Note]
 > Even specialized nodes need both thread types. Ingest nodes use DataFusion threads
 > for creating data snapshots that convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal) to Parquet files, and query nodes use IO threads for handling requests.
 
@@ -126,7 +126,7 @@ curl -s http://localhost:8181/metrics | grep 'http_requests_total'
 du -sh /path/to/data/wal/
 ```
 
-> \[!Important]
+> [!Important]
 >
 > #### Scale IO threads with concurrent writers
 >
@@ -164,7 +164,7 @@ influxdb3 \
 - **4 IO threads**: Minimal, just for HTTP request handling
 - **60 DataFusion threads**: Maximum parallelism for query execution
 - **90% memory pool**: Maximize memory for complex aggregations
-- **8 GB Parquet cache**: Keep frequently accessed data in memory
+- **8&nbsp;GB Parquet cache**: Keep frequently accessed data in memory
 
 ### Real-time query node (32 cores)
 
@@ -452,7 +452,7 @@ curl -X POST "http://query-01:8181/api/v3/query_sql" \
   }'
 ```
 
-> \[!Tip]
+> [!Tip]
 >
 > ### Extend monitoring with plugins
 >
