@@ -171,9 +171,8 @@ describe('Product Data Validation - AI Questions', function () {
         expect(products.influxdb3_cloud_serverless.name).to.equal(
           'InfluxDB Cloud Serverless'
         );
-        expect(
-          products.influxdb3_cloud_serverless.ai_sample_questions
-        ).to.exist;
+        expect(products.influxdb3_cloud_serverless.ai_sample_questions).to
+          .exist;
 
         const questionsText =
           products.influxdb3_cloud_serverless.ai_sample_questions.join(' ');

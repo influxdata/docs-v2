@@ -43,7 +43,7 @@ function getCurrentProductData() {
       urls: influxdbUrls.core,
     },
     {
-      pattern: /\/enterprise_v1\//,
+      pattern: /\/enterprise_influxdb\//,
       product: products.enterprise_influxdb,
       urls: influxdbUrls.oss,
     },
