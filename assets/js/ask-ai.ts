@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+// eslint-disable-next-line no-unused-vars
 type KapaFunction = (command: string, options?: unknown) => void;
 
 interface ChatAttributes extends Record<string, string | undefined> {
@@ -162,16 +162,11 @@ function getProductExampleQuestions(): string {
     return questions.join(',');
   }
 
-  // Extract version subpath for hint
-  const pathParts = window.location.pathname.split('/').filter(Boolean);
-  const versionPath =
-    pathParts.length >= 2
-      ? `/${pathParts[0]}/${pathParts[1]}/`
-      : window.location.pathname;
+  const productName = productData?.product?.name || 'InfluxDB';
 
   // Append version hint to each question
   const questionsWithHint = questions.map((question) => {
-    return `${question} (Version: ${versionPath})`;
+    return `${question} (My version: ${productName})`;
   });
 
   return questionsWithHint.join(',');
@@ -196,14 +191,9 @@ function getVersionContext(): string {
     return '';
   }
 
-  // Extract version subpath for context
-  const pathParts = window.location.pathname.split('/').filter(Boolean);
-  const versionPath =
-    pathParts.length >= 2
-      ? `/${pathParts[0]}/${pathParts[1]}/`
-      : window.location.pathname;
+  const productName = productData?.product?.name || 'InfluxDB';
 
-  return `(Version: ${versionPath})`;
+  return `My version: ${productName}`;
 }
 
 function setupVersionPrefill(): void {
