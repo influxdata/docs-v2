@@ -8,6 +8,7 @@ Common use cases for comparing values include:
 - Computing rate of change or percentage change
 - Detecting significant changes or anomalies
 - Comparing values at specific time intervals
+- Handling counter metrics that reset to zero
 
 **To compare values across rows:**
 
@@ -31,6 +32,10 @@ Common use cases for comparing values include:
 - [Calculate the percentage change](#calculate-the-percentage-change)
 - [Compare values at regular intervals](#compare-values-at-regular-intervals)
 - [Compare values with exact time offsets](#compare-values-with-exact-time-offsets)
+- [Handle counter metrics and resets](#handle-counter-metrics-and-resets)
+  - [Calculate non-negative differences (counter rate)](#calculate-non-negative-differences-counter-rate)
+  - [Calculate cumulative counter increase](#calculate-cumulative-counter-increase)
+  - [Aggregate counter increases by time interval](#aggregate-counter-increases-by-time-interval)
 
 ### Calculate the difference from the previous value
 
@@ -189,3 +194,136 @@ This self-join approach works when:
 - Your data points don't fall at regular intervals
 - You need to compare against a specific time offset regardless of when the previous data point occurred
 - You want to ensure the comparison is against a value from exactly 1 hour ago (or any other specific interval)
+
+## Handle counter metrics and resets
+
+Counter metrics track cumulative values that increase over time, such as total requests, bytes transferred, or errors.
+Unlike gauge metrics (which can go up or down), counters typically only increase, though they may reset to zero when a service restarts.
+
+Use [`GREATEST`](/influxdb3/version/reference/sql/functions/conditional/#greatest) with `LAG` to handle counter resets by treating negative differences as zero.
+
+> [!Note]
+> #### InfluxDB 3 SQL and counter metrics
+>
+> InfluxDB 3 SQL doesn't provide built-in equivalents to Flux's `increase()`
+> or InfluxQL's `NON_NEGATIVE_DIFFERENCE()` functions.
+> Use the patterns shown below to achieve similar results.
+
+### Calculate non-negative differences (counter rate)
+
+Calculate the increase between consecutive counter readings, treating negative differences (counter resets) as zero.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  time,
+  host,
+  requests,
+  LAG(requests) OVER (PARTITION BY host ORDER BY time) AS prev_requests,
+  GREATEST(
+    requests - LAG(requests) OVER (PARTITION BY host ORDER BY time),
+    0
+  ) AS requests_increase
+FROM metrics
+WHERE host = 'server1'
+ORDER BY time
+```
+
+| time                | host    | requests | prev_requests | requests_increase |
+|:--------------------|:--------|----------|---------------|------------------:|
+| 2024-01-01T00:00:00 | server1 | 1000     | NULL          | 0                 |
+| 2024-01-01T01:00:00 | server1 | 1250     | 1000          | 250               |
+| 2024-01-01T02:00:00 | server1 | 1600     | 1250          | 350               |
+| 2024-01-01T03:00:00 | server1 | 50       | 1600          | 0                 |
+| 2024-01-01T04:00:00 | server1 | 300      | 50            | 250               |
+
+{{% /influxdb/custom-timestamps %}}
+
+`LAG(requests)` retrieves the previous counter value, `requests - LAG(requests)` calculates the difference, and `GREATEST(..., 0)` returns 0 for negative differences (counter resets).
+`PARTITION BY host` ensures comparisons are only within the same host.
+
+### Calculate cumulative counter increase
+
+Calculate the total increase in a counter over time, handling resets.
+Use a Common Table Expression (CTE) to first calculate the differences, then sum them.
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+WITH counter_diffs AS (
+  SELECT
+    time,
+    host,
+    requests,
+    GREATEST(
+      requests - LAG(requests) OVER (PARTITION BY host ORDER BY time),
+      0
+    ) AS requests_increase
+  FROM metrics
+  WHERE host = 'server1'
+)
+SELECT
+  time,
+  host,
+  requests,
+  SUM(requests_increase) OVER (PARTITION BY host ORDER BY time) AS cumulative_increase
+FROM counter_diffs
+ORDER BY time
+```
+
+| time                | host    | requests | cumulative_increase |
+|:--------------------|:--------|----------|--------------------:|
+| 2024-01-01T00:00:00 | server1 | 1000     | 0                   |
+| 2024-01-01T01:00:00 | server1 | 1250     | 250                 |
+| 2024-01-01T02:00:00 | server1 | 1600     | 600                 |
+| 2024-01-01T03:00:00 | server1 | 50       | 600                 |
+| 2024-01-01T04:00:00 | server1 | 300      | 850                 |
+
+{{% /influxdb/custom-timestamps %}}
+
+The CTE computes non-negative differences for each row, then `SUM(requests_increase) OVER (...)` creates a running total.
+The cumulative increase continues to grow despite the counter reset at 03:00.
+
+### Aggregate counter increases by time interval
+
+Calculate the total increase in a counter for each time interval (for example, hourly totals).
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+WITH counter_diffs AS (
+  SELECT
+    DATE_BIN(INTERVAL '1 hour', time) AS time_bucket,
+    host,
+    requests,
+    GREATEST(
+      requests - LAG(requests) OVER (PARTITION BY host ORDER BY time),
+      0
+    ) AS requests_increase
+  FROM metrics
+)
+SELECT
+  time_bucket,
+  host,
+  SUM(requests_increase) AS total_increase
+FROM counter_diffs
+WHERE requests_increase > 0
+GROUP BY time_bucket, host
+ORDER BY host, time_bucket
+```
+
+| time_bucket         | host    | total_increase |
+|:--------------------|:--------|---------------:|
+| 2024-01-01T01:00:00 | server1 | 250            |
+| 2024-01-01T02:00:00 | server1 | 350            |
+| 2024-01-01T04:00:00 | server1 | 250            |
+| 2024-01-01T01:00:00 | server2 | 400            |
+| 2024-01-01T02:00:00 | server2 | 500            |
+| 2024-01-01T03:00:00 | server2 | 300            |
+| 2024-01-01T04:00:00 | server2 | 400            |
+
+{{% /influxdb/custom-timestamps %}}
+
+The CTE calculates differences for each row.
+`DATE_BIN()` assigns each timestamp to a 1-hour interval, `SUM(requests_increase)` aggregates all increases within each interval, and `WHERE requests_increase > 0` filters out zero increases (first row and counter resets).
