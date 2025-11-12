@@ -153,12 +153,18 @@ async function main() {
   if (!noMapping && fileArgs.length === 0) {
     console.error('No file paths provided.');
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.error(
       'Use --no-mapping flag to skip content mapping for functionality tests.'
     );
 =======
     console.error('Use --no-mapping flag to skip content mapping for functionality tests.');
 >>>>>>> eb0aa9c23 (feat(test): add --no-mapping flag to e2e test runner)
+=======
+    console.error(
+      'Use --no-mapping flag to skip content mapping for functionality tests.'
+    );
+>>>>>>> 018538580 (test: Add a `--no-mapping` flag to run tests without specific content files (i.e., test contains all the URLs it needs))
     process.exit(1);
   }
 
