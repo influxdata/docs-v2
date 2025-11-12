@@ -152,9 +152,13 @@ async function main() {
   // If --no-mapping is used, file paths are optional
   if (!noMapping && fileArgs.length === 0) {
     console.error('No file paths provided.');
+<<<<<<< HEAD
     console.error(
       'Use --no-mapping flag to skip content mapping for functionality tests.'
     );
+=======
+    console.error('Use --no-mapping flag to skip content mapping for functionality tests.');
+>>>>>>> eb0aa9c23 (feat(test): add --no-mapping flag to e2e test runner)
     process.exit(1);
   }
 

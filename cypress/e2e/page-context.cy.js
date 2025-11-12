@@ -2,9 +2,6 @@
 
 /**
  * Page Context E2E Test Suite
- *
- * Tests that the Ask AI widget loads correct example questions for Explorer.
- * This validates the fix for Explorer showing wrong example questions.
  */
 
 describe('Page Context - Ask AI Integration', function () {
@@ -46,17 +43,28 @@ describe('Page Context - Ask AI Integration', function () {
       cy.task('getData', 'products').then((products) => {
         // Verify Explorer product exists in products.yml
         expect(products.influxdb3_explorer).to.exist;
-        expect(products.influxdb3_explorer.name).to.equal('InfluxDB 3 Explorer');
-        expect(products.influxdb3_explorer.namespace).to.equal('influxdb3_explorer');
-        expect(products.influxdb3_explorer.placeholder_host).to.equal('localhost:8888');
+        expect(products.influxdb3_explorer.name).to.equal(
+          'InfluxDB 3 Explorer'
+        );
+        expect(products.influxdb3_explorer.namespace).to.equal(
+          'influxdb3_explorer'
+        );
+        expect(products.influxdb3_explorer.placeholder_host).to.equal(
+          'localhost:8888'
+        );
 
         // Verify AI configuration
         expect(products.influxdb3_explorer.ai_sample_questions).to.exist;
-        expect(products.influxdb3_explorer.ai_sample_questions).to.be.an('array');
-        expect(products.influxdb3_explorer.ai_sample_questions.length).to.be.greaterThan(0);
+        expect(products.influxdb3_explorer.ai_sample_questions).to.be.an(
+          'array'
+        );
+        expect(
+          products.influxdb3_explorer.ai_sample_questions.length
+        ).to.be.greaterThan(0);
 
         // Verify Explorer-specific questions
-        const questionsText = products.influxdb3_explorer.ai_sample_questions.join(' ');
+        const questionsText =
+          products.influxdb3_explorer.ai_sample_questions.join(' ');
         expect(questionsText).to.include('install and run');
         expect(questionsText).to.include('query data');
         expect(questionsText).to.include('visualize data');
@@ -71,9 +79,12 @@ describe('Page Context - Ask AI Integration', function () {
       cy.task('getData', 'products').then((products) => {
         expect(products.influxdb3_core).to.exist;
         expect(products.influxdb3_core.name).to.equal('InfluxDB 3 Core');
-        expect(products.influxdb3_core.placeholder_host).to.equal('localhost:8181');
+        expect(products.influxdb3_core.placeholder_host).to.equal(
+          'localhost:8181'
+        );
 
-        const questionsText = products.influxdb3_core.ai_sample_questions.join(' ');
+        const questionsText =
+          products.influxdb3_core.ai_sample_questions.join(' ');
         expect(questionsText).to.include('install and run');
         expect(questionsText).to.include('plugin');
       });
@@ -82,10 +93,15 @@ describe('Page Context - Ask AI Integration', function () {
     it('should have correct Enterprise product configuration', function () {
       cy.task('getData', 'products').then((products) => {
         expect(products.influxdb3_enterprise).to.exist;
-        expect(products.influxdb3_enterprise.name).to.equal('InfluxDB 3 Enterprise');
-        expect(products.influxdb3_enterprise.placeholder_host).to.equal('localhost:8181');
+        expect(products.influxdb3_enterprise.name).to.equal(
+          'InfluxDB 3 Enterprise'
+        );
+        expect(products.influxdb3_enterprise.placeholder_host).to.equal(
+          'localhost:8181'
+        );
 
-        const questionsText = products.influxdb3_enterprise.ai_sample_questions.join(' ');
+        const questionsText =
+          products.influxdb3_enterprise.ai_sample_questions.join(' ');
         expect(questionsText).to.include('install and run');
         expect(questionsText).to.include('read replica');
       });
