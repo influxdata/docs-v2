@@ -4,7 +4,19 @@
  * This script automates running Cypress end-to-end tests for the InfluxData documentation site.
  * It handles starting a local Hugo server, mapping content files to their URLs, and running Cypress tests.
  *
- * Usage: node run-e2e-specs.js [file paths...] [--spec test specs...]
+ * Usage:
+ *   node run-e2e-specs.js [file paths...] [--spec test specs...] [--no-mapping]
+ *
+ * Options:
+ *   --spec <spec>     Run specific Cypress test specs
+ *   --no-mapping      Skip content-to-URL mapping (for functionality tests)
+ *
+ * Examples:
+ *   # Content-specific test (requires file paths)
+ *   node run-e2e-specs.js content/influxdb3/core/_index.md
+ *
+ *   # Functionality test (no file paths needed)
+ *   node run-e2e-specs.js --spec "cypress/e2e/page-context.cy.js" --no-mapping
  */
 
 import { spawn } from 'child_process';
@@ -27,13 +39,14 @@ const MAP_SCRIPT = path.resolve('cypress/support/map-files-to-urls.js');
 const URLS_FILE = '/tmp/test_subjects.txt';
 
 /**
- * Parses command line arguments into file and spec arguments
+ * Parses command line arguments into file, spec, and option arguments
  * @param {string[]} argv - Command line arguments (process.argv)
- * @returns {Object} Object containing fileArgs and specArgs arrays
+ * @returns {Object} Object containing fileArgs, specArgs, and noMapping flag
  */
 function parseArgs(argv) {
   const fileArgs = [];
   const specArgs = [];
+  let noMapping = false;
   let i = 2; // Start at index 2 to skip 'node' and script name
 
   while (i < argv.length) {
@@ -43,13 +56,19 @@ function parseArgs(argv) {
         specArgs.push(argv[i]);
         i++;
       }
-    } else {
+    } else if (argv[i] === '--no-mapping') {
+      noMapping = true;
+      i++;
+    } else if (!argv[i].startsWith('--')) {
       fileArgs.push(argv[i]);
+      i++;
+    } else {
+      // Skip unknown flags
       i++;
     }
   }
 
-  return { fileArgs, specArgs };
+  return { fileArgs, specArgs, noMapping };
 }
 
 // Check if port is already in use
@@ -128,9 +147,14 @@ async function main() {
     cleanupAndExit(1);
   });
 
-  const { fileArgs, specArgs } = parseArgs(process.argv);
-  if (fileArgs.length === 0) {
+  const { fileArgs, specArgs, noMapping } = parseArgs(process.argv);
+
+  // If --no-mapping is used, file paths are optional
+  if (!noMapping && fileArgs.length === 0) {
     console.error('No file paths provided.');
+    console.error(
+      'Use --no-mapping flag to skip content mapping for functionality tests.'
+    );
     process.exit(1);
   }
 
@@ -155,8 +179,12 @@ async function main() {
 
   let urlList = [];
 
-  // Only run the mapper if we have content files
-  if (contentFiles.length > 0) {
+  // Skip mapping if --no-mapping flag is used
+  if (noMapping) {
+    console.log('Skipping content-to-URL mapping (--no-mapping flag)');
+  }
+  // Only run the mapper if we have content files and mapping is not disabled
+  else if (contentFiles.length > 0) {
     // 1. Map file paths to URLs and write to file
     const mapProc = spawn('node', [MAP_SCRIPT, ...contentFiles], {
       stdio: ['ignore', 'pipe', 'inherit'],
@@ -196,27 +224,34 @@ async function main() {
     urlList.push({ url: file, source: file });
   });
 
-  // Log the URLs and sources we'll be testing
-  console.log(`Found ${urlList.length} items to test:`);
-  urlList.forEach(({ url, source }) => {
-    console.log(`  URL/FILE: ${url}`);
-    console.log(`  SOURCE: ${source}`);
-    console.log('---');
-  });
+  // Log the URLs and sources we'll be testing (unless using --no-mapping)
+  if (!noMapping) {
+    console.log(`Found ${urlList.length} items to test:`);
+    urlList.forEach(({ url, source }) => {
+      console.log(`  URL/FILE: ${url}`);
+      console.log(`  SOURCE: ${source}`);
+      console.log('---');
+    });
 
-  if (urlList.length === 0) {
-    console.log('No URLs or files to test.');
-    process.exit(0);
+    if (urlList.length === 0) {
+      console.log('No URLs or files to test.');
+      process.exit(0);
+    }
+
+    // Write just the URLs/files to the test_subjects file for Cypress
+    fs.writeFileSync(URLS_FILE, urlList.map((item) => item.url).join(','));
+
+    // Add source information to a separate file for reference during reporting
+    fs.writeFileSync(
+      '/tmp/test_subjects_sources.json',
+      JSON.stringify(urlList, null, 2)
+    );
+  } else {
+    console.log('Running tests without content mapping...');
+    // Write empty files to avoid test errors
+    fs.writeFileSync(URLS_FILE, '');
+    fs.writeFileSync('/tmp/test_subjects_sources.json', '[]');
   }
-
-  // Write just the URLs/files to the test_subjects file for Cypress
-  fs.writeFileSync(URLS_FILE, urlList.map((item) => item.url).join(','));
-
-  // Add source information to a separate file for reference during reporting
-  fs.writeFileSync(
-    '/tmp/test_subjects_sources.json',
-    JSON.stringify(urlList, null, 2)
-  );
 
   // 2. Check if port is in use before starting Hugo
   const portInUse = await isPortInUse(HUGO_PORT);
@@ -338,7 +373,11 @@ async function main() {
   // 4. Run Cypress tests
   let cypressFailed = false;
   try {
-    console.log(`Running Cypress tests for ${urlList.length} URLs...`);
+    if (noMapping) {
+      console.log('Running Cypress tests (functionality mode)...');
+    } else {
+      console.log(`Running Cypress tests for ${urlList.length} URLs...`);
+    }
 
     // Add CI-specific configuration
     const isCI =
@@ -400,9 +439,7 @@ async function main() {
     const testFailureCount = results?.totalFailed || 0;
 
     if (testFailureCount > 0) {
-      console.warn(
-        `ℹ️ Note: ${testFailureCount} test(s) failed.`
-      );
+      console.warn(`ℹ️ Note: ${testFailureCount} test(s) failed.`);
 
       // Provide detailed failure analysis
       if (results) {
