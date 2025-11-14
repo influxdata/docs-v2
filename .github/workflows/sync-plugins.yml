@@ -290,6 +290,7 @@ jobs:
       - name: Setup Playwright
         run: |
           cd docs-v2
+          npm install playwright
           npx playwright install chromium
 
       - name: Generate screenshots
