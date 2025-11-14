@@ -33,11 +33,28 @@ Your {{% product-name %}} account is a collection of {{% product-name omit="Clus
 
 ## View account information
 
-After you log in to the Admin UI, the Account Management portal displays the following information about your account:
+The Admin UI provides access to account information through the **All Accounts** page:
 
-- Account ID
-- Contract status
-- Contract start date
-- The [list of clusters](/influxdb3/cloud-dedicated/admin/clusters/list/?t=admin-ui) associated with the account
+1. Click the **Account** selector at the bottom of the sidebar navigation
+2. Select **All Accounts** from the menu
+3. View a table with all accounts across your organization
 
-{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-account-info.png" alt="InfluxDB Cloud Dedicated Admin UI account information" />}}
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-accounts.png" alt="InfluxDB Cloud Dedicated Admin UI all accounts view" />}}
+
+The All Accounts page displays the following information for each account:
+
+- **Name**: The account name
+- **Account ID**: Unique identifier for the account
+- **Status**: Current account status (Active, Cancelled, etc.)
+- **Type**: Account type
+- **Created At**: The date the account was created
+
+Use the search bar to filter accounts by name or ID, and access additional actions through the menu on each row.
+
+### Switch between accounts
+
+To switch to a specific account and view its resources:
+
+1. Click the **Account** selector at the bottom of the sidebar navigation
+2. Search for or select an account from the list
+3. The UI updates to show resources (clusters, databases, tokens, users) for the selected account
