@@ -264,10 +264,10 @@ jobs:
       - name: Transform plugin documentation
         if: steps.validate.outputs.validation_passed == 'true'
         run: |
-          cd docs-v2/helper-scripts/influxdb3-plugins  # ← CHANGE: Run from script directory
+          cd docs-v2/helper-scripts/influxdb3-plugins  
               
           # Set path to plugins repo (relative from script directory)
-          export INFLUXDB3_PLUGINS_PATH="../../../.ext/influxdb3_plugins"  # ← CHANGE: Adjust relative path
+          export INFLUXDB3_PLUGINS_PATH="../../../.ext/influxdb3_plugins" 
               
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
@@ -278,7 +278,7 @@ jobs:
             for plugin in "${PLUGIN_ARRAY[@]}"; do
               plugin=$(echo "$plugin" | xargs)  # trim whitespace
               echo "Transforming plugin: $plugin"
-              node port_to_docs.js --plugin "$plugin"  # ← CHANGE: Script is in current dir
+              node port_to_docs.js --plugin "$plugin"  
             done
           fi
 
