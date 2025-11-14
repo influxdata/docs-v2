@@ -38,7 +38,6 @@ cluster efficiency.
 - [Migrate to specialized nodes](#migrate-to-specialized-nodes)
 - [Manage configurations](#manage-configurations)
 
-
 ## Specialize nodes for specific workloads
 
 In an {{% product-name %}} cluster, you can dedicate nodes to specific tasks:
@@ -65,6 +64,7 @@ influxdb3 serve --mode=all
 ```
 
 Available modes:
+
 - `all`: All capabilities enabled (default)
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
@@ -103,6 +103,7 @@ influxdb3 \
 ```
 
 **Configuration rationale:**
+
 - **12 IO threads**: Handle multiple concurrent writers (Telegraf agents, applications)
 - **20 DataFusion threads**: Required for data snapshot operations that convert buffered writes to Parquet files
 - **60% memory pool**: Balance between write buffers and data snapshot operations
@@ -126,6 +127,7 @@ du -sh /path/to/data/wal/
 ```
 
 > [!Important]
+>
 > #### Scale IO threads with concurrent writers
 >
 > If you see only 2 CPU cores at 100% on a large ingester, increase
@@ -158,6 +160,7 @@ influxdb3 \
 ```
 
 **Configuration rationale:**
+
 - **4 IO threads**: Minimal, just for HTTP request handling
 - **60 DataFusion threads**: Maximum parallelism for query execution
 - **90% memory pool**: Maximize memory for complex aggregations
@@ -211,6 +214,7 @@ influxdb3 \
 ```
 
 **Configuration rationale:**
+
 - **2 IO threads**: Minimal, compaction is DataFusion-intensive
 - **30 DataFusion threads**: Maximum threads for sort/merge operations
 - **24h gen2 duration**: Time-based compaction strategy
@@ -396,6 +400,7 @@ GROUP BY table_name;
 ```
 
 #### Query nodes
+
 ```sql
 -- Monitor query performance
 SELECT
@@ -408,6 +413,7 @@ WHERE issue_time > now() - INTERVAL '5 minutes'
 ```
 
 #### Compactor nodes
+
 ```sql
 -- Monitor compaction progress
 SELECT
@@ -447,16 +453,17 @@ curl -X POST "http://query-01:8181/api/v3/query_sql" \
 ```
 
 > [!Tip]
+>
 > ### Extend monitoring with plugins
-> 
+>
 > Enhance your cluster monitoring capabilities using the InfluxDB 3 processing engine. The [InfluxDB 3 plugins library](https://github.com/influxdata/influxdb3_plugins) includes several monitoring and alerting plugins:
-> 
+>
 > - **System metrics collection**: Collect CPU, memory, disk, and network statistics
 > - **Threshold monitoring**: Monitor metrics with configurable thresholds and alerting
 > - **Multi-channel notifications**: Send alerts via Slack, Discord, SMS, WhatsApp, and webhooks
 > - **Anomaly detection**: Identify unusual patterns in your data
 > - **Deadman checks**: Detect missing data streams
-> 
+>
 > For complete plugin documentation and setup instructions, see [Process data in InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/process/).
 
 ### Monitor and respond to performance issues
@@ -466,6 +473,7 @@ Use the [monitoring queries](#monitor-cluster-wide-metrics) to identify the foll
 #### High CPU with low throughput (Ingest nodes)
 
 **Detection query:**
+
 ```sql
 -- Check for high failed query rate indicating parsing issues
 SELECT
@@ -477,6 +485,7 @@ WHERE issue_time > now() - INTERVAL '5 minutes';
 ```
 
 **Symptoms:**
+
 - Only 2 CPU cores at 100% on large machines
 - High write latency despite available resources
 - Failed queries due to parsing timeouts
@@ -486,6 +495,7 @@ WHERE issue_time > now() - INTERVAL '5 minutes';
 #### Memory pressure alerts (Query nodes)
 
 **Detection query:**
+
 ```sql
 -- Monitor queries with high memory usage or failures
 SELECT
@@ -498,6 +508,7 @@ WHERE issue_time > now() - INTERVAL '5 minutes'
 ```
 
 **Symptoms:**
+
 - Queries failing with out-of-memory errors
 - High memory usage approaching pool limits
 - Slow query execution times
@@ -507,6 +518,7 @@ WHERE issue_time > now() - INTERVAL '5 minutes'
 #### Compaction falling behind (Compactor nodes)
 
 **Detection query:**
+
 ```sql
 -- Check compaction event frequency and success rate
 SELECT
@@ -519,6 +531,7 @@ GROUP BY event_type;
 ```
 
 **Symptoms:**
+
 - Decreasing compaction event frequency
 - Growing number of small Parquet files
 - Increasing query times due to file fragmentation
@@ -530,6 +543,7 @@ GROUP BY event_type;
 ### Ingest node issues
 
 **Problem**: Low throughput despite available CPU
+
 ```bash
 # Check: Are only 2 cores busy?
 top -H -p $(pgrep influxdb3)
@@ -539,6 +553,7 @@ top -H -p $(pgrep influxdb3)
 ```
 
 **Problem**: Data snapshot creation affecting ingest
+
 ```bash
 # Check: DataFusion threads at 100% during data snapshots to Parquet
 # Solution: Reserve more DataFusion threads for snapshot operations
@@ -548,6 +563,7 @@ top -H -p $(pgrep influxdb3)
 ### Query node issues
 
 **Problem**: Slow queries despite resources
+
 ```bash
 # Check: Memory pressure
 free -h
@@ -557,6 +573,7 @@ free -h
 ```
 
 **Problem**: Poor cache hit rates
+
 ```bash
 # Solution: Increase Parquet cache
 --parquet-mem-cache-size=10GB
@@ -565,6 +582,7 @@ free -h
 ### Compactor node issues
 
 **Problem**: Compaction falling behind
+
 ```bash
 # Check: Compaction queue length
 # Solution: Add more compactor nodes or increase threads
@@ -603,6 +621,7 @@ node3: --mode=compact --num-io-threads=2
 
 ## Manage configurations
 
+<!--
 ### Use configuration files
 
 Create node-specific configuration files:
@@ -629,6 +648,7 @@ Launch with configuration:
 ```bash
 influxdb3 serve --config ingester.toml
 ```
+-->
 
 ### Configure using environment variables
 
