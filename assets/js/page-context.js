@@ -9,7 +9,7 @@ function getCurrentProductData() {
   const mappings = [
     {
       pattern: /\/influxdb\/cloud\//,
-      product: products.cloud,
+      product: products.influxdb_cloud,
       urls: influxdbUrls.influxdb_cloud,
     },
     {
@@ -38,7 +38,12 @@ function getCurrentProductData() {
       urls: influxdbUrls.clustered,
     },
     {
-      pattern: /\/enterprise_v1\//,
+      pattern: /\/influxdb3\/explorer/,
+      product: products.influxdb3_explorer,
+      urls: influxdbUrls.core,
+    },
+    {
+      pattern: /\/enterprise_influxdb\//,
       product: products.enterprise_influxdb,
       urls: influxdbUrls.oss,
     },
@@ -83,7 +88,7 @@ function getCurrentProductData() {
 }
 
 // Return the page context
-// (cloud, serverless, oss/enterprise, dedicated, clustered, other)
+// (cloud, serverless, oss/enterprise, dedicated, clustered, explorer, other)
 function getContext() {
   if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
     return 'cloud';
@@ -97,6 +102,8 @@ function getContext() {
     return 'dedicated';
   } else if (/\/influxdb3\/clustered/.test(window.location.pathname)) {
     return 'clustered';
+  } else if (/\/influxdb3\/explorer/.test(window.location.pathname)) {
+    return 'explorer';
   } else if (
     /\/(enterprise_|influxdb).*\/v[1-2]\//.test(window.location.pathname)
   ) {
