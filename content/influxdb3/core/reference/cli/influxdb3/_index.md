@@ -28,6 +28,7 @@ influxdb3 [GLOBAL-OPTIONS] [COMMAND]
 | [delete](/influxdb3/core/reference/cli/influxdb3/delete/)   | Delete resources                    |
 | [disable](/influxdb3/core/reference/cli/influxdb3/disable/) | Disable resources                   |
 | [enable](/influxdb3/core/reference/cli/influxdb3/enable/)   | Enable resources                    |
+| [install](/influxdb3/core/reference/cli/influxdb3/install/) | Install plugins                     |
 | [query](/influxdb3/core/reference/cli/influxdb3/query/)     | Query {{% product-name %}}          |
 | [serve](/influxdb3/core/reference/cli/influxdb3/serve/)     | Run the {{% product-name %}} server |
 | [show](/influxdb3/core/reference/cli/influxdb3/show/)       | List resources                      |
