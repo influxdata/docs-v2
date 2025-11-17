@@ -35,11 +35,22 @@ function removeEmojiMetadata(content) {
 }
 
 /**
- * Clean up title formatting.
+ * Remove standalone Description heading.
  */
-function cleanTitle(content) {
-  // Remove duplicate # from titles (e.g., "# # Title" -> "# Title")
-  content = content.replace(/^#\s+#\s+(.+)$/m, '# $1');
+function removeDescriptionHeading(content) {
+  // Remove "## Description" heading when it appears alone on a line
+  content = content.replace(/^##\s+Description\s*$/m, '');
+  return content;
+}
+
+/**
+ * Expand common abbreviations for readability.
+ */
+function expandAbbreviations(content) {
+  // Replace e.g., with "for example,"
+  content = content.replace(/\be\.g\.,\s*/g, 'for example, ');
+  // Replace i.e., with "that is,"
+  content = content.replace(/\bi\.e\.,\s*/g, 'that is, ');
   return content;
 }
 
@@ -237,11 +248,12 @@ Each downsampled record includes three additional metadata columns:
 function transformContent(content, pluginName, config) {
   // Apply transformations in order
   content = removeEmojiMetadata(content);
+  content = removeDescriptionHeading(content);
   content = convertRelativeLinks(content, pluginName);
+  content = expandAbbreviations(content);
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
   content = fixCodeBlockFormatting(content);
-  content = cleanTitle(content);
 
   // Add schema requirements if applicable
   if (
