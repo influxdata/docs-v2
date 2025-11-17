@@ -68,6 +68,16 @@ docker run -p 8086:8086 \
   influxdb:{{< latest-patch >}}
 ```
 
+> [!Important]
+> On MacOS due to issues related to docker desktop's VM and local binds 
+> you must use one of two options while spinning up a container. 
+> 
+> Using a delegated local directory:
+> 1. docker run -p 8086:8086 -v $PWD/data-test2:/var/lib/influxdb:delegated influxdb:{{< latest-patch >}}
+>
+> Using a named docker volume (still local, but managed by docker desktop):
+> 2. docker run -d --name influxdb -p 8086:8086 -v influxdb-data:/var/lib/influxdb influxdb:{{ < latest-patch > }}
+
 InfluxDB is now running and available at http://localhost:8086.
 
 ## Configure InfluxDB
