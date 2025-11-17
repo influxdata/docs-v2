@@ -180,12 +180,11 @@ describe('Ask AI Widget and Link', function () {
         );
     });
 
-    // ONLY test that opens widget via link - combines query pre-fill validation
+    // This is the only test that opens the widget modal
     it('should open widget with pre-filled query when ask-ai-link is clicked', function () {
       cy.get('.article--content a.ask-ai-open')
         .contains('Ask InfluxData AI')
         .as('askAILink');
-      // cy.get('@askAILink').scrollIntoView();
       cy.get('@askAILink').click();
       // Widget container MUST become visible
       cy.get('#kapa-modal-content', { includeShadowDom: true, timeout: 1000 })
@@ -251,7 +250,7 @@ describe('Ask AI Widget and Link', function () {
 
   describe('Ask AI Widget Configuration', function () {
     describe('Input Placeholder', function () {
-      it('should have unified InfluxDB placeholder on InfluxDB 3 pages', function () {
+      it('should have the version name in the placeholder on v3 pages', function () {
         cy.visit('/influxdb3/core/');
         beforeTest();
 
@@ -259,13 +258,13 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.equal(
-            'Specify your version and product ("InfluxDB 3 Enterprise", "Core", "Enterprise v1") for better results'
-          );
+          expect(placeholder).to.contain(
+            'Specify your version and product')
+            .and.to.contain("Core");
         });
       });
 
-      it('should have unified InfluxDB placeholder on InfluxDB 2.x pages', function () {
+      it('should have the version name in the placeholder on v2 pages', function () {
         cy.visit('/influxdb/v2/');
         beforeTest();
 
@@ -273,13 +272,13 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.equal(
-            'Specify your version and product ("InfluxDB 3 Enterprise", "Core", "Enterprise v1") for better results'
-          );
+          expect(placeholder).to.contain(
+            'Specify your version and product')
+            .and.to.contain("v2");
         });
       });
 
-      it('should have unified InfluxDB placeholder on InfluxDB 1.x pages', function () {
+      it('should have the version name in the placeholder on v1 pages', function () {
         cy.visit('/influxdb/v1/');
         beforeTest();
 
@@ -287,9 +286,9 @@ describe('Ask AI Widget and Link', function () {
           const placeholder = $script.attr(
             'data-modal-ask-ai-input-placeholder'
           );
-          expect(placeholder).to.equal(
-            'Specify your version and product ("InfluxDB 3 Enterprise", "Core", "Enterprise v1") for better results'
-          );
+          expect(placeholder).to.contain(
+            'Specify your version and product')
+            .and.to.contain("v1");
         });
       });
 

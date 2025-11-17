@@ -202,11 +202,11 @@ function getProductInputPlaceholder(): string {
 }
 
 function getProductDisclaimer(): string {
-  // Build version-specific note if version is available
-  const versionNote =
-    version && version !== 'n/a' && productData?.product?.name
-      ? `**Viewing documentation for ${productData.product.name}**\n\n`
-      : '';
+  // Disabled: Version-specific "Viewing documentation for..." text
+  // const versionNote =
+  //   version && version !== 'n/a' && productData?.product?.name
+  //     ? `**Viewing documentation for ${productData.product.name}**\n\n`
+  //     : '';
 
   // Check for product-specific custom disclaimer note
   const customNote = getVersionSpecificConfig('ai_disclaimer_note') as
@@ -218,7 +218,7 @@ function getProductDisclaimer(): string {
   const baseDisclaimer =
     'This AI can access [documentation for InfluxDB, clients, and related tools](https://docs.influxdata.com). Information you submit is used in accordance with our [Privacy Policy](https://www.influxdata.com/legal/privacy-policy/).';
 
-  return `${versionNote}${noteContent}${baseDisclaimer}`;
+  return `${noteContent}${baseDisclaimer}`;
 }
 
 /**
