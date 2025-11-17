@@ -10,7 +10,7 @@ introduced: "v1.22.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/xtremio/README.md, Dell EMC XtremIO Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/xtremio/README.md, Dell EMC XtremIO Plugin Source
 ---
 
 # Dell EMC XtremIO Input Plugin

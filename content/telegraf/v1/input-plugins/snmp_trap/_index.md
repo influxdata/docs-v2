@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/snmp_trap/README.md, SNMP Trap Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/snmp_trap/README.md, SNMP Trap Plugin Source
 ---
 
 # SNMP Trap Input Plugin

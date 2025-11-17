@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/gnmi/README.md, gNMI (gRPC Network Management Interface) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/gnmi/README.md, gNMI (gRPC Network Management Interface) Plugin Source
 ---
 
 # gNMI (gRPC Network Management Interface) Input Plugin

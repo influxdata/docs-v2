@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nginx/README.md, Nginx Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/nginx/README.md, Nginx Plugin Source
 ---
 
 # Nginx Input Plugin
@@ -41,7 +41,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 # Read Nginx's basic status information (ngx_http_stub_status_module)
 [[inputs.nginx]]
   ## An array of Nginx stub_status URI to gather stats.
-  urls = ["http://localhost/server_status"]
+  urls = ["http://localhost/server_status", "http+unix:///var/run/nginx.sock:/server_status"]
 
   ## Optional TLS Config
   # tls_ca = "/etc/telegraf/ca.pem"

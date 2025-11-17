@@ -10,7 +10,7 @@ introduced: "v0.13.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/ceph/README.md, Ceph Storage Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/ceph/README.md, Ceph Storage Plugin Source
 ---
 
 # Ceph Storage Input Plugin

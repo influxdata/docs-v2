@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/cpu/README.md, CPU Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/cpu/README.md, CPU Plugin Source
 ---
 
 # CPU Input Plugin

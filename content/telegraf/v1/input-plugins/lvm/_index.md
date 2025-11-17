@@ -10,7 +10,7 @@ introduced: "v1.21.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/lvm/README.md, Logical Volume Manager Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/lvm/README.md, Logical Volume Manager Plugin Source
 ---
 
 # Logical Volume Manager Input Plugin
