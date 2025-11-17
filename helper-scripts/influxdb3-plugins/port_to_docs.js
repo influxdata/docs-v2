@@ -241,6 +241,7 @@ function transformContent(content, pluginName, config) {
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
   content = fixCodeBlockFormatting(content);
+  content = cleanTitle(content);
 
   // Add schema requirements if applicable
   if (
