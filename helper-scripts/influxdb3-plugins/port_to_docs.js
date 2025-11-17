@@ -55,6 +55,20 @@ function expandAbbreviations(content) {
 }
 
 /**
+ * Convert README TOML links to internal section links.
+ */
+function convertTomlReadmeLinks(content) {
+  // If document has TOML configuration section, link to it instead of external README
+  if (content.includes('## Using TOML Configuration Files')) {
+    content = content.replace(
+      /\[([^\]]*TOML[^\]]*)\]\(https:\/\/github\.com\/influxdata\/influxdb3_plugins\/blob\/master\/README\.md\)/gi,
+      '[$1](#using-toml-configuration-files)'
+    );
+  }
+  return content;
+}
+
+/**
  * Convert relative links to GitHub URLs.
  */
 function convertRelativeLinks(content, pluginName) {
@@ -251,6 +265,7 @@ function transformContent(content, pluginName, config) {
   content = removeDescriptionHeading(content);
   content = convertRelativeLinks(content, pluginName);
   content = expandAbbreviations(content);
+  content = convertTomlReadmeLinks(content);
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
   content = fixCodeBlockFormatting(content);
