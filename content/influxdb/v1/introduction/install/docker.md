@@ -35,7 +35,6 @@ This guide covers Docker installation, configuration, and initialization options
 - [Access the InfluxDB CLI](#access-the-influxdb-cli)
 - [Next steps](#next-steps)
 
-
 ## Install and run InfluxDB
 
 ### Pull the InfluxDB v1.x image
@@ -46,20 +45,32 @@ docker pull influxdb:{{< latest-patch >}}
 
 ### Volume permissions
 
-> [!Important]
+> \[!Important]
 > The InfluxDB Docker container runs as user influxdb with UID/GID 1500.
 > When mounting volumes for persistent storage, ensure the mounted directory on the host is owned by UID/GID 1500, or InfluxDB may not have permission to write data.
 
 Set the correct ownership before starting the container:
 
 #### Create the data directory
+
 mkdir -p data
 
 #### Set ownership to UID/GID 1500
+
 sudo chown -R 1500:1500 data
 
 ### Start InfluxDB
 
+> \[!Important]
+> On MacOS due to issues related to docker desktop's VM and local binds
+> you must use either a *delegated local directory* or a *named volume* when starting a container.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Linux/Windows](#)
+[MacOS (Docker Desktop)](#)
+{{% /tabs %}}
+{{% tab-content %}}
 Start a basic InfluxDB container with persistent storage:
 
 ```bash
@@ -68,30 +79,31 @@ docker run -p 8086:8086 \
   influxdb:{{< latest-patch >}}
 ```
 
-#### MacOS 
+{{% /tab-content %}}
+{{% tab-content %}}
+On MacOS, you must use either a *delegated local directory* or a *named volume* when starting an InfluxDB container.
 
-> [!Important]
-> On MacOS due to issues related to docker desktop's VM and local binds 
-> you must use one of two options while spinning up a container. 
-
-Using a delegated local directory:
+**Option A: Use a delegated local directory**
 
 ```bash
 docker run -p 8086:8086 \
     -v $PWD/data-test2:/var/lib/influxdb:delegated \
     influxdb:{{< latest-patch >}}
-``` 
+```
 
-Using a named docker volume (still local, but managed by docker desktop):
+**Option B: Use a named docker volume (still local, but managed by Docker Desktop)**
 
 ```bash
 docker run -d --name influxdb \
     -p 8086:8086 \
     -v influxdb-data:/var/lib/influxdb \
-    influxdb:{{ < latest-patch > }}
+    influxdb:{{< latest-patch >}}
 ```
 
-InfluxDB is now running and available at http://localhost:8086.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+InfluxDB is now running and available at <http://localhost:8086>.
 
 ## Configure InfluxDB
 
@@ -129,7 +141,7 @@ docker run -p 8086:8086 \
 
 ### Automatic initialization (for development)
 
-> [!Warning]
+> \[!Warning]
 > Automatic initialization with InfluxDB v1 is not recommended for production.
 > Use this approach only for development and testing.
 
@@ -146,6 +158,7 @@ docker run -p 8086:8086 \
 ```
 
 Environment variables for user creation:
+
 - `INFLUXDB_USER`: Create a user with no privileges
 - `INFLUXDB_USER_PASSWORD`: Password for the user
 - `INFLUXDB_READ_USER`: Create a user who can read from `INFLUXDB_DB`
@@ -183,10 +196,11 @@ docker run -p 8086:8086 \
 ```
 
 Supported script types:
+
 - Shell scripts (`.sh`)
 - InfluxDB query language files (`.iql`)
 
-> [!Important]
+> \[!Important]
 > Initialization scripts only run on first startup when the data directory is empty.
 > Scripts execute in alphabetical order based on filename.
 
@@ -203,6 +217,7 @@ Replace `<container-name>` with your InfluxDB container name or ID.
 ## Next steps
 
 Once you have InfluxDB running in Docker, see the [Get started guide](/influxdb/v1/introduction/get-started/) to:
+
 - Create databases
 - Write and query data
 - Learn InfluxQL basics
