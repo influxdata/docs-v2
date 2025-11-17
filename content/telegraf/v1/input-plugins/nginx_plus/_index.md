@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nginx_plus/README.md, Nginx Plus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/nginx_plus/README.md, Nginx Plus Plugin Source
 ---
 
 # Nginx Plus Input Plugin
@@ -47,7 +47,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 # Read Nginx Plus' advanced status information
 [[inputs.nginx_plus]]
   ## An array of Nginx status URIs to gather stats.
-  urls = ["http://localhost/status"]
+  urls = ["http://localhost/status", "http+unix:///var/run/nginx.sock:/status"]
 
   # HTTP response timeout (default: 5s)
   response_timeout = "5s"

@@ -10,7 +10,7 @@ introduced: "v0.13.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/filestat/README.md, File statistics Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/filestat/README.md, File statistics Plugin Source
 ---
 
 # File statistics Input Plugin

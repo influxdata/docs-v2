@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
 ---
 
 # InfluxDB Listener Input Plugin

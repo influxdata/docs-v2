@@ -10,7 +10,7 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/internet_speed/README.md, Internet Speed Monitor Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/internet_speed/README.md, Internet Speed Monitor Plugin Source
 ---
 
 # Internet Speed Monitor Input Plugin
@@ -56,7 +56,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   # connections = 0
 
   ## Test mode
-  ## By default, a single sever is used for testing. This may work for most,
+  ## By default, a single server is used for testing. This may work for most,
   ## however, setting to "multi" will reach out to multiple servers in an
   ## attempt to get closer to ideal internet speeds.
   ## And "multi" will use all available servers to calculate average packet loss.

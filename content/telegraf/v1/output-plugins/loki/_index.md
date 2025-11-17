@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/loki/README.md, Grafana Loki Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/loki/README.md, Grafana Loki Plugin Source
 ---
 
 # Grafana Loki Output Plugin
@@ -76,7 +76,7 @@ to use them.
 
   ## Sanitize Tag Names
   ## If true, all tag names will have invalid characters replaced with
-  ## underscores that do not match the regex: ^[a-zA-Z_:]()*.
+  ## underscores that do not match the regex: ^[a-zA-Z_]()*.
   # sanitize_label_names = false
 
   ## Metric Name Label
