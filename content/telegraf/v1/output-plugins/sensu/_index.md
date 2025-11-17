@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/sensu/README.md, Sensu Go Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/sensu/README.md, Sensu Go Plugin Source
 ---
 
 # Sensu Go Output Plugin
