@@ -39,23 +39,36 @@ function removeEmojiMetadata(content) {
  */
 function convertRelativeLinks(content, pluginName) {
   const baseUrl = `https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/${pluginName}/`;
+  const rootUrl = 'https://github.com/influxdata/influxdb3_plugins/blob/master/';
+
+  // Convert relative README links (../../README.md, ../README.md, etc.)
+  content = content.replace(
+    /\[([^\]]+)\]\((\.\.\/)+README\.md\)/g,
+    `[$1](${rootUrl}README.md)`
+  );
 
   // Convert TOML file links
   content = content.replace(
-    /\[([^\]]+\.toml)\]\(([^)]+\.toml)\)/g,
-    (match, linkText, linkPath) => `[${linkText}](${baseUrl}${linkPath})`
+    /\[([^\]]+\.toml)\]\(\.?\/?([^)]+\.toml)\)/g,
+    (match, linkText, linkPath) => {
+      const cleanPath = linkPath.replace(/^\.\//, '');
+      return `[${linkText}](${baseUrl}${cleanPath})`;
+    }
   );
 
   // Convert Python file links
   content = content.replace(
-    /\[([^\]]+\.py)\]\(([^)]+\.py)\)/g,
-    (match, linkText, linkPath) => `[${linkText}](${baseUrl}${linkPath})`
+    /\[([^\]]+\.py)\]\(\.?\/?([^)]+\.py)\)/g,
+    (match, linkText, linkPath) => {
+      const cleanPath = linkPath.replace(/^\.\//, '');
+      return `[${linkText}](${baseUrl}${cleanPath})`;
+    }
   );
 
   // Convert main README reference
   content = content.replace(
     '[influxdb3_plugins/README.md](/README.md)',
-    '[influxdb3_plugins/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md)'
+    `[influxdb3_plugins/README.md](${rootUrl}README.md)`
   );
 
   return content;
