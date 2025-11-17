@@ -245,7 +245,7 @@ telegraf:
   versions: [v1]
   latest: v1.36
   latest_patches:
-    v1: 1.36.3
+    v1: 1.36.4
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
