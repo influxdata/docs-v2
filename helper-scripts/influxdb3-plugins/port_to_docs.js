@@ -35,11 +35,21 @@ function removeEmojiMetadata(content) {
 }
 
 /**
+ * Clean up title formatting.
+ */
+function cleanTitle(content) {
+  // Remove duplicate # from titles (e.g., "# # Title" -> "# Title")
+  content = content.replace(/^#\s+#\s+(.+)$/m, '# $1');
+  return content;
+}
+
+/**
  * Convert relative links to GitHub URLs.
  */
 function convertRelativeLinks(content, pluginName) {
   const baseUrl = `https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/${pluginName}/`;
-  const rootUrl = 'https://github.com/influxdata/influxdb3_plugins/blob/master/';
+  const rootUrl =
+    'https://github.com/influxdata/influxdb3_plugins/blob/master/';
 
   // Convert relative README links (../../README.md, ../README.md, etc.)
   content = content.replace(
