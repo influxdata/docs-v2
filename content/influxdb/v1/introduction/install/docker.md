@@ -44,6 +44,20 @@ This guide covers Docker installation, configuration, and initialization options
 docker pull influxdb:{{< latest-patch >}}
 ```
 
+### Volume permissions
+
+> [!Important]
+> The InfluxDB Docker container runs as user influxdb with UID/GID 1500.
+> When mounting volumes for persistent storage, ensure the mounted directory on the host is owned by UID/GID 1500, or InfluxDB may not have permission to write data.
+
+Set the correct ownership before starting the container:
+
+#### Create the data directory
+mkdir -p data
+
+#### Set ownership to UID/GID 1500
+sudo chown -R 1500:1500 data
+
 ### Start InfluxDB
 
 Start a basic InfluxDB container with persistent storage:
