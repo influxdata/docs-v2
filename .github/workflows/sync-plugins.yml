@@ -294,6 +294,7 @@ jobs:
           npx playwright install chromium
 
       - name: Generate screenshots
+        if: false  # Disable screenshots for MVP
         id: screenshots
         run: |
           cd docs-v2
