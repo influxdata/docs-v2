@@ -1,9 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "yarn"
     ],
-    "deny": [],
-    "ask": []
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Read(./build)"
+    ],
+    "ask": [
+      "Bash(git push:*)"
+    ]
   }
 }

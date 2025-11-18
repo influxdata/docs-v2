@@ -55,15 +55,6 @@ outputFormats:
     mediaType: application/json
     baseName: pages
     isPlainText: true
-  markdown:
-    mediaType: text/markdown
-    baseName: index
-    isPlainText: true
-    notAlternative: false
-    permalinkable: true
-    suffixes:
-      - md
-    rel: alternate
   llmstxt:
     mediaType: text/plain
     baseName: llms
@@ -76,14 +67,11 @@ outputFormats:
 outputs:
   page:
     - HTML
-    - markdown
   section:
     - HTML
-    - markdown
     - llmstxt
   home:
     - HTML
-    - markdown
     - llmstxt
 
 # Asset processing configuration for development

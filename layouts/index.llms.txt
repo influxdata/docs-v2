@@ -1,3 +1,9 @@
+{{- /*
+  Generate site-level llms.txt file following https://llmstxt.org specification
+
+  This template dynamically generates the root /llms.txt file with all InfluxData products
+  organized by category.
+*/ -}}
 # InfluxData Documentation
 
 > Comprehensive documentation for InfluxData's time series platform, including InfluxDB, Telegraf, and related tools.
@@ -6,32 +12,44 @@ InfluxData provides a complete time series data platform for metrics, events, an
 
 ## InfluxDB 3
 
-- [InfluxDB 3 Core](/influxdb3/core/): Open source time series database
-- [InfluxDB 3 Enterprise](/influxdb3/enterprise/): Enterprise edition with clustering and HA
-- [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/): Fully managed cloud service
-- [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/): Pay-as-you-go cloud service
-- [InfluxDB Clustered](/influxdb3/clustered/): On-premise clustered deployment
+- [InfluxDB 3 Core](/influxdb3/core/): {{ (index .Site.Data.products "influxdb3_core").description }}
+- [InfluxDB 3 Enterprise](/influxdb3/enterprise/): {{ (index .Site.Data.products "influxdb3_enterprise").description }}
+- [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/): {{ (index .Site.Data.products "influxdb3_cloud_dedicated").description }}
+- [InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/): {{ (index .Site.Data.products "influxdb3_cloud_serverless").description }}
+- [InfluxDB Clustered](/influxdb3/clustered/): {{ (index .Site.Data.products "influxdb3_clustered").description }}
 
 ## InfluxDB 2.x & 1.x
 
-- [InfluxDB OSS v2](/influxdb/v2/): Open source InfluxDB 2.x
-- [InfluxDB Cloud (TSM)](/influxdb/cloud/): Cloud-hosted InfluxDB 2.x
-- [InfluxDB OSS v1](/influxdb/v1/): Legacy InfluxDB 1.x
-- [InfluxDB Enterprise v1](/enterprise_influxdb/v1/): Enterprise InfluxDB 1.x
+- [InfluxDB OSS v2](/influxdb/v2/): {{ (index .Site.Data.products "influxdb").description }}
+- [InfluxDB Cloud (TSM)](/influxdb/cloud/): {{ (index .Site.Data.products "influxdb_cloud").description }}
+{{- if index .Site.Data.products "influxdb_v1" }}
+- [InfluxDB OSS v1](/influxdb/v1/): {{ (index .Site.Data.products "influxdb_v1").description }}
+{{- end }}
+{{- if index .Site.Data.products "enterprise_influxdb" }}
+- [InfluxDB Enterprise v1](/enterprise_influxdb/v1/): {{ (index .Site.Data.products "enterprise_influxdb").description }}
+{{- end }}
 
 ## Data Collection & Processing
 
-- [Telegraf](/telegraf/v1/): Plugin-driven server agent for collecting metrics
+- [Telegraf](/telegraf/v1/): {{ (index .Site.Data.products "telegraf").description }}
 - [InfluxDB 3 Plugins](/influxdb3/core/plugins/): Data processing engine plugins
 
 ## Visualization & Monitoring
 
-- [Chronograf](/chronograf/v1/): Web-based monitoring and visualization
-- [Kapacitor](/kapacitor/v1/): Real-time streaming data processing
-- [InfluxDB 3 Explorer](/influxdb3/explorer/): Interactive query interface
+{{- if index .Site.Data.products "chronograf" }}
+- [Chronograf](/chronograf/v1/): {{ (index .Site.Data.products "chronograf").description }}
+{{- end }}
+{{- if index .Site.Data.products "kapacitor" }}
+- [Kapacitor](/kapacitor/v1/): {{ (index .Site.Data.products "kapacitor").description }}
+{{- end }}
+{{- if index .Site.Data.products "influxdb3_explorer" }}
+- [InfluxDB 3 Explorer](/influxdb3/explorer/): {{ (index .Site.Data.products "influxdb3_explorer").description }}
+{{- end }}
 
 ## Query Languages
 
-- [Flux](/flux/v0/): Functional data scripting language
+{{- if index .Site.Data.products "flux" }}
+- [Flux](/flux/v0/): {{ (index .Site.Data.products "flux").description }}
+{{- end }}
 - SQL: Standard SQL support in InfluxDB 3
 - InfluxQL: InfluxDB query language

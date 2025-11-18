@@ -13,6 +13,35 @@ describe('Markdown Content Validation', () => {
   const SECTION_PAGE_URL = '/influxdb3/core/get-started/';
   const ENTERPRISE_INDEX_URL = '/influxdb3/enterprise/';
 
+  /**
+   * Setup: Generate markdown files for test paths
+   * This runs once before all tests in this suite
+   */
+  before(() => {
+    cy.log('Generating markdown files for test paths...');
+
+    // Generate markdown for get-started section
+    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/get-started', {
+      failOnNonZeroExit: false,
+      timeout: 60000
+    }).then((result) => {
+      if (result.code !== 0) {
+        cy.log('Warning: get-started markdown generation had issues:', result.stderr);
+      }
+    });
+
+    // Generate markdown for enterprise index page
+    cy.exec('node scripts/html-to-markdown.js --path influxdb3/enterprise --limit 1', {
+      failOnNonZeroExit: false,
+      timeout: 60000
+    }).then((result) => {
+      if (result.code !== 0) {
+        cy.log('Warning: enterprise markdown generation had issues:', result.stderr);
+      }
+      cy.log('Markdown files generated successfully');
+    });
+  });
+
   describe('Markdown Format - Basic Validation', () => {
     it('should return 200 status for markdown file requests', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {

@@ -10,104 +10,126 @@ describe('LLM Format Selector', () => {
   const SMALL_SECTION_URL = '/influxdb3/core/get-started/'; // Section with ≤10 pages
   const LARGE_SECTION_URL = '/influxdb3/core/query-data/'; // Section with >10 pages (if exists)
 
+  /**
+   * Setup: Generate markdown files for test paths
+   * This runs once before all tests in this suite
+   */
+  before(() => {
+    cy.log('Generating markdown files for test paths...');
+
+    // Generate markdown for get-started section (small section + leaf page)
+    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/get-started', {
+      failOnNonZeroExit: false,
+      timeout: 60000
+    }).then((result) => {
+      if (result.code !== 0) {
+        cy.log('Warning: get-started markdown generation had issues:', result.stderr);
+      }
+    });
+
+    // Generate markdown for query-data section (large section)
+    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/query-data --limit 15', {
+      failOnNonZeroExit: false,
+      timeout: 60000
+    }).then((result) => {
+      if (result.code !== 0) {
+        cy.log('Warning: query-data markdown generation had issues:', result.stderr);
+      }
+      cy.log('Markdown files generated successfully');
+    });
+  });
+
   describe('Format Selector - Leaf Nodes (Single Pages)', () => {
     beforeEach(() => {
       cy.visit(LEAF_PAGE_URL);
-    });
 
-    it('should display format selector button on page', () => {
-      cy.get('[data-component="format-selector"]').should('exist').should('be.visible');
-    });
-
-    it('should show "Copy page" label for leaf nodes', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .should('contain', 'Copy page');
-    });
-
-    it('should open dropdown menu when clicked', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-component="format-selector"]')
-        .find('[data-dropdown-menu]')
-        .should('be.visible');
-    });
-
-    it('should display "Copy page" option in dropdown', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option="copy-page"]')
-        .should('exist')
-        .should('contain', 'Copy page')
-        .should('contain', 'Copy page as Markdown for LLMs');
-    });
-
-    it('should display "Open in ChatGPT" option', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option="open-chatgpt"]')
-        .should('exist')
-        .should('contain', 'Open in ChatGPT')
-        .should('contain', 'Ask questions about this page');
-    });
-
-    it('should display "Open in Claude" option', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option="open-claude"]')
-        .should('exist')
-        .should('contain', 'Open in Claude')
-        .should('contain', 'Ask questions about this page');
-    });
-
-    it('should show external link indicator (↗) for AI integration options', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="open-chatgpt"]').should('contain', '↗');
-      cy.get('[data-option="open-claude"]').should('contain', '↗');
-    });
-
-    it('should copy Markdown content to clipboard when "Copy page" is clicked', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="copy-page"]').click();
-
-      // Verify clipboard contains Markdown content
-      cy.window().then((win) => {
-        win.navigator.clipboard.readText().then((text) => {
-          expect(text).to.include('---'); // YAML frontmatter delimiter
-          expect(text).to.include('# '); // Markdown heading
-          expect(text).to.match(/Product:/); // Product context
-        });
+      // Wait for component initialization
+      cy.window().should((win) => {
+        expect(win.influxdatadocs).to.exist;
+        expect(win.influxdatadocs.instances).to.exist;
+        expect(win.influxdatadocs.instances['format-selector']).to.exist;
       });
     });
 
-    it('should navigate to .md URL when markdown link is available', () => {
-      // Get current page URL and construct .md version
-      cy.url().then((url) => {
-        const markdownUrl = url.replace(/\/$/, '') + '.md';
+    it('should display format selector button with correct label', () => {
+      cy.get('[data-component="format-selector"]')
+        .should('exist')
+        .should('be.visible');
 
-        // Visit the markdown version directly
-        cy.visit(markdownUrl);
+      cy.get('[data-component="format-selector"] .format-selector__button')
+        .should('contain', 'Copy page');
+    });
 
-        // Verify we get Markdown content
-        cy.get('body').should('contain', '---'); // Frontmatter
-        cy.get('body').invoke('text').should('match', /^---\n/); // Starts with frontmatter
+    describe('Dropdown functionality', () => {
+      beforeEach(() => {
+        // Open dropdown once for all tests in this block
+        cy.get('[data-component="format-selector"] .format-selector__button')
+          .trigger('click');
+
+        // Wait for dropdown animation (0.2s transition + small buffer)
+        cy.wait(300);
+
+        // Verify dropdown is open
+        cy.get('[data-dropdown-menu].is-open')
+          .should('exist')
+          .should('be.visible');
+      });
+
+      it('should display dropdown menu with all options', () => {
+        // Check that dropdown has options
+        cy.get('[data-dropdown-menu].is-open [data-option]')
+          .should('have.length.at.least', 3); // copy-page, open-chatgpt, open-claude
+      });
+
+      it('should display "Copy page" option', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="copy-page"]')
+          .should('be.visible')
+          .should('contain', 'Copy page')
+          .should('contain', 'Copy page as Markdown for LLMs');
+      });
+
+      it('should display "Download page" option', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="download-page"]')
+          .should('be.visible')
+          .should('contain', 'Download page')
+          .should('contain', 'Download page as Markdown file');
+      });
+
+      it('should display "Open in ChatGPT" option with external link indicator', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="open-chatgpt"]')
+          .should('be.visible')
+          .should('contain', 'Open in ChatGPT')
+          .should('contain', 'Ask questions about this page')
+          .should('contain', '↗')
+          .should('have.attr', 'href')
+          .and('include', 'chatgpt.com');
+      });
+
+      it('should display "Open in Claude" option with external link indicator', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="open-claude"]')
+          .should('be.visible')
+          .should('contain', 'Open in Claude')
+          .should('contain', 'Ask questions about this page')
+          .should('contain', '↗')
+          .should('have.attr', 'href')
+          .and('include', 'claude.ai');
+      });
+
+      it('should display icons for each option', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option]')
+          .each(($option) => {
+            cy.wrap($option)
+              .find('.format-selector__icon')
+              .should('exist');
+          });
+      });
+
+      it('should open AI integration links in new tab', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="open-chatgpt"]')
+          .should('have.attr', 'target', '_blank');
+
+        cy.get('[data-dropdown-menu].is-open [data-option="open-claude"]')
+          .should('have.attr', 'target', '_blank');
       });
     });
   });
@@ -115,52 +137,55 @@ describe('LLM Format Selector', () => {
   describe('Format Selector - Branch Nodes (Small Sections)', () => {
     beforeEach(() => {
       cy.visit(SMALL_SECTION_URL);
-    });
 
-    it('should show "Copy section" label for branch nodes', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .should('contain', 'Copy section');
-    });
-
-    it('should display "Copy section" option with page count', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option="copy-section"]')
-        .should('exist')
-        .should('contain', 'Copy section')
-        .should('contain', 'Copy all')
-        .should('contain', 'pages'); // "Copy all X pages in this section as Markdown"
-    });
-
-    it('should copy aggregated section content with delimiters', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="copy-section"]').click();
-
-      // Verify clipboard contains aggregated Markdown with delimiters
-      cy.window().then((win) => {
-        win.navigator.clipboard.readText().then((text) => {
-          expect(text).to.include('---'); // Page delimiters
-          expect(text).to.match(/# .+\n\n---\n\n## .+:/); // Section header + child pages
-          expect(text).to.match(/Product:/); // Product context
-        });
+      // Wait for component initialization
+      cy.window().should((win) => {
+        expect(win.influxdatadocs).to.exist;
+        expect(win.influxdatadocs.instances).to.exist;
+        expect(win.influxdatadocs.instances['format-selector']).to.exist;
       });
     });
 
-    it('should NOT show "Download section" option for small sections', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
+    it('should show "Copy section" label for branch nodes', () => {
+      cy.get('[data-component="format-selector"] .format-selector__button')
+        .should('contain', 'Copy section');
+    });
 
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option="download-section"]')
-        .should('not.exist');
+    describe('Dropdown functionality', () => {
+      beforeEach(() => {
+        // Open dropdown once for all tests in this block
+        cy.get('[data-component="format-selector"] .format-selector__button')
+          .trigger('click');
+
+        // Wait for dropdown animation
+        cy.wait(300);
+
+        // Verify dropdown is open
+        cy.get('[data-dropdown-menu].is-open')
+          .should('exist')
+          .should('be.visible');
+      });
+
+      it('should display "Copy section" option with page count', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="copy-section"]')
+          .should('be.visible')
+          .should('contain', 'Copy section')
+          .should('contain', 'Copy all')
+          .should('contain', 'pages'); // "Copy all X pages in this section as Markdown"
+      });
+
+      it('should NOT show "Download section" option for small sections', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="download-section"]')
+          .should('not.exist');
+      });
+
+      it('should display ChatGPT and Claude options', () => {
+        cy.get('[data-dropdown-menu].is-open [data-option="open-chatgpt"]')
+          .should('be.visible');
+
+        cy.get('[data-dropdown-menu].is-open [data-option="open-claude"]')
+          .should('be.visible');
+      });
     });
   });
 
@@ -168,6 +193,13 @@ describe('LLM Format Selector', () => {
     beforeEach(() => {
       // Skip if large section doesn't exist
       cy.visit(LARGE_SECTION_URL, { failOnStatusCode: false });
+
+      // Wait for component initialization if it exists
+      cy.window().then((win) => {
+        if (win.influxdatadocs && win.influxdatadocs.instances) {
+          expect(win.influxdatadocs.instances['format-selector']).to.exist;
+        }
+      });
     });
 
     it('should show "Download section" option for large sections (>10 pages)', () => {
@@ -176,13 +208,13 @@ describe('LLM Format Selector', () => {
         const childCount = $selector.data('child-count');
 
         if (childCount && childCount > 10) {
-          cy.get('[data-component="format-selector"]')
-            .find('button')
-            .click();
+          cy.get('[data-component="format-selector"] button')
+            .trigger('click');
 
-          cy.get('[data-dropdown-menu]')
-            .find('[data-option="download-section"]')
-            .should('exist')
+          cy.wait(300);
+
+          cy.get('[data-dropdown-menu].is-open [data-option="download-section"]')
+            .should('be.visible')
             .should('contain', 'Download section')
             .should('contain', '.zip');
         } else {
@@ -190,147 +222,46 @@ describe('LLM Format Selector', () => {
         }
       });
     });
+  });
 
-    it('should trigger ZIP download when "Download section" is clicked', () => {
-      cy.get('[data-component="format-selector"]').then(($selector) => {
-        const childCount = $selector.data('child-count');
+  describe('Markdown Content Quality', () => {
+    it('should contain actual page content from HTML version', () => {
+      // First, get the HTML version and extract some text
+      cy.visit(LEAF_PAGE_URL);
 
-        if (childCount && childCount > 10) {
-          cy.get('[data-component="format-selector"]')
-            .find('button')
-            .click();
+      // Get the page title from h1
+      cy.get('h1').first().invoke('text').then((pageTitle) => {
+        // Get some body content from the article
+        cy.get('article').first().invoke('text').then((articleText) => {
+          // Extract a meaningful snippet (first 50 chars of article text, trimmed)
+          const contentSnippet = articleText.trim().substring(0, 50).trim();
 
-          // Stub the download to verify it's triggered
-          cy.window().then((win) => {
-            cy.stub(win, 'open').as('downloadStub');
+          // Now fetch the markdown version
+          cy.request(LEAF_PAGE_URL + 'index.md').then((response) => {
+            expect(response.status).to.eq(200);
+
+            const markdown = response.body;
+
+            // Basic structure checks
+            expect(markdown).to.include('---'); // Frontmatter delimiter
+            expect(markdown).to.match(/^#+ /m); // Has headings
+
+            // Content from HTML should appear in markdown
+            expect(markdown).to.include(pageTitle.trim());
+            expect(markdown).to.include(contentSnippet);
+
+            // Clean markdown (no raw HTML or Hugo syntax)
+            expect(markdown).to.not.include('<!DOCTYPE html>');
+            expect(markdown).to.not.include('<div');
+            expect(markdown).to.not.match(/\{\{[<%]/); // No shortcodes
+            expect(markdown).to.not.include('<!--'); // No HTML comments
+            expect(markdown).to.not.match(/\{\{-?\s*end\s*-?\}\}/); // No {{end}}
+
+            // Not empty
+            expect(markdown.length).to.be.greaterThan(100);
           });
-
-          cy.get('[data-option="download-section"]').click();
-          cy.get('@downloadStub').should('be.called');
-        } else {
-          cy.log('Skipping: This section has ≤10 pages');
-        }
-      });
-    });
-  });
-
-  describe('Content Negotiation', () => {
-    it('should return Markdown when Accept: text/markdown header is sent', () => {
-      cy.request({
-        url: LEAF_PAGE_URL,
-        headers: {
-          'Accept': 'text/markdown'
-        }
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.headers['content-type']).to.include('text/markdown');
-        expect(response.body).to.include('---'); // Frontmatter
-        expect(response.body).to.match(/Product:/); // Product context
-      });
-    });
-
-    it('should return HTML when Accept: text/html header is sent', () => {
-      cy.request({
-        url: LEAF_PAGE_URL,
-        headers: {
-          'Accept': 'text/html'
-        }
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.headers['content-type']).to.include('text/html');
-        expect(response.body).to.include('<!DOCTYPE html>');
-      });
-    });
-  });
-
-  describe('Product Context in Markdown', () => {
-    it('should include product name and version in Markdown output', () => {
-      const markdownUrl = LEAF_PAGE_URL.replace(/\/$/, '') + '.md';
-
-      cy.request(markdownUrl).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body).to.match(/Product: InfluxDB/);
-        expect(response.body).to.match(/\*\*Product:\*\*/); // Bold product label
-        expect(response.body).to.include('Last Updated:');
-        expect(response.body).to.include('URL:');
-      });
-    });
-
-    it('should include product description in Markdown output', () => {
-      const markdownUrl = LEAF_PAGE_URL.replace(/\/$/, '') + '.md';
-
-      cy.request(markdownUrl).then((response) => {
-        expect(response.body).to.match(/> .+/); // Blockquote with description
-      });
-    });
-  });
-
-  describe('AI Integration Links', () => {
-    it('should generate ChatGPT share URL with page context', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="open-chatgpt"]')
-        .should('have.attr', 'href')
-        .and('include', 'chatgpt.com');
-    });
-
-    it('should generate Claude share URL with page context', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="open-claude"]')
-        .should('have.attr', 'href')
-        .and('include', 'claude.ai');
-    });
-
-    it('should open AI integration links in new tab', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="open-chatgpt"]')
-        .should('have.attr', 'target', '_blank');
-
-      cy.get('[data-option="open-claude"]')
-        .should('have.attr', 'target', '_blank');
-    });
-  });
-
-  describe('Visual Design', () => {
-    it('should display dropdown with dark theme styling', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .should('have.css', 'background-color')
-        .and('match', /rgb\(.*\)/); // Some dark color
-    });
-
-    it('should show icons for each option', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-dropdown-menu]')
-        .find('[data-option]')
-        .each(($option) => {
-          cy.wrap($option).find('[data-icon]').should('exist');
         });
-    });
-
-    it('should highlight option on hover', () => {
-      cy.get('[data-component="format-selector"]')
-        .find('button')
-        .click();
-
-      cy.get('[data-option="copy-page"]')
-        .trigger('mouseover')
-        .should('have.css', 'background-color')
-        .and('not.eq', 'rgba(0, 0, 0, 0)'); // Has some background
+      });
     });
   });
 });

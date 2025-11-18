@@ -10,13 +10,18 @@ The llms.txt format helps LLMs discover and understand documentation structure. 
 
 ### `index.llms.txt`
 - **Location**: `/layouts/index.llms.txt`
-- **Generates**: Site-level `/llms.txt` file
+- **Output**: `/llms.txt` (site-level)
+- **Type**: Hugo template
 - **Purpose**: Primary entry point for LLM discovery
-- **Content**: Hardcoded curated list of all InfluxData products
+- **Content**: Dynamically generated from `data/products.yml` with:
+  - Product descriptions from data files
+  - Organized by product category
+  - Conditional rendering for optional products
 
 ### `section.llms.txt`
 - **Location**: `/layouts/_default/section.llms.txt`
-- **Generates**: Product/section-level llms.txt files (e.g., `/influxdb3/core/llms.txt`)
+- **Output**: Product/section-level llms.txt files (e.g., `/influxdb3/core/llms.txt`)
+- **Type**: Hugo template
 - **Purpose**: Provide curated navigation for specific products/sections
 - **Content**: Dynamically generated from:
   - Product metadata from `data/products.yml`
@@ -41,11 +46,9 @@ outputFormats:
 outputs:
   section:
     - HTML
-    - markdown
     - llmstxt  # Generates llms.txt for all sections
   home:
     - HTML
-    - markdown
     - llmstxt  # Generates root /llms.txt
 ```
 

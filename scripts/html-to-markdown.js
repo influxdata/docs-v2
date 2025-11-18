@@ -164,47 +164,55 @@ function extractArticleContent(htmlContent, filePath) {
   const dom = new JSDOM(htmlContent);
   const document = dom.window.document;
 
-  // Find the main article content
-  const article = document.querySelector('article.article--content');
-  if (!article) {
-    if (options.verbose) {
-      console.warn(`  ⚠️  No article content found in ${filePath}`);
+  try {
+    // Find the main article content
+    const article = document.querySelector('article.article--content');
+    if (!article) {
+      if (options.verbose) {
+        console.warn(`  ⚠️  No article content found in ${filePath}`);
+      }
+      return null;
     }
-    return null;
+
+    // Remove unwanted elements from article before conversion
+    const elementsToRemove = [
+      '.format-selector',     // Remove format selector buttons
+      '.page-feedback',       // Remove page feedback form
+      '#page-feedback',       // Remove feedback modal
+      '.feedback-widget',     // Remove any feedback widgets
+      '.helpful',             // Remove "Was this page helpful?" section
+      '.feedback.block',      // Remove footer feedback/support section
+      'hr',                   // Remove horizontal rules (often used as separators before footer)
+    ];
+
+    elementsToRemove.forEach(selector => {
+      const elements = article.querySelectorAll(selector);
+      elements.forEach(el => el.remove());
+    });
+
+    // Extract metadata
+    const title =
+      document.querySelector('h1')?.textContent?.trim() ||
+      document.querySelector('title')?.textContent?.trim() ||
+      'Untitled';
+
+    const description =
+      document.querySelector('meta[name="description"]')?.getAttribute('content') ||
+      document.querySelector('meta[property="og:description"]')?.getAttribute('content') ||
+      '';
+
+    // Get the content before closing the DOM
+    const content = article.innerHTML;
+
+    return {
+      title,
+      description,
+      content,
+    };
+  } finally {
+    // Clean up JSDOM to prevent memory leaks
+    dom.window.close();
   }
-
-  // Remove unwanted elements from article before conversion
-  const elementsToRemove = [
-    '.format-selector',     // Remove format selector buttons
-    '.page-feedback',       // Remove page feedback form
-    '#page-feedback',       // Remove feedback modal
-    '.feedback-widget',     // Remove any feedback widgets
-    '.helpful',             // Remove "Was this page helpful?" section
-    '.feedback.block',      // Remove footer feedback/support section
-    'hr',                   // Remove horizontal rules (often used as separators before footer)
-  ];
-
-  elementsToRemove.forEach(selector => {
-    const elements = article.querySelectorAll(selector);
-    elements.forEach(el => el.remove());
-  });
-
-  // Extract metadata
-  const title =
-    document.querySelector('h1')?.textContent?.trim() ||
-    document.querySelector('title')?.textContent?.trim() ||
-    'Untitled';
-
-  const description =
-    document.querySelector('meta[name="description"]')?.getAttribute('content') ||
-    document.querySelector('meta[property="og:description"]')?.getAttribute('content') ||
-    '';
-
-  return {
-    title,
-    description,
-    content: article.innerHTML,
-  };
 }
 
 /**
@@ -330,6 +338,14 @@ function main() {
   console.log(`📂 Scanning: ${path.relative(process.cwd(), startDir)}`);
 
   const htmlFiles = findHtmlFiles(startDir);
+
+  // Sort files by depth (shallow first) so root index.html files are processed first
+  htmlFiles.sort((a, b) => {
+    const depthA = a.split(path.sep).length;
+    const depthB = b.split(path.sep).length;
+    return depthA - depthB;
+  });
+
   const totalFiles = options.limit ? Math.min(htmlFiles.length, options.limit) : htmlFiles.length;
 
   console.log(`📄 Found ${htmlFiles.length} HTML files`);
@@ -355,6 +371,11 @@ function main() {
       converted++;
     } else {
       skipped++;
+    }
+
+    // Periodic garbage collection hint every 100 files
+    if (i > 0 && i % 100 === 0 && global.gc) {
+      global.gc();
     }
   }
 
