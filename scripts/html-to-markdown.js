@@ -370,6 +370,197 @@ function convertHtmlToMarkdown(htmlFilePath) {
 }
 
 /**
+ * Check if a directory is a section (has child directories with index.html)
+ */
+function isSection(dirPath) {
+  try {
+    const files = fs.readdirSync(dirPath);
+    return files.some((file) => {
+      const fullPath = path.join(dirPath, file);
+      const stat = fs.statSync(fullPath);
+      return (
+        stat.isDirectory() && fs.existsSync(path.join(fullPath, 'index.html'))
+      );
+    });
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Find all child page HTML files in a section
+ */
+function findChildPages(sectionPath) {
+  try {
+    const files = fs.readdirSync(sectionPath);
+    const childPages = [];
+
+    for (const file of files) {
+      const fullPath = path.join(sectionPath, file);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        const childIndexPath = path.join(fullPath, 'index.html');
+        if (fs.existsSync(childIndexPath)) {
+          childPages.push(childIndexPath);
+        }
+      }
+    }
+
+    return childPages;
+  } catch (error) {
+    console.error(
+      `Error finding child pages in ${sectionPath}:`,
+      error.message
+    );
+    return [];
+  }
+}
+
+/**
+ * Generate enhanced frontmatter for section aggregation
+ */
+function generateSectionFrontmatter(metadata, urlPath, childPages) {
+  const product = detectProduct(urlPath);
+  const frontmatter = ['---'];
+
+  frontmatter.push(`title: ${metadata.title} (Complete Section)`);
+  if (metadata.description) {
+    frontmatter.push(`description: ${metadata.description}`);
+  }
+  frontmatter.push(`url: ${urlPath}`);
+
+  if (product) {
+    frontmatter.push(`product: ${product.name}`);
+    frontmatter.push(`product_version: ${product.version}`);
+  }
+
+  frontmatter.push('section_type: aggregated');
+  frontmatter.push(`child_count: ${childPages.length}`);
+
+  // Add child page metadata
+  frontmatter.push('child_pages:');
+  childPages.forEach((childPath) => {
+    const childUrlPath =
+      '/' +
+      path
+        .relative(options.publicDir, childPath)
+        .replace(/\/index\.html$/, '/')
+        .replace(/\\/g, '/');
+
+    // Extract child page title
+    try {
+      const childHtml = fs.readFileSync(childPath, 'utf-8');
+      const childDom = new JSDOM(childHtml);
+      const childTitle =
+        childDom.window.document.querySelector('h1')?.textContent?.trim() ||
+        path.basename(path.dirname(childPath));
+      childDom.window.close();
+
+      frontmatter.push(`  - url: ${childUrlPath}`);
+      frontmatter.push(`    title: ${childTitle}`);
+    } catch (error) {
+      // Skip if we can't read the child page
+    }
+  });
+
+  const now = new Date().toISOString().split('T')[0];
+  frontmatter.push(`date: ${now}`);
+  frontmatter.push(`lastmod: ${now}`);
+
+  frontmatter.push('---');
+  frontmatter.push('');
+
+  return frontmatter.join('\n');
+}
+
+/**
+ * Aggregate section and child page markdown
+ */
+function aggregateSectionMarkdown(sectionHtmlPath) {
+  try {
+    const sectionDir = path.dirname(sectionHtmlPath);
+
+    // Convert section's own content
+    const sectionHtml = fs.readFileSync(sectionHtmlPath, 'utf-8');
+    const sectionUrlPath =
+      '/' +
+      path
+        .relative(options.publicDir, sectionHtmlPath)
+        .replace(/\/index\.html$/, '/')
+        .replace(/\\/g, '/');
+
+    const sectionMetadata = extractArticleContent(sectionHtml, sectionHtmlPath);
+    if (!sectionMetadata) {
+      return null;
+    }
+
+    const turndownService = createTurndownService();
+    let sectionMarkdown = turndownService.turndown(sectionMetadata.content);
+    sectionMarkdown = sectionMarkdown
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/\* \* \*\s*\n\s*\* \* \*/g, '')
+      .replace(/\* \* \*\s*$/g, '')
+      .trim();
+
+    // Find and convert child pages
+    const childPages = findChildPages(sectionDir);
+    const childContents = [];
+
+    for (const childPath of childPages) {
+      try {
+        const childHtml = fs.readFileSync(childPath, 'utf-8');
+        const childMetadata = extractArticleContent(childHtml, childPath);
+
+        if (childMetadata) {
+          let childMarkdown = turndownService.turndown(childMetadata.content);
+          childMarkdown = childMarkdown
+            .replace(/\n{3,}/g, '\n\n')
+            .replace(/\* \* \*\s*\n\s*\* \* \*/g, '')
+            .replace(/\* \* \*\s*$/g, '')
+            .trim();
+
+          // Add child page title as heading
+          childContents.push(`## ${childMetadata.title}\n\n${childMarkdown}`);
+        }
+      } catch (error) {
+        if (options.verbose) {
+          console.warn(`  ⚠️  Could not convert child page: ${childPath}`);
+        }
+      }
+    }
+
+    // Combine section and child content with separators
+    const separator = '\n\n---\n\n';
+    const aggregatedContent = [sectionMarkdown, ...childContents].join(
+      separator
+    );
+
+    // Generate enhanced frontmatter
+    const frontmatter = generateSectionFrontmatter(
+      sectionMetadata,
+      sectionUrlPath,
+      childPages
+    );
+
+    // Add product context header
+    const product = detectProduct(sectionUrlPath);
+    let productHeader = '';
+    if (product) {
+      productHeader = `\n**Product**: ${product.name} (${product.version})\n\n`;
+    }
+
+    return frontmatter + productHeader + aggregatedContent;
+  } catch (error) {
+    console.error(
+      `Error aggregating section ${sectionHtmlPath}:`,
+      error.message
+    );
+    return null;
+  }
+}
+
+/**
  * Find all HTML files recursively
  */
 function findHtmlFiles(dir, fileList = []) {
@@ -430,6 +621,7 @@ function main() {
 
   let converted = 0;
   let skipped = 0;
+  let sectionsGenerated = 0;
 
   const filesToProcess = htmlFiles.slice(0, totalFiles);
 
@@ -440,11 +632,41 @@ function main() {
       console.log(`  Progress: ${i}/${totalFiles} files...`);
     }
 
+    // Generate regular index.md
     const result = convertHtmlToMarkdown(htmlFile);
     if (result) {
       converted++;
     } else {
       skipped++;
+    }
+
+    // Check if this is a section and generate aggregated markdown
+    const htmlDir = path.dirname(htmlFile);
+    if (result && isSection(htmlDir)) {
+      try {
+        const sectionMarkdown = aggregateSectionMarkdown(htmlFile);
+        if (sectionMarkdown) {
+          const sectionFilePath = htmlFile.replace(
+            /index\.html$/,
+            'index.section.md'
+          );
+          fs.writeFileSync(sectionFilePath, sectionMarkdown, 'utf-8');
+          sectionsGenerated++;
+
+          if (options.verbose) {
+            const relativePath = path.relative(
+              options.publicDir,
+              sectionFilePath
+            );
+            console.log(`  ✓ Generated section: ${relativePath}`);
+          }
+        }
+      } catch (error) {
+        console.error(
+          `  ✗ Error generating section for ${htmlFile}:`,
+          error.message
+        );
+      }
     }
 
     // Periodic garbage collection hint every 100 files
@@ -455,6 +677,7 @@ function main() {
 
   console.log('\n✅ Conversion complete!');
   console.log(`   Converted: ${converted} files`);
+  console.log(`   Sections: ${sectionsGenerated} aggregated files`);
   console.log(`   Skipped: ${skipped} files`);
   console.log(`   Total: ${totalFiles} files processed`);
 }

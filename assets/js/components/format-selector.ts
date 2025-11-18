@@ -16,11 +16,10 @@
  * See `.context/Screenshot 2025-11-13 at 11.39.13 AM.png` for reference.
  */
 
-import * as pageContext from '../page-context.js';
-
 interface FormatSelectorConfig {
   pageType: 'leaf' | 'branch'; // Leaf = single page, Branch = section with children
   markdownUrl: string;
+  sectionMarkdownUrl?: string; // For branch nodes - aggregated content
   markdownContent?: string; // For clipboard copy (lazy-loaded)
   pageTitle: string;
   pageUrl: string;
@@ -108,6 +107,12 @@ export default function FormatSelector(options: ComponentOptions) {
       markdownUrl += 'index.md';
     }
 
+    // Construct section markdown URL (for branch pages only)
+    let sectionMarkdownUrl: string | undefined;
+    if (pageType === 'branch') {
+      sectionMarkdownUrl = markdownUrl.replace('index.md', 'index.section.md');
+    }
+
     // Get page title from meta or h1
     const pageTitle =
       document
@@ -119,6 +124,7 @@ export default function FormatSelector(options: ComponentOptions) {
     config = {
       pageType,
       markdownUrl,
+      sectionMarkdownUrl,
       pageTitle,
       pageUrl: currentUrl,
       childPageCount: childCount,
@@ -253,14 +259,23 @@ export default function FormatSelector(options: ComponentOptions) {
    */
   async function handleCopySection(): Promise<void> {
     try {
-      // For sections, we need to fetch all child pages and aggregate
-      // For now, just copy the section page itself
-      // TODO: Implement child page aggregation
-      const markdown = await fetchMarkdownContent();
+      // Fetch aggregated section markdown (includes all child pages)
+      const url = config.sectionMarkdownUrl || config.markdownUrl;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch section markdown: ${response.statusText}`
+        );
+      }
+
+      const markdown = await response.text();
       await copyToClipboard(markdown);
+      showNotification('Section copied to clipboard', 'success');
       closeDropdown();
     } catch (error) {
       console.error('Failed to copy section:', error);
+      showNotification('Failed to copy section', 'error');
     }
   }
 
