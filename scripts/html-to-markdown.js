@@ -520,6 +520,10 @@ function aggregateSectionMarkdown(sectionHtmlPath) {
             .replace(/\* \* \*\s*$/g, '')
             .trim();
 
+          // Remove the first h1 heading (page title) to avoid redundancy
+          // since we're adding it as an h2 heading
+          childMarkdown = childMarkdown.replace(/^#\s+.+?\n+/, '');
+
           // Add child page title as heading
           childContents.push(`## ${childMetadata.title}\n\n${childMarkdown}`);
         }

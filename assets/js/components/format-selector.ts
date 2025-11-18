@@ -290,13 +290,16 @@ export default function FormatSelector(options: ComponentOptions) {
 
   /**
    * Handle download section action
+   * Commented out - not yet implemented
    */
+  /*
   function handleDownloadSection(): void {
     if (config.sectionDownloadUrl) {
       window.open(config.sectionDownloadUrl, '_self');
       closeDropdown();
     }
   }
+  */
 
   /**
    * Handle external link action
@@ -374,7 +377,9 @@ export default function FormatSelector(options: ComponentOptions) {
       dataAttribute: 'open-claude',
     });
 
-    // Option 4: Download section (conditional - only for large sections)
+    // Future: Download section option
+    // Commented out - not yet implemented
+    /*
     if (config.pageType === 'branch') {
       const shouldShowDownload =
         (config.childPageCount && config.childPageCount > 10) ||
@@ -392,6 +397,7 @@ export default function FormatSelector(options: ComponentOptions) {
         });
       }
     }
+    */
 
     // Future: MCP server options
     // Commented out for now - will be implemented as future enhancement
