@@ -18,22 +18,34 @@ describe('LLM Format Selector', () => {
     cy.log('Generating markdown files for test paths...');
 
     // Generate markdown for get-started section (small section + leaf page)
-    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/get-started', {
-      failOnNonZeroExit: false,
-      timeout: 60000
-    }).then((result) => {
+    cy.exec(
+      'node scripts/html-to-markdown.js --path influxdb3/core/get-started',
+      {
+        failOnNonZeroExit: false,
+        timeout: 60000,
+      }
+    ).then((result) => {
       if (result.code !== 0) {
-        cy.log('Warning: get-started markdown generation had issues:', result.stderr);
+        cy.log(
+          'Warning: get-started markdown generation had issues:',
+          result.stderr
+        );
       }
     });
 
     // Generate markdown for query-data section (large section)
-    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/query-data --limit 15', {
-      failOnNonZeroExit: false,
-      timeout: 60000
-    }).then((result) => {
+    cy.exec(
+      'node scripts/html-to-markdown.js --path influxdb3/core/query-data --limit 15',
+      {
+        failOnNonZeroExit: false,
+        timeout: 60000,
+      }
+    ).then((result) => {
       if (result.code !== 0) {
-        cy.log('Warning: query-data markdown generation had issues:', result.stderr);
+        cy.log(
+          'Warning: query-data markdown generation had issues:',
+          result.stderr
+        );
       }
       cy.log('Markdown files generated successfully');
     });
@@ -56,15 +68,17 @@ describe('LLM Format Selector', () => {
         .should('exist')
         .should('be.visible');
 
-      cy.get('[data-component="format-selector"] .format-selector__button')
-        .should('contain', 'Copy page');
+      cy.get(
+        '[data-component="format-selector"] .format-selector__button'
+      ).should('contain', 'Copy page');
     });
 
     describe('Dropdown functionality', () => {
       beforeEach(() => {
         // Open dropdown once for all tests in this block
-        cy.get('[data-component="format-selector"] .format-selector__button')
-          .trigger('click');
+        cy.get(
+          '[data-component="format-selector"] .format-selector__button'
+        ).trigger('click');
 
         // Wait for dropdown animation (0.2s transition + small buffer)
         cy.wait(300);
@@ -77,8 +91,10 @@ describe('LLM Format Selector', () => {
 
       it('should display dropdown menu with all options', () => {
         // Check that dropdown has options
-        cy.get('[data-dropdown-menu].is-open [data-option]')
-          .should('have.length.at.least', 3); // copy-page, open-chatgpt, open-claude
+        cy.get('[data-dropdown-menu].is-open [data-option]').should(
+          'have.length.at.least',
+          3
+        ); // copy-page, open-chatgpt, open-claude
       });
 
       it('should display "Copy page" option', () => {
@@ -116,20 +132,19 @@ describe('LLM Format Selector', () => {
       });
 
       it('should display icons for each option', () => {
-        cy.get('[data-dropdown-menu].is-open [data-option]')
-          .each(($option) => {
-            cy.wrap($option)
-              .find('.format-selector__icon')
-              .should('exist');
-          });
+        cy.get('[data-dropdown-menu].is-open [data-option]').each(($option) => {
+          cy.wrap($option).find('.format-selector__icon').should('exist');
+        });
       });
 
       it('should open AI integration links in new tab', () => {
-        cy.get('[data-dropdown-menu].is-open [data-option="open-chatgpt"]')
-          .should('have.attr', 'target', '_blank');
+        cy.get(
+          '[data-dropdown-menu].is-open [data-option="open-chatgpt"]'
+        ).should('have.attr', 'target', '_blank');
 
-        cy.get('[data-dropdown-menu].is-open [data-option="open-claude"]')
-          .should('have.attr', 'target', '_blank');
+        cy.get(
+          '[data-dropdown-menu].is-open [data-option="open-claude"]'
+        ).should('have.attr', 'target', '_blank');
       });
     });
   });
@@ -147,15 +162,17 @@ describe('LLM Format Selector', () => {
     });
 
     it('should show "Copy section" label for branch nodes', () => {
-      cy.get('[data-component="format-selector"] .format-selector__button')
-        .should('contain', 'Copy section');
+      cy.get(
+        '[data-component="format-selector"] .format-selector__button'
+      ).should('contain', 'Copy section');
     });
 
     describe('Dropdown functionality', () => {
       beforeEach(() => {
         // Open dropdown once for all tests in this block
-        cy.get('[data-component="format-selector"] .format-selector__button')
-          .trigger('click');
+        cy.get(
+          '[data-component="format-selector"] .format-selector__button'
+        ).trigger('click');
 
         // Wait for dropdown animation
         cy.wait(300);
@@ -175,16 +192,19 @@ describe('LLM Format Selector', () => {
       });
 
       it('should NOT show "Download section" option for small sections', () => {
-        cy.get('[data-dropdown-menu].is-open [data-option="download-section"]')
-          .should('not.exist');
+        cy.get(
+          '[data-dropdown-menu].is-open [data-option="download-section"]'
+        ).should('not.exist');
       });
 
       it('should display ChatGPT and Claude options', () => {
-        cy.get('[data-dropdown-menu].is-open [data-option="open-chatgpt"]')
-          .should('be.visible');
+        cy.get(
+          '[data-dropdown-menu].is-open [data-option="open-chatgpt"]'
+        ).should('be.visible');
 
-        cy.get('[data-dropdown-menu].is-open [data-option="open-claude"]')
-          .should('be.visible');
+        cy.get(
+          '[data-dropdown-menu].is-open [data-option="open-claude"]'
+        ).should('be.visible');
       });
     });
   });
@@ -208,12 +228,13 @@ describe('LLM Format Selector', () => {
         const childCount = $selector.data('child-count');
 
         if (childCount && childCount > 10) {
-          cy.get('[data-component="format-selector"] button')
-            .trigger('click');
+          cy.get('[data-component="format-selector"] button').trigger('click');
 
           cy.wait(300);
 
-          cy.get('[data-dropdown-menu].is-open [data-option="download-section"]')
+          cy.get(
+            '[data-dropdown-menu].is-open [data-option="download-section"]'
+          )
             .should('be.visible')
             .should('contain', 'Download section')
             .should('contain', '.zip');
@@ -230,38 +251,44 @@ describe('LLM Format Selector', () => {
       cy.visit(LEAF_PAGE_URL);
 
       // Get the page title from h1
-      cy.get('h1').first().invoke('text').then((pageTitle) => {
-        // Get some body content from the article
-        cy.get('article').first().invoke('text').then((articleText) => {
-          // Extract a meaningful snippet (first 50 chars of article text, trimmed)
-          const contentSnippet = articleText.trim().substring(0, 50).trim();
+      cy.get('h1')
+        .first()
+        .invoke('text')
+        .then((pageTitle) => {
+          // Get some body content from the article
+          cy.get('article')
+            .first()
+            .invoke('text')
+            .then((articleText) => {
+              // Extract a meaningful snippet (first 50 chars of article text, trimmed)
+              const contentSnippet = articleText.trim().substring(0, 50).trim();
 
-          // Now fetch the markdown version
-          cy.request(LEAF_PAGE_URL + 'index.md').then((response) => {
-            expect(response.status).to.eq(200);
+              // Now fetch the markdown version
+              cy.request(LEAF_PAGE_URL + 'index.md').then((response) => {
+                expect(response.status).to.eq(200);
 
-            const markdown = response.body;
+                const markdown = response.body;
 
-            // Basic structure checks
-            expect(markdown).to.include('---'); // Frontmatter delimiter
-            expect(markdown).to.match(/^#+ /m); // Has headings
+                // Basic structure checks
+                expect(markdown).to.include('---'); // Frontmatter delimiter
+                expect(markdown).to.match(/^#+ /m); // Has headings
 
-            // Content from HTML should appear in markdown
-            expect(markdown).to.include(pageTitle.trim());
-            expect(markdown).to.include(contentSnippet);
+                // Content from HTML should appear in markdown
+                expect(markdown).to.include(pageTitle.trim());
+                expect(markdown).to.include(contentSnippet);
 
-            // Clean markdown (no raw HTML or Hugo syntax)
-            expect(markdown).to.not.include('<!DOCTYPE html>');
-            expect(markdown).to.not.include('<div');
-            expect(markdown).to.not.match(/\{\{[<%]/); // No shortcodes
-            expect(markdown).to.not.include('<!--'); // No HTML comments
-            expect(markdown).to.not.match(/\{\{-?\s*end\s*-?\}\}/); // No {{end}}
+                // Clean markdown (no raw HTML or Hugo syntax)
+                expect(markdown).to.not.include('<!DOCTYPE html>');
+                expect(markdown).to.not.include('<div');
+                expect(markdown).to.not.match(/\{\{[<%]/); // No shortcodes
+                expect(markdown).to.not.include('<!--'); // No HTML comments
+                expect(markdown).to.not.match(/\{\{-?\s*end\s*-?\}\}/); // No {{end}}
 
-            // Not empty
-            expect(markdown.length).to.be.greaterThan(100);
-          });
+                // Not empty
+                expect(markdown.length).to.be.greaterThan(100);
+              });
+            });
         });
-      });
     });
   });
 });

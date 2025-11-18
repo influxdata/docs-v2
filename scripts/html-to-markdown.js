@@ -9,6 +9,13 @@
  * - Removed comments
  * - Product context in frontmatter
  *
+ * URL Pattern: Generates markdown at /path/to/page/index.md
+ * This differs from llmstxt.org spec (/path/to/page/index.html.md) for:
+ * - Cleaner URLs without .html.md extension
+ * - Better integration with Hugo's native structure
+ * - More intuitive file naming when downloaded
+ * LLMs can easily adapt to this pattern for content retrieval.
+ *
  * Usage:
  *   node scripts/html-to-markdown.js [options]
  *
@@ -23,9 +30,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import TurndownService from 'turndown';
 import { JSDOM } from 'jsdom';
+import {
+  getProductFromPath,
+  initializeProductData,
+} from '../dist/utils/product-mappings.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Initialize product data from YAML
+await initializeProductData();
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -47,35 +61,11 @@ for (let i = 0; i < args.length; i++) {
 }
 
 /**
- * Product context mapping based on URL paths
- */
-const PRODUCT_MAP = {
-  '/influxdb3/core/': { name: 'InfluxDB 3 Core', version: 'core' },
-  '/influxdb3/enterprise/': { name: 'InfluxDB 3 Enterprise', version: 'enterprise' },
-  '/influxdb3/cloud-dedicated/': { name: 'InfluxDB Cloud Dedicated', version: 'cloud-dedicated' },
-  '/influxdb3/cloud-serverless/': { name: 'InfluxDB Cloud Serverless', version: 'cloud-serverless' },
-  '/influxdb3/clustered/': { name: 'InfluxDB Clustered', version: 'clustered' },
-  '/influxdb/cloud/': { name: 'InfluxDB Cloud (TSM)', version: 'cloud' },
-  '/influxdb/v2': { name: 'InfluxDB OSS v2', version: 'v2' },
-  '/influxdb/v1': { name: 'InfluxDB OSS v1', version: 'v1' },
-  '/enterprise_influxdb/': { name: 'InfluxDB Enterprise v1', version: 'v1' },
-  '/telegraf/': { name: 'Telegraf', version: 'v1' },
-  '/chronograf/': { name: 'Chronograf', version: 'v1' },
-  '/kapacitor/': { name: 'Kapacitor', version: 'v1' },
-  '/flux/': { name: 'Flux', version: 'v0' },
-  '/influxdb3_explorer/': { name: 'InfluxDB 3 Explorer', version: 'explorer' },
-};
-
-/**
  * Detect product context from URL path
+ * Uses shared product mappings from assets/js/utils/product-mappings.ts
  */
 function detectProduct(urlPath) {
-  for (const [pathPrefix, product] of Object.entries(PRODUCT_MAP)) {
-    if (urlPath.startsWith(pathPrefix)) {
-      return product;
-    }
-  }
-  return null;
+  return getProductFromPath(urlPath);
 }
 
 /**
@@ -111,6 +101,80 @@ function createTurndownService() {
     },
   });
 
+  // Improve list item handling - ensure proper spacing
+  turndownService.addRule('listItems', {
+    filter: 'li',
+    replacement: function (content, node, options) {
+      content = content
+        .replace(/^\n+/, '') // Remove leading newlines
+        .replace(/\n+$/, '\n') // Single trailing newline
+        .replace(/\n/gm, '\n    '); // Indent nested content
+
+      let prefix = options.bulletListMarker + '   '; // Dash + 3 spaces for unordered lists
+      const parent = node.parentNode;
+
+      if (parent.nodeName === 'OL') {
+        const start = parent.getAttribute('start');
+        const index = Array.prototype.indexOf.call(parent.children, node);
+        prefix = (start ? Number(start) + index : index + 1) + '. ';
+      }
+
+      return (
+        prefix +
+        content +
+        (node.nextSibling && !/\n$/.test(content) ? '\n' : '')
+      );
+    },
+  });
+
+  // Convert HTML tables to Markdown tables
+  turndownService.addRule('tables', {
+    filter: 'table',
+    replacement: function (content, node) {
+      // Get all rows from tbody and thead
+      const theadRows = Array.from(node.querySelectorAll('thead tr'));
+      const tbodyRows = Array.from(node.querySelectorAll('tbody tr'));
+
+      // If no thead/tbody, fall back to all tr elements
+      const allRows =
+        theadRows.length || tbodyRows.length
+          ? [...theadRows, ...tbodyRows]
+          : Array.from(node.querySelectorAll('tr'));
+
+      if (allRows.length === 0) return '';
+
+      // Extract headers from first row
+      const headerRow = allRows[0];
+      const headers = Array.from(headerRow.querySelectorAll('th, td')).map(
+        (cell) => cell.textContent.trim()
+      );
+
+      // Build separator row
+      const separator = headers.map(() => '---').join(' | ');
+
+      // Extract data rows (skip first row which is the header)
+      const dataRows = allRows
+        .slice(1)
+        .map((row) => {
+          const cells = Array.from(row.querySelectorAll('td, th')).map((cell) =>
+            cell.textContent.trim().replace(/\n/g, ' ')
+          );
+          return '| ' + cells.join(' | ') + ' |';
+        })
+        .join('\n');
+
+      return (
+        '\n| ' +
+        headers.join(' | ') +
+        ' |\n| ' +
+        separator +
+        ' |\n' +
+        dataRows +
+        '\n\n'
+      );
+    },
+  });
+
   // Handle GitHub-style callouts (notes, warnings, etc.)
   turndownService.addRule('githubCallouts', {
     filter: function (node) {
@@ -128,13 +192,14 @@ function createTurndownService() {
       const type = Array.from(node.classList).find((c) =>
         ['note', 'warning', 'important', 'tip', 'caution'].includes(c)
       );
-      const emoji = {
-        note: 'Note',
-        warning: 'Warning',
-        caution: 'Caution',
-        important: 'Important',
-        tip: 'Tip',
-      }[type] || 'Note';
+      const emoji =
+        {
+          note: 'Note',
+          warning: 'Warning',
+          caution: 'Caution',
+          important: 'Important',
+          tip: 'Tip',
+        }[type] || 'Note';
 
       return `\n> [!${emoji}]\n> ${content.trim().replace(/\n/g, '\n> ')}\n\n`;
     },
@@ -149,9 +214,9 @@ function createTurndownService() {
     'style',
     'noscript',
     'iframe',
-    '.format-selector',  // Remove format selector buttons (Copy page, etc.)
-    '.page-feedback',    // Remove page feedback form
-    '#page-feedback',    // Remove feedback modal
+    '.format-selector', // Remove format selector buttons (Copy page, etc.)
+    '.page-feedback', // Remove page feedback form
+    '#page-feedback', // Remove feedback modal
   ]);
 
   return turndownService;
@@ -176,18 +241,18 @@ function extractArticleContent(htmlContent, filePath) {
 
     // Remove unwanted elements from article before conversion
     const elementsToRemove = [
-      '.format-selector',     // Remove format selector buttons
-      '.page-feedback',       // Remove page feedback form
-      '#page-feedback',       // Remove feedback modal
-      '.feedback-widget',     // Remove any feedback widgets
-      '.helpful',             // Remove "Was this page helpful?" section
-      '.feedback.block',      // Remove footer feedback/support section
-      'hr',                   // Remove horizontal rules (often used as separators before footer)
+      '.format-selector', // Remove format selector buttons
+      '.page-feedback', // Remove page feedback form
+      '#page-feedback', // Remove feedback modal
+      '.feedback-widget', // Remove any feedback widgets
+      '.helpful', // Remove "Was this page helpful?" section
+      '.feedback.block', // Remove footer feedback/support section
+      'hr', // Remove horizontal rules (often used as separators before footer)
     ];
 
-    elementsToRemove.forEach(selector => {
+    elementsToRemove.forEach((selector) => {
       const elements = article.querySelectorAll(selector);
-      elements.forEach(el => el.remove());
+      elements.forEach((el) => el.remove());
     });
 
     // Extract metadata
@@ -197,8 +262,12 @@ function extractArticleContent(htmlContent, filePath) {
       'Untitled';
 
     const description =
-      document.querySelector('meta[name="description"]')?.getAttribute('content') ||
-      document.querySelector('meta[property="og:description"]')?.getAttribute('content') ||
+      document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute('content') ||
+      document
+        .querySelector('meta[property="og:description"]')
+        ?.getAttribute('content') ||
       '';
 
     // Get the content before closing the DOM
@@ -252,7 +321,8 @@ function convertHtmlToMarkdown(htmlFilePath) {
 
     // Derive URL path from file path
     const relativePath = path.relative(options.publicDir, htmlFilePath);
-    const urlPath = '/' + relativePath.replace(/\/index\.html$/, '/').replace(/\\/g, '/');
+    const urlPath =
+      '/' + relativePath.replace(/\/index\.html$/, '/').replace(/\\/g, '/');
 
     // Extract article content
     const metadata = extractArticleContent(htmlContent, htmlFilePath);
@@ -266,9 +336,9 @@ function convertHtmlToMarkdown(htmlFilePath) {
 
     // Clean up extra whitespace and unwanted elements
     markdownContent = markdownContent
-      .replace(/\n{3,}/g, '\n\n')  // Max 2 consecutive newlines
-      .replace(/\* \* \*\s*\n\s*\* \* \*/g, '')  // Remove duplicate horizontal rules
-      .replace(/\* \* \*\s*$/g, '')  // Remove trailing horizontal rules
+      .replace(/\n{3,}/g, '\n\n') // Max 2 consecutive newlines
+      .replace(/\* \* \*\s*\n\s*\* \* \*/g, '') // Remove duplicate horizontal rules
+      .replace(/\* \* \*\s*$/g, '') // Remove trailing horizontal rules
       .trim();
 
     // Generate frontmatter
@@ -346,11 +416,15 @@ function main() {
     return depthA - depthB;
   });
 
-  const totalFiles = options.limit ? Math.min(htmlFiles.length, options.limit) : htmlFiles.length;
+  const totalFiles = options.limit
+    ? Math.min(htmlFiles.length, options.limit)
+    : htmlFiles.length;
 
   console.log(`📄 Found ${htmlFiles.length} HTML files`);
   if (options.limit) {
-    console.log(`🎯 Processing first ${totalFiles} files (--limit ${options.limit})`);
+    console.log(
+      `🎯 Processing first ${totalFiles} files (--limit ${options.limit})`
+    );
   }
   console.log('');
 

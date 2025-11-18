@@ -21,22 +21,34 @@ describe('Markdown Content Validation', () => {
     cy.log('Generating markdown files for test paths...');
 
     // Generate markdown for get-started section
-    cy.exec('node scripts/html-to-markdown.js --path influxdb3/core/get-started', {
-      failOnNonZeroExit: false,
-      timeout: 60000
-    }).then((result) => {
+    cy.exec(
+      'node scripts/html-to-markdown.js --path influxdb3/core/get-started',
+      {
+        failOnNonZeroExit: false,
+        timeout: 60000,
+      }
+    ).then((result) => {
       if (result.code !== 0) {
-        cy.log('Warning: get-started markdown generation had issues:', result.stderr);
+        cy.log(
+          'Warning: get-started markdown generation had issues:',
+          result.stderr
+        );
       }
     });
 
     // Generate markdown for enterprise index page
-    cy.exec('node scripts/html-to-markdown.js --path influxdb3/enterprise --limit 1', {
-      failOnNonZeroExit: false,
-      timeout: 60000
-    }).then((result) => {
+    cy.exec(
+      'node scripts/html-to-markdown.js --path influxdb3/enterprise --limit 1',
+      {
+        failOnNonZeroExit: false,
+        timeout: 60000,
+      }
+    ).then((result) => {
       if (result.code !== 0) {
-        cy.log('Warning: enterprise markdown generation had issues:', result.stderr);
+        cy.log(
+          'Warning: enterprise markdown generation had issues:',
+          result.stderr
+        );
       }
       cy.log('Markdown files generated successfully');
     });
@@ -52,15 +64,19 @@ describe('Markdown Content Validation', () => {
     it('should have correct content-type for markdown files', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
         // Note: Hugo may serve as text/plain or text/markdown depending on config
-        expect(response.headers['content-type']).to.match(/text\/(plain|markdown)/);
+        expect(response.headers['content-type']).to.match(
+          /text\/(plain|markdown)/
+        );
       });
     });
 
-    it('should be accessible at URL with .md appended', () => {
-      // Per llmstxt.org standard: markdown should be at same URL + .md
+    it('should be accessible at URL/index.md', () => {
+      // Hugo generates markdown as index.md in directory matching URL path
+      // Note: llmstxt.org spec recommends /path/index.html.md, but we use
+      // /path/index.md for cleaner URLs and Hugo compatibility
       cy.visit(`${LEAF_PAGE_URL}`);
       cy.url().then((htmlUrl) => {
-        const markdownUrl = htmlUrl.replace(/\/$/, '') + '.md';
+        const markdownUrl = htmlUrl + 'index.md';
         cy.request(markdownUrl).then((response) => {
           expect(response.status).to.eq(200);
         });
@@ -274,7 +290,9 @@ describe('Markdown Content Validation', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
         // Look for common language identifiers after ```
         if (response.body.includes('```')) {
-          expect(response.body).to.match(/```(?:bash|sh|python|js|go|sql|json|yaml)/);
+          expect(response.body).to.match(
+            /```(?:bash|sh|python|js|go|sql|json|yaml)/
+          );
         }
       });
     });
@@ -356,7 +374,11 @@ describe('Markdown Content Validation', () => {
   describe('Multiple Product Validation', () => {
     const PRODUCTS = [
       { url: '/influxdb3/core/', name: 'InfluxDB 3 Core', version: 'core' },
-      { url: '/influxdb3/enterprise/', name: 'InfluxDB 3 Enterprise', version: 'enterprise' },
+      {
+        url: '/influxdb3/enterprise/',
+        name: 'InfluxDB 3 Enterprise',
+        version: 'enterprise',
+      },
     ];
 
     PRODUCTS.forEach((product) => {
@@ -364,8 +386,12 @@ describe('Markdown Content Validation', () => {
         it('should have correct product metadata', () => {
           cy.request(`${product.url}index.md`).then((response) => {
             expect(response.body).to.include(`product: ${product.name}`);
-            expect(response.body).to.include(`product_version: ${product.version}`);
-            expect(response.body).to.include(`**Product**: ${product.name} (${product.version})`);
+            expect(response.body).to.include(
+              `product_version: ${product.version}`
+            );
+            expect(response.body).to.include(
+              `**Product**: ${product.name} (${product.version})`
+            );
           });
         });
 
@@ -390,7 +416,9 @@ describe('Markdown Content Validation', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
         // Should contain GitHub-style callout syntax if callouts are present
         if (response.body.match(/Note|Warning|Important|Tip|Caution/i)) {
-          expect(response.body).to.match(/> \[!(Note|Warning|Important|Tip|Caution)\]/);
+          expect(response.body).to.match(
+            /> \[!(Note|Warning|Important|Tip|Caution)\]/
+          );
         }
       });
     });
@@ -398,7 +426,10 @@ describe('Markdown Content Validation', () => {
     it('should render tables in markdown format', () => {
       cy.request(`${SECTION_PAGE_URL}index.md`).then((response) => {
         // If tables are present, they should use markdown table syntax
-        if (response.body.includes('Tool') && response.body.includes('Administration')) {
+        if (
+          response.body.includes('Tool') &&
+          response.body.includes('Administration')
+        ) {
           expect(response.body).to.match(/\|.*\|.*\|/); // Table rows
         }
       });
@@ -408,6 +439,138 @@ describe('Markdown Content Validation', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
         // Should contain markdown list items
         expect(response.body).to.match(/^-   /m); // Unordered list
+      });
+    });
+  });
+
+  describe('Table Formatting - Enterprise Get Started', () => {
+    const ENTERPRISE_GET_STARTED_URL = '/influxdb3/enterprise/get-started/';
+
+    before(() => {
+      // Ensure markdown is generated for this specific page
+      cy.exec(
+        'node scripts/html-to-markdown.js --path influxdb3/enterprise/get-started',
+        {
+          failOnNonZeroExit: false,
+          timeout: 60000,
+        }
+      );
+    });
+
+    it('should have properly formatted tools comparison table', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Table should exist with proper header row
+        expect(response.body).to.include(
+          '| Tool | Administration | Write | Query |'
+        );
+
+        // Table should have separator row with proper format
+        expect(response.body).to.match(/\| --- \| --- \| --- \| --- \|/);
+      });
+    });
+
+    it('should not have duplicate header rows in table', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Extract the table section
+        const tableMatch = response.body.match(
+          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
+        );
+
+        expect(tableMatch).to.not.be.null;
+        const tableContent = tableMatch[0];
+
+        // Count occurrences of the header row
+        const headerMatches = tableContent.match(
+          /\| Tool \| Administration \| Write \| Query \|/g
+        );
+
+        // Should appear exactly once (the header)
+        expect(headerMatches).to.have.length(1);
+      });
+    });
+
+    it('should have correct number of columns in all table rows', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Extract the table section
+        const tableMatch = response.body.match(
+          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
+        );
+
+        expect(tableMatch).to.not.be.null;
+        const tableContent = tableMatch[0];
+
+        // Split into rows and validate each row has 4 columns (5 pipes)
+        const rows = tableContent
+          .split('\n')
+          .filter((line) => line.trim().startsWith('|'));
+
+        rows.forEach((row) => {
+          // Count pipes - should be 5 (4 columns with leading/trailing pipes)
+          const pipeCount = (row.match(/\|/g) || []).length;
+          expect(pipeCount).to.equal(5);
+        });
+      });
+    });
+
+    it('should include expected tools in table rows', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Should include key tools mentioned in the original table
+        expect(response.body).to.include('| influxdb3 CLI |');
+        expect(response.body).to.include('| InfluxDB HTTP API |');
+        expect(response.body).to.include('| InfluxDB 3 Explorer |');
+        expect(response.body).to.include('| Telegraf |');
+        expect(response.body).to.include('| Grafana |');
+      });
+    });
+
+    it('should properly format empty cells in table', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Empty cells should be represented consistently (either empty or with -)
+        const tableMatch = response.body.match(
+          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
+        );
+
+        expect(tableMatch).to.not.be.null;
+        const tableContent = tableMatch[0];
+
+        // Check that cells are properly separated with |
+        // Each row should have consistent spacing
+        const dataRows = tableContent
+          .split('\n')
+          .filter(
+            (line) => line.trim().startsWith('|') && !line.includes('---')
+          );
+
+        dataRows.forEach((row) => {
+          // Row should be properly formatted with | separators
+          expect(row).to.match(/^\|.*\|$/);
+        });
+      });
+    });
+
+    it('should not have newlines within table cells', () => {
+      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
+        // Extract the table section
+        const tableMatch = response.body.match(
+          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
+        );
+
+        expect(tableMatch).to.not.be.null;
+        const tableContent = tableMatch[0];
+
+        // Split into rows
+        const rows = tableContent
+          .split('\n')
+          .filter((line) => line.trim().startsWith('|'));
+
+        rows.forEach((row) => {
+          // Skip separator row
+          if (row.includes('---')) return;
+
+          // Each cell content between pipes should not contain raw newlines
+          // The entire row should be on one line
+          expect(row).to.not.include('\n');
+        });
       });
     });
   });
