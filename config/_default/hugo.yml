@@ -64,6 +64,14 @@ outputFormats:
     suffixes:
       - md
     rel: alternate
+  llmstxt:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+    suffixes:
+      - txt
 
 outputs:
   page:
@@ -72,9 +80,11 @@ outputs:
   section:
     - HTML
     - markdown
+    - llmstxt
   home:
     - HTML
     - markdown
+    - llmstxt
 
 # Asset processing configuration for development
 build:

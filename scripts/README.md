@@ -104,8 +104,26 @@ Extracts only article content (removes navigation, footer, etc.):
 npx hugo --quiet && yarn build:md
 ```
 
-**Production Build:**
-Add to deployment pipeline:
+**CircleCI Build Pipeline:**
+
+The script runs automatically in the CircleCI build pipeline after Hugo generates HTML:
+
+```yaml
+# .circleci/config.yml
+- run:
+    name: Hugo Build
+    command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+- run:
+    name: Generate LLM-friendly Markdown
+    command: node scripts/html-to-markdown.js
+```
+
+**Build order:**
+1. Hugo builds HTML → `workspace/public/**/*.html`
+2. `html-to-markdown.js` converts HTML → `workspace/public/**/*.md`
+3. All files deployed to S3
+
+**Production Build (Manual):**
 ```bash
 npx hugo --quiet
 yarn build:md
