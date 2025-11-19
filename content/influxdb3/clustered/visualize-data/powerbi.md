@@ -10,10 +10,11 @@ menu:
 weight: 104
 influxdb3/clustered/tags: [visualization, powerbi, sql]
 metadata: [SQL]
+aliases:
+  - /influxdb3/clustered/query-data/execute-queries/odbc/
 related:
   - https://learn.microsoft.com/en-us/power-bi/desktop/, Power BI documentation
   - /influxdb3/clustered/query-data/sql/
-  - /influxdb3/clustered/query-data/execute-queries/odbc/
 source: /shared/influxdb3-visualize/powerbi.md
 ---
 

@@ -1,7 +1,7 @@
 <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>{{ .Title | .RenderString }}</h1>
+      <h1>{{ .RenderString .Title }}</h1>
       {{ partial "article/supported-versions.html" . }}
       {{ partial "article/page-meta.html" . }}
     </div>
