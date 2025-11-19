@@ -80,15 +80,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout influxdb3_plugins (sparse)
-        uses: actions/checkout@v4
-        with:
-          repository: influxdata/influxdb3_plugins
-          token: ${{ secrets.PLUGINS_CONTENT_READ_TOKEN }}
-          path: .ext/influxdb3_plugins
-          sparse-checkout: |
-              influxdata/
-              scripts/
-          ref: ${{ steps.inputs.outputs.source_commit }}
+        run: |
+          git clone --filter=blob:none --sparse https://github.com/influxdata/influxdb3_plugins.git .ext/influxdb3_plugins
+          cd .ext/influxdb3_plugins
+          git sparse-checkout set influxdata/ scripts/
+          git checkout ${{ steps.inputs.outputs.source_commit }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -176,109 +172,24 @@ jobs:
             
             core.setFailed('Plugin validation failed');
 
-      - name: Debug - Check file structure
-        if: steps.validate.outputs.validation_passed == 'true'
-        run: |
-          echo "======================================"
-          echo "DEBUG: Checking file structure"
-          echo "======================================"
-          echo ""
-              
-          echo "1. Current working directory:"
-          pwd
-          echo ""
-              
-          echo "2. List workspace root:"
-          ls -la
-          echo ""
-              
-          echo "3. Check if .ext exists:"
-          if [ -d ".ext" ]; then
-            echo "✅ .ext directory exists"
-            ls -la .ext/
-          else
-            echo "❌ .ext directory NOT found"
-          fi
-          echo ""
-              
-          echo "4. Check if .ext/influxdb3_plugins exists:"
-          if [ -d ".ext/influxdb3_plugins" ]; then
-            echo "✅ .ext/influxdb3_plugins exists"
-            ls -la .ext/influxdb3_plugins/
-          else
-            echo "❌ .ext/influxdb3_plugins NOT found"
-          fi
-          echo ""
-              
-          echo "5. Check if influxdata directory exists:"
-          if [ -d ".ext/influxdb3_plugins/influxdata" ]; then
-            echo "✅ influxdata directory exists"
-            ls -la .ext/influxdb3_plugins/influxdata/
-          else
-            echo "❌ influxdata directory NOT found"
-          fi
-          echo ""
-              
-          echo "6. Check if basic_transformation exists:"
-          if [ -d ".ext/influxdb3_plugins/influxdata/basic_transformation" ]; then
-            echo "✅ basic_transformation directory exists"
-            ls -la .ext/influxdb3_plugins/influxdata/basic_transformation/
-          else
-            echo "❌ basic_transformation directory NOT found"
-          fi
-          echo ""
-              
-          echo "7. Now checking from script directory:"
-          cd docs-v2/helper-scripts/influxdb3-plugins
-          echo "Current directory:"
-          pwd
-          echo ""
-              
-          echo "8. Trying to access with ../../../.ext/influxdb3_plugins:"
-          if [ -d "../../../.ext/influxdb3_plugins" ]; then
-            echo "✅ Can access via ../../../.ext/influxdb3_plugins"
-            ls -la ../../../.ext/influxdb3_plugins/
-          else
-            echo "❌ Cannot access via ../../../.ext/influxdb3_plugins"
-          fi
-          echo ""
-              
-          echo "9. Checking all possible paths from script dir:"
-          echo "Checking ../.ext/influxdb3_plugins:"
-          ls -la ../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
-          echo ""
-          echo "Checking ../../.ext/influxdb3_plugins:"
-          ls -la ../../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
-          echo ""
-          echo "Checking ../../../.ext/influxdb3_plugins:"
-          ls -la ../../../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
-          echo ""
-          echo "Checking ../../../../.ext/influxdb3_plugins:"
-          ls -la ../../../../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
-          echo ""
-              
-          echo "======================================"
-          echo "DEBUG: Complete"
-          echo "======================================"    
-      
       - name: Transform plugin documentation
         if: steps.validate.outputs.validation_passed == 'true'
         run: |
-          cd docs-v2/helper-scripts/influxdb3-plugins  
-              
-          # Set path to plugins repo (relative from script directory)
-          export INFLUXDB3_PLUGINS_PATH="../../../.ext/influxdb3_plugins" 
-              
+          cd docs-v2
+          
+          # Set PLUGIN_DIR for the transformation script
+          export INFLUXDB3_PLUGINS_PATH=".ext/influxdb3_plugins"
+          
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
-            node port_to_docs.js  # ← CHANGE: Script is in current dir now
+            node helper-scripts/influxdb3-plugins/port_to_docs.js
           else
             # Transform specific plugins
             IFS=',' read -ra PLUGIN_ARRAY <<< "${{ steps.inputs.outputs.plugins }}"
             for plugin in "${PLUGIN_ARRAY[@]}"; do
               plugin=$(echo "$plugin" | xargs)  # trim whitespace
               echo "Transforming plugin: $plugin"
-              node port_to_docs.js --plugin "$plugin"  
+              node helper-scripts/influxdb3-plugins/port_to_docs.js --plugin "$plugin"
             done
           fi
 
@@ -290,11 +201,9 @@ jobs:
       - name: Setup Playwright
         run: |
           cd docs-v2
-          npm install playwright
           npx playwright install chromium
 
       - name: Generate screenshots
-        if: false  # Disable screenshots for MVP
         id: screenshots
         run: |
           cd docs-v2

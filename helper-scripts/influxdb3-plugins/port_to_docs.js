@@ -35,83 +35,27 @@ function removeEmojiMetadata(content) {
 }
 
 /**
- * Remove level 1 heading from content.
- */
-function removeTitleHeading(content) {
-  // Title is in frontmatter, remove H1 from content
-  return content.replace(/^#\s+.+$\n*/m, '');
-}
-
-/**
- * Remove standalone Description heading.
- */
-function removeDescriptionHeading(content) {
-  // Remove "## Description" heading when it appears alone on a line
-  content = content.replace(/^##\s+Description\s*$/m, '');
-  return content;
-}
-
-/**
- * Expand common abbreviations for readability.
- */
-function expandAbbreviations(content) {
-  // Replace e.g., with "for example,"
-  content = content.replace(/\be\.g\.,\s*/g, 'for example, ');
-  // Replace i.e., with "that is,"
-  content = content.replace(/\bi\.e\.,\s*/g, 'that is, ');
-  return content;
-}
-
-/**
- * Convert README TOML links to internal section links.
- */
-function convertTomlReadmeLinks(content) {
-  // If document has TOML configuration section, link to it instead of external README
-  if (content.includes('## Using TOML Configuration Files')) {
-    content = content.replace(
-      /\[([^\]]*TOML[^\]]*)\]\(https:\/\/github\.com\/influxdata\/influxdb3_plugins\/blob\/master\/README\.md\)/gi,
-      '[$1](#using-toml-configuration-files)'
-    );
-  }
-  return content;
-}
-
-/**
  * Convert relative links to GitHub URLs.
  */
 function convertRelativeLinks(content, pluginName) {
   const baseUrl = `https://github.com/influxdata/influxdb3_plugins/blob/master/influxdata/${pluginName}/`;
-  const rootUrl =
-    'https://github.com/influxdata/influxdb3_plugins/blob/master/';
-
-  // Convert relative README links (../../README.md, ../README.md, etc.)
-  content = content.replace(
-    /\[([^\]]+)\]\((\.\.\/)+README\.md\)/g,
-    `[$1](${rootUrl}README.md)`
-  );
 
   // Convert TOML file links
   content = content.replace(
-    /\[([^\]]+\.toml)\]\(\.?\/?([^)]+\.toml)\)/g,
-    (match, linkText, linkPath) => {
-      const cleanPath = linkPath.replace(/^\.\//, '');
-      return `[${linkText}](${baseUrl}${cleanPath})`;
-    }
+    /\[([^\]]+\.toml)\]\(([^)]+\.toml)\)/g,
+    (match, linkText, linkPath) => `[${linkText}](${baseUrl}${linkPath})`
   );
 
   // Convert Python file links
   content = content.replace(
-    /\[([^\]]+\.py)\]\(\.?\/?([^)]+\.py)\)/g,
-    (match, linkText, linkPath) => {
-      const cleanPath = linkPath.replace(/^\.\//, '');
-      return `[${linkText}](${baseUrl}${cleanPath})`;
-    }
+    /\[([^\]]+\.py)\]\(([^)]+\.py)\)/g,
+    (match, linkText, linkPath) => `[${linkText}](${baseUrl}${linkPath})`
   );
 
   // Convert main README reference
   content = content.replace(
     '[influxdb3_plugins/README.md](/README.md)',
-    `[influxdb3_plugins/README.md](${rootUrl}README.md)`
+    '[influxdb3_plugins/README.md](https://github.com/influxdata/influxdb3_plugins/blob/master/README.md)'
   );
 
   return content;
@@ -270,11 +214,7 @@ Each downsampled record includes three additional metadata columns:
 function transformContent(content, pluginName, config) {
   // Apply transformations in order
   content = removeEmojiMetadata(content);
-  content = removeTitleHeading(content);
-  content = removeDescriptionHeading(content);
   content = convertRelativeLinks(content, pluginName);
-  content = expandAbbreviations(content);
-  content = convertTomlReadmeLinks(content);
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
   content = fixCodeBlockFormatting(content);
