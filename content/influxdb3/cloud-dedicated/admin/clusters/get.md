@@ -28,20 +28,8 @@ Use the Admin UI or the [`influxctl cluster get` CLI command](/influxdb3/cloud-d
 [influxctl](#)
 {{% /tabs %}}
 {{% tab-content %}}
-## Access the Cloud Dedicated Admin UI
-
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
-
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
-
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-
-   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-   and lists all clusters associated with your account.
-3. **Search** for the cluster or use the sort button and column headers to sort the cluster list and find the cluster.
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
 ### View cluster details
 
@@ -59,6 +47,17 @@ The options button (3 vertical dots) to the right of any cluster provides additi
 - Copy Cluster ID
 - Copy Cluster URL
 - Observe in Grafana _(only if your cluster has enabled operational dashboards. For more information, see how to [monitor your cluster](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/).)_
+
+### View cluster overview and metrics
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-overview.png" alt="InfluxDB Cloud Dedicated Admin UI cluster overview" />}}
+
+After selecting a cluster, the **Overview** page displays real-time cluster information and metrics:
+
+- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL
+- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System)
+- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts
+- Configure the metrics time range and enable live updates for real-time monitoring
 
 {{% /tab-content %}}
 {{% tab-content %}}

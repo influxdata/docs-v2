@@ -28,15 +28,19 @@ list_code_example: |
     --header 'Content-Type: application/json' \
     --header "Authorization: Bearer MANAGEMENT_TOKEN" \
     --data '{
-      "description": "Read/write token for DATABASE_NAME",
+      "description": "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME",
       "permissions": [
         {
-          "action": "write",
-          "resource": "DATABASE_NAME"
+          "action": "read",
+          "resource": "DATABASE1_NAME"
         },
         {
           "action": "read",
-          "resource": "DATABASE_NAME"
+          "resource": "DATABASE2_NAME"
+        },
+        {
+          "action": "write",
+          "resource": "DATABASE2_NAME"
         }
       ],
       "expirationType": "datetime",
@@ -66,20 +70,10 @@ or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to crea
 
 The InfluxDB Cloud Dedicated administrative UI includes a portal for creating and managing database tokens.
 
-1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
-    <pre>
-    <a href="https://{{< influxdb/host >}}/">https://{{< influxdb/host >}}</a>
-    </pre>
-
-2.  Use the credentials provided by InfluxData to log into the Admin UI.
-    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-3.  After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-    and the list of clusters associated with your account.
-4. Find the cluster that you want to create a database token for. You can **Search** clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
-5.  Click the row for the cluster.
-6.  Click the **Database Tokens** button in the upper right corner of the Cluster screen.
-7.  In the Database Tokens portal, click the **New Database Token** button. 
+In the Database Tokens portal, click the **New Database Token** button. 
    The **Create Database Token** dialog displays.
 
    {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-create-database-token.png" alt="Create database token dialog" />}}
@@ -483,7 +477,7 @@ curl \
        {
          "action": "write",
          "resource": "DATABASE2_NAME"
-       },
+       }
      ]
    }'
 ```

@@ -37,7 +37,7 @@ list_code_example: |
             "resource": "DATABASE2_NAME"
           },
           {
-            "action": "read",
+            "action": "write",
             "resource": "DATABASE2_NAME"
           }
         ]
@@ -74,20 +74,10 @@ Through this portal, administrators can edit a token's permissions to:
 
 ### Open the Edit Database Token dialog
 
-1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
-    <pre>
-    <a href="https://{{< influxdb/host >}}/">https://{{< influxdb/host >}}</a>
-    </pre>
-
-2.  Use the credentials provided by InfluxData to log into the Admin UI.
-    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-3.  After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-    and the [list of clusters](/influxdb3/cloud-dedicated/admin/clusters/list/) associated with your account.
-    Use the sort and filter options above the list to find a specific cluster.
-4.  Click the row for the cluster that contains the database you want to manage tokens for.
-5.  Click the **Database Tokens** button in the upper right corner of the Cluster screen.
-6.  The Database Tokens portal displays the [list of database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/list/) associated with the cluster.
+The Database Tokens portal displays the [list of database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/list/) associated with the cluster.
     Use the sort and filter options above the list to find a specific token.
 7.  Click the **Options** button (three vertical dots) to the right of the token you want to edit.
     

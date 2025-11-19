@@ -14,47 +14,75 @@ influxdb3/cloud-dedicated/tags: [clusters]
 Use the Admin UI for {{% product-name %}} to view information for your {{% product-name omit="InfluxDB " %}} account.
 Your {{% product-name %}} account is a collection of {{% product-name omit="Clustered "%}} clusters and associated resources.
 
-- [Access the Admin UI](#access-the-admin-ui)
-- [View account information](#view-account-information)
-- [View cluster information](#view-cluster-information)
-  - [Access operational dashboards](#access-operational-dashboards)
-- [Administer management tokens](#administer-management-tokens)
+- [Access and Navigate the Admin UI](#access-and-navigate-the-admin-ui)
+- [Account and cluster management](#account-and-cluster-management)
+- [Get help and support](#get-help-and-support)
 
-## Access the Admin UI
+## Access and Navigate the Admin UI
 
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
+The Admin UI features a collapsible sidebar navigation that provides quick access to all administrative functions:
 
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+- **Overview**: View cluster details, metrics, and operational status
+- **Databases**: Create and manage databases
+- **Tables**: View and manage tables within databases
+- **Database Tokens**: Create and manage authentication tokens for database operations
+- **Management Tokens**: Create and manage tokens for account-level administrative tasks
+- **Users**: View and manage user access and invitations
+- **Help**: Access documentation, contact support, or reach sales representatives
 
-## View account information
+## Account and cluster management
 
-The Admin UI provides access to account information through the **All Accounts** page:
+The Admin UI uses a hierarchical navigation system with account and cluster selection at the bottom of the sidebar:
 
-1. Click the **Account** selector at the bottom of the sidebar navigation
-2. Select **All Accounts** from the menu
-3. View a table with all accounts across your organization
-
-{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-accounts.png" alt="InfluxDB Cloud Dedicated Admin UI all accounts view" />}}
-
-The All Accounts page displays the following information for each account:
-
-- **Name**: The account name
-- **Account ID**: Unique identifier for the account
-- **Status**: Current account status (Active, Cancelled, etc.)
-- **Type**: Account type
-- **Created At**: The date the account was created
-
-Use the search bar to filter accounts by name or ID, and access additional actions through the menu on each row.
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-account-switcher.png" alt="InfluxDB Cloud Dedicated Admin UI account and cluster switcher" />}}
 
 ### Switch between accounts
 
-To switch to a specific account and view its resources:
-
-1. Click the **Account** selector at the bottom of the sidebar navigation
+1. Click the **Account** selector at the bottom of the sidebar
 2. Search for or select an account from the list
-3. The UI updates to show resources (clusters, databases, tokens, users) for the selected account
+3. The UI updates to show resources for the selected account
+
+### Switch between clusters
+
+1. Click the **Cluster** selector at the bottom of the sidebar
+2. Search for or select a cluster from the list
+3. The UI updates to show resources for the selected cluster
+
+### View all accounts
+
+To view all accounts across your organization:
+
+1. Click **All Accounts** from the account switcher menu
+2. View a list of all accounts with their IDs, status, type, and creation dates
+3. Use the search bar to filter accounts by name or ID
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-accounts.png" alt="InfluxDB Cloud Dedicated Admin UI all accounts view" />}}
+
+### View all clusters
+
+To view all clusters in the account:
+
+1. Click **All Clusters** from the cluster switcher menu
+2. Navigate to the clusters list to see all available clusters
+3. View cluster IDs, status, creation dates, and size information
+4. Use available actions to copy cluster IDs or URLs, or observe clusters in Grafana (if enabled)
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-clusters.png" alt="InfluxDB Cloud Dedicated Admin UI all clusters view" />}}
+
+For more information about managing clusters, see [Manage clusters](/influxdb3/cloud-dedicated/admin/clusters/).
+
+## Get help and support
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-help.png" alt="InfluxDB Cloud Dedicated Admin UI help menu" />}}
+
+The **Help** menu in the sidebar provides quick access to:
+
+- **Documentation**: Browse getting started guides, data operations, queries, visualizations, and reference documentation
+- **Contact Us**: Send messages directly to InfluxData support
+- **Contact Technical Support**: Open technical support tickets
+- **Contact Sales Representative**: Reach out to the sales team for account and contract inquiries
+
+Access the help menu at any time by clicking the **Help** icon in the sidebar navigation.

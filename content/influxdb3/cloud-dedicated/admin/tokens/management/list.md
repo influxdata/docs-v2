@@ -30,24 +30,27 @@ to list manually-created management tokens.
 The InfluxDB Cloud Dedicated administrative UI includes a portal for creating
 and managing management tokens.
 
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-management-tokens.png" alt="InfluxDB Cloud Dedicated Admin UI management tokens" />}}
 
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+Use the **Management Tokens** page to manage tokens for account-level administrative operations:
 
-3. To list management tokens, click the **Management Tokens** button in the upper right corner of the Account Management portal.
+- Create and manage management tokens for administrative tasks
+- View token status, descriptions, and creation dates
+- Manage permissions for users, databases, and database tokens
+- Toggle display of inactive tokens
+
+Management tokens grant permission to perform administrative actions such as managing users, databases, and database tokens.
 
 The Management Tokens portal displays the following information about each token:
 
 - Status
 - Description
 - Token ID
-- Created date 
-- Expiration date 
+- Created date
+- Expiration date
 
 You can **Search** tokens by description or ID to filter the list and use the sort button and column headers to sort the list.
 

@@ -24,20 +24,8 @@ to view information about all {{< product-name omit=" Clustered" >}} clusters as
 [influxctl](#)
 {{% /tabs %}}
 {{% tab-content %}}
-## Access the Cloud Dedicated Admin UI
-
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
-
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
-
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-
-   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-   and lists all clusters associated with your account.
-3. You can **Search** clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
 ### View cluster details
 

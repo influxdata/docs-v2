@@ -35,21 +35,8 @@ or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to list
 [Management API](#)
 {{% /tabs %}}
 {{% tab-content %}}
-## Access the Cloud Dedicated Admin UI
-
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
-
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
-
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-
-   After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-   and lists all clusters associated with your account.
-3. You can **Search** for clusters by name or ID to filter the list and use the sort button and column headers to sort the list. 
-4. Click the cluster row to view the list of databases associated with the cluster.
+Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
+If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
 
 The database list displays the following database details:
 
@@ -61,7 +48,7 @@ The database list displays the following database details:
 
 You can **Search** for databases by name or ID to filter the list and use the sort button and column headers to sort the list. 
 
-{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-list-databases.png" alt="List databases" />}} 
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-databases.png" alt="InfluxDB Cloud Dedicated Admin UI databases list" />}} 
 
 ### Database management tools
 
