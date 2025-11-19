@@ -40,7 +40,8 @@ Install the driver before installing the Power BI connector.
 #### Verify driver installation
 
 1. Open the Windows application [ODBC Data Source Administrator (64-bit)](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator).
-2. Navigate to the **Drivers** tab.
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
+2. Navigate to the **Drivers** tab
 3. Verify **Arrow Flight SQL ODBC Driver** appears in the list.
 
 ## Install the Power BI connector
