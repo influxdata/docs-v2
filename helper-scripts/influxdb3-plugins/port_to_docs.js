@@ -35,6 +35,14 @@ function removeEmojiMetadata(content) {
 }
 
 /**
+ * Remove level 1 heading from content.
+ */
+function removeTitleHeading(content) {
+  // Title is in frontmatter, remove H1 from content
+  return content.replace(/^#\s+.+$\n*/m, '');
+}
+
+/**
  * Remove standalone Description heading.
  */
 function removeDescriptionHeading(content) {
@@ -262,6 +270,7 @@ Each downsampled record includes three additional metadata columns:
 function transformContent(content, pluginName, config) {
   // Apply transformations in order
   content = removeEmojiMetadata(content);
+  content = removeTitleHeading(content);
   content = removeDescriptionHeading(content);
   content = convertRelativeLinks(content, pluginName);
   content = expandAbbreviations(content);
