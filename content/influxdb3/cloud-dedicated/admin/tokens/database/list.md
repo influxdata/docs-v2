@@ -70,11 +70,11 @@ If you don't have login credentials, [contact InfluxData support](https://suppor
 
 Use the **Database Tokens** page to manage authentication tokens for database-level operations:
 
-- Create and manage database tokens with granular permissions
-- View token status, descriptions, and associated databases
-- Edit permissions or revoke existing tokens
-- Control access with read and write permissions for specific databases
-- Toggle display of inactive tokens
+- Create and manage database tokens with granular permissions.
+- View token status, descriptions, and associated databases.
+- Edit permissions or revoke existing tokens.
+- Control access with read and write permissions for specific databases.
+- Toggle display of inactive tokens.
 
 The Database Tokens portal lists all database tokens associated with the cluster
 and provides the following information about each token:
