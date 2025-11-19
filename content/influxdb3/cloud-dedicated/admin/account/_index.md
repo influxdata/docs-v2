@@ -65,10 +65,10 @@ To view all accounts across your organization:
 
 To view all clusters in the account:
 
-1. Click **All Clusters** from the cluster switcher menu
-2. Navigate to the clusters list to see all available clusters
-3. View cluster IDs, status, creation dates, and size information
-4. Use available actions to copy cluster IDs or URLs, or observe clusters in Grafana (if enabled)
+1. Click **All Clusters** from the cluster switcher menu.
+2. Navigate to the clusters list to see all available clusters.
+3. View cluster IDs, status, creation dates, and size information.
+4. Use available actions to copy cluster IDs or URLs, or observe clusters in Grafana (if enabled).
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-clusters.png" alt="InfluxDB Cloud Dedicated Admin UI all clusters view" />}}
 
