@@ -208,7 +208,7 @@ After loading data, Power BI displays your dataset in the **Fields** pane.
 
 If Power BI or other applications can't find the Arrow Flight SQL ODBC driver:
 
-1. Open **ODBC Data Source Administrator (64-bit)**
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
 2. Navigate to the **Drivers** tab
 3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
 4. If not listed, reinstall the driver
