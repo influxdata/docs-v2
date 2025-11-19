@@ -4,7 +4,6 @@ description: >
   The `influxd recovery user` command and subcommands manage on-disk user 
   data for recovery purposes.
 menu:
-menu:
   influxdb_v2:
     parent: influxd recovery
 weight: 301
