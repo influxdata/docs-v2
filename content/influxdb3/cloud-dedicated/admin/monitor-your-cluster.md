@@ -26,11 +26,11 @@ If you don't have login credentials, [contact InfluxData support](https://suppor
 
 The Overview page provides:
 
-- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL
-- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System)
-- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts
-- **Time Range Configuration**: Adjust the metrics time range
-- **Live Updates**: Enable automatic refresh for real-time monitoring
+- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL.
+- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System).
+- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts.
+- **Time Range Configuration**: Adjust the metrics time range.
+- **Live Updates**: Enable automatic refresh for real-time monitoring.
 
 ## Monitor with Grafana operational dashboards
 
