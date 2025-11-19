@@ -55,9 +55,9 @@ The Admin UI uses a hierarchical navigation system with account and cluster sele
 
 To view all accounts across your organization:
 
-1. Click **All Accounts** from the account switcher menu
-2. View a list of all accounts with their IDs, status, type, and creation dates
-3. Use the search bar to filter accounts by name or ID
+1. Click **All Accounts** from the account switcher menu.
+2. View a list of all accounts with their IDs, status, type, and creation dates.
+3. Use the search bar to filter accounts by name or ID.
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-all-accounts.png" alt="InfluxDB Cloud Dedicated Admin UI all accounts view" />}}
 
