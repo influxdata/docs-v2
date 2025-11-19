@@ -1,7 +1,5 @@
 Use [Microsoft Power BI Desktop](https://powerbi.microsoft.com/) with the
-InfluxDB 3 custom connector to query and visualize data from {{% product-name %}}.
-
-Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
+This guide includes Windows (64‑bit) installation steps for the Arrow Flight SQL ODBC driver and the InfluxDB 3 Power BI connector.  
 
 > Microsoft Power BI is a collection of software services, apps, and connectors
 > that work together to turn your unrelated sources of data into coherent,
@@ -33,134 +31,24 @@ Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
 The InfluxDB 3 custom connector for Power BI requires the Arrow Flight SQL ODBC driver.
 Install the driver before installing the Power BI connector.
 
-> \[!Note]
-> For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
+<a class="btn" href="https://docs.influxdata.com/downloads/apache-arrow-flight-sql-odbc-1.0.0-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Windows (PowerShell)](#)
-[Windows (Manual)](#)
-[macOS and Linux](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-Run the following PowerShell commands to download and install:
-
-{{% code-placeholders "YOUR\_USER" %}}
-
-```powershell
-# Set the driver path
-$driverPath = "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
-
-# Download the driver
-Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi" `
-  -OutFile $driverPath
-
-# Mark as trusted
-Unblock-File $driverPath
-
-# Install
-Start-Process msiexec.exe -Wait -ArgumentList "/i `"$driverPath`""
-```
-
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
+1. Run the downloaded `.msi` installer.
+2. Follow the installation wizard using default settings.
+3. Complete the installation.
 
 #### Verify driver installation
 
-1. Open **ODBC Data Source Administrator (64-bit)**
+1. Open the Windows application [ODBC Data Source Administrator (64-bit)](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator).
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
 2. Navigate to the **Drivers** tab
-3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
-
-{{% /tab-content %}}
-
-{{% tab-content %}} <a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
-
-1. Run the downloaded `.msi` installer
-2. Follow the installation wizard using default settings
-3. Complete the installation
-
-#### Verify driver installation
-
-1. Open **ODBC Data Source Administrator (64-bit)**
-2. Navigate to the **Drivers** tab
-3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-Download from Dremio:
-
-- [**macOS (Universal)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-universal.pkg)
-- [**Linux (x86\_64)**](https://download.dremio.com/arrow-flight-sql-odbc-driver/arrow-flight-sql-odbc-LATEST-linux-x86_64.tar.gz)
-
-#### Install on macOS
-
-1. Run the downloaded `.pkg` installer
-2. Follow the installation prompts
-3. Enter your administrator password when prompted
-4. Complete the installation
-
-#### Install on Linux
-
-1. Extract the downloaded archive:
-
-   ```bash
-   tar -xzf arrow-flight-sql-odbc-LATEST-linux-x86_64.tar.gz
-   ```
-
-2. Install the driver (installation location may vary by distribution):
-
-   ```bash
-   sudo mkdir -p /opt/arrow-flight-sql-odbc
-   sudo cp -r lib /opt/arrow-flight-sql-odbc/
-   ```
-
-3. Configure the driver in `/etc/odbcinst.ini`:
-
-   ```ini
-   [Arrow Flight SQL ODBC Driver]
-   Description = Arrow Flight SQL ODBC Driver
-   Driver = /opt/arrow-flight-sql-odbc/lib/libarrow-odbc.so
-   ```
-
-#### Verify driver installation
-
-To verify the driver is installed correctly, run:
-
-```bash
-odbcinst -q -d
-```
-
-The output should include **Arrow Flight SQL**.
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+3. Verify **Arrow Flight SQL ODBC Driver** appears in the list.
 
 ## Install the Power BI connector
 
 After installing the ODBC driver, download and install the InfluxDB 3 custom connector for Power BI Desktop.
 
 <a class="btn" href="https://docs.influxdata.com/downloads/InfluxDB.pqx">Download the InfluxDB 3 Power BI connector</a>
-
-Or use PowerShell to download:
-
-{{% code-placeholders "YOUR\_USER" %}}
-
-```powershell
-# Download the connector
-Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/InfluxDB.pqx" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx"
-```
-
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
 
 ### Move the connector to the custom connectors directory
 
@@ -320,37 +208,10 @@ After loading data, Power BI displays your dataset in the **Fields** pane.
 
 If Power BI or other applications can't find the Arrow Flight SQL ODBC driver:
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Windows](#)
-[macOS and Linux](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-
-1. Open **ODBC Data Source Administrator (64-bit)**
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
 2. Navigate to the **Drivers** tab
 3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
 4. If not listed, reinstall the driver
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-1. Run the following command to list installed drivers:
-
-   ```bash
-   odbcinst -q -d
-   ```
-
-2. Verify **Arrow Flight SQL** appears in the output
-
-3. Check `/etc/odbcinst.ini` for proper driver configuration
-
-4. Ensure the driver library path is correct
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 ### Connector not found
 
