@@ -41,9 +41,9 @@ The Admin UI uses a hierarchical navigation system with account and cluster sele
 
 ### Switch between accounts
 
-1. Click the **Account** selector at the bottom of the sidebar
-2. Search for or select an account from the list
-3. The UI updates to show resources for the selected account
+1. Click the **Account** selector at the bottom of the sidebar.
+2. Search for or select an account from the list.
+3. The UI updates to show resources for the selected account.
 
 ### Switch between clusters
 
