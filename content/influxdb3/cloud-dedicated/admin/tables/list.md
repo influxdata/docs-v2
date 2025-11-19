@@ -60,11 +60,11 @@ If you don't have login credentials, [contact InfluxData support](https://suppor
 
 Use the **Tables** page to manage tables within databases:
 
-- Select a database from the dropdown to view its tables
-- View table IDs and sizes
-- See database size summary
-- Create new tables
-- Access detailed table schema information
+- Select a database from the dropdown to view its tables.
+- View table IDs and sizes.
+- See database size summary.
+- Create new tables.
+- Access detailed table schema information.
 
 You can **Search** for tables by name or ID to filter the list and use the
 sort button and column headers to sort the list.
