@@ -54,10 +54,10 @@ The options button (3 vertical dots) to the right of any cluster provides additi
 
 After selecting a cluster, the **Overview** page displays real-time cluster information and metrics:
 
-- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL
-- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System)
-- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts
-- Configure the metrics time range and enable live updates for real-time monitoring
+- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL.
+- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System).
+- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts.
+- Configure the metrics time range and enable live updates for real-time monitoring.
 
 {{% /tab-content %}}
 {{% tab-content %}}
