@@ -1,5 +1,5 @@
 Use [Microsoft Power BI Desktop](https://powerbi.microsoft.com/) with the
-InfluxDB 3 custom connector to query and visualize data from {{% product-name %}}.
+This guide includes Windows (64‑bit) installation steps for the Arrow Flight SQL ODBC driver and the InfluxDB 3 Power BI connector.  
 
 > Microsoft Power BI is a collection of software services, apps, and connectors
 > that work together to turn your unrelated sources of data into coherent,
