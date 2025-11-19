@@ -37,10 +37,10 @@ If you don't have login credentials, [contact InfluxData support](https://suppor
 
 Use the **Management Tokens** page to manage tokens for account-level administrative operations:
 
-- Create and manage management tokens for administrative tasks
-- View token status, descriptions, and creation dates
-- Manage permissions for users, databases, and database tokens
-- Toggle display of inactive tokens
+- Create and manage management tokens for administrative tasks.
+- View token status, descriptions, and creation dates.
+- Manage permissions for users, databases, and database tokens.
+- Toggle display of inactive tokens.
 
 Management tokens grant permission to perform administrative actions such as managing users, databases, and database tokens.
 
