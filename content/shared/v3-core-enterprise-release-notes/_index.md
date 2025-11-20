@@ -1,9 +1,34 @@
-> [!Note]
+> \[!Note]
+>
 > #### InfluxDB 3 Core and Enterprise relationship
 >
 > InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
+
+## v3.7.0 {date="2025-11-19"}
+
+### Core
+
+#### Features
+
+- **HTTP API Enhancements**:
+  - All HTTP responses now include a `cluster-uuid` header containing the catalog UUID, enabling clients to identify specific cluster instances programmatically
+  - HTTP API now supports multi-member gzip payloads enabling batch operations
+- **CLI Commands**:
+  - The new `influxdb3 show retention` command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, "7d", "24h")
+
+#### Bug fixes
+
+- **Authorization**: Fixed multi-database permission handling to properly authorize queries across multiple databases.
+
+- **General Improvements**: Several key bug fixes and performance improvements.
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+- **General Improvements**: Several key bug fixes and performance improvements.
 
 ## v3.6.0 {date="2025-10-30"}
 
@@ -14,12 +39,12 @@
 - **Quick-Start Developer Experience**:
   - `influxdb3` now supports running without arguments for instant database startup, automatically generating IDs and storage flags values based on your system's setup.
 - **Processing Engine**:
-  - Plugins now support multiple files instead of single-file limitations. 
+  - Plugins now support multiple files instead of single-file limitations.
   - When creating a trigger, you can upload a plugin directly from your local machine using the `--upload` flag.
-  - Existing plugin files can now be updated at runtime without recreating triggers. 
+  - Existing plugin files can now be updated at runtime without recreating triggers.
   - New `system.plugin_files` table and `show plugins` CLI command now provide visibility into all loaded plugin files.
   - Custom plugin repositories are now supported via `--plugin-repo` CLI flag.
-  - Python package installation can now be disabled with `--package-manager disabled` for locked-down environments. 
+  - Python package installation can now be disabled with `--package-manager disabled` for locked-down environments.
   - Plugin file path validation now prevents directory traversal attacks by blocking relative and absolute path patterns.
 
 #### Bug fixes
@@ -42,7 +67,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Features
 
-- **Custom Plugin Repository**: 
+- **Custom Plugin Repository**:
   - Use the `--plugin-repo` option with `influxdb3 serve` to specify custom plugin repositories. This enables loading plugins from personal repos or disabling remote repo access.
 
 #### Bug fixes
@@ -50,9 +75,9 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **Database reliability**:
   - Table index updates now complete atomically before creating new indices, preventing race conditions that could corrupt database state ([#26838](https://github.com/influxdata/influxdb/pull/26838))
   - Delete operations are now idempotent, preventing errors during object store cleanup ([#26839](https://github.com/influxdata/influxdb/pull/26839))
-- **Write path**: 
+- **Write path**:
   - Write operations to soft-deleted databases are now rejected, preventing data loss ([#26722](https://github.com/influxdata/influxdb/pull/26722))
-- **Runtime stability**: 
+- **Runtime stability**:
   - Fixed a compatibility issue that could cause deadlocks for concurrent operations ([#26804](https://github.com/influxdata/influxdb/pull/26804))
 - Other bug fixes and performance improvements
 
@@ -66,12 +91,12 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Features
 
-- **Cache optimization**: 
+- **Cache optimization**:
   - Last Value Cache (LVC) and Distinct Value Cache (DVC) now populate on creation and only on query nodes, reducing resource usage on ingest nodes.
 
 #### Bug fixes
 
-- **Object store reliability**: 
+- **Object store reliability**:
   - Object store operations now use retryable mechanisms with better error handling
 
 #### Operational improvements
@@ -79,7 +104,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **Compaction optimizations**:
   - Compaction producer now waits 10 seconds before starting cycles, reducing resource contention during startup
   - Enhanced scheduling algorithms distribute compaction work more efficiently across available resources
-- **System tables**: 
+- **System tables**:
   - System tables now provide consistent data across different node modes (ingest, query, compact), enabling better monitoring in multi-node deployments
 
 ## v3.4.2 {date="2025-09-11"}
@@ -123,8 +148,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 ### Core
 
 #### Bug Fixes
-- Upgrading from 3.3.0 to 3.4.x no longer causes possible catalog migration issues ([#26756](https://github.com/influxdata/influxdb/pull/26756))
 
+- Upgrading from 3.3.0 to 3.4.x no longer causes possible catalog migration issues ([#26756](https://github.com/influxdata/influxdb/pull/26756))
 
 ## v3.4.0 {date="2025-08-27"}
 
@@ -138,20 +163,21 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
     ([#26734](https://github.com/influxdata/influxdb/pull/26734))
 - **Azure Endpoint**:
   - Use the `--azure-endpoint` option with `influxdb3 serve` to specify the Azure Blob Storage endpoint for object store connections. ([#26687](https://github.com/influxdata/influxdb/pull/26687))
-- **No_Sync via CLI**:
+- **No\_Sync via CLI**:
   - Use the `--no-sync` option with `influxdb3 write` to skip waiting for WAL persistence on write and immediately return a response to the write request. ([#26703](https://github.com/influxdata/influxdb/pull/26703))
-  
+
 #### Bug Fixes
+
 - Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
 - Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
 #### Security & Misc
+
 - Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
 - WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
-- Remove unsafe signal_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
+- Remove unsafe signal\_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
 - Upgrade Python version to 3.13.7-20250818. ([#26686](https://github.com/influxdata/influxdb/pull/26686), [#26700](https://github.com/influxdata/influxdb/pull/26700))
 - Tags with `/` in the name no longer break the primary key.
-
 
 ### Enterprise
 
@@ -160,17 +186,15 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 #### Features
 
 - **Token Provisioning**:
-  - Generate _resource_ and _admin_ tokens offline and use them when starting the database.
+  - Generate *resource* and *admin* tokens offline and use them when starting the database.
 
 - Select a home or trial license without using an interactive terminal.
-  Use `--license-type` [home | trial | commercial] option to the `influxdb3 serve` command to automate the selection of the license type.
+  Use `--license-type` \[home | trial | commercial] option to the `influxdb3 serve` command to automate the selection of the license type.
 
 #### Bug Fixes
 
 - Don't initialize the Processing Engine when the specified `--mode` does not require it.
 - Don't panic when `INFLUXDB3_PLUGIN_DIR` is set in containers without the Processing Engine enabled.
-
-
 
 ## v3.3.0 {date="2025-07-29"}
 
@@ -257,7 +281,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 ## v3.2.0 {date="2025-06-25"}
 
-**Core**: revision 1ca3168bee  
+**Core**: revision 1ca3168bee\
 **Enterprise**: revision 1ca3168bee
 
 ### Core
@@ -290,11 +314,11 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Features
 
-- **License management improvements**: 
+- **License management improvements**:
   - New `influxdb3 show license` command to display current license information
 - **Table-level retention period support**: Add retention period support for individual tables in addition to database-level retention, providing granular data lifecycle management
   - New CLI commands: `create table --retention-period` and `update table --retention-period`
-  - Set or clear table-specific retention policies independent of database settings
+  - Set or clear table-specific retention periods independent of database settings
 - **Compaction improvements**:
   - Address compactor restart issues for better reliability
   - Track compacted generation durations in catalog for monitoring
@@ -307,6 +331,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License handling**: Trim whitespace from license file contents after reading to prevent validation issues
 
 ## v3.1.0 {date="2025-05-29"}
+
 **Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
 
 **Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
@@ -314,6 +339,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 ### Core
 
 #### Token and Security Updates
+
 - Named admin tokens can now be created, with configurable expirations
 - `health`, `ping`, and `metrics` endpoints can now be opted out of authorization
 - `Basic $TOKEN` is now supported for all APIs
@@ -321,6 +347,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Additional info available when starting InfuxDB using `--without-auth`
 
 #### Additional Updates
+
 - New catalog metrics available for count operations
 - New object store metrics available for transfer latencies and transfer sizes
 - New query duration metrics available for Last Value caches
@@ -328,6 +355,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Other performance improvements
 
 #### Fixes
+
 - New tags are now backfilled with NULL instead of empty strings
 - Bitcode deserialization error fixed
 - Series key metadata not persisting to Parquet is now fixed
@@ -336,24 +364,28 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 ### Enterprise
 
 #### Token and Security Updates
+
 - Resource tokens now use resource names in `show tokens`
 - Tokens can now be granted `CREATE` permission for creating databases
 
 #### Additional Updates
+
 - Last value caches reload on restart
 - Distinct value caches reload on restart
 - Other performance improvements
-- Replaces remaining "INFLUXDB_IOX" Dockerfile environment variables with the following:
+- Replaces remaining "INFLUXDB\_IOX" Dockerfile environment variables with the following:
   - `ENV INFLUXDB3_OBJECT_STORE=file`
   - `ENV INFLUXDB3_DB_DIR=/var/lib/influxdb3`
 
 #### Fixes
+
 - Improvements and fixes for license validations
 - False positive fixed for catalog error on shutdown
 - UX improvements for error and onboarding messages
 - Other general fixes and corrections
 
 ## v3.0.3 {date="2025-05-16"}
+
 **Core**: revision 384c457ef5f0d5ca4981b22855e411d8cac2688e
 
 **Enterprise**: revision 34f4d28295132b9efafebf654e9f6decd1a13caf
@@ -362,20 +394,19 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Fixes
 
-- Prevent operator token, `_admin`, from being deleted.  
+- Prevent operator token, `_admin`, from being deleted.
 
 ### Enterprise
 
 #### Fixes
 
-- Fix object store info digest that is output during onboarding. 
+- Fix object store info digest that is output during onboarding.
 - Fix issues with false positive catalog error on shutdown.
 - Fix licensing validation issues.
 - Other fixes and performance improvements.
 
-
-
 ## v3.0.2 {date="2025-05-01"}
+
 **Core**: revision d80d6cd60049c7b266794a48c97b1b6438ac5da9
 
 **Enterprise**: revision e9d7e03c2290d0c3e44d26e3eeb60aaf12099f29
@@ -384,39 +415,40 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Security updates
 
-- Generate testing TLS certificates on the fly.  
-- Set the TLS CA via the INFLUXDB3_TLS_CA environment variable.  
-- Enforce a minimum TLS version for enhanced security.  
-- Allow CORS requests from browsers.  
+- Generate testing TLS certificates on the fly.
+- Set the TLS CA via the INFLUXDB3\_TLS\_CA environment variable.
+- Enforce a minimum TLS version for enhanced security.
+- Allow CORS requests from browsers.
 
 #### General updates
 
-- Support the `--format json` option in the token creation output.  
-- Remove the Last Values Cache size limitation to improve performance and flexibility.  
-- Incorporate additional performance improvements.  
+- Support the `--format json` option in the token creation output.
+- Remove the Last Values Cache size limitation to improve performance and flexibility.
+- Incorporate additional performance improvements.
 
 #### Fixes
 
-- Fix a counting bug in the distinct cache.  
-- Fix how the distinct cache handles rows with null values.  
-- Fix handling of `group by` tag columns that use escape quotes.  
-- Sort the IOx table schema consistently in the `SHOW TABLES` command.  
+- Fix a counting bug in the distinct cache.
+- Fix how the distinct cache handles rows with null values.
+- Fix handling of `group by` tag columns that use escape quotes.
+- Sort the IOx table schema consistently in the `SHOW TABLES` command.
 
 ### Enterprise
 
 #### Updates
 
-- Introduce a command and system table to list cluster nodes.  
-- Support multiple custom permission argument matches.  
-- Improve overall performance.  
+- Introduce a command and system table to list cluster nodes.
+- Support multiple custom permission argument matches.
+- Improve overall performance.
 
 #### Fixes
 
-- Initialize the object store only once.  
-- Prevent the Home license server from crashing on restart.  
-- Enforce the `--num-cores` thread allocation limit.  
+- Initialize the object store only once.
+- Prevent the Home license server from crashing on restart.
+- Enforce the `--num-cores` thread allocation limit.
 
 ## v3.0.1 {date="2025-04-16"}
+
 **Core**: revision d7c071e0c4959beebc7a1a433daf8916abd51214
 
 **Enterprise**: revision 96e4aad870b44709e149160d523b4319ea91b54c
@@ -424,15 +456,18 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 ### Core
 
 #### Updates
+
 - TLS CA can now be set with an environment variable: `INFLUXDB3_TLS_CA`
 - Other general performance improvements
 
 #### Fixes
-- The `--tags` argument is now optional for creating a table, and additionally now requires at least one tag _if_ specified
+
+- The `--tags` argument is now optional for creating a table, and additionally now requires at least one tag *if* specified
 
 ### Enterprise
 
 #### Updates
+
 - Catalog limits for databases, tables, and columns are now configurable using `influxdb3 serve` options:
   - `--num-database-limit`
   - `--num-table-limit`
@@ -441,8 +476,8 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Other general performance improvements
 
 #### Fixes
-- **Home** license thread count log errors
 
+- **Home** license thread count log errors
 
 ## v3.0.0 {date="2025-04-14"}
 
@@ -471,50 +506,59 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 - You can now use Commercial, Trial, and At-Home licenses.
 
-
 ## v3.0.0-0.beta.3 {date="2025-04-01"}
+
 **Core**: revision f881c5844bec93a85242f26357a1ef3ebf419dd3
 
 **Enterprise**: revision 6bef9e700a59c0973b0cefdc6baf11583933e262
 
 ### Core
+
 #### General Improvements
+
 - InfluxDB 3 now supports graceful shutdowns when sending the interrupt signal to the service.
 
 #### Bug fixes
+
 - Empty batches in JSON format results are now handled properly
 - The Processing Engine now properly extracts data from DictionaryArrays
 
 ### Enterprise
+
 ##### Multi-node improvements
+
 - Query nodes now automatically detect new ingest nodes
 
 #### Bug fixes
-- Several fixes for compaction planning and processing 
+
+- Several fixes for compaction planning and processing
 - The Processing Engine now properly extracts data from DictionaryArrays
 
-
 ## v3.0.0-0.beta.2 {date="2025-03-24"}
+
 **Core**: revision 033e1176d8c322b763b4aefb24686121b1b24f7c
 
 **Enterprise**: revision e530fcd498c593cffec2b56d4f5194afc717d898
 
-This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks. 
-
+This update brings several backend performance improvements to both Core and Enterprise in preparation for additional new features over the next several weeks.
 
 ## v3.0.0-0.beta.1 {date="2025-03-17"}
+
 ### Core
+
 #### Features
 
 ##### Query and storage enhancements
+
 - New ability to stream response data for CSV and JSON queries, similar to how JSONL streaming works
 - Parquet files are now cached on the query path, improving performance
 - Query buffer is incrementally cleared when snapshotting, lowering memory spikes
 
 ##### Processing engine improvements
+
 - New Trigger Types:
-  - _Scheduled_: Run Python plugins on custom, time-defined basis
-  - _Request_: Call Python plugins via HTTP requests
+  - *Scheduled*: Run Python plugins on custom, time-defined basis
+  - *Request*: Call Python plugins via HTTP requests
 - New in-memory cache for storing data temporarily; cached data can be stored for a single trigger or across all triggers
 - Integration with virtual environments and install packages:
   - Specify Python virtual environment via CLI or `VIRTUAL_ENV` variable
@@ -524,11 +568,13 @@ This update brings several backend performance improvements to both Core and Ent
 - Write to logs from within the Processing Engine
 
 ##### Database and CLI improvements
+
 - You can now specify the precision on your timestamps for writes using the `--precision` flag. Includes nano/micro/milli/seconds (ns/us/ms/s)
 - Added a new `show` system subcommand to display system tables with different options via SQL (default limit: 100)
 - Clearer table creation error messages
 
 ##### Bug fixes
+
 - If a database was created and the service was killed before any data was written, the database would not be retained
 - A last cache with specific "value" columns could not be queried
 - Running CTRL-C no longer stopped an InfluxDB process, due to a Python trigger
@@ -539,14 +585,15 @@ This update brings several backend performance improvements to both Core and Ent
 
 For Core and Enterprise, there are parameter changes for simplicity:
 
-| Old Parameter | New Parameter |
-|---------------|---------------|
-| `--writer-id`<br>`--host-id` | `--node-id` |
+| Old Parameter                | New Parameter |
+| ---------------------------- | ------------- |
+| `--writer-id`<br>`--host-id` | `--node-id`   |
 
 ### Enterprise features
 
 #### Cluster management
-- Nodes are now associated with _clusters_, simplifying compaction, read replication, and processing
+
+- Nodes are now associated with *clusters*, simplifying compaction, read replication, and processing
 - Node specs are now available for simpler management of cache creations
 
 #### Mode types
@@ -557,9 +604,9 @@ For Core and Enterprise, there are parameter changes for simplicity:
 
 For Enterprise, additional parameters for the `serve` command have been consolidated for simplicity:
 
-| Old Parameter | New Parameter |
-|---------------|---------------|
-| `--read-from-node-ids`<br>`--compact-from-node-ids` | `--cluster-id` |
-| `--run-compactions`<br>`--mode=compactor` | `--mode=compact`<br>`--mode=compact` |
+| Old Parameter                                       | New Parameter                        |
+| --------------------------------------------------- | ------------------------------------ |
+| `--read-from-node-ids`<br>`--compact-from-node-ids` | `--cluster-id`                       |
+| `--run-compactions`<br>`--mode=compactor`           | `--mode=compact`<br>`--mode=compact` |
 
 In addition to the above changes, `--cluster-id` is now a required parameter for all new instances.
