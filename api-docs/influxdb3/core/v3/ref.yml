@@ -13,15 +13,15 @@ info:
     - Perform administrative tasks and access system information
 
     The API includes endpoints under the following paths:
-    - `/api/v3`: InfluxDB 3 Core native endpoints 
-    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients 
+    - `/api/v3`: InfluxDB 3 Core native endpoints
+    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     <!-- TODO: verify where to host the spec that users can download.
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
     -->
-  version: ''
+  version: '3.7.0'
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -298,6 +298,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: |
             Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
@@ -423,6 +426,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: Bad request.
         '401':
@@ -503,6 +509,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: Bad request.
         '401':
@@ -1892,6 +1901,14 @@ components:
       description: |
         Content coding.
         Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
+
+        #### Multi-member gzip support
+
+        InfluxDB 3 supports multi-member gzip payloads (concatenated gzip files per [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952)).
+        This allows you to:
+        - Concatenate multiple gzip files and send them in a single request
+        - Maintain compatibility with InfluxDB v1 and v2 write endpoints
+        - Simplify batch operations using standard compression tools
       default: identity
     LineProtocol:
       type: string
@@ -2351,6 +2368,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
+  headers:
+    ClusterUUID:
+      description: |
+        The catalog UUID of the InfluxDB instance.
+        This header is included in all HTTP API responses and enables you to:
+        - Identify which cluster instance handled the request
+        - Monitor deployments across multiple InfluxDB instances
+        - Debug and troubleshoot distributed systems
+      schema:
+        type: string
+        format: uuid
+      example: "01234567-89ab-cdef-0123-456789abcdef"
   securitySchemes:
     BasicAuthentication:
       type: http
