@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/ifname/README.md, Network Interface Name Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/ifname/README.md, Network Interface Name Plugin Source
 ---
 
 # Network Interface Name Processor Plugin

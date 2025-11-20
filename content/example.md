@@ -15,7 +15,7 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 
 [foo]: https://docs.influxdata.com
 
-This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
+This is **bold** text. This is *italic* text. This is ***bold and italic***.
 
 ### Clockface v2 icons
 
@@ -29,68 +29,68 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "settings" "v2" >}}
 {{< nav-icon "notebooks" "v2" >}}
 
-{{< icon "add-cell" "v2" >}} add-cell  
-{{< icon "add-label" "v2" >}} add-label  
-{{< icon "alert" "v2" >}} alert  
-{{< icon "calendar" "v2" >}} calendar  
-{{< icon "chat" "v2" >}} chat  
-{{< icon "checkmark" "v2" >}} checkmark  
-{{< icon "clone" "v2" >}} clone  
-{{< icon "cloud" "v2" >}} cloud  
-{{< icon "cog" "v2" >}} cog  
-{{< icon "config" "v2" >}} config  
-{{< icon "copy" "v2" >}} copy  
-{{< icon "crown" "v2" >}} crown  
-{{< icon "dashboard" "v2" >}} dashboard  
-{{< icon "dashboards" "v2" >}} dashboards  
-{{< icon "data-explorer" "v2" >}} data-explorer  
-{{< icon "delete" "v2" >}} delete  
-{{< icon "download" "v2" >}} download  
-{{< icon "duplicate" "v2" >}} duplicate  
-{{< icon "edit" "v2" >}} edit  
-{{< icon "expand" "v2" >}} expand  
-{{< icon "export" "v2" >}} export  
-{{< icon "eye" "v2" >}} eye  
-{{< icon "eye-closed" "v2" >}} eye-closed  
-{{< icon "eye-open" "v2" >}} eye-open  
-{{< icon "feedback" "v2" >}} feedback  
-{{< icon "fullscreen" "v2" >}} fullscreen  
-{{< icon "gear" "v2" >}} gear  
-{{< icon "graph" "v2" >}} graph  
-{{< icon "hide" "v2" >}} hide  
-{{< icon "influx" "v2" >}} influx  
-{{< icon "influx-icon" "v2" >}} influx-icon  
-{{< icon "nav-admin" "v2" >}} nav-admin  
-{{< icon "nav-config" "v2" >}} nav-config  
-{{< icon "nav-configuration" "v2" >}} nav-configuration  
-{{< icon "nav-dashboards" "v2" >}} nav-dashboards  
-{{< icon "nav-data-explorer" "v2" >}} nav-data-explorer  
-{{< icon "nav-organizations" "v2" >}} nav-organizations  
-{{< icon "nav-orgs" "v2" >}} nav-orgs  
-{{< icon "nav-tasks" "v2" >}} nav-tasks  
-{{< icon "note" "v2" >}} note  
-{{< icon "notebook" "v2" >}} notebook  
-{{< icon "notebooks" "v2" >}} notebooks  
-{{< icon "org" "v2" >}} org  
-{{< icon "orgs" "v2" >}} orgs  
-{{< icon "pause" "v2" >}} pause  
-{{< icon "pencil" "v2" >}} pencil  
-{{< icon "play" "v2" >}} play  
-{{< icon "plus" "v2" >}} plus  
-{{< icon "refresh" "v2" >}} refresh  
-{{< icon "remove" "v2" >}} remove  
-{{< icon "replay" "v2" >}} replay  
-{{< icon "save-as" "v2" >}} save-as  
-{{< icon "search" "v2" >}} search  
-{{< icon "settings" "v2" >}} settings  
-{{< icon "tasks" "v2" >}} tasks  
-{{< icon "toggle" "v2" >}} toggle  
-{{< icon "trash" "v2" >}} trash  
-{{< icon "trashcan" "v2" >}} trashcan  
-{{< icon "triangle" "v2" >}} triangle  
-{{< icon "view" "v2" >}} view  
-{{< icon "wrench" "v2" >}} wrench  
-{{< icon "x" "v2" >}} x 
+{{< icon "add-cell" "v2" >}} add-cell\
+{{< icon "add-label" "v2" >}} add-label\
+{{< icon "alert" "v2" >}} alert\
+{{< icon "calendar" "v2" >}} calendar\
+{{< icon "chat" "v2" >}} chat\
+{{< icon "checkmark" "v2" >}} checkmark\
+{{< icon "clone" "v2" >}} clone\
+{{< icon "cloud" "v2" >}} cloud\
+{{< icon "cog" "v2" >}} cog\
+{{< icon "config" "v2" >}} config\
+{{< icon "copy" "v2" >}} copy\
+{{< icon "crown" "v2" >}} crown\
+{{< icon "dashboard" "v2" >}} dashboard\
+{{< icon "dashboards" "v2" >}} dashboards\
+{{< icon "data-explorer" "v2" >}} data-explorer\
+{{< icon "delete" "v2" >}} delete\
+{{< icon "download" "v2" >}} download\
+{{< icon "duplicate" "v2" >}} duplicate\
+{{< icon "edit" "v2" >}} edit\
+{{< icon "expand" "v2" >}} expand\
+{{< icon "export" "v2" >}} export\
+{{< icon "eye" "v2" >}} eye\
+{{< icon "eye-closed" "v2" >}} eye-closed\
+{{< icon "eye-open" "v2" >}} eye-open\
+{{< icon "feedback" "v2" >}} feedback\
+{{< icon "fullscreen" "v2" >}} fullscreen\
+{{< icon "gear" "v2" >}} gear\
+{{< icon "graph" "v2" >}} graph\
+{{< icon "hide" "v2" >}} hide\
+{{< icon "influx" "v2" >}} influx\
+{{< icon "influx-icon" "v2" >}} influx-icon\
+{{< icon "nav-admin" "v2" >}} nav-admin\
+{{< icon "nav-config" "v2" >}} nav-config\
+{{< icon "nav-configuration" "v2" >}} nav-configuration\
+{{< icon "nav-dashboards" "v2" >}} nav-dashboards\
+{{< icon "nav-data-explorer" "v2" >}} nav-data-explorer\
+{{< icon "nav-organizations" "v2" >}} nav-organizations\
+{{< icon "nav-orgs" "v2" >}} nav-orgs\
+{{< icon "nav-tasks" "v2" >}} nav-tasks\
+{{< icon "note" "v2" >}} note\
+{{< icon "notebook" "v2" >}} notebook\
+{{< icon "notebooks" "v2" >}} notebooks\
+{{< icon "org" "v2" >}} org\
+{{< icon "orgs" "v2" >}} orgs\
+{{< icon "pause" "v2" >}} pause\
+{{< icon "pencil" "v2" >}} pencil\
+{{< icon "play" "v2" >}} play\
+{{< icon "plus" "v2" >}} plus\
+{{< icon "refresh" "v2" >}} refresh\
+{{< icon "remove" "v2" >}} remove\
+{{< icon "replay" "v2" >}} replay\
+{{< icon "save-as" "v2" >}} save-as\
+{{< icon "search" "v2" >}} search\
+{{< icon "settings" "v2" >}} settings\
+{{< icon "tasks" "v2" >}} tasks\
+{{< icon "toggle" "v2" >}} toggle\
+{{< icon "trash" "v2" >}} trash\
+{{< icon "trashcan" "v2" >}} trashcan\
+{{< icon "triangle" "v2" >}} triangle\
+{{< icon "view" "v2" >}} view\
+{{< icon "wrench" "v2" >}} wrench\
+{{< icon "x" "v2" >}} x
 
 ### Clockface v3 icons
 
@@ -103,76 +103,76 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "settings" "v3" >}}
 {{< nav-icon "notebooks" "v3" >}}
 
-{{< icon "add-cell" "v3" >}} add-cell  
-{{< icon "add-label" "v3" >}} add-label  
-{{< icon "alert" "v3" >}} alert  
-{{< icon "annotate" "v3" >}} annotate  
-{{< icon "bar-chart" "v3" >}} bar-chart  
-{{< icon "bar-graph" "v3" >}} bar-graph  
-{{< icon "calendar" "v3" >}} calendar  
-{{< icon "chat" "v3" >}} chat  
-{{< icon "checkmark" "v3" >}} checkmark  
-{{< icon "clock" "v3" >}} clock  
-{{< icon "clone" "v3" >}} clone  
-{{< icon "cloud" "v3" >}} cloud  
-{{< icon "cog" "v3" >}} cog  
-{{< icon "config" "v3" >}} config  
-{{< icon "copy" "v3" >}} copy  
-{{< icon "crown" "v3" >}} crown  
-{{< icon "dashboard" "v3" >}} dashboard  
-{{< icon "dashboards" "v3" >}} dashboards  
-{{< icon "data-explorer" "v3" >}} data-explorer  
-{{< icon "delete" "v3" >}} delete  
-{{< icon "download" "v3" >}} download  
-{{< icon "duplicate" "v3" >}} duplicate  
-{{< icon "edit" "v3" >}} edit  
-{{< icon "expand" "v3" >}} expand  
-{{< icon "export" "v3" >}} export  
-{{< icon "eye" "v3" >}} eye  
-{{< icon "eye-closed" "v3" >}} eye-closed  
-{{< icon "eye-open" "v3" >}} eye-open  
-{{< icon "feedback" "v3" >}} feedback  
-{{< icon "fullscreen" "v3" >}} fullscreen  
-{{< icon "gear" "v3" >}} gear  
-{{< icon "graph" "v3" >}} graph  
-{{< icon "handle" "v3" >}} handle  
-{{< icon "hide" "v3" >}} hide  
-{{< icon "influx" "v3" >}} influx  
-{{< icon "influx-icon" "v3" >}} influx-icon  
-{{< icon "move" "v3" >}} move  
-{{< icon "move-cell" "v3" >}} move-cell  
-{{< icon "nav-admin" "v3" >}} nav-admin  
-{{< icon "nav-config" "v3" >}} nav-config  
-{{< icon "nav-configuration" "v3" >}} nav-configuration  
-{{< icon "nav-dashboards" "v3" >}} nav-dashboards  
-{{< icon "nav-data-explorer" "v3" >}} nav-data-explorer  
-{{< icon "nav-organizations" "v3" >}} nav-organizations  
-{{< icon "nav-orgs" "v3" >}} nav-orgs  
-{{< icon "nav-tasks" "v3" >}} nav-tasks  
-{{< icon "note" "v3" >}} note  
-{{< icon "notebook" "v3" >}} notebook  
-{{< icon "notebooks" "v3" >}} notebooks  
-{{< icon "org" "v3" >}} org  
-{{< icon "orgs" "v3" >}} orgs  
-{{< icon "pause" "v3" >}} pause  
-{{< icon "pencil" "v3" >}} pencil  
-{{< icon "pin" "v3" >}} pin  
-{{< icon "play" "v3" >}} play  
-{{< icon "plus" "v3" >}} plus  
-{{< icon "refresh" "v3" >}} refresh  
-{{< icon "remove" "v3" >}} remove  
-{{< icon "replay" "v3" >}} replay  
-{{< icon "save-as" "v3" >}} save-as  
-{{< icon "search" "v3" >}} search  
-{{< icon "settings" "v3" >}} settings  
-{{< icon "tasks" "v3" >}} tasks  
-{{< icon "toggle" "v3" >}} toggle  
-{{< icon "trash" "v3" >}} trash  
-{{< icon "trashcan" "v3" >}} trashcan  
-{{< icon "triangle" "v3" >}} triangle  
-{{< icon "view" "v3" >}} view  
-{{< icon "wrench" "v3" >}} wrench  
-{{< icon "x" "v3" >}} x 
+{{< icon "add-cell" "v3" >}} add-cell\
+{{< icon "add-label" "v3" >}} add-label\
+{{< icon "alert" "v3" >}} alert\
+{{< icon "annotate" "v3" >}} annotate\
+{{< icon "bar-chart" "v3" >}} bar-chart\
+{{< icon "bar-graph" "v3" >}} bar-graph\
+{{< icon "calendar" "v3" >}} calendar\
+{{< icon "chat" "v3" >}} chat\
+{{< icon "checkmark" "v3" >}} checkmark\
+{{< icon "clock" "v3" >}} clock\
+{{< icon "clone" "v3" >}} clone\
+{{< icon "cloud" "v3" >}} cloud\
+{{< icon "cog" "v3" >}} cog\
+{{< icon "config" "v3" >}} config\
+{{< icon "copy" "v3" >}} copy\
+{{< icon "crown" "v3" >}} crown\
+{{< icon "dashboard" "v3" >}} dashboard\
+{{< icon "dashboards" "v3" >}} dashboards\
+{{< icon "data-explorer" "v3" >}} data-explorer\
+{{< icon "delete" "v3" >}} delete\
+{{< icon "download" "v3" >}} download\
+{{< icon "duplicate" "v3" >}} duplicate\
+{{< icon "edit" "v3" >}} edit\
+{{< icon "expand" "v3" >}} expand\
+{{< icon "export" "v3" >}} export\
+{{< icon "eye" "v3" >}} eye\
+{{< icon "eye-closed" "v3" >}} eye-closed\
+{{< icon "eye-open" "v3" >}} eye-open\
+{{< icon "feedback" "v3" >}} feedback\
+{{< icon "fullscreen" "v3" >}} fullscreen\
+{{< icon "gear" "v3" >}} gear\
+{{< icon "graph" "v3" >}} graph\
+{{< icon "handle" "v3" >}} handle\
+{{< icon "hide" "v3" >}} hide\
+{{< icon "influx" "v3" >}} influx\
+{{< icon "influx-icon" "v3" >}} influx-icon\
+{{< icon "move" "v3" >}} move\
+{{< icon "move-cell" "v3" >}} move-cell\
+{{< icon "nav-admin" "v3" >}} nav-admin\
+{{< icon "nav-config" "v3" >}} nav-config\
+{{< icon "nav-configuration" "v3" >}} nav-configuration\
+{{< icon "nav-dashboards" "v3" >}} nav-dashboards\
+{{< icon "nav-data-explorer" "v3" >}} nav-data-explorer\
+{{< icon "nav-organizations" "v3" >}} nav-organizations\
+{{< icon "nav-orgs" "v3" >}} nav-orgs\
+{{< icon "nav-tasks" "v3" >}} nav-tasks\
+{{< icon "note" "v3" >}} note\
+{{< icon "notebook" "v3" >}} notebook\
+{{< icon "notebooks" "v3" >}} notebooks\
+{{< icon "org" "v3" >}} org\
+{{< icon "orgs" "v3" >}} orgs\
+{{< icon "pause" "v3" >}} pause\
+{{< icon "pencil" "v3" >}} pencil\
+{{< icon "pin" "v3" >}} pin\
+{{< icon "play" "v3" >}} play\
+{{< icon "plus" "v3" >}} plus\
+{{< icon "refresh" "v3" >}} refresh\
+{{< icon "remove" "v3" >}} remove\
+{{< icon "replay" "v3" >}} replay\
+{{< icon "save-as" "v3" >}} save-as\
+{{< icon "search" "v3" >}} search\
+{{< icon "settings" "v3" >}} settings\
+{{< icon "tasks" "v3" >}} tasks\
+{{< icon "toggle" "v3" >}} toggle\
+{{< icon "trash" "v3" >}} trash\
+{{< icon "trashcan" "v3" >}} trashcan\
+{{< icon "triangle" "v3" >}} triangle\
+{{< icon "view" "v3" >}} view\
+{{< icon "wrench" "v3" >}} wrench\
+{{< icon "x" "v3" >}} x
 
 ### Clockface v4 icons
 
@@ -185,72 +185,72 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< nav-icon "settings" >}}
 {{< nav-icon "notebooks" >}}
 
-{{< icon "add-cell" >}} add-cell  
-{{< icon "add-label" >}} add-label  
-{{< icon "alert" >}} alert  
-{{< icon "annotate" >}} annotate  
-{{< icon "bar-chart" >}} bar-chart  
-{{< icon "bar-graph" >}} bar-graph  
-{{< icon "calendar" >}} calendar  
-{{< icon "chat" >}} chat  
-{{< icon "checkmark" >}} checkmark  
-{{< icon "clock" >}} clock  
-{{< icon "clone" >}} clone  
-{{< icon "cloud" >}} cloud  
-{{< icon "cog" >}} cog  
-{{< icon "config" >}} config  
-{{< icon "copy" >}} copy  
-{{< icon "crown" >}} crown  
-{{< icon "dashboard" >}} dashboard  
-{{< icon "dashboards" >}} dashboards  
-{{< icon "data-explorer" >}} data-explorer  
-{{< icon "delete" >}} delete  
-{{< icon "download" >}} download  
-{{< icon "duplicate" >}} duplicate  
-{{< icon "edit" >}} edit  
-{{< icon "expand" >}} expand  
-{{< icon "export" >}} export  
-{{< icon "eye" >}} eye  
-{{< icon "eye-closed" >}} eye-closed  
-{{< icon "eye-open" >}} eye-open  
-{{< icon "feedback" >}} feedback  
-{{< icon "fullscreen" >}} fullscreen  
-{{< icon "gear" >}} gear  
-{{< icon "graph" >}} graph  
-{{< icon "handle" >}} handle  
-{{< icon "hide" >}} hide  
-{{< icon "influx" >}} influx  
-{{< icon "influx-icon" >}} influx-icon  
-{{< icon "move" >}} move  
-{{< icon "move-cell" >}} move-cell  
-{{< icon "nav-admin" >}} nav-admin  
-{{< icon "nav-dashboards" >}} nav-dashboards  
-{{< icon "nav-data-explorer" >}} nav-data-explorer  
-{{< icon "nav-organizations" >}} nav-organizations  
-{{< icon "nav-orgs" >}} nav-orgs  
-{{< icon "nav-tasks" >}} nav-tasks  
-{{< icon "note" >}} note  
-{{< icon "notebook" >}} notebook  
-{{< icon "notebooks" >}} notebooks  
-{{< icon "org" >}} org  
-{{< icon "orgs" >}} orgs  
-{{< icon "pause" >}} pause  
-{{< icon "pencil" >}} pencil  
-{{< icon "pin" >}} pin  
-{{< icon "play" >}} play  
-{{< icon "plus" >}} plus  
-{{< icon "refresh" >}} refresh  
-{{< icon "remove" >}} remove  
-{{< icon "replay" >}} replay  
-{{< icon "save-as" >}} save-as  
-{{< icon "search" >}} search  
-{{< icon "settings" >}} settings  
-{{< icon "tasks" >}} tasks  
-{{< icon "toggle" >}} toggle  
-{{< icon "trash" >}} trash  
-{{< icon "trashcan" >}} trashcan  
-{{< icon "view" >}} view  
-{{< icon "x" >}} x 
+{{< icon "add-cell" >}} add-cell\
+{{< icon "add-label" >}} add-label\
+{{< icon "alert" >}} alert\
+{{< icon "annotate" >}} annotate\
+{{< icon "bar-chart" >}} bar-chart\
+{{< icon "bar-graph" >}} bar-graph\
+{{< icon "calendar" >}} calendar\
+{{< icon "chat" >}} chat\
+{{< icon "checkmark" >}} checkmark\
+{{< icon "clock" >}} clock\
+{{< icon "clone" >}} clone\
+{{< icon "cloud" >}} cloud\
+{{< icon "cog" >}} cog\
+{{< icon "config" >}} config\
+{{< icon "copy" >}} copy\
+{{< icon "crown" >}} crown\
+{{< icon "dashboard" >}} dashboard\
+{{< icon "dashboards" >}} dashboards\
+{{< icon "data-explorer" >}} data-explorer\
+{{< icon "delete" >}} delete\
+{{< icon "download" >}} download\
+{{< icon "duplicate" >}} duplicate\
+{{< icon "edit" >}} edit\
+{{< icon "expand" >}} expand\
+{{< icon "export" >}} export\
+{{< icon "eye" >}} eye\
+{{< icon "eye-closed" >}} eye-closed\
+{{< icon "eye-open" >}} eye-open\
+{{< icon "feedback" >}} feedback\
+{{< icon "fullscreen" >}} fullscreen\
+{{< icon "gear" >}} gear\
+{{< icon "graph" >}} graph\
+{{< icon "handle" >}} handle\
+{{< icon "hide" >}} hide\
+{{< icon "influx" >}} influx\
+{{< icon "influx-icon" >}} influx-icon\
+{{< icon "move" >}} move\
+{{< icon "move-cell" >}} move-cell\
+{{< icon "nav-admin" >}} nav-admin\
+{{< icon "nav-dashboards" >}} nav-dashboards\
+{{< icon "nav-data-explorer" >}} nav-data-explorer\
+{{< icon "nav-organizations" >}} nav-organizations\
+{{< icon "nav-orgs" >}} nav-orgs\
+{{< icon "nav-tasks" >}} nav-tasks\
+{{< icon "note" >}} note\
+{{< icon "notebook" >}} notebook\
+{{< icon "notebooks" >}} notebooks\
+{{< icon "org" >}} org\
+{{< icon "orgs" >}} orgs\
+{{< icon "pause" >}} pause\
+{{< icon "pencil" >}} pencil\
+{{< icon "pin" >}} pin\
+{{< icon "play" >}} play\
+{{< icon "plus" >}} plus\
+{{< icon "refresh" >}} refresh\
+{{< icon "remove" >}} remove\
+{{< icon "replay" >}} replay\
+{{< icon "save-as" >}} save-as\
+{{< icon "search" >}} search\
+{{< icon "settings" >}} settings\
+{{< icon "tasks" >}} tasks\
+{{< icon "toggle" >}} toggle\
+{{< icon "trash" >}} trash\
+{{< icon "trashcan" >}} trashcan\
+{{< icon "view" >}} view\
+{{< icon "x" >}} x
 
 ## h2 This is a header2
 
@@ -274,6 +274,7 @@ vel tempor odio dolor blandit justo.
 [InfluxQL](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```js
 data = from(bucket: "example-bucket")
   |> range(start: -15m)
@@ -282,13 +283,16 @@ data = from(bucket: "example-bucket")
     r._field == "used_percent"
   )
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sql
 SELECT "used_percent"
 FROM "telegraf"."autogen"."mem"
 WHERE time > now() - 15m
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -352,36 +356,30 @@ enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
 erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
 vel tempor odio dolor blandit justo.
 
----
+***
 
-There is a horizontal rule above and below this line.
+This line has a horizontal rule above and below.
 
----
+***
 
 #### Inline Styles
 
 This is an [inline link](#). This is `inline code`.
 This is an [`inline code link`](#).
 This is an [`inline code link` with text in the link](#).
-This is **bold**. This is _italic_.
+This is **bold**. This is *italic*.
 
 - Unordered list line-item 1
+
 - Unordered list line-item 2
   - Unordered list line-item 2.1
   - Unordered list line-item 2.2
-  - Unordered list line-item 2.3 _(this is just an li, no p tag)_
-      1. Ordered list item nested 1
-      2. Ordered list item nested 2
-      3. Ordered list item nested 3
+  - Unordered list line-item 2.3 *(this is just an li, no p tag)*
+    1. Ordered list item nested 1
+    2. Ordered list item nested 2
+    3. Ordered list item nested 3
+
 - Unordered list line-item 3
-- Unordered list line-item with multiple paragraphs.
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-  Etiam tristique nisi et tristique auctor.
-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-  Etiam tristique nisi et tristique auctor.
 
 - Unordered list line-item with multiple paragraphs.
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -391,212 +389,241 @@ This is **bold**. This is _italic_.
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
   Etiam tristique nisi et tristique auctor.
- 
-1.  Ordered list line-item 1
-2.  Ordered list line-item 2
-    1.  Ordered list line-item 2.1
-    2.  Ordered list line-item 2.2
-    3.  Ordered list line-item 2.3 _(this is just an li, no p tag)_
-        - Unordered list item nested 1
-        - Unordered list item nested 2
-        - Unordered list item nested 3
-   4.  Ordered list line-item 2.4 with hard return.
- 
-       - Unordered list item nested 1
-       - Unordered list item nested 2
-       - Unordered list item nested 3
- 
-         With Another paragraph.
- 
-3.  Ordered list line-item 3
-4.  Ordered list line-item with multiple paragraphs.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-    Etiam tristique nisi et tristique auctor.
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-    Etiam tristique nisi et tristique auctor.
+- Unordered list line-item with multiple paragraphs.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+  Etiam tristique nisi et tristique auctor.
 
-5.  Ordered list line-item with multiple paragraphs.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-    Etiam tristique nisi et tristique auctor.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+  Etiam tristique nisi et tristique auctor.
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
-    Etiam tristique nisi et tristique auctor.
- 
- ```js
- // This is a code block
- cpu = from(bucket:"example-bucket")
-   |> range(start:-30m)
-   |> filter(fn:(r) => r._measurement == "cpu")
-   |> filter(fn:(r) => r._measurement == "cpu") |> filter(fn:(r) => r._measurement == "cpu")
- 
- avg_cpu = cpu |> window(every:5m) |> mean()
- 
- avg_cpu
-   |> group(none:true)
-   |> yield()
- //
- ```
- 
- ###### Here's a codeblock with a title
+1. Ordered list line-item 1
 
- ```js
- // This is a code block
- cpu = from(bucket:"example-bucket")
-   |> range(start:-30m)
-   |> filter(fn:(r) => r._measurement == "cpu")
- 
- avg_cpu = cpu |> window(every:5m) |> mean()
- 
- avg_cpu
-   |> group(none:true)
-   |> yield()
- //
- ```
- 
- ---
+2. Ordered list line-item 2
+   1. Ordered list line-item 2.1
+   2. Ordered list line-item 2.2
+   3. Ordered list line-item 2.3 *(this is just an li, no p tag)*
+      - Unordered list item nested 1
+      - Unordered list item nested 2
+      - Unordered list item nested 3
+
+3. Ordered list line-item 2.4 with hard return.
+
+   - Unordered list item nested 1
+   - Unordered list item nested 2
+   - Unordered list item nested 3
+
+     With Another paragraph.
+
+4. Ordered list line-item 3
+
+5. Ordered list line-item with multiple paragraphs.
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+   Etiam tristique nisi et tristique auctor.
+
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+   Etiam tristique nisi et tristique auctor.
+
+6. Ordered list line-item with multiple paragraphs.
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+   Etiam tristique nisi et tristique auctor.
+
+   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+   Etiam tristique nisi et tristique auctor.
+
+```js
+// This is a code block
+cpu = from(bucket:"example-bucket")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu")
+  |> filter(fn:(r) => r._measurement == "cpu") |> filter(fn:(r) => r._measurement == "cpu")
+
+avg_cpu = cpu |> window(every:5m) |> mean()
+
+avg_cpu
+  |> group(none:true)
+  |> yield()
+//
+```
+
+###### Here's a codeblock with a title
+
+```js
+// This is a code block
+cpu = from(bucket:"example-bucket")
+  |> range(start:-30m)
+  |> filter(fn:(r) => r._measurement == "cpu")
+
+avg_cpu = cpu |> window(every:5m) |> mean()
+
+avg_cpu
+  |> group(none:true)
+  |> yield()
+//
+```
+
+***
 
 ## Alert blocks
 
-> [!NOTE]
+> \[!NOTE]
 > This is a **Note**.
 > Useful information that users should know, even when skimming content.
 
-> [!TIP]
+> \[!TIP]
 > This is a **Tip**.
 > Helpful advice for doing things better or more easily.
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 > This is an **Important**.
 > Key information users need to know to achieve their goal.
 
-> [!WARNING]
+> \[!WARNING]
 > This is a **Warning**.
 > Urgent info that needs immediate user attention to avoid problems.
 
-> [!CAUTION]
+> \[!CAUTION]
 > This is a **Caution**.
 > Advises about risks or negative outcomes of certain actions.
 
- ---
+***
 
-> [!Note]
+> \[!Note]
 > This is a basic note.
 
-> [!Note]
+> \[!Note]
+>
 > ## h2 This is a header2
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ### h3 This is a header3
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ![Test image](/img/chronograf/1-6-alerts-conditions.png)
-> 
+>
 > {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Test Image" />}}
-> 
+>
 > #### h4 This is a header4
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ##### h5 This is a header5
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ###### h6 This is a header6
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
-> 
+>
 > #### Inline Styles
+>
 > This is an [inline link](#). This is `inline code`.
 > This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
-> 
+> This is **bold**. This is *italic*.
+>
 > - Unordered list line-item 1
+>
 > - Unordered list line-item 2
 >   - Unordered list line-item 2.1
 >   - Unordered list line-item 2.2
 >   - Unordered list line-item 2.3
+>
 > - Unordered list line-item 3
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 1.  Unordered list line-item 1
-> 2.  Unordered list line-item 2
->     1.  Unordered list line-item 2.1
->     2.  Unordered list line-item 2.2
->     3.  Unordered list line-item 2.3
-> 3.  Unordered list line-item 3
-> 4.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 5.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> 1. Unordered list line-item 1
+>
+> 2. Unordered list line-item 2
+>    1. Unordered list line-item 2.1
+>    2. Unordered list line-item 2.2
+>    3. Unordered list line-item 2.3
+>
+> 3. Unordered list line-item 3
+>
+> 4. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+> 5. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
 > {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[tab1](#)
-[tab2](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+> {{% code-tabs %}}
+> [tab1](#)
+> [tab2](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"my-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-> 
+
 > ###### This is a table
 >
 > | Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
-> | -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+> | -------- | --------- | -------- | -------- | -------- | --------- | -------- | -------- |
 > | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
 > | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
 > | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
@@ -604,128 +631,145 @@ cpu = from(bucket:"my-bucket")
 >
 > ###### This is a table with lots of stuff
 >
-> | Column 1 | Column 2 | Column 3 | Column 4 |
-> | -------- | -------- | -------- | -------- |
+> | Column 1                                                        | Column 2                                                        | Column 3                                                        | Column 4                                                        |
+> | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 > | Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 
----
+***
 
-> [!Tip]
+> \[!Tip]
 > This is a basic tip.
 
-> [!Tip]
+> \[!Tip]
+>
 > ## h2 This is a header2
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ### h3 This is a header3
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ![Test image](/img/chronograf/1-6-alerts-conditions.png)
-> 
+>
 > {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Test Image" />}}
-> 
+>
 > #### h4 This is a header4
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ##### h5 This is a header5
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ###### h6 This is a header6
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
-> 
+>
 > #### Inline Styles
+>
 > This is an [inline link](#). This is `inline code`.
 > This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
-> 
+> This is **bold**. This is *italic*.
+>
 > - Unordered list line-item 1
+>
 > - Unordered list line-item 2
 >   - Unordered list line-item 2.1
 >   - Unordered list line-item 2.2
 >   - Unordered list line-item 2.3
+>
 > - Unordered list line-item 3
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 1.  Unordered list line-item 1
-> 2.  Unordered list line-item 2
->     1.  Unordered list line-item 2.1
->     2.  Unordered list line-item 2.2
->     3.  Unordered list line-item 2.3
-> 3.  Unordered list line-item 3
-> 4.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 5.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> 1. Unordered list line-item 1
+>
+> 2. Unordered list line-item 2
+>    1. Unordered list line-item 2.1
+>    2. Unordered list line-item 2.2
+>    3. Unordered list line-item 2.3
+>
+> 3. Unordered list line-item 3
+>
+> 4. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+> 5. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
 > {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[tab1](#)
-[tab2](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+> {{% code-tabs %}}
+> [tab1](#)
+> [tab2](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"my-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-> 
+
 > ###### This is a table
 >
 > | Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
-> | -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+> | -------- | --------- | -------- | -------- | -------- | --------- | -------- | -------- |
 > | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
 > | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
 > | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
@@ -733,128 +777,145 @@ cpu = from(bucket:"my-bucket")
 >
 > ###### This is a table with lots of stuff
 >
-> | Column 1 | Column 2 | Column 3 | Column 4 |
-> | -------- | -------- | -------- | -------- |
+> | Column 1                                                        | Column 2                                                        | Column 3                                                        | Column 4                                                        |
+> | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 > | Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 
----
+***
 
-> [!Important]
+> \[!Important]
 > This is a basic important block.
 
-> [!Important]
+> \[!Important]
+>
 > ## h2 This is a header2
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ### h3 This is a header3
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ![Test image](/img/chronograf/1-6-alerts-conditions.png)
-> 
+>
 > {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Test Image" />}}
-> 
+>
 > #### h4 This is a header4
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ##### h5 This is a header5
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ###### h6 This is a header6
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
-> 
+>
 > #### Inline Styles
+>
 > This is an [inline link](#). This is `inline code`.
 > This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
-> 
+> This is **bold**. This is *italic*.
+>
 > - Unordered list line-item 1
+>
 > - Unordered list line-item 2
 >   - Unordered list line-item 2.1
 >   - Unordered list line-item 2.2
 >   - Unordered list line-item 2.3
+>
 > - Unordered list line-item 3
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 1.  Unordered list line-item 1
-> 2.  Unordered list line-item 2
->     1.  Unordered list line-item 2.1
->     2.  Unordered list line-item 2.2
->     3.  Unordered list line-item 2.3
-> 3.  Unordered list line-item 3
-> 4.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 5.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> 1. Unordered list line-item 1
+>
+> 2. Unordered list line-item 2
+>    1. Unordered list line-item 2.1
+>    2. Unordered list line-item 2.2
+>    3. Unordered list line-item 2.3
+>
+> 3. Unordered list line-item 3
+>
+> 4. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+> 5. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
 > {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[tab1](#)
-[tab2](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+> {{% code-tabs %}}
+> [tab1](#)
+> [tab2](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"my-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-> 
+
 > ###### This is a table
 >
 > | Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
-> | -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+> | -------- | --------- | -------- | -------- | -------- | --------- | -------- | -------- |
 > | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
 > | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
 > | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
@@ -862,130 +923,145 @@ cpu = from(bucket:"my-bucket")
 >
 > ###### This is a table with lots of stuff
 >
-> | Column 1 | Column 2 | Column 3 | Column 4 |
-> | -------- | -------- | -------- | -------- |
+> | Column 1                                                        | Column 2                                                        | Column 3                                                        | Column 4                                                        |
+> | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 > | Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 
+***
 
-
----
-
-> [!Warning]
+> \[!Warning]
 > This is a basic warning.
 
-> [!Warning]
+> \[!Warning]
+>
 > ## h2 This is a header2
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ### h3 This is a header3
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ![Test image](/img/chronograf/1-6-alerts-conditions.png)
-> 
+>
 > {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Test Image" />}}
-> 
+>
 > #### h4 This is a header4
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ##### h5 This is a header5
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ###### h6 This is a header6
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
-> 
+>
 > #### Inline Styles
+>
 > This is an [inline link](#). This is `inline code`.
 > This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
-> 
+> This is **bold**. This is *italic*.
+>
 > - Unordered list line-item 1
+>
 > - Unordered list line-item 2
 >   - Unordered list line-item 2.1
 >   - Unordered list line-item 2.2
 >   - Unordered list line-item 2.3
+>
 > - Unordered list line-item 3
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 1.  Unordered list line-item 1
-> 2.  Unordered list line-item 2
->     1.  Unordered list line-item 2.1
->     2.  Unordered list line-item 2.2
->     3.  Unordered list line-item 2.3
-> 3.  Unordered list line-item 3
-> 4.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 5.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> 1. Unordered list line-item 1
+>
+> 2. Unordered list line-item 2
+>    1. Unordered list line-item 2.1
+>    2. Unordered list line-item 2.2
+>    3. Unordered list line-item 2.3
+>
+> 3. Unordered list line-item 3
+>
+> 4. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+> 5. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
 > {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[tab1](#)
-[tab2](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+> {{% code-tabs %}}
+> [tab1](#)
+> [tab2](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"my-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-> 
+
 > ###### This is a table
 >
 > | Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
-> | -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+> | -------- | --------- | -------- | -------- | -------- | --------- | -------- | -------- |
 > | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
 > | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
 > | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
@@ -993,128 +1069,145 @@ cpu = from(bucket:"my-bucket")
 >
 > ###### This is a table with lots of stuff
 >
-> | Column 1 | Column 2 | Column 3 | Column 4 |
-> | -------- | -------- | -------- | -------- |
+> | Column 1                                                        | Column 2                                                        | Column 3                                                        | Column 4                                                        |
+> | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 > | Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 
----
+***
 
-> [!Caution]
+> \[!Caution]
 > This is a basic caution.
 
-> [!Caution]
+> \[!Caution]
+>
 > ## h2 This is a header2
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ### h3 This is a header3
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ![Test image](/img/chronograf/1-6-alerts-conditions.png)
-> 
+>
 > {{< img-hd src="/img/influxdb/2-0-controls-time-range.png" alt="Test Image" />}}
-> 
+>
 > #### h4 This is a header4
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ##### h5 This is a header5
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > ###### h6 This is a header6
+>
 > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > Etiam tristique nisi et tristique auctor.
-> 
+>
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
 > > Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
 > > Etiam tristique nisi et tristique auctor.
-> 
+>
 > #### Inline Styles
+>
 > This is an [inline link](#). This is `inline code`.
 > This is an [`inline code link`](#) .
-> This is **bold**. This is _italic_.
-> 
+> This is **bold**. This is *italic*.
+>
 > - Unordered list line-item 1
+>
 > - Unordered list line-item 2
 >   - Unordered list line-item 2.1
 >   - Unordered list line-item 2.2
 >   - Unordered list line-item 2.3
+>
 > - Unordered list line-item 3
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> -   Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 1.  Unordered list line-item 1
-> 2.  Unordered list line-item 2
->     1.  Unordered list line-item 2.1
->     2.  Unordered list line-item 2.2
->     3.  Unordered list line-item 2.3
-> 3.  Unordered list line-item 3
-> 4.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
-> 5.  Unordered list line-item with multiple paragraphs.
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
->     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
->     Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
->     Etiam tristique nisi et tristique auctor.
-> 
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> - Unordered list line-item with multiple paragraphs.
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+>   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>   Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>   Etiam tristique nisi et tristique auctor.
+>
+> 1. Unordered list line-item 1
+>
+> 2. Unordered list line-item 2
+>    1. Unordered list line-item 2.1
+>    2. Unordered list line-item 2.2
+>    3. Unordered list line-item 2.3
+>
+> 3. Unordered list line-item 3
+>
+> 4. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+> 5. Unordered list line-item with multiple paragraphs.
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
+>    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+>    Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+>    Etiam tristique nisi et tristique auctor.
+>
 > {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[tab1](#)
-[tab2](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+> {{% code-tabs %}}
+> [tab1](#)
+> [tab2](#)
+> {{% /code-tabs %}}
+> {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"example-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu" and r._field == "someReallyLongFieldName")
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```js
 // This is a code block inside of a blockquote
 cpu = from(bucket:"my-bucket")
   |> range(start:-30m)
   |> filter(fn:(r) => r._measurement == "cpu")
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-> 
+
 > ###### This is a table
 >
 > | Column 1 | Column 2  | Column 3 | Column 4 | Column 1 | Column 2  | Column 3 | Column 4 |
-> | -------- | --------  | -------- | -------- | -------- | --------  | -------- | -------- |
+> | -------- | --------- | -------- | -------- | -------- | --------- | -------- | -------- |
 > | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  | Row 1.1  | `Row 1.2` | Row 1.3  | Row 1.4  |
 > | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  | Row 2.1  | `Row 2.2` | Row 2.3  | Row 2.4  |
 > | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  | Row 3.1  | `Row 3.2` | Row 3.3  | Row 3.4  |
@@ -1122,8 +1215,8 @@ cpu = from(bucket:"my-bucket")
 >
 > ###### This is a table with lots of stuff
 >
-> | Column 1 | Column 2 | Column 3 | Column 4 |
-> | -------- | -------- | -------- | -------- |
+> | Column 1                                                        | Column 2                                                        | Column 3                                                        | Column 4                                                        |
+> | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 > | Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 > | Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
@@ -1141,6 +1234,7 @@ cpu = from(bucket:"my-bucket")
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 ## h2 This is a header2
+
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
 
 This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.
@@ -1152,6 +1246,7 @@ This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
+
 ```js
 data = from(bucket: "example-bucket")
   |> range(start: -15m)
@@ -1160,13 +1255,16 @@ data = from(bucket: "example-bucket")
     r._field == "used_percent"
   )
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```sql
 SELECT "used_percent"
 FROM "telegraf"."autogen"."mem"
 WHERE time > now() - 15m
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
@@ -1213,33 +1311,33 @@ This is tab 2.4 content.
 {{< /tabs-wrapper >}}
 
 {{% truncate %}}
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
-This is truncated content.  
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
+This is truncated content.\
 {{% /truncate %}}
 
 {{< tabs-wrapper >}}
@@ -1275,47 +1373,46 @@ Used to demonstrate Flux group keys
 {{< tabs-wrapper >}}
 {{% tabs "small" %}}
 [Input](#)
-[Output](#)
-<span class="tab-view-output">Click to view output</span>
+[Output](#) <span class="tab-view-output">Click to view output</span>
 {{% /tabs %}}
 {{% tab-content %}}
 
 The following data is output from the last `filter()` and piped forward into `group()`:
 
-> [!Note]
+> \[!Note]
 > `_start` and `_stop` columns have been omitted.
 
-{{% flux/group-key "[_measurement=home, room=Kitchen, _field=hum]" true %}}
+{{% flux/group-key "\[\_measurement=home, room=Kitchen, \_field=hum]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Kitchen     | hum    | 35.9   |
-| 2022-01-01T09:00:00Z | home         | Kitchen     | hum    | 36.2   |
-| 2022-01-01T10:00:00Z | home         | Kitchen     | hum    | 36.1   |
+| \_time               | \_measurement | room    | \_field | \_value |
+| :------------------- | :------------ | :------ | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Kitchen | hum     | 35.9    |
+| 2022-01-01T09:00:00Z | home          | Kitchen | hum     | 36.2    |
+| 2022-01-01T10:00:00Z | home          | Kitchen | hum     | 36.1    |
 
-{{% flux/group-key "[_measurement=home, room=Living Room, _field=hum]" true %}}
+{{% flux/group-key "\[\_measurement=home, room=Living Room, \_field=hum]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Living Room | hum    | 35.9   |
-| 2022-01-01T09:00:00Z | home         | Living Room | hum    | 35.9   |
-| 2022-01-01T10:00:00Z | home         | Living Room | hum    | 36     |
+| \_time               | \_measurement | room        | \_field | \_value |
+| :------------------- | :------------ | :---------- | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Living Room | hum     | 35.9    |
+| 2022-01-01T09:00:00Z | home          | Living Room | hum     | 35.9    |
+| 2022-01-01T10:00:00Z | home          | Living Room | hum     | 36      |
 
-{{% flux/group-key "[_measurement=home, room=Kitchen, _field=temp]" true %}}
+{{% flux/group-key "\[\_measurement=home, room=Kitchen, \_field=temp]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Kitchen     | temp   | 21     |
-| 2022-01-01T09:00:00Z | home         | Kitchen     | temp   | 23     |
-| 2022-01-01T10:00:00Z | home         | Kitchen     | temp   | 22.7   |
+| \_time               | \_measurement | room    | \_field | \_value |
+| :------------------- | :------------ | :------ | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Kitchen | temp    | 21      |
+| 2022-01-01T09:00:00Z | home          | Kitchen | temp    | 23      |
+| 2022-01-01T10:00:00Z | home          | Kitchen | temp    | 22.7    |
 
-{{% flux/group-key "[_measurement=home, room=Living Room, _field=temp]" true %}}
+{{% flux/group-key "\[\_measurement=home, room=Living Room, \_field=temp]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Living Room | temp   | 21.1   |
-| 2022-01-01T09:00:00Z | home         | Living Room | temp   | 21.4   |
-| 2022-01-01T10:00:00Z | home         | Living Room | temp   | 21.8   |
+| \_time               | \_measurement | room        | \_field | \_value |
+| :------------------- | :------------ | :---------- | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Living Room | temp    | 21.1    |
+| 2022-01-01T09:00:00Z | home          | Living Room | temp    | 21.4    |
+| 2022-01-01T10:00:00Z | home          | Living Room | temp    | 21.8    |
 
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -1328,34 +1425,34 @@ and all the rows with the `hum` field will be in another.
 `_start` and `_stop` columns have been omitted.
 {{% /note %}}
 
-{{% flux/group-key "[_field=hum]" true %}}
+{{% flux/group-key "\[\_field=hum]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Kitchen     | hum    | 35.9   |
-| 2022-01-01T09:00:00Z | home         | Kitchen     | hum    | 36.2   |
-| 2022-01-01T10:00:00Z | home         | Kitchen     | hum    | 36.1   |
-| 2022-01-01T08:00:00Z | home         | Living Room | hum    | 35.9   |
-| 2022-01-01T09:00:00Z | home         | Living Room | hum    | 35.9   |
-| 2022-01-01T10:00:00Z | home         | Living Room | hum    | 36     |
+| \_time               | \_measurement | room        | \_field | \_value |
+| :------------------- | :------------ | :---------- | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Kitchen     | hum     | 35.9    |
+| 2022-01-01T09:00:00Z | home          | Kitchen     | hum     | 36.2    |
+| 2022-01-01T10:00:00Z | home          | Kitchen     | hum     | 36.1    |
+| 2022-01-01T08:00:00Z | home          | Living Room | hum     | 35.9    |
+| 2022-01-01T09:00:00Z | home          | Living Room | hum     | 35.9    |
+| 2022-01-01T10:00:00Z | home          | Living Room | hum     | 36      |
 
-{{% flux/group-key "[_field=temp]" true %}}
+{{% flux/group-key "\[\_field=temp]" true %}}
 
-| _time                | _measurement | room        | _field | _value |
-| :------------------- | :----------- | :---------- | :----- | :----- |
-| 2022-01-01T08:00:00Z | home         | Kitchen     | temp   | 21     |
-| 2022-01-01T09:00:00Z | home         | Kitchen     | temp   | 23     |
-| 2022-01-01T10:00:00Z | home         | Kitchen     | temp   | 22.7   |
-| 2022-01-01T08:00:00Z | home         | Living Room | temp   | 21.1   |
-| 2022-01-01T09:00:00Z | home         | Living Room | temp   | 21.4   |
-| 2022-01-01T10:00:00Z | home         | Living Room | temp   | 21.8   |
+| \_time               | \_measurement | room        | \_field | \_value |
+| :------------------- | :------------ | :---------- | :------ | :------ |
+| 2022-01-01T08:00:00Z | home          | Kitchen     | temp    | 21      |
+| 2022-01-01T09:00:00Z | home          | Kitchen     | temp    | 23      |
+| 2022-01-01T10:00:00Z | home          | Kitchen     | temp    | 22.7    |
+| 2022-01-01T08:00:00Z | home          | Living Room | temp    | 21.1    |
+| 2022-01-01T09:00:00Z | home          | Living Room | temp    | 21.4    |
+| 2022-01-01T10:00:00Z | home          | Living Room | temp    | 21.8    |
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 ## datetime/current-timestamp shortcode
 
-### Default usage 
+### Default usage
 
 {{< datetime/current-timestamp >}}
 
@@ -1367,6 +1464,10 @@ and all the rows with the `hum` field will be in another.
 
 {{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="UTC" >}}
 
-### Format with America/New_York timezone
+### Format with America/New\_York timezone
 
-{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="America/New_York" >}}
+{{< datetime/current-timestamp format="YYYY-MM-DD HH:mm:ss" timezone="America/New\_York" >}}
+
+## Ask AI Link
+
+Can't access your InfluxDB instance? {{< ask-ai-link link-text="Ask InfluxData AI" query="What's my InfluxDB version?" >}} for help.

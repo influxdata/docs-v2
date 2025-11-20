@@ -10,7 +10,7 @@ introduced: "v1.22.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/noise/README.md, Noise Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/noise/README.md, Noise Plugin Source
 ---
 
 # Noise Processor Plugin

@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nvidia_smi/README.md, Nvidia System Management Interface (SMI) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/nvidia_smi/README.md, Nvidia System Management Interface (SMI) Plugin Source
 ---
 
 # Nvidia System Management Interface (SMI) Input Plugin
