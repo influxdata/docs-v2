@@ -223,8 +223,6 @@ tags:
       | **Hours** | ✅ `h` | ❌ No | ❌ No |
       | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
 
-      **Note:** A bug currently prevents abbreviated precision values (`ns`, `n`, `us`, `u`, `ms`, `s`) from working with the `/api/v3/write_lp` endpoint. Use the full names (`nanosecond`, `microsecond`, `millisecond`, `second`) instead. Abbreviated values will be supported in a future release.
-
       All timestamps are stored internally as nanoseconds.
 paths:
   /write:
