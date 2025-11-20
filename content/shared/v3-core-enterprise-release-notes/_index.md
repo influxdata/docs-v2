@@ -49,6 +49,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 #### Bug fixes
 
+- **Write API**: Fixed abbreviated precision values (`ns`, `ms`, `us`, `s`) to work correctly with the `/api/v3/write_lp` endpoint. Previously, only full precision names (`nanosecond`, `microsecond`, `millisecond`, `second`) worked.
 - **Token management**: Token display now works correctly for hard-deleted databases
 
 ### Enterprise
