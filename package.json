@@ -1,9 +1,13 @@
 {
   "private": true,
-  "name": "docs-v2",
+  "name": "@influxdata/docs-site",
   "version": "1.0.0",
   "description": "InfluxDB documentation",
   "license": "MIT",
+  "exports": {
+    "./markdown-converter": "./scripts/lib/markdown-converter.js",
+    "./product-mappings": "./dist/utils/product-mappings.js"
+  },
   "bin": {
     "docs": "scripts/docs-cli.js"
   },
