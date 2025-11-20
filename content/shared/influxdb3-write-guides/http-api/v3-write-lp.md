@@ -80,6 +80,32 @@ curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+## Request encoding
+
+The `/api/v3/write_lp` endpoint supports gzip-encoded request bodies for efficient data transfer.
+
+### Multi-member gzip support
+
+{{% product-name %}} supports multi-member gzip payloads (concatenated gzip files per [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952)). This allows you to:
+
+- Concatenate multiple gzip files and send them in a single request
+- Maintain compatibility with InfluxDB v1 and v2 write endpoints
+- Simplify batch operations using standard compression tools
+
+#### Example: Write concatenated gzip files
+
+```bash
+# Create multiple gzip files
+echo "cpu,host=server1 usage=50.0 1708976567" | gzip > batch1.gz
+echo "cpu,host=server2 usage=60.0 1708976568" | gzip > batch2.gz
+
+# Concatenate and send in a single request
+cat batch1.gz batch2.gz | curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-Encoding: gzip" \
+  --data-binary @-
+```
+
 ## Request body
 
 - Line protocol
@@ -225,4 +251,40 @@ persistence:
 ```bash
 curl "http://localhost:8181/api/v3/write_lp?db=sensors&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
+```
+
+## Response headers
+
+All HTTP responses from {{% product-name %}} include the following standard headers:
+
+### cluster-uuid
+
+The `cluster-uuid` response header contains the catalog UUID of your {{% product-name %}} instance. This header is included in all HTTP API responses, including:
+
+- Write requests (`/api/v3/write_lp`, `/api/v2/write`, `/write`)
+- Query requests
+- Administrative operations
+- Authentication failures
+- CORS preflight requests
+
+#### Use cases
+
+The `cluster-uuid` header enables you to:
+
+- **Identify cluster instances**: Programmatically determine which InfluxDB instance handled a request
+- **Monitor deployments**: Track requests across multiple InfluxDB instances in load-balanced or multi-cluster environments
+- **Debug and troubleshooting**: Correlate client requests with specific server instances in distributed systems
+
+#### Example response
+
+```bash
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0"
+```
+
+```
+< HTTP/1.1 204 No Content
+< cluster-uuid: 01234567-89ab-cdef-0123-456789abcdef
+< date: Tue, 19 Nov 2025 20:00:00 GMT
 ```

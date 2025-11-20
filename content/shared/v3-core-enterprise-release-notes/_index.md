@@ -5,6 +5,30 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.7.0 {date="2025-11-19"}
+
+### Core
+
+#### Features
+
+- **HTTP API Enhancements**:
+  - All HTTP responses now include a `cluster-uuid` header containing the catalog UUID, enabling clients to identify specific cluster instances programmatically
+  - HTTP API now supports multi-member gzip payloads enabling batch operations
+- **CLI Commands**:
+  - New `influxdb3 show retention` command displays retention policies with effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (e.g., "7d", "24h")
+
+#### Bug fixes
+
+- **Authorization**: Fixed multi-database permission handling to properly authorize queries across multiple databases. 
+
+- **General Improvements**: Several key bug fixes and performance improvements.
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+- **General Improvements**: Several key bug fixes and performance improvements.
+
 ## v3.6.0 {date="2025-10-30"}
 
 ### Core
