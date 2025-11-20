@@ -1,45 +1,163 @@
 #!/usr/bin/env node
 
 /**
- * HTML to Markdown Converter for InfluxData Documentation
+ * HTML to Markdown Converter CLI for InfluxData Documentation
  *
- * Converts Hugo-generated HTML files to clean Markdown with:
- * - Evaluated shortcodes (no raw Hugo syntax)
- * - Dereferenced shared content
- * - Removed comments
- * - Product context in frontmatter
+ * Generates LLM-friendly Markdown from Hugo-generated HTML documentation.
+ * This script is the local CLI companion to the Lambda@Edge function that serves
+ * Markdown on-demand at docs.influxdata.com.
  *
- * URL Pattern: Generates markdown at /path/to/page/index.md
- * This differs from llmstxt.org spec (/path/to/page/index.html.md) for:
- * - Cleaner URLs without .html.md extension
- * - Better integration with Hugo's native structure
- * - More intuitive file naming when downloaded
- * LLMs can easily adapt to this pattern for content retrieval.
+ * ## Architecture
  *
- * Usage:
+ * The core conversion logic lives in ./lib/markdown-converter.js, which is shared
+ * between this CLI tool and the Lambda@Edge function in deploy/llm-markdown/.
+ * This ensures local builds and production Lambda use identical conversion logic.
+ *
+ * ## Prerequisites
+ *
+ * Before running this script, you must:
+ *
+ * 1. Install dependencies:
+ *    ```bash
+ *    yarn install
+ *    ```
+ *
+ * 2. Compile TypeScript (for product mappings):
+ *    ```bash
+ *    yarn build:ts
+ *    ```
+ *
+ * 3. Build the Hugo site:
+ *    ```bash
+ *    npx hugo --quiet
+ *    ```
+ *
+ * ## Usage
+ *
+ * Basic usage:
+ *   ```bash
  *   node scripts/html-to-markdown.js [options]
+ *   ```
  *
- * Options:
- *   --path <path>    Process specific path (default: public/)
- *   --limit <n>      Limit number of files to process (for testing)
- *   --verbose        Enable verbose logging
+ * ## Options
+ *
+ *   --path <path>    Process specific content path relative to public/ directory
+ *                    Example: influxdb3/core/get-started
+ *
+ *   --limit <n>      Limit number of files to process (useful for testing)
+ *                    Example: --limit 10
+ *
+ *   --verbose        Enable detailed logging showing each file processed
+ *
+ * ## Examples
+ *
+ * Generate Markdown for all documentation:
+ *   ```bash
+ *   node scripts/html-to-markdown.js
+ *   ```
+ *
+ * Generate Markdown for InfluxDB 3 Core documentation:
+ *   ```bash
+ *   node scripts/html-to-markdown.js --path influxdb3/core
+ *   ```
+ *
+ * Generate Markdown for a specific section (testing):
+ *   ```bash
+ *   node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
+ *   ```
+ *
+ * Generate with verbose output:
+ *   ```bash
+ *   node scripts/html-to-markdown.js --path influxdb3/core --limit 5 --verbose
+ *   ```
+ *
+ * ## Output Files
+ *
+ * This script generates two types of Markdown files:
+ *
+ * 1. **Single page**: `index.md`
+ *    - Mirrors the HTML page structure
+ *    - Contains YAML frontmatter with title, description, URL, product info
+ *    - Located alongside the source `index.html`
+ *
+ * 2. **Section aggregation**: `index.section.md`
+ *    - Combines parent page + all child pages in one file
+ *    - Optimized for LLM context windows
+ *    - Only generated for pages that have child pages
+ *    - Enhanced frontmatter includes child page list and token estimate
+ *
+ * ## Frontmatter Structure
+ *
+ * Single page frontmatter:
+ *   ```yaml
+ *   ---
+ *   title: Page Title
+ *   description: Page description from meta tags
+ *   url: /influxdb3/core/path/to/page/
+ *   product: InfluxDB 3 Core
+ *   version: core
+ *   ---
+ *   ```
+ *
+ * Section aggregation frontmatter includes additional fields:
+ *   ```yaml
+ *   ---
+ *   title: Section Title
+ *   description: Section description
+ *   url: /influxdb3/core/section/
+ *   type: section
+ *   pages: 5
+ *   estimated_tokens: 12500
+ *   product: InfluxDB 3 Core
+ *   version: core
+ *   child_pages:
+ *     - url: /influxdb3/core/section/page1/
+ *       title: Page 1 Title
+ *     - url: /influxdb3/core/section/page2/
+ *       title: Page 2 Title
+ *   ---
+ *   ```
+ *
+ * ## Testing Generated Markdown
+ *
+ * Use Cypress to validate generated Markdown:
+ *   ```bash
+ *   node cypress/support/run-e2e-specs.js \
+ *     --spec "cypress/e2e/content/markdown-content-validation.cy.js"
+ *   ```
+ *
+ * ## Common Issues
+ *
+ * **Error: Directory not found**
+ *   - Solution: Run `npx hugo --quiet` first to generate HTML files
+ *
+ * **No article content found warnings**
+ *   - This is normal for alias/redirect pages
+ *   - The script skips these pages automatically
+ *
+ * **Memory issues with large builds**
+ *   - Use `--path` to process specific sections
+ *   - Use `--limit` for testing with small batches
+ *   - Script includes periodic garbage collection hints
+ *
+ * ## Related Files
+ *
+ * - Core logic: `scripts/lib/markdown-converter.js`
+ * - Lambda handler: `deploy/llm-markdown/lambda-edge/markdown-generator/index.js`
+ * - Product detection: `dist/utils/product-mappings.js` (compiled from TypeScript)
+ * - Cypress tests: `cypress/e2e/content/markdown-content-validation.cy.js`
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import TurndownService from 'turndown';
-import { JSDOM } from 'jsdom';
 import {
-  getProductFromPath,
-  initializeProductData,
-} from '../dist/utils/product-mappings.js';
+  convertToMarkdown,
+  convertSectionToMarkdown,
+} from './lib/markdown-converter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Initialize product data from YAML
-await initializeProductData();
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -57,315 +175,6 @@ for (let i = 0; i < args.length; i++) {
     options.limit = parseInt(args[++i], 10);
   } else if (args[i] === '--verbose') {
     options.verbose = true;
-  }
-}
-
-/**
- * Detect product context from URL path
- * Uses shared product mappings from assets/js/utils/product-mappings.ts
- */
-function detectProduct(urlPath) {
-  return getProductFromPath(urlPath);
-}
-
-/**
- * Configure Turndown for InfluxData documentation
- */
-function createTurndownService() {
-  const turndownService = new TurndownService({
-    headingStyle: 'atx',
-    codeBlockStyle: 'fenced',
-    fence: '```',
-    emDelimiter: '*',
-    strongDelimiter: '**',
-    // Note: linkStyle: 'inline' breaks link conversion in Turndown 7.2.2
-    // Using default 'referenced' style which works correctly
-    bulletListMarker: '-',
-  });
-
-  // Preserve code block language identifiers
-  turndownService.addRule('fencedCodeBlock', {
-    filter: function (node, options) {
-      return (
-        options.codeBlockStyle === 'fenced' &&
-        node.nodeName === 'PRE' &&
-        node.firstChild &&
-        node.firstChild.nodeName === 'CODE'
-      );
-    },
-    replacement: function (content, node, options) {
-      const code = node.firstChild;
-      const language = code.className.replace(/^language-/, '') || '';
-      const fence = options.fence;
-      return `\n\n${fence}${language}\n${code.textContent}\n${fence}\n\n`;
-    },
-  });
-
-  // Improve list item handling - ensure proper spacing
-  turndownService.addRule('listItems', {
-    filter: 'li',
-    replacement: function (content, node, options) {
-      content = content
-        .replace(/^\n+/, '') // Remove leading newlines
-        .replace(/\n+$/, '\n') // Single trailing newline
-        .replace(/\n/gm, '\n    '); // Indent nested content
-
-      let prefix = options.bulletListMarker + '   '; // Dash + 3 spaces for unordered lists
-      const parent = node.parentNode;
-
-      if (parent.nodeName === 'OL') {
-        const start = parent.getAttribute('start');
-        const index = Array.prototype.indexOf.call(parent.children, node);
-        prefix = (start ? Number(start) + index : index + 1) + '. ';
-      }
-
-      return (
-        prefix +
-        content +
-        (node.nextSibling && !/\n$/.test(content) ? '\n' : '')
-      );
-    },
-  });
-
-  // Convert HTML tables to Markdown tables
-  turndownService.addRule('tables', {
-    filter: 'table',
-    replacement: function (content, node) {
-      // Get all rows from tbody and thead
-      const theadRows = Array.from(node.querySelectorAll('thead tr'));
-      const tbodyRows = Array.from(node.querySelectorAll('tbody tr'));
-
-      // If no thead/tbody, fall back to all tr elements
-      const allRows =
-        theadRows.length || tbodyRows.length
-          ? [...theadRows, ...tbodyRows]
-          : Array.from(node.querySelectorAll('tr'));
-
-      if (allRows.length === 0) return '';
-
-      // Extract headers from first row
-      const headerRow = allRows[0];
-      const headers = Array.from(headerRow.querySelectorAll('th, td')).map(
-        (cell) => cell.textContent.trim()
-      );
-
-      // Build separator row
-      const separator = headers.map(() => '---').join(' | ');
-
-      // Extract data rows (skip first row which is the header)
-      const dataRows = allRows
-        .slice(1)
-        .map((row) => {
-          const cells = Array.from(row.querySelectorAll('td, th')).map((cell) =>
-            cell.textContent.trim().replace(/\n/g, ' ')
-          );
-          return '| ' + cells.join(' | ') + ' |';
-        })
-        .join('\n');
-
-      return (
-        '\n| ' +
-        headers.join(' | ') +
-        ' |\n| ' +
-        separator +
-        ' |\n' +
-        dataRows +
-        '\n\n'
-      );
-    },
-  });
-
-  // Handle GitHub-style callouts (notes, warnings, etc.)
-  turndownService.addRule('githubCallouts', {
-    filter: function (node) {
-      return (
-        node.nodeName === 'BLOCKQUOTE' &&
-        node.classList &&
-        (node.classList.contains('note') ||
-          node.classList.contains('warning') ||
-          node.classList.contains('important') ||
-          node.classList.contains('tip') ||
-          node.classList.contains('caution'))
-      );
-    },
-    replacement: function (content, node) {
-      const type = Array.from(node.classList).find((c) =>
-        ['note', 'warning', 'important', 'tip', 'caution'].includes(c)
-      );
-      const emoji =
-        {
-          note: 'Note',
-          warning: 'Warning',
-          caution: 'Caution',
-          important: 'Important',
-          tip: 'Tip',
-        }[type] || 'Note';
-
-      return `\n> [!${emoji}]\n> ${content.trim().replace(/\n/g, '\n> ')}\n\n`;
-    },
-  });
-
-  // Remove navigation, footer, and other non-content elements
-  turndownService.remove([
-    'nav',
-    'header',
-    'footer',
-    'script',
-    'style',
-    'noscript',
-    'iframe',
-    '.format-selector', // Remove format selector buttons (Copy page, etc.)
-    '.page-feedback', // Remove page feedback form
-    '#page-feedback', // Remove feedback modal
-  ]);
-
-  return turndownService;
-}
-
-/**
- * Extract article content from HTML
- */
-function extractArticleContent(htmlContent, filePath) {
-  const dom = new JSDOM(htmlContent);
-  const document = dom.window.document;
-
-  try {
-    // Find the main article content
-    const article = document.querySelector('article.article--content');
-    if (!article) {
-      if (options.verbose) {
-        console.warn(`  ⚠️  No article content found in ${filePath}`);
-      }
-      return null;
-    }
-
-    // Remove unwanted elements from article before conversion
-    const elementsToRemove = [
-      '.format-selector', // Remove format selector buttons
-      '.page-feedback', // Remove page feedback form
-      '#page-feedback', // Remove feedback modal
-      '.feedback-widget', // Remove any feedback widgets
-      '.helpful', // Remove "Was this page helpful?" section
-      '.feedback.block', // Remove footer feedback/support section
-      'hr', // Remove horizontal rules (often used as separators before footer)
-    ];
-
-    elementsToRemove.forEach((selector) => {
-      const elements = article.querySelectorAll(selector);
-      elements.forEach((el) => el.remove());
-    });
-
-    // Extract metadata
-    const title =
-      document.querySelector('h1')?.textContent?.trim() ||
-      document.querySelector('title')?.textContent?.trim() ||
-      'Untitled';
-
-    const description =
-      document
-        .querySelector('meta[name="description"]')
-        ?.getAttribute('content') ||
-      document
-        .querySelector('meta[property="og:description"]')
-        ?.getAttribute('content') ||
-      '';
-
-    // Get the content before closing the DOM
-    const content = article.innerHTML;
-
-    return {
-      title,
-      description,
-      content,
-    };
-  } finally {
-    // Clean up JSDOM to prevent memory leaks
-    dom.window.close();
-  }
-}
-
-/**
- * Generate frontmatter for markdown file
- */
-function generateFrontmatter(metadata, urlPath) {
-  const product = detectProduct(urlPath);
-  const frontmatter = ['---'];
-
-  frontmatter.push(`title: ${metadata.title}`);
-  if (metadata.description) {
-    frontmatter.push(`description: ${metadata.description}`);
-  }
-  frontmatter.push(`url: ${urlPath}`);
-
-  if (product) {
-    frontmatter.push(`product: ${product.name}`);
-    frontmatter.push(`product_version: ${product.version}`);
-  }
-
-  const now = new Date().toISOString().split('T')[0];
-  frontmatter.push(`date: ${now}`);
-  frontmatter.push(`lastmod: ${now}`);
-
-  frontmatter.push('---');
-  frontmatter.push('');
-
-  return frontmatter.join('\n');
-}
-
-/**
- * Convert single HTML file to Markdown
- */
-function convertHtmlToMarkdown(htmlFilePath) {
-  try {
-    const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
-
-    // Derive URL path from file path
-    const relativePath = path.relative(options.publicDir, htmlFilePath);
-    const urlPath =
-      '/' + relativePath.replace(/\/index\.html$/, '/').replace(/\\/g, '/');
-
-    // Extract article content
-    const metadata = extractArticleContent(htmlContent, htmlFilePath);
-    if (!metadata) {
-      return null;
-    }
-
-    // Convert HTML to Markdown
-    const turndownService = createTurndownService();
-    let markdownContent = turndownService.turndown(metadata.content);
-
-    // Clean up extra whitespace and unwanted elements
-    markdownContent = markdownContent
-      .replace(/\n{3,}/g, '\n\n') // Max 2 consecutive newlines
-      .replace(/\* \* \*\s*\n\s*\* \* \*/g, '') // Remove duplicate horizontal rules
-      .replace(/\* \* \*\s*$/g, '') // Remove trailing horizontal rules
-      .trim();
-
-    // Generate frontmatter
-    const frontmatter = generateFrontmatter(metadata, urlPath);
-
-    // Add product context header
-    const product = detectProduct(urlPath);
-    let productHeader = '';
-    if (product) {
-      productHeader = `\n**Product**: ${product.name} (${product.version})\n\n`;
-    }
-
-    // Combine frontmatter + content
-    const fullMarkdown = frontmatter + productHeader + markdownContent;
-
-    // Write to index.md in same directory
-    const markdownFilePath = htmlFilePath.replace(/index\.html$/, 'index.md');
-    fs.writeFileSync(markdownFilePath, fullMarkdown, 'utf-8');
-
-    if (options.verbose) {
-      console.log(`  ✓ Converted: ${relativePath}`);
-    }
-
-    return markdownFilePath;
-  } catch (error) {
-    console.error(`  ✗ Error converting ${htmlFilePath}:`, error.message);
-    return null;
   }
 }
 
@@ -418,71 +227,49 @@ function findChildPages(sectionPath) {
 }
 
 /**
- * Generate enhanced frontmatter for section aggregation
+ * Convert single HTML file to Markdown using the shared library
  */
-function generateSectionFrontmatter(metadata, urlPath, childPages) {
-  const product = detectProduct(urlPath);
-  const frontmatter = ['---'];
+function convertHtmlFileToMarkdown(htmlFilePath) {
+  try {
+    const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
 
-  frontmatter.push(`title: ${metadata.title} (Complete Section)`);
-  if (metadata.description) {
-    frontmatter.push(`description: ${metadata.description}`);
-  }
-  frontmatter.push(`url: ${urlPath}`);
+    // Derive URL path from file path
+    const relativePath = path.relative(options.publicDir, htmlFilePath);
+    const urlPath =
+      '/' + relativePath.replace(/\/index\.html$/, '/').replace(/\\/g, '/');
 
-  if (product) {
-    frontmatter.push(`product: ${product.name}`);
-    frontmatter.push(`product_version: ${product.version}`);
-  }
-
-  frontmatter.push('section_type: aggregated');
-  frontmatter.push(`child_count: ${childPages.length}`);
-
-  // Add child page metadata
-  frontmatter.push('child_pages:');
-  childPages.forEach((childPath) => {
-    const childUrlPath =
-      '/' +
-      path
-        .relative(options.publicDir, childPath)
-        .replace(/\/index\.html$/, '/')
-        .replace(/\\/g, '/');
-
-    // Extract child page title
-    try {
-      const childHtml = fs.readFileSync(childPath, 'utf-8');
-      const childDom = new JSDOM(childHtml);
-      const childTitle =
-        childDom.window.document.querySelector('h1')?.textContent?.trim() ||
-        path.basename(path.dirname(childPath));
-      childDom.window.close();
-
-      frontmatter.push(`  - url: ${childUrlPath}`);
-      frontmatter.push(`    title: ${childTitle}`);
-    } catch (error) {
-      // Skip if we can't read the child page
+    // Use shared conversion function
+    const markdown = convertToMarkdown(htmlContent, urlPath);
+    if (!markdown) {
+      return null;
     }
-  });
 
-  const now = new Date().toISOString().split('T')[0];
-  frontmatter.push(`date: ${now}`);
-  frontmatter.push(`lastmod: ${now}`);
+    // Write to index.md in same directory
+    const markdownFilePath = htmlFilePath.replace(/index\.html$/, 'index.md');
+    fs.writeFileSync(markdownFilePath, markdown, 'utf-8');
 
-  frontmatter.push('---');
-  frontmatter.push('');
+    if (options.verbose) {
+      console.log(`  ✓ Converted: ${relativePath}`);
+    }
 
-  return frontmatter.join('\n');
+    return markdownFilePath;
+  } catch (error) {
+    console.error(`  ✗ Error converting ${htmlFilePath}:`, error.message);
+    return null;
+  }
 }
 
 /**
- * Aggregate section and child page markdown
+ * Aggregate section and child page markdown using the shared library
  */
 function aggregateSectionMarkdown(sectionHtmlPath) {
   try {
     const sectionDir = path.dirname(sectionHtmlPath);
 
-    // Convert section's own content
+    // Read section HTML
     const sectionHtml = fs.readFileSync(sectionHtmlPath, 'utf-8');
+
+    // Derive URL path
     const sectionUrlPath =
       '/' +
       path
@@ -490,71 +277,36 @@ function aggregateSectionMarkdown(sectionHtmlPath) {
         .replace(/\/index\.html$/, '/')
         .replace(/\\/g, '/');
 
-    const sectionMetadata = extractArticleContent(sectionHtml, sectionHtmlPath);
-    if (!sectionMetadata) {
-      return null;
-    }
+    // Find and read child pages
+    const childPaths = findChildPages(sectionDir);
+    const childHtmls = [];
 
-    const turndownService = createTurndownService();
-    let sectionMarkdown = turndownService.turndown(sectionMetadata.content);
-    sectionMarkdown = sectionMarkdown
-      .replace(/\n{3,}/g, '\n\n')
-      .replace(/\* \* \*\s*\n\s*\* \* \*/g, '')
-      .replace(/\* \* \*\s*$/g, '')
-      .trim();
-
-    // Find and convert child pages
-    const childPages = findChildPages(sectionDir);
-    const childContents = [];
-
-    for (const childPath of childPages) {
+    for (const childPath of childPaths) {
       try {
         const childHtml = fs.readFileSync(childPath, 'utf-8');
-        const childMetadata = extractArticleContent(childHtml, childPath);
+        const childUrl =
+          '/' +
+          path
+            .relative(options.publicDir, childPath)
+            .replace(/\/index\.html$/, '/')
+            .replace(/\\/g, '/');
 
-        if (childMetadata) {
-          let childMarkdown = turndownService.turndown(childMetadata.content);
-          childMarkdown = childMarkdown
-            .replace(/\n{3,}/g, '\n\n')
-            .replace(/\* \* \*\s*\n\s*\* \* \*/g, '')
-            .replace(/\* \* \*\s*$/g, '')
-            .trim();
-
-          // Remove the first h1 heading (page title) to avoid redundancy
-          // since we're adding it as an h2 heading
-          childMarkdown = childMarkdown.replace(/^#\s+.+?\n+/, '');
-
-          // Add child page title as heading
-          childContents.push(`## ${childMetadata.title}\n\n${childMarkdown}`);
-        }
+        childHtmls.push({ html: childHtml, url: childUrl });
       } catch (error) {
         if (options.verbose) {
-          console.warn(`  ⚠️  Could not convert child page: ${childPath}`);
+          console.warn(`  ⚠️  Could not read child page: ${childPath}`);
         }
       }
     }
 
-    // Combine section and child content with separators
-    const separator = '\n\n---\n\n';
-    const aggregatedContent = [sectionMarkdown, ...childContents].join(
-      separator
-    );
-
-    // Generate enhanced frontmatter
-    const frontmatter = generateSectionFrontmatter(
-      sectionMetadata,
+    // Use shared conversion function
+    const markdown = convertSectionToMarkdown(
+      sectionHtml,
       sectionUrlPath,
-      childPages
+      childHtmls
     );
 
-    // Add product context header
-    const product = detectProduct(sectionUrlPath);
-    let productHeader = '';
-    if (product) {
-      productHeader = `\n**Product**: ${product.name} (${product.version})\n\n`;
-    }
-
-    return frontmatter + productHeader + aggregatedContent;
+    return markdown;
   } catch (error) {
     console.error(
       `Error aggregating section ${sectionHtmlPath}:`,
@@ -637,7 +389,7 @@ function main() {
     }
 
     // Generate regular index.md
-    const result = convertHtmlToMarkdown(htmlFile);
+    const result = convertHtmlFileToMarkdown(htmlFile);
     if (result) {
       converted++;
     } else {
