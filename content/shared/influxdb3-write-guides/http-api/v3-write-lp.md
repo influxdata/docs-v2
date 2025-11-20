@@ -21,9 +21,6 @@ syntax as previous versions of InfluxDB, and supports the following:
   - `millisecond` (milliseconds)
   - `second` (seconds)
 
-> \[!Note]
-> A bug currently prevents abbreviated precision values (`ns`, `n`, `us`, `u`, `ms`, `s`) from working with the `/api/v3/write_lp` endpoint. Use the full names (`nanosecond`, `microsecond`, `millisecond`, `second`) instead. Abbreviated values will be supported in a future release.
-
 ### Auto precision detection
 
 When you use `precision=auto` (or omit the parameter), {{% product-name %}} automatically detects the timestamp precision based on the magnitude of the timestamp value:
