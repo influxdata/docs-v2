@@ -24,8 +24,7 @@ to view information about all {{< product-name omit=" Clustered" >}} clusters as
 [influxctl](#)
 {{% /tabs %}}
 {{% tab-content %}}
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 ### View cluster details
 

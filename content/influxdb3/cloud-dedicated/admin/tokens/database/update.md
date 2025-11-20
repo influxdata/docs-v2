@@ -74,8 +74,7 @@ Through this portal, administrators can edit a token's permissions to:
 
 ### Open the Edit Database Token dialog
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 The Database Tokens portal displays the [list of database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/list/) associated with the cluster.
     Use the sort and filter options above the list to find a specific token.

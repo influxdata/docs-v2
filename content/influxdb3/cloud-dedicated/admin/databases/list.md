@@ -35,8 +35,7 @@ or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/) to list
 [Management API](#)
 {{% /tabs %}}
 {{% tab-content %}}
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 The database list displays the following database details:
 

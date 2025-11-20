@@ -28,8 +28,7 @@ Use the {{% product-name %}} Admin UI to manage users and control access to your
 
 ## Access the Users page
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-users.png" alt="InfluxDB Cloud Dedicated Admin UI users" />}}
 

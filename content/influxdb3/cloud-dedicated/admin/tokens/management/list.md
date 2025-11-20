@@ -30,8 +30,7 @@ to list manually-created management tokens.
 The InfluxDB Cloud Dedicated administrative UI includes a portal for creating
 and managing management tokens.
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-management-tokens.png" alt="InfluxDB Cloud Dedicated Admin UI management tokens" />}}
 

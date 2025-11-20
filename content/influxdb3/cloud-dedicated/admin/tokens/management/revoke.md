@@ -28,8 +28,7 @@ to revoke a management token and remove all access associated with the token.
 <!------------------------------BEGIN ADMIN UI ------------------------------>
 The {{% product-name %}} administrative UI includes a portal for managing management tokens.
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 **Search** for the token or use the sort button and column headers to sort the token list and find the token you want to revoke.
 5.  Click the options button (three vertical dots) to the right of the token you want to revoke.

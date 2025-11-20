@@ -53,8 +53,7 @@ The InfluxDB Cloud Dedicated administrative UI includes a portal for managing
 tables. You can view the list of tables associated with a database and
 their details.
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-tables.png" alt="InfluxDB Cloud Dedicated Admin UI tables list" />}}
 

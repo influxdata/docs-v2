@@ -19,8 +19,7 @@ weight: 104
 
 The Admin UI **Overview** page provides real-time monitoring of your cluster's performance and resource usage.
 
-Access the InfluxDB Cloud Dedicated Admin UI at [console.influxdata.com](https://console.influxdata.com).
-If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-overview.png" alt="InfluxDB Cloud Dedicated Admin UI cluster overview" />}}
 
