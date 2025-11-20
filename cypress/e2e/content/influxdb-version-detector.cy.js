@@ -139,13 +139,15 @@ describe('InfluxDB Version Detector Component', function () {
   // Each describe block will visit the page once
 
   describe('Component Data Attributes', function () {
-    beforeEach(() => {
-      cy.visit('/test-version-detector/');
-      // The trigger is an anchor element with .btn class, not a button
-      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
-    });
-
     it('should not throw JavaScript console errors', function () {
+      cy.visit('/test-version-detector/');
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for modal to be visible
+      cy.get('[data-component="influxdb-version-detector"]', {
+        timeout: 5000,
+      }).should('be.visible');
+
       cy.window().then((win) => {
         const logs = [];
         const originalError = win.console.error;
@@ -177,7 +179,10 @@ describe('InfluxDB Version Detector Component', function () {
       cy.get('[data-component="influxdb-version-detector"]')
         .eq(0)
         .within(() => {
-          cy.get('.option-button').contains('Yes, I know the URL').click();
+          cy.get('#q-url-known .option-button')
+            .contains('Yes, I know the URL')
+            .should('be.visible')
+            .click();
           it('should suggest legacy editions for custom URL or hostname', function () {
             cy.get('#url-input', { timeout: 10000 })
               .clear()
@@ -358,8 +363,23 @@ describe('InfluxDB Version Detector Component', function () {
     });
 
     it('should handle cloud context detection', function () {
-      // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.visit('/test-version-detector/');
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for the button within the modal and question to be interactable
+      cy.get('[data-component="influxdb-version-detector"]', { timeout: 5000 })
+        .should('be.visible')
+        .within(() => {
+          cy.get('#q-url-known', { timeout: 5000 })
+            .should('be.visible')
+            .within(() => {
+              cy.contains('.option-button', 'Yes, I know the URL', {
+                timeout: 5000,
+              })
+                .should('be.visible')
+                .click();
+            });
+        });
 
       // Wait for URL input question to appear and then enter cloud context
       cy.get('#q-url-input', { timeout: 10000 }).should('be.visible');
@@ -367,7 +387,7 @@ describe('InfluxDB Version Detector Component', function () {
         .should('be.visible')
         .clear()
         .type('cloud 2');
-      cy.get('.submit-button').click();
+      cy.get('#q-url-input .submit-button').click();
 
       // Should proceed to next step - either show result or start questionnaire
       // Don't be too specific about what happens next, just verify it progresses
@@ -381,8 +401,23 @@ describe('InfluxDB Version Detector Component', function () {
     });
 
     it('should handle v3 port detection', function () {
-      // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.visit('/test-version-detector/');
+      cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for the button within the modal and question to be interactable
+      cy.get('[data-component="influxdb-version-detector"]', { timeout: 5000 })
+        .should('be.visible')
+        .within(() => {
+          cy.get('#q-url-known', { timeout: 5000 })
+            .should('be.visible')
+            .within(() => {
+              cy.contains('.option-button', 'Yes, I know the URL', {
+                timeout: 5000,
+              })
+                .should('be.visible')
+                .click();
+            });
+        });
 
       // Wait for URL input question to appear and then test v3 port detection (8181)
       cy.get('#q-url-input', { timeout: 10000 }).should('be.visible');
@@ -390,7 +425,7 @@ describe('InfluxDB Version Detector Component', function () {
         .should('be.visible')
         .clear()
         .type('http://localhost:8181');
-      cy.get('.submit-button').click();
+      cy.get('#q-url-input .submit-button').click();
 
       // Should progress to either result or questionnaire
       cy.get('body', { timeout: 15000 }).then(($body) => {
@@ -408,10 +443,18 @@ describe('InfluxDB Version Detector Component', function () {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for modal to be visible
+      cy.get('[data-component="influxdb-version-detector"]', {
+        timeout: 5000,
+      }).should('be.visible');
     });
     it('should start questionnaire for unknown URL', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
@@ -422,7 +465,10 @@ describe('InfluxDB Version Detector Component', function () {
 
     it('should complete basic questionnaire flow', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       // Start questionnaire
       cy.get('#url-input')
@@ -469,7 +515,10 @@ describe('InfluxDB Version Detector Component', function () {
 
     it('should NOT recommend InfluxDB 3 for Flux users (regression test)', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       cy.get('#url-input').should('be.visible').clear().type('cloud 2');
       cy.get('.submit-button').click();
@@ -639,7 +688,10 @@ describe('InfluxDB Version Detector Component', function () {
     questionnaireScenarios.forEach((scenario) => {
       it(`should handle questionnaire scenario: ${scenario.name}`, function () {
         // Click "Yes, I know the URL" first
-        cy.get('.option-button').contains('Yes, I know the URL').click();
+        cy.get('#q-url-known .option-button')
+          .contains('Yes, I know the URL')
+          .should('be.visible')
+          .click();
 
         // Start questionnaire
         cy.get('#url-input').clear().type('https://unknown-server.com:9999');
@@ -669,7 +721,10 @@ describe('InfluxDB Version Detector Component', function () {
 
       it('should NOT recommend InfluxDB 3 for 5+ year installations (time-aware)', function () {
         // Click "Yes, I know the URL" first
-        cy.get('.option-button').contains('Yes, I know the URL').click();
+        cy.get('#q-url-known .option-button')
+          .contains('Yes, I know the URL')
+          .should('be.visible')
+          .click();
 
         cy.get('#url-input').clear().type('https://unknown-server.com:9999');
         cy.get('.submit-button').click();
@@ -693,7 +748,10 @@ describe('InfluxDB Version Detector Component', function () {
 
     it('should apply -100 Flux penalty to InfluxDB 3 products', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       cy.get('#url-input').clear().type('https://unknown-server.com:9999');
       cy.get('.submit-button').click();
@@ -716,7 +774,10 @@ describe('InfluxDB Version Detector Component', function () {
       const cloudPatterns = ['cloud 2', 'cloud v2', 'influxdb cloud 2'];
 
       // Test first pattern in current session
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
       cy.get('#url-input').clear().type(cloudPatterns[0]);
       cy.get('.submit-button').click();
       cy.get('.question.active').should('be.visible');
@@ -725,7 +786,10 @@ describe('InfluxDB Version Detector Component', function () {
     // Navigation and interaction tests
     it('should allow going back through questionnaire questions', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       // Start questionnaire
       cy.get('#url-input').clear().type('https://unknown-server.com:9999');
@@ -747,7 +811,10 @@ describe('InfluxDB Version Detector Component', function () {
 
     it('should allow restarting questionnaire from results', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       // Complete a questionnaire
       cy.get('#url-input').clear().type('https://unknown-server.com:9999');
@@ -779,11 +846,19 @@ describe('InfluxDB Version Detector Component', function () {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for modal to be visible
+      cy.get('[data-component="influxdb-version-detector"]', {
+        timeout: 5000,
+      }).should('be.visible');
     });
 
     it('should handle empty URL input gracefully', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       cy.get('#url-input').clear();
       cy.get('.submit-button').click();
@@ -794,7 +869,10 @@ describe('InfluxDB Version Detector Component', function () {
 
     it('should handle invalid URL format gracefully', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       cy.get('#url-input').clear().type('not-a-valid-url');
       cy.get('.submit-button').click();
@@ -809,11 +887,19 @@ describe('InfluxDB Version Detector Component', function () {
       cy.visit('/test-version-detector/');
       // The trigger is an anchor element with .btn class, not a button
       cy.contains(modalTriggerSelector, 'Detect my InfluxDB version').click();
+
+      // Wait for modal to be visible
+      cy.get('[data-component="influxdb-version-detector"]', {
+        timeout: 5000,
+      }).should('be.visible');
     });
 
     it('should only show InfluxDB 3 products when SQL is selected', function () {
       // Click "Yes, I know the URL" first
-      cy.get('.option-button').contains('Yes, I know the URL').click();
+      cy.get('#q-url-known .option-button')
+        .contains('Yes, I know the URL')
+        .should('be.visible')
+        .click();
 
       // Start questionnaire with unknown URL
       cy.get('#url-input').clear().type('https://unknown-server.com:9999');

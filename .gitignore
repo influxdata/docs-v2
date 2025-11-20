@@ -45,3 +45,7 @@ tmp
 
 # External repos
 .ext/*
+
+# Lambda deployment artifacts
+deploy/llm-markdown/lambda-edge/markdown-generator/*.zip
+deploy/llm-markdown/lambda-edge/markdown-generator/package-lock.json

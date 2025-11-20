@@ -4,5 +4,5 @@ routes:
       headers:
          Cache-Control: "max-age=630720000, no-transform, public"
       gzip: true
-    - route: "^.+\\.(html|xml|json|js)$"
+    - route: "^.+\\.(html|xml|json|js|md)$"
       gzip: true

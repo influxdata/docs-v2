@@ -55,6 +55,24 @@ outputFormats:
     mediaType: application/json
     baseName: pages
     isPlainText: true
+  llmstxt:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+    suffixes:
+      - txt
+
+outputs:
+  page:
+    - HTML
+  section:
+    - HTML
+    - llmstxt
+  home:
+    - HTML
+    - llmstxt
 
 # Asset processing configuration for development
 build:
