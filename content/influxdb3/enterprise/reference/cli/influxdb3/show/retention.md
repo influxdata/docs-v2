@@ -1,7 +1,7 @@
 ---
 title: influxdb3 show retention
 description: >
-  The `influxdb3 show retention` command displays retention policies and effective
+  The `influxdb3 show retention` command displays effective
   retention periods for tables in your InfluxDB 3 Enterprise server.
 menu:
   influxdb3_enterprise:
@@ -12,5 +12,5 @@ source: /shared/influxdb3-cli/show/retention.md
 ---
 
 <!--
-The content of this file is at content/shared/influxdb3-cli/show/retention.md
+//SOURCE content/shared/influxdb3-cli/show/retention.md
 -->

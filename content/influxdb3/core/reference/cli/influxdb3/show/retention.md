@@ -12,5 +12,5 @@ source: /shared/influxdb3-cli/show/retention.md
 ---
 
 <!--
-The content of this file is at content/shared/influxdb3-cli/show/retention.md
+//SOURCE content/shared/influxdb3-cli/show/retention.md
 -->
