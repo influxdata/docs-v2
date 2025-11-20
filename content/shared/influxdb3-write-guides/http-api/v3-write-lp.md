@@ -21,9 +21,6 @@ syntax as previous versions of InfluxDB, and supports the following:
   - `millisecond` (milliseconds)
   - `second` (seconds)
 
-> [!Note]
-> A bug currently prevents abbreviated precision values (`ns`, `n`, `us`, `u`, `ms`, `s`) from working with the `/api/v3/write_lp` endpoint. Use the full names (`nanosecond`, `microsecond`, `millisecond`, `second`) instead. Abbreviated values will be supported in a future release.
-
 ### Auto precision detection
 
 When you use `precision=auto` (or omit the parameter), {{% product-name %}} automatically detects the timestamp precision based on the magnitude of the timestamp value:
@@ -45,6 +42,7 @@ The following examples show how to write data with different timestamp precision
 [Seconds](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
 ```bash
 # Auto precision (default) - timestamp magnitude determines precision
 curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
@@ -55,30 +53,64 @@ curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
 The timestamp `1708976567` is automatically detected as seconds.
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```bash
 # Explicit nanosecond precision
 curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=nanosecond" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567000000000"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```bash
 # Millisecond precision
 curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=millisecond" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567000"
 ```
+
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
+
 ```bash
 # Second precision
 curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-raw "cpu,host=server1 usage=50.0 1708976567"
 ```
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+## Configure gzip compression
+
+The `/api/v3/write_lp` endpoint supports gzip-encoded request bodies for efficient data transfer.
+
+When sending gzip-compressed data to InfluxDB, include the `Content-Encoding: gzip` header in your InfluxDB API request.
+
+### Multi-member gzip support
+
+{{% product-name %}} supports multi-member gzip payloads (concatenated gzip files per [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952)). This allows you to:
+
+- Concatenate multiple gzip files and send them in a single request
+- Maintain compatibility with InfluxDB v1 and v2 write endpoints
+- Simplify batch operations using standard compression tools
+
+#### Example: Write concatenated gzip files
+
+```bash
+# Create multiple gzip files
+echo "cpu,host=server1 usage=50.0 1708976567" | gzip > batch1.gz
+echo "cpu,host=server2 usage=60.0 1708976568" | gzip > batch2.gz
+
+# Concatenate and send in a single request
+cat batch1.gz batch2.gz | curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --header "Content-Encoding: gzip" \
+  --data-binary @-
+```
 
 ## Request body
 
@@ -86,10 +118,11 @@ curl "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" 
 
 {{<api-endpoint endpoint="/api/v3/write_lp?db=mydb&precision=nanosecond&accept_partial=true&no_sync=false" method="post" >}}
 
-_The following example uses [cURL](https://curl.se/) to send a write request using
-the {{< influxdb3/home-sample-link >}}, but you can use any HTTP client._
+*The following example uses [cURL](https://curl.se/) to send a write request using
+the {{< influxdb3/home-sample-link >}}, but you can use any HTTP client.*
 
 {{% influxdb/custom-timestamps %}}
+
 ```bash
 curl -v "http://{{< influxdb/host >}}/api/v3/write_lp?db=sensors&precision=second" \
   --data-raw "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1735545600
@@ -119,15 +152,17 @@ home,room=Kitchen temp=23.1,hum=36.6,co=22i 1735585200
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1735588800
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1735588800"
 ```
+
 {{% /influxdb/custom-timestamps %}}
 
 - [Partial writes](#partial-writes)
   - [Accept partial writes](#accept-partial-writes)
   - [Do not accept partial writes](#do-not-accept-partial-writes)
 - [Write responses](#write-responses)
-  - [Use no_sync for immediate write responses](#use-no_sync-for-immediate-write-responses)
+  - [Use no\_sync for immediate write responses](#use-no_sync-for-immediate-write-responses)
 
-> [!Note]
+> \[!Note]
+>
 > #### InfluxDB client libraries
 >
 > InfluxData provides supported InfluxDB 3 client libraries that you can
@@ -176,7 +211,7 @@ With `accept_partial=true` (default), InfluxDB:
 
 With `accept_partial=false`, InfluxDB:
 
-- Rejects _all_ points in the batch
+- Rejects *all* points in the batch
 - Returns a `400 Bad Request` status code and the following response body:
 
 ```
@@ -192,8 +227,8 @@ With `accept_partial=false`, InfluxDB:
 }
 ```
 
-_For more information about the ingest path and data flow, see
-[Data durability](/influxdb3/version/reference/internals/durability/)._
+*For more information about the ingest path and data flow, see
+[Data durability](/influxdb3/version/reference/internals/durability/).*
 
 ## Write responses
 
@@ -201,23 +236,23 @@ By default, {{% product-name %}} acknowledges writes after flushing the WAL file
 to the Object store (occurring every second).
 For high write throughput, you can send multiple concurrent write requests.
 
-### Use no_sync for immediate write responses
+### Use no\_sync for immediate write responses
 
 To reduce the latency of writes, use the `no_sync` write option, which
-acknowledges writes _before_ WAL persistence completes.
+acknowledges writes *before* WAL persistence completes.
 When `no_sync=true`, InfluxDB validates the data, writes the data to the WAL,
 and then immediately responds to the client, without waiting for persistence to
 the Object store.
 
-> [!Tip]
+> \[!Tip]
 > Using `no_sync=true` is best when prioritizing high-throughput writes over
-> absolute durability. 
+> absolute durability.
 
 - Default behavior (`no_sync=false`): Waits for data to be written to the Object
   store before acknowledging the write. Reduces the risk of data loss, but
   increases the latency of the response.
 - With `no_sync=true`: Reduces write latency, but increases the risk of data
-  loss in case of a crash before WAL persistence. 
+  loss in case of a crash before WAL persistence.
 
 The following example immediately returns a response without waiting for WAL
 persistence:
@@ -225,4 +260,42 @@ persistence:
 ```bash
 curl "http://localhost:8181/api/v3/write_lp?db=sensors&no_sync=true" \
   --data-raw "home,room=Sunroom temp=96"
+```
+
+## Response headers
+
+All HTTP responses from {{% product-name %}} include the following standard headers:
+
+### cluster-uuid
+
+The `cluster-uuid` response header contains the catalog UUID of your {{% product-name %}} instance. This header is included in all HTTP API responses, including:
+
+- Write requests (`/api/v3/write_lp`, `/api/v2/write`, `/write`)
+- Query requests
+- Administrative operations
+- Authentication failures
+- CORS preflight requests
+
+#### Use cases
+
+The `cluster-uuid` header enables you to:
+
+- **Identify cluster instances**: Programmatically determine which InfluxDB instance handled a request
+- **Monitor deployments**: Track requests across multiple InfluxDB instances in load-balanced or multi-cluster environments
+- **Debug and troubleshooting**: Correlate client requests with specific server instances in distributed systems
+
+#### Example response
+
+```bash
+curl -v "http://localhost:8181/api/v3/write_lp?db=sensors" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
+  --data-raw "cpu,host=server1 usage=50.0"
+```
+
+The response headers contain the `cluster-uuid`:
+
+```
+< HTTP/1.1 204 No Content
+< cluster-uuid: 01234567-89ab-cdef-0123-456789abcdef
+< date: Tue, 19 Nov 2025 20:00:00 GMT
 ```
