@@ -65,13 +65,14 @@ managing databases.
    </pre>
 2. Use the credentials provided by InfluxData to log into the Admin UI.
    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-3. In the cluster list, find the cluster you want to create a database in. You
-   can sort on column headers or use the **Search** field to find a specific cluster.
-4.  Click the options button (three vertical dots) to the right of the token you want to revoke.
+3. In the database list, find the database you want to delete. You
+   can sort on column headers or use the **Search** field to find a specific database.
+4.  Click the options button (three vertical dots) to the right of the database you want to delete.
     The options menu displays.
-5.  In the options menu, click **Delete Database**. The **Delete Database** dialog displays. 
+5.  In the options menu, click **Delete Database**. The **Delete Database** dialog displays.
 6.  In the **Delete Database** dialog, check the box to confirm that you "understand the risk of this action".
-7.  Click the **Delete Database** button to delete the database.
+7.  In the **Enter Database Name to Delete** field, type the name of the database to confirm deletion.
+8.  Click the **Delete Database** button to delete the database.
 
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-delete-database.png" alt="Create database dialog" />}} 
 {{% /tab-content %}}

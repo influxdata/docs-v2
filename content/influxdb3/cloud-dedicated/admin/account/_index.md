@@ -14,11 +14,11 @@ influxdb3/cloud-dedicated/tags: [clusters]
 Use the Admin UI for {{% product-name %}} to view information for your {{% product-name omit="InfluxDB " %}} account.
 Your {{% product-name %}} account is a collection of {{% product-name omit="Clustered "%}} clusters and associated resources.
 
-- [Access and Navigate the Admin UI](#access-and-navigate-the-admin-ui)
+- [Access and navigate the Admin UI](#access-and-navigate-the-admin-ui)
 - [Account and cluster management](#account-and-cluster-management)
 - [Get help and support](#get-help-and-support)
 
-## Access and Navigate the Admin UI
+## Access and navigate the Admin UI
 
 {{< admin-ui-access >}}
 

@@ -39,8 +39,8 @@ Use the Admin UI, the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli
 or the [Management HTTP API](/influxdb3/cloud-dedicated/api/management/)
 to list database tokens in your {{< product-name omit=" Clustered" >}} cluster.
 
-[List database tokens](#list-database-tokens)
-[Retrieve a database token by ID](#retrieve-a-database-token-by-id)
+- [List database tokens](#list-database-tokens)
+- [Retrieve a database token by ID](#retrieve-a-database-token-by-id)
 
 ## List database tokens
 
