@@ -59,15 +59,16 @@ Administrators can use this portal to:
 {{< admin-ui-access >}}
 
 The Database Tokens portal displays the [list of database tokens](/influxdb3/cloud-dedicated/admin/tokens/database/list/) associated with the cluster.
-    Use the sort and filter options above the list to find a specific token.
-7.  Click the **Options** button (three vertical dots) to the right of the token you want to revoke.
-8.  In the options menu, click **Revoke Token**.
+Use the sort and filter options above the list to find a specific token.
+
+1.  Click the **Options** button (three vertical dots) to the right of the token you want to revoke.
+2.  In the options menu, click **Revoke Token**.
     The **Revoke Database Token** dialog displays.
 
     {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-revoke-database-token.png" alt="Revoke database token dialog" />}}
 
-9.  Check the box to confirm that you understand the risk.
-10. Click the **Revoke Token** button.
+3.  Check the box to confirm that you understand the risk.
+4.  Click the **Revoke Token** button.
     The token is revoked and filtered from the list of active tokens.
 {{% /tab-content %}}
 {{% tab-content %}}

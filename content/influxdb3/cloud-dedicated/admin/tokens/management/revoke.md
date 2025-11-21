@@ -30,12 +30,12 @@ The {{% product-name %}} administrative UI includes a portal for managing manage
 
 {{< admin-ui-access >}}
 
-**Search** for the token or use the sort button and column headers to sort the token list and find the token you want to revoke.
-5.  Click the options button (three vertical dots) to the right of the token you want to revoke.
+1.  **Search** for the token or use the sort button and column headers to sort the token list and find the token you want to revoke.
+2.  Click the options button (three vertical dots) to the right of the token you want to revoke.
     The options menu displays.
-6.  In the options menu, click **Revoke Token**. 
-7.  In the **Revoke Management Token** dialog, check the box to confirm you "Understand the risk of this action".
-8.  Click the **Revoke Token** button to revoke the token.
+3.  In the options menu, click **Revoke Token**.
+4.  In the **Revoke Management Token** dialog, check the box to confirm you "Understand the risk of this action".
+5.  Click the **Revoke Token** button to revoke the token.
     The token is revoked and filtered from the list of active tokens.
 {{% /tab-content %}}
 {{% tab-content %}}
