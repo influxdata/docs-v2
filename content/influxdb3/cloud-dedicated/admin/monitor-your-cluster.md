@@ -2,7 +2,7 @@
 title: Monitor your cluster
 seotitle: Monitor your InfluxDB Cloud Dedicated cluster
 description: >
-  Use the Grafana operational dashboard provided by InfluxData to monitor your
+  Use the Admin UI or Grafana operational dashboards to monitor your
   InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb3_cloud_dedicated:
@@ -10,24 +10,44 @@ menu:
 weight: 104
 ---
 
-InfluxData provides a Grafana operational dashboard that provides observability 
-into your {{< product-name >}} cluster.
-Use the operational dashboard to monitor your cluster.
+{{% product-name %}} provides multiple ways to monitor your cluster's health and performance:
+
+- [Monitor cluster metrics in the Admin UI](#monitor-cluster-metrics-in-the-admin-ui)
+- [Monitor with Grafana operational dashboards](#monitor-with-grafana-operational-dashboards)
+
+## Monitor cluster metrics in the Admin UI
+
+The Admin UI **Overview** page provides real-time monitoring of your cluster's performance and resource usage.
+
+{{< admin-ui-access >}}
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-overview.png" alt="InfluxDB Cloud Dedicated Admin UI cluster overview" />}}
+
+The Overview page provides:
+
+- **Cluster Details**: View cluster name, status, creation date, cluster ID, and cluster URL.
+- **Cluster Size**: See CPU allocation and component vCPU distribution (Ingest, Compaction, Query, System).
+- **Cluster Metrics**: Monitor CPU usage, memory usage, and ingest line protocol rate with time-series charts.
+- **Time Range Configuration**: Adjust the metrics time range.
+- **Live Updates**: Enable automatic refresh for real-time monitoring.
+
+## Monitor with Grafana operational dashboards
+
+InfluxData provides Grafana operational dashboards that offer detailed observability
+into your {{< product-name >}} cluster components and performance.
 
 > [!Note]
 > #### Not available for all clusters
-> 
+>
 > {{< product-name >}} operational dashboards are not available for all clusters.
 > For questions about availability, [contact InfluxData support](https://support.influxdata.com).
 
-- [Access your operational dashboard](#access-your-operational-dashboard)
+- [Access Grafana operational dashboards](#access-grafana-operational-dashboards)
 - [Dashboard sections and cells](#dashboard-sections-and-cells)
 
-{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated operational dashboard" />}}
+### Access Grafana operational dashboards
 
-## Access your operational dashboard
-
-To access your {{< product-name >}} operational dashboard, visit the
+To access your {{< product-name >}} Grafana operational dashboard, visit the
 `/observability` endpoint of your {{< product-name >}} cluster in your browser:
 
 <pre>
@@ -36,6 +56,8 @@ To access your {{< product-name >}} operational dashboard, visit the
 
 Use the credentials provided by InfluxData to log into your cluster operational dashboard.
 If you do not have login credentials, [contact InfluxData support](https://support.influxdata.com).
+
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-observability-dashboard.png" alt="InfluxDB Cloud Dedicated Grafana operational dashboard" />}}
 
 ## Dashboard sections and cells
 
