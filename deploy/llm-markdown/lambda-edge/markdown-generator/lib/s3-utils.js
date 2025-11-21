@@ -10,9 +10,27 @@ const {
   ListObjectsV2Command,
 } = require('@aws-sdk/client-s3');
 
-// S3 bucket configuration (from environment or hardcoded for staging)
-const BUCKET_NAME = process.env.S3_BUCKET || process.env.S3_TEST_BUCKET;
-const s3Client = new S3Client({ region: 'us-east-1' });
+// S3 bucket configuration
+// Try environment variable first (works for testing), then config file
+let BUCKET_NAME = process.env.S3_BUCKET;
+
+if (!BUCKET_NAME) {
+  try {
+    const config = require('../config.json');
+    BUCKET_NAME = config.s3Bucket;
+  } catch (err) {
+    throw new Error(
+      'S3_BUCKET must be set via environment variable or config.json'
+    );
+  }
+}
+
+// Configure S3 client with proper region handling
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION || 'us-east-1',
+  // Follow bucket region redirects automatically
+  followRegionRedirects: true,
+});
 
 /**
  * Fetch HTML content from S3

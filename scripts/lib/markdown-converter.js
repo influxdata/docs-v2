@@ -9,28 +9,75 @@
  * Exports reusable functions for HTML→Markdown conversion
  */
 
-import TurndownService from 'turndown';
-import { JSDOM } from 'jsdom';
-import {
-  getProductFromPath,
-  initializeProductData,
-} from '../../dist/utils/product-mappings.js';
+const TurndownService = require('turndown');
+const { JSDOM } = require('jsdom');
+const path = require('path');
+const fs = require('fs');
+const yaml = require('js-yaml');
 
-// Initialize product data from YAML (called once when module loads)
-await initializeProductData();
+// Product data cache
+let productsData = null;
+
+/**
+ * Initialize product data from YAML file
+ */
+async function ensureProductDataInitialized() {
+  if (productsData) {
+    return;
+  }
+
+  try {
+    // Path to products.yml from this file (scripts/lib/markdown-converter.js)
+    const productsPath = path.join(__dirname, '../../data/products.yml');
+
+    if (fs.existsSync(productsPath)) {
+      const fileContents = fs.readFileSync(productsPath, 'utf8');
+      productsData = yaml.load(fileContents);
+    }
+  } catch (err) {
+    console.warn('Failed to load products.yml:', err.message);
+    productsData = {}; // fallback to empty object
+  }
+}
+
+/**
+ * Get product info from URL path
+ */
+function getProductFromPath(urlPath) {
+  if (!productsData) {
+    return null;
+  }
+
+  // Match URL patterns to products
+  // Based on patterns from product-mappings.ts
+  for (const [key, product] of Object.entries(productsData)) {
+    if (!product.url_path) continue;
+
+    const pathPattern = product.url_path.replace(/\/$/, ''); // remove trailing slash
+    if (urlPath.startsWith(pathPattern)) {
+      return {
+        key,
+        name: product.name,
+        version: product.version,
+        description: product.description,
+      };
+    }
+  }
+
+  return null;
+}
 
 /**
  * Detect product context from URL path
- * Uses shared product mappings from assets/js/utils/product-mappings.ts
  */
-export function detectProduct(urlPath) {
+function detectProduct(urlPath) {
   return getProductFromPath(urlPath);
 }
 
 /**
  * Configure Turndown for InfluxData documentation
  */
-export function createTurndownService() {
+function createTurndownService() {
   const turndownService = new TurndownService({
     headingStyle: 'atx',
     codeBlockStyle: 'fenced',
@@ -187,7 +234,7 @@ export function createTurndownService() {
  * @param {string} contextInfo - Context info for error messages (file path or URL)
  * @returns {Object|null} Object with title, description, content or null if not found
  */
-export function extractArticleContent(htmlContent, contextInfo = '') {
+function extractArticleContent(htmlContent, contextInfo = '') {
   const dom = new JSDOM(htmlContent);
   const document = dom.window.document;
 
@@ -252,7 +299,7 @@ export function extractArticleContent(htmlContent, contextInfo = '') {
  * @param {string} urlPath - URL path for the page
  * @returns {string} YAML frontmatter as string
  */
-export function generateFrontmatter(metadata, urlPath) {
+function generateFrontmatter(metadata, urlPath) {
   const product = detectProduct(urlPath);
   const frontmatter = ['---'];
 
@@ -280,7 +327,7 @@ export function generateFrontmatter(metadata, urlPath) {
  * @param {Array} childPages - Array of child page objects with url and title
  * @returns {string} YAML frontmatter as string
  */
-export function generateSectionFrontmatter(metadata, urlPath, childPages) {
+function generateSectionFrontmatter(metadata, urlPath, childPages) {
   const product = detectProduct(urlPath);
   const frontmatter = ['---'];
 
@@ -326,9 +373,11 @@ export function generateSectionFrontmatter(metadata, urlPath, childPages) {
  * Convert HTML content to Markdown (single page)
  * @param {string} htmlContent - Raw HTML content
  * @param {string} urlPath - URL path for the page (for frontmatter)
- * @returns {string|null} Markdown content with frontmatter or null if conversion fails
+ * @returns {Promise<string|null>} Markdown content with frontmatter or null if conversion fails
  */
-export function convertToMarkdown(htmlContent, urlPath) {
+async function convertToMarkdown(htmlContent, urlPath) {
+  await ensureProductDataInitialized();
+
   const turndownService = createTurndownService();
   const metadata = extractArticleContent(htmlContent, urlPath);
 
@@ -357,13 +406,15 @@ export function convertToMarkdown(htmlContent, urlPath) {
  * @param {string} sectionHtml - HTML content of the section index page
  * @param {string} sectionUrlPath - URL path for the section
  * @param {Array} childHtmls - Array of objects with {html, url} for each child page
- * @returns {string|null} Aggregated markdown content or null if conversion fails
+ * @returns {Promise<string|null>} Aggregated markdown content or null if conversion fails
  */
-export function convertSectionToMarkdown(
+async function convertSectionToMarkdown(
   sectionHtml,
   sectionUrlPath,
   childHtmls
 ) {
+  await ensureProductDataInitialized();
+
   const turndownService = createTurndownService();
 
   // Extract section metadata and content
@@ -422,3 +473,14 @@ export function convertSectionToMarkdown(
 
   return `${frontmatter}\n\n${allContent}\n`;
 }
+
+// Export all functions for CommonJS
+module.exports = {
+  detectProduct,
+  createTurndownService,
+  extractArticleContent,
+  generateFrontmatter,
+  generateSectionFrontmatter,
+  convertToMarkdown,
+  convertSectionToMarkdown,
+};

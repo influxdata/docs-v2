@@ -52,7 +52,11 @@
       </div>
     </div>
 
-    <!-- {{ partial "article.html" . }} -->
+    <div class="article">
+      <article class="article--content">
+        {{ partial "article/format-selector.html" . }}
+      </article>
+    </div>
     <div class="copyright">© {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>

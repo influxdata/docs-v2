@@ -56,6 +56,90 @@ node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/markdown-content-validation.cy.js"
 ```
 
+## Testing in AWS Console
+
+You can test the Lambda function directly in the AWS Console using the Test feature:
+
+### Single Page Request
+
+```json
+{
+  "Records": [
+    {
+      "cf": {
+        "request": {
+          "uri": "/influxdb3/core/get-started/index.md",
+          "querystring": "",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "docs.influxdata.com"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Section Aggregation Request
+
+```json
+{
+  "Records": [
+    {
+      "cf": {
+        "request": {
+          "uri": "/influxdb3/core/get-started/index.section.md",
+          "querystring": "",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "docs.influxdata.com"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+**Expected Response**: Lambda\@Edge origin-request handlers return a modified request object (not the final response). The function should return the request unchanged since it's handled by S3.
+
+## Code Architecture
+
+### CommonJS Module System
+
+The Lambda function uses CommonJS (`require`/`module.exports`) instead of ES6 modules (`import`/`export`) because:
+
+1. **Lambda\@Edge Compatibility**: Lambda\@Edge Node.js 18 runtime works best with CommonJS
+2. **No package.json type field**: The package.json must NOT include `"type": "module"`
+3. **Shared Library**: The markdown-converter library (`scripts/lib/markdown-converter.js`) has been converted to CommonJS for Lambda compatibility
+
+### Key Files
+
+- **`index.js`**: Lambda handler using CommonJS exports (`exports.handler`)
+- **`lib/s3-utils.js`**: S3 operations using CommonJS (`module.exports`)
+- **`scripts/lib/markdown-converter.js`**: Shared conversion library (CommonJS)
+- **`package.json`**: Dependencies WITHOUT `"type": "module"` field
+
+### Testing Module Loading
+
+To verify the Lambda function loads correctly:
+
+```bash
+cd deploy/llm-markdown/lambda-edge/markdown-generator
+node -e "const h = require('./index.js'); console.log('Handler type:', typeof h.handler);"
+```
+
+Expected output: `Handler type: function`
+
 ## Deployment
 
 ### Step 1: Install Lambda Dependencies

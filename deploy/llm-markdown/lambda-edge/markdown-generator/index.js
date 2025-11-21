@@ -8,18 +8,18 @@
  * Triggers for: *.md file requests
  */
 
-import { fetchHtmlFromS3, listChildPages } from './lib/s3-utils.js';
-import {
+const { fetchHtmlFromS3, listChildPages } = require('./lib/s3-utils.js');
+const {
   convertToMarkdown,
   convertSectionToMarkdown,
-} from '../../../../scripts/lib/markdown-converter.js';
+} = require('./scripts/lib/markdown-converter.js');
 
 /**
  * Lambda@Edge handler
  * @param {Object} event - CloudFront origin request event
  * @returns {Object} CloudFront response object
  */
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const request = event.Records[0].cf.request;
   const uri = request.uri;
 
