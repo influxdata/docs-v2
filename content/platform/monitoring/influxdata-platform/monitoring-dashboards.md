@@ -7,14 +7,13 @@ aliases:
   - /platform/monitoring/monitoring-dashboards/
   - /platform/monitoring/monitoring-dashboards/dashboard-oss-monitoring/ 
   - /platform/monitoring/monitoring-dashboards/dashboard-enterprise-monitoring/
+  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-enterprise-monitoring/
+  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-oss-monitoring/
 menu:
   platform:
     name: Monitoring dashboards
     weight: 3
     parent: monitor-platform
-aliases:
-  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-enterprise-monitoring/
-  - /platform/monitoring/influxdata-platform/monitoring-dashboards/dashboard-oss-monitoring/
 ---
 
 

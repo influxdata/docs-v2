@@ -5,7 +5,6 @@ description: >
   Configure your InfluxDB cluster by editing configuration options in 
   the provided `AppInstance` resource.
 menu:
-menu:
   influxdb3_clustered:
     name: Configure AppInstance
     parent: Configure your cluster
