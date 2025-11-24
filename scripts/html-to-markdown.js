@@ -154,7 +154,7 @@ import { fileURLToPath } from 'url';
 import {
   convertToMarkdown,
   convertSectionToMarkdown,
-} from './lib/markdown-converter.js';
+} from './lib/markdown-converter.cjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

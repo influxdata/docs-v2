@@ -15,59 +15,60 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
+// Import product mappings module (compiled from TypeScript)
+let productMappings;
+try {
+  productMappings = require('../../dist/utils/product-mappings.js');
+} catch (err) {
+  console.warn('Failed to load product-mappings:', err.message);
+  productMappings = null;
+}
+
 // Debug mode - set to true to enable verbose logging
-const DEBUG = true;
+const DEBUG = false;
 
 // Product data cache
 let productsData = null;
 
 /**
- * Initialize product data from YAML file
+ * Initialize product data
+ * Uses the product-mappings module (compiled from TypeScript)
  */
 async function ensureProductDataInitialized() {
   if (productsData) {
     return;
   }
 
-  try {
-    // Path to products.yml from this file (scripts/lib/markdown-converter.js)
-    const productsPath = path.join(__dirname, '../../data/products.yml');
-
-    if (fs.existsSync(productsPath)) {
-      const fileContents = fs.readFileSync(productsPath, 'utf8');
-      productsData = yaml.load(fileContents);
+  if (productMappings && productMappings.initializeProductData) {
+    try {
+      await productMappings.initializeProductData();
+      productsData = true; // Mark as initialized
+    } catch (err) {
+      console.warn('Failed to initialize product-mappings:', err.message);
+      productsData = true; // Mark as initialized anyway to avoid retries
     }
-  } catch (err) {
-    console.warn('Failed to load products.yml:', err.message);
-    productsData = {}; // fallback to empty object
+  } else {
+    productsData = true; // Mark as initialized (fallback mode)
   }
 }
 
 /**
  * Get product info from URL path
+ * Uses the product-mappings module for accurate detection
  */
 function getProductFromPath(urlPath) {
-  if (!productsData) {
+  if (!productMappings || !productMappings.getProductFromPath) {
     return null;
   }
 
-  // Match URL patterns to products
-  // Based on patterns from product-mappings.ts
-  for (const [key, product] of Object.entries(productsData)) {
-    if (!product.url_path) continue;
-
-    const pathPattern = product.url_path.replace(/\/$/, ''); // remove trailing slash
-    if (urlPath.startsWith(pathPattern)) {
-      return {
-        key,
-        name: product.name,
-        version: product.version,
-        description: product.description,
-      };
+  try {
+    return productMappings.getProductFromPath(urlPath);
+  } catch (err) {
+    if (DEBUG) {
+      console.warn(`Product detection failed for ${urlPath}:`, err.message);
     }
+    return null;
   }
-
-  return null;
 }
 
 /**
@@ -320,23 +321,38 @@ function extractArticleContent(htmlContent, contextInfo = '') {
  */
 function generateFrontmatter(metadata, urlPath) {
   const product = detectProduct(urlPath);
-  const frontmatter = ['---'];
 
-  frontmatter.push(`title: ${metadata.title}`);
-  if (metadata.description) {
-    frontmatter.push(`description: ${metadata.description}`);
-  }
-  frontmatter.push(`url: ${urlPath}`);
+  // Sanitize description (remove newlines, truncate to reasonable length)
+  let description = metadata.description || '';
+  description = description
+    .replace(/\s+/g, ' ')  // Replace all whitespace (including newlines) with single space
+    .trim()
+    .substring(0, 500);     // Truncate to 500 characters max
+
+  // Add token estimate (rough: 4 chars per token)
+  const contentLength = metadata.content?.length || 0;
+  const estimatedTokens = Math.ceil(contentLength / 4);
+
+  // Build frontmatter object (will be serialized to YAML)
+  const frontmatterObj = {
+    title: metadata.title,
+    description: description,
+    url: urlPath,
+    estimated_tokens: estimatedTokens
+  };
 
   if (product) {
-    frontmatter.push(`product: ${product.name}`);
+    frontmatterObj.product = product.name;
     if (product.version) {
-      frontmatter.push(`version: ${product.version}`);
+      frontmatterObj.version = product.version;
     }
   }
 
-  frontmatter.push('---');
-  return frontmatter.join('\n');
+  // Serialize to YAML (handles special characters properly)
+  return '---\n' + yaml.dump(frontmatterObj, {
+    lineWidth: -1, // Disable line wrapping
+    noRefs: true   // Disable anchors/aliases
+  }).trim() + '\n---';
 }
 
 /**
@@ -348,15 +364,13 @@ function generateFrontmatter(metadata, urlPath) {
  */
 function generateSectionFrontmatter(metadata, urlPath, childPages) {
   const product = detectProduct(urlPath);
-  const frontmatter = ['---'];
 
-  frontmatter.push(`title: ${metadata.title}`);
-  if (metadata.description) {
-    frontmatter.push(`description: ${metadata.description}`);
-  }
-  frontmatter.push(`url: ${urlPath}`);
-  frontmatter.push(`type: section`);
-  frontmatter.push(`pages: ${childPages.length}`);
+  // Sanitize description (remove newlines, truncate to reasonable length)
+  let description = metadata.description || '';
+  description = description
+    .replace(/\s+/g, ' ')  // Replace all whitespace (including newlines) with single space
+    .trim()
+    .substring(0, 500);     // Truncate to 500 characters max
 
   // Add token estimate (rough: 4 chars per token)
   const contentLength = metadata.content?.length || 0;
@@ -366,26 +380,37 @@ function generateSectionFrontmatter(metadata, urlPath, childPages) {
   );
   const totalLength = contentLength + childContentLength;
   const estimatedTokens = Math.ceil(totalLength / 4);
-  frontmatter.push(`estimated_tokens: ${estimatedTokens}`);
+
+  // Build frontmatter object (will be serialized to YAML)
+  const frontmatterObj = {
+    title: metadata.title,
+    description: description,
+    url: urlPath,
+    type: 'section',
+    pages: childPages.length,
+    estimated_tokens: estimatedTokens
+  };
 
   if (product) {
-    frontmatter.push(`product: ${product.name}`);
+    frontmatterObj.product = product.name;
     if (product.version) {
-      frontmatter.push(`version: ${product.version}`);
+      frontmatterObj.version = product.version;
     }
   }
 
   // List child pages
   if (childPages.length > 0) {
-    frontmatter.push(`child_pages:`);
-    childPages.forEach((child) => {
-      frontmatter.push(`  - url: ${child.url}`);
-      frontmatter.push(`    title: ${child.title}`);
-    });
+    frontmatterObj.child_pages = childPages.map(child => ({
+      url: child.url,
+      title: child.title
+    }));
   }
 
-  frontmatter.push('---');
-  return frontmatter.join('\n');
+  // Serialize to YAML (handles special characters properly)
+  return '---\n' + yaml.dump(frontmatterObj, {
+    lineWidth: -1, // Disable line wrapping
+    noRefs: true   // Disable anchors/aliases
+  }).trim() + '\n---';
 }
 
 /**
