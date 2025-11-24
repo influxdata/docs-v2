@@ -19,7 +19,7 @@ alt_links:
   v1: /influxdb/v1/tools/grafana/
   v2: /influxdb/v2/tools/grafana/
   cloud: /influxdb/cloud/tools/grafana/
-source: /content/shared/v3-process-data/visualize/grafana.md
+source: /shared/v3-process-data/visualize/grafana.md
 ---
 
-<!-- SOURCE: /content/shared/v3-process-data/visualize/grafana.md -->
+<!-- SOURCE: /shared/v3-process-data/visualize/grafana.md -->
