@@ -28,13 +28,17 @@ Use the {{% product-name %}} Admin UI to manage users and control access to your
 
 ## Access the Users page
 
-1. Access the {{% product-name %}} Admin UI at [console.influxdata.com](https://console.influxdata.com).
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-2. Log in using the credentials provided by InfluxData.
-3. From the Account Management portal, select your cluster.
-4. In the cluster resource management view, click **Users** in the navigation.
+{{< admin-ui-access >}}
 
-The Users page displays your account information and a table of existing users and invitations.
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-users.png" alt="InfluxDB Cloud Dedicated Admin UI users" />}}
+
+The Users page displays your account information and a table of existing users and invitations. Use the **Users** page to manage access to your InfluxDB account:
+
+- View all users who have accepted the user agreement and have access to the account
+- Invite new users to the account
+- View user roles, email addresses, and join dates
+- Manage user permissions and access
+- Toggle between Users and Invitations tabs
 
 ## View existing users
 

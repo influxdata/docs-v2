@@ -67,8 +67,9 @@ and managing management tokens.
    - **Expiration date**: Set an expiration date for the token
    - **Expiration time**: Set an expiration time for the token
    - **Description**: Enter a description for the token
-   - 
-     If an expiration isn't set, the token does not expire until revoked.
+
+   If an expiration isn't set, the token does not expire until revoked.
+
 6. Click the **Create Token** button. The dialog displays the **Token secret** string and the description you provided.
 {{% /tab-content %}}
 {{% tab-content %}}

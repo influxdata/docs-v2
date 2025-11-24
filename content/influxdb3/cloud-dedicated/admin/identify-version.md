@@ -4,8 +4,8 @@ description: Learn how to identify your InfluxDB Cloud Dedicated cluster through
 menu:
   influxdb3_cloud_dedicated:
     name: Identify version
-    parent: Administer InfluxDB
-weight: 10
+    parent: Administer InfluxDB Cloud
+weight: 1
 source: /shared/identify-version.md
 related:
   - /influxdb3/cloud-dedicated/get-started/
