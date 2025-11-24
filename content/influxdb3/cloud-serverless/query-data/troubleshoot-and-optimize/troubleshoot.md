@@ -57,7 +57,7 @@ See how to [optimize queries](/influxdb3/cloud-serverless/query-data/troubleshoo
 
 ## Analyze your queries 
 
-Use the following tools to analyze query execution and find performance bottlenecks:
+Use the following tool to analyze query execution and find performance bottlenecks:
 
 - [Analyze a query plan](/influxdb3/cloud-serverless/query-data/troubleshoot-and-optimize/analyze-query-plan/)
 
