@@ -42,6 +42,11 @@ influxdb3 serve [OPTIONS]
 
 ## Options
 
+<!--docs:exclude
+--serve-invocation-method: internal implementation detail
+--test-mode: hidden test flag, not for production use
+-->
+
 | Option           |                                                      | Description                                                                                                               |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | {{< req "\*" >}} | `--node-id`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#node-id)_                                          |

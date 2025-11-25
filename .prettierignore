@@ -4,3 +4,6 @@
 **/.hg
 **/node_modules
 assets/jsconfig.json
+
+# Markdown files - Prettier insists on escaping common formatting
+**.md
