@@ -15,7 +15,7 @@ related:
 
 # LDAP Input Plugin
 
-This plugin gathers metrics from LDAP servers' monitoring (`cn=Monitor`)
+This plugin gathers metrics from an LDAP server's monitoring (`cn=Monitor`)
 backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/) and [389ds](https://www.port389.org/)
 servers.
 
