@@ -67,7 +67,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### HAProxy Configuration
 
 The following information may be useful when getting started, but please consult
-the HAProxy documentation for complete and up to date instructions.
+the HAProxy documentation for complete and up-to-date instructions.
 
 The [`stats enable`](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable) option can be used to add unauthenticated access over
 HTTP using the default settings.  To enable the unix socket begin by reading
