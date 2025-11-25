@@ -97,7 +97,7 @@ The plugin will group the metrics by the metric name, and will send each group
 of metrics to an Azure Data Explorer table. If the table doesn't exist the
 plugin will create the table, if the table exists then the plugin will try to
 merge the Telegraf metric schema to the existing table. For more information
-about the merge process check the [`.create-merge` documentation]().
+about the merge process check the [`.create-merge` documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/create-merge-table-command).
 
 The table name will match the `name` property of the metric, this means that the
 name of the metric should comply with the Azure Data Explorer table naming
@@ -112,7 +112,7 @@ table. The name of the table must be supplied via `table_name` in the config
 file. If the table doesn't exist the plugin will create the table, if the table
 exists then the plugin will try to merge the Telegraf metric schema to the
 existing table. For more information about the merge process check the
-[`.create-merge` documentation]().
+[`.create-merge` documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/create-merge-table-command).
 
 ## Tables Schema
 
@@ -158,7 +158,7 @@ These methods are:
 1. AAD Application Tokens (Service Principals with secrets or certificates).
 
     For guidance on how to create and register an App in Azure Active Directory
-    check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals), and for more information on the Service
+    check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#register-an-application), and for more information on the Service
     Principals check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals).
 
 2. AAD User Tokens
@@ -215,7 +215,7 @@ below**:
    platform. Requires that code is running in Azure, e.g. on a VM. All
    configuration is handled by Azure. See [Azure Managed Service Identity](https://docs.microsoft.com/en-us/azure/active-directory/msi-overview)
    for more details. Only available when using the [Azure Resource
-   Manager]().
+   Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview).
 
 [msi]: https://docs.microsoft.com/en-us/azure/active-directory/msi-overview
 [arm]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview

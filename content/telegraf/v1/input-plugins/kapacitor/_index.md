@@ -170,7 +170,7 @@ manner.
 ## kapacitor_cluster
 
 The `kapacitor_cluster` measurement reflects the ability of [Kapacitor nodes to
-communicate]() with one another. Specifically, these metrics track the
+communicate](https://docs.influxdata.com/enterprise_kapacitor/v1.5/administration/configuration/#cluster-communications) with one another. Specifically, these metrics track the
 gossip communication between the Kapacitor nodes.
 
 [cluster]: https://docs.influxdata.com/enterprise_kapacitor/v1.5/administration/configuration/#cluster-communications

@@ -200,7 +200,7 @@ MySQL default quoting differs from standard ANSI/ISO SQL quoting. You must use
 MySQL's ANSI\_QUOTES mode with this plugin. You can enable this mode by using
 the setting `init_sql = "SET sql_mode='ANSI_QUOTES';"` or through a command-line
 option when running MySQL. See MySQL's docs for [details on
-ANSI\_QUOTES]() and [how to set the SQL mode](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting).
+ANSI\_QUOTES](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_ansi_quotes) and [how to set the SQL mode](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting).
 
 You can use a DSN of the format "username:password@tcp(host:port)/dbname". See
 the [driver docs](https://github.com/go-sql-driver/mysql) for details.

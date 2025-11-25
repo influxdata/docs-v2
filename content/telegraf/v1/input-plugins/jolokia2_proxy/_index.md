@@ -102,6 +102,11 @@ Optionally, specify TLS options for communicating with proxies:
 Please see
 Jolokia agent documentation.
 
+## Metrics
+
+The metrics depend on the definition(s) in the `inputs.jolokia2_proxy.metric`
+section(s).
+
 ## Example Output
 
 ```text

@@ -59,7 +59,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Server Setup
 
 Enable [RCON](http://wiki.vg/RCON) on the Minecraft server and add the following to your
-[`server.properties`]() file:
+[`server.properties`](https://minecraft.gamepedia.com/Server.properties) file:
 
 ```conf
 enable-rcon=true
