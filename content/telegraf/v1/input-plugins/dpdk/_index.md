@@ -257,7 +257,7 @@ be discarded.
 
 ## Example Output
 
-The output consists of plugin name (`dpdk`), and a set of tags that identify
+The output consists of the plugin name (`dpdk`), and a set of tags that identify
 querying hierarchy:
 
 ```text
