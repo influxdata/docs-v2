@@ -21,7 +21,7 @@ OneAgent for automatic authentication or it may be run standalone on a host
 without OneAgent by specifying a URL and API Token.
 
  More information on the plugin can be found in the
- [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/api-metrics-v2-post-datapoints).
+ [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/telegraf).
 
  > [!NOTE]
  > All metrics are reported as gauges, unless they are specified to be delta
@@ -50,7 +50,7 @@ higher.
 ## Getting Started
 
 Setting up Telegraf is explained in the [Telegraf
-Documentation]().
+Documentation](https://docs.influxdata.com/telegraf/latest/introduction/getting-started/).
 The Dynatrace exporter may be enabled by adding an `[[outputs.dynatrace]]`
 section to your `telegraf.conf` config file.  All configurations are optional,
 but if a `url` other than the OneAgent metric ingestion endpoint is specified
@@ -67,7 +67,7 @@ configuration. The Dynatrace Telegraf output plugin will send all metrics to the
 OneAgent which will use its secure and load balanced connection to send the
 metrics to your Dynatrace SaaS or Managed environment.  Depending on your
 environment, you might have to enable metrics ingestion on the OneAgent first as
-described in the [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/api-metrics-v2-post-datapoints).
+described in the [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/telegraf).
 
 Note: The name and identifier of the host running Telegraf will be added as a
 dimension to every metric. If this is undesirable, then the output plugin may be
@@ -85,7 +85,7 @@ to configure the environment API endpoint to send the metrics to and an API
 token for security.
 
 You will also need to configure an API token for secure access. Find out how to
-create a token in the [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/api-metrics-v2-post-datapoints) or simply navigate to
+create a token in the [Dynatrace documentation](https://docs.dynatrace.com/docs/shortlink/api-authentication) or simply navigate to
 **Settings > Integration > Dynatrace API** in your Dynatrace environment and
 create a token with Dynatrace API and create a new token with 'Ingest metrics'
 (`metrics.ingest`) scope enabled. It is recommended to limit Token scope to only

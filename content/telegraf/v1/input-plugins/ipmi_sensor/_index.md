@@ -17,7 +17,7 @@ related:
 
 This plugin gathers metrics from the
 [Intelligent Platform Management Interface](https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/ipmi-intelligent-platform-mgt-interface-spec-2nd-gen-v2-0-spec-update.pdf) using the
-[`ipmitool`]() command line utility.
+[`ipmitool`](https://github.com/ipmitool/ipmitool) command line utility.
 
 > [!IMPORTANT]
 > The `ipmitool` requires access to the IPMI device. Please check the

@@ -115,7 +115,11 @@ For metrics, two input schemata exist.  Line protocol with measurement name
 `prometheus` is assumed to have a schema matching Prometheus input
 plugin when `metric_version = 2`.  Line
 protocol with other measurement names is assumed to have schema matching
-Prometheus input plugin
+Prometheus input plugin when
+`metric_version = 1`.  If both schema assumptions fail, then the line protocol
+data is interpreted as:
+
+- Metric type = gauge (or counter, if indicated by the input plugin)
 - Metric name = `[measurement]_[field key]`
 - Metric value = line protocol field value, cast to float
 - Metric labels = line protocol tags

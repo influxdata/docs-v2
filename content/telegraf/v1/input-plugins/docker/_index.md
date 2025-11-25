@@ -108,7 +108,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Environment Configuration
 
 When using the `"ENV"` endpoint, the connection is configured using the [cli
-Docker environment variables]().
+Docker environment variables](https://godoc.org/github.com/moby/moby/client#NewEnvClient).
 
 [3]: https://godoc.org/github.com/moby/moby/client#NewEnvClient
 

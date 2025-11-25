@@ -101,7 +101,7 @@ The plugin will group the metrics by the metric name and will send each group
 of metrics to an Eventhouse KQL DB table. If the table doesn't exist the
 plugin will create the table, if the table exists then the plugin will try to
 merge the Telegraf metric schema to the existing table. For more information
-about the merge process check the [`.create-merge` documentation]().
+about the merge process check the [`.create-merge` documentation](https://learn.microsoft.com/kusto/management/create-merge-tables-command?view=microsoft-fabric).
 
 The table name will match the metric name, i.e. the name of the metric must
 comply with the Eventhouse KQL DB table naming constraints in case you plan
@@ -116,7 +116,7 @@ table. The name of the table must be supplied via `table_name` parameter in the
 `connection_string`. If the table doesn't exist the plugin will create the
 table, if the table exists then the plugin will try to merge the Telegraf metric
 schema to the existing table. For more information about the merge process check
-the [`.create-merge` documentation]().
+the [`.create-merge` documentation](https://learn.microsoft.com/kusto/management/create-merge-tables-command?view=microsoft-fabric).
 
 #### Tables Schema
 
