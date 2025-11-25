@@ -21,7 +21,7 @@ alt_links:
   cloud: /influxdb/cloud/tools/grafana/
   core: /influxdb3/core/visualize-data/grafana/
   enterprise: /influxdb3/enterprise/visualize-data/grafana/
-source: /content/shared/v3-process-data/visualize/grafana.md
+source: /shared/v3-process-data/visualize/grafana.md
 ---
 
-<!-- SOURCE: /content/shared/v3-process-data/visualize/grafana.md -->
+<!-- SOURCE: /shared/v3-process-data/visualize/grafana.md -->
