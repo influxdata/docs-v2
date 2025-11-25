@@ -16,7 +16,7 @@ related:
 # LDAP Input Plugin
 
 This plugin gathers metrics from LDAP servers' monitoring (`cn=Monitor`)
-backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/devel/admin/monitoringslapd.html) and [389ds](https://www.port389.org/)
+backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/) and [389ds](https://www.port389.org/)
 servers.
 
 **Introduced in:** Telegraf v1.29.0

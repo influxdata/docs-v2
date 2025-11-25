@@ -17,7 +17,7 @@ related:
 
 This service plugin listens for messages on the [KNX home-automation bus](https://www.knx.org)
 by connecting via a KNX-IP interface. Information about supported KNX
-datapoint-types can be found at the underlying [`knx-go` project]().
+datapoint-types can be found at the underlying [`knx-go` project](https://github.com/vapourismo/knx-go>).
 
 **Introduced in:** Telegraf v1.19.0
 **Tags:** iot

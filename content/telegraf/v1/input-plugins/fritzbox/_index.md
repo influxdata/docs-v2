@@ -94,7 +94,7 @@ bandwidth. Will create `fritzbox_hosts` metrics.
 ## Metrics
 
 By default field names are directly derived from the corresponding [interface
-specification]().
+specification](https://avm.de/service/schnittstellen/).
 
 - `fritzbox_device`
   - tags

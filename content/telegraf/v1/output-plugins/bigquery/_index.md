@@ -116,7 +116,7 @@ Avoid hyphens on BigQuery tables, underlying SDK cannot handle streaming inserts
 to Table with hyphens.
 
 In cases of metrics with hyphens please use the [Rename Processor
-Plugin]().
+Plugin](../../processors/rename/README.md).
 
 In case of a metric with hyphen by default hyphens shall be replaced with
 underscores (_).  This can be altered using the `replace_hyphen_to`

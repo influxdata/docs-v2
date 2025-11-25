@@ -16,7 +16,7 @@ related:
 # Apache Input Plugin
 
 This plugin collects performance information from [Apache HTTP Servers](https://httpd.apache.org)
-using the [`mod_status` module](). Typically, this module is
+using the [`mod_status` module](https://httpd.apache.org/docs/current/mod/mod_status.html). Typically, this module is
 configured to expose a page at the `/server-status?auto` endpoint the server.
 
 The [ExtendedStatus option](https://httpd.apache.org/docs/current/mod/core.html#extendedstatus) must be enabled in order to collect

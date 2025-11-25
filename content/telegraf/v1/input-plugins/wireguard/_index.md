@@ -16,7 +16,7 @@ related:
 # Wireguard Input Plugin
 
 This plugin collects statistics on a local [Wireguard](https://www.wireguard.com/) server
-using the [`wgctrl` library](). The plugin reports gauge metrics for
+using the [`wgctrl` library](https://github.com/WireGuard/wgctrl-go). The plugin reports gauge metrics for
 Wireguard interface device(s) and its peers.
 
 **Introduced in:** Telegraf v1.14.0
