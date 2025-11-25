@@ -250,7 +250,7 @@ be discarded.
 
 > **NOTE:** Since DPDK allows registering custom metrics in its telemetry
 > framework the JSON response from DPDK may contain various sets of metrics.
-> While metrics from `/ethdev/stats` should be most stable, the `/ethdev/xstats`
+> While metrics from `/ethdev/stats` should be mostly stable, the `/ethdev/xstats`
 > may contain driver-specific metrics (depending on DPDK application
 > configuration). The application-specific commands like `/l3fwd-power/stats`
 > can return their own specific set of metrics.
