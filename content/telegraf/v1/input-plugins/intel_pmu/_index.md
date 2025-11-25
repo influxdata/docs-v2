@@ -44,7 +44,7 @@ Linux kernel's perf interface.
 
 Event definition JSON files for specific architectures can be found at the
 [Github repository](https://github.com/intel/perfmon). Download the event definitions appropriate for your
-system e.g. using the [`event_download.py` PMU tool](https://github.com/andikleen/pmu-tools) and keep them
+system--for example, using the [`event_download.py` PMU tool](https://github.com/andikleen/pmu-tools) and keep them
 in a safe place on your system.
 
 [iaevents_lib]: https://github.com/intel/iaevents
