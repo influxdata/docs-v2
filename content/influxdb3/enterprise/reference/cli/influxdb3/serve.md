@@ -43,6 +43,11 @@ influxdb3 serve [OPTIONS]
 
 ## Options
 
+<!--docs:exclude
+--serve-invocation-method: internal implementation detail
+--test-mode: hidden test flag, not for production use
+-->
+
 | Option           |                                                      | Description                                                                                                                     |
 | :--------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
 |                  | `--admin-token-recovery-http-bind`                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#admin-token-recovery-http-bind)_                   |
