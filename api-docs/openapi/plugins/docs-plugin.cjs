@@ -2,6 +2,7 @@ const {info, servers, tagGroups} = require('./docs-content.cjs');
 const ReportTags = require('./rules/report-tags.cjs');
 const ValidateServersUrl = require('./rules/validate-servers-url.cjs');
 const RemovePrivatePaths = require('./decorators/paths/remove-private-paths.cjs');
+const RemoveInternalOperations = require('./decorators/operations/remove-internal-operations.cjs');
 const ReplaceShortcodes = require('./decorators/replace-shortcodes.cjs');
 const SetInfo = require('./decorators/set-info.cjs');
 const DeleteServers = require('./decorators/servers/delete-servers.cjs');
@@ -26,6 +27,7 @@ const decorators = {
     'set-servers': () => SetServers(servers()),
     'delete-servers': DeleteServers,
     'remove-private-paths': RemovePrivatePaths,
+    'remove-internal-operations': RemoveInternalOperations,
     'strip-version-prefix': StripVersionPrefix,
     'strip-trailing-slash': StripTrailingSlash,
     'set-info': () => SetInfo(info()),
@@ -46,6 +48,7 @@ module.exports = {
         'docs/set-servers': 'error',
         'docs/delete-servers': 'error',
       	'docs/remove-private-paths': 'error',
+      	'docs/remove-internal-operations': 'error',
       	'docs/strip-version-prefix': 'error',
         'docs/strip-trailing-slash': 'error',
       	'docs/set-info': 'error',
