@@ -17,8 +17,8 @@ description: |
   - Perform administrative tasks and access system information
 
   The API includes endpoints under the following paths:
-  - `/api/v3`: InfluxDB 3 Core native endpoints 
-  - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients 
+  - `/api/v3`: InfluxDB 3 Core native endpoints
+  - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
   - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
   <!-- TODO: verify where to host the spec that users can download.
