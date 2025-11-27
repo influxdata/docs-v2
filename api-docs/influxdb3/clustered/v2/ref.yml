@@ -662,7 +662,7 @@ paths:
                 $ref: '#/components/schemas/LineProtocolLengthError'
           description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
         '429':
-          description: The service is temporarily unavailable or ingesters are resource constrained.
+          description: Too many requests. The service may be temporarily unavailable or ingesters are resource constrained.
         '503':
           description: Server is temporarily unavailable to accept writes due to too many concurrent requests or insufficient healthy ingesters.
         default:

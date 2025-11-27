@@ -352,7 +352,7 @@ This comprehensive information will help InfluxData engineers identify root caus
 ## Implement an exponential backoff strategy
 
 Use exponential backoff with jitter for retrying requests that return `429` or `503`.
-This reduces load spikes and avoids thundering‑herd problems.
+This reduces load spikes and avoids thundering-herd problems.
 
 **Recommended parameters**:
 
@@ -362,7 +362,7 @@ This reduces load spikes and avoids thundering‑herd problems.
 - Max retries: 5 (increase only with care)
 - Jitter: use "full jitter" (random between 0 and computed delay)
 
-###  Incremental backoff examples
+### Exponential backoff examples
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -418,11 +418,8 @@ for attempt in range(max_retries + 1):
     if r.status_code not in (429, 503):
         raise RuntimeError(f"Non-retryable: {r.status_code} {r.text}")
 
-    # honor Retry-After if present
-    retry_after = r.headers.get("Retry-After")
-    retry_delay = float(retry_after) if retry_after else base * (2 ** attempt)
-    retry_delay = min(retry_delay, max_delay)
-
+    # exponential backoff with full jitter
+    retry_delay = min(base * (2 ** attempt), max_delay)
     sleep = random.random() * retry_delay  # full jitter
     time.sleep(sleep)
 else:
@@ -446,8 +443,7 @@ for (let attempt = 0; attempt <= maxRetries; attempt++) {
   if (res.status === 204) break;
   if (![429, 503].includes(res.status)) throw new Error(`Non-retryable ${res.status}`);
 
-  const ra = res.headers.get('Retry-After');
-  let delay = ra ? Math.max(Number(ra) * 1000, base * 2 ** attempt) : base * 2 ** attempt;
+  let delay = base * 2 ** attempt;
   delay = Math.min(delay, maxDelay);
 
   const sleepMs = Math.random() * delay; // full jitter
@@ -458,7 +454,7 @@ for (let attempt = 0; attempt <= maxRetries; attempt++) {
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-### Incremental backoff best practices
+### Exponential backoff best practices
 
 - Only retry on idempotent or safe request semantics your client supports.
 - Retry only for `429` (Too Many Requests) and `503` (Service Unavailable).
