@@ -5,6 +5,7 @@ Learn how to avoid unexpected results and recover from errors when writing to {{
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
 - [Report write issues](#report-write-issues)
+{{% show-in "cloud-dedicated,clustered" %}}- [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy){{% /show-in %}}
 
 ## Handle write responses
 
@@ -39,7 +40,7 @@ The `message` property of the response body may contain additional details about
 | `404 "Not found"`               | A requested **resource type** (for example, "database"), and **resource name** | A requested resource wasn't found |
 | `422 "Unprocessable Entity"`    | `message` contains details about the error                                                                                     | The data isn't allowed (for example, falls outside of the database's retention period). |
 | `500 "Internal server error"`   | Empty                                                                                                                              | Default status for an error |
-| `503 "Service unavailable"`     | Empty                                                                                                                              | The server is temporarily unavailable to accept writes. The `Retry-After` header contains the number of seconds to wait before trying the write again. |
+| `503 "Service unavailable"`     | Empty                                                                                                                              | The server is temporarily unavailable or the requested service is resource constrained. [Implement an exponential backoff strategy](#implement-an-exponential-backoff-strategy). |
 {{% /show-in %}}
 
 {{% show-in "cloud-serverless" %}}
@@ -346,3 +347,125 @@ Include the support package when contacting InfluxData support through your stan
 - Business context if the issue affects production systems
 
 This comprehensive information will help InfluxData engineers identify root causes and provide targeted solutions for your write issues.
+
+{{% show-in "cloud-dedicated,clustered" %}}
+## Implement an exponential backoff strategy
+
+Use exponential backoff with jitter for retrying requests that return `429` or `503`.
+This reduces load spikes and avoids thundering‑herd problems.
+
+**Recommended parameters**:
+
+- Base delay: 1s
+- Multiplier: 2 (double each retry)
+- Max delay: 30s
+- Max retries: 5 (increase only with care)
+- Jitter: use "full jitter" (random between 0 and computed delay)
+
+###  Incremental backoff examples
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[cURL](#)
+[Python](#)
+[JavaScript](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!--------------------------------- BEGIN cURL -------------------------------->
+<!--pytest.mark.skip-->
+```sh
+base=1
+max_delay=30
+max_retries=5
+
+for attempt in $(seq 0 $max_retries); do
+  resp_code=$(curl -s -o /dev/null -w "%{http_code}" --request POST "https://{{< influxdb/host >}}/write?db=DB" ...)
+  if [ "$resp_code" -eq 204 ]; then
+    echo "Write succeeded"
+    break
+  fi
+
+  if [ "$resp_code" -ne 429 ] && [ "$resp_code" -ne 503 ]; then
+    echo "Non-retryable response: $resp_code"
+    break
+  fi
+
+  # compute exponential delay and apply full jitter
+  delay=$(awk -v b=$base -v a=$attempt 'BEGIN{d=b*(2^a); if(d>30) d=30; print d}')
+  sleep_seconds=$(awk -v d=$delay 'BEGIN{srand(); printf "%.3f", rand()*d}')
+  sleep $sleep_seconds
+done
+```
+<!---------------------------------- END cURL --------------------------------->
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+<!-------------------------------- BEGIN Python ------------------------------->
+<!--pytest.mark.skip-->
+```python
+import random
+import time
+import requests
+
+base = 1.0
+max_delay = 30.0
+max_retries = 5
+
+for attempt in range(max_retries + 1):
+    r = requests.post(url, headers=headers, data=body, timeout=10)
+    if r.status_code == 204:
+        break
+    if r.status_code not in (429, 503):
+        raise RuntimeError(f"Non-retryable: {r.status_code} {r.text}")
+
+    # honor Retry-After if present
+    retry_after = r.headers.get("Retry-After")
+    retry_delay = float(retry_after) if retry_after else base * (2 ** attempt)
+    retry_delay = min(retry_delay, max_delay)
+
+    sleep = random.random() * retry_delay  # full jitter
+    time.sleep(sleep)
+else:
+    raise RuntimeError("Max retries exceeded")
+```
+<!--------------------------------- END Python -------------------------------->
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+<!------------------------------ BEGIN JavaScript ----------------------------->
+<!--pytest.mark.skip-->
+```js
+const base = 1000;
+const maxDelay = 30000;
+const maxRetries = 5;
+
+async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+for (let attempt = 0; attempt <= maxRetries; attempt++) {
+  const res = await fetch(url, { method: 'POST', body });
+  if (res.status === 204) break;
+  if (![429, 503].includes(res.status)) throw new Error(`Non-retryable ${res.status}`);
+
+  const ra = res.headers.get('Retry-After');
+  let delay = ra ? Math.max(Number(ra) * 1000, base * 2 ** attempt) : base * 2 ** attempt;
+  delay = Math.min(delay, maxDelay);
+
+  const sleepMs = Math.random() * delay; // full jitter
+  await sleep(sleepMs);
+}
+```
+<!------------------------------- END JavaScript ------------------------------>
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Incremental backoff best practices
+
+- Only retry on idempotent or safe request semantics your client supports.
+- Retry only for `429` (Too Many Requests) and `503` (Service Unavailable).
+- Do not retry on client errors like `400`, `401`, `404`, `422`.
+- Cap the delay with `max_delay` to avoid excessively long waits.
+- Limit total retries to avoid infinite loops and provide meaningful errors.
+- Log retry attempts and backoff delays for observability and debugging.
+- Combine backoff with bounded concurrency to avoid overwhelming the server.
+
+{{% /show-in %}}
