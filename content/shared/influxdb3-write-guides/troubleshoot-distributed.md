@@ -391,7 +391,7 @@ for attempt in $(seq 0 $max_retries); do
   fi
 
   # compute exponential delay and apply full jitter
-  delay=$(awk -v b=$base -v a=$attempt 'BEGIN{d=b*(2^a); if(d>30) d=30; print d}')
+  delay=$(awk -v b=$base -v a=$attempt -v m=$max_delay 'BEGIN{d=b*(2^a); if(d>m) d=m; print d}')
   sleep_seconds=$(awk -v d=$delay 'BEGIN{srand(); printf "%.3f", rand()*d}')
   sleep $sleep_seconds
 done
