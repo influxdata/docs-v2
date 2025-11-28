@@ -423,15 +423,8 @@ paths:
           description: |
             Service unavailable.
 
-            - Returns this error if
-              the server is temporarily unavailable to accept writes.
-            - Returns a `Retry-After` header that describes when to try the write again.
-          headers:
-            Retry-After:
-              description: Non-negative decimal integer indicating seconds to wait before retrying the request.
-              schema:
-                format: int32
-                type: integer
+            - Returns this error if the server is temporarily unavailable to accept writes due to concurrent request limits or insufficient healthy ingesters.
+
         default:
           $ref: '#/components/responses/GeneralServerError'
       summary: Write data
@@ -562,18 +555,10 @@ paths:
                 type: string
         '429':
           description: |
-            #### InfluxDB Cloud:
-              - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb3/cloud-dedicated/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb3/cloud-dedicated/account-management/limits/#global-limits)
-              - returns `Retry-After` header that describes when to try the write again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                format: int32
-                type: integer
+            Too many requests.
+
+            - Returns this error if a **read** or **write** request exceeds rate
+              limits or if queriers or ingesters are resource constrained.
         default:
           content:
             application/json:
@@ -719,21 +704,9 @@ paths:
 
             The response body contains details about the [rejected points](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points).
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                format: int32
-                type: integer
+          description: Token is temporarily over quota or ingesters are resource constrained.
         '503':
-          description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                format: int32
-                type: integer
+          description: Server is temporarily unavailable to accept writes due to too many concurrent requests or insufficient healthy ingesters.
         default:
           content:
             application/json:

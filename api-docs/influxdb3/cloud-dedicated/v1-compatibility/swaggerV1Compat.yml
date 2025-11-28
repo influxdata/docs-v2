@@ -130,21 +130,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                type: integer
-                format: int32
+          description: Token is temporarily over quota or ingesters are resource constrained.
         '503':
-          description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                type: integer
-                format: int32
+          description: Server is temporarily unavailable to accept writes due to too many concurrent requests or insufficient healthy ingesters.
         default:
           description: Internal server error
           content:
@@ -293,13 +281,7 @@ paths:
                 type: string
                 format: binary
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                type: integer
-                format: int32
+          description: Token is temporarily over quota or the querier is resource constrained.
         default:
           description: Error processing query
           content:
@@ -479,13 +461,7 @@ paths:
                 type: string
                 format: binary
         '429':
-          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
-          headers:
-            Retry-After:
-              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
-              schema:
-                type: integer
-                format: int32
+          description: Token is temporarily over quota or queriers are resource constrained.
         default:
           description: Error processing query
           content:
