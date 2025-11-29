@@ -364,11 +364,45 @@ function parseMarkdown(markdown) {
   }
 }
 
+// ============================================================================
+// COMMAND-LINE ARGUMENT PARSING
+// ============================================================================
+
+/**
+ * Parse command-line arguments
+ */
+function parseArgs() {
+  const args = process.argv.slice(2);
+  const options = {
+    environment: null,
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === '-e' || args[i] === '--env') && args[i + 1]) {
+      options.environment = args[++i];
+    }
+  }
+
+  return options;
+}
+
+// Parse arguments and set environment
+const cliOptions = parseArgs();
+if (cliOptions.environment) {
+  process.env.HUGO_ENV = cliOptions.environment;
+}
+
 /**
  * Main execution
  */
 async function main() {
   console.log('🚀 Building LLM-friendly Markdown\n');
+
+  // Show environment if specified
+  if (cliOptions.environment) {
+    console.log(`🌍 Environment: ${cliOptions.environment}\n`);
+  }
+
   console.log('════════════════════════════════\n');
 
   const overallStart = Date.now();

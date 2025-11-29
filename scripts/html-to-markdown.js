@@ -47,6 +47,10 @@
  *   --limit <n>      Limit number of files to process (useful for testing)
  *                    Example: --limit 10
  *
+ *   -e, --env <env>  Set environment (development, staging, production)
+ *                    Controls base URL in frontmatter (matches Hugo's -e flag)
+ *                    Example: -e staging
+ *
  *   --verbose        Enable detailed logging showing each file processed
  *
  * ## Examples
@@ -69,6 +73,11 @@
  * Generate with verbose output:
  *   ```bash
  *   node scripts/html-to-markdown.js --path influxdb3/core --limit 5 --verbose
+ *   ```
+ *
+ * Generate Markdown with staging URLs:
+ *   ```bash
+ *   node scripts/html-to-markdown.js --path influxdb3/core -e staging
  *   ```
  *
  * ## Output Files
@@ -166,16 +175,26 @@ const options = {
   limit: null,
   verbose: false,
   specificPath: null,
+  environment: null,
 };
 
+// Parse command-line arguments
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--path' && args[i + 1]) {
     options.specificPath = args[++i];
   } else if (args[i] === '--limit' && args[i + 1]) {
     options.limit = parseInt(args[++i], 10);
+  } else if ((args[i] === '-e' || args[i] === '--env') && args[i + 1]) {
+    options.environment = args[++i];
   } else if (args[i] === '--verbose') {
     options.verbose = true;
   }
+}
+
+// Set HUGO_ENV environment variable based on --env flag (matches Hugo's -e flag behavior)
+if (options.environment) {
+  process.env.HUGO_ENV = options.environment;
+  console.log(`🌍 Environment set to: ${options.environment}`);
 }
 
 /**
@@ -229,7 +248,7 @@ function findChildPages(sectionPath) {
 /**
  * Convert single HTML file to Markdown using the shared library
  */
-function convertHtmlFileToMarkdown(htmlFilePath) {
+async function convertHtmlFileToMarkdown(htmlFilePath) {
   try {
     const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
 
@@ -239,7 +258,7 @@ function convertHtmlFileToMarkdown(htmlFilePath) {
       '/' + relativePath.replace(/\/index\.html$/, '/').replace(/\\/g, '/');
 
     // Use shared conversion function
-    const markdown = convertToMarkdown(htmlContent, urlPath);
+    const markdown = await convertToMarkdown(htmlContent, urlPath);
     if (!markdown) {
       return null;
     }
@@ -262,7 +281,7 @@ function convertHtmlFileToMarkdown(htmlFilePath) {
 /**
  * Aggregate section and child page markdown using the shared library
  */
-function aggregateSectionMarkdown(sectionHtmlPath) {
+async function aggregateSectionMarkdown(sectionHtmlPath) {
   try {
     const sectionDir = path.dirname(sectionHtmlPath);
 
@@ -300,7 +319,7 @@ function aggregateSectionMarkdown(sectionHtmlPath) {
     }
 
     // Use shared conversion function
-    const markdown = convertSectionToMarkdown(
+    const markdown = await convertSectionToMarkdown(
       sectionHtml,
       sectionUrlPath,
       childHtmls
@@ -339,7 +358,7 @@ function findHtmlFiles(dir, fileList = []) {
 /**
  * Main function
  */
-function main() {
+async function main() {
   console.log('🚀 Starting HTML to Markdown conversion...\n');
 
   const startDir = options.specificPath
@@ -389,7 +408,7 @@ function main() {
     }
 
     // Generate regular index.md
-    const result = convertHtmlFileToMarkdown(htmlFile);
+    const result = await convertHtmlFileToMarkdown(htmlFile);
     if (result) {
       converted++;
     } else {
@@ -400,7 +419,7 @@ function main() {
     const htmlDir = path.dirname(htmlFile);
     if (result && isSection(htmlDir)) {
       try {
-        const sectionMarkdown = aggregateSectionMarkdown(htmlFile);
+        const sectionMarkdown = await aggregateSectionMarkdown(htmlFile);
         if (sectionMarkdown) {
           const sectionFilePath = htmlFile.replace(
             /index\.html$/,
