@@ -1,0 +1,38 @@
+[package]
+name = "rust-markdown-converter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# NAPI for Node.js bindings
+napi = { version = "2.16", features = ["serde-json"] }
+napi-derive = "2.16"
+
+# HTML parsing and conversion
+html2md = "0.2"
+scraper = "0.20"
+
+# YAML frontmatter
+serde_yaml = "0.9"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Regex for text processing
+regex = "1.11"
+lazy_static = "1.5"
+
+# Date/time for timestamps
+chrono = "0.4"
+
+[build-dependencies]
+napi-build = "2.1"
+serde_yaml = "0.9"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true

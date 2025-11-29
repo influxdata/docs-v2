@@ -41,7 +41,7 @@ export function validateMarkdown(markdown) {
       headings: [],
       codeBlocks: [],
       links: [],
-    }
+    },
   };
 
   // Extract frontmatter
@@ -70,12 +70,12 @@ export function validateMarkdown(markdown) {
       rows: node.children.length,
       columns: node.children[0]?.children.length || 0,
       headers: [],
-      cells: []
+      cells: [],
     };
 
     // Extract headers from first row
     if (node.children[0]) {
-      node.children[0].children.forEach(cell => {
+      node.children[0].children.forEach((cell) => {
         const text = extractText(cell);
         table.headers.push(text);
       });
@@ -84,7 +84,7 @@ export function validateMarkdown(markdown) {
     // Extract all cell content
     node.children.forEach((row, rowIndex) => {
       const rowCells = [];
-      row.children.forEach(cell => {
+      row.children.forEach((cell) => {
         rowCells.push(extractText(cell));
       });
       table.cells.push(rowCells);
@@ -97,7 +97,7 @@ export function validateMarkdown(markdown) {
   visit(ast, 'heading', (node) => {
     results.info.headings.push({
       depth: node.depth,
-      text: extractText(node)
+      text: extractText(node),
     });
   });
 
@@ -105,7 +105,7 @@ export function validateMarkdown(markdown) {
   visit(ast, 'code', (node) => {
     results.info.codeBlocks.push({
       lang: node.lang || null,
-      value: node.value
+      value: node.value,
     });
   });
 
@@ -114,7 +114,7 @@ export function validateMarkdown(markdown) {
     results.info.links.push({
       url: node.url,
       title: node.title || null,
-      text: extractText(node)
+      text: extractText(node),
     });
   });
 
@@ -189,18 +189,21 @@ export function validateFrontmatter(frontmatter, requiredFields) {
     // Simple YAML parsing - split by lines and extract key-value pairs
     parsed = {};
     const lines = frontmatter.split('\n');
-    lines.forEach(line => {
+    lines.forEach((line) => {
       const match = line.match(/^([^:]+):\s*(.*)$/);
       if (match) {
         parsed[match[1].trim()] = match[2].trim();
       }
     });
   } catch (error) {
-    return { valid: false, errors: [`Failed to parse frontmatter: ${error.message}`] };
+    return {
+      valid: false,
+      errors: [`Failed to parse frontmatter: ${error.message}`],
+    };
   }
 
   // Check required fields
-  requiredFields.forEach(field => {
+  requiredFields.forEach((field) => {
     if (!parsed[field]) {
       errors.push(`Missing required frontmatter field: ${field}`);
     }
@@ -209,7 +212,7 @@ export function validateFrontmatter(frontmatter, requiredFields) {
   return {
     valid: errors.length === 0,
     errors,
-    data: parsed
+    data: parsed,
   };
 }
 
@@ -224,7 +227,7 @@ export function validateTable(tableInfo, expectedHeaders = null, minRows = 0) {
   }
 
   // Check column count consistency
-  const columnCounts = tableInfo.cells.map(row => row.length);
+  const columnCounts = tableInfo.cells.map((row) => row.length);
   const uniqueCounts = [...new Set(columnCounts)];
   if (uniqueCounts.length > 1) {
     errors.push(`Inconsistent column count: ${uniqueCounts.join(', ')}`);
@@ -232,8 +235,12 @@ export function validateTable(tableInfo, expectedHeaders = null, minRows = 0) {
 
   // Check expected headers
   if (expectedHeaders) {
-    expectedHeaders.forEach(header => {
-      if (!tableInfo.headers.some(h => h.toLowerCase().includes(header.toLowerCase()))) {
+    expectedHeaders.forEach((header) => {
+      if (
+        !tableInfo.headers.some((h) =>
+          h.toLowerCase().includes(header.toLowerCase())
+        )
+      ) {
         errors.push(`Missing expected header: ${header}`);
       }
     });
@@ -241,11 +248,13 @@ export function validateTable(tableInfo, expectedHeaders = null, minRows = 0) {
 
   // Check minimum rows
   if (tableInfo.rows < minRows) {
-    errors.push(`Table has ${tableInfo.rows} rows, expected at least ${minRows}`);
+    errors.push(
+      `Table has ${tableInfo.rows} rows, expected at least ${minRows}`
+    );
   }
 
   return {
     valid: errors.length === 0,
-    errors
+    errors,
   };
 }

@@ -293,7 +293,8 @@ describe('Markdown Content Validation', () => {
 
   describe('Tab Delimiters', () => {
     const TAB_PAGE_URL = '/influxdb3/enterprise/write-data/client-libraries/';
-    const CODE_TAB_PAGE_URL = '/influxdb3/core/query-data/execute-queries/influxdb3-cli/';
+    const CODE_TAB_PAGE_URL =
+      '/influxdb3/core/query-data/execute-queries/influxdb3-cli/';
 
     before(() => {
       // Generate markdown for pages with tabs
@@ -354,7 +355,10 @@ describe('Markdown Content Validation', () => {
           // Each delimiter should be followed by content (not another delimiter immediately)
           delimiterMatches.forEach((delimiter) => {
             const delimiterIndex = response.body.indexOf(delimiter);
-            const afterDelimiter = response.body.substring(delimiterIndex + delimiter.length, delimiterIndex + delimiter.length + 200);
+            const afterDelimiter = response.body.substring(
+              delimiterIndex + delimiter.length,
+              delimiterIndex + delimiter.length + 200
+            );
 
             // Should have content after delimiter (not just another delimiter)
             expect(afterDelimiter.trim()).to.not.match(/^#### \w+ ####/);
@@ -582,8 +586,8 @@ describe('Markdown Content Validation', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
         // Regression: UI elements were appearing in markdown
         expect(doesNotContainText(response.body, 'Copy page')).to.be.true;
-        expect(doesNotContainText(response.body, 'Was this page helpful')).to
-          .be.true;
+        expect(doesNotContainText(response.body, 'Was this page helpful')).to.be
+          .true;
         expect(doesNotContainText(response.body, 'Submit feedback')).to.be.true;
       });
 

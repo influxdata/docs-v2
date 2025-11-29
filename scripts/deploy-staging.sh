@@ -73,7 +73,7 @@ check_s3deploy() {
     if ! command -v s3deploy &> /dev/null; then
         error "s3deploy not found. Install with: deploy/ci-install-s3deploy.sh"
     fi
-    success "s3deploy found: $(s3deploy -version | head -1)"
+    success "s3deploy found: $(s3deploy -V | head -1)"
 }
 
 # Build Hugo site
@@ -112,6 +112,9 @@ deploy_to_s3() {
         -bucket="$STAGING_BUCKET" \
         -region="$AWS_REGION" \
         -distribution-id="${STAGING_CF_DISTRIBUTION_ID}" \
+        -key=$AWS_ACCESS_KEY_ID \
+        -secret=$AWS_SECRET_KEY \
+        -force \
         -v
     success "Deployment to S3 complete"
 }
