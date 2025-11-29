@@ -15,20 +15,86 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-// Import product mappings module (compiled from TypeScript)
-let productMappings;
+// Try to load Rust converter (10x faster), fall back to JavaScript
+let rustConverter = null;
+let USE_RUST = false;
 try {
-  productMappings = require('../../dist/utils/product-mappings.js');
+  rustConverter = require('../rust-markdown-converter');
+  USE_RUST = true;
+  console.log('✓ Rust markdown converter loaded');
 } catch (err) {
-  console.warn('Failed to load product-mappings:', err.message);
-  productMappings = null;
+  console.log('ℹ Using JavaScript converter (Rust not available)');
+  rustConverter = null;
 }
+
+// Built-in product mappings (fallback since ESM module can't be required from CommonJS)
+const URL_PATTERN_MAP = {
+  '/influxdb3/core/': 'influxdb3_core',
+  '/influxdb3/enterprise/': 'influxdb3_enterprise',
+  '/influxdb3/cloud-dedicated/': 'influxdb3_cloud_dedicated',
+  '/influxdb3/cloud-serverless/': 'influxdb3_cloud_serverless',
+  '/influxdb3/clustered/': 'influxdb3_clustered',
+  '/influxdb3/explorer/': 'influxdb3_explorer',
+  '/influxdb/cloud/': 'influxdb_cloud',
+  '/influxdb/v2': 'influxdb_v2',
+  '/influxdb/v1': 'influxdb_v1',
+  '/enterprise_influxdb/': 'enterprise_influxdb',
+  '/telegraf/': 'telegraf',
+  '/chronograf/': 'chronograf',
+  '/kapacitor/': 'kapacitor',
+  '/flux/': 'flux',
+};
+
+const PRODUCT_NAME_MAP = {
+  influxdb3_core: { name: 'InfluxDB 3 Core', version: 'core' },
+  influxdb3_enterprise: { name: 'InfluxDB 3 Enterprise', version: 'enterprise' },
+  influxdb3_cloud_dedicated: { name: 'InfluxDB Cloud Dedicated', version: 'cloud-dedicated' },
+  influxdb3_cloud_serverless: { name: 'InfluxDB Cloud Serverless', version: 'cloud-serverless' },
+  influxdb3_clustered: { name: 'InfluxDB Clustered', version: 'clustered' },
+  influxdb3_explorer: { name: 'InfluxDB 3 Explorer', version: 'explorer' },
+  influxdb_cloud: { name: 'InfluxDB Cloud (TSM)', version: 'cloud' },
+  influxdb_v2: { name: 'InfluxDB OSS v2', version: 'v2' },
+  influxdb_v1: { name: 'InfluxDB OSS v1', version: 'v1' },
+  enterprise_influxdb: { name: 'InfluxDB Enterprise v1', version: 'v1' },
+  telegraf: { name: 'Telegraf', version: 'v1' },
+  chronograf: { name: 'Chronograf', version: 'v1' },
+  kapacitor: { name: 'Kapacitor', version: 'v1' },
+  flux: { name: 'Flux', version: 'v0' },
+};
+
+// Note: ESM product-mappings module can't be required from CommonJS
+// Using built-in mappings above instead
+let productMappings = null;
 
 // Debug mode - set to true to enable verbose logging
 const DEBUG = false;
 
 // Product data cache
 let productsData = null;
+
+/**
+ * Detect base URL for the current environment
+ * @returns {string} Base URL (http://localhost:1313, staging URL, or production URL)
+ */
+function detectBaseUrl() {
+  // Check environment variables first
+  if (process.env.BASE_URL) {
+    return process.env.BASE_URL;
+  }
+
+  // Check if Hugo dev server is running on localhost
+  if (process.env.HUGO_ENV === 'development' || process.env.NODE_ENV === 'development') {
+    return 'http://localhost:1313';
+  }
+
+  // Check for staging environment
+  if (process.env.HUGO_ENV === 'staging' || process.env.DEPLOY_ENV === 'staging') {
+    return 'https://staging.docs.influxdata.com'; // Update with actual staging URL if different
+  }
+
+  // Default to production
+  return 'https://docs.influxdata.com';
+}
 
 /**
  * Initialize product data
@@ -54,21 +120,19 @@ async function ensureProductDataInitialized() {
 
 /**
  * Get product info from URL path
- * Uses the product-mappings module for accurate detection
+ * Uses built-in URL pattern maps for detection
  */
 function getProductFromPath(urlPath) {
-  if (!productMappings || !productMappings.getProductFromPath) {
-    return null;
-  }
-
-  try {
-    return productMappings.getProductFromPath(urlPath);
-  } catch (err) {
-    if (DEBUG) {
-      console.warn(`Product detection failed for ${urlPath}:`, err.message);
+  // Find matching product key from URL patterns
+  for (const [pattern, productKey] of Object.entries(URL_PATTERN_MAP)) {
+    if (urlPath.includes(pattern)) {
+      const productInfo = PRODUCT_NAME_MAP[productKey];
+      if (productInfo) {
+        return productInfo;
+      }
     }
-    return null;
   }
+  return null;
 }
 
 /**
@@ -317,9 +381,10 @@ function extractArticleContent(htmlContent, contextInfo = '') {
  * Generate frontmatter for markdown file (single page)
  * @param {Object} metadata - Object with title, description
  * @param {string} urlPath - URL path for the page
+ * @param {string} baseUrl - Base URL for full URL construction
  * @returns {string} YAML frontmatter as string
  */
-function generateFrontmatter(metadata, urlPath) {
+function generateFrontmatter(metadata, urlPath, baseUrl = '') {
   const product = detectProduct(urlPath);
 
   // Sanitize description (remove newlines, truncate to reasonable length)
@@ -333,11 +398,14 @@ function generateFrontmatter(metadata, urlPath) {
   const contentLength = metadata.content?.length || 0;
   const estimatedTokens = Math.ceil(contentLength / 4);
 
+  // Build full URL (baseUrl + path)
+  const fullUrl = baseUrl ? `${baseUrl.replace(/\/$/, '')}${urlPath}` : urlPath;
+
   // Build frontmatter object (will be serialized to YAML)
   const frontmatterObj = {
     title: metadata.title,
     description: description,
-    url: urlPath,
+    url: fullUrl,
     estimated_tokens: estimatedTokens
   };
 
@@ -360,9 +428,10 @@ function generateFrontmatter(metadata, urlPath) {
  * @param {Object} metadata - Object with title, description
  * @param {string} urlPath - URL path for the section
  * @param {Array} childPages - Array of child page objects with url and title
+ * @param {string} baseUrl - Base URL for full URL construction
  * @returns {string} YAML frontmatter as string
  */
-function generateSectionFrontmatter(metadata, urlPath, childPages) {
+function generateSectionFrontmatter(metadata, urlPath, childPages, baseUrl = '') {
   const product = detectProduct(urlPath);
 
   // Sanitize description (remove newlines, truncate to reasonable length)
@@ -381,11 +450,15 @@ function generateSectionFrontmatter(metadata, urlPath, childPages) {
   const totalLength = contentLength + childContentLength;
   const estimatedTokens = Math.ceil(totalLength / 4);
 
+  // Build full URL (baseUrl + path)
+  const fullUrl = baseUrl ? `${baseUrl.replace(/\/$/, '')}${urlPath}` : urlPath;
+  const normalizedBaseUrl = baseUrl ? baseUrl.replace(/\/$/, '') : '';
+
   // Build frontmatter object (will be serialized to YAML)
   const frontmatterObj = {
     title: metadata.title,
     description: description,
-    url: urlPath,
+    url: fullUrl,
     type: 'section',
     pages: childPages.length,
     estimated_tokens: estimatedTokens
@@ -398,10 +471,10 @@ function generateSectionFrontmatter(metadata, urlPath, childPages) {
     }
   }
 
-  // List child pages
+  // List child pages with full URLs
   if (childPages.length > 0) {
     frontmatterObj.child_pages = childPages.map(child => ({
-      url: child.url,
+      url: normalizedBaseUrl ? `${normalizedBaseUrl}${child.url}` : child.url,
       title: child.title
     }));
   }
@@ -422,6 +495,23 @@ function generateSectionFrontmatter(metadata, urlPath, childPages) {
 async function convertToMarkdown(htmlContent, urlPath) {
   await ensureProductDataInitialized();
 
+  // Detect base URL for the environment
+  const baseUrl = detectBaseUrl();
+  if (DEBUG) {
+    console.log(`[DEBUG] Base URL detected: ${baseUrl} (NODE_ENV=${process.env.NODE_ENV}, HUGO_ENV=${process.env.HUGO_ENV}, BASE_URL=${process.env.BASE_URL})`);
+  }
+
+  // Use Rust converter if available (10× faster)
+  if (USE_RUST && rustConverter) {
+    try {
+      return rustConverter.convertToMarkdown(htmlContent, urlPath, baseUrl);
+    } catch (err) {
+      console.warn(`Rust conversion failed for ${urlPath}, falling back to JavaScript:`, err.message);
+      // Fall through to JavaScript implementation
+    }
+  }
+
+  // JavaScript fallback implementation
   const turndownService = createTurndownService();
   const metadata = extractArticleContent(htmlContent, urlPath);
 
@@ -439,8 +529,8 @@ async function convertToMarkdown(htmlContent, urlPath) {
     .replace(/\* \* \*\s*$/g, '')
     .trim();
 
-  // Generate frontmatter
-  const frontmatter = generateFrontmatter(metadata, urlPath);
+  // Generate frontmatter with full URL
+  const frontmatter = generateFrontmatter(metadata, urlPath, baseUrl);
 
   return `${frontmatter}\n\n${markdown}\n`;
 }
@@ -459,6 +549,20 @@ async function convertSectionToMarkdown(
 ) {
   await ensureProductDataInitialized();
 
+  // Detect base URL for the environment
+  const baseUrl = detectBaseUrl();
+
+  // Use Rust converter if available (10× faster)
+  if (USE_RUST && rustConverter) {
+    try {
+      return rustConverter.convertSectionToMarkdown(sectionHtml, sectionUrlPath, childHtmls, baseUrl);
+    } catch (err) {
+      console.warn(`Rust section conversion failed for ${sectionUrlPath}, falling back to JavaScript:`, err.message);
+      // Fall through to JavaScript implementation
+    }
+  }
+
+  // JavaScript fallback implementation
   const turndownService = createTurndownService();
 
   // Extract section metadata and content
@@ -505,11 +609,12 @@ async function convertSectionToMarkdown(
     }
   }
 
-  // Generate section frontmatter with child page info
+  // Generate section frontmatter with child page info and full URLs
   const frontmatter = generateSectionFrontmatter(
     { ...sectionMetadata, content: sectionMarkdown },
     sectionUrlPath,
-    childPageInfo
+    childPageInfo,
+    baseUrl
   );
 
   // Combine section content with child pages
