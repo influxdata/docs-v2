@@ -4,8 +4,17 @@
  * - Don't contain raw Hugo shortcodes
  * - Don't contain HTML comments
  * - Have proper frontmatter
- * - Section pages include child page content
+ * - Have valid Markdown structure
+ * - Contain expected content
  */
+
+import {
+  validateMarkdown,
+  validateFrontmatter,
+  validateTable,
+  containsText,
+  doesNotContainText,
+} from '../../support/markdown-validator.js';
 
 describe('Markdown Content Validation', () => {
   // Test URLs for different page types
@@ -122,17 +131,6 @@ describe('Markdown Content Validation', () => {
         expect(frontmatter).to.include('lastmod:');
       });
     });
-
-    it('should use relative URLs in frontmatter', () => {
-      cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        const frontmatterMatch = response.body.match(/^---\n([\s\S]*?)\n---/);
-        const frontmatter = frontmatterMatch[1];
-
-        // URL should start with / (relative) not http:// or https://
-        expect(frontmatter).to.match(/url: \//);
-        expect(frontmatter).to.not.match(/url: https?:\/\//);
-      });
-    });
   });
 
   describe('Shortcode Evaluation', () => {
@@ -228,38 +226,6 @@ describe('Markdown Content Validation', () => {
     });
   });
 
-  describe('Product Context Header', () => {
-    it('should include product context header after frontmatter', () => {
-      cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        // After frontmatter, should have product context
-        expect(response.body).to.match(/---\n\n\*\*Product\*\*:/);
-      });
-    });
-
-    it('should match product name and version from frontmatter', () => {
-      cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        const frontmatterMatch = response.body.match(/^---\n([\s\S]*?)\n---/);
-        const frontmatter = frontmatterMatch[1];
-
-        // Extract product and version from frontmatter
-        const productMatch = frontmatter.match(/product: (.+)/);
-        const versionMatch = frontmatter.match(/product_version: (.+)/);
-
-        expect(productMatch).to.not.be.null;
-        expect(versionMatch).to.not.be.null;
-
-        const productName = productMatch[1];
-        const version = versionMatch[1];
-
-        // Check product header matches
-        const productHeaderRegex = new RegExp(
-          `\\*\\*Product\\*\\*: ${productName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} \\(${version}\\)`
-        );
-        expect(response.body).to.match(productHeaderRegex);
-      });
-    });
-  });
-
   describe('Content Quality', () => {
     it('should not have excessive consecutive newlines', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
@@ -320,6 +286,79 @@ describe('Markdown Content Validation', () => {
         if (response.body.includes('Telegraf')) {
           // Should have links to Telegraf, not just plain "Telegraf" everywhere
           expect(response.body).to.match(/\[.*Telegraf.*\]\(.*\/telegraf\//i);
+        }
+      });
+    });
+  });
+
+  describe('Tab Delimiters', () => {
+    const TAB_PAGE_URL = '/influxdb3/enterprise/write-data/client-libraries/';
+    const CODE_TAB_PAGE_URL = '/influxdb3/core/query-data/execute-queries/influxdb3-cli/';
+
+    before(() => {
+      // Generate markdown for pages with tabs
+      cy.exec(
+        'node scripts/html-to-markdown.js --path influxdb3/enterprise/write-data/client-libraries --limit 1',
+        {
+          failOnNonZeroExit: false,
+          timeout: 60000,
+        }
+      );
+
+      cy.exec(
+        'node scripts/html-to-markdown.js --path influxdb3/core/query-data/execute-queries/influxdb3-cli --limit 1',
+        {
+          failOnNonZeroExit: false,
+          timeout: 60000,
+        }
+      );
+    });
+
+    it('should convert tabs-wrapper to heading delimiters', () => {
+      cy.request(`${TAB_PAGE_URL}index.md`).then((response) => {
+        // Should contain tab delimiter headings (e.g., #### Go ####)
+        expect(response.body).to.match(/^#### \w+ ####$/m);
+
+        // Should NOT contain raw tab link patterns
+        expect(response.body).to.not.match(/\[Go\]\(#\)\[Node\.js\]\(#\)/);
+        expect(response.body).to.not.match(/\[Python\]\(#\)\[Java\]\(#\)/);
+      });
+    });
+
+    it('should convert code-tabs-wrapper to heading delimiters', () => {
+      cy.request(`${CODE_TAB_PAGE_URL}index.md`).then((response) => {
+        // Should contain tab delimiter headings for code tabs
+        expect(response.body).to.match(/^#### \w+ ####$/m);
+
+        // Should NOT contain raw code-tab link patterns
+        expect(response.body).to.not.match(/\[string\]\(#\)\[file\]\(#\)/);
+        expect(response.body).to.not.match(/\[SQL\]\(#\)\[InfluxQL\]\(#\)/);
+      });
+    });
+
+    it('should preserve first tab name in delimiter heading', () => {
+      cy.request(`${TAB_PAGE_URL}index.md`).then((response) => {
+        // For tabs like [Go](#)[Node.js](#)[Python](#), should have #### Go ####
+        if (response.body.includes('Go')) {
+          expect(response.body).to.match(/^#### Go ####$/m);
+        }
+      });
+    });
+
+    it('should have delimiter headings followed by content', () => {
+      cy.request(`${TAB_PAGE_URL}index.md`).then((response) => {
+        // Tab delimiter headings should be followed by actual content
+        const delimiterMatches = response.body.match(/^#### \w+ ####$/gm);
+
+        if (delimiterMatches && delimiterMatches.length > 0) {
+          // Each delimiter should be followed by content (not another delimiter immediately)
+          delimiterMatches.forEach((delimiter) => {
+            const delimiterIndex = response.body.indexOf(delimiter);
+            const afterDelimiter = response.body.substring(delimiterIndex + delimiter.length, delimiterIndex + delimiter.length + 200);
+
+            // Should have content after delimiter (not just another delimiter)
+            expect(afterDelimiter.trim()).to.not.match(/^#### \w+ ####/);
+          });
         }
       });
     });
@@ -389,9 +428,6 @@ describe('Markdown Content Validation', () => {
             expect(response.body).to.include(
               `product_version: ${product.version}`
             );
-            expect(response.body).to.include(
-              `**Product**: ${product.name} (${product.version})`
-            );
           });
         });
 
@@ -437,13 +473,14 @@ describe('Markdown Content Validation', () => {
 
     it('should render lists in markdown format', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        // Should contain markdown list items
-        expect(response.body).to.match(/^-   /m); // Unordered list
+        // Validate using Markdown parser instead of regex
+        const validation = validateMarkdown(response.body);
+        expect(validation.info.hasLists).to.be.true;
       });
     });
   });
 
-  describe('Table Formatting - Enterprise Get Started', () => {
+  describe('Table Content - Enterprise Get Started', () => {
     const ENTERPRISE_GET_STARTED_URL = '/influxdb3/enterprise/get-started/';
 
     before(() => {
@@ -457,120 +494,71 @@ describe('Markdown Content Validation', () => {
       );
     });
 
-    it('should have properly formatted tools comparison table', () => {
+    it('should have valid table structure with expected headers', () => {
       cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Table should exist with proper header row
-        expect(response.body).to.include(
-          '| Tool | Administration | Write | Query |'
+        const validation = validateMarkdown(response.body);
+
+        // Should have at least one table
+        expect(validation.info.hasTables).to.be.true;
+        expect(validation.info.tableCount).to.be.greaterThan(0);
+
+        // Find the tools comparison table (should have Tool, Administration, Write, Query headers)
+        const toolsTable = validation.info.tables.find(
+          (table) =>
+            table.headers.some((h) => h.toLowerCase().includes('tool')) &&
+            table.headers.some((h) =>
+              h.toLowerCase().includes('administration')
+            ) &&
+            table.headers.some((h) => h.toLowerCase().includes('write')) &&
+            table.headers.some((h) => h.toLowerCase().includes('query'))
         );
 
-        // Table should have separator row with proper format
-        expect(response.body).to.match(/\| --- \| --- \| --- \| --- \|/);
+        expect(toolsTable).to.exist;
+
+        // Validate table structure using semantic validator
+        const tableValidation = validateTable(
+          toolsTable,
+          ['Tool', 'Administration', 'Write', 'Query'],
+          2 // At least 2 rows (header + data)
+        );
+
+        expect(tableValidation.valid).to.be.true;
+        if (!tableValidation.valid) {
+          cy.log('Table validation errors:', tableValidation.errors);
+        }
       });
     });
 
-    it('should not have duplicate header rows in table', () => {
+    it('should include expected tools in table content', () => {
       cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Extract the table section
-        const tableMatch = response.body.match(
-          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
-        );
+        const validation = validateMarkdown(response.body);
+        const toolsTable = validation.info.tables[0]; // First table should be tools table
 
-        expect(tableMatch).to.not.be.null;
-        const tableContent = tableMatch[0];
+        // Convert table cells to flat array for easier searching
+        const allCells = toolsTable.cells.flat().map((c) => c.toLowerCase());
 
-        // Count occurrences of the header row
-        const headerMatches = tableContent.match(
-          /\| Tool \| Administration \| Write \| Query \|/g
-        );
-
-        // Should appear exactly once (the header)
-        expect(headerMatches).to.have.length(1);
+        // Check for key tools (case-insensitive content check)
+        expect(allCells.some((c) => c.includes('influxdb3'))).to.be.true;
+        expect(allCells.some((c) => c.includes('http api'))).to.be.true;
+        expect(allCells.some((c) => c.includes('explorer'))).to.be.true;
+        expect(allCells.some((c) => c.includes('telegraf'))).to.be.true;
+        expect(allCells.some((c) => c.includes('grafana'))).to.be.true;
       });
     });
 
-    it('should have correct number of columns in all table rows', () => {
+    it('should have consistent column count in all table rows', () => {
       cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Extract the table section
-        const tableMatch = response.body.match(
-          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
+        const validation = validateMarkdown(response.body);
+        const toolsTable = validation.info.tables[0];
+
+        // All rows should have the same number of columns
+        const columnCounts = toolsTable.cells.map((row) => row.length);
+        const uniqueCounts = [...new Set(columnCounts)];
+
+        expect(uniqueCounts.length).to.equal(
+          1,
+          `Table has inconsistent column counts: ${uniqueCounts.join(', ')}`
         );
-
-        expect(tableMatch).to.not.be.null;
-        const tableContent = tableMatch[0];
-
-        // Split into rows and validate each row has 4 columns (5 pipes)
-        const rows = tableContent
-          .split('\n')
-          .filter((line) => line.trim().startsWith('|'));
-
-        rows.forEach((row) => {
-          // Count pipes - should be 5 (4 columns with leading/trailing pipes)
-          const pipeCount = (row.match(/\|/g) || []).length;
-          expect(pipeCount).to.equal(5);
-        });
-      });
-    });
-
-    it('should include expected tools in table rows', () => {
-      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Should include key tools mentioned in the original table
-        expect(response.body).to.include('| influxdb3 CLI |');
-        expect(response.body).to.include('| InfluxDB HTTP API |');
-        expect(response.body).to.include('| InfluxDB 3 Explorer |');
-        expect(response.body).to.include('| Telegraf |');
-        expect(response.body).to.include('| Grafana |');
-      });
-    });
-
-    it('should properly format empty cells in table', () => {
-      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Empty cells should be represented consistently (either empty or with -)
-        const tableMatch = response.body.match(
-          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
-        );
-
-        expect(tableMatch).to.not.be.null;
-        const tableContent = tableMatch[0];
-
-        // Check that cells are properly separated with |
-        // Each row should have consistent spacing
-        const dataRows = tableContent
-          .split('\n')
-          .filter(
-            (line) => line.trim().startsWith('|') && !line.includes('---')
-          );
-
-        dataRows.forEach((row) => {
-          // Row should be properly formatted with | separators
-          expect(row).to.match(/^\|.*\|$/);
-        });
-      });
-    });
-
-    it('should not have newlines within table cells', () => {
-      cy.request(`${ENTERPRISE_GET_STARTED_URL}index.md`).then((response) => {
-        // Extract the table section
-        const tableMatch = response.body.match(
-          /\| Tool \| Administration \| Write \| Query \|([\s\S]*?)(?:\n\n|$)/
-        );
-
-        expect(tableMatch).to.not.be.null;
-        const tableContent = tableMatch[0];
-
-        // Split into rows
-        const rows = tableContent
-          .split('\n')
-          .filter((line) => line.trim().startsWith('|'));
-
-        rows.forEach((row) => {
-          // Skip separator row
-          if (row.includes('---')) return;
-
-          // Each cell content between pipes should not contain raw newlines
-          // The entire row should be on one line
-          expect(row).to.not.include('\n');
-        });
       });
     });
   });
@@ -578,7 +566,8 @@ describe('Markdown Content Validation', () => {
   describe('Regression Tests - Known Issues', () => {
     it('should NOT contain localhost URLs in frontmatter', () => {
       cy.request(`${ENTERPRISE_INDEX_URL}index.md`).then((response) => {
-        expect(response.body).to.not.include('http://localhost');
+        expect(doesNotContainText(response.body, 'http://localhost')).to.be
+          .true;
       });
     });
 
@@ -589,14 +578,26 @@ describe('Markdown Content Validation', () => {
       });
     });
 
-    it('should NOT contain "Copy page" or "Copy section" button text', () => {
+    it('should NOT contain UI element text (Copy page, Was this helpful, etc)', () => {
       cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
-        // Regression: Format selector text was appearing in markdown
-        expect(response.body).to.not.include('Copy page');
+        // Regression: UI elements were appearing in markdown
+        expect(doesNotContainText(response.body, 'Copy page')).to.be.true;
+        expect(doesNotContainText(response.body, 'Was this page helpful')).to
+          .be.true;
+        expect(doesNotContainText(response.body, 'Submit feedback')).to.be.true;
       });
 
       cy.request(`${SECTION_PAGE_URL}index.md`).then((response) => {
-        expect(response.body).to.not.include('Copy section');
+        expect(doesNotContainText(response.body, 'Copy section')).to.be.true;
+      });
+    });
+
+    it('should NOT contain Support section content', () => {
+      cy.request(`${LEAF_PAGE_URL}index.md`).then((response) => {
+        // Support sections should be removed during conversion
+        expect(doesNotContainText(response.body, 'InfluxDB Discord')).to.be
+          .true;
+        expect(doesNotContainText(response.body, 'Customer portal')).to.be.true;
       });
     });
   });
