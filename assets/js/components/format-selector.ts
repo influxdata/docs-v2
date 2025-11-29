@@ -524,15 +524,40 @@ export default function FormatSelector(options: ComponentOptions) {
 
   /**
    * Position dropdown relative to button using fixed positioning
+   * Ensures dropdown stays within viewport bounds
    */
   function positionDropdown(): void {
     const buttonRect = button.getBoundingClientRect();
+    const dropdownWidth = dropdownMenu.offsetWidth;
+    const viewportWidth = window.innerWidth;
+    const padding = 8; // Minimum padding from viewport edge
 
     // Always position dropdown below button with 8px gap
     dropdownMenu.style.top = `${buttonRect.bottom + 8}px`;
 
-    // Align dropdown to right edge of button
-    dropdownMenu.style.left = `${buttonRect.right - dropdownMenu.offsetWidth}px`;
+    // Calculate ideal left position (right-aligned with button)
+    let leftPos = buttonRect.right - dropdownWidth;
+
+    // Ensure dropdown doesn't go off the left edge
+    if (leftPos < padding) {
+      leftPos = padding;
+    }
+
+    // Ensure dropdown doesn't go off the right edge
+    if (leftPos + dropdownWidth > viewportWidth - padding) {
+      leftPos = viewportWidth - dropdownWidth - padding;
+    }
+
+    dropdownMenu.style.left = `${leftPos}px`;
+  }
+
+  /**
+   * Handle resize events to reposition dropdown
+   */
+  function handleResize(): void {
+    if (isOpen) {
+      positionDropdown();
+    }
   }
 
   /**
@@ -546,10 +571,12 @@ export default function FormatSelector(options: ComponentOptions) {
     // Position dropdown relative to button
     positionDropdown();
 
-    // Add click outside listener
+    // Add listeners for repositioning and closing
     setTimeout(() => {
       document.addEventListener('click', handleClickOutside);
     }, 0);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize, true); // Capture scroll on any element
   }
 
   /**
@@ -560,6 +587,8 @@ export default function FormatSelector(options: ComponentOptions) {
     dropdownMenu.classList.remove('is-open');
     button.setAttribute('aria-expanded', 'false');
     document.removeEventListener('click', handleClickOutside);
+    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('scroll', handleResize, true);
   }
 
   /**
