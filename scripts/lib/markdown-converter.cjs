@@ -89,7 +89,7 @@ function detectBaseUrl() {
 
   // Check for staging environment
   if (process.env.HUGO_ENV === 'staging' || process.env.DEPLOY_ENV === 'staging') {
-    return 'https://staging.docs.influxdata.com'; // Update with actual staging URL if different
+    return process.env.STAGING_URL || 'https://test2.docs.influxdata.com';
   }
 
   // Default to production

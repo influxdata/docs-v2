@@ -12,11 +12,12 @@
 #   ./scripts/deploy-staging.sh
 #
 # Required environment variables:
-#   STAGING_BUCKET              - S3 bucket name (e.g., test2.docs.influxdata.com)
+#   STAGING_BUCKET              - S3 bucket name (e.g., new-docs-test-docsbucket-1ns6x5tp79507)
 #   AWS_REGION                  - AWS region (e.g., us-east-1)
 #   STAGING_CF_DISTRIBUTION_ID  - CloudFront distribution ID (optional, for cache invalidation)
 #
 # Optional environment variables:
+#   STAGING_URL                 - Staging site URL (default: https://test2.docs.influxdata.com)
 #   SKIP_BUILD                  - Set to 'true' to skip Hugo build (use existing public/)
 #   SKIP_MARKDOWN               - Set to 'true' to skip markdown generation
 #   SKIP_DEPLOY                 - Set to 'true' to build only (no S3 upload)
@@ -65,6 +66,12 @@ validate_env() {
         error "Missing required environment variables: ${missing[*]}"
     fi
 
+    # Set default staging URL if not provided
+    if [ -z "$STAGING_URL" ]; then
+        STAGING_URL="https://test2.docs.influxdata.com"
+    fi
+    export STAGING_URL
+
     success "Environment variables validated"
 }
 
@@ -96,7 +103,7 @@ build_markdown() {
     fi
 
     info "Generating LLM-friendly Markdown..."
-    yarn build:md
+    yarn build:md -e staging
     success "Markdown generation complete"
 }
 
@@ -141,7 +148,7 @@ print_summary() {
     success "Staging deployment complete!"
     echo "════════════════════════════════════════"
     echo ""
-    info "Staging URL: https://$STAGING_BUCKET/"
+    info "Staging URL: $STAGING_URL"
     if [ -n "$STAGING_CF_DISTRIBUTION_ID" ]; then
         info "CloudFront: $STAGING_CF_DISTRIBUTION_ID"
         warning "Cache invalidation may take 5-10 minutes"
