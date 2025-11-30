@@ -82,7 +82,7 @@ For implementation details see the underlying [golang library](https://github.co
 ### exact R7 and R8
 
 These algorithms compute quantiles as described in [Hyndman & Fan
-(1996)]().  The R7 variant is used in Excel and NumPy.  The R8
+(1996)](http://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/Sample%20Quantiles%20in%20Statistical%20Packages.pdf).  The R7 variant is used in Excel and NumPy.  The R8
 variant is recommended by Hyndman & Fan due to its independence of the
 underlying sample distribution.
 

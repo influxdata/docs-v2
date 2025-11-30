@@ -532,7 +532,7 @@ ensure to check additional setup section in this documentation.
                                      cntr_type column value is 537003264 are
                                      already returned with a percentage format
                                      between 0 and 100. For other counters,
-                                     please check [sys.dm_os_performance_counters]()
+                                     please check [sys.dm_os_performance_counters](https://docs.microsoft.com/en-us/sql/relational-databases/system-dynamic-management-views/sys-dm-os-performance-counters-transact-sql?view=azuresqldb-current)
                                      documentation.
 - *AzureSQLPoolSchedulers*: This captures `sys.dm_os_schedulers` snapshots.
 

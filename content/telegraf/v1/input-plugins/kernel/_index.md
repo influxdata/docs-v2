@@ -55,7 +55,7 @@ Please check the documentation of the underlying kernel interfaces in the
 `/proc interfaces` section of the [random man page](https://man7.org/linux/man-pages/man4/random.4.html).
 
 Kernel Samepage Merging is generally documented in the
-[kernel documentation](https://www.kernel.org/doc/html/latest/accounting/psi.html) and the available metrics exposed via sysfs
+[kernel documentation](https://www.kernel.org/doc/html/latest/mm/ksm.html) and the available metrics exposed via sysfs
 are documented in the [admin guide](https://www.kernel.org/doc/html/latest/admin-guide/mm/ksm.html#ksm-daemon-sysfs-interface).
 
 Pressure Stall Information is exposed through `/proc/pressure` and is documented

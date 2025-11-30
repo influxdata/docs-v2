@@ -84,7 +84,7 @@ restart-counts, PID, etc. See the metrics section
 
 ### Load
 
-Enumeration of [unit_load_state_table]()
+Enumeration of [unit_load_state_table](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L87)
 
 | Value | Meaning     | Description                     |
 | ----- | -------     | -----------                     |
@@ -100,7 +100,7 @@ Enumeration of [unit_load_state_table]()
 
 ### Active
 
-Enumeration of [unit_active_state_table]()
+Enumeration of [unit_active_state_table](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L99)
 
 | Value | Meaning   | Description                        |
 | ----- | -------   | -----------                        |
@@ -115,7 +115,7 @@ Enumeration of [unit_active_state_table]()
 
 ### Sub
 
-enumeration of sub states, see various [unittype_state_tables](); duplicates
+enumeration of sub states, see various [unittype_state_tables](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L163); duplicates
 were removed, tables are hex aligned to keep some space for future values
 
 | Value  | Meaning               | Description                         |

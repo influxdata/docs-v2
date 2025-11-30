@@ -16,7 +16,7 @@ related:
 # Apache Zookeeper Input Plugin
 
 This plugin collects variables from [Zookeeper](https://zookeeper.apache.org) instances using the
-[`mntr` command]().
+[`mntr` command](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_zkCommands).
 
 > [!NOTE]
 > If the Prometheus Metric provider is enabled in Zookeeper use the

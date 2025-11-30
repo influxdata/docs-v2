@@ -13,6 +13,10 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 
 ## Options
 
+<!--docs:exclude
+--packages: internal variable, use positional [PACKAGES]...
+-->
+
 | Option                                          | Description                                                         | Default                 | Environment Variable        |
 | :---------------------------------------------- | :------------------------------------------------------------------ | :---------------------- | :-------------------------- |
 | `-H`, `--host <HOST_URL>`                       | The host URL of the running {{< product-name >}} server             | `http://127.0.0.1:8181` | `INFLUXDB3_HOST_URL`        |

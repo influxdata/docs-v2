@@ -109,6 +109,6 @@ to use them.
 ## Metrics
 
 Prometheus metrics are produced in the same manner as the [prometheus
-serializer]().
+serializer](/telegraf/v1/plugins/#serializer-prometheus).
 
 [prometheus serializer]: /plugins/serializers/prometheus/README.md#Metrics

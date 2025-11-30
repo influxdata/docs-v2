@@ -19,6 +19,10 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 
 ## Options
 
+<!--docs:exclude
+--database-name: internal variable, use positional <DATABASE_NAME>
+-->
+
 | Option |                      | Description                                                                                                                                      |
 | :----- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |

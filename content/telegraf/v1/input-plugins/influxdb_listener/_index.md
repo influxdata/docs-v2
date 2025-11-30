@@ -22,7 +22,7 @@ proxy/router for the `/write` endpoint of the InfluxDB HTTP API.
 > [!NOTE]
 > This plugin was previously known as `http_listener`. If you wish to
 > send general metrics via HTTP it is recommended to use the
-> [`http_listener_v2`]() instead.
+> [`http_listener_v2`](/telegraf/v1/plugins/#input-http_listener_v2) instead.
 
 The `/write` endpoint supports the `precision` query parameter and can be set
 to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and

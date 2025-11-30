@@ -118,8 +118,8 @@ to use them.
 ```
 
 The system can be easily extended using homemade metrics collection tools or
-using the postgresql extensions [pg_stat_statements](),
-[pg_proctab]() or [powa](http://dalibo.github.io/powa/).
+using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/docs/current/static/pgstatstatements.html),
+[pg_proctab](https://github.com/markwkm/pg_proctab) or [powa](http://dalibo.github.io/powa/).
 
 [pg_stat_statements]: http://www.postgresql.org/docs/current/static/pgstatstatements.html
 [pg_proctab]: https://github.com/markwkm/pg_proctab

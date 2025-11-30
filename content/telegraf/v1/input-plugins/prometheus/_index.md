@@ -261,7 +261,7 @@ option in both to ensure metrics are round-tripped without modification.
 
 URLs listed in the `kubernetes_services` parameter will be expanded by looking
 up all A records assigned to the hostname as described in [Kubernetes DNS
-service discovery]().
+service discovery](https://kubernetes.io/docs/concepts/services-networking/service/#dns).
 
 This method can be used to locate all [Kubernetes headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services).
 

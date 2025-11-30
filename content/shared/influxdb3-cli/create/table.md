@@ -23,6 +23,9 @@ influxdb3 create table [OPTIONS] \
 - **TABLE_NAME**: The name of the table to create.
 
 ## Options
+<!--docs:exclude
+--table-name: internal variable, use positional <TABLE_NAME>
+-->
 
 {{% hide-in "enterprise" %}}
 | Option |              | Description                                                                              |

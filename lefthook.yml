@@ -17,15 +17,17 @@ pre-commit:
       tags: lint
       glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md}"
       run: |
-        # Prepend /workdir/ to staged files since repository is mounted at /workdir in container
-        files=$(echo '{staged_files}' | sed 's|^|/workdir/|g; s| | /workdir/|g')
-        docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
-          { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
+        # Filter out content directory files, then prepend /workdir/ to each remaining file
+        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
+        if [ -n "$files" ]; then
+          docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
+            { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
+        fi
       stage_fixed: true
     # Lint instruction and repository documentation files with generic Vale config
     lint-instructions:
       tags: lint
-      glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md}"
+      glob: "{[A-Z]*.md,.github/**/*.md,.claude/**/*.md,api-docs/README.md}"
       run: '.ci/vale/vale.sh
         --config=.vale-instructions.ini
         --minAlertLevel=warning {staged_files}'

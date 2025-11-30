@@ -37,7 +37,7 @@ The timestamp of the metric collected will be used to decide the index
 destination.
 
 For more information about this usage on Elasticsearch, check [the
-docs]().
+docs](https://www.elastic.co/guide/en/elasticsearch/guide/master/time-based.html#index-per-timeframe).
 
 [1]: https://www.elastic.co/guide/en/elasticsearch/guide/master/time-based.html#index-per-timeframe
 

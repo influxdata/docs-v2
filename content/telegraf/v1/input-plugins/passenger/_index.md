@@ -20,7 +20,7 @@ This plugin gathers metrics from the [Phusion Passenger](https://www.phusionpass
 > [!WARNING]
 > Depending on your environment, this plugin can create a high number of series
 > which can cause high load on your database. Please use
-> [measurement filtering](https://docs.influxdata.com/telegraf/latest/administration/configuration/#measurement-filtering) to manage your series cardinality!
+> [measurement filtering](/telegraf/v1/configuration/#metric-filtering) to manage your series cardinality!
 
 The plugin uses the `passenger-status` command line tool.
 
