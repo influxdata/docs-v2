@@ -11,12 +11,13 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 
 ## Test Types Overview
 
-| Test Type | Purpose | Command |
-|-----------|---------|---------|
-| **Code blocks** | Validate shell/Python code examples | `yarn test:codeblocks:all` |
-| **Link validation** | Check internal/external links | `yarn test:links` |
-| **Style linting** | Enforce writing standards | `docker compose run -T vale` |
-| **E2E tests** | UI and functionality testing | `yarn test:e2e` |
+| Test Type               | Purpose                             | Command                      |
+| ----------------------- | ----------------------------------- | ---------------------------- |
+| **Code blocks**         | Validate shell/Python code examples | `yarn test:codeblocks:all`   |
+| **Link validation**     | Check internal/external links       | `yarn test:links`            |
+| **Style linting**       | Enforce writing standards           | `docker compose run -T vale` |
+| **Markdown generation** | Generate LLM-friendly Markdown      | `yarn build:md`              |
+| **E2E tests**           | UI and functionality testing        | `yarn test:e2e`              |
 
 ## Code Block Testing
 
@@ -70,7 +71,8 @@ See `./test/src/prepare-content.sh` for the full list of variables you may need.
 
 For influxctl commands to run in tests, move or copy your `config.toml` file to the `./test` directory.
 
-> [!Warning]
+> \[!Warning]
+>
 > - The database you configure in `.env.test` and any written data may be deleted during test runs
 > - Don't add your `.env.test` files to Git. Git is configured to ignore `.env*` files to prevent accidentally committing credentials
 
@@ -111,6 +113,7 @@ pytest-codeblocks has features for skipping tests and marking blocks as failed. 
 #### "Pytest collected 0 items"
 
 Potential causes:
+
 - Check test discovery options in `pytest.ini`
 - Use `python` (not `py`) for Python code block language identifiers:
   ```python
@@ -120,6 +123,215 @@ Potential causes:
   ```py
   # This is ignored
   ```
+
+## LLM-Friendly Markdown Generation
+
+The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.
+
+### Quick Start
+
+```bash
+# Prerequisites (run once)
+yarn install
+yarn build:ts
+npx hugo --quiet
+
+# Generate Markdown
+node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
+
+# Validate generated Markdown
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/markdown-content-validation.cy.js"
+```
+
+### Comprehensive Documentation
+
+For complete documentation including prerequisites, usage examples, output formats, frontmatter structure, troubleshooting, and architecture details, see the inline documentation:
+
+```bash
+# Or view the first 150 lines in terminal
+head -150 scripts/html-to-markdown.js
+```
+
+The script documentation includes:
+
+- Prerequisites and setup steps
+- Command-line options and examples
+- Output file types (single page vs section aggregation)
+- Frontmatter structure for both output types
+- Testing procedures
+- Common issues and solutions
+- Architecture overview
+- Related files
+
+### Related Files
+
+- **CLI tool**: `scripts/html-to-markdown.js` - Comprehensive inline documentation
+- **Core logic**: `scripts/lib/markdown-converter.js` - Shared conversion library
+- **Lambda handler**: `deploy/llm-markdown/lambda-edge/markdown-generator/index.js` - Production deployment
+- **Lambda docs**: `deploy/llm-markdown/README.md` - Deployment guide
+- **Cypress tests**: `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
+
+### Frontmatter Structure
+
+All generated markdown files include structured YAML frontmatter:
+
+```yaml
+---
+title: Page Title
+description: Page description for SEO
+url: /influxdb3/core/get-started/
+product: InfluxDB 3 Core
+version: core
+date: 2024-01-15T00:00:00Z
+lastmod: 2024-11-20T00:00:00Z
+type: page
+estimated_tokens: 2500
+---
+```
+
+Section pages include additional fields:
+
+```yaml
+---
+type: section
+pages: 4
+child_pages:
+  - title: Set up InfluxDB 3 Core
+    url: /influxdb3/core/get-started/setup/
+  - title: Write data
+    url: /influxdb3/core/get-started/write/
+---
+```
+
+### Testing Generated Markdown
+
+#### Manual Testing
+
+```bash
+# Generate markdown with verbose output
+node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 2 --verbose
+
+# Check files were created
+ls -la public/influxdb3/core/get-started/*.md
+
+# View generated content
+cat public/influxdb3/core/get-started/index.md
+
+# Check frontmatter
+head -20 public/influxdb3/core/get-started/index.md
+```
+
+#### Automated Testing with Cypress
+
+The repository includes comprehensive Cypress tests for markdown validation:
+
+```bash
+# Run all markdown validation tests
+node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/markdown-content-validation.cy.js"
+
+# Test specific content file
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/markdown-content-validation.cy.js" \
+  content/influxdb3/core/query-data/execute-queries/_index.md
+```
+
+The Cypress tests validate:
+
+- ✅ No raw Hugo shortcodes (`{{< >}}` or `{{% %}}`)
+- ✅ No HTML comments
+- ✅ Proper YAML frontmatter with required fields
+- ✅ UI elements removed (feedback forms, navigation)
+- ✅ GitHub-style callouts (Note, Warning, etc.)
+- ✅ Properly formatted tables, lists, and code blocks
+- ✅ Product context metadata
+- ✅ Clean link formatting
+
+### Common Issues and Solutions
+
+#### Issue: "No article content found" warnings
+
+**Cause**: Page doesn't have `<article class="article--content">` element (common for index/list pages)
+
+**Solution**: This is normal behavior. The converter skips pages without article content. To verify:
+
+```bash
+# Check HTML structure
+grep -l 'article--content' public/path/to/page/index.html
+```
+
+#### Issue: "Cannot find module" errors
+
+**Cause**: TypeScript not compiled (product-mappings.js missing)
+
+**Solution**: Build TypeScript first:
+
+```bash
+yarn build:ts
+ls -la dist/utils/product-mappings.js
+```
+
+#### Issue: Memory issues when processing all files
+
+**Cause**: Attempting to process thousands of pages at once
+
+**Solution**: Use `--limit` flag to process in batches:
+
+```bash
+# Process 1000 files at a time
+node scripts/html-to-markdown.js --limit 1000
+```
+
+#### Issue: Missing or incorrect product detection
+
+**Cause**: Product mappings not up to date or path doesn't match known patterns
+
+**Solution**:
+
+1. Rebuild TypeScript: `yarn build:ts`
+2. Check product mappings in `assets/js/utils/product-mappings.ts`
+3. Add new product paths if needed
+
+### Validation Checklist
+
+Before committing markdown generation changes:
+
+- [ ] Run TypeScript build: `yarn build:ts`
+- [ ] Build Hugo site: `npx hugo --quiet`
+- [ ] Generate markdown for affected paths
+- [ ] Run Cypress validation tests
+- [ ] Manually check sample output files:
+  - [ ] Frontmatter is valid YAML
+  - [ ] No shortcode remnants (`{{<`, `{{%`)
+  - [ ] No HTML comments (`<!--`, `-->`)
+  - [ ] Product context is correct
+  - [ ] Links are properly formatted
+  - [ ] Code blocks have language identifiers
+  - [ ] Tables render correctly
+
+### Architecture
+
+The markdown generation uses a shared library architecture:
+
+```
+docs-v2/
+├── scripts/
+│   ├── html-to-markdown.js          # CLI wrapper (filesystem operations)
+│   └── lib/
+│       └── markdown-converter.js    # Core conversion logic (shared library)
+├── dist/
+│   └── utils/
+│       └── product-mappings.js      # Product detection (compiled from TS)
+└── public/                          # Generated HTML + Markdown files
+```
+
+The shared library (`scripts/lib/markdown-converter.js`) is:
+
+- Used by local markdown generation scripts
+- Imported by docs-tooling Lambda\@Edge for on-demand generation
+- Tested independently with isolated conversion logic
+
+For deployment details, see [deploy/lambda-edge/markdown-generator/README.md](deploy/lambda-edge/markdown-generator/README.md).
 
 ## Link Validation with Link-Checker
 
@@ -158,8 +370,8 @@ chmod +x link-checker
 ./link-checker --version
 ```
 
-> [!Note]
-> Pre-built binaries are currently Linux x86_64 only. For macOS development, use Option 1 to build from source.
+> \[!Note]
+> Pre-built binaries are currently Linux x86\_64 only. For macOS development, use Option 1 to build from source.
 
 ```bash
 # Clone and build link-checker
@@ -188,11 +400,11 @@ cp target/release/link-checker /usr/local/bin/
    curl -L -H "Authorization: Bearer $(gh auth token)" \
      -o link-checker-linux-x86_64 \
      "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/link-checker-linux-x86_64"
-   
+
    curl -L -H "Authorization: Bearer $(gh auth token)" \
      -o checksums.txt \
      "https://github.com/influxdata/docs-tooling/releases/download/link-checker-v1.2.x/checksums.txt"
-   
+
    # Create docs-v2 release
    gh release create \
      --repo influxdata/docs-v2 \
@@ -209,7 +421,7 @@ cp target/release/link-checker /usr/local/bin/
    sed -i 's/link-checker-v[0-9.]*/link-checker-v1.2.x/' .github/workflows/pr-link-check.yml
    ```
 
-> [!Note]
+> \[!Note]
 > The manual distribution is required because docs-tooling is a private repository and the default GitHub token doesn't have cross-repository access for private repos.
 
 #### Core Commands
@@ -230,6 +442,7 @@ link-checker config
 The link-checker automatically handles relative link resolution based on the input type:
 
 **Local Files → Local Resolution**
+
 ```bash
 # When checking local files, relative links resolve to the local filesystem
 link-checker check public/influxdb3/core/admin/scale-cluster/index.html
@@ -238,6 +451,7 @@ link-checker check public/influxdb3/core/admin/scale-cluster/index.html
 ```
 
 **URLs → Production Resolution**
+
 ```bash
 # When checking URLs, relative links resolve to the production site
 link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluster/
@@ -246,6 +460,7 @@ link-checker check https://docs.influxdata.com/influxdb3/core/admin/scale-cluste
 ```
 
 **Why This Matters**
+
 - **Testing new content**: Tag pages generated locally will be found when testing local files
 - **Production validation**: Production URLs validate against the live site
 - **No false positives**: New content won't appear broken when testing locally before deployment
@@ -321,6 +536,7 @@ The docs-v2 repository includes automated link checking for pull requests:
 - **Results reporting**: Broken links reported as GitHub annotations with detailed summaries
 
 The workflow automatically:
+
 1. Detects content changes in PRs using GitHub Files API
 2. Downloads latest link-checker binary from docs-v2 releases
 3. Builds Hugo site and maps changed content to public HTML files
@@ -405,6 +621,7 @@ docs-v2 uses [Lefthook](https://github.com/evilmartians/lefthook) to manage Git 
 ### What Runs Automatically
 
 When you run `git commit`, Git runs:
+
 - **Vale**: Style linting (if configured)
 - **Prettier**: Code formatting
 - **Cypress**: Link validation tests
@@ -459,6 +676,7 @@ For JavaScript code in the documentation UI (`assets/js`):
    ```
 
 3. Start Hugo: `yarn hugo server`
+
 4. In VS Code, select "Debug JS (debug-helpers)" configuration
 
 Remember to remove debug statements before committing.
@@ -490,6 +708,18 @@ yarn test:codeblocks:stop-monitors
 - Format code to fit within 80 characters
 - Use long options in command-line examples (`--option` vs `-o`)
 
+### Markdown Generation
+
+- Build Hugo site before generating markdown: `npx hugo --quiet`
+- Compile TypeScript before generation: `yarn build:ts`
+- Test on small subsets first using `--limit` flag
+- Use `--verbose` flag to debug conversion issues
+- Always run Cypress validation tests after generation
+- Check sample output manually for quality
+- Verify shortcodes are evaluated (no `{{<` or `{{%` in output)
+- Ensure UI elements are removed (no "Copy page", "Was this helpful?")
+- Test both single pages (`index.md`) and section pages (`index.section.md`)
+
 ### Link Validation
 
 - Test links regularly, especially after content restructuring
@@ -511,6 +741,11 @@ yarn test:codeblocks:stop-monitors
 - **Scripts**: `.github/scripts/` directory
 - **Test data**: `./test/` directory
 - **Vale config**: `.ci/vale/styles/`
+- **Markdown generation**:
+  - `scripts/html-to-markdown.js` - CLI wrapper
+  - `scripts/lib/markdown-converter.js` - Core conversion library
+  - `deploy/lambda-edge/markdown-generator/` - Lambda deployment
+  - `cypress/e2e/content/markdown-content-validation.cy.js` - Validation tests
 
 ## Getting Help
 

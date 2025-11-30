@@ -160,14 +160,21 @@ function getVersionSpecificConfig(configKey: string): unknown {
   // Try version-specific config first (e.g., ai_sample_questions__v1)
   if (version && version !== 'n/a') {
     const versionKey = `${configKey}__v${version}`;
-    const versionConfig = productData?.product?.[versionKey];
-    if (versionConfig) {
-      return versionConfig;
+    const product = productData?.product;
+    if (product && typeof product === 'object' && !Array.isArray(product)) {
+      const versionConfig = product[versionKey];
+      if (versionConfig) {
+        return versionConfig;
+      }
     }
   }
 
   // Fall back to default config
-  return productData?.product?.[configKey];
+  const product = productData?.product;
+  if (product && typeof product === 'object' && !Array.isArray(product)) {
+    return product[configKey];
+  }
+  return undefined;
 }
 
 function getProductExampleQuestions(): string {

@@ -1,0 +1,55 @@
+{{- /*
+  Generate llms.txt file for landing pages following https://llmstxt.org specification
+
+  Required elements:
+  1. H1 with project/site name (required)
+  2. Blockquote with brief summary (optional)
+  3. Zero or more markdown sections (NO headings allowed) (optional)
+  4. H2-delimited file list sections with URLs (optional)
+  5. Optional H2 section for secondary information (optional)
+*/ -}}
+{{- $productKey := "" -}}
+{{- $productName := "" -}}
+{{- $productDescription := "" -}}
+
+{{- /* Detect product from URL path */ -}}
+{{- if hasPrefix .RelPermalink "/influxdb/cloud/" -}}
+  {{- $productKey = "influxdb_cloud" -}}
+{{- else if hasPrefix .RelPermalink "/influxdb/v2" -}}
+  {{- $productKey = "influxdb" -}}
+{{- end -}}
+
+{{- /* Get product data from products.yml */ -}}
+{{- if $productKey -}}
+  {{- $product := index .Site.Data.products $productKey -}}
+  {{- if $product -}}
+    {{- $productName = $product.name -}}
+    {{- $productDescription = $product.description -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Use product name or fallback to page title */ -}}
+{{- $h1Title := .Title -}}
+{{- if $productName -}}
+  {{- $h1Title = $productName -}}
+{{- end -}}
+
+# {{ $h1Title }}
+{{- with $productDescription }}
+
+> {{ . }}
+{{- end }}
+{{- with .Description }}
+
+> {{ . }}
+{{- end }}
+
+This is the landing page for {{ $h1Title }} documentation. Select a section below to get started.
+{{- /* List main documentation sections if available */ -}}
+{{- if .Pages }}
+
+## Main documentation sections
+{{ range .Pages }}
+- [{{ .Title }}]({{ .RelPermalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+{{- end -}}
