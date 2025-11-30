@@ -18,7 +18,7 @@ related:
 This plugin reads metrics from performing [SQL](https://www.iso.org/standard/76583.html) queries against a SQL
 server. Different server types are supported and their settings might differ
 (especially the connection parameters).  Please check the list of
-[supported SQL drivers](../../../docs/SQL_DRIVERS_INPUT.md) for the `driver` name and options
+[supported SQL drivers](/docs/SQL_DRIVERS_INPUT.md) for the `driver` name and options
 for the data-source-name (`dsn`) options.
 
 **Introduced in:** Telegraf v1.19.0

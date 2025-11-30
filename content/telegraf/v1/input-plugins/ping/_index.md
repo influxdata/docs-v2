@@ -174,7 +174,7 @@ Without systemd:
 setcap cap_net_raw=eip /usr/bin/telegraf
 ```
 
-Reference [`man 7 capabilities`]() for more information about
+Reference [`man 7 capabilities`](http://man7.org/linux/man-pages/man7/capabilities.7.html) for more information about
 setting capabilities.
 
 [man 7 capabilities]: http://man7.org/linux/man-pages/man7/capabilities.7.html

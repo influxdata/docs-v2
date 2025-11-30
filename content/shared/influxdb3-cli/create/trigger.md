@@ -21,6 +21,10 @@ influxdb3 create trigger [OPTIONS] \
 
 ## Options
 
+<!--docs:exclude
+--trigger-name: internal variable, use positional <TRIGGER_NAME>
+-->
+
 | Option |                     | Description                                                                                              |
 | :----- | :------------------ | :------------------------------------------------------------------------------------------------------- |
 | `-H`   | `--host`            | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                 |

@@ -92,9 +92,9 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ## Setup
 
 1. [Register the `microsoft.insights` resource provider in your Azure
-   subscription]().
+   subscription](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-supported-services).
 1. If using Managed Service Identities to authenticate an Azure VM, [enable
-   system-assigned managed identity]().
+   system-assigned managed identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-service-identity/qs-configure-portal-windows-vm).
 1. Use a region that supports Azure Monitor Custom Metrics, For regions with
    Custom Metrics support, an endpoint will be available with the format
    `https://<region>.monitoring.azure.com`.
@@ -166,7 +166,7 @@ configurations:
    platform. Requires that code is running in Azure, e.g. on a VM. All
    configuration is handled by Azure. See [Azure Managed Service Identity](https://docs.microsoft.com/en-us/azure/active-directory/msi-overview)
    for more details. Only available when using the [Azure Resource
-   Manager]().
+   Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview).
 
 [msi]: https://docs.microsoft.com/en-us/azure/active-directory/msi-overview
 [arm]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview
@@ -188,7 +188,7 @@ dimension limit.
 
 To convert only a subset of string-typed fields as dimensions, enable
 `strings_as_dimensions` and use the [`fieldinclude` or `fieldexclude`
-modifiers]() to limit the string-typed fields that are sent to
+modifiers](/telegraf/v1/configuration/#modifiers) to limit the string-typed fields that are sent to
 the plugin.
 
 [conf-modifiers]: ../../../docs/CONFIGURATION.md#modifiers

@@ -18,7 +18,7 @@ related:
 This plugin collects [Self-Monitoring, Analysis and Reporting Technology](https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology)
 information for storage devices information using the
 [`smartmontools`]() package. Contrary to the
-[smart plugin](/telegraf/v1/plugins/#input-smart), this plugin does not use the [`nvme-cli`]()
+[smart plugin](/telegraf/v1/plugins/#input-smart), this plugin does not use the [`nvme-cli`](https://github.com/linux-nvme/nvme-cli)
 package to collect additional information about NVMe devices.
 
 > [!NOTE]

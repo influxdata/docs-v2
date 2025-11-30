@@ -44,7 +44,7 @@ Linux kernel's perf interface.
 
 Event definition JSON files for specific architectures can be found at the
 [Github repository](https://github.com/intel/perfmon). Download the event definitions appropriate for your
-system e.g. using the [`event_download.py` PMU tool]() and keep them
+system--for example, using the [`event_download.py` PMU tool](https://github.com/andikleen/pmu-tools) and keep them
 in a safe place on your system.
 
 [iaevents_lib]: https://github.com/intel/iaevents
@@ -117,7 +117,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
 Perf modifiers adjust event-specific perf attribute to fulfill particular
 requirements.  Details about perf attribute structure could be found in
-[perf_event_open]()
+[perf_event_open](https://man7.org/linux/man-pages/man2/perf_event_open.2.html)
 syscall manual.
 
 General schema of configuration's `events` list element:
