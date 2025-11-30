@@ -292,7 +292,7 @@ function combineMarkdown(parentMd, childMds, sectionUrl) {
 
     return {
       title: child.frontmatter.title || title,
-      url: url,
+      url: child.frontmatter.url || url, // Use full URL from frontmatter
       content: `## ${child.frontmatter.title || title}\n\n${contentWithoutH1}`,
       tokens: child.frontmatter.estimated_tokens || 0,
     };
@@ -314,7 +314,7 @@ function combineMarkdown(parentMd, childMds, sectionUrl) {
   const frontmatterObj = {
     title: parent.frontmatter.title,
     description: description,
-    url: sectionUrl,
+    url: parent.frontmatter.url || sectionUrl, // Use full URL from parent frontmatter
     product: parent.frontmatter.product || '',
     type: 'section',
     pages: children.length + 1,
