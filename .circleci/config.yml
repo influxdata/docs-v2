@@ -44,7 +44,7 @@ jobs:
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
       - run:
           name: Generate LLM-friendly Markdown
-          command: yarn build:md
+          command: yarn build:md --public-dir workspace/public
       - persist_to_workspace:
           root: workspace
           paths:
