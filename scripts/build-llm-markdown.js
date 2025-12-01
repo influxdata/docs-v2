@@ -13,15 +13,9 @@ import { glob } from 'glob';
 import fs from 'fs/promises';
 import { readFileSync } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { createRequire } from 'module';
 import yaml from 'js-yaml';
 import pLimit from 'p-limit';
-
-// Get __dirname equivalent in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Create require function for CommonJS modules
 const require = createRequire(import.meta.url);
@@ -44,13 +38,14 @@ const { convertToMarkdown } = require('./lib/markdown-converter.cjs');
  */
 const MIN_HTML_SIZE_BYTES = 1024;
 
-/**
- * Approximate character-to-token ratio for estimation.
- * Used to estimate token count from markdown content length.
- *
- * @default 4 - Rough heuristic (4 characters ≈ 1 token)
- */
-const CHARS_PER_TOKEN = 4;
+// ============================================================================
+// INCREMENTAL BUILD HELPERS
+// ============================================================================
+
+import {
+  getChangedContentFiles,
+  mapContentToPublic,
+} from './lib/content-utils.js';
 
 // ============================================================================
 // PHASE 1: HTML → MARKDOWN CONVERSION
@@ -60,17 +55,48 @@ const CHARS_PER_TOKEN = 4;
  * Phase 1: Convert all HTML files to individual page markdown
  * Uses memory-bounded parallelism to avoid OOM in CI
  * @param {string} publicDir - Directory containing Hugo build output
+ * @param {Object} options - Build options
+ * @param {boolean} options.onlyChanged - Only process files changed since base branch
+ * @param {string} options.baseBranch - Base branch for comparison (default: 'origin/master')
  */
-async function buildPageMarkdown(publicDir = 'public') {
+async function buildPageMarkdown(publicDir = 'public', options = {}) {
+  const { onlyChanged = false, baseBranch = 'origin/master' } = options;
+
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
 
   // Find all HTML files
-  const htmlFiles = await glob(`${publicDir}/**/index.html`, {
+  let htmlFiles = await glob(`${publicDir}/**/index.html`, {
     ignore: ['**/node_modules/**', '**/api-docs/**'],
   });
 
-  console.log(`Found ${htmlFiles.length} HTML files\n`);
+  const totalFiles = htmlFiles.length;
+  console.log(`Found ${totalFiles} HTML files\n`);
+
+  // Filter to only changed files if requested
+  if (onlyChanged) {
+    const changedContentFiles = getChangedContentFiles(baseBranch);
+
+    if (changedContentFiles.length > 0) {
+      const changedHtmlSet = mapContentToPublic(changedContentFiles, publicDir);
+      const filteredFiles = htmlFiles.filter((f) => changedHtmlSet.has(f));
+
+      console.log(
+        `🔄 Incremental build: ${filteredFiles.length}/${totalFiles} files changed since ${baseBranch}\n`
+      );
+
+      if (filteredFiles.length === 0) {
+        console.log('  No matching HTML files found, skipping Phase 1\n');
+        return { converted: 0, skipped: 0, errors: [] };
+      }
+
+      htmlFiles = filteredFiles;
+    } else {
+      console.log(
+        '  ⚠️  No changed content files detected, processing all files\n'
+      );
+    }
+  }
 
   // Memory-bounded concurrency
   // CircleCI medium (2GB RAM): 10 workers safe
@@ -381,6 +407,8 @@ function parseArgs() {
   const options = {
     environment: null,
     publicDir: 'public',
+    onlyChanged: false,
+    baseBranch: 'origin/master',
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -388,6 +416,10 @@ function parseArgs() {
       options.environment = args[++i];
     } else if (args[i] === '--public-dir' && args[i + 1]) {
       options.publicDir = args[++i];
+    } else if (args[i] === '--only-changed') {
+      options.onlyChanged = true;
+    } else if (args[i] === '--base-branch' && args[i + 1]) {
+      options.baseBranch = args[++i];
     }
   }
 
@@ -412,14 +444,25 @@ async function main() {
   }
 
   // Show public directory
-  console.log(`📁 Public directory: ${cliOptions.publicDir}\n`);
+  console.log(`📁 Public directory: ${cliOptions.publicDir}`);
 
+  // Show build mode
+  if (cliOptions.onlyChanged) {
+    console.log(`🔄 Mode: Incremental (comparing to ${cliOptions.baseBranch})`);
+  } else {
+    console.log('📦 Mode: Full build');
+  }
+
+  console.log('');
   console.log('════════════════════════════════\n');
 
   const overallStart = Date.now();
 
   // Phase 1: Generate individual page markdown
-  const pageResults = await buildPageMarkdown(cliOptions.publicDir);
+  const pageResults = await buildPageMarkdown(cliOptions.publicDir, {
+    onlyChanged: cliOptions.onlyChanged,
+    baseBranch: cliOptions.baseBranch,
+  });
 
   // Phase 2: Build section bundles
   const sectionResults = await buildSectionBundles(cliOptions.publicDir);
@@ -462,3 +505,10 @@ export {
   combineMarkdown,
   parseMarkdown,
 };
+
+// Re-export content utilities
+export {
+  getChangedContentFiles,
+  mapContentToPublic,
+  findPagesReferencingSharedContent,
+} from './lib/content-utils.js';

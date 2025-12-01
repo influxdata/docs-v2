@@ -14,9 +14,10 @@ import { parseArgs } from 'node:util';
 import process from 'node:process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { spawn } from 'child_process';
 import { parseDocumentationURL, urlToFilePaths } from './lib/url-parser.js';
+import { getSourceFromFrontmatter } from './lib/content-utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -128,24 +129,12 @@ function findFiles(url) {
 
 /**
  * Check if file uses shared content
+ * @param {string} filePath - Relative path from repo root
+ * @returns {string|null} Path to shared source file or null
  */
 function checkSharedContent(filePath) {
   const fullPath = join(REPO_ROOT, filePath);
-
-  if (!existsSync(fullPath)) {
-    return null;
-  }
-
-  const content = readFileSync(fullPath, 'utf8');
-
-  // Check for source: frontmatter
-  const sourceMatch = content.match(/^source:\s*(.+)$/m);
-  if (sourceMatch) {
-    const sourcePath = sourceMatch[1].trim();
-    return `content${sourcePath}`;
-  }
-
-  return null;
+  return getSourceFromFrontmatter(fullPath);
 }
 
 /**
