@@ -1,12 +1,32 @@
-/** This module retrieves browser context information and site data for the
+/**
+ * This module retrieves browser context information and site data for the
  * current page, version, and product.
  */
 import { products } from './services/influxdata-products.js';
 import { influxdbUrls } from './services/influxdb-urls.js';
+import { getProductKeyFromPath } from './utils/product-mappings.js';
 
-function getCurrentProductData() {
+/**
+ * Product data return type
+ */
+interface ProductDataResult {
+  product: string | Record<string, unknown>;
+  urls: Record<string, unknown>;
+}
+
+/**
+ * Get current product data based on URL path
+ */
+function getCurrentProductData(): ProductDataResult {
   const path = window.location.pathname;
-  const mappings = [
+
+  interface ProductMapping {
+    pattern: RegExp;
+    product: Record<string, unknown> | string;
+    urls: Record<string, unknown>;
+  }
+
+  const mappings: ProductMapping[] = [
     {
       pattern: /\/influxdb\/cloud\//,
       product: products.influxdb_cloud,
@@ -87,57 +107,58 @@ function getCurrentProductData() {
   return { product: 'other', urls: {} };
 }
 
-// Return the page context
-// (cloud, serverless, oss/enterprise, dedicated, clustered, explorer, other)
-function getContext() {
-  if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
-    return 'cloud';
-  } else if (/\/influxdb3\/core/.test(window.location.pathname)) {
-    return 'core';
-  } else if (/\/influxdb3\/enterprise/.test(window.location.pathname)) {
-    return 'enterprise';
-  } else if (/\/influxdb3\/cloud-serverless/.test(window.location.pathname)) {
-    return 'serverless';
-  } else if (/\/influxdb3\/cloud-dedicated/.test(window.location.pathname)) {
-    return 'dedicated';
-  } else if (/\/influxdb3\/clustered/.test(window.location.pathname)) {
-    return 'clustered';
-  } else if (/\/influxdb3\/explorer/.test(window.location.pathname)) {
-    return 'explorer';
-  } else if (
-    /\/(enterprise_|influxdb).*\/v[1-2]\//.test(window.location.pathname)
-  ) {
-    return 'oss/enterprise';
-  } else {
-    return 'other';
-  }
+/**
+ * Return the page context
+ * (cloud, serverless, oss/enterprise, dedicated, clustered, core, enterprise, other)
+ * Uses shared product key detection for consistency
+ */
+function getContext(): string {
+  const productKey = getProductKeyFromPath(window.location.pathname);
+
+  // Map product keys to context strings
+  const contextMap: Record<string, string> = {
+    influxdb_cloud: 'cloud',
+    influxdb3_core: 'core',
+    influxdb3_enterprise: 'enterprise',
+    influxdb3_cloud_serverless: 'serverless',
+    influxdb3_cloud_dedicated: 'dedicated',
+    influxdb3_clustered: 'clustered',
+    enterprise_influxdb: 'oss/enterprise',
+    influxdb: 'oss/enterprise',
+  };
+
+  return contextMap[productKey || ''] || 'other';
 }
 
 // Store the host value for the current page
-const currentPageHost = window.location.href.match(/^(?:[^/]*\/){2}[^/]+/g)[0];
+const currentPageHost =
+  window.location.href.match(/^(?:[^/]*\/){2}[^/]+/g)?.[0] || '';
 
-function getReferrerHost() {
+/**
+ * Get referrer host from document.referrer
+ */
+function getReferrerHost(): string {
   // Extract the protocol and hostname of referrer
   const referrerMatch = document.referrer.match(/^(?:[^/]*\/){2}[^/]+/g);
   return referrerMatch ? referrerMatch[0] : '';
 }
 
-const context = getContext(),
-  host = currentPageHost,
-  hostname = location.hostname,
-  path = location.pathname,
-  pathArr = location.pathname.split('/').slice(1, -1),
-  product = pathArr[0],
-  productData = getCurrentProductData(),
-  protocol = location.protocol,
-  referrer = document.referrer === '' ? 'direct' : document.referrer,
-  referrerHost = getReferrerHost(),
-  // TODO: Verify this works since the addition of InfluxDB 3 naming
-  // and the Core and Enterprise versions.
-  version =
-    /^v\d/.test(pathArr[1]) || pathArr[1]?.includes('cloud')
-      ? pathArr[1].replace(/^v/, '')
-      : 'n/a';
+const context = getContext();
+const host = currentPageHost;
+const hostname = location.hostname;
+const path = location.pathname;
+const pathArr = location.pathname.split('/').slice(1, -1);
+const product = pathArr[0];
+const productData = getCurrentProductData();
+const protocol = location.protocol;
+const referrer = document.referrer === '' ? 'direct' : document.referrer;
+const referrerHost = getReferrerHost();
+// TODO: Verify this works since the addition of InfluxDB 3 naming
+// and the Core and Enterprise versions.
+const version =
+  /^v\d/.test(pathArr[1]) || pathArr[1]?.includes('cloud')
+    ? pathArr[1].replace(/^v/, '')
+    : 'n/a';
 
 export {
   context,

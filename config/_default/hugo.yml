@@ -55,6 +55,24 @@ outputFormats:
     mediaType: application/json
     baseName: pages
     isPlainText: true
+  llmstxt:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+    suffixes:
+      - txt
+
+outputs:
+  page:
+    - HTML
+  section:
+    - HTML
+    # llmstxt disabled for sections - using .md files via Lambda@Edge instead
+  home:
+    - HTML
+    - llmstxt  # Root /llms.txt for AI agent discovery
 
 # Asset processing configuration for development
 build:
