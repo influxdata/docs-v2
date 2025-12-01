@@ -1,0 +1,139 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "[markdown]": {
+      "editor.wordWrap": "on",
+      "editor.formatOnSave": true,
+      "editor.rulers": [80]
+    },
+    "[json]": {
+      "editor.formatOnSave": true
+    },
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true
+    },
+    "[javascript]": {
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.formatOnSave": true
+    },
+    "editor.rulers": [80, 120],
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "commentAnchors.tags.anchors": {
+      "HACK": {
+        "scope": "file",
+        "iconColor": "default",
+        "backgroundColor": {
+          "light": "#FFF2CC",
+          "dark": "#434343"
+        }
+      },
+      "NOTE": {
+        "scope": "file",
+        "iconColor": "blue",
+        "backgroundColor": {
+          "light": "#D4E6FF",
+          "dark": "#003D82"
+        }
+      },
+      "SOURCE": {
+        "scope": "file",
+        "iconColor": "green",
+        "backgroundColor": {
+          "light": "#D4EDDA",
+          "dark": "#1B3A1B"
+        }
+      },
+      "TODO": {
+        "scope": "workspace",
+        "iconColor": "orange",
+        "backgroundColor": {
+          "light": "#FFE6CC",
+          "dark": "#4D2600"
+        }
+      },
+      "BUG": {
+        "scope": "file",
+        "iconColor": "red",
+        "backgroundColor": {
+          "light": "#FFCCCC",
+          "dark": "#4D0000"
+        }
+      }
+    },
+    "commentAnchors.workspace.enabled": true,
+    "yaml.schemas": {
+      "./.frontmatter-schema.json": "${workspaceFolder}/content/**/*.md"
+    },
+    "vale.valeCLI.config": "${workspaceFolder}/.vale.ini",
+    "vale.valeCLI.minAlertLevel": "warning",
+    "cSpell.words": [
+      "influxctl",
+      "preconfigured",
+      "InfluxDB",
+      "InfluxData",
+      "Telegraf",
+      "Kapacitor",
+      "Chronograf",
+      "Flux",
+      "Redoc",
+      "worktree"
+    ],
+    "search.exclude": {
+      ".git": true,
+      "node_modules": true,
+      "public": true,
+      "dist": true,
+      ".cache": true
+    },
+    "files.exclude": {
+      ".git": true,
+      "node_modules": true,
+      "public": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "vscodevim.vim",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "charliermarsh.ruff",
+      "usernamehw.errorlens",
+      "exodiusstudios.comment-anchors",
+      "redhat.vscode-yaml",
+      "ChrisChinchilla.vale-vscode",
+      "streetsidesoftware.code-spell-checker",
+      "GitHub.copilot",
+      "ms-vscode.makefile-tools"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Docs (Chrome)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:1313",
+        "webRoot": "${workspaceFolder}",
+        "sourceMaps": true,
+        "runtimeArgs": ["--remote-debugging-port=9222"]
+      },
+      {
+        "name": "Debug JS (dev tools)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:1313",
+        "webRoot": "${workspaceFolder}"
+      }
+    ]
+  }
+}
