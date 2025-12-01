@@ -35,6 +35,7 @@ import DocSearch from './components/doc-search.js';
 import FeatureCallout from './feature-callouts.js';
 import FluxGroupKeysDemo from './flux-group-keys.js';
 import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
+import FormatSelector from './components/format-selector.ts';
 import InfluxDBVersionDetector from './influxdb-version-detector.ts';
 import KeyBinding from './keybindings.js';
 import ListFilters from './list-filters.js';
@@ -65,6 +66,7 @@ const componentRegistry = {
   'feature-callout': FeatureCallout,
   'flux-group-keys-demo': FluxGroupKeysDemo,
   'flux-influxdb-versions-trigger': FluxInfluxDBVersionsTrigger,
+  'format-selector': FormatSelector,
   'influxdb-version-detector': InfluxDBVersionDetector,
   keybinding: KeyBinding,
   'list-filters': ListFilters,
