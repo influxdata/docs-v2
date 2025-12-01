@@ -59,13 +59,14 @@ const CHARS_PER_TOKEN = 4;
 /**
  * Phase 1: Convert all HTML files to individual page markdown
  * Uses memory-bounded parallelism to avoid OOM in CI
+ * @param {string} publicDir - Directory containing Hugo build output
  */
-async function buildPageMarkdown() {
+async function buildPageMarkdown(publicDir = 'public') {
   console.log('📄 Converting HTML to Markdown (individual pages)...\n');
   const startTime = Date.now();
 
   // Find all HTML files
-  const htmlFiles = await glob('public/**/index.html', {
+  const htmlFiles = await glob(`${publicDir}/**/index.html`, {
     ignore: ['**/node_modules/**', '**/api-docs/**'],
   });
 
@@ -98,8 +99,9 @@ async function buildPageMarkdown() {
         const html = await fs.readFile(htmlPath, 'utf-8');
 
         // Derive URL path for frontmatter
+        // Remove publicDir prefix (handles both 'public' and 'workspace/public')
         const urlPath = htmlPath
-          .replace(/^public/, '')
+          .replace(new RegExp(`^${publicDir}`), '')
           .replace(/\/index\.html$/, '/');
 
         // Convert to markdown (JSDOM + Turndown processing)
@@ -166,13 +168,14 @@ async function buildPageMarkdown() {
 /**
  * Phase 2: Build section bundles by combining individual markdown files
  * Fast string concatenation with minimal memory usage
+ * @param {string} publicDir - Directory containing Hugo build output
  */
-async function buildSectionBundles() {
+async function buildSectionBundles(publicDir = 'public') {
   console.log('📦 Building section bundles...\n');
   const startTime = Date.now();
 
   // Find all sections (directories with index.md + child index.md files)
-  const sections = await findSections();
+  const sections = await findSections(publicDir);
 
   console.log(`Found ${sections.length} sections\n`);
 
@@ -236,10 +239,12 @@ async function buildSectionBundles() {
 
 /**
  * Find all sections (parent pages with child pages)
+ * @param {string} publicDir - Directory containing Hugo build output
  */
-async function findSections() {
-  const allMdFiles = await glob('public/**/index.md');
+async function findSections(publicDir = 'public') {
+  const allMdFiles = await glob(`${publicDir}/**/index.md`);
   const sections = [];
+  const publicDirRegex = new RegExp(`^${publicDir}`);
 
   for (const mdPath of allMdFiles) {
     const dir = path.dirname(mdPath);
@@ -251,10 +256,10 @@ async function findSections() {
 
     sections.push({
       mdPath: mdPath,
-      url: dir.replace(/^public/, '') + '/',
+      url: dir.replace(publicDirRegex, '') + '/',
       children: childMdFiles.map((childMdPath) => ({
         mdPath: childMdPath,
-        url: path.dirname(childMdPath).replace(/^public/, '') + '/',
+        url: path.dirname(childMdPath).replace(publicDirRegex, '') + '/',
         title: extractTitleFromMd(childMdPath),
       })),
     });
@@ -375,11 +380,14 @@ function parseArgs() {
   const args = process.argv.slice(2);
   const options = {
     environment: null,
+    publicDir: 'public',
   };
 
   for (let i = 0; i < args.length; i++) {
     if ((args[i] === '-e' || args[i] === '--env') && args[i + 1]) {
       options.environment = args[++i];
+    } else if (args[i] === '--public-dir' && args[i + 1]) {
+      options.publicDir = args[++i];
     }
   }
 
@@ -400,18 +408,21 @@ async function main() {
 
   // Show environment if specified
   if (cliOptions.environment) {
-    console.log(`🌍 Environment: ${cliOptions.environment}\n`);
+    console.log(`🌍 Environment: ${cliOptions.environment}`);
   }
+
+  // Show public directory
+  console.log(`📁 Public directory: ${cliOptions.publicDir}\n`);
 
   console.log('════════════════════════════════\n');
 
   const overallStart = Date.now();
 
   // Phase 1: Generate individual page markdown
-  const pageResults = await buildPageMarkdown();
+  const pageResults = await buildPageMarkdown(cliOptions.publicDir);
 
   // Phase 2: Build section bundles
-  const sectionResults = await buildSectionBundles();
+  const sectionResults = await buildSectionBundles(cliOptions.publicDir);
 
   // Summary
   const totalDuration = ((Date.now() - overallStart) / 1000).toFixed(1);
