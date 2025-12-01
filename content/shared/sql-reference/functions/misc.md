@@ -268,8 +268,30 @@ GROUP BY _time, room
 
 ## version
 
-Returns the version of DataFusion.
+Returns the version of [DataFusion](https://datafusion.apache.org/) used by the query engine.
+
+> [!Note]
+>
+> The `version()` function returns the DataFusion query engine version, not the
+> InfluxDB product version.
+> To identify your InfluxDB version, see [Identify version](/influxdb3/version/admin/identify-version/).
 
 ```sql
 version()
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View `version` query example" %}}
+
+```sql
+SELECT version()
+```
+
+| version()                                  |
+| :----------------------------------------- |
+| Apache DataFusion 49.0.2, aarch64 on linux |
+
+The output includes the DataFusion version, CPU architecture, and operating system.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
