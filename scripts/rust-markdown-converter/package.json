@@ -1,0 +1,31 @@
+{
+  "name": "@influxdata/rust-markdown-converter",
+  "version": "0.1.0",
+  "description": "High-performance HTML to Markdown converter for InfluxData documentation (Rust + napi-rs)",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "napi": {
+    "binaryName": "rust-markdown-converter",
+    "targets": [
+      "aarch64-apple-darwin",
+      "x86_64-unknown-linux-gnu",
+      "aarch64-unknown-linux-gnu"
+    ]
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "test": "cargo test",
+    "universal": "napi universal",
+    "version": "napi version"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.4.1"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "license": "MIT"
+}
