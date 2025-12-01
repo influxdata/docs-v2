@@ -145,10 +145,11 @@ export default function FormatSelector(options: ComponentOptions) {
   }
 
   /**
-   * Update button label: "Copy page" vs "Copy section"
+   * Update button label: "Copy page for AI" vs "Copy section for AI"
    */
   function updateButtonLabel(): void {
-    const label = config.pageType === 'leaf' ? 'Copy page' : 'Copy section';
+    const label =
+      config.pageType === 'leaf' ? 'Copy page for AI' : 'Copy section for AI';
     const buttonText = button.querySelector('[data-button-text]');
     if (buttonText) {
       buttonText.textContent = label;
@@ -321,8 +322,8 @@ export default function FormatSelector(options: ComponentOptions) {
     // Option 1: Copy page/section
     if (config.pageType === 'leaf') {
       options.push({
-        label: 'Copy page',
-        sublabel: 'Copy page as Markdown for LLMs',
+        label: 'Copy page for AI',
+        sublabel: 'Clean Markdown optimized for AI assistants',
         icon: 'document',
         action: handleCopyPage,
         external: false,
@@ -331,8 +332,8 @@ export default function FormatSelector(options: ComponentOptions) {
       });
     } else {
       options.push({
-        label: 'Copy section',
-        sublabel: `Copy all ${config.childPageCount} pages in this section as Markdown`,
+        label: 'Copy section for AI',
+        sublabel: `${config.childPageCount} pages combined as clean Markdown for AI assistants`,
         icon: 'document',
         action: handleCopySection,
         external: false,

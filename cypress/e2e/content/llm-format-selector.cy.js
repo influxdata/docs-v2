@@ -70,7 +70,7 @@ describe('LLM Format Selector', () => {
 
       cy.get(
         '[data-component="format-selector"] .format-selector__button'
-      ).should('contain', 'Copy page');
+      ).should('contain', 'Copy page for AI');
     });
 
     describe('Dropdown functionality', () => {
@@ -97,18 +97,11 @@ describe('LLM Format Selector', () => {
         ); // copy-page, open-chatgpt, open-claude
       });
 
-      it('should display "Copy page" option', () => {
+      it('should display "Copy page for AI" option', () => {
         cy.get('[data-dropdown-menu].is-open [data-option="copy-page"]')
           .should('be.visible')
-          .should('contain', 'Copy page')
-          .should('contain', 'Copy page as Markdown for LLMs');
-      });
-
-      it('should display "Download page" option', () => {
-        cy.get('[data-dropdown-menu].is-open [data-option="download-page"]')
-          .should('be.visible')
-          .should('contain', 'Download page')
-          .should('contain', 'Download page as Markdown file');
+          .should('contain', 'Copy page for AI')
+          .should('contain', 'Clean Markdown optimized for AI assistants');
       });
 
       it('should display "Open in ChatGPT" option with external link indicator', () => {
@@ -161,10 +154,10 @@ describe('LLM Format Selector', () => {
       });
     });
 
-    it('should show "Copy section" label for branch nodes', () => {
+    it('should show "Copy section for AI" label for branch nodes', () => {
       cy.get(
         '[data-component="format-selector"] .format-selector__button'
-      ).should('contain', 'Copy section');
+      ).should('contain', 'Copy section for AI');
     });
 
     describe('Dropdown functionality', () => {
@@ -183,12 +176,14 @@ describe('LLM Format Selector', () => {
           .should('be.visible');
       });
 
-      it('should display "Copy section" option with page count', () => {
+      it('should display "Copy section for AI" option with page count', () => {
         cy.get('[data-dropdown-menu].is-open [data-option="copy-section"]')
           .should('be.visible')
-          .should('contain', 'Copy section')
-          .should('contain', 'Copy all')
-          .should('contain', 'pages'); // "Copy all X pages in this section as Markdown"
+          .should('contain', 'Copy section for AI')
+          .should(
+            'contain',
+            'pages combined as clean Markdown for AI assistants'
+          );
       });
 
       it('should NOT show "Download section" option for small sections', () => {
