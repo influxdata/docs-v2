@@ -23,7 +23,7 @@ Common use cases for comparing values include:
 > #### Sample data
 >
 > The following examples use the
-> [Home sensor sample data](/influxdb3/version/reference/sample-data/#home-sensor-data).
+> {{% influxdb3/home-sample-link %}}.
 > To run the example queries and return results,
 > [write the sample data](/influxdb3/version/reference/sample-data/#write-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
