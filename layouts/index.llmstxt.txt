@@ -1,0 +1,47 @@
+{{- /*
+  Root /llms.txt file following https://llmstxt.org specification
+
+  This is the main discovery file for AI agents.
+  It points to aggregated .section.md files for each major product area.
+
+  Per llmstxt.org spec:
+  - H1 with site/project name (required)
+  - Blockquote with brief summary (optional)
+  - Content sections with details (optional)
+  - H2-delimited file lists with curated links (optional)
+*/ -}}
+# InfluxData Documentation
+
+> Documentation for InfluxDB time series database and related tools including Telegraf, Chronograf, and Kapacitor.
+
+This documentation covers all InfluxDB versions and ecosystem tools. Each section provides comprehensive guides, API references, and tutorials.
+
+## InfluxDB 3
+
+- [InfluxDB 3 Core](influxdb3/core/index.section.md): Open source time series database optimized for real-time data
+- [InfluxDB 3 Enterprise](influxdb3/enterprise/index.section.md): Enterprise features including clustering and high availability
+- [InfluxDB Cloud Dedicated](influxdb3/cloud-dedicated/index.section.md): Dedicated cloud deployment with predictable performance
+- [InfluxDB Cloud Serverless](influxdb3/cloud-serverless/index.section.md): Serverless cloud deployment with usage-based pricing
+- [InfluxDB Clustered](influxdb3/clustered/index.section.md): Self-managed clustered deployment
+- [InfluxDB 3 Explorer](influxdb3/explorer/index.md): Web-based data exploration tool
+
+## InfluxDB 2
+
+- [InfluxDB OSS v2](influxdb/v2/index.section.md): Open source version 2.x documentation
+- [InfluxDB Cloud (TSM)](influxdb/cloud/index.section.md): Managed cloud service based on InfluxDB 2.x
+
+## InfluxDB 1
+
+- [InfluxDB OSS v1](influxdb/v1/index.section.md): Open source version 1.x documentation
+- [InfluxDB Enterprise v1](enterprise_influxdb/v1/index.section.md): Enterprise features for version 1.x
+
+## Tools and Integrations
+
+- [Telegraf](telegraf/v1/index.section.md): Plugin-driven server agent for collecting and sending metrics
+- [Chronograf](chronograf/v1/index.section.md): User interface and administrative component
+- [Kapacitor](kapacitor/v1/index.section.md): Real-time streaming data processing engine
+- [Flux](flux/v0/index.section.md): Functional data scripting language
+
+## API References
+
+For API documentation, see the API reference section within each product's documentation.
