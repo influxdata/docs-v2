@@ -161,6 +161,28 @@ const CONCURRENCY = process.env.CI ? 10 : 20;
 - **Memory**: \~300MB peak (safe for 2GB CircleCI)
 - **Rate**: \~23 files/second with memory-bounded parallelism
 
+## Making Deployment Changes
+
+### During Initial Implementation
+
+If making changes that affect `yarn build` commands or `.circleci/config.yml`:
+
+1. **Read the surrounding context** in the CI file
+2. **Notice** flags, such as `--destination workspace/public` on the Hugo build
+3. **Ask**: "Does the build script need to know about environment details--for example, do paths differ between production and staging?"
+
+### Recommended Prompt for Future Similar Work
+
+> "This script will run in CI. Let me read the CI configuration to understand the build environment and directory structure before finalizing the implementation."
+
+## Summary of Recommendations
+
+| Strategy                           | Implementation                     | Effort |
+| ---------------------------------- | ---------------------------------- | ------ |
+| Read CI config before implementing | Process/habit change               | Low    |
+| Test on feature branch first       | Push and watch CI before merging   | Low    |
+| Add CI validation step             | Add file count check in config.yml | Low    |
+
 ## Testing and Validation
 
 ### Local Testing
