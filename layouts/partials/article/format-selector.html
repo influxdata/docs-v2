@@ -1,0 +1,87 @@
+{{/*
+  Format Selector Component
+
+  Provides a dropdown menu for accessing documentation in LLM-friendly formats.
+  Supports both leaf nodes (single pages) and branch nodes (sections with children).
+
+  Features:
+  - Copy page/section as Markdown
+  - Open in ChatGPT or Claude
+  - Download section ZIP (for large sections)
+  - Future: MCP server integration
+
+  UI Pattern: Matches Mintlify's format selector style
+*/}}
+
+{{- $childCount := 0 -}}
+{{- $isSection := false -}}
+
+{{/* Determine if this is a section (branch node) by checking for child pages */}}
+{{- if .IsSection -}}
+  {{- $isSection = true -}}
+  {{- range .Pages -}}
+    {{- $childCount = add $childCount 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Calculate estimated tokens (rough estimate: ~500 tokens per page) */}}
+{{- $estimatedTokens := mul $childCount 500 -}}
+
+{{/* Construct section download URL if applicable */}}
+{{- $sectionDownloadUrl := "" -}}
+{{- if $isSection -}}
+  {{- $sectionDownloadUrl = printf "%s-download.zip" .RelPermalink -}}
+{{- end -}}
+
+{{/* Only show format selector on documentation pages, not on special pages */}}
+{{- if not (in .RelPermalink "/search") -}}
+
+<div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="{{ $childCount }}"
+  data-estimated-tokens="{{ $estimatedTokens }}"
+  {{- if $sectionDownloadUrl }}
+  data-section-download-url="{{ $sectionDownloadUrl }}"
+  {{- end }}
+  {{- /* Future MCP server URLs - commented out for now */ -}}
+  {{- /* data-mcp-cursor-url="/docs/mcp/cursor-setup/" */ -}}
+  {{- /* data-mcp-vscode-url="/docs/mcp/vscode-setup/" */ -}}
+>
+  {{/* Button triggers dropdown */}}
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="{{ if $isSection }}Copy section for AI{{ else }}Copy page for AI{{ end }} - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      {{/* Document icon SVG */}}
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      {{ if $isSection }}Copy section for AI{{ else }}Copy page for AI{{ end }}
+    </span>
+    <span class="format-selector__button-arrow">
+      {{/* Dropdown arrow icon */}}
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  {{/* Dropdown menu - populated by TypeScript */}}
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    {{/* Options will be dynamically rendered by the TypeScript component */}}
+  </div>
+</div>
+
+{{- end -}}
