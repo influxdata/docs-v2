@@ -1,0 +1,25 @@
+{{/*
+  API Renderer Abstraction
+
+  Selects and loads the appropriate API documentation renderer based on site
+  configuration. Supports:
+  - scalar (default): Modern, accessible API documentation
+  - rapidoc: Legacy renderer for backward compatibility
+
+  Required page params:
+  - staticFilePath: Path to the OpenAPI specification file
+
+  Site params:
+  - apiRenderer: "scalar" or "rapidoc" (defaults to "scalar")
+*/}}
+
+{{ $renderer := site.Params.apiRenderer | default "scalar" }}
+
+{{ if eq $renderer "scalar" }}
+  {{ partial "api/scalar.html" . }}
+{{ else if eq $renderer "rapidoc" }}
+  {{ partial "api/rapidoc.html" . }}
+{{ else }}
+  {{/* Fallback to scalar if unknown renderer specified */}}
+  {{ partial "api/scalar.html" . }}
+{{ end }}
