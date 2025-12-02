@@ -10,9 +10,7 @@
  */
 
 const TurndownService = require('turndown');
-const { JSDOM } = require('jsdom');
-const path = require('path');
-const fs = require('fs');
+const { JSDOM, VirtualConsole } = require('jsdom');
 const yaml = require('js-yaml');
 
 // Try to load Rust converter (10x faster), fall back to JavaScript
@@ -167,7 +165,7 @@ function createTurndownService() {
         node.firstChild.nodeName === 'CODE'
       );
     },
-    replacement: function (content, node, options) {
+    replacement: function (_content, node, options) {
       const code = node.firstChild;
       const language = code.className.replace(/^language-/, '') || '';
       const fence = options.fence;
@@ -204,7 +202,7 @@ function createTurndownService() {
   // Convert HTML tables to Markdown tables
   turndownService.addRule('tables', {
     filter: 'table',
-    replacement: function (content, node) {
+    replacement: function (_content, node) {
       // Get all rows from tbody and thead
       const theadRows = Array.from(node.querySelectorAll('thead tr'));
       const tbodyRows = Array.from(node.querySelectorAll('tbody tr'));
@@ -303,7 +301,17 @@ function createTurndownService() {
  * @returns {Object|null} Object with title, description, content or null if not found
  */
 function extractArticleContent(htmlContent, contextInfo = '') {
-  const dom = new JSDOM(htmlContent);
+  // Create a virtual console to suppress CSS parsing errors
+  // JSDOM attempts to parse stylesheets which is unnecessary for markdown conversion
+  const virtualConsole = new VirtualConsole();
+  // Optionally forward errors to console for debugging (commented out to suppress)
+  // virtualConsole.sendTo(console, { omitJSDOMErrors: true });
+
+  const dom = new JSDOM(htmlContent, {
+    virtualConsole,
+    // Don't load external resources (stylesheets, scripts, images)
+    resources: 'usable',
+  });
   const document = dom.window.document;
 
   try {
