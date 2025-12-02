@@ -284,13 +284,197 @@ but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
 {{% show-in "cloud-dedicated,clustered" %}}
-> [!Important]
-> #### Write ordering for duplicate points
+> [!Warning]
+> #### Duplicate point overwrites are non-deterministic
 >
-> {{% product-name %}} attempts to honor write ordering for duplicate points,
-> with the most recently written point taking precedence. However, when data is
-> flushed from the in-memory buffer to Parquet files—typically every 15 minutes,
-> but sometimes sooner—this ordering is not guaranteed if duplicate points are
-> flushed at the same time. As a result, the last written duplicate point may
-> not always be retained in storage.
+> Overwriting duplicate points (same table, tag set, and timestamp) is _not a reliable way to maintain a last-value view_.
+> When duplicate points are flushed together, write ordering is not guaranteed—a prior write may "win."
+> See [Anti-patterns to avoid](#anti-patterns-to-avoid) and [Recommended patterns](#recommended-patterns-for-last-value-tracking) below.
+
+### Recommended patterns for last-value tracking
+
+To reliably maintain a last-value view of your data, use one of these append-only patterns:
+
+#### Append-only with unique timestamps (recommended)
+
+Write each change as a new point with a unique timestamp using the actual event time.
+Query for the most recent point to get the current value.
+
+**Line protocol example**:
+
+```text
+device_status,device_id=sensor01 status="active",temperature=72.5 1700000000000000000
+device_status,device_id=sensor01 status="active",temperature=73.1 1700000300000000000
+device_status,device_id=sensor01 status="inactive",temperature=73.1 1700000600000000000
+```
+
+**SQL query to get latest state**:
+
+```sql
+SELECT
+  device_id,
+  status,
+  temperature,
+  time
+FROM device_status
+WHERE time >= now() - INTERVAL '7 days'
+  AND device_id = 'sensor01'
+ORDER BY time DESC
+LIMIT 1
+```
+
+**InfluxQL query to get latest state**:
+
+```influxql
+SELECT LAST(status), LAST(temperature)
+FROM device_status
+WHERE device_id = 'sensor01'
+  AND time >= now() - 7d
+GROUP BY device_id
+```
+
+#### Append-only with change tracking field
+
+If you need to filter by "changes since a specific time," add a dedicated `last_change_timestamp` field.
+
+**Line protocol example**:
+
+```text
+device_status,device_id=sensor01 status="active",temperature=72.5,last_change_timestamp=1700000000000000000i 1700000000000000000
+device_status,device_id=sensor01 status="active",temperature=73.1,last_change_timestamp=1700000300000000000i 1700000300000000000
+device_status,device_id=sensor01 status="inactive",temperature=73.1,last_change_timestamp=1700000600000000000i 1700000600000000000
+```
+
+**SQL query to get changes since a specific time**:
+
+```sql
+SELECT
+  device_id,
+  status,
+  temperature,
+  time
+FROM device_status
+WHERE last_change_timestamp >= 1700000000000000000
+ORDER BY time DESC
+```
+
+### Anti-patterns to avoid
+
+The following patterns will produce non-deterministic results when duplicate points are flushed together:
+
+#### ❌ Overwriting the same (time, tags) point
+
+**Don't do this**:
+
+```text
+-- All writes use the same timestamp
+device_status,device_id=sensor01 status="active",temperature=72.5 1700000000000000000
+device_status,device_id=sensor01 status="active",temperature=73.1 1700000000000000000
+device_status,device_id=sensor01 status="inactive",temperature=73.1 1700000000000000000
+```
+
+**Problem**: When these writes are flushed together, any of the three values might be retained.
+
+#### ❌ Adding a field while overwriting the same (time, tags)
+
+**Don't do this**:
+
+```text
+-- All writes use the same timestamp, but add a version field
+device_status,device_id=sensor01 status="active",temperature=72.5,version=1i 1700000000000000000
+device_status,device_id=sensor01 status="active",temperature=73.1,version=2i 1700000000000000000
+device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1700000000000000000
+```
+
+**Problem**: The points are still duplicates (same time and tags).
+Adding a field doesn't make them unique points.
+
+#### ❌ Relying on write delays to force ordering
+
+**Don't do this**:
+
+```text
+-- Writing with delays between each write
+device_status,device_id=sensor01 status="active" 1700000000000000000
+# Wait 10 seconds...
+device_status,device_id=sensor01 status="inactive" 1700000000000000000
+```
+
+**Problem**: Delays don't guarantee that duplicate points won't be flushed together.
+The flush interval depends on buffer size, ingestion rate, and system load.
+{{% /show-in %}}
+
+{{% show-in "cloud-dedicated" %}}
+### Retention guidance for last-value tables
+
+{{% product-name %}} applies retention at the database level.
+If your last-value view only needs to retain data for days or weeks, but your main database retains data for months or years (for example, ~400 days), consider creating a separate database with shorter retention specifically for last-value tracking.
+
+**Benefits**:
+- Reduces storage costs for last-value data
+- Improves query performance by limiting data volume
+- Allows independent retention policies for different use cases
+
+**Example**:
+
+```bash
+# Create a database for last-value tracking with 7-day retention
+influxctl database create device_status_current --retention-period 7d
+
+# Create your main database with longer retention
+influxctl database create device_status_history --retention-period 400d
+```
+
+Then write current status to `device_status_current` and historical data to `device_status_history`.
+{{% /show-in %}}
+
+{{% show-in "cloud-dedicated,clustered" %}}
+### Performance considerations
+
+#### Row count and query performance
+
+Append-only patterns increase row counts compared to overwriting duplicate points.
+To maintain query performance:
+
+1. **Limit query time ranges**: Query only the time range you need (for example, last 7 days for current state)
+2. **Use time-based filters**: Always include a `WHERE time >=` clause to narrow the query scope
+3. **Consider shorter retention**: For last-value views, use a dedicated database with shorter retention
+
+**Example - Good query with time filter**:
+
+```sql
+SELECT device_id, status, temperature, time
+FROM device_status
+WHERE time >= now() - INTERVAL '7 days'
+ORDER BY time DESC
+```
+
+**Example - Avoid querying entire table**:
+
+```sql
+-- Don't do this - queries all historical data
+SELECT device_id, status, temperature, time
+FROM device_status
+ORDER BY time DESC
+```
+
+#### Storage and cache bandwidth
+
+Append-only patterns create more data points, which results in larger Parquet files.
+This can increase cache bandwidth usage when querying large time ranges.
+
+**Mitigation strategies**:
+1. **Narrow time filters**: Query only same-day partitions when possible
+2. **Use partition-aligned time ranges**: Queries that align with partition boundaries are more efficient
+3. **Consider aggregation**: For historical analysis, use downsampled or aggregated data instead of raw points
+
+**Example - Partition-aligned query**:
+
+```sql
+SELECT device_id, status, temperature, time
+FROM device_status
+WHERE time >= '2025-11-20T00:00:00Z'
+  AND time < '2025-11-21T00:00:00Z'
+ORDER BY time DESC
+```
 {{% /show-in %}}
