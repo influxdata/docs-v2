@@ -101,11 +101,12 @@ Replace the following in your command:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 
-> [!Warning]
-> #### Database names can't be updated
-> 
+> [!Note]
+> #### Database names can't be updated with this command
+>
 > The `influxctl database update` command uses the database name to identify which
-> database to apply updates to. The database name itself can't be updated.
+> database to apply updates to. To rename a database, use the
+> [`influxctl database rename`](/influxdb3/cloud-dedicated/admin/databases/rename/) command.
 
 ## Database attributes
 
@@ -238,17 +239,18 @@ The retention period value cannot be negative or contain whitespace.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-> [!Warning]
-> 
-> #### Database names can't be updated
-> 
+> [!Note]
+>
+> #### Database names can't be updated with these methods
+>
 > The Management API `PATCH /api/v0/database` endpoint and
-> the`influxctl database update` command use the database name to identify which
+> the `influxctl database update` command use the database name to identify which
 > database to apply updates to.
-> The database name itself can't be updated.
-> 
+> To rename a database, use the
+> [`influxctl database rename`](/influxdb3/cloud-dedicated/admin/databases/rename/) command.
+>
 > #### Partition templates can't be updated
-> 
+>
 > You can only apply a partition template when creating a database.
 > You can't update a partition template on an existing database.
 

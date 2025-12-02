@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
 ---
 
 # InfluxDB Listener Input Plugin
@@ -22,7 +22,7 @@ proxy/router for the `/write` endpoint of the InfluxDB HTTP API.
 > [!NOTE]
 > This plugin was previously known as `http_listener`. If you wish to
 > send general metrics via HTTP it is recommended to use the
-> [`http_listener_v2`]() instead.
+> [`http_listener_v2`](/telegraf/v1/plugins/#input-http_listener_v2) instead.
 
 The `/write` endpoint supports the `precision` query parameter and can be set
 to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and

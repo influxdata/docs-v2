@@ -10,7 +10,7 @@ introduced: "v0.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/postgresql_extensible/README.md, PostgreSQL Extensible Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/postgresql_extensible/README.md, PostgreSQL Extensible Plugin Source
 ---
 
 # PostgreSQL Extensible Input Plugin
@@ -118,8 +118,8 @@ to use them.
 ```
 
 The system can be easily extended using homemade metrics collection tools or
-using the postgresql extensions [pg_stat_statements](),
-[pg_proctab]() or [powa](http://dalibo.github.io/powa/).
+using the postgresql extensions [pg_stat_statements](http://www.postgresql.org/docs/current/static/pgstatstatements.html),
+[pg_proctab](https://github.com/markwkm/pg_proctab) or [powa](http://dalibo.github.io/powa/).
 
 [pg_stat_statements]: http://www.postgresql.org/docs/current/static/pgstatstatements.html
 [pg_proctab]: https://github.com/markwkm/pg_proctab

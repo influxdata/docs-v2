@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/amon/README.md, Amon Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/amon/README.md, Amon Plugin Source
 ---
 
 # Amon Output Plugin

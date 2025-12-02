@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/filepath/README.md, Filepath Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/filepath/README.md, Filepath Plugin Source
 ---
 
 # Filepath Processor Plugin
@@ -191,7 +191,20 @@ of the underlying golang implementation.
 ## Processing paths from tail plugin
 
 This plugin can be used together with the tail input
-plugin
+plugin to make modifications to the `path` tag
+injected for every file.
+
+Scenario:
+
+* A log file `/var/log/myjobs/mysql_backup.log`, containing logs for a job
+  execution. Whenever the job ends, a line is written to the log file following
+  this format: `2020-04-05 11:45:21 total time execution: 70 seconds`
+* We want to generate a measurement that captures the duration of the script as
+  a field and includes the `path` as a tag
+  * We are interested in the filename without its extensions, since it might be
+    enough information for plotting our execution times in a dashboard
+  * Just in case, we don't want to override the original path (if for some
+    reason we end up having duplicates we might want this information)
 
 For this purpose, we will use the `tail` input plugin, the `grok` parser plugin
 and the `filepath` processor.

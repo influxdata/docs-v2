@@ -10,7 +10,7 @@ introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/influxdb_v2/README.md, InfluxDB v2.x Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/influxdb_v2/README.md, InfluxDB v2.x Plugin Source
 ---
 
 # InfluxDB v2.x Output Plugin

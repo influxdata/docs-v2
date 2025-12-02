@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/clickhouse/README.md, ClickHouse Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/clickhouse/README.md, ClickHouse Plugin Source
 ---
 
 # ClickHouse Input Plugin
@@ -126,14 +126,14 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   - fields:
     - all rows from [system.metrics](https://clickhouse.tech/docs/en/operations/system-tables/metrics/)
 
-- clickhouse_asynchronous_metrics (see [system.asynchronous_metrics]()
+- clickhouse_asynchronous_metrics (see [system.asynchronous_metrics](https://clickhouse.tech/docs/en/operations/system-tables/asynchronous_metrics/)
   for details)
   - tags:
     - source (ClickHouse server hostname)
     - cluster (Name of the cluster [optional])
     - shard_num (Shard number in the cluster [optional])
   - fields:
-    - all rows from [system.asynchronous_metrics]()
+    - all rows from [system.asynchronous_metrics](https://clickhouse.tech/docs/en/operations/system-tables/asynchronous_metrics/)
 
 - clickhouse_tables
   - tags:
@@ -155,7 +155,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   - fields:
     - root_nodes (count of node where path=/)
 
-- clickhouse_replication_queue (see [system.replication_queue]() for details)
+- clickhouse_replication_queue (see [system.replication_queue](https://clickhouse.com/docs/en/operations/system-tables/replication_queue/) for details)
   - tags:
     - source (ClickHouse server hostname)
     - cluster (Name of the cluster [optional])
@@ -163,14 +163,14 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   - fields:
     - too_many_tries_replicas (count of replicas which have `num_tries > 1`)
 
-- clickhouse_detached_parts (see [system.detached_parts]() for details)
+- clickhouse_detached_parts (see [system.detached_parts](https://clickhouse.tech/docs/en/operations/system-tables/detached_parts/) for details)
   - tags:
     - source (ClickHouse server hostname)
     - cluster (Name of the cluster [optional])
     - shard_num (Shard number in the cluster [optional])
   - fields:
     - detached_parts (total detached parts for all tables and databases
-      from [system.detached_parts]())
+      from [system.detached_parts](https://clickhouse.tech/docs/en/operations/system-tables/detached_parts/))
 
 - clickhouse_dictionaries (see [system.dictionaries](https://clickhouse.tech/docs/en/operations/system-tables/dictionaries/) for details)
   - tags:
@@ -222,7 +222,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
     - longest_running - float gauge which show maximum value for `elapsed`
       field of running processes
 
-- clickhouse_text_log (see [system.text_log]() for details)
+- clickhouse_text_log (see [system.text_log](https://clickhouse.tech/docs/en/operations/system-tables/text_log/) for details)
   - tags:
     - source (ClickHouse server hostname)
     - cluster (Name of the cluster [optional])

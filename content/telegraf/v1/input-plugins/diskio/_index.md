@@ -10,7 +10,7 @@ introduced: "v0.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/diskio/README.md, DiskIO Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/diskio/README.md, DiskIO Plugin Source
 ---
 
 # DiskIO Input Plugin
@@ -96,8 +96,8 @@ docker run --privileged -v /:/hostfs:ro -v /run/udev:/run/udev:ro -e HOST_PROC=/
     - io_await (float64, gauge, milliseconds)
     - io_svctm (float64, gauge, milliseconds)
 
-On linux these values correspond to the values in [`/proc/diskstats`]() and
-[`/sys/block/<dev>/stat`]().
+On linux these values correspond to the values in [`/proc/diskstats`](https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats) and
+[`/sys/block/<dev>/stat`](https://www.kernel.org/doc/Documentation/block/stat.txt).
 
 [1]: https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats
 

@@ -103,7 +103,7 @@ exports.handler = (event, context, callback) => {
 
   // If file has a valid extension, return the request unchanged
   if (validExtensions[parsedPath.ext]) {
-    callback(null, request);
+    return callback(null, request);
   }
 
   ////////////////////// START PRODUCT-SPECIFIC REDIRECTS //////////////////////

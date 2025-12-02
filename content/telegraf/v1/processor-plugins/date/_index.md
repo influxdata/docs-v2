@@ -10,7 +10,7 @@ introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/date/README.md, Date Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/date/README.md, Date Plugin Source
 ---
 
 # Date Processor Plugin
@@ -64,7 +64,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
 On Windows, only the `Local` and `UTC` zones are available by default.  To use
 other timezones, set the `ZONEINFO` environment variable to the location of
-[`zoneinfo.zip`]():
+[`zoneinfo.zip`](https://github.com/golang/go/raw/50bd1c4d4eb4fac8ddeb5f063c099daccfb71b26/lib/time/zoneinfo.zip):
 
 ```text
 set ZONEINFO=C:\zoneinfo.zip

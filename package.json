@@ -1,9 +1,13 @@
 {
   "private": true,
-  "name": "docs-v2",
+  "name": "@influxdata/docs-site",
   "version": "1.0.0",
   "description": "InfluxDB documentation",
   "license": "MIT",
+  "exports": {
+    "./markdown-converter": "./scripts/lib/markdown-converter.cjs",
+    "./product-mappings": "./dist/utils/product-mappings.js"
+  },
   "bin": {
     "docs": "scripts/docs-cli.js"
   },
@@ -13,7 +17,8 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@evilmartians/lefthook": "^1.7.1",
-    "@vvago/vale": "^3.4.2",
+    "@types/js-yaml": "^4.0.9",
+    "@vvago/vale": "^3.12.0",
     "autoprefixer": ">=10.2.5",
     "cypress": "^14.0.1",
     "eslint": "^9.18.0",
@@ -27,19 +32,29 @@
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-sql": "^0.18.0",
+    "remark": "^15.0.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
+    "unified": "^11.0.5",
     "winston": "^3.16.0"
   },
   "dependencies": {
+    "@types/turndown": "^5.0.6",
     "axios": "^1.12.0",
+    "glob": "^10.3.10",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
+    "jsdom": "^27.2.0",
     "lefthook": "^1.10.10",
     "markdown-link": "^0.1.1",
     "mermaid": "^11.10.0",
+    "p-limit": "^5.0.0",
+    "turndown": "^7.2.2",
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
@@ -47,10 +62,15 @@
     "docs:create": "node scripts/docs-create.js",
     "docs:edit": "node scripts/docs-edit.js",
     "docs:add-placeholders": "node scripts/add-placeholders.js",
+    "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
     "build:ts:watch": "tsc --project tsconfig.json --outDir dist --watch",
+    "build:md": "node scripts/build-llm-markdown.js",
+    "build:md:legacy": "node scripts/html-to-markdown.js",
+    "build:md:verbose": "node scripts/html-to-markdown.js --verbose",
+    "deploy:staging": "sh scripts/deploy-staging.sh",
     "lint": "LEFTHOOK_EXCLUDE=test lefthook run pre-commit && lefthook run pre-push",
     "pre-commit": "lefthook run pre-commit",
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",

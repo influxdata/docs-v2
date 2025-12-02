@@ -51,42 +51,22 @@ to list tables in a database.
 
 The InfluxDB Cloud Dedicated administrative UI includes a portal for managing
 tables. You can view the list of tables associated with a database and
-their details, including:
+their details.
 
-- Name
-- Table ID
-- Table size (in bytes) 
+{{< admin-ui-access >}}
 
-1.  To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-tables.png" alt="InfluxDB Cloud Dedicated Admin UI tables list" />}}
 
-    <pre>
-    <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-    </pre>
+Use the **Tables** page to manage tables within databases:
 
-2.  Use the credentials provided by InfluxData to log into the Admin UI.
-    If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+- Select a database from the dropdown to view its tables.
+- View table IDs and sizes.
+- See database size summary.
+- Create new tables.
+- Access detailed table schema information.
 
-    After you log in, the Account Management portal displays [account information](/influxdb3/cloud-dedicated/admin/account/)
-    and lists all clusters associated with your account.
-
-3.  In the cluster list, find the cluster that contains the database and table.
-    You can **Search** for clusters by name or ID to filter the list and use the sort button and column headers to sort the list.
-4.  Click the cluster row to view the list of databases associated with the cluster.
-5.  In the database list, find the database that contains the table.
-    You can **Search** for databases by name or ID to filter the list and use
-    the sort button and column headers to sort the list.
-6.  Click the database row to view the list of tables associated with the database.
-7.  The table list displays the following table details:
-
-    - Name
-    - Table ID
-    - Table size (in bytes)
-
-8.  You can **Search** for tables by name or ID to filter the list and use the
-    sort button and column headers to sort the list.
-
-You can **Search** for databases by name or ID to filter the list and use the
-sort button and column headers to sort the list. 
+You can **Search** for tables by name or ID to filter the list and use the
+sort button and column headers to sort the list.
 
 <!-------------------------------- END ADMIN UI ------------------------------->
 {{% /tab-content %}}

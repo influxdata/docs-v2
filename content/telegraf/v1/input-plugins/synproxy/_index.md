@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/synproxy/README.md, Synproxy Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/synproxy/README.md, Synproxy Plugin Source
 ---
 
 # Synproxy Input Plugin

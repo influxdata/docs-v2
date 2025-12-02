@@ -195,6 +195,78 @@ source: /shared/path/to/content.md
 
 For complete details including examples and best practices, see the [Source section in DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md#source).
 
+### Excluding Internal Flags from Documentation Audits
+
+When documenting CLI commands, you may encounter internal flags or variable names from the source code that aren't intended for end-user documentation.
+Use structured HTML comments to mark these flags as excluded from documentation audits.
+
+#### Standard exclude comment format
+
+Place the comment immediately before the **Options** section in CLI reference documentation:
+
+```markdown
+## Options
+
+<!--docs:exclude
+--internal-flag-name: reason for exclusion
+--another-internal-flag: reason for exclusion
+-->
+
+| Option | Description |
+```
+
+#### When to exclude flags
+
+Exclude flags and options that are:
+
+- **Internal variable names**: Source code argument names that aren't exposed as CLI flags
+- **Hidden test flags**: Development or testing flags not meant for production use
+- **Deprecated aliases**: Old flag names that are maintained for backward compatibility but shouldn't be documented
+- **Implementation details**: Flags that expose internal implementation details
+
+#### Examples
+
+**Example 1: Internal variable name**
+
+```markdown
+## Options
+
+<!--docs:exclude
+--database-name: internal variable, use positional <DATABASE_NAME>
+-->
+```
+
+**Example 2: Multiple exclusions**
+
+```markdown
+## Options
+
+<!--docs:exclude
+--table-name: internal variable, use positional <TABLE_NAME>
+--trigger-name: internal variable, use positional <TRIGGER_NAME>
+-->
+```
+
+**Example 3: Hidden test flags**
+
+```markdown
+## Options
+
+<!--docs:exclude
+--test-mode: hidden test flag, not for production use
+--serve-invocation-method: internal implementation detail
+-->
+```
+
+#### Audit tool behavior
+
+Documentation audit tools should:
+
+1. Parse HTML comments with the `docs:exclude` identifier
+2. Extract flag names and exclusion reasons using the pattern: `--flag-name: reason`
+3. Skip reporting "missing documentation" for excluded flags
+4. Support both single-line and multi-line exclusion lists
+
 <!-- agent:instruct: essential -->
 ### Common Shortcodes Reference
 

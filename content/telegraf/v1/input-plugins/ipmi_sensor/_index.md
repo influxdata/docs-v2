@@ -10,14 +10,14 @@ introduced: "v0.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/ipmi_sensor/README.md, IPMI Sensor Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/ipmi_sensor/README.md, IPMI Sensor Plugin Source
 ---
 
 # IPMI Sensor Input Plugin
 
 This plugin gathers metrics from the
 [Intelligent Platform Management Interface](https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/ipmi-intelligent-platform-mgt-interface-spec-2nd-gen-v2-0-spec-update.pdf) using the
-[`ipmitool`]() command line utility.
+[`ipmitool`](https://github.com/ipmitool/ipmitool) command line utility.
 
 > [!IMPORTANT]
 > The `ipmitool` requires access to the IPMI device. Please check the

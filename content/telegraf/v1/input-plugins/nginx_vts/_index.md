@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/nginx_vts/README.md, Nginx Virtual Host Traffic Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/nginx_vts/README.md, Nginx Virtual Host Traffic Plugin Source
 ---
 
 # Nginx Virtual Host Traffic Input Plugin
@@ -45,7 +45,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 # Read Nginx virtual host traffic status module information (nginx-module-vts)
 [[inputs.nginx_vts]]
   ## An array of ngx_http_status_module or status URI to gather stats.
-  urls = ["http://localhost/status"]
+  urls = ["http://localhost/status", "http+unix:///var/run/nginx.sock:/status"]
 
   ## HTTP response timeout (default: 5s)
   response_timeout = "5s"

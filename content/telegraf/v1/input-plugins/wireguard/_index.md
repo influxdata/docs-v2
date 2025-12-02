@@ -10,13 +10,13 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/wireguard/README.md, Wireguard Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/wireguard/README.md, Wireguard Plugin Source
 ---
 
 # Wireguard Input Plugin
 
 This plugin collects statistics on a local [Wireguard](https://www.wireguard.com/) server
-using the [`wgctrl` library](). The plugin reports gauge metrics for
+using the [`wgctrl` library](https://github.com/WireGuard/wgctrl-go). The plugin reports gauge metrics for
 Wireguard interface device(s) and its peers.
 
 **Introduced in:** Telegraf v1.14.0

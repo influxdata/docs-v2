@@ -42,6 +42,7 @@ how you can opt out.
 - **Instance ID**: Unique identifier for the server instance
 - **Cluster UUID**: Unique identifier for the cluster
 - **Storage type**: Type of object storage being used
+- **Invocation**: How the server was started
 {{% show-in "core" %}}
 - **Product type**: "Core"
 {{% /show-in %}}

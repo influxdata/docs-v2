@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
 ---
 
 # S.M.A.R.T. Input Plugin
@@ -18,11 +18,11 @@ related:
 This plugin collects [Self-Monitoring, Analysis and Reporting Technology](https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology)
 information for storage devices information using the
 [`smartmontools`]() package. This plugin also supports NVMe devices by
-using the [`nvme-cli`]() package.
+using the [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) package.
 
 > [!NOTE]
 > This plugin requires the [`smartmontools`]() and, for NVMe devices,
-> the [`nvme-cli`]() packages to be installed on your system. The
+> the [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) packages to be installed on your system. The
 > `smartctl` and `nvme` commands must to be executable by Telegraf.
 
 **Introduced in:** Telegraf v1.5.0

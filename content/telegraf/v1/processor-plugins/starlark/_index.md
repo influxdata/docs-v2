@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/processors/starlark/README.md, Starlark Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/starlark/README.md, Starlark Plugin Source
 ---
 
 # Starlark Processor Plugin
@@ -141,12 +141,16 @@ following libraries are available for loading:
 - json: `load("json.star", "json")` provides the functions `json.encode()`,
         `json.decode()`, `json.indent()`. See json.star
         for an example. For more details about the functions, please refer to the
-        [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
+        [library documentation](https://pkg.go.dev/go.starlark.net/lib/json).
 - log:  `load("logging.star", "log")` provides the functions `log.debug()`,
         `log.info()`, `log.warn()`, `log.error()`. See
-         logging.star` provides the function
+         logging.star for an example.
+- math: `load("math.star", "math")` provides the function
          [documented in the library](https://pkg.go.dev/go.starlark.net/lib/math). See
-         math.star`. See
+         math.star for an example.
+- time: `load("time.star", "time")` provides the functions `time.from_timestamp()`,
+        `time.is_valid_timezone()`, `time.now()`, `time.parse_duration()`,
+        `time.parse_time()`, `time.time()`. See
          time_date.star,
          time_duration.star and
          time_timestamp.star for examples. For
@@ -223,6 +227,23 @@ Telegraf freezes the global scope, which prevents it from being modified, except
 for a special shared global dictionary named `state`, this can be used by the
 `apply` function.  See an example of this in compare with previous
 metric
+
+Other than the `state` variable, attempting to modify the global scope will fail
+with an error.
+
+**How to manage errors that occur in the apply function?**
+
+In case you need to call some code that may return an error, you can delegate
+the call to the built-in function `catch` which takes as argument a `Callable`
+and returns the error that occurred if any, `None` otherwise.
+
+So for example:
+
+```python
+load("json.star", "json")
+
+def apply(metric):
+    error = catch(lambda: failing(metric))
     if error != None:
         # Some code to execute in case of an error
         metric.fields["error"] = error
@@ -276,11 +297,12 @@ or return the value as a floating-point number.
 ### Examples
 
 - drop fields containing string values
-- drop fields with unexpected types](testdata/iops.star)
+- drop fields with unexpected types
+- obtain IOPS for aggregation and computing max IOPS)
 - process JSON in a metric field - see
-  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/json) for function documentation
 - use math function to compute a field value - see
-  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/math) for function documentation
 - transform numerical values
 - pivot a key's value to be the key for another field
 - compute the ratio of two integer fields

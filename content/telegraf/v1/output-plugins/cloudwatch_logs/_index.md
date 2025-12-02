@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/cloudwatch_logs/README.md, Amazon CloudWatch Logs Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/cloudwatch_logs/README.md, Amazon CloudWatch Logs Plugin Source
 ---
 
 # Amazon CloudWatch Logs Output Plugin

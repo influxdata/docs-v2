@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/syslog/README.md, Syslog Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/syslog/README.md, Syslog Plugin Source
 ---
 
 # Syslog Input Plugin
@@ -140,8 +140,8 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Message transport
 
 The `framing` option only applies to streams. It governs the way we expect to
-receive messages within the stream.  Namely, with the [`"octet counting"`]()
-technique (default) or with the [`"non-transparent"`]() framing.
+receive messages within the stream.  Namely, with the [`"octet counting"`](https://tools.ietf.org/html/rfc5425#section-4.3)
+technique (default) or with the [`"non-transparent"`](https://tools.ietf.org/html/rfc6587#section-3.4.2) framing.
 
 The `trailer` option only applies when `framing` option is
 `"non-transparent"`. It must have one of the following values: `"LF"` (default),
@@ -212,7 +212,7 @@ echo "<13>1 2018-10-01T12:00:00.0Z example.org root - - - test" | nc -u 127.0.0.
 
 The `source` tag stores the remote IP address of the syslog sender.
 To resolve these IPs to DNS names, use the
-[`reverse_dns` processor]()
+[`reverse_dns` processor](/telegraf/v1/plugins/#processor-reverse_dns)
 
 You can send debugging messages directly to the input plugin using netcat:
 

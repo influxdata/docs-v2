@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/bigquery/README.md, Google BigQuery Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/bigquery/README.md, Google BigQuery Plugin Source
 ---
 
 # Google BigQuery Output Plugin
@@ -116,7 +116,7 @@ Avoid hyphens on BigQuery tables, underlying SDK cannot handle streaming inserts
 to Table with hyphens.
 
 In cases of metrics with hyphens please use the [Rename Processor
-Plugin]().
+Plugin](../../processors/rename/README.md).
 
 In case of a metric with hyphen by default hyphens shall be replaced with
 underscores (_).  This can be altered using the `replace_hyphen_to`

@@ -10,7 +10,7 @@ introduced: "v0.1.8"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/ping/README.md, Ping Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/ping/README.md, Ping Plugin Source
 ---
 
 # Ping Input Plugin
@@ -174,7 +174,7 @@ Without systemd:
 setcap cap_net_raw=eip /usr/bin/telegraf
 ```
 
-Reference [`man 7 capabilities`]() for more information about
+Reference [`man 7 capabilities`](http://man7.org/linux/man-pages/man7/capabilities.7.html) for more information about
 setting capabilities.
 
 [man 7 capabilities]: http://man7.org/linux/man-pages/man7/capabilities.7.html

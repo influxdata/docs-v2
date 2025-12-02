@@ -10,7 +10,7 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/amd_rocm_smi/README.md, AMD ROCm System Management Interface (SMI) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/amd_rocm_smi/README.md, AMD ROCm System Management Interface (SMI) Plugin Source
 ---
 
 # AMD ROCm System Management Interface (SMI) Input Plugin
@@ -19,7 +19,7 @@ This plugin gathers statistics including memory and GPU usage, temperatures
 etc from [AMD ROCm platform](https://rocm.docs.amd.com/) GPUs.
 
 > [!IMPORTANT]
-> The [`rocm-smi` binary]() is required and needs to be installed on the
+> The [`rocm-smi` binary](https://github.com/RadeonOpenCompute/rocm_smi_lib/tree/master/python_smi_tools) is required and needs to be installed on the
 > system.
 
 **Introduced in:** Telegraf v1.20.0

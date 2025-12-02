@@ -1,0 +1,17 @@
+{{- $linkText := .Get "link-text" | default "Ask Docs AI" -}}
+{{- $query := .Get "query" | default "" -}}
+<a href="#"
+  class="ask-ai-open"
+  {{- if $query -}}
+  data-query="{{ $query }}"
+  {{- end -}}
+  onclick="
+    if (window.gtag) {
+      window.gtag('event', 'ask_ai_link', {
+        'custom_map.interaction_type': 'inline_link',
+        'custom_map.section': location.pathname,
+        'custom_map.query': '{{ $query | htmlEscape }}'
+      });
+    }
+    return false;
+  ">{{ $linkText }}</a>

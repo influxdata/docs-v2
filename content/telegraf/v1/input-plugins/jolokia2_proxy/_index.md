@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/jolokia2_proxy/README.md, Jolokia2 Proxy Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/jolokia2_proxy/README.md, Jolokia2 Proxy Plugin Source
 ---
 
 # Jolokia2 Proxy Input Plugin
@@ -101,6 +101,11 @@ Optionally, specify TLS options for communicating with proxies:
 
 Please see
 Jolokia agent documentation.
+
+## Metrics
+
+The metrics depend on the definition(s) in the `inputs.jolokia2_proxy.metric`
+section(s).
 
 ## Example Output
 

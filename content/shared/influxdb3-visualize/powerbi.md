@@ -1,7 +1,5 @@
 Use [Microsoft Power BI Desktop](https://powerbi.microsoft.com/) with the
-InfluxDB 3 custom connector to query and visualize data from {{% product-name %}}.
-
-Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
+This guide includes Windows (64‑bit) installation steps for the Arrow Flight SQL ODBC driver and the InfluxDB 3 Power BI connector.  
 
 > Microsoft Power BI is a collection of software services, apps, and connectors
 > that work together to turn your unrelated sources of data into coherent,
@@ -9,15 +7,15 @@ Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
 >
 > {{% cite %}}-- [Microsoft Power BI documentation](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview){{% /cite %}}
 
-> [!Important]
+> \[!Important]
 > These instructions are for Power BI Desktop only; it uses a custom connector.
 
-- [Prerequisites](#prerequisites)
-- [Install the Power BI connector](#install-the-power-bi-connector)
-- [Install the Arrow Flight SQL ODBC Driver](#install-the-arrow-flight-sql-odbc-driver)
-- [Enable the connector in Power BI](#enable-the-connector-in-power-bi)
-- [Connect Power BI to InfluxDB](#connect-power-bi-to-influxdb)
-- [Query and visualize data](#query-and-visualize-data)
+1. [Prerequisites](#prerequisites)
+2. [Install the Arrow Flight SQL ODBC driver](#install-the-arrow-flight-sql-odbc-driver)
+3. [Install the Power BI connector](#install-the-power-bi-connector)
+4. [Enable the connector in Power BI](#enable-the-connector-in-power-bi)
+5. [Connect Power BI to InfluxDB](#connect-power-bi-to-influxdb)
+6. [Query and visualize data](#query-and-visualize-data)
 
 ## Prerequisites
 
@@ -28,65 +26,31 @@ Note:  The Microsoft Power BI Connector for InfluxDB is currently in BETA
 - **{{% product-name %}}**: A running instance with data to query
 - **Database token**: Your {{% show-in "cloud-dedicated, clustered" %}}{{% token-link "database" %}}{{% /show-in %}}{{% show-in "cloud-serverless" %}}{{% token-link %}}{{% /show-in %}}{{% show-in "core, enterprise" %}}{{% token-link "admin" "database" %}}{{% /show-in %}}{{% show-in "enterprise" %}} with query permissions for the target database{{% /show-in %}}
 
-The following steps guide you through downloading and installing the Arrow Flight SQL ODBC Driver and the InfluxDB 3 custom connector.
+## Install the Arrow Flight SQL ODBC driver
+
+The InfluxDB 3 custom connector for Power BI requires the Arrow Flight SQL ODBC driver.
+Install the driver before installing the Power BI connector.
+
+<a class="btn" href="https://docs.influxdata.com/downloads/apache-arrow-flight-sql-odbc-1.0.0-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
+
+1. Run the downloaded `.msi` installer.
+2. Follow the installation wizard using default settings.
+3. Complete the installation.
+
+#### Verify driver installation
+
+1. Open the Windows application [ODBC Data Source Administrator (64-bit)](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator).
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
+2. Navigate to the **Drivers** tab
+3. Verify **Arrow Flight SQL ODBC Driver** appears in the list.
 
 ## Install the Power BI connector
 
-The InfluxDB 3 custom connector for Power BI Desktop enables you to connect to
-{{% product-name %}} and query data using SQL.
-
-### Install the Arrow Flight SQL ODBC Driver
-
-The custom connector requires the Arrow Flight SQL ODBC Driver.
-
-<a class="btn" href="https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi">Download the Arrow Flight SQL ODBC driver</a>
-
-Or use PowerShell to download and install:
-
-{{% code-placeholders "YOUR_USER" %}}
-```powershell
-# Download the driver
-Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/arrow-flight-sql-odbc-0.9.7.1195-win64.msi" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
-
-# Mark as trusted
-Unblock-File "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"
-
-# Install
-Start-Process msiexec.exe -Wait -ArgumentList '/i "C:\Users\YOUR_USER\Downloads\arrow-flight-sql-odbc-0.9.7.1195-win64.msi"'
-```
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
-
-Follow the installation wizard using default settings.
-
-> [!Note]
-> For more information about the Arrow Flight SQL ODBC Driver, see the [Dremio documentation](https://docs.dremio.com/current/client-applications/drivers/arrow-flight-sql-odbc-driver/).
-
-### Install the Power BI connector file
+After installing the ODBC driver, download and install the InfluxDB 3 custom connector for Power BI Desktop.
 
 <a class="btn" href="https://docs.influxdata.com/downloads/InfluxDB.pqx">Download the InfluxDB 3 Power BI connector</a>
 
-Or use PowerShell to download:
-
-{{% code-placeholders "YOUR_USER" %}}
-```powershell
-# Download the connector
-Invoke-WebRequest -Uri "https://docs.influxdata.com/downloads/InfluxDB.pqx" `
-  -OutFile "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx"
-```
-{{% /code-placeholders %}}
-
-Replace the following:
-
-- {{% code-placeholder-key %}}`YOUR_USER`{{% /code-placeholder-key %}}: Your Windows username
-
-#### Install the connector
-
-Move the `.pqx` connector file to the Power BI custom connectors directory:
+### Move the connector to the custom connectors directory
 
 1. Create the custom connectors folder if it doesn't exist:
 
@@ -96,11 +60,13 @@ Move the `.pqx` connector file to the Power BI custom connectors directory:
 
 2. Move the connector file to the custom connectors folder:
 
-   {{% code-placeholders "YOUR_USER" %}}
+   {{% code-placeholders "YOUR\_USER" %}}
+
    ```powershell
    Move-Item "C:\Users\YOUR_USER\Downloads\InfluxDB.pqx" `
      "$env:USERPROFILE\Documents\Power BI Desktop\Custom Connectors\"
    ```
+
    {{% /code-placeholders %}}
 
    Replace the following:
@@ -119,8 +85,10 @@ To use custom connectors, you must adjust Power BI Desktop's security settings:
 5. Click **OK**
 6. **Restart Power BI Desktop** for the changes to take effect
 
-> [!Warning]
+> \[!Warning]
+>
 > #### Security considerations
+>
 > Enabling uncertified extensions allows any custom connector to load.
 > Only enable this setting if you trust the connectors you're installing.
 
@@ -129,9 +97,13 @@ To use custom connectors, you must adjust Power BI Desktop's security settings:
 After installing the connector and restarting Power BI Desktop:
 
 1. Open **Power BI Desktop**
+
 2. Click **Get Data** > **More**
+
 3. Search for **InfluxDB 3** and select it
+
 4. Click **Connect**
+
 5. In the **InfluxDB 3** connection dialog, configure the following:
 
    - **Server**: Your {{% product-name %}} URL without the port, (for example,
@@ -141,18 +113,25 @@ After installing the connector and restarting Power BI Desktop:
    - **Native Query** (optional): Enter a SQL query to limit the data loaded
 
 6. Select **DirectQuery** as the **Data Connectivity mode**
+
 7. Click **OK**
+
 8. When prompted for credentials:
    - Select **Basic** authentication
    - **Username**: Leave blank or enter any value
    - **Password**: Enter your {{% show-in "cloud-dedicated, clustered" %}}{{% token-link "database" %}}{{% /show-in %}}{{% show-in "cloud-serverless" %}}{{% token-link %}}{{% /show-in %}}{{% show-in "core, enterprise" %}}{{% token-link "admin" "database" %}}{{% /show-in %}}{{% show-in "enterprise" %}} with query permissions for the target database{{% /show-in %}}
+
 9. Click **Connect**
+
 10. Preview your data and click **Load**
 
-> [!Important]
+> \[!Important]
+>
 > #### Limit query size for optimal performance
+>
 > {{% product-name %}} can handle high throughput and dimensional data.
 > To ensure Power BI can successfully process data, limit query size by:
+>
 > - Using a `LIMIT` clause
 > - Specifying time ranges with `WHERE time >= ...`
 > - Filtering by specific columns or tags
@@ -165,6 +144,7 @@ When connecting to InfluxDB 3, you can use the **Native Query** option to
 execute custom SQL queries:
 
 1. In the connection dialog, enable **Native Query**
+
 2. Enter your query in the provided field:
 
    ```sql
@@ -182,6 +162,7 @@ execute custom SQL queries:
    ```
 
 3. Select **DirectQuery** as the connectivity mode
+
 4. Click **OK** to load the data
 
 ### Create visualizations
@@ -223,6 +204,15 @@ After loading data, Power BI displays your dataset in the **Fields** pane.
 
 ## Troubleshooting
 
+### Driver not found
+
+If Power BI or other applications can't find the Arrow Flight SQL ODBC driver:
+
+1. Open the [ODBC Data Source Administrator (64-bit) Windows component](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator)
+2. Navigate to the **Drivers** tab
+3. Verify **Arrow Flight SQL ODBC Driver** appears in the list
+4. If not listed, reinstall the driver
+
 ### Connector not found
 
 If Power BI Desktop doesn't show the InfluxDB 3 connector:
@@ -236,28 +226,41 @@ If Power BI Desktop doesn't show the InfluxDB 3 connector:
 
 If you encounter connection errors:
 
-- Verify your {{% product-name %}} instance is accessible
-- Check that the host URL and port are correct
+- Verify your {{% product-name %}} instance is running and accessible
+- Check that the host URL and port are correct:
   - Local instances typically use `http://localhost:8181`
-  - {{% show-in "cloud-serverless,cloud-dedicated" %}}{{% product-name %}} instances use cluster-specific URLs{{% /show-in %}}
+  - {{% show-in "cloud-serverless,cloud-dedicated" %}}{{% product-name %}} instances use cluster-specific URLs with port `443`{{% /show-in %}}
+- Ensure `UseEncryption` is configured correctly for your connection type
+- Verify network connectivity and firewall rules allow connections on the specified port
 - Ensure your token has query permissions for the specified database
-- Verify firewall rules allow connections on the specified port
 
 ### Authentication errors
 
 If authentication fails:
 
 - Verify your database token is valid and not expired
-- {{% show-in "enterprise" %}}Ensure the token has permissions for the target database{{% /show-in %}}
-- Check that you entered the token in the **Password** field
+- Ensure the token is specified correctly (in the **Password** field for Power BI)
+- {{% show-in "enterprise" %}}Verify the token has query permissions for the target database{{% /show-in %}}
+- Check that the token was copied correctly without extra spaces or characters
 - Leave the **Username** field blank or enter any value
+
+### Query errors
+
+If queries fail or return errors:
+
+- Verify SQL syntax is correct for InfluxDB SQL
+- Check that referenced tables (measurements) exist in the database
+- Ensure column names match your schema
+- Review the [SQL reference](/influxdb3/version/reference/sql/) for supported features
+- For large result sets, consider adding `LIMIT` clauses
 
 ### Query performance
 
 For better query performance:
 
 - Always use `WHERE` clauses to filter data before loading
-- Include time range filters to limit the data scanned
+- Include time range filters (for example, `WHERE time >= now() - INTERVAL '7 days'`) to limit the data scanned
 - Select only the columns you need
 - Use the `LIMIT` clause to restrict result size
 - Consider using **DirectQuery** mode instead of **Import** for large datasets
+- Monitor query execution for optimization opportunities

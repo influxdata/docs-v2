@@ -32,7 +32,7 @@ table limits, and column limits as when it was deleted.
 
 > [!Warning]
 > Databases can only be undeleted for
-> {{% show-in "cloud-dedicated" %}}approximately 14 days{{% /show-in %}}{{% show-in "clustered" %}}a configurable "hard-delete" grace period{{% /show-in %}}
+> {{% show-in "cloud-dedicated" %}}approximately 7 days{{% /show-in %}}{{% show-in "clustered" %}}a configurable "hard-delete" grace period{{% /show-in %}}
 > after they are deleted.
 > After this grace period, all Parquet files associated with the deleted database
 > are permanently removed and the database cannot be undeleted.

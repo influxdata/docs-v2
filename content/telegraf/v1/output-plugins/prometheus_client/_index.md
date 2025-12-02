@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
 ---
 
 # Prometheus Output Plugin
@@ -109,6 +109,6 @@ to use them.
 ## Metrics
 
 Prometheus metrics are produced in the same manner as the [prometheus
-serializer]().
+serializer](/telegraf/v1/plugins/#serializer-prometheus).
 
 [prometheus serializer]: /plugins/serializers/prometheus/README.md#Metrics

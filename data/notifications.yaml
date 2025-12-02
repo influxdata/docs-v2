@@ -40,23 +40,25 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3.6-explorer-1.4
+- id: influxdb3.7-explorer-1.5
   level: note
   scope:
     - /
-  title: New in InfluxDB 3.6
+  title: New in InfluxDB 3.7
   slug: |
-    Key enhancements in InfluxDB 3.6 and the InfluxDB 3 Explorer 1.4.
+    Key enhancements in InfluxDB 3.7 and the InfluxDB 3 Explorer 1.5.
 
-    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-6/">See the Blog Post</a>
+    <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-7/">See the Blog Post</a>
   message: |
-    InfluxDB 3.6 is now available for both Core and Enterprise. This release introduces
-    the 1.4 update to InfluxDB 3 Explorer, featuring the beta launch of Ask AI, along
-    with new capabilities for simple startup and expanded functionality in the Processing Engine.
+    InfluxDB 3.7 is now available for both Core and Enterprise, landing alongside
+    version 1.5 of the InfluxDB 3 Explorer UI. This release focuses on giving
+    developers faster visibility into what their system is doing with one-click
+    monitoring, a streamlined installation pathway, and broader updates that
+    simplify day-to-day operations.
 
     For more information, check out:
 
-    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-6/)
+    - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-7/)
     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
     - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)

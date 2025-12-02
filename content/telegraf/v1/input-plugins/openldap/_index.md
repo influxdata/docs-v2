@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/openldap/README.md, OpenLDAP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/openldap/README.md, OpenLDAP Plugin Source
 ---
 
 # OpenLDAP Input Plugin
@@ -19,7 +19,7 @@ This plugin gathers metrics from [OpenLDAP](https://www.openldap.org/)'s `cn=Mon
 To use this plugin you must enable the [slapd monitoring](https://www.openldap.org/devel/admin/monitoringslapd.html) backend.
 
 > [!NOTE]
-> It is recommended to use the newer [`ldap` input plugin]() instead.
+> It is recommended to use the newer [`ldap` input plugin](/telegraf/v1/plugins/#input-ldap) instead.
 
 **Introduced in:** Telegraf v1.4.0
 **Tags:** server, network

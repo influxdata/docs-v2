@@ -13,9 +13,8 @@ aliases:
   - /influxdb3/cloud-serverless/visualize-data/chronograf/
 related:
   - /chronograf/v1/
-metadata: [InfluxQL only]
-related:
   - /influxdb3/cloud-serverless/query-data/influxql/
+metadata: [InfluxQL only]
 ---
 
 [Chronograf](/chronograf/v1/) is a data visualization and dashboarding

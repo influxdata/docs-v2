@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
 ---
 
 # Minecraft Input Plugin
@@ -59,7 +59,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Server Setup
 
 Enable [RCON](http://wiki.vg/RCON) on the Minecraft server and add the following to your
-[`server.properties`]() file:
+[`server.properties`](https://minecraft.gamepedia.com/Server.properties) file:
 
 ```conf
 enable-rcon=true

@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/haproxy/README.md, HAProxy Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/haproxy/README.md, HAProxy Plugin Source
 ---
 
 # HAProxy Input Plugin
@@ -67,11 +67,11 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### HAProxy Configuration
 
 The following information may be useful when getting started, but please consult
-the HAProxy documentation for complete and up to date instructions.
+the HAProxy documentation for complete and up-to-date instructions.
 
-The [`stats enable`]() option can be used to add unauthenticated access over
+The [`stats enable`](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable) option can be used to add unauthenticated access over
 HTTP using the default settings.  To enable the unix socket begin by reading
-about the [`stats socket`]() option.
+about the [`stats socket`](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#3.1-stats%20socket) option.
 
 [4]: https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable
 [5]: https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#3.1-stats%20socket
@@ -113,7 +113,7 @@ The following renames are made:
 ## Metrics
 
 For more details about collected metrics reference the [HAProxy CSV format
-documentation]().
+documentation](https://cbonte.github.io/haproxy-dconv/1.8/management.html#9.1).
 
 - haproxy
   - tags:

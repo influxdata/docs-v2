@@ -13,15 +13,15 @@ info:
     - Perform administrative tasks and access system information
 
     The API includes endpoints under the following paths:
-    - `/api/v3`: InfluxDB 3 Core native endpoints 
-    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients 
+    - `/api/v3`: InfluxDB 3 Core native endpoints
+    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     <!-- TODO: verify where to host the spec that users can download.
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
     -->
-  version: ''
+  version: '3.7.0'
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -223,8 +223,6 @@ tags:
       | **Hours** | ✅ `h` | ❌ No | ❌ No |
       | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
 
-      **Note:** A bug currently prevents abbreviated precision values (`ns`, `n`, `us`, `u`, `ms`, `s`) from working with the `/api/v3/write_lp` endpoint. Use the full names (`nanosecond`, `microsecond`, `millisecond`, `second`) instead. Abbreviated values will be supported in a future release.
-
       All timestamps are stored internally as nanoseconds.
 paths:
   /write:
@@ -298,6 +296,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: |
             Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
@@ -345,8 +346,8 @@ paths:
         - Compatibility endpoints
         - Write data
       x-influxdata-guides:
-        - title: "Use compatibility APIs to write data"
-          href: "/influxdb3/core/write-data/http-api/compatibility-apis/"
+        - title: Use compatibility APIs to write data
+          href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v2/write:
     post:
       operationId: PostV2Write
@@ -423,6 +424,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: Bad request.
         '401':
@@ -435,21 +439,21 @@ paths:
         - Compatibility endpoints
         - Write data
       x-influxdata-guides:
-        - title: "Use compatibility APIs to write data"
-          href: "/influxdb3/core/write-data/http-api/compatibility-apis/"
+        - title: Use compatibility APIs to write data
+          href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
       summary: Write line protocol
       description: |
         Writes line protocol to the specified database.
-        
+
         This is the native InfluxDB 3 Core write endpoint that provides enhanced control 
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
-        
+
         #### Features
 
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
@@ -467,7 +471,7 @@ paths:
         - Larger timestamps → Nanosecond precision (no conversion needed)
 
         #### Related
-        
+
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/core/write-data/http-api/v3-write-lp/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
@@ -503,6 +507,9 @@ paths:
       responses:
         '204':
           description: Success ("No Content"). All data in the batch is written and queryable.
+          headers:
+            cluster-uuid:
+              $ref: '#/components/headers/ClusterUUID'
         '400':
           description: Bad request.
         '401':
@@ -856,8 +863,8 @@ paths:
         - Query data
         - Compatibility endpoints
       x-influxdata-guides:
-        - title: "Use the InfluxDB v1 HTTP query API and InfluxQL to query data"
-          href: "/influxdb3/core/query-data/execute-queries/influxdb-v1-api/"
+        - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+          href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
@@ -975,8 +982,8 @@ paths:
         - Query data
         - Compatibility endpoints
       x-influxdata-guides:
-        - title: "Use the InfluxDB v1 HTTP query API and InfluxQL to query data"
-          href: "/influxdb3/core/query-data/execute-queries/influxdb-v1-api/"
+        - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+          href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
   /health:
     get:
       operationId: GetHealth
@@ -1092,12 +1099,30 @@ paths:
             Use ISO 8601 date-time format (for example, "2025-12-31T23:59:59Z").
 
             #### Deleting a database cannot be undone
-            
+
             Deleting a database is a destructive action.
             Once a database is deleted, data stored in that database cannot be recovered.
       responses:
         '200':
           description: Success. Database deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Database not found.
+      tags:
+        - Database
+  /api/v3/configure/database/retention_period:
+    delete:
+      operationId: DeleteDatabaseRetentionPeriod
+      summary: Remove database retention period
+      description: |
+        Removes the retention period from a database, setting it to infinite retention.
+        Data in the database will not expire based on time.
+      parameters:
+        - $ref: '#/components/parameters/db'
+      responses:
+        '200':
+          description: Success. Retention period removed from database.
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1135,7 +1160,7 @@ paths:
         Use the `hard_delete_at` parameter to schedule a hard deletion.
 
         #### Deleting a table cannot be undone
-        
+
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
       parameters:
@@ -1217,7 +1242,7 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
-        - Table  
+        - Table
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1707,6 +1732,93 @@ paths:
       tags:
         - Authentication
         - Token
+  /api/v3/configure/token:
+    delete:
+      operationId: DeleteToken
+      summary: Delete token
+      description: |
+        Deletes a token.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            The ID of the token to delete.
+      responses:
+        '204':
+          description: Success. The token has been deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Token not found.
+      tags:
+        - Authentication
+        - Token
+  /api/v3/configure/token/named_admin:
+    post:
+      operationId: PostCreateNamedAdminToken
+      summary: Create named admin token
+      description: |
+        Creates a named admin token.
+        A named admin token is an admin token with a specific name identifier.
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: |
+            The name for the admin token.
+      responses:
+        '201':
+          description: |
+            Success. The named admin token has been created.
+            The response body contains the token string and metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminTokenObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: A token with this name already exists.
+      tags:
+        - Authentication
+        - Token
+  /api/v3/plugins/files:
+    put:
+      operationId: PutPluginFile
+      summary: Update plugin file
+      description: |
+        Updates a plugin file in the plugin directory.
+      x-security-note: Requires an admin token
+      responses:
+        '204':
+          description: Success. The plugin file has been updated.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden. Admin token required.
+      tags:
+        - Processing engine
+  /api/v3/plugins/directory:
+    put:
+      operationId: PutPluginDirectory
+      summary: Update plugin directory
+      description: |
+        Updates the plugin directory configuration.
+      x-security-note: Requires an admin token
+      responses:
+        '204':
+          description: Success. The plugin directory has been updated.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden. Admin token required.
+      tags:
+        - Processing engine
 components:
   parameters:
     AcceptQueryHeader:
@@ -1892,6 +2004,14 @@ components:
       description: |
         Content coding.
         Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
+
+        #### Multi-member gzip support
+
+        InfluxDB 3 supports multi-member gzip payloads (concatenated gzip files per [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952)).
+        This allows you to:
+        - Concatenate multiple gzip files and send them in a single request
+        - Maintain compatibility with InfluxDB v1 and v2 write endpoints
+        - Simplify batch operations using standard compression tools
       default: identity
     LineProtocol:
       type: string
@@ -2152,7 +2272,7 @@ components:
             - `every:1w` - Every week
             - `every:1M` - Every month
             - `every:1y` - Every year
-            
+
             **Maximum interval**: 1 year
 
             ### Table-based triggers
@@ -2270,7 +2390,7 @@ components:
           description: |
             The retention period for the database. Specifies how long data should be retained.
             Use duration format (for example, "1d", "1h", "30m", "7d").
-          example: "7d"
+          example: 7d
       description: Request schema for updating database configuration.
     UpdateTableRequest:
       type: object
@@ -2286,7 +2406,7 @@ components:
           description: |
             The retention period for the table. Specifies how long data in this table should be retained.
             Use duration format (for example, "1d", "1h", "30m", "7d").
-          example: "30d"
+          example: 30d
       required:
         - db
         - table
@@ -2297,29 +2417,29 @@ components:
         license_type:
           type: string
           description: The type of license (for example, "enterprise", "trial").
-          example: "enterprise"
+          example: enterprise
         expires_at:
           type: string
           format: date-time
           description: The expiration date of the license in ISO 8601 format.
-          example: "2025-12-31T23:59:59Z"
+          example: '2025-12-31T23:59:59Z'
         features:
           type: array
           items:
             type: string
           description: List of features enabled by the license.
           example:
-            - "clustering"
-            - "processing_engine"
-            - "advanced_auth"
+            - clustering
+            - processing_engine
+            - advanced_auth
         status:
           type: string
           enum:
-            - "active"
-            - "expired"
-            - "invalid"
+            - active
+            - expired
+            - invalid
           description: The current status of the license.
-          example: "active"
+          example: active
       description: Response schema for license information.
   responses:
     Unauthorized:
@@ -2351,6 +2471,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
+  headers:
+    ClusterUUID:
+      description: |
+        The catalog UUID of the InfluxDB instance.
+        This header is included in all HTTP API responses and enables you to:
+        - Identify which cluster instance handled the request
+        - Monitor deployments across multiple InfluxDB instances
+        - Debug and troubleshoot distributed systems
+      schema:
+        type: string
+        format: uuid
+      example: 01234567-89ab-cdef-0123-456789abcdef
   securitySchemes:
     BasicAuthentication:
       type: http

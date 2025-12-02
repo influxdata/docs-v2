@@ -10,7 +10,7 @@ introduced: "v1.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/kube_inventory/README.md, Kubernetes Inventory Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/kube_inventory/README.md, Kubernetes Inventory Plugin Source
 ---
 
 # Kubernetes Inventory Input Plugin
@@ -106,7 +106,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
 If using [RBAC authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), you will need to create a cluster role to
 list "persistentvolumes" and "nodes". You will then need to make an [aggregated
-ClusterRole]() that will eventually be bound to a user or group.
+ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles) that will eventually be bound to a user or group.
 
 [rbac]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 [agg]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles

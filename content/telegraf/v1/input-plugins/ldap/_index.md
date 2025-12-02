@@ -10,13 +10,13 @@ introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/ldap/README.md, LDAP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/ldap/README.md, LDAP Plugin Source
 ---
 
 # LDAP Input Plugin
 
-This plugin gathers metrics from LDAP servers' monitoring (`cn=Monitor`)
-backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/devel/admin/monitoringslapd.html) and [389ds](https://www.port389.org/)
+This plugin gathers metrics from an LDAP server's monitoring (`cn=Monitor`)
+backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/) and [389ds](https://www.port389.org/)
 servers.
 
 **Introduced in:** Telegraf v1.29.0

@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.6.0
+  latest_patch: 3.7.0
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -23,9 +23,11 @@ influxdb3_core:
         x-influxdb-build: 'Core'
       url_contains: ['localhost:8181']
   ai_sample_questions:
+    - What's my InfluxDB version?
     - How do I install and run InfluxDB 3 Core?
-    - How do I write a plugin for the Python Processing engine?
-    - How do I write data using the HTTP API for InfluxDB 3 Core?
+    - Help me write a plugin for the Python Processing engine using InfluxDB 3 Core
+  ai_input_placeholder: "Specify your version and product (\"Core\", \"InfluxDB 3 Enterprise\", \"OSS v1\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
@@ -35,7 +37,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.6.0
+  latest_patch: 3.7.0
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -52,9 +54,11 @@ influxdb3_enterprise:
         x-influxdb-build: 'Enterprise'
       url_contains: ['localhost:8181']
   ai_sample_questions:
+    - What's my InfluxDB version?
     - How do I install and run InfluxDB 3 Enterprise?
-    - Help me write a plugin for the Python Processing engine?
-    - How do I start a read replica node with InfluxDB 3 Enterprise?
+    - How do I start a read replica node using InfluxDB 3 Enterprise?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB 3 Enterprise\", \"Core\", \"Enterprise v1\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_explorer:
   name: InfluxDB 3 Explorer
@@ -66,9 +70,11 @@ influxdb3_explorer:
   latest_patch: 1.4.0
   placeholder_host: localhost:8888
   ai_sample_questions:
-    - How do I query data using InfluxDB 3 Explorer?
-    - How do I use InfluxDB 3 Explorer to visualize data?
-    - How do I install InfluxDB 3 Explorer?
+    - How do I install and run Explorer?
+    - How do I query data using Explorer?
+    - How do I visualize data using Explorer?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB 3 Explorer and Enterprise\", \"InfluxDB 3 Explorer and Core\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -94,8 +100,11 @@ influxdb3_cloud_serverless:
     detection:
       url_contains: ['us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com']
   ai_sample_questions:
-    - How do I migrate from InfluxDB Cloud 2 to InfluxDB Cloud Serverless?
+    - What's my InfluxDB version?
+    - How do I migrate from Cloud (TSM) to Cloud Serverless?
     - What tools can I use to write data to InfluxDB Cloud Serverless?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB Cloud Serverless\", \"InfluxDB 3 Enterprise\", \"Core\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -120,9 +129,11 @@ influxdb3_cloud_dedicated:
     detection:
       url_contains: ['influxdb.io']
   ai_sample_questions:
-    - How do I migrate from InfluxDB v1 to InfluxDB Cloud Dedicated?
-    - What tools can I use to write data to Cloud Dedicated?
-    - How do I use SQL and parameterized queries with Cloud Dedicated?
+    - What's my InfluxDB version?
+    - How do I migrate from InfluxDB v1 to Cloud Dedicated?
+    - How do I use SQL and parameterized queries with InfluxDB Cloud Dedicated?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB Cloud Dedicated\", \"InfluxDB 3 Enterprise\", \"Core\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb3_clustered:
   name: InfluxDB Clustered
@@ -147,12 +158,16 @@ influxdb3_clustered:
       ping_headers:
         x-influxdb-version: 'influxqlbridged-development'
   ai_sample_questions:
-    - How do I use a Helm chart to configure Clustered?
-    - What tools can I use to write data to Clustered?
+    - What's my InfluxDB version?
+    - How do I use a Helm chart to configure InfluxDB Clustered?
     - How do I use SQL and parameterized queries with InfluxDB Clustered?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB Clustered\", \"InfluxDB 3 Enterprise\", \"Core\") for better results"
+  ai_source_group_ids: "b650cf0b-4b52-42e8-bde7-a02738f27262"
 
 influxdb:
   name: InfluxDB
+  name__v2: InfluxDB OSS v2
+  name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
   succeeded_by: influxdb3_core
@@ -183,12 +198,20 @@ influxdb:
         x-influxdb-version: '^(1|2)\.'
       url_contains: ['localhost:8086']
   ai_sample_questions:
-    - How do I write and query data with InfluxDB v2 OSS?
-    - How can I migrate from InfluxDB v2 OSS to InfluxDB 3 Core?
-    - How do I manage auth tokens in InfluxDB v2 OSS?
+    - What's my InfluxDB version?
+    - How do I write and query data using InfluxDB OSS v2?
+    - How can I migrate from InfluxDB OSS v2 to InfluxDB 3?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB OSS v2\", \"InfluxDB v1\", \"InfluxDB 3 Core\") for better results"
+  ai_source_group_ids: "3e905caa-dd6f-464b-abf9-c3880e09f128"
+  ai_sample_questions__v1:
+    - What's my InfluxDB version?
+    - How do I query data with InfluxQL using InfluxDB OSS v1?
+    - How do I set up continuous queries in InfluxDB OSS v1?
+  ai_source_group_ids__v1: "d809f67b-867d-4f17-95f0-c33dbadbf15f"
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
+  name__vcloud: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
   namespace: influxdb
   menu_category: managed
@@ -208,9 +231,11 @@ influxdb_cloud:
     detection:
       url_contains: ['us-west-2-1.aws.cloud2.influxdata.com', 'us-west-2-2.aws.cloud2.influxdata.com', 'us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com', 'us-central1-1.gcp.cloud2.influxdata.com', 'westeurope-1.azure.cloud2.influxdata.com', 'eastus-1.azure.cloud2.influxdata.com']
   ai_sample_questions:
-    - How do I write and query data with InfluxDB Cloud 2?
-    - How is Cloud 2 different from Cloud Serverless?
-    - How do I manage auth tokens in InfluxDB Cloud 2?
+    - What's my InfluxDB version?
+    - How do I write and query data using InfluxDB Cloud (TSM)?
+    - How is Cloud (TSM) different from Cloud Serverless?
+  ai_input_placeholder: "Specify your version and product (\"InfluxDB Cloud (TSM)\", \"InfluxDB 3 Enterprise\", \"Core\") for better results"
+  ai_source_group_ids: "3e905caa-dd6f-464b-abf9-c3880e09f128"
 
 telegraf:
   name: Telegraf
@@ -220,11 +245,12 @@ telegraf:
   versions: [v1]
   latest: v1.36
   latest_patches:
-    v1: 1.36.3
+    v1: 1.36.4
   ai_sample_questions:
-    - How do I install and configure Telegraf?
+    - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
     - How do I use Telegraf for MQTT?
+  ai_input_placeholder: "Ask questions about Telegraf and InfluxDB"
 
 chronograf:
   name: Chronograf
@@ -239,6 +265,7 @@ chronograf:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
     - How do I use Grafana to visualize data stored in InfluxDB 3?
+  ai_input_placeholder: "Ask questions about Chronograf and InfluxDB"
 
 kapacitor:
   name: Kapacitor
@@ -251,8 +278,9 @@ kapacitor:
     v1: 1.8.2
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
-    - How do I write a custom Kapacitor task?
+    - How do I write a custom task for Kapacitor?
     - How do I create tasks using InfluxDB 3 Core?
+  ai_input_placeholder: "Ask questions about Kapacitor"
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise v1"
@@ -276,9 +304,11 @@ enterprise_influxdb:
       ping_headers:
         x-influxdb-build: 'Enterprise'
   ai_sample_questions:
-  - How can I configure my InfluxDB v1 Enterprise server?
-  - How do I replicate data between InfluxDB v1 Enterprise and OSS?
-  - How do I query data stored in InfluxDB v1?
+  - What's my InfluxDB version?
+  - How can I configure InfluxDB Enterprise v1?
+  - How do I replicate data from OSS to InfluxDB Enterprise v1?
+  ai_input_placeholder: "Specify your version and product (\"Enterprise v1\", \"InfluxDB 3 Enterprise\", \"Core\") for better results"
+  ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f"
 
 flux:
   name: Flux
@@ -288,6 +318,8 @@ flux:
   versions: [v0]
   latest: v0.x
   ai_sample_questions:
-    - How do I write a Flux query for InfluxDB v2 (TSM)?
-    - How do I use Flux to transform data stored in InfluxDB v2?
+    - How do I query with Flux?
+    - How do I transform data with Flux?
     - How do I join data with Flux?
+  ai_input_placeholder: "Ask questions about Flux and InfluxDB"
+  ai_source_group_ids: "d809f67b-867d-4f17-95f0-c33dbadbf15f,3e905caa-dd6f-464b-abf9-c3880e09f128"

@@ -1,3 +1,12 @@
 {{- if .Params.prepend -}}
-{{ .Params.prepend | .RenderString }}
+  {{- if reflect.IsMap .Params.prepend -}}
+    {{- if .Params.prepend.title -}}
+<h2>{{ .Params.prepend.title }}</h2>
+    {{- end -}}
+    {{- if .Params.prepend.content -}}
+{{ .RenderString .Params.prepend.content }}
+    {{- end -}}
+  {{- else -}}
+{{ .RenderString .Params.prepend }}
+  {{- end -}}
 {{- end -}}

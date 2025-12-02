@@ -10,13 +10,13 @@ introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/zookeeper/README.md, Apache Zookeeper Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/zookeeper/README.md, Apache Zookeeper Plugin Source
 ---
 
 # Apache Zookeeper Input Plugin
 
 This plugin collects variables from [Zookeeper](https://zookeeper.apache.org) instances using the
-[`mntr` command]().
+[`mntr` command](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_zkCommands).
 
 > [!NOTE]
 > If the Prometheus Metric provider is enabled in Zookeeper use the

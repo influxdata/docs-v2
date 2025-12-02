@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/http_listener_v2/README.md, HTTP Listener v2 Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/http_listener_v2/README.md, HTTP Listener v2 Plugin Source
 ---
 
 # HTTP Listener v2 Input Plugin
@@ -20,9 +20,9 @@ This plugin listens for metrics sent via HTTP in any of the supported
 
 > [!NOTE]
 > If you would like Telegraf to act as a proxy/relay for InfluxDB v1 or
-> InfluxDB v2 it is recommended to use the
-> [influxdb__listener]() or
-> [influxdb_v2_listener]() plugin instead.
+> InfluxDB v2, use the
+> [influxdb__listener](/telegraf/v1/plugins/#input-influxdb_listener) or
+> [influxdb_v2_listener](/telegraf/v1/plugins/#input-influxdb_v2_listener) plugin instead.
 
 **Introduced in:** Telegraf v1.9.0
 **Tags:** server

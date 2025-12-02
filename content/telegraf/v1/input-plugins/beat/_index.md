@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/beat/README.md, Beat Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/beat/README.md, Beat Plugin Source
 ---
 
 # Beat Input Plugin

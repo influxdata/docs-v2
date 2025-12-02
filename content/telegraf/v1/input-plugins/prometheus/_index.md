@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/prometheus/README.md, Prometheus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/prometheus/README.md, Prometheus Plugin Source
 ---
 
 # Prometheus Input Plugin
@@ -261,7 +261,7 @@ option in both to ensure metrics are round-tripped without modification.
 
 URLs listed in the `kubernetes_services` parameter will be expanded by looking
 up all A records assigned to the hostname as described in [Kubernetes DNS
-service discovery]().
+service discovery](https://kubernetes.io/docs/concepts/services-networking/service/#dns).
 
 This method can be used to locate all [Kubernetes headless services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services).
 

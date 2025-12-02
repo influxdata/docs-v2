@@ -1,8 +1,6 @@
 ---
 title: Query data with the InfluxDB API
 description: Query data with Flux and InfluxQL in the InfluxDB API.
-aliases:
-  -/docs/v1.8/query_language/querying_data/
 menu:
   influxdb_v1:
     weight: 20

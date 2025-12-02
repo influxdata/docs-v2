@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/outputs/elasticsearch/README.md, Elasticsearch Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/elasticsearch/README.md, Elasticsearch Plugin Source
 ---
 
 # Elasticsearch Output Plugin
@@ -37,7 +37,7 @@ The timestamp of the metric collected will be used to decide the index
 destination.
 
 For more information about this usage on Elasticsearch, check [the
-docs]().
+docs](https://www.elastic.co/guide/en/elasticsearch/guide/master/time-based.html#index-per-timeframe).
 
 [1]: https://www.elastic.co/guide/en/elasticsearch/guide/master/time-based.html#index-per-timeframe
 

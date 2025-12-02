@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
 ---
 
 # Data Plane Development Kit (DPDK) Input Plugin
@@ -135,7 +135,8 @@ This configuration allows getting metrics for all devices reported via
 Since this configuration will query `/ethdev/link_status` it's recommended to
 increase timeout to `socket_access_timeout = "10s"`.
 
-The plugin collecting interval.
+The plugin collecting interval
+should be adjusted accordingly (e.g. `interval = "30s"`).
 
 ### Example: Excluding NIC link status from being collected
 
@@ -243,7 +244,20 @@ measurements.
 
 The DPDK socket accepts `command,params` requests and returns metric data in
 JSON format. All metrics from DPDK socket become flattened using Telegraf's
-JSON Flattener, and a set of tags that identify
+JSON Flattener and exposed as fields.  If DPDK
+response contains no information (is empty or is null) then such response will
+be discarded.
+
+> **NOTE:** Since DPDK allows registering custom metrics in its telemetry
+> framework the JSON response from DPDK may contain various sets of metrics.
+> While metrics from `/ethdev/stats` should be mostly stable, the `/ethdev/xstats`
+> may contain driver-specific metrics (depending on DPDK application
+> configuration). The application-specific commands like `/l3fwd-power/stats`
+> can return their own specific set of metrics.
+
+## Example Output
+
+The output consists of the plugin name (`dpdk`), and a set of tags that identify
 querying hierarchy:
 
 ```text

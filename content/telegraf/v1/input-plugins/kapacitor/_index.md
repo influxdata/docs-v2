@@ -10,7 +10,7 @@ introduced: "v1.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.3/plugins/inputs/kapacitor/README.md, Kapacitor Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/kapacitor/README.md, Kapacitor Plugin Source
 ---
 
 # Kapacitor Input Plugin
@@ -170,7 +170,7 @@ manner.
 ## kapacitor_cluster
 
 The `kapacitor_cluster` measurement reflects the ability of [Kapacitor nodes to
-communicate]() with one another. Specifically, these metrics track the
+communicate](https://docs.influxdata.com/enterprise_kapacitor/v1.5/administration/configuration/#cluster-communications) with one another. Specifically, these metrics track the
 gossip communication between the Kapacitor nodes.
 
 [cluster]: https://docs.influxdata.com/enterprise_kapacitor/v1.5/administration/configuration/#cluster-communications
