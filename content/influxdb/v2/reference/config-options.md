@@ -3472,7 +3472,7 @@ ui-disabled = true
 ---
 
 ### use-hashed-tokens
-Enable storing hashed API tokens on disk. Hashed tokens are disabled by default.
+Enable storing hashed API tokens on disk. Hashed tokens are disabled by default in version 2.8. Hashed tokens will be enabled by default in a future version.
 
 Storing hashed tokens increases security by storing API tokens as hashes on disk. When enabled, all unhashed tokens are converted to hashed tokens on every startup leaving no unhashed tokens on disk. Newly created tokens are also stored as hashes. Lost tokens must be replaced when token hashing is enabled because the hashing prevents them from being recovered.
 
