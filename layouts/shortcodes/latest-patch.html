@@ -10,19 +10,20 @@
 {{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}
 {{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
 {{- $isInfluxDB3 := eq $product "influxdb3" -}}
+{{- $patchVersion := "" -}}
 {{- if $cli }}
   {{- if eq $version "cloud" -}}
-    {{- .Store.Set "patchVersion" (index $cliVersions $latestVersion) -}}
+    {{- $patchVersion = index $cliVersions $latestVersion -}}
   {{- else -}}
-    {{- .Store.Set "patchVersion" (index $cliVersions $version) -}}
+    {{- $patchVersion = index $cliVersions $version -}}
   {{- end -}}
 {{- else -}}
   {{- if eq $version "cloud" -}}
-    {{- .Store.Set "patchVersion" (index $patchVersions $latestVersion) -}}
+    {{- $patchVersion = index $patchVersions $latestVersion -}}
   {{- else if $isInfluxDB3 -}}
-    {{- .Store.Set "patchVersion" (index .Site.Data.products (print $product "_" $version)).latest_patch -}}
+    {{- $patchVersion = (index .Site.Data.products (print $product "_" $version)).latest_patch -}}
   {{- else -}}
-    {{- .Store.Set "patchVersion" (index $patchVersions $version) -}}
+    {{- $patchVersion = index $patchVersions $version -}}
   {{- end -}}
 {{- end -}}
-{{- .Store.Get "patchVersion" -}}
+{{- $patchVersion -}}
