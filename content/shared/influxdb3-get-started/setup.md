@@ -521,11 +521,13 @@ such as {{% show-in "enterprise" %}}creating additional tokens, {{% /show-in %}}
 performing administrative tasks{{% show-in "enterprise" %}},{{% /show-in %}}
 and writing and querying data.
 
+#### Authorize CLI commands
+
 Use one of the following methods to provide your token and authenticate `influxdb3` CLI commands.
 
 In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}} with your token string (for example, the [operator token](#create-an-operator-token) from the previous step).
 
-#### Set an environment variable (recommended)
+##### Set an environment variable (recommended)
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -557,11 +559,13 @@ set INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-#### Use the `--token` option
+##### Use the `--token` option
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
 influxdb3 show databases --token YOUR_AUTH_TOKEN
 ```
+
+#### Authorize HTTP API requests
 
 For HTTP API requests, include your token in the `Authorization` header--for example:
 
