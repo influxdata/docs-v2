@@ -525,7 +525,7 @@ Use one of the following methods to provide your token and authenticate `influxd
 
 In your command, replace {{% code-placeholder-key %}}`YOUR_AUTH_TOKEN`{{% /code-placeholder-key %}} with your token string (for example, the [operator token](#create-an-operator-token) from the previous step).
 
-#### To have your token provided automatically, set the environment variable:
+#### Set an environment variable (recommended)
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -557,7 +557,7 @@ set INFLUXDB3_AUTH_TOKEN=YOUR_AUTH_TOKEN
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-#### Include the `--token` option with CLI commands:
+#### Use the `--token` option
 
 ```bash { placeholders="YOUR_AUTH_TOKEN" }
 influxdb3 show databases --token YOUR_AUTH_TOKEN
