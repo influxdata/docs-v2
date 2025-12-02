@@ -308,6 +308,8 @@ alter_retention_policy_stmt  = "ALTER RETENTION POLICY" policy_name on_clause
                                retention_policy_option
                                [ retention_policy_option ]
                                [ retention_policy_option ]
+                               [ retention_policy_option ]
+                               [ retention_policy_option ]
                                [ retention_policy_option ] .
 ```
 
@@ -320,6 +322,9 @@ ALTER RETENTION POLICY "1h.cpu" ON "mydb" DEFAULT
 -- Change duration and replication factor.
 -- REPLICATION (replication factor) not valid for OSS instances.
 ALTER RETENTION POLICY "policy1" ON "somedb" DURATION 1h REPLICATION 4
+
+-- Change future and past limits.
+ALTER RETENTION POLICY "policy1" ON "somedb" FUTURE LIMIT 6h PAST LIMIT 6h
 ```
 
 ### CREATE CONTINUOUS QUERY
@@ -379,12 +384,15 @@ create_database_stmt = "CREATE DATABASE" db_name
                        [ WITH
                            [ retention_policy_duration ]
                            [ retention_policy_replication ]
-                           [ retention_past_limit ]
-                           [ retention_future_limit ]
                            [ retention_policy_shard_group_duration ]
+                           [ retention_future_limit ]
+                           [ retention_past_limit ]
                            [ retention_policy_name ]
                        ] .
 ```
+
+> [!Note]
+> When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
 
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
@@ -404,8 +412,8 @@ CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "my
 CREATE DATABASE "mydb" WITH NAME "myrp"
 
 -- Create a database called bar with a new retention policy named "myrp", and
--- specify the duration, past and future limits, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d PAST LIMIT 6h FUTURE LIMIT 6h NAME "myrp"
+-- specify the duration, future and past limits, and name of that retention policy
+CREATE DATABASE "bar" WITH DURATION 1d FUTURE LIMIT 6h PAST LIMIT 6h NAME "myrp"
 ```
 
 ### CREATE RETENTION POLICY
@@ -415,10 +423,13 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
                                retention_policy_duration
                                retention_policy_replication
                                [ retention_policy_shard_group_duration ]
-                               [ retention_past_limit ]
                                [ retention_future_limit ]
+                               [ retention_past_limit ]
                                [ "DEFAULT" ] .
 ```
+
+> [!Note]
+> When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
 
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
@@ -435,8 +446,8 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFA
 -- Create a retention policy and specify the shard group duration.
 CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
 
--- Create a retention policy and specify past and future limits.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h PAST LIMIT 6h FUTURE LIMIT 6h
+-- Create a retention policy and specify future and past limits.
+CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h FUTURE LIMIT 6h PAST LIMIT 6h
 ```
 
 ### CREATE SUBSCRIPTION
@@ -1332,6 +1343,8 @@ retention_policy = identifier .
 retention_policy_option      = retention_policy_duration |
                                retention_policy_replication |
                                retention_policy_shard_group_duration |
+                               retention_future_limit |
+                               retention_past_limit |
                                "DEFAULT" .
 
 retention_policy_duration    = "DURATION" duration_lit .
@@ -1339,6 +1352,10 @@ retention_policy_duration    = "DURATION" duration_lit .
 retention_policy_replication = "REPLICATION" int_lit .
 
 retention_policy_shard_group_duration = "SHARD DURATION" duration_lit .
+
+retention_future_limit       = "FUTURE LIMIT" duration_lit .
+
+retention_past_limit         = "PAST LIMIT" duration_lit .
 
 retention_policy_name = "NAME" identifier .
 
