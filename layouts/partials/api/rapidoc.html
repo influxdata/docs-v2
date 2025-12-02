@@ -1,0 +1,179 @@
+{{/*
+  RapiDoc API Documentation Renderer (Legacy)
+
+  Legacy API documentation renderer using RapiDoc.
+  Maintained for backward compatibility.
+
+  Required page params:
+  - staticFilePath: Path to the OpenAPI specification file
+*/}}
+
+{{ $specPath := .Params.staticFilePath }}
+{{ $specPathJSON := replace $specPath ".yaml" ".json" | replace ".yml" ".json" }}
+
+{{/* Machine-readable links for AI agent discovery */}}
+{{ if $specPath }}
+<link rel="alternate" type="application/x-yaml" href="{{ $specPath | absURL }}" title="OpenAPI Specification (YAML)" />
+<link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
+{{ end }}
+
+<div class="api-reference-wrapper">
+  {{/* Download link for the spec */}}
+  {{ if $specPath }}
+  <div class="api-spec-actions">
+    <a href="{{ $specPath }}" class="btn api-spec-download" download>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+        <path d="M1 14h14v2H1v-2z"/>
+      </svg>
+      Download OpenAPI Spec
+    </a>
+  </div>
+  {{ end }}
+
+  {{/* RapiDoc component */}}
+  <rapi-doc
+    id="api-doc"
+    spec-url="{{ $specPath }}"
+    theme="light"
+    bg-color="#ffffff"
+    text-color="#333333"
+    header-color="#F63C41"
+    primary-color="#F63C41"
+    nav-bg-color="#f5f5f5"
+    nav-text-color="#333333"
+    nav-hover-bg-color="#ffebea"
+    nav-hover-text-color="#9b0700"
+    nav-accent-color="#F63C41"
+    regular-font="Open Sans"
+    mono-font="Roboto Mono"
+    render-style="read"
+    layout="column"
+    schema-style="tree"
+    default-schema-tab="schema"
+    response-area-height="400px"
+    show-header="false"
+    show-info="true"
+    allow-authentication="true"
+    allow-try="true"
+    allow-spec-url-load="false"
+    allow-spec-file-load="false"
+    allow-server-selection="true"
+    allow-search="true"
+    fill-request-fields-with-example="true"
+    persist-auth="false"
+  ></rapi-doc>
+</div>
+
+{{/* Load RapiDoc from CDN */}}
+<script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  // Update RapiDoc theme based on document theme
+  function updateRapiDocTheme() {
+    const rapiDoc = document.getElementById('api-doc');
+    if (!rapiDoc) return;
+
+    const isDark = document.documentElement.dataset.theme === 'dark';
+
+    if (isDark) {
+      rapiDoc.setAttribute('theme', 'dark');
+      rapiDoc.setAttribute('bg-color', '#1a1a1a');
+      rapiDoc.setAttribute('text-color', '#e0e0e0');
+      rapiDoc.setAttribute('nav-bg-color', '#2a2a2a');
+      rapiDoc.setAttribute('nav-text-color', '#e0e0e0');
+      rapiDoc.setAttribute('nav-hover-bg-color', '#3a3a3a');
+      rapiDoc.setAttribute('nav-hover-text-color', '#ffffff');
+    } else {
+      rapiDoc.setAttribute('theme', 'light');
+      rapiDoc.setAttribute('bg-color', '#ffffff');
+      rapiDoc.setAttribute('text-color', '#333333');
+      rapiDoc.setAttribute('nav-bg-color', '#f5f5f5');
+      rapiDoc.setAttribute('nav-text-color', '#333333');
+      rapiDoc.setAttribute('nav-hover-bg-color', '#ffebea');
+      rapiDoc.setAttribute('nav-hover-text-color', '#9b0700');
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateRapiDocTheme);
+  } else {
+    updateRapiDocTheme();
+  }
+
+  // Watch for theme changes
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-theme') {
+        updateRapiDocTheme();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+})();
+</script>
+
+<style>
+.api-reference-wrapper {
+  width: 100%;
+}
+
+.api-spec-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+}
+
+.api-spec-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-bg-secondary, #f5f5f5);
+  color: var(--color-text, #333);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid var(--color-border, #e0e0e0);
+}
+
+.api-spec-download:hover {
+  background-color: #F63C41;
+  color: white;
+  border-color: #F63C41;
+}
+
+rapi-doc {
+  width: 100%;
+  min-height: 600px;
+  display: block;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .api-spec-download {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .api-spec-download:hover {
+  background-color: #F63C41;
+  color: white;
+}
+
+[data-theme="dark"] .api-spec-actions {
+  border-color: #444;
+}
+</style>
