@@ -362,18 +362,16 @@ ORDER BY time DESC
 
 The following patterns will produce non-deterministic results when duplicate points are flushed together:
 
-#### ❌ Overwriting the same (time, tags) point
+#### Don't overwrite the same (time, tags) point
 
-**Don't do this**:
+If points with the same time and tag set are flushed to storage together, any of the values might be retained.
+For example, **don't do this**:
 
 ```text
 -- All writes use the same timestamp
 device_status,device_id=sensor01 status="active",temperature=72.5 1700000000000000000
 device_status,device_id=sensor01 status="active",temperature=73.1 1700000000000000000
 device_status,device_id=sensor01 status="inactive",temperature=73.1 1700000000000000000
-```
-
-**Problem**: When these writes are flushed together, any of the three values might be retained.
 
 #### ❌ Adding a field while overwriting the same (time, tags)
 
@@ -389,19 +387,18 @@ device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1
 **Problem**: The points are still duplicates (same time and tags).
 Adding a field doesn't make them unique points.
 
-#### ❌ Relying on write delays to force ordering
+#### Don't rely on write delays to force ordering
 
-**Don't do this**:
+Delays don't guarantee that duplicate points won't be flushed together.
+The flush interval depends on buffer size, ingestion rate, and system load.
+
+For example, **don't do this**:
 
 ```text
 -- Writing with delays between each write
 device_status,device_id=sensor01 status="active" 1700000000000000000
 # Wait 10 seconds...
 device_status,device_id=sensor01 status="inactive" 1700000000000000000
-```
-
-**Problem**: Delays don't guarantee that duplicate points won't be flushed together.
-The flush interval depends on buffer size, ingestion rate, and system load.
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated" %}}
