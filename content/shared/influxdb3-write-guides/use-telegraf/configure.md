@@ -19,6 +19,7 @@ to {{% product-name %}}.
     - [token](#token)
     - [organization](#organization)
     - [bucket](#bucket)
+    - [concurrent_writes](#concurrent_writes)
   - [Other Telegraf configuration options](#other-telegraf-configuration-options)
 - [Start Telegraf](#start-telegraf)
 
@@ -57,6 +58,7 @@ in the `telegraf.conf`.
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
+{{% show-in "enterprise,core" %}}  concurrent_writes = 5{{% /show-in %}}
 ```
 {{% /code-placeholders %}}
 
@@ -110,7 +112,35 @@ The name of the {{% product-name %}} database to write data to.
 > [!Note]
 > An InfluxDB v2 _**bucket**_ is synonymous with an {{% product-name %}} _**database**_.
 
+#### concurrent_writes
+
+{{% show-in "enterprise,core" %}}
+
+The number of concurrent write connections to use when writing to {{% product-name %}}.
+For optimal write performance, configure multiple concurrent writers.
+
+**Recommendation:** Set `concurrent_writes` to at least `2` in nearly all situations.
+For tuning, start with `min(number of CPU cores / 2, 10)`.
+
+```toml
+[[outputs.influxdb_v2]]
+  urls = ["http://{{< influxdb/host >}}"]
+  token = "${INFLUX_TOKEN}"
+  organization = ""
+  bucket = "DATABASE_NAME"
+  concurrent_writes = 5
+```
+
+> [!Important]
+> When using two or more concurrent writes, the sending order of metrics is not guaranteed.
+
+{{% /show-in %}}
+
 ### Other Telegraf configuration options
+
+> [!Note]
+> Use the `influxdb_v2` output plugin (not the v1 plugin) for writing to {{% product-name %}}.
+> The v1 output plugin may work but is not recommended.
 
 For more plugin configuration options, see the
 [`influxdb_v2` output plugin README](/telegraf/v1/output-plugins/influxdb_v2/)
