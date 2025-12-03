@@ -373,19 +373,17 @@ device_status,device_id=sensor01 status="active",temperature=72.5 17000000000000
 device_status,device_id=sensor01 status="active",temperature=73.1 1700000000000000000
 device_status,device_id=sensor01 status="inactive",temperature=73.1 1700000000000000000
 
-#### ❌ Adding a field while overwriting the same (time, tags)
+#### Don't add a field while overwriting data (time, tags)
 
-**Don't do this**:
+Adding a field doesn't make points unique.
+Points with the same time and tag set are still considered duplicates--for example,
+**don't do this**:
 
 ```text
 -- All writes use the same timestamp, but add a version field
 device_status,device_id=sensor01 status="active",temperature=72.5,version=1i 1700000000000000000
 device_status,device_id=sensor01 status="active",temperature=73.1,version=2i 1700000000000000000
 device_status,device_id=sensor01 status="inactive",temperature=73.1,version=3i 1700000000000000000
-```
-
-**Problem**: The points are still duplicates (same time and tags).
-Adding a field doesn't make them unique points.
 
 #### Don't rely on write delays to force ordering
 
