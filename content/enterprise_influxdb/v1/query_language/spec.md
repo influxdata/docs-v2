@@ -1,49 +1,39 @@
 ---
 title: Influx Query Language (InfluxQL) reference
-description: Reference for Influx Query Language (InfluxQL).
+description: InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
 menu:
   enterprise_influxdb_v1:
     name: InfluxQL reference
     weight: 90
     parent: InfluxQL
-aliases:
-  - /influxdb/v2/query_language/spec/
+related:
+  - /enterprise_influxdb/v1/query_language/internals/
+  - /enterprise_influxdb/v1/query_language/explore-data/
+  - /enterprise_influxdb/v1/query_language/explore-schema/
+  - /enterprise_influxdb/v1/query_language/manage-database/
 ---
-
-## Introduction
 
 InfluxQL is a SQL-like query language for interacting with InfluxDB
 and providing features specific to storing and analyzing time series data.
 
-Find Influx Query Language (InfluxQL) definitions and details, including:
-
-* [Notation](/enterprise_influxdb/v1/query_language/spec/#notation)
-* [Query representation](/enterprise_influxdb/v1/query_language/spec/#query-representation)
-  * [Characters](/enterprise_influxdb/v1/query_language/spec/#characters)
-  * [Letters and digits](/enterprise_influxdb/v1/query_language/spec/#letters-and-digits)
-  * [Identifiers](/enterprise_influxdb/v1/query_language/spec/#identifiers)
-  * [Keywords](/enterprise_influxdb/v1/query_language/spec/#keywords)
-  * [Literals](/enterprise_influxdb/v1/query_language/spec/#literals)
-* [Queries](/enterprise_influxdb/v1/query_language/spec/#queries)
-* [Statements](/enterprise_influxdb/v1/query_language/spec/#statements)
-* [Clauses](/enterprise_influxdb/v1/query_language/spec/#clauses)
-* [Expressions](/enterprise_influxdb/v1/query_language/spec/#expressions)
-* [Comments](/enterprise_influxdb/v1/query_language/spec/#comments)
-* [Other](/enterprise_influxdb/v1/query_language/spec/#other)
-
-To learn more about InfluxQL, browse the following topics:
-
-* [Explore your data with InfluxQL](/enterprise_influxdb/v1/query_language/explore-data/)
-* [Explore your schema with InfluxQL](/enterprise_influxdb/v1/query_language/explore-schema/)
-* [Database management](/enterprise_influxdb/v1/query_language/manage-database/)
-* [Authentication and authorization](/enterprise_influxdb/v1/administration/authentication_and_authorization/).
-* [Query engine internals](/enterprise_influxdb/v1/query_language/spec/#query-engine-internals)
+- [Notation](#notation)
+- [Query representation](#query-representation)
+  - [Characters](#characters)
+  - [Letters and digits](#letters-and-digits)
+  - [Identifiers](#identifiers)
+  - [Keywords](#keywords)
+  - [Literals](#literals)
+- [Queries](#queries)
+- [Statements](#statements)
+- [Clauses](#clauses)
+- [Expressions](#expressions)
+- [Comments](#comments)
+- [Other](#other)
 
 ## Notation
 
 The syntax is specified using Extended Backus-Naur Form ("EBNF").
-EBNF is the same notation used in the [Go](http://golang.org) programming language specification,
-which can be found [here](https://golang.org/ref/spec).
+EBNF is the same notation used in the [Go programming language specification](https://golang.org/ref/spec).
 
 ```
 Production  = production_name "=" [ Expression ] "." .
@@ -95,7 +85,7 @@ The rules:
 
 - double quoted identifiers can contain any unicode character other than a new line
 - double quoted identifiers can contain escaped `"` characters (i.e., `\"`)
-- double quoted identifiers can contain InfluxQL [keywords](/enterprise_influxdb/v1/query_language/spec/#keywords)
+- double quoted identifiers can contain InfluxQL [keywords](#keywords)
 - unquoted identifiers must start with an upper or lowercase ASCII character or "_"
 - unquoted identifiers may contain only ASCII letters, decimal digits, and "_"
 
@@ -133,7 +123,7 @@ SUBSCRIPTIONS TAG           TO            USER          USERS         VALUES
 WHERE         WITH          WRITE
 ```
 
-If you use an InfluxQL keywords as an
+If you use an InfluxQL keyword as an
 [identifier](/enterprise_influxdb/v1/concepts/glossary/#identifier) you will need to
 double quote that identifier in every query.
 
@@ -149,7 +139,7 @@ In those cases, `time` does not require double quotes in queries.
 `time` cannot be a [field key](/enterprise_influxdb/v1/concepts/glossary/#field-key) or
 [tag key](/enterprise_influxdb/v1/concepts/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-See [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#time) for more information.
+For more information, see [Frequently Asked Questions](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#time).
 
 ### Literals
 
@@ -186,7 +176,7 @@ Duration literals specify a length of time.
 An integer literal followed immediately (with no spaces) by a duration unit listed below is interpreted as a duration literal.
 Durations can be specified with mixed units.
 
-##### Duration units
+#### Durations
 
 | Units  | Meaning                                 |
 | ------ | --------------------------------------- |
@@ -198,6 +188,7 @@ Durations can be specified with mixed units.
 | h      | hour                                    |
 | d      | day                                     |
 | w      | week                                    |
+
 
 ```
 duration_lit        = int_lit duration_unit .
@@ -232,18 +223,22 @@ regex_lit           = "/" { unicode_char } "/" .
 `=~` matches against
 `!~` doesn't match against
 
-> **Note:** InfluxQL supports using regular expressions when specifying:
+
+InfluxQL supports using regular expressions when specifying:
+
+- [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+- [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+- [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause).
+- [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/enterprise_influxdb/v1/query_language/explore-data/#group-by-tags)
+
+> [!Note]
+> #### Regular expressions and non-string field values
 >
-* [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause).
-* [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/enterprise_influxdb/v1/query_language/explore-data/#group-by-tags)
->
->Currently, InfluxQL does not support using regular expressions to match
->non-string field values in the
->`WHERE` clause,
->[databases](/enterprise_influxdb/v1/concepts/glossary/#database), and
->[retention polices](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+> Currently, InfluxQL does not support using regular expressions to match
+> non-string field values in the
+> `WHERE` clause,
+> [databases](/enterprise_influxdb/v1/concepts/glossary/#database), and
+> [retention polices](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 ## Queries
 
@@ -688,11 +683,11 @@ EXPLAIN ANALYZE
 
 > Note: EXPLAIN ANALYZE ignores query output, so the cost of serialization to JSON or CSV is not accounted for.
 
-##### execution_time
+#### execution_time
 
 Shows the amount of time the query took to execute, including reading the time series data, performing operations as data flows through iterators, and draining processed data from iterators. Execution time doesn't include the time taken to serialize the output into JSON or other formats.
 
-##### planning_time
+#### planning_time
 
 Shows the amount of time the query took to plan.
 Planning a query in InfluxDB requires a number of steps. Depending on the complexity of the query, planning can require more work and consume more CPU and memory resources than the executing the query. For example, the number of series keys required to execute a query affects how quickly the query is planned and the required memory.
@@ -705,7 +700,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 3. Enumerate each tag set and create a cursor and iterator for each series key.
 4. Merge iterators and return the merged result to the query executor.
 
-##### iterator type
+#### iterator type
 
 EXPLAIN ANALYZE supports the following iterator types:
 
@@ -714,7 +709,7 @@ EXPLAIN ANALYZE supports the following iterator types:
 
 For more information about iterators, see [Understanding iterators](#understanding-iterators).
 
-##### cursor type
+#### cursor type
 
 EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the same data structures and equal CPU and I/O costs, each cursor type is constructed for a different reason and separated in the final output. Consider the following cursor types when tuning a statement:
 
@@ -724,7 +719,7 @@ EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the sa
 
 For more information about cursors, see [Understanding cursors](#understanding-cursors).
 
-##### block types
+#### block types
 
 EXPLAIN ANALYZE separates storage block types, and reports the total number of blocks decoded and their size (in bytes) on disk. The following block types are supported:
 
@@ -738,7 +733,8 @@ For more information about storage blocks, see [TSM files](/enterprise_influxdb/
 
 ### GRANT
 
-> **NOTE:** Users can be granted privileges on databases that do not yet exist.
+> [!Note]
+> Users can be granted privileges on databases that do not yet exist.
 
 ```
 grant_stmt = "GRANT" privilege [ on_clause ] to_clause .
@@ -756,27 +752,24 @@ GRANT READ ON "mydb" TO "jdoe"
 
 ### KILL QUERY
 
-Stop currently-running query.
+Stop a currently-running query.
 
-```
-kill_query_statement = "KILL QUERY" query_id .
-```
-
-Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
-
-> ***InfluxDB Enterprise clusters:*** To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, `myhost:8088`),
-> available in the `SHOW QUERIES` output.
->
-> ```sql
+```sql
 KILL QUERY <qid> ON "<host>"
 ```
 
-#### Examples
+To kill queries on a cluster, specify the query ID (`qid`) and the TCP host (for example, `myhost:8088`) from the `SHOW QUERIES` output.
 
-```sql
--- kill query with qid of 36 on the local host
-KILL QUERY 36
 ```
+kill_query_statement = "KILL QUERY" query_id ON "myhost:8088".
+```
+
+Replace the following:
+
+- `query_id`: your query ID (`qid`) from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+-  `myhost:8088`: your TCP host from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+
+#### Examples
 
 ```sql
 -- kill query on InfluxDB Enterprise cluster
@@ -1015,7 +1008,8 @@ Estimates or counts exactly the cardinality of the series for the current databa
 - [When do I need more RAM?](/enterprise_influxdb/v1/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/enterprise_influxdb/v1/guides/hardware_sizing/)
 - [Don't have too many series](/enterprise_influxdb/v1/concepts/schema_and_data_layout/#avoid-too-many-series)
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> [!Note]
+> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is not supported in the `WHERE` clause.
 
@@ -1077,7 +1071,7 @@ id  database   retention_policy shard_group start_time           end_time       
 - `id` column: Shard IDs that belong to the specified `database` and `retention policy`.
 - `shard_group` column: Group number that a shard belongs to. Shards in the same shard group have the same `start_time` and `end_time`. This interval indicates how long the shard is active, and the `expiry_time` columns shows when the shard group expires. No timestamps will show under `expiry_time` if the retention policy duration is set to infinite.
 - `owners` column: Shows the data nodes that own a shard. The number of nodes that own a shard is equal to the replication factor. In this example, the replication factor is 3, so 3 nodes own each shard.
-  
+
 ### SHOW STATS
 
 Returns detailed statistics on available components of an InfluxDB node and available (enabled) components.
@@ -1110,17 +1104,16 @@ batches_tx      bytes_rx        connections_active      connections_handled     
 159             3999750         0                       1                       158110          158110
 ```
 
-### `SHOW STATS FOR <component>`
+### SHOW STATS FOR <component>
 
 For the specified component (\<component\>), the command returns available statistics.
 For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system,
 using the [Go runtime](https://golang.org/pkg/runtime/) package.
 
-### `SHOW STATS FOR 'indexes'`
+### SHOW STATS FOR 'indexes'
 
 Returns an estimate of memory use of all indexes.
 Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
-
 
 ### SHOW SUBSCRIPTIONS
 
@@ -1138,7 +1131,8 @@ SHOW SUBSCRIPTIONS
 
 Estimates or counts exactly the cardinality of tag key set on the current database unless a database is specified using the `ON <database>` option.
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> [!Note]
+> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is only supported when TSI (Time Series Index) is enabled and `time` is not supported in the `WHERE` clause.
 
@@ -1160,7 +1154,7 @@ SHOW TAG KEY EXACT CARDINALITY
 ### SHOW TAG KEYS
 
 ```
-show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [ from_clause ] [ where_clause ]
+show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [with_key_clause] [ from_clause ] [ where_clause ]
                      [ limit_clause ] [ offset_clause ] .
 ```
 
@@ -1178,6 +1172,9 @@ SHOW TAG KEYS FROM "cpu" WHERE "region" = 'uswest'
 
 -- show all tag keys where the host key = 'serverA'
 SHOW TAG KEYS WHERE "host" = 'serverA'
+
+-- show specific tag keys
+SHOW TAG KEYS WITH KEY IN ("region", "host")
 ```
 
 ### SHOW TAG VALUES
@@ -1207,7 +1204,8 @@ SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'red
 
 Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the `ON <database>` option.
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> [!Note]
+> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
 
