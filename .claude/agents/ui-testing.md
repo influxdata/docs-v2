@@ -50,7 +50,7 @@ node cypress/support/run-e2e-specs.js \
 # Run against a URL (for running server)
 node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/my-test.cy.js" \
-  http://localhost:<port>/path/to/page/
+  http://localhost:1313/path/to/page/
 
 # Run all E2E tests
 yarn test:e2e
