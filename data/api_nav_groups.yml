@@ -1,0 +1,48 @@
+# API Navigation Groups
+# Defines sidebar navigation structure for API reference documentation
+# Tags are grouped by function/task for better UX
+
+groups:
+  - name: Concepts
+    weight: 1
+    tags:
+      - Quick start
+      - Authentication
+      - Headers and parameters
+
+  - name: Write data
+    weight: 2
+    tags:
+      - Write data
+
+  - name: Query data
+    weight: 3
+    tags:
+      - Query data
+
+  - name: Cache data
+    weight: 4
+    tags:
+      - Cache data
+
+  - name: Administration
+    weight: 5
+    tags:
+      - Database
+      - Table
+      - Token
+
+  - name: Processing Engine
+    weight: 6
+    tags:
+      - Processing engine
+
+  - name: Server
+    weight: 7
+    tags:
+      - Server information
+
+  - name: Compatibility
+    weight: 8
+    tags:
+      - Compatibility endpoints
