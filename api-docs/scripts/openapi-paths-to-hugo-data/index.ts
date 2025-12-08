@@ -366,7 +366,7 @@ function slugifyTag(tagName: string): string {
 const TAG_MENU_GROUPS: Record<string, string> = {
   // Concepts group
   'Quick start': 'Concepts',
-  'Authentication': 'Concepts',
+  Authentication: 'Concepts',
   'Headers and parameters': 'Concepts',
   'Response codes': 'Concepts',
   // Data Operations group
@@ -374,9 +374,9 @@ const TAG_MENU_GROUPS: Record<string, string> = {
   'Query data': 'Data Operations',
   'Cache data': 'Data Operations',
   // Administration group
-  'Database': 'Administration',
-  'Table': 'Administration',
-  'Token': 'Administration',
+  Database: 'Administration',
+  Table: 'Administration',
+  Token: 'Administration',
   // Processing Engine group
   'Processing engine': 'Processing Engine',
   // Server group
@@ -865,7 +865,7 @@ function createArticleDataForTag(
   operations: OperationMeta[],
   tagMeta?: Tag
 ): Article {
-  const tagName = openapi['x-tagGroup'] as string || '';
+  const tagName = (openapi['x-tagGroup'] as string) || '';
   const tagSlug = slugifyTag(tagName);
   const isConceptual = tagMeta?.['x-traitTag'] === true;
 
@@ -875,7 +875,10 @@ function createArticleDataForTag(
       name: tagName,
       describes: Object.keys(openapi.paths),
       title: tagName,
-      description: tagMeta?.description || openapi.info?.description || `API reference for ${tagName}`,
+      description:
+        tagMeta?.description ||
+        openapi.info?.description ||
+        `API reference for ${tagName}`,
       tag: tagName,
       isConceptual,
       menuGroup: getMenuGroupForTag(tagName),
@@ -939,7 +942,8 @@ function writeOpenapiTagArticleData(
       )
       .map((filePath) => {
         const tagOpenapi = readFile(filePath);
-        const tagName = tagOpenapi['x-tagGroup'] as string || tagOpenapi.info?.title || '';
+        const tagName =
+          (tagOpenapi['x-tagGroup'] as string) || tagOpenapi.info?.title || '';
         const tagMeta = tagMetaMap.get(tagName);
 
         // Extract operations from the tag-filtered spec
@@ -959,7 +963,11 @@ function writeOpenapiTagArticleData(
           });
         });
 
-        const article = createArticleDataForTag(tagOpenapi, operations, tagMeta);
+        const article = createArticleDataForTag(
+          tagOpenapi,
+          operations,
+          tagMeta
+        );
         article.fields.source = filePath;
         article.fields.staticFilePath = filePath.replace(/^static\//, '/');
         return article;
@@ -978,7 +986,9 @@ function writeOpenapiTagArticleData(
     writeDataFile(articleCollection, yamlPath);
     writeJsonFile(articleCollection, jsonPath);
 
-    console.log(`Generated ${articles.length} tag-based articles in ${targetPath}`);
+    console.log(
+      `Generated ${articles.length} tag-based articles in ${targetPath}`
+    );
   } catch (e) {
     console.error('Error writing tag article data:', e);
   }
@@ -1003,13 +1013,17 @@ export interface GenerateHugoDataByTagOptions extends GenerateHugoDataOptions {
  *
  * @param options - Generation options
  */
-export function generateHugoDataByTag(options: GenerateHugoDataByTagOptions): void {
+export function generateHugoDataByTag(
+  options: GenerateHugoDataByTagOptions
+): void {
   const filenamePrefix = `${path.parse(options.specFile).name}-`;
   const sourceFile = readFile(options.specFile, 'utf8');
 
   // Optionally generate path-based files for backwards compatibility
   if (options.includePaths) {
-    console.log(`\nGenerating OpenAPI path files in ${options.dataOutPath}....`);
+    console.log(
+      `\nGenerating OpenAPI path files in ${options.dataOutPath}....`
+    );
     writePathOpenapis(sourceFile, filenamePrefix, options.dataOutPath);
   }
 

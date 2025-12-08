@@ -308,7 +308,9 @@ interface GenerateTagPagesOptions {
  *
  * @param options - Generation options
  */
-function generateTagPagesFromArticleData(options: GenerateTagPagesOptions): void {
+function generateTagPagesFromArticleData(
+  options: GenerateTagPagesOptions
+): void {
   const {
     articlesPath,
     contentPath,
@@ -417,7 +419,11 @@ ${yaml.dump(parentFrontmatter)}---
     };
 
     // Add operations for TOC generation (only for non-conceptual pages)
-    if (!isConceptual && article.fields.operations && article.fields.operations.length > 0) {
+    if (
+      !isConceptual &&
+      article.fields.operations &&
+      article.fields.operations.length > 0
+    ) {
       frontmatter.operations = article.fields.operations;
     }
 
@@ -595,7 +601,10 @@ function processProduct(productKey: string, config: ProductConfig): void {
     // Step 5: Generate Hugo data from OpenAPI spec
     if (config.useTagBasedGeneration) {
       // Tag-based generation: group operations by OpenAPI tag
-      const staticTagsPath = path.join(staticPath, `influxdb-${productKey}/tags`);
+      const staticTagsPath = path.join(
+        staticPath,
+        `influxdb-${productKey}/tags`
+      );
       console.log(`\n📋 Using tag-based generation for ${productKey}...`);
       openapiPathsToHugo.generateHugoDataByTag({
         specFile: config.specFile,
