@@ -347,7 +347,7 @@ To enable TLS/SSL for secure connections:
 > [!Note]
 > The nginx web server automatically detects and uses certificate files in the mounted path.
 
-#### TLS/Certificate Verification Options
+#### TLS and certificate verification options
 
 - NODE_EXTRA_CA_CERTS - Path to custom CA certificate file inside container (recommended)
   - Purpose: Add intermediate or custom CA certificates to Node.js trusted certificate store
