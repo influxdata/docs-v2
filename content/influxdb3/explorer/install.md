@@ -351,7 +351,7 @@ To enable TLS/SSL for secure connections:
 
 - NODE_EXTRA_CA_CERTS - Path to custom CA certificate file inside container (recommended)
   - Purpose: Add intermediate or custom CA certificates to Node.js trusted certificate store
-  - Use Case: Required when InfluxDB uses certificates signed by internal/private CA
+  - Use Case: Required when InfluxDB uses certificates signed by an internal or private CA
   - Format: PEM format certificate file
   - Example: -e NODE_EXTRA_CA_CERTS=/ca-certs/ca-bundle.crt
   - Note: This is the native Node.js environment variable for custom CAs
