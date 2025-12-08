@@ -356,7 +356,7 @@ Use the following environment variables to configure TLS and certificate verific
 
 - `NODE_EXTRA_CA_CERTS` - Path to custom CA certificate file inside container (recommended).
   
-  This option adds an intermediate or custom CA certificates to the Node.js trusted certificate store
+  This option adds an intermediate or custom CA certificate to the Node.js trusted certificate store
   and is required when InfluxDB uses certificates signed by an internal or private CA.
   
   - **Format**: PEM format certificate file
