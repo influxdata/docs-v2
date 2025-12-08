@@ -110,4 +110,9 @@
   {{ end }}
 
   </ul>
+
+  {{/* API Reference Navigation - shown only for API pages */}}
+  {{ if eq .Type "api" }}
+    {{ partial "api/sidebar-nav.html" . }}
+  {{ end }}
 </aside>

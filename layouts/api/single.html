@@ -1,32 +1,119 @@
 {{/*
   API Documentation Single Page Layout
 
-  Uses the renderer abstraction to display API documentation.
-  The renderer (Scalar or RapiDoc) is selected via site.Params.apiRenderer.
+  Used for:
+  - Individual operation pages (nested under tag pages)
+  - Conceptual pages (isConceptual: true) like Authentication, Quick start
+
+  For operation pages:
+  - Renders RapiDoc with "Mix your own HTML" slots for custom content
+  - Shows method badge, path, and operation details
+
+  For conceptual pages:
+  - Shows Hugo content or tagDescription markdown
 
   Required frontmatter:
-  - staticFilePath: Path to the OpenAPI specification file
+  - title: Page title
+  - staticFilePath: Path to OpenAPI spec (for operation pages)
+  - operationId: Operation ID to render (for operation pages)
+  - isConceptual: true (for conceptual pages)
 */}}
 
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
+  {{/* Left: Existing Hugo sidebar (includes API nav via sidebar.html) */}}
   {{ partial "sidebar.html" . }}
-  <div class="content-wrapper">
-    <article class="article article--content api-reference" role="main">
-      <header class="article--header">
-        <h1 class="article--title">{{ .Title }}</h1>
-        {{ with .Description }}
-        <p class="article--description">{{ . }}</p>
+
+  {{/* Center + Right: Content and TOC */}}
+  <div class="content-wrapper api-content">
+    <div class="api-main">
+      <article class="article article--content api-reference" role="main">
+        <header class="article--header">
+          <div class="article--header-row">
+            <div class="article--header-text">
+              {{/* For operation pages, show method badge with title */}}
+              {{ with .Params.method }}
+              <div class="api-operation-header">
+                <span class="api-method api-method--{{ lower . }}">{{ upper . }}</span>
+                <h1 class="article--title">{{ $.Title }}</h1>
+              </div>
+              {{ with $.Params.path }}
+              <code class="api-operation-path">{{ . }}</code>
+              {{ end }}
+              {{ else }}
+              <h1 class="article--title">{{ .Title }}</h1>
+              {{ end }}
+
+              {{/* Summary/Description */}}
+              {{ with .Params.summary }}
+              <p class="article--summary">{{ . | markdownify }}</p>
+              {{ else }}
+                {{ with .Description }}
+                <p class="article--summary">{{ . | markdownify }}</p>
+                {{ end }}
+              {{ end }}
+            </div>
+
+            {{/* Download OpenAPI spec button */}}
+            {{ with .Params.staticFilePath }}
+            <div class="api-spec-actions">
+              <a href="{{ . }}" class="btn api-spec-download" download>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+                  <path d="M1 14h14v2H1v-2z"/>
+                </svg>
+                Download OpenAPI Spec
+              </a>
+            </div>
+            {{ end }}
+          </div>
+        </header>
+
+        {{ $isConceptual := .Params.isConceptual | default false }}
+
+        {{ if $isConceptual }}
+        {{/* Conceptual Page - Show content directly */}}
+        <section class="api-conceptual-content">
+          {{ with .Content }}
+            {{ . }}
+          {{ else }}
+            {{ with .Params.tagDescription }}
+              {{ . | markdownify }}
+            {{ end }}
+          {{ end }}
+        </section>
+        {{ else }}
+        {{/* Operation Page - RapiDoc with custom slots */}}
+
+        {{/* Hugo page content shown as overview */}}
+        {{ with .Content }}
+        <section class="api-content-overview">
+          {{ . }}
+        </section>
         {{ end }}
-      </header>
 
-      {{/* Render API documentation using the configured renderer */}}
-      {{ partial "api/renderer.html" . }}
+        {{/* RapiDoc renderer with slot-based customization */}}
+        {{ with .Params.staticFilePath }}
+        <section class="api-renderer-section">
+          {{ partial "api/rapidoc.html" $ }}
+        </section>
+        {{ end }}
 
-    </article>
-    <div class="copyright">&copy; {{ now.Year }} InfluxData, Inc.</div>
+        {{ end }}
+
+        {{/* Related documentation links */}}
+        {{ partial "article/related.html" . }}
+
+      </article>
+    </div>
+
+    {{/* Right: Page TOC - "ON THIS PAGE" */}}
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav"></nav>
+    </aside>
   </div>
 </div>
 
