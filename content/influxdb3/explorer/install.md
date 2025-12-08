@@ -350,20 +350,26 @@ To enable TLS/SSL for secure connections:
 > The nginx web server automatically detects and uses certificate files in the mounted path.
 
 #### TLS and certificate verification options
+#### TLS and certificate verification options
 
-Use the following environment variables to configure TLS certificate verification when connecting to InfluxDB instances that use self-signed or custom CA certificates:
+Use the following environment variables to configure TLS and certificate verification:
 
-- **`NODE_EXTRA_CA_CERTS`**: Path to custom CA certificate file inside container _(recommended)_
-  - **Purpose**: Add intermediate or custom CA certificates to Node.js trusted certificate store
-  - **Use case**: Required when InfluxDB uses certificates signed by an internal or private CA
+- `NODE_EXTRA_CA_CERTS` - Path to custom CA certificate file inside container (recommended).
+  
+  This option adds an intermediate or custom CA certificates to the Node.js trusted certificate store
+  and is required when InfluxDB uses certificates signed by an internal or private CA.
+  
   - **Format**: PEM format certificate file
   - **Example**: `-e NODE_EXTRA_CA_CERTS=/ca-certs/ca-bundle.crt`
-- **`CA_CERT_PATH`**: Alternative to `NODE_EXTRA_CA_CERTS` (convenience alias)
-  - **Purpose**: Same as `NODE_EXTRA_CA_CERTS`; automatically sets it internally
-  - **Example**: `-e CA_CERT_PATH=/ca-certs/ca-bundle.crt`
-
+  
+  > [!Note]
+  > This is the native Node.js environment variable for custom CAs.
+  
+- `CA_CERT_PATH` - Alternative to `NODE_EXTRA_CA_CERTS` (convenience alias)
+   - **Example**: `-e CA_CERT_PATH=/ca-certs/ca-bundle.crt`
+  
 > [!Note]
-> Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`, not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
+> Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`; not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
 
 #### Use self-signed certificates
 
