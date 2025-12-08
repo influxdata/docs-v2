@@ -350,7 +350,6 @@ To enable TLS/SSL for secure connections:
 > The nginx web server automatically detects and uses certificate files in the mounted path.
 
 #### TLS and certificate verification options
-#### TLS and certificate verification options
 
 Use the following environment variables to configure TLS and certificate verification:
 
