@@ -1,0 +1,246 @@
+articles:
+  - path: api/v1/health
+    fields:
+      name: /api/v1/health
+      describes:
+        - /api/v1/health
+      menuName: /api/v1/health
+      title: /api/v1/health
+      tags:
+        - api-v1
+        - health
+      apiTags:
+        - Server information
+        - Compatibility endpoints
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v1-health.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v1-health.yaml
+  - path: api/v2/write
+    fields:
+      name: /api/v2/write
+      describes:
+        - /api/v2/write
+      menuName: /api/v2/write
+      title: /api/v2/write
+      tags:
+        - api-v2
+        - write
+      apiTags:
+        - Compatibility endpoints
+        - Write data
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v2-write.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v2-write.yaml
+  - path: api/v3/configure
+    fields:
+      name: /api/v3/configure
+      describes:
+        - /api/v3/configure/database
+        - /api/v3/configure/database/retention_period
+        - /api/v3/configure/database/{db}
+        - /api/v3/configure/distinct_cache
+        - /api/v3/configure/enterprise/token
+        - /api/v3/configure/last_cache
+        - /api/v3/configure/plugin_environment/install_packages
+        - /api/v3/configure/plugin_environment/install_requirements
+        - /api/v3/configure/processing_engine_trigger
+        - /api/v3/configure/processing_engine_trigger/disable
+        - /api/v3/configure/processing_engine_trigger/enable
+        - /api/v3/configure/table
+        - /api/v3/configure/token
+        - /api/v3/configure/token/admin
+        - /api/v3/configure/token/admin/regenerate
+        - /api/v3/configure/token/named_admin
+      menuName: /api/v3/configure
+      title: /api/v3/configure
+      tags:
+        - api-v3
+        - configure
+      apiTags:
+        - Database
+        - Cache data
+        - Table
+        - Authentication
+        - Token
+        - Processing engine
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-configure.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-configure.yaml
+  - path: api/v3/engine
+    fields:
+      name: /api/v3/engine
+      describes:
+        - /api/v3/engine/{request_path}
+      menuName: /api/v3/engine
+      title: /api/v3/engine
+      tags:
+        - api-v3
+        - engine
+      apiTags:
+        - Processing engine
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-engine.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-engine.yaml
+  - path: api/v3/plugin_test
+    fields:
+      name: /api/v3/plugin_test
+      describes:
+        - /api/v3/plugin_test/schedule
+        - /api/v3/plugin_test/wal
+      menuName: /api/v3/plugin_test
+      title: /api/v3/plugin_test
+      tags:
+        - api-v3
+        - plugin_test
+      apiTags:
+        - Processing engine
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-plugin_test.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-plugin_test.yaml
+  - path: api/v3/plugins
+    fields:
+      name: /api/v3/plugins
+      describes:
+        - /api/v3/plugins/directory
+        - /api/v3/plugins/files
+      menuName: /api/v3/plugins
+      title: /api/v3/plugins
+      tags:
+        - api-v3
+        - plugins
+      apiTags:
+        - Processing engine
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-plugins.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-plugins.yaml
+  - path: api/v3/query_influxql
+    fields:
+      name: /api/v3/query_influxql
+      describes:
+        - /api/v3/query_influxql
+      menuName: /api/v3/query_influxql
+      title: /api/v3/query_influxql
+      tags:
+        - api-v3
+        - query_influxql
+      apiTags:
+        - Query data
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-query_influxql.yaml
+      staticFilePath: >-
+        /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-query_influxql.yaml
+  - path: api/v3/query_sql
+    fields:
+      name: /api/v3/query_sql
+      describes:
+        - /api/v3/query_sql
+      menuName: /api/v3/query_sql
+      title: /api/v3/query_sql
+      tags:
+        - api-v3
+        - query_sql
+      apiTags:
+        - Query data
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-query_sql.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-query_sql.yaml
+  - path: api/v3/show
+    fields:
+      name: /api/v3/show
+      describes:
+        - /api/v3/show/license
+      menuName: /api/v3/show
+      title: /api/v3/show
+      tags:
+        - api-v3
+        - show
+      apiTags:
+        - Server information
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-show.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-show.yaml
+  - path: api/v3/write_lp
+    fields:
+      name: /api/v3/write_lp
+      describes:
+        - /api/v3/write_lp
+      menuName: /api/v3/write_lp
+      title: /api/v3/write_lp
+      tags:
+        - api-v3
+        - write_lp
+      apiTags:
+        - Write data
+      source: >-
+        static/openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-write_lp.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-api-v3-write_lp.yaml
+  - path: api/health
+    fields:
+      name: /health
+      describes:
+        - /health
+      menuName: /health
+      title: /health
+      tags:
+        - ''
+        - health
+      apiTags:
+        - Server information
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-health.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-health.yaml
+  - path: api/metrics
+    fields:
+      name: /metrics
+      describes:
+        - /metrics
+      menuName: /metrics
+      title: /metrics
+      tags:
+        - ''
+        - metrics
+      apiTags:
+        - Server information
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-metrics.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-metrics.yaml
+  - path: api/ping
+    fields:
+      name: /ping
+      describes:
+        - /ping
+      menuName: /ping
+      title: /ping
+      tags:
+        - ''
+        - ping
+      apiTags:
+        - Server information
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-ping.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-ping.yaml
+  - path: api/query
+    fields:
+      name: /query
+      describes:
+        - /query
+      menuName: /query
+      title: /query
+      tags:
+        - ''
+        - query
+      apiTags:
+        - Query data
+        - Compatibility endpoints
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-query.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-query.yaml
+  - path: api/write
+    fields:
+      name: /write
+      describes:
+        - /write
+      menuName: /write
+      title: /write
+      tags:
+        - ''
+        - write
+      apiTags:
+        - Compatibility endpoints
+        - Write data
+      source: static/openapi/influxdb-influxdb3-enterprise/paths/ref-write.yaml
+      staticFilePath: /openapi/influxdb-influxdb3-enterprise/paths/ref-write.yaml
