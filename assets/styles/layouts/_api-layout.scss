@@ -327,17 +327,17 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
-        font-size: 0.85rem;
+        font-size: 0.95rem; // Match sidebar nav font size
       }
 
       .api-method {
         display: inline-block;
-        font-size: 0.55rem;
+        font-size: 0.6rem;
         font-weight: $bold;
         text-transform: uppercase;
         padding: 0.15rem 0.3rem;
         border-radius: 3px;
-        min-width: 2rem;
+        min-width: 2.2rem;
         text-align: center;
         flex-shrink: 0;
 
@@ -350,7 +350,7 @@
 
       .api-path {
         font-family: $code;
-        font-size: 0.75rem;
+        font-size: 0.85rem; // Match sidebar nav font size
         word-break: break-all;
         color: inherit;
       }
