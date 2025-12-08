@@ -432,7 +432,7 @@ node cypress/support/run-e2e-specs.js \
 ```bash
 node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/api-reference.cy.js" \
-  http://localhost:1313/influxdb3/core/reference/api/
+  http://localhost:<port>/influxdb3/core/reference/api/
 ```
 
 **Example Cypress test structure for API reference:**
