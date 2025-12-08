@@ -49,12 +49,13 @@ tags:
       Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
 
       | Authentication scheme | Works with |
-      |:-------------------|:-----------|
-      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
-      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
-      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
-      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
-      <!-- ReDoc-Inject: <security-definitions> -->
+      |:----------------------|:-----------|
+      | Bearer authentication | All endpoints |
+      | Token authentication  | v1, v2 endpoints |
+      | Basic authentication  | v1 endpoints |
+      | Querystring authentication | v1 endpoints |
+
+      See the **Security Schemes** section below for details on each authentication method.
     x-traitTag: true
   - name: Cache data
     description: |

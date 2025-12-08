@@ -99,7 +99,7 @@ params:
   env: development
   environment: development
   # API documentation renderer: "scalar" (default) or "rapidoc"
-  apiRenderer: scalar
+  apiRenderer: rapidoc
 
 # Configure the server for development
 server:

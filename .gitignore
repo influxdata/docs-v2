@@ -12,6 +12,7 @@ package-lock.json
 
 # Content generation
 /content/influxdb*/**/api/**/*.html
+/content/influxdb*/**/api/**/*.md
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
 
