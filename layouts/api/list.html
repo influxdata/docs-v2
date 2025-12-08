@@ -1,32 +1,122 @@
 {{/*
-  API Documentation List/Section Layout
+  API Documentation Tag/List Layout
 
-  Uses the renderer abstraction to display API documentation.
-  The renderer (Scalar or RapiDoc) is selected via site.Params.apiRenderer.
+  Displays tag-based API documentation pages with:
+  1. Title
+  2. Summary (brief description)
+  3. Operations list (links to nested operation pages)
+  4. Description (detailed content)
+
+  For conceptual pages (isConceptual: true), shows content without operations list.
 
   Required frontmatter:
-  - staticFilePath: Path to the OpenAPI specification file
+  - title: Page title
+  - description or summary: Brief description
+  - operations: Array of operation objects (for non-conceptual pages)
 */}}
 
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
+  {{/* Left: Existing Hugo sidebar (includes API nav via sidebar.html) */}}
   {{ partial "sidebar.html" . }}
-  <div class="content-wrapper">
-    <article class="article article--content api-reference" role="main">
-      <header class="article--header">
-        <h1 class="article--title">{{ .Title }}</h1>
-        {{ with .Description }}
-        <p class="article--description">{{ . }}</p>
+
+  {{/* Center + Right: Content and TOC */}}
+  <div class="content-wrapper api-content">
+    <div class="api-main">
+      <article class="article article--content api-reference" role="main">
+        <header class="article--header">
+          <div class="article--header-row">
+            <div class="article--header-text">
+              <h1 class="article--title">{{ .Title }}</h1>
+
+              {{/* Summary - brief description at top */}}
+              {{ with .Params.summary }}
+              <p class="article--summary">{{ . | markdownify }}</p>
+              {{ else }}
+                {{/* Fallback to first line of description if no summary */}}
+                {{ with .Description }}
+                <p class="article--summary">{{ . | truncate 200 | markdownify }}</p>
+                {{ end }}
+              {{ end }}
+            </div>
+
+            {{/* Download OpenAPI spec button */}}
+            {{ with .Params.staticFilePath }}
+            <div class="api-spec-actions">
+              <a href="{{ . }}" class="btn api-spec-download" download>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+                  <path d="M1 14h14v2H1v-2z"/>
+                </svg>
+                Download OpenAPI Spec
+              </a>
+            </div>
+            {{ end }}
+          </div>
+        </header>
+
+        {{ $isConceptual := .Params.isConceptual | default false }}
+
+        {{ if $isConceptual }}
+        {{/* Conceptual Page - Show content directly */}}
+        <section class="api-conceptual-content">
+          {{ with .Content }}
+            {{ . }}
+          {{ else }}
+            {{ with .Params.tagDescription }}
+              {{ . | markdownify }}
+            {{ end }}
+          {{ end }}
+        </section>
+        {{ else }}
+        {{/* Operational Page - Show operations list then description */}}
+
+        {{/* Operations List */}}
+        {{ $operations := .Params.operations }}
+        {{ if $operations }}
+        <section class="api-operations-list">
+          <h2 id="endpoints">Endpoints</h2>
+          <div class="api-operations-grid">
+            {{ range $operations }}
+            <a href="#operation/{{ .operationId }}" class="api-operation-card">
+              <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+              <code class="api-path">{{ .path }}</code>
+              <span class="api-operation-summary">{{ .summary }}</span>
+            </a>
+            {{ end }}
+          </div>
+        </section>
         {{ end }}
-      </header>
 
-      {{/* Render API documentation using the configured renderer */}}
-      {{ partial "api/renderer.html" . }}
+        {{/* Hugo page content if any */}}
+        {{ with .Content }}
+        <section class="api-content-body">
+          {{ . }}
+        </section>
+        {{ end }}
 
-    </article>
-    <div class="copyright">&copy; {{ now.Year }} InfluxData, Inc.</div>
+        {{/* RapiDoc renderer for API operations */}}
+        {{ with .Params.staticFilePath }}
+        <section class="api-renderer-section">
+          {{ partial "api/rapidoc.html" $ }}
+        </section>
+        {{ end }}
+
+        {{ end }}
+
+        {{/* Related documentation links */}}
+        {{ partial "article/related.html" . }}
+
+      </article>
+    </div>
+
+    {{/* Right: Page TOC - "ON THIS PAGE" */}}
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav"></nav>
+    </aside>
   </div>
 </div>
 
