@@ -31,13 +31,21 @@
             <div class="article--header-text">
               <h1 class="article--title">{{ .Title }}</h1>
 
-              {{/* Summary - brief description at top */}}
+              {{/* Summary - first sentence only at top */}}
               {{ with .Params.summary }}
               <p class="article--summary">{{ . | markdownify }}</p>
               {{ else }}
-                {{/* Fallback to first line of description if no summary */}}
+                {{/* Extract first sentence from description (or full text if no sentence ending) */}}
                 {{ with .Description }}
-                <p class="article--summary">{{ . | truncate 200 | markdownify }}</p>
+                  {{ $matches := findRE `^[^.!?]*[.!?]` . 1 }}
+                  {{ if gt (len $matches) 0 }}
+                    {{ $firstSentence := index $matches 0 }}
+                    <p class="article--summary">{{ $firstSentence | markdownify }}</p>
+                  {{ else }}
+                    {{/* No sentence ending found - use first line or full description */}}
+                    {{ $firstLine := index (split . "\n") 0 }}
+                    <p class="article--summary">{{ $firstLine | markdownify }}</p>
+                  {{ end }}
                 {{ end }}
               {{ end }}
             </div>
@@ -87,6 +95,14 @@
             </a>
             {{ end }}
           </div>
+        </section>
+        {{ end }}
+
+        {{/* Overview - full tag description after endpoints */}}
+        {{ with .Description }}
+        <section class="api-description">
+          <h2 id="overview">Overview</h2>
+          {{ . | markdownify }}
         </section>
         {{ end }}
 
