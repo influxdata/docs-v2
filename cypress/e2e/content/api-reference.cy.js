@@ -13,8 +13,8 @@
 
 const fakeGoogleTagManager = {
   trackingOptIn: () => {},
-  trackingOptOut: () => {}
-}
+  trackingOptOut: () => {},
+};
 
 describe('API reference content', () => {
   const subjects = [
@@ -49,43 +49,47 @@ describe('API reference content', () => {
     '/influxdb3/enterprise/api/',
   ];
 
-
   subjects.forEach((subject) => {
     describe(subject, () => {
       beforeEach(() => {
-                // Intercept and modify the page HTML before it loads
-                cy.intercept('GET', '**', (req) => {
-                  req.continue((res) => {
-                    if (res.headers['content-type']?.includes('text/html')) {
-                      // Modify the Kapa widget script attributes
-                      // Avoid socket errors from fpjs in tests by disabling fingerprinting
-                      res.body = res.body.replace(
-                        /data-user-analytics-fingerprint-enabled="true"/,
-                        'data-user-analytics-fingerprint-enabled="false"'
-                      );
-                    }
-                  });
-                });
+        // Intercept and modify the page HTML before it loads
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              // Modify the Kapa widget script attributes
+              // Avoid socket errors from fpjs in tests by disabling fingerprinting
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
         cy.visit(subject);
-
 
         window.fcdsc = fakeGoogleTagManager;
         cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
         cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
       });
       it(`has API info`, function () {
-        cy.get('script[data-user-analytics-fingerprint-enabled=false]').should('have.length', 1);
+        cy.get('script[data-user-analytics-fingerprint-enabled=false]').should(
+          'have.length',
+          1
+        );
         cy.get('h1').first().should('have.length', 1);
         // Check for description element (either article--description class or data-role attribute)
-        cy.get('.article--description, [data-role$=description]').should('have.length.at.least', 1);
+        cy.get('.article--description, [data-role$=description]').should(
+          'have.length.at.least',
+          1
+        );
       });
       it('links back to the version home page', function () {
-        cy.get('a.back').contains('Docs')
-          .should('have.length', 1)
-          .click();
+        cy.get('a.back').contains('Docs').should('have.length', 1).click();
         // Path should be the first two segments and trailing slash in $subject
-        cy.location('pathname')
-          .should('eq', subject.replace(/^(\/[^/]+\/[^/]+\/).*/, '$1'));
+        cy.location('pathname').should(
+          'eq',
+          subject.replace(/^(\/[^/]+\/[^/]+\/).*/, '$1')
+        );
         cy.get('h1').should('have.length', 1);
       });
       it('contains valid internal links', function () {
@@ -101,8 +105,7 @@ describe('API reference content', () => {
             // cy.request doesn't show in your browser's Developer Tools
             // because the request comes from Node, not from the browser.
             cy.request($a.attr('href')).its('status').should('eq', 200);
-        });
-
+          });
         });
       });
       it('contains valid external links', function () {
@@ -213,7 +216,9 @@ describe('API reference 3-column layout', () => {
             cy.get('.api-tabs-nav a').eq(1).should('have.class', 'is-active');
 
             // Verify the first tab is no longer active
-            cy.get('.api-tabs-nav a').eq(0).should('not.have.class', 'is-active');
+            cy.get('.api-tabs-nav a')
+              .eq(0)
+              .should('not.have.class', 'is-active');
           });
         });
 
@@ -225,7 +230,10 @@ describe('API reference 3-column layout', () => {
         it('restores tab from URL hash on page load', () => {
           // Use the current subject URL with hash instead of hardcoded old reference URL
           cy.visit(`${subject}#authentication`);
-          cy.get('.api-tabs-nav a[data-tab="authentication"]').should('have.class', 'is-active');
+          cy.get('.api-tabs-nav a[data-tab="authentication"]').should(
+            'have.class',
+            'is-active'
+          );
           cy.get('[data-tab-panel="authentication"]').should('be.visible');
         });
       });
@@ -245,7 +253,9 @@ describe('API reference 3-column layout', () => {
 
       describe('API Renderer', () => {
         it('loads API documentation renderer', () => {
-          cy.get('.api-reference-container, rapi-doc, .api-reference-wrapper').should('exist');
+          cy.get(
+            '.api-reference-container, rapi-doc, .api-reference-wrapper'
+          ).should('exist');
         });
 
         it('displays spec download link', () => {
