@@ -240,6 +240,13 @@
       color: $nav-category;
       cursor: pointer;
       transition: color 0.2s;
+      // Button reset for dark mode compatibility
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: inherit;
+      font-family: inherit;
 
       &:hover {
         color: $nav-category-hover;
@@ -327,7 +334,7 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
-        font-size: 0.95rem; // Match sidebar nav font size
+        font-size: 1rem; // Match sidebar nav-item font size (18px base)
       }
 
       .api-method {
@@ -350,7 +357,7 @@
 
       .api-path {
         font-family: $code;
-        font-size: 0.85rem; // Match sidebar nav font size
+        font-size: 0.9rem; // Slightly smaller than link text for hierarchy
         word-break: break-all;
         color: inherit;
       }
