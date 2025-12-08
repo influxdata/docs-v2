@@ -105,19 +105,36 @@
           {{ if $article }}
             {{ $path := index $article "path" }}
             {{ $fields := index $article "fields" }}
-            {{ $menuName := $tagName }}
-            {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
-              {{ $menuName = index $fields "menuName" }}
-            {{ end }}
             {{ $isConceptual := false }}
             {{ if and (reflect.IsMap $fields) (isset $fields "isConceptual") }}
               {{ $isConceptual = index $fields "isConceptual" }}
             {{ end }}
+            {{/* Show operations from article data */}}
+            {{ $operations := slice }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "operations") }}
+              {{ $operations = index $fields "operations" }}
+            {{ end }}
+            {{ if gt (len $operations) 0 }}
+              {{ range $operations }}
+        <li class="api-nav-item api-nav-operation">
+          <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}#operation/{{ .operationId }}">
+            <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+            <code class="api-path">{{ .path }}</code>
+          </a>
+        </li>
+              {{ end }}
+            {{ else }}
+              {{/* Fallback for conceptual pages or pages without operations */}}
+              {{ $menuName := $tagName }}
+              {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+                {{ $menuName = index $fields "menuName" }}
+              {{ end }}
         <li class="api-nav-item{{ if eq $.RelPermalink (print "/" $product "/" $version "/" $path "/") }} is-active{{ end }}{{ if $isConceptual }} is-conceptual{{ end }}">
           <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}">
             {{ $menuName }}
           </a>
         </li>
+            {{ end }}
           {{ end }}
         {{ end }}
       </ul>
