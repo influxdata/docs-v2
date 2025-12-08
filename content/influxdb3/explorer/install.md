@@ -347,6 +347,20 @@ To enable TLS/SSL for secure connections:
 > [!Note]
 > The nginx web server automatically detects and uses certificate files in the mounted path.
 
+#### TLS/Certificate Verification Options
+
+- NODE_EXTRA_CA_CERTS - Path to custom CA certificate file inside container (recommended)
+  - Purpose: Add intermediate or custom CA certificates to Node.js trusted certificate store
+  - Use Case: Required when InfluxDB uses certificates signed by internal/private CA
+  - Format: PEM format certificate file
+  - Example: -e NODE_EXTRA_CA_CERTS=/ca-certs/ca-bundle.crt
+  - Note: This is the native Node.js environment variable for custom CAs
+- CA_CERT_PATH - Alternative to NODE_EXTRA_CA_CERTS (convenience alias)
+  - Purpose: Same as NODE_EXTRA_CA_CERTS, automatically sets it internally
+  - Example: -e CA_CERT_PATH=/ca-certs/ca-bundle.crt
+  
+Note: Use either NODE_EXTRA_CA_CERTS or CA_CERT_PATH, not both
+
 ### Choose operational mode
 
 {{% product-name %}} supports two operational modes:
@@ -527,7 +541,7 @@ docker-compose up -d
 {{% code-tab-content %}}
 ```bash
 docker run --rm \
-  --name influxdb3-explorer-dev \
+  --name influxdb3-explorer \
   --publish 8888:80 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
@@ -541,9 +555,63 @@ version: '3.8'
 services:
   explorer:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
-    container_name: influxdb3-explorer-dev
+    container_name: influxdb3-explorer
     ports:
       - "8888:80"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Using Self-Signed Certificates
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+```bash
+docker run -d \
+  --name influxdb3-explorer \
+  --restart=unless-stopped \
+  -p 80:80 \
+  -p 443:443 \
+  -v $(pwd)/config:/app-root/config:ro \
+  -v $(pwd)/db:/db:rw \
+  -v $(pwd)/ssl:/etc/nginx/ssl:ro \
+  -v $(pwd)/ca-certs:/ca-certs:ro \
+  -e DATABASE_URL=/db/sqlite.db \
+  -e SESSION_SECRET_KEY=your-secure-secret-key-here \
+  -e NODE_EXTRA_CA_CERTS=/ca-certs/company-ca.pem \
+  influx-app:intel --mode=admin
+  influxdata/influxdb3-ui:{{% latest-patch %}}
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    pull_policy: always
+    command: ["--mode=admin"]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config:/app-root/config:ro
+      - ./db:/db:rw
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./ca-certs:/ca-certs:ro
+    environment:
+      DATABASE_URL: /db/sqlite.db
+      SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:-your-secure-secret-key-here}
+      NODE_EXTRA_CA_CERTS: /ca-certs/company-ca.pem
+    restart: unless-stopped
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
