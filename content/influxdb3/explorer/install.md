@@ -368,8 +368,8 @@ Use the following environment variables to configure TLS and certificate verific
 - `CA_CERT_PATH` - Alternative to `NODE_EXTRA_CA_CERTS` (convenience alias)
    - **Example**: `-e CA_CERT_PATH=/ca-certs/ca-bundle.crt`
   
-    > [!Note]
-    > Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`; not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
+   > [!Note]
+   > Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`; not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
 
 #### Use self-signed certificates
 
