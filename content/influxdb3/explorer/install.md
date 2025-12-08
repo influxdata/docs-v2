@@ -359,7 +359,8 @@ To enable TLS/SSL for secure connections:
   - Purpose: Same as NODE_EXTRA_CA_CERTS, automatically sets it internally
   - Example: -e CA_CERT_PATH=/ca-certs/ca-bundle.crt
   
-Note: Use either NODE_EXTRA_CA_CERTS or CA_CERT_PATH, not both
+> [!Note]
+> Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`, not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
 
 ### Choose operational mode
 
