@@ -270,9 +270,10 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-out;
+      background: $body-bg; // Match sidebar background
 
       &.is-open {
-        max-height: 1000px; // Large enough to show all items
+        max-height: 2000px; // Large enough to show all operations
       }
     }
   }
@@ -301,7 +302,7 @@
       font-weight: $medium;
     }
 
-    // HTTP method badge
+    // HTTP method badge (legacy class)
     .method-badge {
       display: inline-block;
       font-size: 0.65rem;
@@ -318,6 +319,41 @@
       &.put { background-color: $br-galaxy; color: #fff; }
       &.patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
       &.delete { background-color: $r-curacao; color: #fff; }
+    }
+
+    // Operation items with method badges and paths
+    &.api-nav-operation {
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+      }
+
+      .api-method {
+        display: inline-block;
+        font-size: 0.55rem;
+        font-weight: $bold;
+        text-transform: uppercase;
+        padding: 0.15rem 0.3rem;
+        border-radius: 3px;
+        min-width: 2rem;
+        text-align: center;
+        flex-shrink: 0;
+
+        &--get { background-color: $gr-rainforest; color: #fff; }
+        &--post { background-color: $b-ocean; color: #fff; }
+        &--put { background-color: $br-galaxy; color: #fff; }
+        &--patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
+        &--delete { background-color: $r-curacao; color: #fff; }
+      }
+
+      .api-path {
+        font-family: $code;
+        font-size: 0.75rem;
+        word-break: break-all;
+        color: inherit;
+      }
     }
   }
 }
@@ -336,8 +372,14 @@
 }
 
 .article--header-text {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 1 100%; // Take full width, allowing download button to wrap
+  min-width: 0;
+}
+
+// Summary paragraph in header - ensure full width
+.article--summary {
+  max-width: none;
+  width: 100%;
 }
 
 // Download OpenAPI spec button
