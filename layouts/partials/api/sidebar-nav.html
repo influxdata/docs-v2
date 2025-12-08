@@ -1,0 +1,244 @@
+{{/*
+  API Reference Navigation for Sidebar
+
+  Displays a collapsible navigation tree for API endpoints,
+  organized by functional groups defined in data/api_nav_groups.yml.
+
+  Uses Hugo data from data/article-data/ to build navigation.
+  Supports both tag-based (new) and path-based (legacy) article data.
+*/}}
+
+{{/* Get product path data for data lookup */}}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{/* Hugo converts hyphens to underscores in data file keys */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{ $dataKey = print "influxdb3_" $version }}
+{{ else if eq $product "influxdb" }}
+  {{ $dataKey = print $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{/*
+  Hugo data path: data/article_data/influxdb/influxdb3_core/articles.yml
+  Access: .Site.Data.article_data.influxdb.influxdb3_core.articles.articles
+
+  The double "articles" is because:
+  - First "articles" is the filename (articles.yml)
+  - Second "articles" is the key inside the YAML file
+*/}}
+{{ $articles := slice }}
+{{ with .Site.Data.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with index . "articles" }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Get navigation groups configuration */}}
+{{ $navGroups := .Site.Data.api_nav_groups.groups }}
+
+{{/* Check if articles use tag-based structure */}}
+{{ $isTagBased := false }}
+{{ if gt (len $articles) 0 }}
+  {{ $firstArticle := index $articles 0 }}
+  {{ if reflect.IsMap $firstArticle }}
+    {{ with index $firstArticle "fields" }}
+      {{ if reflect.IsMap . }}
+        {{ if isset . "tag" }}
+          {{ $isTagBased = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if and (gt (len $articles) 0) $navGroups $isTagBased }}
+{{/* Tag-based navigation */}}
+<nav class="api-nav" data-component="api-nav">
+  <h4 class="api-nav-header">API Reference</h4>
+
+  {{/* Build a map of tag slug -> article for quick lookup */}}
+  {{ $articlesByTag := dict }}
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if and (reflect.IsMap $fields) (isset $fields "tag") }}
+        {{ $tag := index $fields "tag" }}
+        {{ $articlesByTag = merge $articlesByTag (dict $tag .) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Render navigation groups */}}
+  {{ range $groupIdx, $group := $navGroups }}
+    {{ $groupTags := $group.tags }}
+    {{ $groupHasArticles := false }}
+
+    {{/* Check if any tags in this group have articles */}}
+    {{ range $groupTags }}
+      {{ if index $articlesByTag . }}
+        {{ $groupHasArticles = true }}
+      {{ end }}
+    {{ end }}
+
+    {{ if $groupHasArticles }}
+    <div class="api-nav-group">
+      <button class="api-nav-group-header{{ if eq $groupIdx 0 }} is-open{{ end }}" aria-expanded="{{ if eq $groupIdx 0 }}true{{ else }}false{{ end }}">
+        {{ $group.name }}
+      </button>
+      <ul class="api-nav-group-items{{ if eq $groupIdx 0 }} is-open{{ end }}">
+        {{ range $groupTags }}
+          {{ $tagName := . }}
+          {{ $article := index $articlesByTag $tagName }}
+          {{ if $article }}
+            {{ $path := index $article "path" }}
+            {{ $fields := index $article "fields" }}
+            {{ $menuName := $tagName }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+              {{ $menuName = index $fields "menuName" }}
+            {{ end }}
+            {{ $isConceptual := false }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "isConceptual") }}
+              {{ $isConceptual = index $fields "isConceptual" }}
+            {{ end }}
+        <li class="api-nav-item{{ if eq $.RelPermalink (print "/" $product "/" $version "/" $path "/") }} is-active{{ end }}{{ if $isConceptual }} is-conceptual{{ end }}">
+          <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}">
+            {{ $menuName }}
+          </a>
+        </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+  {{ end }}
+
+</nav>
+{{ else if gt (len $articles) 0 }}
+{{/* Legacy path-based navigation (fallback) */}}
+<nav class="api-nav" data-component="api-nav">
+  <h4 class="api-nav-header">API Reference</h4>
+
+  {{/* Group by API version (v3, v2, v1, or root) */}}
+    {{ $v3Endpoints := slice }}
+    {{ $v2Endpoints := slice }}
+    {{ $v1Endpoints := slice }}
+    {{ $rootEndpoints := slice }}
+
+    {{ range $idx, $article := $articles }}
+      {{ $articlePath := "" }}
+      {{ if and (reflect.IsMap $article) (isset $article "path") }}
+        {{ $articlePath = index $article "path" }}
+      {{ end }}
+      {{ if $articlePath }}
+        {{ if hasPrefix $articlePath "api/v3" }}
+          {{ $v3Endpoints = $v3Endpoints | append $article }}
+        {{ else if hasPrefix $articlePath "api/v2" }}
+          {{ $v2Endpoints = $v2Endpoints | append $article }}
+        {{ else if hasPrefix $articlePath "api/v1" }}
+          {{ $v1Endpoints = $v1Endpoints | append $article }}
+        {{ else }}
+          {{ $rootEndpoints = $rootEndpoints | append $article }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    {{/* API v3 Endpoints */}}
+    {{ if gt (len $v3Endpoints) 0 }}
+    <div class="api-nav-group">
+      <button class="api-nav-group-header is-open" aria-expanded="true">
+        API v3
+      </button>
+      <ul class="api-nav-group-items is-open">
+        {{ range $v3Endpoints }}
+          {{ $path := index . "path" }}
+          {{ $menuName := $path }}
+          {{ if and (reflect.IsMap .) (isset . "fields") }}
+            {{ $fields := index . "fields" }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+              {{ $menuName = index $fields "menuName" }}
+            {{ end }}
+          {{ end }}
+        <li class="api-nav-item{{ if eq $.RelPermalink (print "/" $product "/" $version "/" $path "/") }} is-active{{ end }}">
+          <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}">
+            {{ $menuName }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{/* Server Management (root endpoints like /health, /metrics, /ping) */}}
+    {{ if gt (len $rootEndpoints) 0 }}
+    <div class="api-nav-group">
+      <button class="api-nav-group-header" aria-expanded="false">
+        Server Management
+      </button>
+      <ul class="api-nav-group-items">
+        {{ range $rootEndpoints }}
+          {{ $path := index . "path" }}
+          {{ $menuName := $path }}
+          {{ if and (reflect.IsMap .) (isset . "fields") }}
+            {{ $fields := index . "fields" }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+              {{ $menuName = index $fields "menuName" }}
+            {{ end }}
+          {{ end }}
+        <li class="api-nav-item{{ if eq $.RelPermalink (print "/" $product "/" $version "/" $path "/") }} is-active{{ end }}">
+          <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}">
+            {{ $menuName }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{/* Compatibility Endpoints (v1, v2) */}}
+    {{ $compatEndpoints := slice }}
+    {{ range $v1Endpoints }}
+      {{ $compatEndpoints = $compatEndpoints | append . }}
+    {{ end }}
+    {{ range $v2Endpoints }}
+      {{ $compatEndpoints = $compatEndpoints | append . }}
+    {{ end }}
+    {{ if gt (len $compatEndpoints) 0 }}
+    <div class="api-nav-group">
+      <button class="api-nav-group-header" aria-expanded="false">
+        Compatibility
+      </button>
+      <ul class="api-nav-group-items">
+        {{ range $compatEndpoints }}
+          {{ $path := index . "path" }}
+          {{ $menuName := $path }}
+          {{ if and (reflect.IsMap .) (isset . "fields") }}
+            {{ $fields := index . "fields" }}
+            {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+              {{ $menuName = index $fields "menuName" }}
+            {{ end }}
+          {{ end }}
+        <li class="api-nav-item{{ if eq $.RelPermalink (print "/" $product "/" $version "/" $path "/") }} is-active{{ end }}">
+          <a href="{{ print "/" $product "/" $version "/" $path "/" | relURL }}">
+            {{ $menuName }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+</nav>
+{{ end }}

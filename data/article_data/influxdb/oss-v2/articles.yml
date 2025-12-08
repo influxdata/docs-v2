@@ -1,0 +1,757 @@
+articles:
+  - path: api/v2/authorizations
+    fields:
+      name: /api/v2/authorizations
+      describes:
+        - /api/v2/authorizations
+        - /api/v2/authorizations/{authID}
+      title: |-
+        /api/v2/authorizations
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - authorizations
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-authorizations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-authorizations.yaml
+  - path: api/v2/backup
+    fields:
+      name: /api/v2/backup
+      describes:
+        - /api/v2/backup/kv
+        - /api/v2/backup/metadata
+        - /api/v2/backup/shards/{shardID}
+      title: |-
+        /api/v2/backup
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - backup
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-backup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-backup.yaml
+  - path: api/v2/buckets
+    fields:
+      name: /api/v2/buckets
+      describes:
+        - /api/v2/buckets
+        - /api/v2/buckets/{bucketID}
+        - /api/v2/buckets/{bucketID}/labels
+        - /api/v2/buckets/{bucketID}/labels/{labelID}
+        - /api/v2/buckets/{bucketID}/members
+        - /api/v2/buckets/{bucketID}/members/{userID}
+        - /api/v2/buckets/{bucketID}/owners
+        - /api/v2/buckets/{bucketID}/owners/{userID}
+      title: |-
+        /api/v2/buckets
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - buckets
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-buckets.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-buckets.yaml
+  - path: api/v2/checks
+    fields:
+      name: /api/v2/checks
+      describes:
+        - /api/v2/checks
+        - /api/v2/checks/{checkID}
+        - /api/v2/checks/{checkID}/labels
+        - /api/v2/checks/{checkID}/labels/{labelID}
+        - /api/v2/checks/{checkID}/query
+      title: |-
+        /api/v2/checks
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - checks
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-checks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-checks.yaml
+  - path: api/v2/config
+    fields:
+      name: /api/v2/config
+      describes:
+        - /api/v2/config
+      title: |-
+        /api/v2/config
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - config
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-config.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-config.yaml
+  - path: api/v2/dashboards
+    fields:
+      name: /api/v2/dashboards
+      describes:
+        - /api/v2/dashboards
+        - /api/v2/dashboards/{dashboardID}
+        - /api/v2/dashboards/{dashboardID}/cells
+        - /api/v2/dashboards/{dashboardID}/cells/{cellID}
+        - /api/v2/dashboards/{dashboardID}/cells/{cellID}/view
+        - /api/v2/dashboards/{dashboardID}/labels
+        - /api/v2/dashboards/{dashboardID}/labels/{labelID}
+        - /api/v2/dashboards/{dashboardID}/members
+        - /api/v2/dashboards/{dashboardID}/members/{userID}
+        - /api/v2/dashboards/{dashboardID}/owners
+        - /api/v2/dashboards/{dashboardID}/owners/{userID}
+      title: |-
+        /api/v2/dashboards
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - dashboards
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-dashboards.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-dashboards.yaml
+  - path: api/v2/dbrps
+    fields:
+      name: /api/v2/dbrps
+      describes:
+        - /api/v2/dbrps
+        - /api/v2/dbrps/{dbrpID}
+      title: |-
+        /api/v2/dbrps
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - dbrps
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-dbrps.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-dbrps.yaml
+  - path: api/v2/delete
+    fields:
+      name: /api/v2/delete
+      describes:
+        - /api/v2/delete
+      title: |-
+        /api/v2/delete
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - delete
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-delete.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-delete.yaml
+  - path: api/v2/flags
+    fields:
+      name: /api/v2/flags
+      describes:
+        - /api/v2/flags
+      title: |-
+        /api/v2/flags
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - flags
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-flags.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-flags.yaml
+  - path: api/v2/labels
+    fields:
+      name: /api/v2/labels
+      describes:
+        - /api/v2/labels
+        - /api/v2/labels/{labelID}
+      title: |-
+        /api/v2/labels
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - labels
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-labels.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-labels.yaml
+  - path: api/v2/maps
+    fields:
+      name: /api/v2/maps
+      describes:
+        - /api/v2/maps/mapToken
+      title: |-
+        /api/v2/maps
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - maps
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-maps.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-maps.yaml
+  - path: api/v2/me
+    fields:
+      name: /api/v2/me
+      describes:
+        - /api/v2/me
+        - /api/v2/me/password
+      title: |-
+        /api/v2/me
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - me
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-me.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-me.yaml
+  - path: api/v2/notificationEndpoints
+    fields:
+      name: /api/v2/notificationEndpoints
+      describes:
+        - /api/v2/notificationEndpoints
+        - /api/v2/notificationEndpoints/{endpointID}
+        - /api/v2/notificationEndpoints/{endpointID}/labels
+        - /api/v2/notificationEndpoints/{endpointID}/labels/{labelID}
+      title: |-
+        /api/v2/notificationEndpoints
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - notificationEndpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/paths/ref-api-v2-notificationEndpoints.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-notificationEndpoints.yaml
+  - path: api/v2/notificationRules
+    fields:
+      name: /api/v2/notificationRules
+      describes:
+        - /api/v2/notificationRules
+        - /api/v2/notificationRules/{ruleID}
+        - /api/v2/notificationRules/{ruleID}/labels
+        - /api/v2/notificationRules/{ruleID}/labels/{labelID}
+        - /api/v2/notificationRules/{ruleID}/query
+      title: |-
+        /api/v2/notificationRules
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - notificationRules
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-notificationRules.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-notificationRules.yaml
+  - path: api/v2/orgs
+    fields:
+      name: /api/v2/orgs
+      describes:
+        - /api/v2/orgs
+        - /api/v2/orgs/{orgID}
+        - /api/v2/orgs/{orgID}/members
+        - /api/v2/orgs/{orgID}/members/{userID}
+        - /api/v2/orgs/{orgID}/owners
+        - /api/v2/orgs/{orgID}/owners/{userID}
+        - /api/v2/orgs/{orgID}/secrets
+        - /api/v2/orgs/{orgID}/secrets/delete
+        - /api/v2/orgs/{orgID}/secrets/{secretID}
+      title: |-
+        /api/v2/orgs
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - orgs
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-orgs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-orgs.yaml
+  - path: api/v2/query
+    fields:
+      name: /api/v2/query
+      describes:
+        - /api/v2/query
+        - /api/v2/query/analyze
+        - /api/v2/query/ast
+        - /api/v2/query/suggestions
+        - /api/v2/query/suggestions/{name}
+      title: |-
+        /api/v2/query
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - query
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-query.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-query.yaml
+  - path: api/v2/remotes
+    fields:
+      name: /api/v2/remotes
+      describes:
+        - /api/v2/remotes
+        - /api/v2/remotes/{remoteID}
+      title: |-
+        /api/v2/remotes
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - remotes
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-remotes.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-remotes.yaml
+  - path: api/v2/replications
+    fields:
+      name: /api/v2/replications
+      describes:
+        - /api/v2/replications
+        - /api/v2/replications/{replicationID}
+        - /api/v2/replications/{replicationID}/validate
+      title: |-
+        /api/v2/replications
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - replications
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-replications.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-replications.yaml
+  - path: api/v2/resources
+    fields:
+      name: /api/v2/resources
+      describes:
+        - /api/v2/resources
+      title: |-
+        /api/v2/resources
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - resources
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-resources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-resources.yaml
+  - path: api/v2/restore
+    fields:
+      name: /api/v2/restore
+      describes:
+        - /api/v2/restore/bucket/{bucketID}
+        - /api/v2/restore/bucketMetadata
+        - /api/v2/restore/kv
+        - /api/v2/restore/shards/{shardID}
+        - /api/v2/restore/sql
+      title: |-
+        /api/v2/restore
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - restore
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-restore.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-restore.yaml
+  - path: api/v2/scrapers
+    fields:
+      name: /api/v2/scrapers
+      describes:
+        - /api/v2/scrapers
+        - /api/v2/scrapers/{scraperTargetID}
+        - /api/v2/scrapers/{scraperTargetID}/labels
+        - /api/v2/scrapers/{scraperTargetID}/labels/{labelID}
+        - /api/v2/scrapers/{scraperTargetID}/members
+        - /api/v2/scrapers/{scraperTargetID}/members/{userID}
+        - /api/v2/scrapers/{scraperTargetID}/owners
+        - /api/v2/scrapers/{scraperTargetID}/owners/{userID}
+      title: |-
+        /api/v2/scrapers
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - scrapers
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-scrapers.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-scrapers.yaml
+  - path: api/v2/setup
+    fields:
+      name: /api/v2/setup
+      describes:
+        - /api/v2/setup
+      title: |-
+        /api/v2/setup
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - setup
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-setup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-setup.yaml
+  - path: api/v2/signin
+    fields:
+      name: /api/v2/signin
+      describes:
+        - /api/v2/signin
+      title: |-
+        /api/v2/signin
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - signin
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-signin.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-signin.yaml
+  - path: api/v2/signout
+    fields:
+      name: /api/v2/signout
+      describes:
+        - /api/v2/signout
+      title: |-
+        /api/v2/signout
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - signout
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-signout.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-signout.yaml
+  - path: api/v2/sources
+    fields:
+      name: /api/v2/sources
+      describes:
+        - /api/v2/sources
+        - /api/v2/sources/{sourceID}
+        - /api/v2/sources/{sourceID}/buckets
+        - /api/v2/sources/{sourceID}/health
+      title: |-
+        /api/v2/sources
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - sources
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-sources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-sources.yaml
+  - path: api/v2/stacks
+    fields:
+      name: /api/v2/stacks
+      describes:
+        - /api/v2/stacks
+        - /api/v2/stacks/{stack_id}
+        - /api/v2/stacks/{stack_id}/uninstall
+      title: |-
+        /api/v2/stacks
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - stacks
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-stacks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-stacks.yaml
+  - path: api/v2/tasks
+    fields:
+      name: /api/v2/tasks
+      describes:
+        - /api/v2/tasks
+        - /api/v2/tasks/{taskID}
+        - /api/v2/tasks/{taskID}/labels
+        - /api/v2/tasks/{taskID}/labels/{labelID}
+        - /api/v2/tasks/{taskID}/logs
+        - /api/v2/tasks/{taskID}/members
+        - /api/v2/tasks/{taskID}/members/{userID}
+        - /api/v2/tasks/{taskID}/owners
+        - /api/v2/tasks/{taskID}/owners/{userID}
+        - /api/v2/tasks/{taskID}/runs
+        - /api/v2/tasks/{taskID}/runs/{runID}
+        - /api/v2/tasks/{taskID}/runs/{runID}/logs
+        - /api/v2/tasks/{taskID}/runs/{runID}/retry
+      title: |-
+        /api/v2/tasks
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - tasks
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-tasks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-tasks.yaml
+  - path: api/v2/telegraf
+    fields:
+      name: /api/v2/telegraf
+      describes:
+        - /api/v2/telegraf/plugins
+      title: |-
+        /api/v2/telegraf
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - telegraf
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-telegraf.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-telegraf.yaml
+  - path: api/v2/telegrafs
+    fields:
+      name: /api/v2/telegrafs
+      describes:
+        - /api/v2/telegrafs
+        - /api/v2/telegrafs/{telegrafID}
+        - /api/v2/telegrafs/{telegrafID}/labels
+        - /api/v2/telegrafs/{telegrafID}/labels/{labelID}
+        - /api/v2/telegrafs/{telegrafID}/members
+        - /api/v2/telegrafs/{telegrafID}/members/{userID}
+        - /api/v2/telegrafs/{telegrafID}/owners
+        - /api/v2/telegrafs/{telegrafID}/owners/{userID}
+      title: |-
+        /api/v2/telegrafs
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - telegrafs
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-telegrafs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-telegrafs.yaml
+  - path: api/v2/templates
+    fields:
+      name: /api/v2/templates
+      describes:
+        - /api/v2/templates/apply
+        - /api/v2/templates/export
+      title: |-
+        /api/v2/templates
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - templates
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-templates.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-templates.yaml
+  - path: api/v2/users
+    fields:
+      name: /api/v2/users
+      describes:
+        - /api/v2/users
+        - /api/v2/users/{userID}
+        - /api/v2/users/{userID}/password
+      title: |-
+        /api/v2/users
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - users
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-users.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-users.yaml
+  - path: api/v2/variables
+    fields:
+      name: /api/v2/variables
+      describes:
+        - /api/v2/variables
+        - /api/v2/variables/{variableID}
+        - /api/v2/variables/{variableID}/labels
+        - /api/v2/variables/{variableID}/labels/{labelID}
+      title: |-
+        /api/v2/variables
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - variables
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-variables.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-variables.yaml
+  - path: api/v2/write
+    fields:
+      name: /api/v2/write
+      describes:
+        - /api/v2/write
+      title: |-
+        /api/v2/write
+        InfluxDB OSS API Service
+      tags:
+        - api-v2
+        - write
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2-write.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2-write.yaml
+  - path: api/v2
+    fields:
+      name: /api/v2
+      describes:
+        - /api/v2
+      title: |-
+        /api/v2
+        InfluxDB OSS API Service
+      tags:
+        - api
+        - v2
+      source: static/openapi/influxdb-oss-v2/paths/ref-api-v2.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-api-v2.yaml
+  - path: debug/pprof/all
+    fields:
+      name: /debug/pprof/all
+      describes:
+        - /debug/pprof/all
+      title: |-
+        /debug/pprof/all
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - all
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-all.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-all.yaml
+  - path: debug/pprof/allocs
+    fields:
+      name: /debug/pprof/allocs
+      describes:
+        - /debug/pprof/allocs
+      title: |-
+        /debug/pprof/allocs
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - allocs
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-allocs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-allocs.yaml
+  - path: debug/pprof/block
+    fields:
+      name: /debug/pprof/block
+      describes:
+        - /debug/pprof/block
+      title: |-
+        /debug/pprof/block
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - block
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-block.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-block.yaml
+  - path: debug/pprof/cmdline
+    fields:
+      name: /debug/pprof/cmdline
+      describes:
+        - /debug/pprof/cmdline
+      title: |-
+        /debug/pprof/cmdline
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - cmdline
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-cmdline.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-cmdline.yaml
+  - path: debug/pprof/goroutine
+    fields:
+      name: /debug/pprof/goroutine
+      describes:
+        - /debug/pprof/goroutine
+      title: |-
+        /debug/pprof/goroutine
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - goroutine
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-goroutine.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-goroutine.yaml
+  - path: debug/pprof/heap
+    fields:
+      name: /debug/pprof/heap
+      describes:
+        - /debug/pprof/heap
+      title: |-
+        /debug/pprof/heap
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - heap
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-heap.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-heap.yaml
+  - path: debug/pprof/mutex
+    fields:
+      name: /debug/pprof/mutex
+      describes:
+        - /debug/pprof/mutex
+      title: |-
+        /debug/pprof/mutex
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - mutex
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-mutex.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-mutex.yaml
+  - path: debug/pprof/profile
+    fields:
+      name: /debug/pprof/profile
+      describes:
+        - /debug/pprof/profile
+      title: |-
+        /debug/pprof/profile
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - profile
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-profile.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-profile.yaml
+  - path: debug/pprof/threadcreate
+    fields:
+      name: /debug/pprof/threadcreate
+      describes:
+        - /debug/pprof/threadcreate
+      title: |-
+        /debug/pprof/threadcreate
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - threadcreate
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-threadcreate.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-threadcreate.yaml
+  - path: debug/pprof/trace
+    fields:
+      name: /debug/pprof/trace
+      describes:
+        - /debug/pprof/trace
+      title: |-
+        /debug/pprof/trace
+        InfluxDB OSS API Service
+      tags:
+        - debug-pprof
+        - trace
+      source: static/openapi/influxdb-oss-v2/paths/ref-debug-pprof-trace.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-debug-pprof-trace.yaml
+  - path: health
+    fields:
+      name: /health
+      describes:
+        - /health
+      title: |-
+        /health
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - health
+      source: static/openapi/influxdb-oss-v2/paths/ref-health.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-health.yaml
+  - path: legacy/authorizations
+    fields:
+      name: /legacy/authorizations
+      describes:
+        - /legacy/authorizations
+        - /legacy/authorizations/{authID}
+        - /legacy/authorizations/{authID}/password
+      title: |-
+        /legacy/authorizations
+        InfluxDB OSS API Service
+      tags:
+        - legacy
+        - authorizations
+      source: static/openapi/influxdb-oss-v2/paths/ref-legacy-authorizations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-legacy-authorizations.yaml
+  - path: metrics
+    fields:
+      name: /metrics
+      describes:
+        - /metrics
+      title: |-
+        /metrics
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - metrics
+      source: static/openapi/influxdb-oss-v2/paths/ref-metrics.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-metrics.yaml
+  - path: ping
+    fields:
+      name: /ping
+      describes:
+        - /ping
+      title: |-
+        /ping
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - ping
+      source: static/openapi/influxdb-oss-v2/paths/ref-ping.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-ping.yaml
+  - path: query
+    fields:
+      name: /query
+      describes:
+        - /query
+      title: |-
+        /query
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - query
+      source: static/openapi/influxdb-oss-v2/paths/ref-query.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-query.yaml
+  - path: ready
+    fields:
+      name: /ready
+      describes:
+        - /ready
+      title: |-
+        /ready
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - ready
+      source: static/openapi/influxdb-oss-v2/paths/ref-ready.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-ready.yaml
+  - path: write
+    fields:
+      name: /write
+      describes:
+        - /write
+      title: |-
+        /write
+        InfluxDB OSS API Service
+      tags:
+        - ''
+        - write
+      source: static/openapi/influxdb-oss-v2/paths/ref-write.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/paths/ref-write.yaml
