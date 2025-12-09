@@ -255,6 +255,38 @@
         }
       }
     }
+
+    // API operation items within Hugo menu
+    .api-operation {
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+    }
+
+    .api-method {
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      line-height: 1;
+
+      &--get { background: #61affe; color: white; }
+      &--post { background: #49cc90; color: white; }
+      &--put { background: #fca130; color: white; }
+      &--delete { background: #f93e3e; color: white; }
+      &--patch { background: #50e3c2; color: white; }
+    }
+
+    // Non-link group labels (for multi-tag groups)
+    .nav-group-label {
+      color: $nav-item;
+      font-weight: $medium;
+      display: inline-block;
+    }
   }
 }
 
