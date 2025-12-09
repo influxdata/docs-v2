@@ -53,7 +53,7 @@ $ ./influxctl query --perf-debug --format json --token REDACTED --database testd
 
 ### Dependency updates
 
-- Upgrade Go to 1.25.5.
+- Update Go to 1.25.5.
 - Update `github.com/containerd/containerd` from 1.7.27 to 1.7.29
 - Update `github.com/go-git/go-git/v5` from 5.16.3 to 5.16.4
 - Update `github.com/jedib0t/go-pretty/v6` from 6.6.8 to 6.7.5
