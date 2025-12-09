@@ -395,14 +395,15 @@ const productConfigs = {
   //   menuKey: 'influxdb_v2',
   // },
   // InfluxDB 3 products use tag-based generation for better UX
-  'influxdb3-core': {
+  // Keys use underscores to match Hugo data directory structure
+  influxdb3_core: {
     specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/v3/ref.yml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/core'),
     description: 'InfluxDB 3 Core',
     menuKey: 'influxdb3_core',
     useTagBasedGeneration: true,
   },
-  'influxdb3-enterprise': {
+  influxdb3_enterprise: {
     specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/v3/ref.yml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/enterprise'),
     description: 'InfluxDB 3 Enterprise',
@@ -464,7 +465,7 @@ function processProduct(productKey, config) {
   const staticPathsPath = path.join(staticPath, `influxdb-${productKey}/paths`);
   const articlesPath = path.join(
     DOCS_ROOT,
-    `data/article-data/influxdb/${productKey}`
+    `data/article_data/influxdb/${productKey}`
   );
   // Check if spec file exists
   if (!fs.existsSync(config.specFile)) {

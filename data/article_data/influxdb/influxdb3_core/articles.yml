@@ -80,8 +80,8 @@ articles:
 
         See the **Security Schemes** section below for details on each
         authentication method.
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-authentication.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-authentication.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-authentication.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-authentication.yaml
   - path: api/cache-data
     fields:
       name: Cache data
@@ -247,8 +247,8 @@ articles:
         Cache](/influxdb3/core/admin/distinct-value-cache/)
 
         - [Manage the Last Value Cache](/influxdb3/core/admin/last-value-cache/)
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-cache-data.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-cache-data.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-cache-data.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-cache-data.yaml
   - path: api/compatibility-endpoints
     fields:
       name: Compatibility endpoints
@@ -318,6 +318,10 @@ articles:
           tags:
             - Compatibility endpoints
             - Write data
+          compatVersion: v1
+          externalDocs:
+            description: Use compatibility APIs to write data
+            url: /influxdb3/core/write-data/http-api/compatibility-apis/
         - operationId: PostV2Write
           method: POST
           path: /api/v2/write
@@ -325,6 +329,10 @@ articles:
           tags:
             - Compatibility endpoints
             - Write data
+          compatVersion: v2
+          externalDocs:
+            description: Use compatibility APIs to write data
+            url: /influxdb3/core/write-data/http-api/compatibility-apis/
         - operationId: GetV1ExecuteQuery
           method: GET
           path: /query
@@ -332,6 +340,10 @@ articles:
           tags:
             - Query data
             - Compatibility endpoints
+          compatVersion: v1
+          externalDocs:
+            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
         - operationId: PostExecuteV1Query
           method: POST
           path: /query
@@ -339,13 +351,18 @@ articles:
           tags:
             - Query data
             - Compatibility endpoints
+          compatVersion: v1
+          externalDocs:
+            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
         - operationId: GetHealthV1
           method: GET
           path: /api/v1/health
-          summary: Health check (v1)
+          summary: Health check (v1-compatible)
           tags:
             - Server information
             - Compatibility endpoints
+          compatVersion: v1
       tagDescription: >
         InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and
         InfluxDB 2.x workloads and clients.
@@ -396,9 +413,9 @@ articles:
         Server information endpoints such as `/health` and `metrics` are
         compatible with InfluxDB 1.x and InfluxDB 2.x clients.
       source: >-
-        static/openapi/influxdb-influxdb3-core/tags/tags/ref-compatibility-endpoints.yaml
+        static/openapi/influxdb-influxdb3_core/tags/tags/ref-compatibility-endpoints.yaml
       staticFilePath: >-
-        /openapi/influxdb-influxdb3-core/tags/tags/ref-compatibility-endpoints.yaml
+        /openapi/influxdb-influxdb3_core/tags/tags/ref-compatibility-endpoints.yaml
   - path: api/database
     fields:
       name: Database
@@ -436,8 +453,8 @@ articles:
           tags:
             - Database
       tagDescription: Manage databases
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-database.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-database.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-database.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-database.yaml
   - path: api/headers-and-parameters
     fields:
       name: Headers and parameters
@@ -560,9 +577,9 @@ articles:
         | `Content-Type`           | string                | The format of the
         data in the request body. |
       source: >-
-        static/openapi/influxdb-influxdb3-core/tags/tags/ref-headers-and-parameters.yaml
+        static/openapi/influxdb-influxdb3_core/tags/tags/ref-headers-and-parameters.yaml
       staticFilePath: >-
-        /openapi/influxdb-influxdb3-core/tags/tags/ref-headers-and-parameters.yaml
+        /openapi/influxdb-influxdb3_core/tags/tags/ref-headers-and-parameters.yaml
   - path: api/processing-engine
     fields:
       name: Processing engine
@@ -685,8 +702,8 @@ articles:
         To get started with the processing engine, see the [Processing engine
         and Python plugins](/influxdb3/core/processing-engine/) guide.
       source: >-
-        static/openapi/influxdb-influxdb3-core/tags/tags/ref-processing-engine.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-processing-engine.yaml
+        static/openapi/influxdb-influxdb3_core/tags/tags/ref-processing-engine.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-processing-engine.yaml
   - path: api/query-data
     fields:
       name: Query data
@@ -731,6 +748,10 @@ articles:
           tags:
             - Query data
             - Compatibility endpoints
+          compatVersion: v1
+          externalDocs:
+            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
         - operationId: PostExecuteV1Query
           method: POST
           path: /query
@@ -738,9 +759,13 @@ articles:
           tags:
             - Query data
             - Compatibility endpoints
+          compatVersion: v1
+          externalDocs:
+            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
       tagDescription: Query data using SQL or InfluxQL
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-query-data.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-query-data.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-query-data.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-query-data.yaml
   - path: api/quick-start
     fields:
       name: Quick start
@@ -838,8 +863,8 @@ articles:
           
         For more information about using InfluxDB 3 Core, see the [Get
         started](/influxdb3/core/get-started/) guide.
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-quick-start.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-quick-start.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-quick-start.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-quick-start.yaml
   - path: api/server-information
     fields:
       name: Server information
@@ -863,10 +888,11 @@ articles:
         - operationId: GetHealthV1
           method: GET
           path: /api/v1/health
-          summary: Health check (v1)
+          summary: Health check (v1-compatible)
           tags:
             - Server information
             - Compatibility endpoints
+          compatVersion: v1
         - operationId: GetPing
           method: GET
           path: /ping
@@ -881,8 +907,8 @@ articles:
             - Server information
       tagDescription: Retrieve server metrics, status, and version information
       source: >-
-        static/openapi/influxdb-influxdb3-core/tags/tags/ref-server-information.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-server-information.yaml
+        static/openapi/influxdb-influxdb3_core/tags/tags/ref-server-information.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-server-information.yaml
   - path: api/table
     fields:
       name: Table
@@ -937,8 +963,8 @@ articles:
             - Cache data
             - Table
       tagDescription: Manage table schemas and data
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-table.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-table.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-table.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-table.yaml
   - path: api/token
     fields:
       name: Token
@@ -982,8 +1008,8 @@ articles:
             - Authentication
             - Token
       tagDescription: Manage tokens for authentication and authorization
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-token.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-token.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-token.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-token.yaml
   - path: api/write-data
     fields:
       name: Write data
@@ -1040,6 +1066,10 @@ articles:
           tags:
             - Compatibility endpoints
             - Write data
+          compatVersion: v1
+          externalDocs:
+            description: Use compatibility APIs to write data
+            url: /influxdb3/core/write-data/http-api/compatibility-apis/
         - operationId: PostV2Write
           method: POST
           path: /api/v2/write
@@ -1047,6 +1077,10 @@ articles:
           tags:
             - Compatibility endpoints
             - Write data
+          compatVersion: v2
+          externalDocs:
+            description: Use compatibility APIs to write data
+            url: /influxdb3/core/write-data/http-api/compatibility-apis/
         - operationId: PostWriteLP
           method: POST
           path: /api/v3/write_lp
@@ -1090,5 +1124,5 @@ articles:
 
 
         All timestamps are stored internally as nanoseconds.
-      source: static/openapi/influxdb-influxdb3-core/tags/tags/ref-write-data.yaml
-      staticFilePath: /openapi/influxdb-influxdb3-core/tags/tags/ref-write-data.yaml
+      source: static/openapi/influxdb-influxdb3_core/tags/tags/ref-write-data.yaml
+      staticFilePath: /openapi/influxdb-influxdb3_core/tags/tags/ref-write-data.yaml
