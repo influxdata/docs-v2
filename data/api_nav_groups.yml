@@ -1,6 +1,12 @@
 # API Navigation Groups
 # Defines sidebar navigation structure for API reference documentation
 # Tags are grouped by function/task for better UX
+#
+# Group fields:
+#   name: Display name in the navigation
+#   weight: Sort order (lower = higher)
+#   tags: List of tag names that belong to this group
+#   url: (optional) URL path suffix for the group page (relative to api/)
 
 groups:
   - name: Concepts
@@ -27,6 +33,7 @@ groups:
 
   - name: Administration
     weight: 5
+    url: administration
     tags:
       - Database
       - Table
