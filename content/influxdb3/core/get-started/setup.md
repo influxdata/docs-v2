@@ -15,7 +15,6 @@ related:
 source: /shared/influxdb3-get-started/setup.md
 ---
 
-<!-- 
-The content of this page is at
+<!--
 // SOURCE content/shared/influxdb3-get-started/setup.md
 -->
