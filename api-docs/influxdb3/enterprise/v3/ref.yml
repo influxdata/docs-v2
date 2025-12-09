@@ -230,17 +230,13 @@ paths:
     post:
       operationId: PostV1Write
       summary: Write line protocol (v1-compatible)
+      x-compatibility-version: v1
       description: |
         Writes line protocol to the specified database.
-
-        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
-
-        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
-        #### Related
-
-        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
+        Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
+      externalDocs:
+        description: Use compatibility APIs to write data
+        url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/compatibilityPrecisionParam'
@@ -353,17 +349,13 @@ paths:
     post:
       operationId: PostV2Write
       summary: Write line protocol (v2-compatible)
+      x-compatibility-version: v2
       description: |
         Writes line protocol to the specified database.
-
-        This endpoint provides backward compatibility for InfluxDB 2.x write workloads using tools such as InfluxDB 2.x client libraries, the Telegraf `outputs.influxdb_v2` output plugin, or third-party tools.
-
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
-        #### Related
-
-        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
+      externalDocs:
+        description: Use compatibility APIs to write data
+        url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
       parameters:
         - name: Content-Type
           in: header
@@ -736,15 +728,13 @@ paths:
     get:
       operationId: GetV1ExecuteQuery
       summary: Execute InfluxQL query (v1-compatible)
+      x-compatibility-version: v1
       description: |
         Executes an InfluxQL query to retrieve data from the specified database.
-
-        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
-        Use query parameters to specify the database and the InfluxQL query.
-
-        #### Related
-
-        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
+        Compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
+      externalDocs:
+        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+        url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
       parameters:
         - name: Accept
           in: header
@@ -869,12 +859,11 @@ paths:
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
-      description: |
-        Executes an InfluxQL query to retrieve data from the specified database.
-
-        #### Related
-
-        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
+      x-compatibility-version: v1
+      description: Executes an InfluxQL query to retrieve data from the specified database.
+      externalDocs:
+        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+        url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
       requestBody:
         content:
           application/json:
@@ -1000,7 +989,8 @@ paths:
   /api/v1/health:
     get:
       operationId: GetHealthV1
-      summary: Health check (v1)
+      summary: Health check (v1-compatible)
+      x-compatibility-version: v1
       description: Checks the status of the service.
       responses:
         '200':

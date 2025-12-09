@@ -191,6 +191,17 @@ function extractOperationsByTag(openapi) {
           summary: operation.summary || '',
           tags: operation.tags || [],
         };
+        // Extract compatibility version if present
+        if (operation['x-compatibility-version']) {
+          opMeta.compatVersion = operation['x-compatibility-version'];
+        }
+        // Extract externalDocs if present
+        if (operation.externalDocs) {
+          opMeta.externalDocs = {
+            description: operation.externalDocs.description || '',
+            url: operation.externalDocs.url,
+          };
+        }
         // Add operation to each of its tags
         (operation.tags || []).forEach((tag) => {
           if (!tagOperations.has(tag)) {
@@ -578,6 +589,8 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
         path: op.path,
         summary: op.summary,
         tags: op.tags,
+        ...(op.compatVersion && { compatVersion: op.compatVersion }),
+        ...(op.externalDocs && { externalDocs: op.externalDocs }),
       })),
     },
   };
@@ -630,13 +643,25 @@ function writeOpenapiTagArticleData(sourcePath, targetPath, openapi, opts) {
           HTTP_METHODS.forEach((method) => {
             const operation = pathItem[method];
             if (operation) {
-              operations.push({
+              const opMeta = {
                 operationId: operation.operationId || `${method}-${pathKey}`,
                 method: method.toUpperCase(),
                 path: pathKey,
                 summary: operation.summary || '',
                 tags: operation.tags || [],
-              });
+              };
+              // Extract compatibility version if present
+              if (operation['x-compatibility-version']) {
+                opMeta.compatVersion = operation['x-compatibility-version'];
+              }
+              // Extract externalDocs if present
+              if (operation.externalDocs) {
+                opMeta.externalDocs = {
+                  description: operation.externalDocs.description || '',
+                  url: operation.externalDocs.url,
+                };
+              }
+              operations.push(opMeta);
             }
           });
         });
