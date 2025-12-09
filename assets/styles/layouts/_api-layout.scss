@@ -212,6 +212,21 @@
 ////////////////////////// API Navigation in Sidebar ///////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+// API navigation wrapper - controls visibility
+// Hidden by default, revealed via JS (localStorage) or on API pages
+.api-nav-wrapper {
+  display: none; // Hidden by default
+
+  &.is-revealed {
+    display: block; // Revealed via JS
+  }
+
+  // Always show on API pages (server-rendered with .api-reference class)
+  .api-reference & {
+    display: block;
+  }
+}
+
 // API navigation section added to the existing Hugo sidebar
 .api-nav {
   margin-top: 2rem;
@@ -245,14 +260,19 @@
       border: none;
       width: 100%;
       text-align: left;
-      font-size: inherit;
+      font-size: 1.2rem; // Match sidebar .nav-category > a (19.2px)
       font-family: inherit;
+      text-decoration: none; // For anchor version
 
       &:hover {
         color: $nav-category-hover;
       }
 
-      // Collapse/expand indicator
+      &.is-active {
+        color: $nav-active;
+      }
+
+      // Collapse/expand indicator (for button headers)
       &::before {
         content: "";
         display: inline-block;
@@ -263,11 +283,18 @@
         border-top: 4px solid transparent;
         border-bottom: 4px solid transparent;
         transition: transform 0.2s;
+        flex-shrink: 0;
       }
 
       &.is-open::before {
         transform: rotate(90deg);
       }
+    }
+
+    // For anchor headers, keep the ::before arrow (same as button)
+    // No special handling needed - anchor headers look the same as button headers
+    a#{&}-header {
+      // Same styling as button, arrow works via ::before
     }
 
     &-items {
@@ -328,23 +355,43 @@
       &.delete { background-color: $r-curacao; color: #fff; }
     }
 
-    // Operation items with method badges and paths
-    &.api-nav-operation {
-      a {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 1rem; // Match sidebar nav-item font size (18px base)
+    // Tag items that link to tag pages
+    &.api-nav-tag {
+      > a {
+        font-weight: $medium;
       }
 
+      // Nested operations list under tag
+      .api-nav-operations {
+        list-style: none;
+        margin: 0.25rem 0 0.5rem;
+        padding-left: 0.75rem;
+
+        .api-nav-operation {
+          margin: 0.15rem 0;
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
+          }
+        }
+      }
+    }
+
+    // Operation items with method badges
+    &.api-nav-operation,
+    .api-nav-operation {
       .api-method {
         display: inline-block;
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         font-weight: $bold;
         text-transform: uppercase;
-        padding: 0.15rem 0.3rem;
+        padding: 0.1rem 0.25rem;
         border-radius: 3px;
-        min-width: 2.2rem;
+        min-width: 2rem;
         text-align: center;
         flex-shrink: 0;
 
@@ -357,7 +404,7 @@
 
       .api-path {
         font-family: $code;
-        font-size: 0.9rem; // Slightly smaller than link text for hierarchy
+        font-size: 0.85rem;
         word-break: break-all;
         color: inherit;
       }
