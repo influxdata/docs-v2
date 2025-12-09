@@ -76,6 +76,7 @@ influxctl query [flags] <QUERY>
 |      | `--enable-system-tables` | Enable ability to query system tables                                  |
 |      | `--format`               | Output format (`table` _(default)_ or `json`)                          |
 |      | `--language`             | Query language (`sql` _(default)_ or `influxql`)                       |
+|      | `--perf-debug`           | Output performance statistics and gRPC response trailers instead of query results |
 |      | `--time-format`          | Time format for table output (`rfc3339nano` _(default)_ or `unixnano`) |
 |      | `--token`                | Database token with read permissions on the queried database           |
 | `-h` | `--help`                 | Output command help                                                    |
@@ -92,6 +93,7 @@ _Also see [`influxctl` global flags](/influxdb3/cloud-dedicated/reference/cli/in
 - [Query InfluxDB 3 and return results in JSON format](#query-influxdb-3-and-return-results-in-json-format)
 - [Query InfluxDB 3 and return results with Unix nanosecond timestamps](#query-influxdb-3-and-return-results-with-unix-nanosecond-timestamps)
 - [Query InfluxDB 3 using credentials from the connection profile](#query-influxdb-3-using-credentials-from-the-connection-profile)
+- [Output query performance statistics](#output-query-performance-statistics)
 - [Query data from InfluxDB 3 system tables](#query-data-from-influxdb-3-system-tables)
 
 In the examples below, replace the following:
@@ -407,6 +409,93 @@ influxctl query "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z'"
 ```
 {{% /influxdb/custom-timestamps %}}
 
+### Output query performance statistics
+
+Use the `--perf-debug` flag to output performance statistics and gRPC response
+trailers instead of query results.
+This is useful for debugging query performance and understanding query execution.
+
+{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Table format](#)
+[JSON format](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --perf-debug \
+  --format table \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT SUM(temp) FROM home WHERE time > now() - 1h GROUP BY time(5m)"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influxctl query \
+  --perf-debug \
+  --format json \
+  --token DATABASE_TOKEN \
+  --database DATABASE_NAME \
+  --language influxql \
+  "SELECT SUM(temp) FROM home WHERE time > now() - 1h GROUP BY time(5m)"
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /code-placeholders %}}
+
+{{< expand-wrapper >}}
+{{% expand "View example table-formatted performance statistics" %}}
+```
++--------------------------+----------+
+| Metric                   | Value    |
++--------------------------+----------+
+| Client Duration          | 1.222 s  |
+| Output Rows              | 20       |
+| Output Size              | 647 B    |
++--------------------------+----------+
+| Compute Duration         | 37.2 ms  |
+| Execution Duration       | 243.8 ms |
+| Ingester Latency Data    | 0        |
+| Ingester Latency Plan    | 0        |
+| Ingester Partition Count | 0        |
+| Ingester Response        | 0 B      |
+| Ingester Response Rows   | 0        |
+| Max Memory               | 70 KiB   |
+| Parquet Files            | 1        |
+| Partitions               | 1        |
+| Planning Duration        | 9.6 ms   |
+| Queue Duration           | 286.6 µs |
++--------------------------+----------+
+```
+{{% /expand %}}
+{{% expand "View example JSON-formatted performance statistics" %}}
+```json
+{
+  "client_duration_secs": 1.101,
+  "compute_duration_secs": 0.037,
+  "execution_duration_secs": 0.247,
+  "ingester_latency_data": 0,
+  "ingester_latency_plan": 0,
+  "ingester_partition_count": 0,
+  "ingester_response_bytes": 0,
+  "ingester_response_rows": 0,
+  "max_memory_bytes": 71744,
+  "output_bytes": 647,
+  "output_rows": 20,
+  "parquet_files": 1,
+  "partitions": 1,
+  "planning_duration_secs": 0.009,
+  "queue_duration_secs": 0
+}
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### Query data from InfluxDB 3 system tables
 
 > [!Note]
@@ -459,6 +548,11 @@ cat ./query.sql | influxctl query \
 {{% /code-placeholders %}}
 
 {{% expand "View command updates" %}}
+
+#### v2.12.0 {date="2025-12-09"}
+
+- Add `--perf-debug` flag to output performance statistics and gRPC response
+  trailers instead of query results.
 
 #### v2.9.0 {date="2024-05-06"}
 
