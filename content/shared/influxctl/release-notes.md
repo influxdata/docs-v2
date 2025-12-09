@@ -3,7 +3,7 @@
 ### Features
 
 - Add 'influxdata-archive-keyring' as a suggested package to simplify future repository key rotations for the end user
-- Add a new `--perf-debug` flag to the `query` command that outputs performance statistics and gRPC response trailers instead of query results
+- Add a new `--perf-debug` flag to the [`query` command](/influxdb3/version/reference/cli/influxctl/query/) that outputs performance statistics and gRPC response trailers instead of query results
 
 ### Dependency updates
 
