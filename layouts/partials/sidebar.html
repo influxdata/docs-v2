@@ -74,12 +74,12 @@
   {{ $platformMenu := .Site.Menus.platform }}
 
   <!-- Product Main Navigation -->
-  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu) . }}
+  {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $mainMenu "siteData" .Site.Data) }}
 
   <!-- Product Reference Navigation -->
   {{ if gt (len $refMenu) 0 }}
     <h4 class="reference">Reference</h4>
-    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu) . }}
+    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $refMenu "siteData" .Site.Data) }}
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
@@ -97,7 +97,7 @@
   {{ $platformWhitelist := (slice "telegraf_v1" "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
   {{ if (in $platformWhitelist $menuKey) }}
     <h4 class="platform">InfluxData Platform</h4>
-    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu) . }}
+    {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu "siteData" .Site.Data) }}
   {{ end }}
 
   <!-- Additional resources for all docs -->
@@ -110,9 +110,4 @@
   {{ end }}
 
   </ul>
-
-  {{/* API Reference Navigation - shown only for API pages */}}
-  {{ if eq .Type "api" }}
-    {{ partial "api/sidebar-nav.html" . }}
-  {{ end }}
 </aside>
