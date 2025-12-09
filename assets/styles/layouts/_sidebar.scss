@@ -281,6 +281,23 @@
       &--patch { background: #50e3c2; color: white; }
     }
 
+    // Compatibility version badge (v1 or v2)
+    .api-compat-badge {
+      font-size: 0.55rem;
+      font-weight: 600;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-left: auto;
+      opacity: 0.8;
+      cursor: help;
+
+      &--v1 { background: #8b5cf6; color: white; } // Purple for v1
+      &--v2 { background: #06b6d4; color: white; } // Cyan for v2
+    }
+
     // Non-link group labels (for multi-tag groups)
     .nav-group-label {
       color: $nav-item;

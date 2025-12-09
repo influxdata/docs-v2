@@ -141,7 +141,13 @@
             <li class="nav-item api-operation">
               <a href="{{ $fullUrl | safeURL }}">
                 <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
-                {{ with .summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+                {{- $summary := .summary -}}
+                {{- with .compatVersion -}}
+                  {{- /* Strip redundant compatibility text when badge is shown */ -}}
+                  {{- $summary = replaceRE `\s*\(v[12]-compatible\)` "" $summary -}}
+                {{- end -}}
+                {{ with $summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+                {{ with .compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}" title="InfluxDB {{ . }}-compatible endpoint">{{ . }}</span>{{ end }}
               </a>
             </li>
             {{ end }}
@@ -199,7 +205,13 @@
                 <li class="nav-item api-operation">
                   <a href="{{ $fullUrl | safeURL }}">
                     <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
-                    {{ with .summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+                    {{- $summary := .summary -}}
+                    {{- with .compatVersion -}}
+                      {{- /* Strip redundant compatibility text when badge is shown */ -}}
+                      {{- $summary = replaceRE `\s*\(v[12]-compatible\)` "" $summary -}}
+                    {{- end -}}
+                    {{ with $summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+                    {{ with .compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}" title="InfluxDB {{ . }}-compatible endpoint">{{ . }}</span>{{ end }}
                   </a>
                 </li>
                 {{ end }}

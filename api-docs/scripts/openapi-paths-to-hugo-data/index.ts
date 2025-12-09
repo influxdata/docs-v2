@@ -38,6 +38,9 @@ interface Operation {
   parameters?: Parameter[];
   requestBody?: RequestBody;
   responses?: Record<string, Response>;
+  externalDocs?: ExternalDocs;
+  /** Compatibility version for migration context (v1 or v2) */
+  'x-compatibility-version'?: string;
   [key: string]: unknown;
 }
 
@@ -225,6 +228,13 @@ interface OperationMeta {
   path: string;
   summary: string;
   tags: string[];
+  /** Compatibility version (v1 or v2) for migration context */
+  compatVersion?: string;
+  /** External documentation link */
+  externalDocs?: {
+    description: string;
+    url: string;
+  };
 }
 
 /**
@@ -431,6 +441,19 @@ function extractOperationsByTag(
           summary: operation.summary || '',
           tags: operation.tags || [],
         };
+
+        // Extract compatibility version if present
+        if (operation['x-compatibility-version']) {
+          opMeta.compatVersion = operation['x-compatibility-version'];
+        }
+
+        // Extract externalDocs if present
+        if (operation.externalDocs) {
+          opMeta.externalDocs = {
+            description: operation.externalDocs.description || '',
+            url: operation.externalDocs.url,
+          };
+        }
 
         // Add operation to each of its tags
         (operation.tags || []).forEach((tag) => {
@@ -888,6 +911,8 @@ function createArticleDataForTag(
         path: op.path,
         summary: op.summary,
         tags: op.tags,
+        ...(op.compatVersion && { compatVersion: op.compatVersion }),
+        ...(op.externalDocs && { externalDocs: op.externalDocs }),
       })),
     },
   };
@@ -952,13 +977,28 @@ function writeOpenapiTagArticleData(
           HTTP_METHODS.forEach((method) => {
             const operation = pathItem[method] as Operation | undefined;
             if (operation) {
-              operations.push({
+              const opMeta: OperationMeta = {
                 operationId: operation.operationId || `${method}-${pathKey}`,
                 method: method.toUpperCase(),
                 path: pathKey,
                 summary: operation.summary || '',
                 tags: operation.tags || [],
-              });
+              };
+
+              // Extract compatibility version if present
+              if (operation['x-compatibility-version']) {
+                opMeta.compatVersion = operation['x-compatibility-version'];
+              }
+
+              // Extract externalDocs if present
+              if (operation.externalDocs) {
+                opMeta.externalDocs = {
+                  description: operation.externalDocs.description || '',
+                  url: operation.externalDocs.url,
+                };
+              }
+
+              operations.push(opMeta);
             }
           });
         });
