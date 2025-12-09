@@ -22,6 +22,10 @@ package-lock.json
 /content/influxdb3/*/reference/api/**
 /static/openapi
 
+# Exception: hand-crafted API conceptual pages (not generated)
+!/content/influxdb3/*/api/administration/
+!/content/influxdb3/*/api/administration/_index.md
+
 /helper-scripts/output/*
 /telegraf-build
 !telegraf-build/templates
