@@ -413,15 +413,13 @@ Use the `--perf-debug` flag to output performance statistics and gRPC response
 trailers instead of query results.
 This is useful for debugging query performance and understanding query execution.
 
-{{% code-placeholders "DATABASE_(TOKEN|NAME)" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Table format](#)
 [JSON format](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```sh
+```sh { placeholders="DATABASE_TOKEN|DATABASE_NAME" }
 influxctl query \
   --perf-debug \
   --format table \
@@ -432,7 +430,7 @@ influxctl query \
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```sh
+```sh { placeholders="DATABASE_TOKEN|DATABASE_NAME" }
 influxctl query \
   --perf-debug \
   --format json \
@@ -443,8 +441,6 @@ influxctl query \
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-placeholders %}}
 
 {{< expand-wrapper >}}
 {{% expand "View example table-formatted performance statistics" %}}
