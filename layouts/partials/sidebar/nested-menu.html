@@ -1,22 +1,39 @@
 {{ $page := .page }}
 {{ $menu := .menu }}
+{{ $siteData := .siteData }}
 
 {{ define "recursiveMenu" }}
   {{ $menuContext := .menu }}
   {{ $currentPage := .currentPage }}
+  {{ $site := .site }}
+  {{ $siteData := .siteData }}
   {{ $depth := add .depth 1 }}
   {{ $navClass := cond (gt $depth 1) "item" "category" }}
   {{ range $menuContext }}
+    {{/* Check if this is the InfluxDB HTTP API menu item for InfluxDB 3 products */}}
+    {{ $isApiParent := and (eq .Name "InfluxDB HTTP API") (or (hasPrefix .URL "/influxdb3/") (hasPrefix .URL "/influxdb/")) }}
+
     <li class="nav-{{ $navClass }} {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
-      {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
-      <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
-      {{ if .HasChildren }}
-        <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
-        {{ template "recursiveMenu" (dict "menu" .Children "currentPage" $currentPage "depth" $depth) }}
+      {{ if $isApiParent }}
+        {{/* API Reference: render custom API nav children instead of standard menu children */}}
+        {{ $hasApiContent := or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) (hasPrefix $currentPage.RelPermalink .URL) }}
+        <a href="#" class="children-toggle {{ if $hasApiContent }}open{{end}}"></a>
+        <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
+        <ul class="children {{ if $hasApiContent }}open{{end}}">
+          {{ partial "sidebar/api-menu-items" (dict "page" $currentPage "url" .URL "siteData" $siteData) }}
         </ul>
+      {{ else }}
+        {{/* Standard menu rendering */}}
+        {{ if .HasChildren }}<a href="#" class="children-toggle {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}"></a>{{ end }}
+        <a href='{{ default .URL .Params.url }}'>{{ .Name }}</a>
+        {{ if .HasChildren }}
+          <ul class="children {{ if or ($currentPage.IsMenuCurrent .Menu .) ($currentPage.HasMenuCurrent .Menu .) }}open{{end}}">
+          {{ template "recursiveMenu" (dict "menu" .Children "currentPage" $currentPage "site" $site "siteData" $siteData "depth" $depth) }}
+          </ul>
+        {{ end }}
       {{ end }}
     </li>
   {{ end }}
 {{ end }}
 
-{{ template "recursiveMenu" (dict "menu" .menu "currentPage" .page "depth" 0) }}
+{{ template "recursiveMenu" (dict "menu" .menu "currentPage" .page "site" $page.Site "siteData" $siteData "depth" 0) }}

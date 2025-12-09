@@ -1,0 +1,216 @@
+{{/*
+  API Reference Menu Items for Hugo Navigation
+
+  Generates <li class="nav-item"> elements matching Hugo's menu structure.
+  Used by nested-menu.html when rendering "InfluxDB HTTP API" menu item.
+
+  Parameters:
+  - page: Current page context
+  - url: URL of the API parent page (e.g., /influxdb3/core/api/)
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+  - data/api_nav_groups.yml
+*/}}
+
+{{ $currentPage := .page }}
+{{ $apiUrl := .url }}
+
+{{/* Extract product and version from API URL */}}
+{{ $productPathData := findRE "[^/]+.*?" $apiUrl }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{ $dataKey = print "influxdb3_" $version }}
+{{ else if eq $product "influxdb" }}
+  {{ $dataKey = print $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $siteData := .siteData }}
+{{ $articles := slice }}
+{{/* Data path: data/article_data/influxdb/{dataKey}/articles.yml -> siteData.article_data.influxdb.{dataKey}.articles.articles */}}
+{{ with $siteData.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Get navigation groups configuration */}}
+{{ $navGroups := $siteData.api_nav_groups.groups }}
+
+{{/* Check if articles use tag-based structure */}}
+{{ $isTagBased := false }}
+{{ if gt (len $articles) 0 }}
+  {{ $firstArticle := index $articles 0 }}
+  {{ if reflect.IsMap $firstArticle }}
+    {{ with index $firstArticle "fields" }}
+      {{ if reflect.IsMap . }}
+        {{ if isset . "tag" }}
+          {{ $isTagBased = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if and (gt (len $articles) 0) $navGroups $isTagBased }}
+  {{/* Build a map of tag slug -> article for quick lookup */}}
+  {{ $articlesByTag := dict }}
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if and (reflect.IsMap $fields) (isset $fields "tag") }}
+        {{ $tag := index $fields "tag" }}
+        {{ $articlesByTag = merge $articlesByTag (dict $tag .) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Render navigation groups */}}
+  {{ range $groupIdx, $group := $navGroups }}
+    {{ $groupTags := $group.tags }}
+    {{ $groupHasArticles := false }}
+
+    {{/* Check if any tags in this group have articles */}}
+    {{ range $groupTags }}
+      {{ if index $articlesByTag . }}
+        {{ $groupHasArticles = true }}
+      {{ end }}
+    {{ end }}
+
+    {{ if $groupHasArticles }}
+      {{/* Count actual articles in this group */}}
+      {{ $articlesInGroup := slice }}
+      {{ range $groupTags }}
+        {{ $article := index $articlesByTag . }}
+        {{ if $article }}
+          {{ $articlesInGroup = $articlesInGroup | append $article }}
+        {{ end }}
+      {{ end }}
+      {{ $isSingleTag := eq (len $articlesInGroup) 1 }}
+
+      {{/* Check if this group should be open (contains active page) */}}
+      {{ $groupIsOpen := false }}
+      {{ range $articlesInGroup }}
+        {{ $path := index . "path" }}
+        {{ $pageUrl := print "/" $product "/" $version "/" $path "/" }}
+        {{ if eq $currentPage.RelPermalink $pageUrl }}
+          {{ $groupIsOpen = true }}
+        {{ end }}
+      {{ end }}
+
+      {{ if $isSingleTag }}
+        {{/* Single tag group: direct link to tag page with operations as children */}}
+        {{ $article := index $articlesInGroup 0 }}
+        {{ $path := index $article "path" }}
+        {{ $fields := index $article "fields" }}
+        {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+        {{ $isActive := eq $currentPage.RelPermalink (print "/" $product "/" $version "/" $path "/") }}
+        {{ $operations := slice }}
+        {{ if and (reflect.IsMap $fields) (isset $fields "operations") }}
+          {{ $operations = index $fields "operations" }}
+        {{ end }}
+        {{ $hasOperations := gt (len $operations) 0 }}
+
+        <li class="nav-item{{ if $isActive }} active{{ end }}">
+          {{ if $hasOperations }}<a href="#" class="children-toggle{{ if or $isActive $groupIsOpen }} open{{ end }}"></a>{{ end }}
+          <a href="{{ $tagPageUrl }}">{{ $group.name }}</a>
+          {{ if $hasOperations }}
+          <ul class="children{{ if or $isActive $groupIsOpen }} open{{ end }}">
+            {{ range $operations }}
+              {{ $apiPath := .path }}
+              {{ $trimmedPath := strings.TrimPrefix "/" $apiPath }}
+              {{ $contentPath := $trimmedPath }}
+              {{ if not (hasPrefix $trimmedPath "api/") }}
+                {{ $contentPath = printf "api/%s" $trimmedPath }}
+              {{ end }}
+              {{ $fragment := printf "#operation/%s" .operationId }}
+              {{ $fullUrl := printf "%s%s" (print "/" $product "/" $version "/" $contentPath "/" | relURL) $fragment }}
+            <li class="nav-item api-operation">
+              <a href="{{ $fullUrl | safeURL }}">
+                <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+                {{ with .summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </li>
+
+      {{ else }}
+        {{/* Multi-tag group: group label (or link if url defined) with tag pages as children */}}
+        {{ $groupUrl := "" }}
+        {{ $groupIsActive := false }}
+        {{ with $group.url }}
+          {{ $groupUrl = print "/" $product "/" $version "/api/" . "/" | relURL }}
+          {{ $groupIsActive = eq $currentPage.RelPermalink (print "/" $product "/" $version "/api/" . "/") }}
+        {{ end }}
+        <li class="nav-item{{ if $groupIsActive }} active{{ end }}">
+          <a href="#" class="children-toggle{{ if or $groupIsOpen $groupIsActive }} open{{ end }}"></a>
+          {{ if $groupUrl }}
+          <a href="{{ $groupUrl }}">{{ $group.name }}</a>
+          {{ else }}
+          <span class="nav-group-label">{{ $group.name }}</span>
+          {{ end }}
+          <ul class="children{{ if or $groupIsOpen $groupIsActive }} open{{ end }}">
+            {{ range $tagIdx, $tagName := $groupTags }}
+              {{ $article := index $articlesByTag $tagName }}
+              {{ if $article }}
+                {{ $path := index $article "path" }}
+                {{ $fields := index $article "fields" }}
+                {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+                {{ $isActive := eq $currentPage.RelPermalink (print "/" $product "/" $version "/" $path "/") }}
+                {{ $operations := slice }}
+                {{ if and (reflect.IsMap $fields) (isset $fields "operations") }}
+                  {{ $operations = index $fields "operations" }}
+                {{ end }}
+                {{ $menuName := $tagName }}
+                {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
+                  {{ $menuName = index $fields "menuName" }}
+                {{ end }}
+                {{ $hasOperations := gt (len $operations) 0 }}
+
+            <li class="nav-item{{ if $isActive }} active{{ end }}">
+              {{ if $hasOperations }}<a href="#" class="children-toggle{{ if $isActive }} open{{ end }}"></a>{{ end }}
+              <a href="{{ $tagPageUrl }}">{{ $menuName }}</a>
+              {{ if $hasOperations }}
+              <ul class="children{{ if $isActive }} open{{ end }}">
+                {{ range $operations }}
+                  {{ $apiPath := .path }}
+                  {{ $trimmedPath := strings.TrimPrefix "/" $apiPath }}
+                  {{ $contentPath := $trimmedPath }}
+                  {{ if not (hasPrefix $trimmedPath "api/") }}
+                    {{ $contentPath = printf "api/%s" $trimmedPath }}
+                  {{ end }}
+                  {{ $fragment := printf "#operation/%s" .operationId }}
+                  {{ $fullUrl := printf "%s%s" (print "/" $product "/" $version "/" $contentPath "/" | relURL) $fragment }}
+                <li class="nav-item api-operation">
+                  <a href="{{ $fullUrl | safeURL }}">
+                    <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+                    {{ with .summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+                  </a>
+                </li>
+                {{ end }}
+              </ul>
+              {{ end }}
+            </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        </li>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
