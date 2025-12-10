@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/opentelemetry/README.md, OpenTelemetry Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/opentelemetry/README.md, OpenTelemetry Plugin Source
 ---
 
 # OpenTelemetry Input Plugin
@@ -24,7 +24,7 @@ This service plugin receives traces, metrics, logs and profiles from
 > Telegraf v1.36 supports the Profiles signal using the v1 development API
 > before v0.1.0.
 > Telegraf v1.37+ supports the Profiles signal using the v1 development API
-> v0.1.0.
+> v0.2.0.
 
 **Introduced in:** Telegraf v1.19.0
 **Tags:** logging, messaging
@@ -45,10 +45,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

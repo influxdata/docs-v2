@@ -10,7 +10,7 @@ introduced: "v0.1.6"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/system/README.md, System Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/system/README.md, System Plugin Source
 ---
 
 # System Input Plugin
@@ -24,10 +24,9 @@ number of users logged in. It is similar to the unix `uptime` command.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -59,13 +58,14 @@ same requirements for `n_users` apply.
     - n_users (integer)
     - n_unique_users (integer)
     - n_cpus (integer)
+    - n_physical_cpus (integer)
     - uptime (integer, seconds)
     - uptime_format (string, deprecated in 1.10, use `uptime` field)
 
 ## Example Output
 
 ```text
-system,host=tyrion load1=3.72,load5=2.4,load15=2.1,n_users=3i,n_cpus=4i 1483964144000000000
+system,host=tyrion load1=3.72,load5=2.4,load15=2.1,n_users=3i,n_cpus=4i,n_physical_cpus=2i 1483964144000000000
 system,host=tyrion uptime=1249632i 1483964144000000000
 system,host=tyrion uptime_format="14 days, 11:07" 1483964144000000000
 ```

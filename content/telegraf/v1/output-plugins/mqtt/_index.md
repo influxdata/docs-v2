@@ -10,7 +10,7 @@ introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/mqtt/README.md, MQTT Producer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/mqtt/README.md, MQTT Producer Plugin Source
 ---
 
 # MQTT Producer Output Plugin
@@ -33,10 +33,9 @@ The plugin supports the MQTT protocols `3.1.1` and `5`.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -113,20 +112,9 @@ to use them.
   ## Use TLS but skip chain & host verification
   # insecure_skip_verify = false
 
-  ## When true, metrics will be sent in one MQTT message per flush. Otherwise,
-  ## metrics are written one metric per MQTT message.
-  ## DEPRECATED: Use layout option instead
-  # batch = false
-
   ## When true, metric will have RETAIN flag set, making broker cache entries until someone
   ## actually reads it
   # retain = false
-
-  ## Client trace messages
-  ## When set to true, and debug mode enabled in the agent settings, the MQTT
-  ## client's messages are included in telegraf logs. These messages are very
-  ## noisey, but essential for debugging issues.
-  # client_trace = false
 
   ## Layout of the topics published.
   ## The following choices are available:
@@ -337,7 +325,7 @@ telegraf/modbus/device-2/supplied/$datatype       boolean
 It is important to notice that the __"devices" and "nodes" are dynamically
 changing__ in Telegraf as the metrics and their structure is not known a-priori.
 As a consequence, the content of both `$nodes` and `$properties` topics are
-changing as new `device-id`s, `node-id`s and `properties` (i.e. tags and fields)
+changing as new `device-id`s, `node-id`s, and `properties` (tags and fields)
 appear. Best effort is made to limit the number of changes by keeping a
 superset of all devices and nodes seen, however especially during startup those
 topics will change more often. Both `topic` and `homie_node_id` should be chosen

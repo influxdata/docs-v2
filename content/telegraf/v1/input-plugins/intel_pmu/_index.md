@@ -10,7 +10,7 @@ introduced: "v1.21.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/intel_pmu/README.md, Intel Performance Monitoring Unit Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/intel_pmu/README.md, Intel Performance Monitoring Unit Plugin Source
 ---
 
 # Intel Performance Monitoring Unit Plugin
@@ -44,7 +44,7 @@ Linux kernel's perf interface.
 
 Event definition JSON files for specific architectures can be found at the
 [Github repository](https://github.com/intel/perfmon). Download the event definitions appropriate for your
-system--for example, using the [`event_download.py` PMU tool](https://github.com/andikleen/pmu-tools) and keep them
+system e.g. using the [`event_download.py` PMU tool](https://github.com/andikleen/pmu-tools) and keep them
 in a safe place on your system.
 
 [iaevents_lib]: https://github.com/intel/iaevents
@@ -53,10 +53,9 @@ in a safe place on your system.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

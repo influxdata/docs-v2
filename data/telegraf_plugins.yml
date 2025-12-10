@@ -52,8 +52,9 @@ input:
       GPUs.
 
       > [!IMPORTANT]
-      > The [`rocm-smi` binary]() is required and needs to be installed on the
-      > system.
+      > The [`rocm-smi`
+      > binary](https://github.com/RadeonOpenCompute/rocm_smi_lib/tree/master/python_smi_tools)
+      > is required and needs to be installed on the system.
     introduced: v1.20.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
@@ -79,7 +80,8 @@ input:
     id: apache
     description: |
       This plugin collects performance information from [Apache HTTP
-      Servers](https://httpd.apache.org) using the [`mod_status` module]().
+      Servers](https://httpd.apache.org) using the [`mod_status`
+      module](https://httpd.apache.org/docs/current/mod/mod_status.html).
       Typically, this module is configured to expose a page at the
       `/server-status?auto` endpoint the server.
 
@@ -881,8 +883,10 @@ input:
 
       > [!NOTE]
       > If you would like Telegraf to act as a proxy/relay for InfluxDB v1 or
-      > InfluxDB v2 it is recommended to use the [influxdb__listener]() or
-      > [influxdb_v2_listener]() plugin instead.
+      > InfluxDB v2 it is recommended to use the
+      > [influxdb__listener](/telegraf/v1/plugins/#input-influxdb_listener) or
+      > [influxdb_v2_listener](/telegraf/v1/plugins/#input-influxdb_v2_listener)
+      > plugin instead.
     introduced: v1.9.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server]
@@ -965,7 +969,8 @@ input:
       > [!NOTE]
       > This plugin was previously known as `http_listener`. If you wish to send
       > general metrics via HTTP it is recommended to use the
-      > [`http_listener_v2`]() instead.
+      > [`http_listener_v2`](/telegraf/v1/plugins/#input-http_listener_v2)
+      > instead.
 
       The `/write` endpoint supports the `precision` query parameter and can be
       set to one of `ns`, `u`, `ms`, `s`, `m`, `h`. All other parameters are
@@ -1119,7 +1124,8 @@ input:
     description: |
       This plugin gathers metrics from the [Intelligent Platform Management
       Interface](https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/ipmi-intelligent-platform-mgt-interface-spec-2nd-gen-v2-0-spec-update.pdf)
-      using the [`ipmitool`]() command line utility.
+      using the [`ipmitool`](https://github.com/ipmitool/ipmitool) command line
+      utility.
 
       > [!IMPORTANT]
       > The `ipmitool` requires access to the IPMI device. Please check the
@@ -1280,7 +1286,7 @@ input:
       This service plugin listens for messages on the [KNX home-automation
       bus](https://www.knx.org) by connecting via a KNX-IP interface.
       Information about supported KNX datapoint-types can be found at the
-      underlying [`knx-go` project]().
+      underlying [`knx-go` project](https://github.com/vapourismo/knx-go).
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [iot]
@@ -1312,7 +1318,7 @@ input:
 
       > [!NOTE]
       > This plugin has to run as part of a `daemonset` within a Kubernetes
-      > installation, i.e. Telegraf is running on every node within the cluster.
+      > installation. Telegraf must run on every node within the cluster.
 
       You should configure this plugin to talk to its locally running kubelet.
 
@@ -1345,7 +1351,7 @@ input:
     description: |
       This plugin gathers metrics from LDAP servers' monitoring (`cn=Monitor`)
       backend. Currently this plugin supports
-      [OpenLDAP](https://www.openldap.org/devel/admin/monitoringslapd.html) and
+      [OpenLDAP](https://www.openldap.org/) and
       [389ds](https://www.port389.org/) servers.
     introduced: v1.29.0
     os_support: [freebsd, linux, macos, solaris, windows]
@@ -1389,6 +1395,16 @@ input:
     introduced: v1.24.0
     os_support: [linux]
     tags: [system]
+  - name: LogQL
+    id: logql
+    description: |
+      This plugin gathers metrics from a [Loki](https://grafana.com/oss/loki/)
+      endpoint using [LogQL
+      queries](https://grafana.com/docs/loki/latest/query/) via the [HTTP
+      API](https://grafana.com/docs/loki/latest/reference/loki-http-api/).
+    introduced: v1.37.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [datastore]
   - name: Logstash
     id: logstash
     description: |
@@ -1719,6 +1735,19 @@ input:
     introduced: v1.18.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, system]
+  - name: Nftables
+    id: nftables
+    description: |
+      This plugin gathers packets and bytes counters for rules within Linux's
+      [nftables](https://wiki.nftables.org/wiki-nftables/index.php/Main_Page)
+      firewall.
+
+      > [!IMPORTANT]
+      > Rules are identified by the associated comment so those **comments have
+      > to be unique**! Rules without comment are ignored.
+    introduced: v1.37.0
+    os_support: [linux]
+    tags: [network, system]
   - name: Nginx
     id: nginx
     description: |
@@ -1908,7 +1937,8 @@ input:
       backend.
 
       > [!NOTE]
-      > It is recommended to use the newer [`ldap` input plugin]() instead.
+      > It is recommended to use the newer [`ldap` input
+      > plugin](/telegraf/v1/plugins/#input-ldap) instead.
     introduced: v1.4.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network, server]
@@ -1975,7 +2005,7 @@ input:
       > Telegraf v1.32 through v1.35 support the Profiles signal using the v1
       > experimental API. Telegraf v1.36 supports the Profiles signal using the
       > v1 development API before v0.1.0. Telegraf v1.37+ supports the Profiles
-      > signal using the v1 development API v0.1.0.
+      > signal using the v1 development API v0.2.0.
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]
@@ -2017,9 +2047,8 @@ input:
       > [!WARNING]
       > Depending on your environment, this plugin can create a high number of
       > series which can cause high load on your database. Please use
-      > [measurement
-      > filtering](https://docs.influxdata.com/telegraf/latest/administration/configuration/#measurement-filtering)
-      > to manage your series cardinality!
+      > [measurement filtering](/telegraf/v1/configuration/#metric-filtering) to
+      > manage your series cardinality!
 
       The plugin uses the `passenger-status` command line tool.
 
@@ -2166,6 +2195,17 @@ input:
     introduced: v0.1.5
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, server]
+  - name: PromQL
+    id: promql
+    description: |
+      This plugin gathers metrics from a [Prometheus](https://prometheus.io/)
+      endpoint using [PromQL
+      queries](https://prometheus.io/docs/prometheus/latest/querying/basics/)
+      via the [HTTP
+      API](https://prometheus.io/docs/prometheus/latest/querying/api/).
+    introduced: v1.37.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [datastore]
   - name: Proxmox
     id: proxmox
     description: |
@@ -2365,12 +2405,13 @@ input:
       Technology](https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology)
       information for storage devices information using the [`smartmontools`]()
       package. This plugin also supports NVMe devices by using the
-      [`nvme-cli`]() package.
+      [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) package.
 
       > [!NOTE]
       > This plugin requires the [`smartmontools`]() and, for NVMe devices, the
-      > [`nvme-cli`]() packages to be installed on your system. The `smartctl`
-      > and `nvme` commands must to be executable by Telegraf.
+      > [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) packages to be
+      > installed on your system. The `smartctl` and `nvme` commands must to be
+      > executable by Telegraf.
     introduced: v1.5.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [hardware, system]
@@ -2382,8 +2423,8 @@ input:
       information for storage devices information using the [`smartmontools`]()
       package. Contrary to the [smart
       plugin](/telegraf/v1/plugins/#input-smart), this plugin does not use the
-      [`nvme-cli`]() package to collect additional information about NVMe
-      devices.
+      [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) package to collect
+      additional information about NVMe devices.
 
       > [!NOTE]
       > This plugin requires [`smartmontools`]() to be installed on your system.
@@ -2466,8 +2507,8 @@ input:
       [SQL](https://www.iso.org/standard/76583.html) queries against a SQL
       server. Different server types are supported and their settings might
       differ (especially the connection parameters). Please check the list of
-      [supported SQL drivers](../../../docs/SQL_DRIVERS_INPUT.md) for the
-      `driver` name and options for the data-source-name (`dsn`) options.
+      [supported SQL drivers](/docs/SQL_DRIVERS_INPUT.md) for the `driver` name
+      and options for the data-source-name (`dsn`) options.
     introduced: v1.19.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
@@ -2659,6 +2700,19 @@ input:
     introduced: v1.8.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [server, web]
+  - name: Timex
+    id: timex
+    description: |
+      This plugin gathers metrics on system time using the Linux Kernel
+      [adjtimex
+      syscall](https://man7.org/linux/man-pages/man2/adjtimex.2.html).
+
+      The call gets the information of the kernel time variables that are
+      controlled by the ntpd, systemd-timesyncd, chrony or other time
+      synchronization services.
+    introduced: v1.37.0
+    os_support: [linux]
+    tags: [hardware, system]
   - name: Apache Tomcat
     id: tomcat
     description: |
@@ -2836,8 +2890,8 @@ input:
     description: |
       This plugin collects statistics on a local
       [Wireguard](https://www.wireguard.com/) server using the [`wgctrl`
-      library](). The plugin reports gauge metrics for Wireguard interface
-      device(s) and its peers.
+      library](https://github.com/WireGuard/wgctrl-go). The plugin reports
+      gauge metrics for Wireguard interface device(s) and its peers.
     introduced: v1.14.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
@@ -2903,7 +2957,7 @@ input:
     description: |
       This plugin collects variables from
       [Zookeeper](https://zookeeper.apache.org) instances using the [`mntr`
-      command]().
+      command](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_zkCommands).
 
       > [!NOTE]
       > If the Prometheus Metric provider is enabled in Zookeeper use the
@@ -2925,6 +2979,8 @@ output:
       > If point values being sent cannot be converted to a `float64`, the
       > metric is skipped.
     introduced: v0.2.1
+    deprecated: v1.37.0
+    removal: v1.40.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
   - name: AMQP
@@ -2953,6 +3009,16 @@ output:
     introduced: v1.7.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications, cloud]
+  - name: Arc
+    id: arc
+    description: |
+      This plugin writes metrics to
+      [Arc](https://github.com/basekick-labs/arc), a high-performance
+      time-series database, via MessagePack binary protocol messages providing
+      a **3-5x better performance** than the line-protocol format.
+    introduced: v1.37.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [datastore]
   - name: Azure Data Explorer
     id: azure_data_explorer
     description: |
@@ -3082,7 +3148,7 @@ output:
       API Token.
 
       More information on the plugin can be found in the [Dynatrace
-      documentation](https://docs.dynatrace.com/docs/shortlink/api-metrics-v2-post-datapoints).
+      documentation](https://docs.dynatrace.com/docs/shortlink/telegraf).
 
       > [!NOTE]
       > All metrics are reported as gauges, unless they are specified to be
@@ -3200,6 +3266,15 @@ output:
       it will return a 503 response. The default state is healthy, one or more
       checks must fail in order for the resource to enter the failed state.
     introduced: v1.11.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [applications]
+  - name: Heartbeat
+    id: heartbeat
+    description: |
+      This plugin sends a heartbeat signal via POST to a HTTP endpoint on a
+      regular interval. This is useful to keep track of existing Telegraf
+      instances in a large deployment.
+    introduced: v1.37.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [applications]
   - name: HTTP

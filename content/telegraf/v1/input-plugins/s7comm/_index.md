@@ -10,7 +10,7 @@ introduced: "v1.28.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/s7comm/README.md, Siemens S7 Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/s7comm/README.md, Siemens S7 Plugin Source
 ---
 
 # Siemens S7 Input Plugin
@@ -23,10 +23,9 @@ This plugin reads metrics from Siemens PLCs via the S7 protocol.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -68,6 +67,9 @@ using the `startup_error_behavior` setting. Available values are:
 
   ## Timeout for requests
   # timeout = "10s"
+
+  ## Idle timeout for requests
+  # idle_timeout = "60s"
 
   ## Log detailed connection messages for tracing issues
   # log_level = "trace"
