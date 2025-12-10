@@ -62,15 +62,15 @@ Creates a new database.
 #### Syntax
 
 ```sql
-CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [PAST LIMIT <duration>] [FUTURE LIMIT <duration>] [NAME <retention-policy-name>]]
+CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [FUTURE LIMIT <duration>] [PAST LIMIT <duration>] [NAME <retention-policy-name>]]
 ```
 
 #### Description of syntax
 
 `CREATE DATABASE` requires a database [name](/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
 
-The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, `PAST LIMIT`,
-`FUTURE LIMIT, and `NAME` clauses are optional and create a single
+The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, `FUTURE LIMIT`,
+`PAST LIMIT`, and `NAME` clauses are optional and create a single
 [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp)
 associated with the created database.
 If you do not specify one of the clauses after `WITH`, the relevant behavior
@@ -258,7 +258,7 @@ You may disable its auto-creation in the [configuration file](/enterprise_influx
 #### Syntax
 
 ```sql
-CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> [SHARD DURATION <duration>] [PAST LIMIT <duration>] [FUTURE LIMIT <duration>] [DEFAULT]
+CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> [SHARD DURATION <duration>] [FUTURE LIMIT <duration>] [PAST LIMIT <duration>] [DEFAULT]
 ```
 
 #### Description of syntax
@@ -306,6 +306,17 @@ See
 [Shard group duration management](/enterprise_influxdb/v1/concepts/schema_and_data_layout/#shard-group-duration-management)
 for recommended configurations.
 
+##### `FUTURE LIMIT` {metadata="v1.12.0+"}
+
+The `FUTURE LIMIT` clause defines a time boundary after and relative to _now_
+in which points written to the retention policy are accepted. If a point has a
+timestamp after the specified boundary, the point is rejected and the write
+request returns a partial write error.
+
+For example, if a write request tries to write data to a retention policy with a
+`FUTURE LIMIT 6h` and there are points in the request with future timestamps
+greater than 6 hours from now, those points are rejected.
+
 ##### `PAST LIMIT` {metadata="v1.12.0+"}
 
 The `PAST LIMIT` clause defines a time boundary before and relative to _now_
@@ -316,17 +327,6 @@ request returns a partial write error.
 For example, if a write request tries to write data to a retention policy with a
 `PAST LIMIT 6h` and there are points in the request with timestamps older than
 6 hours, those points are rejected.
-
-##### `FUTURE LIMIT` {metadata="v1.12.0+"}
-
-The `FUTURE LIMIT` clause defines a time boundary after and relative to _now_
-in which points written to the retention policy are accepted. If a point has a
-timestamp after the specified boundary, the point is rejected and the write
-request returns a partial write error.
-
-For example, if a write request tries to write data to a retention policy with a
-`FUTURE LIMIT 6h` and there are points in the request with future timestamps 
-greater than 6 hours from now, those points are rejected.
 
 ##### `DEFAULT`
 
@@ -363,13 +363,16 @@ See [Create a database with CREATE DATABASE](/enterprise_influxdb/v1/query_langu
 
 ### Modify retention policies with ALTER RETENTION POLICY
 
-The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, or `DEFAULT`:
+The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, `FUTURE LIMIT`, `PAST LIMIT`, or `DEFAULT`:
 ```sql
-ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [DEFAULT]
+ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [FUTURE LIMIT <duration>] [PAST LIMIT <duration>] [DEFAULT]
 ```
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
 {{% /warn %}}
+
+For information about the `FUTURE LIMIT` and `PAST LIMIT` clauses, see
+[CREATE RETENTION POLICY](#create-retention-policies-with-create-retention-policy).
 
 First, create the retention policy `what_is_time` with a `DURATION` of two days:
 ```sql
