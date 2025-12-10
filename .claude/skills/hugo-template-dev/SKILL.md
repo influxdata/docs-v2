@@ -1,0 +1,555 @@
+---
+name: hugo-template-dev
+description: Hugo template development skill for InfluxData docs-v2. Enforces proper build and runtime testing to catch template errors that build-only validation misses.
+author: InfluxData
+version: "1.0"
+---
+
+# Hugo Template Development Skill
+
+## Purpose
+
+This skill enforces proper Hugo template development practices, including **mandatory runtime testing** to catch errors that static builds miss.
+
+## Critical Testing Requirement
+
+**Hugo's `npx hugo --quiet` only validates template syntax, not runtime execution.**
+
+Template errors like accessing undefined fields, nil values, or incorrect type assertions only appear when Hugo actually renders pages. You MUST test templates by running the server.
+
+## Mandatory Testing Protocol
+
+### For ANY Hugo Template Change
+
+After modifying files in `layouts/`, `layouts/partials/`, or `layouts/shortcodes/`:
+
+```bash
+# Step 1: Start Hugo server and capture output
+npx hugo server --port 1314 2>&1 | head -50
+```
+
+**Success criteria:**
+
+- No `error calling partial` messages
+- No `can't evaluate field` errors
+- No `template: ... failed` messages
+- Server shows "Web Server is available at <http://localhost:1314/>"
+
+**If errors appear:** Fix the template and repeat Step 1 before proceeding.
+
+```bash
+# Step 2: Verify the page renders (only after Step 1 passes)
+curl -s -o /dev/null -w "%{http_code}" http://localhost:1314/PATH/TO/PAGE/
+```
+
+**Expected:** HTTP 200 status code
+
+```bash
+# Step 3: Stop the test server
+pkill -f "hugo server --port 1314"
+```
+
+### Quick Test Command
+
+Use this one-liner to test and get immediate feedback:
+
+```bash
+timeout 15 npx hugo server --port 1314 2>&1 | grep -E "(error|Error|ERROR|fail|FAIL)" | head -20; pkill -f "hugo server --port 1314" 2>/dev/null
+```
+
+If output is empty, no errors were detected.
+
+## Common Hugo Template Errors
+
+### 1. Accessing Hyphenated Keys
+
+**Wrong:**
+
+```go
+{{ .Site.Data.article-data.influxdb }}
+```
+
+**Correct:**
+
+```go
+{{ index .Site.Data "article-data" "influxdb" }}
+```
+
+### 2. Nil Field Access
+
+**Wrong:**
+
+```go
+{{ range $articles }}
+  {{ .path }}  {{/* Fails if item is nil or wrong type */}}
+{{ end }}
+```
+
+**Correct:**
+
+```go
+{{ range $articles }}
+  {{ if . }}
+    {{ with index . "path" }}
+      {{ . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+```
+
+### 3. Type Assertion on Interface{}
+
+**Wrong:**
+
+```go
+{{ range $data }}
+  {{ .fields.menuName }}
+{{ end }}
+```
+
+**Correct:**
+
+```go
+{{ range $data }}
+  {{ if isset . "fields" }}
+    {{ $fields := index . "fields" }}
+    {{ if isset $fields "menuName" }}
+      {{ index $fields "menuName" }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+```
+
+### 4. Empty Map vs Nil Check
+
+**Problem:** Hugo's `{{ if . }}` passes for empty maps `{}`:
+
+```go
+{{/* This doesn't catch empty maps */}}
+{{ if $data }}
+  {{ .field }}  {{/* Still fails if $data is {} */}}
+{{ end }}
+```
+
+**Solution:** Check for specific keys:
+
+```go
+{{ if and $data (isset $data "field") }}
+  {{ index $data "field" }}
+{{ end }}
+```
+
+## Hugo Data Access Patterns
+
+### Safe Nested Access
+
+```go
+{{/* Build up access with nil checks at each level */}}
+{{ $articleDataRoot := index .Site.Data "article-data" }}
+{{ if $articleDataRoot }}
+  {{ $influxdbData := index $articleDataRoot "influxdb" }}
+  {{ if $influxdbData }}
+    {{ $productData := index $influxdbData $dataKey }}
+    {{ if $productData }}
+      {{ with $productData.articles }}
+        {{/* Safe to use . here */}}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+```
+
+### Iterating Over Data Safely
+
+```go
+{{ range $idx, $item := $articles }}
+  {{/* Declare variables with defaults */}}
+  {{ $path := "" }}
+  {{ $name := "" }}
+
+  {{/* Safely extract values */}}
+  {{ if isset $item "path" }}
+    {{ $path = index $item "path" }}
+  {{ end }}
+
+  {{ if $path }}
+    {{/* Now safe to use $path */}}
+  {{ end }}
+{{ end }}
+```
+
+## File Organization
+
+### Layouts Directory Structure
+
+```
+layouts/
+├── _default/           # Default templates
+├── partials/           # Reusable template fragments
+│   └── api/            # API-specific partials
+├── shortcodes/         # Content shortcodes
+└── TYPE/               # Type-specific templates (api/, etc.)
+    └── single.html     # Single page template
+```
+
+### Partial Naming
+
+- Use descriptive names: `api/sidebar-nav.html`, not `nav.html`
+- Group related partials in subdirectories
+- Include comments at the top describing purpose and required context
+
+## Separation of Concerns: Templates vs TypeScript
+
+**Principle:** Hugo templates handle structure and data binding. TypeScript handles behavior and interactivity.
+
+### What Goes Where
+
+| Concern          | Location                    | Example                             |
+| ---------------- | --------------------------- | ----------------------------------- |
+| HTML structure   | `layouts/**/*.html`         | Navigation markup, tab containers   |
+| Data binding     | `layouts/**/*.html`         | `{{ .Title }}`, `{{ range .Data }}` |
+| Static styling   | `assets/styles/**/*.scss`   | Layout, colors, typography          |
+| User interaction | `assets/js/components/*.ts` | Click handlers, scroll behavior     |
+| State management | `assets/js/components/*.ts` | Active tabs, collapsed sections     |
+| DOM manipulation | `assets/js/components/*.ts` | Show/hide, class toggling           |
+
+### Anti-Pattern: Inline JavaScript in Templates
+
+**Wrong - JavaScript mixed with template:**
+
+```html
+{{/* DON'T DO THIS */}}
+<nav class="api-nav">
+  {{ range $articles }}
+    <button onclick="toggleSection('{{ .id }}')">{{ .name }}</button>
+  {{ end }}
+</nav>
+
+<script>
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('is-open');
+}
+</script>
+```
+
+**Correct - Clean separation:**
+
+Template (`layouts/partials/api/sidebar-nav.html`):
+
+```html
+<nav class="api-nav" data-component="api-nav">
+  {{ range $articles }}
+    <button class="api-nav-group-header" aria-expanded="false">
+      {{ .name }}
+    </button>
+    <ul class="api-nav-group-items">
+      {{/* items */}}
+    </ul>
+  {{ end }}
+</nav>
+```
+
+TypeScript (`assets/js/components/api-nav.ts`):
+
+```typescript
+interface ApiNavOptions {
+  component: HTMLElement;
+}
+
+export default function initApiNav({ component }: ApiNavOptions): void {
+  const headers = component.querySelectorAll('.api-nav-group-header');
+
+  headers.forEach((header) => {
+    header.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('is-open');
+      header.setAttribute('aria-expanded', String(isOpen));
+      header.nextElementSibling?.classList.toggle('is-open', isOpen);
+    });
+  });
+}
+```
+
+Register in `main.js`:
+
+```javascript
+import initApiNav from './components/api-nav.js';
+
+const componentRegistry = {
+  'api-nav': initApiNav,
+  // ... other components
+};
+```
+
+### Data Passing Pattern
+
+Pass Hugo data to TypeScript via `data-*` attributes:
+
+Template:
+
+```html
+<div
+  data-component="api-toc"
+  data-headings="{{ .headings | jsonify | safeHTMLAttr }}"
+  data-scroll-offset="80"
+>
+</div>
+```
+
+TypeScript:
+
+```typescript
+interface TocOptions {
+  component: HTMLElement;
+}
+
+interface TocData {
+  headings: string[];
+  scrollOffset: number;
+}
+
+function parseData(component: HTMLElement): TocData {
+  const headingsRaw = component.dataset.headings;
+  const headings = headingsRaw ? JSON.parse(headingsRaw) : [];
+  const scrollOffset = parseInt(component.dataset.scrollOffset || '0', 10);
+
+  return { headings, scrollOffset };
+}
+
+export default function initApiToc({ component }: TocOptions): void {
+  const data = parseData(component);
+  // Use data.headings and data.scrollOffset
+}
+```
+
+### Minimal Inline Scripts (Exception)
+
+The **only** acceptable inline scripts are minimal initialization that MUST run before component registration:
+
+```html
+{{/* Acceptable: Critical path, no logic, runs immediately */}}
+<script>
+  document.documentElement.dataset.theme =
+    localStorage.getItem('theme') || 'light';
+</script>
+```
+
+Everything else belongs in `assets/js/`.
+
+### File Organization for Components
+
+```
+assets/
+├── js/
+│   ├── main.js                    # Entry point, component registry
+│   ├── components/
+│   │   ├── api-nav.ts             # API navigation behavior
+│   │   ├── api-toc.ts             # Table of contents
+│   │   ├── api-tabs.ts            # Tab switching (if needed beyond CSS)
+│   │   └── api-scalar.ts          # Scalar/RapiDoc integration
+│   └── utils/
+│       └── dom-helpers.ts         # Shared DOM utilities
+└── styles/
+    └── layouts/
+        └── _api-layout.scss       # API-specific styles
+```
+
+### TypeScript Component Checklist
+
+When creating a new interactive feature:
+
+1. [ ] Create TypeScript file in `assets/js/components/`
+2. [ ] Define interface for component options
+3. [ ] Export default initializer function
+4. [ ] Register in `main.js` componentRegistry
+5. [ ] Add `data-component` attribute to HTML element
+6. [ ] Pass data via `data-*` attributes (not inline JS)
+7. [ ] Write Cypress tests for the component
+8. [ ] **NO inline `<script>` tags in templates**
+
+## Debugging Templates
+
+### Enable Verbose Mode
+
+```bash
+npx hugo server --port 1314 --verbose 2>&1 | head -100
+```
+
+### Print Variables for Debugging
+
+```go
+{{/* Temporary debugging - REMOVE before committing */}}
+<pre>{{ printf "%#v" $myVariable }}</pre>
+```
+
+### Check Data File Loading
+
+```bash
+# Verify data files exist and are valid YAML
+cat data/article-data/influxdb/influxdb3-core/articles.yml | head -20
+```
+
+## Integration with CI/CD
+
+### Pre-commit Hook (Recommended)
+
+Add to `.lefthook.yml` or pre-commit configuration:
+
+```yaml
+pre-commit:
+  commands:
+    hugo-template-test:
+      glob: "layouts/**/*.html"
+      run: |
+        timeout 20 npx hugo server --port 1314 2>&1 | grep -E "error|Error" && exit 1 || exit 0
+        pkill -f "hugo server --port 1314" 2>/dev/null
+```
+
+### GitHub Actions Workflow
+
+```yaml
+- name: Test Hugo templates
+  run: |
+    npx hugo server --port 1314 &
+    sleep 10
+    curl -f http://localhost:1314/ || exit 1
+    pkill -f hugo
+```
+
+### Cypress E2E Tests for UI Features
+
+After template changes that affect UI functionality, run Cypress tests to verify:
+
+**Run a specific test file against a content page:**
+
+```bash
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/api-reference.cy.js" \
+  content/influxdb3/core/reference/api/_index.md
+```
+
+**Run tests against a URL (for deployed or running server):**
+
+```bash
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/api-reference.cy.js" \
+  http://localhost:<port>/influxdb3/core/reference/api/
+```
+
+**Example Cypress test structure for API reference:**
+
+```javascript
+// cypress/e2e/content/api-reference.cy.js
+describe('API Reference Documentation', () => {
+  beforeEach(() => {
+    cy.visit('/influxdb3/core/reference/api/');
+  });
+
+  it('displays 3-column layout with sidebar, content, and TOC', () => {
+    cy.get('.sidebar').should('be.visible');
+    cy.get('.api-content').should('be.visible');
+    cy.get('.api-toc').should('be.visible');
+  });
+
+  it('switches tabs correctly', () => {
+    cy.get('.tabs a').contains('Authentication').click();
+    cy.get('.tab-content').contains('Bearer Token').should('be.visible');
+  });
+
+  it('displays API navigation in sidebar', () => {
+    cy.get('.api-nav').should('be.visible');
+    cy.get('.api-nav').contains('API v3');
+  });
+
+  it('TOC updates highlight on scroll', () => {
+    cy.get('.api-toc-nav a').first().click();
+    cy.get('.api-toc-nav a.is-active').should('exist');
+  });
+});
+```
+
+**Check for JavaScript console errors (common pattern for feature development):**
+
+```javascript
+// cypress/e2e/content/my-component.cy.js
+describe('My Component', () => {
+  it('should not throw JavaScript console errors', () => {
+    cy.visit('/path/to/page/');
+
+    // Wait for component to initialize
+    cy.get('[data-component="my-component"]', { timeout: 5000 })
+      .should('be.visible');
+
+    cy.window().then((win) => {
+      const logs = [];
+      const originalError = win.console.error;
+
+      // Intercept console.error calls
+      win.console.error = (...args) => {
+        logs.push(args.join(' '));
+        originalError.apply(win.console, args);
+      };
+
+      // Allow time for async operations
+      cy.wait(2000);
+
+      cy.then(() => {
+        // Filter for relevant errors (customize for your component)
+        const relevantErrors = logs.filter(
+          (log) =>
+            log.includes('my-component') ||
+            log.includes('Failed to parse') ||
+            log.includes('is not a function')
+        );
+        expect(relevantErrors).to.have.length(0);
+      });
+    });
+  });
+});
+```
+
+This pattern is especially useful for catching:
+
+- TypeScript/JavaScript runtime errors in components
+- JSON parsing failures from `data-*` attributes
+- Undefined function calls from missing imports
+- Template data binding issues that only manifest at runtime
+
+**Integrate Cypress into development workflow:**
+
+1. Create test file in `cypress/e2e/content/` for your feature
+2. Run tests after template changes to verify UI behavior
+3. Include test execution in PR checklist
+
+**Quick Cypress commands:**
+
+| Purpose                | Command                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| Run specific spec      | `node cypress/support/run-e2e-specs.js --spec "path/to/spec.cy.js" content/path/to/page.md` |
+| Run all E2E tests      | `yarn test:e2e`                                                                             |
+| Run shortcode examples | `yarn test:shortcode-examples`                                                              |
+
+## Quick Reference
+
+| Action                    | Command                                                              |
+| ------------------------- | -------------------------------------------------------------------- |
+| Test templates (runtime)  | `npx hugo server --port 1314 2>&1 \| head -50`                       |
+| Build only (insufficient) | `npx hugo --quiet`                                                   |
+| Check specific page       | `curl -s -o /dev/null -w "%{http_code}" http://localhost:1314/path/` |
+| Stop test server          | `pkill -f "hugo server --port 1314"`                                 |
+| Debug data access         | `<pre>{{ printf "%#v" $var }}</pre>`                                 |
+
+## Remember
+
+1. **Never trust `npx hugo --quiet` alone** - it only checks syntax
+2. **Always run the server** to test template changes
+3. **Check error output first** before declaring success
+4. **Use `isset` and `index`** for safe data access
+5. **Hyphenated keys require `index` function** - dot notation fails
+
+## Related Agents
+
+This skill focuses on Hugo template development practices. For specialized tasks, use:
+
+- **hugo-ui-dev** - Hugo templates and SASS/CSS styling
+- **ts-component-dev** - TypeScript component behavior and interactivity
+- **ui-testing** - Cypress E2E testing for UI components
