@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/lookup/README.md, Lookup Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/processors/lookup/README.md, Lookup Plugin Source
 ---
 
 # Lookup Processor Plugin
@@ -39,10 +39,9 @@ existing tag-values are overwritten.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -112,8 +111,8 @@ keyZ,tag-name1,tag-value1,...,tag-nameM,tag-valueM
 
 The formatting uses commas (`,`) as separators and allows for comments defined
 as lines starting with a hash (`#`). All lines can have different numbers but
-must at least contain three columns and follow the name/value pair format, i.e.
-there cannot be a name without value.
+must at least contain three columns and follow the name/value pair format.
+There cannot be a name without value.
 
 ### `csv_key_values` format
 
