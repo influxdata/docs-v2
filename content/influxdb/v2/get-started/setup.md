@@ -544,6 +544,7 @@ Replace the following:
 
 1.  {{< req text="Optional:" color="magenta" >}} **Create a bucket**.
     <span id="create-a-bucket"></span>
+    <span id="creating-a-database"></span>
 
     In the [initial setup process](#run-initial-setup-process), you created a bucket.
     You can use that bucket or create one specifically for this getting

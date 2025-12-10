@@ -43,6 +43,7 @@ A bucket can contain multiple measurements. Measurements contain multiple
 tags and fields.
 
 - **Bucket**: Named location where time series data is stored.
+  <span id="creating-a-database"></span>
   A bucket can contain multiple _measurements_.
   - **Measurement**: Logical grouping for time series data.
     All _points_ in a given measurement should have the same _tags_.
