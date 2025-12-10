@@ -1,0 +1,133 @@
+---
+name: docs-cli-workflow
+description: Guides when to use docs create/edit CLI tools versus direct file editing for InfluxData documentation.
+author: InfluxData
+version: "1.0"
+---
+
+# docs CLI Workflow Guidance
+
+## Purpose
+
+Help recognize when to suggest `docs create` or `docs edit` CLI tools instead of direct file editing.
+These tools provide scaffolding, context gathering, and education about conventions that direct editing misses.
+
+## When This Skill Applies
+
+Check for these trigger keywords in user messages:
+
+- "new page", "new doc", "create documentation", "add a page"
+- "edit this URL", "edit <https://docs>", "update this page" (with a URL)
+- "document this feature", "write docs for"
+- "I have a draft", "from this draft"
+- Any docs.influxdata.com URL
+
+**Skip this skill when:**
+
+- User provides an explicit file path (e.g., "fix typo in content/influxdb3/...")
+- Small fixes (typos, broken links)
+- User says "just edit it" or similar
+- Frontmatter-only changes
+
+## Decision: Which Tool to Suggest
+
+### Suggest `docs create` when
+
+| Trigger                                | Why CLI is better                                         |
+| -------------------------------------- | --------------------------------------------------------- |
+| Content targets multiple products      | CLI scaffolds shared content pattern automatically        |
+| User unsure where page should live     | CLI analyzes structure, suggests location                 |
+| Draft references existing docs         | CLI extracts links, provides context to avoid duplication |
+| User seems unfamiliar with conventions | CLI prompt includes style guide, shortcode examples       |
+| Complex new feature documentation      | CLI gathers product metadata, version info                |
+
+### Suggest `docs edit` when
+
+| Trigger                                | Why CLI is better                                      |
+| -------------------------------------- | ------------------------------------------------------ |
+| User provides docs.influxdata.com URL  | CLI finds source file(s) including shared content      |
+| User doesn't know source file location | CLI maps URL to file path(s)                           |
+| Page uses shared content               | CLI identifies both frontmatter file AND shared source |
+
+### Edit directly when
+
+| Scenario                         | Why direct is fine              |
+| -------------------------------- | ------------------------------- |
+| User provides explicit file path | They already know where to edit |
+| Small typo/link fixes            | CLI overhead not worth it       |
+| User says "just edit it"         | Explicit preference to skip CLI |
+| Frontmatter-only changes         | No content generation needed    |
+
+## How to Suggest
+
+When a trigger is detected, present a concise recommendation and wait for confirmation.
+
+### For `docs create`
+
+```
+I'd recommend using the docs CLI for this:
+
+npx docs create <draft-path> --products <product>
+
+**Why**: [1-2 sentences explaining the specific benefit]
+
+Options:
+1. **Use CLI** - I'll run the command and guide you through product selection
+2. **Edit directly** - Skip the CLI, I'll create/edit files manually
+
+Which do you prefer?
+```
+
+### For `docs edit`
+
+```
+I can use the docs CLI to find the source files for this page:
+
+npx docs edit <url>
+
+**Why**: [1-2 sentences explaining the benefit]
+
+Options:
+1. **Use CLI** - I'll find and open the relevant files
+2. **I know the file** - Tell me the path and I'll edit directly
+
+Which do you prefer?
+```
+
+### Key principles
+
+- Show the actual command (educational)
+- Explain *why* for this specific case
+- Always offer the direct alternative
+- Keep it brief (4-6 lines max)
+- **Wait for user confirmation before running**
+
+## Edge Cases
+
+| Situation                           | Behavior                                                 |
+| ----------------------------------- | -------------------------------------------------------- |
+| Already in a `docs create` workflow | Don't re-suggest                                         |
+| URL points to non-existent page     | Suggest `docs create --url <url>` instead of `docs edit` |
+| User provides both URL and draft    | Suggest `docs create --url <url> --from-draft <draft>`   |
+| User declines CLI twice in session  | Stop suggesting, respect preference                      |
+
+## After User Confirms
+
+Run the appropriate command and let the CLI handle the rest.
+No additional guidance needed—the CLI manages product selection, file generation, and context gathering.
+
+## CLI Reference
+
+```bash
+# Create new documentation from a draft
+npx docs create <draft-path> --products <product-key>
+
+# Create at specific URL location
+npx docs create --url <url> --from-draft <draft-path>
+
+# Find and open files for an existing page
+npx docs edit <url>
+npx docs edit --list <url>  # List files without opening
+```
+
+For full CLI documentation, run `npx docs --help`.
