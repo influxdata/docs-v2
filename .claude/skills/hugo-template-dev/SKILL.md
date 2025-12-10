@@ -467,6 +467,53 @@ describe('API Reference Documentation', () => {
 });
 ```
 
+**Check for JavaScript console errors (common pattern for feature development):**
+
+```javascript
+// cypress/e2e/content/my-component.cy.js
+describe('My Component', () => {
+  it('should not throw JavaScript console errors', () => {
+    cy.visit('/path/to/page/');
+
+    // Wait for component to initialize
+    cy.get('[data-component="my-component"]', { timeout: 5000 })
+      .should('be.visible');
+
+    cy.window().then((win) => {
+      const logs = [];
+      const originalError = win.console.error;
+
+      // Intercept console.error calls
+      win.console.error = (...args) => {
+        logs.push(args.join(' '));
+        originalError.apply(win.console, args);
+      };
+
+      // Allow time for async operations
+      cy.wait(2000);
+
+      cy.then(() => {
+        // Filter for relevant errors (customize for your component)
+        const relevantErrors = logs.filter(
+          (log) =>
+            log.includes('my-component') ||
+            log.includes('Failed to parse') ||
+            log.includes('is not a function')
+        );
+        expect(relevantErrors).to.have.length(0);
+      });
+    });
+  });
+});
+```
+
+This pattern is especially useful for catching:
+
+- TypeScript/JavaScript runtime errors in components
+- JSON parsing failures from `data-*` attributes
+- Undefined function calls from missing imports
+- Template data binding issues that only manifest at runtime
+
 **Integrate Cypress into development workflow:**
 
 1. Create test file in `cypress/e2e/content/` for your feature
