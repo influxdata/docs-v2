@@ -10,7 +10,7 @@ introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/filter/README.md, Filter Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/processors/filter/README.md, Filter Plugin Source
 ---
 
 # Filter Processor Plugin
@@ -30,10 +30,9 @@ stream.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -48,9 +47,9 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
     ## Rules to apply on the incoming metrics (multiple rules are possible)
     ## The rules are evaluated in order and the first matching rule is applied.
     ## In case no rule matches the "default" is applied.
-    ## All filter criteria in a rule must apply for the rule to match the metric
-    ## i.e. the criteria are combined by a logical AND. If a criterion is
-    ## omitted it is NOT applied at all and ignored.
+    ## All filter criteria in a rule must apply for the rule to match the metric.
+    ## The criteria are combined by a logical AND. If a criterion is
+    ## omitted, it is NOT applied at all and ignored.
     [[processors.filter.rule]]
         ## List of metric names to match including glob expressions
         # name = []
