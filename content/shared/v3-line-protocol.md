@@ -283,7 +283,7 @@ If you submit line protocol with the same table, tag set, and timestamp,
 but with a different field set, the field set becomes the union of the old
 field set and the new field set, where any conflicts favor the new field set.
 
-{{% show-in "cloud-dedicated,clustered" %}}
+{{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 > [!Warning]
 > #### Duplicate point overwrites are non-deterministic
 >
