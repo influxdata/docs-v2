@@ -117,11 +117,11 @@
       text-align: center;
       flex-shrink: 0;
 
-      &--get { background-color: $gr-rainforest; color: #fff; }
-      &--post { background-color: $b-ocean; color: #fff; }
-      &--put { background-color: $br-galaxy; color: #fff; }
-      &--patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
-      &--delete { background-color: $r-curacao; color: #fff; }
+      &--get { background-color: $b-pool; color: #fff; }           // #00A3FF - bright brand blue
+      &--post { background-color: $gr-rainforest; color: #fff; }   // #34BB55 - bright brand green
+      &--put { background-color: $y-pineapple; color: #fff; }      // #FFB94A - bright yellow (distinct from red)
+      &--patch { background-color: $br-new-purple; color: #fff; }  // #9b2aff - distinctive brand purple
+      &--delete { background-color: $r-curacao; color: #fff; }     // #F95F53 - bright brand red
     }
 
     .api-path {
@@ -183,12 +183,14 @@
     text-align: center;
     flex-shrink: 0;
     margin-top: 0.15rem;
+    border: 2px solid;
+    background-color: transparent;
 
-    &--get { background-color: $gr-rainforest; color: #fff; }
-    &--post { background-color: $b-ocean; color: #fff; }
-    &--put { background-color: $br-galaxy; color: #fff; }
-    &--patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
-    &--delete { background-color: $r-curacao; color: #fff; }
+    &--get { border-color: $b-pool; color: $b-pool; }                 // #00A3FF - bright brand blue
+    &--post { border-color: $gr-rainforest; color: $gr-rainforest; }  // #34BB55 - bright brand green
+    &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
+    &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
+    &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
   }
 
   // API path in monospace
@@ -205,6 +207,27 @@
     font-size: 0.875rem;
     color: rgba($article-text, 0.8);
     flex: 1;
+  }
+}
+
+// Overview/Description section
+.api-description {
+  margin: 2rem 0;
+  color: $article-text !important; // Override any inherited black color
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  // Ensure description text is visible and readable
+  p, ul, ol, pre, code {
+    color: $article-text !important;
+    opacity: 1;
+  }
+  
+  // Also ensure direct text nodes use correct color
+  & > * {
+    color: $article-text !important;
   }
 }
 
@@ -395,11 +418,11 @@
         text-align: center;
         flex-shrink: 0;
 
-        &--get { background-color: $gr-rainforest; color: #fff; }
-        &--post { background-color: $b-ocean; color: #fff; }
-        &--put { background-color: $br-galaxy; color: #fff; }
-        &--patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
-        &--delete { background-color: $r-curacao; color: #fff; }
+        &--get { background-color: $b-pool; color: #fff; }           // #00A3FF - bright brand blue
+        &--post { background-color: $gr-rainforest; color: #fff; }   // #34BB55 - bright brand green
+        &--put { background-color: $y-pineapple; color: #fff; }      // #FFB94A - bright yellow (distinct from red)
+        &--patch { background-color: $br-new-purple; color: #fff; }  // #9b2aff - distinctive brand purple
+        &--delete { background-color: $r-curacao; color: #fff; }     // #F95F53 - bright brand red
       }
 
       .api-path {

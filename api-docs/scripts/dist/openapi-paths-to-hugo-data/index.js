@@ -598,6 +598,22 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
   if (tagMeta?.description) {
     article.fields.tagDescription = tagMeta.description;
   }
+  // Aggregate unique externalDocs URLs from operations into article-level related
+  // This populates Hugo frontmatter `related` field for "Related content" links
+  const relatedUrls = new Set();
+  // First check tag-level externalDocs
+  if (tagMeta?.externalDocs?.url) {
+    relatedUrls.add(tagMeta.externalDocs.url);
+  }
+  // Then aggregate from operations
+  operations.forEach((op) => {
+    if (op.externalDocs?.url) {
+      relatedUrls.add(op.externalDocs.url);
+    }
+  });
+  if (relatedUrls.size > 0) {
+    article.fields.related = Array.from(relatedUrls);
+  }
   return article;
 }
 /**
