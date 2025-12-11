@@ -88,7 +88,10 @@
           <h2 id="endpoints">Endpoints</h2>
           <div class="api-operations-grid">
             {{ range $operations }}
-            <a href="#operation/{{ .operationId }}" class="api-operation-card">
+            {{/* Build URL: parent section (e.g., /influxdb3/core/api/) + operation path + method */}}
+            {{ $apiBase := $.Parent.RelPermalink }}
+            {{ $operationURL := printf "%s%s/%s/" $apiBase .path (lower .method) }}
+            <a href="{{ $operationURL }}" class="api-operation-card">
               <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
               <code class="api-path">{{ .path }}</code>
               <span class="api-operation-summary">{{ .summary }}</span>
@@ -99,10 +102,11 @@
         {{ end }}
 
         {{/* Overview - full tag description after endpoints */}}
-        {{ with .Description }}
+        {{ $desc := .Description | strings.TrimSpace }}
+        {{ if gt (len $desc) 0 }}
         <section class="api-description">
           <h2 id="overview">Overview</h2>
-          {{ . | markdownify }}
+          {{ $desc | markdownify }}
         </section>
         {{ end }}
 
@@ -113,12 +117,8 @@
         </section>
         {{ end }}
 
-        {{/* RapiDoc renderer for API operations */}}
-        {{ with .Params.staticFilePath }}
-        <section class="api-renderer-section">
-          {{ partial "api/rapidoc.html" $ }}
-        </section>
-        {{ end }}
+        {{/* RapiDoc renderer - only for pages with additional content beyond description */}}
+        {{/* Don't show RapiDoc on list pages since operations are already shown as cards above */}}
 
         {{ end }}
 

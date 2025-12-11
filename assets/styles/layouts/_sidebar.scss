@@ -273,12 +273,15 @@
       text-transform: uppercase;
       flex-shrink: 0;
       line-height: 1;
+      border: 2px solid;
+      background-color: transparent;
 
-      &--get { background: #61affe; color: white; }
-      &--post { background: #49cc90; color: white; }
-      &--put { background: #fca130; color: white; }
-      &--delete { background: #f93e3e; color: white; }
-      &--patch { background: #50e3c2; color: white; }
+      // Using lighter InfluxData brand colors - bordered style for readability
+      &--get { border-color: $b-pool; color: $b-pool; }                 // #00A3FF - bright brand blue
+      &--post { border-color: $gr-rainforest; color: $gr-rainforest; }  // #34BB55 - bright brand green
+      &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
+      &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
+      &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
     }
 
     // Compatibility version badge (v1 or v2)

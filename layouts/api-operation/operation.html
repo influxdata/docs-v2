@@ -1,0 +1,73 @@
+{{/*
+  API Operation Page Layout
+
+  Standalone page for a single API operation, rendered using RapiDoc Mini.
+  Uses existing tag-level OpenAPI specs with client-side filtering via match-paths.
+
+  Required frontmatter:
+  - title: Operation display name (e.g., "Write line protocol (v1-compatible)")
+  - description: SEO description
+  - specFile: Path to tag-level OpenAPI spec
+  - matchPaths: RapiDoc Mini filter (e.g., "post /write")
+  - operationId: The operationId from the spec
+  - method: HTTP method (GET, POST, PUT, DELETE, etc.)
+  - apiPath: The API path (e.g., "/write", "/api/v2/write")
+
+  Optional frontmatter:
+  - compatVersion: v1 or v2 for compatibility badges
+  - tag: Associated tag name
+  - related: Array of related documentation paths
+*/}}
+
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+<div class="page-wrapper">
+  {{/* Left: Existing Hugo sidebar */}}
+  {{ partial "sidebar.html" . }}
+
+  {{/* Center + Right: Content and TOC */}}
+  <div class="content-wrapper api-content">
+    <div class="api-main">
+      <article class="article article--content api-reference api-operation-page" role="main">
+        {{/* Visually hidden h1 for SEO/accessibility - RapiDoc shows visible title */}}
+        <h1 class="sr-only">{{ .Title }}</h1>
+
+        {{/* Download OpenAPI spec button - positioned above RapiDoc */}}
+        {{ with .Params.specFile }}
+        <div class="api-spec-actions">
+          <a href="{{ . }}" class="btn api-spec-download" download>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+              <path d="M1 14h14v2H1v-2z"/>
+            </svg>
+            Download OpenAPI Spec
+          </a>
+        </div>
+        {{ end }}
+
+        {{/* Hugo page content shown as overview */}}
+        {{ with .Content }}
+        <section class="api-content-overview">
+          {{ . }}
+        </section>
+        {{ end }}
+
+        {{/* RapiDoc Mini renderer for single operation */}}
+        {{ with .Params.specFile }}
+        <section class="api-renderer-section">
+          {{ partial "api/rapidoc-mini.html" $ }}
+        </section>
+        {{ end }}
+
+        {{/* Related documentation links */}}
+        {{ partial "article/related.html" . }}
+
+      </article>
+    </div>
+
+    {{/* Right sidebar hidden - operation pages have no TOC headings */}}
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

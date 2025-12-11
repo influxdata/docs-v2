@@ -1,0 +1,135 @@
+{{/*
+  RapiDoc Mini - Lightweight Single Operation Renderer
+
+  Renders a single API operation using RapiDoc Mini web component.
+  Uses TypeScript component for initialization and theme management.
+
+  Required page params:
+  - specFile: Path to the OpenAPI specification file
+  - matchPaths: Filter expression (e.g., "post /write" or "get /api/v3/query_sql")
+
+  Optional page params:
+  - operationId: Operation ID for linking/navigation purposes
+*/}}
+
+{{ $specPath := .Params.specFile }}
+{{ $specPathJSON := replace $specPath ".yaml" ".json" | replace ".yml" ".json" }}
+{{ $matchPaths := .Params.matchPaths | default "" }}
+
+{{/* Machine-readable links for AI agent discovery */}}
+{{ if $specPath }}
+<link rel="alternate" type="application/x-yaml" href="{{ $specPath | absURL }}" title="OpenAPI Specification (YAML)" />
+<link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
+{{ end }}
+
+{{/* Component container - TypeScript handles initialization */}}
+<div class="api-reference-wrapper api-reference-mini"
+     data-component="rapidoc-mini"
+     data-spec-url="{{ $specPath }}"
+     {{ with $matchPaths }}data-match-paths="{{ . }}"{{ end }}>
+  {{/* RapiDoc Mini element created by TypeScript component */}}
+</div>
+
+{{/* Custom slot content if needed */}}
+{{ with .Content }}
+<div class="api-overview-content">
+  {{ . }}
+</div>
+{{ end }}
+
+<style>
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.api-reference-mini {
+  width: 100%;
+  margin: 1rem 0;
+  position: relative; /* Contains absolutely positioned auth elements */
+}
+
+rapi-doc-mini,
+rapi-doc {
+  width: 100%;
+  min-height: 300px;
+  display: block;
+  border: none;
+  border-radius: 0;
+
+  /* Override RapiDoc internal CSS variables - subtle borders */
+  --light-border-color: rgba(0, 163, 255, 0.25);
+  --border-color: rgba(0, 163, 255, 0.25);
+  /* HTTP method colors - lighter palette for light theme */
+  --blue: #00A3FF;        /* $b-pool - GET */
+  --green: #34BB55;       /* $gr-rainforest - POST */
+  --orange: #FFB94A;      /* $y-pineapple - PUT (distinct from red) */
+  --red: #F95F53;         /* $r-curacao - DELETE */
+  --purple: #9b2aff;      /* $br-new-purple - PATCH */
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] rapi-doc-mini,
+[data-theme="dark"] rapi-doc,
+html:has(link[title="dark-theme"]:not([disabled])) rapi-doc-mini,
+html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
+  /* HTTP method colors - darker palette for dark theme */
+  --blue: #066FC5;        /* $b-ocean - GET */
+  --green: #009F5F;       /* $gr-viridian - POST */
+  --orange: #FFC800;      /* $y-thunder - PUT (brighter for dark mode) */
+  --red: #DC4E58;         /* $r-fire - DELETE */
+  --purple: #8E1FC3;      /* $p-amethyst - PATCH */
+}
+
+/* Hide tag section on operation pages - only show on tag landing pages */
+rapi-doc::part(section-tag) {
+  display: none;
+}
+
+/* Fix parameter table layout - reduce indentation from empty td cells */
+rapi-doc {
+  --font-size-regular: 14px;
+}
+
+/* Fix auth schemes at narrow widths - ensure content is scrollable */
+@media (max-width: 1280px) {
+  .api-reference-mini {
+    overflow-x: auto;
+  }
+
+  rapi-doc-mini, rapi-doc {
+    min-width: 800px; /* Prevent auth elements from collapsing/overlapping */
+  }
+}
+
+
+/* Error state styling */
+.api-operation-error {
+  padding: 2rem;
+  text-align: center;
+  color: #BF3D5E; /* $r-ruby */
+  background: #FFF7F4; /* $r-flan */
+  border: 1px solid #C6CAD3;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.api-operation-error p {
+  margin: 0.5rem 0;
+}
+
+[data-theme="dark"] .api-operation-error,
+html:has(link[title="dark-theme"]:not([disabled])) .api-operation-error {
+  background: #2F1F29; /* $r-basalt */
+  color: #FFB6A0; /* $r-tungsten */
+  border-color: #333346;
+}
+</style>

@@ -39,7 +39,7 @@
     bg-color="#ffffff"
     text-color="#2b2b2b"
     header-color="#020a47"
-    primary-color="#020a47"
+    primary-color="#00A3FF"
     nav-bg-color="#f7f8fa"
     nav-text-color="#2b2b2b"
     nav-hover-bg-color="#e8e8f0"
@@ -50,14 +50,15 @@
     font-size="large"
     render-style="view"
     layout="column"
-    schema-style="tree"
-    default-schema-tab="schema"
+    schema-style="table"
+    default-schema-tab="model"
     response-area-height="400px"
     show-header="false"
     show-info="false"
     show-side-nav="false"
+    show-components="false"
     allow-authentication="true"
-    allow-try="true"
+    allow-try="false"
     allow-spec-url-load="false"
     allow-spec-file-load="false"
     allow-server-selection="false"
@@ -96,6 +97,8 @@
 <script>
 (function() {
   'use strict';
+  
+  console.log('[RapiDoc] Script loaded');
 
   // Detect current theme by checking which theme stylesheet is enabled
   function isDarkTheme() {
@@ -167,6 +170,38 @@
     updateRapiDocTheme();
   }
 
+  // Set custom CSS properties for input border styling
+  function setInputBorderStyles() {
+    const rapiDoc = document.getElementById('api-doc');
+    if (!rapiDoc) {
+      console.log('[RapiDoc] Element not found');
+      return;
+    }
+    
+    // Set CSS custom property on the rapi-doc element
+    // This will penetrate the shadow DOM
+    rapiDoc.style.setProperty('--border-color', '#00A3FF');
+    console.log('[RapiDoc] Set --border-color to #00A3FF');
+  }
+
+  // Wait for RapiDoc custom element to be fully defined
+  if (customElements && customElements.whenDefined) {
+    customElements.whenDefined('rapi-doc').then(() => {
+      console.log('[RapiDoc] Custom element defined');
+      setInputBorderStyles();
+      // Set again after render
+      setTimeout(setInputBorderStyles, 500);
+    });
+  } else {
+    // Fallback for older browsers
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setInputBorderStyles);
+    } else {
+      setInputBorderStyles();
+    }
+    setTimeout(setInputBorderStyles, 500);
+  }
+
   // Watch for stylesheet changes (theme toggles enable/disable stylesheets)
   const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -196,6 +231,95 @@
     attributes: true,
     attributeFilter: ['data-theme']
   });
+
+  // Hide "Expand all | Collapse all" controls and Overview section inside shadow DOM
+  function hideExpandCollapseControls() {
+    const rapiDoc = document.getElementById('api-doc');
+    if (!rapiDoc) return;
+
+    // Wait for RapiDoc to render, try multiple times
+    let attempts = 0;
+    const maxAttempts = 10;
+    
+    const tryHide = function() {
+      attempts++;
+      try {
+        const shadowRoot = rapiDoc.shadowRoot;
+        if (!shadowRoot) {
+          if (attempts < maxAttempts) {
+            setTimeout(tryHide, 500);
+          }
+          return;
+        }
+
+        // Find all elements in shadow DOM and hide those containing "Expand all"
+        const allElements = shadowRoot.querySelectorAll('*');
+        let hiddenCount = 0;
+        
+        allElements.forEach(function(element) {
+          const text = element.textContent || '';
+          
+          // Check if element contains "Expand all", "Collapse all"
+          if (text.includes('Expand all') || text.includes('Collapse all')) {
+            // Hide the element and its parent containers
+            element.style.display = 'none';
+            if (element.parentElement) {
+              element.parentElement.style.display = 'none';
+            }
+            hiddenCount++;
+          }
+        });
+        
+        // Separately target all headings and hide those with "Overview"
+        const headings = shadowRoot.querySelectorAll('h1, h2, h3, h4');
+        headings.forEach(function(heading) {
+          const text = (heading.textContent || '').trim();
+          const innerText = (heading.innerText || '').trim();
+          
+          // Log for debugging
+          if (text.includes('Overview') || innerText.includes('Overview')) {
+            console.log('[RapiDoc] Found heading:', heading.tagName, 'with text:', text, 'innerText:', innerText);
+            heading.style.display = 'none';
+            hiddenCount++;
+          }
+        });
+        
+        // Also inject CSS as backup to hide Overview sections
+        const style = document.createElement('style');
+        style.textContent = `
+          /* Hide Overview section and headings */
+          .section-gap.section-tag,
+          [id*="overview"],
+          .regular-font.section-gap:empty,
+          h1:empty, h2:empty, h3:empty {
+            display: none !important;
+          }
+        `;
+        shadowRoot.appendChild(style);
+        
+        console.log('[RapiDoc] Hidden ' + hiddenCount + ' elements containing expand/collapse text (attempt ' + attempts + ')');
+        
+        if (hiddenCount === 0 && attempts < maxAttempts) {
+          // Try again if nothing was hidden
+          setTimeout(tryHide, 500);
+        }
+      } catch (e) {
+        console.log('[RapiDoc] Could not access shadow DOM:', e);
+        if (attempts < maxAttempts) {
+          setTimeout(tryHide, 500);
+        }
+      }
+    };
+    
+    setTimeout(tryHide, 500);
+  }
+
+  // Call after RapiDoc initializes
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideExpandCollapseControls);
+  } else {
+    hideExpandCollapseControls();
+  }
 })();
 </script>
 
@@ -216,17 +340,35 @@ rapi-doc {
   --bg: #ffffff;
   --bg2: #f7f8fa;
   --bg3: #eef0f3;
+  /* Input field border styling - subtle with transparency */
+  --border-color: rgba(0, 163, 255, 0.25);
+  --light-border-color: rgba(0, 163, 255, 0.15);
+  /* HTTP method colors - lighter palette for light theme */
+  --blue: #00A3FF;        /* $b-pool - GET */
+  --green: #34BB55;       /* $gr-rainforest - POST */
+  --orange: #FFB94A;      /* $y-pineapple - PUT (distinct from red) */
+  --red: #F95F53;         /* $r-curacao - DELETE */
+  --purple: #9b2aff;      /* $br-new-purple - PATCH */
 }
 
 /* Dark mode overrides - match Hugo $grey10: #14141F */
 [data-theme="dark"] rapi-doc,
 html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
   --bg: #14141F;
+  /* Subtle border colors for dark mode with transparency */
+  --border-color: rgba(0, 163, 255, 0.35);
+  --light-border-color: rgba(0, 163, 255, 0.2);
   --bg2: #1a1a2a;
   --bg3: #252535;
   --fg: #D4D7DD;
   --fg2: #c8ccd2;
   --fg3: #b0b4ba;
+  /* HTTP method colors - darker palette for dark theme */
+  --blue: #066FC5;        /* $b-ocean - GET */
+  --green: #009F5F;       /* $gr-viridian - POST */
+  --orange: #FFC800;      /* $y-thunder - PUT (brighter for dark mode) */
+  --red: #DC4E58;         /* $r-fire - DELETE */
+  --purple: #8E1FC3;      /* $p-amethyst - PATCH */
 }
 
 /* Custom examples section styling */

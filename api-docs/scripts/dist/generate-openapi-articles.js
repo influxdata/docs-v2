@@ -112,6 +112,21 @@ function execCommand(command, description) {
   }
 }
 /**
+ * Generate a clean static directory name from a product key.
+ * Handles the influxdb3_* products to avoid redundant 'influxdb-influxdb3' prefixes.
+ *
+ * @param productKey - Product identifier (e.g., 'cloud-v2', 'influxdb3_core')
+ * @returns Clean directory name (e.g., 'influxdb-cloud-v2', 'influxdb3-core')
+ */
+function getStaticDirName(productKey) {
+  // For influxdb3_* products, convert underscore to hyphen and don't add prefix
+  if (productKey.startsWith('influxdb3_')) {
+    return productKey.replace('_', '-');
+  }
+  // For other products, add 'influxdb-' prefix
+  return `influxdb-${productKey}`;
+}
+/**
  * Generate Hugo data files from OpenAPI specification
  *
  * @param specFile - Path to the OpenAPI spec file
@@ -372,6 +387,104 @@ ${yaml.dump(frontmatter)}---
   console.log(
     `✓ Generated ${data.articles.length} tag-based content pages in ${contentPath}`
   );
+  // Generate individual operation pages for standalone URLs
+  generateOperationPages({
+    articlesPath,
+    contentPath,
+  });
+}
+/**
+ * Convert API path to URL-safe slug
+ *
+ * Transforms an API path like "/api/v3/write_lp" to a URL-friendly format.
+ * Removes leading slash and uses the path as-is (underscores are URL-safe).
+ *
+ * @param apiPath - The API path (e.g., "/write", "/api/v3/write_lp")
+ * @returns URL-safe path slug (e.g., "write", "api/v3/write_lp")
+ */
+function apiPathToSlug(apiPath) {
+  // Remove leading slash, keep underscores (they're URL-safe)
+  return apiPath.replace(/^\//, '');
+}
+/**
+ * Generate standalone Hugo content pages for each API operation
+ *
+ * Creates individual pages at path-based URLs like /api/write/post/
+ * for each operation, using RapiDoc Mini with tag-level specs.
+ *
+ * @param options - Generation options
+ */
+function generateOperationPages(options) {
+  const { articlesPath, contentPath } = options;
+  const yaml = require('js-yaml');
+  const articlesFile = path.join(articlesPath, 'articles.yml');
+  if (!fs.existsSync(articlesFile)) {
+    console.warn(`⚠️  Articles file not found: ${articlesFile}`);
+    return;
+  }
+  // Read articles data
+  const articlesContent = fs.readFileSync(articlesFile, 'utf8');
+  const data = yaml.load(articlesContent);
+  if (!data.articles || !Array.isArray(data.articles)) {
+    console.warn(`⚠️  No articles found in ${articlesFile}`);
+    return;
+  }
+  let operationCount = 0;
+  // Process each article (tag) and generate pages for its operations
+  for (const article of data.articles) {
+    // Skip conceptual articles (they don't have operations)
+    if (article.fields.isConceptual) {
+      continue;
+    }
+    const operations = article.fields.operations || [];
+    const tagSpecFile = article.fields.staticFilePath;
+    const tagName = article.fields.tag || article.fields.name || '';
+    for (const op of operations) {
+      // Build operation page path: api/{path}/{method}/
+      // e.g., /write -> api/write/post/
+      // e.g., /api/v3/write_lp -> api/api/v3/write_lp/post/
+      const pathSlug = apiPathToSlug(op.path);
+      const method = op.method.toLowerCase();
+      const operationDir = path.join(contentPath, 'api', pathSlug, method);
+      const operationFile = path.join(operationDir, '_index.md');
+      // Create directory if needed
+      if (!fs.existsSync(operationDir)) {
+        fs.mkdirSync(operationDir, { recursive: true });
+      }
+      // Build frontmatter
+      const title = op.summary || `${op.method} ${op.path}`;
+      const frontmatter = {
+        title,
+        description: `API reference for ${op.method} ${op.path}`,
+        type: 'api-operation',
+        layout: 'operation',
+        // RapiDoc Mini configuration
+        specFile: tagSpecFile,
+        matchPaths: `${method} ${op.path}`,
+        // Operation metadata
+        operationId: op.operationId,
+        method: op.method,
+        apiPath: op.path,
+        tag: tagName,
+      };
+      // Add compatibility version if present
+      if (op.compatVersion) {
+        frontmatter.compatVersion = op.compatVersion;
+      }
+      // Add related links from operation's externalDocs
+      if (op.externalDocs?.url) {
+        frontmatter.related = [op.externalDocs.url];
+      }
+      const pageContent = `---
+${yaml.dump(frontmatter)}---
+`;
+      fs.writeFileSync(operationFile, pageContent);
+      operationCount++;
+    }
+  }
+  console.log(
+    `✓ Generated ${operationCount} operation pages in ${contentPath}/api/`
+  );
 }
 /**
  * Product configurations for all InfluxDB editions
@@ -457,12 +570,10 @@ function processProduct(productKey, config) {
   console.log(`Processing ${config.description || productKey}`);
   console.log('='.repeat(80));
   const staticPath = path.join(DOCS_ROOT, 'static/openapi');
-  const staticSpecPath = path.join(staticPath, `influxdb-${productKey}.yml`);
-  const staticJsonSpecPath = path.join(
-    staticPath,
-    `influxdb-${productKey}.json`
-  );
-  const staticPathsPath = path.join(staticPath, `influxdb-${productKey}/paths`);
+  const staticDirName = getStaticDirName(productKey);
+  const staticSpecPath = path.join(staticPath, `${staticDirName}.yml`);
+  const staticJsonSpecPath = path.join(staticPath, `${staticDirName}.json`);
+  const staticPathsPath = path.join(staticPath, `${staticDirName}/paths`);
   const articlesPath = path.join(
     DOCS_ROOT,
     `data/article_data/influxdb/${productKey}`
@@ -510,10 +621,7 @@ function processProduct(productKey, config) {
     // Step 5: Generate Hugo data from OpenAPI spec
     if (config.useTagBasedGeneration) {
       // Tag-based generation: group operations by OpenAPI tag
-      const staticTagsPath = path.join(
-        staticPath,
-        `influxdb-${productKey}/tags`
-      );
+      const staticTagsPath = path.join(staticPath, `${staticDirName}/tags`);
       console.log(`\n📋 Using tag-based generation for ${productKey}...`);
       openapiPathsToHugo.generateHugoDataByTag({
         specFile: config.specFile,

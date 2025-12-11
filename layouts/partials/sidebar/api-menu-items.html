@@ -101,13 +101,24 @@
       {{ end }}
       {{ $isSingleTag := eq (len $articlesInGroup) 1 }}
 
-      {{/* Check if this group should be open (contains active page) */}}
+      {{/* Check if this group should be open (contains active page or active operation) */}}
       {{ $groupIsOpen := false }}
       {{ range $articlesInGroup }}
         {{ $path := index . "path" }}
         {{ $pageUrl := print "/" $product "/" $version "/" $path "/" }}
         {{ if eq $currentPage.RelPermalink $pageUrl }}
           {{ $groupIsOpen = true }}
+        {{ end }}
+        {{/* Also check if any operation pages in this group are active */}}
+        {{ $fields := index . "fields" }}
+        {{ if and (reflect.IsMap $fields) (isset $fields "operations") }}
+          {{ range index $fields "operations" }}
+            {{ $opPathSlug := .path | replaceRE "^/" "" }}
+            {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) }}
+            {{ if eq $currentPage.RelPermalink $opUrl }}
+              {{ $groupIsOpen = true }}
+            {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
 
@@ -131,15 +142,13 @@
           <ul class="children{{ if or $isActive $groupIsOpen }} open{{ end }}">
             {{ range $operations }}
               {{ $apiPath := .path }}
-              {{ $trimmedPath := strings.TrimPrefix "/" $apiPath }}
-              {{ $contentPath := $trimmedPath }}
-              {{ if not (hasPrefix $trimmedPath "api/") }}
-                {{ $contentPath = printf "api/%s" $trimmedPath }}
-              {{ end }}
-              {{ $fragment := printf "#operation/%s" .operationId }}
-              {{ $fullUrl := printf "%s%s" (print "/" $product "/" $version "/" $contentPath "/" | relURL) $fragment }}
-            <li class="nav-item api-operation">
-              <a href="{{ $fullUrl | safeURL }}">
+              {{/* Build path-based URL for standalone operation page */}}
+              {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+              {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) | relURL }}
+              {{/* Check if this operation page is active */}}
+              {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method)) }}
+            <li class="nav-item api-operation{{ if $opIsActive }} active{{ end }}">
+              <a href="{{ $operationUrl | safeURL }}">
                 <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
                 {{- $summary := .summary -}}
                 {{- with .compatVersion -}}
@@ -191,19 +200,26 @@
             <li class="nav-item{{ if $isActive }} active{{ end }}">
               {{ if $hasOperations }}<a href="#" class="children-toggle{{ if $isActive }} open{{ end }}"></a>{{ end }}
               <a href="{{ $tagPageUrl }}">{{ $menuName }}</a>
+              {{/* Check if any operation in this tag is active */}}
+              {{ $tagHasActiveOp := false }}
+              {{ range $operations }}
+                {{ $opPathSlug := .path | replaceRE "^/" "" }}
+                {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) }}
+                {{ if eq $currentPage.RelPermalink $opUrl }}
+                  {{ $tagHasActiveOp = true }}
+                {{ end }}
+              {{ end }}
               {{ if $hasOperations }}
-              <ul class="children{{ if $isActive }} open{{ end }}">
+              <ul class="children{{ if or $isActive $tagHasActiveOp }} open{{ end }}">
                 {{ range $operations }}
                   {{ $apiPath := .path }}
-                  {{ $trimmedPath := strings.TrimPrefix "/" $apiPath }}
-                  {{ $contentPath := $trimmedPath }}
-                  {{ if not (hasPrefix $trimmedPath "api/") }}
-                    {{ $contentPath = printf "api/%s" $trimmedPath }}
-                  {{ end }}
-                  {{ $fragment := printf "#operation/%s" .operationId }}
-                  {{ $fullUrl := printf "%s%s" (print "/" $product "/" $version "/" $contentPath "/" | relURL) $fragment }}
-                <li class="nav-item api-operation">
-                  <a href="{{ $fullUrl | safeURL }}">
+                  {{/* Build path-based URL for standalone operation page */}}
+                  {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+                  {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) | relURL }}
+                  {{/* Check if this operation page is active */}}
+                  {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method)) }}
+                <li class="nav-item api-operation{{ if $opIsActive }} active{{ end }}">
+                  <a href="{{ $operationUrl | safeURL }}">
                     <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
                     {{- $summary := .summary -}}
                     {{- with .compatVersion -}}

@@ -273,3 +273,159 @@ describe('API reference 3-column layout', () => {
     });
   });
 });
+
+/**
+ * RapiDoc Mini Component Tests
+ * Tests the api-operation shortcode and RapiDoc Mini component behavior
+ */
+describe('RapiDoc Mini component', () => {
+  // Operation pages use RapiDoc Mini for single operation rendering
+  const operationPages = [
+    '/influxdb3/core/api/write/post/',
+    '/influxdb3/core/api/api/v3/write_lp/post/',
+  ];
+
+  operationPages.forEach((page) => {
+    describe(`Operation page ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      describe('Component initialization', () => {
+        it('renders rapidoc-mini component container', () => {
+          cy.get('[data-component="rapidoc-mini"]').should('exist');
+        });
+
+        it('has data-spec-url attribute', () => {
+          cy.get('[data-component="rapidoc-mini"]')
+            .should('have.attr', 'data-spec-url')
+            .and('match', /\.ya?ml$/);
+        });
+
+        it('has data-match-paths attribute', () => {
+          cy.get('[data-component="rapidoc-mini"]')
+            .should('have.attr', 'data-match-paths')
+            .and('match', /^(get|post|put|patch|delete)\s+\//i);
+        });
+
+        it('includes machine-readable spec links', () => {
+          cy.get('link[rel="alternate"][type="application/x-yaml"]').should(
+            'exist'
+          );
+          cy.get('link[rel="alternate"][type="application/json"]').should(
+            'exist'
+          );
+        });
+      });
+
+      describe('RapiDoc element creation', () => {
+        it('creates rapi-doc-mini custom element', () => {
+          // Wait for component to initialize and create the element
+          cy.get('rapi-doc-mini', { timeout: 10000 }).should('exist');
+        });
+
+        it('rapi-doc-mini has spec-url attribute', () => {
+          cy.get('rapi-doc-mini', { timeout: 10000 })
+            .should('have.attr', 'spec-url')
+            .and('match', /\.ya?ml$/);
+        });
+
+        it('rapi-doc-mini has theme attributes', () => {
+          cy.get('rapi-doc-mini', { timeout: 10000 }).should(
+            'have.attr',
+            'theme'
+          );
+        });
+      });
+    });
+  });
+
+  describe('api-operation shortcode on example page', () => {
+    beforeEach(() => {
+      cy.intercept('GET', '**', (req) => {
+        req.continue((res) => {
+          if (res.headers['content-type']?.includes('text/html')) {
+            res.body = res.body.replace(
+              /data-user-analytics-fingerprint-enabled="true"/,
+              'data-user-analytics-fingerprint-enabled="false"'
+            );
+          }
+        });
+      });
+      cy.visit('/example/');
+    });
+
+    describe('Multiple instances', () => {
+      it('renders multiple rapidoc-mini containers', () => {
+        cy.get('[data-component="rapidoc-mini"]').should(
+          'have.length.at.least',
+          2
+        );
+      });
+
+      it('each instance has unique match-paths', () => {
+        cy.get('[data-component="rapidoc-mini"]').then(($containers) => {
+          const matchPaths = [];
+          $containers.each((_, el) => {
+            const path = el.getAttribute('data-match-paths');
+            expect(matchPaths).to.not.include(path);
+            matchPaths.push(path);
+          });
+        });
+      });
+
+      it('each instance creates its own rapi-doc-mini element', () => {
+        cy.get('rapi-doc-mini', { timeout: 10000 }).should(
+          'have.length.at.least',
+          2
+        );
+      });
+    });
+  });
+
+  describe('Theme synchronization', () => {
+    beforeEach(() => {
+      cy.intercept('GET', '**', (req) => {
+        req.continue((res) => {
+          if (res.headers['content-type']?.includes('text/html')) {
+            res.body = res.body.replace(
+              /data-user-analytics-fingerprint-enabled="true"/,
+              'data-user-analytics-fingerprint-enabled="false"'
+            );
+          }
+        });
+      });
+      cy.visit('/influxdb3/core/api/write/post/');
+    });
+
+    it('applies light theme by default', () => {
+      cy.get('rapi-doc-mini', { timeout: 10000 })
+        .should('have.attr', 'theme')
+        .and('match', /light|dark/);
+    });
+
+    it('rapi-doc-mini has background color attribute', () => {
+      cy.get('rapi-doc-mini', { timeout: 10000 }).should(
+        'have.attr',
+        'bg-color'
+      );
+    });
+
+    it('rapi-doc-mini has text color attribute', () => {
+      cy.get('rapi-doc-mini', { timeout: 10000 }).should(
+        'have.attr',
+        'text-color'
+      );
+    });
+  });
+});
