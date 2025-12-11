@@ -549,6 +549,14 @@ The following commands are available:
 {{< /tab-content >}}
 {{< /tabs-wrapper >}}
 
+## Deploy Telegraf in Kubernetes with Helm
+
+For Kubernetes deployments, InfluxData provides several Helm charts:
+
+- [telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf): Deploy Telegraf as a single instance
+- [telegraf-ds](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-ds): Deploy Telegraf as a DaemonSet to run on every node
+- [telegraf-operator](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-operator): Deploy the Telegraf Operator for managing Telegraf instances declaratively
+
 ## Generate a configuration file
 
 The `telegraf config` command lets you generate a configuration file from

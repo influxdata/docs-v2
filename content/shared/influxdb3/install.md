@@ -124,6 +124,12 @@ influxdb:3-{{< product-key >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+{{% show-in "enterprise" %}}
+### Deploy in Kubernetes with Helm
+
+For Kubernetes deployments, InfluxData provides a Helm chart.
+See the [influxdb3-enterprise Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-enterprise) for configuration options and installation instructions.
+{{% /show-in %}}
 
 ### Verify the installation
 
