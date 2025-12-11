@@ -1042,6 +1042,15 @@ paths:
       description: Retrieves a list of databases.
       parameters:
         - $ref: '#/components/parameters/formatRequired'
+        - name: show_deleted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Include soft-deleted databases in the response.
+            By default, only active databases are returned.
       responses:
         '200':
           description: Success. The response body contains the list of databases.
@@ -1395,6 +1404,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -1405,6 +1417,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -1414,6 +1429,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -1423,6 +1441,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -1432,6 +1453,9 @@ paths:
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -1441,6 +1465,9 @@ paths:
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -1450,6 +1477,9 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -1459,6 +1489,9 @@ paths:
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -1468,6 +1501,9 @@ paths:
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
       responses:
         '200':
           description: Success. Processing engine trigger created.
@@ -1496,6 +1532,9 @@ paths:
           schema:
             type: boolean
             default: false
+          description: |
+            Force deletion of the trigger even if it has active executions.
+            By default, deletion fails if the trigger is currently executing.
       responses:
         '200':
           description: Success. The processing engine trigger has been deleted.
@@ -1651,6 +1690,12 @@ paths:
       operationId: PostTestWALPlugin
       summary: Test WAL plugin
       description: Executes a test of a write-ahead logging (WAL) plugin.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WALPluginTestRequest'
       responses:
         '200':
           description: Success. The plugin test has been executed.
@@ -1667,6 +1712,12 @@ paths:
       operationId: PostTestSchedulingPlugin
       summary: Test scheduling plugin
       description: Executes a test of a scheduling plugin.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchedulePluginTestRequest'
       responses:
         '200':
           description: Success. The plugin test has been executed.
@@ -1885,6 +1936,12 @@ paths:
       description: |
         Updates a plugin file in the plugin directory.
       x-security-note: Requires an admin token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PluginFileRequest'
       responses:
         '204':
           description: Success. The plugin file has been updated.
@@ -1901,6 +1958,12 @@ paths:
       description: |
         Updates the plugin directory configuration.
       x-security-note: Requires an admin token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PluginDirectoryRequest'
       responses:
         '204':
           description: Success. The plugin directory has been updated.
@@ -2302,6 +2365,8 @@ components:
           type: string
         table:
           type: string
+        node_spec:
+          $ref: '#/components/schemas/ApiNodeSpec'
         name:
           type: string
           description: Optional cache name.
@@ -2334,6 +2399,8 @@ components:
           type: string
         table:
           type: string
+        node_spec:
+          $ref: '#/components/schemas/ApiNodeSpec'
         name:
           type: string
           description: Optional cache name.
@@ -2378,8 +2445,15 @@ components:
             The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
+        node_spec:
+          $ref: '#/components/schemas/ApiNodeSpec'
         trigger_name:
           type: string
+        trigger_settings:
+          description: |
+            Configuration for trigger error handling and execution behavior.
+          allOf:
+            - $ref: '#/components/schemas/TriggerSettings'
         trigger_specification:
           description: |
             Specifies when and how the processing engine trigger should be invoked.
@@ -2443,7 +2517,159 @@ components:
         - db
         - plugin_filename
         - trigger_name
+        - trigger_settings
         - trigger_specification
+    TriggerSettings:
+      type: object
+      description: |
+        Configuration settings for processing engine trigger error handling and execution behavior.
+      properties:
+        run_async:
+          type: boolean
+          default: false
+          description: |
+            Whether to run the trigger asynchronously.
+            When `true`, the trigger executes in the background without blocking.
+            When `false`, the trigger executes synchronously.
+        error_behavior:
+          type: string
+          enum:
+            - Log
+            - Retry
+            - Disable
+          description: |
+            Specifies how to handle errors that occur during trigger execution:
+            - `Log`: Log the error and continue (default)
+            - `Retry`: Retry the trigger execution
+            - `Disable`: Disable the trigger after an error
+          default: Log
+    ApiNodeSpec:
+      type: object
+      description: |
+        Optional specification for targeting specific nodes in a multi-node InfluxDB 3 Enterprise cluster.
+        Use this to control which node(s) should handle the cache or trigger.
+      properties:
+        node_id:
+          type: string
+          description: |
+            The ID of a specific node in the cluster.
+            If specified, the cache or trigger will only be created on this node.
+        node_group:
+          type: string
+          description: |
+            The name of a node group in the cluster.
+            If specified, the cache or trigger will be created on all nodes in this group.
+    WALPluginTestRequest:
+      type: object
+      description: |
+        Request body for testing a write-ahead logging (WAL) plugin.
+      properties:
+        filename:
+          type: string
+          description: |
+            The path and filename of the plugin to test.
+        database:
+          type: string
+          description: |
+            The database name to use for the test.
+        input_lp:
+          type: string
+          description: |
+            Line protocol data to use as input for the test.
+        cache_name:
+          type: string
+          description: |
+            Optional name of the cache to use in the test.
+        input_arguments:
+          type: object
+          additionalProperties:
+            type: string
+          description: |
+            Optional key-value pairs of arguments to pass to the plugin.
+      required:
+        - filename
+        - database
+        - input_lp
+    SchedulePluginTestRequest:
+      type: object
+      description: |
+        Request body for testing a scheduling plugin.
+      properties:
+        filename:
+          type: string
+          description: |
+            The path and filename of the plugin to test.
+        database:
+          type: string
+          description: |
+            The database name to use for the test.
+        schedule:
+          type: string
+          description: |
+            Optional schedule specification in cron or interval format.
+        cache_name:
+          type: string
+          description: |
+            Optional name of the cache to use in the test.
+        input_arguments:
+          type: object
+          additionalProperties:
+            type: string
+          description: |
+            Optional key-value pairs of arguments to pass to the plugin.
+      required:
+        - filename
+        - database
+    PluginFileRequest:
+      type: object
+      description: |
+        Request body for updating a plugin file.
+      properties:
+        plugin_name:
+          type: string
+          description: |
+            The name of the plugin file to update.
+        content:
+          type: string
+          description: |
+            The content of the plugin file.
+      required:
+        - plugin_name
+        - content
+    PluginDirectoryRequest:
+      type: object
+      description: |
+        Request body for updating plugin directory with multiple files.
+      properties:
+        plugin_name:
+          type: string
+          description: |
+            The name of the plugin directory to update.
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginFileEntry'
+          description: |
+            List of plugin files to include in the directory.
+      required:
+        - plugin_name
+        - files
+    PluginFileEntry:
+      type: object
+      description: |
+        Represents a single file in a plugin directory.
+      properties:
+        filename:
+          type: string
+          description: |
+            The name of the file within the plugin directory.
+        content:
+          type: string
+          description: |
+            The content of the file.
+      required:
+        - filename
+        - content
     ShowDatabasesResponse:
       type: object
       properties:
