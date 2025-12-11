@@ -1,0 +1,18 @@
+/* Custom RapiDoc overrides */
+
+/* Reduce parameter table indentation - target the expand column */
+.m-table tr > td:first-child {
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+/* Reduce param-name cell indentation */
+.param-name {
+  text-align: left !important;
+}
+
+/* Make auth section scrollable on narrow viewports */
+.security-info-button {
+  flex-wrap: wrap;
+}
