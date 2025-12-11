@@ -2543,6 +2543,9 @@ components:
             - `Retry`: Retry the trigger execution
             - `Disable`: Disable the trigger after an error
           default: Log
+      required:
+        - run_async
+        - error_behavior
     ApiNodeSpec:
       type: object
       description: |
