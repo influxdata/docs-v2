@@ -263,6 +263,14 @@
         align-items: center;
         gap: 0.4rem;
       }
+
+      // Path-based operation display (All endpoints list)
+      &--path .api-path {
+        font-family: $proxima;
+        font-size: 0.55rem;
+        color: inherit;
+        word-break: break-all;
+      }
     }
 
     .api-method {
