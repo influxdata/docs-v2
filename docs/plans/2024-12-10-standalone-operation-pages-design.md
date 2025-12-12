@@ -169,3 +169,13 @@ RapiDoc Mini loads tag-level spec, filters to single operation client-side
 - Generate operation-level specs for smaller payloads (if performance issues arise)
 - Add custom content sections per operation
 - Implement operation search/filtering on tag pages
+
+## Migration Notes
+
+When migrating other product specs from Redoc to RapiDoc:
+
+1. **Remove `x-tagGroups`**: This is a Redoc-specific extension for sidebar navigation grouping. RapiDoc doesn't use it. The Hugo sidebar uses `data/api_nav_groups.yml` instead.
+
+2. **Ensure tag consistency**: The sidebar navigation (`api_nav_groups.yml`) must match the tag names in the spec's `tags` section exactly.
+
+3. **Single-tag operations**: Operations should ideally have a single tag to avoid duplicate rendering. If an operation has multiple tags, the generator restricts it to the primary tag in tag-specific specs.
