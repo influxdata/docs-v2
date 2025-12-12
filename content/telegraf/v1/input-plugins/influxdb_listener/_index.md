@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/influxdb_listener/README.md, InfluxDB Listener Plugin Source
 ---
 
 # InfluxDB Listener Input Plugin
@@ -22,7 +22,7 @@ proxy/router for the `/write` endpoint of the InfluxDB HTTP API.
 > [!NOTE]
 > This plugin was previously known as `http_listener`. If you wish to
 > send general metrics via HTTP it is recommended to use the
-> [`http_listener_v2`]() instead.
+> [`http_listener_v2`](/telegraf/v1/plugins/#input-http_listener_v2) instead.
 
 The `/write` endpoint supports the `precision` query parameter and can be set
 to one of `ns`, `u`, `ms`, `s`, `m`, `h`.  All other parameters are ignored and
@@ -54,10 +54,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

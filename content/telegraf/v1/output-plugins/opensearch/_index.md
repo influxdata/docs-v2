@@ -10,7 +10,7 @@ introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/opensearch/README.md, OpenSearch Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/opensearch/README.md, OpenSearch Plugin Source
 ---
 
 # OpenSearch Output Plugin
@@ -30,10 +30,9 @@ not guaranteed and instead will focus on 2.x support.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -171,7 +170,7 @@ add "create_index" and "write" permission to your specific index pattern.
 This plugin can manage indexes per time-frame, as commonly done in other tools
 with OpenSearch. The timestamp of the metric collected will be used to decide
 the index destination. For more information about this usage on OpenSearch,
-check [the docs](https://opensearch.org/docs/latest/opensearch/index-templates/).
+check [the docs](https://opensearch.org/docs/latest/).
 
 [1]: https://opensearch.org/docs/latest/
 

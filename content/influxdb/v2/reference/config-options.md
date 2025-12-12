@@ -194,6 +194,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [tls-strict-ciphers](#tls-strict-ciphers)
 - [tracing-type](#tracing-type)
 - [ui-disabled](#ui-disabled)
+- [use-hashed-tokens](#use-hashed-tokens)
 - [vault-addr](#vault-addr)
 - [vault-cacert](#vault-cacert)
 - [vault-capath](#vault-capath)
@@ -3463,6 +3464,61 @@ ui-disabled = true
 ```json
 {
   "ui-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### use-hashed-tokens
+Enable storing hashed API tokens on disk. Hashed tokens are disabled by default in version 2.8. Hashed tokens will be enabled by default in a future version.
+
+Storing hashed tokens increases security by storing API tokens as hashes on disk. When enabled, all unhashed tokens are converted to hashed tokens on every startup leaving no unhashed tokens on disk. Newly created tokens are also stored as hashes. Lost tokens must be replaced when token hashing is enabled because the hashing prevents them from being recovered.
+
+If token hashing is disabled after being enabled, any hashed tokens on disk remain as hashed tokens. Newly created tokens are stored unhashed when token hashing is disabled. Hashed tokens on disk remain valid and useable even with token hashing disabled.
+
+Hashed token support is available in versions 2.8.0 and newer. Downgrading to older versions is not recommended after enabling hashed tokens because the downgrade process deletes all stored hashed tokens. All hashed tokens must be replaced on a downgrade after hashed tokens are enabled.
+
+**Default:** `false`
+
+| influxd flag    | Environment variable  | Configuration key |
+| :-------------- | :-------------------- | :---------------- |
+| `--use-hashed-tokens` | `INFLUXD_USE_HASHED_TOKENS` | `use-hashed-tokens`     |
+
+###### influxd flag
+<!--pytest.mark.skip-->
+
+```sh
+influxd --use-hashed-tokens
+```
+
+###### Environment variable
+```sh
+export INFLUXD_USE_HASHED_TOKENS=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+use-hashed-tokens: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+use-hashed-tokens = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "use-hashed-tokens": true
 }
 ```
 {{% /code-tab-content %}}

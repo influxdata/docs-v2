@@ -10,7 +10,7 @@ introduced: "v0.11.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/kernel/README.md, Kernel Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/kernel/README.md, Kernel Plugin Source
 ---
 
 # Kernel Input Plugin
@@ -30,10 +30,9 @@ others, the [available entropy](https://www.kernel.org/doc/html/latest/admin-gui
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -55,7 +54,7 @@ Please check the documentation of the underlying kernel interfaces in the
 `/proc interfaces` section of the [random man page](https://man7.org/linux/man-pages/man4/random.4.html).
 
 Kernel Samepage Merging is generally documented in the
-[kernel documentation](https://www.kernel.org/doc/html/latest/accounting/psi.html) and the available metrics exposed via sysfs
+[kernel documentation](https://www.kernel.org/doc/html/latest/mm/ksm.html) and the available metrics exposed via sysfs
 are documented in the [admin guide](https://www.kernel.org/doc/html/latest/admin-guide/mm/ksm.html#ksm-daemon-sysfs-interface).
 
 Pressure Stall Information is exposed through `/proc/pressure` and is documented

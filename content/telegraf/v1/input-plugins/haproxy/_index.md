@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/haproxy/README.md, HAProxy Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/haproxy/README.md, HAProxy Plugin Source
 ---
 
 # HAProxy Input Plugin
@@ -26,10 +26,9 @@ the HTTP protocol.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -69,9 +68,9 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 The following information may be useful when getting started, but please consult
 the HAProxy documentation for complete and up to date instructions.
 
-The [`stats enable`]() option can be used to add unauthenticated access over
+The [`stats enable`](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable) option can be used to add unauthenticated access over
 HTTP using the default settings.  To enable the unix socket begin by reading
-about the [`stats socket`]() option.
+about the [`stats socket`](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#3.1-stats%20socket) option.
 
 [4]: https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#4-stats%20enable
 [5]: https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#3.1-stats%20socket
@@ -113,7 +112,7 @@ The following renames are made:
 ## Metrics
 
 For more details about collected metrics reference the [HAProxy CSV format
-documentation]().
+documentation](https://cbonte.github.io/haproxy-dconv/1.8/management.html#9.1).
 
 - haproxy
   - tags:

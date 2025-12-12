@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/syslog/README.md, Syslog Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/syslog/README.md, Syslog Plugin Source
 ---
 
 # Syslog Input Plugin
@@ -46,10 +46,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -106,6 +105,10 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   ## Maximum size of decoded packet (in bytes when no unit specified)
   # max_decompression_size = "500MB"
 
+  ## List of allowed source IP addresses for incoming packets/messages.
+  ## If not specified or empty, all sources are allowed.
+  # allowed_sources = []
+
   ## Framing technique used for messages transport
   ## Available settings are:
   ##   octet-counting  -- see RFC5425#section-4.3.1 and RFC6587#section-3.4.1
@@ -140,8 +143,8 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Message transport
 
 The `framing` option only applies to streams. It governs the way we expect to
-receive messages within the stream.  Namely, with the [`"octet counting"`]()
-technique (default) or with the [`"non-transparent"`]() framing.
+receive messages within the stream.  Namely, with the [`"octet counting"`](https://tools.ietf.org/html/rfc5425#section-4.3)
+technique (default) or with the [`"non-transparent"`](https://tools.ietf.org/html/rfc6587#section-3.4.2) framing.
 
 The `trailer` option only applies when `framing` option is
 `"non-transparent"`. It must have one of the following values: `"LF"` (default),
@@ -212,7 +215,7 @@ echo "<13>1 2018-10-01T12:00:00.0Z example.org root - - - test" | nc -u 127.0.0.
 
 The `source` tag stores the remote IP address of the syslog sender.
 To resolve these IPs to DNS names, use the
-[`reverse_dns` processor]()
+[`reverse_dns` processor](/telegraf/v1/plugins/#processor-reverse_dns)
 
 You can send debugging messages directly to the input plugin using netcat:
 

@@ -42,6 +42,16 @@ jobs:
       - run:
           name: Hugo Build
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
+      - run:
+          name: Generate LLM-friendly Markdown
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              # Full build for production deployments
+              yarn build:md --public-dir workspace/public
+            else
+              # Incremental build for PRs - only process changed files
+              yarn build:md --public-dir workspace/public --only-changed --base-branch origin/master
+            fi
       - persist_to_workspace:
           root: workspace
           paths:

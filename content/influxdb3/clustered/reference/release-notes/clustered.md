@@ -82,14 +82,18 @@ spec:
 
 Tables can now be renamed and undeleted with [influxctl v2.10.5](https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#2105) or later.
 
-To enable hard delete of soft-deleted namespaces:
-- Set `INFLUXDB_IOX_ENABLE_NAMESPACE_ROW_DELETION` to `true`.
- - If needed, adjust how long a namespace remains soft-deleted (and eligible for undeletion) by setting `INFLUXDB_IOX_GC_NAMESPACE_CUTOFF` (default: `14d`)
- - If needed, adjust how long the garbage collector should sleep between runs of the namespace deletion task with `INFLUXDB_IOX_GC_NAMESPACE_SLEEP_INTERVAL` The default is `24h` which should be suitable for ongoing cleanup, but if there is a backlog of soft-deleted namespaces to clean up, you may want to run this more frequently until the garbage collector has caught up.
- - If needed, adjust the maximum number of namespaces that will get hard deleted in one run of the namespace deletion task with `INFLUXDB_IOX_GC_NAMESPACE_LIMIT` The default is `1000` which should be suitable for ongoing cleanup, but if you have a large number of namespaces and you're running the task very frequently, you may need to lower this to delete fewer records per run if each individual run is timing out.
+To enable hard delete of soft-deleted databases:
 
-To enable hard delete of soft-deleted tables in active namespaces (soft-deleted tables in soft-deleted namespaces get cleaned up when the namespace gets cleaned up):
-- Set `INFLUXDB_IOX_ENABLE_TABLE_ROW_DELETION` to `true`, and if needed, adjust these settings that work in the same way as the corresponding namespace flags:
+> [!Note]
+> In {{% product-name %}}, "namespace" in environment variable names refers to a database.
+
+- Set `INFLUXDB_IOX_ENABLE_NAMESPACE_ROW_DELETION` to `true`.
+ - If needed, adjust how long a database remains soft-deleted (and eligible for undeletion) by setting `INFLUXDB_IOX_GC_NAMESPACE_CUTOFF` (default: `14d`)
+ - If needed, adjust how long the garbage collector should sleep between runs of the database deletion task with `INFLUXDB_IOX_GC_NAMESPACE_SLEEP_INTERVAL` The default is `24h` which should be suitable for ongoing cleanup, but if there is a backlog of soft-deleted databases to clean up, you may want to run this more frequently until the garbage collector has caught up.
+ - If needed, adjust the maximum number of databases that will get hard deleted in one run of the database deletion task with `INFLUXDB_IOX_GC_NAMESPACE_LIMIT` The default is `1000` which should be suitable for ongoing cleanup, but if you have a large number of databases and you're running the task very frequently, you may need to lower this to delete fewer records per run if each individual run is timing out.
+
+To enable hard delete of soft-deleted tables in active databases (soft-deleted tables in soft-deleted databases get cleaned up when the database gets cleaned up):
+- Set `INFLUXDB_IOX_ENABLE_TABLE_ROW_DELETION` to `true`, and if needed, adjust these settings that work in the same way as the corresponding database flags:
   - `INFLUXDB_IOX_GC_TABLE_CUTOFF` (default: `14d`)
   - `INFLUXDB_IOX_GC_TABLE_SLEEP_INTERVAL` (default: `24h`)
   - `INFLUXDB_IOX_GC_TABLE_LIMIT` (default: `1000`)

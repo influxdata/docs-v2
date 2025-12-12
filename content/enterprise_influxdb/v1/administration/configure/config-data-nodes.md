@@ -425,7 +425,7 @@ Environmental variable: `INFLUXDB_DATA_CACHE_MAX_CONCURRENT_COMPACTIONS`
 
 #### compact-throughput
 
-Default is `50331648`.
+Default is `"48m"`.
 
 The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
 Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
@@ -435,7 +435,7 @@ Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`
 
 #### compact-throughput-burst
 
-Default is `50331648`.
+Default is `"48m"`.
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
@@ -453,9 +453,9 @@ Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
 
 Default is `10000`.
 
-The number of points per block to use during aggressive compaction. There are 
-certain cases where TSM files do not get fully compacted. This adjusts an 
-internal parameter to help ensure these files do get fully compacted.
+The number of points per block to use during aggressive compaction. In certain
+cases, TSM files do not get fully compacted. This adjusts an internal parameter
+to help ensure these files do get fully compacted.
 
 Environment variable: `INFLUXDB_DATA_AGGRESSIVE_POINTS_PER_BLOCK`
 
@@ -841,7 +841,7 @@ Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_RATE_LIMIT`
 
 Default is `"1s"`.
 
-The time period after which the hinted handoff retries a write after the write fails. There is an exponential back-off, which starts at 1 second and increases with each failure until it reaches `retry-max-interval`. Retries will then occur at the `retry-max-interval`. Once there is a successful retry, the waiting period will be reset to the `retry-interval`.
+The time period after which the hinted handoff retries a write after the write fails. An exponential back-off starts at 1 second and increases with each failure until it reaches `retry-max-interval`. Retries then occur at the `retry-max-interval`. Once there is a successful retry, the waiting period is reset to the `retry-interval`.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_INTERVAL`
 

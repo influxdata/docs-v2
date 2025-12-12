@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/sql/README.md, SQL Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/sql/README.md, SQL Plugin Source
 ---
 
 # SQL Output Plugin
@@ -66,10 +66,9 @@ you could improve the ingestion rate, by enabling `batch_transactions`
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -200,7 +199,7 @@ MySQL default quoting differs from standard ANSI/ISO SQL quoting. You must use
 MySQL's ANSI\_QUOTES mode with this plugin. You can enable this mode by using
 the setting `init_sql = "SET sql_mode='ANSI_QUOTES';"` or through a command-line
 option when running MySQL. See MySQL's docs for [details on
-ANSI\_QUOTES]() and [how to set the SQL mode](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting).
+ANSI\_QUOTES](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sqlmode_ansi_quotes) and [how to set the SQL mode](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting).
 
 You can use a DSN of the format "username:password@tcp(host:port)/dbname". See
 the [driver docs](https://github.com/go-sql-driver/mysql) for details.

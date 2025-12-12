@@ -10,7 +10,7 @@ introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/date/README.md, Date Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/processors/date/README.md, Date Plugin Source
 ---
 
 # Date Processor Plugin
@@ -24,10 +24,9 @@ to add a tag that can be used to group by month or year.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -64,7 +63,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
 On Windows, only the `Local` and `UTC` zones are available by default.  To use
 other timezones, set the `ZONEINFO` environment variable to the location of
-[`zoneinfo.zip`]():
+[`zoneinfo.zip`](https://github.com/golang/go/raw/50bd1c4d4eb4fac8ddeb5f063c099daccfb71b26/lib/time/zoneinfo.zip):
 
 ```text
 set ZONEINFO=C:\zoneinfo.zip

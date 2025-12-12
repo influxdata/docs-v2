@@ -10,7 +10,7 @@ introduced: "v1.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/kube_inventory/README.md, Kubernetes Inventory Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/kube_inventory/README.md, Kubernetes Inventory Plugin Source
 ---
 
 # Kubernetes Inventory Input Plugin
@@ -37,10 +37,9 @@ ingress, nodes, persistent volumes and many more.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -106,7 +105,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 
 If using [RBAC authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), you will need to create a cluster role to
 list "persistentvolumes" and "nodes". You will then need to make an [aggregated
-ClusterRole]() that will eventually be bound to a user or group.
+ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles) that will eventually be bound to a user or group.
 
 [rbac]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 [agg]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles

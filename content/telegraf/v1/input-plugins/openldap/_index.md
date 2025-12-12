@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/openldap/README.md, OpenLDAP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/openldap/README.md, OpenLDAP Plugin Source
 ---
 
 # OpenLDAP Input Plugin
@@ -19,7 +19,7 @@ This plugin gathers metrics from [OpenLDAP](https://www.openldap.org/)'s `cn=Mon
 To use this plugin you must enable the [slapd monitoring](https://www.openldap.org/devel/admin/monitoringslapd.html) backend.
 
 > [!NOTE]
-> It is recommended to use the newer [`ldap` input plugin]() instead.
+> It is recommended to use the newer [`ldap` input plugin](/telegraf/v1/plugins/#input-ldap) instead.
 
 **Introduced in:** Telegraf v1.4.0
 **Tags:** server, network
@@ -31,10 +31,9 @@ To use this plugin you must enable the [slapd monitoring](https://www.openldap.o
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

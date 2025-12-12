@@ -10,7 +10,7 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/azure_data_explorer/README.md, Azure Data Explorer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/azure_data_explorer/README.md, Azure Data Explorer Plugin Source
 ---
 
 # Azure Data Explorer Output Plugin
@@ -40,10 +40,9 @@ type of logs, metrics and time series data.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -73,7 +72,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   # table_name = ""
 
   ## Creates tables and relevant mapping if set to true(default).
-  ## Skips table and mapping creation if set to false, this is useful for running Telegraf with the lowest possible permissions i.e. table ingestor role.
+  ## Skips table and mapping creation if set to false, this is useful for running Telegraf with the lowest possible permissions (table ingestor role).
   # create_tables = true
 
   ##  Ingestion method to use.
@@ -97,7 +96,7 @@ The plugin will group the metrics by the metric name, and will send each group
 of metrics to an Azure Data Explorer table. If the table doesn't exist the
 plugin will create the table, if the table exists then the plugin will try to
 merge the Telegraf metric schema to the existing table. For more information
-about the merge process check the [`.create-merge` documentation]().
+about the merge process check the [`.create-merge` documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/create-merge-table-command).
 
 The table name will match the `name` property of the metric, this means that the
 name of the metric should comply with the Azure Data Explorer table naming
@@ -112,7 +111,7 @@ table. The name of the table must be supplied via `table_name` in the config
 file. If the table doesn't exist the plugin will create the table, if the table
 exists then the plugin will try to merge the Telegraf metric schema to the
 existing table. For more information about the merge process check the
-[`.create-merge` documentation]().
+[`.create-merge` documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/create-merge-table-command).
 
 ## Tables Schema
 
@@ -158,7 +157,7 @@ These methods are:
 1. AAD Application Tokens (Service Principals with secrets or certificates).
 
     For guidance on how to create and register an App in Azure Active Directory
-    check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals), and for more information on the Service
+    check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#register-an-application), and for more information on the Service
     Principals check [this article](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals).
 
 2. AAD User Tokens
@@ -215,7 +214,7 @@ below**:
    platform. Requires that code is running in Azure, e.g. on a VM. All
    configuration is handled by Azure. See [Azure Managed Service Identity](https://docs.microsoft.com/en-us/azure/active-directory/msi-overview)
    for more details. Only available when using the [Azure Resource
-   Manager]().
+   Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview).
 
 [msi]: https://docs.microsoft.com/en-us/azure/active-directory/msi-overview
 [arm]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview

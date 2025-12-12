@@ -997,16 +997,17 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 - [datafusion-max-parquet-fanout](#datafusion-max-parquet-fanout)
 - [datafusion-use-cached-parquet-loader](#datafusion-use-cached-parquet-loader)
 - [datafusion-config](#datafusion-config)
-  <!-- DEV-ONLY FLAGS: DO NOT DOCUMENT IN PRODUCTION - TOKIO RUNTIME FLAGS
-  - datafusion-runtime-type
-  - datafusion-runtime-disable-lifo-slot
-  - datafusion-runtime-event-interval
-  - datafusion-runtime-global-queue-interval
-  - datafusion-runtime-max-blocking-threads
-  - datafusion-runtime-max-io-events-per-tick
-  - datafusion-runtime-thread-keep-alive
-  - datafusion-runtime-thread-priority
-  END DEV-ONLY FLAGS -->
+
+<!--docs:exclude
+--datafusion-runtime-type: development-only Tokio runtime configuration
+--datafusion-runtime-disable-lifo-slot: development-only Tokio runtime configuration
+--datafusion-runtime-event-interval: development-only Tokio runtime configuration
+--datafusion-runtime-global-queue-interval: development-only Tokio runtime configuration
+--datafusion-runtime-max-blocking-threads: development-only Tokio runtime configuration
+--datafusion-runtime-max-io-events-per-tick: development-only Tokio runtime configuration
+--datafusion-runtime-thread-keep-alive: development-only Tokio runtime configuration
+--datafusion-runtime-thread-priority: development-only Tokio runtime configuration
+-->
 
 #### datafusion-num-threads
 
@@ -1891,10 +1892,10 @@ Sets the default duration for hard deletion of data.
 
 ### Telemetry
 
-- [telemetry-disable-upload](#telemetry-disable-upload)
+- [disable-telemetry-upload](#disable-telemetry-upload)
 - [telemetry-endpoint](#telemetry-endpoint)
 
-#### telemetry-disable-upload
+#### disable-telemetry-upload
 
 Disables the upload of telemetry data to InfluxData.
 
@@ -1902,7 +1903,7 @@ Disables the upload of telemetry data to InfluxData.
 
 | influxdb3 serve option       | Environment variable                 |
 | :--------------------------- | :----------------------------------- |
-| `--telemetry-disable-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
 
 ***
 

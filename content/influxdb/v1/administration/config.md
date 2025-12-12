@@ -115,7 +115,7 @@ Uncommented settings override the internal defaults.
 Note that the local configuration file does not need to include every
 configuration setting.
 
-There are two ways to launch InfluxDB with your configuration file:
+Use one of the following methods to start InfluxDB with your configuration file:
 
 - Point the process to the configuration file by using the `-config`
   option. For example:
@@ -430,9 +430,9 @@ brief bursts.
 
 #### aggressive-points-per-block {metadata="v1.12.0+"}
 
-The number of points per block to use during aggressive compaction. There are 
-certain cases where TSM files do not get fully compacted. This adjusts an 
-internal parameter to help ensure these files do get fully compacted.
+The number of points per block to use during aggressive compaction. In certain
+cases, TSM files do not get fully compacted. This adjusts an internal parameter
+to help ensure these files do get fully compacted.
 
 **Default**: `10000`  
 **Environment variable**: `INFLUXDB_AGGRESSIVE_POINTS_PER_BLOCK`

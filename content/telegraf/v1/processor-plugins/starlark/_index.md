@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/processors/starlark/README.md, Starlark Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/processors/starlark/README.md, Starlark Plugin Source
 ---
 
 # Starlark Processor Plugin
@@ -35,10 +35,9 @@ available functions.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -143,17 +142,19 @@ following libraries are available for loading:
         for an example. For more details about the functions, please refer to the
         [library documentation](https://pkg.go.dev/go.starlark.net/lib/json).
 - log:  `load("logging.star", "log")` provides the functions `log.debug()`,
-        `log.info()`, `log.warn()`, `log.error()`. See logging.star` for an example.
-- math: `load('math.star', 'math')` provides basic mathematical constants and functions.
-        See math.star for an example. For more details, please refer to the
-        [library documentation](https://pkg.go.dev/go.starlark.net/lib/math).
-- time: `load('time.star', 'time')` provides time-related constants and functions.
-        See
-        time_date.star,
-        time_duration.star and
-        time_timestamp.star for examples. For
-        more details about the functions, please refer to the
-        [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
+        `log.info()`, `log.warn()`, `log.error()`. See
+         logging.star for an example.
+- math: `load("math.star", "math")` provides the function
+         [documented in the library](https://pkg.go.dev/go.starlark.net/lib/math). See
+         math.star for an example.
+- time: `load("time.star", "time")` provides the functions `time.from_timestamp()`,
+        `time.is_valid_timezone()`, `time.now()`, `time.parse_duration()`,
+        `time.parse_time()`, `time.time()`. See
+         time_date.star,
+         time_duration.star and
+         time_timestamp.star for examples. For
+         more details about the functions, please refer to the
+         [library documentation](https://pkg.go.dev/go.starlark.net/lib/time).
 
 If you would like to see support for something else here, please open an issue.
 
@@ -225,6 +226,23 @@ Telegraf freezes the global scope, which prevents it from being modified, except
 for a special shared global dictionary named `state`, this can be used by the
 `apply` function.  See an example of this in compare with previous
 metric
+
+Other than the `state` variable, attempting to modify the global scope will fail
+with an error.
+
+**How to manage errors that occur in the apply function?**
+
+In case you need to call some code that may return an error, you can delegate
+the call to the built-in function `catch` which takes as argument a `Callable`
+and returns the error that occurred if any, `None` otherwise.
+
+So for example:
+
+```python
+load("json.star", "json")
+
+def apply(metric):
+    error = catch(lambda: failing(metric))
     if error != None:
         # Some code to execute in case of an error
         metric.fields["error"] = error
@@ -278,11 +296,12 @@ or return the value as a floating-point number.
 ### Examples
 
 - drop fields containing string values
-- drop fields with unexpected types](testdata/iops.star)
+- drop fields with unexpected types
+- obtain IOPS for aggregation and computing max IOPS)
 - process JSON in a metric field - see
-  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/json) for function documentation
 - use math function to compute a field value - see
-  [library documentation](https://pkg.go.dev/go.starlark.net/lib/time) for function documentation
+  [library documentation](https://pkg.go.dev/go.starlark.net/lib/math) for function documentation
 - transform numerical values
 - pivot a key's value to be the key for another field
 - compute the ratio of two integer fields

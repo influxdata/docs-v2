@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/aggregators/quantile/README.md, Quantile Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/aggregators/quantile/README.md, Quantile Plugin Source
 ---
 
 # Quantile Aggregator Plugin
@@ -25,10 +25,9 @@ algorithms are supported with varying accuracy and limitations.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -82,7 +81,7 @@ For implementation details see the underlying [golang library](https://github.co
 ### exact R7 and R8
 
 These algorithms compute quantiles as described in [Hyndman & Fan
-(1996)]().  The R7 variant is used in Excel and NumPy.  The R8
+(1996)](http://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/Sample%20Quantiles%20in%20Statistical%20Packages.pdf).  The R7 variant is used in Excel and NumPy.  The R8
 variant is recommended by Hyndman & Fan due to its independence of the
 underlying sample distribution.
 

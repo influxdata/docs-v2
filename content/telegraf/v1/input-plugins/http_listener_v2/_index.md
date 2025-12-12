@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/http_listener_v2/README.md, HTTP Listener v2 Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/http_listener_v2/README.md, HTTP Listener v2 Plugin Source
 ---
 
 # HTTP Listener v2 Input Plugin
@@ -21,8 +21,8 @@ This plugin listens for metrics sent via HTTP in any of the supported
 > [!NOTE]
 > If you would like Telegraf to act as a proxy/relay for InfluxDB v1 or
 > InfluxDB v2 it is recommended to use the
-> [influxdb__listener]() or
-> [influxdb_v2_listener]() plugin instead.
+> [influxdb__listener](/telegraf/v1/plugins/#input-influxdb_listener) or
+> [influxdb_v2_listener](/telegraf/v1/plugins/#input-influxdb_v2_listener) plugin instead.
 
 **Introduced in:** Telegraf v1.9.0
 **Tags:** server
@@ -45,10 +45,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

@@ -10,13 +10,13 @@ introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/apache/README.md, Apache Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/apache/README.md, Apache Plugin Source
 ---
 
 # Apache Input Plugin
 
 This plugin collects performance information from [Apache HTTP Servers](https://httpd.apache.org)
-using the [`mod_status` module](). Typically, this module is
+using the [`mod_status` module](https://httpd.apache.org/docs/current/mod/mod_status.html). Typically, this module is
 configured to expose a page at the `/server-status?auto` endpoint the server.
 
 The [ExtendedStatus option](https://httpd.apache.org/docs/current/mod/core.html#extendedstatus) must be enabled in order to collect
@@ -33,10 +33,9 @@ the [module documentation](https://httpd.apache.org/docs/current/mod/mod_status.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

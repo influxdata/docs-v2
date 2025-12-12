@@ -10,7 +10,7 @@ introduced: "v1.19.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/dpdk/README.md, Data Plane Development Kit (DPDK) Plugin Source
 ---
 
 # Data Plane Development Kit (DPDK) Input Plugin
@@ -43,10 +43,9 @@ to use DPDK in your application.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -135,7 +134,8 @@ This configuration allows getting metrics for all devices reported via
 Since this configuration will query `/ethdev/link_status` it's recommended to
 increase timeout to `socket_access_timeout = "10s"`.
 
-The plugin collecting interval.
+The plugin collecting interval
+should be adjusted accordingly (e.g. `interval = "30s"`).
 
 ### Example: Excluding NIC link status from being collected
 
@@ -243,7 +243,20 @@ measurements.
 
 The DPDK socket accepts `command,params` requests and returns metric data in
 JSON format. All metrics from DPDK socket become flattened using Telegraf's
-JSON Flattener, and a set of tags that identify
+JSON Flattener and exposed as fields.  If DPDK
+response contains no information (is empty or is null) then such response will
+be discarded.
+
+> **NOTE:** Since DPDK allows registering custom metrics in its telemetry
+> framework the JSON response from DPDK may contain various sets of metrics.
+> While metrics from `/ethdev/stats` should be most stable, the `/ethdev/xstats`
+> may contain driver-specific metrics (depending on DPDK application
+> configuration). The application-specific commands like `/l3fwd-power/stats`
+> can return their own specific set of metrics.
+
+## Example Output
+
+The output consists of plugin name (`dpdk`), and a set of tags that identify
 querying hierarchy:
 
 ```text

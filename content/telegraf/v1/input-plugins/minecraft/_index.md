@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
 ---
 
 # Minecraft Input Plugin
@@ -31,10 +31,9 @@ the RCON protocol.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -59,7 +58,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
 ### Server Setup
 
 Enable [RCON](http://wiki.vg/RCON) on the Minecraft server and add the following to your
-[`server.properties`]() file:
+[`server.properties`](https://minecraft.gamepedia.com/Server.properties) file:
 
 ```conf
 enable-rcon=true

@@ -10,7 +10,7 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/opentelemetry/README.md, OpenTelemetry Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/opentelemetry/README.md, OpenTelemetry Plugin Source
 ---
 
 # OpenTelemetry Output Plugin
@@ -26,10 +26,9 @@ via gRPC.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -115,7 +114,11 @@ For metrics, two input schemata exist.  Line protocol with measurement name
 `prometheus` is assumed to have a schema matching Prometheus input
 plugin when `metric_version = 2`.  Line
 protocol with other measurement names is assumed to have schema matching
-Prometheus input plugin
+Prometheus input plugin when
+`metric_version = 1`.  If both schema assumptions fail, then the line protocol
+data is interpreted as:
+
+- Metric type = gauge (or counter, if indicated by the input plugin)
 - Metric name = `[measurement]_[field key]`
 - Metric value = line protocol field value, cast to float
 - Metric labels = line protocol tags

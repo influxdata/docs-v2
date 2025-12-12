@@ -10,7 +10,7 @@ introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/passenger/README.md, Passenger Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/passenger/README.md, Passenger Plugin Source
 ---
 
 # Passenger Input Plugin
@@ -20,7 +20,7 @@ This plugin gathers metrics from the [Phusion Passenger](https://www.phusionpass
 > [!WARNING]
 > Depending on your environment, this plugin can create a high number of series
 > which can cause high load on your database. Please use
-> [measurement filtering](https://docs.influxdata.com/telegraf/latest/administration/configuration/#measurement-filtering) to manage your series cardinality!
+> [measurement filtering](/telegraf/v1/configuration/#metric-filtering) to manage your series cardinality!
 
 The plugin uses the `passenger-status` command line tool.
 
@@ -37,10 +37,9 @@ The plugin uses the `passenger-status` command line tool.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

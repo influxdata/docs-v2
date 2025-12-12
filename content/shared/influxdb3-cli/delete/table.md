@@ -15,6 +15,10 @@ influxdb3 delete table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 
 ## Options
 
+<!--docs:exclude
+--table-name: internal variable, use positional <TABLE_NAME>
+-->
+
 | Option |               | Description                                                                              |
 | :----- | :------------ | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`      | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |

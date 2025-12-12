@@ -2,60 +2,22 @@
 
 import process from 'process';
 import fs from 'fs';
-import { execSync } from 'child_process';
 import matter from 'gray-matter';
 import { filePathToUrl } from '../../.github/scripts/utils/url-transformer.js';
+import {
+  findPagesReferencingSharedContent,
+  categorizeContentFiles,
+} from '../../scripts/lib/content-utils.js';
 
 // Get file paths from command line arguments
 const filePaths = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 
 // Parse options
-const debugMode = process.argv.includes('--debug'); // deprecated, no longer used
 const jsonMode = process.argv.includes('--json');
 
 // Separate shared content files and regular content files
-const sharedContentFiles = filePaths.filter(
-  (file) =>
-    file.startsWith('content/shared/') &&
-    (file.endsWith('.md') || file.endsWith('.html'))
-);
-
-const regularContentFiles = filePaths.filter(
-  (file) =>
-    file.startsWith('content/') &&
-    !file.startsWith('content/shared/') &&
-    (file.endsWith('.md') || file.endsWith('.html'))
-);
-
-// Find pages that reference shared content files in their frontmatter
-function findPagesReferencingSharedContent(sharedFilePath) {
-  try {
-    // Remove the leading "content/" to match how it would appear in frontmatter
-    const relativePath = sharedFilePath.replace(/^content\//, '');
-
-    // Use grep to find files that reference this shared content in frontmatter
-    // Look for source: <path> pattern in YAML frontmatter
-    const grepCmd = `grep -l "source: .*${relativePath}" --include="*.md" --include="*.html" -r content/`;
-
-    // Execute grep command and parse results
-    const result = execSync(grepCmd, { encoding: 'utf8' }).trim();
-
-    if (!result) {
-      return [];
-    }
-
-    return result.split('\n').filter(Boolean);
-  } catch (error) {
-    // grep returns non-zero exit code when no matches are found
-    if (error.status === 1) {
-      return [];
-    }
-    console.error(
-      `Error finding references to ${sharedFilePath}: ${error.message}`
-    );
-    return [];
-  }
-}
+const { shared: sharedContentFiles, regular: regularContentFiles } =
+  categorizeContentFiles(filePaths);
 
 /**
  * Extract source from frontmatter or use the file path as source

@@ -10,13 +10,13 @@ introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/ldap/README.md, LDAP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/ldap/README.md, LDAP Plugin Source
 ---
 
 # LDAP Input Plugin
 
 This plugin gathers metrics from LDAP servers' monitoring (`cn=Monitor`)
-backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/devel/admin/monitoringslapd.html) and [389ds](https://www.port389.org/)
+backend. Currently this plugin supports [OpenLDAP](https://www.openldap.org/) and [389ds](https://www.port389.org/)
 servers.
 
 **Introduced in:** Telegraf v1.29.0
@@ -28,10 +28,9 @@ servers.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -45,12 +44,19 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   ##    ldap://...      -- unencrypted (non-TLS) connection
   ##    ldaps://...     -- TLS connection
   ##    starttls://...  --  StartTLS connection
+  ##    ldapi://...     -- UNIX socket connection
   ## If no port is given, the default ports, 389 for ldap and starttls and
-  ## 636 for ldaps, are used.
+  ## 636 for ldaps, are used, there is no port on UNIX sockets.
   server = "ldap://localhost"
 
   ## Server dialect, can be "openldap" or "389ds"
   # dialect = "openldap"
+
+  # What sort of Bind to use
+  ## Empty or "simple" means to use a simple LDAP bind, otherwise use a
+  ## specified SASL mechanism (only EXTERNAL currently supported - for TLS
+  ## client certs or UNIX credentials)
+  # bind_mechanism = "simple"
 
   # DN and password to bind with
   ## If bind_dn is empty an anonymous bind is performed.
@@ -100,8 +106,9 @@ are usually named according to the selected dialect.
 
 ### Tags
 
-- server -- Server name or IP
-- port   -- Port used for connecting
+- server -- Server name or IP (except for Unix socket)
+- port   -- Port used for connecting (except for Unix socket)
+- path   -- Path used to connect (when connecting over a Unix socket)
 
 ## Example Output
 

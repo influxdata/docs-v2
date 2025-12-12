@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/systemd_units/README.md, Systemd-Units Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/systemd_units/README.md, Systemd-Units Plugin Source
 ---
 
 # Systemd-Units Input Plugin
@@ -27,10 +27,9 @@ interface.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -55,7 +54,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   ##  ex: scope = "user"
   # scope = "system"
 
-  ## Collect also units not loaded by systemd, i.e. disabled or static units
+  ## Collect also units not loaded by systemd (disabled or static units)
   ## Enabling this feature might introduce significant load when used with
   ## unspecific patterns (such as '*') as systemd will need to load all
   ## matching unit files.
@@ -84,7 +83,7 @@ restart-counts, PID, etc. See the metrics section
 
 ### Load
 
-Enumeration of [unit_load_state_table]()
+Enumeration of [unit_load_state_table](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L87)
 
 | Value | Meaning     | Description                     |
 | ----- | -------     | -----------                     |
@@ -100,7 +99,7 @@ Enumeration of [unit_load_state_table]()
 
 ### Active
 
-Enumeration of [unit_active_state_table]()
+Enumeration of [unit_active_state_table](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L99)
 
 | Value | Meaning   | Description                        |
 | ----- | -------   | -----------                        |
@@ -115,7 +114,7 @@ Enumeration of [unit_active_state_table]()
 
 ### Sub
 
-enumeration of sub states, see various [unittype_state_tables](); duplicates
+enumeration of sub states, see various [unittype_state_tables](https://github.com/systemd/systemd/blob/c87700a1335f489be31cd3549927da68b5638819/src/basic/unit-def.c#L163); duplicates
 were removed, tables are hex aligned to keep some space for future values
 
 | Value  | Meaning               | Description                         |

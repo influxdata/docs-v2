@@ -70,7 +70,7 @@ curl -i http://localhost:8181/ping
 
 Look for:
 
-- `x-influxdb-version`: Version number (for example, `3.6.0`)
+- `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
 - `x-influxdb-build`: `Core`
 
 {{% /show-in %}}
@@ -99,8 +99,9 @@ curl -i http://localhost:8181/ping
 
 Look for:
 
-- `x-influxdb-version`: Version number (for example, `3.6.0`)
+- `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
 - `x-influxdb-build`: `Enterprise`
+
 
 {{% /show-in %}}
 
@@ -154,6 +155,17 @@ influxctl cluster list
 **HTTP headers**: API responses include version information in response headers.
 
 {{% /show-in %}}
+
+{{% hide-in "v2,cloud,v1" %}}
+> [!Note]
+>
+> #### SQL version() function
+>
+> The SQL `version()` function returns the
+> [DataFusion](https://datafusion.apache.org/) query engine version, not the
+> InfluxDB product version. Use the methods above to identify your InfluxDB
+> version.
+{{% /hide-in %}}
 
 {{% show-in "v2" %}}
 
@@ -271,6 +283,15 @@ Look for:
 
 - `x-influxdb-version`: Version number (for example, `3.6.0`)
 - `x-influxdb-build`: `Core` or `Enterprise`
+
+> [!Note]
+>
+> #### SQL version() function
+>
+> The SQL `version()` function returns the
+> [DataFusion](https://datafusion.apache.org/) query engine version, not the
+> InfluxDB product version. Use the methods above to identify your InfluxDB
+> version.
 
 {{% /tab-content %}}
 

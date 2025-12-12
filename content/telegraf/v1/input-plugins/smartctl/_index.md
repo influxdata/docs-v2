@@ -10,7 +10,7 @@ introduced: "v1.31.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/smartctl/README.md, smartctl JSON Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/smartctl/README.md, smartctl JSON Plugin Source
 ---
 
 # smartctl JSON Input Plugin
@@ -18,7 +18,7 @@ related:
 This plugin collects [Self-Monitoring, Analysis and Reporting Technology](https://en.wikipedia.org/wiki/Self-Monitoring,_Analysis_and_Reporting_Technology)
 information for storage devices information using the
 [`smartmontools`]() package. Contrary to the
-[smart plugin](/telegraf/v1/plugins/#input-smart), this plugin does not use the [`nvme-cli`]()
+[smart plugin](/telegraf/v1/plugins/#input-smart), this plugin does not use the [`nvme-cli`](https://github.com/linux-nvme/nvme-cli)
 package to collect additional information about NVMe devices.
 
 > [!NOTE]
@@ -37,10 +37,9 @@ package to collect additional information about NVMe devices.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 

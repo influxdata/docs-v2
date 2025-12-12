@@ -10,7 +10,7 @@ introduced: "v0.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/diskio/README.md, DiskIO Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/diskio/README.md, DiskIO Plugin Source
 ---
 
 # DiskIO Input Plugin
@@ -23,10 +23,9 @@ This plugin gathers metrics about disk traffic and timing.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -96,8 +95,8 @@ docker run --privileged -v /:/hostfs:ro -v /run/udev:/run/udev:ro -e HOST_PROC=/
     - io_await (float64, gauge, milliseconds)
     - io_svctm (float64, gauge, milliseconds)
 
-On linux these values correspond to the values in [`/proc/diskstats`]() and
-[`/sys/block/<dev>/stat`]().
+On linux these values correspond to the values in [`/proc/diskstats`](https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats) and
+[`/sys/block/<dev>/stat`](https://www.kernel.org/doc/Documentation/block/stat.txt).
 
 [1]: https://www.kernel.org/doc/Documentation/ABI/testing/procfs-diskstats
 
