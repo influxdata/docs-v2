@@ -148,4 +148,56 @@
       {{ end }}
     </li>
   {{ end }}
+
+  {{/* ALL ENDPOINTS - Collect all operations and sort by method+path */}}
+  {{ $allOperations := slice }}
+  {{ range $operationArticles }}
+    {{ $fields := index . "fields" }}
+    {{ if isset $fields "operations" }}
+      {{ range index $fields "operations" }}
+        {{ $allOperations = $allOperations | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt (len $allOperations) 0 }}
+    {{/* Sort operations alphabetically by path, then method */}}
+    {{ $sortedOps := slice }}
+    {{ range $allOperations }}
+      {{ $sortKey := printf "%s %s" .path (upper .method) }}
+      {{ $sortedOps = $sortedOps | append (dict "sortKey" $sortKey "op" .) }}
+    {{ end }}
+    {{ $sortedOps = sort $sortedOps "sortKey" }}
+
+    {{/* Check if any operation is active */}}
+    {{ $anyOpActive := false }}
+    {{ range $sortedOps }}
+      {{ $op := .op }}
+      {{ $opPathSlug := $op.path | replaceRE "^/" "" }}
+      {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) }}
+      {{ if eq $currentPage.RelPermalink $opUrl }}
+        {{ $anyOpActive = true }}
+      {{ end }}
+    {{ end }}
+
+    <li class="nav-item">
+      <a href="#" class="children-toggle{{ if $anyOpActive }} open{{ end }}"></a>
+      <span class="nav-group-label">All endpoints</span>
+      <ul class="children{{ if $anyOpActive }} open{{ end }}">
+        {{ range $sortedOps }}
+          {{ $op := .op }}
+          {{ $apiPath := $op.path }}
+          {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+          {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) | relURL }}
+          {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method)) }}
+        <li class="nav-item api-operation api-operation--path{{ if $opIsActive }} active{{ end }}">
+          <a href="{{ $operationUrl | safeURL }}">
+            <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+            <span class="api-path">{{ $apiPath }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </li>
+  {{ end }}
 {{ end }}
