@@ -26,7 +26,7 @@ If upgrading from earlier InfluxDB 2.x versions, we strongly recommend to upgrad
 
 Upon upgrading to InfluxDB v2.8.0 or later from version 2.7.12 or earlier releases, the BoltDB schema is upgraded to add a new index bucket. 
 
-Upon startup when token hashing is enabled, all unhashed tokens are converted to hashed tokens and unhashed tokens are deleted. This check and conversion of unhashed tokens occurs on every startup when token hashing is enabled. 
+On every startup with token hashing enabled, InfluxDB 2.x migrates all unhashed tokens to hashed tokens and then deletes the unhashed tokens.
 
 When token hashing is disabled, any new tokens are stored as hashed tokens. If token hashing is disabled after being disabled, newly created tokens are stored unhashed. However, existing tokens remain hashed on disk.
 
