@@ -18,7 +18,6 @@ weight: 101
 
 Introduces token hashing. When activated using the [`use-hashed-tokens` config option](/influxdb/v2/reference/config-options/#use-hashed-tokens), {{< product-name >}} stores all API tokens as hashes on disk. While token hashing is a valuable security upgrade, care should be taken when upgrading and enabling token hashing. 
 
-Documentation link: [use-hashed-tokens](https://docs.influxdata.com/influxdb/v2/reference/config-options/#use-hashed-tokens)
 
 If upgrading from earlier InfluxDB 2.x versions, we strongly recommend to upgrade to version 2.8.0 or later and then enable hashed tokens in two steps, not one.
 
