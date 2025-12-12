@@ -38,7 +38,7 @@ If token hashing is *never* enabled, then it is possible to downgrade from 2.8.0
 
 ##### Recommended Process
 
-It is not necessary to enabled token hashing immediately after upgrading. Token hashing is also not required by 2.8.0. 
+You aren’t required to enable token hashing immediately after upgrading to InfluxDB v2.8.0. You can enable token hashing at any time after the upgrade.
 
 1. Upgrade InfluxDB.
    1. Initiate influxd shutdown.
