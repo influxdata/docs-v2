@@ -28,7 +28,7 @@ Upon upgrading to InfluxDB v2.8.0 or later from version 2.7.12 or earlier releas
 
 On every startup with token hashing enabled, InfluxDB 2.x migrates all unhashed tokens to hashed tokens and then deletes the unhashed tokens.
 
-When token hashing is disabled, any new tokens are stored as hashed tokens. If token hashing is disabled after being disabled, newly created tokens are stored unhashed. However, existing tokens remain hashed on disk.
+After you enable token hashing, any new tokens are stored as hashed tokens. If you then disable token hashing, newly created tokens are stored unhashed and existing tokens remain hashed on disk.
 
 ##### Hashed Tokens Are Lost During Downgrade
 
