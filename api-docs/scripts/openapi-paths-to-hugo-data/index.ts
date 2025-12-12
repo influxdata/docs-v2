@@ -498,7 +498,11 @@ function writeTagOpenapis(
       HTTP_METHODS.forEach((method) => {
         const operation = pathItem[method] as Operation | undefined;
         if (operation?.tags?.includes(tagName)) {
-          filteredPathItem[method] = operation;
+          // Clone the operation and restrict tags to only this tag
+          // This prevents RapiDoc from rendering the operation multiple times
+          // (once per tag) when an operation belongs to multiple tags
+          const filteredOperation = { ...operation, tags: [tagName] };
+          filteredPathItem[method] = filteredOperation;
           hasOperations = true;
         }
       });

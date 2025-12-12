@@ -587,6 +587,7 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
         layout: 'operation',
         // RapiDoc Mini configuration
         specFile: tagSpecFile,
+        // RapiDoc match-paths format: "method /path" (e.g., "post /write")
         matchPaths: `${method} ${op.path}`,
         // Operation metadata
         operationId: op.operationId,

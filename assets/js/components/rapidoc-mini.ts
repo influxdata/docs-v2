@@ -166,6 +166,7 @@ function createRapiDocElement(
 
   // Core attributes
   element.setAttribute('spec-url', specUrl);
+  // matchPaths format: "method /path" (e.g., "post /write")
   if (matchPaths) {
     element.setAttribute('match-paths', matchPaths);
   }
