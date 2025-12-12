@@ -158,7 +158,7 @@ tags:
     description: Retrieve server metrics, status, and version information
   - name: Table
     description: Manage table schemas and data
-  - name: Token
+  - name: Auth token
     description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
@@ -1191,7 +1191,6 @@ paths:
       description: Creates a distinct cache for a table.
       tags:
         - Cache data
-        - Table
       requestBody:
         required: true
         content:
@@ -1236,7 +1235,6 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
-        - Table
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1261,7 +1259,6 @@ paths:
           description: Cache already exists.
       tags:
         - Cache data
-        - Table
     delete:
       operationId: DeleteConfigureLastCache
       summary: Delete last cache
@@ -1291,7 +1288,6 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
-        - Table
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
@@ -1732,7 +1728,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token/admin:
     post:
       operationId: PostCreateAdminToken
@@ -1753,7 +1749,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
@@ -1772,7 +1768,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1795,7 +1791,7 @@ paths:
           description: Token not found.
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token/named_admin:
     post:
       operationId: PostCreateNamedAdminToken
@@ -1825,7 +1821,7 @@ paths:
           description: A token with this name already exists.
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/plugins/files:
     put:
       operationId: PutPluginFile

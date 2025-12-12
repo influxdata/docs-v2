@@ -133,7 +133,12 @@
         {{ if and (reflect.IsMap $fields) (isset $fields "operations") }}
           {{ $operations = index $fields "operations" }}
         {{ end }}
-        {{ $hasOperations := gt (len $operations) 0 }}
+        {{/* Don't show operations for conceptual/traitTag pages (e.g., Authentication) */}}
+        {{ $isConceptual := false }}
+        {{ if and (reflect.IsMap $fields) (isset $fields "isConceptual") }}
+          {{ $isConceptual = index $fields "isConceptual" }}
+        {{ end }}
+        {{ $hasOperations := and (gt (len $operations) 0) (not $isConceptual) }}
 
         <li class="nav-item{{ if $isActive }} active{{ end }}">
           {{ if $hasOperations }}<a href="#" class="children-toggle{{ if or $isActive $groupIsOpen }} open{{ end }}"></a>{{ end }}
@@ -195,7 +200,12 @@
                 {{ if and (reflect.IsMap $fields) (isset $fields "menuName") }}
                   {{ $menuName = index $fields "menuName" }}
                 {{ end }}
-                {{ $hasOperations := gt (len $operations) 0 }}
+                {{/* Don't show operations for conceptual/traitTag pages (e.g., Authentication) */}}
+                {{ $isConceptual := false }}
+                {{ if and (reflect.IsMap $fields) (isset $fields "isConceptual") }}
+                  {{ $isConceptual = index $fields "isConceptual" }}
+                {{ end }}
+                {{ $hasOperations := and (gt (len $operations) 0) (not $isConceptual) }}
 
             <li class="nav-item{{ if $isActive }} active{{ end }}">
               {{ if $hasOperations }}<a href="#" class="children-toggle{{ if $isActive }} open{{ end }}"></a>{{ end }}

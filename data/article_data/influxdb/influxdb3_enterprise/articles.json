@@ -1,6 +1,74 @@
 {
   "articles": [
     {
+      "path": "api/auth-token",
+      "fields": {
+        "name": "Auth token",
+        "describes": [
+          "/api/v3/configure/enterprise/token",
+          "/api/v3/configure/token/admin",
+          "/api/v3/configure/token/admin/regenerate",
+          "/api/v3/configure/token",
+          "/api/v3/configure/token/named_admin"
+        ],
+        "title": "Auth token",
+        "description": "Manage tokens for authentication and authorization",
+        "tag": "Auth token",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostCreateResourceToken",
+            "method": "POST",
+            "path": "/api/v3/configure/enterprise/token",
+            "summary": "Create a resource token",
+            "tags": [
+              "Auth token"
+            ]
+          },
+          {
+            "operationId": "PostCreateAdminToken",
+            "method": "POST",
+            "path": "/api/v3/configure/token/admin",
+            "summary": "Create admin token",
+            "tags": [
+              "Auth token"
+            ]
+          },
+          {
+            "operationId": "PostRegenerateAdminToken",
+            "method": "POST",
+            "path": "/api/v3/configure/token/admin/regenerate",
+            "summary": "Regenerate admin token",
+            "tags": [
+              "Auth token"
+            ]
+          },
+          {
+            "operationId": "DeleteToken",
+            "method": "DELETE",
+            "path": "/api/v3/configure/token",
+            "summary": "Delete token",
+            "tags": [
+              "Auth token"
+            ]
+          },
+          {
+            "operationId": "PostCreateNamedAdminToken",
+            "method": "POST",
+            "path": "/api/v3/configure/token/named_admin",
+            "summary": "Create named admin token",
+            "tags": [
+              "Auth token"
+            ]
+          }
+        ],
+        "tagDescription": "Manage tokens for authentication and authorization",
+        "source": "static/openapi/influxdb3-enterprise/tags/tags/ref-auth-token.yaml",
+        "staticFilePath": "/openapi/influxdb3-enterprise/tags/tags/ref-auth-token.yaml"
+      }
+    },
+    {
       "path": "api/authentication",
       "fields": {
         "name": "Authentication",
@@ -23,8 +91,7 @@
             "path": "/api/v3/configure/enterprise/token",
             "summary": "Create a resource token",
             "tags": [
-              "Authentication",
-              "Token"
+              "Authentication"
             ]
           },
           {
@@ -33,8 +100,7 @@
             "path": "/api/v3/configure/token/admin",
             "summary": "Create admin token",
             "tags": [
-              "Authentication",
-              "Token"
+              "Authentication"
             ]
           },
           {
@@ -43,8 +109,7 @@
             "path": "/api/v3/configure/token/admin/regenerate",
             "summary": "Regenerate admin token",
             "tags": [
-              "Authentication",
-              "Token"
+              "Authentication"
             ]
           },
           {
@@ -53,8 +118,7 @@
             "path": "/api/v3/configure/token",
             "summary": "Delete token",
             "tags": [
-              "Authentication",
-              "Token"
+              "Authentication"
             ]
           },
           {
@@ -63,8 +127,7 @@
             "path": "/api/v3/configure/token/named_admin",
             "summary": "Create named admin token",
             "tags": [
-              "Authentication",
-              "Token"
+              "Authentication"
             ]
           }
         ],
@@ -93,8 +156,7 @@
             "path": "/api/v3/configure/distinct_cache",
             "summary": "Create distinct cache",
             "tags": [
-              "Cache data",
-              "Table"
+              "Cache data"
             ]
           },
           {
@@ -103,8 +165,7 @@
             "path": "/api/v3/configure/distinct_cache",
             "summary": "Delete distinct cache",
             "tags": [
-              "Cache data",
-              "Table"
+              "Cache data"
             ]
           },
           {
@@ -113,8 +174,7 @@
             "path": "/api/v3/configure/last_cache",
             "summary": "Create last cache",
             "tags": [
-              "Cache data",
-              "Table"
+              "Cache data"
             ]
           },
           {
@@ -123,8 +183,7 @@
             "path": "/api/v3/configure/last_cache",
             "summary": "Delete last cache",
             "tags": [
-              "Cache data",
-              "Table"
+              "Cache data"
             ]
           }
         ],
@@ -545,9 +604,7 @@
       "fields": {
         "name": "Table",
         "describes": [
-          "/api/v3/configure/table",
-          "/api/v3/configure/distinct_cache",
-          "/api/v3/configure/last_cache"
+          "/api/v3/configure/table"
         ],
         "title": "Table",
         "description": "Manage table schemas and data",
@@ -581,124 +638,11 @@
             "tags": [
               "Table"
             ]
-          },
-          {
-            "operationId": "PostConfigureDistinctCache",
-            "method": "POST",
-            "path": "/api/v3/configure/distinct_cache",
-            "summary": "Create distinct cache",
-            "tags": [
-              "Cache data",
-              "Table"
-            ]
-          },
-          {
-            "operationId": "DeleteConfigureDistinctCache",
-            "method": "DELETE",
-            "path": "/api/v3/configure/distinct_cache",
-            "summary": "Delete distinct cache",
-            "tags": [
-              "Cache data",
-              "Table"
-            ]
-          },
-          {
-            "operationId": "PostConfigureLastCache",
-            "method": "POST",
-            "path": "/api/v3/configure/last_cache",
-            "summary": "Create last cache",
-            "tags": [
-              "Cache data",
-              "Table"
-            ]
-          },
-          {
-            "operationId": "DeleteConfigureLastCache",
-            "method": "DELETE",
-            "path": "/api/v3/configure/last_cache",
-            "summary": "Delete last cache",
-            "tags": [
-              "Cache data",
-              "Table"
-            ]
           }
         ],
         "tagDescription": "Manage table schemas and data",
         "source": "static/openapi/influxdb3-enterprise/tags/tags/ref-table.yaml",
         "staticFilePath": "/openapi/influxdb3-enterprise/tags/tags/ref-table.yaml"
-      }
-    },
-    {
-      "path": "api/token",
-      "fields": {
-        "name": "Token",
-        "describes": [
-          "/api/v3/configure/enterprise/token",
-          "/api/v3/configure/token/admin",
-          "/api/v3/configure/token/admin/regenerate",
-          "/api/v3/configure/token",
-          "/api/v3/configure/token/named_admin"
-        ],
-        "title": "Token",
-        "description": "Manage tokens for authentication and authorization",
-        "tag": "Token",
-        "isConceptual": false,
-        "menuGroup": "Administration",
-        "operations": [
-          {
-            "operationId": "PostCreateResourceToken",
-            "method": "POST",
-            "path": "/api/v3/configure/enterprise/token",
-            "summary": "Create a resource token",
-            "tags": [
-              "Authentication",
-              "Token"
-            ]
-          },
-          {
-            "operationId": "PostCreateAdminToken",
-            "method": "POST",
-            "path": "/api/v3/configure/token/admin",
-            "summary": "Create admin token",
-            "tags": [
-              "Authentication",
-              "Token"
-            ]
-          },
-          {
-            "operationId": "PostRegenerateAdminToken",
-            "method": "POST",
-            "path": "/api/v3/configure/token/admin/regenerate",
-            "summary": "Regenerate admin token",
-            "tags": [
-              "Authentication",
-              "Token"
-            ]
-          },
-          {
-            "operationId": "DeleteToken",
-            "method": "DELETE",
-            "path": "/api/v3/configure/token",
-            "summary": "Delete token",
-            "tags": [
-              "Authentication",
-              "Token"
-            ]
-          },
-          {
-            "operationId": "PostCreateNamedAdminToken",
-            "method": "POST",
-            "path": "/api/v3/configure/token/named_admin",
-            "summary": "Create named admin token",
-            "tags": [
-              "Authentication",
-              "Token"
-            ]
-          }
-        ],
-        "tagDescription": "Manage tokens for authentication and authorization",
-        "source": "static/openapi/influxdb3-enterprise/tags/tags/ref-token.yaml",
-        "staticFilePath": "/openapi/influxdb3-enterprise/tags/tags/ref-token.yaml"
       }
     },
     {
