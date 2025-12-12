@@ -1892,10 +1892,10 @@ Sets the default duration for hard deletion of data.
 
 ### Telemetry
 
-- [telemetry-disable-upload](#telemetry-disable-upload)
+- [disable-telemetry-upload](#disable-telemetry-upload)
 - [telemetry-endpoint](#telemetry-endpoint)
 
-#### telemetry-disable-upload
+#### disable-telemetry-upload
 
 Disables the upload of telemetry data to InfluxData.
 
@@ -1903,7 +1903,7 @@ Disables the upload of telemetry data to InfluxData.
 
 | influxdb3 serve option       | Environment variable                 |
 | :--------------------------- | :----------------------------------- |
-| `--telemetry-disable-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
 
 ***
 
