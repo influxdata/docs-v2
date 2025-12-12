@@ -46,12 +46,14 @@
               <h1 class="article--title">{{ .Title }}</h1>
               {{ end }}
 
-              {{/* Summary/Description */}}
-              {{ with .Params.summary }}
-              <p class="article--summary">{{ . | markdownify }}</p>
-              {{ else }}
-                {{ with .Description }}
+              {{/* Summary/Description - skip for conceptual pages (shown in content section) */}}
+              {{ if not (.Params.isConceptual | default false) }}
+                {{ with .Params.summary }}
                 <p class="article--summary">{{ . | markdownify }}</p>
+                {{ else }}
+                  {{ with .Description }}
+                  <p class="article--summary">{{ . | markdownify }}</p>
+                  {{ end }}
                 {{ end }}
               {{ end }}
             </div>
