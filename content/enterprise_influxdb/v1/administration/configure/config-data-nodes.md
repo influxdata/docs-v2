@@ -1151,6 +1151,23 @@ This endpoint is used for troubleshooting and monitoring.
 
 Environment variable: `INFLUXDB_HTTP_PPROF_ENABLED`
 
+#### pprof-auth-enabled
+
+Default is `false`.
+
+Enables authentication on `/debug` endpoints. If enabled, users need admin 
+permissions to access the following endpoints:
+
+- `/debug/pprof`
+- `/debug/requests`
+- `/debug/vars`
+
+This setting has no effect if either 
+[`auth-enabled`](#auth-enabled) or 
+[`pprof-enabled`](#pprof-enabled) are set to `false`.
+
+Environment variable: `INFLUXDB_HTTP_PPROF_AUTH_ENABLED`
+
 #### https-enabled
 
 Default is `false`.
