@@ -177,12 +177,12 @@ influxdb:
   versions:
     - v2
     - v1
-  latest: v2.7
+  latest: v2.8
   latest_patches:
-    v2: 2.7.12
+    v2: 2.8.0
     v1: 1.12.2
   latest_cli:
-    v2: 2.7.5
+    v2: 2.8.0
   detector_config:
     query_languages:
       InfluxQL:
