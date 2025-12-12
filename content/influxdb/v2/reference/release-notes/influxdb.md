@@ -62,7 +62,7 @@ You aren’t required to enable token hashing immediately after upgrading to Inf
 ### Maintenance
 
 - [1b83d2c](https://github.com/influxdata/influxdb/commit/1b83d2c): Chore: update to go 1.23.12 (2.7)
-- [40a6332](https://github.com/influxdata/influxdb/commit/40a6332): Updates post-install for linux package builds
+- [40a6332](https://github.com/influxdata/influxdb/commit/40a6332): Updates post-install for Linux package builds
 
 ## v2.7.12 {date="2025-05-20"}
 
