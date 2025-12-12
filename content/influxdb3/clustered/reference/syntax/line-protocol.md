@@ -9,9 +9,6 @@ menu:
     parent: Other syntaxes
 weight: 102
 influxdb3/clustered/tags: [write, line protocol, syntax]
-alt_links:
-  core: /influxdb3/core/reference/line-protocol/
-  enterprise: /influxdb3/enterprise/reference/line-protocol/
 related:
   - /influxdb3/clustered/write-data/
 source: /shared/v3-line-protocol.md
