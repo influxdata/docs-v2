@@ -13,5 +13,4 @@ related:
 source: /shared/influxdb-v2/reference/syntax/line-protocol.md
 ---
 
-<!-- The content of this file is at 
-// SOURCE content/shared/influxdb-v2/reference/syntax/line-protocol.md-->
+<!-- // SOURCE content/shared/influxdb-v2/reference/syntax/line-protocol.md -->
