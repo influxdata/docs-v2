@@ -98,8 +98,6 @@ module:
 params:
   env: development
   environment: development
-  # API documentation renderer: "scalar" (default) or "rapidoc"
-  apiRenderer: rapidoc
 
 # Configure the server for development
 server:
