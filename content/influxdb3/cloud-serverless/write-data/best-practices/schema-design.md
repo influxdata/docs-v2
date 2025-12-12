@@ -66,7 +66,7 @@ A row's primary key tag set does not include tags with null values.
 
 > [!Important]
 > Overwriting points with the same primary key (timestamp and tag set) is not reliable for maintaining a last-value view.
-> For recommended patterns, see [Duplicate points](/influxdb3/cloud-serverless/reference/line-protocol/#duplicate-points) in the line protocol reference.
+> For recommended patterns, see [Duplicate points](/influxdb3/cloud-serverless/reference/syntax/line-protocol/#duplicate-points) in the line protocol reference.
 
 ### Tags versus fields
 
