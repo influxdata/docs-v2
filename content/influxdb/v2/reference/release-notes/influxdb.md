@@ -46,7 +46,7 @@ You aren’t required to enable token hashing immediately after upgrading to Inf
    3. Upgrade influxd.
    4. Start influxd.
 2. Verify upgrade is successful.
-3. Enable Token Hashing (if desired)
+3. Optional: Enable token hashing
    1. Initiate influxd shutdown.
    2. Wait for a clean shutdown.
    3. Do **one** of the following:
