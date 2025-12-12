@@ -24,7 +24,7 @@ If upgrading from earlier InfluxDB 2.x versions, we strongly recommend to upgrad
 
 #### How Token Hashing Works
 
-Upon upgrading to version 2.8.0 or later releases from version 2.7.12 or earlier releases, the BoltDB schema is upgraded to add a new index bucket. 
+Upon upgrading to InfluxDB v2.8.0 or later from version 2.7.12 or earlier releases, the BoltDB schema is upgraded to add a new index bucket. 
 
 Upon startup when token hashing is enabled, all unhashed tokens are converted to hashed tokens and unhashed tokens are deleted. This check and conversion of unhashed tokens occurs on every startup when token hashing is enabled. 
 
