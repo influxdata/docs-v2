@@ -318,6 +318,10 @@ For example, if a write request tries to write data to a retention policy with a
 `PAST LIMIT 6h` and there are points in the request with timestamps older than
 6 hours, those points are rejected.
 
+> [!Important]
+> In InfluxDB v1.12.2, `PAST LIMIT` cannot be changed after it is set.
+> This will be fixed in a future release.
+
 ##### `FUTURE LIMIT` {metadata="v1.12.0+"}
 
 The `FUTURE LIMIT` clause defines a time boundary after and relative to _now_
@@ -328,6 +332,10 @@ request returns a partial write error.
 For example, if a write request tries to write data to a retention policy with a
 `FUTURE LIMIT 6h` and there are points in the request with future timestamps 
 greater than 6 hours from now, those points are rejected.
+
+> [!Important]
+> In InfluxDB v1.12.2, `FUTURE LIMIT` cannot be changed after it is set.
+> This will be fixed in a future release.
 
 ##### `DEFAULT`
 
