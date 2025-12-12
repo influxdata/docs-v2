@@ -2845,19 +2845,3 @@ components:
       in: header
       name: Authorization
       type: apiKey
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Cache data
-      - Common parameters
-      - Response codes
-      - Migrate from InfluxDB v1 or v2
-      - Database
-      - Processing engine
-      - Server information
-      - Table
-      - Token
-      - Query data
-      - Write data

@@ -48,10 +48,10 @@ groups:
     tags:
       - Table
 
-  - name: Token
+  - name: Auth token
     weight: 22
     tags:
-      - Token
+      - Auth token
 
   - name: Processing engine
     weight: 30
