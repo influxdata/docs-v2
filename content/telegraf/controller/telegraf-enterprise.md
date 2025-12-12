@@ -2,7 +2,7 @@
 title: Telegraf Enterprise
 description: >
   Telegraf Enterprise is a premium, enterprise-grade offering that combines the
-  Telegraf Controller, a web application for management Telegraf deployments,
+  Telegraf Controller, a web application for managing Telegraf deployments,
   with an Enterprise Support Contract for Telegraf. It is designed for
   organizations running Telegraf at scale who require centralized configuration
   management, operational visibility, governance, and expert support from
