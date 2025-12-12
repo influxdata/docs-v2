@@ -8,6 +8,21 @@ menu:
 weight: 101
 ---
 
+## v2.8.0 {date="2025-12-12"}
+
+### Features
+
+- [5e204dc](https://github.com/influxdata/influxdb/commit/5e204dc): Add optional token hashing
+
+### Bug Fixes
+
+- [305e61d](https://github.com/influxdata/influxdb/commit/305e61d): Fix compilation on alpine linux
+
+### Maintenance
+
+- [1b83d2c](https://github.com/influxdata/influxdb/commit/1b83d2c): Chore: update to go 1.23.12 (2.7)
+- [40a6332](https://github.com/influxdata/influxdb/commit/40a6332): Updates post-install for linux package builds
+
 ## v2.7.12 {date="2025-05-20"}
 
 ### Features
