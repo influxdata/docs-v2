@@ -1,0 +1,51 @@
+{{/*
+  Security Schemes Display
+
+  Renders OpenAPI security schemes as styled documentation.
+  Extracts securitySchemes from the referenced OpenAPI spec file.
+
+  Required page params:
+  - staticFilePath: Path to the OpenAPI specification file
+*/}}
+
+{{ $specPath := .Params.staticFilePath }}
+{{ if $specPath }}
+  {{/* Load the OpenAPI spec file */}}
+  {{ $specFile := resources.Get (strings.TrimPrefix "/" $specPath) }}
+  {{ if $specFile }}
+    {{ $spec := $specFile | transform.Unmarshal }}
+    {{ with $spec.components.securitySchemes }}
+    <section class="api-security-schemes">
+      <h2 id="security-schemes">Security Schemes</h2>
+      {{ range $name, $scheme := . }}
+      <div class="security-scheme" id="scheme-{{ $name | urlize }}">
+        <h3>{{ $name }}</h3>
+        <div class="scheme-details">
+          <dl>
+            <dt>Type</dt>
+            <dd><code>{{ $scheme.type }}</code></dd>
+            {{ with $scheme.scheme }}
+            <dt>Scheme</dt>
+            <dd><code>{{ . }}</code></dd>
+            {{ end }}
+            {{ with $scheme.in }}
+            <dt>In</dt>
+            <dd><code>{{ . }}</code></dd>
+            {{ end }}
+            {{ with $scheme.name }}
+            <dt>Parameter Name</dt>
+            <dd><code>{{ . }}</code></dd>
+            {{ end }}
+          </dl>
+        </div>
+        {{ with $scheme.description }}
+        <div class="scheme-description">
+          {{ . | markdownify }}
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </section>
+    {{ end }}
+  {{ end }}
+{{ end }}
