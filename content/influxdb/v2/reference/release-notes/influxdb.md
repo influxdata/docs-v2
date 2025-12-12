@@ -32,7 +32,7 @@ After you enable token hashing, any new tokens are stored as hashed tokens. If y
 
 ##### Hashed Tokens Are Lost During Downgrade
 
-Be aware that once token hashing is enabled, downgrading to a version earlier than 2.8.0 will erase all API tokens due to the required schema downgrade. This means downgrading requires recreating all API tokens and updating them on clients. Even if token hashing is disabled before downgrading, all API tokens will still need to be recreated because disabling token hashing does not unhash tokens stored in hashed form.
+Note that once token hashing is enabled, downgrading to a version earlier than 2.8.0 erases all API tokens due to the required schema downgrade. After downgrading, you'll need to create new tokens for your clients - even if you disable token hashing before you downgrade. Disabling token hashing **does not** unhash tokens stored in hashed form.
 
 If token hashing is *never* enabled, then it is possible to downgrade from 2.8.0 to 2.7.12 and earlier.
 
