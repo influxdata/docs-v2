@@ -1,23 +1,10 @@
 {{/*
-  API Renderer Abstraction
+  API Renderer
 
-  Selects and loads the appropriate API documentation renderer.
-  RapiDoc is the primary renderer.
+  Renders API documentation using RapiDoc.
 
   Required page params:
   - staticFilePath: Path to the OpenAPI specification file
-
-  Site params:
-  - apiRenderer: "rapidoc" (default) or "scalar"
 */}}
 
-{{ $renderer := site.Params.apiRenderer | default "rapidoc" }}
-
-{{ if eq $renderer "rapidoc" }}
-  {{ partial "api/rapidoc.html" . }}
-{{ else if eq $renderer "scalar" }}
-  {{ partial "api/scalar.html" . }}
-{{ else }}
-  {{/* Fallback to rapidoc if unknown renderer specified */}}
-  {{ partial "api/rapidoc.html" . }}
-{{ end }}
+{{ partial "api/rapidoc.html" . }}

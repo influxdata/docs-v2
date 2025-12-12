@@ -47,7 +47,6 @@ import { SidebarToggle } from './sidebar-toggle.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
 import ApiRapiDoc from './components/api-rapidoc.ts';
-import ApiScalar from './components/api-scalar.ts';
 import ApiTabs from './components/api-tabs.ts';
 import ApiToc from './components/api-toc.ts';
 import RapiDocMini from './components/rapidoc-mini.ts';
@@ -83,7 +82,6 @@ const componentRegistry = {
   theme: Theme,
   'theme-switch': ThemeSwitch,
   'api-rapidoc': ApiRapiDoc,
-  'api-scalar': ApiScalar,
   'api-tabs': ApiTabs,
   'api-toc': ApiToc,
   'rapidoc-mini': RapiDocMini,
