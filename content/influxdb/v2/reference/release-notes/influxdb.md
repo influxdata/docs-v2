@@ -16,7 +16,7 @@ weight: 101
 
 #### Token Hashing
 
-InfluxDB OSS 2.8.0 introduces token hashing. When activated using the --with-token-hashing, all API tokens are stored as hashes on disk. While token hashing is a valuable security upgrade, care should be taken when upgrading and enabling token hashing. 
+Introduces token hashing. When activated using the [`use-hashed-tokens` config option](/influxdb/v2/reference/config-options/#use-hashed-tokens), {{< product-name >}} stores all API tokens as hashes on disk. While token hashing is a valuable security upgrade, care should be taken when upgrading and enabling token hashing. 
 
 Documentation link: [use-hashed-tokens](https://docs.influxdata.com/influxdb/v2/reference/config-options/#use-hashed-tokens)
 
