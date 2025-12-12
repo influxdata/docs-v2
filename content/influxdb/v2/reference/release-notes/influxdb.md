@@ -49,7 +49,10 @@ You aren’t required to enable token hashing immediately after upgrading to Inf
 3. Enable Token Hashing (if desired)
    1. Initiate influxd shutdown.
    2. Wait for a clean shutdown.
-   3. Update configuration to use token hashing by adding --use-token-hashing to the command line or INFLUXD_USE_HASHED_TOKENS=true to the container environment. Or set use-hashed-tokens to true in the configuration file.
+   3. Do **one** of the following:
+       - Include the `--use-hashed-tokens` command line flag
+       - Set the `INFLUXD_USE_HASHED_TOKENS=true` environment variable in your container environment
+       - Set `use-hashed-tokens` to `true` in your configuration file
    4. Start influxd.
 
 ### Bug Fixes
