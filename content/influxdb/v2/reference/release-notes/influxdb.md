@@ -57,7 +57,7 @@ You aren’t required to enable token hashing immediately after upgrading to Inf
 
 ### Bug Fixes
 
-- [305e61d](https://github.com/influxdata/influxdb/commit/305e61d): Fix compilation on alpine linux
+- [305e61d](https://github.com/influxdata/influxdb/commit/305e61d): Fix compilation on Alpine Linux
 
 ### Maintenance
 
