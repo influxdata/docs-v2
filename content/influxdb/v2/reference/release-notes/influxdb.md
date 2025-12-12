@@ -20,7 +20,7 @@ Introduces token hashing. When activated using the [`use-hashed-tokens` config o
 
 Documentation link: [use-hashed-tokens](https://docs.influxdata.com/influxdb/v2/reference/config-options/#use-hashed-tokens)
 
- It is *highly* recommended to upgrade to 2.8.0 or later versions and enable hashed tokens in two steps, not one.
+If upgrading from earlier InfluxDB 2.x versions, we strongly recommend to upgrade to version 2.8.0 or later and then enable hashed tokens in two steps, not one.
 
 #### How Token Hashing Works
 
