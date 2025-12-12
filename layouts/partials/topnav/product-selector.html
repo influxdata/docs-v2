@@ -23,12 +23,13 @@ Identify products by their product path. Dictionary schema:
 {{ $influxdb3CloudDedicated := dict "influxdb3/cloud-dedicated" (slice $.Site.Data.products.influxdb3_cloud_dedicated.name "cloud-dedicated") }}
 {{ $influxdb3Clustered := dict "influxdb3/clustered" (slice $.Site.Data.products.influxdb3_clustered.name "clustered") }}
 {{ $telegraf := dict "telegraf/v1" (slice "Telegraf" "telegraf") }}
+{{ $telegrafController := dict "telegraf/controller" (slice "Telegraf Controller" "telegraf_controller") }}
 {{ $chronograf := dict "chronograf/v1" (slice "Chronograf" "chronograf") }}
 {{ $kapacitor := dict "kapacitor/v1" (slice "Kapacitor" "kapacitor") }}
 {{ $flux := dict "flux/v0" (slice "Flux" "flux") }}
 {{ $enterpriseInfluxdb := dict "enterprise_influxdb/v1" (slice "InfluxDB Enterprise" "enterprise_v1") }}
 
-{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb }}
+{{ $productInfo := merge $influxdbOSSv1 $influxdbOSSv2 $influxdbCloud $influxdb3Core $influxdb3Enterprise $influxdb3CloudServerless $influxdb3CloudDedicated $influxdb3Clustered $telegraf $telegrafController $chronograf $kapacitor $influxdb3Explorer $flux $enterpriseInfluxdb }}
 
 {{ define "productLink" }}
   {{ $defaultAltProductPage := $.context.GetPage ((replaceRE .pageRoot .productPath $.context.Page.RelPermalink) | replaceRE `\/$` "") }}
@@ -79,9 +80,15 @@ Identify products by their product path. Dictionary schema:
       </ul>
     </div>
     <div class="product-group">
-      <div class="group-title"><p>Other products</p></div>
+      <div class="group-title"><p>Telegraf</p></div>
       <ul class="item-list products">
         <li>{{ template "productLink" (merge (dict "productPath" "telegraf/v1") $templateDefaults) }}</li>
+        <li>{{ template "productLink" (merge (dict "productPath" "telegraf/controller" "state" "alpha") $templateDefaults) }}</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
         <li>{{ template "productLink" (merge (dict "productPath" "chronograf/v1") $templateDefaults) }}</li>
         <li>{{ template "productLink" (merge (dict "productPath" "kapacitor/v1") $templateDefaults) }}</li>
       </ul>
