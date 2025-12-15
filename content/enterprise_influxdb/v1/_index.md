@@ -6,7 +6,7 @@ aliases:
   - /enterprise/v1.11/
 menu:
   enterprise_influxdb_v1:
-    name: InfluxDB Enterprise v1.11
+    name: InfluxDB Enterprise v1
 weight: 1
 ---
 
