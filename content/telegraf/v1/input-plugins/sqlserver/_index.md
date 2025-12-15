@@ -10,7 +10,7 @@ introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/sqlserver/README.md, Microsoft SQL Server Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/sqlserver/README.md, Microsoft SQL Server Plugin Source
 ---
 
 # Microsoft SQL Server Input Plugin
@@ -33,10 +33,9 @@ metrics are lightweight and use Dynamic Management Views supplied by SQL Server.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -182,7 +181,23 @@ to use them.
   ## and following as optional (if mentioned in the include_query list)
   ## - SQLServerAvailabilityReplicaStates
   ## - SQLServerDatabaseReplicaStates
+
+  ## Maximum number of open connections to the database, 0 allows the driver to decide.
+  # max_open_connections = 0
+
+  ## Maximum number of idle connections in the connection pool, 0 allows the driver to decide.
+  # max_idle_connections = 0
 ```
+
+For available options in the `servers` DSN check the [driver documentation](https://github.com/microsoft/go-mssqldb).
+
+The plugin supports the named-pipe and LPC protocol **on Windows AMD64 and i386**
+for connections. On other platforms those protocols are not available. See the
+[protocol configuration section](https://github.com/microsoft/go-mssqldb?tab=readme-ov-file#protocol-configuration) of the driver documentation on
+how to specify the protocols.
+
+[driver]: https://github.com/microsoft/go-mssqldb
+[driver_protos]: https://github.com/microsoft/go-mssqldb?tab=readme-ov-file#protocol-configuration
 
 ### Additional Setup
 
@@ -292,7 +307,7 @@ Please check [SQL Server driver](https://github.com/microsoft/go-mssqldb#azure-a
 
 [auth_methods]: https://docs.microsoft.com/en-us/azure/azure-sql/database/security-overview#authentication
 [auth_aad]: https://docs.microsoft.com/en-us/azure/azure-sql/database/authentication-aad-overview
-[driver]: https://github.com/microsoft/go-mssqldb#azure-active-directory-authentication
+[driver_azure]: https://github.com/microsoft/go-mssqldb#azure-active-directory-authentication
 
 ### Azure Active Directory (AAD) authentication using MSI
 
