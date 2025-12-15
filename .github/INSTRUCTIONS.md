@@ -56,7 +56,7 @@ Use these for specialized, complex tasks:
 |-------|------|----------|
 | **TypeScript & Hugo Dev** | [agents/typescript-hugo-agent.md](agents/typescript-hugo-agent.md) | TypeScript migration, Hugo asset pipeline, component development |
 
-**Note**: Additional Claude agents are available in [.claude/agents/](.claude/agents/) for Claude Desktop app users.
+**Note**: Additional Claude agents are available in [../.claude/agents/](../.claude/agents/) for Claude Desktop app users.
 
 ## General Documentation
 
