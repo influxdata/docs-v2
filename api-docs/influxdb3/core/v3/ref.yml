@@ -1325,6 +1325,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every:
                 summary: Schedule trigger using interval
                 description: |
@@ -1335,6 +1338,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every_seconds:
                 summary: Schedule trigger using seconds interval
                 description: |
@@ -1344,6 +1350,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               schedule_every_minutes:
                 summary: Schedule trigger using minutes interval
                 description: |
@@ -1353,6 +1362,9 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               all_tables:
                 summary: All tables trigger example
                 description: |
@@ -1362,6 +1374,9 @@ paths:
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               table_specific:
                 summary: Table-specific trigger example
                 description: |
@@ -1371,6 +1386,9 @@ paths:
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               api_request:
                 summary: On-demand request trigger example
                 description: |
@@ -1380,6 +1398,9 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               cron_friday_afternoon:
                 summary: Cron trigger for Friday afternoons
                 description: |
@@ -1389,6 +1410,9 @@ paths:
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
               cron_monthly:
                 summary: Cron trigger for monthly execution
                 description: |
@@ -1398,6 +1422,9 @@ paths:
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
       responses:
         '200':
           description: Success. Processing engine trigger created.
@@ -2235,6 +2262,11 @@ components:
             The plugin file must implement the trigger interface associated with the trigger's specification.
         trigger_name:
           type: string
+        trigger_settings:
+          description: |
+            Configuration for trigger error handling and execution behavior.
+          allOf:
+            - $ref: '#/components/schemas/TriggerSettings'
         trigger_specification:
           type: string
           description: |
@@ -2299,7 +2331,35 @@ components:
         - db
         - plugin_filename
         - trigger_name
+        - trigger_settings
         - trigger_specification
+    TriggerSettings:
+      type: object
+      description: |
+        Configuration settings for processing engine trigger error handling and execution behavior.
+      properties:
+        run_async:
+          type: boolean
+          default: false
+          description: |
+            Whether to run the trigger asynchronously.
+            When `true`, the trigger executes in the background without blocking.
+            When `false`, the trigger executes synchronously.
+        error_behavior:
+          type: string
+          enum:
+            - Log
+            - Retry
+            - Disable
+          description: |
+            Specifies how to handle errors that occur during trigger execution:
+            - `Log`: Log the error and continue (default)
+            - `Retry`: Retry the trigger execution
+            - `Disable`: Disable the trigger after an error
+          default: Log
+      required:
+        - run_async
+        - error_behavior
     ShowDatabasesResponse:
       type: object
       properties:
