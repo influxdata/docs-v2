@@ -1042,6 +1042,15 @@ paths:
       description: Retrieves a list of databases.
       parameters:
         - $ref: '#/components/parameters/formatRequired'
+        - name: show_deleted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Include soft-deleted databases in the response.
+            By default, only active databases are returned.
       responses:
         '200':
           description: Success. The response body contains the list of databases.
