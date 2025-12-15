@@ -7,7 +7,7 @@
 > 
 > **Other instruction resources**:
 > - [AGENTS.md](../AGENTS.md) - For general AI assistants (Claude, ChatGPT, etc.) with detailed workflow examples
-> - [CLAUDE.md](../CLAUDE.md) - For Claude Desktop app
+> - [CLAUDE.md](../CLAUDE.md) - For Claude with MCP
 > - [.github/agents/](agents/) - Custom specialist agents for specific tasks
 > - [.github/instructions/](instructions/) - File pattern-specific instructions (auto-loaded)
 

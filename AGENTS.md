@@ -6,8 +6,8 @@
 > 
 > **Other instruction resources**:
 > - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (focused on coding and automation)
-> - [CLAUDE.md](CLAUDE.md) - For Claude Desktop app (minimal pointer)
-> - [.claude/](.claude/) - Claude Desktop app configuration (commands, agents, skills)
+> - [CLAUDE.md](CLAUDE.md) - For Claude with MCP (minimal pointer)
+> - [.claude/](.claude/) - Claude MCP configuration (commands, agents, skills)
 > - [.github/instructions/](.github/instructions/) - File pattern-specific instructions
 
 ## Project Overview
