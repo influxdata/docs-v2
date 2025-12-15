@@ -1,7 +1,15 @@
 # InfluxData Documentation Repository (docs-v2)
 
-This is the primary instruction file for working with the InfluxData documentation site.
-For detailed information on specific topics, refer to the specialized instruction files in `.github/instructions/`.
+> **For GitHub Copilot and other AI coding agents**
+> 
+> This is the primary instruction file for GitHub Copilot working with the InfluxData documentation site.
+> For detailed information on specific topics, refer to the specialized instruction files in `.github/instructions/`.
+> 
+> **Other instruction resources**:
+> - [AGENTS.md](../AGENTS.md) - For general AI assistants (Claude, ChatGPT, etc.) with detailed workflow examples
+> - [CLAUDE.md](../CLAUDE.md) - For Claude Desktop app
+> - [.github/agents/](agents/) - Custom specialist agents for specific tasks
+> - [.github/instructions/](instructions/) - File pattern-specific instructions (auto-loaded)
 
 ## Quick Reference
 
@@ -110,6 +118,65 @@ npx hugo --quiet
 - **Query languages**: SQL, InfluxQL, Flux (per product version)
 - **Site**: https://docs.influxdata.com
 
+### Writing Style
+
+Follow these conventions when creating or editing documentation:
+
+- **Style guide**: Google Developer Documentation Style Guide
+- **Voice**: Active voice, present tense, second person for instructions
+- **Line breaks**: Use semantic line feeds (one sentence per line) for better diffs
+- **Formatting**: 
+  - Headings: Use h2-h6 only (h1 auto-generated from frontmatter `title`)
+  - Code blocks: Format within 80 characters where possible
+  - CLI examples: Use long options (`--option` not `-o`)
+- **Tone**: Technical but friendly, no emojis unless explicitly requested
+- **Files**: Use lowercase-with-hyphens.md naming convention
+- **Images**: Use pattern `project/version-context-description.png`
+
+### Common Shortcodes
+
+**Callouts** (use GitHub-style alerts):
+```markdown
+> [!Note]
+> [!Warning]
+> [!Caution]
+> [!Important]
+> [!Tip]
+```
+
+**Required elements**:
+```markdown
+{{< req >}}
+{{< req type="key" >}}
+```
+
+**Code placeholders**:
+~~~markdown
+```sh { placeholders="DATABASE_NAME|API_TOKEN" }
+curl -X POST https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME
+```
+~~~
+
+For complete shortcode reference, see [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md).
+
+### Commit Messages
+
+Use conventional commit format:
+
+```
+type(scope): brief description
+
+Examples:
+- fix(enterprise): correct Docker environment variable
+- feat(influxdb3): add new plugin documentation
+- docs(core): update configuration examples
+```
+
+**Types**: `fix`, `feat`, `style`, `refactor`, `test`, `chore`, `docs`  
+**Scopes**: `enterprise`, `influxdb3`, `core`, `cloud`, `telegraf`, product/component names
+
+Skip pre-commit hooks (if needed): `git commit --no-verify`
+
 ### Writing Documentation
 
 For detailed guidelines, see:
@@ -119,6 +186,50 @@ For detailed guidelines, see:
 - **Frontmatter**: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) - Complete page metadata reference
 - **Testing**: [DOCS-TESTING.md](../DOCS-TESTING.md) - Testing procedures
 - **API Docs**: [api-docs/README.md](../api-docs/README.md) - API documentation workflow
+
+### Required Frontmatter
+
+Every content file needs:
+
+```yaml
+---
+title:       # Page h1 heading (required)
+description: # SEO meta description (required)
+menu:
+  product_menu_key:  # Hugo menu for this product (required)
+    name:    # Navigation link text (optional)
+    parent:  # Parent menu item for nesting (optional)
+weight:      # Sort order: 1-99 (top), 101-199 (level 2), 201-299 (level 3) (required)
+---
+```
+
+**Shared content** (avoid duplication):
+```yaml
+---
+title: Page Title
+description: Brief description
+menu:
+  influxdb3_core:
+    name: Nav Label
+weight: 101
+source: /shared/influxdb3-admin/topic-name.md  # Points to shared content
+---
+```
+
+Shared content files in `/content/shared/`:
+- Don't include frontmatter (defined in referring files)
+- Can use `{{% show-in %}}` and `{{% hide-in %}}` for product-specific content
+- Can use the `version` keyword for version-specific paths
+
+### Content Quality Expectations
+
+- **Accuracy**: Verify all code examples work with current product versions
+- **Completeness**: Include all required parameters and prerequisites
+- **Clarity**: Write for the target audience (developers, operators, etc.)
+- **Consistency**: Use established patterns and terminology
+- **Testing**: All code examples must be testable with pytest-codeblocks annotations
+- **Links**: Verify all internal and external links work
+- **Cross-references**: Link to related documentation appropriately
 
 ### Code Examples
 
@@ -147,15 +258,33 @@ Hello, world!
 
 ## Specialized Instructions
 
-For detailed information on specific topics:
+### File Pattern-Specific Instructions
+
+These instructions are automatically loaded by GitHub Copilot based on the files you're working with:
+
+| Pattern | File | Description |
+|---------|------|-------------|
+| `content/**/*.md` | [content.instructions.md](instructions/content.instructions.md) | Content file guidelines, frontmatter, shortcodes |
+| `layouts/**/*.html` | [layouts.instructions.md](instructions/layouts.instructions.md) | Shortcode implementation patterns and testing |
+| `api-docs/**/*.yml` | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec workflow |
+| `assets/js/**/*.{js,ts}` | [assets.instructions.md](instructions/assets.instructions.md) | TypeScript/JavaScript and CSS development |
+
+### Custom Specialist Agents
+
+Use these agents for specialized tasks:
+
+| Agent | File | Use When |
+|-------|------|----------|
+| **TypeScript & Hugo Dev** | [typescript-hugo-agent.md](agents/typescript-hugo-agent.md) | TypeScript migration, Hugo asset pipeline, component architecture |
+
+### General Documentation
 
 | Topic | File | Description |
 |-------|------|-------------|
-| **Content** | [content.instructions.md](instructions/content.instructions.md) | Lightweight pointer to frontmatter and shortcode references |
-| **Layouts** | [layouts.instructions.md](instructions/layouts.instructions.md) | Shortcode implementation patterns and testing |
-| **API Docs** | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec workflow |
-| **Assets** | [assets.instructions.md](instructions/assets.instructions.md) | TypeScript/JavaScript and CSS development |
 | **Testing** | [DOCS-TESTING.md](../DOCS-TESTING.md) | Comprehensive testing procedures |
+| **Contributing** | [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) | Full contribution workflow and guidelines |
+| **Frontmatter** | [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) | Complete page metadata reference |
+| **Shortcodes** | [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) | Complete shortcode reference |
 
 ## Important Notes
 

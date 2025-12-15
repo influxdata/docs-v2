@@ -46,6 +46,15 @@ Comprehensive reference documentation for contributors:
 - **[Testing Guide](DOCS-TESTING.md)** - Testing procedures and requirements
 - **[API Documentation](api-docs/README.md)** - API reference generation
 
+### AI Assistant Instructions
+
+Instructions for AI assistants working with this repository:
+
+- **[GitHub Copilot Instructions](.github/copilot-instructions.md)** - For GitHub Copilot coding agents
+- **[AI Agents Guide](AGENTS.md)** - For general AI assistants (Claude, ChatGPT, etc.)
+- **[Instructions Navigation](.github/INSTRUCTIONS.md)** - Complete guide to all instruction files
+- **[Claude Desktop](CLAUDE.md)** - For Claude Desktop app users
+
 ### Quick Links
 
 - [Style guidelines](DOCS-CONTRIBUTING.md#style-guidelines)
