@@ -2142,6 +2142,12 @@ components:
       properties:
         db:
           type: string
+        retention_period:
+          type: string
+          description: |
+            The retention period for the database. Specifies how long data should be retained.
+            Use duration format (for example, "1d", "1h", "30m", "7d").
+          example: 7d
       required:
         - db
     CreateTableRequest:
