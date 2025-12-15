@@ -92,6 +92,13 @@ exclude = [
   # TODO: Remove after fixing canonical URL generation or link-checker domain replacement
   "^https://docs\\.influxdata\\.com/",
 
+  # Local file URLs with fragments (workaround for link-checker Hugo pretty URL bug)
+  # link-checker converts /path/to/page#fragment to file:///path/to/page#fragment
+  # but the actual file is at /path/to/page/index.html, causing false fragment errors
+  # TODO: Remove after fixing link-checker to handle Hugo pretty URLs with fragments
+  # See: https://github.com/influxdata/docs-tooling/issues/XXX
+  "^file://.*#",
+
   # Common documentation placeholders
   "YOUR_.*",
   "REPLACE_.*",

@@ -423,7 +423,7 @@ influxctl database create device_status_history --retention-period 400d
 Then write current status to `device_status_current` and historical data to `device_status_history`.
 {{% /show-in %}}
 
-{{% show-in "cloud-dedicated,clustered" %}}
+{{% show-in "cloud-dedicated,clustered,cloud-serverless" %}}
 ### Performance considerations
 
 #### Row count and query performance
