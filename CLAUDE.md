@@ -1,5 +1,17 @@
 # Instructions for InfluxData Documentation
 
+> **For Claude with MCP**
+> 
+> This is a lightweight pointer file for Claude. For comprehensive instructions, see the files referenced below.
+> 
+> **Full instruction resources**:
+> - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (technical setup, automation)
+> - [AGENTS.md](AGENTS.md) - For general AI assistants (content creation, workflows, style guidelines)
+> - [.claude/](.claude/) - Claude MCP configuration directory with:
+>   - Custom commands in `.claude/commands/`
+>   - Specialized agents in `.claude/agents/`
+>   - Custom skills in `.claude/skills/`
+
 ## Purpose and scope
 
 Claude should help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.
