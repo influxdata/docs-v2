@@ -252,6 +252,19 @@ telegraf:
     - How do I use Telegraf for MQTT?
   ai_input_placeholder: "Ask questions about Telegraf and InfluxDB"
 
+telegraf_controller:
+  name: Telegraf Controller
+  namespace: telegraf
+  menu_category: other
+  versions: [v1]
+  latest: 0.0
+  latest_patch: 0.0.0
+  # ai_sample_questions:
+  #   - How do I configure Telegraf for InfluxDB 3?
+  #   - How do I write a custom Telegraf plugin?
+  #   - How do I use Telegraf for MQTT?
+  # ai_input_placeholder: "Ask questions about Telegraf and InfluxDB"
+
 chronograf:
   name: Chronograf
   namespace: chronograf
