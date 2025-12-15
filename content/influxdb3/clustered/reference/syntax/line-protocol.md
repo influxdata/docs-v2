@@ -14,5 +14,4 @@ related:
 source: /shared/v3-line-protocol.md
 ---
 
-<!-- The content of this file is at 
-// SOURCE content/shared/v3-line-protocol.md-->
+<!--// SOURCE content/shared/v3-line-protocol.md -->
