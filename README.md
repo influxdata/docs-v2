@@ -53,7 +53,7 @@ Instructions for AI assistants working with this repository:
 - **[GitHub Copilot Instructions](.github/copilot-instructions.md)** - For GitHub Copilot coding agents
 - **[AI Agents Guide](AGENTS.md)** - For general AI assistants (Claude, ChatGPT, etc.)
 - **[Instructions Navigation](.github/INSTRUCTIONS.md)** - Complete guide to all instruction files
-- **[Claude Desktop](CLAUDE.md)** - For Claude Desktop app users
+- **[Claude Instructions](CLAUDE.md)** - For Claude Desktop and Claude Code users
 
 ### Quick Links
 
