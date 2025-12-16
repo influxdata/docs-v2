@@ -34,7 +34,8 @@ interface ThemeConfig {
 
 type CleanupFn = () => void;
 
-// Use full RapiDoc for proper auth tooltip behavior (mini version has limited features)
+// Use full RapiDoc for proper auth tooltip behavior
+// (mini version has limited features)
 const RAPIDOC_CDN = 'https://unpkg.com/rapidoc/dist/rapidoc-min.js';
 const RAPIDOC_ELEMENT = 'rapi-doc';
 
@@ -182,7 +183,38 @@ function createRapiDocElement(
   );
   element.setAttribute('font-size', 'default'); // Match surrounding content size
 
-  // Layout - use 'read' style for proper auth element layout
+  // Layout - use 'read' style for compact, single-operation display
+  //
+  // EXPERIMENTAL FINDINGS (Task 4 - API Security Schemes):
+  // -----------------------------------------------------
+  // RapiDoc's `allow-authentication="true"` DOES NOT show auth input
+  // on operation pages when using `match-paths` to filter to a single
+  // operation. Here's what was tested:
+  //
+  // 1. render-style="read" + allow-authentication="true":
+  //    - Auth section (#auth) exists in shadow DOM with input fields
+  //    - BUT it's not visible (filtered out by match-paths)
+  //    - Only shows the matched operation, not the full spec
+  //    - Found: username/password inputs for Basic auth in shadow DOM
+  //    - Result: NO visible auth UI for users
+  //
+  // 2. render-style="focused" + allow-authentication="true":
+  //    - Auth section completely removed from shadow DOM
+  //    - Shows links to #auth section that don't exist (broken links)
+  //    - Lists security schemes but no input fields
+  //    - Result: NO auth section at all
+  //
+  // CONCLUSION:
+  // RapiDoc's built-in authentication UI is incompatible with
+  // match-paths filtering. The auth section is either hidden or
+  // completely removed when filtering to single operations.
+  // For credential input on operation pages, we need a custom
+  // component (Task 5).
+  //
+  // RECOMMENDATION:
+  // - Keep render-style="read" for compact operation display
+  // - Implement custom auth input component above RapiDoc (Task 5)
+  // - Use sessionStorage to pass credentials to "Try it" feature
   element.setAttribute('layout', 'column');
   element.setAttribute('render-style', 'read');
   element.setAttribute('show-header', 'false');
