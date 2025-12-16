@@ -58,7 +58,7 @@ in the `telegraf.conf`.
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
-  concurrent_writes = 5
+{{% show-in "enterprise,core" %}}  concurrent_writes = 5{{% /show-in %}}
 ```
 {{% /code-placeholders %}}
 
@@ -112,6 +112,8 @@ The name of the {{% product-name %}} database to write data to.
 > [!Note]
 > An InfluxDB v2 _**bucket**_ is synonymous with an {{% product-name %}} _**database**_.
 
+{{% show-in "enterprise,core" %}}
+
 #### concurrent_writes
 
 The number of concurrent write connections to use when writing to {{% product-name %}}.
@@ -132,6 +134,7 @@ For tuning, start with `min(number of CPU cores / 2, 10)`.
 > [!Important]
 > When using two or more concurrent writes, the sending order of metrics is not guaranteed.
 
+{{% /show-in %}}
 
 ### Other Telegraf configuration options
 
