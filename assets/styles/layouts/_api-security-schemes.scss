@@ -70,3 +70,90 @@
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// API Auth Form - Custom credential input for operation pages
+////////////////////////////////////////////////////////////////////////////////
+
+.api-auth-form {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: $g3-castle;
+  border: 1px solid $g5-pepper;
+  border-radius: 4px;
+
+  h4 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .auth-form-description {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    color: $g9-mountain;
+  }
+
+  .auth-field {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid $g5-pepper;
+      border-radius: 3px;
+      font-family: inherit;
+    }
+  }
+
+  .auth-save {
+    margin-top: 0.5rem;
+  }
+}
+
+// Dark theme overrides - using CSS selectors (no mixin in this codebase)
+[data-theme="dark"],
+html:has(link[title="dark-theme"]:not([disabled])) {
+  .api-security-schemes {
+    border-top-color: $grey25;
+
+    .security-scheme {
+      background: $grey15;
+      border-color: $grey25;
+    }
+
+    .scheme-details {
+      dt {
+        color: $g15-platinum;
+      }
+
+      dd code {
+        background: $grey20;
+      }
+    }
+
+    .scheme-description {
+      border-top-color: $grey25;
+    }
+  }
+
+  .api-auth-form {
+    background: $grey15;
+    border-color: $grey25;
+
+    .auth-form-description {
+      color: $g15-platinum;
+    }
+
+    .auth-field input {
+      background: $grey20;
+      border-color: $grey25;
+      color: $g20-white;
+    }
+  }
+}
