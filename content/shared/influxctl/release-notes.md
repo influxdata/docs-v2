@@ -49,7 +49,6 @@ $ ./influxctl query --perf-debug --format json --token REDACTED --database testd
   "queue_duration_secs": 0
 }
 ```
-```
 
 ### Dependency updates
 
