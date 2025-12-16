@@ -58,7 +58,7 @@ in the `telegraf.conf`.
   token = "AUTH_TOKEN"
   organization = ""
   bucket = "DATABASE_NAME"
-{{% show-in "enterprise,core" %}}  concurrent_writes = 5{{% /show-in %}}
+  concurrent_writes = 5
 ```
 {{% /code-placeholders %}}
 
