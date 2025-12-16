@@ -11,6 +11,10 @@ on:
       - 'api-docs/**'
       - 'openapi/**'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 concurrency:
   group: pr-preview-${{ github.event.number }}
   cancel-in-progress: true
@@ -58,7 +62,6 @@ jobs:
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           BASE_REF: origin/${{ github.base_ref }}
-          GITHUB_OUTPUT: ${{ github.output }}
         run: node .github/scripts/detect-preview-pages.js
 
       - name: Post pending comment (needs input)
@@ -99,7 +102,7 @@ jobs:
 
       - name: Deploy preview
         if: steps.detect.outputs.pages-to-deploy != '[]'
-        uses: rossjrw/pr-preview-action@v1
+        uses: rossjrw/pr-preview-action@v1.4.8
         with:
           source-dir: ./preview-staging
           preview-branch: gh-pages
@@ -159,9 +162,14 @@ jobs:
             echo "No preview directory found for PR #${{ github.event.number }}"
           fi
 
+      - name: Checkout scripts for comment deletion
+        uses: actions/checkout@v4
+        with:
+          path: scripts-checkout
+
       - name: Delete preview comment
         uses: actions/github-script@v7
         with:
           script: |
-            const { deletePreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
+            const { deletePreviewComment } = await import('${{ github.workspace }}/scripts-checkout/.github/scripts/preview-comment.js');
             await deletePreviewComment(github, context);
