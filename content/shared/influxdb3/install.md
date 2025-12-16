@@ -4,6 +4,7 @@
   - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
   - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
   - [Pull the Docker image](#pull-the-docker-image)
+ {{% show-in "enterprise" %}}  - [Deploy in Kubernetes with Helm](#deploy-in-kubernetes-with-helm){{% /show-in %}}
   - [Verify the installation](#verify-the-installation)
 
 {{% show-in "enterprise" %}}
@@ -124,6 +125,12 @@ influxdb:3-{{< product-key >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+{{% show-in "enterprise" %}}
+### Deploy in Kubernetes with Helm
+
+For Kubernetes deployments, InfluxData provides a Helm chart.
+See the [influxdb3-enterprise Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb3-enterprise) for configuration options and installation instructions.
+{{% /show-in %}}
 
 ### Verify the installation
 
