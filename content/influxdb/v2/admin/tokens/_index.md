@@ -25,24 +25,36 @@ Learn how to create, view, update, or delete an API token.
 - [Read/Write token](#readwrite-token)
 
 ### Operator token
+
 Grants full read and write access to **all organizations and all organization resources in InfluxDB OSS 2.x**.
-Some operations, e.g. [retrieving the server configuration](/influxdb/v2/reference/config-options/), require operator permissions.
-Operator tokens are created in the InfluxDB setup process.
+Some operations--for example, [retrieving the server configuration](/influxdb/v2/reference/config-options/)--require _operator_ permissions.
+
+#### Initial operator token
+
+When you first initialize {{% product-name %}}, the [setup](/influxdb/v2/get-started/setup/) process creates an initial user, org, bucket, and an Operator token with full read/write access to all organizations.
+When running setup, you can either:
+
+- Supply the token value yourself ([`influx setup --token` flag](/influxdb/v2/reference/cli/influx/setup/) or the [setup API](/influxdb/v2/api/v2/#tag/Setup) `token` field), or
+- Let InfluxDB auto-generate it. InfluxDB stores the generated token in the active influx CLI config so the CLI can use it later. 
+
+#### Creating operator tokens after setup
+
 To [create an operator token manually](/influxdb/v2/admin/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing [Operator token](/influxdb/v2/admin/tokens/#operator-token).
 
 To create a new Operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2/reference/cli/influxd/recovery/auth/) CLI.
 
-{{% note %}}
-Because Operator tokens have full read and write access to all organizations in the database,
-we recommend [creating an All Access token](/influxdb/v2/admin/tokens/create-token/)
-for each organization and using those to manage InfluxDB.
-This helps to prevent accidental interactions across organizations.
-{{% /note %}}
+> [!Tip]
+> Because Operator tokens have full read and write access to all organizations in the database,
+> we recommend [creating an All Access token](/influxdb/v2/admin/tokens/create-token/)
+> for each organization and using those to manage InfluxDB.
+> This helps to prevent accidental interactions across organizations.
 
 ### All Access token
+
 Grants full read and write access to all resources in an organization.
 
 ### Read/Write token
+
 Grants read access, write access, or both to specific buckets in an organization.
 
 {{< children hlevel="h2" >}}
