@@ -40,6 +40,11 @@ function safeCopy(src, dest) {
  * @returns {string} - HTML file path
  */
 function urlToHtmlPath(urlPath, publicDir) {
+  // Validate against path traversal attacks
+  if (urlPath.includes('..')) {
+    throw new Error(`Invalid path: Path traversal detected in "${urlPath}"`);
+  }
+
   const cleanPath = urlPath.replace(/^\/|\/$/g, '');
   return join(publicDir, cleanPath, 'index.html');
 }
@@ -49,6 +54,7 @@ function urlToHtmlPath(urlPath, publicDir) {
  * @param {string} urlPath - URL path to copy
  * @param {string} publicDir - Source public directory
  * @param {string} stagingDir - Target staging directory
+ * @returns {boolean} - True if page was successfully copied
  */
 function copyPage(urlPath, publicDir, stagingDir) {
   const cleanPath = urlPath.replace(/^\/|\/$/g, '');
@@ -59,7 +65,8 @@ function copyPage(urlPath, publicDir, stagingDir) {
   const htmlSrc = join(srcDir, 'index.html');
   const htmlDest = join(destDir, 'index.html');
 
-  if (safeCopy(htmlSrc, htmlDest)) {
+  const success = safeCopy(htmlSrc, htmlDest);
+  if (success) {
     console.log(`  ✓ ${urlPath}`);
   }
 
@@ -75,6 +82,8 @@ function copyPage(urlPath, publicDir, stagingDir) {
       }
     }
   }
+
+  return success;
 }
 
 /**
@@ -84,6 +93,13 @@ function copyPage(urlPath, publicDir, stagingDir) {
  * @param {string} stagingDir - Staging directory for preview
  */
 function preparePreviewFiles(pages, publicDir, stagingDir) {
+  // Validate input
+  if (!Array.isArray(pages)) {
+    throw new Error(
+      `Invalid input: Expected 'pages' to be an array, got ${typeof pages}`
+    );
+  }
+
   console.log(`\n📦 Preparing preview files...`);
   console.log(`   Source: ${publicDir}`);
   console.log(`   Target: ${stagingDir}`);
@@ -106,8 +122,9 @@ function preparePreviewFiles(pages, publicDir, stagingDir) {
   console.log('\n📄 Copying pages...');
   let copiedCount = 0;
   for (const page of pages) {
-    copyPage(page, publicDir, stagingDir);
-    copiedCount++;
+    if (copyPage(page, publicDir, stagingDir)) {
+      copiedCount++;
+    }
   }
 
   console.log(`\n✅ Prepared ${copiedCount} pages for preview`);
