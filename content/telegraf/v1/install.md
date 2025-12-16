@@ -1,6 +1,6 @@
 ---
 title: Install Telegraf
-description: Install Telegraf on your operating system.
+description: Learn how to install, configure, and start Telegraf on your system.
 menu:
   telegraf_v1:
     name: Install
@@ -10,8 +10,7 @@ aliases:
 - /telegraf/v1/install/
 ---
 
-This page provides directions for installing, starting, and configuring Telegraf.
-To install Telegraf, do the following:
+Use this guide to install, start, and configure Telegraf on your system:
 
 - [Review requirements](#requirements)
 - [Download and install Telegraf](#download-and-install-telegraf)
