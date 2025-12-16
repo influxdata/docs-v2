@@ -1,0 +1,86 @@
+name: Cleanup Stale Previews
+
+on:
+  schedule:
+    # Run every Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+        continue-on-error: true
+
+      - name: Check if gh-pages exists
+        id: check-branch
+        run: |
+          if [ -d "pr-preview" ]; then
+            echo "has-previews=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-previews=false" >> $GITHUB_OUTPUT
+            echo "No pr-preview directory found"
+          fi
+
+      - name: Get open PR numbers
+        if: steps.check-branch.outputs.has-previews == 'true'
+        id: open-prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            const prNumbers = prs.map(pr => pr.number);
+            core.setOutput('numbers', JSON.stringify(prNumbers));
+            console.log(`Open PRs: ${prNumbers.join(', ')}`);
+
+      - name: Remove stale previews
+        if: steps.check-branch.outputs.has-previews == 'true'
+        run: |
+          OPEN_PRS='${{ steps.open-prs.outputs.numbers }}'
+          REMOVED=0
+
+          for dir in pr-preview/pr-*/; do
+            if [ -d "$dir" ]; then
+              PR_NUM=$(echo "$dir" | grep -oP 'pr-\K\d+')
+
+              # Check if PR is still open
+              if ! echo "$OPEN_PRS" | grep -q "\"$PR_NUM\""; then
+                echo "Removing stale preview: $dir (PR #$PR_NUM is closed)"
+                rm -rf "$dir"
+                REMOVED=$((REMOVED + 1))
+              else
+                echo "Keeping preview: $dir (PR #$PR_NUM is open)"
+              fi
+            fi
+          done
+
+          if [ $REMOVED -gt 0 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: clean up $REMOVED stale preview(s)"
+            git push
+            echo "Cleaned up $REMOVED stale previews"
+          else
+            echo "No stale previews to clean up"
+          fi
+
+      - name: Report cleanup summary
+        if: always()
+        run: |
+          echo "## Stale Preview Cleanup Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -d "pr-preview" ]; then
+            REMAINING=$(ls -d pr-preview/pr-*/ 2>/dev/null | wc -l || echo "0")
+            echo "Remaining previews: $REMAINING" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No preview directory exists" >> $GITHUB_STEP_SUMMARY
+          fi
