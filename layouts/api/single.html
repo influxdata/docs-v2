@@ -86,6 +86,9 @@
             {{ end }}
           {{ end }}
         </section>
+
+        {{/* Security Schemes from OpenAPI spec */}}
+        {{ partial "api/security-schemes.html" . }}
         {{ else }}
         {{/* Operation Page - RapiDoc with custom slots */}}
 

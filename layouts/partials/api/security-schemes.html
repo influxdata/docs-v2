@@ -10,10 +10,11 @@
 
 {{ $specPath := .Params.staticFilePath }}
 {{ if $specPath }}
-  {{/* Load the OpenAPI spec file */}}
-  {{ $specFile := resources.Get (strings.TrimPrefix "/" $specPath) }}
-  {{ if $specFile }}
-    {{ $spec := $specFile | transform.Unmarshal }}
+  {{/* Load the OpenAPI spec file from static directory */}}
+  {{ $fullPath := printf "static%s" $specPath }}
+  {{ $specContent := readFile $fullPath }}
+  {{ if $specContent }}
+    {{ $spec := transform.Unmarshal $specContent }}
     {{ with $spec.components.securitySchemes }}
     <section class="api-security-schemes">
       <h2 id="security-schemes">Security Schemes</h2>
