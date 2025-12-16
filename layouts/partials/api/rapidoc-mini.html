@@ -22,6 +22,12 @@
 <link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
 {{ end }}
 
+{{/* Auth input component */}}
+<div class="api-auth-input-wrapper"
+     data-component="api-auth-input"
+     data-schemes="bearer,basic">
+</div>
+
 {{/* Component container - TypeScript handles initialization */}}
 <div class="api-reference-wrapper api-reference-mini"
      data-component="rapidoc-mini"
