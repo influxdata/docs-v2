@@ -132,7 +132,6 @@ For tuning, start with `min(number of CPU cores / 2, 10)`.
 > [!Important]
 > When using two or more concurrent writes, the sending order of metrics is not guaranteed.
 
-{{% /show-in %}}
 
 ### Other Telegraf configuration options
 
