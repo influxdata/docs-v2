@@ -5,6 +5,40 @@
  */
 
 /**
+ * Validate URL path for security
+ * @param {string} path - URL path to validate
+ * @returns {boolean} - True if path is safe
+ */
+function isValidUrlPath(path) {
+  if (!path || typeof path !== 'string') return false;
+
+  // Reject path traversal attempts
+  if (path.includes('..')) return false;
+
+  // Reject paths with suspicious characters
+  if (/[<>"|{}`\\^[\]]/.test(path)) return false;
+
+  // Reject URL-encoded characters (potential encoding attacks)
+  if (path.includes('%')) return false;
+
+  // Must start with /
+  if (!path.startsWith('/')) return false;
+
+  // Must start with known product prefix
+  const validPrefixes = [
+    '/influxdb3/',
+    '/influxdb/',
+    '/telegraf/',
+    '/kapacitor/',
+    '/chronograf/',
+    '/flux/',
+    '/enterprise_influxdb/'
+  ];
+
+  return validPrefixes.some(prefix => path.startsWith(prefix));
+}
+
+/**
  * Extract documentation URLs from text
  * @param {string} text - PR description or comment text
  * @returns {string[]} - Array of URL paths (e.g., ['/influxdb3/core/', '/telegraf/v1/'])
@@ -19,21 +53,31 @@ export function extractDocsUrls(text) {
   const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']+)/g;
   let match;
   while ((match = prodUrlPattern.exec(text)) !== null) {
-    urls.add(normalizeUrlPath(match[1]));
+    const path = normalizeUrlPath(match[1]);
+    if (isValidUrlPath(path)) {
+      urls.add(path);
+    }
   }
 
   // Pattern 2: Localhost dev URLs
   // http://localhost:1313/influxdb3/core/
   const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']+)/g;
   while ((match = localUrlPattern.exec(text)) !== null) {
-    urls.add(normalizeUrlPath(match[1]));
+    const path = normalizeUrlPath(match[1]);
+    if (isValidUrlPath(path)) {
+      urls.add(path);
+    }
   }
 
   // Pattern 3: Relative paths starting with known product prefixes
   // /influxdb3/core/admin/ or /telegraf/v1/plugins/
-  const relativePattern = /(?:^|\s)(\/(?:influxdb3|influxdb|telegraf|kapacitor|chronograf|flux|enterprise_influxdb)[^\s)\]>"']*)/gm;
+  // Updated to also capture paths in markdown links: [text](/influxdb3/core/)
+  const relativePattern = /(?:^|\s|\]|\)|\()(\/(?:influxdb3|influxdb|telegraf|kapacitor|chronograf|flux|enterprise_influxdb)[^\s)\]>"']*)/gm;
   while ((match = relativePattern.exec(text)) !== null) {
-    urls.add(normalizeUrlPath(match[1]));
+    const path = normalizeUrlPath(match[1]);
+    if (isValidUrlPath(path)) {
+      urls.add(path);
+    }
   }
 
   return Array.from(urls);
