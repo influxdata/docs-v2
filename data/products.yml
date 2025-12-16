@@ -115,7 +115,7 @@ influxdb3_cloud_dedicated:
   list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-cloud-dedicated/"
-  latest_cli: 2.11.0
+  latest_cli: 2.12.0
   placeholder_host: cluster-id.a.influxdb.io
   detector_config:
     query_languages:
@@ -177,12 +177,12 @@ influxdb:
   versions:
     - v2
     - v1
-  latest: v2.7
+  latest: v2.8
   latest_patches:
-    v2: 2.7.12
+    v2: 2.8.0
     v1: 1.12.2
   latest_cli:
-    v2: 2.7.5
+    v2: 2.8.0
   detector_config:
     query_languages:
       InfluxQL:
@@ -243,9 +243,9 @@ telegraf:
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.36
+  latest: v1.37
   latest_patches:
-    v1: 1.36.4
+    v1: 1.37.0
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?

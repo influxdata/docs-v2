@@ -10,7 +10,7 @@ introduced: "v1.32.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/remotefile/README.md, Remote File Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/remotefile/README.md, Remote File Plugin Source
 ---
 
 # Remote File Output Plugin
@@ -30,10 +30,9 @@ This plugin writes metrics to files in a remote location using the
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -97,6 +96,19 @@ to use them.
   ## more about them here:
   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
   data_format = "influx"
+  
+  ## Compress output data with the specified algorithm.
+  ## If empty, compression will be disabled and files will be plain text.
+  ## Supported algorithms are "zstd", "gzip" and "zlib".
+  # compression_algorithm = ""
+
+  ## Compression level for the algorithm above.
+  ## Please note that different algorithms support different levels:
+  ##   zstd  -- supports levels 1, 3, 7 and 11.
+  ##   gzip -- supports levels 0, 1 and 9.
+  ##   zlib -- supports levels 0, 1, and 9.
+  ## By default the default compression level for each algorithm is used.
+  # compression_level = -1
 ```
 
 ## Available custom functions

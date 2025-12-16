@@ -1,6 +1,14 @@
 # InfluxData Documentation (docs-v2)
 
-> **For AI agents working with the InfluxData documentation repository**
+> **For general AI assistants (Claude, ChatGPT, Gemini, etc.)**
+> 
+> This guide provides comprehensive instructions for AI assistants helping with the InfluxData documentation repository. It focuses on content creation, writing workflows, and style guidelines.
+> 
+> **Other instruction resources**:
+> - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (focused on coding and automation)
+> - [CLAUDE.md](CLAUDE.md) - For Claude with MCP (minimal pointer)
+> - [.claude/](.claude/) - Claude MCP configuration (commands, agents, skills)
+> - [.github/instructions/](.github/instructions/) - File pattern-specific instructions
 
 ## Project Overview
 

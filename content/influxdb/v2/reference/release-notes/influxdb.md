@@ -8,6 +8,65 @@ menu:
 weight: 101
 ---
 
+## v2.8.0 {date="2025-12-12"}
+
+### Features
+
+- [5e204dc](https://github.com/influxdata/influxdb/commit/5e204dc): Add optional token hashing
+
+#### Token hashing
+
+Introduces token hashing.
+When activated, token hashing stores all API tokens as hashes on disk.
+While token hashing is a valuable security upgrade, care should be taken when upgrading and enabling token hashing.
+Use the [`use-hashed-tokens`](/influxdb/v2/reference/config-options/#use-hashed-tokens) configuration option to enable token hashing in {{< product-name >}}.
+
+If you are upgrading from an earlier InfluxDB 2.x version, we recommend first upgrading to version 2.8.0 (or later), and then enabling hashed tokens as a separate step.
+
+Token hashing is optional and you can enable token hashing at any time after the upgrade.
+
+#### How token hashing works
+
+Upon upgrading to InfluxDB v2.8.0 or later from version 2.7.12 or earlier releases, the BoltDB schema is upgraded to add a new index bucket. 
+
+On every startup with token hashing enabled, {{< product-name >}} migrates all unhashed tokens to hashed tokens and deletes the unhashed tokens.
+
+With token hashing enabled, any new tokens are stored as hashed tokens.
+If you then disable token hashing, newly created tokens are stored unhashed, but existing tokens remain hashed on disk.
+
+##### Hashed tokens erased when downgrading
+
+Note that once token hashing is enabled, downgrading to a version earlier than 2.8.0 erases all API tokens due to the required schema downgrade. After downgrading, you'll need to create new tokens for your clients, even if you disable token hashing before you downgrade. Disabling token hashing **does not** unhash tokens stored in hashed form.
+
+If token hashing is _never_ enabled, then it is possible to downgrade from v2.8.0 to v2.7.12 and earlier.
+
+##### Recommended process
+
+1. Upgrade InfluxDB.
+   1. Initiate influxd shutdown.
+   2. Wait for a clean shutdown.
+   3. Upgrade influxd.
+   4. Start influxd.
+2. Verify the upgrade is successful.
+3. Optional: Enable token hashing
+   1. Initiate influxd shutdown.
+   2. Wait for a clean shutdown.
+   3. Do _one_ of the following:
+      - Include the `--use-hashed-tokens` command line flag
+      - Set the `INFLUXD_USE_HASHED_TOKENS=true` environment variable in your container environment
+      - Set `use-hashed-tokens` to `true` in your configuration file
+   4. Start influxd.
+
+
+### Bug Fixes
+
+- [305e61d](https://github.com/influxdata/influxdb/commit/305e61d): Fix compilation on Alpine Linux
+
+- [40a6332](https://github.com/influxdata/influxdb/commit/40a6332): Updates post-install for Linux package builds
+
+- [1b83d2c](https://github.com/influxdata/influxdb/commit/1b83d2c): Chore: update to go 1.23.12 (2.7)
+- [40a6332](https://github.com/influxdata/influxdb/commit/40a6332): Updates post-install for Linux package builds
+
 ## v2.7.12 {date="2025-05-20"}
 
 ### Features
