@@ -114,8 +114,6 @@ The name of the {{% product-name %}} database to write data to.
 
 #### concurrent_writes
 
-{{% show-in "enterprise,core" %}}
-
 The number of concurrent write connections to use when writing to {{% product-name %}}.
 For optimal write performance, configure multiple concurrent writers.
 
