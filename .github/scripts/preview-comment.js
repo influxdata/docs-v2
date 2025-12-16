@@ -8,8 +8,27 @@
 const COMMENT_MARKER = '<!-- pr-preview-comment -->';
 
 /**
+ * Sanitize text for safe display in code blocks
+ * Prevents XSS by escaping code fences and limiting length
+ * @param {string} text - Text to sanitize
+ * @param {number} maxLength - Maximum length (default: 1000)
+ * @returns {string} - Sanitized text
+ */
+function sanitizeForCodeBlock(text, maxLength = 1000) {
+  if (!text) return 'Unknown error';
+  return text.replace(/```/g, '` `` `').substring(0, maxLength);
+}
+
+/**
  * Generate preview comment body
  * @param {Object} options - Comment options
+ * @param {string} options.status - Status: 'success' | 'pending' | 'failed' | 'skipped'
+ * @param {string} [options.previewUrl] - Preview URL (for success)
+ * @param {string[]} [options.pages] - Array of page URLs (for success)
+ * @param {string} [options.buildTime] - Build duration string (for success)
+ * @param {string} [options.errorMessage] - Error message (for failed)
+ * @param {string} [options.skipReason] - Skip reason (for skipped)
+ * @param {boolean} [options.needsInput] - Boolean (for pending)
  * @returns {string} - Markdown comment body
  */
 export function generatePreviewComment(options) {
@@ -21,7 +40,6 @@ export function generatePreviewComment(options) {
     errorMessage,     // Error message (for failed)
     skipReason,       // Skip reason (for skipped)
     needsInput,       // Boolean (for pending)
-    prNumber,
   } = options;
 
   const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
@@ -43,7 +61,8 @@ export function generatePreviewComment(options) {
         body += `<details>\n<summary>Pages included in this preview</summary>\n\n`;
         const displayPages = pages.slice(0, 20);
         displayPages.forEach(page => {
-          body += `- \`${page}\`\n`;
+          const safePage = page.replace(/`/g, '\\`');
+          body += `- \`${safePage}\`\n`;
         });
         if (pages.length > 20) {
           body += `- ... and ${pages.length - 20} more\n`;
@@ -70,14 +89,14 @@ export function generatePreviewComment(options) {
     case 'failed':
       body += `### Preview failed\n\n`;
       body += `The preview build encountered an error:\n\n`;
-      body += `\`\`\`\n${errorMessage || 'Unknown error'}\n\`\`\`\n\n`;
+      body += `\`\`\`\n${sanitizeForCodeBlock(errorMessage)}\n\`\`\`\n\n`;
       body += `[View workflow logs](https://github.com/influxdata/docs-v2/actions)\n\n`;
       body += `---\n<sub>Failed: ${timestamp}</sub>`;
       break;
 
     case 'skipped':
       body += `### Preview skipped\n\n`;
-      body += `${skipReason || 'No previewable changes detected.'}\n\n`;
+      body += `${sanitizeForCodeBlock(skipReason || 'No previewable changes detected.', 500)}\n\n`;
       body += `---\n<sub>Checked: ${timestamp}</sub>`;
       break;
   }
