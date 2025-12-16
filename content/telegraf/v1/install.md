@@ -15,6 +15,8 @@ To install Telegraf, do the following:
 
 - [Review requirements](#requirements)
 - [Download and install Telegraf](#download-and-install-telegraf)
+- [Deploy in Kubernetes with Helm](#deploy-telegraf-in-kubernetes-with-helm)
+- [Generate a configuration file](#generate-a-configuration-file)
 - [Custom compile Telegraf](#custom-compile-telegraf)
 
 ## Requirements
@@ -548,6 +550,14 @@ The following commands are available:
 
 {{< /tab-content >}}
 {{< /tabs-wrapper >}}
+
+## Deploy Telegraf in Kubernetes with Helm
+
+For Kubernetes deployments, InfluxData provides several Helm charts:
+
+- [telegraf](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf): Deploy Telegraf as a single instance
+- [telegraf-ds](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-ds): Deploy Telegraf as a DaemonSet to run on every node
+- [telegraf-operator](https://github.com/influxdata/helm-charts/tree/master/charts/telegraf-operator): Deploy the Telegraf Operator for managing Telegraf instances declaratively
 
 ## Generate a configuration file
 
