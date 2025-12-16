@@ -1,0 +1,72 @@
+////////////////////////////////////////////////////////////////////////////////
+// API Security Schemes Styling
+//
+// Styles for security schemes sections displayed on conceptual API pages
+// (like Authentication). These sections are rendered from OpenAPI spec
+// securitySchemes using Hugo templates, not RapiDoc.
+////////////////////////////////////////////////////////////////////////////////
+
+.api-security-schemes {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid $g5-pepper;
+
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .security-scheme {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: $article-bg;
+    border: 1px solid $g5-pepper;
+    border-radius: 4px;
+
+    h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+      color: $article-heading;
+    }
+  }
+
+  .scheme-details {
+    margin-bottom: 1rem;
+
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1rem;
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 600;
+      color: $g9-mountain;
+    }
+
+    dd {
+      margin: 0;
+
+      code {
+        background: $g3-castle;
+        padding: 0.2em 0.5em;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  .scheme-description {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $g5-pepper;
+
+    p:first-child {
+      margin-top: 0;
+    }
+
+    pre {
+      margin: 1rem 0;
+    }
+  }
+}
