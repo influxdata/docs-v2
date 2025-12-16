@@ -11,7 +11,7 @@
 
 import { execSync } from 'child_process';
 import { appendFileSync, existsSync } from 'fs';
-import { extractDocsUrls, urlPathsToContentPaths } from './parse-pr-urls.js';
+import { extractDocsUrls } from './parse-pr-urls.js';
 import {
   getChangedContentFiles,
   mapContentToPublic,
