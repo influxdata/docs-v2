@@ -17,13 +17,13 @@ through the heartbeat output plugin.
 
 <!-- TOC -->
 - [How agent creation works](#how-agent-creation-works)
-- [Configure an agents](#configure-an-agents)
+- [Configure agents](#configure-agents)
 - [Verify a new agent](#verify-a-new-agent)
 <!-- /TOC -->
 
 ## How agent creation works
 
-- The [heartbeat output plugin](/telegraf/v1/plugins/outputs/heartbeat/) in
+- The [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) in
   a Telegraf configuration reports agent data back to the `/agents/heartbeat`
   endpoint of your {{% product-name %}} instance.
 - The heartbeat payload includes a unique `instance_id` (also referred to as
@@ -32,7 +32,7 @@ through the heartbeat output plugin.
   automatically creates the agent record and marks it with the reported status.
   Subsequent agent heartbeats update the existing agent record.
 
-## Configure an agents
+## Configure agents
 
 [Heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) configuration
 options determine what agent data Telegraf sends to {{% product-name %}}.
