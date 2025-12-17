@@ -254,6 +254,7 @@ telegraf:
 
 telegraf_controller:
   name: Telegraf Controller
+  altname: Controller
   namespace: telegraf
   menu_category: other
   versions: [v1]

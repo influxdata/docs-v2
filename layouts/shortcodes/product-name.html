@@ -19,6 +19,8 @@
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
 {{- else if eq $currentProduct "clustered" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
+{{- else if eq $currentProduct "controller" -}}
+  {{- $scratch.Set "productData" .Site.Data.products.telegraf_controller -}}
 {{- end -}}
 {{- $productData := $scratch.Get "productData" -}}
 {{- if eq $length "long" }}
