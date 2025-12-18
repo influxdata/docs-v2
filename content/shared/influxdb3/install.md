@@ -137,13 +137,12 @@ influxdb:3-{{< product-key >}}
 
 ### Linux DEB and RPM install
 
-Best practice for production deployments is to either install {{< product-name >}} via DEBs/RPMs or [Docker](#pull-the-docker-image). When installing via DEB/RPM on a `systemd`-enabled system, {{< product-name >}} will run in a sandboxed environment as configured by its `systemd` unit file. The shipped unit file provides meaningful security for many use cases; see [security](/influxdb3/{{< product-key >}}/admin/security/) for more information on the sandbox environment and how to tune it your environment.
 When installed via DEB or RPM on a `systemd`-enabled system, {{< product-name >}} runs in a sandboxed environment.
 The included `systemd` unit file configures the environment to provide security isolation for typical deployments.
 For more information, see [Manage security](/influxdb3/version/admin/security/).
 
 > [!Note]
-> DEB and RPM installation is **recommended for production deployments** due to built-in systemd sandboxing.
+> DEB and RPM installation is **recommended for non-Docker production deployments** due to built-in systemd sandboxing.
 {{< expand-wrapper >}}
 {{% expand "DEB-based systems" %}}
 
