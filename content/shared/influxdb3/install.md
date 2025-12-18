@@ -150,7 +150,7 @@ For more information, see [Manage security](/influxdb3/version/admin/security/).
 Install from the InfluxData repository by running the following commands using `apt-get` to install {{< product-name >}} from the InfluxData repository:
 
 ```
-curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+```bash
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
