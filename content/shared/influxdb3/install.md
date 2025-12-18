@@ -5,8 +5,9 @@
   - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
   - [Pull the Docker image](#pull-the-docker-image)
   - [Linux DEB and RPM install](#linux-deb-and-rpm-install)
+    - [TOML configuration (Linux)](#toml-configuration-linux)
+    - [Run as a system service (Linux)](#run-as-a-system-service-linux)
   - [Verify the installation](#verify-the-installation)
-  - [Run as a system service (Linux)](#run-as-a-system-service-linux)
 
 {{% show-in "enterprise" %}}
 > [!Note]
@@ -137,20 +138,19 @@ influxdb:3-{{< product-key >}}
 
 ### Linux DEB and RPM install
 
-Best practice for production deployments is to either install {{< product-name >}} via DEBs/RPMs or [Docker](#pull-the-docker-image). When installing via DEB/RPM on a `systemd`-enabled system, {{< product-name >}} will run in a sandboxed environment as configured by its `systemd` unit file. The shipped unit file provides meaningful security for many use cases; see [security](/influxdb3/{{< product-key >}}/admin/security/) for more information on the sandbox environment and how to tune it your environment.
 When installed via DEB or RPM on a `systemd`-enabled system, {{< product-name >}} runs in a sandboxed environment.
 The included `systemd` unit file configures the environment to provide security isolation for typical deployments.
 For more information, see [Manage security](/influxdb3/version/admin/security/).
 
 > [!Note]
-> DEB and RPM installation is **recommended for production deployments** due to built-in systemd sandboxing.
+> DEB and RPM installation is **recommended for non-Docker production deployments** due to built-in systemd sandboxing.
 {{< expand-wrapper >}}
 {{% expand "DEB-based systems" %}}
 
-Install from the InfluxData repository by running the following commands using `apt-get` to install {{< product-name >}} from the InfluxData repository:
 Use `apt-get` to install {{< product-name >}} from the InfluxData repository:
-```
+
 ```bash
+curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && cat influxdata-archive.key \
@@ -163,9 +163,8 @@ sudo apt-get update && sudo apt-get install influxdb3-{{< product-key >}}
 {{% /expand %}}
 {{% expand "RPM-based systems" %}}
 
-Install from the InfluxData repository by running the following commands using `yum` to install {{< product-name >}} from the InfluxData repository:
 Use `yum` to install {{< product-name >}} from the InfluxData repository:
-```
+
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
@@ -185,6 +184,74 @@ EOF
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+#### TOML configuration (Linux)
+
+After you install the DEB or RPM package, the {{% product-name %}} TOML
+configuration file is located at `/etc/influxdb3/influxdb3-{{< product-key >}}.conf`
+and contains the following settings:
+
+- [object-store](/influxdb3/version/reference/config-options/#object-store): `file`
+- [data-dir](/influxdb3/version/reference/config-options/#data-dir): `/var/lib/influxdb3/data`
+- [plugin-dir](/influxdb3/version/reference/config-options/#plugin-dir): `/var/lib/influxdb3/plugins`
+- [node-id](/influxdb3/version/reference/config-options/#node-id): `primary-node`
+{{% show-in "enterprise" %}}
+- [cluster-id](/influxdb3/version/reference/config-options/#cluster-id): `primary-cluster`
+- [mode](/influxdb3/version/reference/config-options/#mode): `all`
+
+> [!Important]
+> #### License required
+>
+> {{% product-name %}} requires an active license to start.
+> See how to [Activate a license](/influxdb3/enterprise/admin/license/#activate-a-license).
+{{% /show-in %}}
+
+#### Run as a system service (Linux)
+
+{{% product-name %}} DEB and RPM installs include service files for running as
+a managed system service on Linux:
+
+- **systemd**: For modern Linux distributions
+- **SysV init**: For legacy system compatibility
+
+##### Run using systemd
+
+On `systemd` systems, the `influxdb3-{{< product-key >}}` unit file is
+`enabled` on install, but the unit is not started in order to allow
+configuration.
+
+To start the database, enter the following commands:
+
+```bash
+# Start the service
+systemctl start influxdb3-{{< product-key >}}
+
+# View status
+systemctl status influxdb3-{{< product-key >}}
+
+# View logs
+journalctl --unit influxdb3-{{< product-key >}}
+```
+
+##### Run using SysV
+
+On SysV init systems, `influxdb3-{{< product-key >}}` is disabled on install
+and can be enabled by adjusting `/etc/default/influxdb3-{{< product-key >}}` to
+contain `ENABLED=yes`.
+
+To start the database, enter the following commands:
+
+```bash
+# Start the database
+/etc/init.d/influxdb3-{{< product-key >}} start
+
+# View status
+/etc/init.d/influxdb3-{{< product-key >}} status
+
+# View logs
+tail -f /var/lib/influxdb3/influxdb3-{{< product-key >}}.log
+```
+
+
 ### Verify the installation
 
 After installing {{% product-name %}}, enter the following command to verify
@@ -200,16 +267,6 @@ If your system doesn't locate `influxdb3`, then `source` the configuration file 
 ```zsh
 source ~/.zshrc
 ```
-
-### Run as a system service (Linux)
-
-{{% product-name %}} includes service files for running as a managed system service on Linux:
-
-- **systemd**: For modern Linux distributions
-- **SysV init**: For legacy system compatibility
-
-Service files are included in the Linux binary downloads.
-For more information, see the [release notes for v3.8.0](/influxdb3/corerelease-notes/#v380).
 
 {{% show-in "enterprise" %}}
 > [!Note]
