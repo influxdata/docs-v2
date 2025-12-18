@@ -5,8 +5,9 @@
   - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
   - [Pull the Docker image](#pull-the-docker-image)
   - [Linux DEB and RPM install](#linux-deb-and-rpm-install)
+    - [TOML configuration (Linux)](#toml-configuration-linux)
+    - [Run as a system service (Linux)](#run-as-a-system-service-linux)
   - [Verify the installation](#verify-the-installation)
-  - [Run as a system service (Linux)](#run-as-a-system-service-linux)
 
 {{% show-in "enterprise" %}}
 > [!Note]
@@ -146,9 +147,8 @@ For more information, see [Manage security](/influxdb3/version/admin/security/).
 {{< expand-wrapper >}}
 {{% expand "DEB-based systems" %}}
 
-Install from the InfluxData repository by running the following commands using `apt-get` to install {{< product-name >}} from the InfluxData repository:
 Use `apt-get` to install {{< product-name >}} from the InfluxData repository:
-```
+
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
@@ -163,9 +163,8 @@ sudo apt-get update && sudo apt-get install influxdb3-{{< product-key >}}
 {{% /expand %}}
 {{% expand "RPM-based systems" %}}
 
-Install from the InfluxData repository by running the following commands using `yum` to install {{< product-name >}} from the InfluxData repository:
 Use `yum` to install {{< product-name >}} from the InfluxData repository:
-```
+
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
@@ -188,20 +187,22 @@ EOF
 #### TOML configuration (Linux)
 
 After you install the DEB or RPM package, the {{% product-name %}} TOML
-configuration file  is located at `/etc/influxdb3/influxdb3-{{< product-key >}}.conf`
+configuration file is located at `/etc/influxdb3/influxdb3-{{< product-key >}}.conf`
 and contains the following settings:
 
-- [object-store](/influxdb3/version/reference/config-options/#object-store) to `file`
-- [data-dir](/influxdb3/version/reference/config-options/#data-dir) to `/var/lib/influxdb3/data`
-- [plugin-dir](/influxdb3/version/reference/config-options/#plugin-dir) to `/var/lib/influxdb3/plugins`
-- [node-id](/influxdb3/version/reference/config-options/#node-id) to `primary-node`
+- [object-store](/influxdb3/version/reference/config-options/#object-store): `file`
+- [data-dir](/influxdb3/version/reference/config-options/#data-dir): `/var/lib/influxdb3/data`
+- [plugin-dir](/influxdb3/version/reference/config-options/#plugin-dir): `/var/lib/influxdb3/plugins`
+- [node-id](/influxdb3/version/reference/config-options/#node-id): `primary-node`
 {{% show-in "enterprise" %}}
-- [cluster-id](/influxdb3/version/reference/config-options/#cluster-id) to `primary-cluster`
-- [mode](/influxdb3/version/reference/config-options/#mode) to `all`
+- [cluster-id](/influxdb3/version/reference/config-options/#cluster-id): `primary-cluster`
+- [mode](/influxdb3/version/reference/config-options/#mode): `all`
 
-> [!Note]
-> {{% product-name %}} also requires configuring license information before the
-> database can start. For more information, see [Activate a license](/influxdb3/{{< product-key >}}/admin/license/#activate-a-license).
+> [!Important]
+> #### License required
+>
+> {{% product-name %}} requires an active license to start.
+> See how to [Activate a license](/influxdb3/enterprise/admin/license/#activate-a-license).
 {{% /show-in %}}
 
 #### Run as a system service (Linux)
@@ -216,7 +217,9 @@ a managed system service on Linux:
 
 On `systemd` systems, the `influxdb3-{{< product-key >}}` unit file is
 `enabled` on install, but the unit is not started in order to allow
-configuration. To start the database:
+configuration.
+
+To start the database, enter the following commands:
 
 ```bash
 # Start the service
@@ -233,7 +236,9 @@ journalctl --unit influxdb3-{{< product-key >}}
 
 On SysV init systems, `influxdb3-{{< product-key >}}` is disabled on install
 and can be enabled by adjusting `/etc/default/influxdb3-{{< product-key >}}` to
-contain `ENABLED=yes`. To start the database:
+contain `ENABLED=yes`.
+
+To start the database, enter the following commands:
 
 ```bash
 # Start the database
