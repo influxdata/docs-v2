@@ -6,6 +6,37 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.0 {date="2025-12-18"}
+
+### Core
+
+#### Features
+
+- **Linux Service Management**: Run InfluxDB 3 as a managed system service on Linux ([#27026](https://github.com/influxdata/influxdb/pull/27026)):
+  - Use `influxdb3-launcher` script to initialize the service
+  - Deploy with systemd on modern Linux distributions
+  - Deploy with SysV init on legacy systems
+  - Customize service behavior with configuration files
+
+#### Bug fixes
+
+- **CLI**: View only active databases and tables when running `SHOW RETENTION`
+- **Database operations**: Receive an error when attempting to delete tables from an already-deleted database
+- **Retention Policy**: Receive an error when attempting to modify retention settings on deleted databases
+
+#### Security
+
+- **Processing Engine**: Run processing engine plugins with Python 3.13.11, which includes security and bug fixes ([#27014](https://github.com/influxdata/influxdb/pull/27014))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Bug fixes
+
+- **Table Limits**: Delete tables without affecting your table limit quota
+- **Retention Policy**: Receive an error when attempting to modify retention settings on deleted tables
+
 ## v3.7.0 {date="2025-11-19"}
 
 ### Core
