@@ -1,7 +1,7 @@
 ---
 title: Define agent reporting rules
 description: >
-  Define reporting thresholds that determine when Telegraf Controller marks
+  Define reporting rules that determine when Telegraf Controller marks
   agents as not reporting and optionally automatically delete not reporting
   agents.
 menu:
@@ -16,8 +16,8 @@ before {{% product-name %}} changes its status to **Not Reporting**. They can
 also automatically delete agents that haven't reported in a specified amount of
 time.
 
-{{% product-name %}} requires a default reporting rule. Any newly created agents
-are automatically assigned to the default reporting rule.
+{{% product-name %}} requires a default reporting rule. Newly created agents
+are automatically assigned to the current default reporting rule.
 
 Manage reporting rules in the **Reporting Rules** section of
 {{% product-name "short" %}}, then assign them to agents from either the agent

@@ -12,9 +12,10 @@ weight: 104
 
 Agent statuses come from the Telegraf heartbeat output plugin and are sent with
 each heartbeat request.
-The plugin currently only reports an `ok` status, but in a future Telegraf
-release, you will be able to configure logic that sets the status value.
+The plugin reports an `ok` status.
 
+> [!Note]
+> A future Telegraf release will let you configure logic that sets the status value.
 {{% product-name %}} also applies reporting rules to detect stale agents.
 If an agent does not send a heartbeat within the rule's threshold, Controller
 marks the agent as **Not Reporting** until it resumes sending heartbeats.
