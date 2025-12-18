@@ -164,7 +164,7 @@ sudo apt-get update && sudo apt-get install influxdb3-{{< product-key >}}
 {{% expand "RPM-based systems" %}}
 
 Install from the InfluxData repository by running the following commands using `yum` to install {{< product-name >}} from the InfluxData repository:
-
+Use `yum` to install {{< product-name >}} from the InfluxData repository:
 ```
 sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings/
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
