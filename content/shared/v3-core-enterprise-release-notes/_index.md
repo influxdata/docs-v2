@@ -6,6 +6,30 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.0 {date="2025-12-18"}
+
+### Core
+
+#### Features
+
+- TODO: Add Core features for v3.8.0
+
+#### Bug fixes
+
+- TODO: Add Core bug fixes for v3.8.0
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- TODO: Add Enterprise-specific features for v3.8.0
+
+#### Bug fixes
+
+- TODO: Add Enterprise-specific bug fixes for v3.8.0
+
 ## v3.7.0 {date="2025-11-19"}
 
 ### Core
