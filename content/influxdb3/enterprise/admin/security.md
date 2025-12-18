@@ -5,7 +5,7 @@ description: >
   Tune {{% product-name %}} security for local requirements.
 weight: 205
 menu:
-  influxdb3_core:
+  influxdb3_enterprise:
     parent: Administer InfluxDB
     name: Security
 related:
