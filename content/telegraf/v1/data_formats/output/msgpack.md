@@ -8,6 +8,8 @@ menu:
     weight: 10
     parent: Output data formats
     identifier: output-data-format-msgpack
+    aliases:
+      - /telegraf/v1/data_formats/output/messagepack/
 ---
 
 The `msgpack` output data format (serializer) translates the Telegraf metric format to the [MessagePack](https://msgpack.org/) format. MessagePack is an efficient binary serialization format that lets you exchange data among multiple languages like JSON.
