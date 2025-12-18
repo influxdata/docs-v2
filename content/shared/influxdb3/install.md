@@ -5,6 +5,7 @@
   - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
   - [Pull the Docker image](#pull-the-docker-image)
   - [Verify the installation](#verify-the-installation)
+  - [Run as a system service (Linux)](#run-as-a-system-service-linux)
 
 {{% show-in "enterprise" %}}
 > [!Note]
@@ -140,6 +141,16 @@ If your system doesn't locate `influxdb3`, then `source` the configuration file 
 ```zsh
 source ~/.zshrc
 ```
+
+### Run as a system service (Linux)
+
+{{% product-name %}} includes service files for running as a managed system service on Linux:
+
+- **systemd**: For modern Linux distributions
+- **SysV init**: For legacy system compatibility
+
+Service files are included in the Linux binary downloads.
+For more information, see the [release notes for v3.8.0](/influxdb3/corerelease-notes/#v380).
 
 {{% show-in "enterprise" %}}
 > [!Note]
