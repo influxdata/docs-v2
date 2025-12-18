@@ -142,6 +142,21 @@ test('Special characters: backticks', () => {
   assertEquals(result, [], 'Should reject paths with backticks');
 });
 
+test('Special characters: single quotes truncate at extraction', () => {
+  // Single quotes in URLs cause truncation at extraction time (regex stops at ')
+  // This prevents JS injection since the malicious payload is never captured
+  const text = "/influxdb3/user's-guide/";
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/user/'], 'Should truncate at single quote');
+});
+
+test('JS injection attempt via single quote is truncated', () => {
+  // The injection payload after the ' is never captured by the regex
+  const text = "/influxdb3/test'];console.log('xss');//";
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/test/'], 'Should truncate before injection payload');
+});
+
 // Test valid product prefixes
 test('Valid prefix: /influxdb3/', () => {
   const text = '/influxdb3/core/';
@@ -234,6 +249,45 @@ http://localhost:1313/influxdb3/core/
 `;
   const result = extractDocsUrls(text);
   assertEquals(result, ['/influxdb3/core/'], 'Should deduplicate different URL formats');
+});
+
+// Test BASE_REF validation regex (from detect-preview-pages.js)
+// This regex validates git refs to prevent command injection
+const BASE_REF_REGEX = /^origin\/[a-zA-Z0-9._\/-]+$/;
+
+test('BASE_REF: simple branch name', () => {
+  const isValid = BASE_REF_REGEX.test('origin/master');
+  assertEquals(isValid, true, 'Should accept origin/master');
+});
+
+test('BASE_REF: branch with slash (feature branch)', () => {
+  const isValid = BASE_REF_REGEX.test('origin/feature/new-auth');
+  assertEquals(isValid, true, 'Should accept branches with / like feature/new-auth');
+});
+
+test('BASE_REF: branch with multiple slashes', () => {
+  const isValid = BASE_REF_REGEX.test('origin/user/john/feature/test');
+  assertEquals(isValid, true, 'Should accept branches with multiple slashes');
+});
+
+test('BASE_REF: branch with dots and numbers', () => {
+  const isValid = BASE_REF_REGEX.test('origin/release/v2.0.1');
+  assertEquals(isValid, true, 'Should accept branches with dots and numbers');
+});
+
+test('BASE_REF: rejects command injection attempt', () => {
+  const isValid = BASE_REF_REGEX.test('origin/master; rm -rf /');
+  assertEquals(isValid, false, 'Should reject command injection with semicolon');
+});
+
+test('BASE_REF: rejects backtick injection', () => {
+  const isValid = BASE_REF_REGEX.test('origin/`whoami`');
+  assertEquals(isValid, false, 'Should reject backtick command substitution');
+});
+
+test('BASE_REF: rejects without origin/ prefix', () => {
+  const isValid = BASE_REF_REGEX.test('master');
+  assertEquals(isValid, false, 'Should require origin/ prefix');
 });
 
 // Print summary

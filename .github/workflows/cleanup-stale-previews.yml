@@ -51,6 +51,12 @@ jobs:
             if [ -d "$dir" ]; then
               PR_NUM=$(echo "$dir" | grep -oP 'pr-\K\d+')
 
+              # Validate PR_NUM is numeric to prevent injection
+              if ! [[ "$PR_NUM" =~ ^[0-9]+$ ]]; then
+                echo "Invalid PR number: $PR_NUM"
+                continue
+              fi
+
               # Check if PR is still open
               if ! echo "$OPEN_PRS" | grep -q "\"$PR_NUM\""; then
                 echo "Removing stale preview: $dir (PR #$PR_NUM is closed)"

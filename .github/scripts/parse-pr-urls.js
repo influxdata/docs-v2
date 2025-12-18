@@ -15,8 +15,8 @@ function isValidUrlPath(path) {
   // Reject path traversal attempts
   if (path.includes('..')) return false;
 
-  // Reject paths with suspicious characters
-  if (/[<>"|{}`\\^[\]]/.test(path)) return false;
+  // Reject paths with suspicious characters (includes ' to prevent JS injection)
+  if (/[<>"|{}`\\^[\]']/.test(path)) return false;
 
   // Reject URL-encoded characters (potential encoding attacks)
   if (path.includes('%')) return false;

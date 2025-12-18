@@ -22,6 +22,13 @@ const PR_BODY = process.env.PR_BODY || '';
 const BASE_REF = process.env.BASE_REF || 'origin/master';
 const MAX_PAGES = 50; // Limit to prevent storage bloat
 
+// Validate BASE_REF to prevent command injection
+// Allows branch names with letters, numbers, dots, underscores, hyphens, and slashes
+if (!/^origin\/[a-zA-Z0-9._\/-]+$/.test(BASE_REF)) {
+  console.error(`Invalid BASE_REF: ${BASE_REF}`);
+  process.exit(1);
+}
+
 /**
  * Get all changed files in the PR
  * @returns {string[]} Array of changed file paths
