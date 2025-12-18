@@ -148,7 +148,7 @@ For more information, see [Manage security](/influxdb3/version/admin/security/).
 {{% expand "DEB-based systems" %}}
 
 Install from the InfluxData repository by running the following commands using `apt-get` to install {{< product-name >}} from the InfluxData repository:
-
+Use `apt-get` to install {{< product-name >}} from the InfluxData repository:
 ```
 ```bash
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
