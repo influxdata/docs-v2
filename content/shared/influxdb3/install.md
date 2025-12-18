@@ -61,6 +61,14 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 > The quick installer script is updated with each {{% product-name %}} release,
 > so it always installs the latest version.
 
+> [!Important]
+> #### Production deployment
+>
+> For production deployments, use [Linux DEB or RPM](#linux-deb-and-rpm-install)
+> for built-in systemd sandboxing, or [Docker](#pull-the-docker-image) with your own
+> container security configuration.
+>
+> For detailed security options, see [Manage security](/influxdb3/version/admin/security/).
 ### Download and install the latest build artifacts
 
 You can also download and install [{{% product-name %}} build artifacts](/influxdb3/{{< product-key >}}/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
