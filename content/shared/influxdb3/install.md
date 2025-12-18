@@ -72,7 +72,6 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 > For detailed security options, see [Manage security](/influxdb3/version/admin/security/).
 ### Download and install the latest build artifacts
 
-You can also download and install [{{% product-name %}} build artifacts](/influxdb3/{{< product-key >}}/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
 You can download and install [{{% product-name %}} build artifacts](/influxdb3/version/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
 {{< expand-wrapper >}}
 {{% expand "Linux binaries" %}}
