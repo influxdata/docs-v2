@@ -40,19 +40,20 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3.8
+- id: influxdb3.8-explorer-1.6
   level: note
   scope:
     - /
   title: New in InfluxDB 3.8
   slug: |
-    Key enhancements in InfluxDB 3.8 for Core and Enterprise.
+    Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.
 
     <a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a>
   message: |
-    InfluxDB 3.8 is now available for both Core and Enterprise.
-
-    TODO: Add release highlights for v3.8.0
+    InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
+    1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
+    operational maturity and making InfluxDB easier to deploy, manage, and run
+    reliably in production.
 
     For more information, check out:
 
