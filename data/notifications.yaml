@@ -60,7 +60,6 @@
     - [See the announcement blog post](https://www.influxdata.com/blog/influxdb-3-8/)
     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
-    - [Get Started with InfluxDB 3 Explorer](/influxdb3/explorer/get-started/)
 
 - id: influxdb-docker-latest-tag
   level: warn
