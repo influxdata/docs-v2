@@ -166,7 +166,7 @@ sudo apt-get update && sudo apt-get install influxdb3-{{< product-key >}}
 Install from the InfluxData repository by running the following commands using `yum` to install {{< product-name >}} from the InfluxData repository:
 Use `yum` to install {{< product-name >}} from the InfluxData repository:
 ```
-sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings/
+```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
