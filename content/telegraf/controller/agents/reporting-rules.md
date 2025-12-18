@@ -42,7 +42,7 @@ list or an agent details page.
 3.  Enter the following:
     - **Description**: Reporting rule description
     - **Not Reporting Threshold**: The maximum time an agent can go without
-      reporting before {{% product-name "short" }} assigns the "Not Reporting"
+      reporting before {{% product-name "short" %}} assigns the "Not Reporting"
       status.
     - **Auto-delete agents**: Enable to automatically delete agents that haven't
       reported in the defined auto-delete threshold.
