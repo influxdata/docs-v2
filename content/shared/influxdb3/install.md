@@ -261,7 +261,7 @@ that it installed successfully:
 influxdb3 --version
 ```
 
-If your system doesn't locate `influxdb3` with the quick install method, then `source` the configuration file (for example, .bashrc, .zshrc) for your shell--for example:
+If your system can't locate `influxdb3` following a [quick install](#quick-install-for-linux-and-macos), `source` the configuration file (for example, `.bashrc`, `.zshrc`) for your shell--for example:
 
 <!--pytest.mark.skip-->
 ```zsh
