@@ -84,7 +84,7 @@ but the process of activating the license depends on the license type:
 1. Use the [`influxdb3 serve` command](/influxdb3/enterprise/reference/cli/influxdb3/serve/) to start the server.
    If the server doesn't find a license file or email address, the server prompts you
    to enter your email address.
-   If you're [activating a trial or home license with Docker](#activate-a-trial-or-home-license-with-docker) or [with DEB/RPM installs](#activate-a-trial-or-home-license-with-linux-packaging), include options to [skip the email prompt](#skip-the-email-prompt).
+   If you're [activating an InfluxDB trial or home license with Docker](#activate-a-trial-or-home-license-with-docker) or [with DEB/RPM installs](#activate-a-trial-or-home-license-with-linux-packaging), include options to [skip the email prompt](#skip-the-email-prompt).
 2. The server prompts you to select a license type. Select `trial` or `home`.
 3. In the verification email from {{% product-name %}},
    click the button to verify your email address.
@@ -107,10 +107,10 @@ The license file is a JWT file that contains the license information.
 > #### Activate a trial or home license with Linux packaging
 >
 > If you're starting a new {{% product-name %}} server that was installed via
-> DEB or RPM, you should use one of the methods to
-> [skip the email prompt](#skip-the-email-prompt). This ensures that the server
-> can generate the license file after you verify your email address.
-> See [DEB and RPM TOML](?t=DEB+and+RPM+TOML#start-with-license-email-and-toml).
+> DEB or RPM, use one of the methods to [skip the email prompt](#skip-the-email-prompt)--
+> for example, using the [DEB and RPM TOML](?t=DEB+and+RPM+TOML#start-with-license-email-and-toml)
+> configuration. This ensures that the server can generate the license file
+> after you verify your email address.
 
 #### Skip the email prompt
 
@@ -119,6 +119,7 @@ address using one of the following methods:
 
 - Use the [`--license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option with the `influxdb3 serve` command
 - Set the `INFLUXDB3_ENTERPRISE_LICENSE_EMAIL` environment variable
+- Set the [`license-email`](/influxdb3/enterprise/reference/config-options/#license-email) option in the `/etc/influxdb3/influxdb3-enterprise.conf` file (DEB/RPM installs)
 
 If the server finds a valid license file in your object store, it ignores the
 license email option.
@@ -267,21 +268,21 @@ or a variable from your Compose `.env` file.
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN DEB AND RPM TOML ------------------------>
-Adjust `/etc/influxdb3/influxdb3-enterprise.conf` to contain:
+1. Edit `/etc/influxdb3/influxdb3-enterprise.conf` to add your license email:
 
-```toml
-license-email="example@email.com"
-```
+    ```toml
+    license-email="example@email.com"
+    ```
 
-then start the server with:
+2. To start the server, run the following command:
 
-```bash
-# systemd (modern systems; see logs with 'journalctl --unit influxdb3-{{< product-key >}}')
-systemctl start influxdb3-enterprise
+    ```bash
+    # systemd (modern systems; see logs with 'journalctl --unit influxdb3-{{< product-key >}}')
+    systemctl start influxdb3-enterprise
 
-# SysV init (legacy systems; logs to /var/lib/influxdb3/influxdb3-{{< product-key >}}.log)
-/etc/init.d/influxdb3-enterprise start
-```
+    # SysV init (legacy systems; logs to /var/lib/influxdb3/influxdb3-{{< product-key >}}.log)
+    /etc/init.d/influxdb3-enterprise start
+    ```
 <!------------------------ END DEB AND RPM TOML ------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -321,29 +322,28 @@ influxdb3 serve \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!------------------------ BEGIN DEB AND RPM TOML ------------------------>
-Adjust `/etc/influxdb3/influxdb3-enterprise.conf` to contain:
+1. Edit `/etc/influxdb3/influxdb3-enterprise.conf` to add your license file path:
 
-```toml
-license-file="/etc/influxdb3/license-file.jwt"
-```
+    ```toml
+    license-file="/etc/influxdb3/license-file.jwt"
+    ```
 
-Ensure the license file has strict permissions that allow the database to read
-the file:
+2. Ensure the license file has strict permissions that allow the database to read the file:
 
-```bash
-chown root:influxdb3 /etc/influxdb3/influxdb3-enterprise.conf
-chmod 0640 /etc/influxdb3/influxdb3-enterprise.conf
-```
+    ```bash
+    chown root:influxdb3 /etc/influxdb3/influxdb3-enterprise.conf
+    chmod 0640 /etc/influxdb3/influxdb3-enterprise.conf
+    ```
 
-then start the server with:
+3. To start the server, run the following command:
 
-```bash
-# systemd (modern systems; see logs with 'journalctl --unit influxdb3-{{< product-key >}}')
-systemctl start influxdb3-enterprise
+    ```bash
+    # systemd (modern systems; see logs with 'journalctl --unit influxdb3-{{< product-key >}}')
+    systemctl start influxdb3-enterprise
 
-# SysV init (legacy systems; logs to /var/lib/influxdb3/influxdb3-{{< product-key >}}.log)
-/etc/init.d/influxdb3-enterprise start
-```
+    # SysV init (legacy systems; logs to /var/lib/influxdb3/influxdb3-{{< product-key >}}.log)
+    /etc/init.d/influxdb3-enterprise start
+    ```
 <!------------------------ END DEB AND RPM TOML ------------------------>
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
