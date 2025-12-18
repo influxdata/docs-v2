@@ -38,9 +38,9 @@ through the heartbeat output plugin.
 options determine what agent data Telegraf sends to {{% product-name %}}.
 The following heartbeat plugin configuration options are available:
 
-- **url**: ({{% req %}}) URL of heartbeat endpoint.
-- **instance_id**: ({{% req %}}) Unique identifier for the Telegraf instance or
-  agent (also known as the agent ID).
+- **url**: _({{% req %}})_ URL of heartbeat endpoint.
+- **instance_id**: _({{% req %}})_ Unique identifier for the Telegraf instance
+  or agent (also known as the agent ID).
 - **token**: Authorization token for the heartbeat endpoint
 - **interval**: Interval for sending heartbeat messages. Default is `1m` (every minute).
 - **include**: Information to include in the heartbeat message.
