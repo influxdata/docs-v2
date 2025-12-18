@@ -1,0 +1,175 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'assets/**'
+      - 'data/**'
+      - 'api-docs/**'
+      - 'openapi/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  # Skip draft PRs entirely
+  check-draft:
+    runs-on: ubuntu-latest
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - id: check
+        run: |
+          if [[ "${{ github.event.pull_request.draft }}" == "true" ]]; then
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "Skipping draft PR"
+          else
+            echo "should-run=true" >> $GITHUB_OUTPUT
+          fi
+
+  # Build and deploy preview
+  preview:
+    needs: check-draft
+    if: |
+      needs.check-draft.outputs.should-run == 'true' &&
+      github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Detect preview pages
+        id: detect
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_REF: origin/${{ github.base_ref }}
+        run: node .github/scripts/detect-preview-pages.js
+
+      - name: Post pending comment (needs input)
+        if: steps.detect.outputs.needs-author-input == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
+            await upsertPreviewComment(github, context, {
+              status: 'pending',
+              needsInput: true,
+              prNumber: context.issue.number
+            });
+
+      - name: Skip if no pages to deploy
+        if: steps.detect.outputs.pages-to-deploy == '[]'
+        run: |
+          echo "No pages to deploy - skipping preview"
+          echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
+
+      - name: Build Hugo site
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        id: build
+        run: |
+          START_TIME=$(date +%s)
+          npx hugo --minify
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+          echo "build-time=${DURATION}s" >> $GITHUB_OUTPUT
+
+      - name: Prepare preview files
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        run: |
+          node .github/scripts/prepare-preview-files.js \
+            '${{ steps.detect.outputs.pages-to-deploy }}' \
+            public \
+            preview-staging
+
+      - name: Deploy preview
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        uses: rossjrw/pr-preview-action@v1.4.8
+        with:
+          source-dir: ./preview-staging
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: deploy
+
+      - name: Post success comment
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
+            const pages = JSON.parse('${{ steps.detect.outputs.pages-to-deploy }}');
+            const previewUrl = `https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/`;
+            await upsertPreviewComment(github, context, {
+              status: 'success',
+              previewUrl,
+              pages,
+              buildTime: '${{ steps.build.outputs.build-time }}',
+              prNumber: context.issue.number
+            });
+
+      - name: Post skipped comment
+        if: steps.detect.outputs.pages-to-deploy == '[]' && steps.detect.outputs.needs-author-input != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
+            await upsertPreviewComment(github, context, {
+              status: 'skipped',
+              skipReason: '${{ steps.detect.outputs.change-summary }}',
+              prNumber: context.issue.number
+            });
+
+  # Cleanup on PR close
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Remove preview directory
+        run: |
+          PREVIEW_DIR="pr-preview/pr-${{ github.event.number }}"
+          if [ -d "$PREVIEW_DIR" ]; then
+            rm -rf "$PREVIEW_DIR"
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Clean up preview for PR #${{ github.event.number }}" || echo "Nothing to commit"
+            git push
+            echo "Cleaned up $PREVIEW_DIR"
+          else
+            echo "No preview directory found for PR #${{ github.event.number }}"
+          fi
+
+      - name: Checkout scripts for comment deletion
+        uses: actions/checkout@v4
+        with:
+          path: scripts-checkout
+
+      - name: Delete preview comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { deletePreviewComment } = await import('${{ github.workspace }}/scripts-checkout/.github/scripts/preview-comment.js');
+            await deletePreviewComment(github, context);
