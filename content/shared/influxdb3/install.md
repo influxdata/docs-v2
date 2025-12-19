@@ -64,7 +64,7 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 > so it always installs the latest version.
 
 > [!Important]
-> #### Production deployment
+> #### Production deployment {metadata="v3.8+"}
 >
 > For production deployments, use [Linux DEB or RPM](#linux-deb-or-rpm)
 > for built-in systemd sandboxing, or [Docker](#pull-the-docker-image) with your own
@@ -209,7 +209,7 @@ and contains the following settings:
 > See how to [Activate a license](/influxdb3/enterprise/admin/license/#activate-a-license).
 {{% /show-in %}}
 
-#### Run as a system service (Linux)
+#### Run as a system service (Linux) {metadata="v3.8+"}
 
 {{% product-name %}} DEB and RPM installs include service files for running as
 a managed system service on Linux:
