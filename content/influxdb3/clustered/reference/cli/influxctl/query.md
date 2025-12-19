@@ -442,6 +442,8 @@ influxctl query \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+The output is similar to the following:
+
 {{< expand-wrapper >}}
 {{% expand "View example table-formatted performance statistics" %}}
 ```
