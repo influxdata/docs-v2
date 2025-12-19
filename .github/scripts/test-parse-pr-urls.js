@@ -48,7 +48,7 @@ Please preview:
     [
       '/influxdb/cloud/admin/tokens/',
       '/influxdb3/core/get-started/',
-      '/telegraf/v1/plugins/'
+      '/telegraf/v1/plugins/',
     ].sort(),
     'Should extract all three URL formats'
   );
@@ -58,7 +58,11 @@ Please preview:
 test('Markdown link: [text](/influxdb3/core/)', () => {
   const text = 'See [the docs](/influxdb3/core/) for details';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/core/'], 'Should extract path from markdown link');
+  assertEquals(
+    result,
+    ['/influxdb3/core/'],
+    'Should extract path from markdown link'
+  );
 });
 
 test('Markdown link: multiple links in a line', () => {
@@ -154,7 +158,11 @@ test('JS injection attempt via single quote is truncated', () => {
   // The injection payload after the ' is never captured by the regex
   const text = "/influxdb3/test'];console.log('xss');//";
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/test/'], 'Should truncate before injection payload');
+  assertEquals(
+    result,
+    ['/influxdb3/test/'],
+    'Should truncate before injection payload'
+  );
 });
 
 // Test valid product prefixes
@@ -179,7 +187,21 @@ test('Valid prefix: /telegraf/', () => {
 test('Valid prefix: /enterprise_influxdb/', () => {
   const text = '/enterprise_influxdb/v1/';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/enterprise_influxdb/v1/'], 'Should accept enterprise_influxdb');
+  assertEquals(
+    result,
+    ['/enterprise_influxdb/v1/'],
+    'Should accept enterprise_influxdb'
+  );
+});
+
+test('Valid prefix: /influxdb3_explorer/ (loaded from products.yml)', () => {
+  const text = '/influxdb3_explorer/explorer/';
+  const result = extractDocsUrls(text);
+  assertEquals(
+    result,
+    ['/influxdb3_explorer/explorer/'],
+    'Should accept influxdb3_explorer from products.yml'
+  );
 });
 
 test('Invalid prefix: /random/', () => {
@@ -238,7 +260,11 @@ test('Deduplication: same URL multiple times', () => {
 /influxdb3/core/
 `;
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/core/'], 'Should deduplicate identical URLs');
+  assertEquals(
+    result,
+    ['/influxdb3/core/'],
+    'Should deduplicate identical URLs'
+  );
 });
 
 test('Deduplication: different formats, same path', () => {
@@ -248,7 +274,11 @@ http://localhost:1313/influxdb3/core/
 /influxdb3/core/
 `;
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/core/'], 'Should deduplicate different URL formats');
+  assertEquals(
+    result,
+    ['/influxdb3/core/'],
+    'Should deduplicate different URL formats'
+  );
 });
 
 // Test BASE_REF validation regex (from detect-preview-pages.js)
@@ -262,7 +292,11 @@ test('BASE_REF: simple branch name', () => {
 
 test('BASE_REF: branch with slash (feature branch)', () => {
   const isValid = BASE_REF_REGEX.test('origin/feature/new-auth');
-  assertEquals(isValid, true, 'Should accept branches with / like feature/new-auth');
+  assertEquals(
+    isValid,
+    true,
+    'Should accept branches with / like feature/new-auth'
+  );
 });
 
 test('BASE_REF: branch with multiple slashes', () => {
@@ -277,7 +311,11 @@ test('BASE_REF: branch with dots and numbers', () => {
 
 test('BASE_REF: rejects command injection attempt', () => {
   const isValid = BASE_REF_REGEX.test('origin/master; rm -rf /');
-  assertEquals(isValid, false, 'Should reject command injection with semicolon');
+  assertEquals(
+    isValid,
+    false,
+    'Should reject command injection with semicolon'
+  );
 });
 
 test('BASE_REF: rejects backtick injection', () => {

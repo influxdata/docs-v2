@@ -4,6 +4,42 @@
  * Used when layout/asset changes require author-specified preview pages.
  */
 
+import { readFileSync } from 'fs';
+import { load } from 'js-yaml';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Load valid product namespaces from products.yml
+ * @returns {string[]} - Array of valid namespace prefixes
+ * @throws {Error} - If products.yml cannot be read
+ */
+function loadProductNamespaces() {
+  // Navigate from .github/scripts/ to data/products.yml
+  const productsPath = join(__dirname, '../../data/products.yml');
+  const productsYaml = readFileSync(productsPath, 'utf8');
+  const products = load(productsYaml);
+
+  // Extract unique namespaces from all products
+  const namespaces = new Set();
+  for (const product of Object.values(products)) {
+    if (product.namespace) {
+      namespaces.add(product.namespace);
+    }
+  }
+
+  if (namespaces.size === 0) {
+    throw new Error('No product namespaces found in products.yml');
+  }
+
+  return Array.from(namespaces);
+}
+
+// Load namespaces once at module initialization
+const PRODUCT_NAMESPACES = loadProductNamespaces();
+
 /**
  * Validate URL path for security
  * @param {string} path - URL path to validate
@@ -24,19 +60,27 @@ function isValidUrlPath(path) {
   // Must start with /
   if (!path.startsWith('/')) return false;
 
-  // Must start with known product prefix
-  const validPrefixes = [
-    '/influxdb3/',
-    '/influxdb/',
-    '/telegraf/',
-    '/kapacitor/',
-    '/chronograf/',
-    '/flux/',
-    '/enterprise_influxdb/'
-  ];
+  // Must start with known product prefix (loaded from products.yml)
+  const validPrefixes = PRODUCT_NAMESPACES.map((ns) => `/${ns}/`);
 
-  return validPrefixes.some(prefix => path.startsWith(prefix));
+  return validPrefixes.some((prefix) => path.startsWith(prefix));
 }
+
+/**
+ * Build regex pattern for relative paths
+ * @returns {RegExp} - Pattern matching valid product URL paths
+ */
+function buildRelativePattern() {
+  const namespaceAlternation = PRODUCT_NAMESPACES.join('|');
+  // Match relative paths starting with known product prefixes
+  // Also captures paths in markdown links: [text](/influxdb3/core/)
+  return new RegExp(
+    `(?:^|\\s|\\]|\\)|\\()(\\/(?:${namespaceAlternation})[^\\s)\\]>"']*)`,
+    'gm'
+  );
+}
+
+const RELATIVE_PATTERN = buildRelativePattern();
 
 /**
  * Extract documentation URLs from text
@@ -71,9 +115,9 @@ export function extractDocsUrls(text) {
 
   // Pattern 3: Relative paths starting with known product prefixes
   // /influxdb3/core/admin/ or /telegraf/v1/plugins/
-  // Updated to also capture paths in markdown links: [text](/influxdb3/core/)
-  const relativePattern = /(?:^|\s|\]|\)|\()(\/(?:influxdb3|influxdb|telegraf|kapacitor|chronograf|flux|enterprise_influxdb)[^\s)\]>"']*)/gm;
-  while ((match = relativePattern.exec(text)) !== null) {
+  // Reset lastIndex to ensure fresh matching
+  RELATIVE_PATTERN.lastIndex = 0;
+  while ((match = RELATIVE_PATTERN.exec(text)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -106,7 +150,7 @@ function normalizeUrlPath(urlPath) {
  * @returns {string[]} - Array of content file paths
  */
 export function urlPathsToContentPaths(urlPaths) {
-  return urlPaths.map(urlPath => {
+  return urlPaths.map((urlPath) => {
     // Remove leading/trailing slashes and add content prefix
     const cleanPath = urlPath.replace(/^\/|\/$/g, '');
     return `content/${cleanPath}/_index.md`;
