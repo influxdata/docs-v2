@@ -1,27 +1,39 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $currentProduct := index $productPathData 1 -}}
 {{- $length := .Get 0 | default "long" -}}
+{{- $format := .Get "format" | default "" -}}
 {{- $omit := .Get "omit" | default "" -}}
 {{- $scratch := newScratch -}}
 {{- if eq $currentProduct "v2" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb -}}
+  {{- $scratch.Set "productKey" "influxdb" -}}
 {{- else if eq $currentProduct "cloud" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud -}}
+  {{- $scratch.Set "productKey" "influxdb_cloud" -}}
 {{- else if eq $currentProduct "core" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_core -}}
+  {{- $scratch.Set "productKey" "influxdb3_core" -}}
 {{- else if eq $currentProduct "enterprise" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_enterprise -}}
+  {{- $scratch.Set "productKey" "influxdb3_enterprise" -}}
 {{- else if eq $currentProduct "explorer" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_explorer -}}
+  {{- $scratch.Set "productKey" "influxdb3_explorer" -}}
 {{- else if eq $currentProduct "cloud-serverless" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
+  {{- $scratch.Set "productKey" "influxdb3_cloud_serverless" -}}
 {{- else if eq $currentProduct "cloud-dedicated" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
+  {{- $scratch.Set "productKey" "influxdb3_cloud_dedicated" -}}
 {{- else if eq $currentProduct "clustered" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
+  {{- $scratch.Set "productKey" "influxdb3_clustered" -}}
 {{- end -}}
 {{- $productData := $scratch.Get "productData" -}}
-{{- if eq $length "long" }}
+{{- $productKey := $scratch.Get "productKey" -}}
+{{- if eq $format "kebab" -}}
+  {{- $productKey | replaceRE "_" "-" -}}
+{{- else if eq $length "long" }}
   {{- $productData.name | replaceRE $omit "" -}}
 {{ else if eq $length "short" }}
   {{- $productData.altname | replaceRE $omit "" -}}
