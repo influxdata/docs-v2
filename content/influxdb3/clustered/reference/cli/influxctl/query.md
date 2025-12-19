@@ -450,42 +450,42 @@ The output is similar to the following:
 +--------------------------+----------+
 | Metric                   | Value    |
 +--------------------------+----------+
-| Client Duration          | 1.222 s  |
-| Output Rows              | 20       |
-| Output Size              | 647 B    |
+| Client Duration          | 1.619 s  |
+| Output Rows              | 0        |
+| Output Size              | 0 B      |
 +--------------------------+----------+
-| Compute Duration         | 37.2 ms  |
-| Execution Duration       | 243.8 ms |
+| Compute Duration         | 42.0 µs  |
+| Execution Duration       | 181.0 µs |
 | Ingester Latency Data    | 0        |
 | Ingester Latency Plan    | 0        |
 | Ingester Partition Count | 0        |
 | Ingester Response        | 0 B      |
 | Ingester Response Rows   | 0        |
-| Max Memory               | 70 KiB   |
-| Parquet Files            | 1        |
-| Partitions               | 1        |
-| Planning Duration        | 9.6 ms   |
-| Queue Duration           | 286.6 µs |
+| Max Memory               | 64 B     |
+| Parquet Files            | 0        |
+| Partitions               | 0        |
+| Planning Duration        | 7.0 ms   |
+| Queue Duration           | 378.0 µs |
 +--------------------------+----------+
 ```
 {{% /expand %}}
 {{% expand "View example JSON-formatted performance statistics" %}}
 ```json
 {
-  "client_duration_secs": 1.101,
-  "compute_duration_secs": 0.037,
-  "execution_duration_secs": 0.247,
+  "client_duration_secs": 1.748,
+  "compute_duration_secs": 0,
+  "execution_duration_secs": 0,
   "ingester_latency_data": 0,
   "ingester_latency_plan": 0,
   "ingester_partition_count": 0,
   "ingester_response_bytes": 0,
   "ingester_response_rows": 0,
-  "max_memory_bytes": 71744,
-  "output_bytes": 647,
-  "output_rows": 20,
-  "parquet_files": 1,
-  "partitions": 1,
-  "planning_duration_secs": 0.009,
+  "max_memory_bytes": 64,
+  "output_bytes": 0,
+  "output_rows": 0,
+  "parquet_files": 0,
+  "partitions": 0,
+  "planning_duration_secs": 0.006,
   "queue_duration_secs": 0
 }
 ```
