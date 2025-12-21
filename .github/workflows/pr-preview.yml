@@ -85,9 +85,12 @@ jobs:
       - name: Build Hugo site
         if: steps.detect.outputs.pages-to-deploy != '[]'
         id: build
+        env:
+          # Set baseURL for GitHub Pages preview subdirectory
+          PREVIEW_BASE_URL: https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/
         run: |
           START_TIME=$(date +%s)
-          npx hugo --minify
+          npx hugo --minify --baseURL "$PREVIEW_BASE_URL"
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
           echo "build-time=${DURATION}s" >> $GITHUB_OUTPUT
