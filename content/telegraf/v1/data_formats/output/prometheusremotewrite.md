@@ -62,7 +62,7 @@ Prometheus labels are created from Telegraf tags.
 cpu,host=server01 usage_idle=98.5,usage_user=1.2 1640000000000000000
 ```
 
-**Resulting Prometheus metrics:**
+**Resulting Prometheus metrics (logical representation - actual output is binary protobuf format):**
 ```
 cpu_usage_idle{host="server01"} 98.5
 cpu_usage_user{host="server01"} 1.2
