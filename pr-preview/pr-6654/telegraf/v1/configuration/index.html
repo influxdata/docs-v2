@@ -46,10 +46,10 @@
 
 
 
-<title>Prometheus output data format | &lt;nil&gt; Documentation</title>
+<title>Configuration options | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use the prometheus output data format (serializer) to convert Telegraf metrics into Prometheus text exposition format.">
+    <meta name="description" content="Overview of the Telegraf configuration file, enabling plugins, and setting environment variables.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6654/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6654/docs-v2/pr-preview/pr-6654/telegraf/v1/configuration/" />
 
     
 <style>
@@ -2978,17 +2978,17 @@
       
     </li>
   
-    <li class="nav-category ">
+    <li class="nav-category active">
       
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/configuration/'>Configuration options</a>
       
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/'>Data formats</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -3138,10 +3138,10 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/'>Output data formats</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -3196,7 +3196,7 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/'>Prometheus</a>
       
@@ -3489,7 +3489,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Prometheus output data format</h1>
+      <h1>Configuration options</h1>
       
 
 
@@ -3591,187 +3591,915 @@
 
 
 
-  <p>Use the <code>prometheus</code> output data format (serializer) to convert Telegraf metrics
-into the <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">Prometheus text exposition format</a>.</p>
-<p>When used with the <code>prometheus</code> input plugin, set <code>metric_version = 2</code> in the
-input to properly round-trip metrics.</p>
-<h2 id="configuration">Configuration</h2>
+  <p>Telegraf uses a configuration file to define what plugins to enable and what
+settings to use when Telegraf starts.
+Each Telegraf plugin has its own set of configuration options.
+Telegraf also provides global options for configuring specific Telegraf settings.</p>
 
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c">## Optional: Enable batch serialization for improved efficiency.</span>
-</span></span><span class="line"><span class="cl">  <span class="c">## This is an output plugin option that affects how the serializer</span>
-</span></span><span class="line"><span class="cl">  <span class="c">## receives metrics.</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># use_batch_format = false</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c">## Serializer options (prometheus-specific)</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_export_timestamp = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_sort_metrics = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_string_as_label = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_compact_encoding = false</span></span></span></code></pre></div>
-<h3 id="serializer-options">Serializer options</h3>
-<table>
-  <thead>
-      <tr>
-          <th>Option</th>
-          <th>Type</th>
-          <th>Default</th>
-          <th>Description</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>prometheus_export_timestamp</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Include timestamp on each sample</td>
-      </tr>
-      <tr>
-          <td><code>prometheus_sort_metrics</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Sort metric families and samples (useful for debugging)</td>
-      </tr>
-      <tr>
-          <td><code>prometheus_string_as_label</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Convert string fields to labels</td>
-      </tr>
-      <tr>
-          <td><code>prometheus_compact_encoding</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Omit HELP metadata to reduce payload size</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="metric-type-mappings">Metric type mappings</h3>
-<p>Use <code>prometheus_metric_types</code> to explicitly set metric types, overriding
-Telegraf&rsquo;s automatic type detection.
-Supports glob patterns.</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">prometheus_metric_types</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">counter</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;*_total&#34;</span><span class="p">,</span> <span class="s2">&#34;*_count&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">gauge</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;*_current&#34;</span><span class="p">,</span> <span class="s2">&#34;*_ratio&#34;</span><span class="p">]</span></span></span></code></pre></div>
-<h2 id="metric-naming">Metric naming</h2>
-<p>Prometheus metric names are created by joining the measurement name with the
-field key.</p>
-<p><strong>Special case:</strong> When the measurement name is <code>prometheus</code>, it is not included
-in the final metric name.</p>
-<h2 id="labels">Labels</h2>
-<p>Prometheus labels are created from Telegraf tags.
-String fields are ignored by default and do not produce Prometheus metrics.
-Set <code>prometheus_string_as_label = true</code> to convert string fields to labels.
-Set <code>log_level = &quot;trace&quot;</code> to see serialization issues.</p>
-<h2 id="histograms-and-summaries">Histograms and summaries</h2>
-<p>Histogram and summary metrics require special consideration.
-These metric types accumulate state across observations:</p>
+<div class="block note">
+  
+  
+  <p>See <a href="/telegraf/v1/get_started/">Get started</a> to quickly get up and running with Telegraf.</p>
+</div>
+<h2 id="generate-a-configuration-file">Generate a configuration file</h2>
+<p>The <code>telegraf config</code> command lets you generate a configuration file using Telegraf&rsquo;s list of plugins.</p>
 <ul>
-<li><strong>Histograms</strong> count observations in configurable buckets</li>
-<li><strong>Summaries</strong> calculate quantiles over a sliding time window</li>
+<li><a href="#create-a-configuration-with-default-input-and-output-plugins">Create a configuration with default input and output plugins</a></li>
+<li><a href="#create-a-configuration-with-specific-input-and-output-plugins">Create a configuration with specific input and output plugins</a></li>
+<li><a href="#windows-powershell-v5-encoding">Windows PowerShell v5 encoding</a></li>
 </ul>
-<h3 id="use-prometheus_client-for-histograms-and-summaries">Use prometheus_client for histograms and summaries</h3>
-<p>Serializers process metrics in batches and have no memory of previous batches.
-When histogram or summary data arrives across multiple batches, the serializer
-cannot combine them correctly.</p>
-<p>For example, a histogram with 10 buckets might arrive as:</p>
+<h3 id="create-a-configuration-with-default-input-and-output-plugins">Create a configuration with default input and output plugins</h3>
+<p>To generate a configuration file with default input and output plugins enabled,
+enter the following command in your terminal:</p>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Linux and macOS</a>
+<a href="#">Windows</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telegraf config &gt; telegraf.conf</span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">telegraf</span><span class="p">.</span><span class="py">exe</span> <span class="n">config</span> <span class="p">&gt;</span> <span class="n">telegraf</span><span class="p">.</span><span class="n">conf</span></span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<p>The generated file contains settings for all available plugins&ndash;some are enabled and the rest are commented out.</p>
+<h3 id="create-a-configuration-file-with-specific-input-and-output-plugins">Create a configuration file with specific input and output plugins</h3>
+<p>To generate a configuration file that contains settings for only specific plugins,
+use the <code>--input-filter</code> and <code>--output-filter</code> options to
+specify <a href="/telegraf/v1/configure_plugins/input_plugins/">input plugins</a>
+and <a href="/telegraf/v1/configure_plugins/output_plugins/">output plugins</a>.
+Use a colon (<code>:</code>) to separate plugin names.</p>
+<h4 id="syntax">Syntax</h4>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Linux and macOS</a>
+<a href="#">Windows</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telegraf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--input-filter &lt;INPUT_PLUGIN_NAME&gt;<span class="o">[</span>:&lt;INPUT_PLUGIN_NAME&gt;<span class="o">]</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--output-filter &lt;OUTPUT_PLUGIN_NAME&gt;<span class="o">[</span>:&lt;OUTPUT_PLUGIN_NAME&gt;<span class="o">]</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>config &gt; telegraf.conf</span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">telegraf</span><span class="p">.</span><span class="py">exe</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="p">-</span><span class="n">-input-filter</span> <span class="p">&lt;</span><span class="n">INPUT_PLUGIN_NAME</span><span class="p">&gt;[</span><span class="err">:</span><span class="p">&lt;</span><span class="n">INPUT_PLUGIN_NAME</span><span class="p">&gt;]</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="p">-</span><span class="n">-output-filter</span> <span class="p">&lt;</span><span class="n">OUTPUT_PLUGIN_NAME</span><span class="p">&gt;[</span><span class="err">:</span><span class="p">&lt;</span><span class="n">OUTPUT_PLUGIN_NAME</span><span class="p">&gt;]</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="n">config</span> <span class="p">&gt;</span> <span class="n">telegraf</span><span class="p">.</span><span class="n">conf</span></span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<h4 id="example">Example</h4>
+<p>The following example shows how to include configuration sections for the
+<a href="/telegraf/v1/plugins/#input-cpu"><code>inputs.cpu</code></a>,
+<a href="/telegraf/v1/plugins/#input-http_listener_v2"><code>inputs.http_listener_v2</code></a>,
+<a href="/telegraf/v1/plugins/#output-influxdb_v2"><code>outputs.influxdb_v2</code></a>, and
+<a href="/telegraf/v1/plugins/#output-file"><code>outputs.file</code></a> plugins:</p>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Linux and macOS</a>
+<a href="#">Windows</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telegraf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--input-filter cpu:http_listener_v2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--output-filter influxdb_v2:file <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>config &gt; telegraf.conf</span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="n">telegraf</span><span class="p">.</span><span class="py">exe</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="p">-</span><span class="n">-input-filter</span> <span class="n">cpu</span><span class="err">:</span><span class="n">http_listener_v2</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="p">-</span><span class="n">-output-filter</span> <span class="n">influxdb_v2</span><span class="err">:</span><span class="n">file</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl"><span class="n">config</span> <span class="p">&gt;</span> <span class="n">telegraf</span><span class="p">.</span><span class="n">conf</span></span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<p>For more advanced configuration details, see the
+<a href="/telegraf/v1/administration/configuration/">configuration documentation</a>.</p>
+<h3 id="windows-powershell-v5-encoding">Windows PowerShell v5 encoding</h3>
+<p>In PowerShell 5, the default encoding is UTF-16LE and not UTF-8.
+Telegraf expects a valid UTF-8 file.
+This is not an issue with PowerShell 6 or newer, as well as the Command Prompt
+or with using the Git Bash shell.</p>
+<p>When using PowerShell 5 or earlier, specify the output encoding when generating
+a full configuration file:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">telegraf</span><span class="p">.</span><span class="py">exe</span> <span class="n">config</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-Encoding</span> <span class="n">utf8</span> <span class="n">telegraf</span><span class="p">.</span><span class="n">conf</span></span></span></code></pre></div>
+<p>This will generate a UTF-8 encoded file with a byte-order mark (BOM).
+However, Telegraf correctly handles the leading BOM.</p>
+<h2 id="configuration-file-locations">Configuration file locations</h2>
+<p>When starting Telegraf, use the <code>--config</code> flag to specify the configuration file location:</p>
 <ul>
-<li>Batch 1: buckets 1-5</li>
-<li>Batch 2: buckets 6-10</li>
+<li>Filename and path, for example: <code>--config /etc/default/telegraf</code></li>
+<li>Remote URL endpoint, for example: <code>--config &quot;http://remote-URL-endpoint&quot;</code></li>
 </ul>
-<p>The serializer outputs each batch independently, producing two incomplete
-histograms instead of one complete histogram.</p>
-<p>The <a href="/telegraf/v1/output-plugins/prometheus_client/"><code>prometheus_client</code> output plugin</a>
-maintains metric state in memory and produces correct output regardless of
-batch boundaries.</p>
+<p>Use the <code>--config-directory</code> flag to include files ending with <code>.conf</code> in the
+specified directory in the Telegraf configuration.</p>
+<p>On most systems, the default locations are <code>/etc/telegraf/telegraf.conf</code> for
+the main configuration file and <code>/etc/telegraf/telegraf.d</code> (on Windows, <code>C:\&quot;Program Files&quot;\Telegraf\telegraf.d</code>) for the directory of
+configuration files.</p>
+<p>Telegraf processes each configuration file separately, and
+the effective configuration is the union of all the files.
+If any file isn&rsquo;t a valid configuration, Telegraf returns an error.</p>
+
+<div class="block warning">
+  
+  
+  <h4 id="telegraf-doesnt-support-partial-configurations">Telegraf doesn&rsquo;t support partial configurations</h4>
+<p>Telegraf doesn&rsquo;t concatenate configuration files before processing them.
+Each configuration file that you provide must be a valid configuration.</p>
+<p>If you want to use separate files to manage a configuration, you can use your
+own custom code to concatenate and pre-process the files, and then provide the
+complete configuration to Telegraf&ndash;for example:</p>
+<ol>
+<li>
+<p>Configure plugin sections and assign partial configs a file extension different
+from <code>.conf</code> to prevent Telegraf loading them&ndash;for example:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Recommended for histogram/summary metrics</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">prometheus_client</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">listen</span> <span class="p">=</span> <span class="s2">&#34;:9273&#34;</span></span></span></code></pre></div>
-<h3 id="use-the-serializer-for-counters-and-gauges">Use the serializer for counters and gauges</h3>
-<p>For counters and gauges, the prometheus serializer works well.
-Enable <code>use_batch_format = true</code> in your output plugin for more efficient output.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># main.opcua: Main configuration file </span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">opcua_listener</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;PluginSection&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">endpoint</span> <span class="p">=</span> <span class="s2">&#34;opc.tcp://10.0.0.53:4840&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span></span></span></code></pre></div>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># group_1.opcua</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">opcua_listener</span><span class="p">.</span><span class="nx">group</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;SubSection1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span></span></span></code></pre></div>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># group_2.opcua</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">opcua_listener</span><span class="p">.</span><span class="nx">group</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;SubSection2&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span> </span></span></code></pre></div>
+</li>
+<li>
+<p>Before you start Telegraf, run your custom script to concatenate
+<code>main.opcua</code>, <code>group_1.opcua</code>,
+<code>group_2.opcua</code> into a valid <code>telegraf.conf</code>.</p>
+</li>
+<li>
+<p>Start Telegraf with the complete, valid <code>telegraf.conf</code> configuration.</p>
+</li>
+</ol>
+</div>
+<h2 id="set-environment-variables">Set environment variables</h2>
+<p>Use environment variables anywhere in the configuration file by enclosing them in <code>${}</code>.
+For strings, variables must be in quotes (for example, <code>&quot;test_${STR_VAR}&quot;</code>).
+For numbers and booleans, variables must be unquoted (for example, <code>${INT_VAR}</code>,
+<code>${BOOL_VAR}</code>).</p>
+<p>When using double quotes, escape any backslashes (for example: <code>&quot;C:\\Program Files&quot;</code>) or
+other special characters.
+If using an environment variable with a single backslash, enclose the variable
+in single quotes to signify a string literal (for example:
+<code>'C:\Program Files'</code>).</p>
+<p>Telegraf also supports Shell parameter expansion for environment variables which
+allows the following:</p>
+<ul>
+<li><code>${VARIABLE:-default}</code>: evaluates to <code>default</code> if <code>VARIABLE</code> is unset or empty
+in the environment.</li>
+<li><code>${VARIABLE-default}</code>: evaluates to <code>default</code> only if <code>VARIABLE</code> is unset in
+the environment. Similarly, the following syntax allows you to specify
+mandatory variables:</li>
+<li><code>${VARIABLE:?err}</code>: exits with an error message containing <code>err</code> if <code>VARIABLE</code>
+is unset or empty in the environment.</li>
+<li><code>${VARIABLE?err}</code>: exits with an error message containing <code>err</code> if <code>VARIABLE</code>
+is unset in the environment.</li>
+</ul>
+<p>When using the <code>.deb</code> or <code>.rpm</code> packages, you can define environment variables
+in the <code>/etc/default/telegraf</code> file.</p>
+<p>You can also set environment variables using the Linux <code>export</code> command:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">password</span><span class="o">=</span>mypassword</span></span></code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> Use a secret store or environment variables to store sensitive credentials.</p>
+
+</blockquote>
+<h3 id="example-telegraf-environment-variables">Example: Telegraf environment variables</h3>
+<p>Set environment variables in the Telegraf environment variables file
+(<code>/etc/default/telegraf</code>).</p>
+<h4 id="for-influxdb-1x">For InfluxDB 1.x:</h4>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">USER</span><span class="o">=</span><span class="s2">&#34;alice&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_URL</span><span class="o">=</span><span class="s2">&#34;http://localhost:8086&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_SKIP_DATABASE_CREATION</span><span class="o">=</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_PASSWORD</span><span class="o">=</span><span class="s2">&#34;passw0rd123&#34;</span></span></span></code></pre></div>
+<h4 id="for-influxdb-oss-v2">For InfluxDB OSS v2:</h4>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">INFLUX_HOST</span><span class="o">=</span><span class="s2">&#34;http://localhost:8086&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_TOKEN</span><span class="o">=</span><span class="s2">&#34;replace_with_your_token&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_ORG</span><span class="o">=</span><span class="s2">&#34;your_username&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_BUCKET</span><span class="o">=</span><span class="s2">&#34;replace_with_your_bucket_name&#34;</span></span></span></code></pre></div>
+<h4 id="for-influxdb-cloud-serverless">For InfluxDB Cloud Serverless:</h4>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># For AWS West (Oregon)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_HOST</span><span class="o">=</span><span class="s2">&#34;https://us-west-2-1.aws.cloud2.influxdata.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Other Cloud URLs at https://docs.influxdata.com/influxdb/cloud/reference/regions/</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_TOKEN</span><span class="o">=</span><span class="s2">&#34;replace_with_your_token&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_ORG</span><span class="o">=</span><span class="s2">&#34;yourname@yourcompany.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">INFLUX_BUCKET</span><span class="o">=</span><span class="s2">&#34;replace_with_your_bucket_name&#34;</span></span></span></code></pre></div>
+<p>In the Telegraf configuration file (<code>/etc/telegraf.conf</code>), reference the variables&ndash;for example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">global_tags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">user</span> <span class="p">=</span> <span class="s2">&#34;${USER}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">mem</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB 1.x:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;${INFLUX_URL}&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">skip_database_creation</span> <span class="p">=</span> <span class="err">$</span><span class="p">{</span><span class="nx">INFLUX_SKIP_DATABASE_CREATION</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_PASSWORD}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB OSS 2:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb_v2</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;${INFLUX_HOST}&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_TOKEN}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">organization</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_ORG}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bucket</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_BUCKET}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB Cloud:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb_v2</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;${INFLUX_HOST}&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_TOKEN}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">organization</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_ORG}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bucket</span> <span class="p">=</span> <span class="s2">&#34;${INFLUX_BUCKET}&#34;</span></span></span></code></pre></div>
+<p>When Telegraf runs, the effective configuration is the following:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">global_tags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">user</span> <span class="p">=</span> <span class="s2">&#34;alice&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB 1.x:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;http://localhost:8086&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">skip_database_creation</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span> <span class="p">=</span> <span class="s2">&#34;passw0rd123&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB OSS 2:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb_v2</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;http://localhost:8086&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;replace_with_your_token&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">organization</span> <span class="p">=</span> <span class="s2">&#34;your_username&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bucket</span> <span class="p">=</span> <span class="s2">&#34;replace_with_your_bucket_name&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># For InfluxDB Cloud:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb_v2</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;https://us-west-2-1.aws.cloud2.influxdata.com&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;replace_with_your_token&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">organization</span> <span class="p">=</span> <span class="s2">&#34;yourname@yourcompany.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bucket</span> <span class="p">=</span> <span class="s2">&#34;replace_with_your_bucket_name&#34;</span></span></span></code></pre></div>
+<h2 id="secret-stores">Secret stores</h2>
+<p>Telegraf also supports secret stores for providing credentials or similar.
+Configure one or more secret store plugins and then reference the secret in
+your plugin configurations.</p>
+<p>Reference secrets using the following syntax:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">@{&lt;secret_store_id&gt;:&lt;secret_name&gt;}</span></span></code></pre></div>
+<ul>
+<li><code>secret_store_id</code>: the unique ID you define for your secret store plugin.</li>
+<li><code>secret_name</code>: the name of the secret to use.</li>
+</ul>
+
+<div class="block note">
+  
+  
+  <p>Both and <code>secret_store_id</code> and <code>secret_name</code> only support alphanumeric
+characters and underscores.</p>
+</div>
+<h3 id="example-use-secret-stores">Example: Use secret stores</h3>
+<p>This example illustrates the use of secret stores in plugins:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">global_tags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">user</span> <span class="p">=</span> <span class="s2">&#34;alice&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">secretstores</span><span class="p">.</span><span class="nx">os</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span> <span class="p">=</span> <span class="s2">&#34;local_secrets&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">secretstores</span><span class="p">.</span><span class="nx">jose</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span> <span class="p">=</span> <span class="s2">&#34;cloud_secrets&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">path</span> <span class="p">=</span> <span class="s2">&#34;/etc/telegraf/secrets&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Optional reference to another secret store to unlock this one.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span> <span class="p">=</span> <span class="s2">&#34;@{local_secrets:cloud_store_passwd}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">http</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;http://server.company.org/metrics&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">username</span> <span class="p">=</span> <span class="s2">&#34;@{local_secrets:company_server_http_metric_user}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span> <span class="p">=</span> <span class="s2">&#34;@{local_secrets:company_server_http_metric_pass}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb_v2</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;https://us-west-2-1.aws.cloud2.influxdata.com&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;@{cloud_secrets:influxdb_token}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">organization</span> <span class="p">=</span> <span class="s2">&#34;yourname@yourcompany.com&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bucket</span> <span class="p">=</span> <span class="s2">&#34;replace_with_your_bucket_name&#34;</span></span></span></code></pre></div>
+<h3 id="notes-on-secret-stores">Notes on secret stores</h3>
+<p>Not all plugins support secrets.
+When using plugins that support secrets, Telegraf locks the memory pages
+containing the secrets.
+Therefore, the locked memory limit has to be set to a
+suitable value.
+Telegraf will check the limit and the number of used secrets at
+startup and will warn if your limit is too low.
+In this case, please increase
+the limit via <code>ulimit -l</code>.</p>
+<p>If you are running Telegraf in a jail you might need to allow locked pages in
+that jail by setting <code>allow.mlock = 1;</code> in your config.</p>
+<h2 id="global-tags">Global tags</h2>
+<p>Global tags can be specified in the <code>[global_tags]</code> section of the configuration
+file in <code>key=&quot;value&quot;</code> format.
+Telegraf applies the global tags to all metrics gathered on this host.</p>
+<h2 id="agent-configuration">Agent configuration</h2>
+<p>The <code>[agent]</code> section contains the following configuration options:</p>
+<ul>
+<li><strong>interval</strong>: Default data collection interval for all inputs.</li>
+<li><strong>round_interval</strong>: Rounds collection interval to <code>interval</code>.
+For example, if <code>interval</code> is set to <code>10s</code>, then the agent collects on :00, :10, :20, etc.</li>
+<li><strong>metric_batch_size</strong>: Telegraf sends metrics to outputs in batches of at
+most <code>metric_batch_size</code> metrics.
+This controls the size of writes that Telegraf sends to output plugins.</li>
+<li><strong>metric_buffer_limit</strong>: Maximum number of unwritten metrics per output.
+Increasing this value allows for longer periods of output downtime without
+dropping metrics at the cost of higher maximum memory usage.
+The oldest metrics are overwritten in favor of new ones when the buffer fills up.</li>
+<li><strong>collection_jitter</strong>: Jitter the collection by a random interval.
+Each plugin sleeps for a random time within the defined jitter before collecting.
+Use this to avoid many plugins querying things like sysfs at the
+same time, which can have a measurable effect on the system.</li>
+<li><strong>collection_offset</strong>: Shift the collection by the given interval.
+Use this to avoid many plugins querying constraint devices
+at the same time by manually scheduling them in time.</li>
+<li><strong>flush_interval</strong>: Default flushing interval for all outputs.
+Maximum <code>flush_interval</code> is <code>flush_interval</code> + <code>flush_jitter</code>.</li>
+<li><strong>flush_jitter</strong>: Default flush jitter for all outputs.
+This jitters the flush interval by a random amount.
+This is primarily to avoid large write spikes for users
+running a large number of Telegraf instances.
+For example, a jitter of <code>5s</code> and an interval of <code>10s</code> means flushes happen
+every 10-15 seconds.</li>
+<li><strong>precision</strong>: Round collected metrics to the precision specified as an interval.
+Precision is <em>not</em> used for service inputs.
+It is up to each individual service input to set the timestamp at the appropriate precision.</li>
+<li><strong>debug</strong>: Log at debug level.</li>
+<li><strong>quiet</strong>: Log only error level messages.</li>
+<li><strong>logformat</strong>: Log format controls the way messages are logged and can be one
+of <code>text</code>, <code>structured</code> or, on Windows, <code>eventlog</code>.
+The output file (if any) is determined by the <code>logfile</code> setting.</li>
+<li><strong>structured_log_message_key</strong>: Message key for structured logs, to override
+the default of <code>msg</code>.
+Ignored if <code>logformat</code> is not <code>structured</code>.</li>
+<li><strong>logfile</strong>: Name of the file to be logged to or stderr if unset or empty.
+This setting is ignored for the <code>eventlog</code> format.</li>
+<li><strong>logfile_rotation_interval</strong>: The logfile rotates after the time interval specified.
+When set to 0 no time based rotation is performed.</li>
+<li><strong>logfile_rotation_max_size</strong>: The logfile rotates when it becomes larger than the specified size.
+When set to 0 no size based rotation is performed.</li>
+<li><strong>logfile_rotation_max_archives</strong>: Maximum number of rotated archives to keep,
+any older logs are deleted.
+If set to -1, no archives are removed.</li>
+<li><strong>log_with_timezone</strong>: Pick a timezone to use when logging or type &rsquo;local&rsquo; for local time.
+Example: &lsquo;America/Chicago&rsquo;.
+<a href="https://socketloop.com/tutorials/golang-display-list-of-timezones-with-gmt">See this page for options/formats.</a></li>
+<li><strong>hostname</strong>: Override the default hostname, if empty use <code>os.Hostname()</code>.</li>
+<li><strong>omit_hostname</strong>: If set to true, do no set the &ldquo;host&rdquo; tag in the Telegraf agent.</li>
+<li><strong>snmp_translator</strong>: Method of translating SNMP objects.
+Can be &ldquo;netsnmp&rdquo; (deprecated) which translates by calling external programs
+<code>snmptranslate</code> and <code>snmptable</code>, or &ldquo;gosmi&rdquo; which translates using the built-in
+gosmi library.</li>
+<li><strong>statefile</strong>: Name of the file to load the states of plugins from and store the states to.
+If uncommented and not empty, this file is used to save the state of stateful
+plugins on termination of Telegraf.
+If the file exists on start, the state in the file is restored for the plugins.</li>
+<li><strong>always_include_local_tags</strong>: Ensure tags explicitly defined in a plugin <em>always</em> pass tag-filtering
+via <code>taginclude</code> or <code>tagexclude</code>.
+This removes the need to specify local tags twice.</li>
+<li><strong>always_include_global_tags</strong>: Ensure tags explicitly defined in the <code>global_tags</code> section will <em>always</em> pass
+tag-filtering via <code>taginclude</code> or <code>tagexclude</code>.
+This removes the need to specify those tags twice.</li>
+<li><strong>skip_processors_after_aggregators</strong>: By default, processors are run a second time after aggregators.
+Changing this setting to true will skip the second run of processors.</li>
+<li><strong>buffer_strategy</strong>: The type of buffer to use for Telegraf output plugins.
+Supported modes are <code>memory</code>, the default and original buffer type, and <code>disk</code>,
+an experimental disk-backed buffer which serializes all metrics to disk as
+needed to improve data durability and reduce the chance for data loss.
+This is only supported at the agent level.</li>
+<li><strong>buffer_directory</strong>: The directory to use when in <code>disk</code> buffer mode.
+Each output plugin makes another subdirectory in this directory with the
+output plugin&rsquo;s ID.</li>
+</ul>
+<h2 id="input-configuration">Input configuration</h2>
+<p>The following config parameters are available for all inputs:</p>
+<ul>
+<li><strong>alias</strong>: Name an instance of a plugin.</li>
+<li><strong>interval</strong>: How often to gather this metric. Normal plugins use a single
+global interval, but if one particular input should be run less or more often,
+you can configure that here. <code>interval</code> can be increased to reduce data-in rate limits.</li>
+<li><strong>precision</strong>: Overrides the <code>precision</code> setting of the agent. Collected
+metrics are rounded to the precision specified as an <code>interval</code>. When this value is
+set on a service input (ex: <code>statsd</code>), multiple events occurring at the same
+timestamp may be merged by the output database.</li>
+<li><strong>collection_jitter</strong>: Overrides the <code>collection_jitter</code> setting of the agent.<br>
+Collection jitter is used to jitter the collection by a random <code>interval</code></li>
+<li><strong>name_override</strong>: Override the base name of the measurement.
+(Default is the name of the input).</li>
+<li><strong>name_prefix</strong>: Specifies a prefix to attach to the measurement name.</li>
+<li><strong>name_suffix</strong>: Specifies a suffix to attach to the measurement name.</li>
+<li><strong>tags</strong>: A map of tags to apply to a specific input&rsquo;s measurements.</li>
+</ul>
+<h2 id="output-configuration">Output configuration</h2>
+<ul>
+<li><strong>alias</strong>: Name an instance of a plugin.</li>
+<li><strong>flush_interval</strong>: Maximum time between flushes. Use this setting to
+override the agent <code>flush_interval</code> on a per plugin basis.</li>
+<li><strong>flush_jitter</strong>: Amount of time to jitter the flush interval. Use this
+setting to override the agent <code>flush_jitter</code> on a per plugin basis.</li>
+<li><strong>metric_batch_size</strong>: Maximum number of metrics to send at once. Use
+this setting to override the agent <code>metric_batch_size</code> on a per plugin basis.</li>
+<li><strong>metric_buffer_limit</strong>: Maximum number of unsent metrics to buffer.
+Use this setting to override the agent <code>metric_buffer_limit</code> on a per plugin basis.</li>
+<li><strong>name_override</strong>: Override the base name of the measurement.
+(Default is the name of the output).</li>
+<li><strong>name_prefix</strong>: Specifies a prefix to attach to the measurement name.</li>
+<li><strong>name_suffix</strong>: Specifies a suffix to attach to the measurement name.</li>
+</ul>
+<h3 id="data-formats">Data formats</h3>
+<p>Some output plugins support the <code>data_format</code> option, which specifies a serializer
+to convert metrics before writing.
+Common serializers include <code>json</code>, <code>influx</code>, <code>prometheus</code>, and <code>csv</code>.</p>
+<p>Output plugins that support serializers may also offer <code>use_batch_format</code>, which
+controls whether the serializer receives metrics individually or as a batch.
+Batch mode enables more efficient encoding for formats like JSON arrays.</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;json&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">use_batch_format</span> <span class="p">=</span> <span class="kc">true</span></span></span></code></pre></div>
+<p>For available serializers and configuration options, see
+<a href="/telegraf/v1/data_formats/output/">output data formats</a>.</p>
+<h2 id="aggregator-configuration">Aggregator configuration</h2>
+<p>The following config parameters are available for all aggregators:</p>
+<ul>
+<li><strong>alias</strong>: Name an instance of a plugin.</li>
+<li><strong>period</strong>: The period on which to flush &amp; clear each aggregator. All metrics
+that are sent with timestamps outside of this period are ignored by the
+aggregator.</li>
+<li><strong>delay</strong>: The delay before each aggregator is flushed. This is to control
+how long for aggregators to wait before receiving metrics from input plugins,
+in the case that aggregators are flushing and inputs are gathering on the
+same interval.</li>
+<li><strong>grace</strong>: The duration the metrics are aggregated by the plugin
+even though they&rsquo;re outside the aggregation period.
+This setting is needed when the agent is expected to receive late metrics and can
+be rolled into the next aggregation period.</li>
+<li><strong>drop_original</strong>: If true, the original metric is dropped by the
+aggregator and not sent to the output plugins.</li>
+<li><strong>name_override</strong>: Override the base name of the measurement.
+(Default is the name of the input).</li>
+<li><strong>name_prefix</strong>: Specifies a prefix to attach to the measurement name.</li>
+<li><strong>name_suffix</strong>: Specifies a suffix to attach to the measurement name.</li>
+<li><strong>tags</strong>: A map of tags to apply to a specific input&rsquo;s measurements.</li>
+</ul>
+<p>For a demonstration of how to configure SNMP, MQTT, and PostGRE SQL plugins to
+get data into Telegraf, see the following video:</p>
 
-
-
-    
-
-    
-    
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/output-plugins/prometheus_client/" ></a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/" >Telegraf output data formats</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/input-plugins/prometheus/" ></a></li>
-        
-      
-    
-    </ul>
+<div class="video">
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe src="https://www.youtube-nocookie.com/embed/6XJdZ_kdx14" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
   </div>
+</div>
+
+<h2 id="processor-configuration">Processor configuration</h2>
+<p>The following config parameters are available for all processors:</p>
+<ul>
+<li><strong>alias</strong>: Name an instance of a plugin.</li>
+<li><strong>order</strong>: This is the order in which processors are executed.
+If not specified, then order is random.</li>
+</ul>
+<p>The <a href="#metric-filtering">metric filtering</a> parameters can be used to limit what metrics are
+handled by the processor.
+Excluded metrics are passed downstream to the next processor.</p>
+<h2 id="metric-filtering">Metric filtering</h2>
+<p>Filters can be configured per input, output, processor, or aggregator.</p>
+<ul>
+<li><a href="#filters">Filters</a></li>
+<li><a href="#filter-examples">Filtering examples</a></li>
+</ul>
+<h3 id="filters">Filters</h3>
+<p>Filters fall under two categories:</p>
+<ul>
+<li><a href="#selectors">Selectors</a></li>
+<li><a href="#modifiers">Modifiers</a></li>
+</ul>
+<h4 id="selectors">Selectors</h4>
+<p>Selector filters include or exclude entire metrics.
+When a metric is excluded from an input or output plugin, the metric is dropped.
+If a metric is excluded from a processor or aggregator plugin, it skips the
+plugin and is sent onwards to the next stage of processing.</p>
+<ul>
+<li>
+<p><strong>namepass</strong>: An array of glob pattern strings.
+Only metrics whose measurement name matches a pattern in this list are emitted.
+Additionally, custom list of separators can be specified using <code>namepass_separator</code>.
+These separators are excluded from wildcard glob pattern matching.</p>
+</li>
+<li>
+<p><strong>namedrop</strong>: The inverse of <code>namepass</code>.
+If a match is found the metric is discarded.
+This is tested on metrics after they have passed the <code>namepass</code> test.
+Additionally, custom list of separators can be specified using <code>namedrop_separator</code>.
+These separators are excluded from wildcard glob pattern matching.</p>
+</li>
+<li>
+<p><strong>tagpass</strong>: A table mapping tag keys to arrays of glob pattern strings.
+Only metrics that contain a tag key in the table and a tag value matching one of its
+patterns is emitted.
+This can either use the explicit table syntax (for example: a subsection using a <code>[...]</code> header)
+or inline table syntax (e.g like a JSON table with <code>{...}</code>).
+Please see the below notes on specifying the table.</p>
+</li>
+<li>
+<p><strong>tagdrop</strong>: The inverse of <code>tagpass</code>.
+If a match is found the metric is discarded.
+This is tested on metrics after they have passed the <code>tagpass</code> test.</p>
+</li>
+<li>
+<p><strong>metricpass</strong>: A Common Expression Language (CEL) expression with boolean result where
+<code>true</code> will allow the metric to pass, otherwise the metric is discarded.
+This filter expression is more general compared to <code>namepass</code> and also
+supports time-based filtering.
+Further details, such as available functions and expressions, are provided in the
+CEL language definition as well as in the extension documentation or the CEL language introduction.</p>
+
+<div class="block note">
+  
+  
+  <p>*As CEL is an <em>interpreted</em> language. This type of filtering is much slower
+than <code>namepass</code>, <code>namedrop</code>, and others.
+Consider using the more restrictive filter options where possible in case of
+high-throughput scenarios.</p>
+</div>
+</li>
+</ul>
+<h4 id="modifiers">Modifiers</h4>
+<p>Modifier filters remove tags and fields from a metric.
+If all fields are removed, the metric is removed and as a result not passed through
+to the following processors or any output plugin.
+Tags and fields are modified before a metric is passed to a processor,
+aggregator, or output plugin.
+When used with an input plugin the filter applies after the input runs.</p>
+<ul>
+<li><strong>fieldinclude</strong>: An array of glob pattern strings.
+Only fields whose field key matches a pattern in this list are emitted.</li>
+<li><strong>fieldexclude</strong>: The inverse of <code>fieldinclude</code>.
+Fields with a field key matching one of the patterns will be discarded from the metric.
+This is tested on metrics after they have passed the <code>fieldinclude</code> test.</li>
+<li><strong>taginclude</strong>: An array of glob pattern strings.
+Only tags with a tag key matching one of the patterns are emitted.
+In contrast to <code>tagpass</code>, which will pass an entire metric based on its tag,
+<code>taginclude</code> removes all non matching tags from the metric.
+Any tag can be filtered including global tags and the agent <code>host</code> tag.</li>
+<li><strong>tagexclude</strong>: The inverse of <code>taginclude</code>.
+Tags with a tag key matching one of the patterns will be discarded from the metric.
+Any tag can be filtered including global tags and the agent <code>host</code> tag.</li>
+</ul>
+
+<div class="block note">
+  
+  
+  <h4 id="include-tagpass-and-tagdrop-at-the-end-of-your-plugin-definition">Include tagpass and tagdrop at the end of your plugin definition</h4>
+<p>Due to the way TOML is parsed, <code>tagpass</code> and <code>tagdrop</code> parameters
+must be defined at the <em>end</em> of the plugin definition, otherwise subsequent
+plugin configuration options are interpreted as part of the tagpass and tagdrop
+tables.</p>
+</div>
+<p>To learn more about metric filtering, watch the following video:</p>
+
+<div class="video">
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe src="https://www.youtube-nocookie.com/embed/R3DnObs_OKA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  </div>
+</div>
+
+<h2 id="filtering-examples">Filtering examples</h2>
+<h4 id="input-configuration-examples">Input configuration examples</h4>
+<p>The following example configuration collects per-cpu data, drops any
+fields that begin with <code>time_</code>, tags measurements with <code>dc=&quot;denver-1&quot;</code>, and then
+outputs measurements at a 10 second interval to an InfluxDB database named
+<code>telegraf</code> at the address <code>192.168.59.103:8086</code>.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">global_tags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">dc</span> <span class="p">=</span> <span class="s2">&#34;denver-1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">agent</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">interval</span> <span class="p">=</span> <span class="s2">&#34;10s&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># OUTPUTS</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;http://192.168.59.103:8086&#34;</span> <span class="c"># required.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">database</span> <span class="p">=</span> <span class="s2">&#34;telegraf&#34;</span> <span class="c"># required.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">precision</span> <span class="p">=</span> <span class="s2">&#34;1s&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># INPUTS</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># filter all fields beginning with &#39;time_&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fielddrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;time_*&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="input-config-tagpass-and-tagdrop">Input Config: <code>tagpass</code> and <code>tagdrop</code></h4>
+<p><strong>NOTE</strong> <code>tagpass</code> and <code>tagdrop</code> parameters must be defined at the <em>end</em> of
+the plugin definition, otherwise subsequent plugin configuration options are
+interpreted as part of the tagpass and tagdrop tables.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fielddrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;cpu_time&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Don&#39;t collect CPU data for cpu6 &amp; cpu7</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">.</span><span class="nx">tagdrop</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cpu</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;cpu6&#34;</span><span class="p">,</span> <span class="s2">&#34;cpu7&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">disk</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">disk</span><span class="p">.</span><span class="nx">tagpass</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># tagpass conditions are OR, not AND.</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># If the (filesystem is ext4 or xfs) OR (the path is /opt or /home)</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># then the metric passes</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fstype</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;ext4&#34;</span><span class="p">,</span> <span class="s2">&#34;xfs&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Globs can also be used on the tag values</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">path</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;/opt&#34;</span><span class="p">,</span> <span class="s2">&#34;/home*&#34;</span> <span class="p">]</span></span></span></code></pre></div>
+<h4 id="input-config-fieldpass-and-fielddrop">Input Config: <code>fieldpass</code> and <code>fielddrop</code></h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Drop all metrics for guest &amp; steal CPU usage</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fielddrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;usage_guest&#34;</span><span class="p">,</span> <span class="s2">&#34;usage_steal&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Only store inode related metrics for disks</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">disk</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fieldpass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;inodes*&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="input-config-namepass-and-namedrop">Input Config: <code>namepass</code> and <code>namedrop</code></h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Drop all metrics about containers for kubelet</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">prometheus</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;http://kube-node-1:4194/metrics&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namedrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;container_*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Only store rest client related metrics for kubelet</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">prometheus</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;http://kube-node-1:4194/metrics&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namepass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;rest_client_*&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="input-config-namepass-and-namedrop-with-separators">Input Config: <code>namepass</code> and <code>namedrop</code> with separators</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Pass all metrics of type &#39;A.C.B&#39; and drop all others like &#39;A.C.D.B&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">socket_listener</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;graphite&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">templates</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;measurement*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">namepass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;A.*.B&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namepass_separator</span> <span class="p">=</span> <span class="s2">&#34;.&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Drop all metrics of type &#39;A.C.B&#39; and pass all others like &#39;A.C.D.B&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">socket_listener</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;graphite&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">templates</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;measurement*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">namedrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;A.*.B&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namedrop_separator</span> <span class="p">=</span> <span class="s2">&#34;.&#34;</span></span></span></code></pre></div>
+<h4 id="input-config-taginclude-and-tagexclude">Input Config: <code>taginclude</code> and <code>tagexclude</code></h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Only include the &#34;cpu&#34; tag in the measurements for the cpu plugin.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">taginclude</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;cpu&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Exclude the `fstype` tag from the measurements for the disk plugin.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">disk</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">tagexclude</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;fstype&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="input-config-prefix-suffix-and-override">Input config: <code>prefix</code>, <code>suffix</code>, and <code>override</code></h4>
+<p>The following example emits measurements with the name <code>cpu_total</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name_suffix</span> <span class="p">=</span> <span class="s2">&#34;_total&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span></span></span></code></pre></div>
+<p>The following example emits measurements with the name <code>foobar</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name_override</span> <span class="p">=</span> <span class="s2">&#34;foobar&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span></span></span></code></pre></div>
+<h4 id="input-config-tags">Input config: tags</h4>
+<p>The following example emits measurements with two additional tags: <code>tag1=foo</code> and
+<code>tag2=bar</code>.</p>
+<p>NOTE: Order matters; the <code>[inputs.cpu.tags]</code> table must be at the <em>end</em> of the
+plugin definition.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">.</span><span class="nx">tags</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tag1</span> <span class="p">=</span> <span class="s2">&#34;foo&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tag2</span> <span class="p">=</span> <span class="s2">&#34;bar&#34;</span></span></span></code></pre></div>
+<h4 id="multiple-inputs-of-the-same-type">Multiple inputs of the same type</h4>
+<p>Additional inputs (or outputs) of the same type can be specified by defining
+these instances in the configuration file. To avoid measurement collisions, use
+the <code>name_override</code>, <code>name_prefix</code>, or <code>name_suffix</code> configuration options:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">percpu</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">totalcpu</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name_override</span> <span class="p">=</span> <span class="s2">&#34;percpu_usage&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fielddrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;cpu_time*&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="output-configuration-examples">Output configuration examples:</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;http://localhost:8086&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">database</span> <span class="p">=</span> <span class="s2">&#34;telegraf&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">precision</span> <span class="p">=</span> <span class="s2">&#34;1s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Drop all measurements that start with &#34;aerospike&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namedrop</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;aerospike*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;http://localhost:8086&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">database</span> <span class="p">=</span> <span class="s2">&#34;telegraf-aerospike-data&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">precision</span> <span class="p">=</span> <span class="s2">&#34;1s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Only accept aerospike data:</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namepass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;aerospike*&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">urls</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;http://localhost:8086&#34;</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">database</span> <span class="p">=</span> <span class="s2">&#34;telegraf-cpu0-data&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">precision</span> <span class="p">=</span> <span class="s2">&#34;1s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Only store measurements where the tag &#34;cpu&#34; matches the value &#34;cpu0&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">influxdb</span><span class="p">.</span><span class="nx">tagpass</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cpu</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;cpu0&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="aggregator-configuration-examples">Aggregator Configuration Examples:</h4>
+<p>This will collect and emit the min/max of the system load1 metric every
+30s, dropping the originals.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">system</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fieldpass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;load1&#34;</span><span class="p">]</span> <span class="c"># collects system load1 metric.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">aggregators</span><span class="p">.</span><span class="nx">minmax</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">period</span> <span class="p">=</span> <span class="s2">&#34;30s&#34;</span>        <span class="c"># send &amp; clear the aggregate every 30s.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">drop_original</span> <span class="p">=</span> <span class="kc">true</span>  <span class="c"># drop the original metrics.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<p>This will collect and emit the min/max of the swap metrics every
+30s, dropping the originals. The aggregator will not be applied
+to the system load metrics due to the <code>namepass</code> parameter.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">swap</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">system</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fieldpass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;load1&#34;</span><span class="p">]</span> <span class="c"># collects system load1 metric.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">aggregators</span><span class="p">.</span><span class="nx">minmax</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">period</span> <span class="p">=</span> <span class="s2">&#34;30s&#34;</span>        <span class="c"># send &amp; clear the aggregate every 30s.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">drop_original</span> <span class="p">=</span> <span class="kc">true</span>  <span class="c"># drop the original metrics.</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">namepass</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;swap&#34;</span><span class="p">]</span>   <span class="c"># only &#34;pass&#34; swap metrics through the aggregator.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span></span></span></code></pre></div>
+<p>To learn more about configuring the Telegraf agent, watch the following video:</p>
+
+<div class="video">
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe src="https://www.youtube-nocookie.com/embed/txUcAxMDBlQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+  </div>
+</div>
+
+<h2 id="plugin-selection-via-labels-and-selectors">Plugin selection via labels and selectors</h2>
+<p>You can control which plugin instances are enabled by adding labels to plugin
+configurations and passing one or more selectors on the command line.</p>
+<h3 id="selectors-1">Selectors</h3>
+<p>Provide selectors with one or more <code>--select</code> flags when starting Telegraf.
+Each <code>--select</code> value is a semicolon-separated list of key=value pairs:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;key&gt;=&lt;value&gt;[;&lt;key&gt;=&lt;value&gt;]</span></span></code></pre></div>
+<ul>
+<li>Pairs in a single <code>--select</code> value are combined with logical AND (all must match).</li>
+<li>Multiple <code>--select</code> flags are combined with logical OR (a plugin is enabled if it matches any selector set).</li>
+</ul>
+<p>Selectors support simple glob patterns in values (for example <code>region=us-*</code>).</p>
+<p>Example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="go">telegraf --config config.conf --config-directory directory/ \
+</span></span></span><span class="line"><span class="cl"><span class="go">  --select=&#34;app=payments;region=us-*&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="go">  --select=&#34;env=prod&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="go">  --watch-config --print-plugin-config-source=true
+</span></span></span></code></pre></div>
+<h3 id="labels">Labels</h3>
+<p>Add an optional <code>labels</code> table to a plugin, similar to <code>tags</code>.
+Keys and values are plain strings.</p>
+<p>Example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">cpu</span><span class="p">.</span><span class="nx">labels</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">app</span> <span class="p">=</span> <span class="s2">&#34;payments&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">region</span> <span class="p">=</span> <span class="s2">&#34;us-east&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">env</span> <span class="p">=</span> <span class="s2">&#34;prod&#34;</span></span></span></code></pre></div>
+<p>Telegraf matches the command-line selectors against a plugin&rsquo;s labels to decide
+whether that plugin instance should be enabled.
+For details on supported syntax and matching rules, see the labels selectors spec.</p>
+<h2 id="transport-layer-security-tls">Transport Layer Security (TLS)</h2>
+<p>Many Telegraf plugins support TLS configuration for secure communication.
+Reference the detailed TLS documentation for configuration options and examples.</p>
+
+
+
+    
+
+    
+    
 
 
     
@@ -3838,8 +4566,8 @@ Enable <code>use_batch_format = true</code> in your output plugin for more effic
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/v1/data_formats/output/prometheus.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/v1/configuration.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6654/telegraf/v1/configuration/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

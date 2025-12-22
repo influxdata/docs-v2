@@ -46,10 +46,10 @@
 
 
 
-<title>Prometheus output data format | &lt;nil&gt; Documentation</title>
+<title>Telegraf output data formats | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use the prometheus output data format (serializer) to convert Telegraf metrics into Prometheus text exposition format.">
+    <meta name="description" content="Telegraf serializes metrics into output data formats.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6654/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6654/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/" />
 
     
 <style>
@@ -3137,7 +3137,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/'>Output data formats</a>
       
@@ -3196,7 +3196,7 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/'>Prometheus</a>
       
@@ -3489,7 +3489,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Prometheus output data format</h1>
+      <h1>Telegraf output data formats</h1>
       
 
 
@@ -3501,14 +3501,15 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0">
+  data-child-count="14"
+  data-estimated-tokens="7000"
+  data-section-download-url="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/-download.zip">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -3518,7 +3519,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -3591,122 +3592,298 @@
 
 
 
-  <p>Use the <code>prometheus</code> output data format (serializer) to convert Telegraf metrics
-into the <a href="https://prometheus.io/docs/instrumenting/exposition_formats/">Prometheus text exposition format</a>.</p>
-<p>When used with the <code>prometheus</code> input plugin, set <code>metric_version = 2</code> in the
-input to properly round-trip metrics.</p>
-<h2 id="configuration">Configuration</h2>
+  <p>Telegraf uses <strong>serializers</strong> to convert metrics into output data formats.
+Many <a href="/telegraf/v1/configure_plugins/output_plugins/">output plugins</a> support the <code>data_format</code> option, which lets you choose
+how metrics are formatted before writing.</p>
+<ul>
+<li><a href="#how-output-plugins-use-serializers">How output plugins use serializers</a></li>
+<li><a href="#choosing-an-output-approach">Choosing an output approach</a></li>
+<li><a href="#available-serializers">Available serializers</a></li>
+</ul>
+<h2 id="how-output-plugins-use-serializers">How output plugins use serializers</h2>
+<p>When you configure <code>data_format</code> in an output plugin, Telegraf uses a <strong>serializer</strong>
+to convert metrics into that format before writing.
+The output plugin controls <em>where</em> data goes; the serializer controls <em>how</em> it&rsquo;s formatted.</p>
+<p>Some output plugins support <code>use_batch_format</code>, which changes how the serializer
+processes metrics.
+When enabled, the serializer receives all metrics in a batch together rather than
+one at a time, enabling more efficient encoding and formats that represent multiple
+metrics as a unit (like JSON arrays).</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c">## Optional: Enable batch serialization for improved efficiency.</span>
-</span></span><span class="line"><span class="cl">  <span class="c">## This is an output plugin option that affects how the serializer</span>
-</span></span><span class="line"><span class="cl">  <span class="c">## receives metrics.</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># use_batch_format = false</span>
+</span></span><span class="line"><span class="cl">  <span class="c">## Output plugin option: process metrics as a batch</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">use_batch_format</span> <span class="p">=</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c">## Serializer options (prometheus-specific)</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_export_timestamp = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_sort_metrics = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_string_as_label = false</span>
-</span></span><span class="line"><span class="cl">  <span class="c"># prometheus_compact_encoding = false</span></span></span></code></pre></div>
-<h3 id="serializer-options">Serializer options</h3>
+</span></span><span class="line"><span class="cl">  <span class="c">## Serializer selection: format metrics as JSON</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;json&#34;</span></span></span></code></pre></div>
+<p>Output plugins that support <code>use_batch_format</code>:
+<code>file</code>, <code>http</code>, <code>amqp</code>, <code>kafka</code>, <code>nats</code>, <code>mqtt</code>, <code>exec</code>, <code>execd</code>, <code>remotefile</code></p>
+<h2 id="choosing-an-output-approach">Choosing an output approach</h2>
+<h3 id="by-destination">By destination</h3>
 <table>
   <thead>
       <tr>
-          <th>Option</th>
-          <th>Type</th>
-          <th>Default</th>
-          <th>Description</th>
+          <th>Destination</th>
+          <th>Recommended Approach</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td><code>prometheus_export_timestamp</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Include timestamp on each sample</td>
+          <td><strong>Prometheus scraping</strong></td>
+          <td><a href="/telegraf/v1/output-plugins/prometheus_client/"><code>prometheus_client</code></a> output plugin (exposes <code>/metrics</code> endpoint)</td>
       </tr>
       <tr>
-          <td><code>prometheus_sort_metrics</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Sort metric families and samples (useful for debugging)</td>
+          <td><strong>InfluxDB</strong></td>
+          <td><a href="/telegraf/v1/output-plugins/influxdb/"><code>influxdb</code></a> or <a href="/telegraf/v1/output-plugins/influxdb_v2/"><code>influxdb_v2</code></a> output plugin (native protocol)</td>
       </tr>
       <tr>
-          <td><code>prometheus_string_as_label</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Convert string fields to labels</td>
+          <td><strong>Remote HTTP endpoints</strong></td>
+          <td><a href="/telegraf/v1/output-plugins/http/"><code>http</code></a> output + serializer</td>
       </tr>
       <tr>
-          <td><code>prometheus_compact_encoding</code></td>
-          <td>boolean</td>
-          <td><code>false</code></td>
-          <td>Omit HELP metadata to reduce payload size</td>
+          <td><strong>Files</strong></td>
+          <td><a href="/telegraf/v1/output-plugins/file/"><code>file</code></a> output + serializer</td>
+      </tr>
+      <tr>
+          <td><strong>Message queues</strong></td>
+          <td><a href="/telegraf/v1/output-plugins/kafka/"><code>kafka</code></a>, <a href="/telegraf/v1/output-plugins/nats/"><code>nats</code></a>, <a href="/telegraf/v1/output-plugins/amqp/"><code>amqp</code></a> + serializer</td>
       </tr>
   </tbody>
 </table>
-<h3 id="metric-type-mappings">Metric type mappings</h3>
-<p>Use <code>prometheus_metric_types</code> to explicitly set metric types, overriding
-Telegraf&rsquo;s automatic type detection.
-Supports glob patterns.</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">prometheus_metric_types</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">counter</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;*_total&#34;</span><span class="p">,</span> <span class="s2">&#34;*_count&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">gauge</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;*_current&#34;</span><span class="p">,</span> <span class="s2">&#34;*_ratio&#34;</span><span class="p">]</span></span></span></code></pre></div>
-<h2 id="metric-naming">Metric naming</h2>
-<p>Prometheus metric names are created by joining the measurement name with the
-field key.</p>
-<p><strong>Special case:</strong> When the measurement name is <code>prometheus</code>, it is not included
-in the final metric name.</p>
-<h2 id="labels">Labels</h2>
-<p>Prometheus labels are created from Telegraf tags.
-String fields are ignored by default and do not produce Prometheus metrics.
-Set <code>prometheus_string_as_label = true</code> to convert string fields to labels.
-Set <code>log_level = &quot;trace&quot;</code> to see serialization issues.</p>
-<h2 id="histograms-and-summaries">Histograms and summaries</h2>
-<p>Histogram and summary metrics require special consideration.
-These metric types accumulate state across observations:</p>
+<h3 id="by-metric-type">By metric type</h3>
+<p>Some metric types require state across collection intervals:</p>
 <ul>
-<li><strong>Histograms</strong> count observations in configurable buckets</li>
-<li><strong>Summaries</strong> calculate quantiles over a sliding time window</li>
+<li><strong>Histograms</strong> accumulate observations into buckets</li>
+<li><strong>Summaries</strong> track quantiles over a sliding window</li>
 </ul>
-<h3 id="use-prometheus_client-for-histograms-and-summaries">Use prometheus_client for histograms and summaries</h3>
-<p>Serializers process metrics in batches and have no memory of previous batches.
-When histogram or summary data arrives across multiple batches, the serializer
-cannot combine them correctly.</p>
-<p>For example, a histogram with 10 buckets might arrive as:</p>
+<p>Serializers process each batch independently and cannot maintain this state.
+When a histogram or summary spans multiple batches, the serializer may produce
+incomplete or incorrect output.</p>
+<p>For these metric types, use a dedicated output plugin that maintains state&ndash;for example:</p>
 <ul>
-<li>Batch 1: buckets 1-5</li>
-<li>Batch 2: buckets 6-10</li>
+<li><strong>Prometheus metrics</strong>: Use <a href="/telegraf/v1/output-plugins/prometheus_client/"><code>prometheus_client</code></a>
+instead of the prometheus serializer</li>
 </ul>
-<p>The serializer outputs each batch independently, producing two incomplete
-histograms instead of one complete histogram.</p>
-<p>The <a href="/telegraf/v1/output-plugins/prometheus_client/"><code>prometheus_client</code> output plugin</a>
-maintains metric state in memory and produces correct output regardless of
-batch boundaries.</p>
+<h2 id="available-serializers">Available serializers</h2>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Recommended for histogram/summary metrics</span>
-</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">prometheus_client</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">listen</span> <span class="p">=</span> <span class="s2">&#34;:9273&#34;</span></span></span></code></pre></div>
-<h3 id="use-the-serializer-for-counters-and-gauges">Use the serializer for counters and gauges</h3>
-<p>For counters and gauges, the prometheus serializer works well.
-Enable <code>use_batch_format = true</code> in your output plugin for more efficient output.</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">file</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">files</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;stdout&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data_format</span> <span class="p">=</span> <span class="s2">&#34;prometheus&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">use_batch_format</span> <span class="p">=</span> <span class="kc">true</span></span></span></code></pre></div>
+
+
+
+
+	
+
+
+
+
+
+	<div class="children-links">
+		
+			
+			
+			
+			 <h3 id="binary"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/binary/" target="">Binary</a></h3>
+			
+			<p>Use the <code>binary</code> output data format (serializer) to serialize Telegraf metrics into binary protocols using user-specified configurations.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="carbon2"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/carbon2/" target="">Carbon2</a></h3>
+			
+			<p>Use the <code>carbon2</code> output data format (serializer) to format and output Telegraf metrics as Carbon2 format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="cloudevents"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/cloudevents/" target="">CloudEvents</a></h3>
+			
+			<p>Use the <code>cloudevents</code> output data format (serializer) to format Telegraf metrics as CloudEvents in JSON format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="csv"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/csv/" target="">CSV</a></h3>
+			
+			<p>Use the <code>csv</code> output data format (serializer) to convert Telegraf metrics into CSV lines.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="graphite"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/graphite/" target="">Graphite</a></h3>
+			
+			<p>Use the <code>graphite</code> output data format (serializer) to format and output Telegraf metrics as Graphite Message Format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="influxdb-line-protocol"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/influx/" target="">InfluxDB line protocol</a></h3>
+			
+			<p>Use the <code>influx</code> output data format (serializer) to format and output metrics as InfluxDB line protocol format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="json"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/json/" target="">JSON</a></h3>
+			
+			<p>Use the <code>json</code> output data format (serializer) to format and output Telegraf metrics as JSON documents.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="messagepack"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/msgpack/" target="">MessagePack</a></h3>
+			
+			<p>Use the <code>msgpack</code> output data format (serializer) to convert Telegraf metrics into MessagePack format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="prometheus"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/" target="">Prometheus</a></h3>
+			
+			<p>Use the <code>prometheus</code> output data format (serializer) to convert Telegraf metrics into Prometheus text exposition format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="prometheus-remote-write"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheusremotewrite/" target="">Prometheus Remote Write</a></h3>
+			
+			<p>Use the <code>prometheusremotewrite</code> output data format (serializer) to convert Telegraf metrics into Prometheus protobuf format for remote write endpoints.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="servicenow-metrics"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/nowmetric/" target="">ServiceNow metrics</a></h3>
+			
+			<p>Use the <code>nowmetric</code> ServiceNow metrics output data format (serializer) to output Telegraf metrics as ServiceNow Operational Intelligence format.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="splunk-metrics"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/splunkmetric/" target="">Splunk metrics</a></h3>
+			
+			<p>Use the <code>splunkmetric</code> metric output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="template"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/template/" target="">Template</a></h3>
+			
+			<p>Use the <code>template</code> output data format (serializer) to format and output Telegraf metrics using custom Go templates.</p>
+			
+			
+
+			
+
+			
+			
+	
+			
+			
+			
+			 <h3 id="wavefront"><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/wavefront/" target="">Wavefront</a></h3>
+			
+			<p>Use the <code>wavefront</code> output data format (serializer) to convert Telegraf metrics into Wavefront data format.</p>
+			
+			
+
+			
+
+			
+			
+	
+	</div>
+
+
+
 
 
 
@@ -3732,7 +3909,7 @@ Enable <code>use_batch_format = true</code> in your output plugin for more effic
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/output-plugins/prometheus_client/" ></a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/configure_plugins/output_plugins/" >Write data with output plugins</a></li>
         
       
     
@@ -3749,24 +3926,7 @@ Enable <code>use_batch_format = true</code> in your output plugin for more effic
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/" >Telegraf output data formats</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/input-plugins/prometheus/" ></a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6654/telegraf/v1/configuration/" >Configuration options</a></li>
         
       
     
@@ -3838,8 +3998,8 @@ Enable <code>use_batch_format = true</code> in your output plugin for more effic
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/v1/data_formats/output/prometheus.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/prometheus/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/v1/data_formats/output/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6654/telegraf/v1/data_formats/output/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
