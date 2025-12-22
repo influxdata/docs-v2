@@ -3,55 +3,9 @@
 ### Features
 
 - Add 'influxdata-archive-keyring' as a suggested package to simplify future repository key rotations for the end user
-- Add a new `--perf-debug` flag to the `query` command that outputs performance statistics and gRPC response trailers instead of query results
-
-Example Output for `--perf-debug`:
-
-```
-$ ./influxctl query --perf-debug --format table --token REDACTED --database testdb --language influxql "SELECT SUM(i), non_negative_difference(SUM(i)) as diff_i FROM data WHERE time > '2025-11-07T01:20:00Z' AND time < '2025-11-07T03:00:00Z' AND runid = '540cd752bb6411f0a23e30894adea878' GROUP BY time(5m)"
-+--------------------------+----------+
-| Metric                   | Value    |
-+--------------------------+----------+
-| Client Duration          | 1.222 s  |
-| Output Rows              | 20       |
-| Output Size              | 647 B    |
-+--------------------------+----------+
-| Compute Duration         | 37.2 ms  |
-| Execution Duration       | 243.8 ms |
-| Ingester Latency Data    | 0        |
-| Ingester Latency Plan    | 0        |
-| Ingester Partition Count | 0        |
-| Ingester Response        | 0 B      |
-| Ingester Response Rows   | 0        |
-| Max Memory               | 70 KiB   |
-| Parquet Files            | 1        |
-| Partitions               | 1        |
-| Planning Duration        | 9.6 ms   |
-| Queue Duration           | 286.6 µs |
-+--------------------------+----------+
-
-$ ./influxctl query --perf-debug --format json --token REDACTED --database testdb --language influxql "SELECT SUM(i), non_negative_difference(SUM(i)) as diff_i FROM data WHERE time > '2025-11-07T01:20:00Z' AND time < '2025-11-07T03:00:00Z' AND runid = '540cd752bb6411f0a23e30894adea878' GROUP BY time(5m)"
-{
-  "client_duration_secs": 1.101,
-  "compute_duration_secs": 0.037,
-  "execution_duration_secs": 0.247,
-  "ingester_latency_data": 0,
-  "ingester_latency_plan": 0,
-  "ingester_partition_count": 0,
-  "ingester_response_bytes": 0,
-  "ingester_response_rows": 0,
-  "max_memory_bytes": 71744,
-  "output_bytes": 647,
-  "output_rows": 20,
-  "parquet_files": 1,
-  "partitions": 1,
-  "planning_duration_secs": 0.009,
-  "queue_duration_secs": 0
-}
-```
+- Add a new `--perf-debug` flag to the [`query` command](/influxdb3/version/reference/cli/influxctl/query/) that outputs performance statistics and gRPC response trailers instead of query results
 
 ### Dependency updates
-
 - Update Go to 1.25.5.
 - Update `github.com/containerd/containerd` from 1.7.27 to 1.7.29
 - Update `github.com/go-git/go-git/v5` from 5.16.3 to 5.16.4
