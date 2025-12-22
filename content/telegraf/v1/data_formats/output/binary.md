@@ -76,5 +76,5 @@ A warning is logged if the conversion may cause loss of precision.
 ## String handling
 
 For string fields:
-- If the string is longer than `string_length`, it is truncated to fit `string + terminator = string_length`
-- If the string is shorter than `string_length`, it is padded with the terminator character
+- If the string is longer than `string_length`, it is truncated so that the string and its terminator together fit within `string_length` bytes
+- If the string is shorter than `string_length`, it is padded with the terminator character so that the string and its terminator together occupy `string_length` bytes
