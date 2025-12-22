@@ -181,8 +181,8 @@ baseurl = https://repos.influxdata.com/stable/\$basearch/main
 enabled = 1
 gpgcheck = 1
 gpgkey = file:///usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc
-yum install influxdb3-{{< product-key >}}
 EOF
+yum install influxdb3-{{< product-key >}}
 ```
 
 {{% /expand %}}
