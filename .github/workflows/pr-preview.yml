@@ -90,7 +90,8 @@ jobs:
           PREVIEW_BASE_URL: https://influxdata.github.io/docs-v2/pr-preview/pr-${{ github.event.number }}/
         run: |
           START_TIME=$(date +%s)
-          npx hugo --minify --baseURL "$PREVIEW_BASE_URL"
+          # Use pr-preview environment for path offset config
+          npx hugo --minify --baseURL "$PREVIEW_BASE_URL" -e pr-preview
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
           echo "build-time=${DURATION}s" >> $GITHUB_OUTPUT
