@@ -64,8 +64,10 @@ var __importStar =
     };
   })();
 Object.defineProperty(exports, '__esModule', { value: true });
+exports.writePathSpecificSpecs = writePathSpecificSpecs;
 exports.generateHugoDataByTag = generateHugoDataByTag;
 exports.generateHugoData = generateHugoData;
+exports.generatePathSpecificSpecs = generatePathSpecificSpecs;
 const yaml = __importStar(require('js-yaml'));
 const fs = __importStar(require('fs'));
 const path = __importStar(require('path'));
@@ -302,6 +304,91 @@ function writeTagOpenapis(openapi, prefix, outPath) {
       }
     }
   });
+}
+/**
+ * Convert API path to filename-safe slug
+ *
+ * @param apiPath - API path (e.g., "/api/v3/configure/token/admin")
+ * @returns Filename-safe slug (e.g., "api-v3-configure-token-admin")
+ */
+function pathToFileSlug(apiPath) {
+  return apiPath
+    .replace(/^\//, '') // Remove leading slash
+    .replace(/\//g, '-') // Replace slashes with dashes
+    .replace(/[{}]/g, '') // Remove curly braces from path params
+    .replace(/-+/g, '-') // Collapse multiple dashes
+    .replace(/-$/, ''); // Remove trailing dash
+}
+/**
+ * Write path-specific OpenAPI specs (one file per exact API path)
+ *
+ * Each file contains all HTTP methods for a single path, enabling
+ * operation pages to filter by method only (no path prefix conflicts).
+ *
+ * @param openapi - OpenAPI document
+ * @param outPath - Output directory path (e.g., "static/openapi/{product}/paths")
+ * @returns Map of API path to spec file path (for use in frontmatter)
+ */
+function writePathSpecificSpecs(openapi, outPath) {
+  const pathSpecFiles = new Map();
+  if (!fs.existsSync(outPath)) {
+    fs.mkdirSync(outPath, { recursive: true });
+  }
+  Object.entries(openapi.paths).forEach(([apiPath, pathItem]) => {
+    // Deep clone pathItem to avoid mutating original
+    const clonedPathItem = JSON.parse(JSON.stringify(pathItem));
+    // Limit each operation to a single tag to prevent duplicate rendering in RapiDoc
+    // RapiDoc renders operations once per tag, so multiple tags cause duplicates
+    const usedTags = new Set();
+    HTTP_METHODS.forEach((method) => {
+      const operation = clonedPathItem[method];
+      if (operation?.tags && operation.tags.length > 0) {
+        // Select the most specific tag to avoid duplicate rendering
+        // Prefer "Auth token" over "Authentication" for token-related operations
+        let primaryTag = operation.tags[0];
+        if (operation.tags.includes('Auth token')) {
+          primaryTag = 'Auth token';
+        }
+        operation.tags = [primaryTag];
+        usedTags.add(primaryTag);
+      }
+    });
+    // Create spec with just this path (all its methods)
+    // Include global security requirements so RapiDoc displays auth correctly
+    const pathSpec = {
+      openapi: openapi.openapi,
+      info: {
+        ...openapi.info,
+        title: apiPath,
+        description: `API reference for ${apiPath}`,
+      },
+      paths: { [apiPath]: clonedPathItem },
+      components: openapi.components, // Include for $ref resolution
+      servers: openapi.servers,
+      security: openapi.security, // Global security requirements
+    };
+    // Filter spec-level tags to only include those used by operations
+    if (openapi.tags) {
+      pathSpec.tags = openapi.tags.filter(
+        (tag) => usedTags.has(tag.name) && !tag['x-traitTag']
+      );
+    }
+    // Write files
+    const slug = pathToFileSlug(apiPath);
+    const yamlPath = path.resolve(outPath, `${slug}.yaml`);
+    const jsonPath = path.resolve(outPath, `${slug}.json`);
+    writeDataFile(pathSpec, yamlPath);
+    writeJsonFile(pathSpec, jsonPath);
+    // Store the web-accessible path (without "static/" prefix)
+    // Hugo serves files from static/ at the root, so we extract the path after 'static/'
+    const staticMatch = yamlPath.match(/static\/(.+)$/);
+    const webPath = staticMatch ? `/${staticMatch[1]}` : yamlPath;
+    pathSpecFiles.set(apiPath, webPath);
+  });
+  console.log(
+    `Generated ${pathSpecFiles.size} path-specific specs in ${outPath}`
+  );
+  return pathSpecFiles;
 }
 /**
  * Write OpenAPI specs grouped by path to separate files
@@ -769,9 +856,24 @@ function generateHugoData(options) {
   });
   console.log('\nGeneration complete!\n');
 }
+/**
+ * Generate path-specific OpenAPI specs from a spec file
+ *
+ * Convenience wrapper that reads the spec file and generates path-specific specs.
+ *
+ * @param specFile - Path to OpenAPI spec file
+ * @param outPath - Output directory for path-specific specs
+ * @returns Map of API path to spec file web path (for use in frontmatter)
+ */
+function generatePathSpecificSpecs(specFile, outPath) {
+  const openapi = readFile(specFile, 'utf8');
+  return writePathSpecificSpecs(openapi, outPath);
+}
 // CommonJS export for backward compatibility
 module.exports = {
   generateHugoData,
   generateHugoDataByTag,
+  generatePathSpecificSpecs,
+  writePathSpecificSpecs,
 };
 //# sourceMappingURL=index.js.map
