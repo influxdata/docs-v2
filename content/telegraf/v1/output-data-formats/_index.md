@@ -5,18 +5,15 @@ description: Telegraf serializes metrics into output data formats.
 menu:
   telegraf_v1_ref:
     name: Output data formats
-    weight: 1
-    parent: Data formats
----
+    parent: data_formats_reference
+    identifier: output_data_formats_reference
+    weight: 20
+tags: [output-data-formats, output-serializers]
 
-In addition to output-specific data formats, Telegraf supports the following set
-of common data formats that may be selected when configuring many of the Telegraf
-output plugins.
+Telegraf supports the following output data formats for serializing metrics.
+Output plugins that support these formats include a `data_format` configuration option.
 
-{{< children >}}
-
-You will be able to identify the plugins with support by the presence of a
-`data_format` configuration option, for example, in the File (`file`) output plugin:
+For example, in the [File output plugin](/telegraf/v1/output-plugins/file/):
 
 ```toml
 [[outputs.file]]
@@ -29,3 +26,5 @@ You will be able to identify the plugins with support by the presence of a
   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
   data_format = "influx"
 ```
+
+{{< telegraf/data-formats type="output" >}}
