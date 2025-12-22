@@ -19,8 +19,8 @@
     <section class="api-security-schemes">
       <h2 id="security-schemes">Security Schemes</h2>
       {{ range $name, $scheme := . }}
-      <div class="security-scheme" id="scheme-{{ $name | urlize }}">
-        <h3>{{ $name }}</h3>
+      <div class="security-scheme">
+        <h3 id="scheme-{{ $name | urlize }}">{{ $name }}</h3>
         <div class="scheme-details">
           <dl>
             <dt>Type</dt>
