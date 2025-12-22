@@ -79,6 +79,7 @@ in the final metric name.
 Prometheus labels are created from Telegraf tags.
 String fields are ignored by default and do not produce Prometheus metrics.
 Set `prometheus_string_as_label = true` to convert string fields to labels.
+Set `log_level = "trace"` to see serialization issues.
 
 ## Histograms and summaries
 
