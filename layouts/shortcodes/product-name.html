@@ -1,5 +1,7 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentProduct := index $productPathData 1 -}}
+{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
+{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
+{{- $currentProduct := index $productPathData (add $pathOffset 1) -}}
 {{- $length := .Get 0 | default "long" -}}
 {{- $omit := .Get "omit" | default "" -}}
 {{- $scratch := newScratch -}}
