@@ -1,13 +1,17 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentVersion := index $productPathData 1 -}}
+{{- /* Get product info using baseURL-independent path detection */ -}}
+{{- $productInfo := partial "product-info.html" .Page -}}
 {{- $endpoint := .Get "endpoint" -}}
-{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
-{{- $parsedProductKey := cond $isOSS "oss" $currentVersion -}}
-{{- $productKey := .Get "influxdb_host" | default $parsedProductKey -}}
-{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
-{{- $productRef := index $productAliases $productKey -}}
-{{- $productData := index .Site.Data.products $productRef -}}
-{{- $placeholderHost := $productData.placeholder_host }}
+{{- /* Allow influxdb_host parameter to override auto-detected product */ -}}
+{{- $overrideKey := .Get "influxdb_host" -}}
+{{- $productData := $productInfo.productData -}}
+{{- if $overrideKey -}}
+  {{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
+  {{- $overrideRef := index $productAliases $overrideKey -}}
+  {{- if $overrideRef -}}
+    {{- $productData = index .Site.Data.products $overrideRef | default dict -}}
+  {{- end -}}
+{{- end -}}
+{{- $placeholderHost := $productData.placeholder_host | default "localhost:8086" }}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
 {{- $apiRef := .Get "api-ref" | default "" -}}

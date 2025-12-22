@@ -1,0 +1,74 @@
+{{- /*
+  Returns a dict with product path information extracted from the page.
+
+  Uses .File.Dir when available (baseURL-independent) with fallback to .RelPermalink.
+  This ensures product detection works correctly regardless of baseURL configuration,
+  including PR preview deployments at subdirectory paths.
+
+  Usage:
+    {{ $productInfo := partial "product-info.html" . }}
+    {{ $productInfo.product }}      - e.g., "influxdb3", "influxdb", "flux"
+    {{ $productInfo.version }}      - e.g., "core", "enterprise", "v2", "cloud"
+    {{ $productInfo.isOSS }}        - true if version matches ^v[0-9] (OSS versioned product)
+    {{ $productInfo.productKey }}   - normalized key for product aliases
+    {{ $productInfo.productRef }}   - key for .Site.Data.products lookup
+    {{ $productInfo.productData }}  - product data from .Site.Data.products (may be nil)
+*/ -}}
+
+{{- /* Extract path from .File.Dir or fall back to .RelPermalink */ -}}
+{{- $path := "" -}}
+{{- if .File -}}
+  {{- /* .File.Dir returns the directory path relative to content/, e.g., "influxdb3/core/get-started/" */ -}}
+  {{- $path := .File.Dir -}}
+  {{- $.Scratch.Set "productPath" $path -}}
+{{- else -}}
+  {{- /* Fallback: strip site base path from RelPermalink */ -}}
+  {{- $.Scratch.Set "productPath" .RelPermalink -}}
+{{- end -}}
+{{- $path = $.Scratch.Get "productPath" -}}
+
+{{- /* Parse path segments - handles both File.Dir (no leading slash) and RelPermalink (leading slash) */ -}}
+{{- $pathSegments := findRE "[^/]+" $path -}}
+{{- $product := index $pathSegments 0 | default "" -}}
+{{- $version := index $pathSegments 1 | default "" -}}
+
+{{- /* Determine if this is an OSS version (matches v1, v2, etc.) */ -}}
+{{- $isOSS := ne (len (findRE `^v[0-9]` $version)) 0 -}}
+
+{{- /* Calculate product key - use "oss" for versioned products, otherwise use the version */ -}}
+{{- $productKey := cond $isOSS "oss" $version -}}
+
+{{- /* Product aliases map version/product keys to .Site.Data.products keys */ -}}
+{{- $productAliases := dict
+    "oss" "influxdb"
+    "cloud" "influxdb_cloud"
+    "cloud-tsm" "influxdb_cloud"
+    "core" "influxdb3_core"
+    "enterprise" "influxdb3_enterprise"
+    "cloud-serverless" "influxdb3_cloud_serverless"
+    "serverless" "influxdb3_cloud_serverless"
+    "cloud-dedicated" "influxdb3_cloud_dedicated"
+    "dedicated" "influxdb3_cloud_dedicated"
+    "clustered" "influxdb3_clustered"
+    "explorer" "influxdb3_explorer"
+-}}
+
+{{- /* Look up the product reference */ -}}
+{{- $productRef := index $productAliases $productKey -}}
+
+{{- /* Get product data (may be nil if productRef is not found) */ -}}
+{{- $productData := dict -}}
+{{- if $productRef -}}
+  {{- $productData = index .Site.Data.products $productRef | default dict -}}
+{{- end -}}
+
+{{- /* Return the product info dict */ -}}
+{{- return dict
+    "product" $product
+    "version" $version
+    "isOSS" $isOSS
+    "productKey" $productKey
+    "productRef" $productRef
+    "productData" $productData
+    "pathSegments" $pathSegments
+-}}
