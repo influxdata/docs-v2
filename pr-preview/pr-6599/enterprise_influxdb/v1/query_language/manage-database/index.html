@@ -1,0 +1,1597 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Manage your database using InfluxQL | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-6599/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6599/docs-v2/pr-preview/pr-6599/enterprise_influxdb/v1/query_language/manage-database/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6599/light-theme.8d5433f1b1d5c0b801a1f0e47e57e6de0bbdb1a3be335988a8db0424be68b7df.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6599/dark-theme.153183ad3915586035a473fc442de137ec8ba307b7f7d87160f893857e6bf11d.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6599/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-6599/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-6599/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2025-12-15 12:31:56 -0600 -0600">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    <div class="selector-dropdowns">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' class="active">InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' class="active">InfluxDB Enterprise</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+    <div class="buttons">
+      <div class="search-btn" data-component="search-button">
+        <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+      </div>
+      <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+      <span data-component="theme-switch">
+        <button class="theme-switch theme-switch-light">
+          <span class="cf-icon Lightmode_New"></span></button>
+        <button class="theme-switch theme-switch-dark">
+          <span class="cf-icon Darkmode_New"></span></button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search the docs'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Manage your database using InfluxQL</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0">
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>InfluxQL offers a full suite of administrative commands.</p>
+<table style="width:100%">
+  <tr>
+    <td><b>Data Management:</b></td>
+    <td><b>Retention Policy Management:</br></td>
+  </tr>
+  <tr>
+    <td><a href="#create-database">CREATE DATABASE</a></td>
+    <td><a href="#create-retention-policies-with-create-retention-policy">CREATE RETENTION POLICY</a></td>
+  </tr>
+  <tr>
+    <td><a href="#delete-a-database-with-drop-database">DROP DATABASE</a></td>
+    <td><a href="#modify-retention-policies-with-alter-retention-policy">ALTER RETENTION POLICY</a></td>
+  </tr>
+  <tr>
+    <td><a href="#drop-series-from-the-index-with-drop-series">DROP SERIES</a></td>
+    <td><a href="#delete-retention-policies-with-drop-retention-policy">DROP RETENTION POLICY</a></td>
+  </tr>
+  <tr>
+    <td><a href="#delete-series-with-delete">DELETE</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="#delete-measurements-with-drop-measurement">DROP MEASUREMENT</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="#delete-a-shard-with-drop-shard">DROP SHARD</a></td>
+    <td></td>
+  </tr>
+</table>
+<p>If you&rsquo;re looking for <code>SHOW</code> queries (for example, <code>SHOW DATABASES</code> or <code>SHOW RETENTION POLICIES</code>), see <a href="/enterprise_influxdb/v1/query_language/explore-schema">Schema Exploration</a>.</p>
+<p>The examples in the sections below use the InfluxDB <a href="/enterprise_influxdb/v1/introduction/getting-started/">Command Line Interface (CLI)</a>.
+You can also execute the commands using the InfluxDB API; simply  send a <code>GET</code> request to the <code>/query</code> endpoint and include the command in the URL parameter <code>q</code>.
+For more on using the InfluxDB API, see <a href="/enterprise_influxdb/v1/guides/querying_data/">Querying data</a>.</p>
+
+<blockquote>
+<p><strong>Note:</strong> When authentication is enabled, only admin users can execute most of the commands listed on this page.
+See the documentation on <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/">authentication and authorization</a> for more information.</p>
+
+</blockquote>
+<h2 id="data-management">Data management</h2>
+<h3 id="create-database">CREATE DATABASE</h3>
+<p>Creates a new database.</p>
+<h4 id="syntax">Syntax</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="k">WITH</span><span class="w"> </span><span class="p">[</span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">REPLICATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">SHARD</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">NAME</span><span class="w"> </span><span class="o">&lt;</span><span class="n">retention</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span><span class="p">]]</span></span></span></code></pre></div>
+<h4 id="description-of-syntax">Description of syntax</h4>
+<p><code>CREATE DATABASE</code> requires a database <a href="/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb">name</a>.</p>
+<p>The <code>WITH</code>, <code>DURATION</code>, <code>REPLICATION</code>, <code>SHARD DURATION</code>, <code>PAST LIMIT</code>,
+<code>FUTURE LIMIT, and </code>NAME<code>clauses are optional and create a single [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) associated with the created database. If you do not specify one of the clauses after</code>WITH<code>, the relevant behavior defaults to the </code>autogen` retention policy settings.
+The created retention policy automatically serves as the database&rsquo;s default retention policy.
+For more information about those clauses, see
+<a href="/enterprise_influxdb/v1/query_language/manage-database/#retention-policy-management">Retention Policy Management</a>.</p>
+<p>A successful <code>CREATE DATABASE</code> query returns an empty result.
+If you attempt to create a database that already exists, InfluxDB does nothing and does not return an error.</p>
+<h4 id="examples">Examples</h4>
+<h5 id="create-a-database">Create a database</h5>
+
+
+<pre tabindex="0"><code>&gt; CREATE DATABASE &#34;NOAA_water_database&#34;
+&gt;</code></pre>
+<p>The query creates a database called <code>NOAA_water_database</code>.
+<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retention-autocreate">By default</a>, InfluxDB also creates the <code>autogen</code> retention policy and associates it with the <code>NOAA_water_database</code>.</p>
+<h5 id="create-a-database-with-a-specific-retention-policy">Create a database with a specific retention policy</h5>
+
+
+<pre tabindex="0"><code>&gt; CREATE DATABASE &#34;NOAA_water_database&#34; WITH DURATION 3d REPLICATION 1 SHARD DURATION 1h NAME &#34;liquid&#34;
+&gt;</code></pre>
+<p>The query creates a database called <code>NOAA_water_database</code>.
+It also creates a default retention policy for <code>NOAA_water_database</code> with a <code>DURATION</code> of three days, a <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor">replication factor</a> of one, a <a href="/enterprise_influxdb/v1/concepts/glossary/#shard-group">shard group</a> duration of one hour, and with the name <code>liquid</code>.</p>
+<h3 id="delete-a-database-with-drop-database">Delete a database with DROP DATABASE</h3>
+<p>The <code>DROP DATABASE</code> query deletes all of the data, measurements, series, continuous queries, and retention policies from the specified database.
+The query takes the following form:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>Drop the database NOAA_water_database:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; DROP DATABASE <span class="s2">&#34;NOAA_water_database&#34;</span>
+</span></span><span class="line"><span class="cl">&gt;</span></span></code></pre></div>
+<p>A successful <code>DROP DATABASE</code> query returns an empty result.
+If you attempt to drop a database that does not exist, InfluxDB does not return an error.</p>
+<h3 id="drop-series-from-the-index-with-drop-series">Drop series from the index with DROP SERIES</h3>
+<p>The <code>DROP SERIES</code> query deletes all points from a <a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> in a database,
+and it drops the series from the index.</p>
+<p>The query takes the following form, where you must specify either the <code>FROM</code> clause or the <code>WHERE</code> clause:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="n">measurement_name</span><span class="p">[,</span><span class="n">measurement_name</span><span class="p">]</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tag_key</span><span class="o">&gt;=</span><span class="s1">&#39;&lt;tag_value&gt;&#39;</span></span></span></code></pre></div>
+<p>Drop all series from a single measurement:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;h2o_feet&#34;</span></span></span></code></pre></div>
+<p>Drop series with a specific tag pair from a single measurement:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;h2o_feet&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;location&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;santa_monica&#39;</span></span></span></code></pre></div>
+<p>Drop all points in the series that have a specific tag pair from all measurements in the database:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;location&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;santa_monica&#39;</span></span></span></code></pre></div>
+<p>A successful <code>DROP SERIES</code> query returns an empty result.</p>
+<h3 id="delete-series-with-delete">Delete series with DELETE</h3>
+<p>The <code>DELETE</code> query deletes all points from a
+<a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> in a database.
+Unlike
+<a href="/enterprise_influxdb/v1/query_language/manage-database/#drop-series-from-the-index-with-drop-series"><code>DROP SERIES</code></a>, <code>DELETE</code> does not drop the series from the index.</p>
+<p>You must include either the <code>FROM</code> clause, the <code>WHERE</code> clause, or both:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="n">measurement_name</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">[</span><span class="o">&lt;</span><span class="n">tag_key</span><span class="o">&gt;=</span><span class="s1">&#39;&lt;tag_value&gt;&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="o">&lt;</span><span class="n">time</span><span class="w"> </span><span class="nb">interval</span><span class="o">&gt;</span><span class="p">]</span></span></span></code></pre></div>
+<p>Delete all data associated with the measurement <code>h2o_feet</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;h2o_feet&#34;</span></span></span></code></pre></div>
+<p>Delete all data associated with the measurement <code>h2o_quality</code> and where the tag <code>randtag</code> equals <code>3</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;h2o_quality&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;randtag&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span></span></span></code></pre></div>
+<p>Delete all data in the database that occur before January 01, 2020:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2020-01-01&#39;</span></span></span></code></pre></div>
+<p>Delete all data associated with the measurement <code>h2o_feet</code> in retention policy <code>one_day</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;one_day&#34;</span><span class="p">.</span><span class="s2">&#34;h2o_feet&#34;</span></span></span></code></pre></div>
+<p>A successful <code>DELETE</code> query returns an empty result.</p>
+<p>Things to note about <code>DELETE</code>:</p>
+<ul>
+<li><code>DELETE</code> supports <a href="/enterprise_influxdb/v1/query_language/explore-data/#regular-expressions">regular expressions</a>
+in the <code>FROM</code> clause when specifying measurement names and in the <code>WHERE</code> clause
+when specifying tag values. It <em>does not</em> support regular expressions for the
+retention policy in the <code>FROM</code> clause.
+If deleting a series in a retention policy, <code>DELETE</code> requires that you define
+<em>only one</em> retention policy in the <code>FROM</code> clause.</li>
+<li><code>DELETE</code> does not support <a href="/enterprise_influxdb/v1/concepts/glossary/#field">fields</a>
+in the <code>WHERE</code> clause.</li>
+<li>If you need to delete points in the future, you must specify that time period
+as <code>DELETE SERIES</code> runs for <code>time &lt; now()</code> by default.</li>
+</ul>
+<h3 id="delete-measurements-with-drop-measurement">Delete measurements with DROP MEASUREMENT</h3>
+<p>The <code>DROP MEASUREMENT</code> query deletes all data and series from the specified <a href="/enterprise_influxdb/v1/concepts/glossary/#measurement">measurement</a> and deletes the
+measurement from the index.</p>
+<p>The query takes the following form:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">measurement_name</span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>Delete the measurement <code>h2o_feet</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="s2">&#34;h2o_feet&#34;</span></span></span></code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> <code>DROP MEASUREMENT</code> drops all data and series in the measurement.
+It does not drop the associated continuous queries.</p>
+
+</blockquote>
+<p>A successful <code>DROP MEASUREMENT</code> query returns an empty result.</p>
+
+<div class="warn block">
+  <p>Currently, InfluxDB does not support regular expressions with <code>DROP MEASUREMENTS</code>.
+See GitHub Issue <a href="https://github.com/influxdb/influxdb/issues/4275">#4275</a> for more information.</p>
+
+</div>
+
+<h3 id="delete-a-shard-with-drop-shard">Delete a shard with DROP SHARD</h3>
+<p>The <code>DROP SHARD</code> query deletes a shard. It also drops the shard from the
+<a href="/enterprise_influxdb/v1/concepts/glossary/#metastore">metastore</a>.
+The query takes the following form:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">SHARD</span><span class="w"> </span><span class="o">&lt;</span><span class="n">shard_id_number</span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>Delete the shard with the id <code>1</code>:</p>
+
+
+<pre tabindex="0"><code>&gt; DROP SHARD 1
+&gt;</code></pre>
+<p>A successful <code>DROP SHARD</code> query returns an empty result.
+InfluxDB does not return an error if you attempt to drop a shard that does not
+exist.</p>
+<h2 id="retention-policy-management">Retention policy management</h2>
+<p>The following sections cover how to create, alter, and delete retention policies.
+Note that when you create a database, InfluxDB automatically creates a retention policy named <code>autogen</code> which has infinite retention.
+You may disable its auto-creation in the <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retention-autocreate">configuration file</a>.</p>
+<h3 id="create-retention-policies-with-create-retention-policy">Create retention policies with CREATE RETENTION POLICY</h3>
+<h4 id="syntax-1">Syntax</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">retention_policy_name</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">SHARD</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">DEFAULT</span><span class="p">]</span></span></span></code></pre></div>
+<h4 id="description-of-syntax-1">Description of syntax</h4>
+<h5 id="duration"><code>DURATION</code></h5>
+<ul>
+<li>The <code>DURATION</code> clause determines how long InfluxDB keeps the data.
+The <code>&lt;duration&gt;</code> is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>
+or <code>INF</code> (infinite).
+The minimum duration for a retention policy is one hour and the maximum
+duration is <code>INF</code>.</li>
+</ul>
+<h5 id="replication"><code>REPLICATION</code></h5>
+<ul>
+<li>
+<p>The <code>REPLICATION</code> clause determines how many independent copies of each point
+are stored in the cluster.</p>
+</li>
+<li>
+<p>By default, the replication factor <code>n</code> usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor <code>n</code> is 3.</p>
+</li>
+<li>
+<p>To ensure data is immediately available for queries, set the replication factor <code>n</code> to less than or equal to the number of data nodes in the cluster.</p>
+</li>
+</ul>
+
+<blockquote>
+<p><strong>Important:</strong> If you have four or more data nodes, verify that the database replication factor is correct.</p>
+
+</blockquote>
+<ul>
+<li>Replication factors do not serve a purpose with single node instances.</li>
+</ul>
+<h5 id="shard-duration"><code>SHARD DURATION</code></h5>
+<ul>
+<li>Optional. The <code>SHARD DURATION</code> clause determines the time range covered by a <a href="/enterprise_influxdb/v1/concepts/glossary/#shard-group">shard group</a>.</li>
+<li>The <code>&lt;duration&gt;</code> is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>
+and does not support an <code>INF</code> (infinite) duration.</li>
+<li>By default, the shard group duration is determined by the retention policy&rsquo;s
+<code>DURATION</code>:</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Retention Policy&rsquo;s DURATION</th>
+          <th>Shard Group Duration</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>&lt; 2 days</td>
+          <td>1 hour</td>
+      </tr>
+      <tr>
+          <td>&gt;= 2 days and &lt;= 6 months</td>
+          <td>1 day</td>
+      </tr>
+      <tr>
+          <td>&gt; 6 months</td>
+          <td>7 days</td>
+      </tr>
+  </tbody>
+</table>
+<p>The minimum allowable <code>SHARD GROUP DURATION</code> is <code>1h</code>.
+If the <code>CREATE RETENTION POLICY</code> query attempts to set the <code>SHARD GROUP DURATION</code> to less than <code>1h</code> and greater than <code>0s</code>, InfluxDB automatically sets the <code>SHARD GROUP DURATION</code> to <code>1h</code>.
+If the <code>CREATE RETENTION POLICY</code> query attempts to set the <code>SHARD GROUP DURATION</code> to <code>0s</code>, InfluxDB automatically sets the <code>SHARD GROUP DURATION</code> according to the default settings listed above.</p>
+<p>See
+<a href="/enterprise_influxdb/v1/concepts/schema_and_data_layout/#shard-group-duration-management">Shard group duration management</a>
+for recommended configurations.</p>
+<h5 metadata="v1.12.0+" id="past-limit"><code>PAST LIMIT</code></h5>
+<p>The <code>PAST LIMIT</code> clause defines a time boundary before and relative to <em>now</em>
+in which points written to the retention policy are accepted. If a point has a
+timestamp before the specified boundary, the point is rejected and the write
+request returns a partial write error.</p>
+<p>For example, if a write request tries to write data to a retention policy with a
+<code>PAST LIMIT 6h</code> and there are points in the request with timestamps older than
+6 hours, those points are rejected.</p>
+
+<div class="block important">
+  
+  
+  <p><code>PAST LIMIT</code> cannot be changed after it is set.
+This will be fixed in a future release.</p>
+</div>
+<h5 metadata="v1.12.0+" id="future-limit"><code>FUTURE LIMIT</code></h5>
+<p>The <code>FUTURE LIMIT</code> clause defines a time boundary after and relative to <em>now</em>
+in which points written to the retention policy are accepted. If a point has a
+timestamp after the specified boundary, the point is rejected and the write
+request returns a partial write error.</p>
+<p>For example, if a write request tries to write data to a retention policy with a
+<code>FUTURE LIMIT 6h</code> and there are points in the request with future timestamps
+greater than 6 hours from now, those points are rejected.</p>
+
+<div class="block important">
+  
+  
+  <p><code>FUTURE LIMIT</code> cannot be changed after it is set.
+This will be fixed in a future release.</p>
+</div>
+<h5 id="default"><code>DEFAULT</code></h5>
+<p>Sets the new retention policy as the default retention policy for the database.
+This setting is optional.</p>
+<h4 id="examples-1">Examples</h4>
+<h5 id="create-a-retention-policy">Create a retention policy</h5>
+
+
+<pre tabindex="0"><code>&gt; CREATE RETENTION POLICY &#34;one_day_only&#34; ON &#34;NOAA_water_database&#34; DURATION 1d REPLICATION 1
+&gt;</code></pre>
+<p>The query creates a retention policy called <code>one_day_only</code> for the database
+<code>NOAA_water_database</code> with a one day duration and a replication factor of one.</p>
+<h5 id="create-a-default-retention-policy">Create a DEFAULT retention policy</h5>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;one_day_only&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;NOAA_water_database&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">23</span><span class="n">h60m</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>The query creates the same retention policy as the one in the example above, but
+sets it as the default retention policy for the database.</p>
+<p>A successful <code>CREATE RETENTION POLICY</code> query returns an empty response.
+If you attempt to create a retention policy identical to one that already exists, InfluxDB does not return an error.
+If you attempt to create a retention policy with the same name as an existing retention policy but with differing attributes, InfluxDB returns an error.</p>
+
+<blockquote>
+<p><strong>Note:</strong> You can also specify a new retention policy in the <code>CREATE DATABASE</code> query.
+See <a href="/enterprise_influxdb/v1/query_language/manage-database/#create-database">Create a database with CREATE DATABASE</a>.</p>
+
+</blockquote>
+<h3 id="modify-retention-policies-with-alter-retention-policy">Modify retention policies with ALTER RETENTION POLICY</h3>
+<p>The <code>ALTER RETENTION POLICY</code> query takes the following form, where you must declare at least one of the retention policy attributes <code>DURATION</code>, <code>REPLICATION</code>, <code>SHARD DURATION</code>, or <code>DEFAULT</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">retention_policy_name</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">REPLICATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">SHARD</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="o">&lt;</span><span class="n">duration</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">DEFAULT</span><span class="p">]</span></span></span></code></pre></div>
+
+<div class="warn block">
+  <p>Replication factors do not serve a purpose with single node instances.</p>
+
+</div>
+
+<p>First, create the retention policy <code>what_is_time</code> with a <code>DURATION</code> of two days:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;what_is_time&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;NOAA_water_database&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">2</span><span class="n">d</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>Modify <code>what_is_time</code> to have a three week <code>DURATION</code>, a two hour shard group duration, and make it the <code>DEFAULT</code> retention policy for <code>NOAA_water_database</code>.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;what_is_time&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;NOAA_water_database&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">3</span><span class="n">w</span><span class="w"> </span><span class="n">SHARD</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">2</span><span class="n">h</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>In the last example, <code>what_is_time</code> retains its original replication factor of 1.</p>
+<p>A successful <code>ALTER RETENTION POLICY</code> query returns an empty result.</p>
+<h3 id="delete-retention-policies-with-drop-retention-policy">Delete retention policies with DROP RETENTION POLICY</h3>
+<p>Delete all measurements and data in a specific retention policy:</p>
+
+<div class="warn block">
+  <p>Dropping a retention policy will permanently delete all measurements and data stored in the retention policy.</p>
+
+</div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">retention_policy_name</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>Delete the retention policy <code>what_is_time</code> in the <code>NOAA_water_database</code> database:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; DROP RETENTION POLICY <span class="s2">&#34;what_is_time&#34;</span> ON <span class="s2">&#34;NOAA_water_database&#34;</span>
+</span></span><span class="line"><span class="cl">&gt;</span></span></code></pre></div>
+<p>A successful <code>DROP RETENTION POLICY</code> query returns an empty result.
+If you attempt to drop a retention policy that does not exist, InfluxDB does not return an error.</p>
+
+
+
+    
+
+    
+    
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/query_language/manage-database.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6599/enterprise_influxdb/v1/query_language/manage-database/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2025 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Customize your <strong>InfluxDB Enterprise URL</strong> and we&rsquo;ll update code examples for you.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/enterprise_influxdb/v1/administration/config-data-nodes/#http-endpoint-settings">InfluxDB Enterprise HTTP settings</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>New in InfluxDB 3.8</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
+1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
+operational maturity and making InfluxDB easier to deploy, manage, and run
+reliably in production.</p>
+<p>For more information, check out:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
+<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>February 3, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
