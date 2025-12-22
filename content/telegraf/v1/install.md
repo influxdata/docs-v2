@@ -238,7 +238,7 @@ To use the `yum` package manager to install the latest stable version of Telegra
    cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
    [influxdata]
    name = InfluxData Repository - Stable
-   baseurl = https://repos.influxdata.com/stable/$basearch/main
+   baseurl = https://repos.influxdata.com/stable/\$basearch/main
    enabled = 1
    gpgcheck = 1
    gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata
