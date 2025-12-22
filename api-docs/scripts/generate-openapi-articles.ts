@@ -320,6 +320,8 @@ interface GenerateTagPagesOptions {
   productDescription?: string;
   /** Skip adding menu entry to generated parent page */
   skipParentMenu?: boolean;
+  /** Map of API path to path-specific spec file (for single-operation rendering) */
+  pathSpecFiles?: Map<string, string>;
 }
 
 /**
@@ -341,6 +343,7 @@ function generateTagPagesFromArticleData(
     menuParent,
     productDescription,
     skipParentMenu,
+    pathSpecFiles,
   } = options;
   const yaml = require('js-yaml');
   const articlesFile = path.join(articlesPath, 'articles.yml');
@@ -484,6 +487,7 @@ ${yaml.dump(frontmatter)}---
   generateOperationPages({
     articlesPath,
     contentPath,
+    pathSpecFiles,
   });
 }
 
@@ -495,6 +499,8 @@ interface GenerateOperationPagesOptions {
   articlesPath: string;
   /** Output path for generated content pages */
   contentPath: string;
+  /** Map of API path to path-specific spec file (for single-operation rendering) */
+  pathSpecFiles?: Map<string, string>;
 }
 
 /**
@@ -515,12 +521,16 @@ function apiPathToSlug(apiPath: string): string {
  * Generate standalone Hugo content pages for each API operation
  *
  * Creates individual pages at path-based URLs like /api/write/post/
- * for each operation, using RapiDoc Mini with tag-level specs.
+ * for each operation, using RapiDoc Mini.
+ *
+ * When pathSpecFiles is provided, uses path-specific specs for single-operation
+ * rendering (filters by method only, avoiding path prefix conflicts).
+ * Falls back to tag-based specs when pathSpecFiles is not available.
  *
  * @param options - Generation options
  */
 function generateOperationPages(options: GenerateOperationPagesOptions): void {
-  const { articlesPath, contentPath } = options;
+  const { articlesPath, contentPath, pathSpecFiles } = options;
   const yaml = require('js-yaml');
   const articlesFile = path.join(articlesPath, 'articles.yml');
 
@@ -580,15 +590,24 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
 
       // Build frontmatter
       const title = op.summary || `${op.method} ${op.path}`;
+
+      // Determine spec file and match-paths based on availability of path-specific specs
+      // Path-specific specs isolate the path at file level, so we only filter by method
+      // This avoids substring matching issues (e.g., /admin matching /admin/regenerate)
+      const pathSpecFile = pathSpecFiles?.get(op.path);
+      const specFile = pathSpecFile || tagSpecFile;
+      const matchPaths = pathSpecFile ? method : `${method} ${op.path}`;
+
       const frontmatter: Record<string, unknown> = {
         title,
         description: `API reference for ${op.method} ${op.path}`,
         type: 'api-operation',
         layout: 'operation',
         // RapiDoc Mini configuration
-        specFile: tagSpecFile,
-        // RapiDoc match-paths format: "method /path" (e.g., "post /write")
-        matchPaths: `${method} ${op.path}`,
+        specFile,
+        // When using path-specific spec: just method (e.g., "post")
+        // When using tag spec: method + path (e.g., "post /write")
+        matchPaths,
         // Operation metadata
         operationId: op.operationId,
         method: op.method,
@@ -771,6 +790,17 @@ function processProduct(productKey: string, config: ProductConfig): void {
         includePaths: true, // Also generate path-based files for backwards compatibility
       });
 
+      // Step 5b: Generate path-specific specs for operation pages
+      // Each path gets its own spec file, enabling method-only filtering
+      // This avoids substring matching issues (e.g., /admin matching /admin/regenerate)
+      console.log(
+        `\n📋 Generating path-specific specs in ${staticPathsPath}...`
+      );
+      const pathSpecFiles = openapiPathsToHugo.generatePathSpecificSpecs(
+        config.specFile,
+        staticPathsPath
+      );
+
       // Step 6: Generate Hugo content pages from tag-based article data
       generateTagPagesFromArticleData({
         articlesPath,
@@ -778,6 +808,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
         menuKey: config.menuKey,
         menuParent: 'InfluxDB HTTP API',
         skipParentMenu: config.skipParentMenu,
+        pathSpecFiles,
       });
     } else {
       // Path-based generation: group paths by URL prefix (legacy)
