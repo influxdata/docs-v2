@@ -9,9 +9,9 @@
 {{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
 {{- $productRef := index $productAliases $productKey | default "influxdb" -}}
 {{- $productData := index .Site.Data.products $productRef -}}
-{{- $placeholderHost := "" -}}
+{{- $placeholderHost := "localhost:8086" -}}
 {{- with $productData -}}
-  {{- $placeholderHost = .placeholder_host -}}
+  {{- $placeholderHost = .placeholder_host | default "localhost:8086" -}}
 {{- end -}}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
