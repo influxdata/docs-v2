@@ -63,26 +63,16 @@
       "fields": {
         "name": "Authentication",
         "describes": [
-          "/api/v3/configure/token/admin",
           "/api/v3/configure/token/admin/regenerate",
           "/api/v3/configure/token",
           "/api/v3/configure/token/named_admin"
         ],
         "title": "Authentication",
-        "description": "Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:\n\n| Authentication scheme | Works with |\n|:----------------------|:-----------|\n| Bearer authentication | All endpoints |\n| Token authentication  | v1, v2 endpoints |\n| Basic authentication  | v1 endpoints |\n| Querystring authentication | v1 endpoints |\n\nSee the **Security Schemes** section below for details on each authentication method.\n",
+        "description": "Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:\n\n| Authentication scheme | Works with |\n|:----------------------|:-----------|\n| Bearer authentication | All endpoints |\n| Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |\n| Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |\n| Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |\n\nSee the **Security Schemes** section below for details on each authentication method.\n",
         "tag": "Authentication",
         "isConceptual": true,
         "menuGroup": "Concepts",
         "operations": [
-          {
-            "operationId": "PostCreateAdminToken",
-            "method": "POST",
-            "path": "/api/v3/configure/token/admin",
-            "summary": "Create admin token",
-            "tags": [
-              "Authentication"
-            ]
-          },
           {
             "operationId": "PostRegenerateAdminToken",
             "method": "POST",
@@ -111,7 +101,7 @@
             ]
           }
         ],
-        "tagDescription": "Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:\n\n| Authentication scheme | Works with |\n|:----------------------|:-----------|\n| Bearer authentication | All endpoints |\n| Token authentication  | v1, v2 endpoints |\n| Basic authentication  | v1 endpoints |\n| Querystring authentication | v1 endpoints |\n\nSee the **Security Schemes** section below for details on each authentication method.\n",
+        "tagDescription": "Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:\n\n| Authentication scheme | Works with |\n|:----------------------|:-----------|\n| Bearer authentication | All endpoints |\n| Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |\n| Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |\n| Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |\n\nSee the **Security Schemes** section below for details on each authentication method.\n",
         "source": "static/openapi/influxdb3-core/tags/tags/ref-authentication.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/ref-authentication.yaml"
       }

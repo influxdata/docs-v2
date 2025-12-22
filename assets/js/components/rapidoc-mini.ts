@@ -157,19 +157,55 @@ function applyTheme(element: HTMLElement): void {
 }
 
 /**
+ * Build match pattern that identifies operations within a spec.
+ *
+ * When using path-specific specs (recommended), the spec contains only one path,
+ * so matchPaths is just the HTTP method (e.g., "post"). The path isolation at the
+ * file level prevents substring matching issues - no title needed.
+ *
+ * When using tag-based specs (fallback), matchPaths includes the full path
+ * (e.g., "post /api/v3/configure/token/admin"). Adding the title helps differentiate
+ * operations whose paths are prefixes of each other.
+ *
+ * RapiDoc's search string format:
+ *   `${method} ${path} ${summary} ${description} ${operationId} ${tagName}`.toLowerCase()
+ *
+ * @param matchPaths - The match pattern: just method for path-specific specs,
+ *                     or "method /path" for tag-based specs
+ * @param title - Optional page title to append (only used for tag-based specs)
+ * @returns Pattern for RapiDoc's match-paths attribute
+ */
+function buildMatchPattern(matchPaths: string, title?: string): string {
+  // Detect path-specific spec mode: matchPaths is just an HTTP method (no path)
+  const isMethodOnly = /^(get|post|put|patch|delete|options|head|trace)$/i.test(
+    matchPaths.trim()
+  );
+
+  // For path-specific specs: use method only, title not needed (path isolated at file level)
+  // For tag-based specs: append title to differentiate prefix conflicts
+  if (title && !isMethodOnly) {
+    return `${matchPaths} ${title.toLowerCase()}`;
+  }
+  return matchPaths;
+}
+
+/**
  * Create RapiDoc Mini element with configuration
  */
 function createRapiDocElement(
   specUrl: string,
-  matchPaths?: string
+  matchPaths?: string,
+  title?: string
 ): HTMLElement {
   const element = document.createElement(RAPIDOC_ELEMENT);
 
   // Core attributes
   element.setAttribute('spec-url', specUrl);
-  // matchPaths format: "method /path" (e.g., "post /write")
+
+  // Set match-paths filter. With path-specific specs, this is just the method.
+  // With tag-based specs, includes path + optional title for uniqueness.
   if (matchPaths) {
-    element.setAttribute('match-paths', matchPaths);
+    element.setAttribute('match-paths', buildMatchPattern(matchPaths, title));
   }
 
   // Typography - match docs theme fonts
@@ -234,8 +270,11 @@ function createRapiDocElement(
   element.setAttribute('use-path-in-nav-bar', 'false');
   element.setAttribute('show-info', 'false');
 
-  // Authentication display - allow-authentication enables proper layout
-  element.setAttribute('allow-authentication', 'true');
+  // Authentication display - hide RapiDoc's built-in auth section
+  // We use a custom popover component for credential input instead
+  // Credentials are applied via HTML attributes (api-key-name, api-key-value)
+  // and the setApiKey() JavaScript API
+  element.setAttribute('allow-authentication', 'false');
   element.setAttribute('show-components', 'false');
 
   // Custom CSS for internal style overrides (table layout, etc.)
@@ -335,6 +374,7 @@ export default async function RapiDocMini({
     // Get configuration from data attributes
     const specUrl = component.dataset.specUrl;
     const matchPaths = component.dataset.matchPaths;
+    const title = component.dataset.title;
 
     if (!specUrl) {
       console.error('[RapiDoc Mini] No data-spec-url attribute provided');
@@ -355,7 +395,7 @@ export default async function RapiDocMini({
     }
 
     // Create and append RapiDoc Mini element
-    const rapiDocElement = createRapiDocElement(specUrl, matchPaths);
+    const rapiDocElement = createRapiDocElement(specUrl, matchPaths, title);
     component.appendChild(rapiDocElement);
 
     // Watch for theme changes and return cleanup function

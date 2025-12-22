@@ -44,7 +44,6 @@ articles:
     fields:
       name: Authentication
       describes:
-        - /api/v3/configure/token/admin
         - /api/v3/configure/token/admin/regenerate
         - /api/v3/configure/token
         - /api/v3/configure/token/named_admin
@@ -60,11 +59,14 @@ articles:
 
         | Bearer authentication | All endpoints |
 
-        | Token authentication  | v1, v2 endpoints |
+        | Token authentication  | v1 and v2 compatibility endpoints (`/write`,
+        `/query`, `/api/v2/write`) |
 
-        | Basic authentication  | v1 endpoints |
+        | Basic authentication  | v1 compatibility endpoints (`/write`,
+        `/query`) |
 
-        | Querystring authentication | v1 endpoints |
+        | Querystring authentication | v1 compatibility endpoints (`/write`,
+        `/query`) |
 
 
         See the **Security Schemes** section below for details on each
@@ -73,12 +75,6 @@ articles:
       isConceptual: true
       menuGroup: Concepts
       operations:
-        - operationId: PostCreateAdminToken
-          method: POST
-          path: /api/v3/configure/token/admin
-          summary: Create admin token
-          tags:
-            - Authentication
         - operationId: PostRegenerateAdminToken
           method: POST
           path: /api/v3/configure/token/admin/regenerate
@@ -108,11 +104,14 @@ articles:
 
         | Bearer authentication | All endpoints |
 
-        | Token authentication  | v1, v2 endpoints |
+        | Token authentication  | v1 and v2 compatibility endpoints (`/write`,
+        `/query`, `/api/v2/write`) |
 
-        | Basic authentication  | v1 endpoints |
+        | Basic authentication  | v1 compatibility endpoints (`/write`,
+        `/query`) |
 
-        | Querystring authentication | v1 endpoints |
+        | Querystring authentication | v1 compatibility endpoints (`/write`,
+        `/query`) |
 
 
         See the **Security Schemes** section below for details on each

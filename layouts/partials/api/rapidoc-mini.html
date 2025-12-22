@@ -10,11 +10,30 @@
 
   Optional page params:
   - operationId: Operation ID for linking/navigation purposes
+  - apiPath: The API path (used to determine auth schemes)
 */}}
 
 {{ $specPath := .Params.specFile }}
 {{ $specPathJSON := replace $specPath ".yaml" ".json" | replace ".yml" ".json" }}
 {{ $matchPaths := .Params.matchPaths | default "" }}
+{{ $operationId := .Params.operationId | default "" }}
+{{ $title := .Title | default "" }}
+{{ $apiPath := .Params.apiPath | default "" }}
+
+{{/*
+  Determine supported auth schemes based on API path:
+  - /api/v3/* endpoints: BearerAuthentication only
+  - /api/v2/* endpoints: BearerAuthentication + TokenAuthentication
+  - /write, /query (v1): All 4 schemes (Bearer, Token, Basic, Querystring)
+*/}}
+{{ $authSchemes := "bearer" }}
+{{ if hasPrefix $apiPath "/api/v3" }}
+  {{ $authSchemes = "bearer" }}
+{{ else if hasPrefix $apiPath "/api/v2" }}
+  {{ $authSchemes = "bearer,token" }}
+{{ else if or (eq $apiPath "/write") (eq $apiPath "/query") }}
+  {{ $authSchemes = "bearer,token,basic,querystring" }}
+{{ end }}
 
 {{/* Machine-readable links for AI agent discovery */}}
 {{ if $specPath }}
@@ -22,17 +41,34 @@
 <link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
 {{ end }}
 
-{{/* Auth input component */}}
-<div class="api-auth-input-wrapper"
-     data-component="api-auth-input"
-     data-schemes="bearer,basic">
+{{/* Auth credentials popover trigger - positioned above the operation */}}
+<div class="api-auth-trigger-wrapper">
+  <button type="button"
+          class="api-auth-trigger btn btn-sm"
+          data-component="api-auth-input"
+          data-schemes="{{ $authSchemes }}"
+          data-popover="true"
+          aria-expanded="false"
+          aria-haspopup="dialog">
+    <svg class="auth-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
+    </svg>
+    <span class="auth-trigger-text">Set credentials</span>
+    <span class="auth-status-indicator" hidden aria-label="Credentials configured"></span>
+  </button>
+  {{/* Popover container - positioned by CSS */}}
+  <div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
+    {{/* Content rendered by TypeScript component */}}
+  </div>
 </div>
 
 {{/* Component container - TypeScript handles initialization */}}
 <div class="api-reference-wrapper api-reference-mini"
      data-component="rapidoc-mini"
      data-spec-url="{{ $specPath }}"
-     {{ with $matchPaths }}data-match-paths="{{ . }}"{{ end }}>
+     {{ with $matchPaths }}data-match-paths="{{ . }}"{{ end }}
+     {{ with $operationId }}data-operation-id="{{ . }}"{{ end }}
+     {{ with $title }}data-title="{{ . }}"{{ end }}>
   {{/* RapiDoc Mini element created by TypeScript component */}}
 </div>
 
@@ -71,11 +107,14 @@ rapi-doc {
   border: none;
   border-radius: 0;
 
-  /* Override RapiDoc internal CSS variables - subtle borders */
+  /* Override RapiDoc internal CSS variables */
   --light-border-color: rgba(0, 163, 255, 0.25);
   --border-color: rgba(0, 163, 255, 0.25);
-  /* HTTP method colors - lighter palette for light theme */
-  --blue: #00A3FF;        /* $b-pool - GET */
+  --font-size-regular: 16px;
+
+  /* Use green for links/status text so they don't look like clickable links */
+  /* HTTP method colors are set via element attributes, not these variables */
+  --blue: #34BB55;        /* $gr-rainforest - green for status/links */
   --green: #34BB55;       /* $gr-rainforest - POST */
   --orange: #FFB94A;      /* $y-pineapple - PUT (distinct from red) */
   --red: #F95F53;         /* $r-curacao - DELETE */
@@ -87,8 +126,8 @@ rapi-doc {
 [data-theme="dark"] rapi-doc,
 html:has(link[title="dark-theme"]:not([disabled])) rapi-doc-mini,
 html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
-  /* HTTP method colors - darker palette for dark theme */
-  --blue: #066FC5;        /* $b-ocean - GET */
+  /* Use green for links/status text in dark mode */
+  --blue: #009F5F;        /* $gr-viridian - green for status/links */
   --green: #009F5F;       /* $gr-viridian - POST */
   --orange: #FFC800;      /* $y-thunder - PUT (brighter for dark mode) */
   --red: #DC4E58;         /* $r-fire - DELETE */
@@ -98,12 +137,6 @@ html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
 /* Hide tag section on operation pages - only show on tag landing pages */
 rapi-doc::part(section-tag) {
   display: none;
-}
-
-/* Fix parameter table layout - reduce indentation from empty td cells */
-/* Match site's body font size (16px) for consistency */
-rapi-doc {
-  --font-size-regular: 16px;
 }
 
 /* Fix auth schemes at narrow widths - ensure content is scrollable */
