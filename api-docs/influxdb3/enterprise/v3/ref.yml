@@ -37,9 +37,6 @@ servers:
         description: InfluxDB 3 Enterprise URL
 security:
   - BearerAuthentication: []
-  - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 tags:
   - name: Authentication
     description: |
@@ -47,9 +44,9 @@ tags:
       | Authentication scheme | Works with |
       |:----------------------|:-----------|
       | Bearer authentication | All endpoints |
-      | Token authentication  | v1, v2 endpoints |
-      | Basic authentication  | v1 endpoints |
-      | Querystring authentication | v1 endpoints |
+      | Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |
+      | Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |
+      | Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |
       See the **Security Schemes** section below for details on each authentication method.
     x-traitTag: true
   - name: Cache data
@@ -290,6 +287,11 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
         - Write data
       x-influxdata-guides:
@@ -378,6 +380,9 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
       tags:
         - Write data
       x-influxdata-guides:
@@ -787,6 +792,11 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
         - Query data
       x-influxdata-guides:
@@ -899,6 +909,11 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
         - Query data
       x-influxdata-guides:
@@ -1747,8 +1762,10 @@ paths:
                 $ref: '#/components/schemas/AdminTokenObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+        - BearerAuthentication: []
+        - {} # No auth required for initial token creation
       tags:
-        - Authentication
         - Auth token
   /api/v3/configure/token/admin/regenerate:
     post:
