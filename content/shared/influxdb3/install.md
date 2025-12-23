@@ -171,6 +171,7 @@ Use `yum` to install {{< product-name >}} from the InfluxData repository:
 
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+test -d /usr/share/influxdata-archive-keyring/keyrings || sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && sudo cp ./influxdata-archive.key /usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc \
@@ -182,7 +183,7 @@ enabled = 1
 gpgcheck = 1
 gpgkey = file:///usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc
 EOF
-yum install influxdb3-{{< product-key >}}
+sudo yum install influxdb3-{{< product-key >}}
 ```
 
 {{% /expand %}}
