@@ -25,6 +25,33 @@ by a Prometheus server.
 
 [prometheus]: https://prometheus.io
 
+## Use this plugin for Prometheus scraping
+
+When Prometheus scrapes your Telegraf instance, use this plugin.
+It exposes a `/metrics` endpoint that Prometheus can poll directly.
+
+For other Prometheus output scenarios, see the comparison table:
+
+| Use Case | Recommended Approach |
+|----------|---------------------|
+| Prometheus scrapes Telegraf | `prometheus_client` output plugin |
+| Counters and gauges to file/HTTP | [Prometheus serializer](/telegraf/v1/data_formats/output/prometheus/) + `file` or `http` output |
+| Histograms and summaries | `prometheus_client` output plugin |
+| Remote write to Prometheus-compatible endpoint | `http` output + `prometheusremotewrite` serializer |
+
+## Use this plugin for histograms and summaries
+
+Histogram and summary metrics accumulate observations over time.
+The [prometheus serializer](/telegraf/v1/data_formats/output/prometheus/) processes
+each batch independently and cannot maintain this state.
+When metric data spans multiple batches, the serializer produces incomplete output.
+
+This plugin keeps metrics in memory until they expire or are scraped, ensuring
+complete and correct histogram buckets and summary quantiles.
+
+For counters and gauges, you can use either this plugin or the prometheus
+serializer with an output plugin like `file` or `http`.
+
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
 Plugins support additional global and plugin configuration settings for tasks
@@ -107,7 +134,5 @@ to use them.
 
 ## Metrics
 
-Prometheus metrics are produced in the same manner as the [prometheus
-serializer](/telegraf/v1/plugins/#serializer-prometheus).
-
-[prometheus serializer]: /plugins/serializers/prometheus/README.md#Metrics
+Prometheus metrics are produced in the same manner as the
+[prometheus serializer](/telegraf/v1/data_formats/output/prometheus/).
