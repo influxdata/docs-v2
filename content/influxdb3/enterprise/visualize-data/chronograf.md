@@ -1,19 +1,17 @@
 ---
 title: Use Chronograf
-seotitle: Use Chronograf with InfluxDB Cloud Dedicated
+seotitle: Use Chronograf with InfluxDB 3 Enterprise
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
-  Learn how to use Chronograf with InfluxDB Cloud Dedicated.
+  Learn how to use Chronograf with InfluxDB 3 Enterprise.
 menu:
-  influxdb3_cloud_dedicated:
+  influxdb3_enterprise:
     name: Use Chronograf
     parent: Visualize data
 weight: 202
-aliases:
-  - /influxdb3/cloud-dedicated/visualize-data/chronograf/
 related:
   - /chronograf/v1/
-  - /influxdb3/cloud-dedicated/query-data/influxql/
+  - /influxdb3/enterprise/query-data/influxql/
 metadata: [InfluxQL only]
 ---
 
@@ -24,9 +22,7 @@ This page walks through how to use Chronograf with **{{% product-name %}}**.
 ## Prerequisites
 
 - [Download and install Chronograf](/chronograf/v1/introduction/installation/#download-and-install)
-- An {{% product-name %}} cluster with:
-  - A [database](/influxdb3/cloud-dedicated/admin/databases/) to query
-  - A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with read permissions
+- An {{% product-name %}} cluster running and accessible
 
 ## Enable InfluxDB 3 support
 
@@ -54,36 +50,22 @@ chronograf
 
 1. In Chronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
-2. In the **Server Type** dropdown, select **InfluxDB Cloud Dedicated**.
+2. In the **Server Type** dropdown, select **InfluxDB 3 Enterprise**.
 3. Enter your {{% product-name %}} connection credentials:
 
-    - **Connection URL:** {{% product-name omit=" Clustered" %}} cluster URL
+    - **Connection URL:** URL of your {{% product-name %}} cluster
 
       ```
-      https://{{< influxdb/host >}}
+      http://localhost:8181
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-
-    #### Management fields _(optional)_
-
-    To enable database management features, provide the following:
-
-    - **Cluster ID:** Your {{% product-name %}} cluster ID (found in your `influxctl` configuration)
-    - **Account ID:** Your {{% product-name %}} account ID (found in your `influxctl` configuration)
-    - **Management Token:** A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for administrative operations
-
-    #### Database access fields
-
-    - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Database Token:** InfluxDB [database token](/influxdb3/enterprise/admin/tokens/database/)
       with read permissions on the database you want to query
-    - **Default Database:** _(Optional)_ Default [database](/influxdb3/cloud-dedicated/admin/databases/)
+    - **Default Database:** _(Optional)_ Default [database](/influxdb3/enterprise/admin/databases/)
       to use. When set, Chronograf limits queries to this database.
-    - **Tags CSV Directory Path:** _(Optional)_ Path to a directory containing CSV files
-      that predefine tags for the query builder (see [Tags CSV files](#tags-csv-files))
-    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
+    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/enterprise/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
-    - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
 4. Click **Add Connection**.
 5. Select the dashboards you would like to create, and then click **Next**.
@@ -93,51 +75,17 @@ chronograf
 
 ### Configure connection via CLI
 
-You can configure the connection when starting Chronograf.
-
-#### With management features
+You can also configure the connection when starting Chronograf:
 
 ```sh
 chronograf --influxdb-v3-support-enabled \
-  --influxdb-type=influx-v3-cloud-dedicated \
-  --influxdb-url=https://{{< influxdb/host >}} \
-  --influxdb-token=DATABASE_TOKEN \
-  --influxdb-mgmt-token=MANAGEMENT_TOKEN \
-  --influxdb-cluster-id=CLUSTER_ID \
-  --influxdb-account-id=ACCOUNT_ID \
-  --influxdb-default-db=DATABASE_NAME \
-  --tags-csv-path=/path/to/tags
-```
-
-#### Without management features
-
-```sh
-chronograf --influxdb-v3-support-enabled \
-  --influxdb-type=influx-v3-cloud-dedicated \
-  --influxdb-url=https://{{< influxdb/host >}} \
+  --influxdb-type=influx-v3-enterprise \
+  --influxdb-url=http://localhost:8181 \
   --influxdb-token=DATABASE_TOKEN \
   --influxdb-default-db=DATABASE_NAME
 ```
 
 For a complete list of configuration options, see [InfluxDB 3 connection options](/chronograf/v1/administration/config-options/#influxdb-3-connection-options).
-
-### Tags CSV files
-
-For {{% product-name %}}, you can predefine tags for the query builder and control filters using CSV files.
-
-**CSV file requirements:**
-
-- File names must match database names (for example, `mydb.csv` for a database named `mydb`)
-- Use semicolons (`;`) as field delimiters
-- Three fields per line: `measurement;tag-key;tag-value`
-
-**Example CSV content:**
-
-```
-home;room;Living Room
-home;room;cellar
-home;room;attic
-```
 
 ## Query data in the Data Explorer
 
@@ -147,10 +95,9 @@ home;room;attic
 > [!Note]
 > #### Schema information in the Data Explorer
 >
-> When using Tags CSV files, the query builder uses the predefined tags.
-> When a Default Database is set, the `SHOW DATABASES` query result is limited to that database.
->
-> You can also use [fully qualified measurements](/influxdb3/cloud-dedicated/reference/influxql/select/#fully-qualified-measurement)
+> {{% product-name %}} supports InfluxQL metaqueries, so schema information
+> is available in the Data Explorer to help build queries.
+> You can also use [fully qualified measurements](/influxdb3/enterprise/reference/influxql/select/#fully-qualified-measurement)
 > in the `FROM` clause. For example:
 >
 > ```sql
@@ -162,17 +109,17 @@ home;room;attic
 > ```
 >
 > For more information about available InfluxQL functionality, see
-> [InfluxQL feature support](/influxdb3/cloud-dedicated/reference/influxql/feature-support/).
+> [InfluxQL feature support](/influxdb3/enterprise/reference/influxql/feature-support/).
 
 ## Important notes
 
-- [Database view is read-only](#database-view-is-read-only)
+- [Database view is disabled](#database-view-is-disabled)
 - [No administrative functionality](#no-administrative-functionality)
 - [Annotations and variables](#annotations-and-variables)
 
-### Database view is read-only
+### Database view is disabled
 
-When connected to {{% product-name %}}, the database view in Chronograf is read-only.
+When connected to {{% product-name %}}, the database view in Chronograf is disabled.
 
 ### No administrative functionality
 
@@ -187,8 +134,8 @@ For example, you **cannot** do the following:
 When connected to an {{% product-name %}} database, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
-To complete [administrative tasks](/influxdb3/cloud-dedicated/admin/), use the
-[influxctl CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/).
+To complete administrative tasks, use the
+[`influxdb3` CLI](/influxdb3/enterprise/reference/cli/influxdb3/).
 
 ### Annotations and variables
 
