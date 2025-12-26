@@ -1,23 +1,22 @@
 ---
-title: Use placeholder values in configurations
-seotitle: Use placeholder values in Telegraf configurations with Telegraf Controller
+title: Use dynamic values in configurations
+seotitle: Use dynamic values in Telegraf configurations with Telegraf Controller
 description: >
-  Use parameters, environment variables, and secrets as placeholder values in
-  your Telegraf configurations.
+  Use parameters, environment variables, and secrets to dynamically set values
+  in your Telegraf configurations.
 menu:
   telegraf_controller:
-    name: Use placeholder values
+    name: Use dynamic config values
     parent: Manage configurations
 weight: 103
 ---
 
-Use placeholder values to reuse a single configuration for multiple distinct
-agents or across environments.
-Placeholders let you separate specific values from the core plugin configuration.
+Use dynamic values in your Telegraf configurations and reuse a single
+configuration for multiple distinct agents or across environments.
 
-Telegraf Controller supports the following placeholder types:
+Telegraf Controller supports the following dynamic value types:
 
-- **Parameters** for values you want to set or override per agent or configuration.
+- **Parameters** for values you want to set or override per agent.
 - **Environment variables** for values provided by the running Telegraf agent.
 - **Secrets** for sensitive values stored in an external secret store.
 

@@ -18,6 +18,8 @@ exporting the TOML.
 
 ## Apply a configuration to an agent
 
+### Retrieve the configuration from the API
+
 1. Open **Configurations** and select the configuration you want to use.
 2. Copy the configuration URL from the details view.
 3. On the agent host, start Telegraf with the configuration URL.
@@ -25,11 +27,32 @@ exporting the TOML.
 <!--pytest.mark.skip-->
 ```bash
 telegraf \
-  --config "https://telegraf-controller.mydomain.com/api/configs/abc123/"
+  --config "https://telegraf-controller.mydomain.com/api/configs/abc123/toml"
 ```
 
 4. Verify the agent starts and sends metrics as expected.
 5. Check agent logs for configuration or plugin errors.
+
+
+- Auto-update with `--config-url-refresh-interval 1m` flag
+
+  ```
+  --config-url-refresh-interval 1m
+  ```
+
+### Download the configuration
+
+- Provide parameter values
+- Download the config to the local machine
+
+#### Options 
+
+- From the UI
+- From the API
+
+#### Cons of using downloaded configs
+
+- No auto-update when the configuration is updated in {{% product-name %}}
 
 ## Use placeholder values
 
@@ -37,8 +60,3 @@ If your configuration uses parameters, environment variables, or secrets,
 define them before you start the agent.
 See [Use placeholder values in configurations](/telegraf/controller/configs/placeholder-values/)
 for details.
-
-## Export a configuration
-
-If you need a local copy, export the configuration TOML and store it with your
-agent configuration files.
