@@ -259,29 +259,6 @@ For detailed configuration information, see [`meta.ensure-fips`](/enterprise_inf
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
-#### raft-portal-auth-required {metadata="v1.12.0+"}
-
-Default is `false`.
-
-Require Raft clients to authenticate with server using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
-This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
-are configured with the correct `meta-internal-shared-secret`.
-
-Environment variable: `INFLUXDB_META_RAFT_PORTAL_AUTH_REQUIRED`
-
-#### raft-dialer-auth-required {metadata="v1.12.0+"}
-
-Default is `false`.
-
-Require Raft servers to authenticate Raft clients using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
-This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
-`raft-portal-auth-required=true`, and are configured with the correct
-`meta-internal-shared-secret`.
-
-Environment variable: `INFLUXDB_META_RAFT_DIALER_AUTH_REQUIRED`
-
 -----
 
 ## Data settings
