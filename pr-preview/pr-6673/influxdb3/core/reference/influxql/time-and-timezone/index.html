@@ -2669,20 +2669,20 @@ You can review the following ways to work with time and timestamps in your Influ
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1136189045</span><span class="n">s</span><span class="w">               </span><span class="c1">-- Unix epoch time</span></span></span></code></pre></div>
 <ul>
 <li><strong>RFC3339 date-time string</strong>:
-<a href="/influxdb/version/reference/influxql/#strings">String literal</a> using
+<a href="/influxdb3/version/reference/influxql/#strings">String literal</a> using
 the RFC3339 timestamp format, <code>YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ</code>.</li>
 <li><strong>RFC3339-like date-time string</strong>:
-<a href="/influxdb/version/reference/influxql/#strings">String literal</a> using
+<a href="/influxdb3/version/reference/influxql/#strings">String literal</a> using
 the RFC3339-like timestamp format, <code>YYYY-MM-DD HH:MM:SS.nnnnnnnnn</code>.</li>
 <li><strong>Unix nanosecond epoch time</strong>:
-<a href="/influxdb/version/reference/influxql/#integers">Integer</a> that
+<a href="/influxdb3/version/reference/influxql/#integers">Integer</a> that
 represents the number of nanoseconds elapsed since the
-<a href="/influxdb/version/reference/glossary/#unix-epoch">Unix epoch</a>.</li>
+<a href="/influxdb3/version/reference/glossary/#unix-epoch">Unix epoch</a>.</li>
 <li><strong>Unix epoch time</strong>:
-<a href="/influxdb/version/reference/influxql/#durations">Duration literal</a>
+<a href="/influxdb3/version/reference/influxql/#durations">Duration literal</a>
 that represents the number of specified time units elapsed since the
-<a href="/influxdb/version/reference/glossary/#unix-epoch">Unix epoch</a>.
-<em><a href="/influxdb/version/reference/influxql/#durations">View supported duration units</a></em>.</li>
+<a href="/influxdb3/version/reference/glossary/#unix-epoch">Unix epoch</a>.
+<em><a href="/influxdb3/version/reference/influxql/#durations">View supported duration units</a></em>.</li>
 </ul>
 <h5 id="supported-timestamp-values">Supported timestamp values</h5>
 <table>
@@ -2708,7 +2708,7 @@ that represents the number of specified time units elapsed since the
 </table>
 <h3 id="add-and-subtract-time-values">Add and subtract time values</h3>
 <p>Timestamp values support addition and subtraction operations with
-<a href="/influxdb/version/reference/influxql/#durations">duration literals</a>.
+<a href="/influxdb3/version/reference/influxql/#durations">duration literals</a>.
 Add (<code>+</code>) or subtract (<code>-</code>) a duration to or from a timestamp to return an
 updated timestamp.</p>
 
@@ -2724,7 +2724,7 @@ updated timestamp.</p>
 </div>
 <h2 id="query-time-range">Query time range</h2>
 <p>To specify the time range of a query, use conditional expressions in the
-<a href="/influxdb/version/reference/influxql/where/"><code>WHERE</code> clause</a> that
+<a href="/influxdb3/version/reference/influxql/where/"><code>WHERE</code> clause</a> that
 compare the value of the <code>time</code> column to an absolute timestamp or a relative
 timestamp.</p>
 <ul>
@@ -2807,7 +2807,7 @@ does not support using the <code>OR</code> logical operator to query multiple ti
 </div>
 <h2 id="query-examples">Query examples</h2>
 <p>The following examples use the
-<a href="/influxdb/version/reference/sample-data/#home-sensor-data">Home sensor sample dataset</a>.</p>
+<a href="/influxdb3/version/reference/sample-data/#home-sensor-data">Home sensor sample dataset</a>.</p>
 <div class="expand-wrapper">
   
 
@@ -3225,7 +3225,7 @@ Uses time zone names defined in the
   <div class="expand-content" style="display: none;" >
       <div class="custom-timestamps">
   <p>The following example uses the
-<a href="/influxdb/version/reference/sample-data/#home-sensor-data">Home sensor sample dataset</a>.</p>
+<a href="/influxdb3/version/reference/sample-data/#home-sensor-data">Home sensor sample dataset</a>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">home</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w">
@@ -3317,12 +3317,12 @@ a <code>GROUP BY time()</code> clause use the <a href="#supported-timestamp-valu
 as the default time range.
 If the query includes a <code>GROUP BY time()</code> clause, the default time range is
 between <code>1677-09-21T00:12:43.145224193Z</code> and
-<a href="/influxdb/version/reference/influxql/functions/date-time/#now"><code>now()</code></a>.</p>
+<a href="/influxdb3/version/reference/influxql/functions/date-time/#now"><code>now()</code></a>.</p>
 <p>To query data with timestamps that occur in the future (after <code>now()</code>),
 provide an explicit upper bound in the <code>WHERE</code> clause.</p>
 <h3 id="cannot-use-parameters-for-durations">Cannot use parameters for durations</h3>
 <p>Currently, InfluxDB doesn&rsquo;t support using parameters for durations in
-<a href="/influxdb/version/query-data/influxql/parameterized-queries/">parameterized queries</a>.</p>
+<a href="/influxdb3/version/query-data/influxql/parameterized-queries/">parameterized queries</a>.</p>
 
 
 
