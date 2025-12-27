@@ -22,6 +22,9 @@ In InfluxDB 3, a parameterized query is an InfluxQL or SQL query that contains o
   - [Not compatible with parameters](#not-compatible-with-parameters)
 - [Parameterize an SQL query](#parameterize-an-sql-query)
 - [Execute parameterized SQL queries](#execute-parameterized-sql-queries)
+{{% show-in "core,enterprise" %}}
+  - [Use the HTTP API](#use-the-http-api)
+{{% /show-in %}}
   - [Use InfluxDB Flight RPC clients](#use-influxdb-flight-rpc-clients)
 - [Client support for parameterized queries](#client-support-for-parameterized-queries)
 - [Not supported](#not-supported)
@@ -182,11 +185,64 @@ AND room = 'Kitchen'
 
 > [!Note]
 > #### Sample data
-> 
+>
 > The following examples use the {{< influxdb3/home-sample-link >}}.
 > To run the example queries and return results,
 > [write the sample data](/influxdb3/version/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 > to your {{% product-name %}} database before running the example queries.
+
+{{% show-in "core,enterprise" %}}
+
+### Use the HTTP API
+
+{{% product-name %}} provides the `/api/v3/query_sql` HTTP API endpoint for executing SQL queries with parameters.
+
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+
+Send a JSON object that contains `db` (database), `q` (query), and `params` (parameter name-value pairs) properties in the request body.
+
+The following example sends a parameterized SQL query to the `/api/v3/query_sql` endpoint:
+
+{{% influxdb/custom-timestamps %}}
+
+```bash {placeholders="DATABASE_NAME|AUTH_TOKEN"}
+curl "http://localhost:8181/api/v3/query_sql" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "q": "SELECT * FROM home WHERE time >= $min_time AND temp >= $min_temp AND room = $room",
+    "params": {
+      "min_time": "2022-01-01T08:00:00Z",
+      "min_temp": 22.0,
+      "room": "Kitchen"
+    }
+  }'
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to query
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with permission to query the specified database{{% /show-in %}}
+
+{{% /influxdb/custom-timestamps %}}
+
+The response body contains query results in JSON format:
+
+{{% influxdb/custom-timestamps %}}
+
+```json
+[
+  {"co":0,"hum":36.2,"room":"Kitchen","temp":23.0,"time":"2022-01-01T09:00:00"},
+  {"co":0,"hum":36.1,"room":"Kitchen","temp":22.7,"time":"2022-01-01T10:00:00"},
+  {"co":0,"hum":36.0,"room":"Kitchen","temp":22.4,"time":"2022-01-01T11:00:00"},
+  {"co":0,"hum":36.0,"room":"Kitchen","temp":22.5,"time":"2022-01-01T12:00:00"}
+]
+```
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /show-in %}}
 
 ### Use InfluxDB Flight RPC clients
 
