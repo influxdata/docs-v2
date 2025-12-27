@@ -11,8 +11,10 @@
 {{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
 {{- $isInfluxDB3 := eq $product "influxdb3" -}}
 {{- if $cli }}
-  {{- if eq $version "cloud" -}}
-    {{- .Store.Set "patchVersion" (index $cliVersions $latestVersion) -}}
+  {{- /* For CLI versions, use influxdb's latest version as the lookup key for cloud products */ -}}
+  {{- $influxdbLatest := replaceRE `\..*$` "" (index .Site.Data.products.influxdb "latest") -}}
+  {{- if or (eq $version "cloud") (eq $version "cloud-serverless") -}}
+    {{- .Store.Set "patchVersion" (index $cliVersions $influxdbLatest) -}}
   {{- else -}}
     {{- .Store.Set "patchVersion" (index $cliVersions $version) -}}
   {{- end -}}
