@@ -142,7 +142,7 @@ tags:
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers
