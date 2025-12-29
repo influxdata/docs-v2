@@ -38,8 +38,8 @@ articles:
           tags:
             - Auth token
       tagDescription: Manage tokens for authentication and authorization
-      source: static/openapi/influxdb3-core/tags/tags/ref-auth-token.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-auth-token.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-auth-token.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-auth-token.yaml
   - path: api/authentication
     fields:
       name: Authentication
@@ -116,8 +116,9 @@ articles:
 
         See the **Security Schemes** section below for details on each
         authentication method.
-      source: static/openapi/influxdb3-core/tags/tags/ref-authentication.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-authentication.yaml
+      source: >-
+        static/openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml
   - path: api/cache-data
     fields:
       name: Cache data
@@ -279,8 +280,8 @@ articles:
         Cache](/influxdb3/core/admin/distinct-value-cache/)
 
         - [Manage the Last Value Cache](/influxdb3/core/admin/last-value-cache/)
-      source: static/openapi/influxdb3-core/tags/tags/ref-cache-data.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-cache-data.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-cache-data.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-cache-data.yaml
   - path: api/database
     fields:
       name: Database
@@ -318,8 +319,8 @@ articles:
           tags:
             - Database
       tagDescription: Manage databases
-      source: static/openapi/influxdb3-core/tags/tags/ref-database.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-database.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-database.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-database.yaml
   - path: api/headers-and-parameters
     fields:
       name: Headers and parameters
@@ -373,8 +374,8 @@ articles:
         | `Accept`                 | string                | The content type
         that the client can understand. |
 
-        | `Authorization`          | string                | The authorization
-        scheme and credential. |
+        | `Authorization`          | string                | The [authorization
+        scheme and credential](/influxdb3/core/api/authentication/). |
 
         | `Content-Length`         | integer               | The size of the
         entity-body, in bytes. |
@@ -433,16 +434,18 @@ articles:
         | `Accept`                 | string                | The content type
         that the client can understand. |
 
-        | `Authorization`          | string                | The authorization
-        scheme and credential. |
+        | `Authorization`          | string                | The [authorization
+        scheme and credential](/influxdb3/core/api/authentication/). |
 
         | `Content-Length`         | integer               | The size of the
         entity-body, in bytes. |
 
         | `Content-Type`           | string                | The format of the
         data in the request body. |
-      source: static/openapi/influxdb3-core/tags/tags/ref-headers-and-parameters.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-headers-and-parameters.yaml
+      source: >-
+        static/openapi/influxdb3-core/tags/tags/influxdb3-core-headers-and-parameters.yaml
+      staticFilePath: >-
+        /openapi/influxdb3-core/tags/tags/influxdb3-core-headers-and-parameters.yaml
   - path: api/migrate-from-influxdb-v1-or-v2
     fields:
       name: Migrate from InfluxDB v1 or v2
@@ -515,9 +518,9 @@ articles:
         API](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/) -
         InfluxQL queries via HTTP
       source: >-
-        static/openapi/influxdb3-core/tags/tags/ref-migrate-from-influxdb-v1-or-v2.yaml
+        static/openapi/influxdb3-core/tags/tags/influxdb3-core-migrate-from-influxdb-v1-or-v2.yaml
       staticFilePath: >-
-        /openapi/influxdb3-core/tags/tags/ref-migrate-from-influxdb-v1-or-v2.yaml
+        /openapi/influxdb3-core/tags/tags/influxdb3-core-migrate-from-influxdb-v1-or-v2.yaml
   - path: api/processing-engine
     fields:
       name: Processing engine
@@ -639,8 +642,9 @@ articles:
 
         To get started with the processing engine, see the [Processing engine
         and Python plugins](/influxdb3/core/processing-engine/) guide.
-      source: static/openapi/influxdb3-core/tags/tags/ref-processing-engine.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-processing-engine.yaml
+      source: >-
+        static/openapi/influxdb3-core/tags/tags/influxdb3-core-processing-engine.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-processing-engine.yaml
   - path: api/query-data
     fields:
       name: Query data
@@ -701,8 +705,8 @@ articles:
       tagDescription: Query data using SQL or InfluxQL
       related:
         - /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
-      source: static/openapi/influxdb3-core/tags/tags/ref-query-data.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-query-data.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml
   - path: api/quick-start
     fields:
       name: Quick start
@@ -800,8 +804,8 @@ articles:
           
         For more information about using InfluxDB 3 Core, see the [Get
         started](/influxdb3/core/get-started/) guide.
-      source: static/openapi/influxdb3-core/tags/tags/ref-quick-start.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-quick-start.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml
   - path: api/server-information
     fields:
       name: Server information
@@ -842,8 +846,9 @@ articles:
           tags:
             - Server information
       tagDescription: Retrieve server metrics, status, and version information
-      source: static/openapi/influxdb3-core/tags/tags/ref-server-information.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-server-information.yaml
+      source: >-
+        static/openapi/influxdb3-core/tags/tags/influxdb3-core-server-information.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-server-information.yaml
   - path: api/table
     fields:
       name: Table
@@ -868,8 +873,8 @@ articles:
           tags:
             - Table
       tagDescription: Manage table schemas and data
-      source: static/openapi/influxdb3-core/tags/tags/ref-table.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-table.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-table.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-table.yaml
   - path: api/write-data
     fields:
       name: Write data
@@ -984,5 +989,5 @@ articles:
         All timestamps are stored internally as nanoseconds.
       related:
         - /influxdb3/core/write-data/http-api/compatibility-apis/
-      source: static/openapi/influxdb3-core/tags/tags/ref-write-data.yaml
-      staticFilePath: /openapi/influxdb3-core/tags/tags/ref-write-data.yaml
+      source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml
+      staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml

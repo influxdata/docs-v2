@@ -72,6 +72,9 @@ type ProductConfigMap = Record<string, ProductConfig>;
 const DOCS_ROOT = '.';
 const API_DOCS_ROOT = 'api-docs';
 
+// CLI flags
+const validateLinks = process.argv.includes('--validate-links');
+
 /**
  * Execute a shell command and handle errors
  *
@@ -712,6 +715,141 @@ const productConfigs: ProductConfigMap = {
   },
 };
 
+/** Fields that can contain markdown with links */
+const MARKDOWN_FIELDS = new Set(['description', 'summary']);
+
+/** Link placeholder pattern */
+const LINK_PATTERN = /\/influxdb\/version\//g;
+
+/**
+ * Derive documentation root from spec file path.
+ *
+ * @example
+ * 'api-docs/influxdb3/core/v3/ref.yml' → '/influxdb3/core'
+ * 'api-docs/influxdb3/enterprise/v3/ref.yml' → '/influxdb3/enterprise'
+ * 'api-docs/influxdb/v2/ref.yml' → '/influxdb/v2'
+ */
+function deriveProductPath(specPath: string): string {
+  // Match: api-docs/(influxdb3|influxdb)/(product-or-version)/...
+  const match = specPath.match(/api-docs\/(influxdb3?)\/([\w-]+)\//);
+  if (!match) {
+    throw new Error(`Cannot derive product path from: ${specPath}`);
+  }
+  return `/${match[1]}/${match[2]}`;
+}
+
+/**
+ * Transform documentation links in OpenAPI spec markdown fields.
+ * Replaces `/influxdb/version/` with the actual product path.
+ *
+ * @param spec - Parsed OpenAPI spec object
+ * @param productPath - Target path (e.g., '/influxdb3/core')
+ * @returns Spec with transformed links (new object, original unchanged)
+ */
+function transformDocLinks(
+  spec: Record<string, unknown>,
+  productPath: string
+): Record<string, unknown> {
+  function transformValue(value: unknown): unknown {
+    if (typeof value === 'string') {
+      return value.replace(LINK_PATTERN, `${productPath}/`);
+    }
+    if (Array.isArray(value)) {
+      return value.map(transformValue);
+    }
+    if (value !== null && typeof value === 'object') {
+      return transformObject(value as Record<string, unknown>);
+    }
+    return value;
+  }
+
+  function transformObject(
+    obj: Record<string, unknown>
+  ): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (MARKDOWN_FIELDS.has(key) && typeof value === 'string') {
+        result[key] = value.replace(LINK_PATTERN, `${productPath}/`);
+      } else if (value !== null && typeof value === 'object') {
+        result[key] = transformValue(value);
+      } else {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+
+  return transformObject(spec);
+}
+
+/**
+ * Resolve a URL path to a content file path.
+ *
+ * @example
+ * '/influxdb3/core/api/auth/' → 'content/influxdb3/core/api/auth/_index.md'
+ */
+function resolveContentPath(urlPath: string, contentDir: string): string {
+  const normalized = urlPath.replace(/\/$/, '');
+  const indexPath = path.join(contentDir, normalized, '_index.md');
+  const directPath = path.join(contentDir, normalized + '.md');
+
+  if (fs.existsSync(indexPath)) {
+    return indexPath;
+  }
+  if (fs.existsSync(directPath)) {
+    return directPath;
+  }
+  return indexPath; // Return expected path for error message
+}
+
+/**
+ * Validate that transformed links point to existing content.
+ *
+ * @param spec - Transformed OpenAPI spec
+ * @param contentDir - Path to Hugo content directory
+ * @returns Array of error messages for broken links
+ */
+function validateDocLinks(
+  spec: Record<string, unknown>,
+  contentDir: string
+): string[] {
+  const errors: string[] = [];
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+  function extractLinks(value: unknown, jsonPath: string): void {
+    if (typeof value === 'string') {
+      let match;
+      while ((match = linkPattern.exec(value)) !== null) {
+        const [, linkText, linkUrl] = match;
+        // Only validate internal links (start with /)
+        if (linkUrl.startsWith('/') && !linkUrl.startsWith('//')) {
+          const contentPath = resolveContentPath(linkUrl, contentDir);
+          if (!fs.existsSync(contentPath)) {
+            errors.push(
+              `Broken link at ${jsonPath}: [${linkText}](${linkUrl})`
+            );
+          }
+        }
+      }
+      // Reset regex lastIndex for next string
+      linkPattern.lastIndex = 0;
+    } else if (Array.isArray(value)) {
+      value.forEach((item, index) =>
+        extractLinks(item, `${jsonPath}[${index}]`)
+      );
+    } else if (value !== null && typeof value === 'object') {
+      for (const [key, val] of Object.entries(
+        value as Record<string, unknown>
+      )) {
+        extractLinks(val, `${jsonPath}.${key}`);
+      }
+    }
+  }
+
+  extractLinks(spec, 'spec');
+  return errors;
+}
+
 /**
  * Process a single product: fetch spec, generate data, and create pages
  *
@@ -758,33 +896,52 @@ function processProduct(productKey: string, config: ProductConfig): void {
       fs.mkdirSync(staticPath, { recursive: true });
     }
 
-    // Step 3: Copy the generated OpenAPI spec to static folder (YAML)
+    // Step 3: Load spec, transform documentation links, and write to static folder
     if (fs.existsSync(config.specFile)) {
-      fs.copyFileSync(config.specFile, staticSpecPath);
-      console.log(`✓ Copied spec to ${staticSpecPath}`);
-
-      // Step 4: Generate JSON version of the spec
       try {
         const yaml = require('js-yaml');
         const specContent = fs.readFileSync(config.specFile, 'utf8');
-        const specObject = yaml.load(specContent);
+        const specObject = yaml.load(specContent) as Record<string, unknown>;
+
+        // Transform documentation links (/influxdb/version/ -> actual product path)
+        const productPath = deriveProductPath(config.specFile);
+        const transformedSpec = transformDocLinks(specObject, productPath);
+        console.log(`✓ Transformed documentation links to ${productPath}`);
+
+        // Validate links if enabled
+        if (validateLinks) {
+          const contentDir = path.resolve(__dirname, '../../content');
+          const linkErrors = validateDocLinks(transformedSpec, contentDir);
+          if (linkErrors.length > 0) {
+            console.warn(
+              `\n⚠️  Link validation warnings for ${config.specFile}:`
+            );
+            linkErrors.forEach((err) => console.warn(`   ${err}`));
+          }
+        }
+
+        // Write transformed spec to static folder (YAML)
+        fs.writeFileSync(staticSpecPath, yaml.dump(transformedSpec));
+        console.log(`✓ Wrote transformed spec to ${staticSpecPath}`);
+
+        // Step 4: Generate JSON version of the spec
         fs.writeFileSync(
           staticJsonSpecPath,
-          JSON.stringify(specObject, null, 2)
+          JSON.stringify(transformedSpec, null, 2)
         );
         console.log(`✓ Generated JSON spec at ${staticJsonSpecPath}`);
-      } catch (jsonError) {
-        console.warn(`⚠️  Could not generate JSON spec: ${jsonError}`);
+      } catch (specError) {
+        console.warn(`⚠️  Could not process spec: ${specError}`);
       }
     }
 
-    // Step 5: Generate Hugo data from OpenAPI spec
+    // Step 5: Generate Hugo data from OpenAPI spec (using transformed spec)
     if (config.useTagBasedGeneration) {
       // Tag-based generation: group operations by OpenAPI tag
       const staticTagsPath = path.join(staticPath, `${staticDirName}/tags`);
       console.log(`\n📋 Using tag-based generation for ${productKey}...`);
       openapiPathsToHugo.generateHugoDataByTag({
-        specFile: config.specFile,
+        specFile: staticSpecPath,
         dataOutPath: staticTagsPath,
         articleOutPath: articlesPath,
         includePaths: true, // Also generate path-based files for backwards compatibility
@@ -797,7 +954,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
         `\n📋 Generating path-specific specs in ${staticPathsPath}...`
       );
       const pathSpecFiles = openapiPathsToHugo.generatePathSpecificSpecs(
-        config.specFile,
+        staticSpecPath,
         staticPathsPath
       );
 
@@ -812,7 +969,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
       });
     } else {
       // Path-based generation: group paths by URL prefix (legacy)
-      generateDataFromOpenAPI(config.specFile, staticPathsPath, articlesPath);
+      generateDataFromOpenAPI(staticSpecPath, staticPathsPath, articlesPath);
 
       // Step 6: Generate Hugo content pages from path-based article data
       generatePagesFromArticleData({
@@ -891,4 +1048,10 @@ export {
   processProduct,
   generateDataFromOpenAPI,
   generatePagesFromArticleData,
+  deriveProductPath,
+  transformDocLinks,
+  validateDocLinks,
+  resolveContentPath,
+  MARKDOWN_FIELDS,
+  LINK_PATTERN,
 };

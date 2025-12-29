@@ -48,6 +48,7 @@
    ```
 
 3. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 4. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for an InfluxDB OSS release
@@ -106,8 +107,8 @@
    # Copy the old version directory to a directory for the new version:
    cp -r v2.2 v2.3
    ```
-   
-8. In your editor, update custom content files in NEW_VERSION/content.
+
+8. In your editor, update custom content files in NEW\_VERSION/content.
 
 9. Enter the following commands into your terminal to fetch and process the contracts:
 
@@ -117,6 +118,7 @@
    ```
 
 10. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 11. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for OSS spec changes between releases
@@ -142,6 +144,8 @@ Follow these steps to update OSS API docs between version releases--for example,
    git cherry-pick [COMMIT_SHAs]
    git push -f origin docs-release/influxdb-oss
 
+   ```
+
 4. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
    ```sh
@@ -165,6 +169,7 @@ Follow these steps to update OSS API docs between version releases--for example,
    ```
 
 7. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 8. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Generate InfluxDB API docs
@@ -197,7 +202,7 @@ The script uses `npx` to download and execute the Redocly CLI.
 
    If `npx` returns errors, [download](https://nodejs.org/en/) and run a recent version of the Node.js installer for your OS.
 
-2. To generate API docs for _all_ InfluxDB versions in `./openapi`, enter the following command into your terminal:
+2. To generate API docs for *all* InfluxDB versions in `./openapi`, enter the following command into your terminal:
 
    ```sh
    sh generate-api-docs.sh
@@ -239,9 +244,9 @@ We regenerate API reference docs from `influxdata/openapi`
 
 ### InfluxDB OSS v2 version
 
- Given that
- `influxdata/openapi` **master** may contain OSS spec changes not implemented
- in the current OSS release, we (Docs team) maintain a release branch, `influxdata/openapi`
+Given that
+`influxdata/openapi` **master** may contain OSS spec changes not implemented
+in the current OSS release, we (Docs team) maintain a release branch, `influxdata/openapi`
 **docs-release/influxdb-oss**, used to generate OSS reference docs.
 
 ### How to find the API spec used by an InfluxDB OSS version
@@ -249,7 +254,7 @@ We regenerate API reference docs from `influxdata/openapi`
 `influxdata/openapi` does not version the InfluxData API.
 To find the `influxdata/openapi` commit SHA used in a specific version of InfluxDB OSS,
 see `/scripts/fetch-swagger.sh` in `influxdata/influxdb`--for example,
-for the `influxdata/openapi` commit used in OSS v2.2.0, see https://github.com/influxdata/influxdb/blob/v2.2.0/scripts/fetch-swagger.sh#L13=.
+for the `influxdata/openapi` commit used in OSS v2.2.0, see <https://github.com/influxdata/influxdb/blob/v2.2.0/scripts/fetch-swagger.sh#L13=>.
 For convenience, we tag `influxdata/influxdb` (OSS) release points in `influxdata/openapi` as
 `influxdb-oss-v[OSS_VERSION]`. See <https://github.com/influxdata/openapi/tags>.
 
@@ -281,16 +286,17 @@ To add new YAML files for other nodes in the contracts, follow these steps:
 
 `@redocly/cli` also provides some [built-in decorators](https://redocly.com/docs/cli/decorators/)
 that you can configure in `.redocly` without having to write JavaScript.
+
 ### How to add tag content or describe a group of paths
 
 In API reference docs, we use OpenAPI `tags` elements for navigation,
 the `x-traitTag` vendor extension for providing custom content, and the `x-tagGroups` vendor extension
 for grouping tags in navigation.
 
-| Example                                                                                                | OpenAPI field                                         |                                            |
-|:-------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------------------------------------|
-| [Add supplementary documentation](https://docs.influxdata.com/influxdb/cloud/api/#tag/Quick-start)     | `tags: [ { name: 'Quick start', x-traitTag: true } ]` | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags.yml) |
-| Group tags in navigation                                                                               | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]`   | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-docs/cloud-iox/content/tag-groups.yml)) |
+| Example                                                                                            | OpenAPI field                                                 |                                                                                                                                          |
+| :------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| [Add supplementary documentation](https://docs.influxdata.com/influxdb/cloud/api/#tag/Quick-start) | `tags: [ { name: 'Quick start', x-traitTag: true } ]`         | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags.yml)                                                                |
+| Group tags in navigation                                                                           | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]` | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-docs/cloud-iox/content/tag-groups.yml)) |
 
 #### Add and update x-tagGroups
 
@@ -301,6 +307,47 @@ the decorator applies your list and removes Operations that don't contain
 those tags.
 If you assign an empty array(`[]`) to the `All endpoints` x-tagGroup in `PLATFORM/content/tag-groups.yml`,
 the decorator replaces the empty array with the list of tags from all Operations in the spec.
+
+## Documentation links in OpenAPI specs
+
+Use the `/influxdb/version/` placeholder when including InfluxDB links in OpenAPI spec description and summary fields.
+The build process automatically transforms these placeholders to product-specific paths based on the spec file location.
+
+### Writing links
+
+```yaml
+# In api-docs/influxdb3/core/openapi/ref.yml
+info:
+  description: |
+    See [authentication](/influxdb/version/api/authentication/) for details.
+    Related: [tokens](/influxdb/version/admin/tokens/)
+```
+
+After build, these become:
+
+- `/influxdb3/core/api/authentication/`
+- `/influxdb3/core/admin/tokens/`
+
+### How it works
+
+The product path is derived from the spec file location:
+
+- `api-docs/influxdb3/core/...` → `/influxdb3/core`
+- `api-docs/influxdb3/enterprise/...` → `/influxdb3/enterprise`
+- `api-docs/influxdb/v2/...` → `/influxdb/v2`
+
+Only `description` and `summary` fields are transformed.
+Explicit cross-product links (e.g., `/telegraf/v1/plugins/`) remain unchanged.
+
+### Link validation
+
+Run with the `--validate-links` flag to check for broken links:
+
+```bash
+yarn build:api-docs --validate-links
+```
+
+This validates that transformed links point to existing Hugo content files and warns about any broken links.
 
 ## How to test your spec or API reference changes
 
