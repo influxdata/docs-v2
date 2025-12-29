@@ -48,7 +48,8 @@
       margin: 0;
 
       code {
-        background: $g3-castle;
+        background: $article-code-bg;
+        color: $article-code;
         padding: 0.2em 0.5em;
         border-radius: 3px;
         font-size: 0.9em;
@@ -78,10 +79,26 @@
 // Positioned above RapiDoc, integrates with "Try it" via JavaScript API.
 ////////////////////////////////////////////////////////////////////////////////
 
+.api-auth-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .api-auth-trigger-wrapper {
   position: relative;
   display: inline-block;
-  margin-bottom: 1rem;
+}
+
+.api-auth-schemes {
+  font-size: 0.85rem;
+  color: $g9-mountain;
+
+  .api-auth-label {
+    font-weight: 400;
+    opacity: 0.8;
+  }
 }
 
 .api-auth-trigger {
@@ -340,6 +357,10 @@
 // Dark theme overrides
 [data-theme="dark"],
 html:has(link[title="dark-theme"]:not([disabled])) {
+  .api-auth-schemes {
+    color: $g15-platinum;
+  }
+
   .api-security-schemes {
     border-top-color: $grey25;
 
@@ -351,10 +372,6 @@ html:has(link[title="dark-theme"]:not([disabled])) {
     .scheme-details {
       dt {
         color: $g15-platinum;
-      }
-
-      dd code {
-        background: $grey20;
       }
     }
 
