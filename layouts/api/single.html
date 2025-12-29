@@ -87,8 +87,10 @@
           {{ end }}
         </section>
 
-        {{/* Security Schemes from OpenAPI spec */}}
+        {{/* Security Schemes from OpenAPI spec (only show if showSecuritySchemes: true) */}}
+        {{ if .Params.showSecuritySchemes }}
         {{ partial "api/security-schemes.html" . }}
+        {{ end }}
         {{ else }}
         {{/* Operation Page - RapiDoc with custom slots */}}
 

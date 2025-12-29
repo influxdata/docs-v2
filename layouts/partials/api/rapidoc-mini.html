@@ -41,25 +41,41 @@
 <link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
 {{ end }}
 
-{{/* Auth credentials popover trigger - positioned above the operation */}}
-<div class="api-auth-trigger-wrapper">
-  <button type="button"
-          class="api-auth-trigger btn btn-sm"
-          data-component="api-auth-input"
-          data-schemes="{{ $authSchemes }}"
-          data-popover="true"
-          aria-expanded="false"
-          aria-haspopup="dialog">
-    <svg class="auth-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-      <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
-    </svg>
-    <span class="auth-trigger-text">Set credentials</span>
-    <span class="auth-status-indicator" hidden aria-label="Credentials configured"></span>
-  </button>
-  {{/* Popover container - positioned by CSS */}}
-  <div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
-    {{/* Content rendered by TypeScript component */}}
+{{/* Auth credentials popover trigger with scheme indicator */}}
+{{/* Map scheme codes to display names */}}
+{{ $schemeNames := dict "bearer" "HTTP Bearer" "token" "API Token" "basic" "HTTP Basic" "querystring" "Query String" }}
+{{ $schemeList := split $authSchemes "," }}
+{{ $displaySchemes := slice }}
+{{ range $schemeList }}
+  {{ $name := index $schemeNames . }}
+  {{ if $name }}
+    {{ $displaySchemes = $displaySchemes | append $name }}
+  {{ end }}
+{{ end }}
+
+<div class="api-auth-row">
+  <div class="api-auth-trigger-wrapper">
+    <button type="button"
+            class="api-auth-trigger btn btn-sm"
+            data-component="api-auth-input"
+            data-schemes="{{ $authSchemes }}"
+            data-popover="true"
+            aria-expanded="false"
+            aria-haspopup="dialog">
+      <svg class="auth-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
+      </svg>
+      <span class="auth-trigger-text">Set credentials</span>
+      <span class="auth-status-indicator" hidden aria-label="Credentials configured"></span>
+    </button>
+    {{/* Popover container - positioned by CSS */}}
+    <div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
+      {{/* Content rendered by TypeScript component */}}
+    </div>
   </div>
+  <span class="api-auth-schemes" title="Supported authentication methods">
+    <span class="api-auth-label">Auth:</span> {{ delimit $displaySchemes " or " }}
+  </span>
 </div>
 
 {{/* Component container - TypeScript handles initialization */}}
@@ -95,7 +111,7 @@
 
 .api-reference-mini {
   width: 100%;
-  margin: 1rem 0;
+  margin: 0;
   position: relative; /* Contains absolutely positioned auth elements */
 }
 

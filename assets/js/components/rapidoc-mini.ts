@@ -294,6 +294,127 @@ function createRapiDocElement(
 }
 
 /**
+ * Inject custom styles into RapiDoc's shadow DOM
+ * Removes the top border and reduces whitespace above operations
+ */
+function injectShadowStyles(element: HTMLElement): void {
+  const tryInject = (): boolean => {
+    const shadowRoot = (element as unknown as { shadowRoot: ShadowRoot | null })
+      .shadowRoot;
+    if (!shadowRoot) return false;
+
+    // Check if styles already injected
+    if (shadowRoot.querySelector('#rapidoc-custom-styles')) return true;
+
+    const style = document.createElement('style');
+    style.id = 'rapidoc-custom-styles';
+    style.textContent = `
+      /* Hide the operation divider line */
+      .divider[part="operation-divider"] {
+        display: none !important;
+      }
+
+      /* Reduce spacing above operation sections */
+      .section-gap {
+        padding-top: 0 !important;
+      }
+
+      /* Hide RapiDoc's built-in security section - we show our own */
+      /* Target the authorization requirements shown near each operation */
+      .api-key,
+      .api-key-info,
+      .security-info-button,
+      [class*="api-key"],
+      [class*="security-info"],
+      .m-markdown-small:has(.lock-icon),
+      div:has(> .lock-icon),
+      /* Target the section showing "AUTHORIZATIONS:" or similar */
+      .req-resp-container > div:first-child:has(svg[style*="lock"]),
+      /* Target lock icons and their parent containers */
+      svg.lock-icon,
+      .lock-icon,
+      /* Wide selectors for security-related elements */
+      [part="section-operation-security"],
+      .expanded-endpoint-body > div:first-child:has([class*="lock"]) {
+        display: none !important;
+      }
+    `;
+    shadowRoot.appendChild(style);
+
+    // Hide security badge elements by examining content
+    const hideSecurityBadge = () => {
+      // Find elements containing security-related text and hide their container
+      const allElements = shadowRoot.querySelectorAll('span, div');
+      allElements.forEach((el) => {
+        const text = el.textContent?.trim();
+        // Find leaf elements that contain authorization-related text
+        if (
+          el.children.length === 0 &&
+          (text === 'HTTP Bearer' ||
+            text === 'Bearer' ||
+            text === 'AUTHORIZATIONS:' ||
+            text === 'Authorization' ||
+            text === 'api_token' ||
+            text === 'BearerAuthentication')
+        ) {
+          // Walk up the DOM to find a suitable container to hide
+          // This hides both the text AND any sibling icons (like lock)
+          let target: HTMLElement = el as HTMLElement;
+          let parent: HTMLElement | null = el.parentElement;
+          let depth = 0;
+          while (parent && depth < 4) {
+            // Stop at reasonable container boundaries
+            if (
+              parent.classList.contains('expanded-endpoint-body') ||
+              parent.classList.contains('req-resp-container') ||
+              parent.tagName === 'SECTION'
+            ) {
+              break;
+            }
+            target = parent;
+            parent = parent.parentElement;
+            depth++;
+          }
+          target.style.display = 'none';
+        }
+      });
+    };
+
+    // Run immediately and after delays for dynamic content
+    hideSecurityBadge();
+    setTimeout(hideSecurityBadge, 300);
+    setTimeout(hideSecurityBadge, 800);
+
+    // Watch for dynamically added security elements
+    const observer = new MutationObserver(() => {
+      hideSecurityBadge();
+    });
+    observer.observe(shadowRoot, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Disconnect after 5 seconds to avoid performance issues
+    setTimeout(() => observer.disconnect(), 5000);
+
+    return true;
+  };
+
+  // Try immediately
+  if (tryInject()) return;
+
+  // Retry a few times as shadow DOM may not be ready
+  let attempts = 0;
+  const maxAttempts = 10;
+  const interval = setInterval(() => {
+    attempts++;
+    if (tryInject() || attempts >= maxAttempts) {
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+/**
  * Watch for theme changes and update RapiDoc element
  */
 function watchThemeChanges(container: HTMLElement): CleanupFn {
@@ -397,6 +518,9 @@ export default async function RapiDocMini({
     // Create and append RapiDoc Mini element
     const rapiDocElement = createRapiDocElement(specUrl, matchPaths, title);
     component.appendChild(rapiDocElement);
+
+    // Inject custom styles into shadow DOM to remove borders/spacing
+    injectShadowStyles(rapiDocElement);
 
     // Watch for theme changes and return cleanup function
     return watchThemeChanges(component);
