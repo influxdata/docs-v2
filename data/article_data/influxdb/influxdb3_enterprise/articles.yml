@@ -128,6 +128,7 @@ articles:
 
         See the **Security Schemes** section below for details on each
         authentication method.
+      showSecuritySchemes: true
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-authentication.yaml
       staticFilePath: >-

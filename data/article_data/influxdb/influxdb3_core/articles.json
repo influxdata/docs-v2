@@ -102,6 +102,7 @@
           }
         ],
         "tagDescription": "Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:\n\n| Authentication scheme | Works with |\n|:----------------------|:-----------|\n| Bearer authentication | All endpoints |\n| Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |\n| Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |\n| Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |\n\nSee the **Security Schemes** section below for details on each authentication method.\n",
+        "showSecuritySchemes": true,
         "source": "static/openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml"
       }

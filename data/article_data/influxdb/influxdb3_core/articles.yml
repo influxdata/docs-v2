@@ -116,6 +116,7 @@ articles:
 
         See the **Security Schemes** section below for details on each
         authentication method.
+      showSecuritySchemes: true
       source: >-
         static/openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml
       staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-authentication.yaml
