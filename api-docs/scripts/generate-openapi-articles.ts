@@ -367,6 +367,7 @@ function generateTagPagesFromArticleData(
         description?: string;
         tag?: string;
         isConceptual?: boolean;
+        showSecuritySchemes?: boolean;
         tagDescription?: string;
         menuGroup?: string;
         staticFilePath?: string;
@@ -461,6 +462,11 @@ ${yaml.dump(parentFrontmatter)}---
       frontmatter.tagDescription = article.fields.tagDescription;
     }
 
+    // Add showSecuritySchemes flag for authentication pages
+    if (article.fields.showSecuritySchemes) {
+      frontmatter.showSecuritySchemes = true;
+    }
+
     // Note: We deliberately don't add menu entries for tag-based API pages.
     // The API sidebar navigation (api/sidebar-nav.html) handles navigation
     // for API reference pages, avoiding conflicts with existing menu items
@@ -552,6 +558,7 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
         title?: string;
         tag?: string;
         isConceptual?: boolean;
+        showSecuritySchemes?: boolean;
         staticFilePath?: string;
         operations?: OperationMeta[];
         related?: string[];

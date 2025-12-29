@@ -19,6 +19,6 @@ articles:
         - Tables
         - Database tokens
       source: >-
-        static/openapi/influxdb-cloud-dedicated/paths/openapi-accounts-{accountId}-clusters.yaml
+        static/openapi/influxdb-cloud-dedicated/paths/influxdb-cloud-dedicated-accounts-{accountId}-clusters.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-dedicated/paths/openapi-accounts-{accountId}-clusters.yaml
+        /openapi/influxdb-cloud-dedicated/paths/influxdb-cloud-dedicated-accounts-{accountId}-clusters.yaml
