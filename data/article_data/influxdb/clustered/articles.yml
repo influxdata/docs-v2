@@ -12,9 +12,9 @@ articles:
       apiTags:
         - Tables
       source: >-
-        static/openapi/influxdb-clustered/paths/openapi-databases-{databaseName}-tables.yaml
+        static/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml
       staticFilePath: >-
-        /openapi/influxdb-clustered/paths/openapi-databases-{databaseName}-tables.yaml
+        /openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml
   - path: api/databases
     fields:
       name: /databases
@@ -28,8 +28,9 @@ articles:
         - databases
       apiTags:
         - Databases
-      source: static/openapi/influxdb-clustered/paths/openapi-databases.yaml
-      staticFilePath: /openapi/influxdb-clustered/paths/openapi-databases.yaml
+      source: >-
+        static/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml
+      staticFilePath: /openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml
   - path: api/tokens
     fields:
       name: /tokens
@@ -43,5 +44,5 @@ articles:
         - tokens
       apiTags:
         - Database tokens
-      source: static/openapi/influxdb-clustered/paths/openapi-tokens.yaml
-      staticFilePath: /openapi/influxdb-clustered/paths/openapi-tokens.yaml
+      source: static/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml
+      staticFilePath: /openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml

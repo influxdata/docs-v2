@@ -16,8 +16,8 @@
         "apiTags": [
           "Tables"
         ],
-        "source": "static/openapi/influxdb-clustered/paths/openapi-databases-{databaseName}-tables.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/openapi-databases-{databaseName}-tables.yaml"
+        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml"
       }
     },
     {
@@ -37,8 +37,8 @@
         "apiTags": [
           "Databases"
         ],
-        "source": "static/openapi/influxdb-clustered/paths/openapi-databases.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/openapi-databases.yaml"
+        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml"
       }
     },
     {
@@ -58,8 +58,8 @@
         "apiTags": [
           "Database tokens"
         ],
-        "source": "static/openapi/influxdb-clustered/paths/openapi-tokens.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/openapi-tokens.yaml"
+        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml"
       }
     }
   ]
