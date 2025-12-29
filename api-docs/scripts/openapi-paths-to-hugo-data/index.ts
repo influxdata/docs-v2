@@ -269,6 +269,8 @@ interface Article {
     tag?: string;
     /** Whether this is a conceptual tag (x-traitTag) */
     isConceptual?: boolean;
+    /** Whether to show security schemes section */
+    showSecuritySchemes?: boolean;
     /** Tag description from OpenAPI spec */
     tagDescription?: string;
     /** Sidebar navigation group */
@@ -1024,6 +1026,11 @@ function createArticleDataForTag(
   // Add tag description for conceptual pages
   if (tagMeta?.description) {
     article.fields.tagDescription = tagMeta.description;
+  }
+
+  // Show security schemes section on Authentication pages
+  if (tagName === 'Authentication') {
+    article.fields.showSecuritySchemes = true;
   }
 
   // Aggregate unique externalDocs URLs from operations into article-level related
