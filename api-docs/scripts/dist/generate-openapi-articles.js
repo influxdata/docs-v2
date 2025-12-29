@@ -377,6 +377,10 @@ ${yaml.dump(parentFrontmatter)}---
     if (isConceptual && article.fields.tagDescription) {
       frontmatter.tagDescription = article.fields.tagDescription;
     }
+    // Add showSecuritySchemes flag for authentication pages
+    if (article.fields.showSecuritySchemes) {
+      frontmatter.showSecuritySchemes = true;
+    }
     // Note: We deliberately don't add menu entries for tag-based API pages.
     // The API sidebar navigation (api/sidebar-nav.html) handles navigation
     // for API reference pages, avoiding conflicts with existing menu items
