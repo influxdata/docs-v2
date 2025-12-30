@@ -6,7 +6,7 @@ description: >
   in your Telegraf configurations.
 menu:
   telegraf_controller:
-    name: Use dynamic config values
+    name: Use dynamic values
     parent: Manage configurations
 weight: 103
 ---
@@ -44,6 +44,7 @@ Use the following syntax:
 
 ### Use parameters in Telegraf configurations
 
+{{% telegraf/dynamic-values %}}
 ```toml
 [[outputs.influxdb_v2]]
   # Parameter with a default value
@@ -53,6 +54,7 @@ Use the following syntax:
   # Required parameter without a default value
   instance_id = "&{agent_id}"
 ```
+{{% /telegraf/dynamic-values %}}
 
 ### Define parameters
 
@@ -80,7 +82,7 @@ above, Telegraf would load the following TOML configuration:
 ```toml
 [[outputs.influxdb_v2]]
   # Parameter with a default value
-  urls = ["https://mydomain:8181}"]
+  urls = ["https://mydomain:8181"]
 
 [[outputs.heartbeat]]
   # Required parameter without a default value
@@ -95,7 +97,7 @@ Provide a default to keep the configuration portable across environments.
 
 Use the following syntax:
 
-```toml
+```sh
 # Reference an environment variable
 ${VAR_NAME}
 
@@ -108,6 +110,7 @@ For more information about Telegraf environment variable syntax, see
 
 ### Use environment variables in Telegraf configurations
 
+{{% telegraf/dynamic-values %}}
 ```toml
 [[inputs.http]]
   urls = ["${API_ENDPOINT:-http://localhost:8080}/metrics"]
@@ -115,6 +118,7 @@ For more information about Telegraf environment variable syntax, see
   [inputs.http.headers]
     Authorization = "Bearer ${AUTH_TOKEN}"
 ```
+{{% /telegraf/dynamic-values %}}
 
 ### Define environment variables at runtime
 
@@ -134,6 +138,7 @@ telegraf \
 Use secrets for credentials or tokens you do not want to store in plain text.
 Secrets require a secret store and its corresponding `secretstores` plugin.
 
+{{% telegraf/dynamic-values %}}
 ```toml
 # Configure a secret store plugin
 [[secretstores.vault]]
@@ -147,6 +152,7 @@ Secrets require a secret store and its corresponding `secretstores` plugin.
   host = "my_influxdb.com:8181"
   token = "@{my_vault:influx_token}"
 ```
+{{% /telegraf/dynamic-values %}}
 
 For more information about Telegraf secrets and secret stores, see
 [Telegraf configuration options—Secret stores](/telegraf/v1/configuration/#secret-stores).
