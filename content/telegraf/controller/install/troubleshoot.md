@@ -59,7 +59,7 @@ telegraf_controller
 
 ```powershell
 $env:PORT=3000
-$env:HEARTBEAT_PORT=3001 
+$env:HEARTBEAT_PORT=3001
 
 ./telegraf_controller.exe
 ```
@@ -101,8 +101,6 @@ telegraf_controller --port=3000 --heartbeat-port=3001
 <!----------------------------- END COMMAND FLAGS ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
-
-
 
 ## Permission denied (Linux/macOS)
 

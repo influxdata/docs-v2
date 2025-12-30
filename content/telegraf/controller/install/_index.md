@@ -213,7 +213,7 @@ export PATH="/usr/local/bin:$PATH"
 
 ### Windows
 
-You can run the `telegraf_controller` executable in place you can run
+You can run the `telegraf_controller` executable in place or you can run
 {{% product-name %}} as a Windows service.
 
 - [Run the application in place](#run-the-application-in-place)
@@ -261,7 +261,7 @@ service.
 
 ### SQLite {note="(Default)"}
 
-With SQLite is installed, no additional setup required.
+With SQLite installed, no additional setup is required.
 {{% product-name %}} creates the database file automatically on first run.
 
 #### Default SQLite data locations

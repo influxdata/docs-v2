@@ -10,7 +10,7 @@ menu:
 weight: 102
 ---
 
-Unisntall Telegraf Controller and remove all files associated with the
+Uninstall Telegraf Controller and remove all files associated with the
 application. This process depends on your operating system and installation
 method.
 
@@ -56,7 +56,7 @@ To fully uninstall {{% product-name %}} from Linux:
     PostgreSQL instance:
 
     ```sql
-    DROP DATABASE telegraf_controller
+    DROP DATABASE telegraf_controller;
     ```
 
 <!--------------------------- END LINUX --------------------------->
@@ -96,7 +96,7 @@ To fully uninstall {{% product-name %}} from macOS:
     PostgreSQL instance:
 
     ```sql
-    DROP DATABASE telegraf_controller
+    DROP DATABASE telegraf_controller;
     ```
 
 <!--------------------------- END MACOS --------------------------->
@@ -122,7 +122,7 @@ To fully uninstall {{% product-name %}} from Windows:
 2.  **Remove all files associated with {{% product-name %}}**:
 
     ```powershell
-    # Remove the telegraf_controller executable and other related files, 
+    # Remove the telegraf_controller executable and other related files,
     # including the SQLite database if using SQLite
     Remove-Item -Path "$env:LOCALAPPDATA\telegraf_controller" -Recurse
     Remove-Item -Path "C:\Program Files\TelegrafController" -Recurse
@@ -132,7 +132,7 @@ To fully uninstall {{% product-name %}} from Windows:
     PostgreSQL instance:
 
     ```sql
-    DROP DATABASE telegraf_controller
+    DROP DATABASE telegraf_controller;
     ```
 
 <!--------------------------- END WINDOWS --------------------------->
