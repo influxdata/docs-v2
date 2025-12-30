@@ -72,92 +72,61 @@
   }
 }
 
+// Dark theme overrides for security schemes
+[data-theme="dark"],
+html:has(link[title="dark-theme"]:not([disabled])) {
+  .api-security-schemes {
+    border-top-color: $grey25;
+
+    .security-scheme {
+      background: $grey15;
+      border-color: $grey25;
+    }
+
+    .scheme-details {
+      dt {
+        color: $g15-platinum;
+      }
+    }
+
+    .scheme-description {
+      border-top-color: $grey25;
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
-// API Auth Popover - Credential input for operation pages
+// API Auth Modal - Credential input for operation pages
 //
-// Popover-based UI triggered by "Set credentials" button.
-// Positioned above RapiDoc, integrates with "Try it" via JavaScript API.
+// Modal UI triggered by "Set credentials" button in auth info banner.
+// Integrates with RapiDoc "Try it" via JavaScript API.
 ////////////////////////////////////////////////////////////////////////////////
 
-.api-auth-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.api-auth-trigger-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.api-auth-schemes {
-  font-size: 0.85rem;
-  color: $g9-mountain;
-
-  .api-auth-label {
-    font-weight: 400;
-    opacity: 0.8;
-  }
-}
-
-.api-auth-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: $article-text;
-  background: $g20-white;
-  border: 1px solid $g5-pepper;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-
-  &:hover {
-    background: rgba($b-pool, 0.08);
-    border-color: $b-pool;
-  }
-
-  &:focus {
-    outline: 2px solid $b-pool;
-    outline-offset: 2px;
-  }
-
-  &.has-credentials {
-    border-color: $gr-viridian;
-    background: rgba($gr-viridian, 0.08);
-  }
-
-  .auth-icon {
-    color: $g9-mountain;
-  }
-
-  &.has-credentials .auth-icon {
-    color: $gr-viridian;
-  }
-}
-
-.auth-status-indicator {
-  width: 8px;
-  height: 8px;
-  background: $gr-viridian;
-  border-radius: 50%;
-  margin-left: 0.25rem;
-}
-
-.api-auth-popover {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
+// Backdrop overlay
+.api-auth-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1000;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Credentials modal
+.api-auth-popover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
   min-width: 320px;
   max-width: 400px;
   background: $g20-white;
   border: 1px solid $g5-pepper;
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 
   &[hidden] {
     display: none;
@@ -217,10 +186,6 @@
     font-weight: 600;
     font-size: 0.85rem;
     color: $article-text;
-  }
-
-  .auth-label-text {
-    margin-right: 0.25rem;
   }
 
   .auth-label-hint {
@@ -284,25 +249,11 @@
   }
 }
 
-.auth-field-group {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid $g5-pepper;
-
-  .auth-group-label {
-    margin: 0 0 0.75rem 0;
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: $article-text;
-  }
-}
-
 .auth-actions {
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
 
-  // Explicit button styling to avoid link-like appearance
   .auth-apply,
   .auth-clear {
     padding: 0.4rem 0.75rem;
@@ -354,56 +305,9 @@
   }
 }
 
-// Dark theme overrides
+// Dark theme for modal
 [data-theme="dark"],
 html:has(link[title="dark-theme"]:not([disabled])) {
-  .api-auth-schemes {
-    color: $g15-platinum;
-  }
-
-  .api-security-schemes {
-    border-top-color: $grey25;
-
-    .security-scheme {
-      background: $grey15;
-      border-color: $grey25;
-    }
-
-    .scheme-details {
-      dt {
-        color: $g15-platinum;
-      }
-    }
-
-    .scheme-description {
-      border-top-color: $grey25;
-    }
-  }
-
-  .api-auth-trigger {
-    background: $grey15;
-    border-color: $grey25;
-    color: $g20-white;
-
-    &:hover {
-      background: rgba($b-pool, 0.1);
-      border-color: $b-pool;
-    }
-
-    &.has-credentials {
-      border-color: $gr-viridian;
-      background: rgba($gr-viridian, 0.1);
-    }
-
-    .auth-icon {
-      color: $g15-platinum;
-    }
-
-    &.has-credentials .auth-icon {
-      color: $gr-emerald;
-    }
-  }
-
   .api-auth-popover {
     background: $grey15;
     border-color: $grey25;
@@ -459,14 +363,6 @@ html:has(link[title="dark-theme"]:not([disabled])) {
     }
   }
 
-  .auth-field-group {
-    border-top-color: $grey25;
-
-    .auth-group-label {
-      color: $g20-white;
-    }
-  }
-
   .auth-feedback {
     &.auth-feedback--success {
       background: rgba($gr-viridian, 0.15);
@@ -480,19 +376,7 @@ html:has(link[title="dark-theme"]:not([disabled])) {
   }
 
   .auth-actions {
-    .auth-apply {
-      background: $b-pool;
-      color: $g20-white;
-      border-color: $b-pool;
-
-      &:hover {
-        background: lighten($b-pool, 5%);
-        border-color: lighten($b-pool, 5%);
-      }
-    }
-
     .auth-clear {
-      background: transparent;
       color: $g15-platinum;
       border-color: $grey25;
 
