@@ -247,10 +247,7 @@ function createRapiDocElement(
   // For credential input on operation pages, we need a custom
   // component (Task 5).
   //
-  // RECOMMENDATION:
-  // - Keep render-style="read" for compact operation display
-  // - Implement custom auth input component above RapiDoc (Task 5)
-  // - Use sessionStorage to pass credentials to "Try it" feature
+  // Layout and render style for compact operation display
   element.setAttribute('layout', 'column');
   element.setAttribute('render-style', 'read');
   element.setAttribute('show-header', 'false');
@@ -270,10 +267,8 @@ function createRapiDocElement(
   element.setAttribute('use-path-in-nav-bar', 'false');
   element.setAttribute('show-info', 'false');
 
-  // Authentication display - hide RapiDoc's built-in auth section
-  // We use a custom popover component for credential input instead
-  // Credentials are applied via HTML attributes (api-key-name, api-key-value)
-  // and the setApiKey() JavaScript API
+  // Authentication display - disabled because RapiDoc's auth UI doesn't work
+  // with match-paths filtering. We show a separate auth info banner instead.
   element.setAttribute('allow-authentication', 'false');
   element.setAttribute('show-components', 'false');
 
@@ -319,83 +314,62 @@ function injectShadowStyles(element: HTMLElement): void {
         padding-top: 0 !important;
       }
 
-      /* Hide RapiDoc's built-in security section - we show our own */
-      /* Target the authorization requirements shown near each operation */
-      .api-key,
-      .api-key-info,
-      .security-info-button,
-      [class*="api-key"],
-      [class*="security-info"],
-      .m-markdown-small:has(.lock-icon),
-      div:has(> .lock-icon),
-      /* Target the section showing "AUTHORIZATIONS:" or similar */
-      .req-resp-container > div:first-child:has(svg[style*="lock"]),
-      /* Target lock icons and their parent containers */
-      svg.lock-icon,
-      .lock-icon,
-      /* Wide selectors for security-related elements */
-      [part="section-operation-security"],
-      .expanded-endpoint-body > div:first-child:has([class*="lock"]) {
-        display: none !important;
+      /* Fix text cutoff - ensure content flows responsively */
+      .req-res-title,
+      .resp-head,
+      .api-request,
+      .api-response,
+      .param-name,
+      .param-type,
+      .descr {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      /* Allow wrapping in tables and flex containers */
+      table {
+        table-layout: auto !important;
+        width: 100% !important;
+      }
+
+      td, th {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal !important;
+      }
+
+      /* Prevent horizontal overflow */
+      .section-gap,
+      .expanded-req-resp-container {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      /* Fix Copy button overlapping code content in Try It section */
+      /* The Copy button is absolutely positioned, so add padding to prevent overlap */
+      .curl-request pre,
+      .curl-request code,
+      .request-body-container pre,
+      .response-panel pre {
+        padding-right: 4.5rem !important; /* Space for Copy button */
+      }
+
+      /* Ensure Copy button stays visible and accessible */
+      .copy-btn,
+      button[title="Copy"] {
+        z-index: 1;
+        background: rgba(0, 163, 255, 0.9) !important;
+        border-radius: 4px;
+      }
+
+      /* Make code blocks wrap long URLs instead of requiring horizontal scroll */
+      .curl-request code,
+      .request-body-container code {
+        white-space: pre-wrap !important;
+        word-break: break-all;
       }
     `;
     shadowRoot.appendChild(style);
-
-    // Hide security badge elements by examining content
-    const hideSecurityBadge = () => {
-      // Find elements containing security-related text and hide their container
-      const allElements = shadowRoot.querySelectorAll('span, div');
-      allElements.forEach((el) => {
-        const text = el.textContent?.trim();
-        // Find leaf elements that contain authorization-related text
-        if (
-          el.children.length === 0 &&
-          (text === 'HTTP Bearer' ||
-            text === 'Bearer' ||
-            text === 'AUTHORIZATIONS:' ||
-            text === 'Authorization' ||
-            text === 'api_token' ||
-            text === 'BearerAuthentication')
-        ) {
-          // Walk up the DOM to find a suitable container to hide
-          // This hides both the text AND any sibling icons (like lock)
-          let target: HTMLElement = el as HTMLElement;
-          let parent: HTMLElement | null = el.parentElement;
-          let depth = 0;
-          while (parent && depth < 4) {
-            // Stop at reasonable container boundaries
-            if (
-              parent.classList.contains('expanded-endpoint-body') ||
-              parent.classList.contains('req-resp-container') ||
-              parent.tagName === 'SECTION'
-            ) {
-              break;
-            }
-            target = parent;
-            parent = parent.parentElement;
-            depth++;
-          }
-          target.style.display = 'none';
-        }
-      });
-    };
-
-    // Run immediately and after delays for dynamic content
-    hideSecurityBadge();
-    setTimeout(hideSecurityBadge, 300);
-    setTimeout(hideSecurityBadge, 800);
-
-    // Watch for dynamically added security elements
-    const observer = new MutationObserver(() => {
-      hideSecurityBadge();
-    });
-    observer.observe(shadowRoot, {
-      childList: true,
-      subtree: true,
-    });
-
-    // Disconnect after 5 seconds to avoid performance issues
-    setTimeout(() => observer.disconnect(), 5000);
 
     return true;
   };

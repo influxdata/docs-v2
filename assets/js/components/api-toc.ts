@@ -38,16 +38,6 @@ interface OperationMeta {
 }
 
 /**
- * Check if the active panel contains a RapiDoc component
- */
-function isRapiDocActive(): boolean {
-  const activePanel = document.querySelector(
-    '.tab-content:not([style*="display: none"]), [data-tab-panel]:not([style*="display: none"])'
-  );
-  return activePanel?.querySelector('rapi-doc') !== null;
-}
-
-/**
  * Get headings from the currently visible content
  */
 function getVisibleHeadings(): TocEntry[] {
@@ -90,11 +80,8 @@ function getVisibleHeadings(): TocEntry[] {
  */
 function buildTocHtml(entries: TocEntry[]): string {
   if (entries.length === 0) {
-    // Check if RapiDoc is active - show helpful message
-    if (isRapiDocActive()) {
-      return '<p class="api-toc-empty">Use RapiDoc\'s navigation below to explore this endpoint.</p>';
-    }
-    return '<p class="api-toc-empty">No sections on this page.</p>';
+    // Return empty string - the TOC container can be hidden via CSS when empty
+    return '';
   }
 
   let html = '<ul class="api-toc-list">';
@@ -405,8 +392,14 @@ export default function ApiToc({ component }: ComponentOptions): void {
       nav.innerHTML = buildTocHtml(entries);
     }
 
-    // Set up scroll highlighting
-    observer = setupScrollHighlighting(component, entries);
+    // Hide TOC if no entries, show if entries exist
+    if (entries.length === 0) {
+      component.classList.add('is-hidden');
+    } else {
+      component.classList.remove('is-hidden');
+      // Set up scroll highlighting only when we have entries
+      observer = setupScrollHighlighting(component, entries);
+    }
   }
 
   // Check initial visibility (hide for Operations tab, only for non-operations pages)

@@ -458,38 +458,6 @@ paths:
           description: Request entity too large.
         '422':
           description: Unprocessable entity.
-      x-codeSamples:
-        - label: cURL - Basic write
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2 1638360000000000000"
-        - label: cURL - Write with millisecond precision
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ms" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2 1638360000000"
-        - label: cURL - Asynchronous write with partial acceptance
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&accept_partial=true&no_sync=true&precision=auto" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2
-            memory,host=server01 used=4096"
-        - label: cURL - Multiple measurements with tags
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ns" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
-            memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
-            disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
       tags:
         - Write data
   /api/v3/query_sql:
@@ -2019,16 +1987,23 @@ components:
         text/plain:
           schema:
             type: string
+            description: |
+              Line protocol data. Each line represents a point with a measurement name,
+              optional tag set, field set, and optional timestamp.
+
+              Format: `<measurement>[,<tag_key>=<tag_value>...] <field_key>=<field_value>[,<field_key>=<field_value>...] [<timestamp>]`
           examples:
-            line:
-              summary: Example line protocol
-              value: measurement,tag=value field=1 1234567890
-            multiline:
-              summary: Example line protocol with UTF-8 characters
+            single-point:
+              summary: Write a single point
+              description: Write one point with tags and fields to a table.
+              value: cpu,host=server01 usage=85.2,load=0.75 1638360000000000000
+            multiple-tables:
+              summary: Write to multiple tables
+              description: Write points to different tables (measurements) in a single request.
               value: |
-                measurement,tag=value field=1 1234567890
-                measurement,tag=value field=2 1234567900
-                measurement,tag=value field=3 1234568000
+                cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
+                memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
+                disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000
     queryRequestBody:
       required: true
       content:

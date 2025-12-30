@@ -41,41 +41,21 @@
 <link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
 {{ end }}
 
-{{/* Auth credentials popover trigger with scheme indicator */}}
-{{/* Map scheme codes to display names */}}
-{{ $schemeNames := dict "bearer" "HTTP Bearer" "token" "API Token" "basic" "HTTP Basic" "querystring" "Query String" }}
-{{ $schemeList := split $authSchemes "," }}
-{{ $displaySchemes := slice }}
-{{ range $schemeList }}
-  {{ $name := index $schemeNames . }}
-  {{ if $name }}
-    {{ $displaySchemes = $displaySchemes | append $name }}
-  {{ end }}
-{{ end }}
+{{/* Auth credentials modal */}}
+<div class="api-auth-backdrop" hidden></div>
+<div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
+  {{/* Content rendered by TypeScript component */}}
+</div>
 
-<div class="api-auth-row">
-  <div class="api-auth-trigger-wrapper">
-    <button type="button"
-            class="api-auth-trigger btn btn-sm"
-            data-component="api-auth-input"
-            data-schemes="{{ $authSchemes }}"
-            data-popover="true"
-            aria-expanded="false"
-            aria-haspopup="dialog">
-      <svg class="auth-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-        <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
-      </svg>
-      <span class="auth-trigger-text">Set credentials</span>
-      <span class="auth-status-indicator" hidden aria-label="Credentials configured"></span>
-    </button>
-    {{/* Popover container - positioned by CSS */}}
-    <div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
-      {{/* Content rendered by TypeScript component */}}
-    </div>
-  </div>
-  <span class="api-auth-schemes" title="Supported authentication methods">
-    <span class="api-auth-label">Auth:</span> {{ delimit $displaySchemes " or " }}
-  </span>
+{{/* Authentication info banner with trigger for credentials modal */}}
+<div class="api-auth-info"
+     data-component="api-auth-input"
+     data-schemes="{{ $authSchemes }}">
+  <svg class="api-auth-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+  </svg>
+  <span class="api-auth-status">This endpoint requires authentication.</span>
+  <button type="button" class="api-auth-trigger">Set credentials</button>
 </div>
 
 {{/* Component container - TypeScript handles initialization */}}
@@ -155,15 +135,57 @@ rapi-doc::part(section-tag) {
   display: none;
 }
 
-/* Fix auth schemes at narrow widths - ensure content is scrollable */
-@media (max-width: 1280px) {
-  .api-reference-mini {
-    overflow-x: auto;
-  }
+/* Responsive layout - allow content to flow naturally */
+.api-reference-mini {
+  overflow-x: auto;
+  max-width: 100%;
+}
 
-  rapi-doc-mini, rapi-doc {
-    min-width: 800px; /* Prevent auth elements from collapsing/overlapping */
-  }
+/* Authentication info banner */
+.api-auth-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: #F0F4FF;
+  border: 1px solid rgba(0, 163, 255, 0.3);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #545667;
+}
+
+.api-auth-info .api-auth-icon {
+  flex-shrink: 0;
+  color: #00A3FF;
+}
+
+.api-auth-info .api-auth-status {
+  flex: 1;
+}
+
+.api-auth-info .api-auth-trigger {
+  background: none;
+  border: 1px solid #00A3FF;
+  color: #00A3FF;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.api-auth-info .api-auth-trigger:hover {
+  background: #00A3FF;
+  color: #fff;
+}
+
+/* Dark mode */
+[data-theme="dark"] .api-auth-info,
+html:has(link[title="dark-theme"]:not([disabled])) .api-auth-info {
+  background: #1a1a2e;
+  border-color: rgba(0, 163, 255, 0.2);
+  color: #D4D7DD;
 }
 
 

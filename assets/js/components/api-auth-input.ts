@@ -31,32 +31,43 @@ interface AuthCredentials {
 
 type CleanupFn = () => void;
 
-// In-memory credential storage (not persisted)
-let currentCredentials: AuthCredentials = {};
+// sessionStorage key for credentials
+// Persists across page navigations, cleared when tab closes
+const CREDENTIALS_KEY = 'influxdata-api-credentials';
 
 /**
- * Get current credentials (in-memory only)
+ * Get credentials from sessionStorage
  */
 function getCredentials(): AuthCredentials {
-  return currentCredentials;
+  try {
+    const stored = sessionStorage.getItem(CREDENTIALS_KEY);
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
 }
 
 /**
- * Set credentials (in-memory only, not persisted)
+ * Set credentials in sessionStorage
  */
 function setCredentials(credentials: AuthCredentials): void {
-  currentCredentials = credentials;
+  try {
+    if (Object.keys(credentials).length === 0) {
+      sessionStorage.removeItem(CREDENTIALS_KEY);
+    } else {
+      sessionStorage.setItem(CREDENTIALS_KEY, JSON.stringify(credentials));
+    }
+  } catch (e) {
+    console.warn('[API Auth] Failed to store credentials:', e);
+  }
 }
 
 /**
  * Check if any credentials are set
  */
 function hasCredentials(): boolean {
-  return !!(
-    currentCredentials.bearer ||
-    currentCredentials.basic?.password ||
-    currentCredentials.querystring
-  );
+  const creds = getCredentials();
+  return !!(creds.bearer || creds.basic?.password || creds.querystring);
 }
 
 /**
@@ -115,23 +126,15 @@ function applyCredentialsToRapiDoc(
     }
   }
 
-  // Apply bearer/token credentials
+  // Apply bearer/token credentials using setApiKey() only
+  // Using both HTML attributes AND setApiKey() causes "2 API keys applied"
   if (credentials.bearer) {
     try {
-      // Method 1: HTML attributes (most reliable)
-      rapiDoc.setAttribute('api-key-name', 'Authorization');
-      rapiDoc.setAttribute('api-key-location', 'header');
-      rapiDoc.setAttribute('api-key-value', `Bearer ${credentials.bearer}`);
-      console.log('[API Auth] Set auth via HTML attributes');
-
-      // Method 2: JavaScript API for scheme-specific auth
       if ('setApiKey' in rapiDoc) {
         (rapiDoc as any).setApiKey('BearerAuthentication', credentials.bearer);
-        (rapiDoc as any).setApiKey('TokenAuthentication', credentials.bearer);
-        console.log('[API Auth] Applied bearer/token via setApiKey()');
+        console.log('[API Auth] Applied bearer via setApiKey()');
+        applied = true;
       }
-
-      applied = true;
       updateRapiDocAuthInput(rapiDoc, credentials.bearer, 'bearer');
     } catch (e) {
       console.error('[API Auth] Failed to set API key:', e);
@@ -336,19 +339,30 @@ function updateStatusIndicator(trigger: HTMLElement): void {
 export default function ApiAuthInput({
   component,
 }: ComponentOptions): CleanupFn | void {
-  // Component is the trigger button
-  const trigger = component;
-  const popoverEl = trigger.nextElementSibling as HTMLElement | null;
+  // Component is the banner container, find the trigger button inside it
+  const triggerEl =
+    component.querySelector<HTMLButtonElement>('.api-auth-trigger');
+  const statusEl = component.querySelector<HTMLElement>('.api-auth-status');
 
-  if (!popoverEl || !popoverEl.classList.contains('api-auth-popover')) {
+  if (!triggerEl) {
+    console.error('[API Auth] Trigger button not found in banner');
+    return;
+  }
+
+  // Find the popover element (it's a sibling before the banner)
+  const popoverEl = document.querySelector<HTMLElement>('.api-auth-popover');
+
+  if (!popoverEl) {
     console.error('[API Auth] Popover container not found');
     return;
   }
 
-  // Now TypeScript knows popover is not null
+  // Reassign to new consts so TypeScript knows they're not null in closures
+  const trigger = triggerEl;
   const popover = popoverEl;
 
-  const schemesAttr = trigger.dataset.schemes || 'bearer';
+  // Get schemes from the component (banner) dataset
+  const schemesAttr = component.dataset.schemes || 'bearer';
   const schemes = schemesAttr.split(',').map((s) => s.trim().toLowerCase());
 
   // Render popover content
@@ -367,12 +381,35 @@ export default function ApiAuthInput({
   const clearBtn = popover.querySelector<HTMLButtonElement>('.auth-clear');
   const closeBtn = popover.querySelector<HTMLButtonElement>('.popover-close');
 
+  // Backdrop element for modal overlay
+  const backdrop = document.querySelector<HTMLElement>('.api-auth-backdrop');
+
+  // Restore saved credentials from sessionStorage
+  const savedCredentials = getCredentials();
+  if (savedCredentials.bearer && bearerInput) {
+    bearerInput.value = savedCredentials.bearer;
+  }
+  if (savedCredentials.basic) {
+    if (usernameInput) usernameInput.value = savedCredentials.basic.username;
+    if (passwordInput) passwordInput.value = savedCredentials.basic.password;
+  }
+  if (savedCredentials.querystring && querystringInput) {
+    querystringInput.value = savedCredentials.querystring;
+  }
+
+  // Update status indicator based on saved credentials
+  if (hasCredentials() && statusEl) {
+    statusEl.textContent = 'Credentials set for this session.';
+    trigger.textContent = 'Update credentials';
+  }
+
   /**
    * Toggle popover visibility
    */
   function togglePopover(show?: boolean): void {
     const shouldShow = show ?? popover.hidden;
     popover.hidden = !shouldShow;
+    if (backdrop) backdrop.hidden = !shouldShow;
     trigger.setAttribute('aria-expanded', String(shouldShow));
 
     if (shouldShow) {
@@ -400,6 +437,9 @@ export default function ApiAuthInput({
 
   // Close button
   closeBtn?.addEventListener('click', closePopover);
+
+  // Close on backdrop click
+  backdrop?.addEventListener('click', closePopover);
 
   // Close on outside click
   function handleOutsideClick(e: MouseEvent): void {
@@ -462,17 +502,23 @@ export default function ApiAuthInput({
     setCredentials(newCredentials);
     updateStatusIndicator(trigger);
 
+    // Update status text and button
+    if (hasCredentials()) {
+      if (statusEl) statusEl.textContent = 'Credentials set for this session.';
+      trigger.textContent = 'Update credentials';
+    }
+
     // Apply to RapiDoc
     const rapiDoc = document.querySelector('rapi-doc') as HTMLElement | null;
     if (rapiDoc && 'setApiKey' in rapiDoc) {
       const applied = applyCredentialsToRapiDoc(rapiDoc, newCredentials);
       if (applied) {
-        showFeedback(popover, 'Credentials applied', 'success');
+        showFeedback(popover, 'Credentials saved for this session', 'success');
       } else {
         showFeedback(popover, 'No credentials to apply', 'error');
       }
     } else {
-      showFeedback(popover, 'Saved (API viewer loading...)', 'success');
+      showFeedback(popover, 'Credentials saved for this session', 'success');
     }
   }
 
@@ -489,19 +535,18 @@ export default function ApiAuthInput({
     setCredentials({});
     updateStatusIndicator(trigger);
 
-    // Clear from RapiDoc
-    const rapiDoc = document.querySelector('rapi-doc') as HTMLElement | null;
-    if (rapiDoc) {
-      rapiDoc.removeAttribute('api-key-name');
-      rapiDoc.removeAttribute('api-key-location');
-      rapiDoc.removeAttribute('api-key-value');
+    // Reset status text and button
+    if (statusEl)
+      statusEl.textContent = 'This endpoint requires authentication.';
+    trigger.textContent = 'Set credentials';
 
-      if ('removeAllSecurityKeys' in rapiDoc) {
-        try {
-          (rapiDoc as any).removeAllSecurityKeys();
-        } catch (e) {
-          console.debug('[API Auth] Failed to clear RapiDoc credentials:', e);
-        }
+    // Clear from RapiDoc using removeAllSecurityKeys()
+    const rapiDoc = document.querySelector('rapi-doc') as HTMLElement | null;
+    if (rapiDoc && 'removeAllSecurityKeys' in rapiDoc) {
+      try {
+        (rapiDoc as any).removeAllSecurityKeys();
+      } catch (e) {
+        console.debug('[API Auth] Failed to clear RapiDoc credentials:', e);
       }
     }
 
