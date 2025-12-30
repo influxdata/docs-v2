@@ -1,0 +1,1810 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Install Telegraf Controller | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Download and install Telegraf Controller on Linux, macOS, and Windows operating systems.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-6676/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6676/docs-v2/pr-preview/pr-6676/telegraf/controller/install/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6676/light-theme.0ee6e89c96ebbb491ded0eec61724e2beb4485fd76b35112317ccdc209e47c92.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6676/dark-theme.6e90f5cb5ebf09a08796a8e428dd0eeb0d462c2486144c05fb7ff5972e996942.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6676/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-6676/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-6676/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2025-12-30 08:51:35 -0700 -0700">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    <div class="selector-dropdowns">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' class="active">Telegraf Controller <span class="state">alpha</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+    <div class="buttons">
+      <div class="search-btn" data-component="search-button">
+        <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+      </div>
+      <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+      <span data-component="theme-switch">
+        <button class="theme-switch theme-switch-light">
+          <span class="cf-icon Lightmode_New"></span></button>
+        <button class="theme-switch theme-switch-dark">
+          <span class="cf-icon Darkmode_New"></span></button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search Telegraf'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/'>Telegraf Controller</a>
+      
+    </li>
+  
+    <li class="nav-category active">
+      <a href="#" class="children-toggle open"></a>
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/install/'>Install Telegraf Controller</a>
+      
+        <ul class="children open">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/install/troubleshoot/'>Troubleshoot installation</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/install/uninstall/'>Uninstall</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/agents/'>Manage agents</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/agents/create/'>Create agents</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/agents/reporting-rules/'>Define reporting rules</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/agents/status/'>Set agent statuses</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6676/telegraf/controller/agents/delete/'>Delete agents</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Install Telegraf Controller</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="2"
+  data-estimated-tokens="1000"
+  data-section-download-url="/docs-v2/pr-preview/pr-6676/telegraf/controller/install/-download.zip">
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy section for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy section for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>Telegraf Controller is a web-based configuration management system for Telegraf
+agents. It provides a user-friendly interface for managing Telegraf
+configurations, monitoring agents, and organizing plugins.</p>
+<ul>
+<li><a href="#system-requirements">System Requirements</a></li>
+<li><a href="#download-and-install-telegraf-controller">Download and install Telegraf Controller</a></li>
+<li><a href="#set-up-your-database">Set up your database</a></li>
+<li><a href="#configure-telegraf-controller">Configure Telegraf Controller</a></li>
+<li><a href="#access-telegraf-controller">Access Telegraf Controller</a></li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2>
+<ul>
+<li><strong>Operating Systems</strong>: Linux, macOS, Windows</li>
+<li><strong>Architecture</strong>: x64 (Intel/AMD) or ARM64 (Apple Silicon/ARM)</li>
+<li><strong>Database</strong>: SQLite (default), PostgreSQL, or PostgreSQL-compatible</li>
+<li><strong>Ports</strong>: 8888 (web interface), 8000 (heartbeat service)</li>
+</ul>
+<h2 id="download-and-install-telegraf-controller">Download and install Telegraf Controller</h2>
+<ol>
+<li>
+<p><strong>Download the Telegraf Controller executable.</strong></p>
+
+<div class="block note">
+  
+  
+  <h4 id="contact-influxdata-for-download">Contact InfluxData for download</h4>
+<p>If you are currently participating in the Telegraf Controller private alpha,
+send your operating system and architecture to InfluxData and we will
+provide you with the appropriate Telegraf Controller executable.</p>
+<p>If you are not currently in the private alpha and would like to be,
+<a href="https://www.influxdata.com/products/telegraf-enterprise">request early access</a>.</p>
+</div>
+</li>
+<li>
+<p><strong>Install Telegraf Controller</strong>.</p>
+
+<div class="block important">
+  
+  
+  <h4 id="telegraf-controller-executable-name">Telegraf Controller executable name</h4>
+<p>The downloaded Telegraf Controller executable includes platform-specific
+information in the file name. You can leave the information in the file
+name or you can rename the file to <code>telegraf_controller</code>. This
+documentation assumes the executable is named <code>telegraf_controller</code>.</p>
+</div>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">Linux</a>
+<a href="#">macOS</a>
+<a href="#">Windows</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!-------------------------------- BEGIN LINUX -------------------------------->
+<h3 id="linux">Linux</h3>
+<p>You can add the <code>telegraf_controller</code> executable to your system path or you can
+run it in place. You can also run Telegraf Controller as a service.</p>
+<ul>
+<li><a href="#add-the-executable-to-your-system-path">Add the executable to your system path</a></li>
+<li><a href="#run-the-executable-in-place">Run the executable in place</a></li>
+<li><a href="#install-the-executable-as-a-systemd-service">Install the executable as a systemd service</a></li>
+</ul>
+<h4 id="add-the-executable-to-your-system-path">Add the executable to your system path</h4>
+<ol>
+<li>
+<p>Add the following to your shell profile (for example <code>~/.bashrc</code>):</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$PATH</span><span class="s2">:</span><span class="nv">$PWD</span><span class="s2">/telegraf_controller&#34;</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Reload the profile or open a new shell.</p>
+</li>
+</ol>
+<h4 id="run-the-executable-in-place">Run the executable in place</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./telegraf_controller</span></span></code></pre></div>
+<h4 note="Optional" id="install-the-executable-as-a-systemd-service">Install the executable as a systemd service</h4>
+<ol>
+<li>
+<p>Create a Telegraf Controller service file:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tee /etc/systemd/system/telegraf-controller.service &gt; /dev/null <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">[Unit]
+</span></span></span><span class="line"><span class="cl"><span class="s">Description=Telegraf Controller
+</span></span></span><span class="line"><span class="cl"><span class="s">After=network.target
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s">Type=simple
+</span></span></span><span class="line"><span class="cl"><span class="s">User=$USER
+</span></span></span><span class="line"><span class="cl"><span class="s">WorkingDirectory=/opt/telegraf-controller
+</span></span></span><span class="line"><span class="cl"><span class="s">ExecStart=/opt/telegraf-controller/telegraf_controller
+</span></span></span><span class="line"><span class="cl"><span class="s">Restart=on-failure
+</span></span></span><span class="line"><span class="cl"><span class="s">RestartSec=10
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s">WantedBy=multi-user.target
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Move the executable to <code>/opt</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /opt/telegraf-controller
+</span></span><span class="line"><span class="cl">sudo mv telegraf_controller /opt/telegraf-controller/
+</span></span><span class="line"><span class="cl">sudo chmod +x /opt/telegraf-controller/telegraf_controller</span></span></code></pre></div>
+</li>
+<li>
+<p>Enable and start the service:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> telegraf-controller
+</span></span><span class="line"><span class="cl">sudo systemctl start telegraf-controller</span></span></code></pre></div>
+</li>
+</ol>
+<!--------------------------------- END LINUX --------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!-------------------------------- BEGIN MACOS -------------------------------->
+<h3 id="macos">macOS</h3>
+<p>You can add the <code>telegraf_controller</code> executable to your system path or you can
+run it in place. You can also run Telegraf Controller as a LaunchDaemon service.</p>
+<ul>
+<li><a href="#prepare-the-downloaded-executable">Prepare the downloaded executable</a></li>
+<li><a href="#macos-system-path">Add the executable to your system path</a></li>
+<li><a href="#macos-executable-in-place">Run the executable in place</a></li>
+<li><a href="#install-as-a-launchdaemon">Install as a LaunchDaemon</a></li>
+</ul>
+<h4 id="prepare-the-downloaded-executable">Prepare the downloaded executable</h4>
+<ol>
+<li>
+<p>Give <code>telegraf_controller</code> executable permissions:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x telegraf_controller</span></span></code></pre></div>
+</li>
+<li>
+<p>Remove the macOS quarantine attribute (if downloaded via browser):</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">xattr -d com.apple.quarantine telegraf_controller</span></span></code></pre></div>
+</li>
+</ol>
+<h4 id="macos-system-path">Add the executable to your system path</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv telegraf_controller /usr/local/bin/
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span></span></span></code></pre></div>
+<h4 id="macos-executable-in-place">Run the executable in place</h4>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./telegraf_controller</span></span></code></pre></div>
+<h4 note="Optional" id="install-as-a-launchdaemon">Install as a LaunchDaemon</h4>
+<ol>
+<li>
+<p>Create a plist file:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tee /Library/LaunchDaemons/com.influxdata.telegraf-controller.plist &gt; /dev/null <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;!DOCTYPE plist PUBLIC &#34;-//Apple//DTD PLIST 1.0//EN&#34; &#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;plist version=&#34;1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;dict&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;Label&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;string&gt;com.influxdata.telegraf-controller&lt;/string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;ProgramArguments&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;array&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">        &lt;string&gt;/usr/local/bin/telegraf_controller&lt;/string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;/array&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;RunAtLoad&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;true/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;KeepAlive&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;true/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;StandardOutPath&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;string&gt;/var/log/telegraf-controller.log&lt;/string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">    &lt;string&gt;/var/log/telegraf-controller.error.log&lt;/string&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/dict&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&lt;/plist&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Move the executable to <code>/usr/local/bin</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mv telegraf_controller /usr/local/bin/</span></span></code></pre></div>
+</li>
+<li>
+<p>Load the service:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo launchctl load /Library/LaunchDaemons/com.influxdata.telegraf-controller.plist</span></span></code></pre></div>
+</li>
+</ol>
+<!--------------------------------- END MACOS --------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------------- BEGIN WINDOWS ------------------------------->
+<h3 id="windows">Windows</h3>
+<p>You can run the <code>telegraf_controller</code> executable in place you can run
+Telegraf Controller as a Windows service.</p>
+<ul>
+<li><a href="#run-the-application-in-place">Run the application in place</a></li>
+<li><a href="#install-as-a-windows-service">Install as a Windows Service</a></li>
+</ul>
+<h4 id="run-the-application-in-place">Run the application in place</h4>
+<p><strong>Double-click the executable</strong> or open <strong>Command Prompt or PowerShell</strong> and
+run:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="n">exe</span></span></span></code></pre></div>
+<h4 note="optional" id="install-as-a-windows-service">Install as a Windows Service</h4>
+<p>Use NSSM (Non-Sucking Service Manager) to run Telegraf Controller as a Windows
+service.</p>
+<ol>
+<li>
+<p><a href="https://nssm.cc/download">Download NSSM</a></p>
+</li>
+<li>
+<p>In <strong>Command Prompt or PowerShell</strong>, install the Telegraf Controller service:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">nssm</span> <span class="n">install</span> <span class="n">TelegrafController</span> <span class="s2">&#34;C:\Program Files\TelegrafController\telegraf_controller.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">TelegrafController</span> <span class="n">DisplayName</span> <span class="s2">&#34;Telegraf Controller&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">TelegrafController</span> <span class="n">Description</span> <span class="s2">&#34;Web-based Telegraf configuration manager&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">TelegrafController</span> <span class="nb">Start </span><span class="n">SERVICE_AUTO_START</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Start the service:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">start </span><span class="n">TelegrafController</span></span></span></code></pre></div>
+</li>
+</ol>
+<!-------------------------------- END WINDOWS -------------------------------->
+
+</section>
+
+
+</div>
+
+</li>
+</ol>
+<h2 id="set-up-your-database">Set up your database</h2>
+<p>Telegraf Controller supports <strong>SQLite</strong> (default), <strong>PostgreSQL</strong>, or
+<strong>PostgreSQL-compatible</strong> databases as its data backend.</p>
+<h3 note="(Default)" id="sqlite">SQLite</h3>
+<p>With SQLite is installed, no additional setup required.
+Telegraf Controller creates the database file automatically on first run.</p>
+<h4 id="default-sqlite-data-locations">Default SQLite data locations</h4>
+<p>Telegraf Controller stores its data in platform-specific locations:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Platform</th>
+          <th>Default Database Location</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Linux</td>
+          <td><code>~/.local/share/telegraf-controller/sqlite.db</code></td>
+      </tr>
+      <tr>
+          <td>macOS</td>
+          <td><code>~/Library/Application Support/telegraf-controller/sqlite.db</code></td>
+      </tr>
+      <tr>
+          <td>Windows</td>
+          <td><code>%LOCALAPPDATA%\telegraf-controller\sqlite.db</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="postgresql">PostgreSQL</h3>
+<p>The following steps assume you have a running PostgreSQL or
+PostgreSQL-compatible server running.</p>
+<ol>
+<li>
+<p>Create a database named <code>telegraf_controller</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">telegraf_controller</span><span class="p">;</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Run with PostgreSQL URL:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./telegraf_controller --database<span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_controller&#34;</span></span></span></code></pre></div>
+</li>
+</ol>
+<p>The application will automatically run migrations on first startup.</p>
+<h2 id="configure-telegraf-controller">Configure Telegraf Controller</h2>
+<p>Use the following command line options to configure Telegraf Controller.</p>
+<h3 id="configuration-options">Configuration options</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Command Flag</th>
+          <th style="text-align: left">Environment Variable</th>
+          <th style="text-align: left">Description</th>
+          <th style="text-align: left">Default</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">&ndash;port</td>
+          <td style="text-align: left">PORT</td>
+          <td style="text-align: left">Web interface and API port</td>
+          <td style="text-align: left"><code>8888</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">&ndash;heartbeat-port</td>
+          <td style="text-align: left">HEARTBEAT_PORT</td>
+          <td style="text-align: left">Agent heartbeat service port</td>
+          <td style="text-align: left"><code>8000</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">&ndash;database</td>
+          <td style="text-align: left">DATABASE</td>
+          <td style="text-align: left">Database connection string</td>
+          <td style="text-align: left">Auto-detected SQLite</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">&ndash;ssl-cert</td>
+          <td style="text-align: left">SSL_CERT</td>
+          <td style="text-align: left">SSL certificate file path</td>
+          <td style="text-align: left">None</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">&ndash;ssl-key</td>
+          <td style="text-align: left">SSL_KEY</td>
+          <td style="text-align: left">SSL private key file path</td>
+          <td style="text-align: left">None</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="examples">Examples</h4>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs medium">
+  <p><a href="#">Use Command Flags</a>
+<a href="#">Use Environment Variables</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!---------------------------- BEGIN COMMAND FLAGS ---------------------------->
+<div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">Linux/macOS</a>
+<a href="#">Windows (Powershell)</a></p>
+</div>
+<section class="code-tab-content">
+  <!------------------ BEGIN LINUX/MACOS COMMAND FLAGS ------------------>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Use custom ports</span>
+</span></span><span class="line"><span class="cl">telegraf_controller --port<span class="o">=</span><span class="m">3000</span> --heartbeat-port<span class="o">=</span><span class="m">9000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use PostgreSQL database</span>
+</span></span><span class="line"><span class="cl">telegraf_controller <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --database<span class="o">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_db&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use custom SQLite database location</span>
+</span></span><span class="line"><span class="cl">telegraf_controller <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --database<span class="o">=</span><span class="s2">&#34;/path/to/custom/database.db&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Enable HTTPS</span>
+</span></span><span class="line"><span class="cl">telegraf_controller <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --ssl-cert<span class="o">=</span><span class="s2">&#34;/path/to/cert.pem&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --ssl-key<span class="o">=</span><span class="s2">&#34;/path/to/key.pem&#34;</span></span></span></code></pre></div>
+<!------------------- END LINUX/MACOS COMMAND FLAGS ------------------->
+</section>
+<section class="code-tab-content">
+  <!-------------------- BEGIN WINDOWS COMMAND FLAGS -------------------->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Use custom ports</span>
+</span></span><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="py">exe</span> <span class="p">-</span><span class="n">-port</span><span class="p">=</span><span class="mf">3000</span> <span class="p">-</span><span class="n">-heartbeat-port</span><span class="p">=</span><span class="mf">9000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Use PostgreSQL database</span>
+</span></span><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="py">exe</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="p">-</span><span class="n">-database</span><span class="p">=</span><span class="s2">&#34;postgresql://user:password@localhost:5432/telegraf_db&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Use custom SQLite database location</span>
+</span></span><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="py">exe</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="p">-</span><span class="n">-database</span><span class="p">=</span><span class="s2">&#34;C:\path\to\custom\database.db&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Enable HTTPS</span>
+</span></span><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="py">exe</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="p">-</span><span class="n">-ssl-cert</span><span class="p">=</span><span class="s2">&#34;C:\path\to\cert.pem&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="p">-</span><span class="n">-ssl-key</span><span class="p">=</span><span class="s2">&#34;C:\path\to\key.pem&#34;</span></span></span></code></pre></div>
+<!--------------------- END WINDOWS COMMAND FLAGS --------------------->
+</section>
+</div>
+<!----------------------------- END COMMAND FLAGS ----------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------ BEGIN ENVIRONMENT VARIABLES ------------------------>
+<div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">Linux/macOS</a>
+<a href="#">Windows (Powershell)</a></p>
+</div>
+<section class="code-tab-content">
+  <!-------------- BEGIN LINUX/MACOS ENVIRONMENT VARIABLES -------------->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Use custom ports</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PORT</span><span class="o">=</span><span class="m">3000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HEARTBEAT_PORT</span><span class="o">=</span><span class="m">9000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use PostgreSQL database</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DATABASE</span><span class="o">=</span>postgresql://user:password@localhost:5432/telegraf_db
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use custom SQLite database location</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DATABASE</span><span class="o">=</span>/path/to/custom/database.db
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Enable HTTPS</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SSL_CERT</span><span class="o">=</span>/path/to/cert.pem
+</span></span><span class="line"><span class="cl"><span class="nv">SSL_KEY</span><span class="o">=</span>/path/to/key.pem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">telegraf_controller</span></span></code></pre></div>
+<!--------------- END LINUX/MACOS ENVIRONMENT VARIABLES --------------->
+</section>
+<section class="code-tab-content">
+  <!---------------- BEGIN WINDOWS ENVIRONMENT VARIABLES ---------------->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Use custom ports</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:PORT</span><span class="p">=</span><span class="mf">3000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:HEARTBEAT_PORT</span><span class="p">=</span><span class="mf">9000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Use PostgreSQL database</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:DATABASE</span><span class="p">=</span><span class="n">postgresql</span><span class="err">:</span><span class="p">//</span><span class="n">user</span><span class="err">:</span><span class="n">password</span><span class="nv">@localhost</span><span class="err">:</span><span class="mf">5432</span><span class="p">/</span><span class="n">telegraf_db</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Use custom SQLite database location</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:DATABASE</span><span class="p">=</span><span class="n">C:</span><span class="p">\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">custom</span><span class="p">\</span><span class="n">database</span><span class="p">.</span><span class="py">db</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Enable HTTPS</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:SSL_CERT</span><span class="p">=</span><span class="n">C:</span><span class="p">\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">cert</span><span class="p">.</span><span class="py">pem</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$env:SSL_KEY</span><span class="p">=</span><span class="n">C:</span><span class="p">\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">key</span><span class="p">.</span><span class="py">pem</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">./</span><span class="n">telegraf_controller</span><span class="p">.</span><span class="n">exe</span></span></span></code></pre></div>
+<!----------------- END WINDOWS ENVIRONMENT VARIABLES ----------------->
+</section>
+</div>
+<!------------------------- END ENVIRONMENT VARIABLES ------------------------->
+
+</section>
+
+
+</div>
+
+<h2 id="access-telegraf-controller">Access Telegraf Controller</h2>
+<p>Once started, access the Telegraf Controller web interface at
+<a href="http://localhost:8888">http://localhost:8888</a> <em>(or using your custom port)</em>.</p>
+
+
+
+    
+
+    
+    
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/telegraf/controller/install/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6676/telegraf/controller/install/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2025 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Select your <strong>InfluxDB Cloud region and cluster</strong> or your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll customize code examples for you. <em><a href="/influxdb/cloud/reference/regions/#regions-with-multiple-clusters">Identify your InfluxDB Cloud cluster</a></em>.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud regions</a> or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>New in InfluxDB 3.8</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
+1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
+operational maturity and making InfluxDB easier to deploy, manage, and run
+reliably in production.</p>
+<p>For more information, check out:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
+<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>February 3, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
