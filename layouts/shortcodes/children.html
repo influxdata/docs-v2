@@ -42,14 +42,17 @@
 				{{ end }}
 			{{ end }}
 			{{ if .Params.list_code_example }}
-				{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-				{{- $currentVersion := index $productPathData 1 -}}
+				{{- $productPathData := findRE "[^/]+.*?" $.Page.RelPermalink -}}
+				{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
+				{{- $pathOffset := $.Site.Params.prPreviewPathOffset | default 0 -}}
+				{{- $currentVersion := index $productPathData (add $pathOffset 1) -}}
 				{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
 				{{- $productKey := cond $isOSS "oss" $currentVersion -}}
 				{{- $productAliases := dict "oss" "influxdb" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
 				{{- $productRef := index $productAliases $productKey -}}
-				{{- $productData := index .Site.Data.products $productRef -}}
-				{{- $placeholderHost := $productData.placeholder_host }}
+				{{- $productData := dict -}}
+				{{- with $productRef }}{{- $productData = index $.Site.Data.products . | default dict -}}{{- end -}}
+				{{- $placeholderHost := $productData.placeholder_host | default "localhost:8086" }}
 				{{ .Params.list_code_example | replaceRE `\{\{[<\%] influxdb/host [>%]\}\}` $placeholderHost | .RenderString }}
 			{{ end }}
 

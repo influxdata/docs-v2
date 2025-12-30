@@ -79,12 +79,12 @@ brew list | grep influxdb-cli
 
 1. **Download the `influx` CLI package.**
 
-   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
 
    <!--test:previous
    ```sh
-   curl -s -o ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
-   https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz
+   curl -s -o ~/Downloads/influxdb2-client-2.7.5-darwin-amd64.tar.gz \
+   https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-darwin-amd64.tar.gz
    ```
    -->
 
@@ -99,7 +99,7 @@ brew list | grep influxdb-cli
      <!--pytest-codeblocks:cont-->
      ```sh
      # Unpackage contents to the current working directory
-     tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz
+     tar zxvf ~/Downloads/influxdb2-client-2.7.5-darwin-amd64.tar.gz
      ```
 
 3. **(Optional) Place the binary in your `$PATH`.**
@@ -107,7 +107,7 @@ brew list | grep influxdb-cli
    <!--pytest.mark.skip-->
    ```sh
    # (Optional) Copy the influx binary to your $PATH
-   sudo cp ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
+   sudo cp ~/Downloads/influxdb2-client-2.7.5-darwin-amd64/influx /usr/local/bin/
    ```
 
    If you do not move the `influx` binary into your `$PATH`, prefix the executable
@@ -137,22 +137,22 @@ brew list | grep influxdb-cli
 
    #### Download from your browser
 
-   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
-   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-linux-amd64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (amd64)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-linux-arm64.tar.gz" download >influx CLI v{{< latest-patch cli=true >}} (arm)</a>
 
    #### Download from the command line
 
    ```bash
    # amd64
    curl -O \
-   https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+   https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-linux-amd64.tar.gz
    ```
 
    <!--python-codeblocks:cont-->
    ```bash
    # arm
    curl -O \
-   https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz \
+   https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-linux-arm64.tar.gz \
    ```
 
 2. **Unpackage the downloaded package.**
@@ -162,13 +162,13 @@ brew list | grep influxdb-cli
    <!--python-codeblocks:cont-->
    ```bash
    # amd64
-   tar xvzf influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+   tar xvzf influxdb2-client-2.7.5-linux-amd64.tar.gz
    ```
 
    <!--python-codeblocks:cont-->
    ```bash
    # arm
-   tar xvzf influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+   tar xvzf influxdb2-client-2.7.5-linux-arm64.tar.gz
    ```
 
 3. **(Optional) Place the unpackaged `influx` executable in your system `$PATH`.**
@@ -196,15 +196,15 @@ Command Prompt is not fully compatible.
 
 1. **Download the `influx` CLI package.**
 
-   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
+   <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.5-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
 
 2. **Expand the downloaded archive.**
 
    Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
 
    ```powershell
-   > Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
-   > mv 'C:\Program Files\InfluxData\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
+   > Expand-Archive .\influxdb2-client-2.7.5-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+   > mv 'C:\Program Files\InfluxData\influxdb2-client-{{% latest-patch cli=true %}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
    ```
 
 3. **Grant network access to the `influx` CLI.**

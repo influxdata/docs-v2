@@ -512,6 +512,26 @@ The following config parameters are available for all inputs:
 - **name_prefix**: Specifies a prefix to attach to the measurement name.
 - **name_suffix**: Specifies a suffix to attach to the measurement name.
 
+### Data formats
+
+Some output plugins support the `data_format` option, which specifies a serializer
+to convert metrics before writing.
+Common serializers include `json`, `influx`, `prometheus`, and `csv`.
+
+Output plugins that support serializers may also offer `use_batch_format`, which
+controls whether the serializer receives metrics individually or as a batch.
+Batch mode enables more efficient encoding for formats like JSON arrays.
+
+```toml
+[[outputs.file]]
+  files = ["stdout"]
+  data_format = "json"
+  use_batch_format = true
+```
+
+For available serializers and configuration options, see
+[output data formats](/telegraf/v1/data_formats/output/).
+
 ## Aggregator configuration
 
 The following config parameters are available for all aggregators:
