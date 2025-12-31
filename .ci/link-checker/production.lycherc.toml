@@ -68,6 +68,10 @@ exclude = [
 
   # InfluxData support URLs (certificate/SSL issues in CI)
   "^https?://support\\.influxdata\\.com",
+  "^https?://influxdata\\.com/slack",
+
+  # NSSM download URLs (403 errors for automated requests)
+  "^https?://nssm\\.cc/download",
 
   # AI platforms (often block automated requests)
   "^https?://claude\\.ai",

@@ -94,8 +94,8 @@
   {{ end }}
 
   <!-- Platform menu for 1.x docs -->
-  {{ $platformWhitelist := `telegraf|chronograf|kapacitor|enterprise_influxdb|influxdb_1` }}
-  {{ if gt (len (findRE $platformWhitelist $menuKey)) 0 }}
+  {{ $platformWhitelist := (slice "telegraf_v1" "chronograf_v1" "kapacitor_v1" "enterprise_influxdb_v1" "influxdb_v1") }}
+  {{ if (in $platformWhitelist $menuKey) }}
     <h4 class="platform">InfluxData Platform</h4>
     {{ partial "sidebar/nested-menu" (dict "page" $currentPage "menu" $platformMenu) . }}
   {{ end }}
