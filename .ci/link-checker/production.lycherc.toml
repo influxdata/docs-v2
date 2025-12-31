@@ -70,6 +70,9 @@ exclude = [
   "^https?://support\\.influxdata\\.com",
   "^https?://influxdata\\.com/slack",
 
+  # NSSM download URLs (403 errors for automated requests)
+  "^https?://nssm\\.cc/download",
+
   # AI platforms (often block automated requests)
   "^https?://claude\\.ai",
   "^https?://.*\\.claude\\.ai",
