@@ -28,7 +28,7 @@ The **Configurations** page displays all configurations with:
 
 ### Configuration details
 
-On the **Configurations** page, click on a configuration name to view and
+On the **Configurations** page, click a configuration name to view and
 update the configuration.
 
 {{< children hlevel="h2" >}}

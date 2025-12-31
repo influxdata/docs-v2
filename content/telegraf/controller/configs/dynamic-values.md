@@ -41,7 +41,7 @@ Use the following syntax:
 ```
 
 Parameters do not require a default value. Any parameter without a default
-value is considered required and must [be defined](#define-paramters) when
+value is considered required and must [be defined](#define-parameters) when
 requesting the configuration from {{% product-name %}}.
 
 ### Use parameters in Telegraf configurations

@@ -23,7 +23,7 @@ The Telegraf builder is divided into two main panes:
 
 ## Plugin Library pane
 
-The **Plugin Library** pane provides a list of all Telegraf plugins supported in
+The **Plugin Library** pane provides a list of all Telegraf plugins supported
 in the builder grouped by plugin type.
 
 > [!Important]
