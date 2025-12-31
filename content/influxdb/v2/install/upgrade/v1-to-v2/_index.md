@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_v2:
     parent: Upgrade InfluxDB
-    name: InfluxDB 1.x to {{< current-version >}}
+    name: InfluxDB 1.x to 2.8
 weight: 11
 aliases:
   - /influxdb/v2/upgrade/v1-to-v2/
