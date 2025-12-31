@@ -1,5 +1,5 @@
 ---
-title: Upgrade from InfluxDB 1.x to {< current-version >}}
+title: Upgrade from InfluxDB 1.x to {{< current-version >}}
 description: >
   Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {< current-version >}} and
   choose the best one for your use case.
