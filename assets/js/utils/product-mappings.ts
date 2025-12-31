@@ -110,6 +110,7 @@ const URL_PATTERN_MAP: Record<string, string> = {
   '/influxdb/v1': 'influxdb',
   '/enterprise_influxdb/': 'enterprise_influxdb',
   '/telegraf/': 'telegraf',
+  '/telegraf/controller/': 'telegraf_controller',
   '/chronograf/': 'chronograf',
   '/kapacitor/': 'kapacitor',
   '/flux/': 'flux',
@@ -151,6 +152,7 @@ const PRODUCT_FALLBACK_MAP: Record<string, ProductInfo> = {
   influxdb: { name: 'InfluxDB', version: 'v1' }, // Will be refined below
   enterprise_influxdb: { name: 'InfluxDB Enterprise v1', version: 'v1' },
   telegraf: { name: 'Telegraf', version: 'v1' },
+  telegraf_controller: { name: 'Telegraf Controller', version: 'controller' },
   chronograf: { name: 'Chronograf', version: 'v1' },
   kapacitor: { name: 'Kapacitor', version: 'v1' },
   flux: { name: 'Flux', version: 'v0' },
