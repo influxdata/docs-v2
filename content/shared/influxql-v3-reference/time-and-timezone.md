@@ -351,4 +351,4 @@ provide an explicit upper bound in the `WHERE` clause.
 ### Cannot use parameters for durations
 
 Currently, InfluxDB doesn't support using parameters for durations in
-[parameterized queries](/influxdb/version/query-data/parameterized-queries/).
+[parameterized queries](/influxdb/version/query-data/influxql/parameterized-queries/).
