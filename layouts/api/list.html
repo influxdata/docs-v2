@@ -28,8 +28,15 @@
         {{ $hasTag := isset .Params "tag" }}
 
         {{ if not $hasTag }}
-        {{/* SECTION INDEX - Show tag pages from article data */}}
+        {{/* SECTION INDEX - Show page content (intro + children listing) */}}
+        {{ with .Content }}
+        <section class="api-section-content">
+          {{ . }}
+        </section>
+        {{ else }}
+        {{/* Fallback to partial if no content */}}
         {{ partial "api/section-children.html" . }}
+        {{ end }}
 
         {{ else }}
         {{/* TAG PAGE - Show operations or conceptual content */}}
