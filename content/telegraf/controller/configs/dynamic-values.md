@@ -37,10 +37,12 @@ reference it in plugin settings. _Configuration parameters are a feature of
 Use the following syntax:
 
 ```
-&{PARAM_NAME:default_value}
+&{param_name[:default_value]}
 ```
 
-- Parameters without a default value are required
+Parameters do not require a default value. Any parameter without a default
+value is considered required and must [be defined](#define-paramters) when
+requesting the configuration from {{% product-name %}}.
 
 ### Use parameters in Telegraf configurations
 
@@ -56,6 +58,11 @@ Use the following syntax:
 ```
 {{% /telegraf/dynamic-values %}}
 
+The example above uses two parameters:
+
+- `db_host` with a default value of `https://localhost:8181`
+- `agent_id` ({{< req >}})
+
 ### Define parameters
 
 Use URL-encoded query parameters to define parameter values when requesting a
@@ -67,7 +74,7 @@ configuration URL with query parameters for each configuration parameter:_
 
 <!--pytest.mark.skip-->
 ```sh
-configUrl="https://telegraf-controller.mydomain.com/api/configs/abc123/"
+configUrl="http://localhost:8888/api/configs/xxxxxx/toml"
 params="?db_host=https%3A%2F%2Fmydomain%3A8181"
 params+="&agent_id=agent123"
 configUrl+=$params
@@ -98,12 +105,12 @@ Provide a default to keep the configuration portable across environments.
 Use the following syntax:
 
 ```sh
-# Reference an environment variable
-${VAR_NAME}
-
-# Reference an environment variable with a default
-${VAR_NAME:-default_value}
+${VAR_NAME[:-default_value]}
 ```
+
+Environment variables do not require a default value. Any environment variable
+without a default value is considered required and must be defined in the
+Telegraf agent's environment when using the configuration.
 
 For more information about Telegraf environment variable syntax, see
 [Telegraf configuration options—Set environment variables](/telegraf/v1/configuration/#set-environment-variables).
@@ -120,6 +127,11 @@ For more information about Telegraf environment variable syntax, see
 ```
 {{% /telegraf/dynamic-values %}}
 
+The example above uses two environment variables:
+
+- `API_ENDPOINT` with a default value of `http://localhost:8080`
+- `AUTH_TOKEN` ({{< req >}})
+
 ### Define environment variables at runtime
 
 Telegraf loads environment variables from the agent runtime environment.
@@ -130,7 +142,7 @@ API_ENDPOINT=https://mydomain.com/metrics
 AUTH_TOKEN=x00x0xx00xxxX0xXXx0000xxxX000x00XXxXx
 
 telegraf \
-  --config "https://telegraf-controller.mydomain.com/api/configs/abc123/"
+  --config "http://localhost:8888/api/configs/xxxxxx/toml"
 ```
 
 ## Secrets
@@ -160,5 +172,5 @@ For more information about Telegraf secrets and secret stores, see
 When using secrets:
 
 - Configure the secret store plugin in the same configuration.
-- Use a stable `id` so references remain consistent.
-- Ensure the Telegraf agent can reach the secret store and authenticate.
+- Use a stable `id` so references to a secret store remain consistent.
+- Ensure the Telegraf agent can reach and authenticate with the secret store.
