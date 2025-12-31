@@ -46,10 +46,10 @@
 
 
 
-<title>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}} | &lt;nil&gt; Documentation</title>
+<title>Manually upgrade from InfluxDB 1.x to &lt;span class=&#34;current-version&#34;&gt;&lt;/span&gt; | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {&lt; current-version &gt;}} and choose the best one for your use case.">
+    <meta name="description" content="To manually upgrade from InfluxDB 1.x to InfluxDB , migrate data, create v1-compatible authorizations, and create database and retention policy (DBRP) mappings.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2025-12-31 12:18:16 -0600 -0600">
+<meta name="last-modified" content="2025-12-31 13:35:08 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -549,7 +549,7 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/'>InfluxDB 1.x to {{&lt; current-version &gt;}}</a>
       
@@ -2866,10 +2866,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href=''>InfluxDB 1.x to 2.8</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -2882,7 +2882,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/'>Manually upgrade</a>
       
@@ -4389,7 +4389,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</h1>
+      <h1>Manually upgrade from InfluxDB 1.x to <span class="current-version"></span></h1>
       
 
 
@@ -4401,15 +4401,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="4"
-  data-estimated-tokens="2000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4419,7 +4418,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4492,18 +4491,585 @@
 
 
 
-  <p>Explore different methods for upgrading from InfluxDB 1.x to InfluxDB <span class="current-version"></span> and
-determine which best suits your use case.
-Consider the following:</p>
-<h4 id="do-you-want-to-migrate-all-your-time-series-data">Do you want to migrate all your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="do-you-want-to-selectively-migrate-your-time-series-data">Do you want to selectively migrate your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/">Manually upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="are-you-using-docker">Are you using Docker?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/docker/">Upgrade to the 2.x Docker image</a>.</p>
-<h4 id="are-you-using-continuous-queries-cqs">Are you using continuous queries (CQs)?</h4>
-<p>After you upgrade (automatically, manually, or using Docker),
-<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">migrate your 1.x CQs to InfluxDB <span class="current-version"></span> tasks</a>.</p>
+  <p>To manually upgrade from InfluxDB 1.x to InfluxDB <span class="current-version"></span>:</p>
+<ol>
+<li><a href="#install-influxdb-21">Install InfluxDB <span class="current-version"></span></a></li>
+<li><a href="#migrate-custom-configuration-settings">Migrate custom configuration settings</a></li>
+<li><a href="#create-dbrp-mappings">Create DBRP mappings</a></li>
+<li><a href="#create-authorizations">Create authorizations</a></li>
+<li><a href="#migrate-time-series-data">Migrate time series data</a></li>
+<li><a href="#migrate-continuous-queries">Migrate continuous queries</a></li>
+<li><a href="#query-data-with-influxql">Query data with InfluxQL</a></li>
+</ol>
+<h2 id="install-influxdb-hahahugoshortcode1647s2hbhb">Install InfluxDB <span class="current-version"></span></h2>
+<p><a href="/influxdb/v2/get-started/">Download, install, and set up InfluxDB <span class="current-version"></span></a>.</p>
+
+<div class="note block">
+  <h4 id="required-2x-credentials">Required 2.x credentials</h4>
+<p>All InfluxDB <span class="current-version"></span> <code>influx</code> CLI examples below assume the required <strong>host</strong>,
+<strong>organization</strong>, and <strong>API token</strong> credentials are provided by your
+<a href="/influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials"><code>influx</code> CLI configuration</a>.</p>
+
+</div>
+
+<h2 id="migrate-custom-configuration-settings">Migrate custom configuration settings</h2>
+<p>If you&rsquo;re using custom configuration settings in your InfluxDB 1.x instance, do the following:</p>
+<ol>
+<li>
+<p>Compare 1.x and <span class="current-version"></span> configuration settings:</p>
+<div class="expand-wrapper">
+  
+    
+
+
+<div class="expand" id="view-configuration-option-parity">
+  <a class="expand-link" href="#view-configuration-option-parity"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>View configuration option parity</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <table>
+  <thead>
+      <tr>
+          <th style="text-align: left">1.x configuration option</th>
+          <th style="text-align: left"><span class="current-version"></span> configuration option</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>[data]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dir</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#engine-path">engine-path</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">wal-dir</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#engine-path">engine-path</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">wal-fsync-delay</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-wal-fsync-delay">storage-wal-fsync-delay</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">index-version</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">trace-logging-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">query-log-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">strict-error-handling</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">validate-keys</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-validate-keys">storage-validate-keys</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">cache-max-memory-size</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-cache-max-memory-size">storage-cache-max-memory-size</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">cache-snapshot-memory-size</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-cache-snapshot-memory-size">storage-cache-snapshot-memory-size</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">cache-snapshot-write-cold-duration</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-cache-snapshot-write-cold-duration">storage-cache-snapshot-write-cold-duration</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">compact-full-write-cold-duration</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-compact-full-write-cold-duration">storage-compact-full-write-cold-duration</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-concurrent-compactions</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-max-concurrent-compactions">storage-max-concurrent-compactions</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">compact-throughput</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">compact-throughput-burst</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-compact-throughput-burst">storage-compact-throughput-burst</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tsm-use-madv-willneed</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-tsm-use-madv-willneed">storage-tsm-use-madv-willneed</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-series-per-database</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-values-per-tag</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-index-log-file-size</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-max-index-log-file-size">storage-max-index-log-file-size</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">series-id-set-cache-size</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-series-id-set-cache-size">storage-series-id-set-cache-size</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>[retention]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">check-interval</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-retention-check-interval">storage-retention-check-interval</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>[shard-precreation]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">check-interval</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-shard-precreator-check-interval">storage-shard-precreator-check-interval</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">advance-period</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#storage-shard-precreator-advance-period">storage-shard-precreator-advance-period</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>[http]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">flux-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">flux-log-enabled</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#flux-log-enabled">flux-log-enabled</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">bind-address</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#http-bind-address">http-bind-address</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">auth-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">realm</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">log-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">suppress-write-log</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">access-log-path</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">access-log-status-filters</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">write-tracing</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">pprof-enabled</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#pprof-disabled">pprof-disabled</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">pprof-auth-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">debug-pprof-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ping-auth-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">https-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">https-certificate</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#tls-cert">tls-cert</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">https-private-key</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#tls-key">tls-key</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">shared-secret</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-row-limit</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-connection-limit</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">unix-socket-enabled</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">bind-socket</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-body-size</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-concurrent-write-limit</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-enqueued-write-limit</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">enqueued-write-timeout</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#http-write-timeout">http-write-timeout</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>[logging]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">format</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">level</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#log-level">log-level</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">suppress-logo</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>[tls]</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ciphers</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#tls-strict-ciphers">tls-strict-ciphers</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">min-version</td>
+          <td style="text-align: left"><a href="/influxdb/v2/reference/config-options/#tls-min-version">tls-min-version</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max-version</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<div class="note block">
+  <h4 id="1x-configuration-groups-not-in">1.x configuration groups not in <span class="current-version"></span></h4>
+<p>The following 1.x configuration groups <strong>do not</strong> apply to InfluxDB <span class="current-version"></span>:</p>
+<ul>
+<li>meta</li>
+<li>coordinator</li>
+<li>monitor</li>
+<li>subscriber</li>
+<li>graphite</li>
+<li>collectd</li>
+<li>opentsdb</li>
+<li>udp</li>
+<li>continuous_queries</li>
+</ul>
+</div>
+
+  </div>
+</div>
+
+    
+</div>
+
+</li>
+<li>
+<p>Apply your 1.x custom settings to the comparable InfluxDB <span class="current-version"></span> settings using
+<code>influxd</code> flags, environment variables, or a <span class="current-version"></span> configuration file.
+For more information about configuring InfluxDB <span class="current-version"></span>, see
+<a href="/influxdb/v2/reference/config-options/">Configuration options</a>.</p>
+</li>
+<li>
+<p><strong>Restart <code>influxd</code></strong>.</p>
+</li>
+</ol>
+<h2 id="create-dbrp-mappings">Create DBRP mappings</h2>
+<p>InfluxDB database and retention policy (DBRP) mappings associate database and
+retention policy combinations with InfluxDB <span class="current-version"></span> <a href="/influxdb/v2/reference/glossary/#bucket">buckets</a>.
+These mappings allow InfluxDB 1.x clients to successfully query and write to
+InfluxDB <span class="current-version"></span> buckets while using the 1.x DBRP convention.</p>
+<p><em>For more information about DBRP mapping, see
+<a href="/influxdb/v2/reference/api/influxdb-1x/dbrp/">Database and retention policy mapping</a>.</em></p>
+<p><strong>To map a DBRP combination to an InfluxDB <span class="current-version"></span> bucket:</strong></p>
+<ol>
+<li>
+<p><strong>Create a bucket</strong><br>
+<a href="/influxdb/v2/admin/buckets/create-bucket/">Create an InfluxDB <span class="current-version"></span> bucket</a>.
+We recommend creating a bucket for each unique 1.x database and retention
+policy combination using the following naming convention:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Naming convention</span>
+</span></span><span class="line"><span class="cl">db-name/rp-name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">telegraf/autogen</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Create a DBRP mapping</strong><br>
+Use the <a href="/influxdb/v2/reference/cli/influx/v1/dbrp/create/"><code>influx v1 dbrp create</code> command</a>
+to create a DBRP mapping.
+Provide the following:</p>
+<ul>
+<li>database name</li>
+<li>retention policy name <em>(not retention period)</em></li>
+<li><a href="/influxdb/v2/admin/buckets/view-buckets/">bucket ID</a></li>
+<li><em>(optional)</em> <code>--default</code> flag if you want the retention policy to be the default retention
+policy for the specified database</li>
+</ul>
+
+<div class="code-tabs-wrapper">
+  
+    
+<div class="code-tabs">
+  <p><a href="#">DB with one RP</a>
+<a href="#">DB with multiple RPs</a></p>
+
+</div>
+
+    
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx v1 dbrp create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket-id 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --default</span></span></code></pre></div>
+
+</section>
+
+    
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Create telegraf/autogen DBRP mapping with autogen</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># as the default RP for the telegraf DB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">influx v1 dbrp create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --db telegraf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --rp autogen <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket-id 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create telegraf/downsampled-daily DBRP mapping that</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># writes to a different bucket</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">influx v1 dbrp create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --db telegraf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --rp downsampled-daily <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket-id 00xX00o0X002</span></span></code></pre></div>
+
+</section>
+
+    
+</div>
+
+</li>
+<li>
+<p><strong>Confirm the DBRP mapping was created</strong><br>
+Use the <a href="/influxdb/v2/reference/cli/influx/v1/dbrp/list/"><code>influx v1 dbrp list</code></a> to list existing DBRP mappings.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx v1 dbrp list</span></span></code></pre></div>
+</li>
+</ol>
+<p>For information about managing DBRP mappings, see the
+<a href="/influxdb/v2/reference/cli/influx/v1/dbrp/"><code>influx v1 dbrp</code> command documentation</a>.</p>
+<h2 id="create-authorizations">Create authorizations</h2>
+<p>InfluxDB <span class="current-version"></span> requires authentication and provides two authentication methods:</p>
+<ul>
+<li><a href="#token-authentication">Token authentication</a></li>
+<li><a href="#1x-compatible-authorizations">1.x compatible authorizations</a></li>
+</ul>
+<h3 id="token-authentication">Token authentication</h3>
+<p>Use <a href="/influxdb/v2/admin/tokens/">InfluxDB <span class="current-version"></span> token authentication</a> to
+authenticate requests to InfluxDB <span class="current-version"></span>.</p>
+<h5 id="recommended-if">Recommended if:</h5>
+<ul>
+<li>Your 1.x instance <strong>does not have authentication enabled</strong>.</li>
+</ul>
+
+<div class="note block">
+  <h4 id="use-tokens-with-basic-authentication">Use tokens with basic authentication</h4>
+<p>To use tokens with InfluxDB clients that require an InfluxDB username and password,
+provide an arbitrary user name and pass the token as the password.</p>
+
+</div>
+
+<h3 id="1x-compatible-authorizations">1.x-compatible authorizations</h3>
+<p>InfluxDB <span class="current-version"></span> provides a <a href="/influxdb/v2/reference/api/influxdb-1x/">1.x compatibility API</a>
+that lets you authenticate using a username and password as in InfluxDB 1.x.
+If authentication is enabled in your InfluxDB 1.x instance,
+<a href="#create-a-1x-compatible-authorization">create a 1.x-compatible authorization</a>
+with the same username and password as your InfluxDB 1.x instance to allow
+external clients to connect to your InfluxDB <span class="current-version"></span> instance without any change.</p>
+<h5 id="recommended-if-1">Recommended if:</h5>
+<ul>
+<li>Your 1.x instance <strong>has authentication enabled</strong>.</li>
+<li>You&rsquo;re using <strong>InfluxDB 1.x clients or client libraries</strong> configured with
+InfluxDB usernames and passwords.</li>
+</ul>
+
+<div class="note block">
+  <p>1.x compatibility authorizations are separate from credentials used to log
+into the InfluxDB <span class="current-version"></span> user interface (UI).</p>
+
+</div>
+
+<h4 id="create-a-1x-compatible-authorization">Create a 1.x-compatible authorization</h4>
+<p>Use the InfluxDB <span class="current-version"></span> <a href="/influxdb/v2/reference/cli/influx/v1/auth/create/"><code>influx v1 auth create</code> command</a>
+to create a 1.x-compatible authorization that grants read/write permissions to specific <span class="current-version"></span> buckets.
+Provide the following:</p>
+<ul>
+<li>list of <a href="/influxdb/v2/admin/buckets/view-buckets/">bucket IDs</a> to
+grant read or write permissions to</li>
+<li>new v1 auth username</li>
+<li>new v1 auth password <em>(when prompted)</em></li>
+</ul>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Single bucket</a>
+<a href="#">Multiple buckets</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx v1 auth create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --read-bucket 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --write-bucket 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --username example-user</span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx v1 auth create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --read-bucket 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --read-bucket 00xX00o0X002 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --write-bucket 00xX00o0X001 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --write-bucket 00xX00o0X002 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --username example-user</span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<p>For information about managing 1.x compatible authorizations, see the
+<a href="/influxdb/v2/reference/cli/influx/v1/auth/"><code>influx v1 auth</code> command documentation</a>.</p>
+<h2 id="migrate-time-series-data">Migrate time series data</h2>
+<p>To migrate time series data from your InfluxDB 1.x instance to InfluxDB <span class="current-version"></span>:</p>
+<ol>
+<li>
+<p>Use the <strong>InfluxDB 1.x</strong> <a href="/influxdb/v1/tools/influx_inspect/#export"><code>influx_inspect export</code> command</a>
+to export time series data as line protocol.
+Include the <code>-lponly</code> flag to exclude comments and the data definition
+language (DDL) from the output file.</p>
+<p><em>We recommend exporting each DBRP combination separately to easily write data
+to a corresponding InfluxDB <span class="current-version"></span> bucket.</em></p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influx_inspect <span class="nb">export</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -database &lt;database-name&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -retention &lt;retention-policy-name&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -out &lt;output-file-path&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -lponly
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influx_inspect <span class="nb">export</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -database example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -retention example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -out /path/to/example-db_example-rp.lp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -lponly</span></span></code></pre></div>
+</li>
+<li>
+<p>Use the <strong>InfluxDB <span class="current-version"></span></strong> <a href="/influxdb/v2/reference/cli/influx/write/"><code>influx write</code> command</a>
+to write the exported line protocol to InfluxDB <span class="current-version"></span>.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influx write <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket &lt;bucket-name&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --file &lt;path-to-line-protocol-file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influx write <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket example-db/example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --file /path/to/example-db_example-rp.lp</span></span></code></pre></div>
+</li>
+<li>
+<p>Repeat steps 1-2 for each bucket.</p>
+</li>
+</ol>
+<h2 id="migrate-continuous-queries">Migrate continuous queries</h2>
+<p>For information about migrating InfluxDB 1.x continuous queries to InfluxDB <span class="current-version"></span> tasks,
+see <a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">Migrate continuous queries to tasks</a>.</p>
+<h2 id="query-data-with-influxql">Query data with InfluxQL</h2>
+<p>InfluxDB <span class="current-version"></span> supports querying data with both Flux and InfluxQL.
+For more information about querying InfluxDB <span class="current-version"></span> with InfluxQL,
+see <a href="/influxdb/v2/query-data/influxql/">Query data with InfluxQL</a>.</p>
 
 
 
@@ -4511,6 +5077,47 @@ Consider the following:</p>
 
     
     
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" >Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs/" >Migrate continuous queries to tasks</a></li>
+        
+      
+    
+    </ul>
+  </div>
 
 
     
@@ -4577,8 +5184,8 @@ Consider the following:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

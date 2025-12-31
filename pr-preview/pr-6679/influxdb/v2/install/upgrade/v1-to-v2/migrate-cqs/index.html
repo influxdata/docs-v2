@@ -46,10 +46,10 @@
 
 
 
-<title>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}} | &lt;nil&gt; Documentation</title>
+<title>Migrate continuous queries to tasks | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {&lt; current-version &gt;}} and choose the best one for your use case.">
+    <meta name="description" content="InfluxDB OSS 2.x replaces 1.x continuous queries (CQs) with InfluxDB tasks. To migrate continuous queries to InfluxDB 2.x, convert InfluxDB 1.x CQs into Flux and create new InfluxDB 2.x tasks.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2025-12-31 12:18:16 -0600 -0600">
+<meta name="last-modified" content="2025-12-31 13:35:08 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -549,7 +549,7 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/'>InfluxDB 1.x to {{&lt; current-version &gt;}}</a>
       
@@ -2866,10 +2866,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href=''>InfluxDB 1.x to 2.8</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -2894,7 +2894,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs/'>Migrate CQs</a>
       
@@ -4389,7 +4389,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</h1>
+      <h1>Migrate continuous queries to tasks</h1>
       
 
 
@@ -4401,15 +4401,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="4"
-  data-estimated-tokens="2000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4419,7 +4418,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4492,18 +4491,339 @@
 
 
 
-  <p>Explore different methods for upgrading from InfluxDB 1.x to InfluxDB <span class="current-version"></span> and
-determine which best suits your use case.
-Consider the following:</p>
-<h4 id="do-you-want-to-migrate-all-your-time-series-data">Do you want to migrate all your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="do-you-want-to-selectively-migrate-your-time-series-data">Do you want to selectively migrate your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/">Manually upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="are-you-using-docker">Are you using Docker?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/docker/">Upgrade to the 2.x Docker image</a>.</p>
-<h4 id="are-you-using-continuous-queries-cqs">Are you using continuous queries (CQs)?</h4>
-<p>After you upgrade (automatically, manually, or using Docker),
-<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">migrate your 1.x CQs to InfluxDB <span class="current-version"></span> tasks</a>.</p>
+  <p>InfluxDB OSS <span class="current-version"></span> replaces 1.x continuous queries (CQs) with <strong>InfluxDB tasks</strong>.
+To migrate continuous queries to InfluxDB <span class="current-version"></span> tasks, do the following:</p>
+<ol>
+<li><a href="#output-all-influxdb-1x-continuous-queries">Output all InfluxDB 1.x continuous queries</a></li>
+<li><a href="#convert-continuous-queries-to-flux-queries">Convert continuous queries to Flux queries</a></li>
+<li><a href="#create-new-influxdb-tasks">Create new InfluxDB tasks</a></li>
+</ol>
+<h2 id="output-all-influxdb-1x-continuous-queries">Output all InfluxDB 1.x continuous queries</h2>
+<p>If using the <code>influxd upgrade</code> command, by default, all continuous queries are
+output to <code>~/continuous_queries.txt</code> during the upgrade process.
+To customize the destination path of the continuous queries file,
+use the <code>--continuous-query-export-path</code> flag with the <code>influxd upgrade</code> command.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd upgrade --continuous-query-export-path /path/to/continuous_queries.txt</span></span></code></pre></div>
+<p><strong>To manually output continuous queries:</strong></p>
+<ol>
+<li>
+<p>Use the <strong>InfluxDB 1.x <code>influx</code> interactive shell</strong> to run <code>SHOW CONTINUOUS QUERIES</code>:</p>
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ influx
+</span></span><span class="line"><span class="cl">Connected to http://localhost:8086 version 
+</span></span><span class="line"><span class="cl">InfluxDB shell version: 
+</span></span><span class="line"><span class="cl">&gt; SHOW CONTINUOUS QUERIES</span></span></code></pre></div>
+</li>
+<li>
+<p>Copy and save the displayed continuous queries.</p>
+</li>
+</ol>
+<h2 id="convert-continuous-queries-to-flux-queries">Convert continuous queries to Flux queries</h2>
+<p>To migrate InfluxDB 1.x continuous queries to InfluxDB <span class="current-version"></span> tasks, convert the InfluxQL query syntax to Flux.
+The majority of continuous queries are simple downsampling queries and can be converted quickly
+using the <a href="/flux/v0/stdlib/universe/aggregatewindow/"><code>aggregateWindow()</code> function</a>.
+For example:</p>
+<h5 id="example-continuous-query">Example continuous query</h5>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;downsample-daily&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;my-db&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">BEGIN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;example-field&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;my-db&#34;</span><span class="p">.</span><span class="s2">&#34;example-rp&#34;</span><span class="p">.</span><span class="s2">&#34;average-example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">h</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">END</span></span></span></code></pre></div>
+<h5 id="equivalent-flux-task">Equivalent Flux task</h5>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">option</span> <span class="nx">task</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;downsample-daily&#34;</span><span class="p">,</span> <span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">d</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="nx">task</span><span class="p">.</span><span class="nx">every</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;example-measurement&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;example-field&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">h</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;_measurement&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;average-example-measurement&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">org</span><span class="o">:</span> <span class="s2">&#34;example-org&#34;</span><span class="p">,</span> <span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/example-rp&#34;</span><span class="p">)</span></span></span></code></pre></div>
+<h3 id="convert-influxql-continuous-queries-to-flux">Convert InfluxQL continuous queries to Flux</h3>
+<p>Review the following statements and clauses to see how to convert your CQs to Flux:</p>
+<ul>
+<li><a href="#on-clause">ON clause</a></li>
+<li><a href="#select-statement">SELECT statement</a></li>
+<li><a href="#into-clause">INTO clause</a></li>
+<li><a href="#from-clause">FROM clause</a></li>
+<li><a href="#as-clause">AS clause</a></li>
+<li><a href="#where-clause">WHERE clause</a></li>
+<li><a href="#group-by-clause">GROUP BY clause</a></li>
+<li><a href="#resample-clause">RESAMPLE clause</a></li>
+</ul>
+<h4 id="on-clause">ON clause</h4>
+<p>The <code>ON</code> clause defines the database to query.
+In InfluxDB OSS <span class="current-version"></span>, database and retention policy combinations are mapped to specific buckets
+(for more information, see <a href="/influxdb/v2/reference/api/influxdb-1x/dbrp/">Database and retention policy mapping</a>).</p>
+<p>Use the <a href="/flux/v0/stdlib/universe/from"><code>from()</code> function</a>
+to specify the bucket to query:</p>
+<h6 id="influxql">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;downsample-daily&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;my-db&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- ...</span></span></span></code></pre></div>
+<h6 id="flux">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div>
+<h4 id="select-statement">SELECT statement</h4>
+<p>The <code>SELECT</code> statement queries data by field, tag, and time from a specific measurement.
+<code>SELECT</code> statements can take many different forms and converting them to Flux depends
+on your use case. For information about Flux and InfluxQL function parity, see
+<a href="/influxdb/v2/reference/syntax/flux/flux-vs-influxql/#influxql-and-flux-parity">Flux vs InfluxQL</a>.
+See <a href="#other-helpful-resources">other resources available to help</a>.</p>
+<h4 id="into-clause">INTO clause</h4>
+<p>The <code>INTO</code> clause defines the measurement to write results to.
+<code>INTO</code> also supports fully qualified measurements that include the database and retention policy.
+In InfluxDB OSS <span class="current-version"></span>, database and retention policy combinations are mapped to specific buckets
+(for more information, see <a href="/influxdb/v2/reference/api/influxdb-1x/dbrp/">Database and retention policy mapping</a>).</p>
+<p>To write to a measurement different than the measurement queried, use
+<a href="/flux/v0/stdlib/universe/set/"><code>set()</code></a> or
+<a href="/flux/v0/stdlib/universe/map/"><code>map()</code></a>
+to change the measurement name.
+Use the <code>to()</code> function to specify the bucket to write results to.</p>
+<h6 id="influxql-1">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;example-db&#34;</span><span class="p">.</span><span class="s2">&#34;example-rp&#34;</span><span class="p">.</span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- ...</span></span></span></code></pre></div>
+<h6 id="flux-1">Flux</h6>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">set()</a>
+<a href="#">map()</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;_measurement&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;example-measurement&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-db/example-rp&#34;</span><span class="p">)</span></span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">map</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">r</span> <span class="kd">with</span> <span class="nx">_measurement</span><span class="o">:</span> <span class="s2">&#34;example-measurement&#34;</span><span class="p">}))</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-db/example-rp&#34;</span><span class="p">)</span></span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<h5 id="write-pivoted-data-to-influxdb">Write pivoted data to InfluxDB</h5>
+<p>InfluxDB 1.x query results include a column for each field.
+InfluxDB <span class="current-version"></span> does not do this by default, but it is possible with
+<a href="/flux/v0/stdlib/universe/pivot"><code>pivot()</code></a>
+or <a href="/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/"><code>schema.fieldsAsCols()</code></a>.</p>
+<p>If you use <code>to()</code> to write <em>pivoted data</em> back to InfluxDB <span class="current-version"></span>, each field column is stored as a tag.
+To write pivoted fields back to InfluxDB as fields, import the <code>experimental</code> package
+and use the <a href="/flux/v0/stdlib/experimental/to/"><code>experimental.to()</code> function</a>.</p>
+<h6 id="influxql-2">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;downsample-daily&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;my-db&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">BEGIN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;example-field-1&#34;</span><span class="p">),</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;example-field-2&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;example-db&#34;</span><span class="p">.</span><span class="s2">&#34;example-rp&#34;</span><span class="p">.</span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">h</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">END</span></span></span></code></pre></div>
+<h6 id="flux-2">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="nx">task</span><span class="p">.</span><span class="nx">every</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;example-measurement&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;example-field-1&#34;</span> <span class="nx">or</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;example-field-2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="nx">task</span><span class="p">.</span><span class="nx">every</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">pivot</span><span class="p">(</span><span class="nx">rowKey</span><span class="o">:</span><span class="p">[</span><span class="s2">&#34;_time&#34;</span><span class="p">],</span> <span class="nx">columnKey</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;_field&#34;</span><span class="p">],</span> <span class="nx">valueColumn</span><span class="o">:</span> <span class="s2">&#34;_value&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">experimental</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-db/example-rp&#34;</span><span class="p">)</span></span></span></code></pre></div>
+<h4 id="from-clause">FROM clause</h4>
+<p>The from clause defines the measurement to query.
+Use the <a href="/flux/v0/stdlib/universe/filter/"><code>filter()</code> function</a>
+to specify the measurement to query.</p>
+<h6 id="influxql-3">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- ...</span></span></span></code></pre></div>
+<h6 id="flux-3">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;example-measurement&#34;</span><span class="p">)</span></span></span></code></pre></div>
+<h4 id="as-clause">AS clause</h4>
+<p>The <code>AS</code> clause changes the name of the field when writing data back to InfluxDB.
+Use <a href="/flux/v0/stdlib/universe/set/"><code>set()</code></a>
+or <a href="/flux/v0/stdlib/universe/map/"><code>map()</code></a>
+to change the field name.</p>
+<h6 id="influxql-4">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">AS</span><span class="w"> </span><span class="n">newfield</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- ...</span></span></span></code></pre></div>
+<h6 id="flux-4">Flux</h6>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">set()</a>
+<a href="#">map()</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;_field&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;newfield&#34;</span><span class="p">)</span></span></span></code></pre></div>
+
+</section>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">map</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">r</span> <span class="kd">with</span> <span class="nx">_field</span><span class="o">:</span> <span class="s2">&#34;newfield&#34;</span><span class="p">}))</span></span></span></code></pre></div>
+
+</section>
+
+
+</div>
+
+<h4 id="where-clause">WHERE clause</h4>
+<p>The <code>WHERE</code> clause uses predicate logic to filter results based on fields, tags, or timestamps.
+Use the <a href="/flux/v0/stdlib/universe/filter/"><code>filter()</code> function</a>
+and Flux <a href="/flux/v0/spec/operators/#comparison-operators">comparison operators</a>
+to filter results based on fields and tags.
+Use the <a href="/flux/v0/stdlib/universe/range/"><code>range()</code> function</a> to filter results based on timestamps.</p>
+<h6 id="influxql-5">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;example-tag&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;foo&#34;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">7</span><span class="n">d</span></span></span></code></pre></div>
+<h6 id="flux-5">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">7</span><span class="nx">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">[</span><span class="s2">&#34;example-tag&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;foo&#34;</span><span class="p">)</span></span></span></code></pre></div>
+<h4 id="group-by-clause">GROUP BY clause</h4>
+<p>The InfluxQL <code>GROUP BY</code> clause groups data by specific tags or by time (typically to calculate an aggregate value for windows of time).</p>
+<h5 id="group-by-tags">Group by tags</h5>
+<p>Use the <a href="/flux/v0/stdlib/universe/group/"><code>group()</code> function</a>
+to modify the <a href="/flux/v0/get-started/data-model/#group-key">group key</a> and change how data is grouped.</p>
+<h6 id="influxql-6">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s2">&#34;location&#34;</span></span></span></code></pre></div>
+<h6 id="flux-6">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">group</span><span class="p">(</span><span class="nx">columns</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;location&#34;</span><span class="p">])</span></span></span></code></pre></div>
+<h5 id="group-by-time">Group by time</h5>
+<p>Use the <a href="//flux/v0/stdlib/universe/aggregatewindow/"><code>aggregateWindow()</code> function</a>
+to group data into time windows and perform an aggregation on each window.
+In CQs, the interval specified in the <code>GROUP BY time()</code> clause determines the CQ execution interval.
+Use the <code>GROUP BY time()</code> interval to set the <code>every</code> task option.</p>
+<h6 id="influxql-7">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">MEAN</span><span class="p">(</span><span class="s2">&#34;example-field&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">h</span><span class="p">)</span></span></span></code></pre></div>
+<h6 id="flux-7">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">option</span> <span class="nx">task</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;task-name&#34;</span><span class="p">,</span> <span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">h</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;example-measurement&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;example-field&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="nx">task</span><span class="p">.</span><span class="nx">every</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span></span></span></code></pre></div>
+<h4 id="resample-clause">RESAMPLE clause</h4>
+<p>The CQ <code>RESAMPLE</code> clause uses data from the last specified duration to calculate a new aggregate point.
+The <code>EVERY</code> interval in <code>RESAMPLE</code> defines how often the CQ runs.
+The <code>FOR</code> interval defines the total time range queried by the CQ.</p>
+<p>To accomplish this same functionality in a Flux task, set the <code>start</code> parameter
+in the <code>range()</code> function to the negative <code>FOR</code> duration.
+Define the task execution interval in the <code>task</code> options.
+For example:</p>
+<h6 id="influxql-8">InfluxQL</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;resample-example&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;my-db&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">RESAMPLE</span><span class="w"> </span><span class="k">EVERY</span><span class="w"> </span><span class="mi">1</span><span class="n">m</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="mi">30</span><span class="n">m</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">BEGIN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">exponential_moving_average</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;example-field&#34;</span><span class="p">),</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;resample-average-example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-measurement&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;example-region&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">END</span></span></span></code></pre></div>
+<h6 id="flux-8">Flux</h6>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">option</span> <span class="nx">task</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;resample-example&#34;</span><span class="p">,</span> <span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">m</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;example-measurement&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;example-field&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">region</span> <span class="o">==</span> <span class="s2">&#34;example-region&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">m</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">exponentialMovingAverage</span><span class="p">(</span><span class="nx">n</span><span class="o">:</span> <span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;_measurement&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s2">&#34;resample-average-example-measurement&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;my-db/&#34;</span><span class="p">)</span></span></span></code></pre></div>
+<h2 id="create-new-influxdb-tasks">Create new InfluxDB tasks</h2>
+<p>After converting your continuous query to Flux, use the Flux query to
+<a href="/influxdb/v2/process-data/manage-tasks/create-task/">create a new task</a>.</p>
+<h2 id="other-helpful-resources">Other helpful resources</h2>
+<p>The following resources are available and may be helpful when converting
+continuous queries to Flux tasks.</p>
+<h5 id="documentation">Documentation</h5>
+<ul>
+<li><a href="/flux/v0/get-started/">Get started with Flux</a></li>
+<li><a href="/influxdb/v2/query-data/flux/">Query data with Flux</a></li>
+<li><a href="/influxdb/v2/process-data/common-tasks/#downsample-data-with-influxdb">Common tasks</a></li>
+</ul>
+<h5 id="community">Community</h5>
+<ul>
+<li>Post in the <a href="https://community.influxdata.com/">InfluxData Community</a></li>
+<li>Ask in the <a href="https://influxdata.com/slack">InfluxDB Community Slack</a></li>
+</ul>
 
 
 
@@ -4511,6 +4831,96 @@ Consider the following:</p>
 
     
     
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/query-data/get-started/" >Get started with Flux and InfluxDB</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/query-data/flux/" >Query data with Flux</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/process-data/" >Process data with InfluxDB tasks</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/process-data/common-tasks/" >Common data processing tasks</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+      
+    
+    </ul>
+  </div>
 
 
     
@@ -4577,8 +4987,8 @@ Consider the following:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

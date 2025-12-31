@@ -46,10 +46,10 @@
 
 
 
-<title>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}} | &lt;nil&gt; Documentation</title>
+<title>Upgrade from InfluxDB 1.x to &lt;span class=&#34;current-version&#34;&gt;&lt;/span&gt; with Docker | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {&lt; current-version &gt;}} and choose the best one for your use case.">
+    <meta name="description" content="Use the automated upgrade process built into the InfluxDB 2.x Docker image to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/docker/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2025-12-31 12:18:16 -0600 -0600">
+<meta name="last-modified" content="2025-12-31 13:35:08 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -549,7 +549,7 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/'>InfluxDB 1.x to {{&lt; current-version &gt;}}</a>
       
@@ -2866,10 +2866,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href=''>InfluxDB 1.x to 2.8</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -2888,7 +2888,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/docker/'>Upgrade with Docker</a>
       
@@ -4389,7 +4389,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</h1>
+      <h1>Upgrade from InfluxDB 1.x to <span class="current-version"></span> with Docker</h1>
       
 
 
@@ -4401,15 +4401,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="4"
-  data-estimated-tokens="2000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4419,7 +4418,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4492,18 +4491,311 @@
 
 
 
-  <p>Explore different methods for upgrading from InfluxDB 1.x to InfluxDB <span class="current-version"></span> and
-determine which best suits your use case.
-Consider the following:</p>
-<h4 id="do-you-want-to-migrate-all-your-time-series-data">Do you want to migrate all your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="do-you-want-to-selectively-migrate-your-time-series-data">Do you want to selectively migrate your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/">Manually upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="are-you-using-docker">Are you using Docker?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/docker/">Upgrade to the 2.x Docker image</a>.</p>
-<h4 id="are-you-using-continuous-queries-cqs">Are you using continuous queries (CQs)?</h4>
-<p>After you upgrade (automatically, manually, or using Docker),
-<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">migrate your 1.x CQs to InfluxDB <span class="current-version"></span> tasks</a>.</p>
+  <p>Use the automated upgrade process built into the <a href="https://hub.docker.com/_/influxdb">InfluxDB 2.x Docker image</a>
+to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.</p>
+<ul>
+<li><a href="#upgrade-requirements">Upgrade requirements</a>
+<ul>
+<li><a href="#influxdb-2x-initialization-credentials">InfluxDB 2.x initialization credentials</a></li>
+<li><a href="#file-system-mounts">File system mounts</a></li>
+<li><a href="#upgrade-initialization-mode">Upgrade initialization mode</a></li>
+</ul>
+</li>
+<li><a href="#minimal-upgrade">Minimal upgrade</a></li>
+<li><a href="#upgrade-with-a-custom-influxdb-1x-configuration-file">Upgrade with a custom InfluxDB 1.x configuration file</a></li>
+<li><a href="#upgrade-with-custom-paths">Upgrade with custom paths</a></li>
+<li><a href="#use-new-influxdb-tools">Use new InfluxDB tools</a>
+<ul>
+<li><a href="#migrate-continuous-queries-to-tasks">Migrate continuous queries to tasks</a></li>
+<li><a href="#use-the-interactive-influxql-shell">Use the interactive InfluxQL shell</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="block note">
+  
+  
+  <h4 id="export-continuous-queries-before-upgrading">Export continuous queries before upgrading</h4>
+<p>The automated upgrade process <strong>does not</strong> migrate InfluxDB 1.x continuous queries (CQs)
+to InfluxDB 2.x tasks (the 2.x equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
+For information about exporting and migrating CQs to tasks, see
+<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">Migrate continuous queries to tasks</a>.</p>
+</div>
+<h2 id="upgrade-requirements">Upgrade requirements</h2>
+<p>InfluxDB 2.x provides a 1.x compatibility API, but expects a different storage layout on disk.
+To account for theses differences, the InfluxDB Docker image migrates
+1.x data and into 2.x-compatible data automatically before booting the <code>influxd</code> server.</p>
+<ul>
+<li><a href="#influxdb-2x-initialization-credentials">InfluxDB 2.x initialization credentials</a></li>
+<li><a href="#file-system-mounts">File system mounts</a></li>
+<li><a href="#upgrade-initialization-mode">Upgrade initialization mode</a></li>
+</ul>
+
+<div class="note block">
+  <p>To ensure InfluxDB reboots post-upgrade without overwriting migrated data,
+the upgrade won&rsquo;t run if an existing boltdb file is found at the
+<a href="#file-system-mounts">configured 2.x configuration path</a>.</p>
+
+</div>
+
+<p>Find more information about the automated InfluxDB upgrade process,
+see <a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade from InfluxDB 1.x to <span class="current-version"></span></a>.</p>
+<h3 id="influxdb-2x-initialization-credentials">InfluxDB 2.x initialization credentials</h3>
+<p>The automated InfluxDB upgrade process bootstraps an initial admin user,
+<a href="/influxdb/v2/reference/glossary/#organization">organization</a>, and
+<a href="/influxdb/v2/reference/glossary/#bucket">bucket</a> required by InfluxDB 2.x.
+Set the following <a href="https://docs.docker.com/search/?q=environment%20variables">environment variables in your Docker container</a>
+to provide setup credentials:</p>
+<ul>
+<li><code>DOCKER_INFLUXDB_INIT_USERNAME</code>: Username to set for the admin user (<span class="req  ">Required</span>).</li>
+<li><code>DOCKER_INFLUXDB_INIT_PASSWORD</code>: Password to set for the admin user (<span class="req  ">Required</span>).</li>
+<li><code>DOCKER_INFLUXDB_INIT_ORG</code>: Name to set for the initial organization (<span class="req  ">Required</span>).</li>
+<li><code>DOCKER_INFLUXDB_INIT_BUCKET</code>: Name to set for the initial bucket (<span class="req  ">Required</span>).</li>
+<li><code>DOCKER_INFLUXDB_INIT_RETENTION</code>: Duration for the initial bucket&rsquo;s retention period.
+If not set, the initial bucket will retain data forever.</li>
+<li><code>DOCKER_INFLUXDB_INIT_ADMIN_TOKEN</code>: API token to associate with the admin user.
+If not set, InfluxDB automatically generates a token.</li>
+</ul>
+<h3 id="file-system-mounts">File system mounts</h3>
+<p>The InfluxDB upgrade process requires extra volumes to be mounted into the 2.x container.
+Use <strong>environment variables</strong> and <strong>Docker mounts</strong> to specify and configure the
+appropriate mount paths for the following:</p>
+<ul>
+<li>1.x data on disk</li>
+<li>Custom 1.x configuration file (if any)</li>
+<li>2.x data on disk (<code>/var/lib/influxdb2</code>)</li>
+<li>2.x configuration directory (<code>/etc/influxdb2</code>)</li>
+</ul>
+<p>The InfluxDB upgrade process searches for mounted 1.x data and configuration files
+in the following priority order:</p>
+<ol>
+<li>1.x configuration file specified by the <code>DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG</code> environment variable</li>
+<li>1.x data directory specified by the <code>DOCKER_INFLUXDB_INIT_UPGRADE_V1_DIR</code> environment variable</li>
+<li>1.x configuration file mounted at <code>/etc/influxdb/influxdb.conf</code></li>
+<li>1.x data directory mounted at <code>/var/lib/influxdb</code></li>
+</ol>
+
+<div class="note block">
+  <h4 id="avoid-data-loss">Avoid data loss</h4>
+<p>By default, the automated upgrade process generates both data and configuration files
+under <code>/var/lib/influxdb2</code> and <code>/etc/influxdb2</code>.
+We recommend mounting volumes at both paths to avoid losing data.</p>
+
+</div>
+
+<h3 id="upgrade-initialization-mode">Upgrade initialization mode</h3>
+<p>Set the <code>DOCKER_INFLUXDB_INIT_MODE</code> environment variable to <code>upgrade</code>.</p>
+<h2 id="minimal-upgrade">Minimal upgrade</h2>
+<p>If you&rsquo;re currently running a minimal InfluxDB 1.x deployment similar to:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/var/lib/influxdb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:1.8</span></span></code></pre></div>
+<p><strong>To upgrade this minimal deployment to InfluxDB 2.x:</strong></p>
+<ol>
+<li>
+<p>Stop the running InfluxDB 1.x container.</p>
+</li>
+<li>
+<p>Start the InfluxDB container with the following:</p>
+<ul>
+<li>Volume mount for the InfluxDB 1.x data directory</li>
+<li>Volume mount for the InfluxDB 2.x data directory</li>
+<li>InfluxDB <a href="#upgrade-initialization-mode">initialization mode</a> environment variable</li>
+<li>InfluxDB <a href="#influxdb-2x-initialization-credentials">initialization credential</a> environment variables</li>
+<li><code>influxdb:<span class="current-version"></span></code> Docker image</li>
+</ul>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/var/lib/influxdb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/var/lib/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_MODE</span><span class="o">=</span>upgrade <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_USERNAME</span><span class="o">=</span>my-user <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_PASSWORD</span><span class="o">=</span>my-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_ORG</span><span class="o">=</span>my-org <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_BUCKET</span><span class="o">=</span>my-bucket <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:<span class="current-version"></span></span></span></code></pre></div>
+</li>
+</ol>
+<h2 id="upgrade-with-a-custom-influxdb-1x-configuration-file">Upgrade with a custom InfluxDB 1.x configuration file</h2>
+<p>If you&rsquo;re currently running an InfluxDB 1.x deployment with a custom configuration
+file similar to:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/var/lib/influxdb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/influxdb.conf:/etc/influxdb/influxdb.conf:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:1.8</span></span></code></pre></div>
+<p><strong>To upgrade an InfluxDB 1.x deployment with a custom configuration file to InfluxDB 2.x:</strong></p>
+<ol>
+<li>
+<p>Stop the running InfluxDB 1.x container.</p>
+</li>
+<li>
+<p>Start the InfluxDB container with the following:</p>
+<ul>
+<li>Volume mount for the InfluxDB 1.x data directory</li>
+<li>Volume mount for the InfluxDB 1.x configuration file</li>
+<li>Volume mount for the InfluxDB 2.x data directory (<code>/var/lib/influxdb2</code>)</li>
+<li>Volume mount for the InfluxDB 2.x configuration directory (<code>/etc/influxdb2</code>)</li>
+<li>InfluxDB <a href="#upgrade-initialization-mode">initialization mode</a> environment variable</li>
+<li>InfluxDB <a href="#influxdb-2x-initialization-credentials">initialization credential</a> environment variables</li>
+<li><code>influxdb:<span class="current-version"></span></code> Docker image</li>
+</ul>
+</li>
+</ol>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/var/lib/influxdb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/influxdb.conf:/etc/influxdb/influxdb.conf:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/var/lib/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/etc/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_MODE</span><span class="o">=</span>upgrade <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_USERNAME</span><span class="o">=</span>my-user <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_PASSWORD</span><span class="o">=</span>my-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_ORG</span><span class="o">=</span>my-org <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_BUCKET</span><span class="o">=</span>my-bucket <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:<span class="current-version"></span></span></span></code></pre></div>
+<h2 id="upgrade-with-custom-paths">Upgrade with custom paths</h2>
+<p>If you&rsquo;re currently running an InfluxDB 1.x deployment with the data directory and
+configuration file mounted at custom paths similar to:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/root/influxdb/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/influxdb.conf:/root/influxdb/influxdb.conf:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:1.8 -config /root/influxdb/influxdb.conf</span></span></code></pre></div>
+<p><strong>To upgrade an InfluxDB 1.x deployment with custom paths to InfluxDB 2.x:</strong></p>
+<ol>
+<li>Stop the running InfluxDB 1.x container.</li>
+<li>Decide to either <strong>keep using custom paths</strong> or <strong>use InfluxDB 2.x default paths</strong>.</li>
+</ol>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">Keep using custom paths</a>
+<a href="#">Use InfluxDB 2.x defaults</a></p>
+
+</div>
+
+<!-------------------------- BEGIN KEEP CUSTOM PATHS -------------------------->
+
+<section class="tab-content">
+  <p>To retain your custom InfluxDB 1.x paths, start the InfluxDB container with the following:</p>
+<ul>
+<li>Volume mount for the InfluxDB 1.x data directory</li>
+<li>Volume mount for the InfluxDB 1.x configuration file</li>
+<li>Volume mount for the InfluxDB 2.x data directory</li>
+<li>Volume mount for the InfluxDB 2.x configuration directory</li>
+<li>InfluxDB <a href="#upgrade-initialization-mode">initialization mode</a> environment variable</li>
+<li>InfluxDB <a href="#influxdb-2x-initialization-credentials">initialization credential</a> environment variables</li>
+<li>InfluxDB 2.x <a href="#file-system-mounts">v1 configuration file path</a> environment variable:
+<ul>
+<li><code>DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG</code></li>
+</ul>
+</li>
+<li>InfluxDB 1.x custom path environment variables:
+<ul>
+<li><code>INFLUXD_CONFIG_PATH</code></li>
+<li><code>INFLUXD_BOLT_PATH</code></li>
+<li><code>INFLUXD_ENGINE_PATH</code></li>
+</ul>
+</li>
+<li><code>influxdb:&lt;span class=&quot;current-version&quot;&gt;&lt;/span&gt;</code> Docker image</li>
+</ul>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/root/influxdb/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/influxdb.conf:/root/influxdb/influxdb.conf:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/root/influxdb2/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/root/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_MODE</span><span class="o">=</span>upgrade <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_USERNAME</span><span class="o">=</span>my-user <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_PASSWORD</span><span class="o">=</span>my-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_ORG</span><span class="o">=</span>my-org <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_BUCKET</span><span class="o">=</span>my-bucket <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG</span><span class="o">=</span>/root/influxdb/influxdb.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXD_CONFIG_PATH</span><span class="o">=</span>/root/influxdb2/config.toml <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXD_BOLT_PATH</span><span class="o">=</span>/root/influxdb2/influxdb.bolt <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXD_ENGINE_PATH</span><span class="o">=</span>/root/influxdb2/engine <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:&lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;current-version&#34;</span>&gt;&lt;/span&gt;</span></span></code></pre></div>
+
+</section>
+
+<!--------------------------- END KEEP CUSTOM PATHS --------------------------->
+<!-------------------------- BEGIN USE 2.x DEFAULTS --------------------------->
+
+<section class="tab-content">
+  <p>To use default InfluxDB 2.x paths, start the InfluxDB container with the following:</p>
+<ul>
+<li>Volume mount for the InfluxDB 1.x data directory</li>
+<li>Volume mount for the InfluxDB 1.x configuration file</li>
+<li>Volume mount for the InfluxDB 2.x data directory (<code>/var/lib/influxdb2</code>)</li>
+<li>Volume mount for the InfluxDB 2.x configuration directory (<code>/etc/influxdb2</code>)</li>
+<li>InfluxDB <a href="#upgrade-initialization-mode">initialization mode</a> environment variable</li>
+<li>InfluxDB <a href="#influxdb-2x-initialization-credentials">initialization credential</a> environment variables</li>
+<li>InfluxDB 2.x <a href="#file-system-mounts">v1 configuration file path</a> environment variable:
+<ul>
+<li><code>DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG</code></li>
+</ul>
+</li>
+<li><code>influxdb:&lt;span class=&quot;current-version&quot;&gt;&lt;/span&gt;</code> Docker image</li>
+</ul>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -p 8086:8086 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb:/root/influxdb/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/influxdb.conf:/root/influxdb/influxdb.conf:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/var/lib/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v influxdb2:/etc/influxdb2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_MODE</span><span class="o">=</span>upgrade <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_USERNAME</span><span class="o">=</span>my-user <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_PASSWORD</span><span class="o">=</span>my-password <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_ORG</span><span class="o">=</span>my-org <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_BUCKET</span><span class="o">=</span>my-bucket <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">DOCKER_INFLUXDB_INIT_UPGRADE_V1_CONFIG</span><span class="o">=</span>/root/influxdb/influxdb.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  influxdb:&lt;span <span class="nv">class</span><span class="o">=</span><span class="s2">&#34;current-version&#34;</span>&gt;&lt;/span&gt;</span></span></code></pre></div>
+
+</section>
+
+<!--------------------------- END USE 2.x DEFAULTS ---------------------------->
+
+</div>
+
+<h2 id="use-the-interactive-influxql-shell">Use the interactive InfluxQL shell</h2>
+<p>The InfluxDB <span class="current-version"></span> <code>influx</code> CLI includes an interactive <strong>InfluxQL shell</strong> for executing InfluxQL queries.
+The InfluxDB <span class="current-version"></span> Docker image includes the <code>influx</code> CLI.</p>
+<p>To start an InfluxQL shell:</p>
+<ol>
+<li>
+<p>Start a bash session in your InfluxDB container:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it influxdb /bin/bash</span></span></code></pre></div>
+</li>
+<li>
+<p>Set up your <a href="/influxdb/v2/tools/influx-cli/#set-up-the-influx-cli"><code>influx</code> CLI authentication credentials</a>.</p>
+</li>
+<li>
+<p>Run the <code>influx v1 shell</code> command.</p>
+</li>
+</ol>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb/v2/tools/influxql-shell/">Use the InfluxQL shell</a></li>
+<li><a href="/influxdb/v2/query-data/influxql/">Query data with InfluxQL</a></li>
+</ul>
+<p>To build an interactive shell to execute <strong>Flux</strong> queries,
+<a href="https://github.com/influxdata/flux/blob/master/README.md#getting-started">compile and build a command line Flux REPL from source</a>.</p>
 
 
 
@@ -4577,8 +4869,8 @@ Consider the following:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/docker.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/docker/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

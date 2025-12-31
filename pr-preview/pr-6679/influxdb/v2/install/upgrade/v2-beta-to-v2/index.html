@@ -46,10 +46,10 @@
 
 
 
-<title>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}} | &lt;nil&gt; Documentation</title>
+<title>Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0 | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {&lt; current-version &gt;}} and choose the best one for your use case.">
+    <meta name="description" content="To upgrade from InfluxDB 2.0 beta 16 or earlier to , first follow these steps to upgrade your InfluxDB beta instance, data, and resources to InfluxDB 2.0.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-beta-to-v2/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2025-12-31 12:18:16 -0600 -0600">
+<meta name="last-modified" content="2025-12-31 13:35:08 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -549,13 +549,13 @@
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/'>InfluxDB 1.x to {{&lt; current-version &gt;}}</a>
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-beta-to-v2/'>InfluxDB 2.0 beta to 2.8</a>
       
@@ -4389,7 +4389,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</h1>
+      <h1>Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0</h1>
       
 
 
@@ -4401,15 +4401,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="4"
-  data-estimated-tokens="2000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4419,7 +4418,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4492,18 +4491,265 @@
 
 
 
-  <p>Explore different methods for upgrading from InfluxDB 1.x to InfluxDB <span class="current-version"></span> and
-determine which best suits your use case.
-Consider the following:</p>
-<h4 id="do-you-want-to-migrate-all-your-time-series-data">Do you want to migrate all your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="do-you-want-to-selectively-migrate-your-time-series-data">Do you want to selectively migrate your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/">Manually upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="are-you-using-docker">Are you using Docker?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/docker/">Upgrade to the 2.x Docker image</a>.</p>
-<h4 id="are-you-using-continuous-queries-cqs">Are you using continuous queries (CQs)?</h4>
-<p>After you upgrade (automatically, manually, or using Docker),
-<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">migrate your 1.x CQs to InfluxDB <span class="current-version"></span> tasks</a>.</p>
+  <p>To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.x, first
+follow these steps to upgrade your InfluxDB beta instance, data, and resources to
+<a href="https://github.com/influxdata/influxdb/releases/tag/v2.0.9">InfluxDB 2.0</a>.</p>
+<p>Depending on how you have set up your InfluxDB beta instance and the importance
+of your existing resources and data, you can determine which steps apply to
+you&ndash;for example, if you don&rsquo;t want to migrate your data and resources,
+then you can skip those sections.</p>
+<ol>
+<li><a href="#1-disable-existing-integrations">Disable existing integrations</a></li>
+<li><a href="#2-stop-existing-influxdb-beta-instance">Stop existing InfluxDB beta instance</a></li>
+<li><a href="#3-optional-rename-existing-influxdb-binaries">(Optional) Rename existing InfluxDB binaries</a></li>
+<li><a href="#4-move-existing-data-and-start-the-latest-influxdb">Move existing data and start the latest InfluxDB</a></li>
+<li><a href="#5-start-old-influxdb-beta-instance">Start old InfluxDB beta instance</a></li>
+<li><a href="#6-create-configuration-profiles-for-the-influxdb-cli">Create configuration profiles for the InfluxDB CLI</a></li>
+<li><a href="#7-copy-all-resources-from-old-instance-to-the-new-one">Copy all resources from old instance to the new one</a></li>
+<li><a href="#8-set-up-integrations-to-point-to-new-instance">Set up integrations to point to new instance</a></li>
+<li><a href="#9-load-historical-data-into-new-instance">Load historical data into new instance</a></li>
+</ol>
+<h3 id="why-is-this-manual-process-required">Why is this manual process required?</h3>
+<p>To ensure that existing InfluxQL integrations work with the latest release,
+we had to make breaking changes to the underlying storage engine for InfluxDB 2.0.</p>
+
+<div class="note block">
+  <p>If you have questions while upgrading,
+<a href="https://github.com/influxdata/influxdb/issues">open an issue</a>
+or join the <a href="https://influxcommunity.slack.com/">Community Slack workspace</a> to
+get immediate help.</p>
+
+</div>
+
+<h2 id="1-disable-existing-integrations">1. Disable existing integrations</h2>
+<p>To begin, shut off all integrations that are reading from, writing to, or monitoring your InfluxDB instance.
+This includes Telegraf, client libraries, and any custom applications.</p>
+<h2 id="2-stop-existing-influxdb-beta-instance">2. Stop existing InfluxDB beta instance</h2>
+<p>Next, shut down your existing InfluxDB beta instance.
+You can manually stop the individual process using <strong>Control+c</strong>
+(or by finding the process ID with <code>ps aux | grep -i influxd</code> and using <code>sudo kill -9 &lt;PID&gt;</code>).
+If you&rsquo;ve set <code>influxd</code> to run as a system process, follow the same steps you would use to disable any system process.</p>
+<h2 id="3-optional-rename-existing-influxdb-binaries">3. (Optional) Rename existing InfluxDB binaries</h2>
+<p>To easily identify your existing InfluxDB binaries, rename them <code>influx_old</code> and <code>influxd_old</code>.
+This is helpful if you&rsquo;ve installed the binaries in your <code>$PATH</code>.
+We use the names <code>influxd_old</code> for this guide, but you can use whatever you like.</p>
+<h2 id="4-move-existing-data-and-start-the-latest-influxdb">4. Move existing data and start the latest InfluxDB</h2>
+<p>If you haven&rsquo;t already,
+<a href="https://github.com/influxdata/influxdb/releases/tag/v2.0.9">download and install InfluxDB 2.0</a>
+for your system, but don&rsquo;t run the setup process yet.
+Be careful not to overwrite the existing binaries.</p>
+<p>To move data between the two instances, first configure both the old and new instances of InfluxDB to run at the same time.
+If you download the latest InfluxDB beta and try to start it with existing data,
+most likely it won&rsquo;t start and the following error message appears:</p>
+
+
+<pre tabindex="0"><code>Incompatible InfluxDB 2.0 version found.
+Move all files outside of engine_path before influxd will start.</code></pre>
+<p>To avoid this error, run the following command to move your existing data to a another location (anywhere you like):</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mv ~/.influxdbv2 ~/.influxdbv2_old</span></span></code></pre></div>
+<p>Start the latest InfluxDB version by running:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd</span></span></code></pre></div>
+
+<div class="note block">
+  <p>If you were using specific <a href="/influxdb/v2/reference/cli/influxd/#flags">command line flags</a> for InfluxDB beta, you can use those same command line flags.</p>
+
+</div>
+
+<p>Because the data folder path has changed for InfluxDB v2, everything will be empty.
+You can visit http://localhost:8086 in your browser and see a setup page, but don&rsquo;t go through the setup process yet.</p>
+<h2 id="5-start-old-influxdb-beta-instance">5. Start old InfluxDB beta instance</h2>
+<p>You can now start your old InfluxDB instance and point it to your old data directory:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./influxd_old <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --bolt-path ~/.influxdbv2_old/influxd.bolt <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --engine-path ~/.influxdbv2_old/engine</span></span></code></pre></div>
+<p>Double-check that InfluxDB is working by visiting your InfluxDB beta instance URL (probably http://localhost:9999) and logging in.
+Your data and resources should still be there.</p>
+
+<div class="note block">
+  <p>If you see a &ldquo;missing migration&rdquo; error, manually edit your bolt file to remove
+the migration&ndash;for example:</p>
+<ol>
+<li><em>Recommended</em>: <strong>Backup your old <code>influxd.bolt</code> file</strong>&ndash;manually editing this
+file could cause you to lose all your data.</li>
+<li>Use <a href="https://github.com/br0xen/boltbrowser">BoltBrowser</a> to open and edit
+your old <code>influxd.bolt</code> file</li>
+<li>To remove the migration, highlight the record under the <code>migrationsv1</code> path
+and press <strong>D</strong>.</li>
+</ol>
+
+</div>
+
+<p>Now, the new instance and old instance of InfluxDB are running simultaneously.</p>
+<h2 id="6-create-configuration-profiles-for-the-influxdb-cli">6. Create configuration profiles for the InfluxDB CLI</h2>
+<p>Next, set up your InfluxDB CLI to connect to your old and new instances.</p>
+<h3 id="a-configure-old-profile">a. Configure old profile</h3>
+<p>If you&rsquo;ve used the CLI before, copy your existing <code>configs</code> file to your new data directory:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cp ~/.influxdbv2_old/configs ~/.influxdbv2/configs</span></span></code></pre></div>
+<p><em>Recommended</em>: rename the old configuration file to something like <code>influx_old</code>.</p>
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">influx_old</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;http://localhost:9999&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">token</span> <span class="p">=</span> <span class="s2">&#34;&lt;YOUR TOKEN&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">org</span> <span class="p">=</span> <span class="s2">&#34;influxdata&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">active</span> <span class="p">=</span> <span class="kc">true</span></span></span></code></pre></div>
+<p>If you&rsquo;ve never used the CLI before, create a new configuration profile to
+connect to your old instance using the <code>influx config</code> command.</p>
+<!--pytest.mark.skip-->
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx config create <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --config-name influx_old <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --host-url http://localhost:9999 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --org influxdata <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --token &lt;OLD_TOKEN&gt;</span></span></code></pre></div>
+<p>To list configurations, enter the following command:</p>
+<!--pytest.mark.skip-->
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx config ls</span></span></code></pre></div>
+<p>The output lists the configuration profile for your old instance:</p>
+
+
+<pre tabindex="0"><code>Active  Name        URL                    Org
+*       influx_old  http://localhost:9999  InfluxData</code></pre>
+<h3 id="b-configure-new-profile">b. Configure new profile</h3>
+<p>Next set up your new instance, which automatically creates a configuration profile for you.</p>
+<p>The <code>influx setup</code> command automatically creates a config profile named <code>default</code>.
+Make sure you don&rsquo;t already have a profile with that name before you run the command.</p>
+<p>Run the <code>influx setup</code> command and answer the prompts.</p>
+<p><strong>Don&rsquo;t use the same bucket name</strong> as a bucket in your existing instance.
+Otherwise, a name collision and file conflict occurs when you try to copy your
+resources.
+You&rsquo;ll delete this dummy bucket later, after you migrate your resources.</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx setup</span></span></code></pre></div>
+<p>The command prompts you to configure credentials:</p>
+
+
+<pre tabindex="0"><code>Welcome to InfluxDB 2.0!
+Please type your primary username: admin
+
+Please type your password:
+
+Please type your password again:
+
+Please type your primary organization name: InfluxData
+
+Please type your primary bucket name: dummy_bucket
+
+Please type your retention period in hours.
+Or press ENTER for infinite.:
+
+You have entered:
+  Username:          admin
+  Organization:      InfluxData
+  Bucket:            dummy_bucket
+  Retention Period:  infinite
+Confirm? (y/n): y
+
+Config default has been stored in /Users/rsavage/.influxdbv2/configs.
+User	Organization	Bucket
+admin	InfluxData	dummy_bucket</code></pre>
+<p>You now have two config profiles:
+one named <code>default</code> that points to your new instance, and one named <code>influx_old</code> that points to your old instance.</p>
+<!--pytest.mark.skip-->
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ influx config ls
+</span></span><span class="line"><span class="cl">Active  Name        URL                    Org
+</span></span><span class="line"><span class="cl">        default     http://localhost:8086  InfluxData
+</span></span><span class="line"><span class="cl">*       influx_old  http://localhost:9999  InfluxData</span></span></code></pre></div>
+<p>You can now send commands to each of them as needed using the <a href="/influxdb/v2/reference/cli/influx/#commands"><code>-c, --active-config</code></a> option in the CLI.</p>
+<h2 id="7-copy-all-resources-from-old-instance-to-the-new-one">7. Copy all resources from old instance to the new one</h2>
+<p>Use config profiles to export all resources from the old instance and apply them to your new instance.
+(The only things that will not be copied over are <a href="/influxdb/v2/write-data/no-code/scrape-data/manage-scrapers/">scraper configurations</a>.
+You will need to manually reconfigure those.)</p>
+<p>Copy all your existing InfluxDB resources, such as dashboards, tasks, and alerts, to your new instance by running the following command:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx <span class="nb">export</span> all -c influx_old <span class="p">|</span> influx apply -c default</span></span></code></pre></div>
+<p>(To learn more about this command, see
+<a href="/influxdb/v2/reference/cli/influx/export/"><code>influx export</code></a> and
+<a href="/influxdb/v2/reference/cli/influx/apply/"><code>influx apply</code></a>.)</p>
+<p>The output is a list of the resources created in your new instance.
+If successful, you can delete the bucket created during the setup.</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">LABELS    +add <span class="p">|</span> -remove <span class="p">|</span> unchanged
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+---------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +/- <span class="p">|</span>     METADATA NAME      <span class="p">|</span> ID <span class="p">|</span> RESOURCE NAME <span class="p">|</span>  COLOR  <span class="p">|</span> DESCRIPTION <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+---------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +   <span class="p">|</span> tasty-northcutt-c9c001 <span class="p">|</span>    <span class="p">|</span> something     <span class="p">|</span> <span class="c1">#326BBA |             |</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+---------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span>                                                      TOTAL  <span class="p">|</span>      <span class="m">1</span>      <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+---------+-------------+
+</span></span><span class="line"><span class="cl">​
+</span></span><span class="line"><span class="cl">BUCKETS    +add <span class="p">|</span> -remove <span class="p">|</span> unchanged
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +/- <span class="p">|</span>     METADATA NAME      <span class="p">|</span> ID <span class="p">|</span> RESOURCE NAME <span class="p">|</span> RETENTION PERIOD <span class="p">|</span> DESCRIPTION <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +   <span class="p">|</span> fasting-taussig-c9c007 <span class="p">|</span>    <span class="p">|</span> apps          <span class="p">|</span> 0s               <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +   <span class="p">|</span> great-davinci-c9c005   <span class="p">|</span>    <span class="p">|</span> new_telegraf  <span class="p">|</span> 0s               <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> +   <span class="p">|</span> stubborn-hugle-c9c003  <span class="p">|</span>    <span class="p">|</span> telegraf      <span class="p">|</span> 719h59m59s       <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span>                                                          TOTAL       <span class="p">|</span>      <span class="m">3</span>      <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-----+------------------------+----+---------------+------------------+-------------+</span></span></code></pre></div>
+<p>Now, you have all the resources from your old instance stored in your new instance.
+Sign in to your new instance (by default http://localhost:8086) and take a look.
+You will see dashboards, but you haven&rsquo;t yet migrated your old data.</p>
+<h2 id="8-set-up-integrations-to-point-to-new-instance">8. Set up integrations to point to new instance</h2>
+<p>Re-enable any integrations you disabled in step 2.
+You will need to re-enable Telegraf, client libraries, custom applications,
+or third-party data sinks using new tokens and credentials.</p>
+<h2 id="9-load-historical-data-into-new-instance">9. Load historical data into new instance</h2>
+<p>Use the CLI to export and then re-import your data using the command below.
+(For the range, pick a time before your bucket&rsquo;s retention period, or something a really long time ago if you have an unlimited retention period.)</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx query -c influx_old <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s1">&#39;from(bucket: &#34;my-bucket&#34;) |&gt; range(start: -3y)&#39;</span> --raw &gt; my-bucket.csv</span></span></code></pre></div>
+<p>Then write to the new bucket:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx write -c default --format csv -b my-bucket -f my-bucket.csv</span></span></code></pre></div>
+<p>Repeat that process for each bucket.</p>
+<h2 id="verify-influxdb-resources-data-and-integrations">Verify InfluxDB resources, data, and integrations</h2>
+<p>Verify that the latest version of InfluxDB is running with all your resources, data, and integrations configured.
+Double-check that everything is there and it is working as expected.
+Once you&rsquo;re set up with the latest InfluxDB, you can safely turn off your old instance and archive the previous data directory.</p>
+<h2 id="upgrade-to-the-latest-influxdb-v2-version">Upgrade to the latest InfluxDB v2 version</h2>
+<p>Follow steps to <a href="/influxdb/v2/install/upgrade/v2-to-v2/">upgrade from InfluxDB 2.0 to the latest InfluxDB 2.x version</a>.</p>
 
 
 
@@ -4511,6 +4757,30 @@ Consider the following:</p>
 
     
     
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-to-v2/" >Upgrade from InfluxDB 2.x to <span class="current-version"></span></a></li>
+        
+      
+    
+    </ul>
+  </div>
 
 
     
@@ -4577,8 +4847,8 @@ Consider the following:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v2-beta-to-v2.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-beta-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

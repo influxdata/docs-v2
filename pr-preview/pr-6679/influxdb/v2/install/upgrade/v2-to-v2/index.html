@@ -46,10 +46,10 @@
 
 
 
-<title>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}} | &lt;nil&gt; Documentation</title>
+<title>Upgrade from InfluxDB 2.x to &lt;span class=&#34;current-version&#34;&gt;&lt;/span&gt; | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {&lt; current-version &gt;}} and choose the best one for your use case.">
+    <meta name="description" content="To upgrade from InfluxDB 2.0 beta 16 or earlier to , manually upgrade all resources and data to the latest version by completing these steps.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6679/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-to-v2/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2025-12-31 12:18:16 -0600 -0600">
+<meta name="last-modified" content="2025-12-31 13:35:08 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -543,13 +543,13 @@
   
   
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-to-v2/'>InfluxDB 2.x to 2.8</a>
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/'>InfluxDB 1.x to {{&lt; current-version &gt;}}</a>
       
@@ -4389,7 +4389,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Upgrade from InfluxDB 1.x to {&lt; current-version &gt;}}</h1>
+      <h1>Upgrade from InfluxDB 2.x to <span class="current-version"></span></h1>
       
 
 
@@ -4401,15 +4401,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="4"
-  data-estimated-tokens="2000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -4419,7 +4418,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -4492,18 +4491,88 @@
 
 
 
-  <p>Explore different methods for upgrading from InfluxDB 1.x to InfluxDB <span class="current-version"></span> and
-determine which best suits your use case.
-Consider the following:</p>
-<h4 id="do-you-want-to-migrate-all-your-time-series-data">Do you want to migrate all your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/">Automatically upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="do-you-want-to-selectively-migrate-your-time-series-data">Do you want to selectively migrate your time series data?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/">Manually upgrade to InfluxDB <span class="current-version"></span></a>.</p>
-<h4 id="are-you-using-docker">Are you using Docker?</h4>
-<p><a href="/influxdb/v2/upgrade/v1-to-v2/docker/">Upgrade to the 2.x Docker image</a>.</p>
-<h4 id="are-you-using-continuous-queries-cqs">Are you using continuous queries (CQs)?</h4>
-<p>After you upgrade (automatically, manually, or using Docker),
-<a href="/influxdb/v2/upgrade/v1-to-v2/migrate-cqs/">migrate your 1.x CQs to InfluxDB <span class="current-version"></span> tasks</a>.</p>
+  <p>Upgrade to InfluxDB <span class="current-version"></span> from an earlier version of InfluxDB 2.x.</p>
+
+<div class="note block">
+  <h4 id="influxdb-20-beta-16-or-earlier">InfluxDB 2.0 beta-16 or earlier</h4>
+<p>If you&rsquo;re upgrading from InfluxDB 2.0 beta-16 or earlier, you must first
+<a href="/influxdb/v2/upgrade/v2-beta-to-v2/">upgrade to InfluxDB 2.0</a>,
+and then complete the steps below.</p>
+
+</div>
+
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">macOS</a>
+<a href="#">Linux</a>
+<a href="#">Windows</a>
+<a href="#">Docker</a></p>
+
+</div>
+
+
+<!---------------------------- BEGIN MACOS CONTENT ---------------------------->
+
+<section class="tab-content">
+  <p>Do one of the following:</p>
+<ul>
+<li><a href="#use-homebrew-to-upgrade">Use homebrew to upgrade</a></li>
+<li><a href="#manually-upgrade">Manually upgrade</a></li>
+</ul>
+<h3 id="use-homebrew-to-upgrade">Use homebrew to upgrade</h3>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew upgrade influxdb</span></span></code></pre></div>
+<h3 id="manually-upgrade">Manually upgrade</h3>
+<p>To manually upgrade, <a href="/influxdb/v2/install/?t=macos/#manually-download-and-install-for-macos">download and install the latest version of InfluxDB <span class="current-version"></span> for macOS</a>
+in place of your current 2.x version.</p>
+
+</section>
+
+<!----------------------------- END MACOS CONTENT ----------------------------->
+
+<!---------------------------- BEGIN LINUX CONTENT ---------------------------->
+
+<section class="tab-content">
+  <p><a href="/influxdb/v2/install/?t=Linux#download-and-install-influxdb-v2">Download and install the latest version of InfluxDB <span class="current-version"></span> for Linux</a>
+in place of your current 2.x version.</p>
+
+</section>
+
+<!----------------------------- END LINUX CONTENT ----------------------------->
+
+<!--------------------------- BEGIN WINDOWS CONTENT --------------------------->
+
+<section class="tab-content">
+  <p><a href="/influxdb/v2/install/?t=Windows">Download and install the latest version of InfluxDB <span class="current-version"></span> for Windows</a>
+in place of your current 2.x version.</p>
+
+</section>
+
+<!---------------------------- END WINDOWS CONTENT ---------------------------->
+
+<!--------------------------- BEGIN DOCKER CONTENT ---------------------------->
+
+<section class="tab-content">
+  <p>To upgrade to InfluxDB <span class="current-version"></span> with Docker, update your Docker
+image to use the latest InfluxDB image.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb:</span></span></code></pre></div>
+
+</section>
+
+<!---------------------------- END DOCKER CONTENT ----------------------------->
+
+
+</div>
+
 
 
 
@@ -4511,6 +4580,47 @@ Consider the following:</p>
 
     
     
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/reference/cli/influxd/downgrade/" >influxd downgrade</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6679/influxdb/v2/install/" >Install InfluxDB OSS v2</a></li>
+        
+      
+    
+    </ul>
+  </div>
 
 
     
@@ -4577,8 +4687,8 @@ Consider the following:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v1-to-v2/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v1-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/install/upgrade/v2-to-v2.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6679/influxdb/v2/install/upgrade/v2-to-v2/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
