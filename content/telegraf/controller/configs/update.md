@@ -24,6 +24,17 @@ options.
 4.  Review the TOML preview and resolve any validation errors.
 5.  Click **Save**.
 
+### Update configuration name and description
+
+1.  In the {{% product-name %}} web interface, select **Configurations** in the 
+    navigation bar.
+2.  Click the name of the configuration you want to edit or click the
+    **More button ({{% icon "tc-more" %}})** and select
+    **{{% icon "eye" %}} View/Edit**.
+3.  Under **Configuration Information**, click the text under **Name** or under
+    **Description**. The name or description will load into a form field.
+4.  Provide a new name or description and click **{{% icon "check" %}}**.
+
 ## Auto-update agents
 
 For agents to automatically recognize and load updates to their
