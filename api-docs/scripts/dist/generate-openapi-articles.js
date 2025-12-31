@@ -406,10 +406,12 @@ function generateOperationPages(options) {
         for (const op of operations) {
             // Build operation page path: api/{path}/{method}/
             // e.g., /write -> api/write/post/
-            // e.g., /api/v3/write_lp -> api/api/v3/write_lp/post/
+            // e.g., /api/v3/write_lp -> api/v3/write_lp/post/
             const pathSlug = apiPathToSlug(op.path);
             const method = op.method.toLowerCase();
-            const operationDir = path.join(contentPath, 'api', pathSlug, method);
+            // Only add 'api/' prefix if the path doesn't already start with 'api/'
+            const basePath = pathSlug.startsWith('api/') ? pathSlug : `api/${pathSlug}`;
+            const operationDir = path.join(contentPath, basePath, method);
             const operationFile = path.join(operationDir, '_index.md');
             // Create directory if needed
             if (!fs.existsSync(operationDir)) {
@@ -499,21 +501,21 @@ const productConfigs = {
     // so we skip adding menu entries to the generated parent pages.
     'cloud-dedicated': {
         specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-dedicated/management/openapi.yml'),
-        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-dedicated/api'),
+        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-dedicated'),
         description: 'InfluxDB Cloud Dedicated',
         menuKey: 'influxdb3_cloud_dedicated',
         skipParentMenu: true,
     },
     'cloud-serverless': {
         specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/management/openapi.yml'),
-        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless/api'),
+        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
         description: 'InfluxDB Cloud Serverless',
         menuKey: 'influxdb3_cloud_serverless',
         skipParentMenu: true,
     },
     clustered: {
         specFile: path.join(API_DOCS_ROOT, 'influxdb3/clustered/management/openapi.yml'),
-        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/clustered/api'),
+        pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/clustered'),
         description: 'InfluxDB Clustered',
         menuKey: 'influxdb3_clustered',
         skipParentMenu: true,
