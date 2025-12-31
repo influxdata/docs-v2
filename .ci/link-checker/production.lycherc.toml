@@ -68,6 +68,7 @@ exclude = [
 
   # InfluxData support URLs (certificate/SSL issues in CI)
   "^https?://support\\.influxdata\\.com",
+  "^https?://influxdata\\.com/slack",
 
   # AI platforms (often block automated requests)
   "^https?://claude\\.ai",
