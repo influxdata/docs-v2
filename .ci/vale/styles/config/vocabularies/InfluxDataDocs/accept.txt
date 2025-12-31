@@ -19,12 +19,15 @@ FlightQuery
 GBs?
 Grafana|\{\{.*grafana.*\}\}
 HostURL
+[Hh]ardcod(e|ed|es|ing)
 InfluxDB Cloud
 InfluxDB OSS
 InfluxDB-specific
 Influxer
 JavaScript
 KBs?
+[Kk]eybind(s|ing)?
+[Kk]eymap(s)?
 LogicalPlan
 [Mm]axim(ize|um)
 [Mm]inim(ize|um)
@@ -33,6 +36,7 @@ MBs?
 PBs?
 Parquet
 \w*-?\w*parquet\w*-\w*
+[Pp]repopulat(e|es|ed|ing)
 Redoc
 SQLAlchemy
 SQLAlchemy
