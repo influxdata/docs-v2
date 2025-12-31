@@ -16,7 +16,7 @@ updating a configuration.
 
 {{< img-hd src="/img/telegraf/controller-telegraf-builder.png" alt="Telegraf Builder in Telegraf Controller" />}}
 
-The Telegraf builder is divider into two main panes:
+The Telegraf builder is divided into two main panes:
 
 - [Plugin Library pane](#plugin-library-pane): Search for and add supported plugins
 - [Configuration pane](#configuration-pane): Manage agent and plugin settings

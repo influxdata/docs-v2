@@ -109,7 +109,7 @@ telegraf \
 
 ## Auto-update agents
 
-To have agents to automatically recognize and load updates to their
+For agents to automatically recognize and load updates to their
 configuration, include the `--config-url-watch-interval` with a duration value
 that specifies how often the agent should check for updates—for example:
 
@@ -124,7 +124,7 @@ automatically reload the configuration if the configuration has been updated.
 
 ## Use {{% product-name %}} to build commands
 
-{{% product-name %}} provides and tool for building `telegraf` commands using
+{{% product-name %}} provides a tool for building `telegraf` commands using
 parameters, environment variables, auto-update functionality, and Telegraf
 [label selectors](/telegraf/v1/configuration/#selectors-1). To use this tool:
 
@@ -146,7 +146,7 @@ parameters, environment variables, auto-update functionality, and Telegraf
     The tool provides commands for Linux, macOS, and Windows (PowerShell).
 
     > [!Warning]
-    > Your browser by not allow the **Copy Commands** button to copy to your
+    > Your browser may not allow the **Copy Commands** button to copy to your
     > clipboard under the following conditions:
     >
     > - You're using an IP or domain name other than `0.0.0.0` or `localhost` and

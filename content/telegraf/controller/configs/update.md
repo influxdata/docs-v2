@@ -26,7 +26,7 @@ options.
 
 ## Auto-update agents
 
-To have agents to automatically recognize and load updates to their
+For agents to automatically recognize and load updates to their
 configuration, include the `--config-url-watch-interval` with a duration value
 that specifies how often the agent should check for updates—for example:
 
