@@ -31,7 +31,7 @@ options.
 2.  Click the name of the configuration you want to edit or click the
     **More button ({{% icon "tc-more" %}})** and select
     **{{% icon "eye" %}} View/Edit**.
-3.  Under **Configuration Information**, click the text under **Name** or under
+3.  Under **Configuration Information**, click the text under **Name** or
     **Description**. The name or description will load into a form field.
 4.  Provide a new name or description and click **{{% icon "check" %}}**.
 
