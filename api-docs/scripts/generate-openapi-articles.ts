@@ -214,25 +214,39 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
     }
 
     if (!fs.existsSync(parentIndexFile)) {
+      // Build description - use product description or generate from product name
+      const apiDescription =
+        productDescription ||
+        `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+
       const parentFrontmatter: Record<string, unknown> = {
-        title: menuParent || 'HTTP API',
-        description:
-          productDescription ||
-          'API reference documentation for all available endpoints.',
+        title: menuParent || 'InfluxDB HTTP API',
+        description: apiDescription,
         weight: 104,
+        type: 'api',
       };
 
       // Add menu entry for parent page (unless skipParentMenu is true)
       if (menuKey && !skipParentMenu) {
         parentFrontmatter.menu = {
           [menuKey]: {
-            name: menuParent || 'HTTP API',
+            name: menuParent || 'InfluxDB HTTP API',
+            parent: 'Reference',
           },
         };
       }
 
+      // Build page content with intro paragraph and children listing
+      const introText = apiDescription.replace(
+        'InfluxDB',
+        '{{% product-name %}}'
+      );
       const parentContent = `---
 ${yaml.dump(parentFrontmatter)}---
+
+${introText}
+
+{{< children >}}
 `;
 
       fs.writeFileSync(parentIndexFile, parentContent);
@@ -396,25 +410,39 @@ function generateTagPagesFromArticleData(
   }
 
   if (!fs.existsSync(parentIndexFile)) {
+    // Build description - use product description or generate from product name
+    const apiDescription =
+      productDescription ||
+      `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+
     const parentFrontmatter: Record<string, unknown> = {
-      title: menuParent || 'HTTP API',
-      description:
-        productDescription ||
-        'API reference documentation for all available endpoints.',
+      title: menuParent || 'InfluxDB HTTP API',
+      description: apiDescription,
       weight: 104,
+      type: 'api',
     };
 
     // Add menu entry for parent page (unless skipParentMenu is true)
     if (menuKey && !skipParentMenu) {
       parentFrontmatter.menu = {
         [menuKey]: {
-          name: menuParent || 'HTTP API',
+          name: menuParent || 'InfluxDB HTTP API',
+          parent: 'Reference',
         },
       };
     }
 
+    // Build page content with intro paragraph and children listing
+    const introText = apiDescription.replace(
+      'InfluxDB',
+      '{{% product-name %}}'
+    );
     const parentContent = `---
 ${yaml.dump(parentFrontmatter)}---
+
+${introText}
+
+{{< children >}}
 `;
 
     fs.writeFileSync(parentIndexFile, parentContent);
@@ -591,7 +619,9 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
       const pathSlug = apiPathToSlug(op.path);
       const method = op.method.toLowerCase();
       // Only add 'api/' prefix if the path doesn't already start with 'api/'
-      const basePath = pathSlug.startsWith('api/') ? pathSlug : `api/${pathSlug}`;
+      const basePath = pathSlug.startsWith('api/')
+        ? pathSlug
+        : `api/${pathSlug}`;
       const operationDir = path.join(contentPath, basePath, method);
       const operationFile = path.join(operationDir, '_index.md');
 
