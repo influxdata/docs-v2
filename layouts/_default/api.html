@@ -10,8 +10,8 @@
   (api/section.html, api/list.html, api/single.html) should be preferred.
 */}}
 
-{{/* Section pages should render content directly, not use RapiDoc */}}
-{{ if .IsSection }}
+{{/* Section pages without staticFilePath should render content directly, not use RapiDoc */}}
+{{ if and .IsSection (not .Params.staticFilePath) }}
 
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
@@ -54,7 +54,7 @@
 {{ partial "footer.html" . }}
 
 {{ else }}
-{{/* Non-section pages with staticFilePath use RapiDoc renderer */}}
+{{/* Pages with staticFilePath (operation pages) use RapiDoc renderer */}}
 
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
