@@ -268,7 +268,7 @@
           "/api/v3/plugins/directory"
         ],
         "title": "Processing engine",
-        "description": "Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.\n\nInfluxDB 3 Core provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.\nUse Processing engine plugins and triggers to run code and perform tasks for different database events.\n\nTo get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.\n",
+        "description": "Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.\n\nInfluxDB 3 provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.\nUse Processing engine plugins and triggers to run code and perform tasks for different database events.\n\nTo get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.\n",
         "tag": "Processing engine",
         "isConceptual": false,
         "menuGroup": "Processing Engine",
@@ -382,7 +382,7 @@
             ]
           }
         ],
-        "tagDescription": "Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.\n\nInfluxDB 3 Core provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.\nUse Processing engine plugins and triggers to run code and perform tasks for different database events.\n\nTo get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.\n",
+        "tagDescription": "Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.\n\nInfluxDB 3 provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.\nUse Processing engine plugins and triggers to run code and perform tasks for different database events.\n\nTo get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.\n",
         "source": "static/openapi/influxdb3-core/tags/tags/influxdb3-core-processing-engine.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/influxdb3-core-processing-engine.yaml"
       }
@@ -449,7 +449,7 @@
             "compatVersion": "v1",
             "externalDocs": {
               "description": "Use the InfluxDB v1 HTTP query API and InfluxQL to query data",
-              "url": "/influxdb3/core/query-data/execute-queries/influxdb-v1-api/"
+              "url": "/influxdb/version/query-data/execute-queries/influxdb-v1-api/"
             }
           },
           {
@@ -463,13 +463,13 @@
             "compatVersion": "v1",
             "externalDocs": {
               "description": "Use the InfluxDB v1 HTTP query API and InfluxQL to query data",
-              "url": "/influxdb3/core/query-data/execute-queries/influxdb-v1-api/"
+              "url": "/influxdb/version/query-data/execute-queries/influxdb-v1-api/"
             }
           }
         ],
         "tagDescription": "Query data using SQL or InfluxQL",
         "related": [
-          "/influxdb3/core/query-data/execute-queries/influxdb-v1-api/"
+          "/influxdb/version/query-data/execute-queries/influxdb-v1-api/"
         ],
         "source": "static/openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml"
@@ -481,12 +481,12 @@
         "name": "Quick start",
         "describes": [],
         "title": "Quick start",
-        "description": "1. [Create an admin token](#section/Authentication) to authorize API requests.\n\n   ```bash\n   curl -X POST \"http://localhost:8181/api/v3/configure/token/admin\"\n   ```\n2. [Check the status](#section/Server-information) of the InfluxDB server.\n\n   ```bash\n   curl \"http://localhost:8181/health\" \\\n      --header \"Authorization: Bearer ADMIN_TOKEN\"\n   ```\n\n3. [Write data](#operation/PostWriteLP) to InfluxDB.\n\n   ```bash\n   curl \"http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto\"\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-raw \"home,room=Kitchen temp=72.0\n    home,room=Living\\ room temp=71.5\"\n   ```\n\n   If all data is written, the response is `204 No Content`.\n\n4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.\n\n   ```bash\n   curl -G \"http://localhost:8181/api/v3/query_sql\" \\\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-urlencode \"db=sensors\" \\\n     --data-urlencode \"q=SELECT * FROM home WHERE room='Living room'\" \\\n     --data-urlencode \"format=jsonl\"\n   ```\n   \n   Output:\n\n   ```jsonl\n   {\"room\":\"Living room\",\"temp\":71.5,\"time\":\"2025-02-25T20:19:34.984098\"}\n   ```\n  \nFor more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.\n",
+        "description": "1. [Create an admin token](#section/Authentication) to authorize API requests.\n\n   ```bash\n   curl -X POST \"http://localhost:8181/api/v3/configure/token/admin\"\n   ```\n2. [Check the status](#section/Server-information) of the InfluxDB server.\n\n   ```bash\n   curl \"http://localhost:8181/health\" \\\n      --header \"Authorization: Bearer ADMIN_TOKEN\"\n   ```\n\n3. [Write data](#operation/PostWriteLP) to InfluxDB.\n\n   ```bash\n   curl \"http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto\"\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-raw \"home,room=Kitchen temp=72.0\n    home,room=Living\\ room temp=71.5\"\n   ```\n\n   If all data is written, the response is `204 No Content`.\n\n4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.\n\n   ```bash\n   curl -G \"http://localhost:8181/api/v3/query_sql\" \\\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-urlencode \"db=sensors\" \\\n     --data-urlencode \"q=SELECT * FROM home WHERE room='Living room'\" \\\n     --data-urlencode \"format=jsonl\"\n   ```\n   \n   Output:\n\n   ```jsonl\n   {\"room\":\"Living room\",\"temp\":71.5,\"time\":\"2025-02-25T20:19:34.984098\"}\n   ```\n  \nFor more information about using InfluxDB 3, see the [Get started](/influxdb3/core/get-started/) guide.\n",
         "tag": "Quick start",
         "isConceptual": true,
         "menuGroup": "Concepts",
         "operations": [],
-        "tagDescription": "1. [Create an admin token](#section/Authentication) to authorize API requests.\n\n   ```bash\n   curl -X POST \"http://localhost:8181/api/v3/configure/token/admin\"\n   ```\n2. [Check the status](#section/Server-information) of the InfluxDB server.\n\n   ```bash\n   curl \"http://localhost:8181/health\" \\\n      --header \"Authorization: Bearer ADMIN_TOKEN\"\n   ```\n\n3. [Write data](#operation/PostWriteLP) to InfluxDB.\n\n   ```bash\n   curl \"http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto\"\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-raw \"home,room=Kitchen temp=72.0\n    home,room=Living\\ room temp=71.5\"\n   ```\n\n   If all data is written, the response is `204 No Content`.\n\n4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.\n\n   ```bash\n   curl -G \"http://localhost:8181/api/v3/query_sql\" \\\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-urlencode \"db=sensors\" \\\n     --data-urlencode \"q=SELECT * FROM home WHERE room='Living room'\" \\\n     --data-urlencode \"format=jsonl\"\n   ```\n   \n   Output:\n\n   ```jsonl\n   {\"room\":\"Living room\",\"temp\":71.5,\"time\":\"2025-02-25T20:19:34.984098\"}\n   ```\n  \nFor more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.\n",
+        "tagDescription": "1. [Create an admin token](#section/Authentication) to authorize API requests.\n\n   ```bash\n   curl -X POST \"http://localhost:8181/api/v3/configure/token/admin\"\n   ```\n2. [Check the status](#section/Server-information) of the InfluxDB server.\n\n   ```bash\n   curl \"http://localhost:8181/health\" \\\n      --header \"Authorization: Bearer ADMIN_TOKEN\"\n   ```\n\n3. [Write data](#operation/PostWriteLP) to InfluxDB.\n\n   ```bash\n   curl \"http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto\"\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-raw \"home,room=Kitchen temp=72.0\n    home,room=Living\\ room temp=71.5\"\n   ```\n\n   If all data is written, the response is `204 No Content`.\n\n4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.\n\n   ```bash\n   curl -G \"http://localhost:8181/api/v3/query_sql\" \\\n     --header \"Authorization: Bearer ADMIN_TOKEN\" \\\n     --data-urlencode \"db=sensors\" \\\n     --data-urlencode \"q=SELECT * FROM home WHERE room='Living room'\" \\\n     --data-urlencode \"format=jsonl\"\n   ```\n   \n   Output:\n\n   ```jsonl\n   {\"room\":\"Living room\",\"temp\":71.5,\"time\":\"2025-02-25T20:19:34.984098\"}\n   ```\n  \nFor more information about using InfluxDB 3, see the [Get started](/influxdb3/core/get-started/) guide.\n",
         "source": "static/openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml"
       }
@@ -613,7 +613,7 @@
             "compatVersion": "v1",
             "externalDocs": {
               "description": "Use compatibility APIs to write data",
-              "url": "/influxdb3/core/write-data/http-api/compatibility-apis/"
+              "url": "/influxdb/version/write-data/http-api/compatibility-apis/"
             }
           },
           {
@@ -627,7 +627,7 @@
             "compatVersion": "v2",
             "externalDocs": {
               "description": "Use compatibility APIs to write data",
-              "url": "/influxdb3/core/write-data/http-api/compatibility-apis/"
+              "url": "/influxdb/version/write-data/http-api/compatibility-apis/"
             }
           },
           {
@@ -642,7 +642,7 @@
         ],
         "tagDescription": "Write data to InfluxDB 3 using line protocol format.\n\n#### Timestamp precision across write APIs\n\nInfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.\nThe following table compares timestamp precision support across v1, v2, and v3 write APIs:\n\n| Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |\n|-----------|---------------|----------------------|-------------------------|\n| **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |\n| **Seconds** | ✅ `s` | ✅ `s` | ✅ `second` |\n| **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `millisecond` |\n| **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `microsecond` |\n| **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `nanosecond` |\n| **Minutes** | ✅ `m` | ❌ No | ❌ No |\n| **Hours** | ✅ `h` | ❌ No | ❌ No |\n| **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |\n\nAll timestamps are stored internally as nanoseconds.\n",
         "related": [
-          "/influxdb3/core/write-data/http-api/compatibility-apis/"
+          "/influxdb/version/write-data/http-api/compatibility-apis/"
         ],
         "source": "static/openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml",
         "staticFilePath": "/openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml"

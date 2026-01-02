@@ -1,19 +1,19 @@
 openapi: 3.0.3
 info:
-  title: InfluxDB 3 Core API Service
+  title: InfluxDB 3 API Service
   description: |
-    The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for
-    interacting with InfluxDB 3 Core databases and resources.
+    The InfluxDB HTTP API for InfluxDB 3 provides a programmatic interface for
+    interacting with InfluxDB 3 databases and resources.
     Use this API to:
 
-    - Write data to InfluxDB 3 Core databases
+    - Write data to InfluxDB 3 databases
     - Query data using SQL or InfluxQL
     - Process data using Processing engine plugins
     - Manage databases, tables, and Processing engine triggers
     - Perform administrative tasks and access system information
 
     The API includes endpoints under the following paths:
-    - `/api/v3`: InfluxDB 3 Core native endpoints
+    - `/api/v3`: InfluxDB 3 native endpoints
     - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
@@ -21,7 +21,7 @@ info:
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
     -->
-  version: ''
+  version: '3.7.0'
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -31,18 +31,16 @@ info:
     email: support@influxdata.com
 servers:
   - url: https://{baseurl}
-    description: InfluxDB 3 Core API URL
+    description: InfluxDB 3 API URL
     variables:
       baseurl:
         enum:
           - localhost:8181
         default: localhost:8181
-        description: InfluxDB 3 Core URL
+        description: InfluxDB 3 URL
 security:
   - BearerAuthentication: []
 tags:
-  - name: Auth token
-    description: Manage tokens for authentication and authorization
   - name: Authentication
     description: |
       Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
@@ -89,6 +87,20 @@ tags:
 
       - [Manage the Distinct Value Cache](/influxdb/version/admin/distinct-value-cache/)
       - [Manage the Last Value Cache](/influxdb/version/admin/last-value-cache/)
+  - name: Migrate from InfluxDB v1 or v2
+    x-traitTag: true
+    description: |
+      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
+
+      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
+      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
+
+      ### Migration guides
+
+      - [Migrate from InfluxDB v1](/influxdb/version/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
+      - [Migrate from InfluxDB v2](/influxdb/version/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
+      - [Use compatibility APIs to write data](/influxdb/version/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
+      - [Use the v1 HTTP query API](/influxdb/version/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
   - name: Database
     description: Manage databases
   - description: |
@@ -117,20 +129,6 @@ tags:
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers and parameters
     x-traitTag: true
-  - name: Migrate from InfluxDB v1 or v2
-    x-traitTag: true
-    description: |
-      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
-
-      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
-      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
-
-      ### Migration guides
-
-      - [Migrate from InfluxDB v1](/influxdb/version/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
-      - [Migrate from InfluxDB v2](/influxdb/version/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
-      - [Use compatibility APIs to write data](/influxdb/version/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
-      - [Use the v1 HTTP query API](/influxdb/version/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
   - name: Processing engine
     description: |
       Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
@@ -188,6 +186,8 @@ tags:
     description: Retrieve server metrics, status, and version information
   - name: Table
     description: Manage table schemas and data
+  - name: Auth token
+    description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
       Write data to InfluxDB 3 using line protocol format.
@@ -1723,7 +1723,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       security:
         - BearerAuthentication: []
-        - {}
+        - {} # No auth required for initial token creation
       tags:
         - Auth token
   /api/v3/configure/token/admin/regenerate:
@@ -2713,19 +2713,3 @@ components:
       in: header
       name: Authorization
       type: apiKey
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Cache data
-      - Common parameters
-      - Response codes
-      - Compatibility endpoints
-      - Database
-      - Processing engine
-      - Server information
-      - Table
-      - Token
-      - Query data
-      - Write data

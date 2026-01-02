@@ -1,0 +1,142 @@
+overlay: 1.0.0
+info:
+  title: Enterprise product overlay
+  version: 1.0.0
+
+actions:
+  # Override info.title
+  - target: $.info.title
+    update: InfluxDB 3 Enterprise API Service
+
+  # Override info.description
+  - target: $.info.description
+    update: |
+      The InfluxDB HTTP API for InfluxDB 3 Enterprise provides a programmatic interface for
+      interacting with InfluxDB 3 Enterprise databases and resources.
+      Use this API to:
+      - Write data to InfluxDB 3 Enterprise databases
+      - Query data using SQL or InfluxQL
+      - Process data using Processing engine plugins
+      - Manage databases, tables, and Processing engine triggers
+      - Perform administrative tasks and access system information
+      The API includes endpoints under the following paths:
+      - `/api/v3`: InfluxDB 3 Enterprise native endpoints
+      - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
+      - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
+      <!-- TODO: verify where to host the spec that users can download.
+      This documentation is generated from the
+      [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
+      -->
+
+  # Override servers[0].description
+  - target: $.servers[0].description
+    update: InfluxDB 3 Enterprise API URL
+
+  # Override servers[0].variables.baseurl.description
+  - target: $.servers[0].variables.baseurl.description
+    update: InfluxDB 3 Enterprise URL
+
+  # Enterprise-only: Add PATCH method to /api/v3/configure/table
+  - target: $.paths['/api/v3/configure/table'].patch
+    update:
+      operationId: PatchConfigureTable
+      summary: Update a table
+      description: |
+        Updates table configuration, such as retention period.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTableRequest'
+      responses:
+        '200':
+          description: Success. The table has been updated.
+        '400':
+          description: Bad request.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Table not found.
+      tags:
+        - Table
+
+  # Enterprise-only: Add /api/v3/configure/database/{db} path
+  - target: $.paths['/api/v3/configure/database/{db}']
+    update:
+      patch:
+        operationId: PatchConfigureDatabase
+        summary: Update a database
+        description: |
+          Updates database configuration, such as retention period.
+        parameters:
+          - name: db
+            in: path
+            required: true
+            schema:
+              type: string
+            description: The name of the database to update.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDatabaseRequest'
+        responses:
+          '200':
+            description: Success. The database has been updated.
+          '400':
+            description: Bad request.
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+          '404':
+            description: Database not found.
+        tags:
+          - Database
+
+  # Enterprise-only: Add /api/v3/show/license path
+  - target: $.paths['/api/v3/show/license']
+    update:
+      get:
+        operationId: GetShowLicense
+        summary: Show license information
+        description: |
+          Retrieves information about the current InfluxDB 3 Enterprise license.
+        responses:
+          '200':
+            description: Success. The response body contains license information.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/LicenseResponse'
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+          '403':
+            description: Access denied.
+        tags:
+          - Server information
+
+  # Enterprise-only: Add /api/v3/configure/enterprise/token path
+  - target: $.paths['/api/v3/configure/enterprise/token']
+    update:
+      post:
+        operationId: PostCreateResourceToken
+        summary: Create a resource token
+        description: |
+          Creates a resource (fine-grained permissions) token.
+          A resource token is a token that has access to specific resources in the system.
+          This endpoint is only available in InfluxDB 3 Enterprise.
+        responses:
+          '201':
+            description: |
+              Success. The resource token has been created.
+              The response body contains the token string and metadata.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResourceTokenObject'
+          '401':
+            $ref: '#/components/responses/Unauthorized'
+        tags:
+          - Authentication
+          - Auth token

@@ -542,9 +542,9 @@ articles:
         trigger On Request plugins.
 
 
-        InfluxDB 3 Core provides the InfluxDB 3 processing engine, an embedded
-        Python VM that can dynamically load and trigger Python plugins in
-        response to events in your database.
+        InfluxDB 3 provides the InfluxDB 3 processing engine, an embedded Python
+        VM that can dynamically load and trigger Python plugins in response to
+        events in your database.
 
         Use Processing engine plugins and triggers to run code and perform tasks
         for different database events.
@@ -633,9 +633,9 @@ articles:
         trigger On Request plugins.
 
 
-        InfluxDB 3 Core provides the InfluxDB 3 processing engine, an embedded
-        Python VM that can dynamically load and trigger Python plugins in
-        response to events in your database.
+        InfluxDB 3 provides the InfluxDB 3 processing engine, an embedded Python
+        VM that can dynamically load and trigger Python plugins in response to
+        events in your database.
 
         Use Processing engine plugins and triggers to run code and perform tasks
         for different database events.
@@ -692,7 +692,7 @@ articles:
           compatVersion: v1
           externalDocs:
             description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
+            url: /influxdb/version/query-data/execute-queries/influxdb-v1-api/
         - operationId: PostExecuteV1Query
           method: POST
           path: /query
@@ -702,10 +702,10 @@ articles:
           compatVersion: v1
           externalDocs:
             description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-            url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
+            url: /influxdb/version/query-data/execute-queries/influxdb-v1-api/
       tagDescription: Query data using SQL or InfluxQL
       related:
-        - /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
+        - /influxdb/version/query-data/execute-queries/influxdb-v1-api/
       source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml
       staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-query-data.yaml
   - path: api/quick-start
@@ -755,7 +755,7 @@ articles:
            {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
            ```
           
-        For more information about using InfluxDB 3 Core, see the [Get
+        For more information about using InfluxDB 3, see the [Get
         started](/influxdb3/core/get-started/) guide.
       tag: Quick start
       isConceptual: true
@@ -803,7 +803,7 @@ articles:
            {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
            ```
           
-        For more information about using InfluxDB 3 Core, see the [Get
+        For more information about using InfluxDB 3, see the [Get
         started](/influxdb3/core/get-started/) guide.
       source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml
       staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-quick-start.yaml
@@ -934,7 +934,7 @@ articles:
           compatVersion: v1
           externalDocs:
             description: Use compatibility APIs to write data
-            url: /influxdb3/core/write-data/http-api/compatibility-apis/
+            url: /influxdb/version/write-data/http-api/compatibility-apis/
         - operationId: PostV2Write
           method: POST
           path: /api/v2/write
@@ -944,7 +944,7 @@ articles:
           compatVersion: v2
           externalDocs:
             description: Use compatibility APIs to write data
-            url: /influxdb3/core/write-data/http-api/compatibility-apis/
+            url: /influxdb/version/write-data/http-api/compatibility-apis/
         - operationId: PostWriteLP
           method: POST
           path: /api/v3/write_lp
@@ -989,6 +989,6 @@ articles:
 
         All timestamps are stored internally as nanoseconds.
       related:
-        - /influxdb3/core/write-data/http-api/compatibility-apis/
+        - /influxdb/version/write-data/http-api/compatibility-apis/
       source: static/openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml
       staticFilePath: /openapi/influxdb3-core/tags/tags/influxdb3-core-write-data.yaml

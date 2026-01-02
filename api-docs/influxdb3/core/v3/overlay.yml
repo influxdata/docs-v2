@@ -1,0 +1,40 @@
+overlay: 1.0.0
+info:
+  title: Core product overlay
+  version: 1.0.0
+
+actions:
+  # Override info.title
+  - target: $.info.title
+    update: InfluxDB 3 Core API Service
+
+  # Override info.description
+  - target: $.info.description
+    update: |
+      The InfluxDB HTTP API for InfluxDB 3 Core provides a programmatic interface for
+      interacting with InfluxDB 3 Core databases and resources.
+      Use this API to:
+
+      - Write data to InfluxDB 3 Core databases
+      - Query data using SQL or InfluxQL
+      - Process data using Processing engine plugins
+      - Manage databases, tables, and Processing engine triggers
+      - Perform administrative tasks and access system information
+
+      The API includes endpoints under the following paths:
+      - `/api/v3`: InfluxDB 3 Core native endpoints
+      - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
+      - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
+
+      <!-- TODO: verify where to host the spec that users can download.
+      This documentation is generated from the
+      [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
+      -->
+
+  # Override servers[0].description
+  - target: $.servers[0].description
+    update: InfluxDB 3 Core API URL
+
+  # Override servers[0].variables.baseurl.description
+  - target: $.servers[0].variables.baseurl.description
+    update: InfluxDB 3 Core URL

@@ -62,8 +62,13 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|influxdb3_core|influxdb3_enterprise|all)
     product=$1
+    # Map alternative product names to canonical names
+    case "$product" in
+      influxdb3_core) product="core-v3" ;;
+      influxdb3_enterprise) product="enterprise-v3" ;;
+    esac
     shift
 
   while getopts ":o:b:BhV" opt; do
@@ -214,28 +219,36 @@ function updateClusteredV2 {
  postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
 }
 
+# Bundle shared base spec with product-specific overlay
+# Usage: bundleWithOverlay <product> <apiVersion>
+# Example: bundleWithOverlay "core" "v3"
+function bundleWithOverlay {
+  local product=$1
+  local apiVersion=$2
+
+  local baseFile="influxdb3/shared/${apiVersion}/base.yml"
+  local overlayFile="influxdb3/${product}/${apiVersion}/overlay.yml"
+  local outFile="influxdb3/${product}/${apiVersion}/ref.yml"
+  local configFile="influxdb3/${product}/.config.yml"
+
+  echo "Bundling ${product} ${apiVersion} with overlay..."
+
+  # Apply overlay to base spec (run from project root for node_modules access)
+  local scriptDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+  local projectRoot=$(dirname "$scriptDir")
+
+  (cd "$projectRoot" && node api-docs/scripts/apply-overlay.js "api-docs/$baseFile" "api-docs/$overlayFile" -o "api-docs/$outFile")
+
+  # Apply Redocly decorators (info, servers, tag-groups from content/)
+  postProcess "$outFile" "$configFile" "${apiVersion}@3"
+}
+
 function updateCoreV3 {
-  outFile="influxdb3/core/v3/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    local url="${baseUrl}/TO_BE_DECIDED"
-    curl $UPDATE_OPTIONS $url -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/core/.config.yml' v3@3
+  bundleWithOverlay "core" "v3"
 }
 
 function updateEnterpriseV3 {
-  outFile="influxdb3/enterprise/v3/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    local url="${baseUrl}/TO_BE_DECIDED"
-    curl $UPDATE_OPTIONS $url -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/enterprise/.config.yml' v3@3
+  bundleWithOverlay "enterprise" "v3"
 }
 
 function updateOSSV2 {
