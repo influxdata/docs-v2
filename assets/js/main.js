@@ -46,6 +46,10 @@ import SidebarSearch from './components/sidebar-search.js';
 import { SidebarToggle } from './sidebar-toggle.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
+import ApiAuthInput from './components/api-auth-input.ts';
+import ApiRapiDoc from './components/api-rapidoc.ts';
+import ApiToc from './components/api-toc.ts';
+import RapiDocMini from './components/rapidoc-mini.ts';
 
 /**
  * Component Registry
@@ -77,6 +81,10 @@ const componentRegistry = {
   'sidebar-toggle': SidebarToggle,
   theme: Theme,
   'theme-switch': ThemeSwitch,
+  'api-auth-input': ApiAuthInput,
+  'api-rapidoc': ApiRapiDoc,
+  'api-toc': ApiToc,
+  'rapidoc-mini': RapiDocMini,
 };
 
 /**

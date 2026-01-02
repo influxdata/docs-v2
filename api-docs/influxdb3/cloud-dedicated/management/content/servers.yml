@@ -1,8 +1,0 @@
-- url: 'https://{baseurl}/api/v0'
-  description: InfluxDB 3 Cloud Dedicated Management API URL
-  variables:
-    baseurl:
-      enum:
-        - 'console.influxdata.com'
-      default: 'console.influxdata.com'
-      description: InfluxDB 3 Cloud Dedicated Console URL

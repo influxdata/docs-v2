@@ -1,0 +1,460 @@
+openapi: 3.1.0
+info:
+  title: InfluxDB 3 Management API
+  description: |
+    The Management API for InfluxDB 3 provides a programmatic interface for managing an InfluxDB 3 cluster.
+    The Management API lets you integrate functions such as creating and managing databases, permissions, and tokens into your workflow or application.
+
+    This documentation is generated from the
+    InfluxDB 3 Management API OpenAPI specification.
+  version: ''
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+    email: support@influxdata.com
+servers:
+  - url: https://{baseurl}/api/v0
+    description: InfluxDB 3 Management API URL
+    variables:
+      baseurl:
+        enum:
+          - console.influxdata.com
+        default: console.influxdata.com
+        description: InfluxDB 3 Console URL
+security:
+  - bearerAuthManagementToken: []
+    bearerAuthJwt: []
+tags:
+  - name: Authentication
+    x-traitTag: true
+    description: |
+      InfluxDB Management API endpoints require authentication with a management token.
+  - name: Database tokens
+    description: Manage database read/write tokens for a cluster
+  - name: Databases
+    description: Manage databases for a cluster
+  - name: Quickstart
+    x-traitTag: true
+    description: |
+      See the product-specific documentation for quickstart examples.
+  - name: Tables
+    description: List and delete tables for a database
+paths: {}
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      examples:
+        - code: 400
+          message: bad request
+        - code: 401
+          message: unauthorized
+        - code: 403
+          message: forbidden
+        - code: 404
+          message: not found
+        - code: 409
+          message: conflict
+        - code: 500
+          message: internal server error
+      required:
+        - code
+        - message
+    DateTimeRfc3339:
+      type: string
+      format: date-time
+      examples:
+        - '2023-12-21T17:32:28Z'
+    UuidV4:
+      type: string
+      format: uuid
+      examples:
+        - 11111111-1111-4111-8111-111111111111
+        - 22222222-1111-4111-8111-111111111111
+    ClusterDatabaseName:
+      description: The name of the cluster database
+      type: string
+      examples:
+        - DatabaseOne
+        - DatabaseTwo
+      maxLength: 64
+      minLength: 1
+    ClusterDatabaseRetentionPeriod:
+      description: |
+        The retention period of the [cluster database](/influxdb/version/admin/databases/) in nanoseconds, if applicable
+
+        If the retention period is not set or is set to 0, the database will have infinite retention
+      type: integer
+      format: int64
+      default: 0
+      examples:
+        - 300000000000
+        - 600000000000
+      minimum: 0
+    ClusterDatabaseMaxTables:
+      description: The maximum number of tables for the cluster database
+      type: integer
+      format: int32
+      default: 500
+      examples:
+        - 100
+        - 300
+      minimum: 1
+    ClusterDatabaseMaxColumnsPerTable:
+      description: The maximum number of columns per table for the cluster database
+      type: integer
+      format: int32
+      default: 200
+      examples:
+        - 50
+        - 150
+      minimum: 1
+    ClusterDatabasePartitionTemplate:
+      description: |
+        A template for [partitioning](/influxdb/version/admin/custom-partitions/) a cluster database.
+
+        Each template part is evaluated in sequence, concatenating the final
+        partition key from the output of each part, delimited by the partition
+        key delimiter `|`.
+
+        For example, using the partition template below:
+
+        ```json
+        [
+          {
+            "type": "time",
+            "value": "%Y"
+          },
+          {
+            "type": "tag",
+            "value": "bananas"
+          },
+          {
+            "type": "tag",
+            "value": "plátanos"
+          },
+          {
+            "type": "bucket",
+            "value": {
+              "tagName": "c",
+              "numberOfBuckets": 10
+            }
+          }
+        ]
+        ```
+
+        The following partition keys are derived:
+
+          * `time=2023-01-01, a=bananas, b=plátanos, c=ananas`   -> `2023|bananas|plátanos|5`
+          * `time=2023-01-01, b=plátanos`                        -> `2023|!|plátanos|!`
+          * `time=2023-01-01, another=cat, b=plátanos`           -> `2023|!|plátanos|!`
+          * `time=2023-01-01`                                    -> `2023|!|!|!`
+          * `time=2023-01-01, a=cat|dog, b=!, c=!`               -> `2023|cat%7Cdog|%21|8`
+          * `time=2023-01-01, a=%50, c=%50`                      -> `2023|%2550|!|9`
+          * `time=2023-01-01, a=, c=`                            -> `2023|^|!|0`
+          * `time=2023-01-01, a=<long string>`                   -> `2023|<long string>#|!|!`
+          * `time=2023-01-01, c=<long string>`                   -> `2023|!|!|<bucket ID for untruncated long string>`
+
+        When using the default [partitioning](/influxdb/version/admin/custom-partitions/) template (YYYY-MM-DD) there is no
+        encoding necessary, as the derived partition key contains a single part, and
+        no reserved characters. [`TemplatePart::Bucket`] parts by definition will
+        always be within the part length limit and contain no restricted characters
+        so are also not percent-encoded and/or truncated.
+      type: array
+      items:
+        $ref: '#/components/schemas/ClusterDatabasePartitionTemplatePart'
+      examples:
+        - - type: time
+            value: '%Y'
+          - type: tag
+            value: bananas
+          - type: tag
+            value: plátanos
+          - type: bucket
+            value:
+              tagName: c
+              numberOfBuckets: 10
+      maxItems: 8
+      minItems: 1
+      uniqueItems: true
+    ClusterDatabasePartitionTemplatePart:
+      description: A sub-part of a `PartitionTemplate`
+      anyOf:
+        - $ref: '#/components/schemas/ClusterDatabasePartitionTemplatePartTagValue'
+        - $ref: '#/components/schemas/ClusterDatabasePartitionTemplatePartTimeFormat'
+        - $ref: '#/components/schemas/ClusterDatabasePartitionTemplatePartBucket'
+      examples:
+        - type: time
+          value: '%Y'
+        - type: tag
+          value: bananas
+        - type: tag
+          value: plátanos
+        - type: bucket
+          value:
+            tagName: c
+            numberOfBuckets: 10
+    ClusterDatabasePartitionTemplatePartTagValue:
+      description: |
+        A tag value matcher that extracts a string value from the specified tag name
+
+        If a row does not contain a value for the specified tag name, the NULL/missing partition key part `!` is rendered.
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - tag
+        value:
+          type: string
+          minLength: 1
+      examples:
+        - type: tag
+          value: bananas
+        - type: tag
+          value: plátanos
+    ClusterDatabasePartitionTemplatePartTimeFormat:
+      description: A time format matcher that accepts a "strftime"-like format string and evaluates it against the "time" column
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - time
+        value:
+          type: string
+          minLength: 1
+      examples:
+        - type: time
+          value: '%Y'
+    ClusterDatabasePartitionTemplatePartBucket:
+      description: |
+        A bucketing matcher that sorts data through a uniform hash function on the values of the given tag name.
+
+        If a row does not contain a value for the specified tag name, the NULL/missing partition key part `!` is rendered.
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - bucket
+        value:
+          type: object
+          properties:
+            tagName:
+              description: The name of the tag used to derive the bucket the data belongs in
+              type: string
+              minLength: 1
+            numberOfBuckets:
+              description: The number of buckets tag values are distributed across
+              type: integer
+              format: int32
+              maximum: 100000
+              minimum: 1
+      examples:
+        - type: bucket
+          value:
+            tagName: c
+            numberOfBuckets: 10
+    ClusterDatabaseTableName:
+      description: The name of the [cluster database](/influxdb/version/admin/databases/) table
+      type: string
+      examples:
+        - TableOne
+        - TableTwo
+      minLength: 1
+    DatabaseTokenDescription:
+      description: The description of the database token
+      type: string
+      examples:
+        - Limited Access Token
+        - Full Access Token
+    DatabaseTokenResourceAllDatabases:
+      description: A resource value for a [database token](/influxdb/version/admin/tokens/database/) permission that refers to all databases
+      type: string
+      enum:
+        - '*'
+    DatabaseTokenPermissionAction:
+      description: The action the [database token](/influxdb/version/admin/tokens/database/) permission allows
+      type: string
+    DatabaseTokenPermissionResource:
+      description: The resource the [database token](/influxdb/version/admin/tokens/database/) permission applies to
+      anyOf:
+        - $ref: '#/components/schemas/ClusterDatabaseName'
+        - $ref: '#/components/schemas/DatabaseTokenResourceAllDatabases'
+      examples:
+        - DatabaseOne
+        - DatabaseTwo
+        - '*'
+    DatabaseTokenPermission:
+      description: The description of the database token
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/DatabaseTokenPermissionAction'
+        resource:
+          $ref: '#/components/schemas/DatabaseTokenPermissionResource'
+      examples:
+        - action: read
+          resource: DatabaseOne
+        - action: write
+          resource: DatabaseTwo
+        - action: write
+          resource: '*'
+    DatabaseTokenPermissions:
+      description: The list of permissions the [database token](/influxdb/version/admin/tokens/database/) allows
+      type: array
+      items:
+        $ref: '#/components/schemas/DatabaseTokenPermission'
+      examples:
+        - - action: read
+            resource: DatabaseOne
+          - action: write
+            resource: DatabaseTwo
+        - - action: write
+            resource: '*'
+    DatabaseTokenCreatedAt:
+      description: |
+        The date and time that the [database token](/influxdb/version/admin/tokens/database/) was created
+
+        Uses RFC3339 format
+      $ref: '#/components/schemas/DateTimeRfc3339'
+      examples:
+        - '2023-12-21T17:32:28.000Z'
+        - '2024-03-02T04:20:19.000Z'
+    DatabaseTokenExpiresAt:
+      description: |
+        The date and time that the database token expires, if applicable
+
+        Uses RFC3339 format
+      $ref: '#/components/schemas/DateTimeRfc3339'
+    DatabaseTokenRevokedAt:
+      description: |
+        The date and time that the database token was revoked, if applicable
+
+        Uses RFC3339 format
+      $ref: '#/components/schemas/DateTimeRfc3339'
+    DatabaseTokenAccessToken:
+      description: |
+        The access token that can be used to authenticate query and write requests to the cluster
+
+        The access token is never stored by InfluxDB and is only returned once when the token is created. If the access token is lost, a new token must be created.
+      type: string
+      examples:
+        - apiv1_5555555555555555555555555555555555555555555555555555555555555555
+        - apiv1_6666666666666666666666666666666666666666666666666666666666666666
+      minLength: 64
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 400
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 400
+            message: bad request
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 401
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: unauthorized
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 403
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: forbidden
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 404
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: not found
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 409
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 409
+            message: conflict
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                type: integer
+                enum:
+                  - 500
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 500
+            message: internal server error
+    NoContent:
+      description: No Content
+  securitySchemes:
+    bearerAuthManagementToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Management Token
+    bearerAuthJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-tagGroups:
+  - name: Using the Management API
+    tags:
+      - Authentication
+      - Quickstart
+  - name: All endpoints
+    tags:
+      - Database tokens
+      - Databases
+      - Tables

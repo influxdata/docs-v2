@@ -1,0 +1,179 @@
+{{/*
+  RapiDoc API Documentation Renderer
+
+  Primary API documentation renderer using RapiDoc with "Mix your own HTML" slots.
+  See: https://rapidocweb.com/examples.html
+
+  Required page params:
+  - staticFilePath: Path to the OpenAPI specification file
+
+  Optional page params:
+  - operationId: Specific operation to display (renders only that operation)
+  - tag: Tag to filter operations by
+
+  RapiDoc slots available for custom content:
+  - slot="header" - Custom header
+  - slot="footer" - Custom footer
+  - slot="overview" - Custom overview content
+  - slot="auth" - Custom authentication section
+  - slot="nav-logo" - Custom navigation logo
+*/}}
+
+{{ $specPath := .Params.staticFilePath }}
+{{ $specPathJSON := replace $specPath ".yaml" ".json" | replace ".yml" ".json" }}
+{{ $operationId := .Params.operationId | default "" }}
+{{ $tag := .Params.tag | default "" }}
+
+{{/* Machine-readable links for AI agent discovery */}}
+{{ if $specPath }}
+<link rel="alternate" type="application/x-yaml" href="{{ $specPath | absURL }}" title="OpenAPI Specification (YAML)" />
+<link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
+{{ end }}
+
+<div class="api-reference-wrapper" data-component="api-rapidoc">
+  {{/* RapiDoc component with slot-based customization */}}
+  <rapi-doc
+    id="api-doc"
+    spec-url="{{ $specPath }}"
+    theme="light"
+    bg-color="#ffffff"
+    text-color="#2b2b2b"
+    header-color="#020a47"
+    primary-color="#00A3FF"
+    nav-bg-color="#f7f8fa"
+    nav-text-color="#2b2b2b"
+    nav-hover-bg-color="#e8e8f0"
+    nav-hover-text-color="#020a47"
+    nav-accent-color="#020a47"
+    regular-font="Proxima Nova, -apple-system, BlinkMacSystemFont, sans-serif"
+    mono-font="IBM Plex Mono, Monaco, Consolas, monospace"
+    font-size="large"
+    render-style="view"
+    layout="column"
+    schema-style="table"
+    default-schema-tab="model"
+    response-area-height="400px"
+    show-header="false"
+    show-info="false"
+    show-side-nav="false"
+    show-components="false"
+    allow-authentication="true"
+    allow-try="false"
+    allow-spec-url-load="false"
+    allow-spec-file-load="false"
+    allow-server-selection="false"
+    allow-search="false"
+    fill-request-fields-with-example="true"
+    persist-auth="false"
+    {{ if $operationId }}goto-path="op/{{ $operationId }}"{{ end }}
+    {{ if $tag }}match-paths="tag/{{ $tag }}"{{ end }}
+  >
+    {{/* Custom overview slot - Hugo page content */}}
+    {{ with .Content }}
+    <div slot="overview">
+      {{ . }}
+    </div>
+    {{ end }}
+
+    {{/* Custom examples from frontmatter */}}
+    {{ with .Params.examples }}
+    <div slot="footer" class="api-custom-examples">
+      <h3>Examples</h3>
+      {{ range . }}
+      <div class="api-example">
+        <h4>{{ .title }}</h4>
+        {{ with .description }}<p>{{ . | markdownify }}</p>{{ end }}
+        <pre><code class="language-{{ .lang | default "bash" }}">{{ .code }}</code></pre>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </rapi-doc>
+</div>
+
+{{/* Load RapiDoc from CDN */}}
+<script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+
+<style>
+.api-reference-wrapper {
+  width: 100%;
+}
+
+rapi-doc {
+  width: 100%;
+  min-height: 600px;
+  display: block;
+  /* Override RapiDoc's internal font sizes to match Hugo docs */
+  --font-size-small: 15px;
+  --font-size-mono: 15px;
+  --font-size-regular: 17px;
+  /* Match Hugo theme backgrounds - light mode default */
+  --bg: #ffffff;
+  --bg2: #f7f8fa;
+  --bg3: #eef0f3;
+  /* Input field border styling - subtle with transparency */
+  --border-color: rgba(0, 163, 255, 0.25);
+  --light-border-color: rgba(0, 163, 255, 0.15);
+  /* HTTP method colors - lighter palette for light theme */
+  --blue: #00A3FF;        /* $b-pool - GET */
+  --green: #34BB55;       /* $gr-rainforest - POST */
+  --orange: #FFB94A;      /* $y-pineapple - PUT (distinct from red) */
+  --red: #F95F53;         /* $r-curacao - DELETE */
+  --purple: #9b2aff;      /* $br-new-purple - PATCH */
+}
+
+/* Dark mode overrides - match Hugo $grey10: #14141F */
+[data-theme="dark"] rapi-doc,
+html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
+  --bg: #14141F;
+  /* Subtle border colors for dark mode with transparency */
+  --border-color: rgba(0, 163, 255, 0.35);
+  --light-border-color: rgba(0, 163, 255, 0.2);
+  --bg2: #1a1a2a;
+  --bg3: #252535;
+  --fg: #D4D7DD;
+  --fg2: #c8ccd2;
+  --fg3: #b0b4ba;
+  /* HTTP method colors - darker palette for dark theme */
+  --blue: #066FC5;        /* $b-ocean - GET */
+  --green: #009F5F;       /* $gr-viridian - POST */
+  --orange: #FFC800;      /* $y-thunder - PUT (brighter for dark mode) */
+  --red: #DC4E58;         /* $r-fire - DELETE */
+  --purple: #8E1FC3;      /* $p-amethyst - PATCH */
+}
+
+/* Custom examples section styling */
+.api-custom-examples {
+  padding: 1.5rem;
+  background: var(--bg2, #f7f8fa);
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.api-custom-examples h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.api-example {
+  margin-bottom: 1.5rem;
+}
+
+.api-example:last-child {
+  margin-bottom: 0;
+}
+
+.api-example h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.api-example pre {
+  margin: 0;
+  padding: 1rem;
+  background: var(--bg3, #eef0f3);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+</style>

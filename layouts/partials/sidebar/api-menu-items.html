@@ -1,0 +1,203 @@
+{{/*
+  API Reference Menu Items for Hugo Navigation
+
+  Generates <li class="nav-item"> elements matching Hugo's menu structure.
+  Used by nested-menu.html when rendering "InfluxDB HTTP API" menu item.
+
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Parameters:
+  - page: Current page context
+  - url: URL of the API parent page (e.g., /influxdb3/core/api/)
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+*/}}
+
+{{ $currentPage := .page }}
+{{ $apiUrl := .url }}
+
+{{/* Extract product and version from API URL */}}
+{{ $productPathData := findRE "[^/]+.*?" $apiUrl }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{ $dataKey = print "influxdb3_" $version }}
+{{ else if eq $product "influxdb" }}
+  {{ $dataKey = print $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $siteData := .siteData }}
+{{ $articles := slice }}
+{{ with $siteData.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Check if articles use tag-based structure */}}
+{{ $isTagBased := false }}
+{{ if gt (len $articles) 0 }}
+  {{ $firstArticle := index $articles 0 }}
+  {{ if reflect.IsMap $firstArticle }}
+    {{ with index $firstArticle "fields" }}
+      {{ if reflect.IsMap . }}
+        {{ if isset . "tag" }}
+          {{ $isTagBased = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if and (gt (len $articles) 0) $isTagBased }}
+  {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+  {{ $conceptualArticles := slice }}
+  {{ $operationArticles := slice }}
+
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if reflect.IsMap $fields }}
+        {{ $isConceptual := false }}
+        {{ if isset $fields "isConceptual" }}
+          {{ $isConceptual = index $fields "isConceptual" }}
+        {{ end }}
+        {{ if $isConceptual }}
+          {{ $conceptualArticles = $conceptualArticles | append . }}
+        {{ else }}
+          {{ $operationArticles = $operationArticles | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort each group alphabetically by tag name */}}
+  {{ $conceptualArticles = sort $conceptualArticles "fields.tag" }}
+  {{ $operationArticles = sort $operationArticles "fields.tag" }}
+
+  {{/* Combine: conceptual first, then operations */}}
+  {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+  {{/* Render each tag as a nav item */}}
+  {{ range $sortedArticles }}
+    {{ $path := index . "path" }}
+    {{ $fields := index . "fields" }}
+    {{ $tag := index $fields "tag" }}
+    {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+    {{ $isActive := eq $currentPage.RelPermalink (print "/" $product "/" $version "/" $path "/") }}
+
+    {{/* Get operations */}}
+    {{ $operations := slice }}
+    {{ if isset $fields "operations" }}
+      {{ $operations = index $fields "operations" }}
+    {{ end }}
+
+    {{/* Don't show operations for conceptual/traitTag pages */}}
+    {{ $isConceptual := false }}
+    {{ if isset $fields "isConceptual" }}
+      {{ $isConceptual = index $fields "isConceptual" }}
+    {{ end }}
+    {{ $hasOperations := and (gt (len $operations) 0) (not $isConceptual) }}
+
+    {{/* Check if any operation in this tag is active */}}
+    {{ $tagHasActiveOp := false }}
+    {{ range $operations }}
+      {{ $opPathSlug := .path | replaceRE "^/" "" }}
+      {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) }}
+      {{ if eq $currentPage.RelPermalink $opUrl }}
+        {{ $tagHasActiveOp = true }}
+      {{ end }}
+    {{ end }}
+
+    <li class="nav-item{{ if $isActive }} active{{ end }}">
+      {{ if $hasOperations }}<a href="#" class="children-toggle{{ if or $isActive $tagHasActiveOp }} open{{ end }}"></a>{{ end }}
+      <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
+      {{ if $hasOperations }}
+      <ul class="children{{ if or $isActive $tagHasActiveOp }} open{{ end }}">
+        {{ range $operations }}
+          {{ $apiPath := .path }}
+          {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+          {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) | relURL }}
+          {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method)) }}
+        <li class="nav-item api-operation{{ if $opIsActive }} active{{ end }}">
+          <a href="{{ $operationUrl | safeURL }}">
+            <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+            {{- $summary := .summary -}}
+            {{- with .compatVersion -}}
+              {{- $summary = replaceRE `\s*\(v[12]-compatible\)` "" $summary -}}
+            {{- end -}}
+            {{ with $summary }}{{ . }}{{ else }}<code>{{ $apiPath }}</code>{{ end }}
+            {{ with .compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}" title="InfluxDB {{ . }}-compatible endpoint">{{ . }}</span>{{ end }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </li>
+  {{ end }}
+
+  {{/* ALL ENDPOINTS - Collect all operations and sort by method+path */}}
+  {{ $allOperations := slice }}
+  {{ range $operationArticles }}
+    {{ $fields := index . "fields" }}
+    {{ if isset $fields "operations" }}
+      {{ range index $fields "operations" }}
+        {{ $allOperations = $allOperations | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt (len $allOperations) 0 }}
+    {{/* Sort operations alphabetically by path, then method */}}
+    {{ $sortedOps := slice }}
+    {{ range $allOperations }}
+      {{ $sortKey := printf "%s %s" .path (upper .method) }}
+      {{ $sortedOps = $sortedOps | append (dict "sortKey" $sortKey "op" .) }}
+    {{ end }}
+    {{ $sortedOps = sort $sortedOps "sortKey" }}
+
+    {{/* Check if any operation is active */}}
+    {{ $anyOpActive := false }}
+    {{ range $sortedOps }}
+      {{ $op := .op }}
+      {{ $opPathSlug := $op.path | replaceRE "^/" "" }}
+      {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) }}
+      {{ if eq $currentPage.RelPermalink $opUrl }}
+        {{ $anyOpActive = true }}
+      {{ end }}
+    {{ end }}
+
+    <li class="nav-item">
+      <a href="#" class="children-toggle{{ if $anyOpActive }} open{{ end }}"></a>
+      <span class="nav-group-label">All endpoints</span>
+      <ul class="children{{ if $anyOpActive }} open{{ end }}">
+        {{ range $sortedOps }}
+          {{ $op := .op }}
+          {{ $apiPath := $op.path }}
+          {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+          {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) | relURL }}
+          {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method)) }}
+        <li class="nav-item api-operation api-operation--path{{ if $opIsActive }} active{{ end }}">
+          <a href="{{ $operationUrl | safeURL }}">
+            <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+            <span class="api-path">{{ $apiPath }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </li>
+  {{ end }}
+{{ end }}

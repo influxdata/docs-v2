@@ -1,1 +1,33 @@
-{{ .Content }}
+{{/*
+  API Documentation Default Layout
+
+  Full page layout for API documentation using the renderer abstraction.
+  The renderer (Scalar or RapiDoc) is selected via site.Params.apiRenderer.
+
+  Required frontmatter:
+  - staticFilePath: Path to the OpenAPI specification file
+*/}}
+
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+  <div class="content-wrapper">
+    <article class="article article--content api-reference" role="main">
+      <header class="article--header">
+        <h1 class="article--title">{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="article--description">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      {{/* Render API documentation using the configured renderer */}}
+      {{ partial "api/renderer.html" . }}
+
+    </article>
+    <div class="copyright">&copy; {{ now.Year }} InfluxData, Inc.</div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

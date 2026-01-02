@@ -1,0 +1,786 @@
+/////////////////////////////// API Reference Layout ///////////////////////////////
+//
+// 3-column layout for API reference documentation:
+// - Left: Existing Hugo sidebar + API navigation section
+// - Center: Content with page-level tabs (Operations | Server | Auth | Compatibility)
+// - Right: "ON THIS PAGE" table of contents
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Content wrapper becomes flex container when used with API content
+// Override overflow:hidden from _content-wrapper.scss to enable sticky positioning
+.content-wrapper.api-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  overflow: visible; // Required for sticky TOC to work
+}
+
+// Main API content area (center column)
+.api-main {
+  flex: 1;
+  min-width: 0; // Prevent flex item from overflowing
+  padding-right: 1rem;
+}
+
+// Right-side TOC (third column)
+.api-toc {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px; // Account for fixed header height
+  align-self: flex-start; // Critical for sticky to work in flexbox
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 1rem;
+  border-left: 1px solid $nav-border;
+
+  // Hidden state (used when Operations/RapiDoc tab is active)
+  &.is-hidden {
+    display: none;
+  }
+
+  &-header {
+    font-size: 0.75rem;
+    font-weight: $bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    color: rgba($article-heading, 0.5);
+    margin: 0 0 1rem;
+  }
+
+  &-nav {
+    // TOC list styles
+    .api-toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .api-toc-item {
+      margin: 0;
+
+      &--nested {
+        padding-left: 0.75rem;
+      }
+    }
+
+    .api-toc-link {
+      display: block;
+      padding: 0.35rem 0;
+      font-size: 0.85rem;
+      color: $nav-item;
+      text-decoration: none;
+      transition: color 0.2s;
+      line-height: 1.4;
+
+      &:hover {
+        color: $nav-item-hover;
+      }
+
+      &.is-active {
+        color: $nav-active;
+        font-weight: $medium;
+      }
+    }
+  }
+
+  &-empty {
+    font-size: 0.85rem;
+    color: rgba($article-text, 0.5);
+    font-style: italic;
+  }
+
+  // Operations-based TOC (for tag-based pages)
+  &-nav .api-toc-list--operations {
+    .api-toc-item--operation {
+      margin: 0.35rem 0;
+    }
+
+    .api-toc-link--operation {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0;
+    }
+
+    // HTTP method badges in TOC
+    .api-method {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: $bold;
+      text-transform: uppercase;
+      padding: 0.15rem 0.3rem;
+      border-radius: 3px;
+      min-width: 2.2rem;
+      text-align: center;
+      flex-shrink: 0;
+
+      &--get { background-color: $b-pool; color: #fff; }           // #00A3FF - bright brand blue
+      &--post { background-color: $gr-rainforest; color: #fff; }   // #34BB55 - bright brand green
+      &--put { background-color: $y-pineapple; color: #fff; }      // #FFB94A - bright yellow (distinct from red)
+      &--patch { background-color: $br-new-purple; color: #fff; }  // #9b2aff - distinctive brand purple
+      &--delete { background-color: $r-curacao; color: #fff; }     // #F95F53 - bright brand red
+    }
+
+    .api-path {
+      font-family: $code;
+      font-size: 0.75rem;
+      word-break: break-all;
+      color: inherit;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////// Operations List (Main Content) //////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Operations list section
+.api-operations-list {
+  margin: 2rem 0;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+// Grid container for operation cards
+.api-operations-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// Individual operation card (clickable link)
+.api-operation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba($article-bg, 0.5);
+  border: 1px solid $nav-border;
+  border-radius: $radius;
+  text-decoration: none;
+  color: $article-text;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba($article-bg, 0.8);
+    border-color: $nav-item-hover;
+  }
+
+  // HTTP method badge
+  .api-method {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: $bold;
+    text-transform: uppercase;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    min-width: 3.5rem;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    border: 2px solid;
+    background-color: transparent;
+
+    &--get { border-color: $b-pool; color: $b-pool; }                 // #00A3FF - bright brand blue
+    &--post { border-color: $gr-rainforest; color: $gr-rainforest; }  // #34BB55 - bright brand green
+    &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
+    &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
+    &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
+  }
+
+  // API path in monospace
+  .api-path {
+    font-family: $code;
+    font-size: 0.9rem;
+    color: $article-heading;
+    word-break: break-all;
+    flex-shrink: 0;
+  }
+
+  // Operation summary text
+  .api-operation-summary {
+    font-size: 0.875rem;
+    color: rgba($article-text, 0.8);
+    flex: 1;
+  }
+}
+
+// Overview/Description section
+.api-description {
+  margin: 2rem 0;
+  color: $article-text !important; // Override any inherited black color
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  // Ensure description text is visible and readable
+  p, ul, ol, pre, code {
+    color: $article-text !important;
+    opacity: 1;
+  }
+  
+  // Also ensure direct text nodes use correct color
+  & > * {
+    color: $article-text !important;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////// API Navigation in Sidebar ///////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// API navigation wrapper - controls visibility
+// Hidden by default, revealed via JS (localStorage) or on API pages
+.api-nav-wrapper {
+  display: none; // Hidden by default
+
+  &.is-revealed {
+    display: block; // Revealed via JS
+  }
+
+  // Always show on API pages (server-rendered with .api-reference class)
+  .api-reference & {
+    display: block;
+  }
+}
+
+// API navigation section added to the existing Hugo sidebar
+.api-nav {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid $nav-border;
+
+  &-header {
+    font-size: 0.85rem;
+    font-weight: $bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06rem;
+    color: rgba($article-heading, 0.6);
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+  }
+
+  // API nav groups (collapsible sections)
+  &-group {
+    margin-bottom: 0.5rem;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      font-weight: $medium;
+      color: $nav-category;
+      cursor: pointer;
+      transition: color 0.2s;
+      // Button reset for dark mode compatibility
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1.2rem; // Match sidebar .nav-category > a (19.2px)
+      font-family: inherit;
+      text-decoration: none; // For anchor version
+
+      &:hover {
+        color: $nav-category-hover;
+      }
+
+      &.is-active {
+        color: $nav-active;
+      }
+
+      // Collapse/expand indicator (for button headers)
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-right: 0.5rem;
+        border-left: 5px solid $nav-border;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+
+      &.is-open::before {
+        transform: rotate(90deg);
+      }
+    }
+
+    // For anchor headers, keep the ::before arrow (same as button)
+    // No special handling needed - anchor headers look the same as button headers
+    a#{&}-header {
+      // Same styling as button, arrow works via ::before
+    }
+
+    &-items {
+      list-style: none;
+      padding-left: 2.5rem;
+      margin: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: $body-bg; // Match sidebar background
+
+      &.is-open {
+        max-height: 2000px; // Large enough to show all operations
+      }
+    }
+  }
+
+  // Individual API nav items
+  &-item {
+    margin: 0.25rem 0;
+    position: relative;
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0.35rem 0;
+      color: $nav-item;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $nav-item-hover;
+      }
+    }
+
+    &.is-active a {
+      color: $nav-active;
+      font-weight: $medium;
+    }
+
+    // HTTP method badge (legacy class)
+    .method-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: $bold;
+      text-transform: uppercase;
+      padding: 0.15rem 0.35rem;
+      margin-right: 0.5rem;
+      border-radius: 3px;
+      min-width: 2.5rem;
+      text-align: center;
+
+      &.get { background-color: $gr-rainforest; color: #fff; }
+      &.post { background-color: $b-ocean; color: #fff; }
+      &.put { background-color: $br-galaxy; color: #fff; }
+      &.patch { background-color: $y-thunder; color: rgba($g5-pepper, 0.75); }
+      &.delete { background-color: $r-curacao; color: #fff; }
+    }
+
+    // Tag items that link to tag pages
+    &.api-nav-tag {
+      > a {
+        font-weight: $medium;
+      }
+
+      // Nested operations list under tag
+      .api-nav-operations {
+        list-style: none;
+        margin: 0.25rem 0 0.5rem;
+        padding-left: 0.75rem;
+
+        .api-nav-operation {
+          margin: 0.15rem 0;
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
+          }
+        }
+      }
+    }
+
+    // Operation items with method badges
+    &.api-nav-operation,
+    .api-nav-operation {
+      .api-method {
+        display: inline-block;
+        font-size: 0.55rem;
+        font-weight: $bold;
+        text-transform: uppercase;
+        padding: 0.1rem 0.25rem;
+        border-radius: 3px;
+        min-width: 2rem;
+        text-align: center;
+        flex-shrink: 0;
+
+        &--get { background-color: $b-pool; color: #fff; }           // #00A3FF - bright brand blue
+        &--post { background-color: $gr-rainforest; color: #fff; }   // #34BB55 - bright brand green
+        &--put { background-color: $y-pineapple; color: #fff; }      // #FFB94A - bright yellow (distinct from red)
+        &--patch { background-color: $br-new-purple; color: #fff; }  // #9b2aff - distinctive brand purple
+        &--delete { background-color: $r-curacao; color: #fff; }     // #F95F53 - bright brand red
+      }
+
+      .api-path {
+        font-family: $code;
+        font-size: 0.85rem;
+        word-break: break-all;
+        color: inherit;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// API Header with Actions ////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Header row with title and download button
+.article--header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.article--header-text {
+  flex: 1 1 100%; // Take full width, allowing download button to wrap
+  min-width: 0;
+}
+
+// Summary paragraph in header - ensure full width
+.article--summary {
+  max-width: none;
+  width: 100%;
+}
+
+// Download OpenAPI spec button
+.api-spec-actions {
+  flex-shrink: 0;
+}
+
+.api-spec-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $g20-white;
+  color: $article-text;
+  text-decoration: none;
+  border-radius: $radius;
+  font-size: 0.875rem;
+  font-weight: $medium;
+  transition: background-color 0.2s, color 0.2s;
+  border: 1px solid $nav-border;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $r-curacao;
+    color: $g20-white;
+    border-color: $r-curacao;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// API Tabs ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// API-specific tab wrapper (uses api-tabs-wrapper to avoid conflict with
+// tabbed-content.js which handles .tabs-wrapper elements)
+.api-tabs-wrapper {
+  margin: 1.5rem 0 1rem;
+}
+
+// API tab navigation bar
+.api-tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+
+  a {
+    flex-grow: 1;
+    position: relative;
+    font-size: 1rem;
+    font-weight: $medium;
+    padding: 0.65rem 1.25rem;
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+    color: $article-tab-text !important;
+    border-radius: $radius;
+    background-color: $article-tab-bg;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $radius;
+      @include gradient($article-btn-gradient);
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: $article-tab-active-text !important;
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &.is-active {
+      color: $article-tab-active-text !important;
+      &::after {
+        opacity: 1;
+        @include gradient($article-btn-gradient);
+      }
+    }
+  }
+}
+
+// Tab panels container
+.api-tab-panels {
+  // Tab content visibility (follows existing pattern)
+  .tab-content:not(:first-of-type) {
+    display: none;
+  }
+
+  // RapiDoc container styling
+  rapi-doc {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////// RapiDoc Overrides ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Hide RapiDoc's internal navigation (we provide our own)
+rapi-doc::part(section-navbar) {
+  display: none !important;
+}
+
+// Hide RapiDoc's internal tag headers/titles (we use custom tabs for navigation)
+// label-tag-title is the "PROCESSING ENGINE" header with auth badges shown in tag groups
+rapi-doc::part(label-tag-title) {
+  display: none !important;
+}
+
+// Hide RapiDoc's authentication section (we have separate Auth tab)
+rapi-doc::part(section-auth) {
+  display: none !important;
+}
+
+// Ensure RapiDoc content fills available space
+rapi-doc::part(section-main-content) {
+  padding: 0;
+}
+
+// Match RapiDoc's operation section styling to our theme
+rapi-doc::part(section-operations) {
+  padding: 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////// Authentication Tab Content //////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.api-auth-content {
+  max-width: 800px;
+}
+
+.api-auth-card {
+  background: $article-bg;
+  border: 1px solid $nav-border;
+  border-radius: $radius;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba($article-text, 0.6);
+  }
+
+  pre {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background: $article-code-bg;
+    border-radius: $radius;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: $code;
+    font-size: 0.875rem;
+  }
+}
+
+.api-auth-badge .badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: $bold;
+  text-transform: uppercase;
+  border-radius: $radius;
+
+  &.recommended {
+    background: $gr-rainforest;
+    color: $g20-white;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Server Tab Content ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+.api-server-panel {
+  max-width: 600px;
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.server-url-config {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+
+  label {
+    width: 100%;
+    font-weight: $medium;
+    margin-bottom: 0.25rem;
+  }
+
+  input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem;
+    border: 1px solid $nav-border;
+    border-radius: $radius;
+    font-family: $code;
+    background: $article-bg;
+    color: $article-text;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background: $r-curacao;
+    color: $g20-white;
+    border: none;
+    border-radius: $radius;
+    cursor: pointer;
+    font-weight: $medium;
+
+    &:hover {
+      background: darken($r-curacao, 10%);
+    }
+  }
+}
+
+.server-info {
+  margin-top: 1.5rem;
+
+  ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  code {
+    background: $article-code-bg;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: $code;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Tablet: Hide TOC, keep sidebar
+@include media(large) {
+  .content-wrapper.api-content {
+    flex-direction: column;
+  }
+
+  .api-toc {
+    display: none;
+  }
+
+  .api-main {
+    padding-right: 0;
+  }
+}
+
+// Mobile: Standard Hugo sidebar behavior
+@include media(medium) {
+  .content-wrapper.api-content {
+    flex-direction: column;
+  }
+
+  .api-toc {
+    display: none;
+  }
+
+  .api-main {
+    padding-right: 0;
+  }
+
+  // Collapse API nav in mobile view
+  .api-nav {
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+
+    &-group-items {
+      max-height: none; // Show all items by default in mobile
+    }
+  }
+}
+
+// Large screens: Wider TOC
+@include media(xlarge) {
+  .api-toc {
+    width: 240px;
+  }
+}
+
+// Match sidebar responsive widths
+@media (min-width: 801px) and (max-width: 1200px) {
+  .api-toc {
+    width: 180px;
+  }
+}

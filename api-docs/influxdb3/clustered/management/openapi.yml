@@ -790,11 +790,11 @@ paths:
                     permissions:
                       $ref: '#/components/schemas/DatabaseTokenPermissions'
                     createdAt:
-                      $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                      $ref: '#/components/schemas/DateTimeRfc3339'
                     expiresAt:
-                      $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                      $ref: '#/components/schemas/DateTimeRfc3339'
                     revokedAt:
-                      $ref: '#/components/schemas/DatabaseTokenRevokedAt'
+                      $ref: '#/components/schemas/DateTimeRfc3339'
                   required:
                     - id
                     - description
@@ -878,7 +878,7 @@ paths:
                 permissions:
                   $ref: '#/components/schemas/DatabaseTokenPermissions'
                 expiresAt:
-                  $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                  $ref: '#/components/schemas/DateTimeRfc3339'
               required:
                 - description
             examples:
@@ -919,13 +919,13 @@ paths:
                   permissions:
                     $ref: '#/components/schemas/DatabaseTokenPermissions'
                   createdAt:
-                    $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   accessToken:
                     $ref: '#/components/schemas/DatabaseTokenAccessToken'
                   expiresAt:
-                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   revokedAt:
-                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                 required:
                   - id
                   - description
@@ -1034,11 +1034,11 @@ paths:
                   permissions:
                     $ref: '#/components/schemas/DatabaseTokenPermissions'
                   createdAt:
-                    $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   expiresAt:
-                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   revokedAt:
-                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                 required:
                   - id
                   - description
@@ -1168,11 +1168,11 @@ paths:
                   permissions:
                     $ref: '#/components/schemas/DatabaseTokenPermissions'
                   createdAt:
-                    $ref: '#/components/schemas/DatabaseTokenCreatedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   expiresAt:
-                    $ref: '#/components/schemas/DatabaseTokenExpiresAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                   revokedAt:
-                    $ref: '#/components/schemas/DatabaseTokenRevokedAt'
+                    $ref: '#/components/schemas/DateTimeRfc3339'
                 required:
                   - id
                   - description
@@ -1359,7 +1359,7 @@ components:
       minLength: 1
     ClusterDatabaseRetentionPeriod:
       description: |
-        The retention period of the [cluster database](/influxdb3/clustered/admin/databases/) in nanoseconds, if applicable
+        The retention period of the [cluster database](/influxdb/version/admin/databases/) in nanoseconds, if applicable
 
         If the retention period is not set or is set to 0, the database will have infinite retention
       type: integer
@@ -1389,9 +1389,9 @@ components:
       minimum: 1
     ClusterDatabasePartitionTemplate:
       description: |
-        A template for [partitioning](/influxdb3/clustered/admin/custom-partitions/) a cluster database.
+        A template for [partitioning](/influxdb/version/admin/custom-partitions/) a cluster database.
 
-        Each template part is evaluated in sequence, concatinating the final
+        Each template part is evaluated in sequence, concatenating the final
         partition key from the output of each part, delimited by the partition
         key delimiter `|`.
 
@@ -1433,7 +1433,7 @@ components:
           * `time=2023-01-01, a=<long string>`                   -> `2023|<long string>#|!|!`
           * `time=2023-01-01, c=<long string>`                   -> `2023|!|!|<bucket ID for untruncated long string>`
 
-        When using the default [partitioning](/influxdb3/clustered/admin/custom-partitions/) template (YYYY-MM-DD) there is no
+        When using the default [partitioning](/influxdb/version/admin/custom-partitions/) template (YYYY-MM-DD) there is no
         encoding necessary, as the derived partition key contains a single part, and
         no reserved characters. [`TemplatePart::Bucket`] parts by definition will
         always be within the part length limit and contain no restricted characters
@@ -1535,7 +1535,7 @@ components:
             tagName: c
             numberOfBuckets: 10
     ClusterDatabaseTableName:
-      description: The name of the [cluster database](/influxdb3/clustered/admin/databases/) table
+      description: The name of the [cluster database](/influxdb/version/admin/databases/) table
       type: string
       examples:
         - TableOne
@@ -1548,15 +1548,15 @@ components:
         - Limited Access Token
         - Full Access Token
     DatabaseTokenResourceAllDatabases:
-      description: A resource value for a [database token](/influxdb3/clustered/admin/tokens/database/) permission that refers to all databases
+      description: A resource value for a [database token](/influxdb/version/admin/tokens/database/) permission that refers to all databases
       type: string
       enum:
         - '*'
     DatabaseTokenPermissionAction:
-      description: The action the [database token](/influxdb3/clustered/admin/tokens/database/) permission allows
+      description: The action the [database token](/influxdb/version/admin/tokens/database/) permission allows
       type: string
     DatabaseTokenPermissionResource:
-      description: The resource the [database token](/influxdb3/clustered/admin/tokens/database/) permission applies to
+      description: The resource the [database token](/influxdb/version/admin/tokens/database/) permission applies to
       anyOf:
         - $ref: '#/components/schemas/ClusterDatabaseName'
         - $ref: '#/components/schemas/DatabaseTokenResourceAllDatabases'
@@ -1580,7 +1580,7 @@ components:
         - action: write
           resource: '*'
     DatabaseTokenPermissions:
-      description: The list of permissions the [database token](/influxdb3/clustered/admin/tokens/database/) allows
+      description: The list of permissions the [database token](/influxdb/version/admin/tokens/database/) allows
       type: array
       items:
         $ref: '#/components/schemas/DatabaseTokenPermission'
@@ -1593,7 +1593,7 @@ components:
             resource: '*'
     DatabaseTokenCreatedAt:
       description: |
-        The date and time that the [database token](/influxdb3/clustered/admin/tokens/database/) was created
+        The date and time that the [database token](/influxdb/version/admin/tokens/database/) was created
 
         Uses RFC3339 format
       $ref: '#/components/schemas/DateTimeRfc3339'

@@ -1,0 +1,191 @@
+{{/*
+  RapiDoc Mini - Lightweight Single Operation Renderer
+
+  Renders a single API operation using RapiDoc Mini web component.
+  Uses TypeScript component for initialization and theme management.
+
+  Required page params:
+  - specFile: Path to the OpenAPI specification file
+  - matchPaths: Filter expression (e.g., "post /write" or "get /api/v3/query_sql")
+
+  Optional page params:
+  - operationId: Operation ID for linking/navigation purposes
+  - apiPath: The API path (used to determine auth schemes)
+*/}}
+
+{{ $specPath := .Params.specFile }}
+{{ $specPathJSON := replace $specPath ".yaml" ".json" | replace ".yml" ".json" }}
+{{ $matchPaths := .Params.matchPaths | default "" }}
+{{ $operationId := .Params.operationId | default "" }}
+{{ $title := .Title | default "" }}
+{{ $apiPath := .Params.apiPath | default "" }}
+
+{{/*
+  Determine supported auth schemes based on API path:
+  - /api/v3/* endpoints: BearerAuthentication only
+  - /api/v2/* endpoints: BearerAuthentication + TokenAuthentication
+  - /write, /query (v1): All 4 schemes (Bearer, Token, Basic, Querystring)
+*/}}
+{{ $authSchemes := "bearer" }}
+{{ if hasPrefix $apiPath "/api/v3" }}
+  {{ $authSchemes = "bearer" }}
+{{ else if hasPrefix $apiPath "/api/v2" }}
+  {{ $authSchemes = "bearer,token" }}
+{{ else if or (eq $apiPath "/write") (eq $apiPath "/query") }}
+  {{ $authSchemes = "bearer,token,basic,querystring" }}
+{{ end }}
+
+{{/* Machine-readable links for AI agent discovery */}}
+{{ if $specPath }}
+<link rel="alternate" type="application/x-yaml" href="{{ $specPath | absURL }}" title="OpenAPI Specification (YAML)" />
+<link rel="alternate" type="application/json" href="{{ $specPathJSON | absURL }}" title="OpenAPI Specification (JSON)" />
+{{ end }}
+
+{{/* Auth credentials popover trigger with scheme indicator */}}
+{{/* Map scheme codes to display names */}}
+{{ $schemeNames := dict "bearer" "HTTP Bearer" "token" "API Token" "basic" "HTTP Basic" "querystring" "Query String" }}
+{{ $schemeList := split $authSchemes "," }}
+{{ $displaySchemes := slice }}
+{{ range $schemeList }}
+  {{ $name := index $schemeNames . }}
+  {{ if $name }}
+    {{ $displaySchemes = $displaySchemes | append $name }}
+  {{ end }}
+{{ end }}
+
+<div class="api-auth-row">
+  <div class="api-auth-trigger-wrapper">
+    <button type="button"
+            class="api-auth-trigger btn btn-sm"
+            data-component="api-auth-input"
+            data-schemes="{{ $authSchemes }}"
+            data-popover="true"
+            aria-expanded="false"
+            aria-haspopup="dialog">
+      <svg class="auth-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1.5V4.5A3.5 3.5 0 0 0 8 1zm2 5H6V4.5a2 2 0 1 1 4 0V6z"/>
+      </svg>
+      <span class="auth-trigger-text">Set credentials</span>
+      <span class="auth-status-indicator" hidden aria-label="Credentials configured"></span>
+    </button>
+    {{/* Popover container - positioned by CSS */}}
+    <div class="api-auth-popover" role="dialog" aria-label="API credentials" hidden>
+      {{/* Content rendered by TypeScript component */}}
+    </div>
+  </div>
+  <span class="api-auth-schemes" title="Supported authentication methods">
+    <span class="api-auth-label">Auth:</span> {{ delimit $displaySchemes " or " }}
+  </span>
+</div>
+
+{{/* Component container - TypeScript handles initialization */}}
+<div class="api-reference-wrapper api-reference-mini"
+     data-component="rapidoc-mini"
+     data-spec-url="{{ $specPath }}"
+     {{ with $matchPaths }}data-match-paths="{{ . }}"{{ end }}
+     {{ with $operationId }}data-operation-id="{{ . }}"{{ end }}
+     {{ with $title }}data-title="{{ . }}"{{ end }}>
+  {{/* RapiDoc Mini element created by TypeScript component */}}
+</div>
+
+{{/* Custom slot content if needed */}}
+{{ with .Content }}
+<div class="api-overview-content">
+  {{ . }}
+</div>
+{{ end }}
+
+<style>
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.api-reference-mini {
+  width: 100%;
+  margin: 0;
+  position: relative; /* Contains absolutely positioned auth elements */
+}
+
+rapi-doc-mini,
+rapi-doc {
+  width: 100%;
+  min-height: 300px;
+  display: block;
+  border: none;
+  border-radius: 0;
+
+  /* Override RapiDoc internal CSS variables */
+  --light-border-color: rgba(0, 163, 255, 0.25);
+  --border-color: rgba(0, 163, 255, 0.25);
+  --font-size-regular: 16px;
+
+  /* Use green for links/status text so they don't look like clickable links */
+  /* HTTP method colors are set via element attributes, not these variables */
+  --blue: #34BB55;        /* $gr-rainforest - green for status/links */
+  --green: #34BB55;       /* $gr-rainforest - POST */
+  --orange: #FFB94A;      /* $y-pineapple - PUT (distinct from red) */
+  --red: #F95F53;         /* $r-curacao - DELETE */
+  --purple: #9b2aff;      /* $br-new-purple - PATCH */
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] rapi-doc-mini,
+[data-theme="dark"] rapi-doc,
+html:has(link[title="dark-theme"]:not([disabled])) rapi-doc-mini,
+html:has(link[title="dark-theme"]:not([disabled])) rapi-doc {
+  /* Use green for links/status text in dark mode */
+  --blue: #009F5F;        /* $gr-viridian - green for status/links */
+  --green: #009F5F;       /* $gr-viridian - POST */
+  --orange: #FFC800;      /* $y-thunder - PUT (brighter for dark mode) */
+  --red: #DC4E58;         /* $r-fire - DELETE */
+  --purple: #8E1FC3;      /* $p-amethyst - PATCH */
+}
+
+/* Hide tag section on operation pages - only show on tag landing pages */
+rapi-doc::part(section-tag) {
+  display: none;
+}
+
+/* Fix auth schemes at narrow widths - ensure content is scrollable */
+@media (max-width: 1280px) {
+  .api-reference-mini {
+    overflow-x: auto;
+  }
+
+  rapi-doc-mini, rapi-doc {
+    min-width: 800px; /* Prevent auth elements from collapsing/overlapping */
+  }
+}
+
+
+/* Error state styling */
+.api-operation-error {
+  padding: 2rem;
+  text-align: center;
+  color: #BF3D5E; /* $r-ruby */
+  background: #FFF7F4; /* $r-flan */
+  border: 1px solid #C6CAD3;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.api-operation-error p {
+  margin: 0.5rem 0;
+}
+
+[data-theme="dark"] .api-operation-error,
+html:has(link[title="dark-theme"]:not([disabled])) .api-operation-error {
+  background: #2F1F29; /* $r-basalt */
+  color: #FFB6A0; /* $r-tungsten */
+  border-color: #333346;
+}
+</style>

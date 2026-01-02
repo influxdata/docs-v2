@@ -1,0 +1,48 @@
+articles:
+  - path: api/databases/{databaseName}/tables
+    fields:
+      name: /databases/{databaseName}/tables
+      describes:
+        - /databases/{databaseName}/tables
+      menuName: /databases/{databaseName}/tables
+      title: /databases/{databaseName}/tables
+      tags:
+        - databases-{databaseName}
+        - tables
+      apiTags:
+        - Tables
+      source: >-
+        static/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml
+      staticFilePath: >-
+        /openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml
+  - path: api/databases
+    fields:
+      name: /databases
+      describes:
+        - /databases
+        - /databases/{databaseName}
+      menuName: /databases
+      title: /databases
+      tags:
+        - ''
+        - databases
+      apiTags:
+        - Databases
+      source: >-
+        static/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml
+      staticFilePath: /openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml
+  - path: api/tokens
+    fields:
+      name: /tokens
+      describes:
+        - /tokens
+        - /tokens/{tokenId}
+      menuName: /tokens
+      title: /tokens
+      tags:
+        - ''
+        - tokens
+      apiTags:
+        - Database tokens
+      source: static/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml
+      staticFilePath: /openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml
