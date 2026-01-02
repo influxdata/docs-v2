@@ -255,6 +255,66 @@
         }
       }
     }
+
+    // API operation items within Hugo menu
+    .api-operation {
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      // Path-based operation display (All endpoints list)
+      &--path .api-path {
+        font-family: $proxima;
+        font-size: 0.9rem;
+        color: inherit;
+        word-break: break-all;
+      }
+    }
+
+    .api-method {
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      line-height: 1;
+      border: 2px solid;
+      background-color: transparent;
+
+      // Using lighter InfluxData brand colors - bordered style for readability
+      &--get { border-color: $b-pool; color: $b-pool; }                 // #00A3FF - bright brand blue
+      &--post { border-color: $gr-rainforest; color: $gr-rainforest; }  // #34BB55 - bright brand green
+      &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
+      &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
+      &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
+    }
+
+    // Compatibility version badge (v1 or v2)
+    .api-compat-badge {
+      font-size: 0.55rem;
+      font-weight: 600;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-left: auto;
+      opacity: 0.8;
+      cursor: help;
+
+      &--v1 { background: #8b5cf6; color: white; } // Purple for v1
+      &--v2 { background: #06b6d4; color: white; } // Cyan for v2
+    }
+
+    // Non-link group labels (for multi-tag groups)
+    .nav-group-label {
+      color: $nav-item;
+      font-weight: $medium;
+      display: inline-block;
+    }
   }
 }
 

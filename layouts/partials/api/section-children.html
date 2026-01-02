@@ -1,0 +1,87 @@
+{{/*
+  API Section Children
+
+  Renders tag pages from article data as a children list.
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+*/}}
+{{ $currentPage := . }}
+
+{{/* Extract product and version from URL */}}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{ $dataKey = print "influxdb3_" $version }}
+{{ else if eq $product "influxdb" }}
+  {{ $dataKey = print $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $articles := slice }}
+{{ with site.Data.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $articles) 0 }}
+  {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+  {{ $conceptualArticles := slice }}
+  {{ $operationArticles := slice }}
+
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if reflect.IsMap $fields }}
+        {{ $isConceptual := false }}
+        {{ if isset $fields "isConceptual" }}
+          {{ $isConceptual = index $fields "isConceptual" }}
+        {{ end }}
+        {{ if $isConceptual }}
+          {{ $conceptualArticles = $conceptualArticles | append . }}
+        {{ else }}
+          {{ $operationArticles = $operationArticles | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort each group alphabetically by tag name */}}
+  {{ $conceptualArticles = sort $conceptualArticles "fields.tag" }}
+  {{ $operationArticles = sort $operationArticles "fields.tag" }}
+
+  {{/* Combine: conceptual first, then operations */}}
+  {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+  <div class="children-links">
+    {{ range $sortedArticles }}
+      {{ $path := index . "path" }}
+      {{ $fields := index . "fields" }}
+      {{ $tag := index $fields "tag" }}
+      {{ $description := index $fields "description" | default "" }}
+      {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+
+      <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
+      {{ with $description }}
+      {{/* Truncate to first paragraph (before double newline) or 200 chars */}}
+      {{ $firstPara := index (split . "\n\n") 0 }}
+      {{ $truncated := $firstPara | truncate 200 "..." }}
+      <p>{{ $truncated | markdownify }}</p>
+      {{ end }}
+    {{ end }}
+  </div>
+{{ end }}

@@ -36,7 +36,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.32.1",
     "unified": "^11.0.5",
     "winston": "^3.16.0"
@@ -58,11 +58,13 @@
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
+    "build": "yarn build:api-docs && npx hugo --quiet && yarn build:md",
     "postinstall": "node scripts/setup-local-bin.js",
     "docs:create": "node scripts/docs-create.js",
     "docs:edit": "node scripts/docs-edit.js",
     "docs:add-placeholders": "node scripts/add-placeholders.js",
-    "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
+    "build:api-docs": "node api-docs/scripts/dist/generate-openapi-articles.js",
+    "build:api-docs:compile": "tsc --project api-docs/scripts/tsconfig.json",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",

@@ -1,1 +1,82 @@
-{{ .Content }}
+{{/*
+  API Documentation Default Layout
+
+  Fallback layout for API documentation pages.
+  Delegates to appropriate templates based on page type:
+  - Section pages: Use section.html logic (children listing)
+  - Pages with staticFilePath: Use RapiDoc renderer
+
+  Note: This template exists as a catch-all but specific templates
+  (api/section.html, api/list.html, api/single.html) should be preferred.
+*/}}
+
+{{/* Section pages without staticFilePath should render content directly, not use RapiDoc */}}
+{{ if and .IsSection (not .Params.staticFilePath) }}
+
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+
+  <div class="content-wrapper api-content">
+    <div class="api-main">
+      <article class="article article--content api-reference" role="main">
+        <header class="article--header">
+          <h1 class="article--title">{{ .Title }}</h1>
+          {{ with .Description }}
+          <p class="article--description">{{ . }}</p>
+          {{ end }}
+        </header>
+
+        {{/* SECTION INDEX - Show page content then children listing */}}
+        {{ with .Content }}
+        <section class="api-section-content">
+          {{ . }}
+        </section>
+        {{ end }}
+        {{/* Always show tag pages from article data */}}
+        {{ partial "api/section-children.html" . }}
+
+        {{ partial "article/related.html" . }}
+
+      </article>
+    </div>
+
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav"></nav>
+    </aside>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}
+
+{{ else }}
+{{/* Pages with staticFilePath (operation pages) use RapiDoc renderer */}}
+
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+  <div class="content-wrapper">
+    <article class="article article--content api-reference" role="main">
+      <header class="article--header">
+        <h1 class="article--title">{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="article--description">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      {{/* Render API documentation using the configured renderer */}}
+      {{ partial "api/renderer.html" . }}
+
+    </article>
+    <div class="copyright">&copy; {{ now.Year }} InfluxData, Inc.</div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}
+
+{{ end }}

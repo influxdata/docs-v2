@@ -40,21 +40,19 @@ servers:
         description: InfluxDB 3 Core URL
 security:
   - BearerAuthentication: []
-  - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 tags:
   - name: Authentication
     description: |
       Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
 
       | Authentication scheme | Works with |
-      |:-------------------|:-----------|
-      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
-      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
-      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
-      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
-      <!-- ReDoc-Inject: <security-definitions> -->
+      |:----------------------|:-----------|
+      | Bearer authentication | All endpoints |
+      | Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |
+      | Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |
+      | Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |
+
+      See the **Security Schemes** section below for details on each authentication method.
     x-traitTag: true
   - name: Cache data
     description: |
@@ -89,33 +87,20 @@ tags:
 
       - [Manage the Distinct Value Cache](/influxdb3/core/admin/distinct-value-cache/)
       - [Manage the Last Value Cache](/influxdb3/core/admin/last-value-cache/)
-  - name: Compatibility endpoints
+  - name: Migrate from InfluxDB v1 or v2
+    x-traitTag: true
     description: |
-      InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and InfluxDB 2.x workloads and clients.
+      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
 
-      ### Write data using v1- or v2-compatible endpoints
+      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
+      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
 
-      - [`/api/v2/write` endpoint](#operation/PostV2Write)
-          for InfluxDB v2 clients and when you bring existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](#operation/PostV1Write) for InfluxDB v1 clients and when you bring existing InfluxDB v1 write workloads to InfluxDB 3.
+      ### Migration guides
 
-      For new workloads, use the [`/api/v3/write_lp` endpoint](#operation/PostWriteLP).
-
-      All endpoints accept the same line protocol format.
-
-      ### Query data
-
-      Use the HTTP [`/query`](#operation/GetV1ExecuteQuery) endpoint for InfluxDB v1 clients and v1 query workloads using InfluxQL.
-
-      For new workloads, use one of the following:
-
-      - HTTP [`/api/v3/query_sql` endpoint](#operation/GetExecuteQuerySQL) for new query workloads using SQL.
-      - HTTP [`/api/v3/query_influxql` endpoint](#operation/GetExecuteInfluxQLQuery) for new query workloads using InfluxQL.
-      - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or InfluxQL. For more information about using Flight APIs, see [InfluxDB 3 client libraries](https://github.com/InfluxCommunity?q=influxdb3&type=public&language=&sort=).
-
-      ### Server information
-
-      Server information endpoints such as `/health` and `metrics` are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
+      - [Migrate from InfluxDB v1](/influxdb3/core/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
+      - [Migrate from InfluxDB v2](/influxdb3/core/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
+      - [Use compatibility APIs to write data](/influxdb3/core/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
+      - [Use the v1 HTTP query API](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
   - name: Database
     description: Manage databases
   - description: |
@@ -139,7 +124,7 @@ tags:
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers and parameters
@@ -201,7 +186,7 @@ tags:
     description: Retrieve server metrics, status, and version information
   - name: Table
     description: Manage table schemas and data
-  - name: Token
+  - name: Auth token
     description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
@@ -229,17 +214,13 @@ paths:
     post:
       operationId: PostV1Write
       summary: Write line protocol (v1-compatible)
+      x-compatibility-version: v1
       description: |
         Writes line protocol to the specified database.
-
-        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
-
-        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
-        #### Related
-
-        - [Use compatibility APIs to write data](/influxdb3/core/write-data/http-api/compatibility-apis/)
+        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
+      externalDocs:
+        description: Use compatibility APIs to write data
+        url: /influxdb3/core/write-data/http-api/compatibility-apis/
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/compatibilityPrecisionParam'
@@ -342,8 +323,12 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
-        - Compatibility endpoints
         - Write data
       x-influxdata-guides:
         - title: Use compatibility APIs to write data
@@ -352,17 +337,13 @@ paths:
     post:
       operationId: PostV2Write
       summary: Write line protocol (v2-compatible)
+      x-compatibility-version: v2
       description: |
         Writes line protocol to the specified database.
-
-        This endpoint provides backward compatibility for InfluxDB 2.x write workloads using tools such as InfluxDB 2.x client libraries, the Telegraf `outputs.influxdb_v2` output plugin, or third-party tools.
-
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
-        Use query parameters to specify options for writing data.
-
-        #### Related
-
-        - [Use compatibility APIs to write data](/influxdb3/core/write-data/http-api/compatibility-apis/)
+      externalDocs:
+        description: Use compatibility APIs to write data
+        url: /influxdb3/core/write-data/http-api/compatibility-apis/
       parameters:
         - name: Content-Type
           in: header
@@ -435,8 +416,10 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
       tags:
-        - Compatibility endpoints
         - Write data
       x-influxdata-guides:
         - title: Use compatibility APIs to write data
@@ -520,38 +503,6 @@ paths:
           description: Request entity too large.
         '422':
           description: Unprocessable entity.
-      x-codeSamples:
-        - label: cURL - Basic write
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2 1638360000000000000"
-        - label: cURL - Write with millisecond precision
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ms" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2 1638360000000"
-        - label: cURL - Asynchronous write with partial acceptance
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&accept_partial=true&no_sync=true&precision=auto" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01 usage=85.2
-            memory,host=server01 used=4096"
-        - label: cURL - Multiple measurements with tags
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ns" \
-              --header "Authorization: Bearer DATABASE_TOKEN" \
-              --header "Content-Type: text/plain" \
-              --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
-            memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
-            disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
       tags:
         - Write data
   /api/v3/query_sql:
@@ -735,15 +686,13 @@ paths:
     get:
       operationId: GetV1ExecuteQuery
       summary: Execute InfluxQL query (v1-compatible)
+      x-compatibility-version: v1
       description: |
         Executes an InfluxQL query to retrieve data from the specified database.
-
-        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
-        Use query parameters to specify the database and the InfluxQL query.
-
-        #### Related
-
-        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/)
+        Compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
+      externalDocs:
+        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+        url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
       parameters:
         - name: Accept
           in: header
@@ -859,21 +808,24 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
         - Query data
-        - Compatibility endpoints
       x-influxdata-guides:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
-      description: |
-        Executes an InfluxQL query to retrieve data from the specified database.
-
-        #### Related
-
-        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/)
+      x-compatibility-version: v1
+      description: Executes an InfluxQL query to retrieve data from the specified database.
+      externalDocs:
+        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
+        url: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
       requestBody:
         content:
           application/json:
@@ -978,9 +930,13 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
+      security:
+        - BearerAuthentication: []
+        - TokenAuthentication: []
+        - BasicAuthentication: []
+        - QuerystringAuthentication: []
       tags:
         - Query data
-        - Compatibility endpoints
       x-influxdata-guides:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
@@ -999,7 +955,8 @@ paths:
   /api/v1/health:
     get:
       operationId: GetHealthV1
-      summary: Health check (v1)
+      summary: Health check (v1-compatible)
+      x-compatibility-version: v1
       description: Checks the status of the service.
       responses:
         '200':
@@ -1008,7 +965,6 @@ paths:
           description: Service is unavailable.
       tags:
         - Server information
-        - Compatibility endpoints
   /ping:
     get:
       operationId: GetPing
@@ -1196,7 +1152,6 @@ paths:
       description: Creates a distinct cache for a table.
       tags:
         - Cache data
-        - Table
       requestBody:
         required: true
         content:
@@ -1242,7 +1197,6 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
-        - Table
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1267,7 +1221,6 @@ paths:
           description: Cache already exists.
       tags:
         - Cache data
-        - Table
     delete:
       operationId: DeleteConfigureLastCache
       summary: Delete last cache
@@ -1297,7 +1250,6 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
-        - Table
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
@@ -1737,9 +1689,11 @@ paths:
                 $ref: '#/components/schemas/AdminTokenObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+        - BearerAuthentication: []
+        - {} # No auth required for initial token creation
       tags:
-        - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
@@ -1758,7 +1712,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1782,7 +1736,7 @@ paths:
           description: Token not found.
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/configure/token/named_admin:
     post:
       operationId: PostCreateNamedAdminToken
@@ -1813,7 +1767,7 @@ paths:
           description: A token with this name already exists.
       tags:
         - Authentication
-        - Token
+        - Auth token
   /api/v3/plugins/files:
     put:
       operationId: PutPluginFile
@@ -1983,16 +1937,23 @@ components:
         text/plain:
           schema:
             type: string
+            description: |
+              Line protocol data. Each line represents a point with a measurement name,
+              optional tag set, field set, and optional timestamp.
+
+              Format: `<measurement>[,<tag_key>=<tag_value>...] <field_key>=<field_value>[,<field_key>=<field_value>...] [<timestamp>]`
           examples:
-            line:
-              summary: Example line protocol
-              value: measurement,tag=value field=1 1234567890
-            multiline:
-              summary: Example line protocol with UTF-8 characters
+            single-point:
+              summary: Write a single point
+              description: Write one point with tags and fields to a table.
+              value: cpu,host=server01 usage=85.2,load=0.75 1638360000000000000
+            multiple-tables:
+              summary: Write to multiple tables
+              description: Write points to different tables (measurements) in a single request.
               value: |
-                measurement,tag=value field=1 1234567890
-                measurement,tag=value field=2 1234567900
-                measurement,tag=value field=3 1234568000
+                cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
+                memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
+                disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000
     queryRequestBody:
       required: true
       content:
@@ -2697,19 +2658,3 @@ components:
       in: header
       name: Authorization
       type: apiKey
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Cache data
-      - Common parameters
-      - Response codes
-      - Compatibility endpoints
-      - Database
-      - Processing engine
-      - Server information
-      - Table
-      - Token
-      - Query data
-      - Write data

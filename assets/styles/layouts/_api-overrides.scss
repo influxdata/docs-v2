@@ -1,9 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////
+// API Documentation Style Overrides
+//
+// Provides loading spinner and reusable API-related styles.
+// Note: Legacy Redoc-specific overrides have been removed in favor of
+// Scalar/RapiDoc renderers which use CSS custom properties for theming.
+////////////////////////////////////////////////////////////////////////////////
+
 @import "tools/color-palette";
 @import "tools/fonts";
 
 // Fonts
 $proxima: 'Proxima Nova', sans-serif;
-$code: 'IBM Plex Mono', monospace;;
+$code: 'IBM Plex Mono', monospace;
 
 // Font weights
 $medium: 500;
@@ -22,7 +30,7 @@ $bold: 700;
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to { transform: rotate(360deg); }
 }
 
 .spinner:before {
@@ -41,256 +49,15 @@ $bold: 700;
   animation: spinner .6s linear infinite;
 }
 
-//////////////////////////////// InfluxDB Header ///////////////////////////////
-
-#influx-header {
-  font-family: $proxima;
-  padding: 10px ;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $g2-kevlar;
-  a {
-    text-decoration: none;
-    &.back {
-      color: $g20-white;
-      transition: color .2s;
-      &:hover {
-        color: $b-pool;
-      }
-      &:before {
-        content: "\e919";
-        font-family: 'icomoon-v2';
-        margin-right: .65rem;
-      }
-    }
-    &.btn {
-      padding: .5rem .75rem .5rem .65rem;
-      font-size: .85rem;
-      font-weight: 500;
-      color: $g15-platinum;
-      background: $g5-pepper;
-      border-radius: 4.5px;
-      transition: all .2s;
-      &:before {
-        content: "\e934";
-        display: inline-block;
-        font-size: .95rem;
-        margin-right: .5rem;
-        font-family: 'icomoon-v2';
-      }
-      &:hover {
-        color: $g20-white;
-        background: $b-pool;
-      }
-    }
-  }
-}
-
-// Header Media Queries
-
-@media (max-width: 600px) {
-  #influx-header span.version {display: none;}
-}
-
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// HTTP Method Badge Colors ///////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-.cjtbAK {
-  h1,h2,h3,h4,h5,h6,
-  p,li,th,td {
-    font-family: $proxima !important;
-  }
-}
-
-#redoc {
-  h1,h2,h3 {
-    font-weight: $medium !important;
-  }
-}
-
-// Section title padding
-.dluJDj {
-  padding: 20px 0;
-}
-
-// Page h1
-.dTJWQH {
-  color: $g7-graphite;
-  font-size: 2rem;
-}
-
-// Download button
-.jIdpVJ {
-  background: $b-dodger;
-  color: $g20-white;
-  border: none;
-  border-radius: 3px;
-  font-family: $proxima;
-  font-size: .85rem;
-  font-weight: $medium;
-  transition: background-color .2s;
-  &:hover {
-    background-color: $b-pool;
-  }
-}
-
-// Tag h1s
-.WxWXp {
-  color: $g7-graphite;
-  font-size: 1.75rem;
-}
-
-// Summaru h2s and table headers
-.ioYTqA, .bxcHYI, .hoUoen {
-  color: $g7-graphite;
-}
-
-// h3s
-.espozG {
-  color: $g8-storm;
-}
-
-// Links
-.bnFPhO a { color: $b-dodger;
-  &:visited {color: $b-dodger;}
-}
-
-.redoc-json {
-  font-family: $code !important;
-}
-
-// Inline Code
-.flfxUM code,
-.gDsWLk code,
-.kTVySD {
-  font-family: $code !important;
-  color: $cp-marguerite;
-  background: $cp-titan;
-  border-color: $cp-titan;
-}
-
-// Required tags
-.jsTAxL {
-  color: $r-curacao;
-}
-
-///////////////////////////// RESPONSE COLOR BLOCKS ////////////////////////////
-
-// Green
-.hLVzSF, .fDvFMp {
-  background-color: rgba($gr-honeydew, .2);
-  color: $gr-emerald;
-}
-
-// Red
-.byLrBg {
-  background-color: rgba($r-curacao, .1);
-  color: $r-curacao;
-}
-
-
-
-/////////////////////////////////// LEFT NAV ///////////////////////////////////
-
-// Left nav background
-.gZdDsM {
-  background-color: $g19-ghost;
-}
-
-.gpbcFk:hover, .sc-eTuwsz.active {
-  background-color: $g17-whisper;
-}
-
-// List item text
-.SmuWE, .gcUzvG, .bbViyS, .sc-hrWEMg label {
-  font-family: $proxima !important;
-}
-
-.fyUykq {
-  font-weight: $medium;
-}
-
-// Request method tags
-.cFwMcp {
-  &.post { background-color: $b-ocean; }
-  &.get { background-color: $gr-rainforest; }
-  &.put { background-color: $br-galaxy; }
-  &.patch { background-color: $y-thunder; color: rgba($g5-pepper, .75);}
-  &.delete { background-color: $r-curacao; }
-}
-
-// Active nav section
-.gcUzvG, .iNzLCk:hover {
-  color: $br-magenta;
-}
-
-/////////////////////////////// RIGHT CODE COLUMN //////////////////////////////
-
-// Right column backgrounds
-.dtUibw, .fLUKgj {
-  background-color: $g2-kevlar;
-  h3,h4,h5,h6 {
-    font-family: $proxima !important;
-    font-weight: $medium !important;
-  }
-}
-
-// Code backgrounds
-.irpqyy > .react-tabs__tab-panel {
-  background-color: $g0-obsidian;
-}
-.dHLKeu, .fVaxnA {
-  padding-left: 10px;
-  background-color: $g0-obsidian;
-}
-
-// Response code tabs
-.irpqyy > ul > li {
-  background-color: $g0-obsidian;
-  border-radius: 3px;
-  &.react-tabs__tab--selected{ color: $br-pulsar;}
-  &.tab-error { color: $r-fire; }
-  &.tab-success { color: $gr-viridian; }
-}
-
-// Request methods
-.bNYCAJ,
-.jBjYbV,
-.hOczRB,
-.fRsrDc,
-.hPskZd {
-  font-family: $proxima;
-  font-weight: $medium;
-  letter-spacing: .04em;
-  border-radius: 3px;
-}
-.bNYCAJ { background-color: $b-ocean; } /* Post */
-.jBjYbV { background-color: $gr-viridian; } /* Get */
-.hOczRB { background-color: $br-galaxy; } /* Put */
-.fRsrDc { background-color: $y-thunder; color: $g5-pepper; } /* Patch */
-.hPskZd { background-color: $r-curacao; } /* Delete */
-
-// Content type block
-.gzAoUb {
-  background-color: $g2-kevlar;
-  font-family: $proxima;
-}
-.iENVAs { font-family: $code; }
-.dpMbau { font-family: $proxima; }
-
-// Code controls
-.fCJmC {
-  font-family: $proxima;
-  span { border-radius: 3px; }
-}
-
-// Code blocks
-.kZHJcC { font-family: $code; }
-.jCgylq {
-  .token.string {
-    color: $gr-honeydew;
-    & + a { color: $b-pool; }
-  }
-  .token.boolean { color: #f955b0; }
-}
+// Reusable method badge colors (used by _api-layout.scss .method-badge)
+// These follow standard REST API color conventions
+$method-get: $gr-rainforest;
+$method-post: $b-ocean;
+$method-put: $br-galaxy;
+$method-patch: $y-thunder;
+$method-delete: $r-curacao;
 

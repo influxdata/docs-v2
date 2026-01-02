@@ -1,0 +1,24 @@
+articles:
+  - path: api/accounts/{accountId}/clusters
+    fields:
+      name: /accounts/{accountId}/clusters
+      describes:
+        - /accounts/{accountId}/clusters/{clusterId}/databases
+        - /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}
+        - >-
+          /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/tables
+        - /accounts/{accountId}/clusters/{clusterId}/tokens
+        - /accounts/{accountId}/clusters/{clusterId}/tokens/{tokenId}
+      menuName: /accounts/{accountId}/clusters
+      title: /accounts/{accountId}/clusters
+      tags:
+        - accounts-{accountId}
+        - clusters
+      apiTags:
+        - Databases
+        - Tables
+        - Database tokens
+      source: >-
+        static/openapi/influxdb-cloud-dedicated/paths/influxdb-cloud-dedicated-accounts-{accountId}-clusters.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-dedicated/paths/influxdb-cloud-dedicated-accounts-{accountId}-clusters.yaml
