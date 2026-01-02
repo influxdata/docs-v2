@@ -1,0 +1,21 @@
+{{- /* Define more precise regex patterns for each dynamic value type */ -}}
+{{- /* Note: markdownify converts & to &amp; so we need to match that */ -}}
+{{- $paramsRegex := `&amp;\{[^}]+\}` -}}
+{{- $envsRegex := `\$\{[^}]+\}` -}}
+{{- $secretsRegex := `@\{[^:]+:[^}]+\}` -}}
+
+{{- /* Get the inner content and markdownify it */ -}}
+{{- $code := .Inner | markdownify -}}
+
+{{- /* Apply replacements for each type of dynamic value */ -}}
+{{- /* Replace parameters with span class="param" */ -}}
+{{- $code = replaceRE $paramsRegex `<span class="tc-dynamic-value param">$0</span>` $code -}}
+
+{{- /* Replace environment variables with span class="env" */ -}}
+{{- $code = replaceRE $envsRegex `<span class="tc-dynamic-value env">$0</span>` $code -}}
+
+{{- /* Replace secrets with span class="secret" */ -}}
+{{- $code = replaceRE $secretsRegex `<span class="tc-dynamic-value secret">$0</span>` $code -}}
+
+{{- /* Output the processed code */ -}}
+{{ $code | safeHTML }}

@@ -1,5 +1,7 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentProduct := index $productPathData 1 -}}
+{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
+{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
+{{- $currentProduct := index $productPathData (add $pathOffset 1) -}}
 {{- $length := .Get 0 | default "long" -}}
 {{- $omit := .Get "omit" | default "" -}}
 {{- $scratch := newScratch -}}
@@ -19,6 +21,8 @@
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
 {{- else if eq $currentProduct "clustered" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
+{{- else if eq $currentProduct "controller" -}}
+  {{- $scratch.Set "productData" .Site.Data.products.telegraf_controller -}}
 {{- end -}}
 {{- $productData := $scratch.Get "productData" -}}
 {{- if eq $length "long" }}

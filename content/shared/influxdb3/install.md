@@ -4,7 +4,7 @@
   - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
   - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
   - [Pull the Docker image](#pull-the-docker-image)
-  - [Linux DEB and RPM install](#linux-deb-and-rpm-install)
+  - [Linux DEB or RPM](#linux-deb-or-rpm)
     - [TOML configuration (Linux)](#toml-configuration-linux)
     - [Run as a system service (Linux)](#run-as-a-system-service-linux)
   - [Verify the installation](#verify-the-installation)
@@ -45,7 +45,7 @@ Choose one of the following methods to install {{% product-name %}}:
 - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
 - [Download and install the latest build artifacts](#download-and-install-the-latest-build-artifacts)
 - [Pull the Docker image](#pull-the-docker-image)
-- [Linux DEB and RPM install](#linux-deb-and-rpm-install)
+- [Linux DEB or RPM](#linux-deb-or-rpm)
 
 ### Quick install for Linux and macOS
 
@@ -64,16 +64,18 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 > so it always installs the latest version.
 
 > [!Important]
-> #### Production deployment
+> #### Production deployment {metadata="v3.8+"}
 >
-> For production deployments, use [Linux DEB or RPM](#linux-deb-and-rpm-install)
+> For production deployments, use [Linux DEB or RPM](#linux-deb-or-rpm)
 > for built-in systemd sandboxing, or [Docker](#pull-the-docker-image) with your own
 > container security configuration.
 >
 > For detailed security options, see [Manage security](/influxdb3/version/admin/security/).
+
 ### Download and install the latest build artifacts
 
-You can download and install [{{% product-name %}} build artifacts](/influxdb3/version/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
+You can also download and install [{{% product-name %}} build artifacts](/influxdb3/version/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
+
 {{< expand-wrapper >}}
 {{% expand "Linux binaries" %}}
 
@@ -136,14 +138,16 @@ influxdb:3-{{< product-key >}}
 {{< /expand-wrapper >}}
 
 
-### Linux DEB and RPM install
+### Linux DEB or RPM
 
 When installed via DEB or RPM on a `systemd`-enabled system, {{< product-name >}} runs in a sandboxed environment.
 The included `systemd` unit file configures the environment to provide security isolation for typical deployments.
 For more information, see [Manage security](/influxdb3/version/admin/security/).
 
 > [!Note]
-> DEB and RPM installation is **recommended for non-Docker production deployments** due to built-in systemd sandboxing.
+> DEB and RPM installation is **recommended for non-Docker production deployments** due to built-in `systemd` sandboxing.
+
+
 {{< expand-wrapper >}}
 {{% expand "DEB-based systems" %}}
 
@@ -167,6 +171,7 @@ Use `yum` to install {{< product-name >}} from the InfluxData repository:
 
 ```bash
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+test -d /usr/share/influxdata-archive-keyring/keyrings || sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings
 gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2>&1 \
 | grep -q '^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$' \
 && sudo cp ./influxdata-archive.key /usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc \
@@ -177,8 +182,8 @@ baseurl = https://repos.influxdata.com/stable/\$basearch/main
 enabled = 1
 gpgcheck = 1
 gpgkey = file:///usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc
-yum install influxdb3-{{< product-key >}}
 EOF
+sudo yum install influxdb3-{{< product-key >}}
 ```
 
 {{% /expand %}}
@@ -205,7 +210,7 @@ and contains the following settings:
 > See how to [Activate a license](/influxdb3/enterprise/admin/license/#activate-a-license).
 {{% /show-in %}}
 
-#### Run as a system service (Linux)
+#### Run as a system service (Linux) {metadata="v3.8+"}
 
 {{% product-name %}} DEB and RPM installs include service files for running as
 a managed system service on Linux:
