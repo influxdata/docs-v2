@@ -23,15 +23,14 @@
           {{ end }}
         </header>
 
-        {{/* SECTION INDEX - Show page content (intro + children listing) */}}
+        {{/* SECTION INDEX - Show intro content then tag-based children */}}
         {{ with .Content }}
         <section class="api-section-content">
           {{ . }}
         </section>
-        {{ else }}
-        {{/* Fallback to partial if no content */}}
-        {{ partial "api/section-children.html" . }}
         {{ end }}
+        {{/* Always show tag pages from article data */}}
+        {{ partial "api/section-children.html" . }}
 
         {{ partial "article/related.html" . }}
 

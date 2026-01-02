@@ -7,7 +7,6 @@
   Uses data from:
   - data/article_data/influxdb/{product}/articles.yml
 */}}
-
 {{ $currentPage := . }}
 
 {{/* Extract product and version from URL */}}
@@ -68,7 +67,7 @@
   {{/* Combine: conceptual first, then operations */}}
   {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
 
-  <section class="api-children children">
+  <div class="children-links">
     {{ range $sortedArticles }}
       {{ $path := index . "path" }}
       {{ $fields := index . "fields" }}
@@ -76,12 +75,13 @@
       {{ $description := index $fields "description" | default "" }}
       {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
 
-      <div class="child-item">
-        <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
-        {{ with $description }}
-        <p>{{ . }}</p>
-        {{ end }}
-      </div>
+      <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
+      {{ with $description }}
+      {{/* Truncate to first paragraph (before double newline) or 200 chars */}}
+      {{ $firstPara := index (split . "\n\n") 0 }}
+      {{ $truncated := $firstPara | truncate 200 "..." }}
+      <p>{{ $truncated | markdownify }}</p>
+      {{ end }}
     {{ end }}
-  </section>
+  </div>
 {{ end }}
