@@ -21,7 +21,7 @@ info:
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
     -->
-  version: ''
+  version: 3.7.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -29,15 +29,14 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
+  x-influxdata-short-title: InfluxDB 3 API
+  x-influxdata-version-matrix:
+    v1: Compatibility layer for InfluxDB 1.x clients (supported)
+    v2: Compatibility layer for InfluxDB 2.x clients (supported)
+    v3: Native API for InfluxDB 3.x (current)
+  x-influxdata-short-description: The InfluxDB 3 HTTP API provides a programmatic interface for interactions with InfluxDB, including writing, querying, and processing data, and managing an InfluxDB 3 instance.
 servers:
-  - url: https://{baseurl}
-    description: InfluxDB 3 Core API URL
-    variables:
-      baseurl:
-        enum:
-          - localhost:8181
-        default: localhost:8181
-        description: InfluxDB 3 Core URL
+  - url: /
 security:
   - BearerAuthentication: []
 tags:

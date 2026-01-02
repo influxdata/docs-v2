@@ -1,8 +1,0 @@
-- url: https://{baseurl}
-  description: InfluxDB 3 Enterprise API URL
-  variables:
-    baseurl:
-      enum:
-        - 'localhost:8181'
-      default: 'localhost:8181'
-      description: InfluxDB 3 Enterprise URL

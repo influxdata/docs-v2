@@ -4,29 +4,43 @@ info:
   version: 1.0.0
 
 actions:
-  # Override info.title
-  - target: $.info.title
-    update: InfluxDB 3 Enterprise API Service
+  # Override info section
+  - target: $.info
+    update:
+      title: InfluxDB 3 Enterprise API Service
+      x-influxdata-short-title: InfluxDB 3 API
+      x-influxdata-version-matrix:
+        v1: Compatibility layer for InfluxDB 1.x clients (supported)
+        v2: Compatibility layer for InfluxDB 2.x clients (supported)
+        v3: Native API for InfluxDB 3.x (current)
+      x-influxdata-short-description: The InfluxDB 3 HTTP API provides a programmatic interface for interactions with InfluxDB, including writing, querying, and processing data, and managing an InfluxDB 3 instance.
+      description: |
+        The InfluxDB HTTP API for InfluxDB 3 Enterprise provides a programmatic interface for
+        interacting with InfluxDB 3 Enterprise databases and resources.
+        Use this API to:
 
-  # Override info.description
-  - target: $.info.description
-    update: |
-      The InfluxDB HTTP API for InfluxDB 3 Enterprise provides a programmatic interface for
-      interacting with InfluxDB 3 Enterprise databases and resources.
-      Use this API to:
-      - Write data to InfluxDB 3 Enterprise databases
-      - Query data using SQL or InfluxQL
-      - Process data using Processing engine plugins
-      - Manage databases, tables, and Processing engine triggers
-      - Perform administrative tasks and access system information
-      The API includes endpoints under the following paths:
-      - `/api/v3`: InfluxDB 3 Enterprise native endpoints
-      - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
-      - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
-      <!-- TODO: verify where to host the spec that users can download.
-      This documentation is generated from the
-      [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
-      -->
+        - Write data to InfluxDB 3 Enterprise databases
+        - Query data using SQL or InfluxQL
+        - Process data using Processing engine plugins
+        - Manage databases, tables, and Processing engine triggers
+        - Perform administrative tasks and access system information
+
+        The API includes endpoints under the following paths:
+        - `/api/v3`: InfluxDB 3 Enterprise native endpoints
+        - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
+        - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
+
+        <!-- TODO: verify where to host the spec that users can download.
+        This documentation is generated from the
+        [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
+        -->
+      license:
+        name: MIT
+        url: 'https://opensource.org/licenses/MIT'
+      contact:
+        name: InfluxData
+        url: https://www.influxdata.com
+        email: support@influxdata.com
 
   # Override servers[0].description
   - target: $.servers[0].description
@@ -35,6 +49,25 @@ actions:
   # Override servers[0].variables.baseurl.description
   - target: $.servers[0].variables.baseurl.description
     update: InfluxDB 3 Enterprise URL
+
+  # Set tag groups for navigation
+  - target: $.x-tagGroups
+    update:
+      - name: Using the InfluxDB HTTP API
+        tags:
+          - Quick start
+          - Authentication
+          - Cache data
+          - Common parameters
+          - Response codes
+          - Compatibility endpoints
+          - Database
+          - Processing engine
+          - Server information
+          - Table
+          - Token
+          - Query data
+          - Write data
 
   # Enterprise-only: Add PATCH method to /api/v3/configure/table
   - target: $.paths['/api/v3/configure/table'].patch

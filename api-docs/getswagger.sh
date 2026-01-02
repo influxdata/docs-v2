@@ -155,19 +155,7 @@ function postProcess() {
 }
 
 function updateCloudDedicatedManagement {
-  outFile="influxdb3/cloud-dedicated/management/openapi.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    # Clone influxdata/granite and fetch the latest openapi.yaml file.
-    echo "Fetching the latest openapi.yaml file from influxdata/granite"
-    tmp_dir=$(mktemp -d)
-    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
-    cp "$tmp_dir/openapi.yaml" "$outFile"
-    rm -rf "$tmp_dir"
-  fi
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' management@0
+  bundleManagementWithOverlay "cloud-dedicated"
 }
 
 function updateCloudDedicatedV2 {
@@ -193,19 +181,7 @@ function updateCloudServerlessV2 {
 }
 
 function updateClusteredManagement {
-  outFile="influxdb3/clustered/management/openapi.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    # Clone influxdata/granite and fetch the latest openapi.yaml file.
-    echo "Fetching the latest openapi.yaml file from influxdata/granite"
-    tmp_dir=$(mktemp -d)
-    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
-    cp "$tmp_dir/openapi.yaml" "$outFile"
-    rm -rf "$tmp_dir"
-  fi
-  postProcess $outFile 'influxdb3/clustered/.config.yml' management@0
+  bundleManagementWithOverlay "clustered"
 }
 
 function updateClusteredV2 {
@@ -241,6 +217,29 @@ function bundleWithOverlay {
 
   # Apply Redocly decorators (info, servers, tag-groups from content/)
   postProcess "$outFile" "$configFile" "${apiVersion}@3"
+}
+
+# Bundle shared management base spec with product-specific overlay
+# Usage: bundleManagementWithOverlay <product>
+# Example: bundleManagementWithOverlay "clustered"
+function bundleManagementWithOverlay {
+  local product=$1
+
+  local baseFile="influxdb3/shared/management/base.yml"
+  local overlayFile="influxdb3/${product}/management/overlay.yml"
+  local outFile="influxdb3/${product}/management/openapi.yml"
+  local configFile="influxdb3/${product}/.config.yml"
+
+  echo "Bundling ${product} management with overlay..."
+
+  # Apply overlay to base spec (run from project root for node_modules access)
+  local scriptDir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+  local projectRoot=$(dirname "$scriptDir")
+
+  (cd "$projectRoot" && node api-docs/scripts/apply-overlay.js "api-docs/$baseFile" "api-docs/$overlayFile" -o "api-docs/$outFile")
+
+  # Apply Redocly decorators
+  postProcess "$outFile" "$configFile" "management@0"
 }
 
 function updateCoreV3 {

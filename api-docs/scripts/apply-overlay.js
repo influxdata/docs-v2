@@ -115,15 +115,21 @@ function setPath(obj, segments, value) {
 
 /**
  * Deep merge two objects
+ * Arrays are replaced, not merged.
  * @param {object} target - Target object
  * @param {object} source - Source object to merge
  * @returns {object} - Merged object
  */
 function deepMerge(target, source) {
+  // Arrays are replaced entirely, not merged
+  if (Array.isArray(source)) {
+    return source;
+  }
+
   if (typeof source !== 'object' || source === null) {
     return source;
   }
-  if (typeof target !== 'object' || target === null) {
+  if (typeof target !== 'object' || target === null || Array.isArray(target)) {
     return source;
   }
 
