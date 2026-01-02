@@ -345,7 +345,7 @@ assets/
 │   │   ├── api-nav.ts             # API navigation behavior
 │   │   ├── api-toc.ts             # Table of contents
 │   │   ├── api-tabs.ts            # Tab switching (if needed beyond CSS)
-│   │   └── api-scalar.ts          # Scalar/RapiDoc integration
+│   │   └── api-rapidoc.ts         # RapiDoc integration
 │   └── utils/
 │       └── dom-helpers.ts         # Shared DOM utilities
 └── styles/

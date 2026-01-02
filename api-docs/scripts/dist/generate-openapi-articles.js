@@ -131,7 +131,7 @@ function generateDataFromOpenAPI(specFile, dataOutPath, articleOutPath) {
  * Generate Hugo content pages from article data
  *
  * Creates markdown files with frontmatter from article metadata.
- * Each article becomes a page with type: api that renders via Scalar.
+ * Each article becomes a page with type: api that renders via RapiDoc.
  *
  * @param options - Generation options
  */
@@ -488,7 +488,7 @@ ${yaml.dump(frontmatter)}---
 const productConfigs = {
     // TODO: v2 products (cloud-v2, oss-v2) are disabled for now because they
     // have existing Redoc-based API reference at /reference/api/
-    // Uncomment when ready to migrate v2 products to Scalar
+    // Uncomment when ready to migrate v2 products to RapiDoc
     // 'cloud-v2': {
     //   specFile: path.join(API_DOCS_ROOT, 'influxdb/cloud/v2/ref.yml'),
     //   pagesDir: path.join(DOCS_ROOT, 'content/influxdb/cloud/api'),

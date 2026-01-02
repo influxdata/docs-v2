@@ -131,7 +131,7 @@ function buildOperationsTocHtml(operations: OperationMeta[]): string {
   let html = '<ul class="api-toc-list api-toc-list--operations">';
 
   operations.forEach((op) => {
-    // Generate anchor ID from operationId (Scalar uses operationId for anchors)
+    // Generate anchor ID from operationId (RapiDoc uses operationId for anchors)
     const anchorId = op.operationId;
     const methodClass = getMethodClass(op.method);
 
