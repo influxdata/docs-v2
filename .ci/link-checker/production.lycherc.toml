@@ -1,23 +1,20 @@
 # Production Link Checker Configuration for InfluxData docs-v2
-# Optimized for performance, reliability, and reduced false positives
+# Updated for link-checker v1.3.0 with severity-based classification
+#
+# With severity levels, we no longer need to exclude sites that return:
+# - 403/401/429 (classified as "info" - shown but don't fail CI)
+# - 5xx/timeout (classified as "warning" - shown but don't fail CI)
+# Only 404/410/DNS failures are classified as "error" and fail CI.
+
 [lychee]
 # Performance settings
-
-# Maximum number of retries for failed checks
-
 max_retries = 3
-
-# Timeout for each link check (in seconds)
 timeout = 30
-
-# Maximum number of concurrent checks
 max_concurrency = 128
-
 skip_code_blocks = false
 
 # HTTP settings
-# Identify the tool to external services
-"User-Agent" = "Mozilla/5.0 (compatible; influxdata-link-checker/1.0; +https://github.com/influxdata/docs-v2)"
+"User-Agent" = "Mozilla/5.0 (compatible; influxdata-link-checker/1.3; +https://github.com/influxdata/docs-v2)"
 accept = [200, 201, 202, 203, 204, 206, 301, 302, 303, 304, 307, 308]
 
 # Skip these URL schemes
@@ -31,12 +28,15 @@ max_cache_age = "1h"
 include_verbatim = false
 
 # Exclusion patterns for docs-v2 (regex supported)
+# NOTE: With v1.3.0 severity classification, we only need to exclude:
+# - Non-HTTP URLs (localhost, local networks)
+# - Placeholder/example URLs
+# - Known false positives (not HTTP status related)
+# - CI-specific workarounds
 exclude = [
-  # Localhost URLs
+  # Localhost and local network URLs
   "^https?://localhost",
   "^https?://127\\.0\\.0\\.1",
-
-  # Common CI/CD environments  
   "^https?://.*\\.local",
 
   # Example domains used in documentation
@@ -45,51 +45,6 @@ exclude = [
   # Placeholder URLs from code block filtering
   "https://example.com/REMOVED_FROM_CODE_BLOCK",
   "example.com/INLINE_CODE_URL",
-
-  # URLs that require authentication
-  "^https?://.*\\.slack\\.com",
-  "^https?://.*\\.atlassian\\.net",
-
-  # GitHub URLs (often fail due to rate limiting and bot 
-  # detection)
-  "^https?://github\\.com",
-
-  # Social media URLs (often block bots)
-  "^https?://reddit\\.com",
-  "^https?://.*\\.reddit\\.com",
-
-  # StackExchange network URLs (often block automated requests)
-  "^https?://.*\\.stackexchange\\.com",
-  "^https?://stackoverflow\\.com",
-  "^https?://.*\\.stackoverflow\\.com",
-
-  # Docker Hub URLs (rate limiting and bot detection)
-  "^https?://hub\\.docker\\.com",
-
-  # InfluxData support URLs (certificate/SSL issues in CI)
-  "^https?://support\\.influxdata\\.com",
-  "^https?://influxdata\\.com/slack",
-
-  # NSSM download URLs (403 errors for automated requests)
-  "^https?://nssm\\.cc/download",
-
-  # AI platforms (often block automated requests)
-  "^https?://claude\\.ai",
-  "^https?://.*\\.claude\\.ai",
-
-  # Microsoft Learn documentation (bot detection/rate limiting)
-  "^https?://learn\\.microsoft\\.com",
-  "^https?://.*\\.microsoft\\.com/.*",
-
-  # Dremio download URLs (403 errors for automated requests)
-  "^https?://download\\.dremio\\.com",
-
-  # Scarf analytics tracking pixels (certificate/network errors)
-  "^https?://static\\.scarf\\.sh",
-
-  # Grafana documentation (bot detection/rate limiting)
-  "^https?://grafana\\.com",
-  "^https?://.*\\.grafana\\.com",
 
   # Production site URLs (when testing locally, these should be relative)
   # This excludes canonical URLs and other absolute production URLs
@@ -100,7 +55,6 @@ exclude = [
   # link-checker converts /path/to/page#fragment to file:///path/to/page#fragment
   # but the actual file is at /path/to/page/index.html, causing false fragment errors
   # TODO: Remove after fixing link-checker to handle Hugo pretty URLs with fragments
-  # See: https://github.com/influxdata/docs-tooling/issues/XXX
   "^file://.*#",
 
   # Common documentation placeholders
@@ -109,16 +63,29 @@ exclude = [
   "<.*>",
 ]
 
-# Request headers
+# Request headers (help avoid bot detection on some sites)
 [headers]
-# Add custom headers here if needed
-# "Authorization" = "Bearer $GITHUB_TOKEN"
 "Accept" = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 "Accept-Language" = "en-US,en;q=0.5"
 "Accept-Encoding" = "gzip, deflate"
 "DNT" = "1"
 "Connection" = "keep-alive"
 "Upgrade-Insecure-Requests" = "1"
+
+# Severity classification (link-checker v1.3.0+)
+# These settings control which HTTP status codes fail CI vs show as warnings/info
+[severity]
+# Error codes fail CI - genuine broken links
+error_codes = [404, 410]
+
+# Warning codes are shown but don't fail CI - transient issues
+warning_codes = [500, 502, 503, 504]
+
+# Info codes are low priority - access restrictions, bot protection
+info_codes = [401, 403, 429]
+
+# Set to true to treat warnings as errors (stricter validation)
+strict = false
 
 [ci]
 # CI-specific settings
@@ -147,4 +114,4 @@ no_progress = true  # Disable progress bar in CI
 
 # Summary settings
 show_success_count = true
-show_skipped_count = true 
+show_skipped_count = true
