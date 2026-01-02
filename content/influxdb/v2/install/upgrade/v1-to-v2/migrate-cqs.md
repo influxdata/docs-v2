@@ -6,7 +6,7 @@ description: >
   InfluxDB 2.x tasks.
 menu:
   influxdb_v2:
-    parent: InfluxDB 1.x to 2.7
+    parent: InfluxDB 1.x to 2.8
     name: Migrate CQs
 weight: 102
 aliases:
@@ -123,7 +123,7 @@ See [other resources available to help](#other-helpful-resources).
 
 #### INTO clause
 The `INTO` clause defines the measurement to write results to.
-`INTO` also supports fully-qualified measurements that include the database and retention policy.
+`INTO` also supports fully qualified measurements that include the database and retention policy.
 In InfluxDB OSS {{< current-version >}}, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)).
 

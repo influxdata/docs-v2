@@ -2,7 +2,7 @@
 {{- $icon := .Get 0 | default "influx" -}}
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $product := index $productPathData 0 -}}
-{{- $productVersion := index $productPathData 1 | default "v0.0" -}}
+{{- $productVersion := index $productPathData 1 | default "v0" -}}
 
 {{- $defaultClockface := "" -}}
 {{- with (index .Site.Data.clockface $product) -}}
@@ -81,6 +81,8 @@
   <span class="inline ui-toggle blue"><span class="circle"></span></span>
   {{- else if eq $icon "toggle-green" -}}
   <span class="inline ui-toggle green"><span class="circle"></span></span>
+  {{- else if (eq $icon "tc-more") -}}
+  <span class="inline" style="margin: 0 .25rem; vertical-align: middle;">&#8942;</span>
   {{- end -}}
 {{- else if eq $version "v3" -}}
   {{- if or (eq $icon "nav-admin") (eq $icon "influx") (eq $icon "influx-icon") -}}
