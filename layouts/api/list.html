@@ -8,6 +8,7 @@
   For conceptual pages (isConceptual: true), shows content without operations list.
 */}}
 
+<!-- USING_API_LIST_HTML_TEMPLATE -->
 {{ partial "header.html" . }}
 {{ partial "topnav.html" . }}
 
@@ -19,8 +20,12 @@
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
           <h1 class="article--title">{{ .Title }}</h1>
+          {{/* Only show description in header for section index pages, not tag pages */}}
+          {{/* Tag pages show their full description in the Overview section below */}}
+          {{ if not (isset .Params "tag") }}
           {{ with .Description }}
           <p class="article--description">{{ . }}</p>
+          {{ end }}
           {{ end }}
         </header>
 
@@ -28,15 +33,14 @@
         {{ $hasTag := isset .Params "tag" }}
 
         {{ if not $hasTag }}
-        {{/* SECTION INDEX - Show page content (intro + children listing) */}}
+        {{/* SECTION INDEX - Show intro content then tag-based children */}}
         {{ with .Content }}
         <section class="api-section-content">
           {{ . }}
         </section>
-        {{ else }}
-        {{/* Fallback to partial if no content */}}
-        {{ partial "api/section-children.html" . }}
         {{ end }}
+        {{/* Always show tag pages from article data */}}
+        {{ partial "api/section-children.html" . }}
 
         {{ else }}
         {{/* TAG PAGE - Show operations or conceptual content */}}
@@ -62,8 +66,20 @@
           <h2 id="endpoints">Endpoints</h2>
           <div class="api-operations-grid">
             {{ range $operations }}
+            {{/*
+              Build operation URL from API path
+              1. Strip "/api" prefix (parent directory already provides /api/)
+              2. Add v1/ prefix for paths without version (e.g., /write → v1/write)
+              3. Strip leading "/" to avoid double slashes
+            */}}
             {{ $apiBase := $.Parent.RelPermalink }}
-            {{ $operationURL := printf "%s%s/%s/" $apiBase .path (lower .method) }}
+            {{ $pathWithoutApiPrefix := .path | strings.TrimPrefix "/api" }}
+            {{ $normalizedPath := $pathWithoutApiPrefix }}
+            {{ if not (findRE `^/v\d+/` $pathWithoutApiPrefix) }}
+              {{ $normalizedPath = printf "/v1%s" $pathWithoutApiPrefix }}
+            {{ end }}
+            {{ $normalizedPath = $normalizedPath | strings.TrimPrefix "/" }}
+            {{ $operationURL := printf "%s%s/%s/" $apiBase $normalizedPath (lower .method) }}
             <a href="{{ $operationURL }}" class="api-operation-card">
               <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
               <code class="api-path">{{ .path }}</code>

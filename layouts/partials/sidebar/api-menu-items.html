@@ -115,7 +115,7 @@
     {{/* Check if any operation in this tag is active */}}
     {{ $tagHasActiveOp := false }}
     {{ range $operations }}
-      {{ $opPathSlug := .path | replaceRE "^/" "" }}
+      {{ $opPathSlug := partial "api/normalize-path.html" .path }}
       {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) }}
       {{ if eq $currentPage.RelPermalink $opUrl }}
         {{ $tagHasActiveOp = true }}
@@ -129,7 +129,7 @@
       <ul class="children{{ if or $isActive $tagHasActiveOp }} open{{ end }}">
         {{ range $operations }}
           {{ $apiPath := .path }}
-          {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+          {{ $opPathSlug := partial "api/normalize-path.html" $apiPath }}
           {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method) | relURL }}
           {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower .method)) }}
         <li class="nav-item api-operation{{ if $opIsActive }} active{{ end }}">
@@ -173,7 +173,7 @@
     {{ $anyOpActive := false }}
     {{ range $sortedOps }}
       {{ $op := .op }}
-      {{ $opPathSlug := $op.path | replaceRE "^/" "" }}
+      {{ $opPathSlug := partial "api/normalize-path.html" $op.path }}
       {{ $opUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) }}
       {{ if eq $currentPage.RelPermalink $opUrl }}
         {{ $anyOpActive = true }}
@@ -187,7 +187,7 @@
         {{ range $sortedOps }}
           {{ $op := .op }}
           {{ $apiPath := $op.path }}
-          {{ $opPathSlug := $apiPath | replaceRE "^/" "" }}
+          {{ $opPathSlug := partial "api/normalize-path.html" $apiPath }}
           {{ $operationUrl := printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method) | relURL }}
           {{ $opIsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/%s/%s/" $product $version $opPathSlug (lower $op.method)) }}
         <li class="nav-item api-operation api-operation--path{{ if $opIsActive }} active{{ end }}">

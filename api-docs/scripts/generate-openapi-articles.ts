@@ -541,17 +541,34 @@ interface GenerateOperationPagesOptions {
 }
 
 /**
- * Convert API path to URL-safe slug
+ * Convert API path to URL-safe slug with normalized version prefix
  *
- * Transforms an API path like "/api/v3/write_lp" to a URL-friendly format.
- * Removes leading slash and uses the path as-is (underscores are URL-safe).
+ * Transforms an API path to a URL-friendly format:
+ * - Removes leading "/api" prefix (added by parent directory structure)
+ * - Ensures all paths have a version prefix (defaults to v1 if none)
+ * - Removes leading slash
+ *
+ * Examples:
+ * - "/write" → "v1/write"
+ * - "/api/v3/configure/database" → "v3/configure/database"
+ * - "/api/v2/write" → "v2/write"
+ * - "/health" → "v1/health"
  *
  * @param apiPath - The API path (e.g., "/write", "/api/v3/write_lp")
- * @returns URL-safe path slug (e.g., "write", "api/v3/write_lp")
+ * @returns URL-safe path slug with version prefix (e.g., "v1/write", "v3/configure/database")
  */
 function apiPathToSlug(apiPath: string): string {
-  // Remove leading slash, keep underscores (they're URL-safe)
-  return apiPath.replace(/^\//, '');
+  // Remove leading "/api" prefix if present
+  let normalizedPath = apiPath.replace(/^\/api/, '');
+  // Remove leading slash
+  normalizedPath = normalizedPath.replace(/^\//, '');
+
+  // If path doesn't start with version prefix, add v1/
+  if (!/^v\d+\//.test(normalizedPath)) {
+    normalizedPath = `v1/${normalizedPath}`;
+  }
+
+  return normalizedPath;
 }
 
 /**
