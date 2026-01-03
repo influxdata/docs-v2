@@ -1491,29 +1491,49 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         licenseGuidance.style.borderRadius = '4px';
 
         if (answer === 'free') {
+          const freeProducts = [
+            'InfluxDB 3 Core',
+            'InfluxDB OSS 2.x',
+            'InfluxDB OSS 1.x',
+          ];
+          const freeLinks = freeProducts
+            .map((product) => {
+              const link = this.getGrafanaLink(product);
+              return link
+                ? `<li><a href="${link}" target="_blank" class="grafana-link">Configure Grafana for ${product}</a></li>`
+                : '';
+            })
+            .filter(Boolean)
+            .join('\n              ');
+
           licenseGuidance.innerHTML = `
             <strong>Free/Open Source License:</strong>
             <p>This suggests you're using InfluxDB 3 Core or InfluxDB OSS.</p>
             <ul>
-              <li><a href="/influxdb3/core/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB 3 Core</a></li>
-              <li><a href="/influxdb/v2/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB OSS v2</a></li>
-              <li><a href="/influxdb/v1/tools/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB OSS v1</a></li>
+              ${freeLinks}
             </ul>
           `;
         } else if (answer === 'paid') {
+          const paidProducts = [
+            'InfluxDB 3 Enterprise',
+            'InfluxDB Cloud Dedicated',
+            'InfluxDB Cloud Serverless',
+          ];
+          const paidLinks = paidProducts
+            .map((product) => {
+              const link = this.getGrafanaLink(product);
+              return link
+                ? `<li><a href="${link}" target="_blank" class="grafana-link">Configure Grafana for ${product}</a></li>`
+                : '';
+            })
+            .filter(Boolean)
+            .join('\n              ');
+
           licenseGuidance.innerHTML = `
             <strong>Paid/Commercial License:</strong>
             <p>This suggests you're using InfluxDB 3 Enterprise or a paid cloud service.</p>
             <ul>
-              <li><a href="/influxdb3/enterprise/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB 3 Enterprise</a></li>
-              <li><a href="/influxdb3/cloud-dedicated/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB Cloud Dedicated</a></li>
-              <li><a href="/influxdb3/cloud-serverless/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB Cloud Serverless</a></li>
+              ${paidLinks}
             </ul>
           `;
         }
@@ -1581,11 +1601,11 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       'InfluxDB Cloud Serverless':
         '/influxdb3/cloud-serverless/visualize-data/grafana/',
       'InfluxDB OSS 1.x': '/influxdb/v1/tools/grafana/',
-      'InfluxDB OSS 2.x': '/influxdb/v2/visualize-data/grafana/',
-      'InfluxDB Enterprise': '/influxdb/enterprise/visualize-data/grafana/',
+      'InfluxDB OSS 2.x': '/influxdb/v2/tools/grafana/',
+      'InfluxDB Enterprise': '/enterprise_influxdb/v1/tools/grafana/',
       'InfluxDB Clustered': '/influxdb3/clustered/visualize-data/grafana/',
-      'InfluxDB Cloud (TSM)': '/influxdb/cloud/visualize-data/grafana/',
-      'InfluxDB Cloud v1': '/influxdb/cloud/visualize-data/grafana/',
+      'InfluxDB Cloud (TSM)': '/influxdb/cloud/tools/grafana/',
+      'InfluxDB Cloud v1': '/enterprise_influxdb/v1/tools/grafana/',
     };
 
     return GRAFANA_LINKS[productName] || null;
