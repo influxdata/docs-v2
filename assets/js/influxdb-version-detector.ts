@@ -182,6 +182,24 @@ class InfluxDBVersionDetector {
   private restartBtn: HTMLElement | null = null;
   private currentContext: 'questionnaire' | 'result' = 'questionnaire';
 
+  /** Example host URLs for each product type */
+  private static readonly HOST_EXAMPLES: Record<string, string> = {
+    influxdb3_core: 'http://localhost:8181',
+    influxdb3_enterprise: 'http://localhost:8181',
+    influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
+    influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
+    influxdb3_clustered: 'https://cluster-host.com',
+    influxdb_v1: 'http://localhost:8086',
+    influxdb_v2: 'http://localhost:8086',
+  };
+
+  /** Default host URL (InfluxDB v2 localhost) */
+  private static readonly DEFAULT_HOST =
+    InfluxDBVersionDetector.HOST_EXAMPLES.influxdb_v2;
+
+  /** Default host:port without protocol (for curl examples) */
+  private static readonly DEFAULT_HOST_PORT = 'localhost:8086';
+
   constructor(options: ComponentOptions) {
     this.container = options.component;
 
@@ -627,17 +645,10 @@ class InfluxDBVersionDetector {
     }
 
     // Fallback based on product type
-    const hostExamples: Record<string, string> = {
-      influxdb3_core: 'http://localhost:8181',
-      influxdb3_enterprise: 'http://localhost:8181',
-      influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
-      influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
-      influxdb3_clustered: 'https://cluster-host.com',
-      influxdb_v1: 'http://localhost:8086',
-      influxdb_v2: 'http://localhost:8086',
-    };
-
-    return hostExamples[productDataKey] || 'http://localhost:8086';
+    return (
+      InfluxDBVersionDetector.HOST_EXAMPLES[productDataKey] ||
+      InfluxDBVersionDetector.DEFAULT_HOST
+    );
   }
 
   private usesDatabaseTerminology(productConfig: ProductConfig): boolean {
@@ -888,7 +899,7 @@ class InfluxDBVersionDetector {
             </div>
             <div class="input-group">
               <input type="url" id="url-input"
-                     placeholder="for example, https://us-east-1-1.aws.cloud2.influxdata.com or http://localhost:8086">
+                     placeholder="for example, https://us-east-1-1.aws.cloud2.influxdata.com or ${InfluxDBVersionDetector.DEFAULT_HOST}">
             </div>
             <button class="back-button" data-action="go-back">Back</button>
             <button class="submit-button"
@@ -930,7 +941,7 @@ class InfluxDBVersionDetector {
 docker exec &lt;container&gt; influxd version
 
 # Get ping headers:
-docker exec &lt;container&gt; curl -I localhost:8086/ping
+docker exec &lt;container&gt; curl -I ${InfluxDBVersionDetector.DEFAULT_HOST_PORT}/ping
 
 # Or check startup logs:
 docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
@@ -1207,7 +1218,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const currentProduct = this.getCurrentProduct();
     const storedUrl = storedUrls[currentProduct] || storedUrls.custom;
 
-    if (storedUrl && storedUrl !== 'http://localhost:8086') {
+    if (storedUrl && storedUrl !== InfluxDBVersionDetector.DEFAULT_HOST) {
       urlInput.value = storedUrl;
       // Add indicator that URL was pre-filled (only if one doesn't already exist)
       const existingIndicator = urlInput.parentElement?.querySelector(
@@ -2295,7 +2306,7 @@ curl -I ${url}/ping
 docker exec &lt;container&gt; influxd version
 
 # Get ping headers:
-docker exec &lt;container&gt; curl -I localhost:8086/ping
+docker exec &lt;container&gt; curl -I ${InfluxDBVersionDetector.DEFAULT_HOST_PORT}/ping
 
 # Or check startup logs:
 docker logs &lt;container&gt; 2>&1 | head -20
