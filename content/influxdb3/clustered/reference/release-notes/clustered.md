@@ -61,6 +61,33 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20251218-1946608 {date="2025-12-18"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20251218-1946608
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20251218-1946608/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20251218-1946608/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+- The garbage collector has been fixed to support customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint` (e.g. "https://$BUCKET.$REGION.amazonaws.com") and an additional prefix in `spec.package.spec.objectStore.bucket`; if you previously disabled `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` and `INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` to work around the bug, you can remove those overrides now.
+- Add support for both 'postgres' and 'postgresql' URI schemes in catalog DSN parsing.
+- Add support to the Management API for:
+  - Renaming databases
+  - Undeleting databases
+  - Renaming tables
+  - Deleting tables
+  - Undeleting tables
+- Dependency updates and miscellaneous security fixes.
+
 ## 20250925-1878107 {date="2025-09-25"}
 
 ### Quickstart
