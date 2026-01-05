@@ -78,7 +78,7 @@ spec:
 
 ### Highlights
 
-- The garbage collector has been fixed to support customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint` (e.g. "https://$BUCKET.$REGION.amazonaws.com") and an additional prefix in `spec.package.spec.objectStore.bucket`; if you previously disabled `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` and `INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` to work around the bug, you can remove those overrides now.
+- The garbage collector has been fixed to support customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint` (for example, `"https://$BUCKET.$REGION.amazonaws.com"`) and an additional prefix in `spec.package.spec.objectStore.bucket`; if you previously disabled `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` and `INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` to work around the bug, you can remove those overrides now.
 - Add support for both 'postgres' and 'postgresql' URI schemes in catalog DSN parsing.
 - Add support to the Management API for:
   - Renaming databases
