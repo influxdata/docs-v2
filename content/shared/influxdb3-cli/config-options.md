@@ -841,7 +841,7 @@ The following log levels are available (from least to most verbose):
 
 | Level   | Description                                                                                           |
 | :------ | :---------------------------------------------------------------------------------------------------- |
-| `error` | Only errors that indicate serious problems                                                            |
+| `error` | Only errors                                                           |
 | `warn`  | Warnings and errors                                                                                   |
 | `info`  | Informational messages, warnings, and errors _(default)_                                              |
 | `debug` | Debug information for troubleshooting, plus all above levels                                          |
