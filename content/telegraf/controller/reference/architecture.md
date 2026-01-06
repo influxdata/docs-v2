@@ -93,7 +93,7 @@ flowchart LR
     Telegraf agents with the heartbeat output plugin send `POST` requests to the
     dedicated heartbeat server (port `8000` by default).
 
-2.  **Heartbeat server process the heartbeat**:
+2.  **Heartbeat server processes the heartbeat**:
 
     The heartbeat server is a high-performance Rust-based HTTP server that:
 
@@ -117,7 +117,7 @@ flowchart LR
     - Creates a new agent if it does not already exist
     - Adds or updates the `last_seen` timestamp
     - Adds or updates the agent status to the status reported in the heartbeat
-    - Adds or updates other agent metadata (hostname, IP, etc.)
+    - Updates other agent metadata (hostname, IP, etc.)
 
 4.  **API layer reads agent data**:
 
@@ -137,7 +137,7 @@ flowchart LR
     - Last seen timestamps
     - Agent health metrics
 
-5. **The background scheduler evaluates agent statuses**:
+6.  **The background scheduler evaluates agent statuses**:
 
     Every 60 seconds, a Rust-based scheduler (also part of the NAPI module):
 
@@ -146,7 +146,7 @@ flowchart LR
     - Updates agent statuses:
       - ok → not_reporting (if heartbeat missed beyond threshold)
       - not_reporting → ok (if heartbeat resumes)
-    - Auto-deletes agents based that have exceeded the auto-delete threshold
+    - Auto-deletes agents that have exceeded the auto-delete threshold
       (if enabled for the reporting rule)
 
 ### Configuration distribution
