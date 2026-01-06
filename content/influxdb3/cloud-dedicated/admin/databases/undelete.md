@@ -1,7 +1,7 @@
 ---
 title: Undelete a database
 description: >
-  Use the [`influxctl database undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/undelete/)
+  Use the Admin UI or the [`influxctl database undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/undelete/)
   to restore a previously deleted database in your {{< product-name omit=" Cluster" >}} cluster.
 menu:
   influxdb3_cloud_dedicated:
@@ -17,7 +17,7 @@ related:
   - /influxdb3/cloud-dedicated/admin/tokens/database/create/
 ---
 
-Use the [`influxctl database undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/undelete/)
+Use the Admin UI or the [`influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/)
 to restore a previously deleted database in your {{< product-name omit=" Cluster" >}} cluster.
 
 > [!Important]
@@ -37,7 +37,40 @@ table limits, and column limits as when it was deleted.
 > After this grace period, all Parquet files associated with the deleted database
 > are permanently removed and the database cannot be undeleted.
 
-## Undelete a database using the influxctl CLI
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Admin UI](#admin-ui)
+[influxctl](#influxctl)
+{{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------BEGIN ADMIN UI -------------------------------->
+The InfluxDB Cloud Dedicated administrative UI includes a portal for
+managing databases, including restoring deleted databases.
+
+1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+
+   <pre>
+   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
+   </pre>
+
+2. Use the credentials provided by InfluxData to log into the Admin UI.
+   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+3. In the database list, find the deleted database you want to restore.
+   Deleted databases are shown with a "Deleted" status indicator.
+   You can sort on column headers or use the **Search** field to find a specific database.
+4. Click the options button (three vertical dots) to the right of the deleted database you want to restore.
+   The options menu displays.
+5. In the options menu, click **Restore Database**. The **Restore Database** dialog displays.
+6. In the **Restore Database** dialog, review the database name and deletion date.
+7. Click the **Restore Database** button to restore the database.
+{{% /tab-content %}}
+{{% tab-content %}}
+
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+2.  Use the [`influxctl database undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/undelete/)
+    to restore a deleted database. Provide the following:
+
+    - The name of the deleted database to restore
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -49,6 +82,8 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the deleted database to restore
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Recreate tokens for the database
 

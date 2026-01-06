@@ -24,6 +24,7 @@ list_code_example: |
     --header "Authorization: Bearer MANAGEMENT_TOKEN"
   ```
 related:
+  - /influxdb3/cloud-dedicated/admin/databases/undelete/
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/database/delete/
   - /influxdb3/cloud-dedicated/reference/api/
 ---
@@ -46,6 +47,13 @@ to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 > databases by name. If you create a new database with the same name, tokens
 > that granted access to the deleted database will also grant access to the new
 > database.
+
+> [!Note]
+> #### Deleted databases can be restored
+>
+> Deleted databases can be [restored](/influxdb3/cloud-dedicated/admin/databases/undelete/)
+> within approximately 7 days of deletion. After this grace period, the database
+> and its data are permanently removed.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
