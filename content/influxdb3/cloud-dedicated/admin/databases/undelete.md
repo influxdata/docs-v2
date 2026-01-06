@@ -43,24 +43,15 @@ table limits, and column limits as when it was deleted.
 [influxctl](#influxctl)
 {{% /tabs %}}
 {{% tab-content %}}
-<!------------------------------BEGIN ADMIN UI -------------------------------->
-The InfluxDB Cloud Dedicated administrative UI includes a portal for
-managing databases, including restoring deleted databases.
+{{< admin-ui-access >}}
 
-1. To access the {{< product-name >}} Admin UI, visit the following URL in your browser:
+In the database list, find the deleted database you want to restore.
+Deleted databases are shown with a "Deleted" status indicator.
+You can sort on column headers or use the **Search** field to find a specific database.
 
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
-
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
-3. In the database list, find the deleted database you want to restore.
-   Deleted databases are shown with a "Deleted" status indicator.
-   You can sort on column headers or use the **Search** field to find a specific database.
-4. In the options menu (three vertical dots to the right of the database), click **Restore Database**. The **Restore Database** dialog displays.
-5. In the **Restore Database** dialog, review the database name and deletion date.
-6. Click the **Restore Database** button to restore the database.
+1. In the options menu (three vertical dots to the right of the database), click **Restore Database**. The **Restore Database** dialog displays.
+2. In the **Restore Database** dialog, review the database name and deletion date.
+3. Click the **Restore Database** button to restore the database.
 {{% /tab-content %}}
 {{% tab-content %}}
 

@@ -49,11 +49,11 @@ to delete a database from your {{< product-name omit=" Clustered" >}} cluster.
 > database.
 
 > [!Note]
-> #### Deleted databases can be restored
+> #### Deleted databases may be able to be restored
 >
-> Deleted databases can be [restored](/influxdb3/cloud-dedicated/admin/databases/undelete/)
-> within approximately 7 days of deletion. After this grace period, the database
-> and its data are permanently removed.
+> Deleted databases may be able to be [restored](/influxdb3/cloud-dedicated/admin/databases/undelete/)
+> within approximately 7 days of deletion, depending on when cleanup jobs run.
+> After the cleanup job runs, the database and its data are permanently removed.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
