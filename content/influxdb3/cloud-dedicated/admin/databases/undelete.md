@@ -58,11 +58,9 @@ managing databases, including restoring deleted databases.
 3. In the database list, find the deleted database you want to restore.
    Deleted databases are shown with a "Deleted" status indicator.
    You can sort on column headers or use the **Search** field to find a specific database.
-4. Click the options button (three vertical dots) to the right of the deleted database you want to restore.
-   The options menu displays.
-5. In the options menu, click **Restore Database**. The **Restore Database** dialog displays.
-6. In the **Restore Database** dialog, review the database name and deletion date.
-7. Click the **Restore Database** button to restore the database.
+4. In the options menu (three vertical dots to the right of the database), click **Restore Database**. The **Restore Database** dialog displays.
+5. In the **Restore Database** dialog, review the database name and deletion date.
+6. Click the **Restore Database** button to restore the database.
 {{% /tab-content %}}
 {{% tab-content %}}
 
