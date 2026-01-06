@@ -206,6 +206,25 @@ For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-fee
 }
 
 /**
+ * Extract style attributes from HTML comments and apply to headings.
+ * Converts: `#### Heading <!-- {.class} -->` to `#### Heading {.class}`
+ *
+ * Supported class formats:
+ * - {.green}, {.orange} - Color styling
+ * - {.recommended}, {.not-recommended} - Semantic styling
+ * - Any other {.classname} format
+ *
+ * This allows source READMEs to render cleanly on GitHub (which ignores
+ * HTML comments) while still supporting Hugo style classes in docs-v2.
+ */
+function extractStyleAttributes(content) {
+  // Match headings with HTML comment style attributes
+  // Pattern: (#+) (heading text) <!-- ({.classname}) -->
+  const pattern = /^(#{1,6})\s+(.+?)\s*<!--\s*(\{[^}]+\})\s*-->\s*$/gm;
+  return content.replace(pattern, '$1 $2 $3');
+}
+
+/**
  * Ensure code blocks are properly formatted.
  */
 function fixCodeBlockFormatting(content) {
@@ -277,6 +296,7 @@ function transformContent(content, pluginName, config) {
   content = convertTomlReadmeLinks(content);
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
+  content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
 
   // Add schema requirements if applicable
