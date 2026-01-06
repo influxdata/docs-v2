@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-05 17:36:03 -0700 -0700">
+<meta name="last-modified" content="2026-01-05 17:43:00 -0700 -0700">
     
 <script type="text/javascript">
 (function() {
@@ -947,7 +947,7 @@ flowchart LR
 dedicated heartbeat server (port <code>8000</code> by default).</p>
 </li>
 <li>
-<p><strong>Heartbeat server process the heartbeat</strong>:</p>
+<p><strong>Heartbeat server processes the heartbeat</strong>:</p>
 <p>The heartbeat server is a high-performance Rust-based HTTP server that:</p>
 <ul>
 <li>Receives the <code>POST</code> request at <code>/agents/heartbeat</code></li>
@@ -971,7 +971,7 @@ payload.</li>
 <li>Creates a new agent if it does not already exist</li>
 <li>Adds or updates the <code>last_seen</code> timestamp</li>
 <li>Adds or updates the agent status to the status reported in the heartbeat</li>
-<li>Adds or updates other agent metadata (hostname, IP, etc.)</li>
+<li>Updates other agent metadata (hostname, IP, etc.)</li>
 </ul>
 </li>
 <li>
@@ -1005,7 +1005,7 @@ actions:</p>
 <li>not_reporting → ok (if heartbeat resumes)</li>
 </ul>
 </li>
-<li>Auto-deletes agents based that have exceeded the auto-delete threshold
+<li>Auto-deletes agents that have exceeded the auto-delete threshold
 (if enabled for the reporting rule)</li>
 </ul>
 </li>
