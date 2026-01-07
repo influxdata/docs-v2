@@ -194,19 +194,48 @@
   }
 
   // API path in monospace
+  // Note: Uses <code> element but we override the default code background
+  // to prevent inconsistent "progress bar" appearance from varying text lengths
   .api-path {
     font-family: $code;
     font-size: 0.9rem;
     color: $article-heading;
     word-break: break-all;
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 0; // Allow text to shrink and wrap
+    background: none; // Override default code background
+    padding: 0; // Remove default code padding
   }
 
   // Operation summary text
   .api-operation-summary {
     font-size: 0.875rem;
     color: rgba($article-text, 0.8);
-    flex: 1;
+    flex-shrink: 0;
+  }
+}
+
+// Responsive: Stack operation cards vertically on small screens
+@include media(small) {
+  .api-operation-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+
+    .api-method {
+      align-self: flex-start;
+      margin-top: 0;
+    }
+
+    .api-path {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .api-operation-summary {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
   }
 }
 

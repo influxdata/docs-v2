@@ -368,6 +368,68 @@ function injectShadowStyles(element: HTMLElement): void {
         white-space: pre-wrap !important;
         word-break: break-all;
       }
+
+      /* ============================================
+         RESPONSIVE STYLES FOR MOBILE (max-width: 600px)
+         ============================================ */
+      @media (max-width: 600px) {
+        /* CRITICAL FIX: The button row container uses inline display:flex
+           and the hide-in-small-screen div has width:calc(100% - 60px)
+           which only leaves 60px for all buttons - not enough!
+
+           Structure:
+           div[part="wrap-request-btn"] style="display:flex"
+             > div.hide-in-small-screen style="width:calc(100% - 60px)"  <- PROBLEM
+             > button.m-btn (FILL EXAMPLE)
+             > button.m-btn (CLEAR)
+             > button.m-btn (TRY)
+        */
+
+        /* Target the outer button wrapper - make it wrap */
+        [part="wrap-request-btn"] {
+          flex-wrap: wrap !important;
+          gap: 0.5rem !important;
+        }
+
+        /* The hide-in-small-screen div steals width - override its calc() */
+        .hide-in-small-screen {
+          width: 100% !important;
+          flex-basis: 100% !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        /* Make buttons smaller on mobile and ensure they fit */
+        button.m-btn, .m-btn {
+          padding: 0.35rem 0.5rem !important;
+          font-size: 0.7rem !important;
+          margin-right: 4px !important;
+          flex-shrink: 0 !important;
+        }
+
+        /* Full width for nested elements */
+        .request-body-container,
+        .response-panel,
+        .req-resp-container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        /* Make tables scroll horizontally if needed */
+        .table-wrapper,
+        table {
+          display: block !important;
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        /* Tab navigation - scroll horizontally */
+        .tab-buttons,
+        [role="tablist"] {
+          overflow-x: auto !important;
+          flex-wrap: nowrap !important;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
     `;
     shadowRoot.appendChild(style);
 
@@ -386,6 +448,197 @@ function injectShadowStyles(element: HTMLElement): void {
       clearInterval(interval);
     }
   }, 100);
+}
+
+/**
+ * Apply responsive fixes directly to element styles via JavaScript
+ * This is more reliable than CSS for overriding inline styles
+ *
+ * IMPORTANT: RapiDoc has NESTED shadow DOMs:
+ *   rapi-doc.shadowRoot > api-request.shadowRoot
+ * The buttons (FILL EXAMPLE, CLEAR, TRY) are in the api-request shadow root.
+ */
+function applyResponsiveFixes(element: HTMLElement): void {
+  /**
+   * Recursively collect all shadow roots (including nested ones)
+   */
+  const getAllShadowRoots = (root: Document | ShadowRoot): ShadowRoot[] => {
+    const shadowRoots: ShadowRoot[] = [];
+    const elements = Array.from(root.querySelectorAll('*'));
+    for (const el of elements) {
+      const htmlEl = el as HTMLElement;
+      if (htmlEl.shadowRoot) {
+        shadowRoots.push(htmlEl.shadowRoot);
+        shadowRoots.push(...getAllShadowRoots(htmlEl.shadowRoot));
+      }
+    }
+    return shadowRoots;
+  };
+
+  /**
+   * Apply fixes to a single shadow root
+   */
+  const applyFixes = (shadowRoot: ShadowRoot): number => {
+    let fixCount = 0;
+
+    // Find the button wrapper by its part attribute
+    const btnWrapper = shadowRoot.querySelector(
+      '[part="wrap-request-btn"]'
+    ) as HTMLElement;
+
+    if (btnWrapper) {
+      btnWrapper.style.flexWrap = 'wrap';
+      btnWrapper.style.gap = '0.5rem';
+      fixCount++;
+    }
+
+    // Find hide-in-small-screen divs and fix their width
+    const hideInSmall = shadowRoot.querySelectorAll(
+      '.hide-in-small-screen'
+    ) as NodeListOf<HTMLElement>;
+    hideInSmall.forEach((el) => {
+      el.style.width = '100%';
+      el.style.flexBasis = '100%';
+      el.style.marginBottom = '0.5rem';
+      fixCount++;
+    });
+
+    // Make buttons smaller
+    const buttons = shadowRoot.querySelectorAll(
+      '.m-btn'
+    ) as NodeListOf<HTMLElement>;
+    buttons.forEach((btn) => {
+      btn.style.padding = '0.35rem 0.5rem';
+      btn.style.fontSize = '0.7rem';
+      btn.style.marginRight = '4px';
+    });
+    if (buttons.length > 0) {
+      fixCount += buttons.length;
+    }
+
+    return fixCount;
+  };
+
+  /**
+   * Apply fixes to ALL shadow roots (including nested api-request)
+   * Returns the number of buttons found (used to determine if RapiDoc fully loaded)
+   */
+  const applyToAllShadowRoots = (): number => {
+    const topShadowRoot = (
+      element as unknown as { shadowRoot: ShadowRoot | null }
+    ).shadowRoot;
+    if (!topShadowRoot) {
+      return 0;
+    }
+
+    // Get all shadow roots including nested ones (e.g., api-request inside rapi-doc)
+    const allShadowRoots = [topShadowRoot, ...getAllShadowRoots(topShadowRoot)];
+
+    let buttonCount = 0;
+
+    for (const sr of allShadowRoots) {
+      applyFixes(sr);
+      buttonCount += sr.querySelectorAll('.m-btn').length;
+    }
+
+    return buttonCount;
+  };
+
+  const tryApplyFixes = (): boolean => {
+    const isMobile = window.matchMedia('(max-width: 600px)').matches;
+    if (!isMobile) {
+      return true; // Not mobile, no fixes needed
+    }
+
+    const topShadowRoot = (
+      element as unknown as { shadowRoot: ShadowRoot | null }
+    ).shadowRoot;
+    if (!topShadowRoot) {
+      return false; // Shadow root not ready
+    }
+
+    const buttonCount = applyToAllShadowRoots();
+
+    // Set up observer on top-level shadow root for future changes
+    const existingObserver = (
+      topShadowRoot as unknown as { _mobileObserver?: MutationObserver }
+    )._mobileObserver;
+    if (!existingObserver) {
+      const observer = new MutationObserver(() => {
+        applyToAllShadowRoots();
+      });
+      observer.observe(topShadowRoot, {
+        childList: true,
+        subtree: true,
+      });
+      (
+        topShadowRoot as unknown as { _mobileObserver?: MutationObserver }
+      )._mobileObserver = observer;
+    }
+
+    // Need at least 3 buttons (FILL EXAMPLE, CLEAR, TRY) to consider complete
+    return buttonCount >= 3;
+  };
+
+  // Always apply fixes regardless of viewport (let CSS handle visibility)
+  // This ensures fixes are ready when user resizes to mobile
+  const applyFixesUnconditionally = (): boolean => {
+    const topShadowRoot = (
+      element as unknown as { shadowRoot: ShadowRoot | null }
+    ).shadowRoot;
+    if (!topShadowRoot) {
+      return false; // Shadow root not ready
+    }
+
+    const buttonCount = applyToAllShadowRoots();
+
+    // Set up observer on top-level shadow root for future changes
+    const existingObserver = (
+      topShadowRoot as unknown as { _mobileObserver?: MutationObserver }
+    )._mobileObserver;
+    if (!existingObserver) {
+      const observer = new MutationObserver(() => {
+        applyToAllShadowRoots();
+      });
+      observer.observe(topShadowRoot, {
+        childList: true,
+        subtree: true,
+      });
+      (
+        topShadowRoot as unknown as { _mobileObserver?: MutationObserver }
+      )._mobileObserver = observer;
+    }
+
+    // Need at least 3 buttons (FILL EXAMPLE, CLEAR, TRY) to consider complete
+    return buttonCount >= 3;
+  };
+
+  // Try immediately
+  if (applyFixesUnconditionally()) return;
+
+  // Retry with increasing delays (RapiDoc loads spec asynchronously)
+  // Need longer delays - RapiDoc fully renders after spec is loaded
+  const delays = [100, 300, 500, 1000, 1500, 2000, 3000, 5000];
+  let attempt = 0;
+
+  const retry = (): void => {
+    if (attempt >= delays.length) {
+      return;
+    }
+    setTimeout(() => {
+      if (!applyFixesUnconditionally()) {
+        attempt++;
+        retry();
+      }
+    }, delays[attempt]);
+  };
+
+  retry();
+
+  // Also reapply on resize
+  window.addEventListener('resize', () => {
+    tryApplyFixes();
+  });
 }
 
 /**
@@ -495,6 +748,9 @@ export default async function RapiDocMini({
 
     // Inject custom styles into shadow DOM to remove borders/spacing
     injectShadowStyles(rapiDocElement);
+
+    // Apply responsive fixes for mobile (modifies inline styles directly)
+    applyResponsiveFixes(rapiDocElement);
 
     // Watch for theme changes and return cleanup function
     return watchThemeChanges(component);
