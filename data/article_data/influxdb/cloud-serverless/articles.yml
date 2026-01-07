@@ -1,0 +1,2217 @@
+articles:
+  - path: api/api-compatibility
+    fields:
+      name: API compatibility
+      describes: []
+      title: API compatibility
+      description: >
+        ### Write data
+
+
+        InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints
+        for writing data:
+
+
+        - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
+          for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+        - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing
+        InfluxDB v1 write workloads to InfluxDB 3.
+
+
+        Both endpoints accept the same line protocol format and process data in
+        the same way.
+
+
+        ### Query data
+
+
+        InfluxDB 3 Cloud Serverless provides the following protocols for
+        executing a query:
+
+
+        - **Recommended**: _Flight+gRPC_ request that contains an SQL or
+        InfluxQL query. See how to [get started querying InfluxDB using Flight
+        and SQL](/influxdb3/cloud-serverless/get-started/query/).
+
+        - HTTP API [`/query`
+        request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that
+        contains an InfluxQL query.
+          Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+
+        ### InfluxDB v2 compatibility
+
+
+        The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with
+        the [`Token` authentication
+        scheme](#section/Authentication/TokenAuthentication) and existing
+        InfluxDB 2.x tools and code for [writing
+        data](/influxdb3/cloud-serverless/write-data/).
+
+
+        See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud
+        Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+
+
+        ### InfluxDB v1 compatibility
+
+
+        The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and
+        [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x
+        username/password [authentication schemes](#section/Authentication/) and
+        existing InfluxDB 1.x tools and code.
+
+
+        See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud
+        Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
+      tag: API compatibility
+      isConceptual: true
+      menuGroup: Other
+      operations: []
+      tagDescription: >
+        ### Write data
+
+
+        InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints
+        for writing data:
+
+
+        - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
+          for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+        - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing
+        InfluxDB v1 write workloads to InfluxDB 3.
+
+
+        Both endpoints accept the same line protocol format and process data in
+        the same way.
+
+
+        ### Query data
+
+
+        InfluxDB 3 Cloud Serverless provides the following protocols for
+        executing a query:
+
+
+        - **Recommended**: _Flight+gRPC_ request that contains an SQL or
+        InfluxQL query. See how to [get started querying InfluxDB using Flight
+        and SQL](/influxdb3/cloud-serverless/get-started/query/).
+
+        - HTTP API [`/query`
+        request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that
+        contains an InfluxQL query.
+          Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+
+        ### InfluxDB v2 compatibility
+
+
+        The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with
+        the [`Token` authentication
+        scheme](#section/Authentication/TokenAuthentication) and existing
+        InfluxDB 2.x tools and code for [writing
+        data](/influxdb3/cloud-serverless/write-data/).
+
+
+        See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud
+        Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+
+
+        ### InfluxDB v1 compatibility
+
+
+        The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and
+        [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x
+        username/password [authentication schemes](#section/Authentication/) and
+        existing InfluxDB 1.x tools and code.
+
+
+        See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud
+        Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-api-compatibility.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-api-compatibility.yaml
+  - path: api/authentication
+    fields:
+      name: Authentication
+      describes: []
+      title: Authentication
+      description: >
+        Use one of the following schemes to authenticate to the InfluxDB API:
+
+
+        - [Token authentication](#section/Authentication/TokenAuthentication)
+
+        - [Basic authentication](#section/Authentication/BasicAuthentication)
+
+        - [Querystring
+        authentication](#section/Authentication/QuerystringAuthentication)
+
+        <!-- ReDoc-Inject: <security-definitions> -->
+      tag: Authentication
+      isConceptual: true
+      menuGroup: Concepts
+      operations: []
+      tagDescription: >
+        Use one of the following schemes to authenticate to the InfluxDB API:
+
+
+        - [Token authentication](#section/Authentication/TokenAuthentication)
+
+        - [Basic authentication](#section/Authentication/BasicAuthentication)
+
+        - [Querystring
+        authentication](#section/Authentication/QuerystringAuthentication)
+
+        <!-- ReDoc-Inject: <security-definitions> -->
+      showSecuritySchemes: true
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authentication.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authentication.yaml
+  - path: api/authorizations-api-tokens
+    fields:
+      name: Authorizations (API tokens)
+      describes:
+        - /api/v2/authorizations
+        - /api/v2/authorizations/{authID}
+      title: Authorizations (API tokens)
+      description: >
+        Create and manage authorizations (API tokens).
+
+
+        An _authorization_ contains a list of `read` and `write`
+
+        permissions for organization resources and provides an API token for
+        authentication.
+
+        An authorization belongs to an organization and only contains
+        permissions for that organization.
+
+
+        We recommend the following for managing your tokens:
+
+
+        - Create a generic user to create and manage tokens for writing data.
+
+        - Store your tokens in a secure password vault for future access.
+
+
+        ### User sessions with authorizations
+
+
+        Optionally, when creating an authorization, you can scope it to a
+        specific user.
+
+        If the user signs in with username and password, creating a _user
+        session_,
+
+        the session carries the permissions granted by all the user's
+        authorizations.
+
+        For more information, see [how to assign a token to a specific
+        user](/influxdb3/cloud-serverless/security/tokens/create-token/).
+
+        To create a user session, use the [`POST /api/v2/signin`
+        endpoint](#operation/PostSignin).
+
+
+        ### Related endpoints
+
+
+        - [Signin](#tag/Signin)
+
+        - [Signout](#tag/Signout)
+
+
+        ### Related guides
+
+
+        - [Authorize API
+        requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
+
+        - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
+
+        - [Assign a token to a specific
+        user](/influxdb3/cloud-serverless/security/tokens/create-token/)
+      tag: Authorizations (API tokens)
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetAuthorizations
+          method: GET
+          path: /api/v2/authorizations
+          summary: List authorizations
+          tags:
+            - Authorizations (API tokens)
+        - operationId: PostAuthorizations
+          method: POST
+          path: /api/v2/authorizations
+          summary: Create an authorization
+          tags:
+            - Authorizations (API tokens)
+        - operationId: GetAuthorizationsID
+          method: GET
+          path: /api/v2/authorizations/{authID}
+          summary: Retrieve an authorization
+          tags:
+            - Authorizations (API tokens)
+        - operationId: PatchAuthorizationsID
+          method: PATCH
+          path: /api/v2/authorizations/{authID}
+          summary: Update an API token to be active or inactive
+          tags:
+            - Authorizations (API tokens)
+        - operationId: DeleteAuthorizationsID
+          method: DELETE
+          path: /api/v2/authorizations/{authID}
+          summary: Delete an authorization
+          tags:
+            - Authorizations (API tokens)
+      tagDescription: >
+        Create and manage authorizations (API tokens).
+
+
+        An _authorization_ contains a list of `read` and `write`
+
+        permissions for organization resources and provides an API token for
+        authentication.
+
+        An authorization belongs to an organization and only contains
+        permissions for that organization.
+
+
+        We recommend the following for managing your tokens:
+
+
+        - Create a generic user to create and manage tokens for writing data.
+
+        - Store your tokens in a secure password vault for future access.
+
+
+        ### User sessions with authorizations
+
+
+        Optionally, when creating an authorization, you can scope it to a
+        specific user.
+
+        If the user signs in with username and password, creating a _user
+        session_,
+
+        the session carries the permissions granted by all the user's
+        authorizations.
+
+        For more information, see [how to assign a token to a specific
+        user](/influxdb3/cloud-serverless/security/tokens/create-token/).
+
+        To create a user session, use the [`POST /api/v2/signin`
+        endpoint](#operation/PostSignin).
+
+
+        ### Related endpoints
+
+
+        - [Signin](#tag/Signin)
+
+        - [Signout](#tag/Signout)
+
+
+        ### Related guides
+
+
+        - [Authorize API
+        requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
+
+        - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
+
+        - [Assign a token to a specific
+        user](/influxdb3/cloud-serverless/security/tokens/create-token/)
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authorizations-api-tokens.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authorizations-api-tokens.yaml
+  - path: api/bucket-schemas
+    fields:
+      name: Bucket Schemas
+      describes:
+        - /api/v2/buckets/{bucketID}/schema/measurements
+        - /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}
+      title: Bucket Schemas
+      description: API reference for Bucket Schemas
+      tag: Bucket Schemas
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: getMeasurementSchemas
+          method: GET
+          path: /api/v2/buckets/{bucketID}/schema/measurements
+          summary: List measurement schemas of a bucket
+          tags:
+            - Bucket Schemas
+        - operationId: createMeasurementSchema
+          method: POST
+          path: /api/v2/buckets/{bucketID}/schema/measurements
+          summary: Create a measurement schema for a bucket
+          tags:
+            - Bucket Schemas
+        - operationId: getMeasurementSchema
+          method: GET
+          path: /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}
+          summary: Retrieve a measurement schema
+          tags:
+            - Bucket Schemas
+        - operationId: updateMeasurementSchema
+          method: PATCH
+          path: /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}
+          summary: Update a measurement schema
+          tags:
+            - Bucket Schemas
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-bucket-schemas.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-bucket-schemas.yaml
+  - path: api/buckets
+    fields:
+      name: Buckets
+      describes:
+        - /api/v2/buckets
+        - /api/v2/buckets/{bucketID}
+        - /api/v2/buckets/{bucketID}/labels
+        - /api/v2/buckets/{bucketID}/labels/{labelID}
+        - /api/v2/buckets/{bucketID}/members
+        - /api/v2/buckets/{bucketID}/members/{userID}
+        - /api/v2/buckets/{bucketID}/owners
+        - /api/v2/buckets/{bucketID}/owners/{userID}
+      title: Buckets
+      description: >
+        Store your data in InfluxDB
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+
+        A bucket is a named location where time series data is stored. All
+        buckets
+
+        have a [retention
+        period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+
+        a duration of time that each data point persists. InfluxDB drops all
+
+        points with timestamps older than the bucket’s retention period.
+
+        A bucket belongs to an organization.
+
+
+        ### Related guides
+
+
+        - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+      tag: Buckets
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetBuckets
+          method: GET
+          path: /api/v2/buckets
+          summary: List buckets
+          tags:
+            - Buckets
+        - operationId: PostBuckets
+          method: POST
+          path: /api/v2/buckets
+          summary: Create a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsID
+          method: GET
+          path: /api/v2/buckets/{bucketID}
+          summary: Retrieve a bucket
+          tags:
+            - Buckets
+        - operationId: PatchBucketsID
+          method: PATCH
+          path: /api/v2/buckets/{bucketID}
+          summary: Update a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}
+          summary: Delete a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDLabels
+          method: GET
+          path: /api/v2/buckets/{bucketID}/labels
+          summary: List all labels for a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDLabels
+          method: POST
+          path: /api/v2/buckets/{bucketID}/labels
+          summary: Add a label to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDLabelsID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/labels/{labelID}
+          summary: Delete a label from a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDMembers
+          method: GET
+          path: /api/v2/buckets/{bucketID}/members
+          summary: List all users with member privileges for a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDMembers
+          method: POST
+          path: /api/v2/buckets/{bucketID}/members
+          summary: Add a member to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDMembersID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/members/{userID}
+          summary: Remove a member from a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDOwners
+          method: GET
+          path: /api/v2/buckets/{bucketID}/owners
+          summary: List all owners of a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDOwners
+          method: POST
+          path: /api/v2/buckets/{bucketID}/owners
+          summary: Add an owner to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDOwnersID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/owners/{userID}
+          summary: Remove an owner from a bucket
+          tags:
+            - Buckets
+      tagDescription: >
+        Store your data in InfluxDB
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+
+        A bucket is a named location where time series data is stored. All
+        buckets
+
+        have a [retention
+        period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+
+        a duration of time that each data point persists. InfluxDB drops all
+
+        points with timestamps older than the bucket’s retention period.
+
+        A bucket belongs to an organization.
+
+
+        ### Related guides
+
+
+        - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-buckets.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-buckets.yaml
+  - path: api/common-parameters
+    fields:
+      name: Common parameters
+      describes: []
+      title: Common parameters
+      description: >
+        To specify resources, some InfluxDB API endpoints require parameters or
+
+        properties in the request--for example,
+
+        writing to a `bucket` resource in an `org` (_organization_ resource).
+
+
+        ### Common parameters
+
+
+        | Query parameter          | Value type            |
+        Description                                |
+
+        |:------------------------ |:---------------------
+        |:-------------------------------------------|
+
+        | `bucket`                 | string                | The bucket name or
+        ID ([find your
+        bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
+
+        | `bucketID`               | string                | The bucket ID
+        ([find your
+        bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
+
+        | `org`                    | string                | The organization
+        name or ID ([find your
+        organization](/influxdb3/cloud-serverless/admin/organizations/view-orgs/).
+        |
+
+        | `orgID`                  | 16-byte string        | The organization ID
+        ([find your
+        organization](/influxdb3/cloud-serverless/admin/organizations/view-orgs/).
+        |
+      tag: Common parameters
+      isConceptual: true
+      menuGroup: Other
+      operations: []
+      tagDescription: >
+        To specify resources, some InfluxDB API endpoints require parameters or
+
+        properties in the request--for example,
+
+        writing to a `bucket` resource in an `org` (_organization_ resource).
+
+
+        ### Common parameters
+
+
+        | Query parameter          | Value type            |
+        Description                                |
+
+        |:------------------------ |:---------------------
+        |:-------------------------------------------|
+
+        | `bucket`                 | string                | The bucket name or
+        ID ([find your
+        bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
+
+        | `bucketID`               | string                | The bucket ID
+        ([find your
+        bucket](/influxdb3/cloud-serverless/admin/buckets/view-buckets/). |
+
+        | `org`                    | string                | The organization
+        name or ID ([find your
+        organization](/influxdb3/cloud-serverless/admin/organizations/view-orgs/).
+        |
+
+        | `orgID`                  | 16-byte string        | The organization ID
+        ([find your
+        organization](/influxdb3/cloud-serverless/admin/organizations/view-orgs/).
+        |
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-common-parameters.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-common-parameters.yaml
+  - path: api/data-i-o-endpoints
+    fields:
+      name: Data I/O endpoints
+      describes:
+        - /api/v2/write
+        - /query
+        - /write
+      title: Data I/O endpoints
+      description: API reference for Data I/O endpoints
+      tag: Data I/O endpoints
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostWrite
+          method: POST
+          path: /api/v2/write
+          summary: Write data
+          tags:
+            - Data I/O endpoints
+        - operationId: GetLegacyQuery
+          method: GET
+          path: /query
+          summary: Query using the InfluxDB v1 HTTP API
+          tags:
+            - Data I/O endpoints
+        - operationId: PostLegacyWrite
+          method: POST
+          path: /write
+          summary: Write data using the InfluxDB v1 HTTP API
+          tags:
+            - Data I/O endpoints
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-data-i-o-endpoints.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-data-i-o-endpoints.yaml
+  - path: api/dbrps
+    fields:
+      name: DBRPs
+      describes:
+        - /api/v2/dbrps
+        - /api/v2/dbrps/{dbrpID}
+      title: DBRPs
+      description: >
+        The InfluxDB 1.x data model includes
+        [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
+
+        and [retention
+        policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+
+        InfluxDB 2.x replaces databases and retention policies with buckets.
+
+        To support InfluxDB 1.x query and write patterns in InfluxDB 2.x,
+
+        databases and retention policies are mapped to buckets using the
+
+        database and retention policy (DBRP) mapping service.
+
+        The DBRP mapping service uses the database and retention policy
+
+        specified in 1.x compatibility API requests to route operations to a
+        bucket.
+
+
+        ### Related guides
+
+
+        - [Database and retention policy
+        mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+      tag: DBRPs
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDBRPs
+          method: GET
+          path: /api/v2/dbrps
+          summary: List database retention policy mappings
+          tags:
+            - DBRPs
+        - operationId: PostDBRP
+          method: POST
+          path: /api/v2/dbrps
+          summary: Add a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: GetDBRPsID
+          method: GET
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Retrieve a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: PatchDBRPID
+          method: PATCH
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Update a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: DeleteDBRPID
+          method: DELETE
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Delete a database retention policy
+          tags:
+            - DBRPs
+      tagDescription: >
+        The InfluxDB 1.x data model includes
+        [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
+
+        and [retention
+        policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+
+        InfluxDB 2.x replaces databases and retention policies with buckets.
+
+        To support InfluxDB 1.x query and write patterns in InfluxDB 2.x,
+
+        databases and retention policies are mapped to buckets using the
+
+        database and retention policy (DBRP) mapping service.
+
+        The DBRP mapping service uses the database and retention policy
+
+        specified in 1.x compatibility API requests to route operations to a
+        bucket.
+
+
+        ### Related guides
+
+
+        - [Database and retention policy
+        mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-dbrps.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-dbrps.yaml
+  - path: api/delete
+    fields:
+      name: Delete
+      describes:
+        - /api/v2/delete
+      title: Delete
+      description: |
+        Delete data from an InfluxDB bucket.
+      tag: Delete
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostDelete
+          method: POST
+          path: /api/v2/delete
+          summary: Delete data
+          tags:
+            - Delete
+      tagDescription: |
+        Delete data from an InfluxDB bucket.
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-delete.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-delete.yaml
+  - path: api/headers
+    fields:
+      name: Headers
+      describes: []
+      title: Headers
+      description: >
+        InfluxDB HTTP API endpoints use standard HTTP request and response
+        headers.
+
+        The following table shows common headers used by many InfluxDB API
+        endpoints.
+
+        Some endpoints may use other headers that perform functions more
+        specific to those endpoints--for example,
+
+        the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header
+        to indicate the compression applied to line protocol in the request
+        body.
+
+
+        | Header                   | Value type            |
+        Description                                |
+
+        |:------------------------ |:---------------------
+        |:-------------------------------------------|
+
+        | `Accept`                 | string                | The content type
+        that the client can understand. |
+
+        | `Authorization`          | string                | The [authorization
+        scheme and credential](/influxdb3/cloud-serverless/api/authentication/).
+        |
+
+        | `Content-Length`         | integer               | The size of the
+        entity-body, in bytes. |
+
+        | `Content-Type`           | string                | The format of the
+        data in the request body. |
+      tag: Headers
+      isConceptual: true
+      menuGroup: Other
+      operations: []
+      tagDescription: >
+        InfluxDB HTTP API endpoints use standard HTTP request and response
+        headers.
+
+        The following table shows common headers used by many InfluxDB API
+        endpoints.
+
+        Some endpoints may use other headers that perform functions more
+        specific to those endpoints--for example,
+
+        the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header
+        to indicate the compression applied to line protocol in the request
+        body.
+
+
+        | Header                   | Value type            |
+        Description                                |
+
+        |:------------------------ |:---------------------
+        |:-------------------------------------------|
+
+        | `Accept`                 | string                | The content type
+        that the client can understand. |
+
+        | `Authorization`          | string                | The [authorization
+        scheme and credential](/influxdb3/cloud-serverless/api/authentication/).
+        |
+
+        | `Content-Length`         | integer               | The size of the
+        entity-body, in bytes. |
+
+        | `Content-Type`           | string                | The format of the
+        data in the request body. |
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-headers.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-headers.yaml
+  - path: api/invokable-scripts
+    fields:
+      name: Invokable Scripts
+      describes:
+        - /api/v2/scripts
+        - /api/v2/scripts/{scriptID}
+        - /api/v2/scripts/{scriptID}/invoke
+        - /api/v2/scripts/{scriptID}/params
+      title: Invokable Scripts
+      description: >
+        Store, manage, and execute scripts in InfluxDB.
+
+        A script stores your custom Flux script and provides an invokable
+
+        endpoint that accepts runtime parameters.
+
+        In a script, you can specify custom runtime parameters
+
+        (`params`)--for example, `params.myparameter`.
+
+        Once you create a script, InfluxDB generates an
+
+        [`/api/v2/scripts/SCRIPT_ID/invoke`
+        endpoint](#operation/PostScriptsIDInvoke)
+
+        for your organization.
+
+        You can run the script from API requests and tasks, defining parameter
+
+        values for each run.
+
+        When the script runs, InfluxDB replaces `params` references in the
+
+        script with the runtime parameter values you define.
+
+
+        Use the `/api/v2/scripts` endpoints to create and manage scripts.
+
+        See related guides to learn how to define parameters and execute
+        scripts.
+
+
+        <!-- TSM-only -->
+      tag: Invokable Scripts
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetScripts
+          method: GET
+          path: /api/v2/scripts
+          summary: List scripts
+          tags:
+            - Invokable Scripts
+        - operationId: PostScripts
+          method: POST
+          path: /api/v2/scripts
+          summary: Create a script
+          tags:
+            - Invokable Scripts
+        - operationId: GetScriptsID
+          method: GET
+          path: /api/v2/scripts/{scriptID}
+          summary: Retrieve a script
+          tags:
+            - Invokable Scripts
+        - operationId: PatchScriptsID
+          method: PATCH
+          path: /api/v2/scripts/{scriptID}
+          summary: Update a script
+          tags:
+            - Invokable Scripts
+        - operationId: DeleteScriptsID
+          method: DELETE
+          path: /api/v2/scripts/{scriptID}
+          summary: Delete a script
+          tags:
+            - Invokable Scripts
+        - operationId: PostScriptsIDInvoke
+          method: POST
+          path: /api/v2/scripts/{scriptID}/invoke
+          summary: Invoke a script
+          tags:
+            - Invokable Scripts
+        - operationId: GetScriptsIDParams
+          method: GET
+          path: /api/v2/scripts/{scriptID}/params
+          summary: Find script parameters.
+          tags:
+            - Invokable Scripts
+      tagDescription: >
+        Store, manage, and execute scripts in InfluxDB.
+
+        A script stores your custom Flux script and provides an invokable
+
+        endpoint that accepts runtime parameters.
+
+        In a script, you can specify custom runtime parameters
+
+        (`params`)--for example, `params.myparameter`.
+
+        Once you create a script, InfluxDB generates an
+
+        [`/api/v2/scripts/SCRIPT_ID/invoke`
+        endpoint](#operation/PostScriptsIDInvoke)
+
+        for your organization.
+
+        You can run the script from API requests and tasks, defining parameter
+
+        values for each run.
+
+        When the script runs, InfluxDB replaces `params` references in the
+
+        script with the runtime parameter values you define.
+
+
+        Use the `/api/v2/scripts` endpoints to create and manage scripts.
+
+        See related guides to learn how to define parameters and execute
+        scripts.
+
+
+        <!-- TSM-only -->
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-invokable-scripts.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-invokable-scripts.yaml
+  - path: api/limits
+    fields:
+      name: Limits
+      describes:
+        - /api/v2/orgs/{orgID}/limits
+      title: Limits
+      description: API reference for Limits
+      tag: Limits
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetOrgLimitsID
+          method: GET
+          path: /api/v2/orgs/{orgID}/limits
+          summary: Retrieve limits for an organization
+          tags:
+            - Limits
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-limits.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-limits.yaml
+  - path: api/organizations
+    fields:
+      name: Organizations
+      describes:
+        - /api/v2/orgs
+        - /api/v2/orgs/{orgID}
+        - /api/v2/orgs/{orgID}/members
+        - /api/v2/orgs/{orgID}/members/{userID}
+        - /api/v2/orgs/{orgID}/owners
+        - /api/v2/orgs/{orgID}/owners/{userID}
+      title: Organizations
+      description: >
+        Manage your
+        [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+
+        An organization is a workspace for a group of users. Organizations can
+        be
+
+        used to separate different environments, projects, teams or users within
+
+        InfluxDB.
+
+
+        Use the `/api/v2/orgs` endpoints to view and manage organizations.
+      tag: Organizations
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetOrgs
+          method: GET
+          path: /api/v2/orgs
+          summary: List organizations
+          tags:
+            - Organizations
+        - operationId: PostOrgs
+          method: POST
+          path: /api/v2/orgs
+          summary: Create an organization
+          tags:
+            - Organizations
+        - operationId: GetOrgsID
+          method: GET
+          path: /api/v2/orgs/{orgID}
+          summary: Retrieve an organization
+          tags:
+            - Organizations
+        - operationId: PatchOrgsID
+          method: PATCH
+          path: /api/v2/orgs/{orgID}
+          summary: Update an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}
+          summary: Delete an organization
+          tags:
+            - Organizations
+        - operationId: GetOrgsIDMembers
+          method: GET
+          path: /api/v2/orgs/{orgID}/members
+          summary: List all members of an organization
+          tags:
+            - Organizations
+        - operationId: PostOrgsIDMembers
+          method: POST
+          path: /api/v2/orgs/{orgID}/members
+          summary: Add a member to an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsIDMembersID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/members/{userID}
+          summary: Remove a member from an organization
+          tags:
+            - Organizations
+        - operationId: GetOrgsIDOwners
+          method: GET
+          path: /api/v2/orgs/{orgID}/owners
+          summary: List all owners of an organization
+          tags:
+            - Organizations
+        - operationId: PostOrgsIDOwners
+          method: POST
+          path: /api/v2/orgs/{orgID}/owners
+          summary: Add an owner to an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsIDOwnersID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/owners/{userID}
+          summary: Remove an owner from an organization
+          tags:
+            - Organizations
+      tagDescription: >
+        Manage your
+        [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+
+        An organization is a workspace for a group of users. Organizations can
+        be
+
+        used to separate different environments, projects, teams or users within
+
+        InfluxDB.
+
+
+        Use the `/api/v2/orgs` endpoints to view and manage organizations.
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-organizations.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-organizations.yaml
+  - path: api/pagination
+    fields:
+      name: Pagination
+      describes: []
+      title: Pagination
+      description: >
+        Some InfluxDB API [list operations](#tag/SupportedOperations) may
+        support the following query parameters for paginating results:
+
+          | Query parameter          | Value type            | Description                                |
+          |:------------------------ |:--------------------- |:-------------------------------------------|
+          | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |
+          | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |
+          | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |
+
+          ### Limitations
+
+          - For specific endpoint parameters and examples, see the endpoint definition.
+          - If you specify an `offset` parameter value greater than the total number of records,
+            then InfluxDB returns an empty list in the response
+            (given `offset` skips the specified number of records).
+
+            The following example passes `offset=50` to skip the first 50 results,
+            but the user only has 10 buckets:
+
+            ```sh
+            curl --request GET "INFLUX_URL/api/v2/buckets?limit=1&offset=50" \
+                --header "Authorization: Token INFLUX_API_TOKEN"
+            ```
+
+            The response contains the following:
+
+            ```json
+            {
+              "links": {
+                  "prev": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=49\u0026orgID=ORG_ID",
+                  "self": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=50\u0026orgID=ORG_ID"
+              },
+              "buckets": []
+            }
+            ```
+      tag: Pagination
+      isConceptual: true
+      menuGroup: Other
+      operations: []
+      tagDescription: >
+        Some InfluxDB API [list operations](#tag/SupportedOperations) may
+        support the following query parameters for paginating results:
+
+          | Query parameter          | Value type            | Description                                |
+          |:------------------------ |:--------------------- |:-------------------------------------------|
+          | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |
+          | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |
+          | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |
+
+          ### Limitations
+
+          - For specific endpoint parameters and examples, see the endpoint definition.
+          - If you specify an `offset` parameter value greater than the total number of records,
+            then InfluxDB returns an empty list in the response
+            (given `offset` skips the specified number of records).
+
+            The following example passes `offset=50` to skip the first 50 results,
+            but the user only has 10 buckets:
+
+            ```sh
+            curl --request GET "INFLUX_URL/api/v2/buckets?limit=1&offset=50" \
+                --header "Authorization: Token INFLUX_API_TOKEN"
+            ```
+
+            The response contains the following:
+
+            ```json
+            {
+              "links": {
+                  "prev": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=49\u0026orgID=ORG_ID",
+                  "self": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=50\u0026orgID=ORG_ID"
+              },
+              "buckets": []
+            }
+            ```
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-pagination.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-pagination.yaml
+  - path: api/query
+    fields:
+      name: Query
+      describes:
+        - /api/v2/query
+        - /api/v2/query/analyze
+        - /api/v2/query/ast
+        - /api/v2/query/suggestions
+        - /api/v2/query/suggestions/{name}
+        - /query
+      title: Query
+      description: >
+        Query data stored in a bucket.
+
+
+        - HTTP clients can query the v1 [`/query`
+        endpoint](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery)
+
+        using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
+
+        - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and
+        retrieve data in **Arrow** format.
+
+
+        #### Related guides
+
+
+        - [Get started querying
+        InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
+
+        - [Execute
+        queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
+      tag: Query
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostQuery
+          method: POST
+          path: /api/v2/query
+          summary: Query data
+          tags:
+            - Query
+        - operationId: PostQueryAnalyze
+          method: POST
+          path: /api/v2/query/analyze
+          summary: Analyze a Flux query
+          tags:
+            - Query
+        - operationId: PostQueryAst
+          method: POST
+          path: /api/v2/query/ast
+          summary: Generate a query Abstract Syntax Tree (AST)
+          tags:
+            - Query
+        - operationId: GetQuerySuggestions
+          method: GET
+          path: /api/v2/query/suggestions
+          summary: List Flux query suggestions
+          tags:
+            - Query
+        - operationId: GetQuerySuggestionsName
+          method: GET
+          path: /api/v2/query/suggestions/{name}
+          summary: Retrieve a query suggestion for a branching suggestion
+          tags:
+            - Query
+        - operationId: GetLegacyQuery
+          method: GET
+          path: /query
+          summary: Query using the InfluxDB v1 HTTP API
+          tags:
+            - Query
+      tagDescription: >
+        Query data stored in a bucket.
+
+
+        - HTTP clients can query the v1 [`/query`
+        endpoint](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery)
+
+        using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
+
+        - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and
+        retrieve data in **Arrow** format.
+
+
+        #### Related guides
+
+
+        - [Get started querying
+        InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
+
+        - [Execute
+        queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-query.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-query.yaml
+  - path: api/quick-start
+    fields:
+      name: Quick start
+      describes: []
+      title: Quick start
+      description: >
+        See the [**Get started**](/influxdb3/cloud-serverless/get-started/)
+        tutorial
+
+        to get up and running authenticating with tokens, writing to buckets,
+        and querying data.
+
+
+        [**InfluxDB API client libraries and Flight
+        clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
+
+        are available to integrate InfluxDB with your application.
+      tag: Quick start
+      isConceptual: true
+      menuGroup: Concepts
+      operations: []
+      tagDescription: >
+        See the [**Get started**](/influxdb3/cloud-serverless/get-started/)
+        tutorial
+
+        to get up and running authenticating with tokens, writing to buckets,
+        and querying data.
+
+
+        [**InfluxDB API client libraries and Flight
+        clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
+
+        are available to integrate InfluxDB with your application.
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-quick-start.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-quick-start.yaml
+  - path: api/resources
+    fields:
+      name: Resources
+      describes:
+        - /api/v2/resources
+      title: Resources
+      description: API reference for Resources
+      tag: Resources
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetResources
+          method: GET
+          path: /api/v2/resources
+          summary: List all known resources
+          tags:
+            - Resources
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-resources.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-resources.yaml
+  - path: api/response-codes
+    fields:
+      name: Response codes
+      describes: []
+      title: Response codes
+      description: >
+        InfluxDB HTTP API endpoints use standard HTTP status codes for success
+        and failure responses.
+
+        The response body may include additional details.
+
+        For details about a specific operation's response,
+
+        see **Responses** and **Response Samples** for that operation.
+
+
+        API operations may return the following HTTP status codes:
+
+
+        | &nbsp;Code&nbsp; | Status                   | Description      |
+
+        |:-----------:|:------------------------ |:--------------------- |
+
+        | `200`       | Success                  |                       |
+
+        | `201`       | Created                  | Successfully created a
+        resource. The response body may contain details, for example
+        [`/write`](#operation/PostLegacyWrite) and
+        [`/api/v2/write`](#operation/PostWrite) response bodies contain details
+        of partial write failures. |
+
+        | `204`       | No content               | The request succeeded. |
+
+        | `400`       | Bad request              | InfluxDB can't parse the
+        request due to an incorrect parameter or bad syntax. For _writes_, the
+        error may indicate one of the following problems: <ul><li>Line protocol
+        is malformed. The response body contains the first malformed line in the
+        data and indicates what was expected.</li><li>The batch contains a point
+        with the same series as other points, but one of the field values has a
+        different data type.<li>`Authorization` header is missing or malformed
+        or the API token doesn't have permission for the operation.</li></ul> |
+
+        | `401`       | Unauthorized             | May indicate one of the
+        following: <ul><li>`Authorization: Token` header is missing or
+        malformed</li><li>API token value is missing from the header</li><li>API
+        token doesn't have permission. For more information about token types
+        and permissions, see [Manage API
+        tokens](/influxdb3/cloud-serverless/security/tokens/)</li></ul> |
+
+        | `404`       | Not found                | Requested resource was not
+        found. `message` in the response body provides details about the
+        requested resource. |
+
+        | `405`       | Method not allowed       | The API path doesn't support
+        the HTTP method used in the request--for example, you send a `POST`
+        request to an endpoint that only allows `GET`. |
+
+        | `413`       | Request entity too large | Request payload exceeds the
+        size limit. |
+
+        | `422`       | Unprocessable entity     | Request data is invalid.
+        `code` and `message` in the response body provide details about the
+        problem. |
+
+        | `429`       | Too many requests        | API token is temporarily over
+        the request quota. The `Retry-After` header describes when to try the
+        request again. |
+
+        | `500`       | Internal server error    |                       |
+
+        | `503`       | Service unavailable      | Server is temporarily
+        unavailable to process the request. The `Retry-After` header describes
+        when to try the request again. |
+      tag: Response codes
+      isConceptual: true
+      menuGroup: Concepts
+      operations: []
+      tagDescription: >
+        InfluxDB HTTP API endpoints use standard HTTP status codes for success
+        and failure responses.
+
+        The response body may include additional details.
+
+        For details about a specific operation's response,
+
+        see **Responses** and **Response Samples** for that operation.
+
+
+        API operations may return the following HTTP status codes:
+
+
+        | &nbsp;Code&nbsp; | Status                   | Description      |
+
+        |:-----------:|:------------------------ |:--------------------- |
+
+        | `200`       | Success                  |                       |
+
+        | `201`       | Created                  | Successfully created a
+        resource. The response body may contain details, for example
+        [`/write`](#operation/PostLegacyWrite) and
+        [`/api/v2/write`](#operation/PostWrite) response bodies contain details
+        of partial write failures. |
+
+        | `204`       | No content               | The request succeeded. |
+
+        | `400`       | Bad request              | InfluxDB can't parse the
+        request due to an incorrect parameter or bad syntax. For _writes_, the
+        error may indicate one of the following problems: <ul><li>Line protocol
+        is malformed. The response body contains the first malformed line in the
+        data and indicates what was expected.</li><li>The batch contains a point
+        with the same series as other points, but one of the field values has a
+        different data type.<li>`Authorization` header is missing or malformed
+        or the API token doesn't have permission for the operation.</li></ul> |
+
+        | `401`       | Unauthorized             | May indicate one of the
+        following: <ul><li>`Authorization: Token` header is missing or
+        malformed</li><li>API token value is missing from the header</li><li>API
+        token doesn't have permission. For more information about token types
+        and permissions, see [Manage API
+        tokens](/influxdb3/cloud-serverless/security/tokens/)</li></ul> |
+
+        | `404`       | Not found                | Requested resource was not
+        found. `message` in the response body provides details about the
+        requested resource. |
+
+        | `405`       | Method not allowed       | The API path doesn't support
+        the HTTP method used in the request--for example, you send a `POST`
+        request to an endpoint that only allows `GET`. |
+
+        | `413`       | Request entity too large | Request payload exceeds the
+        size limit. |
+
+        | `422`       | Unprocessable entity     | Request data is invalid.
+        `code` and `message` in the response body provide details about the
+        problem. |
+
+        | `429`       | Too many requests        | API token is temporarily over
+        the request quota. The `Retry-After` header describes when to try the
+        request again. |
+
+        | `500`       | Internal server error    |                       |
+
+        | `503`       | Service unavailable      | Server is temporarily
+        unavailable to process the request. The `Retry-After` header describes
+        when to try the request again. |
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-response-codes.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-response-codes.yaml
+  - path: api/routes
+    fields:
+      name: Routes
+      describes:
+        - /api/v2
+      title: Routes
+      description: API reference for Routes
+      tag: Routes
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetRoutes
+          method: GET
+          path: /api/v2
+          summary: List all top level routes
+          tags:
+            - Routes
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-routes.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-routes.yaml
+  - path: api/secrets
+    fields:
+      name: Secrets
+      describes:
+        - /api/v2/orgs/{orgID}/secrets
+        - /api/v2/orgs/{orgID}/secrets/{secretID}
+        - /api/v2/orgs/{orgID}/secrets/delete
+      title: Secrets
+      description: API reference for Secrets
+      tag: Secrets
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetOrgsIDSecrets
+          method: GET
+          path: /api/v2/orgs/{orgID}/secrets
+          summary: List all secret keys for an organization
+          tags:
+            - Secrets
+        - operationId: PatchOrgsIDSecrets
+          method: PATCH
+          path: /api/v2/orgs/{orgID}/secrets
+          summary: Update secrets in an organization
+          tags:
+            - Secrets
+        - operationId: DeleteOrgsIDSecretsID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/secrets/{secretID}
+          summary: Delete a secret from an organization
+          tags:
+            - Secrets
+        - operationId: PostOrgsIDSecrets
+          method: POST
+          path: /api/v2/orgs/{orgID}/secrets/delete
+          summary: Delete secrets from an organization
+          tags:
+            - Secrets
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-secrets.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-secrets.yaml
+  - path: api/security-and-access-endpoints
+    fields:
+      name: Security and access endpoints
+      describes:
+        - /api/v2/authorizations
+        - /api/v2/authorizations/{authID}
+      title: Security and access endpoints
+      description: API reference for Security and access endpoints
+      tag: Security and access endpoints
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetAuthorizations
+          method: GET
+          path: /api/v2/authorizations
+          summary: List authorizations
+          tags:
+            - Security and access endpoints
+        - operationId: PostAuthorizations
+          method: POST
+          path: /api/v2/authorizations
+          summary: Create an authorization
+          tags:
+            - Security and access endpoints
+        - operationId: GetAuthorizationsID
+          method: GET
+          path: /api/v2/authorizations/{authID}
+          summary: Retrieve an authorization
+          tags:
+            - Security and access endpoints
+        - operationId: PatchAuthorizationsID
+          method: PATCH
+          path: /api/v2/authorizations/{authID}
+          summary: Update an API token to be active or inactive
+          tags:
+            - Security and access endpoints
+        - operationId: DeleteAuthorizationsID
+          method: DELETE
+          path: /api/v2/authorizations/{authID}
+          summary: Delete an authorization
+          tags:
+            - Security and access endpoints
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-security-and-access-endpoints.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-security-and-access-endpoints.yaml
+  - path: api/supported-operations
+    fields:
+      name: Supported operations
+      describes: []
+      title: Supported operations
+      description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      tag: Supported operations
+      isConceptual: true
+      menuGroup: Other
+      operations: []
+      tagDescription: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-supported-operations.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-supported-operations.yaml
+  - path: api/system-information-endpoints
+    fields:
+      name: System information endpoints
+      describes:
+        - /api/v2
+        - /api/v2/resources
+      title: System information endpoints
+      description: API reference for System information endpoints
+      tag: System information endpoints
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetRoutes
+          method: GET
+          path: /api/v2
+          summary: List all top level routes
+          tags:
+            - System information endpoints
+        - operationId: GetResources
+          method: GET
+          path: /api/v2/resources
+          summary: List all known resources
+          tags:
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-system-information-endpoints.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-system-information-endpoints.yaml
+  - path: api/tasks
+    fields:
+      name: Tasks
+      describes:
+        - /api/v2/tasks
+        - /api/v2/tasks/{taskID}
+        - /api/v2/tasks/{taskID}/labels
+        - /api/v2/tasks/{taskID}/labels/{labelID}
+        - /api/v2/tasks/{taskID}/logs
+        - /api/v2/tasks/{taskID}/members
+        - /api/v2/tasks/{taskID}/members/{userID}
+        - /api/v2/tasks/{taskID}/owners
+        - /api/v2/tasks/{taskID}/owners/{userID}
+        - /api/v2/tasks/{taskID}/runs
+        - /api/v2/tasks/{taskID}/runs/{runID}
+        - /api/v2/tasks/{taskID}/runs/{runID}/logs
+        - /api/v2/tasks/{taskID}/runs/{runID}/retry
+      title: Tasks
+      description: >
+        Process and analyze your data with tasks
+
+        in the InfluxDB task engine.
+
+        Use the `/api/v2/tasks` endpoints to schedule and manage tasks, retry
+        task runs, and retrieve run logs.
+
+
+        To configure a task, provide the script and the schedule to run the
+        task.
+
+        For examples, see how to create a task with the [`POST /api/v2/tasks`
+        endpoint](#operation/PostTasks).
+
+
+        <span id="tasks-schemaref-task" />
+
+
+        ### Properties
+
+
+        A `task` object contains information about an InfluxDB task resource.
+
+
+        The following table defines the properties that appear in this object:
+
+
+        <SchemaDefinition schemaRef="#/components/schemas/Task" />
+
+
+        <!-- TSM-only -->
+      tag: Tasks
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetTasks
+          method: GET
+          path: /api/v2/tasks
+          summary: List all tasks
+          tags:
+            - Tasks
+        - operationId: PostTasks
+          method: POST
+          path: /api/v2/tasks
+          summary: Create a task
+          tags:
+            - Tasks
+        - operationId: GetTasksID
+          method: GET
+          path: /api/v2/tasks/{taskID}
+          summary: Retrieve a task
+          tags:
+            - Tasks
+        - operationId: PatchTasksID
+          method: PATCH
+          path: /api/v2/tasks/{taskID}
+          summary: Update a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}
+          summary: Delete a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDLabels
+          method: GET
+          path: /api/v2/tasks/{taskID}/labels
+          summary: List labels for a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDLabels
+          method: POST
+          path: /api/v2/tasks/{taskID}/labels
+          summary: Add a label to a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDLabelsID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/labels/{labelID}
+          summary: Delete a label from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDLogs
+          method: GET
+          path: /api/v2/tasks/{taskID}/logs
+          summary: Retrieve all logs for a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDMembers
+          method: GET
+          path: /api/v2/tasks/{taskID}/members
+          summary: List all task members
+          tags:
+            - Tasks
+        - operationId: PostTasksIDMembers
+          method: POST
+          path: /api/v2/tasks/{taskID}/members
+          summary: Add a member to a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDMembersID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/members/{userID}
+          summary: Remove a member from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDOwners
+          method: GET
+          path: /api/v2/tasks/{taskID}/owners
+          summary: List all owners of a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDOwners
+          method: POST
+          path: /api/v2/tasks/{taskID}/owners
+          summary: Add an owner for a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDOwnersID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/owners/{userID}
+          summary: Remove an owner from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRuns
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs
+          summary: List runs for a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDRuns
+          method: POST
+          path: /api/v2/tasks/{taskID}/runs
+          summary: Start a task run, overriding the schedule
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRunsID
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs/{runID}
+          summary: Retrieve a run for a task.
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDRunsID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/runs/{runID}
+          summary: Cancel a running task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRunsIDLogs
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs/{runID}/logs
+          summary: Retrieve all logs for a run
+          tags:
+            - Tasks
+        - operationId: PostTasksIDRunsIDRetry
+          method: POST
+          path: /api/v2/tasks/{taskID}/runs/{runID}/retry
+          summary: Retry a task run
+          tags:
+            - Tasks
+      tagDescription: >
+        Process and analyze your data with tasks
+
+        in the InfluxDB task engine.
+
+        Use the `/api/v2/tasks` endpoints to schedule and manage tasks, retry
+        task runs, and retrieve run logs.
+
+
+        To configure a task, provide the script and the schedule to run the
+        task.
+
+        For examples, see how to create a task with the [`POST /api/v2/tasks`
+        endpoint](#operation/PostTasks).
+
+
+        <span id="tasks-schemaref-task" />
+
+
+        ### Properties
+
+
+        A `task` object contains information about an InfluxDB task resource.
+
+
+        The following table defines the properties that appear in this object:
+
+
+        <SchemaDefinition schemaRef="#/components/schemas/Task" />
+
+
+        <!-- TSM-only -->
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-tasks.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-tasks.yaml
+  - path: api/telegrafs
+    fields:
+      name: Telegrafs
+      describes:
+        - /api/v2/telegrafs
+        - /api/v2/telegrafs/{telegrafID}
+        - /api/v2/telegrafs/{telegrafID}/labels
+        - /api/v2/telegrafs/{telegrafID}/labels/{labelID}
+        - /api/v2/telegrafs/{telegrafID}/members
+        - /api/v2/telegrafs/{telegrafID}/members/{userID}
+        - /api/v2/telegrafs/{telegrafID}/owners
+        - /api/v2/telegrafs/{telegrafID}/owners/{userID}
+      title: Telegrafs
+      description: API reference for Telegrafs
+      tag: Telegrafs
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetTelegrafs
+          method: GET
+          path: /api/v2/telegrafs
+          summary: List all Telegraf configurations
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafs
+          method: POST
+          path: /api/v2/telegrafs
+          summary: Create a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsID
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Retrieve a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: PutTelegrafsID
+          method: PUT
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Update a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Delete a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDLabels
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/labels
+          summary: List all labels for a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDLabels
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/labels
+          summary: Add a label to a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDLabelsID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/labels/{labelID}
+          summary: Delete a label from a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDMembers
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/members
+          summary: List all users with member privileges for a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDMembers
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/members
+          summary: Add a member to a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDMembersID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/members/{userID}
+          summary: Remove a member from a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDOwners
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/owners
+          summary: List all owners of a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDOwners
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/owners
+          summary: Add an owner to a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDOwnersID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/owners/{userID}
+          summary: Remove an owner from a Telegraf config
+          tags:
+            - Telegrafs
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-telegrafs.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-telegrafs.yaml
+  - path: api/templates
+    fields:
+      name: Templates
+      describes:
+        - /api/v2/stacks
+        - /api/v2/stacks/{stack_id}
+        - /api/v2/stacks/{stack_id}/uninstall
+        - /api/v2/templates/apply
+        - /api/v2/templates/export
+      title: Templates
+      description: >
+        Export and apply InfluxDB **templates**.
+
+        Manage **stacks** of templated InfluxDB resources.
+
+
+        InfluxDB templates are prepackaged configurations for resources.
+
+        Use InfluxDB templates to configure a fresh instance of InfluxDB,
+
+        back up your dashboard configuration, or share your configuration.
+
+
+        Use the `/api/v2/templates` endpoints to export templates and apply
+        templates.
+
+
+        **InfluxDB stacks** are stateful InfluxDB templates that let you
+
+        add, update, and remove installed template resources over time, avoid
+        duplicating
+
+        resources when applying the same or similar templates more than once,
+        and
+
+        apply changes to distributed instances of InfluxDB OSS or InfluxDB
+        Cloud.
+
+
+        Use the `/api/v2/stacks` endpoints to manage installed template
+        resources.
+
+
+        <!-- TSM-only -->
+      tag: Templates
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: ListStacks
+          method: GET
+          path: /api/v2/stacks
+          summary: List installed stacks
+          tags:
+            - Templates
+        - operationId: CreateStack
+          method: POST
+          path: /api/v2/stacks
+          summary: Create a stack
+          tags:
+            - Templates
+        - operationId: ReadStack
+          method: GET
+          path: /api/v2/stacks/{stack_id}
+          summary: Retrieve a stack
+          tags:
+            - Templates
+        - operationId: UpdateStack
+          method: PATCH
+          path: /api/v2/stacks/{stack_id}
+          summary: Update a stack
+          tags:
+            - Templates
+        - operationId: DeleteStack
+          method: DELETE
+          path: /api/v2/stacks/{stack_id}
+          summary: Delete a stack and associated resources
+          tags:
+            - Templates
+        - operationId: UninstallStack
+          method: POST
+          path: /api/v2/stacks/{stack_id}/uninstall
+          summary: Uninstall a stack
+          tags:
+            - Templates
+        - operationId: ApplyTemplate
+          method: POST
+          path: /api/v2/templates/apply
+          summary: Apply or dry-run a template
+          tags:
+            - Templates
+        - operationId: ExportTemplate
+          method: POST
+          path: /api/v2/templates/export
+          summary: Export a new template
+          tags:
+            - Templates
+      tagDescription: >
+        Export and apply InfluxDB **templates**.
+
+        Manage **stacks** of templated InfluxDB resources.
+
+
+        InfluxDB templates are prepackaged configurations for resources.
+
+        Use InfluxDB templates to configure a fresh instance of InfluxDB,
+
+        back up your dashboard configuration, or share your configuration.
+
+
+        Use the `/api/v2/templates` endpoints to export templates and apply
+        templates.
+
+
+        **InfluxDB stacks** are stateful InfluxDB templates that let you
+
+        add, update, and remove installed template resources over time, avoid
+        duplicating
+
+        resources when applying the same or similar templates more than once,
+        and
+
+        apply changes to distributed instances of InfluxDB OSS or InfluxDB
+        Cloud.
+
+
+        Use the `/api/v2/stacks` endpoints to manage installed template
+        resources.
+
+
+        <!-- TSM-only -->
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-templates.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-templates.yaml
+  - path: api/usage
+    fields:
+      name: Usage
+      describes:
+        - /api/v2/orgs/{orgID}/usage
+      title: Usage
+      description: API reference for Usage
+      tag: Usage
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetOrgUsageID
+          method: GET
+          path: /api/v2/orgs/{orgID}/usage
+          summary: Retrieve usage for an organization
+          tags:
+            - Usage
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-usage.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-usage.yaml
+  - path: api/variables
+    fields:
+      name: Variables
+      describes:
+        - /api/v2/variables
+        - /api/v2/variables/{variableID}
+        - /api/v2/variables/{variableID}/labels
+        - /api/v2/variables/{variableID}/labels/{labelID}
+      title: Variables
+      description: API reference for Variables
+      tag: Variables
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetVariables
+          method: GET
+          path: /api/v2/variables
+          summary: List all variables
+          tags:
+            - Variables
+        - operationId: PostVariables
+          method: POST
+          path: /api/v2/variables
+          summary: Create a variable
+          tags:
+            - Variables
+        - operationId: GetVariablesID
+          method: GET
+          path: /api/v2/variables/{variableID}
+          summary: Retrieve a variable
+          tags:
+            - Variables
+        - operationId: PutVariablesID
+          method: PUT
+          path: /api/v2/variables/{variableID}
+          summary: Replace a variable
+          tags:
+            - Variables
+        - operationId: PatchVariablesID
+          method: PATCH
+          path: /api/v2/variables/{variableID}
+          summary: Update a variable
+          tags:
+            - Variables
+        - operationId: DeleteVariablesID
+          method: DELETE
+          path: /api/v2/variables/{variableID}
+          summary: Delete a variable
+          tags:
+            - Variables
+        - operationId: GetVariablesIDLabels
+          method: GET
+          path: /api/v2/variables/{variableID}/labels
+          summary: List all labels for a variable
+          tags:
+            - Variables
+        - operationId: PostVariablesIDLabels
+          method: POST
+          path: /api/v2/variables/{variableID}/labels
+          summary: Add a label to a variable
+          tags:
+            - Variables
+        - operationId: DeleteVariablesIDLabelsID
+          method: DELETE
+          path: /api/v2/variables/{variableID}/labels/{labelID}
+          summary: Delete a label from a variable
+          tags:
+            - Variables
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-variables.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-variables.yaml
+  - path: api/write
+    fields:
+      name: Write
+      describes:
+        - /api/v2/write
+        - /write
+      title: Write
+      description: >
+        Write time series data to
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using
+        InfluxDB v1 or v2 endpoints.
+      tag: Write
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostWrite
+          method: POST
+          path: /api/v2/write
+          summary: Write data
+          tags:
+            - Write
+        - operationId: PostLegacyWrite
+          method: POST
+          path: /write
+          summary: Write data using the InfluxDB v1 HTTP API
+          tags:
+            - Write
+      tagDescription: >
+        Write time series data to
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using
+        InfluxDB v1 or v2 endpoints.
+      source: >-
+        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-write.yaml
+      staticFilePath: >-
+        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-write.yaml
