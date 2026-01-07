@@ -735,9 +735,12 @@ const productConfigs: ProductConfigMap = {
     menuKey: 'influxdb3_enterprise',
     useTagBasedGeneration: true,
   },
-  // Note: Cloud Dedicated, Serverless, and Clustered use management APIs
-  // with paths like /accounts/{accountId}/... - we use tag-based generation
-  // to group operations by functionality (Databases, Database tokens, etc.)
+  // Note: Cloud Dedicated and Clustered use management APIs with paths like
+  // /accounts/{accountId}/... - we use tag-based generation to group operations
+  // by functionality (Databases, Database tokens, etc.) and avoid URL issues
+  // with curly braces in paths.
+  // Cloud Serverless uses the standard v2 API but also uses tag-based generation
+  // for consistency with other InfluxDB 3 products.
   // These products have existing /reference/api/ pages with menu entries,
   // so we skip adding menu entries to the generated parent pages.
   'cloud-dedicated': {
@@ -754,12 +757,13 @@ const productConfigs: ProductConfigMap = {
   'cloud-serverless': {
     specFile: path.join(
       API_DOCS_ROOT,
-      'influxdb3/cloud-serverless/management/openapi.yml'
+      'influxdb3/cloud-serverless/v2/ref.yml'
     ),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
     description: 'InfluxDB Cloud Serverless',
     menuKey: 'influxdb3_cloud_serverless',
     skipParentMenu: true,
+    useTagBasedGeneration: true,
   },
   clustered: {
     specFile: path.join(
