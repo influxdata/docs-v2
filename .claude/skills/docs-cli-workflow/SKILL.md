@@ -131,3 +131,9 @@ npx docs edit --list <url>  # List files without opening
 ```
 
 For full CLI documentation, run `npx docs --help`.
+
+## Related Skills
+
+- **hugo-template-dev** - For Hugo template syntax, data access patterns, and runtime testing
+- **cypress-e2e-testing** - For running and debugging Cypress E2E tests
+- **ts-component-dev** (agent) - TypeScript component behavior and interactivity
