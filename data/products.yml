@@ -274,7 +274,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.8
+    v1: 1.10.9
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?

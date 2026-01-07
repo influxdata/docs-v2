@@ -6,7 +6,8 @@ Learn how to avoid unexpected results and recover from errors when writing to
   - [Review HTTP status codes](#review-http-status-codes)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
-{{% show-in "core,enterprise" %}}- [Troubleshoot write performance issues](#troubleshoot-write-performance-issues){{% /show-in %}}
+{{% show-in "core,enterprise" %}}- [Troubleshoot write performance issues](#troubleshoot-write-performance-issues)
+  - [Use debug logs for troubleshooting](#use-debug-logs-for-troubleshooting){{% /show-in %}}
 
 ## Handle write responses
 
@@ -104,5 +105,29 @@ influxdb3 serve \
 
 Replace {{% code-placeholder-key %}}`PERCENTAGE`{{% /code-placeholder-key %}} with the percentage
 of available memory to allocate (for example, `35%` for write-heavy workloads).
+
+### Use debug logs for troubleshooting
+
+For deeper investigation of write issues, enable debug logging for specific
+components. Debug logs provide detailed information about write buffer
+operations and WAL activity.
+
+To enable debug logs for write operations, restart {{% product-name %}} with
+targeted log filters:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_write_buffer=debug
+```
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_wal=debug
+```
+
+For more information about log levels and targeted filtering, see
+[log-filter configuration](/influxdb3/version/reference/config-options/#log-filter).
 
 {{% /show-in %}}

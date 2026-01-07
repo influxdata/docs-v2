@@ -10,6 +10,16 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.10.9 {date="2026-01-07"}
+
+### Features
+
+- Add support for InfluxDB v3
+
+### Maintenance updates
+
+- Upgrade Go to 1.25.3.
+
 ## v1.10.8 {date="2025-08-15"}
 
 ### Bug Fixes
