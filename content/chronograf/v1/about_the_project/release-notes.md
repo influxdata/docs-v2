@@ -14,7 +14,7 @@ aliases:
 
 ### Features
 
-- Add support for InfluxDB V3.
+- Add support for InfluxDB v3
 
 ### Maintenance updates
 
