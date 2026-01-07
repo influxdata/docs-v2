@@ -755,10 +755,7 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'cloud-serverless': {
-    specFile: path.join(
-      API_DOCS_ROOT,
-      'influxdb3/cloud-serverless/v2/ref.yml'
-    ),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/v2/ref.yml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
     description: 'InfluxDB Cloud Serverless',
     menuKey: 'influxdb3_cloud_serverless',
@@ -774,6 +771,7 @@ const productConfigs: ProductConfigMap = {
     description: 'InfluxDB Clustered',
     menuKey: 'influxdb3_clustered',
     skipParentMenu: true,
+    useTagBasedGeneration: true,
   },
 };
 
