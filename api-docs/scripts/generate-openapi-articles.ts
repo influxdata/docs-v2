@@ -736,7 +736,8 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   // Note: Cloud Dedicated, Serverless, and Clustered use management APIs
-  // with paths like /accounts/{accountId}/... so we put them under /api/
+  // with paths like /accounts/{accountId}/... - we use tag-based generation
+  // to group operations by functionality (Databases, Database tokens, etc.)
   // These products have existing /reference/api/ pages with menu entries,
   // so we skip adding menu entries to the generated parent pages.
   'cloud-dedicated': {
@@ -748,6 +749,7 @@ const productConfigs: ProductConfigMap = {
     description: 'InfluxDB Cloud Dedicated',
     menuKey: 'influxdb3_cloud_dedicated',
     skipParentMenu: true,
+    useTagBasedGeneration: true,
   },
   'cloud-serverless': {
     specFile: path.join(
