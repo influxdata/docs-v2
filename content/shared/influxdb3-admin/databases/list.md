@@ -90,44 +90,105 @@ influxdb3 show databases --show-deleted
 
 ## List databases using the HTTP API
 
-To list databases using the HTTP API, send a `GET` request to the `/api/v3/configure/database` endpoint:
+To list databases using the HTTP API, send a `GET` request to the `/api/v3/configure/database` endpoint.
 
-{{% api-endpoint method="GET" endpoint="{{< influxdb/host >}}/api/v3/configure/database" %}}
+{{% api-endpoint method="GET" endpoint="{{< influxdb/host >}}/api/v3/configure/database?format=pretty" %}}
+
+Include the `format` query parameter and specify one of the following formats:
+
+- `pretty`
+- `json`
+- `jsonl`
+- `csv`
+- `parquet`
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Pretty output](#)
+[JSON output](#)
+[Parquet output](#)
+{{% /tabs %}}
+{{% tab-content %}}
 
 Include the following in your request:
 
 - **Headers**:
   - `Authorization: Bearer` with your {{% token-link %}}
+- **Query Parameters**:
+  - `format=pretty`
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=pretty" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
-Replace the following:
+The response body contains a table of database names:
 
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+```text
++---------------------+
+| iox::database       |
++---------------------+
+| _internal           |
+| home                |
+| home_actions        |
+| noaa                |
++---------------------+
+```
 
-### Response
+{{% /tab-content %}}
 
-A successful request returns HTTP status `200` with a JSON array of database objects:
+{{% tab-content %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Authorization: Bearer` with your {{% token-link %}}
+- **Query Parameters**:
+  - `format=json`
+
+```bash{placeholders="AUTH_TOKEN"}
+curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=json" \
+  --header "Authorization: Bearer AUTH_TOKEN"
+```
+
+The response body contains a JSON array of database objects whose keys are `iox::database`:
 
 ```json
 [
   {
-    "db": "home",
-    "retention_period": "30d"
+    "iox::database": "home"
   },
   {
-    "db": "home_actions",
-    "retention_period": "7d"
+    "iox::database": "home_actions"
   },
   {
-    "db": "noaa",
-    "retention_period": "none"
+    "iox::database": "noaa"
   }
 ]
 ```
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Authorization: Bearer` with your {{% token-link %}}
+- **Query Parameters**:
+  - `format=parquet`
+- An output destination for the Parquet file
+
+```bash{placeholders="AUTH_TOKEN"}
+curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
+  -o databases.parquet \
+  --header "Authorization: Bearer AUTH_TOKEN"
+```
+
+Parquet responses contain the same database list, but you must provide an output destination because the format is binary.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+A successful request returns HTTP status `200`.
 
 ## List databases using InfluxDB 3 Explorer
 
@@ -142,17 +203,3 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
    - Creation date
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
-
-<!-- ### Output to a Parquet file
-
-To output your list of databases to a Parquet file, provide the following
-options with the `influxdb3 show databases` command:
-
-- `--format`: `parquet`
-- `-o`, `--output`: the filepath to the Parquet file to output to
-
-```sh
-influxdb3 query \
-  --format parquet \
-  --output path/to/databases.parquet
-``` -->
