@@ -547,10 +547,12 @@ interface GenerateOperationPagesOptions {
  * - Removes leading "/api" prefix (added by parent directory structure)
  * - Ensures all paths have a version prefix (defaults to v1 if none)
  * - Removes leading slash
+ * - Removes curly braces from path parameters (e.g., {db} → db)
  *
  * Examples:
  * - "/write" → "v1/write"
  * - "/api/v3/configure/database" → "v3/configure/database"
+ * - "/api/v3/configure/database/{db}" → "v3/configure/database/db"
  * - "/api/v2/write" → "v2/write"
  * - "/health" → "v1/health"
  *
@@ -567,6 +569,10 @@ function apiPathToSlug(apiPath: string): string {
   if (!/^v\d+\//.test(normalizedPath)) {
     normalizedPath = `v1/${normalizedPath}`;
   }
+
+  // Remove curly braces from path parameters (e.g., {db} → db)
+  // to avoid URL encoding issues in Hugo
+  normalizedPath = normalizedPath.replace(/[{}]/g, '');
 
   return normalizedPath;
 }

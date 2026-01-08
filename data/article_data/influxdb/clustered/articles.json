@@ -1,65 +1,185 @@
 {
   "articles": [
     {
-      "path": "api/databases/{databaseName}/tables",
+      "path": "api/authentication",
       "fields": {
-        "name": "/databases/{databaseName}/tables",
+        "name": "Authentication",
+        "describes": [],
+        "title": "Authentication",
+        "description": "With InfluxDB 3 Clustered, InfluxDB Management API endpoints require the following credential:\n\n- `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb3/clustered/admin/tokens/management/).\n\n  See how to [create a management token](/influxdb3/clustered/admin/tokens/management/).\n\n  By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.\n",
+        "tag": "Authentication",
+        "isConceptual": true,
+        "menuGroup": "Concepts",
+        "operations": [],
+        "tagDescription": "With InfluxDB 3 Clustered, InfluxDB Management API endpoints require the following credential:\n\n- `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb3/clustered/admin/tokens/management/).\n\n  See how to [create a management token](/influxdb3/clustered/admin/tokens/management/).\n\n  By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.\n",
+        "showSecuritySchemes": true,
+        "source": "static/openapi/influxdb-clustered/tags/tags/influxdb-clustered-authentication.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/tags/tags/influxdb-clustered-authentication.yaml"
+      }
+    },
+    {
+      "path": "api/database-tokens",
+      "fields": {
+        "name": "Database tokens",
         "describes": [
-          "/databases/{databaseName}/tables"
+          "/tokens",
+          "/tokens/{tokenId}"
         ],
-        "menuName": "/databases/{databaseName}/tables",
-        "title": "/databases/{databaseName}/tables",
-        "tags": [
-          "databases-{databaseName}",
-          "tables"
+        "title": "Database tokens",
+        "description": "Manage database read/write tokens for a cluster",
+        "tag": "Database tokens",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetDatabaseTokens",
+            "method": "GET",
+            "path": "/tokens",
+            "summary": "Get all database tokens for a cluster",
+            "tags": [
+              "Database tokens"
+            ]
+          },
+          {
+            "operationId": "CreateDatabaseToken",
+            "method": "POST",
+            "path": "/tokens",
+            "summary": "Create a database token",
+            "tags": [
+              "Database tokens"
+            ]
+          },
+          {
+            "operationId": "GetDatabaseToken",
+            "method": "GET",
+            "path": "/tokens/{tokenId}",
+            "summary": "Get a database token",
+            "tags": [
+              "Database tokens"
+            ]
+          },
+          {
+            "operationId": "UpdateDatabaseToken",
+            "method": "PATCH",
+            "path": "/tokens/{tokenId}",
+            "summary": "Update a database token",
+            "tags": [
+              "Database tokens"
+            ]
+          },
+          {
+            "operationId": "DeleteDatabaseToken",
+            "method": "DELETE",
+            "path": "/tokens/{tokenId}",
+            "summary": "Delete a database token",
+            "tags": [
+              "Database tokens"
+            ]
+          }
         ],
-        "apiTags": [
-          "Tables"
-        ],
-        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-databases-{databaseName}-tables.yaml"
+        "tagDescription": "Manage database read/write tokens for a cluster",
+        "source": "static/openapi/influxdb-clustered/tags/tags/influxdb-clustered-database-tokens.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/tags/tags/influxdb-clustered-database-tokens.yaml"
       }
     },
     {
       "path": "api/databases",
       "fields": {
-        "name": "/databases",
+        "name": "Databases",
         "describes": [
           "/databases",
           "/databases/{databaseName}"
         ],
-        "menuName": "/databases",
-        "title": "/databases",
-        "tags": [
-          "",
-          "databases"
+        "title": "Databases",
+        "description": "Manage databases for a cluster",
+        "tag": "Databases",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetClusterDatabases",
+            "method": "GET",
+            "path": "/databases",
+            "summary": "Get all databases for a cluster",
+            "tags": [
+              "Databases"
+            ]
+          },
+          {
+            "operationId": "CreateClusterDatabase",
+            "method": "POST",
+            "path": "/databases",
+            "summary": "Create a database",
+            "tags": [
+              "Databases"
+            ]
+          },
+          {
+            "operationId": "UpdateClusterDatabase",
+            "method": "PATCH",
+            "path": "/databases/{databaseName}",
+            "summary": "Update a database",
+            "tags": [
+              "Databases"
+            ]
+          },
+          {
+            "operationId": "DeleteClusterDatabase",
+            "method": "DELETE",
+            "path": "/databases/{databaseName}",
+            "summary": "Delete a database",
+            "tags": [
+              "Databases"
+            ]
+          }
         ],
-        "apiTags": [
-          "Databases"
-        ],
-        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-databases.yaml"
+        "tagDescription": "Manage databases for a cluster",
+        "source": "static/openapi/influxdb-clustered/tags/tags/influxdb-clustered-databases.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/tags/tags/influxdb-clustered-databases.yaml"
       }
     },
     {
-      "path": "api/tokens",
+      "path": "api/quickstart",
       "fields": {
-        "name": "/tokens",
+        "name": "Quickstart",
+        "describes": [],
+        "title": "Quickstart",
+        "description": "The following example script shows how to use `curl` to make database and token management requests:\n\n```shell\n #!/bin/bash\n\n # Usage:\n # Note the leading space in the command below to keep secrets out of the shell history\n #\n # ```\n #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ./scripts/test_http_api_v0_endpoints.sh\n # ```\n\n # Env var validation\n if [ -z \"${MANAGEMENT_TOKEN}\" ]; then\n   echo \"\n [Error]: ❌\n   \\$MANAGEMENT_TOKEN env var is required.\n     \"\n     exit 1\n fi\n\nHOST=\"https://cluster-host.com\"\n\n # Database request functions\n list_databases () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n create_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases\" \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"name\": \"'$databaseName'\",\n         \"maxTables\": 75,\n         \"maxColumnsPerTable\": 90,\n         \"retentionPeriod\": 600000000000,\n         \"partitionTemplate\": [\n           {\n             \"type\": \"tag\",\n             \"value\": \"abc\"\n           },\n           {\n             \"type\": \"bucket\",\n             \"value\": {\n               \"tagName\": \"def\",\n               \"numberOfBuckets\": 5\n             }\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n update_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases/$databaseName\" \\\n       --request PATCH \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"maxTables\": 150,\n         \"maxColumnsPerTable\": 180,\n         \"retentionPeriod\": 1200000000000\n       }' \\\n   )\n   echo \"$response\"\n }\n\n delete_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases/$databaseName\" \\\n       --request DELETE \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n # Token request functions\n list_tokens () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n create_token () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens\" \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"description\": \"my test token\",\n         \"permissions\": [\n           {\n             \"action\": \"write\",\n             \"resource\": \"database_one\"\n           },\n           {\n             \"action\": \"read\",\n             \"resource\": \"database_two\"\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n get_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n update_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --request PATCH \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"description\": \"my updated test token\",\n         \"permissions\": [\n           {\n             \"action\": \"database_one\",\n             \"resource\": \"read\"\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n delete_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --request DELETE \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n\n # Test database endpoints\n databaseName=\"test_database_$RANDOM\"\n\n printf \"\\n🏗️   Creating database...  🏗️\\n\\n\"\n response=\"$(create_database $databaseName)\"\n echo $response | jq\n printf \"\\n🏗️   Creating database successful  🏗️\\n\\n\"\n\n printf \"\\n⬆️   Updating database...  ⬆️\\n\\n\"\n response=\"$(update_database $databaseName)\"\n echo $response | jq\n printf \"\\n⬆️   Updating database successful  ⬆️\\n\\n\"\n\n printf \"\\n⬇️   Listing databases...  ⬇️\\n\\n\"\n response=\"$(list_databases)\"\n echo $response | jq\n printf \"\\n⬇️   Listing databases successful  ⬇️\\n\\n\"\n\n printf \"\\n🗑️   Deleting database...  🗑️\\n\\n\"\n response=\"$(delete_database $databaseName)\"\n echo $response | jq\n printf \"\\n🗑️   Deleting database successful  🗑️\\n\\n\"\n\n\n # Test token endpoints\n printf \"\\n🏗️   Creating token...  🏗️\\n\\n\"\n response=\"$(create_token)\"\n echo $response | jq\n tokenId=$(echo $response | jq '.id')\n printf \"\\n🏗️   Creating token successful  🏗️\\n\\n\"\n\n printf \"\\n⬇️   Getting token...  ⬇️\\n\\n\"\n response=\"$(get_token $tokenId)\"\n echo $response | jq\n printf \"\\n⬇️   Getting token successful  ⬇️\\n\\n\"\n\n printf \"\\n⬆️   Updating token...  ⬆️\\n\\n\"\n response=\"$(update_token $tokenId)\"\n echo $response | jq\n printf \"\\n⬆️   Updating token successful  ⬆️\\n\\n\"\n\n printf \"\\n📋   Listing tokens...  📋\\n\\n\"\n response=\"$(list_tokens)\"\n echo $response | jq\n printf \"\\n📋   Listing tokens successful  📋\\n\\n\"\n\n printf \"\\n🗑️   Deleting token...  🗑️\\n\\n\"\n response=\"$(delete_token $tokenId)\"\n echo $response | jq\n printf \"\\n🗑️   Deleting token successful  🗑️\\n\\n\"\n     ```\n",
+        "tag": "Quickstart",
+        "isConceptual": true,
+        "menuGroup": "Other",
+        "operations": [],
+        "tagDescription": "The following example script shows how to use `curl` to make database and token management requests:\n\n```shell\n #!/bin/bash\n\n # Usage:\n # Note the leading space in the command below to keep secrets out of the shell history\n #\n # ```\n #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ./scripts/test_http_api_v0_endpoints.sh\n # ```\n\n # Env var validation\n if [ -z \"${MANAGEMENT_TOKEN}\" ]; then\n   echo \"\n [Error]: ❌\n   \\$MANAGEMENT_TOKEN env var is required.\n     \"\n     exit 1\n fi\n\nHOST=\"https://cluster-host.com\"\n\n # Database request functions\n list_databases () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n create_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases\" \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"name\": \"'$databaseName'\",\n         \"maxTables\": 75,\n         \"maxColumnsPerTable\": 90,\n         \"retentionPeriod\": 600000000000,\n         \"partitionTemplate\": [\n           {\n             \"type\": \"tag\",\n             \"value\": \"abc\"\n           },\n           {\n             \"type\": \"bucket\",\n             \"value\": {\n               \"tagName\": \"def\",\n               \"numberOfBuckets\": 5\n             }\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n update_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases/$databaseName\" \\\n       --request PATCH \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"maxTables\": 150,\n         \"maxColumnsPerTable\": 180,\n         \"retentionPeriod\": 1200000000000\n       }' \\\n   )\n   echo \"$response\"\n }\n\n delete_database () {\n   local databaseName=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/databases/$databaseName\" \\\n       --request DELETE \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n # Token request functions\n list_tokens () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n create_token () {\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens\" \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"description\": \"my test token\",\n         \"permissions\": [\n           {\n             \"action\": \"write\",\n             \"resource\": \"database_one\"\n           },\n           {\n             \"action\": \"read\",\n             \"resource\": \"database_two\"\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n get_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n update_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --request PATCH \\\n       --header \"Accept: application/json\" \\\n       --header 'Content-Type: application/json' \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n       --data '{\n         \"description\": \"my updated test token\",\n         \"permissions\": [\n           {\n             \"action\": \"database_one\",\n             \"resource\": \"read\"\n           }\n         ]\n       }' \\\n   )\n   echo \"$response\"\n }\n\n delete_token () {\n   local token_id=$1\n   local response=$( \\\n     curl \\\n       --location \"$HOST/api/v0/tokens/$tokenId\" \\\n       --request DELETE \\\n       --header \"Accept: application/json\" \\\n       --header \"Authorization: Bearer $MANAGEMENT_TOKEN\" \\\n   )\n   echo \"$response\"\n }\n\n\n # Test database endpoints\n databaseName=\"test_database_$RANDOM\"\n\n printf \"\\n🏗️   Creating database...  🏗️\\n\\n\"\n response=\"$(create_database $databaseName)\"\n echo $response | jq\n printf \"\\n🏗️   Creating database successful  🏗️\\n\\n\"\n\n printf \"\\n⬆️   Updating database...  ⬆️\\n\\n\"\n response=\"$(update_database $databaseName)\"\n echo $response | jq\n printf \"\\n⬆️   Updating database successful  ⬆️\\n\\n\"\n\n printf \"\\n⬇️   Listing databases...  ⬇️\\n\\n\"\n response=\"$(list_databases)\"\n echo $response | jq\n printf \"\\n⬇️   Listing databases successful  ⬇️\\n\\n\"\n\n printf \"\\n🗑️   Deleting database...  🗑️\\n\\n\"\n response=\"$(delete_database $databaseName)\"\n echo $response | jq\n printf \"\\n🗑️   Deleting database successful  🗑️\\n\\n\"\n\n\n # Test token endpoints\n printf \"\\n🏗️   Creating token...  🏗️\\n\\n\"\n response=\"$(create_token)\"\n echo $response | jq\n tokenId=$(echo $response | jq '.id')\n printf \"\\n🏗️   Creating token successful  🏗️\\n\\n\"\n\n printf \"\\n⬇️   Getting token...  ⬇️\\n\\n\"\n response=\"$(get_token $tokenId)\"\n echo $response | jq\n printf \"\\n⬇️   Getting token successful  ⬇️\\n\\n\"\n\n printf \"\\n⬆️   Updating token...  ⬆️\\n\\n\"\n response=\"$(update_token $tokenId)\"\n echo $response | jq\n printf \"\\n⬆️   Updating token successful  ⬆️\\n\\n\"\n\n printf \"\\n📋   Listing tokens...  📋\\n\\n\"\n response=\"$(list_tokens)\"\n echo $response | jq\n printf \"\\n📋   Listing tokens successful  📋\\n\\n\"\n\n printf \"\\n🗑️   Deleting token...  🗑️\\n\\n\"\n response=\"$(delete_token $tokenId)\"\n echo $response | jq\n printf \"\\n🗑️   Deleting token successful  🗑️\\n\\n\"\n     ```\n",
+        "source": "static/openapi/influxdb-clustered/tags/tags/influxdb-clustered-quickstart.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/tags/tags/influxdb-clustered-quickstart.yaml"
+      }
+    },
+    {
+      "path": "api/tables",
+      "fields": {
+        "name": "Tables",
         "describes": [
-          "/tokens",
-          "/tokens/{tokenId}"
+          "/databases/{databaseName}/tables"
         ],
-        "menuName": "/tokens",
-        "title": "/tokens",
-        "tags": [
-          "",
-          "tokens"
+        "title": "Tables",
+        "description": "Manage tables in a database",
+        "tag": "Tables",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "CreateClusterDatabaseTable",
+            "method": "POST",
+            "path": "/databases/{databaseName}/tables",
+            "summary": "Create a database table",
+            "tags": [
+              "Tables"
+            ]
+          }
         ],
-        "apiTags": [
-          "Database tokens"
-        ],
-        "source": "static/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml",
-        "staticFilePath": "/openapi/influxdb-clustered/paths/influxdb-clustered-tokens.yaml"
+        "tagDescription": "Manage tables in a database",
+        "source": "static/openapi/influxdb-clustered/tags/tags/influxdb-clustered-tables.yaml",
+        "staticFilePath": "/openapi/influxdb-clustered/tags/tags/influxdb-clustered-tables.yaml"
       }
     }
   ]

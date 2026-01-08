@@ -141,6 +141,8 @@ tags:
     description: Query data using SQL or InfluxQL
   - name: Quick start
     description: |
+      Authenticate, write, and query with the API:
+
       1. [Create an admin token](#section/Authentication) to authorize API requests.
 
          ```bash

@@ -8,5 +8,3 @@ type: api
 ---
 
 Use the {{% product-name %}} HTTP API to write data, query data, and manage databases, tables, and tokens.
-
-{{< children >}}

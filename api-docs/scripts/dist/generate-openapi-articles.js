@@ -36,13 +36,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LINK_PATTERN = exports.MARKDOWN_FIELDS = exports.productConfigs = void 0;
 exports.processProduct = processProduct;
@@ -370,10 +380,12 @@ ${yaml.dump(frontmatter)}---
  * - Removes leading "/api" prefix (added by parent directory structure)
  * - Ensures all paths have a version prefix (defaults to v1 if none)
  * - Removes leading slash
+ * - Removes curly braces from path parameters (e.g., {db} → db)
  *
  * Examples:
  * - "/write" → "v1/write"
  * - "/api/v3/configure/database" → "v3/configure/database"
+ * - "/api/v3/configure/database/{db}" → "v3/configure/database/db"
  * - "/api/v2/write" → "v2/write"
  * - "/health" → "v1/health"
  *
@@ -389,6 +401,9 @@ function apiPathToSlug(apiPath) {
     if (!/^v\d+\//.test(normalizedPath)) {
         normalizedPath = `v1/${normalizedPath}`;
     }
+    // Remove curly braces from path parameters (e.g., {db} → db)
+    // to avoid URL encoding issues in Hugo
+    normalizedPath = normalizedPath.replace(/[{}]/g, '');
     return normalizedPath;
 }
 /**
@@ -552,6 +567,7 @@ const productConfigs = {
         description: 'InfluxDB Clustered',
         menuKey: 'influxdb3_clustered',
         skipParentMenu: true,
+        useTagBasedGeneration: true,
     },
 };
 exports.productConfigs = productConfigs;
