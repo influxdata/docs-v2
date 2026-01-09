@@ -99,7 +99,8 @@ For more information about configuring distributed environments, see the [Distri
 
 ## Add a Processing Engine plugin
 
-A plugin is a Python script that defines a specific function signature for a trigger (_trigger spec_). When the specified event occurs, InfluxDB runs the plugin.
+A plugin is a Python script that defines a function with a trigger-compatible (_trigger spec_) signature.
+When the specified event occurs, InfluxDB runs the plugin.
 
 ### Choose a plugin strategy
 
@@ -146,7 +147,7 @@ Skip downloading plugins by referencing them directly from GitHub using the `gh:
 # Create a trigger using a plugin from GitHub
 influxdb3 create trigger \
   --trigger-spec "every:1m" \
-  --plugin-filename "gh:influxdata/system_metrics/system_metrics.py" \
+  --path "gh:influxdata/system_metrics/system_metrics.py" \
   --database my_database \
   system_metrics
 ```
@@ -178,7 +179,7 @@ Then reference plugins from your custom repository using the `gh:` prefix:
 # Fetches from: https://internal.company.com/influxdb-plugins/myorg/custom_plugin.py
 influxdb3 create trigger \
   --trigger-spec "every:5m" \
-  --plugin-filename "gh:myorg/custom_plugin.py" \
+  --path "gh:myorg/custom_plugin.py" \
   --database my_database \
   custom_trigger
 ```
@@ -493,10 +494,10 @@ Use the `influxdb3 create trigger` command with the appropriate trigger specific
 ```bash
 influxdb3 create trigger \
   --trigger-spec SPECIFICATION \
-  --plugin-filename PLUGIN_FILE \
+  --path PLUGIN_FILE \
   --database DATABASE_NAME \
   TRIGGER_NAME
- ``` 
+```
 
 {{% /code-placeholders %}}
 
@@ -508,9 +509,14 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the new trigger
 
 > [!Note]
-> When specifying a local plugin file, the `--plugin-filename` parameter
-> _is relative to_ the `--plugin-dir` configured for the server.
-> You don't need to provide an absolute path.
+> #### Plugin paths
+> 
+> - For **single-file plugins**, provide just the `.py` filename to `--path` (for example, `test_plugin.py`).
+> - For **multi-file plugins**, provide the directory name containing `__init__.py`.
+> 
+> When not using `--upload`, the server resolves paths relative to the configured `--plugin-dir`.
+> For details about multi-file plugin structure, see [Create your plugin file](#create-your-plugin-file).
+
 
 ### Trigger specification examples
 
@@ -521,14 +527,14 @@ In the example above, replace the following:
 # The plugin file must be in your configured plugin directory
 influxdb3 create trigger \
   --trigger-spec "table:sensor_data" \
-  --plugin-filename "process_sensors.py" \
+  --path "process_sensors.py" \
   --database my_database \
   sensor_processor
 
 # Trigger on writes to all tables
 influxdb3 create trigger \
   --trigger-spec "all_tables" \
-  --plugin-filename "process_all_data.py" \
+  --path "process_all_data.py" \
   --database my_database \
   all_data_processor
 ```
@@ -547,7 +553,7 @@ you can use trigger arguments and your plugin code to filter out unwanted tables
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
-  --plugin-filename processor.py \
+  --path processor.py \
   --trigger-spec "all_tables" \
   --trigger-arguments "exclude_tables=temp_data,debug_info,system_logs" \
   data_processor
@@ -590,7 +596,7 @@ def on_write(self, database, table_name, batch):
 # Run every 5 minutes
 influxdb3 create trigger \
   --trigger-spec "every:5m" \
-  --plugin-filename "periodic_check.py" \
+  --path "periodic_check.py" \
   --database my_database \
   regular_check
 
@@ -598,7 +604,7 @@ influxdb3 create trigger \
 # Supports extended cron format with seconds
 influxdb3 create trigger \
   --trigger-spec "cron:0 0 8 * * *" \
-  --plugin-filename "daily_report.py" \
+  --path "daily_report.py" \
   --database my_database \
   daily_report
 ```
@@ -611,7 +617,7 @@ The plugin receives the scheduled call time.
 # Create an endpoint at /api/v3/engine/webhook
 influxdb3 create trigger \
   --trigger-spec "request:webhook" \
-  --plugin-filename "webhook_handler.py" \
+  --path "webhook_handler.py" \
   --database my_database \
   webhook_processor
 ```
@@ -644,7 +650,7 @@ Use trigger arguments to pass configuration from a trigger to the plugin it runs
 ```bash
 influxdb3 create trigger \
   --trigger-spec "every:1h" \
-  --plugin-filename "threshold_check.py" \
+  --path "threshold_check.py" \
   --trigger-arguments threshold=90,notify_email=admin@example.com \
   --database my_database \
   threshold_monitor
@@ -672,7 +678,7 @@ To allow multiple instances of the same trigger to run simultaneously, configure
 # Allow multiple trigger instances to run simultaneously
 influxdb3 create trigger \
   --trigger-spec "table:metrics" \
-  --plugin-filename "heavy_process.py" \
+  --path "heavy_process.py" \
   --run-asynchronous \
   --database my_database \
   async_processor
@@ -690,7 +696,7 @@ To configure error handling behavior for a trigger, use the `--error-behavior <E
 # Automatically retry on error
 influxdb3 create trigger \
   --trigger-spec "table:important_data" \
-  --plugin-filename "critical_process.py" \
+  --path "critical_process.py" \
   --error-behavior retry \
   --database my_database \
   critical_processor
@@ -698,7 +704,7 @@ influxdb3 create trigger \
 # Disable the trigger on error
 influxdb3 create trigger \
   --trigger-spec "request:webhook" \
-  --plugin-filename "webhook_handler.py" \
+  --path "webhook_handler.py" \
   --error-behavior disable \
   --database my_database \
   auto_disable_processor
@@ -879,7 +885,7 @@ Each plugin must run on a node that supports its trigger type:
 
 | Plugin type        | Trigger spec             | Runs on                     |
 |--------------------|--------------------------|-----------------------------|
-| Data write         | `table:` or `all_tables` | Ingester nodes              |
+| WAL rows           | `table:` or `all_tables` | Ingester nodes              |
 | Scheduled          | `every:` or `cron:`      | Any node with scheduler     |
 | HTTP request       | `request:`               | Nodes that serve API traffic|
 

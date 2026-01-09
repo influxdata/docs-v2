@@ -242,7 +242,7 @@ services:
       - --cluster-id=cluster0
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
-      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     environment:
       - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
     volumes:
@@ -275,7 +275,7 @@ services:
       - --node-id=node0
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
-      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     volumes:
       - type: bind
         # Path to store data on your host system
