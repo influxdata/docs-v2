@@ -64,7 +64,7 @@ tags:
 
       The Distinct Value Cache (DVC) lets you cache distinct
       values of one or more columns in a table, improving the performance of
-      queries that return distinct tag and field values. 
+      queries that return distinct tag and field values.
 
       The DVC is an in-memory cache that stores distinct values for specific columns
       in a table. When you create an DVC, you can specify what columns' distinct
@@ -188,13 +188,13 @@ tags:
            --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
            --data-urlencode "format=jsonl"
          ```
-         
+
          Output:
 
          ```jsonl
          {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
          ```
-        
+
       For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
     x-traitTag: true
   - name: Server information
@@ -448,7 +448,7 @@ paths:
       description: |
         Writes line protocol to the specified database.
 
-        This is the native InfluxDB 3 Core write endpoint that provides enhanced control 
+        This is the native InfluxDB 3 Core write endpoint that provides enhanced control
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
@@ -1648,7 +1648,7 @@ paths:
           ```
 
           then, the HTTP API exposes the following plugin endpoint:
-            
+
           ```
           <INFLUXDB3_HOST>/api/v3/engine/hello-world
           ```
@@ -2183,6 +2183,7 @@ components:
         - db
         - table
         - tags
+        - fields
     DistinctCacheCreateRequest:
       type: object
       properties:
@@ -2299,7 +2300,7 @@ components:
             - `cron:0 30 14 * * 5` - Every Friday at 2:30 PM
             - `cron:0 0 0 1 * *` - First day of every month at midnight
 
-            ### Interval-based scheduling  
+            ### Interval-based scheduling
             Format: `every:DURATION`
 
             Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years):

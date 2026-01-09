@@ -100,7 +100,7 @@ Include the following in your request:
   - `Authorization: Bearer` with your {{% token-link %}}
 
 ```bash{placeholders="AUTH_TOKEN"}
-curl --request GET "{{< influxdb/host >}}/api/v3/configure/database" \
+curl --request GET "{{< influxdb/host >}}/api/v3/configure/database?format=json" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
