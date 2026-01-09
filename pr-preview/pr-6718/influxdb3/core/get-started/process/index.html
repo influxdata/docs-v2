@@ -2671,8 +2671,7 @@ with the path to your plugin directory. This path can be absolute or relative
 to the current working directory of the <code>influxdb3</code> server.</p>
 <h2 id="create-a-plugin">Create a plugin</h2>
 <p>To create a plugin, write and store a Python file in your configured <code>PLUGIN_DIR</code>.
-The following example shows a data write (WAL) plugin that processes data
-as it&rsquo;s written to the database.</p>
+The following example shows a WAL rows plugin, which receives data as it&rsquo;s flushed to the Write-Ahead Log. The example shows how to process, query, and write data from within a plugin.</p>
 <h5 id="example-python-plugin-for-data-writes">Example Python plugin for data writes</h5>
 
 
