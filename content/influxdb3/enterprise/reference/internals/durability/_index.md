@@ -12,6 +12,5 @@ source: /shared/influxdb3-internals-reference/durability.md
 ---
 
 <!--
-The content for this page is at
-// SOURCE /content/shared/influxdb3-internals-reference/durability/_index.md
-->
+//SOURCE content/shared/influxdb3-internals-reference/durability.md
+-->
