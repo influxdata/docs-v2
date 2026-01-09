@@ -48,21 +48,56 @@ influxd-ctl backup [flags] <backup-dir>
 
 ## Flags
 
-| Flag        | Description                                                         |
-| :---------- | :------------------------------------------------------------------ |
-| `-db`       | Database to backup                                                  |
-| `-end`      | End date for backup _(RFC3339 timestamp)_                           |
-| `-estimate` | Estimate the size of the requested backup                           |
-| `-from`     | Data node TCP address to prefer when backing up                     |
-| `-full`     | Perform an full backup _(deprecated in favour of `-strategy full`)_ |
-| `-rp`       | Retention policy to backup                                          |
-| `-shard`    | Shard ID to backup                                                  |
-| `-start`    | Start date for backup _(RFC3339 timestamp)_                         |
-| `-strategy` | Backup strategy to use (`only-meta`, `full`, or `incremental`)      |
+| Flag                    | Description                                                         |
+| :---------------------- | :------------------------------------------------------------------ |
+| `-db`                   | Database to backup                                                  |
+| `-end`                  | End date for backup _(RFC3339 timestamp)_                           |
+| `-estimate`             | Estimate the size of the requested backup                           |
+| `-from`                 | Data node TCP address to prefer when backing up                     |
+| `-full`                 | Perform an full backup _(deprecated in favour of `-strategy full`)_ |
+| `-rp`                   | Retention policy to backup                                          |
+| `-shard`                | Shard ID to backup                                                  |
+| `-start`                | Start date for backup _(RFC3339 timestamp)_                         |
+| `-strategy`             | Backup strategy to use (`only-meta`, `full`, or `incremental`)      |
+| `-gzipCompressionLevel` | Level of compression to use (`default`, `full`, `speedy`, `none`)   |
+| `-cpuprofile`           | Write backup execution to a cpu profile (`true` or `false`)         |
+| `-gzipBlockCount`       | Change the blocks processed concurrently during backup compression  |
+| `-gzipBlockSize`        | Change the size of compressed blocked during backup compression     |
 
 {{% caption %}}
 _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)._
 {{% /caption %}}
+
+## Backup compression
+`-gzipCompression` can be adjusted in order to allow for faster backups with the tradeoff that data will not be as compressed. 
+
+  ┌─────────┬────────────────────────────────────┬─────────────────────────────────────────────┐
+  │  Value  │            Description             │                  Use Case                   │
+  ├─────────┼────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ default │ Standard gzip compression          │ General purpose, balanced                   │
+  ├─────────┼────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ full    │ Best compression ratio             │ Minimize storage when time isn't critical   │
+  ├─────────┼────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ speedy  │ Prioritizes speed over compression │ Faster backups with moderate space increase │
+  ├─────────┼────────────────────────────────────┼─────────────────────────────────────────────┤
+  │ none    │ No compression                     │ Maximum speed when storage isn't a concern  │
+  └─────────┴────────────────────────────────────┴─────────────────────────────────────────────┘
+
+Running backups with different compression settings on ~5.3 GB of data
+
+  ┌───────────────────┬─────────────┬──────────────┬───────────────────────────────┐
+  │ Compression Level │ Backup Time │ Size on Disk │             Notes             │
+  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
+  │ default           │ 51s         │ ~3.0 GB      │ ~50% compression ratio        │
+  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
+  │ full              │ 95s         │ ~2.7 GB      │ ~2x slower, ~10% less space   │
+  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
+  │ speedy            │ 23s         │ ~3.3 GB      │ ~2.2x faster, ~10% more space │
+  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
+  │ none              │ 10s         │ ~5.3 GB      │ ~5x faster, ~77% more space   │
+  └───────────────────┴─────────────┴──────────────┴───────────────────────────────┘
+
+  It is not recommended to change the values for `-gzipBlockCount` and `-gzipBlockSize`, they are set to sensible defaults per the [pgzip library](https://github.com/klauspost/pgzip).
 
 ## Examples
 
@@ -103,4 +138,11 @@ influxd-ctl backup \
 
 ```sh
 influxd-ctl backup -shard 00 /path/to/backup-dir
+```
+
+### Backup data with configured compression
+
+Example of fastest possible compression speeds for backup
+```sh
+influxd-ctl backup -strategy full -gzipBlockSize 10048576 -gzipBlockCount 28 -gzipCompressionLevel none .
 ```
