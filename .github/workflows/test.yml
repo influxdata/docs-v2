@@ -1,0 +1,219 @@
+name: Test Code Blocks
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'test/**'
+      - 'Dockerfile.pytest'
+      - 'compose.yaml'
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run (all, cloud, v2, telegraf, or specific products)'
+        required: false
+        default: 'all'
+
+jobs:
+  detect-changes:
+    name: Detect test requirements
+    runs-on: ubuntu-latest
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+      test-products: ${{ steps.check.outputs.test-products }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if tests should run
+        id: check
+        run: |
+          # For workflow_dispatch, always run tests
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            echo "test-products=[\"cloud\", \"v2\", \"telegraf\"]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # For PRs, check if content files changed
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^content/.*\.md$' || true)
+
+          if [[ -z "$CHANGED_FILES" ]]; then
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "📝 No content changes detected - skipping code block tests"
+            exit 0
+          fi
+
+          echo "should-run=true" >> $GITHUB_OUTPUT
+
+          # Determine which product tests to run based on changed files
+          PRODUCTS=()
+
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/cloud/'; then
+            PRODUCTS+=("cloud")
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/v2/'; then
+            PRODUCTS+=("v2")
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q '^content/telegraf/'; then
+            PRODUCTS+=("telegraf")
+          fi
+
+          # If no specific products matched or shared content changed, run all
+          if [[ ${#PRODUCTS[@]} -eq 0 ]] || echo "$CHANGED_FILES" | grep -q '^content/shared/'; then
+            PRODUCTS=("cloud" "v2" "telegraf")
+          fi
+
+          # Convert to JSON array
+          PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+          echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+
+          echo "✅ Will run tests for: ${PRODUCTS[*]}"
+
+  test-codeblocks:
+    name: Test ${{ matrix.product }} code blocks
+    needs: detect-changes
+    if: needs.detect-changes.outputs.should-run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        product: ${{ fromJson(needs.detect-changes.outputs.test-products) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: |
+          # Skip Cypress installation to speed up CI
+          CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
+
+      - name: Build pytest Docker image
+        run: |
+          echo "Building influxdata/docs-pytest image..."
+          docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
+
+      - name: Setup test credentials (mock)
+        run: |
+          # Create mock .env.test files for CI
+          # In production, these would be configured with actual credentials
+          mkdir -p content/influxdb/cloud
+          mkdir -p content/influxdb/v2
+          mkdir -p content/telegraf/v1
+
+          cat > content/influxdb/cloud/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=https://cloud2.influxdata.com
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_ORG=mock_org
+          INFLUX_BUCKET=mock_bucket
+          EOF
+
+          cat > content/influxdb/v2/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8086
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_ORG=mock_org
+          INFLUX_BUCKET=mock_bucket
+          EOF
+
+          cat > content/telegraf/v1/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=https://cloud2.influxdata.com
+          INFLUX_TOKEN=mock_token_for_ci
+          EOF
+
+          echo "✅ Mock test credentials created"
+
+      - name: Run ${{ matrix.product }} code block tests
+        id: test
+        continue-on-error: true
+        run: |
+          echo "Running tests for ${{ matrix.product }}..."
+
+          # Run the specific product test suite
+          yarn test:codeblocks:${{ matrix.product }} || EXIT_CODE=$?
+
+          # Capture exit code for reporting
+          if [[ -n "$EXIT_CODE" ]]; then
+            echo "test-status=failed" >> $GITHUB_OUTPUT
+            echo "exit-code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          else
+            echo "test-status=passed" >> $GITHUB_OUTPUT
+            echo "exit-code=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate test summary
+        if: always()
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## Code Block Test Results - ${{ matrix.product }}
+
+          **Status:** ${{ steps.test.outputs.test-status == 'passed' && '✅ Passed' || '❌ Failed' }}
+          **Product:** ${{ matrix.product }}
+          **Exit Code:** ${{ steps.test.outputs.exit-code }}
+
+          EOF
+
+          if [[ "${{ steps.test.outputs.test-status }}" == "failed" ]]; then
+            cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ⚠️ **Note:** Code block tests require valid credentials configured in `.env.test` files.
+          In CI, mock credentials are used which may cause some tests to fail.
+          Review the test output above for specific failures.
+
+          To test locally with real credentials:
+          1. Create `.env.test` files in product directories
+          2. Run `yarn test:codeblocks:${{ matrix.product }}`
+          EOF
+          fi
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.product }}
+          path: |
+            test/shared/**
+            pytest-*.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Fail job if tests failed
+        if: steps.test.outputs.test-status == 'failed'
+        run: |
+          echo "::error::Code block tests failed for ${{ matrix.product }}"
+          exit 1
+
+  test-summary:
+    name: Code Block Test Summary
+    needs: [detect-changes, test-codeblocks]
+    if: always() && needs.detect-changes.outputs.should-run == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check test results
+        run: |
+          # This job will fail if any of the test jobs failed
+          if [[ "${{ needs.test-codeblocks.result }}" == "failure" ]]; then
+            echo "::error::One or more code block test suites failed"
+            exit 1
+          elif [[ "${{ needs.test-codeblocks.result }}" == "success" ]]; then
+            echo "✅ All code block tests passed"
+          else
+            echo "⚠️ Tests were skipped or cancelled"
+          fi

@@ -76,6 +76,7 @@
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
     "test:codeblocks": "echo \"Run a specific codeblocks test command\" && exit 0",
     "test:codeblocks:all": "docker compose --profile test up",
+    "test:codeblocks:parallel": "docker compose run --rm cloud-pytest & docker compose run --rm v2-pytest & docker compose run --rm telegraf-pytest & wait",
     "test:codeblocks:cloud": "docker compose run --rm --name cloud-pytest cloud-pytest",
     "test:codeblocks:cloud-dedicated": "./test/scripts/monitor-tests.sh start cloud-dedicated-pytest && docker compose run --name cloud-dedicated-pytest cloud-dedicated-pytest",
     "test:codeblocks:cloud-serverless": "docker compose run --rm --name cloud-serverless-pytest cloud-serverless-pytest",
