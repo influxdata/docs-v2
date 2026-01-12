@@ -18,8 +18,49 @@
 | Install | `CYPRESS_INSTALL_BINARY=0 yarn install` | ~4s | Skip Cypress for CI |
 | Build | `npx hugo --quiet` | ~75s | NEVER CANCEL |
 | Dev Server | `npx hugo server` | ~92s | Port 1313 |
+| Edit Docs | `docs edit <url>` | instant | Non-blocking (background) |
+| Edit Docs (wait) | `docs edit <url> --wait` | varies | Blocking (interactive) |
+| List Files | `docs edit <url> --list` | instant | Show files without opening |
 | Test All | `yarn test:codeblocks:all` | 15-45m | NEVER CANCEL |
 | Lint | `yarn lint` | ~1m | Pre-commit checks |
+
+## CLI Tools
+
+### docs edit - Edit Documentation Files
+
+Opens documentation files in your editor. **Non-blocking by default** (agent-friendly).
+
+**Examples:**
+```bash
+# Quick edit (exits immediately, editor in background)
+docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+docs edit /influxdb3/core/admin/databases/
+
+# Interactive edit (waits for editor to close)
+docs edit /influxdb3/core/admin/databases/ --wait
+
+# List files without opening
+docs edit /influxdb3/core/admin/databases/ --list
+
+# Use specific editor
+docs edit /influxdb3/core/admin/databases/ --editor nano
+```
+
+**Editor Configuration:**
+
+Set your preferred editor (checked in order):
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable  
+4. `EDITOR` environment variable
+5. System default (vim, nano, etc.)
+
+```bash
+export EDITOR=vim        # For all CLI tools
+export DOCS_EDITOR=nano  # Specifically for docs CLI
+```
+
+**Important:** By default, `docs edit` launches the editor in the background and exits immediately. This prevents AI agents and automation scripts from hanging. Use `--wait` flag when you need to block until the editor closes.
 
 ## Working Effectively
 
