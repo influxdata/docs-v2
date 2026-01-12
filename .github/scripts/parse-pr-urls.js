@@ -78,6 +78,9 @@ function buildRelativePattern() {
   // Match relative paths starting with known product prefixes
   // Captures paths in various contexts: markdown links, parentheses, backticks, etc.
   // Delimiters: start of string, whitespace, ], ), (, or `
+  // Note: Backtick appears in both the delimiter list and negated character class
+  // for defense-in-depth - delimiter stops extraction, character class prevents
+  // any edge cases where backticks might slip through
   return new RegExp(
     `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
     'gm'
@@ -142,10 +145,12 @@ function normalizeUrlPath(urlPath) {
   // Remove query strings
   normalized = normalized.split('?')[0];
   // Remove wildcard characters (* is often used to indicate "all pages")
+  // Do this BEFORE collapsing slashes to handle patterns like /path/*/
   normalized = normalized.replace(/\*/g, '');
   // Collapse multiple consecutive slashes into single slash
+  // This handles cases like /path/*/ → /path// → /path/
   normalized = normalized.replace(/\/+/g, '/');
-  // Ensure trailing slash
+  // Ensure trailing slash (important for Hugo's URL structure)
   if (!normalized.endsWith('/')) {
     normalized += '/';
   }
