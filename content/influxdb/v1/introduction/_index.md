@@ -1,12 +1,12 @@
 ---
-title: Learn about InfluxDB OSS
-description: Tasks to complete to get up and running with InfluxDB OSS.
+title: Learn about InfluxDB OSS 1.x
+description: Get up and running with InfluxDB OSS v{{< current-version >}}.
 menu:
   influxdb_v1:
     name: Introduction
     weight: 20
 ---
 
-To get up and running with the open source (OSS) version of InfluxDB, complete the following tasks:
+To get up and running with InfluxDB OSS v{{< current-version >}}, complete the following:
 
 {{< children hlevel="h2" >}}
