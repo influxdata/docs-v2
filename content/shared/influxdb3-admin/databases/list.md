@@ -184,7 +184,8 @@ curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
-Parquet responses contain the same database list, but you must provide an output destination because the format is binary.
+For Parquet responses, you must provide an output destination because the format is binary.
+The response contains the databases list.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
