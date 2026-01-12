@@ -48,7 +48,7 @@
 				{{- $currentVersion := index $productPathData (add $pathOffset 1) -}}
 				{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
 				{{- $productKey := cond $isOSS "oss" $currentVersion -}}
-				{{- $productAliases := dict "oss" "influxdb" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
+				{{- $productAliases := dict "oss" "influxdb" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" "cloud1" "influxdb_cloud1" -}}
 				{{- $productRef := index $productAliases $productKey -}}
 				{{- $productData := dict -}}
 				{{- with $productRef }}{{- $productData = index $.Site.Data.products . | default dict -}}{{- end -}}
