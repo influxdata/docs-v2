@@ -51,7 +51,10 @@ function isValidUrlPath(path) {
   // Reject path traversal attempts
   if (path.includes('..')) return false;
 
-  // Reject paths with suspicious characters (includes ' to prevent JS injection)
+  // Reject paths with suspicious characters
+  // Note: Backticks are in this list, but the extraction regex stops AT backticks,
+  // so they act as delimiters rather than being included in paths
+  // (includes ' to prevent JS injection)
   if (/[<>"|{}`\\^[\]']/.test(path)) return false;
 
   // Reject URL-encoded characters (potential encoding attacks)
