@@ -73,9 +73,10 @@ function isValidUrlPath(path) {
 function buildRelativePattern() {
   const namespaceAlternation = PRODUCT_NAMESPACES.join('|');
   // Match relative paths starting with known product prefixes
-  // Also captures paths in markdown links: [text](/influxdb3/core/)
+  // Captures paths in various contexts: markdown links, parentheses, backticks, etc.
+  // Delimiters: start of string, whitespace, ], ), (, or `
   return new RegExp(
-    `(?:^|\\s|\\]|\\)|\\()(\\/(?:${namespaceAlternation})[^\\s)\\]>"']*)`,
+    `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
     'gm'
   );
 }
@@ -130,13 +131,17 @@ export function extractDocsUrls(text) {
 /**
  * Normalize URL path to consistent format
  * @param {string} urlPath - URL path to normalize
- * @returns {string} - Normalized path with trailing slash
+ * @returns {string} - Normalized path with trailing slash, wildcards stripped
  */
 function normalizeUrlPath(urlPath) {
   // Remove anchor fragments
   let normalized = urlPath.split('#')[0];
   // Remove query strings
   normalized = normalized.split('?')[0];
+  // Remove wildcard characters (* is often used to indicate "all pages")
+  normalized = normalized.replace(/\*/g, '');
+  // Collapse multiple consecutive slashes into single slash
+  normalized = normalized.replace(/\/+/g, '/');
   // Ensure trailing slash
   if (!normalized.endsWith('/')) {
     normalized += '/';
