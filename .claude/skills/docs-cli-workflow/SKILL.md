@@ -83,12 +83,12 @@ Which do you prefer?
 ```
 I can use the docs CLI to find the source files for this page:
 
-npx docs edit <url>
+docs edit <url-or-path>
 
 **Why**: [1-2 sentences explaining the benefit]
 
 Options:
-1. **Use CLI** - I'll find and open the relevant files
+1. **Use CLI** - I'll find and list the relevant files (non-blocking)
 2. **I know the file** - Tell me the path and I'll edit directly
 
 Which do you prefer?
@@ -125,10 +125,29 @@ npx docs create <draft-path> --products <product-key>
 # Create at specific URL location
 npx docs create --url <url> --from-draft <draft-path>
 
-# Find and open files for an existing page
-npx docs edit <url>
-npx docs edit --list <url>  # List files without opening
+# Find and list files for an existing page (non-blocking, agent-friendly)
+docs edit <url-or-path>
+docs edit <url-or-path> --list        # List files without opening editor
+
+# Interactive editing (blocks until editor closes)
+docs edit <url-or-path> --wait
+
+# Use specific editor
+docs edit <url-or-path> --editor nano
+
+# Examples (both full URL and path work)
+docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+docs edit /influxdb3/core/admin/databases/
 ```
+
+**Editor Selection** (checked in order):
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable
+4. `EDITOR` environment variable
+5. System default
+
+**Important for AI Agents**: The `docs edit` command is non-blocking by default (launches editor in background and exits immediately). This prevents agents from hanging. Use `--wait` only when you need to block until editing is complete.
 
 For full CLI documentation, run `npx docs --help`.
 

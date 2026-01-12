@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Simple test runner for docs CLI unit tests
-# Run with: bash scripts/__tests__/run-tests.sh
+# Run with: bash scripts/docs-cli/__tests__/run-tests.sh
 
 echo "🧪 Running docs CLI unit tests..."
 echo ""
 
 # Run each test file
-node scripts/__tests__/editor-resolver.test.js
+node scripts/docs-cli/__tests__/editor-resolver.test.js
 EDITOR_RESULT=$?
 
-node scripts/__tests__/process-manager.test.js
+node scripts/docs-cli/__tests__/process-manager.test.js
 PROCESS_RESULT=$?
 
 # Summary

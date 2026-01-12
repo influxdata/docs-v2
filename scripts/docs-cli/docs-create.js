@@ -22,13 +22,13 @@ import {
   analyzeURLs,
   loadProducts,
   analyzeStructure,
-} from './lib/content-scaffolding.js';
+} from '../lib/content-scaffolding.js';
 import {
   writeJson,
   readJson,
   fileExists,
   readDraft,
-} from './lib/file-operations.js';
+} from '../lib/file-operations.js';
 import { parseMultipleURLs } from './lib/url-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);

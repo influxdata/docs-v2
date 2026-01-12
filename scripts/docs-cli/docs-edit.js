@@ -17,7 +17,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
 import { parseDocumentationURL, urlToFilePaths } from './lib/url-parser.js';
-import { getSourceFromFrontmatter } from './lib/content-utils.js';
+import { getSourceFromFrontmatter } from '../lib/content-utils.js';
 import { resolveEditor } from './lib/editor-resolver.js';
 import { spawnEditor, shouldWait } from './lib/process-manager.js';
 
@@ -25,7 +25,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Repository root
-const REPO_ROOT = join(__dirname, '..');
+const REPO_ROOT = join(__dirname, '..', '..');
 
 // Colors for console output
 const colors = {
