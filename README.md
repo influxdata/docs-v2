@@ -23,6 +23,12 @@ This repository includes a `docs` CLI tool for common documentation workflows:
 # Create new documentation from a draft
 npx docs create drafts/new-feature.md --products influxdb3_core
 
+# Create and open files in editor (non-blocking)
+npx docs create drafts/new-feature.md --products influxdb3_core --open
+
+# Create and open, wait for editor (blocking)
+npx docs create drafts/new-feature.md --products influxdb3_core --open --wait
+
 # Edit existing documentation (supports full URLs or paths)
 npx docs edit https://docs.influxdata.com/influxdb3/core/admin/
 npx docs edit /influxdb3/core/admin/
@@ -47,7 +53,7 @@ The `docs` command is automatically configured when you run `yarn install`.
 
 ### Editor Configuration
 
-The `docs edit` command opens documentation files in your preferred editor. By default, it launches the editor in the background and exits immediately (agent-friendly). Use the `--wait` flag for interactive editing sessions.
+The `docs edit` and `docs create --open` commands open documentation files in your preferred editor. By default, they launch the editor in the background and exit immediately (agent-friendly). Use the `--wait` flag for interactive editing sessions.
 
 **Setting Your Editor:**
 

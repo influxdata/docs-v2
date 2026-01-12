@@ -95,9 +95,51 @@ docs create <draft-path> --products <product-key>
 
 # Create at specific URL location
 docs create --url <url> --from-draft <draft-path>
+
+# Create and open files in editor (non-blocking)
+docs create <draft-path> --products <product-key> --open
+
+# Create and open files, wait for editor (blocking)
+docs create <draft-path> --products <product-key> --open --wait
+
+# Use specific editor
+docs create <draft-path> --products <product-key> --open --editor nano
 ```
 
+#### Options
+
+- `--open` - Open created files in editor after creation (non-blocking by default)
+- `--wait` - Wait for editor to close (use with `--open`)
+- `--editor <command>` - Use specific editor (e.g., `vim`, `nano`, `code --wait`)
+- `--products <keys>` - Comma-separated product keys
+- `--url <url>` - Documentation URL for new content location
+- `--dry-run` - Show what would be created without creating files
+- `--yes` - Skip confirmation prompt
+
 See `docs create --help` for full options.
+
+#### Editor Configuration
+
+The `--open` flag uses the same editor resolution as `docs edit`:
+
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable
+4. `EDITOR` environment variable
+5. System default (vim, nano, etc.)
+
+**Examples:**
+
+```bash
+# Set editor for docs CLI
+export DOCS_EDITOR=nano
+
+# Create and open in one command
+docs create drafts/feature.md --products influxdb3_core --open
+
+# Create, open, and wait
+docs create drafts/feature.md --products influxdb3_core --open --wait
+```
 
 ### `docs placeholders` - Add Placeholder Syntax
 

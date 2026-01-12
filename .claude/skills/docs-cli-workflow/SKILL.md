@@ -122,6 +122,12 @@ No additional guidance needed—the CLI manages product selection, file generati
 # Create new documentation from a draft
 npx docs create <draft-path> --products <product-key>
 
+# Create and open files in editor (non-blocking)
+npx docs create <draft-path> --products <product-key> --open
+
+# Create and open, wait for editor (blocking)
+npx docs create <draft-path> --products <product-key> --open --wait
+
 # Create at specific URL location
 npx docs create --url <url> --from-draft <draft-path>
 
@@ -147,7 +153,11 @@ docs edit /influxdb3/core/admin/databases/
 4. `EDITOR` environment variable
 5. System default
 
-**Important for AI Agents**: The `docs edit` command is non-blocking by default (launches editor in background and exits immediately). This prevents agents from hanging. Use `--wait` only when you need to block until editing is complete.
+**Important for AI Agents**: 
+- Both `docs edit` and `docs create --open` commands are non-blocking by default (launch editor in background and exit immediately)
+- This prevents agents from hanging while waiting for user editing
+- Use `--wait` only when you need to block until editing is complete
+- For `docs create`, omit `--open` to skip editor entirely (files are created and CLI exits)
 
 For full CLI documentation, run `npx docs --help`.
 
