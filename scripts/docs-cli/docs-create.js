@@ -29,7 +29,7 @@ import {
   fileExists,
   readDraft,
 } from '../lib/file-operations.js';
-import { parseMultipleURLs } from './lib/url-parser.js';
+import { parseMultipleURLs } from '../lib/url-parser.js';
 import { resolveEditor } from './lib/editor-resolver.js';
 import { spawnEditor, shouldWait } from './lib/process-manager.js';
 
