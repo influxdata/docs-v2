@@ -16,7 +16,7 @@ import process from 'node:process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
-import { parseDocumentationURL, urlToFilePaths } from './lib/url-parser.js';
+import { parseDocumentationURL, urlToFilePaths } from '../lib/url-parser.js';
 import { getSourceFromFrontmatter } from '../lib/content-utils.js';
 import { resolveEditor } from './lib/editor-resolver.js';
 import { spawnEditor, shouldWait } from './lib/process-manager.js';
