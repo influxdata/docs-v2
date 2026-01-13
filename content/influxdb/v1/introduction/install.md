@@ -353,7 +353,6 @@ Make sure the directories in which data and the [write ahead log](/influxdb/v1/c
 
 > [!Important]
 > If the data and WAL directories are not writable, the `influxd` service will not start.
->
 
 The user running the `influxd` process should have the following permissions for
 directories in the [InfluxDB file system](/influxdb/v1//concepts/file-system-layout/):
