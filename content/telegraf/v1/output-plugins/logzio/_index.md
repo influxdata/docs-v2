@@ -10,7 +10,7 @@ introduced: "v1.17.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/logzio/README.md, Logz.io Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/logzio/README.md, Logz.io Plugin Source
 ---
 
 # Logz.io Output Plugin

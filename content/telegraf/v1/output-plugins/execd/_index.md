@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/execd/README.md, Executable Daemon Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/execd/README.md, Executable Daemon Plugin Source
 ---
 
 # Executable Daemon Output Plugin
@@ -71,6 +71,24 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
   data_format = "influx"
 ```
+
+## Error Handling
+
+This plugin uses a fire-and-forget communication model. Metrics are considered
+successfully written once they are written to the external process's `stdin`
+pipe, not when the external plugin actually processes them. Due to OS pipe
+buffering (typically ~64KB), writes to `stdin` are non-blocking until the
+buffer fills.
+
+If the external plugin encounters an error while processing metrics, it may
+write error messages to `stderr`, which Telegraf will log. However, these
+errors do not trigger Telegraf's retry mechanism or prevent metrics from being
+removed from the buffer.
+
+This means metrics can be lost if the external plugin fails to process them.
+For use cases requiring guaranteed delivery, consider using a built-in output
+plugin or implementing your own acknowledgment mechanism within the external
+plugin.
 
 ## Example
 

@@ -10,7 +10,7 @@ introduced: "v1.36.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/turbostat/README.md, Turbostat Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/turbostat/README.md, Turbostat Plugin Source
 ---
 
 # Turbostat Input Plugin
