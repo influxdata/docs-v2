@@ -10,7 +10,7 @@ menu:
 weight: 1
 ---
 
-InfluxDB Enterprise provides a time series database designed to handle high write and query loads and offers highly scalable clusters on your infrastructure with a management UI. Use for DevOps monitoring, IoT sensor data, and real-time analytics. Check out the key features that make InfluxDB Enterprise a great choice for working with time series data.
+InfluxDB Enterprise provides a time series database designed to handle high write and query loads and offers highly scalable clusters on your infrastructure with a management UI. Use for DevOps monitoring, IoT sensor data, and real-time analytics.
 
 {{< influxdb-cloud1-note >}}
 
