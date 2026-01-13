@@ -1,7 +1,7 @@
 /**
  * Essential tests for editor resolution
  *
- * Run with: node scripts/__tests__/editor-resolver.test.js
+ * Run with: node scripts/docs-cli/__tests__/editor-resolver.test.js
  */
 
 import { resolveEditor } from '../lib/editor-resolver.js';
