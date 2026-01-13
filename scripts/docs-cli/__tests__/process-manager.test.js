@@ -1,7 +1,7 @@
 /**
  * Essential tests for process management
  *
- * Run with: node scripts/__tests__/process-manager.test.js
+ * Run with: node scripts/docs-cli/__tests__/process-manager.test.js
  */
 
 import { shouldWait } from '../lib/process-manager.js';
