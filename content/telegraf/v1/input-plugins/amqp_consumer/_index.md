@@ -10,7 +10,7 @@ introduced: "v1.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/amqp_consumer/README.md, AMQP Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/amqp_consumer/README.md, AMQP Consumer Plugin Source
 ---
 
 # AMQP Consumer Input Plugin

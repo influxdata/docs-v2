@@ -18,8 +18,95 @@
 | Install | `CYPRESS_INSTALL_BINARY=0 yarn install` | ~4s | Skip Cypress for CI |
 | Build | `npx hugo --quiet` | ~75s | NEVER CANCEL |
 | Dev Server | `npx hugo server` | ~92s | Port 1313 |
+| Create Docs | `docs create <draft> --products <keys>` | varies | AI-assisted scaffolding |
+| Create & Open | `docs create <draft> --products <keys> --open` | instant | Non-blocking (background) |
+| Create & Wait | `docs create <draft> --products <keys> --open --wait` | varies | Blocking (interactive) |
+| Edit Docs | `docs edit <url>` | instant | Non-blocking (background) |
+| Edit Docs (wait) | `docs edit <url> --wait` | varies | Blocking (interactive) |
+| List Files | `docs edit <url> --list` | instant | Show files without opening |
 | Test All | `yarn test:codeblocks:all` | 15-45m | NEVER CANCEL |
 | Lint | `yarn lint` | ~1m | Pre-commit checks |
+
+## CLI Tools
+
+### docs create - Create Documentation Files
+
+Scaffolds new documentation pages with AI-assisted analysis. **Optionally opens created files in editor.**
+
+**Examples:**
+```bash
+# Create from draft (no editor)
+docs create drafts/new-feature.md --products influxdb3_core
+
+# Create and open files (non-blocking, exits immediately)
+docs create drafts/new-feature.md --products influxdb3_core --open
+
+# Create and open, wait for editor (blocking, interactive)
+docs create drafts/new-feature.md --products influxdb3_core --open --wait
+
+# Use specific editor
+docs create drafts/new-feature.md --products influxdb3_core --open --editor nano
+
+# Create at specific URL location
+docs create --url /influxdb3/core/admin/new/ --from-draft drafts/feature.md
+```
+
+**Options:**
+- `--open` - Open created files in editor after creation (non-blocking by default)
+- `--wait` - Wait for editor to close (use with `--open`)
+- `--editor <cmd>` - Specify editor command (use with `--open`)
+- `--products <keys>` - Comma-separated product keys (required)
+- `--dry-run` - Show what would be created without creating files
+- `--yes` - Skip confirmation prompt
+
+### docs edit - Edit Documentation Files
+
+Opens documentation files in your editor. **Non-blocking by default** (agent-friendly).
+
+**Examples:**
+```bash
+# Quick edit (exits immediately, editor in background)
+docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+docs edit /influxdb3/core/admin/databases/
+
+# Interactive edit (waits for editor to close)
+docs edit /influxdb3/core/admin/databases/ --wait
+
+# List files without opening
+docs edit /influxdb3/core/admin/databases/ --list
+
+# Use specific editor
+docs edit /influxdb3/core/admin/databases/ --editor nano
+```
+
+**Options:**
+- `--list` - List files without opening editor
+- `--wait` - Wait for editor to close (blocking mode)
+- `--editor <cmd>` - Specify editor command
+
+### Editor Configuration
+
+Both `docs create --open` and `docs edit` use the same editor resolution:
+
+**Priority order:**
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable  
+4. `EDITOR` environment variable
+5. System default (vim, nano, etc.)
+
+**Examples:**
+```bash
+export EDITOR=vim        # For all CLI tools
+export DOCS_EDITOR=nano  # Specifically for docs CLI
+export DOCS_EDITOR="code --wait"  # VS Code with wait flag
+```
+
+**Important for AI Agents:** 
+- Both commands are **non-blocking by default** (exit immediately)
+- This prevents agents and automation from hanging
+- Use `--wait` flag only when you need blocking behavior
+- For `docs create`, omit `--open` to skip editor entirely
 
 ## Working Effectively
 
