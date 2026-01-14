@@ -101,7 +101,7 @@ You can also configure the connection when starting Chronograf:
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: [Database](/influxdb3/clustered/admin/databases/) name
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: [Database token](/influxdb3/clustered/admin/tokens/#database-tokens) with read permissions
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: [Database token](/influxdb3/clustered/admin/tokens/database/) with read permissions
 - {{% code-placeholder-key %}}`MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}: [Management token](/influxdb3/clustered/admin/tokens/#management-tokens)
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN|MANAGEMENT_TOKEN" }
