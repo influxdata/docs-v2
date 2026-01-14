@@ -88,7 +88,7 @@ chronograf
 
 You can also configure the connection when starting Chronograf:
 
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-serverless \
   --influxdb-url=https://{{< influxdb/host >}} \

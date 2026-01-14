@@ -85,7 +85,7 @@ chronograf
 
 You can also configure the connection when starting Chronograf:
 
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-enterprise \
   --influxdb-url=http://{{< influxdb/host >}} \
