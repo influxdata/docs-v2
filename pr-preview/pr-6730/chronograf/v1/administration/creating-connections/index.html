@@ -1,0 +1,2270 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Create InfluxDB and Kapacitor connections | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Create and manage InfluxDB and Kapacitor connections in the UI.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-6730/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6730/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/creating-connections/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6730/light-theme.ae22f89456cf2723bbe6f5a082169042ab4cf2b99f8e2498ae67b0821952752c.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6730/dark-theme.ded27951f9731aef4890f8beae8fc4c5c79e65fbf9ee9a83d43fbc00d01eb7e3.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6730/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-6730/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-6730/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-01-13 17:41:29 -0800 -0800">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    <div class="selector-dropdowns">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">alpha</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' class="active">Chronograf</a>
+</li>
+        <li>
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+    <div class="buttons">
+      <div class="search-btn" data-component="search-button">
+        <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+      </div>
+      <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+      <span data-component="theme-switch">
+        <button class="theme-switch theme-switch-light">
+          <span class="cf-icon Lightmode_New"></span></button>
+        <button class="theme-switch theme-switch-dark">
+          <span class="cf-icon Darkmode_New"></span></button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search Chronograf'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/'>Chronograf</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/about_the_project/'>About the project</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/about_the_project/release-notes/'>Release notes</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='https://github.com/influxdata/chronograf/blob/master/CONTRIBUTING.md'>Contribute</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='https://www.influxdata.com/legal/cla/'>InfluxData Contributor License Agreement (CLA)</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='https://github.com/influxdata/chronograf/blob/master/LICENSE'>Open source license</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/introduction/'>Introduction</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/introduction/downloading/'>Download</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/introduction/installation/'>Install</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/introduction/getting-started/'>Get started</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/'>Guides</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/using-precreated-dashboards/'>Use pre-created dashboards</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/create-a-dashboard/'>Create dashboards</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/visualization-types/'>Visualization types</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/annotations/'>Use annotations</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/create-alert-rules/'>Create alert rules</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/cloning-in-ui/'>Clone dashboards and cells</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/configuring-alert-endpoints/'>Configure alert endpoints</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/monitoring-influxenterprise-clusters/'>Monitor InfluxDB Enterprise clusters</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/dashboard-template-variables/'>Use dashboard template variables</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/advanced-kapacitor/'>Advanced Kapacitor usage</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/analyzing-logs/'>Analyze logs with Chronograf</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/querying-data/'>Explore data in Chronograf</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/presentation-mode/'>View dashboards in presentation mode</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/guides/write-to-influxdb/'>Write data to InfluxDB</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle open"></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/'>Administration</a>
+      
+        <ul class="children open">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/create-high-availability/'>Create a Chronograf HA configuration</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/migrate-to-high-availability/'>Migrate to a Chronograf HA configuration</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/upgrading/'>Upgrade</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/configuration/'>Configure</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/config-options/'>Configuration options</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/chrono-on-clusters/'>Connecting Chronograf to InfluxDB Enterprise</a>
+      
+    </li>
+  
+    <li class="nav-item active">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/creating-connections/'>Create InfluxDB and Kapacitor connections</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/prebuilt-dashboards/'>Prebuilt dashboards in Chronograf</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/managing-influxdb-users/'>Manage InfluxDB users</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/managing-security/'>Manage Chronograf security</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/managing-organizations/'>Manage Chronograf organizations</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/managing-chronograf-users/'>Manage Chronograf users</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/managing-queries/'>Manage Chronograf queries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/restoring-chronograf-db/'>Restore a Chronograf database</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/import-export-dashboards/'>Import and export Chronograf dashboards</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/'>Tools</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/'>chronoctl</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/add-superadmin/'>chronoctl add-superadmin</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/gen-keypair/'>chronoctl gen-keypair</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/list-users/'>chronoctl list-users</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/migrate/'>chronoctl migrate</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronoctl/token/'>chronoctl token</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/tools/chronograf/'>chronograf</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/troubleshooting/'>Troubleshoot</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/chronograf/v1/troubleshooting/frequently-asked-questions/'>Frequently asked questions (FAQs)</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+    <h4 class="platform">InfluxData Platform</h4>
+    
+
+
+
+
+
+  
+  
+  
+  
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/'>Introduction</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/getting-started/'>Get started</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/'>Monitor</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/'>Monitor the InfluxData Platform</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/internal-vs-external/'>Configurations for monitoring</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/monitoring-dashboards/'>Monitoring dashboards</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/external-monitor-setup/'>Configure a watcher of watchers</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/tools/'>Other monitoring tools</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/tools/measurements-internal/'>InfluxDB _internal measurements</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/tools/kapacitor-measurements/'>Kapacitor measurements</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/tools/show-diagnostics/'>SHOW DIAGNOSTICS</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/influxdata-platform/tools/show-stats/'>SHOW STATS</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/containers/'>Monitor containers</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/monitoring/containers/kubernetes/'>Monitor Kubernetes</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6730/platform/troubleshoot/'>Troubleshoot</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/troubleshoot/oom-loops/'>Out-of-memory loops</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/troubleshoot/disk-usage/'>Disk usage</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/faq/'>Frequently asked questions</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/platform/identify-version/'>Identify version</a>
+      
+    </li>
+  
+
+
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Create InfluxDB and Kapacitor connections</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0">
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>Connections to InfluxDB and Kapacitor can be configured through the Chronograf user interface (UI) or with JSON configuration files:</p>
+<ul>
+<li><a href="#manage-influxdb-connections-using-the-chronograf-ui">Manage InfluxDB connections using the Chronograf UI</a></li>
+<li><a href="#manage-influxdb-connections-using-src-files">Manage InfluxDB connections using .src files</a></li>
+<li><a href="#manage-kapacitor-connections-using-the-chronograf-ui">Manage Kapacitor connections using the Chronograf UI</a></li>
+<li><a href="#manage-kapacitor-connections-using-kap-files">Manage Kapacitor connections using .kap files</a></li>
+</ul>
+
+<div class="note block">
+  <p><strong>Note:</strong> Connection details are stored in Chronograf’s internal database <code>chronograf-v1.db</code>.
+You may administer the internal database when <a href="/chronograf/v1/administration/restoring-chronograf-db/">restoring a Chronograf database</a>
+or when <a href="/chronograf/v1/administration/migrate-to-high-availability/">migrating a Chronograf configuration from BoltDB to etcd</a>.</p>
+
+</div>
+
+<h2 id="manage-influxdb-connections-using-the-chronograf-ui">Manage InfluxDB connections using the Chronograf UI</h2>
+<p>To create an InfluxDB connection in the Chronograf UI:</p>
+<ol>
+<li>
+<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
+</li>
+<li>
+<p>Click <strong>Add Connection</strong>.</p>
+<p><img src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page"></p>
+</li>
+<li>
+<p>Provide the necessary connection credentials.</p>
+
+<div class="tabs-wrapper">
+  
+    
+
+
+
+<div class="tabs">
+  <p><a href="#">InfluxDB 1.x</a>
+<a href="#">InfluxDB Cloud or OSS 2.x</a>
+<a href="#">InfluxDB 3</a></p>
+
+</div>
+
+    
+<section class="tab-content">
+  <img src="/img/chronograf/1-8-influxdb-v1-connection-config.png" style="width:100%; max-width:798px;"/>
+<ul>
+<li><strong>Connection URL</strong>: hostname or IP address and port of the InfluxDB 1.x instance</li>
+<li><strong>Connection Name</strong>: Unique name for this connection.</li>
+<li><strong>Username</strong>: InfluxDB 1.x username
+<em>(Required only if <a href="/influxdb/v1/administration/authentication_and_authorization/">authorization is enabled</a> in InfluxDB)</em></li>
+<li><strong>Password</strong>: InfluxDB password
+<em>(Required only if <a href="/influxdb/v1/administration/authentication_and_authorization/">authorization is enabled</a> in InfluxDB)</em></li>
+<li><strong>Telegraf Database Name</strong>: the database Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</li>
+<li><strong>Default Retention Policy</strong>: default <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>
+(if left blank, defaults to <code>autogen</code>)</li>
+<li><strong>Default connection</strong>: use this connection as the default connection for data exploration, dashboards, and administrative actions</li>
+</ul>
+
+</section>
+
+    
+<section class="tab-content">
+  <img src="/img/chronograf/1-8-influxdb-v2-connection-config.png" style="width:100%; max-width:798px;"/>
+<ul>
+<li>
+<p><strong>Enable the <span class="req  ">InfluxDB v2 Auth</span> option</strong></p>
+</li>
+<li>
+<p><strong>Connection URL</strong>: <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud region URL</a>
+or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS 2.x URL</a></p>
+
+
+<pre tabindex="0"><code>http://localhost:8086</code></pre>
+</li>
+<li>
+<p><strong>Connection Name</strong>: Unique name for this connection.</p>
+</li>
+<li>
+<p><strong>Organization</strong>: InfluxDB <a href="/influxdb/v2/admin/organizations/">organization</a></p>
+</li>
+<li>
+<p><strong>Token</strong>: InfluxDB <a href="/influxdb/v2/admin/tokens/">authentication token</a></p>
+</li>
+<li>
+<p><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb/v2/admin/buckets/">bucket</a>
+Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
+</li>
+<li>
+<p><strong>Default Retention Policy:</strong> default <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>
+<em><strong>(leave blank)</strong></em></p>
+</li>
+<li>
+<p><strong>Default connection</strong>: use this connection as the default connection for data exploration and dashboards</p>
+</li>
+</ul>
+<div class="note block">
+  <p>For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x instance, see:</p>
+<ul>
+<li><a href="/influxdb/cloud/tools/chronograf/">Use Chronograf with InfluxDB Cloud</a></li>
+<li><a href="/influxdb/v2/tools/chronograf/">Use Chronograf with InfluxDB OSS 2.x</a></li>
+</ul>
+</div>
+
+</section>
+
+    
+<section class="tab-content">
+  <p>To connect Chronograf to an InfluxDB 3 product, start Chronograf with the <code>--influxdb-v3-support-enabled</code> flag or set the <code>INFLUXDB_V3_SUPPORT_ENABLED=true</code> environment variable:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled</span></span></code></pre></div>
+<p>Once enabled, select your InfluxDB 3 product from the <strong>Server Type</strong> dropdown:</p>
+<img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown showing InfluxDB 3 options"/>
+<img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
+<ul>
+<li><strong>Connection URL</strong>: URL of your InfluxDB 3 instance or cluster</li>
+<li><strong>Connection Name</strong>: Unique name for this connection</li>
+<li><strong>Database Token</strong>: InfluxDB database token with read permissions</li>
+<li><strong>Telegraf Database Name</strong>: Database Chronograf uses to populate parts of the application (default is <code>telegraf</code>)</li>
+<li><strong>Default Database</strong> <em>(optional)</em>: Limit Chronograf queries to a specific database</li>
+<li><strong>Unsafe SSL</strong>: Enable to skip SSL certificate verification for self-signed certificates</li>
+<li><strong>Cluster ID</strong> <em>(Cloud Dedicated)</em>: Found in your <code>influxctl</code> configuration</li>
+<li><strong>Account ID</strong> <em>(Cloud Dedicated)</em>: Found in your <code>influxctl</code> configuration</li>
+<li><strong>Management Token</strong> <em>(Cloud Dedicated, Clustered)</em>: Token for administrative operations</li>
+<li><strong>Tags CSV Directory Path</strong> <em>(Cloud Dedicated)</em>: Path to CSV files defining tags for query builder</li>
+</ul>
+<div class="note block">
+  <p>For detailed product-specific instructions, see:</p>
+<ul>
+<li><a href="/influxdb3/core/visualize-data/chronograf/">Use Chronograf with InfluxDB 3 Core</a></li>
+<li><a href="/influxdb3/enterprise/visualize-data/chronograf/">Use Chronograf with InfluxDB 3 Enterprise</a></li>
+<li><a href="/influxdb3/cloud-dedicated/process-data/visualize/chronograf/">Use Chronograf with InfluxDB Cloud Dedicated</a></li>
+<li><a href="/influxdb3/cloud-serverless/process-data/visualize/chronograf/">Use Chronograf with InfluxDB Cloud Serverless</a></li>
+<li><a href="/influxdb3/clustered/process-data/visualize/chronograf/">Use Chronograf with InfluxDB Clustered</a></li>
+</ul>
+</div>
+
+</section>
+
+    
+</div>
+
+</li>
+<li>
+<p>Click <strong>Add Connection</strong></p>
+<ul>
+<li>If the connection is valid, the Dashboards window appears, allowing you to import dashboard templates you can use to display and analyze your data. For details, see <a href="/chronograf/v1/guides/create-a-dashboard">Creating dashboards</a>.</li>
+<li>If the connection cannot be created, the following error message appears:
+&ldquo;Unable to create source: Error contacting source.&rdquo;
+If this occurs, ensure all connection credentials are correct and that the InfluxDB instance is running and accessible.</li>
+</ul>
+</li>
+</ol>
+<p>The following dashboards are available:</p>
+<ul>
+<li>Docker</li>
+<li>Kubernetes Node</li>
+<li>Riak</li>
+<li>Consul</li>
+<li>Kubernetes Overview</li>
+<li>Mesos</li>
+<li>IIS</li>
+<li>RabbitMQ</li>
+<li>System</li>
+<li>VMware vSphere Overview</li>
+<li>Apache</li>
+<li>Elastisearch</li>
+<li>InfluxDB</li>
+<li>Memcached</li>
+<li>NSQ</li>
+<li>PostgreSQL</li>
+<li>Consul Telemetry</li>
+<li>HAProxy</li>
+<li>Kubernetes Pod</li>
+<li>NGINX</li>
+<li>Redis</li>
+<li>VMware vSphere VMs</li>
+<li>VMware vSphere Hosts</li>
+<li>PHPfpm</li>
+<li>Win System</li>
+<li>MySQL</li>
+<li>Ping</li>
+</ul>
+<h2 id="manage-influxdb-connections-using-src-files">Manage InfluxDB connections using .src files</h2>
+<p>Manually create <code>.src</code> files to store InfluxDB connection details.
+<code>.src</code> files are simple JSON files that contain key-value paired connection details.
+The location of <code>.src</code> files is defined by the <a href="/chronograf/v1/administration/config-options/#resources-path"><code>--resources-path</code></a>
+command line option, which is, by default, the same as the <a href="/chronograf/v1/administration/config-options/#canned-path-c"><code>--canned-path</code></a>.
+A <code>.src</code> file contains the details for a single InfluxDB connection.</p>
+
+<div class="note block">
+  <p><strong>Only InfluxDB 1.x connections are configurable in a <code>.src</code> file.</strong>
+Configure InfluxDB 2.x, Cloud, and InfluxDB 3 connections with <a href="/chronograf/v1/administration/config-options/#influxdb-connection-options">CLI flags</a>
+or in the <a href="#manage-influxdb-connections-using-the-chronograf-ui">Chronograf UI</a>.</p>
+
+</div>
+
+<p>Create a new file named <code>example.src</code> (the filename is arbitrary) and place it at Chronograf&rsquo;s <code>resource-path</code>.
+All <code>.src</code> files should contain the following:</p>
+<div class="keep-url"></div>
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My InfluxDB&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;username&#34;</span><span class="p">:</span> <span class="s2">&#34;test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:8086&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;influx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;insecureSkipVerify&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;telegraf&#34;</span><span class="p">:</span> <span class="s2">&#34;telegraf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;example_org&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+<h4 id="id"><code>id</code></h4>
+<p>A unique, stringified non-negative integer.
+Using a 4 or 5 digit number is recommended to avoid interfering with existing datasource IDs.</p>
+<h4 id="name"><code>name</code></h4>
+<p>Any string you want to use as the display name of the source.</p>
+<h4 id="username"><code>username</code></h4>
+<p>Username used to access the InfluxDB server or cluster.
+<em>Only required if <a href="/influxdb/v1/administration/authentication_and_authorization/">authorization is enabled</a> on the InfluxDB instance to which you&rsquo;re connecting.</em></p>
+<h4 id="password"><code>password</code></h4>
+<p>Password used to access the InfluxDB server or cluster.
+<em>Only required if <a href="/influxdb/v1/administration/authentication_and_authorization/">authorization is enabled</a> on the InfluxDB instance to which you&rsquo;re connecting.</em></p>
+<h4 id="url"><code>url</code></h4>
+<p>URL of the InfluxDB server or cluster.</p>
+<h4 id="type"><code>type</code></h4>
+<p>Defines the type or distribution of InfluxDB to which you are connecting.
+Below are the following options:</p>
+<table>
+  <thead>
+      <tr>
+          <th>InfluxDB Distribution</th>
+          <th><code>type</code> Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>InfluxDB OSS</td>
+          <td><code>influx</code></td>
+      </tr>
+      <tr>
+          <td>InfluxDB Enterprise</td>
+          <td><code>influx-enterprise</code></td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="insecureskipverify"><code>insecureSkipVerify</code></h4>
+<p>Skips the SSL certificate verification process.
+Set to <code>true</code> if you are using a self-signed SSL certificate on your InfluxDB server or cluster.</p>
+<h4 id="default"><code>default</code></h4>
+<p>Set to <code>true</code> if you want the connection to be the default data connection used upon first login.</p>
+<h4 id="telegraf"><code>telegraf</code></h4>
+<p>The name of the Telegraf database on your InfluxDB server or cluster.</p>
+<h4 id="organization"><code>organization</code></h4>
+<p>The ID of the organization you want the data source to be associated with.</p>
+<h3 id="environment-variables-in-src-files">Environment variables in .src files</h3>
+<p><code>.src</code> files support the use of environment variables to populate InfluxDB connection details.
+Environment variables can be loaded using the <code>&quot;{{ .VARIABLE_KEY }}&quot;</code> syntax:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My InfluxDB&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;username&#34;</span><span class="p">:</span> <span class="s2">&#34;{{ .INFLUXDB_USER }}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;{{ .INFLUXDB_PASS }}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;{{ .INFLUXDB_URL }}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;influx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;insecureSkipVerify&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;telegraf&#34;</span><span class="p">:</span> <span class="s2">&#34;telegraf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;example_org&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+<h2 id="manage-kapacitor-connections-using-the-chronograf-ui">Manage Kapacitor connections using the Chronograf UI</h2>
+<p>Kapacitor is the data processing component of the TICK stack.
+To use Kapacitor in Chronograf, create Kapacitor connections and configure alert endpoints.
+To create a Kapacitor connection using the Chronograf UI:</p>
+<ol>
+<li>
+<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
+</li>
+<li>
+<p>Next to an existing <a href="#manage-influxdb-connections-using-the-chronograf-ui">InfluxDB connection</a>, click <strong>Add Kapacitor Connection</strong> if there are no existing Kapacitor connections or select <strong>Add Kapacitor Connection</strong> in the <strong>Kapacitor Connection</strong> dropdown list.
+<img src="/img/chronograf/1-6-connection-kapacitor.png" alt="Add a new Kapacitor connection in Chronograf"></p>
+</li>
+<li>
+<p>In the <strong>Connection Details</strong> section, enter values for the following fields:</p>
+ <img src="/img/chronograf/1-7-kapacitor-connection-config.png" style="width:100%; max-width:600px;">
+<ul>
+<li><strong>Kapacitor URL</strong>: Enter the hostname or IP address of the Kapacitor instance and the port. The field is prefilled with  <code>http://localhost:9092</code>.</li>
+<li><strong>Name</strong>: Enter the name for this connection.</li>
+<li><strong>Username</strong>: Enter the username that will be shared for this connection.
+<em>Only required if <a href="/kapacitor/v1/administration/security/#kapacitor-authentication-and-authorization">authorization is enabled</a> on the Kapacitor instance or cluster to which you&rsquo;re connecting.</em></li>
+<li><strong>Password</strong>: Enter the password.
+<em>Only required if <a href="/kapacitor/v1/administration/security/#kapacitor-authentication-and-authorization">authorization is enabled</a> on the Kapacitor instance or cluster to which you&rsquo;re connecting.</em></li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Continue</strong>. If the connection is valid, the message &ldquo;Kapacitor Created! Configuring endpoints is optional.&rdquo; appears. To configure alert endpoints, see <a href="/chronograf/v1/guides/configuring-alert-endpoints/">Configuring alert endpoints</a>.</p>
+</li>
+</ol>
+<h2 id="manage-kapacitor-connections-using-kap-files">Manage Kapacitor connections using .kap files</h2>
+<p>Manually create <code>.kap</code> files to store Kapacitor connection details.
+<code>.kap</code> files are simple JSON files that contain key-value paired connection details.
+The location of <code>.kap</code> files is defined by the <code>--resources-path</code> command line option, which is, by default, the same as the <a href="/chronograf/v1/administration/config-options/#canned-path-c"><code>--canned-path</code></a>.
+A <code>.kap</code> files contains the details for a single InfluxDB connection.</p>
+<p>Create a new file named <code>example.kap</code> (the filename is arbitrary) and place it at Chronograf&rsquo;s <code>resource-path</code>.
+All <code>.kap</code> files should contain the following:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;srcID&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My Kapacitor&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;http://localhost:9092&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;active&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;example_org&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+<h4 id="id-1"><code>id</code></h4>
+<p>A unique, stringified non-negative integer.
+Using a 4 or 5 digit number is recommended to avoid interfering with existing datasource IDs.</p>
+<h4 id="srcid"><code>srcID</code></h4>
+<p>The unique, stringified non-negative integer <code>id</code> of the InfluxDB server or cluster with which the Kapacitor service is associated.</p>
+<h4 id="name-1"><code>name</code></h4>
+<p>Any string you want to use as the display name of the Kapacitor connection.</p>
+<h4 id="url-1"><code>url</code></h4>
+<p>URL of the Kapacitor server.</p>
+<h4 id="active"><code>active</code></h4>
+<p>If <code>true</code>, specifies that this is the Kapacitor connection that should be used when displaying Kapacitor-related information in Chronograf.</p>
+<h4 id="organization-1"><code>organization</code></h4>
+<p>The ID of the organization you want the Kapacitor connection to be associated with.</p>
+<h3 id="environment-variables-in-kap-files">Environment variables in .kap files</h3>
+<p><code>.kap</code> files support the use of environment variables to populate Kapacitor connection details.
+Environment variables can be loaded using the <code>&quot;{{ .VARIABLE_KEY }}&quot;</code> syntax:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;srcID&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;My Kapacitor&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;{{ .KAPACITOR_URL }}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;active&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;example_org&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+
+
+    
+
+    
+    
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb/v2/tools/chronograf/" >Use Chronograf with InfluxDB OSS</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/chronograf/" >Use Chronograf</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/chronograf/" >Use Chronograf</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/cloud-dedicated/process-data/visualize/chronograf/" >Use Chronograf</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/cloud-serverless/process-data/visualize/chronograf/" >Use Chronograf</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/clustered/process-data/visualize/chronograf/" >Use Chronograf</a></li>
+        
+      
+    
+    </ul>
+  </div>
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/chronograf/v1/administration/creating-connections.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6730/chronograf/v1/administration/creating-connections/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Select your <strong>InfluxDB Cloud region and cluster</strong> or your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll customize code examples for you. <em><a href="/influxdb/cloud/reference/regions/#regions-with-multiple-clusters">Identify your InfluxDB Cloud cluster</a></em>.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud regions</a> or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>New in InfluxDB 3.8</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
+1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
+operational maturity and making InfluxDB easier to deploy, manage, and run
+reliably in production.</p>
+<p>For more information, check out:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
+<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>February 3, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
