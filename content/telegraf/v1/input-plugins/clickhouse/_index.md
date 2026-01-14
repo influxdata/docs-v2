@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/clickhouse/README.md, ClickHouse Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/clickhouse/README.md, ClickHouse Plugin Source
 ---
 
 # ClickHouse Input Plugin

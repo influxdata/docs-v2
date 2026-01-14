@@ -10,7 +10,7 @@ introduced: "v1.27.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/intel_baseband/README.md, Intel Baseband Accelerator Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/intel_baseband/README.md, Intel Baseband Accelerator Plugin Source
 ---
 
 # Intel Baseband Accelerator Input Plugin
