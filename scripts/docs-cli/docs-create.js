@@ -22,14 +22,16 @@ import {
   analyzeURLs,
   loadProducts,
   analyzeStructure,
-} from './lib/content-scaffolding.js';
+} from '../lib/content-scaffolding.js';
 import {
   writeJson,
   readJson,
   fileExists,
   readDraft,
-} from './lib/file-operations.js';
-import { parseMultipleURLs } from './lib/url-parser.js';
+} from '../lib/file-operations.js';
+import { parseMultipleURLs } from '../lib/url-parser.js';
+import { resolveEditor } from './lib/editor-resolver.js';
+import { spawnEditor, shouldWait } from './lib/process-manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -138,6 +140,9 @@ function parseArguments() {
       yes: { type: 'boolean', default: false },
       help: { type: 'boolean', default: false },
       'follow-external': { type: 'boolean', default: false },
+      open: { type: 'boolean', default: false },
+      wait: { type: 'boolean', default: false },
+      editor: { type: 'string' },
     },
     allowPositionals: true,
   });
@@ -195,6 +200,9 @@ ${colors.bright}Options:${colors.reset}
   --proposal <path>   Import and execute proposal from JSON file
   --dry-run           Show what would be created without creating
   --yes               Skip confirmation prompt
+  --open              Open created files in editor after creation
+  --wait              Wait for editor to close (use with --open)
+  --editor <cmd>      Specify editor command (use with --open)
   --help              Show this help message
 
 ${colors.bright}Stdin Support:${colors.reset}
@@ -246,6 +254,27 @@ ${colors.bright}Examples:${colors.reset}
 
   # Include external links for context selection
   docs create --follow-external drafts/api-guide.md
+
+  # Open created files in editor (non-blocking)
+  docs create drafts/new-feature.md --open
+
+  # Open and wait for editor (blocking)
+  docs create drafts/new-feature.md --open --wait
+
+  # Use specific editor
+  docs create drafts/new-feature.md --open --editor nano
+
+${colors.bright}Editor Options:${colors.reset}
+  --open              Opens created files in your editor (non-blocking by default)
+  --wait              Waits for editor to close before exiting (use with --open)
+  --editor <cmd>      Specifies editor (e.g., vim, nano, "code --wait")
+
+  Editor resolution (priority order):
+    1. --editor flag
+    2. DOCS_EDITOR environment variable
+    3. VISUAL environment variable
+    4. EDITOR environment variable
+    5. System default
 
 ${colors.bright}Smart Behavior:${colors.reset}
   INSIDE Claude Code:
@@ -1181,6 +1210,34 @@ async function executePhase(options) {
       `  3. Test links: yarn test:links ${result.created[0].replace(/\/[^/]+$/, '/')}**/*.md`
     );
     log('  4. Commit changes: git add content/ && git commit');
+
+    // Open files in editor if --open flag is set
+    if (options.open) {
+      log('\n📝 Opening created files in editor...', 'bright');
+
+      try {
+        const editorCommand = resolveEditor(options.editor);
+        const filePaths = result.created.map(file => join(REPO_ROOT, file));
+        const wait = shouldWait(options.wait);
+
+        spawnEditor(editorCommand, filePaths, wait);
+
+        if (wait) {
+          log('✓ Editor closed', 'green');
+        } else {
+          log('   Editor will open in background (CLI exits immediately)', 'cyan');
+          log('   Use --wait flag to block until editor closes', 'cyan');
+          log('✓ Editor launched', 'green');
+        }
+      } catch (error) {
+        log(`\n✗ Failed to open editor: ${error.message}`, 'red');
+        log('\nFiles were created successfully but could not be opened.', 'yellow');
+        log('You can open them manually:', 'yellow');
+        result.created.forEach((file) => {
+          log(`  ${file}`, 'yellow');
+        });
+      }
+    }
   }
 
   if (result.errors.length > 0) {

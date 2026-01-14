@@ -10,7 +10,7 @@ introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/bind/README.md, BIND 9 Nameserver Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/bind/README.md, BIND 9 Nameserver Plugin Source
 ---
 
 # BIND 9 Nameserver Input Plugin
