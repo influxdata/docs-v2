@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-13 17:41:29 -0800 -0800">
+<meta name="last-modified" content="2026-01-14 10:03:49 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -3316,11 +3316,14 @@ and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>
 <p>You can also configure the connection when starting Chronograf:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-serverless <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cloud2.influxdata.com <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span>API_TOKEN <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span>BUCKET_NAME</span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit API_TOKEN' class='code-placeholder' data-code-var='API_TOKEN' data-code-var-value='API_TOKEN' data-code-var-escaped="API_TOKEN">API_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit BUCKET_NAME' class='code-placeholder' data-code-var='BUCKET_NAME' data-code-var-value='BUCKET_NAME' data-code-var-escaped="BUCKET_NAME">BUCKET_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
 <p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
 <h2 id="query-data-in-the-data-explorer">Query data in the Data Explorer</h2>
 <ol>

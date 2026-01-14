@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-13 17:41:29 -0800 -0800">
+<meta name="last-modified" content="2026-01-14 10:03:49 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1219,8 +1219,12 @@
 <li><a href="#usage">Usage</a></li>
 <li><a href="#chronograf-service-options">Chronograf service options</a>
 <ul>
-<li><a href="#influxdb-connection-options">InfluxDB connection options</a></li>
-<li><a href="#influxdb-3-connection-options">InfluxDB 3 connection options</a></li>
+<li><a href="#influxdb-connection-options">InfluxDB connection options</a>
+<ul>
+<li><a href="#connect-to-influxdb-v1-or-v2">Connect to InfluxDB v1 or v2</a></li>
+<li><a href="#connect-to-influxdb-3">Connect to InfluxDB 3</a></li>
+</ul>
+</li>
 <li><a href="#kapacitor-connection-options">Kapacitor connection options</a></li>
 <li><a href="#tls-transport-layer-security-options">TLS (Transport Layer Security) options</a></li>
 <li><a href="#etcd-options">etcd options</a></li>
@@ -1318,6 +1322,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ chronograf -v
 </span></span><span class="line"><span class="cl">2018/01/03 14:11:19 Chronograf  <span class="o">(</span>git: b74ae387<span class="o">)</span></span></span></code></pre></div>
 <h2 id="influxdb-connection-options">InfluxDB connection options</h2>
+<h3 id="connect-to-influxdb-v1-or-v2">Connect to InfluxDB v1 or v2</h3>
 
 <div class="note block">
   <p>InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
@@ -1328,23 +1333,23 @@ Configure InfluxDB 2.x and Cloud connections with CLI flags or in the
 
 </div>
 
-<h3 id="--influxdb-url"><code>--influxdb-url</code></h3>
+<h4 id="--influxdb-url"><code>--influxdb-url</code></h4>
 <p>The location of your InfluxDB instance, including the protocol, IP address, and port.</p>
 <p>Example: <code>--influxdb-url http://localhost:8086</code></p>
 <p>Environment variable: <code>$INFLUXDB_URL</code></p>
-<h3 id="--influxdb-username"><code>--influxdb-username</code></h3>
+<h4 id="--influxdb-username"><code>--influxdb-username</code></h4>
 <p>The [username] for your InfluxDB instance.</p>
 <p>Environment variable: <code>$INFLUXDB_USERNAME</code></p>
-<h3 id="--influxdb-password"><code>--influxdb-password</code></h3>
+<h4 id="--influxdb-password"><code>--influxdb-password</code></h4>
 <p>The [password] for your InfluxDB instance.</p>
 <p>Environment variable: <code>$INFLUXDB_PASSWORD</code></p>
-<h3 id="--influxdb-org"><code>--influxdb-org</code></h3>
+<h4 id="--influxdb-org"><code>--influxdb-org</code></h4>
 <p>InfluxDB 2.x or InfluxDB Cloud organization name.</p>
 <p>Environment variable: <code>$INFLUXDB_ORG</code></p>
-<h3 id="--influxdb-token"><code>--influxdb-token</code></h3>
+<h4 id="--influxdb-token"><code>--influxdb-token</code></h4>
 <p>InfluxDB 2.x or InfluxDB Cloud <a href="/influxdb/cloud/admin/tokens/">authentication token</a>.</p>
 <p>Environment variable: <code>$INFLUXDB_TOKEN</code></p>
-<h2 id="influxdb-3-connection-options">InfluxDB 3 connection options</h2>
+<h3 id="connect-to-influxdb-3">Connect to InfluxDB 3</h3>
 
 <div class="note block">
   <p>To connect Chronograf to InfluxDB 3 products, you must enable InfluxDB 3 support when starting Chronograf.
@@ -1353,11 +1358,11 @@ Use the following options to configure connections to InfluxDB 3 Core, InfluxDB 
 
 </div>
 
-<h3 id="--influxdb-v3-support-enabled"><code>--influxdb-v3-support-enabled</code></h3>
+<h4 id="--influxdb-v3-support-enabled"><code>--influxdb-v3-support-enabled</code></h4>
 <p><span class="req  ">Required</span> Enable InfluxDB 3 support in Chronograf.
 This flag is required to connect to any InfluxDB 3 product.</p>
 <p>Environment variable: <code>$INFLUXDB_V3_SUPPORT_ENABLED</code></p>
-<h3 id="--influxdb-type"><code>--influxdb-type=</code></h3>
+<h4 id="--influxdb-type"><code>--influxdb-type=</code></h4>
 <p>The type of InfluxDB backend to connect to.
 Use with <code>--influxdb-v3-support-enabled</code> to configure a default InfluxDB 3 connection on startup.</p>
 <p>Valid values:</p>
@@ -1393,26 +1398,26 @@ Use with <code>--influxdb-v3-support-enabled</code> to configure a default Influ
 </table>
 <p>Example: <code>--influxdb-type=influx-v3-core</code></p>
 <p>Environment variable: <code>$INFLUXDB_TYPE</code></p>
-<h3 id="--influxdb-cluster-id"><code>--influxdb-cluster-id=</code></h3>
+<h4 id="--influxdb-cluster-id"><code>--influxdb-cluster-id=</code></h4>
 <p><em>InfluxDB Cloud Dedicated only.</em>
 The cluster ID for your InfluxDB Cloud Dedicated cluster.
 Required when using management features with Cloud Dedicated.</p>
 <p>Environment variable: <code>$INFLUXDB_CLUSTER_ID</code></p>
-<h3 id="--influxdb-account-id"><code>--influxdb-account-id=</code></h3>
+<h4 id="--influxdb-account-id"><code>--influxdb-account-id=</code></h4>
 <p><em>InfluxDB Cloud Dedicated only.</em>
 The account ID for your InfluxDB Cloud Dedicated account.
 Required when using management features with Cloud Dedicated.</p>
 <p>Environment variable: <code>$INFLUXDB_ACCOUNT_ID</code></p>
-<h3 id="--influxdb-mgmt-token"><code>--influxdb-mgmt-token=</code></h3>
+<h4 id="--influxdb-mgmt-token"><code>--influxdb-mgmt-token=</code></h4>
 <p><em>InfluxDB Cloud Dedicated and InfluxDB Clustered only.</em>
 A management token for administrative operations.
 When provided, enables database management features in Chronograf.</p>
 <p>Environment variable: <code>$INFLUXDB_MGMT_TOKEN</code></p>
-<h3 id="--influxdb-default-db"><code>--influxdb-default-db=</code></h3>
+<h4 id="--influxdb-default-db"><code>--influxdb-default-db=</code></h4>
 <p>The default database to use when connecting to an InfluxDB 3 instance.
 When set, Chronograf limits queries to this database.</p>
 <p>Environment variable: <code>$INFLUXDB_DEFAULT_DB</code></p>
-<h3 id="--tags-csv-path"><code>--tags-csv-path=</code></h3>
+<h4 id="--tags-csv-path"><code>--tags-csv-path=</code></h4>
 <p><em>InfluxDB Cloud Dedicated only.</em>
 Path to a directory containing CSV files that predefine tags for the query builder and control filters.</p>
 <p>CSV file requirements:</p>
@@ -1428,7 +1433,7 @@ Path to a directory containing CSV files that predefine tags for the query build
 home;room;cellar
 home;room;attic</code></pre>
 <p>Environment variable: <code>$TAGS_CSV_PATH</code></p>
-<h3 id="--influxdb-v3-time-condition"><code>--influxdb-v3-time-condition=</code></h3>
+<h4 id="--influxdb-v3-time-condition"><code>--influxdb-v3-time-condition=</code></h4>
 <p>The time condition used to limit tag value queries when setting up variables with dynamic tag values.
 Tags from records older than this time condition are ignored.</p>
 <p>Default value: <code>time &gt; now() - 7d</code></p>

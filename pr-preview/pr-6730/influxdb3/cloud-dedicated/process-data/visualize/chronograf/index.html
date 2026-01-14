@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-13 17:41:29 -0800 -0800">
+<meta name="last-modified" content="2026-01-14 10:03:49 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2789,7 +2789,10 @@ This page walks through how to use Chronograf with <strong>InfluxDB Cloud Dedica
 <section class="tab-content">
   
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB_V3_SUPPORT_ENABLED</span><span class="o">=</span><span class="nb">true</span>
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit INFLUXDB_V3_SUPPORT_ENABLED' class='code-placeholder' data-code-var='INFLUXDB_V3_SUPPORT_ENABLED' data-code-var-value='INFLUXDB_V3_SUPPORT_ENABLED' data-code-var-escaped="INFLUXDB_V3_SUPPORT_ENABLED">INFLUXDB_V3_SUPPORT_ENABLED<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="o">=</span><span class="nb">true</span>
 </span></span><span class="line"><span class="cl">chronograf</span></span></code></pre></div>
 
 </section>
@@ -2823,25 +2826,58 @@ This page walks through how to use Chronograf with <strong>InfluxDB Cloud Dedica
 <p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
 </li>
 </ul>
-<h4 id="management-fields-optional">Management fields <em>(optional)</em></h4>
-<p>To enable database management features, provide the following:</p>
-<ul>
-<li><strong>Cluster ID:</strong> Your InfluxDB Cloud Dedicated cluster ID (found in your <code>influxctl</code> configuration)</li>
-<li><strong>Account ID:</strong> Your InfluxDB Cloud Dedicated account ID (found in your <code>influxctl</code> configuration)</li>
-<li><strong>Management Token:</strong> A <a href="/influxdb3/cloud-dedicated/admin/tokens/management/">management token</a> for administrative operations</li>
-</ul>
-<h4 id="database-access-fields">Database access fields</h4>
-<ul>
-<li><strong>Database Token:</strong> InfluxDB <a href="/influxdb3/cloud-dedicated/admin/tokens/#database-tokens">database token</a>
-with read permissions on the database you want to query</li>
-<li><strong>Default Database:</strong> <em>(Optional)</em> Default <a href="/influxdb3/cloud-dedicated/admin/databases/">database</a>
-to use. When set, Chronograf limits queries to this database.</li>
-<li><strong>Tags CSV Directory Path:</strong> <em>(Optional)</em> Path to a directory containing CSV files
-that predefine tags for the query builder (see <a href="#tags-csv-files">Tags CSV files</a>)</li>
-<li><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb3/cloud-dedicated/admin/databases/">database</a>
-Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</li>
-<li><strong>Unsafe SSL:</strong> Enable to skip SSL certificate verification for self-signed certificates</li>
-</ul>
+<div class="expand-wrapper">
+  
+    
+
+
+<div class="expand" id="management-fields-_optional_">
+  <a class="expand-link" href="#management-fields-_optional_"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Management fields <em>(optional)</em></span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <pre><code>To enable database management features, provide the following:
+
+- **Cluster ID:** Your InfluxDB Cloud Dedicated cluster ID (found in your `influxctl` configuration)
+- **Account ID:** Your InfluxDB Cloud Dedicated account ID (found in your `influxctl` configuration)
+- **Management Token:** A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for administrative operations
+</code></pre>
+
+  </div>
+</div>
+
+    
+</div>
+
+<div class="expand-wrapper">
+  
+    
+
+
+<div class="expand" id="database-access-fields">
+  <a class="expand-link" href="#database-access-fields"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Database access fields</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <pre><code>- **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  with read permissions on the database you want to query
+- **Default Database:** _(Optional)_ Default [database](/influxdb3/cloud-dedicated/admin/databases/)
+  to use. When set, Chronograf limits queries to this database.
+- **Tags CSV Directory Path:** _(Optional)_ Path to a directory containing CSV files
+  that predefine tags for the query builder (see [Tags CSV files](#tags-csv-files))
+- **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
+  Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+- **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
+</code></pre>
+
+  </div>
+</div>
+
+    
+</div>
+
  <img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
 </li>
 <li>
@@ -2863,23 +2899,29 @@ and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>
 <h4 id="with-management-features">With management features</h4>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-cloud-dedicated <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cluster-id.a.influxdb.io <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span>DATABASE_TOKEN <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-mgmt-token<span class="o">=</span>MANAGEMENT_TOKEN <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-cluster-id<span class="o">=</span>CLUSTER_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-account-id<span class="o">=</span>ACCOUNT_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span>DATABASE_NAME <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-mgmt-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit MANAGEMENT_TOKEN' class='code-placeholder' data-code-var='MANAGEMENT_TOKEN' data-code-var-value='MANAGEMENT_TOKEN' data-code-var-escaped="MANAGEMENT_TOKEN">MANAGEMENT_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-cluster-id<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-account-id<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit ACCOUNT_ID' class='code-placeholder' data-code-var='ACCOUNT_ID' data-code-var-value='ACCOUNT_ID' data-code-var-escaped="ACCOUNT_ID">ACCOUNT_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --tags-csv-path<span class="o">=</span>/path/to/tags</span></span></code></pre></div>
 <h4 id="without-management-features">Without management features</h4>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-cloud-dedicated <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cluster-id.a.influxdb.io <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span>DATABASE_TOKEN <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span>DATABASE_NAME</span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
 <p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
 <h3 id="tags-csv-files">Tags CSV files</h3>
 <p>For InfluxDB Cloud Dedicated, you can predefine tags for the query builder and control filters using CSV files.</p>
