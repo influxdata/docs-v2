@@ -10,7 +10,7 @@ introduced: "v1.26.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/opensearch_query/README.md, OpenSearch Query Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/opensearch_query/README.md, OpenSearch Query Plugin Source
 ---
 
 # OpenSearch Query Input Plugin

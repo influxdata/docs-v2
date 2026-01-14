@@ -10,7 +10,7 @@ introduced: "v1.1.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/iptables/README.md, Iptables Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/iptables/README.md, Iptables Plugin Source
 ---
 
 # Iptables Input Plugin
