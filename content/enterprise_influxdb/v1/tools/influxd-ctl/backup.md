@@ -142,7 +142,7 @@ influxd-ctl backup -shard 00 /path/to/backup-dir
 
 ### Backup data with configured compression
 
-Example of fastest possible compression speeds for backup
+The following example uses the fastest possible compression speeds for backup:
 ```sh
 influxd-ctl backup -strategy full -gzipBlockSize 10048576 -gzipBlockCount 28 -gzipCompressionLevel none .
 ```
