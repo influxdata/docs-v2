@@ -337,10 +337,7 @@ describe('RapiDoc Mini component', () => {
  * Tests that API section pages show only tags (immediate children)
  */
 describe('API section page structure', () => {
-  const sectionPages = [
-    '/influxdb3/core/api/',
-    '/influxdb3/enterprise/api/',
-  ];
+  const sectionPages = ['/influxdb3/core/api/', '/influxdb3/enterprise/api/'];
 
   sectionPages.forEach((page) => {
     describe(`Section page ${page}`, () => {
@@ -417,15 +414,24 @@ describe('All endpoints page', () => {
       });
 
       it('operation cards have method badges', () => {
-        cy.get('.api-operation-card .api-method').should('have.length.at.least', 10);
+        cy.get('.api-operation-card .api-method').should(
+          'have.length.at.least',
+          10
+        );
       });
 
       it('operation cards have path codes', () => {
-        cy.get('.api-operation-card .api-path').should('have.length.at.least', 10);
+        cy.get('.api-operation-card .api-path').should(
+          'have.length.at.least',
+          10
+        );
       });
 
       it('operation cards link to operation pages', () => {
-        cy.get('.api-operation-card').first().should('have.attr', 'href').and('match', /\/api\//);
+        cy.get('.api-operation-card')
+          .first()
+          .should('have.attr', 'href')
+          .and('match', /\/api\//);
       });
 
       it('is accessible from navigation', () => {

@@ -1217,7 +1217,7 @@ async function executePhase(options) {
 
       try {
         const editorCommand = resolveEditor(options.editor);
-        const filePaths = result.created.map(file => join(REPO_ROOT, file));
+        const filePaths = result.created.map((file) => join(REPO_ROOT, file));
         const wait = shouldWait(options.wait);
 
         spawnEditor(editorCommand, filePaths, wait);
@@ -1225,13 +1225,19 @@ async function executePhase(options) {
         if (wait) {
           log('✓ Editor closed', 'green');
         } else {
-          log('   Editor will open in background (CLI exits immediately)', 'cyan');
+          log(
+            '   Editor will open in background (CLI exits immediately)',
+            'cyan'
+          );
           log('   Use --wait flag to block until editor closes', 'cyan');
           log('✓ Editor launched', 'green');
         }
       } catch (error) {
         log(`\n✗ Failed to open editor: ${error.message}`, 'red');
-        log('\nFiles were created successfully but could not be opened.', 'yellow');
+        log(
+          '\nFiles were created successfully but could not be opened.',
+          'yellow'
+        );
         log('You can open them manually:', 'yellow');
         result.created.forEach((file) => {
           log(`  ${file}`, 'yellow');

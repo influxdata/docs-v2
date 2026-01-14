@@ -27,9 +27,7 @@ function test(name, fn) {
 
 function assertEquals(actual, expected, message) {
   if (actual !== expected) {
-    throw new Error(
-      message || `Expected ${expected}, got ${actual}`
-    );
+    throw new Error(message || `Expected ${expected}, got ${actual}`);
   }
 }
 
