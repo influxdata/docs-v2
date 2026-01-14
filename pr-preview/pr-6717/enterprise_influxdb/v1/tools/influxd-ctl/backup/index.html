@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-09 11:52:23 -0600 -0600">
+<meta name="last-modified" content="2026-01-14 09:22:46 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2412,7 +2412,7 @@ the system automatically performs a full backup.</li>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -shard <span class="m">00</span> /path/to/backup-dir</span></span></code></pre></div>
 <h3 id="backup-data-with-configured-compression">Backup data with configured compression</h3>
-<p>Example of fastest possible compression speeds for backup</p>
+<p>The following example uses the fastest possible compression speeds for backup:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -strategy full -gzipBlockSize <span class="m">10048576</span> -gzipBlockCount <span class="m">28</span> -gzipCompressionLevel none .</span></span></code></pre></div>
