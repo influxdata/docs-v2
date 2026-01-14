@@ -43,7 +43,7 @@ chronograf --influxdb-v3-support-enabled
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
-```sh
+```sh { placeholders="INFLUXDB_V3_SUPPORT_ENABLED" }
 export INFLUXDB_V3_SUPPORT_ENABLED=true
 chronograf
 ```
@@ -71,7 +71,8 @@ chronograf
 
     - **Connection Name:** Name to uniquely identify this connection configuration
 
-    #### Management fields _(optional)_
+    {{< expand-wrapper >}}
+    {{% expand "Management fields _(optional)_" %}}
 
     To enable database management features, provide the following:
 
@@ -79,7 +80,11 @@ chronograf
     - **Account ID:** Your {{% product-name %}} account ID (found in your `influxctl` configuration)
     - **Management Token:** A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for administrative operations
 
-    #### Database access fields
+    {{% /expand %}}
+    {{< /expand-wrapper >}}
+
+    {{< expand-wrapper >}}
+    {{% expand "Database access fields" %}}
 
     - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
       with read permissions on the database you want to query
@@ -90,6 +95,9 @@ chronograf
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
+
+    {{% /expand %}}
+    {{< /expand-wrapper >}}
 
     <img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
 
@@ -105,7 +113,7 @@ You can configure the connection when starting Chronograf.
 
 #### With management features
 
-```sh
+```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|DATABASE_TOKEN|MANAGEMENT_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-cloud-dedicated \
   --influxdb-url=https://{{< influxdb/host >}} \
@@ -119,7 +127,7 @@ chronograf --influxdb-v3-support-enabled \
 
 #### Without management features
 
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-cloud-dedicated \
   --influxdb-url=https://{{< influxdb/host >}} \
