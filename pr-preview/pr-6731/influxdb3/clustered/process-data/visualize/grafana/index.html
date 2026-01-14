@@ -46,10 +46,10 @@
 
 
 
-<title>Use Chronograf with InfluxDB Clustered | &lt;nil&gt; Documentation</title>
+<title>Use Grafana with InfluxDB Clustered | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x. Learn how to use Chronograf with InfluxDB Clustered.">
+    <meta name="description" content="Install and run Grafana to query and visualize data stored in InfluxDB.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,108 @@
 
 
 
+  
+  
+    
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/chronograf/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/grafana/" />
 
     
 <style>
@@ -268,7 +366,7 @@
   
   
   
-  <a href='/influxdb3/core/visualize-data/chronograf/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/visualize-data/grafana/' >InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -278,7 +376,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/visualize-data/chronograf/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/visualize-data/grafana/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -337,7 +435,7 @@
   
   
   
-  <a href='/influxdb/v2/tools/chronograf/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/tools/grafana/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -347,7 +445,7 @@
   
   
   
-  <a href='/influxdb/cloud/tools/chronograf/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/tools/grafana/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -1195,13 +1293,13 @@
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/chronograf/'>Use Chronograf</a>
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/grafana/'>Use Grafana</a>
       
@@ -2777,7 +2875,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Use Chronograf to visualize data</h1>
+      <h1>Use Grafana to query and visualize data</h1>
       
 
 
@@ -2786,14 +2884,6 @@
 
 
       
-<ul class="metadata">
-
-  <li>InfluxQL only</li>
-  
-  
-  
-</ul>
-
       <div
   class="format-selector"
   data-component="format-selector"
@@ -2891,21 +2981,217 @@
 
 
 
-  <p><a href="/chronograf/v1/">Chronograf</a> is a data visualization and dashboarding
-tool designed to visualize data in InfluxDB 1.x using the <strong>InfluxQL</strong> query language.
-This page walks through how to use Chronograf with <strong>InfluxDB Clustered</strong>.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+  
+  <p>Use <a href="https://grafana.com/">Grafana</a> or <a href="https://grafana.com/products/cloud/">Grafana Cloud</a>
+to query and visualize data from InfluxDB Clustered.</p>
+
+<div class="block note">
+  
+  
+  
+
+
+
+
+<h4 id="identify-your-influxdb-version">Identify your InfluxDB version</h4>
+
+<p>
+If you are unsure which InfluxDB product you are using, use our interactive version detector to help identify it:</p>
+
+<p>
+  
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  
+</p>
+
+
+</div>
+
+<blockquote>
+<p>[Grafana] enables you to query, visualize, alert on, and explore your metrics,
+logs, and traces wherever they are stored.
+[Grafana] provides you with tools to turn your time-series database (TSDB)
+data into insightful graphs and visualizations.</p>
+<p><span class="cite">&ndash; <a href="https://grafana.com/docs/grafana/latest/introduction/">Grafana documentation</a></span></p>
+
+</blockquote>
 <ul>
-<li><a href="/chronograf/v1/introduction/installation/#download-and-install">Download and install Chronograf</a></li>
-<li>An InfluxDB Clustered cluster with:
-<ul>
-<li>A <a href="/influxdb3/clustered/admin/databases/">database</a> to query</li>
-<li>A <a href="/influxdb3/clustered/admin/tokens/database/">database token</a> with read permissions</li>
+<li><a href="#install-grafana-or-log-in-to-grafana-cloud">Install Grafana or log in to Grafana Cloud</a></li>
+<li><a href="#influxdb-data-source">InfluxDB data source</a></li>
+<li><a href="#before-you-begin">Before you begin</a></li>
+<li><a href="#create-an-influxdb-data-source">Create an InfluxDB data source</a></li>
+<li><a href="#query-and-visualize-data">Query and visualize data</a></li>
 </ul>
+<h2 id="install-grafana-or-log-in-to-grafana-cloud">Install Grafana or log in to Grafana Cloud</h2>
+<ol>
+<li>
+<p><a href="https://grafana.com/products/cloud/">Sign up for Grafana Cloud</a> or follow the
+<a href="https://grafana.com/docs/grafana/latest/setup-grafana/installation/">Grafana installation instructions</a>
+to install Grafana for your operating system.</p>
 </li>
+<li>
+<p>If running Grafana locally, enable the <code>newInfluxDSConfigPageDesign</code> feature flag to use the latest InfluxDB data source plugin.</p>
+<div class="expand-wrapper">
+  
+   
+
+
+<div class="expand" id="option-1-configuration-file-recommended">
+  <a class="expand-link" href="#option-1-configuration-file-recommended"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Option 1: Configuration file (recommended)</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Add the following to your <code>grafana.ini</code> configuration file:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[feature_toggles]</span>
+</span></span><span class="line"><span class="cl"><span class="na">enable</span> <span class="o">=</span> <span class="s">newInfluxDSConfigPageDesign</span></span></span></code></pre></div>
+<p>Configuration file locations:</p>
+<ul>
+<li><strong>Linux</strong>: <code>/etc/grafana/grafana.ini</code></li>
+<li><strong>macOS (Homebrew)</strong>: <code>/opt/homebrew/etc/grafana/grafana.ini</code></li>
+<li><strong>Windows</strong>: <code>&lt;GRAFANA_INSTALL_DIR&gt;\conf\grafana.ini</code></li>
 </ul>
-<h2 id="enable-influxdb-3-support">Enable InfluxDB 3 support</h2>
-<p>To connect Chronograf to InfluxDB Clustered, start Chronograf with InfluxDB 3 support enabled using one of the following methods:</p>
+
+  </div>
+</div>
+
+
+   
+
+
+<div class="expand" id="option-2-command-line">
+  <a class="expand-link" href="#option-2-command-line"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Option 2: Command line</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Enable the feature flag when starting Grafana:</p>
+<div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">Linux</a>
+<a href="#">macOS (Homebrew)</a>
+<a href="#">Windows</a></p>
+</div>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">grafana-server --config /etc/grafana/grafana.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.feature_toggles.enable<span class="o">=</span>newInfluxDSConfigPageDesign</span></span></code></pre></div>
+</section>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">/opt/homebrew/opt/grafana/bin/grafana server <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --config /opt/homebrew/etc/grafana/grafana.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --homepath /opt/homebrew/opt/grafana/share/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --packaging<span class="o">=</span>brew <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.logs<span class="o">=</span>/opt/homebrew/var/log/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.data<span class="o">=</span>/opt/homebrew/var/lib/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.plugins<span class="o">=</span>/opt/homebrew/var/lib/grafana/plugins <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.feature_toggles.enable<span class="o">=</span>newInfluxDSConfigPageDesign</span></span></code></pre></div>
+</section>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">grafana-server</span><span class="p">.</span><span class="py">exe</span> <span class="p">-</span><span class="n">-config</span> <span class="p">&lt;</span><span class="n">GRAFANA_INSTALL_DIR</span><span class="p">&gt;\</span><span class="n">conf</span><span class="p">\</span><span class="n">grafana</span><span class="p">.</span><span class="py">ini</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cfg</span><span class="err">:</span><span class="k">default</span><span class="p">.</span><span class="py">feature_toggles</span><span class="p">.</span><span class="n">enable</span><span class="p">=</span><span class="n">newInfluxDSConfigPageDesign</span></span></span></code></pre></div>
+</section>
+</div>
+
+  </div>
+</div>
+
+   
+</div>
+
+<p>For more information, see <a href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/">Configure feature toggles</a> in the Grafana documentation.</p>
+</li>
+<li>
+<p>Visit your <strong>Grafana Cloud user interface</strong> (UI) or, if running Grafana locally,
+<a href="https://grafana.com/docs/grafana/latest/installation/">start Grafana</a> and visit
+<a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
+</li>
+</ol>
+<h2 id="influxdb-data-source">InfluxDB data source</h2>
+<p>The InfluxDB data source plugin is included in the Grafana core distribution.
+Use the plugin to query and visualize data from InfluxDB Clustered with
+both SQL and InfluxQL.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="grafana-122">Grafana 12.2+</h4>
+<p>The instructions below are for <strong>Grafana 12.2+</strong> with the <code>newInfluxDSConfigPageDesign</code>
+feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
+The updated plugin includes <strong>SQL support</strong> for InfluxDB 3-based products such
+as InfluxDB Clustered, and the interface dynamically adapts based on your
+product and query language selection in <a href="#configure-url-and-authentication">URL and authentication</a>.</p>
+</div>
+<h2 id="before-you-begin">Before you begin</h2>
+<p><strong>Prerequisites:</strong></p>
+<ul>
+<li>Grafana 12.2 or later</li>
+<li>Administrator role in Grafana</li>
+<li></li>
+</ul>
+<h3 id="quick-reference-hahahugoshortcode2707s10hbhb-configuration">Quick reference: InfluxDB Clustered configuration</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Configuration</th>
+          <th style="text-align: left">Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Product selection</strong></td>
+          <td style="text-align: left"><strong>InfluxDB Clustered</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>URL</strong></td>
+          <td style="text-align: left">&ndash;for example, <code>https://cluster-host.com</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Query languages</strong></td>
+          <td style="text-align: left">SQL (requires HTTP/2), InfluxQL</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Authentication</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Database/Bucket</strong></td>
+          <td style="text-align: left">Database name</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="create-an-influxdb-data-source">Create an InfluxDB data source</h2>
+<ol>
+<li>In your Grafana interface, click <strong>Connections</strong> in the left sidebar.</li>
+<li>Click <strong>Data sources</strong>.</li>
+<li>Click <strong>Add new data source</strong>.</li>
+<li>Search for and select <strong>InfluxDB</strong>. The InfluxDB data source configuration page displays.</li>
+<li>In the <strong>Settings</strong> tab, enter a <strong>Name</strong> for your data source.</li>
+</ol>
+<h3 id="configure-url-and-authentication">Configure URL and authentication</h3>
+<p>In the <strong>URL and authentication</strong> section, configure the following:</p>
+<ul>
+<li><strong>URL</strong>: Your InfluxDB Clustered&ndash;for example, <code>https://cluster-host.com</code></li>
+<li><strong>Product</strong>: From the dropdown, select <strong>InfluxDB Clustered</strong></li>
+<li><strong>Query Language</strong>: Select <strong>SQL</strong> or <strong>InfluxQL</strong></li>
+<li><em>(Optional)</em> <strong>Advanced HTTP Settings</strong>, <strong>Auth</strong>, and <strong>TLS/SSL Settings</strong> as needed for your environment</li>
+</ul>
+<h3 id="configure-database-settings">Configure database settings</h3>
+<p>The fields in this section change based on your query language selection in <a href="#configure-url-and-authentication">URL and authentication</a>.</p>
 
 <div class="tabs-wrapper">
   
@@ -2914,190 +3200,191 @@ This page walks through how to use Chronograf with <strong>InfluxDB Clustered</s
 
 
 <div class="tabs">
-  <p><a href="#">CLI flag</a>
-<a href="#">Environment variable</a></p>
+  <p><a href="#">SQL</a>
+<a href="#">InfluxQL</a></p>
 
 </div>
 
 
 <section class="tab-content">
-  
+  <!--------------------------------- BEGIN SQL --------------------------------->
+<h4 id="sql-configuration">SQL configuration</h4>
+<p>When you select <strong>SQL</strong> as the query language, configure the following fields:</p>
+<ul>
+<li>
+<p><strong>Database</strong>: Your <a href="/influxdb3/version/admin/databases/">database</a> name.</p>
+</li>
+<li>
+<p><strong>Token</strong>:</p>
+</li>
+</ul>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled</span></span></code></pre></div>
+<div class="block important">
+  
+  
+  <h4 id="grafana-queries-through-a-proxy-require-http2">Grafana queries through a proxy require HTTP/2</h4>
+<p>For SQL queries, Grafana uses the Flight SQL protocol (gRPC) to query InfluxDB Clustered, which requires <strong>HTTP/2</strong>.
+If you query InfluxDB Clustered through a proxy (such as HAProxy, nginx, or a load balancer),
+verify that your proxy is configured to support HTTP/2.
+Without HTTP/2 support, SQL queries through Grafana will fail to connect.</p>
+<p>InfluxQL queries use HTTP/1.1 and are not affected by this requirement.</p>
+</div>
+<p>Click <strong>Save &amp; test</strong>. Grafana attempts to connect to InfluxDB Clustered and returns the result of the test.</p>
+<!---------------------------------- END SQL ---------------------------------->
 
 </section>
 
 
 <section class="tab-content">
-  
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB_V3_SUPPORT_ENABLED</span><span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="cl">chronograf</span></span></code></pre></div>
+  <!------------------------------- BEGIN INFLUXQL ------------------------------>
+<h4 id="influxql-configuration">InfluxQL configuration</h4>
+<p>When you select <strong>InfluxQL</strong> as the query language, configure the following fields:</p>
+<ul>
+<li>
+<p><strong>Database</strong>: Your <a href="/influxdb3/version/admin/databases/">database</a> name.</p>
+</li>
+<li>
+<p><strong>User</strong>: A username (can be any non-empty value).</p>
+</li>
+<li>
+<p><strong>Password</strong>: Your <a href="/influxdb3/version/admin/tokens/#database-tokens">database token</a> with read access to the database.</p>
+</li>
+<li>
+<p><strong>HTTP Method</strong>: Select <strong>POST</strong> (recommended) or <strong>GET</strong></p>
+</li>
+</ul>
+<p>Click <strong>Save &amp; test</strong>. Grafana attempts to connect to InfluxDB Clustered and returns the result of the test.</p>
+<!-------------------------------- END INFLUXQL ------------------------------->
 
 </section>
 
 
 </div>
 
-<h2 id="create-an-influxdb-connection">Create an InfluxDB connection</h2>
-<ol>
-<li>
-<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-<p><img src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page"></p>
-</li>
-<li>
-<p>In the <strong>Server Type</strong> dropdown, select <strong>InfluxDB Clustered</strong>.</p>
- <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
-</li>
-<li>
-<p>Enter your InfluxDB Clustered connection credentials:</p>
-<ul>
-<li>
-<p><strong>Connection URL:</strong> InfluxDB cluster URL</p>
+<h2 id="query-and-visualize-data">Query and visualize data</h2>
+<p>With your InfluxDB connection configured, use Grafana to query and visualize time series data.</p>
+<h3 id="query-influxdb-with-grafana">Query InfluxDB with Grafana</h3>
+<p>After you <a href="#create-an-influxdb-data-source">configure and save an InfluxDB datasource</a>,
+use Grafana to build, run, and inspect queries against InfluxDB Clustered.</p>
 
-
-<pre tabindex="0"><code>https://cluster-host.com</code></pre>
-</li>
-<li>
-<p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
-</li>
-<li>
-<p><strong>Management Token:</strong> <em>(Optional)</em> A <a href="/influxdb3/clustered/admin/tokens/management/">management token</a>
-for administrative operations</p>
-</li>
-<li>
-<p><strong>Database Token:</strong> InfluxDB <a href="/influxdb3/clustered/admin/tokens/database/">database token</a>
-with read permissions on the database you want to query</p>
-</li>
-<li>
-<p><strong>Default Database:</strong> <em>(Optional)</em> Default <a href="/influxdb3/clustered/admin/databases/">database</a>
-to use. When set, Chronograf limits queries to this database.</p>
-</li>
-<li>
-<p><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb3/clustered/admin/databases/">database</a>
-Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
-</li>
-<li>
-<p><strong>Unsafe SSL:</strong> Enable to skip SSL certificate verification for self-signed certificates</p>
-</li>
-</ul>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/clustered-connection.png' alt='Chronograf InfluxDB Clustered connection configuration' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-</li>
-<li>
-<p>Select the dashboards you would like to create, and then click <strong>Next</strong>.</p>
-</li>
-<li>
-<p>To configure a Kapacitor connection, provide the necessary credentials,
-and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Finish</strong>.</p>
-</li>
-</ol>
-<h3 id="configure-connection-via-cli">Configure connection via CLI</h3>
-<p>You can also configure the connection when starting Chronograf:</p>
-<p>Replace the following:</p>
-<ul>
-<li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: <a href="/influxdb3/clustered/admin/databases/">Database</a> name</li>
-<li><span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span>: <a href="/influxdb3/clustered/admin/tokens/#database-tokens">Database token</a> with read permissions</li>
-<li><span class="code-placeholder-key"><code>MANAGEMENT_TOKEN</code></span>: <a href="/influxdb3/clustered/admin/tokens/#management-tokens">Management token</a></li>
-</ul>
-
-
+<div class="tabs-wrapper">
   
-  
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-clustered <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cluster-host.com <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-mgmt-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit MANAGEMENT_TOKEN' class='code-placeholder' data-code-var='MANAGEMENT_TOKEN' data-code-var-value='MANAGEMENT_TOKEN' data-code-var-escaped="MANAGEMENT_TOKEN">MANAGEMENT_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
-<p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
-<h2 id="query-data-in-the-data-explorer">Query data in the Data Explorer</h2>
-<ol>
-<li>In Chronograf, click <strong><span class="inline icon-data-explorer middle large"></span> Explore</strong> in the left navigation bar.</li>
-<li>Build and submit InfluxQL queries.</li>
-</ol>
+
+
+
+
+<div class="tabs">
+  <p><a href="#">SQL</a>
+<a href="#">InfluxQL</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!--------------------------------- BEGIN SQL --------------------------------->
 
 <div class="block note">
   
   
-  <h4 id="schema-information-in-the-data-explorer">Schema information in the Data Explorer</h4>
-<p>InfluxDB Clustered supports InfluxQL metaqueries, so schema information
-is available in the Data Explorer to help build queries.
-You can also use <a href="/influxdb3/clustered/reference/influxql/select/#fully-qualified-measurement">fully qualified measurements</a>
-in the <code>FROM</code> clause. For example:</p>
+  <p>When working with the <no value> SQL implementation
+a <strong>bucket</strong> is equivalent to a <strong>database</strong>,
+a <strong>measurement</strong> is equivalent to a <strong>table</strong>, and <strong>time</strong>, <strong>fields</strong>, and
+<strong>tags</strong> are structured as <strong>columns</strong>.
+To learn more, see <a href="/influxdb3/version/query-data/sql/">Query Data</a>.</p>
+</div>
+<ol>
+<li>
+<p>Click <strong>Explore</strong>.</p>
+</li>
+<li>
+<p>In the dropdown, select the saved InfluxDB data source to query.</p>
+</li>
+<li>
+<p>Use the SQL query form to build your query:</p>
+<ul>
+<li>
+<p><strong>Table</strong>: Select the table (measurement) to query.</p>
+</li>
+<li>
+<p><strong>Column</strong>: Select one or more fields and tags to return as columns in query results.</p>
+<p>With SQL, select the <code>time</code> column to include timestamps with the data.
+Grafana relies on the <code>time</code> column to correctly graph time series data.</p>
+</li>
+<li>
+<p><em><strong>Optional:</strong></em> Toggle <strong>filter</strong> to generate <strong>WHERE</strong> clause statements.</p>
+<ul>
+<li><strong>WHERE</strong>: Configure condition expressions to include in the <code>WHERE</code> clause.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Optional:</strong></em> Toggle <strong>group</strong> to generate <strong>GROUP BY</strong> clause statements.</p>
+<ul>
+<li><strong>GROUP BY</strong>: Select columns to group by.
+If you include an aggregation function in the <strong>SELECT</strong> list,
+you must group by one or more of the queried columns.
+SQL returns the aggregation for each group.</li>
+</ul>
+</li>
+<li>
+<p><span class="req  green">Recommended</span>:
+Toggle <strong>order</strong> to generate <strong>ORDER BY</strong> clause statements.</p>
+<ul>
+<li><strong>ORDER BY</strong>: Select columns to sort by.
+You can sort by time and multiple fields or tags.
+To sort in descending order, select <strong>DESC</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="req  green">Recommended</span>: Change format to <strong>Time series</strong>.</p>
+<ul>
+<li>Use the <strong>Format</strong> dropdown to change the format of the query results.
+For example, to visualize the query results as a time series, select <strong>Time series</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Run query</strong> to execute the query.</p>
+</li>
+</ol>
+<!---------------------------------- END SQL ---------------------------------->
+
+</section>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Fully qualified measurement
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">.</span><span class="s2">&#34;rp-name&#34;</span><span class="p">.</span><span class="s2">&#34;measurement-name&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Fully qualified measurement shorthand (use the default retention policy)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">..</span><span class="s2">&#34;measurement-name&#34;</span></span></span></code></pre></div>
-<p>For more information about available InfluxQL functionality, see
-<a href="/influxdb3/clustered/reference/influxql/feature-support/">InfluxQL feature support</a>.</p>
+<section class="tab-content">
+  <!------------------------------- BEGIN INFLUXQL ------------------------------>
+<ol>
+<li>Click <strong>Explore</strong>.</li>
+<li>In the dropdown, select the <strong>InfluxDB</strong> data source that you want to query.</li>
+<li>Use the InfluxQL query form to build your query:
+<ul>
+<li><strong>FROM</strong>: Select the measurement that you want to query.</li>
+<li><strong>WHERE</strong>: To filter the query results, enter a conditional expression.</li>
+<li><strong>SELECT</strong>: Select fields to query and an aggregate function to apply to each.
+The aggregate function is applied to each time interval defined in the
+<code>GROUP BY</code> clause.</li>
+<li><strong>GROUP BY</strong>: By default, Grafana groups data by time to downsample results
+and improve query performance.
+You can also add other tags to group by.</li>
+</ul>
+</li>
+<li>Click <strong>Run query</strong> to execute the query.</li>
+</ol>
+<!-------------------------------- END INFLUXQL ------------------------------->
+
+</section>
+
+
 </div>
 
-<div class="block note">
-  
-  
-  <h4 id="dbrps-map-to-influxdb-databases">DBRPs map to InfluxDB databases</h4>
-<p>In InfluxDB Clustered, databases and retention policies (DBRPs) are no longer
-separate entities in the data model.
-Rather than having one or more retention policies, an InfluxDB Clustered database
-has a retention period that defines the maximum age of data to retain.</p>
-<p>InfluxQL queries still use the 1.x DBRP convention, but queries are routed to
-databases using the <code>database-name/retention-policy</code> naming pattern.
-For example, the following query routes to the InfluxDB Clustered database
-named <code>mydb/autogen</code>:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mydb</span><span class="p">.</span><span class="n">autogen</span><span class="p">.</span><span class="n">measurement</span></span></span></code></pre></div>
-</div>
-<h2 id="important-notes">Important notes</h2>
-<ul>
-<li><a href="#database-view-is-read-only">Database view is read-only</a></li>
-<li><a href="#no-administrative-functionality">No administrative functionality</a></li>
-<li><a href="#annotations-and-variables">Annotations and variables</a></li>
-</ul>
-<h3 id="database-view-is-read-only">Database view is read-only</h3>
-<p>When connected to InfluxDB Clustered, the database view in Chronograf is read-only.</p>
-<h3 id="no-administrative-functionality">No administrative functionality</h3>
-<p>Chronograf cannot be used for administrative tasks in InfluxDB Clustered.
-For example, you <strong>cannot</strong> do the following:</p>
-<ul>
-<li>Define databases</li>
-<li>Modify retention policies</li>
-<li>Add users</li>
-<li>Kill queries</li>
-</ul>
-<p>When connected to an InfluxDB Clustered database, functionality in the
-<strong><span class="inline  cf-icon CrownSolid_New "></span> InfluxDB Admin</strong> section of Chronograf is disabled.</p>
-<p>To complete <a href="/influxdb3/clustered/admin/">administrative tasks</a>, use the
-<a href="/influxdb3/clustered/reference/cli/influxctl/">influxctl CLI</a>.</p>
-<h3 id="annotations-and-variables">Annotations and variables</h3>
-<p>Annotations and dashboard variables work with InfluxDB Clustered when a <code>chronograf</code> database exists and is accessible with the same database token.</p>
-<p>When setting up variables with dynamic tag values, the backend query limits the scope of the record search with a time condition.
-By default, this is <code>time &gt; now() - 7d</code>.
-Tags from records older than this limit are ignored.
-To change this setting, use the <code>--influxdb-v3-time-condition</code> flag or <code>INFLUXDB_V3_TIME_CONDITION</code> environment variable.</p>
+<p>With your InfluxDB connection configured, use Grafana to query and visualize time series data.</p>
+<h3 id="build-visualizations-with-grafana">Build visualizations with Grafana</h3>
+<p>For a comprehensive walk-through of creating visualizations with
+Grafana, see the <a href="https://grafana.com/docs/grafana/latest/">Grafana documentation</a>.</p>
+<h3 id="query-inspection-in-grafana">Query inspection in Grafana</h3>
+<p>To learn more about query management and inspection in Grafana, see the
+<a href="https://grafana.com/docs/grafana/latest/explore/">Grafana Explore documentation</a>.</p>
 
 
 
@@ -3105,47 +3392,6 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
     
     
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/chronograf/v1/" >Chronograf documentation</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/influxdb3/clustered/query-data/influxql/" >Query data with InfluxQL</a></li>
-        
-      
-    
-    </ul>
-  </div>
 
 
     
@@ -3164,6 +3410,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
 
   
+  
+    
   
 
 
@@ -3213,8 +3461,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/clustered/process-data/visualize/chronograf.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/chronograf/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/v3-process-data/visualize/grafana.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/clustered/process-data/visualize/grafana/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

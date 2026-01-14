@@ -46,10 +46,10 @@
 
 
 
-<title>Use Chronograf with InfluxDB Cloud Serverless | &lt;nil&gt; Documentation</title>
+<title>Use Tableau to query data stored in InfluxDB Cloud Serverless | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x. Learn how to use Chronograf with InfluxDB Cloud Serverless.">
+    <meta name="description" content="Install and use Tableau to query data stored in InfluxDB.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/tableau/" />
 
     
 <style>
@@ -268,7 +268,7 @@
   
   
   
-  <a href='/influxdb3/core/visualize-data/chronograf/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/visualize-data/tableau/' >InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -278,7 +278,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/visualize-data/chronograf/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/visualize-data/tableau/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -337,7 +337,7 @@
   
   
   
-  <a href='/influxdb/v2/tools/chronograf/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -347,7 +347,7 @@
   
   
   
-  <a href='/influxdb/cloud/tools/chronograf/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -1027,7 +1027,7 @@
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/'>Use Chronograf</a>
       
@@ -1051,7 +1051,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/tableau/'>Use Tableau</a>
       
@@ -3097,7 +3097,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Use Chronograf to visualize data</h1>
+      <h1>Use Tableau to query data with SQL</h1>
       
 
 
@@ -3108,7 +3108,7 @@
       
 <ul class="metadata">
 
-  <li>InfluxQL only</li>
+  <li>SQL only</li>
   
   
   
@@ -3211,212 +3211,131 @@
 
 
 
-  <p><a href="/chronograf/v1/">Chronograf</a> is a data visualization and dashboarding
-tool designed to visualize data in InfluxDB 1.x using the <strong>InfluxQL</strong> query language.
-This page walks through how to use Chronograf with <strong>InfluxDB Cloud Serverless</strong>.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li><a href="/chronograf/v1/introduction/installation/#download-and-install">Download and install Chronograf</a></li>
-<li>An InfluxDB Cloud Serverless account with:
-<ul>
-<li>A <a href="/influxdb3/cloud-serverless/admin/buckets/">bucket</a> to query</li>
-<li>An <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a> with read permissions</li>
-</ul>
-</li>
-</ul>
-<h2 id="enable-influxdb-3-support">Enable InfluxDB 3 support</h2>
-<p>To connect Chronograf to InfluxDB Cloud Serverless, start Chronograf with InfluxDB 3 support enabled using one of the following methods:</p>
+  <p>Use <a href="https://www.tableau.com/">Tableau</a> to query and visualize time series data
+stored in InfluxDB Cloud Serverless. Tableau supports multiple SQL dialects.</p>
 
-<div class="tabs-wrapper">
-  
+<blockquote>
+<p>Tableau is a visual analytics platform transforming the way we use data to
+solve problems—empowering people and organizations to make the most of their data.</p>
+<p><span class="cite"><a href="https://www.tableau.com/why-tableau/what-is-tableau">tableau.com</a></span></p>
 
-
-
-
-<div class="tabs">
-  <p><a href="#">CLI flag</a>
-<a href="#">Environment variable</a></p>
-
-</div>
-
-
-<section class="tab-content">
-  
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled</span></span></code></pre></div>
-
-</section>
-
-
-<section class="tab-content">
-  
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB_V3_SUPPORT_ENABLED</span><span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="cl">chronograf</span></span></code></pre></div>
-
-</section>
-
-
-</div>
-
-<h2 id="create-an-influxdb-connection">Create an InfluxDB connection</h2>
-<ol>
-<li>
-<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/1-6-connection-landing-page.png' alt='Chronograf connections landing page' width='916' />
-    
-    
-
-</li>
-<li>
-<p>In the <strong>Server Type</strong> dropdown, select <strong>InfluxDB Cloud Serverless</strong>.</p>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/server-type-dropdown.png' alt='Chronograf Server Type dropdown' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Enter your InfluxDB Cloud Serverless connection credentials:</p>
-<ul>
-<li>
-<p><strong>Connection URL:</strong> <a href="/influxdb3/cloud-serverless/reference/regions/">InfluxDB Cloud Serverless region URL</a></p>
-
-
-<pre tabindex="0"><code>https://cloud2.influxdata.com</code></pre>
-</li>
-<li>
-<p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
-</li>
-<li>
-<p><strong>Database Token:</strong> InfluxDB <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a>
-with read permissions on the bucket you want to query</p>
-</li>
-<li>
-<p><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb3/cloud-serverless/admin/buckets/">bucket</a>
-Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
-</li>
-<li>
-<p><strong>Unsafe SSL:</strong> Enable to skip SSL certificate verification for self-signed certificates</p>
-</li>
-</ul>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/cloud-serverless-connection.png' alt='Chronograf InfluxDB Cloud Serverless connection configuration' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-</li>
-<li>
-<p>Select the dashboards you would like to create, and then click <strong>Next</strong>.</p>
-</li>
-<li>
-<p>To configure a Kapacitor connection, provide the necessary credentials,
-and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Finish</strong>.</p>
-</li>
-</ol>
-<h3 id="configure-connection-via-cli">Configure connection via CLI</h3>
-<p>You can also configure the connection when starting Chronograf:</p>
-<p>Replace the following:</p>
-<ul>
-<li><span class="code-placeholder-key"><code>API_TOKEN</code></span>: <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a> with read permissions on the bucket</li>
-<li><span class="code-placeholder-key"><code>BUCKET_NAME</code></span>: <a href="/influxdb3/cloud-serverless/admin/buckets/">Bucket</a> name</li>
-</ul>
-
-
-  
-  
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-serverless <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cloud2.influxdata.com <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit API_TOKEN' class='code-placeholder' data-code-var='API_TOKEN' data-code-var-value='API_TOKEN' data-code-var-escaped="API_TOKEN">API_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit BUCKET_NAME' class='code-placeholder' data-code-var='BUCKET_NAME' data-code-var-value='BUCKET_NAME' data-code-var-escaped="BUCKET_NAME">BUCKET_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
-<p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
-<h2 id="query-data-in-the-data-explorer">Query data in the Data Explorer</h2>
-<ol>
-<li>In Chronograf, click <strong><span class="inline icon-data-explorer middle large"></span> Explore</strong> in the left navigation bar.</li>
-<li>Build and submit InfluxQL queries.</li>
-</ol>
+</blockquote>
 
 <div class="block note">
   
   
-  <h4 id="dbrps-map-to-influxdb-buckets">DBRPs map to InfluxDB buckets</h4>
-<p>In InfluxDB Cloud Serverless, database and retention-policy (DBRP) combinations
-are mapped to buckets using the <code>database-name/retention-policy</code> naming convention
-or using manually created DBRP mappings.
-<strong>DBRP mappings are required to query InfluxDB Cloud using InfluxQL.</strong></p>
-<p>For information, see <a href="/influxdb3/cloud-serverless/query-data/influxql/dbrp/">Create DBRP mappings</a>.</p>
-<p>You can use <a href="/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement">fully qualified measurements</a>
-in the <code>FROM</code> clause. For example:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Fully qualified measurement
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">.</span><span class="s2">&#34;rp-name&#34;</span><span class="p">.</span><span class="s2">&#34;measurement-name&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Fully qualified measurement shorthand (use the default retention policy)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">..</span><span class="s2">&#34;measurement-name&#34;</span></span></span></code></pre></div>
-<p>For more information about available InfluxQL functionality, see
-<a href="/influxdb3/cloud-serverless/reference/influxql/feature-support/">InfluxQL feature support</a>.</p>
+  <h4 id="tableau-desktop">Tableau Desktop</h4>
+<p>These instructions are for <strong>Tableau Desktop</strong>.
+Tableau Cloud and other Tableau products have not been tested, but may support
+connecting to InfluxDB Cloud Serverless through the <strong>Flight SQL JDBC driver</strong>.</p>
 </div>
-<h2 id="important-notes">Important notes</h2>
+<h2 id="install-tableau-desktop">Install Tableau Desktop</h2>
+<p>If you have not already, <a href="https://www.tableau.com/products/desktop/download">download and install Tableau Desktop</a>.</p>
+<h2 id="download-and-install-the-flight-sql-jdbc-driver">Download and install the Flight SQL JDBC driver</h2>
+<p>To query InfluxDB Cloud Serverless from Tableau, use the <strong>Flight SQL protocol</strong> and the
+<strong>Flight SQL JDBC driver</strong>.</p>
+<ol>
+<li>
+<p><strong>Download the Flight SQL JDBC driver.</strong></p>
+<ol>
+<li>Visit the <a href="https://central.sonatype.com/artifact/org.apache.arrow/flight-sql-jdbc-driver/">Flight SQL JDBC driver</a> page.</li>
+<li>Select the <strong>Versions</strong> tab.</li>
+<li>Click <strong>Browse <span class="inline  cf-icon Export_New middle"></span></strong> next to the version you want to
+download.</li>
+<li>Click the <code>flight-sql-jdbc-driver-XX.XX.XX.jar</code> file
+(with only the <code>.jar</code> file extension) from the list of files
+to download the driver jar file.
+The version number in the file name is specific to the version you selected.</li>
+</ol>
+</li>
+<li>
+<p><strong>Copy the downloaded jar file into the following directory based on your operating system.</strong></p>
 <ul>
-<li><a href="#database-view-is-read-only">Database view is read-only</a></li>
-<li><a href="#no-administrative-functionality">No administrative functionality</a></li>
-<li><a href="#annotations-and-variables">Annotations and variables</a></li>
+<li><strong>Windows</strong>: <code>C:\Program Files\Tableau\Drivers</code></li>
+<li><strong>Mac</strong>: <code>~/Library/Tableau/Drivers</code></li>
+<li><strong>Linux</strong>: <code>/opt/tableau/tableau_driver/jdbc</code></li>
 </ul>
-<h3 id="database-view-is-read-only">Database view is read-only</h3>
-<p>When connected to InfluxDB Cloud Serverless, the database view in Chronograf is read-only.</p>
-<h3 id="no-administrative-functionality">No administrative functionality</h3>
-<p>Chronograf cannot be used for administrative tasks in InfluxDB Cloud Serverless.
-For example, you <strong>cannot</strong> do the following:</p>
+</li>
+<li>
+<p><strong>Start or restart Tableau.</strong></p>
+</li>
+</ol>
+<h2 id="configure-a-jdbc-server-connection">Configure a JDBC server connection</h2>
+<ol>
+<li>
+<p>Open Tableau</p>
+</li>
+<li>
+<p>In the <strong>Connect</strong> column, under <strong>To a Server</strong>, select <strong>Other Databases (JDBC)</strong>.
+If that option isn&rsquo;t in the initial list, select <strong>More&hellip;</strong> to find it in
+the full list of connection options.</p>
+</li>
+<li>
+<p>Provide the required credentials:</p>
 <ul>
-<li>Define databases</li>
-<li>Modify retention policies</li>
-<li>Add users</li>
-<li>Kill queries</li>
-</ul>
-<p>When connected to an InfluxDB Cloud Serverless bucket, functionality in the
-<strong><span class="inline  cf-icon CrownSolid_New "></span> InfluxDB Admin</strong> section of Chronograf is disabled.</p>
-<p>To complete administrative tasks, use the following:</p>
+<li>
+<p><strong>URL</strong>: Your <a href="/influxdb3/cloud-serverless/reference/regions/">InfluxDB Cloud Serverless region URL</a>
+with the following:</p>
 <ul>
-<li><strong>InfluxDB user interface (UI)</strong></li>
-<li><a href="/influxdb3/cloud-serverless/reference/cli/influx/">InfluxDB CLI</a></li>
+<li><strong>Protocol</strong>: <code>jdbc:arrow-flight-sql</code></li>
+<li><strong>Port</strong>: <code>443</code></li>
+<li><strong>Query parameters</strong>:
+<ul>
+<li>
+<p><strong>useSystemTrustStore</strong>: <code>false</code></p>
+
+<div class="block note">
+  
+  
+  <p>Setting <code>useSystemTrustStore=false</code> is only necessary on macOS and
+doesn&rsquo;t actually affect the security of the connection to Tableau.</p>
+</div>
+</li>
+<li>
+<p><strong>database</strong>: InfluxDB bucket name to query</p>
+</li>
 </ul>
-<h3 id="annotations-and-variables">Annotations and variables</h3>
-<p>Annotations and dashboard variables work with InfluxDB Cloud Serverless when a <code>chronograf</code> bucket exists and is accessible with the same API token.</p>
-<p>When setting up variables with dynamic tag values, the backend query limits the scope of the record search with a time condition.
-By default, this is <code>time &gt; now() - 7d</code>.
-Tags from records older than this limit are ignored.
-To change this setting, use the <code>--influxdb-v3-time-condition</code> flag or <code>INFLUXDB_V3_TIME_CONDITION</code> environment variable.</p>
+</li>
+</ul>
+<p><em>See an <a href="#example-connection-url">example connection URL</a>.</em></p>
+</li>
+<li>
+<p><strong>Dialect</strong>: PostreSQL</p>
+</li>
+<li>
+<p><strong>Username</strong>: <em>Leave empty</em></p>
+</li>
+<li>
+<p><strong>Password</strong>: <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a>
+with read access to the specified bucket</p>
+</li>
+<li>
+<p><strong>Properties File</strong>: <em>Leave empty</em></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Sign In</strong>.</p>
+</li>
+</ol>
+<h4 id="example-connection-url">Example connection URL</h4>
+
+
+<pre tabindex="0"><code>jdbc:arrow-flight-sql://us-east-1-1.aws.cloud2.influxdata.com:443?useSystemTrustStore=false&amp;database=<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit BUCKET_NAME' class='code-placeholder magenta' data-code-var='BUCKET_NAME' data-code-var-value='BUCKET_NAME' data-code-var-escaped="BUCKET_NAME">BUCKET_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></code></pre>
+
+<h2 id="query-influxdb-cloud-serverless">Query InfluxDB Cloud Serverless</h2>
+<p>With the connection successfully established, query your time series data stored
+in InfluxDB Cloud Serverless. In the left pane:</p>
+<ol>
+<li>Under <strong>Database</strong>, select <strong>public</strong> from the drop-down menu.</li>
+<li>Under <strong>Schema</strong>, select <strong>iox</strong> from the drop-down menu.</li>
+<li>Under <strong>Table</strong>, click and drag the measurement you want to query into the query pane.</li>
+<li>Use Tableau to build and execute SQL queries.
+For more information, see the
+<a href="https://help.tableau.com/current/pro/desktop/en-us/default.htm">Tableau Desktop documentation</a>.</li>
+</ol>
+<h2 id="build-visualizations-with-tableau">Build visualizations with Tableau</h2>
+<p>After you&rsquo;ve connected Tableau to your InfluxDB database, see the Tableau documentation to <a href="https://help.tableau.com/current/pro/desktop/en-us/datasource_prepare.htm">Set Up Data Sources</a> and begin working with data.</p>
 
 
 
@@ -3424,47 +3343,6 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
     
     
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/chronograf/v1/" >Chronograf documentation</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/query-data/influxql/" >Query data with InfluxQL</a></li>
-        
-      
-    
-    </ul>
-  </div>
 
 
     
@@ -3532,8 +3410,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud-serverless/process-data/visualize/chronograf.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud-serverless/process-data/visualize/tableau.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/tableau/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

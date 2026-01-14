@@ -46,10 +46,10 @@
 
 
 
-<title>Use Chronograf with InfluxDB Cloud Serverless | &lt;nil&gt; Documentation</title>
+<title>Use Apache Superset to query data stored in InfluxDB Cloud Serverless | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x. Learn how to use Chronograf with InfluxDB Cloud Serverless.">
+    <meta name="description" content="Install and run Apache Superset to query and visualize data stored in an InfluxDB Cloud Serverless bucket.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6731/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/superset/" />
 
     
 <style>
@@ -268,7 +268,7 @@
   
   
   
-  <a href='/influxdb3/core/visualize-data/chronograf/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/visualize-data/superset/' >InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -278,7 +278,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/visualize-data/chronograf/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/visualize-data/superset/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -337,7 +337,7 @@
   
   
   
-  <a href='/influxdb/v2/tools/chronograf/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -347,7 +347,7 @@
   
   
   
-  <a href='/influxdb/cloud/tools/chronograf/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -1027,7 +1027,7 @@
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/'>Use Chronograf</a>
       
@@ -1045,7 +1045,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/superset/'>Use Superset</a>
       
@@ -3097,7 +3097,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Use Chronograf to visualize data</h1>
+      <h1>Use Superset to query data</h1>
       
 
 
@@ -3108,7 +3108,7 @@
       
 <ul class="metadata">
 
-  <li>InfluxQL only</li>
+  <li>SQL only</li>
   
   
   
@@ -3211,212 +3211,324 @@
 
 
 
-  <p><a href="/chronograf/v1/">Chronograf</a> is a data visualization and dashboarding
-tool designed to visualize data in InfluxDB 1.x using the <strong>InfluxQL</strong> query language.
-This page walks through how to use Chronograf with <strong>InfluxDB Cloud Serverless</strong>.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+  <p>Use <a href="https://superset.apache.org/">Apache Superset</a> to query and visualize data
+stored in an InfluxDB Cloud Serverless bucket.</p>
+
+<blockquote>
+<p>Apache Superset is a modern, enterprise-ready business intelligence web application.
+It is fast, lightweight, intuitive, and loaded with options that make it easy for
+users of all skill sets to explore and visualize their data, from simple pie
+charts to highly detailed deck.gl geospatial charts.</p>
+
+<div class="caption"><a href="https://superset.apache.org/docs/intro">Apache Superset documentation</a></div>
+
+</blockquote>
+<!-- TOC -->
 <ul>
-<li><a href="/chronograf/v1/introduction/installation/#download-and-install">Download and install Chronograf</a></li>
-<li>An InfluxDB Cloud Serverless account with:
+<li><a href="#set-up-docker-for-superset-and-flight-sql">Set up Docker for Superset and Flight SQL</a>
 <ul>
-<li>A <a href="/influxdb3/cloud-serverless/admin/buckets/">bucket</a> to query</li>
-<li>An <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a> with read permissions</li>
+<li><a href="#install-prerequisites-for-superset-and-flight-sql">Install prerequisites for Superset and Flight SQL</a></li>
+<li><a href="#set-up-docker-for-superset">Set up Docker for Superset</a></li>
 </ul>
 </li>
+<li><a href="#start-the-superset-docker-containers">Start the Superset Docker containers</a></li>
+<li><a href="#log-in-to-superset">Log in to Superset</a></li>
+<li><a href="#create-a-database-connection-for-influxdb">Create a database connection for InfluxDB</a></li>
+<li><a href="#query-influxdb-with-superset">Query InfluxDB with Superset</a></li>
+<li><a href="#build-visualizations-with-superset">Build visualizations with Superset</a></li>
 </ul>
-<h2 id="enable-influxdb-3-support">Enable InfluxDB 3 support</h2>
-<p>To connect Chronograf to InfluxDB Cloud Serverless, start Chronograf with InfluxDB 3 support enabled using one of the following methods:</p>
+<!-- /TOC -->
+<h2 id="set-up-docker-for-superset-and-flight-sql">Set up Docker for Superset and Flight SQL</h2>
+<h3 id="install-prerequisites-for-superset-and-flight-sql">Install prerequisites for Superset and Flight SQL</h3>
+<p>We recommend using <strong>Docker and docker-compose</strong> to run Superset.
+To set up Superset to run in Docker containers with Flight SQL, follow these steps:</p>
 
-<div class="tabs-wrapper">
+<div class="block warning">
+  
+  
+  <p><strong>Superset</strong> is not officially supported on Windows. For more information about running Superset with
+Windows and Docker, see the
+<a href="https://superset.apache.org/docs/installation/installing-superset-using-docker-compose#1-install-a-docker-engine-and-docker-compose">Superset documentation</a>.</p>
+</div>
+<ol>
+<li>
+<p>Follow the instructions to download and install Docker and docker-compose for your system:</p>
+<ul>
+<li><strong>macOS</strong>: <a href="https://docs.docker.com/desktop/install/mac-install/">Install Docker for macOS</a></li>
+<li><strong>Linux</strong>: <a href="https://docs.docker.com/desktop/install/linux-install/">Install Docker for Linux</a></li>
+</ul>
+</li>
+<li>
+<p>Follow the <a href="https://wiki.python.org/moin/BeginnersGuide/Download">Python.org Downloading Python</a> instructions for your system.</p>
+</li>
+<li>
+<p>Once you&rsquo;ve installed Python, check that you can run Python and Pip.
+Depending on your system, you may need to use the Python version 3 (<code>python3</code> and <code>pip3</code>) commands.
+Enter the following commands into your terminal:</p>
+
+<div class="code-tabs-wrapper">
   
 
-
-
-
-<div class="tabs">
-  <p><a href="#">CLI flag</a>
-<a href="#">Environment variable</a></p>
+<div class="code-tabs">
+  <p><a href="#python">python</a>
+<a href="#python3">python3</a></p>
 
 </div>
 
 
-<section class="tab-content">
+<section class="code-tab-content">
   
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">python --version</span></span></code></pre></div>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip --version</span></span></code></pre></div>
 
 </section>
 
 
-<section class="tab-content">
+<section class="code-tab-content">
   
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB_V3_SUPPORT_ENABLED</span><span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="cl">chronograf</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">python3 --version</span></span></code></pre></div>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip3 --version</span></span></code></pre></div>
+
+</section>
+
+    
+</div>
+
+<p>If neither <code>pip</code> nor <code>pip3</code> works, follow one of the <a href="https://pip.pypa.io/en/stable/installation/">Pypa.io Pip Installation</a> methods for your system.</p>
+</li>
+<li>
+<p>Use Pip to install the <code>flightsql-dbapi</code> library.</p>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#python">pip</a>
+<a href="#python3">pip3</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip install flightsql-dbapi</span></span></code></pre></div>
 
 </section>
 
 
+<section class="code-tab-content">
+  
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip3 install flightsql-dbapi</span></span></code></pre></div>
+
+</section>
+
+    
 </div>
 
-<h2 id="create-an-influxdb-connection">Create an InfluxDB connection</h2>
-<ol>
-<li>
-<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
+<p>The <code>flightsql-dbapi</code> library for Python provides a
+<a href="https://peps.python.org/pep-0249/">DB API 2</a> interface and
+<a href="https://www.sqlalchemy.org/">SQLAlchemy</a> dialect for
+<a href="https://arrow.apache.org/docs/format/FlightSql.html">Flight SQL</a>.
+Later, you&rsquo;ll add <code>flightsql-dbapi</code> to Superset&rsquo;s Docker configuration.</p>
 
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/1-6-connection-landing-page.png' alt='Chronograf connections landing page' width='916' />
-    
-    
-
-</li>
-<li>
-<p>In the <strong>Server Type</strong> dropdown, select <strong>InfluxDB Cloud Serverless</strong>.</p>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/server-type-dropdown.png' alt='Chronograf Server Type dropdown' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Enter your InfluxDB Cloud Serverless connection credentials:</p>
-<ul>
-<li>
-<p><strong>Connection URL:</strong> <a href="/influxdb3/cloud-serverless/reference/regions/">InfluxDB Cloud Serverless region URL</a></p>
-
-
-<pre tabindex="0"><code>https://cloud2.influxdata.com</code></pre>
-</li>
-<li>
-<p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
-</li>
-<li>
-<p><strong>Database Token:</strong> InfluxDB <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a>
-with read permissions on the bucket you want to query</p>
-</li>
-<li>
-<p><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb3/cloud-serverless/admin/buckets/">bucket</a>
-Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
-</li>
-<li>
-<p><strong>Unsafe SSL:</strong> Enable to skip SSL certificate verification for self-signed certificates</p>
-</li>
-</ul>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/cloud-serverless-connection.png' alt='Chronograf InfluxDB Cloud Serverless connection configuration' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-</li>
-<li>
-<p>Select the dashboards you would like to create, and then click <strong>Next</strong>.</p>
-</li>
-<li>
-<p>To configure a Kapacitor connection, provide the necessary credentials,
-and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Finish</strong>.</p>
-</li>
-</ol>
-<h3 id="configure-connection-via-cli">Configure connection via CLI</h3>
-<p>You can also configure the connection when starting Chronograf:</p>
-<p>Replace the following:</p>
-<ul>
-<li><span class="code-placeholder-key"><code>API_TOKEN</code></span>: <a href="/influxdb3/cloud-serverless/admin/tokens/">API token</a> with read permissions on the bucket</li>
-<li><span class="code-placeholder-key"><code>BUCKET_NAME</code></span>: <a href="/influxdb3/cloud-serverless/admin/buckets/">Bucket</a> name</li>
-</ul>
-
-
+<div class="block warning">
   
   
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-serverless <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>https://cloud2.influxdata.com <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit API_TOKEN' class='code-placeholder' data-code-var='API_TOKEN' data-code-var-value='API_TOKEN' data-code-var-escaped="API_TOKEN">API_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit BUCKET_NAME' class='code-placeholder' data-code-var='BUCKET_NAME' data-code-var-value='BUCKET_NAME' data-code-var-escaped="BUCKET_NAME">BUCKET_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
-<p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
-<h2 id="query-data-in-the-data-explorer">Query data in the Data Explorer</h2>
-<ol>
-<li>In Chronograf, click <strong><span class="inline icon-data-explorer middle large"></span> Explore</strong> in the left navigation bar.</li>
-<li>Build and submit InfluxQL queries.</li>
-</ol>
-
-<div class="block note">
-  
-  
-  <h4 id="dbrps-map-to-influxdb-buckets">DBRPs map to InfluxDB buckets</h4>
-<p>In InfluxDB Cloud Serverless, database and retention-policy (DBRP) combinations
-are mapped to buckets using the <code>database-name/retention-policy</code> naming convention
-or using manually created DBRP mappings.
-<strong>DBRP mappings are required to query InfluxDB Cloud using InfluxQL.</strong></p>
-<p>For information, see <a href="/influxdb3/cloud-serverless/query-data/influxql/dbrp/">Create DBRP mappings</a>.</p>
-<p>You can use <a href="/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement">fully qualified measurements</a>
-in the <code>FROM</code> clause. For example:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Fully qualified measurement
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">.</span><span class="s2">&#34;rp-name&#34;</span><span class="p">.</span><span class="s2">&#34;measurement-name&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Fully qualified measurement shorthand (use the default retention policy)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">..</span><span class="s2">&#34;measurement-name&#34;</span></span></span></code></pre></div>
-<p>For more information about available InfluxQL functionality, see
-<a href="/influxdb3/cloud-serverless/reference/influxql/feature-support/">InfluxQL feature support</a>.</p>
+  <p>The <code>flightsql-dbapi</code> library is experimental and under active development.
+The APIs it provides could change at any time.</p>
 </div>
-<h2 id="important-notes">Important notes</h2>
+</li>
+<li>
+<p>Use Git to clone the Apache Superset repository:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git clone https://github.com/apache/superset.git</span></span></code></pre></div>
+<p>The repository contains Superset code and configuration files for running Superset in Docker containers.</p>
+</li>
+</ol>
+<h3 id="set-up-docker-for-superset">Set up Docker for Superset</h3>
+<ol>
+<li>
+<p>Change to your <strong>superset</strong> repository directory:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> ./superset</span></span></code></pre></div>
+</li>
+<li>
+<p>In your text editor or terminal, create the file <code>./docker/requirements-local.txt</code> and append the line <code>flightsql-dbapi</code>&ndash;for example:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt;./docker/requirements-local.txt
+</span></span></span><span class="line"><span class="cl"><span class="s">flightsql-dbapi
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div>
+<p>The <code>./docker/requirements-local.txt</code> file is used to specify additional Python packages that Docker should include for Superset.
+For more information about Superset&rsquo;s Docker configuration, see <a href="https://github.com/apache/superset/tree/master/docker#readme">Getting Started with Superset using Docker</a>.</p>
+</li>
+<li>
+<p>Use the <code>docker-compose pull</code> command to fetch dependencies for the Docker containers.</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker-compose -f docker-compose-non-dev.yml pull</span></span></code></pre></div>
+<p>The process might take several seconds to complete.
+After it completes, you&rsquo;re ready to <a href="#start-the-superset-docker-containers">Start the Superset Docker containers</a>.</p>
+</li>
+</ol>
+<h2 id="start-the-superset-docker-containers">Start the Superset Docker containers</h2>
+<p>To start the containers and run Superset, enter the <code>docker-compose up</code> command and pass the <code>-f</code> flag with the setup file name:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker-compose -f docker-compose-non-dev.yml up</span></span></code></pre></div>
+<p>This might take several seconds to complete.</p>
+<p>If successful, the terminal contains output similar to the following:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">superset_init         <span class="p">|</span> Init Step 4/4 <span class="o">[</span>Complete<span class="o">]</span> -- Loading examples
+</span></span><span class="line"><span class="cl">superset_init         <span class="p">|</span> 
+</span></span><span class="line"><span class="cl">superset_init         <span class="p">|</span> 
+</span></span><span class="line"><span class="cl">superset_init         <span class="p">|</span> <span class="c1">######################################################################</span>
+</span></span><span class="line"><span class="cl">superset_init         <span class="p">|</span> 
+</span></span><span class="line"><span class="cl">superset_init exited with code <span class="m">0</span>
+</span></span><span class="line"><span class="cl">superset_app          <span class="p">|</span> 127.0.0.1 - - <span class="o">[</span>24/Mar/2023:15:14:11 +0000<span class="o">]</span> <span class="s2">&#34;GET /health HTTP/1.1&#34;</span> <span class="m">200</span> <span class="m">2</span> <span class="s2">&#34;-&#34;</span> <span class="s2">&#34;curl/7.74.0&#34;</span></span></span></code></pre></div>
+<p>With Superset running, you&rsquo;re ready to <a href="#log-in-to-superset">log in</a> and set up a database connection.</p>
+<h2 id="log-in-to-superset">Log in to Superset</h2>
+<ol>
+<li>
+<p>In a browser, visit <a href="http://localhost:8088">localhost:8088</a> to log in to the Superset user interface (UI).
+If you configured Superset to use a custom domain, navigate to your custom domain.</p>
+</li>
+<li>
+<p>If this is your first time logging into Superset, use the following username
+and password:</p>
 <ul>
-<li><a href="#database-view-is-read-only">Database view is read-only</a></li>
-<li><a href="#no-administrative-functionality">No administrative functionality</a></li>
-<li><a href="#annotations-and-variables">Annotations and variables</a></li>
+<li><strong>Username</strong>: admin</li>
+<li><strong>Password</strong>: admin</li>
 </ul>
-<h3 id="database-view-is-read-only">Database view is read-only</h3>
-<p>When connected to InfluxDB Cloud Serverless, the database view in Chronograf is read-only.</p>
-<h3 id="no-administrative-functionality">No administrative functionality</h3>
-<p>Chronograf cannot be used for administrative tasks in InfluxDB Cloud Serverless.
-For example, you <strong>cannot</strong> do the following:</p>
+</li>
+<li>
+<p>Optional: Create an admin user with a unique password.</p>
+<ol>
+<li>In the Superset UI, click <strong>Settings</strong> in the top right
+and select <strong>List Users</strong>.</li>
+<li>Click <strong><span class="inline  cf-icon Plus_New top"></span></strong> in the top right.</li>
+<li>Select the <strong>Admin</strong> role and provide the remaining credentials for the new user.</li>
+<li>Click <strong>Save</strong>.</li>
+<li>Delete the default <strong>admin</strong> users.</li>
+</ol>
+</li>
+</ol>
+<h2 id="create-a-database-connection-for-influxdb">Create a database connection for InfluxDB</h2>
+<ol>
+<li>
+<p>In the Superset UI, click <strong>Settings</strong> in the top right and select
+<strong>Database Connections</strong>.</p>
+</li>
+<li>
+<p>Click <strong>+ Database</strong> in the top right.</p>
+</li>
+<li>
+<p>In the <strong>Connect a Database</strong> window, click on the <strong>Supported Databases</strong>
+drop-down menu and select <strong>Other</strong>.</p>
+
+    
+    
+    
+    
+    
+    
+    <img src='/img/influxdb3/cloud-serverless-superset-connect.png' alt='Configure InfluxDB connection in Superset' width='522' />
+    
+    
+
+</li>
+<li>
+<p>Enter a <strong>Display Name</strong> (for example, <em>InfluxDB Cloud Serverless</em>) for the database connection.</p>
+</li>
+<li>
+<p>Enter your <strong>SQL Alchemy URI</strong> comprised of the following:</p>
 <ul>
-<li>Define databases</li>
-<li>Modify retention policies</li>
-<li>Add users</li>
-<li>Kill queries</li>
+<li><strong>Protocol</strong>: <code>datafusion+flightsql</code></li>
+<li><strong>Domain</strong>: <a href="/influxdb3/cloud-serverless/reference/regions/">InfluxDB Cloud Serverless region domain</a></li>
+<li><strong>Port</strong>: 443</li>
 </ul>
-<p>When connected to an InfluxDB Cloud Serverless bucket, functionality in the
-<strong><span class="inline  cf-icon CrownSolid_New "></span> InfluxDB Admin</strong> section of Chronograf is disabled.</p>
-<p>To complete administrative tasks, use the following:</p>
+<p><strong>Query parameters</strong></p>
 <ul>
-<li><strong>InfluxDB user interface (UI)</strong></li>
-<li><a href="/influxdb3/cloud-serverless/reference/cli/influx/">InfluxDB CLI</a></li>
+<li><strong><code>?database</code></strong>: URL-encoded InfluxDB <a href="/influxdb3/cloud-serverless/admin/buckets/view-buckets/">bucket name</a></li>
+<li><strong><code>?token</code></strong>: InfluxDB <a href="/influxdb3/cloud-serverless/get-started/setup/">API token</a> with <code>READ</code> access to the specified bucket</li>
 </ul>
-<h3 id="annotations-and-variables">Annotations and variables</h3>
-<p>Annotations and dashboard variables work with InfluxDB Cloud Serverless when a <code>chronograf</code> bucket exists and is accessible with the same API token.</p>
-<p>When setting up variables with dynamic tag values, the backend query limits the scope of the record search with a time condition.
-By default, this is <code>time &gt; now() - 7d</code>.
-Tags from records older than this limit are ignored.
-To change this setting, use the <code>--influxdb-v3-time-condition</code> flag or <code>INFLUXDB_V3_TIME_CONDITION</code> environment variable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">datafusion+flightsql://<span class='code-callout green'>&lt;domain&gt;</span>:<span class='code-callout green'>&lt;port&gt;</span>?database<span class="o">=</span><span class='code-callout green'>&lt;database&gt;</span><span class="p">&amp;</span><span class="nv">token</span><span class="o">=</span><span class='code-callout green'>&lt;token&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">datafusion+flightsql://<span class='code-callout green'>us-east-1-1.aws.cloud2.influxdata.com</span>:<span class='code-callout green'>443</span>?database<span class="o">=</span><span class='code-callout green'>example-bucket</span><span class="p">&amp;</span><span class="nv">token</span><span class="o">=</span><span class='code-callout green'>example-token</span></span></span></code></pre></div>
+
+
+</li>
+<li>
+<p>Click <strong>Test Connection</strong> to ensure the connection works.</p>
+</li>
+<li>
+<p>Click <strong>Connect</strong> to save the database connection.</p>
+</li>
+</ol>
+<h2 id="query-influxdb-with-superset">Query InfluxDB with Superset</h2>
+<p>With a connection to InfluxDB <span class="current-version"></span> established, you can begin
+to query and visualize data from InfluxDB.</p>
+<ol>
+<li>
+<p>In the Superset UI, click <strong>SQL ▾</strong> in the top navigation bar and select <strong>SQL Lab</strong>.</p>
+</li>
+<li>
+<p>In the left pane:</p>
+<ol>
+<li>Under <strong>Database</strong>, select your InfluxDB connection.</li>
+<li>Under <strong>Schema</strong>, select <strong>iox</strong>.</li>
+<li>Under <strong>See table schema</strong>, select the InfluxDB measurement to query.</li>
+</ol>
+<p>The measurement schema appears in the left pane:</p>
+
+    
+    
+    
+    
+    
+    
+    <img src='/img/influxdb3/cloud-serverless-superset-schema.png' alt='Select your InfluxDB schema in Superset' width='394' />
+    
+    
+
+</li>
+<li>
+<p>Use the <strong>query editor</strong> to write an SQL query that queries data in your
+InfluxDB bucket.</p>
+</li>
+<li>
+<p>Click <strong>Run</strong> to execute the query.</p>
+</li>
+</ol>
+<p>Query results appear below the query editor.</p>
+<h2 id="build-visualizations-with-superset">Build visualizations with Superset</h2>
+<p>Use Superset to create visualizations and dashboards for InfluxDB queries.
+For a comprehensive walk-through of creating visualizations with
+Superset, see the <a href="https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard">Creating Charts and Dashboards in Superset documentation</a>.</p>
+
+
+
+
+
+
+
+<img src='/img/influxdb3/cloud-serverless-superset-dashboard.png' alt='Build InfluxDB dashboards in Apache Superset' width='960' />
+
+
+
 
 
 
@@ -3424,47 +3536,6 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
     
     
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/chronograf/v1/" >Chronograf documentation</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/query-data/influxql/" >Query data with InfluxQL</a></li>
-        
-      
-    
-    </ul>
-  </div>
 
 
     
@@ -3532,8 +3603,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud-serverless/process-data/visualize/chronograf.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/chronograf/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/cloud-serverless/process-data/visualize/superset.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6731/influxdb3/cloud-serverless/process-data/visualize/superset/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
