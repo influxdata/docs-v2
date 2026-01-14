@@ -58,7 +58,7 @@ The following table compares InfluxDB across the v3, v2, and v1 generations.
 
 **Storage engine notes:**
 
-- **InfluxDB 3**: Modern columnar storage engine enabling unlimited series cardinality and native SQL support
+- **InfluxDB 3**: Modern columnar storage engine that supports unlimited series cardinality and native SQL
 - **TSM** (Time-Structured Merge Tree): Storage engine used in InfluxDB v1 and v2
 
 **Product availability:**
