@@ -10,7 +10,7 @@ introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/snmp/README.md, SNMP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/snmp/README.md, SNMP Plugin Source
 ---
 
 # SNMP Input Plugin

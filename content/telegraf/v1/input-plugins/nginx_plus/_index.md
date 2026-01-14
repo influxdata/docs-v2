@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/nginx_plus/README.md, Nginx Plus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/nginx_plus/README.md, Nginx Plus Plugin Source
 ---
 
 # Nginx Plus Input Plugin
