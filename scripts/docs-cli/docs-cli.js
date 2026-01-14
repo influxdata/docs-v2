@@ -37,13 +37,15 @@ Usage: docs <command> [options]
 
 Commands:
   create <draft-path>     Create new documentation from draft
-  edit <url>              Edit existing documentation
+  edit <url>              Edit existing documentation (non-blocking)
   placeholders <file.md>  Add placeholder syntax to code blocks
   test                    Run test suite to verify CLI functionality
 
 Examples:
   docs create drafts/new-feature.md --products influxdb3_core
   docs edit https://docs.influxdata.com/influxdb3/core/admin/
+  docs edit /influxdb3/core/admin/ --wait
+  docs edit /influxdb3/core/admin/ --list
   docs placeholders content/influxdb3/core/admin/upgrade.md
   docs test
 
@@ -51,6 +53,9 @@ For command-specific help:
   docs create --help
   docs edit --help
   docs placeholders --help
+
+Note: 'docs edit' is non-blocking by default (agent-friendly).
+      Use --wait flag for interactive editing sessions.
 `);
 }
 
@@ -117,11 +122,16 @@ function runTests() {
       ],
     });
 
-    // Test 3: docs edit --help
+    // Test 3: docs edit --help (updated to check for new flags)
     tests.push({
       name: 'docs edit --help',
       command: 'npx docs edit --help',
-      expectedInOutput: ['Documentation File Opener', '--list'],
+      expectedInOutput: [
+        'Documentation File Opener',
+        '--list',
+        '--wait',
+        '--editor',
+      ],
     });
 
     // Test 4: docs placeholders --help

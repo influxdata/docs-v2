@@ -43,7 +43,7 @@ chronograf --influxdb-v3-support-enabled
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
-```sh
+```sh { placeholders="INFLUXDB_V3_SUPPORT_ENABLED" }
 export INFLUXDB_V3_SUPPORT_ENABLED=true
 chronograf
 ```
@@ -70,25 +70,23 @@ chronograf
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-
-    #### Management fields _(optional)_
-
-    To enable database management features, provide the following:
+    - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+      with read permissions on the database you want to query
+    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
+      Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+ 
+    To enable database management features, provide the following credentials:
 
     - **Cluster ID:** Your {{% product-name %}} cluster ID (found in your `influxctl` configuration)
     - **Account ID:** Your {{% product-name %}} account ID (found in your `influxctl` configuration)
     - **Management Token:** A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for administrative operations
 
-    #### Database access fields
+    You can configure the following optional database access fields:
 
-    - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
-      with read permissions on the database you want to query
     - **Default Database:** _(Optional)_ Default [database](/influxdb3/cloud-dedicated/admin/databases/)
       to use. When set, Chronograf limits queries to this database.
     - **Tags CSV Directory Path:** _(Optional)_ Path to a directory containing CSV files
       that predefine tags for the query builder (see [Tags CSV files](#tags-csv-files))
-    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
-      Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
     {{< img-hd src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" alt="Chronograf InfluxDB Cloud Dedicated connection configuration" />}}
@@ -105,7 +103,7 @@ You can configure the connection when starting Chronograf.
 
 #### With management features
 
-```sh
+```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|DATABASE_TOKEN|MANAGEMENT_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-cloud-dedicated \
   --influxdb-url=https://{{< influxdb/host >}} \
@@ -119,7 +117,7 @@ chronograf --influxdb-v3-support-enabled \
 
 #### Without management features
 
-```sh
+```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-cloud-dedicated \
   --influxdb-url=https://{{< influxdb/host >}} \
