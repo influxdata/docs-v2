@@ -10,7 +10,7 @@ introduced: "v1.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/internal/README.md, Telegraf Internal Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/internal/README.md, Telegraf Internal Plugin Source
 ---
 
 # Telegraf Internal Input Plugin

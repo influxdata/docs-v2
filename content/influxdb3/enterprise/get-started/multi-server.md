@@ -227,6 +227,12 @@ influxdb3 serve \
   --mode query,process
 ```
 
+> [!Important]
+> When using `process` mode, you must also specify `--plugin-dir` to configure
+> the Python plugin environment. Without this flag, starting a node with `process`
+> mode will fail with an error. See the [plugin-dir configuration option](/influxdb3/enterprise/reference/config-options/#plugin-dir)
+> for more information.
+
 ## Cluster configuration examples
 
 - [High availability cluster](#high-availability-cluster)
