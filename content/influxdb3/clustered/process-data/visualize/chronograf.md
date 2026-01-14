@@ -52,10 +52,16 @@ chronograf
 
 ## Create an InfluxDB connection
 
-1. In Chronograf, click **Configuration** in the left navigation bar,
-   and then click **{{< icon "plus" >}} Add Connection**.
-2. In the **Server Type** dropdown, select **InfluxDB Clustered**.
-3. Enter your {{% product-name %}} connection credentials:
+1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
+2. Click **Add Connection**.
+
+    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+
+3. In the **Server Type** dropdown, select **InfluxDB Clustered**.
+
+    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+
+4. Enter your {{% product-name %}} connection credentials:
 
     - **Connection URL:** {{% product-name omit=" Clustered" %}} cluster URL
 
@@ -74,11 +80,13 @@ chronograf
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-4. Click **Add Connection**.
-5. Select the dashboards you would like to create, and then click **Next**.
-6. To configure a Kapacitor connection, provide the necessary credentials,
+    <img src="/img/chronograf/v1-influxdb3/clustered-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Clustered connection configuration"/>
+
+5. Click **Add Connection**.
+6. Select the dashboards you would like to create, and then click **Next**.
+7. To configure a Kapacitor connection, provide the necessary credentials,
    and then click **Continue**. Otherwise, click **Skip**.
-7. Click **Finish**.
+8. Click **Finish**.
 
 ### Configure connection via CLI
 
@@ -118,6 +126,23 @@ For a complete list of configuration options, see [InfluxDB 3 connection options
 >
 > For more information about available InfluxQL functionality, see
 > [InfluxQL feature support](/influxdb3/clustered/reference/influxql/feature-support/).
+
+> [!Note]
+> #### DBRPs map to InfluxDB databases
+>
+> In {{% product-name %}}, databases and retention policies (DBRPs) are no longer
+> separate entities in the data model.
+> Rather than having one or more retention policies, an {{% product-name %}} database
+> has a retention period that defines the maximum age of data to retain.
+>
+> InfluxQL queries still use the 1.x DBRP convention, but queries are routed to
+> databases using the `database-name/retention-policy` naming pattern.
+> For example, the following query routes to the {{% product-name %}} database
+> named `mydb/autogen`:
+>
+> ```sql
+> SELECT * FROM mydb.autogen.measurement
+> ```
 
 ## Important notes
 

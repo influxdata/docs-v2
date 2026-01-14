@@ -87,52 +87,30 @@ For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x
 {{% /note %}}
     {{% /tab-content %}}
     {{% tab-content %}}
-To connect Chronograf to an InfluxDB 3 product, you must first start Chronograf with the `--influxdb-v3-support-enabled` flag or set the `INFLUXDB_V3_SUPPORT_ENABLED=true` environment variable.
+To connect Chronograf to an InfluxDB 3 product, start Chronograf with the `--influxdb-v3-support-enabled` flag or set the `INFLUXDB_V3_SUPPORT_ENABLED=true` environment variable:
 
 ```sh
 chronograf --influxdb-v3-support-enabled
 ```
 
-Once InfluxDB 3 support is enabled, the connection wizard includes a **Server Type** dropdown to select your InfluxDB 3 product:
+Once enabled, select your InfluxDB 3 product from the **Server Type** dropdown:
 
-- **InfluxDB 3 Core**
-- **InfluxDB 3 Enterprise**
-- **InfluxDB Cloud Dedicated**
-- **InfluxDB Cloud Serverless**
-- **InfluxDB Clustered**
+<img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown showing InfluxDB 3 options"/>
 
-Select the appropriate server type for your InfluxDB 3 product and provide the required connection credentials.
-
-#### Common configuration fields
-
-All InfluxDB 3 products require the following:
+<img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
 
 - **Connection URL**: URL of your InfluxDB 3 instance or cluster
 - **Connection Name**: Unique name for this connection
 - **Database Token**: InfluxDB database token with read permissions
 - **Telegraf Database Name**: Database Chronograf uses to populate parts of the application (default is `telegraf`)
+- **Default Database** _(optional)_: Limit Chronograf queries to a specific database
 - **Unsafe SSL**: Enable to skip SSL certificate verification for self-signed certificates
-
-#### Product-specific configuration fields
-
-Depending on the InfluxDB 3 product you select, additional configuration fields may be available:
-
-| Field | Products | Description |
-|:------|:---------|:------------|
-| **Cluster ID** | Cloud Dedicated | Your InfluxDB Cloud Dedicated cluster ID |
-| **Account ID** | Cloud Dedicated | Your InfluxDB Cloud Dedicated account ID |
-| **Management Token** | Cloud Dedicated, Clustered | Token for administrative operations |
-| **Default Database** | All | Limit Chronograf to a specific database |
-| **Tags CSV Directory** | Cloud Dedicated | Path to CSV files defining tags for query builder |
+- **Cluster ID** _(Cloud Dedicated)_: Found in your `influxctl` configuration
+- **Account ID** _(Cloud Dedicated)_: Found in your `influxctl` configuration
+- **Management Token** _(Cloud Dedicated, Clustered)_: Token for administrative operations
+- **Tags CSV Directory Path** _(Cloud Dedicated)_: Path to CSV files defining tags for query builder
 
 {{% note %}}
-#### InfluxDB 3 connection notes
-
-- **Management features**: To use database management features with Cloud Dedicated, provide your Cluster ID, Account ID, and Management Token.
-- **Default Database**: When set, Chronograf limits queries to the specified database.
-- **Tags CSV files**: For Cloud Dedicated, you can predefine tags for the query builder using CSV files. File names must match database names (for example, `mydb.csv`), use semicolons as delimiters, and contain three fields: `measurement;tag-key;tag-value`.
-{{% /note %}}
-
 For detailed product-specific instructions, see:
 
 - [Use Chronograf with InfluxDB 3 Core](/influxdb3/core/visualize-data/chronograf/)
@@ -140,6 +118,7 @@ For detailed product-specific instructions, see:
 - [Use Chronograf with InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/process-data/visualize/chronograf/)
 - [Use Chronograf with InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/process-data/visualize/chronograf/)
 - [Use Chronograf with InfluxDB Clustered](/influxdb3/clustered/process-data/visualize/chronograf/)
+{{% /note %}}
     {{% /tab-content %}}
     {{< /tabs-wrapper >}}
 

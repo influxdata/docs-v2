@@ -52,10 +52,16 @@ chronograf
 
 ## Create an InfluxDB connection
 
-1. In Chronograf, click **Configuration** in the left navigation bar,
-   and then click **{{< icon "plus" >}} Add Connection**.
-2. In the **Server Type** dropdown, select **InfluxDB Cloud Serverless**.
-3. Enter your {{% product-name %}} connection credentials:
+1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
+2. Click **Add Connection**.
+
+    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+
+3. In the **Server Type** dropdown, select **InfluxDB Cloud Serverless**.
+
+    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+
+4. Enter your {{% product-name %}} connection credentials:
 
     - **Connection URL:** [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions/)
 
@@ -66,17 +72,17 @@ chronograf
     - **Connection Name:** Name to uniquely identify this connection configuration
     - **Database Token:** InfluxDB [API token](/influxdb3/cloud-serverless/admin/tokens/)
       with read permissions on the bucket you want to query
-    - **Default Database:** _(Optional)_ Default bucket to use.
-      When set, Chronograf limits queries to this bucket.
     - **Telegraf Database Name:** InfluxDB [bucket](/influxdb3/cloud-serverless/admin/buckets/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-4. Click **Add Connection**.
-5. Select the dashboards you would like to create, and then click **Next**.
-6. To configure a Kapacitor connection, provide the necessary credentials,
+    <img src="/img/chronograf/v1-influxdb3/cloud-serverless-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Serverless connection configuration"/>
+
+5. Click **Add Connection**.
+6. Select the dashboards you would like to create, and then click **Next**.
+7. To configure a Kapacitor connection, provide the necessary credentials,
    and then click **Continue**. Otherwise, click **Skip**.
-7. Click **Finish**.
+8. Click **Finish**.
 
 ### Configure connection via CLI
 

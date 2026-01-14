@@ -48,15 +48,21 @@ chronograf
 
 ## Create an InfluxDB connection
 
-1. In Chronograf, click **Configuration** in the left navigation bar,
-   and then click **{{< icon "plus" >}} Add Connection**.
-2. In the **Server Type** dropdown, select **InfluxDB 3 Enterprise**.
-3. Enter your {{% product-name %}} connection credentials:
+1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
+2. Click **Add Connection**.
+
+    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+
+3. In the **Server Type** dropdown, select **InfluxDB 3 Enterprise**.
+
+    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+
+4. Enter your {{% product-name %}} connection credentials:
 
     - **Connection URL:** URL of your {{% product-name %}} cluster
 
       ```
-      http://localhost:8181
+      http://{{< influxdb/host >}}
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
@@ -67,11 +73,13 @@ chronograf
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/enterprise/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
 
-4. Click **Add Connection**.
-5. Select the dashboards you would like to create, and then click **Next**.
-6. To configure a Kapacitor connection, provide the necessary credentials,
+    <img src="/img/chronograf/v1-influxdb3/enterprise-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB 3 Enterprise connection configuration"/>
+
+5. Click **Add Connection**.
+6. Select the dashboards you would like to create, and then click **Next**.
+7. To configure a Kapacitor connection, provide the necessary credentials,
    and then click **Continue**. Otherwise, click **Skip**.
-7. Click **Finish**.
+8. Click **Finish**.
 
 ### Configure connection via CLI
 
@@ -80,7 +88,7 @@ You can also configure the connection when starting Chronograf:
 ```sh
 chronograf --influxdb-v3-support-enabled \
   --influxdb-type=influx-v3-enterprise \
-  --influxdb-url=http://localhost:8181 \
+  --influxdb-url=http://{{< influxdb/host >}} \
   --influxdb-token=DATABASE_TOKEN \
   --influxdb-default-db=DATABASE_NAME
 ```

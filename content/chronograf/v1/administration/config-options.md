@@ -184,17 +184,18 @@ Environment variable: `$INFLUXDB_TOKEN`
 
 ## InfluxDB 3 connection options
 
+{{% note %}}
 To connect Chronograf to InfluxDB 3 products, you must enable InfluxDB 3 support when starting Chronograf.
 Use the following options to configure connections to InfluxDB 3 Core, InfluxDB 3 Enterprise, InfluxDB Cloud Dedicated, InfluxDB Cloud Serverless, and InfluxDB Clustered.
 
 For more information about connecting to InfluxDB 3 products, see [Create InfluxDB and Kapacitor connections](/chronograf/v1/administration/creating-connections/).
+{{% /note %}}
 
 ### `--influxdb-v3-support-enabled`
 
 {{< req >}} Enable InfluxDB 3 support in Chronograf.
 This flag is required to connect to any InfluxDB 3 product.
 
-Example: `--influxdb-v3-support-enabled`
 
 Environment variable: `$INFLUXDB_V3_SUPPORT_ENABLED`
 
