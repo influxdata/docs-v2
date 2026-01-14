@@ -184,8 +184,7 @@ curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
-For Parquet responses, you must provide an output destination because the format is binary.
-The response contains the databases list.
+Parquet responses contain the same database list, but you must provide an output destination because the format is binary.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
@@ -204,3 +203,19 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
    - Creation date
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
+
+### Output to a Parquet file
+
+To output your list of databases to a Parquet file, use the `influxdb3 query` command
+with the following options:
+
+- `--format`: `parquet`
+- `-o`, `--output`: the filepath to the Parquet file to output to
+
+```sh
+influxdb3 query \
+  --db _internal \
+  --format parquet \
+  --output databases.parquet \
+  "SELECT * FROM system.databases"
+```
