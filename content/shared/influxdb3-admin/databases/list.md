@@ -214,7 +214,7 @@ with the following options:
 
 ```sh
 influxdb3 query \
-  --db _internal \
+  --database _internal \
   --format parquet \
   --output databases.parquet \
   "SELECT * FROM system.databases"
