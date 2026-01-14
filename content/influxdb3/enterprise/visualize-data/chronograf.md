@@ -55,7 +55,7 @@ chronograf
 
 3. In the **Server Type** dropdown, select **InfluxDB 3 Enterprise**.
 
-    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" alt="Chronograf Server Type dropdown" />}}
 
 4. Enter your {{% product-name %}} connection credentials:
 
@@ -73,7 +73,7 @@ chronograf
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/enterprise/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
 
-    <img src="/img/chronograf/v1-influxdb3/enterprise-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB 3 Enterprise connection configuration"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/enterprise-connection.png" alt="Chronograf InfluxDB 3 Enterprise connection configuration" />}}
 
 5. Click **Add Connection**.
 6. Select the dashboards you would like to create, and then click **Next**.

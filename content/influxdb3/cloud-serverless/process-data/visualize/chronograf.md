@@ -55,11 +55,11 @@ chronograf
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
 2. Click **Add Connection**.
 
-    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+    {{< img-hd src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page" />}}
 
 3. In the **Server Type** dropdown, select **InfluxDB Cloud Serverless**.
 
-    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" alt="Chronograf Server Type dropdown" />}}
 
 4. Enter your {{% product-name %}} connection credentials:
 
@@ -76,7 +76,7 @@ chronograf
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-    <img src="/img/chronograf/v1-influxdb3/cloud-serverless-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Serverless connection configuration"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/cloud-serverless-connection.png" alt="Chronograf InfluxDB Cloud Serverless connection configuration" />}}
 
 5. Click **Add Connection**.
 6. Select the dashboards you would like to create, and then click **Next**.

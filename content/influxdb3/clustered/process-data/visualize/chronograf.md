@@ -80,7 +80,7 @@ chronograf
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-    <img src="/img/chronograf/v1-influxdb3/clustered-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Clustered connection configuration"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/clustered-connection.png" alt="Chronograf InfluxDB Clustered connection configuration" />}}
 
 5. Click **Add Connection**.
 6. Select the dashboards you would like to create, and then click **Next**.
