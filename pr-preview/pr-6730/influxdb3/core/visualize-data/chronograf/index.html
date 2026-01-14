@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-14 10:03:49 -0600 -0600">
+<meta name="last-modified" content="2026-01-14 14:02:43 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -278,7 +278,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/visualize-data/chronograf/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -288,7 +288,7 @@
   
   
   
-  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+  <a href='/influxdb3/clustered/process-data/visualize/chronograf/' >InfluxDB Clustered</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
@@ -300,7 +300,7 @@
   
   
   
-  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+  <a href='/influxdb3/cloud-serverless/process-data/visualize/chronograf/' >InfluxDB Cloud Serverless</a>
 </li>
         <li>
   
@@ -310,7 +310,7 @@
   
   
   
-  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+  <a href='/influxdb3/cloud-dedicated/process-data/visualize/chronograf/' >InfluxDB Cloud Dedicated</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Tools">
@@ -337,7 +337,7 @@
   
   
   
-  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/tools/chronograf/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -347,7 +347,7 @@
   
   
   
-  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/tools/chronograf/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -372,7 +372,7 @@
   
   
   
-  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+  <a href='/influxdb/v1/tools/chronograf/' >InfluxDB OSS v1</a>
 </li>
         <li>
   
@@ -382,7 +382,7 @@
   
   
   
-  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+  <a href='/enterprise_influxdb/v1/tools/chronograf/' >InfluxDB Enterprise</a>
 </li>
       </ul>
     </div>
@@ -1006,21 +1006,21 @@
   
   
   
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/grafana/'>Grafana</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/powerbi/'>Power BI</a>
-      
-    </li>
-  
     <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/chronograf/'>Use Chronograf</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/grafana/'>Use Grafana</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6730/influxdb3/core/visualize-data/powerbi/'>Use Power BI</a>
       
     </li>
   
@@ -2457,7 +2457,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Use Chronograf</h1>
+      <h1>Use Chronograf to visualize data</h1>
       
 
 
@@ -2577,7 +2577,12 @@ This page walks through how to use Chronograf with <strong>InfluxDB 3 Core</stro
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li><a href="/chronograf/v1/introduction/installation/#download-and-install">Download and install Chronograf</a></li>
-<li>An InfluxDB 3 Core instance running and accessible</li>
+<li>A running InfluxDB 3 Core instance with:
+<ul>
+<li>A <a href="/influxdb3/core/admin/databases/">database</a> to query</li>
+<li>A <a href="/docs-v2/pr-preview/admin/tokens/">database token</a> with read permissions</li>
+</ul>
+</li>
 </ul>
 <h2 id="enable-influxdb-3-support">Enable InfluxDB 3 support</h2>
 <p>To connect Chronograf to InfluxDB 3 Core, start Chronograf with InfluxDB 3 support enabled using one of the following methods:</p>
@@ -2625,7 +2630,17 @@ This page walks through how to use Chronograf with <strong>InfluxDB 3 Core</stro
 </li>
 <li>
 <p>In the <strong>Server Type</strong> dropdown, select <strong>InfluxDB 3 Core</strong>.</p>
- <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+
+    
+    
+    
+    
+    
+    
+    <img src='/img/chronograf/v1-influxdb3/server-type-dropdown.png' alt='Chronograf Server Type dropdown' width='798' />
+    
+    
+
 </li>
 <li>
 <p>Enter your InfluxDB 3 Core connection credentials:</p>
@@ -2640,7 +2655,7 @@ This page walks through how to use Chronograf with <strong>InfluxDB 3 Core</stro
 <p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
 </li>
 <li>
-<p><strong>Database Token:</strong> InfluxDB <a href="/influxdb3/core/admin/tokens/database/">database token</a>
+<p><strong>Database Token:</strong> InfluxDB <a href="/docs-v2/pr-preview/admin/tokens/">database token</a>
 with read permissions on the database you want to query</p>
 </li>
 <li>
@@ -2648,7 +2663,17 @@ with read permissions on the database you want to query</p>
 Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
 </li>
 </ul>
- <img src="/img/chronograf/v1-influxdb3/core-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB 3 Core connection configuration"/>
+
+    
+    
+    
+    
+    
+    
+    <img src='/img/chronograf/v1-influxdb3/core-connection.png' alt='Chronograf InfluxDB 3 Core connection configuration' width='798' />
+    
+    
+
 </li>
 <li>
 <p>Click <strong>Add Connection</strong>.</p>
@@ -2666,6 +2691,10 @@ and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>
 </ol>
 <h3 id="configure-connection-via-cli">Configure connection via CLI</h3>
 <p>You can also configure the connection when starting Chronograf:</p>
+<p>Replace the following:</p>
+<ul>
+<li><span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span>: <a href="/docs-v2/pr-preview/admin/tokens/">database token</a> with read permissions</li>
+</ul>
 
 
   

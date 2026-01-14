@@ -46,10 +46,10 @@
 
 
 
-<title>Use Chronograf with InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
+<title>Use Power BI to visualize data | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x. Learn how to use Chronograf with InfluxDB 3 Enterprise.">
+    <meta name="description" content="Use Microsoft Power BI Desktop with the InfluxDB 3 custom connector to query and visualize data from InfluxDB 3 Enterprise.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,108 @@
 
 
 
+  
+  
+    
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6730/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/chronograf/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6730/docs-v2/pr-preview/pr-6730/influxdb3/clustered/visualize-data/powerbi/" />
 
     
 <style>
@@ -278,7 +376,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/visualize-data/chronograf/' class="active">InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/' class="active">InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -288,7 +386,7 @@
   
   
   
-  <a href='/influxdb3/clustered/process-data/visualize/chronograf/' >InfluxDB Clustered</a>
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
@@ -300,7 +398,7 @@
   
   
   
-  <a href='/influxdb3/cloud-serverless/process-data/visualize/chronograf/' >InfluxDB Cloud Serverless</a>
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
 </li>
         <li>
   
@@ -310,7 +408,7 @@
   
   
   
-  <a href='/influxdb3/cloud-dedicated/process-data/visualize/chronograf/' >InfluxDB Cloud Dedicated</a>
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Tools">
@@ -337,7 +435,7 @@
   
   
   
-  <a href='/influxdb/v2/tools/chronograf/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -347,7 +445,7 @@
   
   
   
-  <a href='/influxdb/cloud/tools/chronograf/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -372,7 +470,7 @@
   
   
   
-  <a href='/influxdb/v1/tools/chronograf/' >InfluxDB OSS v1</a>
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
 </li>
         <li>
   
@@ -382,7 +480,7 @@
   
   
   
-  <a href='/enterprise_influxdb/v1/tools/chronograf/' >InfluxDB Enterprise</a>
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
 </li>
       </ul>
     </div>
@@ -1034,7 +1132,7 @@
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/chronograf/'>Use Chronograf</a>
       
@@ -1046,7 +1144,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/powerbi/'>Use Power BI</a>
       
@@ -2617,7 +2715,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Use Chronograf to visualize data</h1>
+      <h1>Use Power BI to visualize data</h1>
       
 
 
@@ -2628,7 +2726,7 @@
       
 <ul class="metadata">
 
-  <li>InfluxQL only</li>
+  <li>SQL</li>
   
   
   
@@ -2731,193 +2829,289 @@
 
 
 
-  <p><a href="/chronograf/v1/">Chronograf</a> is a data visualization and dashboarding
-tool designed to visualize data in InfluxDB 1.x using the <strong>InfluxQL</strong> query language.
-This page walks through how to use Chronograf with <strong>InfluxDB 3 Enterprise</strong>.</p>
+  
+  <p>Use <a href="https://powerbi.microsoft.com/">Microsoft Power BI Desktop</a> with the
+This guide includes Windows (64‑bit) installation steps for the Arrow Flight SQL ODBC driver and the InfluxDB 3 Power BI connector.</p>
+
+<blockquote>
+<p>Microsoft Power BI is a collection of software services, apps, and connectors
+that work together to turn your unrelated sources of data into coherent,
+visually immersive, and interactive insights.</p>
+<p><span class="cite">&ndash; <a href="https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview">Microsoft Power BI documentation</a></span></p>
+
+</blockquote>
+
+<div class="block important">
+  
+  
+  <p>These instructions are for Power BI Desktop only; it uses a custom connector.</p>
+</div>
+<ol>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#install-the-arrow-flight-sql-odbc-driver">Install the Arrow Flight SQL ODBC driver</a></li>
+<li><a href="#install-the-power-bi-connector">Install the Power BI connector</a></li>
+<li><a href="#enable-the-connector-in-power-bi">Enable the connector in Power BI</a></li>
+<li><a href="#connect-power-bi-to-influxdb">Connect Power BI to InfluxDB</a></li>
+<li><a href="#query-and-visualize-data">Query and visualize data</a></li>
+</ol>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li><a href="/chronograf/v1/introduction/installation/#download-and-install">Download and install Chronograf</a></li>
-<li>A running InfluxDB 3 Enterprise cluster with:
-<ul>
-<li>A <a href="/influxdb3/enterprise/admin/databases/">database</a> to query</li>
-<li>A <a href="/docs-v2/pr-preview/admin/tokens/">database token</a> with read permissions</li>
+<li><strong>Windows operating system</strong>: The custom connector requires Windows
+(macOS users can use virtualization software like <a href="https://www.parallels.com/">Parallels</a>)</li>
+<li><strong>Power BI Desktop</strong>: <a href="https://powerbi.microsoft.com/desktop/">Download and install Power BI Desktop</a>
+(A free trial is available)</li>
+<li><strong>InfluxDB 3 Enterprise</strong>: A running instance with data to query</li>
+<li><strong>Database token</strong>: Your</li>
 </ul>
-</li>
-</ul>
-<h2 id="enable-influxdb-3-support">Enable InfluxDB 3 support</h2>
-<p>To connect Chronograf to InfluxDB 3 Enterprise, start Chronograf with InfluxDB 3 support enabled using one of the following methods:</p>
-
-<div class="tabs-wrapper">
-  
-
-
-
-
-<div class="tabs">
-  <p><a href="#">CLI flag</a>
-<a href="#">Environment variable</a></p>
-
-</div>
-
-
-<section class="tab-content">
-  
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled</span></span></code></pre></div>
-
-</section>
-
-
-<section class="tab-content">
-  
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUXDB_V3_SUPPORT_ENABLED</span><span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="cl">chronograf</span></span></code></pre></div>
-
-</section>
-
-
-</div>
-
-<h2 id="create-an-influxdb-connection">Create an InfluxDB connection</h2>
+<h2 id="install-the-arrow-flight-sql-odbc-driver">Install the Arrow Flight SQL ODBC driver</h2>
+<p>The InfluxDB 3 custom connector for Power BI requires the Arrow Flight SQL ODBC driver.
+Install the driver before installing the Power BI connector.</p>
+<p><a class="btn" href="https://docs.influxdata.com/downloads/apache-arrow-flight-sql-odbc-1.0.0-win64.msi">Download the Arrow Flight SQL ODBC driver</a></p>
+<ol>
+<li>Run the downloaded <code>.msi</code> installer.</li>
+<li>Follow the installation wizard using default settings.</li>
+<li>Complete the installation.</li>
+</ol>
+<h4 id="verify-driver-installation">Verify driver installation</h4>
+<ol>
+<li>Open the Windows application <a href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator">ODBC Data Source Administrator (64-bit)</a>.</li>
+<li>Open the <a href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator">ODBC Data Source Administrator (64-bit) Windows component</a></li>
+<li>Navigate to the <strong>Drivers</strong> tab</li>
+<li>Verify <strong>Arrow Flight SQL ODBC Driver</strong> appears in the list.</li>
+</ol>
+<h2 id="install-the-power-bi-connector">Install the Power BI connector</h2>
+<p>After installing the ODBC driver, download and install the InfluxDB 3 custom connector for Power BI Desktop.</p>
+<p><a class="btn" href="https://docs.influxdata.com/downloads/InfluxDB.pqx">Download the InfluxDB 3 Power BI connector</a></p>
+<h3 id="move-the-connector-to-the-custom-connectors-directory">Move the connector to the custom connectors directory</h3>
 <ol>
 <li>
-<p>Open Chronograf and click <strong>Configuration</strong> (wrench icon) in the navigation menu.</p>
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-<p><img src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page"></p>
-</li>
-<li>
-<p>In the <strong>Server Type</strong> dropdown, select <strong>InfluxDB 3 Enterprise</strong>.</p>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/server-type-dropdown.png' alt='Chronograf Server Type dropdown' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Enter your InfluxDB 3 Enterprise connection credentials:</p>
-<ul>
-<li>
-<p><strong>Connection URL:</strong> URL of your InfluxDB 3 Enterprise cluster</p>
+<p>Create the custom connectors folder if it doesn&rsquo;t exist:</p>
 
 
-<pre tabindex="0"><code>http://localhost:8181</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">mkdir</span> <span class="s2">&#34;</span><span class="nv">$env:USERPROFILE</span><span class="s2">\Documents\Power BI Desktop\Custom Connectors&#34;</span></span></span></code></pre></div>
 </li>
 <li>
-<p><strong>Connection Name:</strong> Name to uniquely identify this connection configuration</p>
-</li>
-<li>
-<p><strong>Database Token:</strong> InfluxDB <a href="/docs-v2/pr-preview/admin/tokens/">database token</a>
-with read permissions on the database you want to query</p>
-</li>
-<li>
-<p><strong>Telegraf Database Name:</strong> InfluxDB <a href="/influxdb3/enterprise/admin/databases/">database</a>
-Chronograf uses to populate parts of the application, including the Host List page (default is <code>telegraf</code>)</p>
-</li>
-</ul>
-
-    
-    
-    
-    
-    
-    
-    <img src='/img/chronograf/v1-influxdb3/enterprise-connection.png' alt='Chronograf InfluxDB 3 Enterprise connection configuration' width='798' />
-    
-    
-
-</li>
-<li>
-<p>Click <strong>Add Connection</strong>.</p>
-</li>
-<li>
-<p>Select the dashboards you would like to create, and then click <strong>Next</strong>.</p>
-</li>
-<li>
-<p>To configure a Kapacitor connection, provide the necessary credentials,
-and then click <strong>Continue</strong>. Otherwise, click <strong>Skip</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Finish</strong>.</p>
+<p>Move the connector file to the custom connectors folder:</p>
 </li>
 </ol>
-<h3 id="configure-connection-via-cli">Configure connection via CLI</h3>
-<p>You can also configure the connection when starting Chronograf:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Move-Item</span> <span class="s2">&#34;C:\Users\<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit YOUR_USER' class='code-placeholder magenta' data-code-var='YOUR_USER' data-code-var-value='YOUR_USER' data-code-var-escaped="YOUR_USER">YOUR_USER<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>\Downloads\InfluxDB.pqx&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;</span><span class="nv">$env:USERPROFILE</span><span class="s2">\Documents\Power BI Desktop\Custom Connectors\&#34;</span></span></span></code></pre></div>
 <p>Replace the following:</p>
 <ul>
-<li><span class="code-placeholder-key"><code>DATABASE_NAME</code></span>: <a href="/influxdb3/enterprise/admin/databases/">Database</a> name</li>
-<li><span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span>: <a href="/docs-v2/pr-preview/admin/tokens/">database token</a> with read permissions</li>
+<li><span class="code-placeholder-key"><code>YOUR_USER</code></span>: Your Windows username</li>
 </ul>
-
-
-  
-  
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">chronograf --influxdb-v3-support-enabled <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-type<span class="o">=</span>influx-v3-enterprise <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-url<span class="o">=</span>http://localhost:8181 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-token<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --influxdb-default-db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div>
-<p>For a complete list of configuration options, see <a href="/chronograf/v1/administration/config-options/#influxdb-3-connection-options">InfluxDB 3 connection options</a>.</p>
-<h2 id="query-data-in-the-data-explorer">Query data in the Data Explorer</h2>
+<h2 id="enable-the-connector-in-power-bi">Enable the connector in Power BI</h2>
+<p>To use custom connectors, you must adjust Power BI Desktop&rsquo;s security settings:</p>
 <ol>
-<li>In Chronograf, click <strong><span class="inline icon-data-explorer middle large"></span> Explore</strong> in the left navigation bar.</li>
-<li>Build and submit InfluxQL queries.</li>
+<li>Open Power BI Desktop</li>
+<li>Select <strong>File</strong> &gt; <strong>Options and settings</strong> &gt; <strong>Options</strong></li>
+<li>Navigate to <strong>Security</strong> under <strong>GLOBAL</strong></li>
+<li>Under <strong>Data Extensions</strong>, select <strong>(Not Recommended) Allow any extension to
+load without validation or warning</strong></li>
+<li>Click <strong>OK</strong></li>
+<li><strong>Restart Power BI Desktop</strong> for the changes to take effect</li>
 </ol>
 
-<div class="block note">
+<div class="block warning">
   
   
-  <h4 id="schema-information-in-the-data-explorer">Schema information in the Data Explorer</h4>
-<p>InfluxDB 3 Enterprise supports InfluxQL metaqueries, so schema information
-is available in the Data Explorer to help build queries.
-You can also use <a href="/influxdb3/enterprise/reference/influxql/select/#fully-qualified-measurement">fully qualified measurements</a>
-in the <code>FROM</code> clause. For example:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Fully qualified measurement
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">.</span><span class="s2">&#34;rp-name&#34;</span><span class="p">.</span><span class="s2">&#34;measurement-name&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Fully qualified measurement shorthand (use the default retention policy)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;db-name&#34;</span><span class="p">..</span><span class="s2">&#34;measurement-name&#34;</span></span></span></code></pre></div>
-<p>For more information about available InfluxQL functionality, see
-<a href="/influxdb3/enterprise/reference/influxql/feature-support/">InfluxQL feature support</a>.</p>
+  <h4 id="security-considerations">Security considerations</h4>
+<p>Enabling uncertified extensions allows any custom connector to load.
+Only enable this setting if you trust the connectors you&rsquo;re installing.</p>
 </div>
-<h2 id="important-notes">Important notes</h2>
+<h2 id="connect-power-bi-to-influxdb">Connect Power BI to InfluxDB</h2>
+<p>After installing the connector and restarting Power BI Desktop:</p>
+<ol>
+<li>
+<p>Open <strong>Power BI Desktop</strong></p>
+</li>
+<li>
+<p>Click <strong>Get Data</strong> &gt; <strong>More</strong></p>
+</li>
+<li>
+<p>Search for <strong>InfluxDB 3</strong> and select it</p>
+</li>
+<li>
+<p>Click <strong>Connect</strong></p>
+</li>
+<li>
+<p>In the <strong>InfluxDB 3</strong> connection dialog, configure the following:</p>
 <ul>
-<li><a href="#database-view-is-disabled">Database view is disabled</a></li>
-<li><a href="#no-administrative-functionality">No administrative functionality</a></li>
-<li><a href="#annotations-and-variables">Annotations and variables</a></li>
+<li><strong>Server</strong>: Your InfluxDB 3 Enterprise URL without the port, (for example,
+)</li>
+<li><strong>Database</strong>: Your database name</li>
+<li><strong>Port</strong>: Your server port (for example, )</li>
+<li><strong>Native Query</strong> (optional): Enter a SQL query to limit the data loaded</li>
 </ul>
-<h3 id="database-view-is-disabled">Database view is disabled</h3>
-<p>When connected to InfluxDB 3 Enterprise, the database view in Chronograf is disabled.</p>
-<h3 id="no-administrative-functionality">No administrative functionality</h3>
-<p>Chronograf cannot be used for administrative tasks in InfluxDB 3 Enterprise.
-For example, you <strong>cannot</strong> do the following:</p>
+</li>
+<li>
+<p>Select <strong>DirectQuery</strong> as the <strong>Data Connectivity mode</strong></p>
+</li>
+<li>
+<p>Click <strong>OK</strong></p>
+</li>
+<li>
+<p>When prompted for credentials:</p>
 <ul>
-<li>Define databases</li>
-<li>Modify retention policies</li>
-<li>Add users</li>
-<li>Kill queries</li>
+<li>Select <strong>Basic</strong> authentication</li>
+<li><strong>Username</strong>: Leave blank or enter any value</li>
+<li><strong>Password</strong>: Enter your</li>
 </ul>
-<p>When connected to an InfluxDB 3 Enterprise database, functionality in the
-<strong><span class="inline  cf-icon CrownSolid_New "></span> InfluxDB Admin</strong> section of Chronograf is disabled.</p>
-<p>To complete administrative tasks, use the
-<a href="/influxdb3/enterprise/reference/cli/influxdb3/"><code>influxdb3</code> CLI</a>.</p>
-<h3 id="annotations-and-variables">Annotations and variables</h3>
-<p>Annotations and dashboard variables work with InfluxDB 3 Enterprise when a <code>chronograf</code> database exists and is accessible with the same database token.</p>
-<p>When setting up variables with dynamic tag values, the backend query limits the scope of the record search with a time condition.
-By default, this is <code>time &gt; now() - 7d</code>.
-Tags from records older than this limit are ignored.
-To change this setting, use the <code>--influxdb-v3-time-condition</code> flag or <code>INFLUXDB_V3_TIME_CONDITION</code> environment variable.</p>
+</li>
+<li>
+<p>Click <strong>Connect</strong></p>
+</li>
+<li>
+<p>Preview your data and click <strong>Load</strong></p>
+</li>
+</ol>
+
+<div class="block important">
+  
+  
+  <h4 id="limit-query-size-for-optimal-performance">Limit query size for optimal performance</h4>
+<p>InfluxDB 3 Enterprise can handle high throughput and dimensional data.
+To ensure Power BI can successfully process data, limit query size by:</p>
+<ul>
+<li>Using a <code>LIMIT</code> clause</li>
+<li>Specifying time ranges with <code>WHERE time &gt;= ...</code></li>
+<li>Filtering by specific columns or tags</li>
+</ul>
+</div>
+<h2 id="query-and-visualize-data">Query and visualize data</h2>
+<h3 id="use-native-queries">Use Native Queries</h3>
+<p>When connecting to InfluxDB 3, you can use the <strong>Native Query</strong> option to
+execute custom SQL queries:</p>
+<ol>
+<li>
+<p>In the connection dialog, enable <strong>Native Query</strong></p>
+</li>
+<li>
+<p>Enter your query in the provided field:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">time</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">temp</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">room</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">home</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;7 days&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">time</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span></span></span></code></pre></div>
+</li>
+<li>
+<p>Select <strong>DirectQuery</strong> as the connectivity mode</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to load the data</p>
+</li>
+</ol>
+<h3 id="create-visualizations">Create visualizations</h3>
+<p>After loading data, Power BI displays your dataset in the <strong>Fields</strong> pane.</p>
+<h4 id="view-data-in-a-table">View data in a table</h4>
+<ol>
+<li>In the <strong>Visualizations</strong> pane, select the <strong>Table</strong> visualization</li>
+<li>In the <strong>Fields</strong> pane, select the columns to display:
+<ul>
+<li><strong>time</strong>: Timestamp column</li>
+<li><strong>room</strong>: Tag column</li>
+<li><strong>temp</strong>: Field column</li>
+</ul>
+</li>
+<li>By default, Power BI summarizes numeric fields.
+To display raw values:
+<ul>
+<li>Select the field in the <strong>Fields</strong> or <strong>Visualizations</strong> pane</li>
+<li>Go to the <strong>Modeling</strong> tab</li>
+<li>Change <strong>Default Summarization</strong> to <strong>Don&rsquo;t Summarize</strong></li>
+</ul>
+</li>
+</ol>
+<h4 id="create-time-series-visualizations">Create time series visualizations</h4>
+<ol>
+<li>In the <strong>Visualizations</strong> pane, select a visualization type
+(for example, <strong>Line chart</strong>)</li>
+<li>Drag fields to the appropriate areas:
+<ul>
+<li><strong>X-axis</strong>: <code>time</code> field</li>
+<li><strong>Y-axis</strong>: Measurement fields (for example, <code>temp</code>)</li>
+<li><strong>Legend</strong>: Tag fields (for example, <code>room</code>)</li>
+</ul>
+</li>
+<li>Use the <strong>Filters</strong> pane to apply additional filters</li>
+<li>Configure visualization properties in the <strong>Format</strong> pane</li>
+<li>Save your report</li>
+</ol>
+<h3 id="time-series-best-practices">Time series best practices</h3>
+<ul>
+<li>Always include time range filters in your queries to limit data volume</li>
+<li>Use the <code>time</code> column for time-based visualizations</li>
+<li>Apply Power BI&rsquo;s date hierarchy features with the <code>time</code> column</li>
+<li>Select only the columns you need to improve query performance</li>
+<li>Use the <code>LIMIT</code> clause to restrict the number of rows returned</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="driver-not-found">Driver not found</h3>
+<p>If Power BI or other applications can&rsquo;t find the Arrow Flight SQL ODBC driver:</p>
+<ol>
+<li>Open the <a href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/open-the-odbc-data-source-administrator">ODBC Data Source Administrator (64-bit) Windows component</a></li>
+<li>Navigate to the <strong>Drivers</strong> tab</li>
+<li>Verify <strong>Arrow Flight SQL ODBC Driver</strong> appears in the list</li>
+<li>If not listed, reinstall the driver</li>
+</ol>
+<h3 id="connector-not-found">Connector not found</h3>
+<p>If Power BI Desktop doesn&rsquo;t show the InfluxDB 3 connector:</p>
+<ul>
+<li>Verify the <code>.pqx</code> file is in the correct location:
+<code>Documents\Power BI Desktop\Custom Connectors\</code></li>
+<li>Ensure you enabled custom connectors in Power BI security settings</li>
+<li>Restart Power BI Desktop after copying the connector file</li>
+</ul>
+<h3 id="connection-errors">Connection errors</h3>
+<p>If you encounter connection errors:</p>
+<ul>
+<li>Verify your InfluxDB 3 Enterprise instance is running and accessible</li>
+<li>Check that the host URL and port are correct:
+<ul>
+<li>Local instances typically use <code>http://localhost:8181</code></li>
+<li></li>
+</ul>
+</li>
+<li>Ensure <code>UseEncryption</code> is configured correctly for your connection type</li>
+<li>Verify network connectivity and firewall rules allow connections on the specified port</li>
+<li>Ensure your token has query permissions for the specified database</li>
+</ul>
+<h3 id="authentication-errors">Authentication errors</h3>
+<p>If authentication fails:</p>
+<ul>
+<li>Verify your database token is valid and not expired</li>
+<li>Ensure the token is specified correctly (in the <strong>Password</strong> field for Power BI)</li>
+<li></li>
+<li>Check that the token was copied correctly without extra spaces or characters</li>
+<li>Leave the <strong>Username</strong> field blank or enter any value</li>
+</ul>
+<h3 id="query-errors">Query errors</h3>
+<p>If queries fail or return errors:</p>
+<ul>
+<li>Verify SQL syntax is correct for InfluxDB SQL</li>
+<li>Check that referenced tables (measurements) exist in the database</li>
+<li>Ensure column names match your schema</li>
+<li>Review the <a href="/influxdb3/version/reference/sql/">SQL reference</a> for supported features</li>
+<li>For large result sets, consider adding <code>LIMIT</code> clauses</li>
+</ul>
+<h3 id="query-performance">Query performance</h3>
+<p>For better query performance:</p>
+<ul>
+<li>Always use <code>WHERE</code> clauses to filter data before loading</li>
+<li>Include time range filters (for example, <code>WHERE time &gt;= now() - INTERVAL '7 days'</code>) to limit the data scanned</li>
+<li>Select only the columns you need</li>
+<li>Use the <code>LIMIT</code> clause to restrict result size</li>
+<li>Consider using <strong>DirectQuery</strong> mode instead of <strong>Import</strong> for large datasets</li>
+<li>Monitor query execution for optimization opportunities</li>
+</ul>
 
 
 
@@ -2935,6 +3129,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
       
       
+        
+      
 
       
       
@@ -2943,8 +3139,10 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6730/chronograf/v1/" >Chronograf documentation</a></li>
         
+        <li><a href="https://learn.microsoft.com/en-us/power-bi/desktop/" target="_blank">Power BI documentation</a></li>
+
+      
       
     
       
@@ -2960,7 +3158,7 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/query-data/influxql/" >Query data with InfluxQL</a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/query-data/sql/" >Query data with SQL</a></li>
         
       
     
@@ -2984,6 +3182,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
 
 
   
+  
+    
   
 
 
@@ -3033,8 +3233,8 @@ To change this setting, use the <code>--influxdb-v3-time-condition</code> flag o
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/visualize-data/chronograf.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/chronograf/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3-visualize/powerbi.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6730/influxdb3/enterprise/visualize-data/powerbi/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
