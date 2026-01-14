@@ -1,16 +1,22 @@
 ---
-title: Use Chronograf
+title: Use Chronograf to visualize data
 seotitle: Use Chronograf with InfluxDB Cloud Dedicated
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB Cloud Dedicated.
+list_title: Chronograf
+weight: 201
 menu:
   influxdb3_cloud_dedicated:
     name: Use Chronograf
     parent: Visualize data
-weight: 202
 aliases:
   - /influxdb3/cloud-dedicated/visualize-data/chronograf/
+alt_links:
+  v2: /influxdb/v2/tools/chronograf/
+  cloud: /influxdb/cloud/tools/chronograf/
+  core: /influxdb3/core/visualize-data/chronograf/
+  enterprise: /influxdb3/enterprise/visualize-data/chronograf/
 related:
   - /chronograf/v1/
   - /influxdb3/cloud-dedicated/query-data/influxql/
@@ -26,7 +32,7 @@ This page walks through how to use Chronograf with **{{% product-name %}}**.
 - [Download and install Chronograf](/chronograf/v1/introduction/installation/#download-and-install)
 - An {{% product-name %}} cluster with:
   - A [database](/influxdb3/cloud-dedicated/admin/databases/) to query
-  - A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with read permissions
+  - A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with read permissions
 
 ## Enable InfluxDB 3 support
 
@@ -55,11 +61,11 @@ chronograf
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
 2. Click **Add Connection**.
 
-    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+    {{< img-hd src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page" />}}
 
 3. In the **Server Type** dropdown, select **InfluxDB Cloud Dedicated**.
 
-    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" alt="Chronograf Server Type dropdown" />}}
 
 4. Enter your {{% product-name %}} connection credentials:
 
@@ -70,36 +76,26 @@ chronograf
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-
-    {{< expand-wrapper >}}
-    {{% expand "Management fields _(optional)_" %}}
-
-    To enable database management features, provide the following:
+    - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
+      with read permissions on the database you want to query
+    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
+      Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
+ 
+    To enable database management features, provide the following credentials:
 
     - **Cluster ID:** Your {{% product-name %}} cluster ID (found in your `influxctl` configuration)
     - **Account ID:** Your {{% product-name %}} account ID (found in your `influxctl` configuration)
     - **Management Token:** A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) for administrative operations
 
-    {{% /expand %}}
-    {{< /expand-wrapper >}}
+    You can configure the following optional database access fields:
 
-    {{< expand-wrapper >}}
-    {{% expand "Database access fields" %}}
-
-    - **Database Token:** InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
-      with read permissions on the database you want to query
     - **Default Database:** _(Optional)_ Default [database](/influxdb3/cloud-dedicated/admin/databases/)
       to use. When set, Chronograf limits queries to this database.
     - **Tags CSV Directory Path:** _(Optional)_ Path to a directory containing CSV files
       that predefine tags for the query builder (see [Tags CSV files](#tags-csv-files))
-    - **Telegraf Database Name:** InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/)
-      Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-    {{% /expand %}}
-    {{< /expand-wrapper >}}
-
-    <img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" alt="Chronograf InfluxDB Cloud Dedicated connection configuration" />}}
 
 5. Click **Add Connection**.
 6. Select the dashboards you would like to create, and then click **Next**.
@@ -112,6 +108,14 @@ chronograf
 You can configure the connection when starting Chronograf.
 
 #### With management features
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}: [Account ID](/influxdb3/cloud-dedicated/get-started/setup/#account-id)
+- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}: [Cluster ID](/influxdb3/cloud-dedicated/get-started/setup/#cluster-id)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: [Database](/influxdb3/cloud-dedicated/admin/databases/) name
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: [Database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with read permissions
+- {{% code-placeholder-key %}}`MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}: [Management token](/influxdb3/cloud-dedicated/admin/tokens/#management-tokens)
 
 ```sh { placeholders="ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|DATABASE_TOKEN|MANAGEMENT_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
@@ -126,6 +130,11 @@ chronograf --influxdb-v3-support-enabled \
 ```
 
 #### Without management features
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: [Database](/influxdb3/cloud-dedicated/admin/databases/) name
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: [Database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with read permissions
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \

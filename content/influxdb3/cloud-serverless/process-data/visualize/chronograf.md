@@ -1,16 +1,22 @@
 ---
-title: Use Chronograf
+title: Use Chronograf to visualize data
 seotitle: Use Chronograf with InfluxDB Cloud Serverless
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB Cloud Serverless.
+list_title: Chronograf
+weight: 201
 menu:
   influxdb3_cloud_serverless:
     name: Use Chronograf
     parent: Visualize data
-weight: 202
 aliases:
   - /influxdb3/cloud-serverless/visualize-data/chronograf/
+alt_links:
+  v2: /influxdb/v2/tools/chronograf/
+  cloud: /influxdb/cloud/tools/chronograf/
+  core: /influxdb3/core/visualize-data/chronograf/
+  enterprise: /influxdb3/enterprise/visualize-data/chronograf/
 related:
   - /chronograf/v1/
   - /influxdb3/cloud-serverless/query-data/influxql/
@@ -55,11 +61,11 @@ chronograf
 1. Open Chronograf and click **Configuration** (wrench icon) in the navigation menu.
 2. Click **Add Connection**.
 
-    ![Chronograf connections landing page](/img/chronograf/1-6-connection-landing-page.png)
+    {{< img-hd src="/img/chronograf/1-6-connection-landing-page.png" alt="Chronograf connections landing page" />}}
 
 3. In the **Server Type** dropdown, select **InfluxDB Cloud Serverless**.
 
-    <img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" alt="Chronograf Server Type dropdown" />}}
 
 4. Enter your {{% product-name %}} connection credentials:
 
@@ -76,7 +82,7 @@ chronograf
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Unsafe SSL:** Enable to skip SSL certificate verification for self-signed certificates
 
-    <img src="/img/chronograf/v1-influxdb3/cloud-serverless-connection.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Serverless connection configuration"/>
+    {{< img-hd src="/img/chronograf/v1-influxdb3/cloud-serverless-connection.png" alt="Chronograf InfluxDB Cloud Serverless connection configuration" />}}
 
 5. Click **Add Connection**.
 6. Select the dashboards you would like to create, and then click **Next**.
@@ -87,6 +93,11 @@ chronograf
 ### Configure connection via CLI
 
 You can also configure the connection when starting Chronograf:
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: [API token](/influxdb3/cloud-serverless/admin/tokens/) with read permissions on the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: [Bucket](/influxdb3/cloud-serverless/admin/buckets/) name
 
 ```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 chronograf --influxdb-v3-support-enabled \

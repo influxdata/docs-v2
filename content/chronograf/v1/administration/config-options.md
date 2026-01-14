@@ -250,6 +250,9 @@ Environment variable: `$INFLUXDB_MGMT_TOKEN`
 The default database to use when connecting to an InfluxDB 3 instance.
 When set, Chronograf limits queries to this database.
 
+Supported with InfluxDB 3 Enterprise, InfluxDB Cloud Dedicated, InfluxDB Cloud Serverless, and InfluxDB Clustered.
+_Not available for InfluxDB 3 Core._
+
 Environment variable: `$INFLUXDB_DEFAULT_DB`
 
 #### `--tags-csv-path=`
