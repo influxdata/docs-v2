@@ -12,6 +12,7 @@ list_code_example: |
   influxctl table delete <DATABASE_NAME> <TABLE_NAME>
   ```
 related:
+  - /influxdb3/cloud-dedicated/admin/tables/undelete/
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/table/delete/
 ---
 
@@ -19,8 +20,19 @@ Use the Admin UI or the [`influxctl table delete` command](/influxdb3/cloud-dedi
 to delete a table from a database in your {{< product-name omit=" Cluster" >}} cluster.
 
 > [!Warning]
-> Deleting a table is irreversible. Once a table is deleted, all data stored in
-> that table is permanently removed and cannot be recovered.
+> #### Wait before writing to a new table with the same name
+>
+> After deleting a table from your {{% product-name omit=" Cluster" %}}
+> cluster, you can reuse the name to create a new table, but **wait two to
+> three minutes** after deleting the previous table before writing to the new
+> table to allow write caches to clear.
+
+> [!Note]
+> #### Deleted tables may be able to be restored
+>
+> Deleted tables may be able to be [restored](/influxdb3/cloud-dedicated/admin/tables/undelete/)
+> within approximately 7 days of deletion, depending on when cleanup jobs run.
+> After the cleanup job runs, the table and its data are permanently removed.
 
 Provide the following arguments:
 
@@ -41,13 +53,10 @@ Replace the following:
 When prompted, enter `y` to confirm the deletion.
 
 {{% note %}}
-#### Wait before reusing a deleted table name
-
-After deleting a table, wait a few minutes before attempting to create a new
-table with the same name to ensure the deletion process has fully completed.
+#### Pause writes before deleting a table
 
 {{% product-name %}} creates tables implicitly using table names specified in
-line protocol written to the databases. To prevent the deleted table from being
-immediately recreated by incoming write requests, pause all write requests to
-the table before deleting it.
+line protocol written to the databases.
+To prevent the deleted table from being immediately recreated by incoming write requests,
+pause all write requests to the table before deleting it.
 {{% /note %}}
