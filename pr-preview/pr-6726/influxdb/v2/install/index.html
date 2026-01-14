@@ -4582,7 +4582,7 @@ curl -s --location -O \
 </ol>
 <!--pytest-codeblocks:cont-->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Use 2 spaces to separate the checksum from the filename</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit 8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' class='code-placeholder magenta' data-code-var='8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' data-code-var-value='8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' data-code-var-escaped="8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf">8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>  influxdb2-_linux_amd64.tar.gz&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit 8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' class='code-placeholder magenta' data-code-var='8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' data-code-var-value='8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf' data-code-var-escaped="8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf">8d7872013cad3524fb728ca8483d0adc30125ad1af262ab826dcf5d1801159cf<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>  influxdb2-2.8.0_linux_amd64.tar.gz&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> sha256sum --check -</span></span></code></pre></div>
 <p>Replace the following:</p>
 <ul>
@@ -4592,7 +4592,7 @@ the <strong>SHA256:</strong> checksum value that you copied from the downloads p
 <p>If the checksums match, the output is the following; otherwise, an error message.</p>
 
 
-<pre tabindex="0"><code>influxdb2-_linux_amd64.tar.gz: OK</code></pre>
+<pre tabindex="0"><code>influxdb2-2.8.0_linux_amd64.tar.gz: OK</code></pre>
 
   </div>
 </div>
@@ -4659,14 +4659,14 @@ following in your terminal:</p>
 <!--test:setup
 ```sh
 curl --silent --location --output-dir ~/Downloads -O \
-"https://download.influxdata.com/influxdb/releases/v/influxdb2-_darwin_amd64.tar.gz" \
+"https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_darwin_amd64.tar.gz" \
 ```
 -->
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --silent --location <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v/influxdb2-_darwin_amd64.tar.gz.asc <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - ~/Downloads/influxdb2-_darwin_amd64.tar.gz <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_darwin_amd64.tar.gz.asc <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - ~/Downloads/influxdb2-2.8.0_darwin_amd64.tar.gz <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s1">&#39;InfluxData Package Signing Key &lt;support@influxdata.com&gt;&#39;</span></span></span></code></pre></div>
 <ul>
 <li><code>curl --silent --location</code>: Follows any server redirects and fetches the
@@ -4743,12 +4743,12 @@ versioned separately.</p>
 <ol>
 <li>
 <p>In your browser or your terminal, download the InfluxDB package.</p>
-<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v/influxdb2-_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a></p>
+<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_darwin_amd64.tar.gz" download>InfluxDB v2 (macOS)</a></p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Download using cURL</span>
 </span></span><span class="line"><span class="cl">curl --location -O <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v/influxdb2-_darwin_amd64.tar.gz&#34;</span></span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_darwin_amd64.tar.gz&#34;</span></span></span></code></pre></div>
 </li>
 <li>
 <p><span class="req  magenta">Recommended:</span>: Verify the integrity of the download&ndash;for example, enter the
@@ -4756,7 +4756,7 @@ following command in your terminal:</p>
 </li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Use 2 spaces to separate the checksum from the filename</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit 224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' class='code-placeholder magenta' data-code-var='224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' data-code-var-value='224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' data-code-var-escaped="224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b">224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>  influxdb2-_darwin_amd64.tar.gz&#34;</span> <span class="se">\
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit 224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' class='code-placeholder magenta' data-code-var='224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' data-code-var-value='224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b' data-code-var-escaped="224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b">224926fd77736a364cf28128f18927dda00385f0b6872a108477246a1252ae1b<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>  influxdb2-2.8.0_darwin_amd64.tar.gz&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> shasum --algorithm <span class="m">256</span> --quiet --check -</span></span></code></pre></div>
 <p>Replace the following:</p>
 <ul>
@@ -4773,7 +4773,7 @@ following command in your terminal:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Unpackage contents to the current working directory</span>
-</span></span><span class="line"><span class="cl">tar zxvf ./influxdb2-_darwin_amd64.tar.gz</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">tar zxvf ./influxdb2-2.8.0_darwin_amd64.tar.gz</span></span></code></pre></div>
 </li>
 <li>
 <p>Optional: Place the <code>influxd</code> binary in your <code>$PATH</code>&ndash;for example, copy the binary to <code>/usr/local/bin</code>:</p>
@@ -4781,13 +4781,13 @@ following command in your terminal:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># (Optional) Copy the influxd binary to your $PATH</span>
-</span></span><span class="line"><span class="cl">sudo cp influxdb2-/influxd /usr/local/bin/</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">sudo cp influxdb2-2.8.0/influxd /usr/local/bin/</span></span></code></pre></div>
 <p>With the <code>influxd</code> binary in your <code>$PATH</code> (<code>/usr/local/bin</code>), you can enter <code>influxd</code> in your terminal to start the server.</p>
 <p>If you choose not to move the <code>influxd</code> binary into your <code>$PATH</code>, enter the path to the binary to start the server&ndash;for example:</p>
 <!--pytest.mark.skip-->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./influxdb2-/influxd</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./influxdb2-2.8.0/influxd</span></span></code></pre></div>
 </li>
 </ol>
 <div class="expand-wrapper">
@@ -4937,17 +4937,17 @@ see <a href="/influxdb/v2/reference/internals/file-system-layout/?t=Linux#instal
 <li>
 <p>In your browser or your terminal, download the InfluxDB binary for your
 system architecture (AMD64 or ARM).</p>
-<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
-<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a></p>
+<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_amd64.tar.gz" download >InfluxDB v2 (amd64)</a>
+<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_arm64.tar.gz" download >InfluxDB v2 (arm)</a></p>
 <!--test:actual
 ```sh
 curl -s --location -O \
-"https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_amd64.tar.gz"
+"https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_amd64.tar.gz"
 ```
 
 ```sh
 curl -s --location -O \
-"https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_arm64.tar.gz"
+"https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_arm64.tar.gz"
 ```
 -->
 <!--pytest.mark.skip-->
@@ -4955,13 +4955,13 @@ curl -s --location -O \
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Use curl to download the amd64 binary.</span>
 </span></span><span class="line"><span class="cl">curl --location -O <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_amd64.tar.gz</span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_amd64.tar.gz</span></span></code></pre></div>
 <!--pytest.mark.skip-->
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Use curl to download the arm64 binary.</span>
 </span></span><span class="line"><span class="cl">curl --location -O <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_arm64.tar.gz</span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_arm64.tar.gz</span></span></code></pre></div>
 </li>
 <li>
 <p><a href="#choose-the-influxdata-key-pair-for-your-os-version">Choose the InfluxData key-pair for your OS version</a>.</p>
@@ -4994,8 +4994,8 @@ fi
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> grep <span class="s1">&#39;InfluxData Package Signing Key &lt;support@influxdata.com&gt;&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Download and verify the binary&#39;s signature file</span>
-</span></span><span class="line"><span class="cl">curl --silent --location <span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_amd64.tar.gz.asc&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - influxdb2-_linux_amd64.tar.gz <span class="se">\
+</span></span><span class="line"><span class="cl">curl --silent --location <span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_amd64.tar.gz.asc&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - influxdb2-2.8.0_linux_amd64.tar.gz <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s1">&#39;InfluxData Package Signing Key &lt;support@influxdata.com&gt;&#39;</span></span></span></code></pre></div>
 <!--pytest.mark.skip-->
 
@@ -5007,8 +5007,8 @@ fi
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> grep <span class="s1">&#39;InfluxData Package Signing Key &lt;support@influxdata.com&gt;&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Download and verify the binary&#39;s signature file</span>
-</span></span><span class="line"><span class="cl">curl --silent --location <span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v/influxdb2-_linux_arm64.tar.gz.asc&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - influxdb2-_linux_arm64.tar.gz <span class="se">\
+</span></span><span class="line"><span class="cl">curl --silent --location <span class="s2">&#34;https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0_linux_arm64.tar.gz.asc&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --verify - influxdb2-2.8.0_linux_arm64.tar.gz <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s1">&#39;InfluxData Package Signing Key &lt;support@influxdata.com&gt;&#39;</span></span></span></code></pre></div>
 <p>If successful, the output is similar to the following:</p>
 <!--pytest-codeblocks:expected-output-->
@@ -5022,28 +5022,28 @@ for your system:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># amd64</span>
-</span></span><span class="line"><span class="cl">tar xvzf ./influxdb2-_linux_amd64.tar.gz</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">tar xvzf ./influxdb2-2.8.0_linux_amd64.tar.gz</span></span></code></pre></div>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># arm64</span>
-</span></span><span class="line"><span class="cl">tar xvzf ./influxdb2-_linux_arm64.tar.gz</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">tar xvzf ./influxdb2-2.8.0_linux_arm64.tar.gz</span></span></code></pre></div>
 </li>
 <li>
 <p>Optional: Place the extracted <code>influxd</code> executable binary in your system <code>$PATH</code>.</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># amd64</span>
-</span></span><span class="line"><span class="cl">sudo cp ./influxdb2-/usr/bin/influxd /usr/local/bin/</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">sudo cp ./influxdb2-2.8.0/usr/bin/influxd /usr/local/bin/</span></span></code></pre></div>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># arm64</span>
-</span></span><span class="line"><span class="cl">sudo cp ./influxdb2-/usr/bin/influxd /usr/local/bin/</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">sudo cp ./influxdb2-2.8.0/usr/bin/influxd /usr/local/bin/</span></span></code></pre></div>
 <p>If you choose to not move the <code>influxd</code> binary into your <code>$PATH</code>, enter the
 path to the binary to start the server&ndash;for example:</p>
 <!--pytest.mark.skip-->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./influxdb2-/usr/bin/influxd</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./influxdb2-2.8.0/usr/bin/influxd</span></span></code></pre></div>
 </li>
 </ol>
 <div class="expand-wrapper">
@@ -5101,14 +5101,14 @@ in the provided examples with <code>./influx</code> and <code>./influxd</code> r
 versioned separately.</p>
 <p><em>You&rsquo;ll install the <code>influx CLI</code> in a <a href="#download-install-and-configure-the-influx-cli">later step</a>.</em></p>
 </div>
-<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v/influxdb2--windows_amd64.zip" download >InfluxDB v2 (Windows)</a></p>
+<p><a class="btn download" href="https://download.influxdata.com/influxdb/releases/v2.8.0/influxdb2-2.8.0-windows_amd64.zip" download >InfluxDB v2 (Windows)</a></p>
 <p>Expand the downloaded archive into <code>C:\Program Files\InfluxData\</code> and rename the
 files if desired.</p>
 <!--pytest.mark.skip-->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Expand-Archive</span> <span class="p">.\</span><span class="n">influxdb2</span><span class="p">-</span><span class="n">-windows_amd64</span><span class="p">.</span><span class="py">zip</span> <span class="n">-DestinationPath</span> <span class="s1">&#39;C:\Program Files\InfluxData\&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">mv </span><span class="s1">&#39;C:\Program Files\InfluxData\influxdb2--windows-amd64&#39;</span> <span class="s1">&#39;C:\Program Files\InfluxData\influxdb&#39;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Expand-Archive</span> <span class="p">.\</span><span class="n">influxdb2</span><span class="p">-</span><span class="mf">2.8</span><span class="p">.</span><span class="mf">0</span><span class="n">-windows_amd64</span><span class="p">.</span><span class="py">zip</span> <span class="n">-DestinationPath</span> <span class="s1">&#39;C:\Program Files\InfluxData\&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">mv </span><span class="s1">&#39;C:\Program Files\InfluxData\influxdb2-2.8.0-windows-amd64&#39;</span> <span class="s1">&#39;C:\Program Files\InfluxData\influxdb&#39;</span></span></span></code></pre></div>
 <div class="expand-wrapper">
 <div class="expand" id="recommended--set-appropriate-directory-permissions">
   <a class="expand-link" href="#recommended--set-appropriate-directory-permissions"><span class="cf-icon Link"></span></a>
