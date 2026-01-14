@@ -1,0 +1,179 @@
+{{/*
+  All Endpoints List
+
+  Renders all API operations grouped by version (v3, v2, v1) and sorted by path.
+  Excludes conceptual/trait tag operations.
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+*/}}
+{{ $currentPage := . }}
+
+{{/* Extract product and version from URL */}}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{ $dataKey = print "influxdb3_" $version }}
+{{ else if eq $product "influxdb" }}
+  {{ $dataKey = print $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $articles := slice }}
+{{ with site.Data.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Collect all operations from non-conceptual articles */}}
+{{ $allOperations := slice }}
+{{ range $articles }}
+  {{ if and (reflect.IsMap .) (isset . "fields") }}
+    {{ $fields := index . "fields" }}
+    {{ if reflect.IsMap $fields }}
+      {{ $isConceptual := false }}
+      {{ if isset $fields "isConceptual" }}
+        {{ $isConceptual = index $fields "isConceptual" }}
+      {{ end }}
+      {{ if not $isConceptual }}
+        {{ if isset $fields "operations" }}
+          {{ $tag := index $fields "tag" }}
+          {{ range index $fields "operations" }}
+            {{ $allOperations = $allOperations | append (dict "op" . "tag" $tag) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $allOperations) 0 }}
+  {{/* Group operations by API version prefix */}}
+  {{ $v3Ops := slice }}
+  {{ $v2Ops := slice }}
+  {{ $v1Ops := slice }}
+  {{ $otherOps := slice }}
+
+  {{ range $allOperations }}
+    {{ $path := .op.path }}
+    {{ if hasPrefix $path "/api/v3" }}
+      {{ $v3Ops = $v3Ops | append . }}
+    {{ else if hasPrefix $path "/api/v2" }}
+      {{ $v2Ops = $v2Ops | append . }}
+    {{ else if or (hasPrefix $path "/api/v1") (hasPrefix $path "/health") (hasPrefix $path "/ping") (hasPrefix $path "/metrics") (hasPrefix $path "/query") (hasPrefix $path "/write") }}
+      {{ $v1Ops = $v1Ops | append . }}
+    {{ else }}
+      {{ $otherOps = $otherOps | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort each group by path then method */}}
+  {{ $sortV3 := slice }}
+  {{ range $v3Ops }}
+    {{ $sortKey := printf "%s %s" .op.path (upper .op.method) }}
+    {{ $sortV3 = $sortV3 | append (dict "sortKey" $sortKey "data" .) }}
+  {{ end }}
+  {{ $sortV3 = sort $sortV3 "sortKey" }}
+
+  {{ $sortV2 := slice }}
+  {{ range $v2Ops }}
+    {{ $sortKey := printf "%s %s" .op.path (upper .op.method) }}
+    {{ $sortV2 = $sortV2 | append (dict "sortKey" $sortKey "data" .) }}
+  {{ end }}
+  {{ $sortV2 = sort $sortV2 "sortKey" }}
+
+  {{ $sortV1 := slice }}
+  {{ range $v1Ops }}
+    {{ $sortKey := printf "%s %s" .op.path (upper .op.method) }}
+    {{ $sortV1 = $sortV1 | append (dict "sortKey" $sortKey "data" .) }}
+  {{ end }}
+  {{ $sortV1 = sort $sortV1 "sortKey" }}
+
+  {{/* Render v3 API endpoints */}}
+  {{ if gt (len $sortV3) 0 }}
+  <section class="api-operations-list api-version-group">
+    <h2 id="v3-api">v3 API</h2>
+    <div class="api-operations-grid">
+      {{ range $sortV3 }}
+        {{ $op := .data.op }}
+        {{ $tag := .data.tag }}
+        {{ $apiBase := $currentPage.Parent.RelPermalink }}
+        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
+        {{ $normalizedPath := $pathWithoutApiPrefix | strings.TrimPrefix "/" }}
+        {{ $operationURL := printf "%s%s/%s/" $apiBase $normalizedPath (lower $op.method) }}
+      <a href="{{ $operationURL }}" class="api-operation-card">
+        <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+        <code class="api-path">{{ $op.path }}</code>
+        <span class="api-operation-summary">{{ $op.summary }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Render v2-compatible endpoints */}}
+  {{ if gt (len $sortV2) 0 }}
+  <section class="api-operations-list api-version-group">
+    <h2 id="v2-compatible">v2-compatible API</h2>
+    <div class="api-operations-grid">
+      {{ range $sortV2 }}
+        {{ $op := .data.op }}
+        {{ $tag := .data.tag }}
+        {{ $apiBase := $currentPage.Parent.RelPermalink }}
+        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
+        {{ $normalizedPath := $pathWithoutApiPrefix | strings.TrimPrefix "/" }}
+        {{ $operationURL := printf "%s%s/%s/" $apiBase $normalizedPath (lower $op.method) }}
+      <a href="{{ $operationURL }}" class="api-operation-card">
+        <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+        <code class="api-path">{{ $op.path }}</code>
+        <span class="api-operation-summary">{{ $op.summary }}</span>
+        {{ with $op.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Render v1-compatible endpoints */}}
+  {{ if gt (len $sortV1) 0 }}
+  <section class="api-operations-list api-version-group">
+    <h2 id="v1-compatible">v1-compatible API</h2>
+    <div class="api-operations-grid">
+      {{ range $sortV1 }}
+        {{ $op := .data.op }}
+        {{ $tag := .data.tag }}
+        {{ $apiBase := $currentPage.Parent.RelPermalink }}
+        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
+        {{ $normalizedPath := $pathWithoutApiPrefix }}
+        {{/* v1 paths may not have /api prefix - normalize */}}
+        {{ if not (findRE `^/v\d+/` $pathWithoutApiPrefix) }}
+          {{ $normalizedPath = printf "/v1%s" $pathWithoutApiPrefix }}
+        {{ end }}
+        {{ $normalizedPath = $normalizedPath | strings.TrimPrefix "/" }}
+        {{ $operationURL := printf "%s%s/%s/" $apiBase $normalizedPath (lower $op.method) }}
+      <a href="{{ $operationURL }}" class="api-operation-card">
+        <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+        <code class="api-path">{{ $op.path }}</code>
+        <span class="api-operation-summary">{{ $op.summary }}</span>
+        {{ with $op.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+{{ else }}
+  <p>No endpoints available.</p>
+{{ end }}

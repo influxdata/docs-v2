@@ -180,10 +180,13 @@
       {{ end }}
     {{ end }}
 
-    <li class="nav-item">
-      <a href="#" class="children-toggle{{ if $anyOpActive }} open{{ end }}"></a>
-      <span class="nav-group-label">All endpoints</span>
-      <ul class="children{{ if $anyOpActive }} open{{ end }}">
+    {{/* Build URL for all-endpoints page */}}
+    {{ $allEndpointsUrl := printf "/%s/%s/api/all-endpoints/" $product $version | relURL }}
+    {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/all-endpoints/" $product $version) }}
+    <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+      <a href="#" class="children-toggle{{ if or $anyOpActive $allEndpointsActive }} open{{ end }}"></a>
+      <a href="{{ $allEndpointsUrl }}">All endpoints</a>
+      <ul class="children{{ if or $anyOpActive $allEndpointsActive }} open{{ end }}">
         {{ range $sortedOps }}
           {{ $op := .op }}
           {{ $apiPath := $op.path }}

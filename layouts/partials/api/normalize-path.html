@@ -5,15 +5,18 @@
   1. Strips leading "/api" prefix (parent directory provides /api/)
   2. Adds v1/ prefix for paths without a version (e.g., /write → v1/write)
   3. Strips leading "/" to avoid double slashes
+  4. Removes curly braces from path parameters (e.g., {db} → db)
 
   Parameters:
-  - path: The API path (e.g., "/write", "/api/v3/configure/database")
+  - path: The API path (e.g., "/write", "/api/v3/engine/{request_path}")
 
-  Returns: URL-safe path slug (e.g., "v1/write", "v3/configure/database")
+  Returns: URL-safe path slug (e.g., "v1/write", "v3/engine/request_path")
 */}}
 {{ $path := . | strings.TrimPrefix "/api" }}
 {{ if not (findRE `^/v\d+/` $path) }}
   {{ $path = printf "/v1%s" $path }}
 {{ end }}
 {{ $path = $path | strings.TrimPrefix "/" }}
+{{/* Remove curly braces from path parameters */}}
+{{ $path = replaceRE `[{}]` "" $path }}
 {{ return $path }}

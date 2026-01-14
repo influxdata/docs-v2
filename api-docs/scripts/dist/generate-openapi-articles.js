@@ -313,6 +313,36 @@ ${introText}
         fs.writeFileSync(parentIndexFile, parentContent);
         console.log(`✓ Generated parent index at ${parentIndexFile}`);
     }
+    // Generate "All endpoints" page
+    const allEndpointsDir = path.join(apiParentDir, 'all-endpoints');
+    const allEndpointsFile = path.join(allEndpointsDir, '_index.md');
+    if (!fs.existsSync(allEndpointsDir)) {
+        fs.mkdirSync(allEndpointsDir, { recursive: true });
+    }
+    const allEndpointsFrontmatter = {
+        title: 'All endpoints',
+        description: `View all API endpoints sorted by path.`,
+        type: 'api',
+        layout: 'all-endpoints',
+        weight: 999,
+        isAllEndpoints: true,
+    };
+    // Add menu entry for all-endpoints page
+    if (menuKey) {
+        allEndpointsFrontmatter.menu = {
+            [menuKey]: {
+                name: 'All endpoints',
+                parent: menuParent || 'InfluxDB HTTP API',
+            },
+        };
+    }
+    const allEndpointsContent = `---
+${yaml.dump(allEndpointsFrontmatter)}---
+
+All {{% product-name %}} API endpoints, sorted by path.
+`;
+    fs.writeFileSync(allEndpointsFile, allEndpointsContent);
+    console.log(`✓ Generated all-endpoints page at ${allEndpointsFile}`);
     // Generate a page for each article (tag)
     for (const article of data.articles) {
         const pagePath = path.join(contentPath, article.path);
@@ -506,21 +536,25 @@ ${yaml.dump(frontmatter)}---
  * Maps product identifiers to their OpenAPI specs and content directories
  */
 const productConfigs = {
-    // TODO: v2 products (cloud-v2, oss-v2) are disabled for now because they
-    // have existing Redoc-based API reference at /reference/api/
-    // Uncomment when ready to migrate v2 products to RapiDoc
-    // 'cloud-v2': {
-    //   specFile: path.join(API_DOCS_ROOT, 'influxdb/cloud/v2/ref.yml'),
-    //   pagesDir: path.join(DOCS_ROOT, 'content/influxdb/cloud/api'),
-    //   description: 'InfluxDB Cloud (v2 API)',
-    //   menuKey: 'influxdb_cloud',
-    // },
-    // 'oss-v2': {
-    //   specFile: path.join(API_DOCS_ROOT, 'influxdb/v2/v2/ref.yml'),
-    //   pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v2/api'),
-    //   description: 'InfluxDB OSS v2',
-    //   menuKey: 'influxdb_v2',
-    // },
+    // InfluxDB v2 products - use tag-based generation for consistency
+    // These have existing /reference/api/ pages with menu entries,
+    // so we skip adding menu entries to the generated parent pages.
+    'cloud-v2': {
+        specFile: path.join(API_DOCS_ROOT, 'influxdb/cloud/v2/ref.yml'),
+        pagesDir: path.join(DOCS_ROOT, 'content/influxdb/cloud'),
+        description: 'InfluxDB Cloud (v2 API)',
+        menuKey: 'influxdb_cloud',
+        skipParentMenu: true,
+        useTagBasedGeneration: true,
+    },
+    'oss-v2': {
+        specFile: path.join(API_DOCS_ROOT, 'influxdb/v2/v2/ref.yml'),
+        pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v2'),
+        description: 'InfluxDB OSS v2',
+        menuKey: 'influxdb_v2',
+        skipParentMenu: true,
+        useTagBasedGeneration: true,
+    },
     // InfluxDB 3 products use tag-based generation for better UX
     // Keys use underscores to match Hugo data directory structure
     influxdb3_core: {

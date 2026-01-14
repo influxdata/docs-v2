@@ -1,0 +1,3045 @@
+{
+  "articles": [
+    {
+      "path": "api/authentication",
+      "fields": {
+        "name": "Authentication",
+        "describes": [],
+        "title": "Authentication",
+        "description": "Use one of the following schemes to authenticate to the InfluxDB API:\n\n- [Token authentication](#section/Authentication/TokenAuthentication)\n- [Basic authentication](#section/Authentication/BasicAuthentication)\n- [Querystring authentication](#section/Authentication/QuerystringAuthentication)\n<!-- ReDoc-Inject: <security-definitions> -->\n",
+        "tag": "Authentication",
+        "isConceptual": true,
+        "menuGroup": "Concepts",
+        "operations": [],
+        "tagDescription": "Use one of the following schemes to authenticate to the InfluxDB API:\n\n- [Token authentication](#section/Authentication/TokenAuthentication)\n- [Basic authentication](#section/Authentication/BasicAuthentication)\n- [Querystring authentication](#section/Authentication/QuerystringAuthentication)\n<!-- ReDoc-Inject: <security-definitions> -->\n",
+        "showSecuritySchemes": true,
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-authentication.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-authentication.yaml"
+      }
+    },
+    {
+      "path": "api/authorizations-api-tokens",
+      "fields": {
+        "name": "Authorizations (API tokens)",
+        "describes": [
+          "/api/v2/authorizations",
+          "/api/v2/authorizations/{authID}"
+        ],
+        "title": "Authorizations (API tokens)",
+        "description": "Create and manage authorizations (API tokens).\n\nAn _authorization_ contains a list of `read` and `write`\npermissions for organization resources and provides an API token for authentication.\nAn authorization belongs to an organization and only contains permissions for that organization.\n\nWe recommend the following for managing your tokens:\n\n- Create a generic user to create and manage tokens for writing data.\n- Store your tokens in a secure password vault for future access.\n\n### User sessions with authorizations\n\nOptionally, when creating an authorization, you can scope it to a specific user.\nIf the user signs in with username and password, creating a _user session_,\nthe session carries the permissions granted by all the user's authorizations.\nFor more information, see [how to assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/).\nTo create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).\n\n### Related endpoints\n\n- [Signin](#tag/Signin)\n- [Signout](#tag/Signout)\n\n### Related guides\n\n- [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication)\n- [Manage API tokens](/influxdb/cloud/security/tokens/)\n- [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/)\n",
+        "tag": "Authorizations (API tokens)",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetAuthorizations",
+            "method": "GET",
+            "path": "/api/v2/authorizations",
+            "summary": "List authorizations",
+            "tags": [
+              "Authorizations (API tokens)"
+            ]
+          },
+          {
+            "operationId": "PostAuthorizations",
+            "method": "POST",
+            "path": "/api/v2/authorizations",
+            "summary": "Create an authorization",
+            "tags": [
+              "Authorizations (API tokens)"
+            ]
+          },
+          {
+            "operationId": "GetAuthorizationsID",
+            "method": "GET",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Retrieve an authorization",
+            "tags": [
+              "Authorizations (API tokens)"
+            ],
+            "externalDocs": {
+              "description": "View tokens",
+              "url": "https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/"
+            }
+          },
+          {
+            "operationId": "PatchAuthorizationsID",
+            "method": "PATCH",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Update an API token to be active or inactive",
+            "tags": [
+              "Authorizations (API tokens)"
+            ]
+          },
+          {
+            "operationId": "DeleteAuthorizationsID",
+            "method": "DELETE",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Delete an authorization",
+            "tags": [
+              "Authorizations (API tokens)"
+            ]
+          }
+        ],
+        "tagDescription": "Create and manage authorizations (API tokens).\n\nAn _authorization_ contains a list of `read` and `write`\npermissions for organization resources and provides an API token for authentication.\nAn authorization belongs to an organization and only contains permissions for that organization.\n\nWe recommend the following for managing your tokens:\n\n- Create a generic user to create and manage tokens for writing data.\n- Store your tokens in a secure password vault for future access.\n\n### User sessions with authorizations\n\nOptionally, when creating an authorization, you can scope it to a specific user.\nIf the user signs in with username and password, creating a _user session_,\nthe session carries the permissions granted by all the user's authorizations.\nFor more information, see [how to assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/).\nTo create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).\n\n### Related endpoints\n\n- [Signin](#tag/Signin)\n- [Signout](#tag/Signout)\n\n### Related guides\n\n- [Authorize API requests](/influxdb/cloud/api-guide/api_intro/#authentication)\n- [Manage API tokens](/influxdb/cloud/security/tokens/)\n- [Assign a token to a specific user](/influxdb/cloud/security/tokens/create-token/)\n",
+        "related": [
+          "https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/"
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-authorizations-api-tokens.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-authorizations-api-tokens.yaml"
+      }
+    },
+    {
+      "path": "api/bucket-schemas",
+      "fields": {
+        "name": "Bucket Schemas",
+        "describes": [
+          "/api/v2/buckets/{bucketID}/schema/measurements",
+          "/api/v2/buckets/{bucketID}/schema/measurements/{measurementID}"
+        ],
+        "title": "Bucket Schemas",
+        "description": "API reference for Bucket Schemas",
+        "tag": "Bucket Schemas",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "getMeasurementSchemas",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}/schema/measurements",
+            "summary": "List measurement schemas of a bucket",
+            "tags": [
+              "Bucket Schemas"
+            ]
+          },
+          {
+            "operationId": "createMeasurementSchema",
+            "method": "POST",
+            "path": "/api/v2/buckets/{bucketID}/schema/measurements",
+            "summary": "Create a measurement schema for a bucket",
+            "tags": [
+              "Bucket Schemas"
+            ]
+          },
+          {
+            "operationId": "getMeasurementSchema",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}/schema/measurements/{measurementID}",
+            "summary": "Retrieve a measurement schema",
+            "tags": [
+              "Bucket Schemas"
+            ]
+          },
+          {
+            "operationId": "updateMeasurementSchema",
+            "method": "PATCH",
+            "path": "/api/v2/buckets/{bucketID}/schema/measurements/{measurementID}",
+            "summary": "Update a measurement schema",
+            "tags": [
+              "Bucket Schemas"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-bucket-schemas.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-bucket-schemas.yaml"
+      }
+    },
+    {
+      "path": "api/buckets",
+      "fields": {
+        "name": "Buckets",
+        "describes": [
+          "/api/v2/buckets",
+          "/api/v2/buckets/{bucketID}",
+          "/api/v2/buckets/{bucketID}/labels",
+          "/api/v2/buckets/{bucketID}/labels/{labelID}",
+          "/api/v2/buckets/{bucketID}/members",
+          "/api/v2/buckets/{bucketID}/members/{userID}",
+          "/api/v2/buckets/{bucketID}/owners",
+          "/api/v2/buckets/{bucketID}/owners/{userID}"
+        ],
+        "title": "Buckets",
+        "description": "Store your data in InfluxDB [buckets](/influxdb/cloud/reference/glossary/#bucket).\nA bucket is a named location where time series data is stored. All buckets\nhave a [retention period](/influxdb/cloud/reference/glossary/#retention-period),\na duration of time that each data point persists. InfluxDB drops all\npoints with timestamps older than the bucket’s retention period.\nA bucket belongs to an organization.\n\n### Related guides\n\n- [Manage buckets](/influxdb/cloud/organizations/buckets/)\n",
+        "tag": "Buckets",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetBuckets",
+            "method": "GET",
+            "path": "/api/v2/buckets",
+            "summary": "List buckets",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "PostBuckets",
+            "method": "POST",
+            "path": "/api/v2/buckets",
+            "summary": "Create a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "GetBucketsID",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}",
+            "summary": "Retrieve a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "PatchBucketsID",
+            "method": "PATCH",
+            "path": "/api/v2/buckets/{bucketID}",
+            "summary": "Update a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "DeleteBucketsID",
+            "method": "DELETE",
+            "path": "/api/v2/buckets/{bucketID}",
+            "summary": "Delete a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "GetBucketsIDLabels",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}/labels",
+            "summary": "List all labels for a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "PostBucketsIDLabels",
+            "method": "POST",
+            "path": "/api/v2/buckets/{bucketID}/labels",
+            "summary": "Add a label to a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "DeleteBucketsIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/buckets/{bucketID}/labels/{labelID}",
+            "summary": "Delete a label from a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "GetBucketsIDMembers",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}/members",
+            "summary": "List all users with member privileges for a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "PostBucketsIDMembers",
+            "method": "POST",
+            "path": "/api/v2/buckets/{bucketID}/members",
+            "summary": "Add a member to a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "DeleteBucketsIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/buckets/{bucketID}/members/{userID}",
+            "summary": "Remove a member from a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "GetBucketsIDOwners",
+            "method": "GET",
+            "path": "/api/v2/buckets/{bucketID}/owners",
+            "summary": "List all owners of a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "PostBucketsIDOwners",
+            "method": "POST",
+            "path": "/api/v2/buckets/{bucketID}/owners",
+            "summary": "Add an owner to a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          },
+          {
+            "operationId": "DeleteBucketsIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/buckets/{bucketID}/owners/{userID}",
+            "summary": "Remove an owner from a bucket",
+            "tags": [
+              "Buckets"
+            ]
+          }
+        ],
+        "tagDescription": "Store your data in InfluxDB [buckets](/influxdb/cloud/reference/glossary/#bucket).\nA bucket is a named location where time series data is stored. All buckets\nhave a [retention period](/influxdb/cloud/reference/glossary/#retention-period),\na duration of time that each data point persists. InfluxDB drops all\npoints with timestamps older than the bucket’s retention period.\nA bucket belongs to an organization.\n\n### Related guides\n\n- [Manage buckets](/influxdb/cloud/organizations/buckets/)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-buckets.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-buckets.yaml"
+      }
+    },
+    {
+      "path": "api/cells",
+      "fields": {
+        "name": "Cells",
+        "describes": [
+          "/api/v2/dashboards/{dashboardID}/cells",
+          "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+          "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view"
+        ],
+        "title": "Cells",
+        "description": "API reference for Cells",
+        "tag": "Cells",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostDashboardsIDCells",
+            "method": "POST",
+            "path": "/api/v2/dashboards/{dashboardID}/cells",
+            "summary": "Create a dashboard cell",
+            "tags": [
+              "Cells"
+            ]
+          },
+          {
+            "operationId": "PutDashboardsIDCells",
+            "method": "PUT",
+            "path": "/api/v2/dashboards/{dashboardID}/cells",
+            "summary": "Replace cells in a dashboard",
+            "tags": [
+              "Cells"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsIDCellsID",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+            "summary": "Update the non-positional information related to a cell",
+            "tags": [
+              "Cells"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsIDCellsID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+            "summary": "Delete a dashboard cell",
+            "tags": [
+              "Cells"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsIDCellsIDView",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Retrieve the view for a cell",
+            "tags": [
+              "Cells"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsIDCellsIDView",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Update the view for a cell",
+            "tags": [
+              "Cells"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-cells.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-cells.yaml"
+      }
+    },
+    {
+      "path": "api/checks",
+      "fields": {
+        "name": "Checks",
+        "describes": [
+          "/api/v2/checks",
+          "/api/v2/checks/{checkID}",
+          "/api/v2/checks/{checkID}/labels",
+          "/api/v2/checks/{checkID}/labels/{labelID}",
+          "/api/v2/checks/{checkID}/query"
+        ],
+        "title": "Checks",
+        "description": "API reference for Checks",
+        "tag": "Checks",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetChecks",
+            "method": "GET",
+            "path": "/api/v2/checks",
+            "summary": "List all checks",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "CreateCheck",
+            "method": "POST",
+            "path": "/api/v2/checks",
+            "summary": "Add new check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "GetChecksID",
+            "method": "GET",
+            "path": "/api/v2/checks/{checkID}",
+            "summary": "Retrieve a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "PutChecksID",
+            "method": "PUT",
+            "path": "/api/v2/checks/{checkID}",
+            "summary": "Update a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "PatchChecksID",
+            "method": "PATCH",
+            "path": "/api/v2/checks/{checkID}",
+            "summary": "Update a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "DeleteChecksID",
+            "method": "DELETE",
+            "path": "/api/v2/checks/{checkID}",
+            "summary": "Delete a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "GetChecksIDLabels",
+            "method": "GET",
+            "path": "/api/v2/checks/{checkID}/labels",
+            "summary": "List all labels for a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "PostChecksIDLabels",
+            "method": "POST",
+            "path": "/api/v2/checks/{checkID}/labels",
+            "summary": "Add a label to a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "DeleteChecksIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/checks/{checkID}/labels/{labelID}",
+            "summary": "Delete label from a check",
+            "tags": [
+              "Checks"
+            ]
+          },
+          {
+            "operationId": "GetChecksIDQuery",
+            "method": "GET",
+            "path": "/api/v2/checks/{checkID}/query",
+            "summary": "Retrieve a check query",
+            "tags": [
+              "Checks"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-checks.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-checks.yaml"
+      }
+    },
+    {
+      "path": "api/common-parameters",
+      "fields": {
+        "name": "Common parameters",
+        "describes": [],
+        "title": "Common parameters",
+        "description": "To specify resources, some InfluxDB API endpoints require parameters or\nproperties in the request--for example,\nwriting to a `bucket` resource in an `org` (_organization_ resource).\n\n### Common parameters\n\n| Query parameter          | Value type            | Description                                |\n|:------------------------ |:--------------------- |:-------------------------------------------|\n| `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/cloud/organizations/buckets/view-buckets/). |\n| `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/cloud/organizations/buckets/view-buckets/). |\n| `org`                    | string                | The organization name or ID ([find your organization](/influxdb/cloud/organizations/view-orgs/). |\n| `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/cloud/organizations/view-orgs/). |\n",
+        "tag": "Common parameters",
+        "isConceptual": true,
+        "menuGroup": "Other",
+        "operations": [],
+        "tagDescription": "To specify resources, some InfluxDB API endpoints require parameters or\nproperties in the request--for example,\nwriting to a `bucket` resource in an `org` (_organization_ resource).\n\n### Common parameters\n\n| Query parameter          | Value type            | Description                                |\n|:------------------------ |:--------------------- |:-------------------------------------------|\n| `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/cloud/organizations/buckets/view-buckets/). |\n| `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/cloud/organizations/buckets/view-buckets/). |\n| `org`                    | string                | The organization name or ID ([find your organization](/influxdb/cloud/organizations/view-orgs/). |\n| `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/cloud/organizations/view-orgs/). |\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-common-parameters.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-common-parameters.yaml"
+      }
+    },
+    {
+      "path": "api/config",
+      "fields": {
+        "name": "Config",
+        "describes": [
+          "/api/v2/flags"
+        ],
+        "title": "Config",
+        "description": "API reference for Config",
+        "tag": "Config",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetFlags",
+            "method": "GET",
+            "path": "/api/v2/flags",
+            "summary": "Retrieve feature flags",
+            "tags": [
+              "Config"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-config.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-config.yaml"
+      }
+    },
+    {
+      "path": "api/dashboards",
+      "fields": {
+        "name": "Dashboards",
+        "describes": [
+          "/api/v2/dashboards",
+          "/api/v2/dashboards/{dashboardID}",
+          "/api/v2/dashboards/{dashboardID}/cells",
+          "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+          "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+          "/api/v2/dashboards/{dashboardID}/labels",
+          "/api/v2/dashboards/{dashboardID}/labels/{labelID}",
+          "/api/v2/dashboards/{dashboardID}/members",
+          "/api/v2/dashboards/{dashboardID}/members/{userID}",
+          "/api/v2/dashboards/{dashboardID}/owners",
+          "/api/v2/dashboards/{dashboardID}/owners/{userID}"
+        ],
+        "title": "Dashboards",
+        "description": "API reference for Dashboards",
+        "tag": "Dashboards",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetDashboards",
+            "method": "GET",
+            "path": "/api/v2/dashboards",
+            "summary": "List dashboards",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PostDashboards",
+            "method": "POST",
+            "path": "/api/v2/dashboards",
+            "summary": "Create a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsID",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}",
+            "summary": "Retrieve a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsID",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}",
+            "summary": "Update a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}",
+            "summary": "Delete a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PostDashboardsIDCells",
+            "method": "POST",
+            "path": "/api/v2/dashboards/{dashboardID}/cells",
+            "summary": "Create a dashboard cell",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PutDashboardsIDCells",
+            "method": "PUT",
+            "path": "/api/v2/dashboards/{dashboardID}/cells",
+            "summary": "Replace cells in a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsIDCellsID",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+            "summary": "Update the non-positional information related to a cell",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsIDCellsID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}",
+            "summary": "Delete a dashboard cell",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsIDCellsIDView",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Retrieve the view for a cell",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsIDCellsIDView",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Update the view for a cell",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsIDLabels",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/labels",
+            "summary": "List all labels for a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PostDashboardsIDLabels",
+            "method": "POST",
+            "path": "/api/v2/dashboards/{dashboardID}/labels",
+            "summary": "Add a label to a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}/labels/{labelID}",
+            "summary": "Delete a label from a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsIDMembers",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/members",
+            "summary": "List all dashboard members",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PostDashboardsIDMembers",
+            "method": "POST",
+            "path": "/api/v2/dashboards/{dashboardID}/members",
+            "summary": "Add a member to a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}/members/{userID}",
+            "summary": "Remove a member from a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "GetDashboardsIDOwners",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/owners",
+            "summary": "List all dashboard owners",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "PostDashboardsIDOwners",
+            "method": "POST",
+            "path": "/api/v2/dashboards/{dashboardID}/owners",
+            "summary": "Add an owner to a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          },
+          {
+            "operationId": "DeleteDashboardsIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/dashboards/{dashboardID}/owners/{userID}",
+            "summary": "Remove an owner from a dashboard",
+            "tags": [
+              "Dashboards"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-dashboards.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-dashboards.yaml"
+      }
+    },
+    {
+      "path": "api/data-i-o-endpoints",
+      "fields": {
+        "name": "Data I/O endpoints",
+        "describes": [
+          "/api/v2/delete",
+          "/api/v2/query",
+          "/api/v2/scripts",
+          "/api/v2/scripts/{scriptID}",
+          "/api/v2/scripts/{scriptID}/invoke",
+          "/api/v2/tasks",
+          "/api/v2/tasks/{taskID}",
+          "/api/v2/tasks/{taskID}/runs",
+          "/api/v2/write"
+        ],
+        "title": "Data I/O endpoints",
+        "description": "API reference for Data I/O endpoints",
+        "tag": "Data I/O endpoints",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostDelete",
+            "method": "POST",
+            "path": "/api/v2/delete",
+            "summary": "Delete data",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "PostQuery",
+            "method": "POST",
+            "path": "/api/v2/query",
+            "summary": "Query data",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "GetScripts",
+            "method": "GET",
+            "path": "/api/v2/scripts",
+            "summary": "List scripts",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "GetScriptsID",
+            "method": "GET",
+            "path": "/api/v2/scripts/{scriptID}",
+            "summary": "Retrieve a script",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "PostScriptsIDInvoke",
+            "method": "POST",
+            "path": "/api/v2/scripts/{scriptID}/invoke",
+            "summary": "Invoke a script",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "GetTasks",
+            "method": "GET",
+            "path": "/api/v2/tasks",
+            "summary": "List all tasks",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "PostTasks",
+            "method": "POST",
+            "path": "/api/v2/tasks",
+            "summary": "Create a task",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "GetTasksID",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}",
+            "summary": "Retrieve a task",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDRuns",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/runs",
+            "summary": "Start a task run, overriding the schedule",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          },
+          {
+            "operationId": "PostWrite",
+            "method": "POST",
+            "path": "/api/v2/write",
+            "summary": "Write data",
+            "tags": [
+              "Data I/O endpoints"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-data-i-o-endpoints.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-data-i-o-endpoints.yaml"
+      }
+    },
+    {
+      "path": "api/dbrps",
+      "fields": {
+        "name": "DBRPs",
+        "describes": [
+          "/api/v2/dbrps",
+          "/api/v2/dbrps/{dbrpID}"
+        ],
+        "title": "DBRPs",
+        "description": "The InfluxDB 1.x data model includes [databases](/influxdb/cloud/reference/glossary/#database)\nand [retention policies](/influxdb/cloud/reference/glossary/#retention-policy-rp).\nInfluxDB 2.x replaces databases and retention policies with buckets.\nTo support InfluxDB 1.x query and write patterns in InfluxDB 2.x,\ndatabases and retention policies are mapped to buckets using the\ndatabase and retention policy (DBRP) mapping service.\nThe DBRP mapping service uses the database and retention policy\nspecified in 1.x compatibility API requests to route operations to a bucket.\n\n### Related guides\n\n- [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)\n",
+        "tag": "DBRPs",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetDBRPs",
+            "method": "GET",
+            "path": "/api/v2/dbrps",
+            "summary": "List database retention policy mappings",
+            "tags": [
+              "DBRPs"
+            ]
+          },
+          {
+            "operationId": "PostDBRP",
+            "method": "POST",
+            "path": "/api/v2/dbrps",
+            "summary": "Add a database retention policy mapping",
+            "tags": [
+              "DBRPs"
+            ]
+          },
+          {
+            "operationId": "GetDBRPsID",
+            "method": "GET",
+            "path": "/api/v2/dbrps/{dbrpID}",
+            "summary": "Retrieve a database retention policy mapping",
+            "tags": [
+              "DBRPs"
+            ]
+          },
+          {
+            "operationId": "PatchDBRPID",
+            "method": "PATCH",
+            "path": "/api/v2/dbrps/{dbrpID}",
+            "summary": "Update a database retention policy mapping",
+            "tags": [
+              "DBRPs"
+            ]
+          },
+          {
+            "operationId": "DeleteDBRPID",
+            "method": "DELETE",
+            "path": "/api/v2/dbrps/{dbrpID}",
+            "summary": "Delete a database retention policy",
+            "tags": [
+              "DBRPs"
+            ]
+          }
+        ],
+        "tagDescription": "The InfluxDB 1.x data model includes [databases](/influxdb/cloud/reference/glossary/#database)\nand [retention policies](/influxdb/cloud/reference/glossary/#retention-policy-rp).\nInfluxDB 2.x replaces databases and retention policies with buckets.\nTo support InfluxDB 1.x query and write patterns in InfluxDB 2.x,\ndatabases and retention policies are mapped to buckets using the\ndatabase and retention policy (DBRP) mapping service.\nThe DBRP mapping service uses the database and retention policy\nspecified in 1.x compatibility API requests to route operations to a bucket.\n\n### Related guides\n\n- [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-dbrps.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-dbrps.yaml"
+      }
+    },
+    {
+      "path": "api/delete",
+      "fields": {
+        "name": "Delete",
+        "describes": [
+          "/api/v2/delete"
+        ],
+        "title": "Delete",
+        "description": "Delete data from an InfluxDB bucket.\n",
+        "tag": "Delete",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostDelete",
+            "method": "POST",
+            "path": "/api/v2/delete",
+            "summary": "Delete data",
+            "tags": [
+              "Delete"
+            ]
+          }
+        ],
+        "tagDescription": "Delete data from an InfluxDB bucket.\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-delete.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-delete.yaml"
+      }
+    },
+    {
+      "path": "api/headers",
+      "fields": {
+        "name": "Headers",
+        "describes": [],
+        "title": "Headers",
+        "description": "InfluxDB HTTP API endpoints use standard HTTP request and response headers.\nThe following table shows common headers used by many InfluxDB API endpoints.\nSome endpoints may use other headers that perform functions more specific to those endpoints--for example,\nthe `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.\n\n| Header                   | Value type            | Description                                |\n|:------------------------ |:--------------------- |:-------------------------------------------|\n| `Accept`                 | string                | The content type that the client can understand. |\n| `Authorization`          | string                | The [authorization scheme and credential](/influxdb/cloud/api/authentication/). |\n| `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |\n| `Content-Type`           | string                | The format of the data in the request body. |\n",
+        "tag": "Headers",
+        "isConceptual": true,
+        "menuGroup": "Other",
+        "operations": [],
+        "tagDescription": "InfluxDB HTTP API endpoints use standard HTTP request and response headers.\nThe following table shows common headers used by many InfluxDB API endpoints.\nSome endpoints may use other headers that perform functions more specific to those endpoints--for example,\nthe `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.\n\n| Header                   | Value type            | Description                                |\n|:------------------------ |:--------------------- |:-------------------------------------------|\n| `Accept`                 | string                | The content type that the client can understand. |\n| `Authorization`          | string                | The [authorization scheme and credential](/influxdb/cloud/api/authentication/). |\n| `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |\n| `Content-Type`           | string                | The format of the data in the request body. |\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-headers.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-headers.yaml"
+      }
+    },
+    {
+      "path": "api/invokable-scripts",
+      "fields": {
+        "name": "Invokable Scripts",
+        "describes": [
+          "/api/v2/scripts",
+          "/api/v2/scripts/{scriptID}",
+          "/api/v2/scripts/{scriptID}/invoke",
+          "/api/v2/scripts/{scriptID}/params"
+        ],
+        "title": "Invokable Scripts",
+        "description": "Store, manage, and execute scripts in InfluxDB.\nA script stores your custom Flux script and provides an invokable\nendpoint that accepts runtime parameters.\nIn a script, you can specify custom runtime parameters\n(`params`)--for example, `params.myparameter`.\nOnce you create a script, InfluxDB generates an\n[`/api/v2/scripts/SCRIPT_ID/invoke` endpoint](#operation/PostScriptsIDInvoke)\nfor your organization.\nYou can run the script from API requests and tasks, defining parameter\nvalues for each run.\nWhen the script runs, InfluxDB replaces `params` references in the\nscript with the runtime parameter values you define.\n\nUse the `/api/v2/scripts` endpoints to create and manage scripts.\nSee related guides to learn how to define parameters and execute scripts.\n\n### Related guides\n\n- [Invoke custom scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) from API requests.\n- [Create a task that references a script](/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script)\n",
+        "tag": "Invokable Scripts",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetScripts",
+            "method": "GET",
+            "path": "/api/v2/scripts",
+            "summary": "List scripts",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "PostScripts",
+            "method": "POST",
+            "path": "/api/v2/scripts",
+            "summary": "Create a script",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "GetScriptsID",
+            "method": "GET",
+            "path": "/api/v2/scripts/{scriptID}",
+            "summary": "Retrieve a script",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "PatchScriptsID",
+            "method": "PATCH",
+            "path": "/api/v2/scripts/{scriptID}",
+            "summary": "Update a script",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "DeleteScriptsID",
+            "method": "DELETE",
+            "path": "/api/v2/scripts/{scriptID}",
+            "summary": "Delete a script",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "PostScriptsIDInvoke",
+            "method": "POST",
+            "path": "/api/v2/scripts/{scriptID}/invoke",
+            "summary": "Invoke a script",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          },
+          {
+            "operationId": "GetScriptsIDParams",
+            "method": "GET",
+            "path": "/api/v2/scripts/{scriptID}/params",
+            "summary": "Find script parameters.",
+            "tags": [
+              "Invokable Scripts"
+            ]
+          }
+        ],
+        "tagDescription": "Store, manage, and execute scripts in InfluxDB.\nA script stores your custom Flux script and provides an invokable\nendpoint that accepts runtime parameters.\nIn a script, you can specify custom runtime parameters\n(`params`)--for example, `params.myparameter`.\nOnce you create a script, InfluxDB generates an\n[`/api/v2/scripts/SCRIPT_ID/invoke` endpoint](#operation/PostScriptsIDInvoke)\nfor your organization.\nYou can run the script from API requests and tasks, defining parameter\nvalues for each run.\nWhen the script runs, InfluxDB replaces `params` references in the\nscript with the runtime parameter values you define.\n\nUse the `/api/v2/scripts` endpoints to create and manage scripts.\nSee related guides to learn how to define parameters and execute scripts.\n\n### Related guides\n\n- [Invoke custom scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) from API requests.\n- [Create a task that references a script](/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-invokable-scripts.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-invokable-scripts.yaml"
+      }
+    },
+    {
+      "path": "api/labels",
+      "fields": {
+        "name": "Labels",
+        "describes": [
+          "/api/v2/labels",
+          "/api/v2/labels/{labelID}"
+        ],
+        "title": "Labels",
+        "description": "API reference for Labels",
+        "tag": "Labels",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetLabels",
+            "method": "GET",
+            "path": "/api/v2/labels",
+            "summary": "List all labels",
+            "tags": [
+              "Labels"
+            ]
+          },
+          {
+            "operationId": "PostLabels",
+            "method": "POST",
+            "path": "/api/v2/labels",
+            "summary": "Create a label",
+            "tags": [
+              "Labels"
+            ]
+          },
+          {
+            "operationId": "GetLabelsID",
+            "method": "GET",
+            "path": "/api/v2/labels/{labelID}",
+            "summary": "Retrieve a label",
+            "tags": [
+              "Labels"
+            ]
+          },
+          {
+            "operationId": "PatchLabelsID",
+            "method": "PATCH",
+            "path": "/api/v2/labels/{labelID}",
+            "summary": "Update a label",
+            "tags": [
+              "Labels"
+            ]
+          },
+          {
+            "operationId": "DeleteLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/labels/{labelID}",
+            "summary": "Delete a label",
+            "tags": [
+              "Labels"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-labels.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-labels.yaml"
+      }
+    },
+    {
+      "path": "api/legacy-authorizations",
+      "fields": {
+        "name": "Legacy Authorizations",
+        "describes": [
+          "/legacy/authorizations",
+          "/legacy/authorizations/{authID}",
+          "/legacy/authorizations/{authID}/password"
+        ],
+        "title": "Legacy Authorizations",
+        "description": "API reference for Legacy Authorizations",
+        "tag": "Legacy Authorizations",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetLegacyAuthorizations",
+            "method": "GET",
+            "path": "/legacy/authorizations",
+            "summary": "List all legacy authorizations",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          },
+          {
+            "operationId": "PostLegacyAuthorizations",
+            "method": "POST",
+            "path": "/legacy/authorizations",
+            "summary": "Create a legacy authorization",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          },
+          {
+            "operationId": "GetLegacyAuthorizationsID",
+            "method": "GET",
+            "path": "/legacy/authorizations/{authID}",
+            "summary": "Retrieve a legacy authorization",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          },
+          {
+            "operationId": "PatchLegacyAuthorizationsID",
+            "method": "PATCH",
+            "path": "/legacy/authorizations/{authID}",
+            "summary": "Update a legacy authorization to be active or inactive",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          },
+          {
+            "operationId": "DeleteLegacyAuthorizationsID",
+            "method": "DELETE",
+            "path": "/legacy/authorizations/{authID}",
+            "summary": "Delete a legacy authorization",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          },
+          {
+            "operationId": "PostLegacyAuthorizationsIDPassword",
+            "method": "POST",
+            "path": "/legacy/authorizations/{authID}/password",
+            "summary": "Set a legacy authorization password",
+            "tags": [
+              "Legacy Authorizations"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-authorizations.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-authorizations.yaml"
+      }
+    },
+    {
+      "path": "api/legacy-query",
+      "fields": {
+        "name": "Legacy Query",
+        "describes": [
+          "/query"
+        ],
+        "title": "Legacy Query",
+        "description": "API reference for Legacy Query",
+        "tag": "Legacy Query",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetLegacyQuery",
+            "method": "GET",
+            "path": "/query",
+            "summary": "Query with the 1.x compatibility API",
+            "tags": [
+              "Legacy Query"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-query.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-query.yaml"
+      }
+    },
+    {
+      "path": "api/legacy-write",
+      "fields": {
+        "name": "Legacy Write",
+        "describes": [
+          "/write"
+        ],
+        "title": "Legacy Write",
+        "description": "API reference for Legacy Write",
+        "tag": "Legacy Write",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostLegacyWrite",
+            "method": "POST",
+            "path": "/write",
+            "summary": "Write time series data into InfluxDB in a V1-compatible format",
+            "tags": [
+              "Legacy Write"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-write.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-legacy-write.yaml"
+      }
+    },
+    {
+      "path": "api/limits",
+      "fields": {
+        "name": "Limits",
+        "describes": [
+          "/api/v2/orgs/{orgID}/limits"
+        ],
+        "title": "Limits",
+        "description": "API reference for Limits",
+        "tag": "Limits",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetOrgLimitsID",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/limits",
+            "summary": "Retrieve limits for an organization",
+            "tags": [
+              "Limits"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-limits.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-limits.yaml"
+      }
+    },
+    {
+      "path": "api/notificationendpoints",
+      "fields": {
+        "name": "NotificationEndpoints",
+        "describes": [
+          "/api/v2/notificationEndpoints",
+          "/api/v2/notificationEndpoints/{endpointID}",
+          "/api/v2/notificationEndpoints/{endpointID}/labels",
+          "/api/v2/notificationEndpoints/{endpointID}/labels/{labelID}"
+        ],
+        "title": "NotificationEndpoints",
+        "description": "API reference for NotificationEndpoints",
+        "tag": "NotificationEndpoints",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetNotificationEndpoints",
+            "method": "GET",
+            "path": "/api/v2/notificationEndpoints",
+            "summary": "List all notification endpoints",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "CreateNotificationEndpoint",
+            "method": "POST",
+            "path": "/api/v2/notificationEndpoints",
+            "summary": "Add a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "GetNotificationEndpointsID",
+            "method": "GET",
+            "path": "/api/v2/notificationEndpoints/{endpointID}",
+            "summary": "Retrieve a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "PutNotificationEndpointsID",
+            "method": "PUT",
+            "path": "/api/v2/notificationEndpoints/{endpointID}",
+            "summary": "Update a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "PatchNotificationEndpointsID",
+            "method": "PATCH",
+            "path": "/api/v2/notificationEndpoints/{endpointID}",
+            "summary": "Update a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteNotificationEndpointsID",
+            "method": "DELETE",
+            "path": "/api/v2/notificationEndpoints/{endpointID}",
+            "summary": "Delete a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "GetNotificationEndpointsIDLabels",
+            "method": "GET",
+            "path": "/api/v2/notificationEndpoints/{endpointID}/labels",
+            "summary": "List all labels for a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "PostNotificationEndpointIDLabels",
+            "method": "POST",
+            "path": "/api/v2/notificationEndpoints/{endpointID}/labels",
+            "summary": "Add a label to a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteNotificationEndpointsIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/notificationEndpoints/{endpointID}/labels/{labelID}",
+            "summary": "Delete a label from a notification endpoint",
+            "tags": [
+              "NotificationEndpoints"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-notificationendpoints.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-notificationendpoints.yaml"
+      }
+    },
+    {
+      "path": "api/notificationrules",
+      "fields": {
+        "name": "NotificationRules",
+        "describes": [
+          "/api/v2/notificationRules",
+          "/api/v2/notificationRules/{ruleID}",
+          "/api/v2/notificationRules/{ruleID}/labels",
+          "/api/v2/notificationRules/{ruleID}/labels/{labelID}"
+        ],
+        "title": "NotificationRules",
+        "description": "API reference for NotificationRules",
+        "tag": "NotificationRules",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetNotificationRules",
+            "method": "GET",
+            "path": "/api/v2/notificationRules",
+            "summary": "List all notification rules",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "CreateNotificationRule",
+            "method": "POST",
+            "path": "/api/v2/notificationRules",
+            "summary": "Add a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "GetNotificationRulesID",
+            "method": "GET",
+            "path": "/api/v2/notificationRules/{ruleID}",
+            "summary": "Retrieve a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "PutNotificationRulesID",
+            "method": "PUT",
+            "path": "/api/v2/notificationRules/{ruleID}",
+            "summary": "Update a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "PatchNotificationRulesID",
+            "method": "PATCH",
+            "path": "/api/v2/notificationRules/{ruleID}",
+            "summary": "Update a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "DeleteNotificationRulesID",
+            "method": "DELETE",
+            "path": "/api/v2/notificationRules/{ruleID}",
+            "summary": "Delete a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "GetNotificationRulesIDLabels",
+            "method": "GET",
+            "path": "/api/v2/notificationRules/{ruleID}/labels",
+            "summary": "List all labels for a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "PostNotificationRuleIDLabels",
+            "method": "POST",
+            "path": "/api/v2/notificationRules/{ruleID}/labels",
+            "summary": "Add a label to a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          },
+          {
+            "operationId": "DeleteNotificationRulesIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/notificationRules/{ruleID}/labels/{labelID}",
+            "summary": "Delete label from a notification rule",
+            "tags": [
+              "NotificationRules"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-notificationrules.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-notificationrules.yaml"
+      }
+    },
+    {
+      "path": "api/organizations",
+      "fields": {
+        "name": "Organizations",
+        "describes": [
+          "/api/v2/orgs",
+          "/api/v2/orgs/{orgID}",
+          "/api/v2/orgs/{orgID}/members",
+          "/api/v2/orgs/{orgID}/members/{userID}",
+          "/api/v2/orgs/{orgID}/owners",
+          "/api/v2/orgs/{orgID}/owners/{userID}"
+        ],
+        "title": "Organizations",
+        "description": "Manage your [organization](/influxdb/cloud/reference/glossary/#organization).\nAn organization is a workspace for a group of users. Organizations can be\nused to separate different environments, projects, teams or users within\nInfluxDB.\n\nUse the `/api/v2/orgs` endpoints to view and manage organizations.\n",
+        "tag": "Organizations",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetOrgs",
+            "method": "GET",
+            "path": "/api/v2/orgs",
+            "summary": "List organizations",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "PostOrgs",
+            "method": "POST",
+            "path": "/api/v2/orgs",
+            "summary": "Create an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "GetOrgsID",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}",
+            "summary": "Retrieve an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "PatchOrgsID",
+            "method": "PATCH",
+            "path": "/api/v2/orgs/{orgID}",
+            "summary": "Update an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}",
+            "summary": "Delete an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "GetOrgsIDMembers",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/members",
+            "summary": "List all members of an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "PostOrgsIDMembers",
+            "method": "POST",
+            "path": "/api/v2/orgs/{orgID}/members",
+            "summary": "Add a member to an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/members/{userID}",
+            "summary": "Remove a member from an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "GetOrgsIDOwners",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/owners",
+            "summary": "List all owners of an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "PostOrgsIDOwners",
+            "method": "POST",
+            "path": "/api/v2/orgs/{orgID}/owners",
+            "summary": "Add an owner to an organization",
+            "tags": [
+              "Organizations"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/owners/{userID}",
+            "summary": "Remove an owner from an organization",
+            "tags": [
+              "Organizations"
+            ]
+          }
+        ],
+        "tagDescription": "Manage your [organization](/influxdb/cloud/reference/glossary/#organization).\nAn organization is a workspace for a group of users. Organizations can be\nused to separate different environments, projects, teams or users within\nInfluxDB.\n\nUse the `/api/v2/orgs` endpoints to view and manage organizations.\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-organizations.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-organizations.yaml"
+      }
+    },
+    {
+      "path": "api/pagination",
+      "fields": {
+        "name": "Pagination",
+        "describes": [],
+        "title": "Pagination",
+        "description": "Some InfluxDB API [list operations](#tag/SupportedOperations) may support the following query parameters for paginating results:\n\n  | Query parameter          | Value type            | Description                                |\n  |:------------------------ |:--------------------- |:-------------------------------------------|\n  | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |\n  | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |\n  | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |\n\n  ### Limitations\n\n  - For specific endpoint parameters and examples, see the endpoint definition.\n  - If you specify an `offset` parameter value greater than the total number of records,\n    then InfluxDB returns an empty list in the response\n    (given `offset` skips the specified number of records).\n\n    The following example passes `offset=50` to skip the first 50 results,\n    but the user only has 10 buckets:\n\n    ```sh\n    curl --request GET \"INFLUX_URL/api/v2/buckets?limit=1&offset=50\" \\\n        --header \"Authorization: Token INFLUX_API_TOKEN\"\n    ```\n\n    The response contains the following:\n\n    ```json\n    {\n      \"links\": {\n          \"prev\": \"/api/v2/buckets?descending=false\\u0026limit=1\\u0026offset=49\\u0026orgID=ORG_ID\",\n          \"self\": \"/api/v2/buckets?descending=false\\u0026limit=1\\u0026offset=50\\u0026orgID=ORG_ID\"\n      },\n      \"buckets\": []\n    }\n    ```\n",
+        "tag": "Pagination",
+        "isConceptual": true,
+        "menuGroup": "Other",
+        "operations": [],
+        "tagDescription": "Some InfluxDB API [list operations](#tag/SupportedOperations) may support the following query parameters for paginating results:\n\n  | Query parameter          | Value type            | Description                                |\n  |:------------------------ |:--------------------- |:-------------------------------------------|\n  | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |\n  | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |\n  | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |\n\n  ### Limitations\n\n  - For specific endpoint parameters and examples, see the endpoint definition.\n  - If you specify an `offset` parameter value greater than the total number of records,\n    then InfluxDB returns an empty list in the response\n    (given `offset` skips the specified number of records).\n\n    The following example passes `offset=50` to skip the first 50 results,\n    but the user only has 10 buckets:\n\n    ```sh\n    curl --request GET \"INFLUX_URL/api/v2/buckets?limit=1&offset=50\" \\\n        --header \"Authorization: Token INFLUX_API_TOKEN\"\n    ```\n\n    The response contains the following:\n\n    ```json\n    {\n      \"links\": {\n          \"prev\": \"/api/v2/buckets?descending=false\\u0026limit=1\\u0026offset=49\\u0026orgID=ORG_ID\",\n          \"self\": \"/api/v2/buckets?descending=false\\u0026limit=1\\u0026offset=50\\u0026orgID=ORG_ID\"\n      },\n      \"buckets\": []\n    }\n    ```\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-pagination.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-pagination.yaml"
+      }
+    },
+    {
+      "path": "api/ping",
+      "fields": {
+        "name": "Ping",
+        "describes": [
+          "/ping"
+        ],
+        "title": "Ping",
+        "description": "API reference for Ping",
+        "tag": "Ping",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetPing",
+            "method": "GET",
+            "path": "/ping",
+            "summary": "Get the status of the instance",
+            "tags": [
+              "Ping"
+            ]
+          },
+          {
+            "operationId": "HeadPing",
+            "method": "HEAD",
+            "path": "/ping",
+            "summary": "Get the status of the instance",
+            "tags": [
+              "Ping"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-ping.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-ping.yaml"
+      }
+    },
+    {
+      "path": "api/query",
+      "fields": {
+        "name": "Query",
+        "describes": [
+          "/api/v2/query",
+          "/api/v2/query/analyze",
+          "/api/v2/query/ast",
+          "/api/v2/query/suggestions",
+          "/api/v2/query/suggestions/{name}"
+        ],
+        "title": "Query",
+        "description": "Retrieve data, analyze queries, and get query suggestions.\n",
+        "tag": "Query",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostQuery",
+            "method": "POST",
+            "path": "/api/v2/query",
+            "summary": "Query data",
+            "tags": [
+              "Query"
+            ]
+          },
+          {
+            "operationId": "PostQueryAnalyze",
+            "method": "POST",
+            "path": "/api/v2/query/analyze",
+            "summary": "Analyze a Flux query",
+            "tags": [
+              "Query"
+            ]
+          },
+          {
+            "operationId": "PostQueryAst",
+            "method": "POST",
+            "path": "/api/v2/query/ast",
+            "summary": "Generate a query Abstract Syntax Tree (AST)",
+            "tags": [
+              "Query"
+            ]
+          },
+          {
+            "operationId": "GetQuerySuggestions",
+            "method": "GET",
+            "path": "/api/v2/query/suggestions",
+            "summary": "List Flux query suggestions",
+            "tags": [
+              "Query"
+            ]
+          },
+          {
+            "operationId": "GetQuerySuggestionsName",
+            "method": "GET",
+            "path": "/api/v2/query/suggestions/{name}",
+            "summary": "Retrieve a query suggestion for a branching suggestion",
+            "tags": [
+              "Query"
+            ]
+          }
+        ],
+        "tagDescription": "Retrieve data, analyze queries, and get query suggestions.\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-query.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-query.yaml"
+      }
+    },
+    {
+      "path": "api/quick-start",
+      "fields": {
+        "name": "Quick start",
+        "describes": [],
+        "title": "Quick start",
+        "description": "See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/)\nto get up and running authenticating with tokens, writing to buckets, and querying data.\n\n[**InfluxDB API client libraries**](/influxdb/cloud/api-guide/client-libraries/)\nare available for popular languages and ready to import into your application.\n",
+        "tag": "Quick start",
+        "isConceptual": true,
+        "menuGroup": "Concepts",
+        "operations": [],
+        "tagDescription": "See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/)\nto get up and running authenticating with tokens, writing to buckets, and querying data.\n\n[**InfluxDB API client libraries**](/influxdb/cloud/api-guide/client-libraries/)\nare available for popular languages and ready to import into your application.\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-quick-start.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-quick-start.yaml"
+      }
+    },
+    {
+      "path": "api/resources",
+      "fields": {
+        "name": "Resources",
+        "describes": [
+          "/api/v2/resources"
+        ],
+        "title": "Resources",
+        "description": "API reference for Resources",
+        "tag": "Resources",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetResources",
+            "method": "GET",
+            "path": "/api/v2/resources",
+            "summary": "List all known resources",
+            "tags": [
+              "Resources"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-resources.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-resources.yaml"
+      }
+    },
+    {
+      "path": "api/response-codes",
+      "fields": {
+        "name": "Response codes",
+        "describes": [],
+        "title": "Response codes",
+        "description": "InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.\nThe response body may include additional details.\nFor details about a specific operation's response,\nsee **Responses** and **Response Samples** for that operation.\n\nAPI operations may return the following HTTP status codes:\n\n| &nbsp;Code&nbsp; | Status                   | Description      |\n|:-----------:|:------------------------ |:--------------------- |\n| `200`       | Success                  |                       |\n| `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |\n| `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your [_monitoring bucket](/influxdb/cloud/reference/internals/system-buckets/#_monitoring-system-bucket).</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |\n| `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud/security/tokens/)</li></ul> |\n| `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |\n| `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |\n| `413`       | Request entity too large | Request payload exceeds the size limit. |\n| `422`       | Unprocessable entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |\n| `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |\n| `500`       | Internal server error    |                       |\n| `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |\n",
+        "tag": "Response codes",
+        "isConceptual": true,
+        "menuGroup": "Concepts",
+        "operations": [],
+        "tagDescription": "InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.\nThe response body may include additional details.\nFor details about a specific operation's response,\nsee **Responses** and **Response Samples** for that operation.\n\nAPI operations may return the following HTTP status codes:\n\n| &nbsp;Code&nbsp; | Status                   | Description      |\n|:-----------:|:------------------------ |:--------------------- |\n| `200`       | Success                  |                       |\n| `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |\n| `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your [_monitoring bucket](/influxdb/cloud/reference/internals/system-buckets/#_monitoring-system-bucket).</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |\n| `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud/security/tokens/)</li></ul> |\n| `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |\n| `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |\n| `413`       | Request entity too large | Request payload exceeds the size limit. |\n| `422`       | Unprocessable entity     | Request data is invalid. `code` and `message` in the response body provide details about the problem. |\n| `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |\n| `500`       | Internal server error    |                       |\n| `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-response-codes.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-response-codes.yaml"
+      }
+    },
+    {
+      "path": "api/routes",
+      "fields": {
+        "name": "Routes",
+        "describes": [
+          "/api/v2"
+        ],
+        "title": "Routes",
+        "description": "API reference for Routes",
+        "tag": "Routes",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetRoutes",
+            "method": "GET",
+            "path": "/api/v2",
+            "summary": "List all top level routes",
+            "tags": [
+              "Routes"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-routes.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-routes.yaml"
+      }
+    },
+    {
+      "path": "api/rules",
+      "fields": {
+        "name": "Rules",
+        "describes": [
+          "/api/v2/notificationRules/{ruleID}/query"
+        ],
+        "title": "Rules",
+        "description": "API reference for Rules",
+        "tag": "Rules",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetNotificationRulesIDQuery",
+            "method": "GET",
+            "path": "/api/v2/notificationRules/{ruleID}/query",
+            "summary": "Retrieve a notification rule query",
+            "tags": [
+              "Rules"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-rules.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-rules.yaml"
+      }
+    },
+    {
+      "path": "api/secrets",
+      "fields": {
+        "name": "Secrets",
+        "describes": [
+          "/api/v2/orgs/{orgID}/secrets",
+          "/api/v2/orgs/{orgID}/secrets/{secretID}",
+          "/api/v2/orgs/{orgID}/secrets/delete"
+        ],
+        "title": "Secrets",
+        "description": "API reference for Secrets",
+        "tag": "Secrets",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetOrgsIDSecrets",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/secrets",
+            "summary": "List all secret keys for an organization",
+            "tags": [
+              "Secrets"
+            ]
+          },
+          {
+            "operationId": "PatchOrgsIDSecrets",
+            "method": "PATCH",
+            "path": "/api/v2/orgs/{orgID}/secrets",
+            "summary": "Update secrets in an organization",
+            "tags": [
+              "Secrets"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDSecretsID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/secrets/{secretID}",
+            "summary": "Delete a secret from an organization",
+            "tags": [
+              "Secrets"
+            ]
+          },
+          {
+            "operationId": "PostOrgsIDSecrets",
+            "method": "POST",
+            "path": "/api/v2/orgs/{orgID}/secrets/delete",
+            "summary": "Delete secrets from an organization",
+            "tags": [
+              "Secrets"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-secrets.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-secrets.yaml"
+      }
+    },
+    {
+      "path": "api/security-and-access-endpoints",
+      "fields": {
+        "name": "Security and access endpoints",
+        "describes": [
+          "/api/v2/authorizations",
+          "/api/v2/authorizations/{authID}",
+          "/api/v2/orgs",
+          "/api/v2/orgs/{orgID}",
+          "/api/v2/orgs/{orgID}/members",
+          "/api/v2/orgs/{orgID}/members/{userID}",
+          "/api/v2/orgs/{orgID}/owners",
+          "/api/v2/orgs/{orgID}/owners/{userID}",
+          "/api/v2/orgs/{orgID}/secrets",
+          "/api/v2/orgs/{orgID}/secrets/{secretID}",
+          "/api/v2/orgs/{orgID}/secrets/delete",
+          "/api/v2/signin",
+          "/api/v2/signout",
+          "/api/v2/users",
+          "/api/v2/users/{userID}/password"
+        ],
+        "title": "Security and access endpoints",
+        "description": "API reference for Security and access endpoints",
+        "tag": "Security and access endpoints",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetAuthorizations",
+            "method": "GET",
+            "path": "/api/v2/authorizations",
+            "summary": "List authorizations",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PostAuthorizations",
+            "method": "POST",
+            "path": "/api/v2/authorizations",
+            "summary": "Create an authorization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetAuthorizationsID",
+            "method": "GET",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Retrieve an authorization",
+            "tags": [
+              "Security and access endpoints"
+            ],
+            "externalDocs": {
+              "description": "View tokens",
+              "url": "https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/"
+            }
+          },
+          {
+            "operationId": "PatchAuthorizationsID",
+            "method": "PATCH",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Update an API token to be active or inactive",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteAuthorizationsID",
+            "method": "DELETE",
+            "path": "/api/v2/authorizations/{authID}",
+            "summary": "Delete an authorization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetOrgs",
+            "method": "GET",
+            "path": "/api/v2/orgs",
+            "summary": "List organizations",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetOrgsID",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}",
+            "summary": "Retrieve an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetOrgsIDMembers",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/members",
+            "summary": "List all members of an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/members/{userID}",
+            "summary": "Remove a member from an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetOrgsIDOwners",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/owners",
+            "summary": "List all owners of an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/owners/{userID}",
+            "summary": "Remove an owner from an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetOrgsIDSecrets",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/secrets",
+            "summary": "List all secret keys for an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "DeleteOrgsIDSecretsID",
+            "method": "DELETE",
+            "path": "/api/v2/orgs/{orgID}/secrets/{secretID}",
+            "summary": "Delete a secret from an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PostOrgsIDSecrets",
+            "method": "POST",
+            "path": "/api/v2/orgs/{orgID}/secrets/delete",
+            "summary": "Delete secrets from an organization",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PostSignin",
+            "method": "POST",
+            "path": "/api/v2/signin",
+            "summary": "Create a user session.",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PostSignout",
+            "method": "POST",
+            "path": "/api/v2/signout",
+            "summary": "Expire a user session",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "GetUsers",
+            "method": "GET",
+            "path": "/api/v2/users",
+            "summary": "List users",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PostUsersIDPassword",
+            "method": "POST",
+            "path": "/api/v2/users/{userID}/password",
+            "summary": "Update a password",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          },
+          {
+            "operationId": "PutUsersIDPassword",
+            "method": "PUT",
+            "path": "/api/v2/users/{userID}/password",
+            "summary": "Update a password",
+            "tags": [
+              "Security and access endpoints"
+            ]
+          }
+        ],
+        "related": [
+          "https://docs.influxdata.com/influxdb/cloud/security/tokens/view-tokens/"
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-security-and-access-endpoints.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-security-and-access-endpoints.yaml"
+      }
+    },
+    {
+      "path": "api/setup",
+      "fields": {
+        "name": "Setup",
+        "describes": [
+          "/api/v2/setup",
+          "/api/v2/setup/user"
+        ],
+        "title": "Setup",
+        "description": "API reference for Setup",
+        "tag": "Setup",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetSetup",
+            "method": "GET",
+            "path": "/api/v2/setup",
+            "summary": "Retrieve setup status",
+            "tags": [
+              "Setup"
+            ]
+          },
+          {
+            "operationId": "PostSetup",
+            "method": "POST",
+            "path": "/api/v2/setup",
+            "summary": "Create an initial user, organization, and bucket",
+            "tags": [
+              "Setup"
+            ]
+          },
+          {
+            "operationId": "PostSetupUser",
+            "method": "POST",
+            "path": "/api/v2/setup/user",
+            "summary": "Create a new user, organization, and bucket",
+            "tags": [
+              "Setup"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-setup.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-setup.yaml"
+      }
+    },
+    {
+      "path": "api/signin",
+      "fields": {
+        "name": "Signin",
+        "describes": [
+          "/api/v2/signin"
+        ],
+        "title": "Signin",
+        "description": "API reference for Signin",
+        "tag": "Signin",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostSignin",
+            "method": "POST",
+            "path": "/api/v2/signin",
+            "summary": "Create a user session.",
+            "tags": [
+              "Signin"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-signin.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-signin.yaml"
+      }
+    },
+    {
+      "path": "api/signout",
+      "fields": {
+        "name": "Signout",
+        "describes": [
+          "/api/v2/signout"
+        ],
+        "title": "Signout",
+        "description": "API reference for Signout",
+        "tag": "Signout",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostSignout",
+            "method": "POST",
+            "path": "/api/v2/signout",
+            "summary": "Expire a user session",
+            "tags": [
+              "Signout"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-signout.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-signout.yaml"
+      }
+    },
+    {
+      "path": "api/supported-operations",
+      "fields": {
+        "name": "Supported operations",
+        "describes": [],
+        "title": "Supported operations",
+        "description": "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n",
+        "tag": "Supported operations",
+        "isConceptual": true,
+        "menuGroup": "Other",
+        "operations": [],
+        "tagDescription": "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-supported-operations.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-supported-operations.yaml"
+      }
+    },
+    {
+      "path": "api/system-information-endpoints",
+      "fields": {
+        "name": "System information endpoints",
+        "describes": [
+          "/api/v2",
+          "/ping",
+          "/api/v2/resources"
+        ],
+        "title": "System information endpoints",
+        "description": "API reference for System information endpoints",
+        "tag": "System information endpoints",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetRoutes",
+            "method": "GET",
+            "path": "/api/v2",
+            "summary": "List all top level routes",
+            "tags": [
+              "System information endpoints"
+            ]
+          },
+          {
+            "operationId": "GetPing",
+            "method": "GET",
+            "path": "/ping",
+            "summary": "Get the status of the instance",
+            "tags": [
+              "System information endpoints"
+            ]
+          },
+          {
+            "operationId": "GetResources",
+            "method": "GET",
+            "path": "/api/v2/resources",
+            "summary": "List all known resources",
+            "tags": [
+              "System information endpoints"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-system-information-endpoints.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-system-information-endpoints.yaml"
+      }
+    },
+    {
+      "path": "api/tasks",
+      "fields": {
+        "name": "Tasks",
+        "describes": [
+          "/api/v2/tasks",
+          "/api/v2/tasks/{taskID}",
+          "/api/v2/tasks/{taskID}/labels",
+          "/api/v2/tasks/{taskID}/labels/{labelID}",
+          "/api/v2/tasks/{taskID}/logs",
+          "/api/v2/tasks/{taskID}/members",
+          "/api/v2/tasks/{taskID}/members/{userID}",
+          "/api/v2/tasks/{taskID}/owners",
+          "/api/v2/tasks/{taskID}/owners/{userID}",
+          "/api/v2/tasks/{taskID}/runs",
+          "/api/v2/tasks/{taskID}/runs/{runID}",
+          "/api/v2/tasks/{taskID}/runs/{runID}/logs",
+          "/api/v2/tasks/{taskID}/runs/{runID}/retry"
+        ],
+        "title": "Tasks",
+        "description": "Process and analyze your data with [tasks](/influxdb/cloud/reference/glossary/#task)\nin the InfluxDB task engine.\nUse the `/api/v2/tasks` endpoints to schedule and manage tasks, retry task runs, and retrieve run logs.\n\nTo configure a task, provide the script and the schedule to run the task.\nFor examples, see how to create a task with the [`POST /api/v2/tasks` endpoint](#operation/PostTasks).\n\n<span id=\"tasks-schemaref-task\" />\n\n### Properties\n\nA `task` object contains information about an InfluxDB task resource.\n\nThe following table defines the properties that appear in this object:\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Task\" />\n\n### Related guides\n\n- [Get started with tasks](/influxdb/cloud/process-data/get-started/)\n- [Common data processing tasks](/influxdb/cloud/process-data/common-tasks/)\n- [Create a script](/influxdb/cloud/api-guide/api-invokable-scripts/#create-an-invokable-script)\n",
+        "tag": "Tasks",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetTasks",
+            "method": "GET",
+            "path": "/api/v2/tasks",
+            "summary": "List all tasks",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasks",
+            "method": "POST",
+            "path": "/api/v2/tasks",
+            "summary": "Create a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksID",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}",
+            "summary": "Retrieve a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PatchTasksID",
+            "method": "PATCH",
+            "path": "/api/v2/tasks/{taskID}",
+            "summary": "Update a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "DeleteTasksID",
+            "method": "DELETE",
+            "path": "/api/v2/tasks/{taskID}",
+            "summary": "Delete a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDLabels",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/labels",
+            "summary": "List labels for a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDLabels",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/labels",
+            "summary": "Add a label to a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "DeleteTasksIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/tasks/{taskID}/labels/{labelID}",
+            "summary": "Delete a label from a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDLogs",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/logs",
+            "summary": "Retrieve all logs for a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDMembers",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/members",
+            "summary": "List all task members",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDMembers",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/members",
+            "summary": "Add a member to a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "DeleteTasksIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/tasks/{taskID}/members/{userID}",
+            "summary": "Remove a member from a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDOwners",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/owners",
+            "summary": "List all owners of a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDOwners",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/owners",
+            "summary": "Add an owner for a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "DeleteTasksIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/tasks/{taskID}/owners/{userID}",
+            "summary": "Remove an owner from a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDRuns",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/runs",
+            "summary": "List runs for a task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDRuns",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/runs",
+            "summary": "Start a task run, overriding the schedule",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDRunsID",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/runs/{runID}",
+            "summary": "Retrieve a run for a task.",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "DeleteTasksIDRunsID",
+            "method": "DELETE",
+            "path": "/api/v2/tasks/{taskID}/runs/{runID}",
+            "summary": "Cancel a running task",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "GetTasksIDRunsIDLogs",
+            "method": "GET",
+            "path": "/api/v2/tasks/{taskID}/runs/{runID}/logs",
+            "summary": "Retrieve all logs for a run",
+            "tags": [
+              "Tasks"
+            ]
+          },
+          {
+            "operationId": "PostTasksIDRunsIDRetry",
+            "method": "POST",
+            "path": "/api/v2/tasks/{taskID}/runs/{runID}/retry",
+            "summary": "Retry a task run",
+            "tags": [
+              "Tasks"
+            ]
+          }
+        ],
+        "tagDescription": "Process and analyze your data with [tasks](/influxdb/cloud/reference/glossary/#task)\nin the InfluxDB task engine.\nUse the `/api/v2/tasks` endpoints to schedule and manage tasks, retry task runs, and retrieve run logs.\n\nTo configure a task, provide the script and the schedule to run the task.\nFor examples, see how to create a task with the [`POST /api/v2/tasks` endpoint](#operation/PostTasks).\n\n<span id=\"tasks-schemaref-task\" />\n\n### Properties\n\nA `task` object contains information about an InfluxDB task resource.\n\nThe following table defines the properties that appear in this object:\n\n<SchemaDefinition schemaRef=\"#/components/schemas/Task\" />\n\n### Related guides\n\n- [Get started with tasks](/influxdb/cloud/process-data/get-started/)\n- [Common data processing tasks](/influxdb/cloud/process-data/common-tasks/)\n- [Create a script](/influxdb/cloud/api-guide/api-invokable-scripts/#create-an-invokable-script)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-tasks.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-tasks.yaml"
+      }
+    },
+    {
+      "path": "api/telegraf-plugins",
+      "fields": {
+        "name": "Telegraf Plugins",
+        "describes": [
+          "/api/v2/telegraf/plugins"
+        ],
+        "title": "Telegraf Plugins",
+        "description": "API reference for Telegraf Plugins",
+        "tag": "Telegraf Plugins",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetTelegrafPlugins",
+            "method": "GET",
+            "path": "/api/v2/telegraf/plugins",
+            "summary": "List all Telegraf plugins",
+            "tags": [
+              "Telegraf Plugins"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-telegraf-plugins.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-telegraf-plugins.yaml"
+      }
+    },
+    {
+      "path": "api/telegrafs",
+      "fields": {
+        "name": "Telegrafs",
+        "describes": [
+          "/api/v2/telegrafs",
+          "/api/v2/telegrafs/{telegrafID}",
+          "/api/v2/telegrafs/{telegrafID}/labels",
+          "/api/v2/telegrafs/{telegrafID}/labels/{labelID}",
+          "/api/v2/telegrafs/{telegrafID}/members",
+          "/api/v2/telegrafs/{telegrafID}/members/{userID}",
+          "/api/v2/telegrafs/{telegrafID}/owners",
+          "/api/v2/telegrafs/{telegrafID}/owners/{userID}"
+        ],
+        "title": "Telegrafs",
+        "description": "API reference for Telegrafs",
+        "tag": "Telegrafs",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetTelegrafs",
+            "method": "GET",
+            "path": "/api/v2/telegrafs",
+            "summary": "List all Telegraf configurations",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "PostTelegrafs",
+            "method": "POST",
+            "path": "/api/v2/telegrafs",
+            "summary": "Create a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "GetTelegrafsID",
+            "method": "GET",
+            "path": "/api/v2/telegrafs/{telegrafID}",
+            "summary": "Retrieve a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "PutTelegrafsID",
+            "method": "PUT",
+            "path": "/api/v2/telegrafs/{telegrafID}",
+            "summary": "Update a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "DeleteTelegrafsID",
+            "method": "DELETE",
+            "path": "/api/v2/telegrafs/{telegrafID}",
+            "summary": "Delete a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "GetTelegrafsIDLabels",
+            "method": "GET",
+            "path": "/api/v2/telegrafs/{telegrafID}/labels",
+            "summary": "List all labels for a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "PostTelegrafsIDLabels",
+            "method": "POST",
+            "path": "/api/v2/telegrafs/{telegrafID}/labels",
+            "summary": "Add a label to a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "DeleteTelegrafsIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/telegrafs/{telegrafID}/labels/{labelID}",
+            "summary": "Delete a label from a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "GetTelegrafsIDMembers",
+            "method": "GET",
+            "path": "/api/v2/telegrafs/{telegrafID}/members",
+            "summary": "List all users with member privileges for a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "PostTelegrafsIDMembers",
+            "method": "POST",
+            "path": "/api/v2/telegrafs/{telegrafID}/members",
+            "summary": "Add a member to a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "DeleteTelegrafsIDMembersID",
+            "method": "DELETE",
+            "path": "/api/v2/telegrafs/{telegrafID}/members/{userID}",
+            "summary": "Remove a member from a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "GetTelegrafsIDOwners",
+            "method": "GET",
+            "path": "/api/v2/telegrafs/{telegrafID}/owners",
+            "summary": "List all owners of a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "PostTelegrafsIDOwners",
+            "method": "POST",
+            "path": "/api/v2/telegrafs/{telegrafID}/owners",
+            "summary": "Add an owner to a Telegraf configuration",
+            "tags": [
+              "Telegrafs"
+            ]
+          },
+          {
+            "operationId": "DeleteTelegrafsIDOwnersID",
+            "method": "DELETE",
+            "path": "/api/v2/telegrafs/{telegrafID}/owners/{userID}",
+            "summary": "Remove an owner from a Telegraf config",
+            "tags": [
+              "Telegrafs"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-telegrafs.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-telegrafs.yaml"
+      }
+    },
+    {
+      "path": "api/templates",
+      "fields": {
+        "name": "Templates",
+        "describes": [
+          "/api/v2/stacks",
+          "/api/v2/stacks/{stack_id}",
+          "/api/v2/stacks/{stack_id}/uninstall",
+          "/api/v2/templates/apply",
+          "/api/v2/templates/export"
+        ],
+        "title": "Templates",
+        "description": "Export and apply InfluxDB **templates**.\nManage **stacks** of templated InfluxDB resources.\n\nInfluxDB templates are prepackaged configurations for resources.\nUse InfluxDB templates to configure a fresh instance of InfluxDB,\nback up your dashboard configuration, or share your configuration.\n\nUse the `/api/v2/templates` endpoints to export templates and apply templates.\n\n**InfluxDB stacks** are stateful InfluxDB templates that let you\nadd, update, and remove installed template resources over time, avoid duplicating\nresources when applying the same or similar templates more than once, and\napply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.\n\nUse the `/api/v2/stacks` endpoints to manage installed template resources.\n\n### Related guides\n\n- [InfluxDB stacks](/influxdb/cloud/influxdb-templates/stacks/)\n- [InfluxDB templates](/influxdb/cloud/influxdb-templates/)\n",
+        "tag": "Templates",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "ListStacks",
+            "method": "GET",
+            "path": "/api/v2/stacks",
+            "summary": "List installed stacks",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "CreateStack",
+            "method": "POST",
+            "path": "/api/v2/stacks",
+            "summary": "Create a stack",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "ReadStack",
+            "method": "GET",
+            "path": "/api/v2/stacks/{stack_id}",
+            "summary": "Retrieve a stack",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "UpdateStack",
+            "method": "PATCH",
+            "path": "/api/v2/stacks/{stack_id}",
+            "summary": "Update a stack",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "DeleteStack",
+            "method": "DELETE",
+            "path": "/api/v2/stacks/{stack_id}",
+            "summary": "Delete a stack and associated resources",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "UninstallStack",
+            "method": "POST",
+            "path": "/api/v2/stacks/{stack_id}/uninstall",
+            "summary": "Uninstall a stack",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "ApplyTemplate",
+            "method": "POST",
+            "path": "/api/v2/templates/apply",
+            "summary": "Apply or dry-run a template",
+            "tags": [
+              "Templates"
+            ]
+          },
+          {
+            "operationId": "ExportTemplate",
+            "method": "POST",
+            "path": "/api/v2/templates/export",
+            "summary": "Export a new template",
+            "tags": [
+              "Templates"
+            ]
+          }
+        ],
+        "tagDescription": "Export and apply InfluxDB **templates**.\nManage **stacks** of templated InfluxDB resources.\n\nInfluxDB templates are prepackaged configurations for resources.\nUse InfluxDB templates to configure a fresh instance of InfluxDB,\nback up your dashboard configuration, or share your configuration.\n\nUse the `/api/v2/templates` endpoints to export templates and apply templates.\n\n**InfluxDB stacks** are stateful InfluxDB templates that let you\nadd, update, and remove installed template resources over time, avoid duplicating\nresources when applying the same or similar templates more than once, and\napply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.\n\nUse the `/api/v2/stacks` endpoints to manage installed template resources.\n\n### Related guides\n\n- [InfluxDB stacks](/influxdb/cloud/influxdb-templates/stacks/)\n- [InfluxDB templates](/influxdb/cloud/influxdb-templates/)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-templates.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-templates.yaml"
+      }
+    },
+    {
+      "path": "api/usage",
+      "fields": {
+        "name": "Usage",
+        "describes": [
+          "/api/v2/orgs/{orgID}/usage"
+        ],
+        "title": "Usage",
+        "description": "API reference for Usage",
+        "tag": "Usage",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetOrgUsageID",
+            "method": "GET",
+            "path": "/api/v2/orgs/{orgID}/usage",
+            "summary": "Retrieve usage for an organization",
+            "tags": [
+              "Usage"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-usage.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-usage.yaml"
+      }
+    },
+    {
+      "path": "api/users",
+      "fields": {
+        "name": "Users",
+        "describes": [
+          "/api/v2/me",
+          "/api/v2/me/password",
+          "/api/v2/users",
+          "/api/v2/users/{userID}",
+          "/api/v2/users/{userID}/password"
+        ],
+        "title": "Users",
+        "description": "Retrieve specific users.\n\nInfluxDB Cloud lets you invite and collaborate with multiple users in your organization.\nTo invite and remove users from your organization, use the InfluxDB Cloud user interface (UI);\nyou can't use the InfluxDB API to manage users in InfluxDB Cloud.\nOnce a user is added to your organization, you can use the\n`GET /api/v2/users` and `GET /api/v2/users/USER_ID` API endpoints to\nview specific members.\n\n### User sessions with authorizations\n\nOptionally, you can scope an authorization (and its API token) to a user.\nIf a user signs in with username and password, creating a _user session_,\nthe session carries the permissions granted by all the user's authorizations.\nTo create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).\n\n### Related guides\n\n- [Manage users](/influxdb/cloud/organizations/users/)\n",
+        "tag": "Users",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetMe",
+            "method": "GET",
+            "path": "/api/v2/me",
+            "summary": "Retrieve the currently authenticated user",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "PutMePassword",
+            "method": "PUT",
+            "path": "/api/v2/me/password",
+            "summary": "Update a password",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "GetUsers",
+            "method": "GET",
+            "path": "/api/v2/users",
+            "summary": "List users",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "PostUsers",
+            "method": "POST",
+            "path": "/api/v2/users",
+            "summary": "Create a user",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "GetUsersID",
+            "method": "GET",
+            "path": "/api/v2/users/{userID}",
+            "summary": "Retrieve a user",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "PatchUsersID",
+            "method": "PATCH",
+            "path": "/api/v2/users/{userID}",
+            "summary": "Update a user",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "DeleteUsersID",
+            "method": "DELETE",
+            "path": "/api/v2/users/{userID}",
+            "summary": "Delete a user",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "PostUsersIDPassword",
+            "method": "POST",
+            "path": "/api/v2/users/{userID}/password",
+            "summary": "Update a password",
+            "tags": [
+              "Users"
+            ]
+          },
+          {
+            "operationId": "PutUsersIDPassword",
+            "method": "PUT",
+            "path": "/api/v2/users/{userID}/password",
+            "summary": "Update a password",
+            "tags": [
+              "Users"
+            ]
+          }
+        ],
+        "tagDescription": "Retrieve specific users.\n\nInfluxDB Cloud lets you invite and collaborate with multiple users in your organization.\nTo invite and remove users from your organization, use the InfluxDB Cloud user interface (UI);\nyou can't use the InfluxDB API to manage users in InfluxDB Cloud.\nOnce a user is added to your organization, you can use the\n`GET /api/v2/users` and `GET /api/v2/users/USER_ID` API endpoints to\nview specific members.\n\n### User sessions with authorizations\n\nOptionally, you can scope an authorization (and its API token) to a user.\nIf a user signs in with username and password, creating a _user session_,\nthe session carries the permissions granted by all the user's authorizations.\nTo create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).\n\n### Related guides\n\n- [Manage users](/influxdb/cloud/organizations/users/)\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-users.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-users.yaml"
+      }
+    },
+    {
+      "path": "api/variables",
+      "fields": {
+        "name": "Variables",
+        "describes": [
+          "/api/v2/variables",
+          "/api/v2/variables/{variableID}",
+          "/api/v2/variables/{variableID}/labels",
+          "/api/v2/variables/{variableID}/labels/{labelID}"
+        ],
+        "title": "Variables",
+        "description": "API reference for Variables",
+        "tag": "Variables",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetVariables",
+            "method": "GET",
+            "path": "/api/v2/variables",
+            "summary": "List all variables",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "PostVariables",
+            "method": "POST",
+            "path": "/api/v2/variables",
+            "summary": "Create a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "GetVariablesID",
+            "method": "GET",
+            "path": "/api/v2/variables/{variableID}",
+            "summary": "Retrieve a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "PutVariablesID",
+            "method": "PUT",
+            "path": "/api/v2/variables/{variableID}",
+            "summary": "Replace a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "PatchVariablesID",
+            "method": "PATCH",
+            "path": "/api/v2/variables/{variableID}",
+            "summary": "Update a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "DeleteVariablesID",
+            "method": "DELETE",
+            "path": "/api/v2/variables/{variableID}",
+            "summary": "Delete a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "GetVariablesIDLabels",
+            "method": "GET",
+            "path": "/api/v2/variables/{variableID}/labels",
+            "summary": "List all labels for a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "PostVariablesIDLabels",
+            "method": "POST",
+            "path": "/api/v2/variables/{variableID}/labels",
+            "summary": "Add a label to a variable",
+            "tags": [
+              "Variables"
+            ]
+          },
+          {
+            "operationId": "DeleteVariablesIDLabelsID",
+            "method": "DELETE",
+            "path": "/api/v2/variables/{variableID}/labels/{labelID}",
+            "summary": "Delete a label from a variable",
+            "tags": [
+              "Variables"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-variables.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-variables.yaml"
+      }
+    },
+    {
+      "path": "api/views",
+      "fields": {
+        "name": "Views",
+        "describes": [
+          "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view"
+        ],
+        "title": "Views",
+        "description": "API reference for Views",
+        "tag": "Views",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "GetDashboardsIDCellsIDView",
+            "method": "GET",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Retrieve the view for a cell",
+            "tags": [
+              "Views"
+            ]
+          },
+          {
+            "operationId": "PatchDashboardsIDCellsIDView",
+            "method": "PATCH",
+            "path": "/api/v2/dashboards/{dashboardID}/cells/{cellID}/view",
+            "summary": "Update the view for a cell",
+            "tags": [
+              "Views"
+            ]
+          }
+        ],
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-views.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-views.yaml"
+      }
+    },
+    {
+      "path": "api/write",
+      "fields": {
+        "name": "Write",
+        "describes": [
+          "/api/v2/write"
+        ],
+        "title": "Write",
+        "description": "Write time series data to [buckets](/influxdb/cloud/reference/glossary/#bucket).\n",
+        "tag": "Write",
+        "isConceptual": false,
+        "menuGroup": "Other",
+        "operations": [
+          {
+            "operationId": "PostWrite",
+            "method": "POST",
+            "path": "/api/v2/write",
+            "summary": "Write data",
+            "tags": [
+              "Write"
+            ]
+          }
+        ],
+        "tagDescription": "Write time series data to [buckets](/influxdb/cloud/reference/glossary/#bucket).\n",
+        "source": "static/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-write.yaml",
+        "staticFilePath": "/openapi/influxdb-cloud-v2/tags/tags/influxdb-cloud-v2-write.yaml"
+      }
+    }
+  ]
+}

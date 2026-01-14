@@ -331,3 +331,110 @@ describe('RapiDoc Mini component', () => {
     });
   });
 });
+
+/**
+ * API Section Page Structure Tests
+ * Tests that API section pages show only tags (immediate children)
+ */
+describe('API section page structure', () => {
+  const sectionPages = [
+    '/influxdb3/core/api/',
+    '/influxdb3/enterprise/api/',
+  ];
+
+  sectionPages.forEach((page) => {
+    describe(`Section page ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('displays page title', () => {
+        cy.get('h1').should('contain', 'InfluxDB HTTP API');
+      });
+
+      it('shows tag pages as children', () => {
+        cy.get('.children-links h3 a').should('have.length.at.least', 5);
+      });
+
+      it('does not show individual operations in content area', () => {
+        // Operations cards should not appear in the main content
+        cy.get('.article--content .api-operation-card').should('not.exist');
+      });
+
+      it('has All endpoints link in navigation', () => {
+        cy.get('.sidebar a').contains('All endpoints').should('exist');
+      });
+    });
+  });
+});
+
+/**
+ * All Endpoints Page Tests
+ * Tests the "All endpoints" page shows all operations
+ */
+describe('All endpoints page', () => {
+  const allEndpointsPages = [
+    '/influxdb3/core/api/all-endpoints/',
+    '/influxdb3/enterprise/api/all-endpoints/',
+  ];
+
+  allEndpointsPages.forEach((page) => {
+    describe(`All endpoints ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('displays page title "All endpoints"', () => {
+        cy.get('h1').should('contain', 'All endpoints');
+      });
+
+      it('shows v3 API section', () => {
+        cy.get('#v3-api').should('exist');
+      });
+
+      it('displays operation cards', () => {
+        cy.get('.api-operation-card').should('have.length.at.least', 10);
+      });
+
+      it('operation cards have method badges', () => {
+        cy.get('.api-operation-card .api-method').should('have.length.at.least', 10);
+      });
+
+      it('operation cards have path codes', () => {
+        cy.get('.api-operation-card .api-path').should('have.length.at.least', 10);
+      });
+
+      it('operation cards link to operation pages', () => {
+        cy.get('.api-operation-card').first().should('have.attr', 'href').and('match', /\/api\//);
+      });
+
+      it('is accessible from navigation', () => {
+        // Navigate back to section page
+        cy.get('.sidebar a').contains('InfluxDB HTTP API').click();
+        // Then navigate to All endpoints
+        cy.get('.sidebar a').contains('All endpoints').click();
+        cy.url().should('include', '/all-endpoints/');
+      });
+    });
+  });
+});
