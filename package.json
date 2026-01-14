@@ -9,7 +9,7 @@
     "./product-mappings": "./dist/utils/product-mappings.js"
   },
   "bin": {
-    "docs": "scripts/docs-cli.js"
+    "docs": "scripts/docs-cli/docs-cli.js"
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2"
@@ -59,8 +59,8 @@
   },
   "scripts": {
     "postinstall": "node scripts/setup-local-bin.js",
-    "docs:create": "node scripts/docs-create.js",
-    "docs:edit": "node scripts/docs-edit.js",
+    "docs:create": "node scripts/docs-cli/docs-create.js",
+    "docs:edit": "node scripts/docs-cli/docs-edit.js",
     "docs:add-placeholders": "node scripts/add-placeholders.js",
     "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",

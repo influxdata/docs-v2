@@ -10,7 +10,7 @@ introduced: "v1.24.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/postgresql/README.md, PostgreSQL Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/postgresql/README.md, PostgreSQL Plugin Source
 ---
 
 # PostgreSQL Output Plugin

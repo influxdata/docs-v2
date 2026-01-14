@@ -10,7 +10,7 @@ introduced: "v1.0.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/conntrack/README.md, Netfilter Conntrack Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/conntrack/README.md, Netfilter Conntrack Plugin Source
 ---
 
 # Netfilter Conntrack Input Plugin

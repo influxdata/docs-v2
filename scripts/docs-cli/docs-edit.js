@@ -5,9 +5,10 @@
  * Opens existing documentation pages in your default editor
  *
  * Usage:
- *   yarn docs:edit <url>
- *   yarn docs:edit https://docs.influxdata.com/influxdb3/core/admin/databases/
- *   yarn docs:edit /influxdb3/core/admin/databases/
+ *   docs edit <url>                    # Non-blocking (default)
+ *   docs edit <url> --wait             # Wait for editor to close
+ *   docs edit <url> --list             # List files without opening
+ *   docs edit <url> --editor vim       # Use specific editor
  */
 
 import { parseArgs } from 'node:util';
@@ -15,15 +16,16 @@ import process from 'node:process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
-import { spawn } from 'child_process';
-import { parseDocumentationURL, urlToFilePaths } from './lib/url-parser.js';
-import { getSourceFromFrontmatter } from './lib/content-utils.js';
+import { parseDocumentationURL, urlToFilePaths } from '../lib/url-parser.js';
+import { getSourceFromFrontmatter } from '../lib/content-utils.js';
+import { resolveEditor } from './lib/editor-resolver.js';
+import { spawnEditor, shouldWait } from './lib/process-manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Repository root
-const REPO_ROOT = join(__dirname, '..');
+const REPO_ROOT = join(__dirname, '..', '..');
 
 // Colors for console output
 const colors = {
@@ -51,6 +53,8 @@ function parseArguments() {
     options: {
       help: { type: 'boolean', default: false },
       list: { type: 'boolean', default: false },
+      wait: { type: 'boolean', default: false },
+      editor: { type: 'string' },
     },
     allowPositionals: true,
   });
@@ -71,30 +75,51 @@ function printUsage() {
 ${colors.bright}Documentation File Opener${colors.reset}
 
 ${colors.bright}Usage:${colors.reset}
-  yarn docs:edit <url>                    Open page in editor
-  yarn docs:edit --list <url>             List matching files without opening
+  docs edit <url>                    Open in editor (non-blocking)
+  docs edit <url> --wait             Wait for editor to close
+  docs edit <url> --list             List files without opening
+  docs edit <url> --editor <cmd>     Use specific editor
 
 ${colors.bright}Arguments:${colors.reset}
   <url>             Documentation URL or path
 
 ${colors.bright}Options:${colors.reset}
   --list            List matching files without opening
+  --wait            Block until editor closes (for interactive use)
+  --editor <cmd>    Override default editor
   --help            Show this help message
 
 ${colors.bright}Examples:${colors.reset}
-  # Open with full URL
-  yarn docs:edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+  # Quick edit (CLI exits immediately, editor runs in background)
+  docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+  docs edit /influxdb3/core/admin/databases/
 
-  # Open with path only
-  yarn docs:edit /influxdb3/core/admin/databases/
+  # Interactive edit (CLI waits for you to close editor)
+  docs edit /influxdb3/core/admin/databases/ --wait
 
-  # List files without opening
-  yarn docs:edit --list /influxdb3/core/admin/databases/
+  # Use specific editor
+  docs edit /influxdb3/core/admin/databases/ --editor nano
+
+  # List files only (useful for scripting)
+  docs edit /influxdb3/core/admin/databases/ --list
+
+${colors.bright}Editor Configuration:${colors.reset}
+  The editor is selected in this order:
+  1. --editor flag
+  2. DOCS_EDITOR environment variable
+  3. VISUAL environment variable
+  4. EDITOR environment variable
+  5. System default (vim, nano, etc.)
+
+  Examples:
+    export EDITOR=vim
+    export EDITOR=nano
+    export DOCS_EDITOR="code --wait"
 
 ${colors.bright}Notes:${colors.reset}
-  - Opens files in your default editor (set via EDITOR environment variable)
-  - If multiple files exist (e.g., shared content variants), opens all of them
-  - Falls back to VS Code if EDITOR is not set
+  - Default behavior is non-blocking (agent-friendly)
+  - Use --wait flag for interactive editing sessions
+  - Multiple files may open if content is shared across products
 `);
 }
 
@@ -140,35 +165,47 @@ function checkSharedContent(filePath) {
 /**
  * Open files in editor
  */
-function openInEditor(files) {
-  // Determine editor
-  const editor = process.env.EDITOR || 'code';
+function openInEditor(files, options = {}) {
+  try {
+    // Resolve editor command
+    const editor = resolveEditor({ editor: options.editor });
+    const wait = shouldWait(options.wait);
 
-  log(`\n📝 Opening ${files.length} file(s) in ${editor}...`, 'bright');
+    log(`\n📝 Opening ${files.length} file(s) in ${editor}...`, 'bright');
 
-  // Convert to absolute paths
-  const absolutePaths = files.map((f) => join(REPO_ROOT, f));
-
-  // Spawn editor process
-  const child = spawn(editor, absolutePaths, {
-    stdio: 'inherit',
-    detached: false,
-  });
-
-  child.on('error', (error) => {
-    log(`\n✗ Failed to open editor: ${error.message}`, 'red');
-    log('\nTry setting the EDITOR environment variable:', 'yellow');
-    log('  export EDITOR=vim', 'cyan');
-    log('  export EDITOR=code', 'cyan');
-    log('  export EDITOR=nano', 'cyan');
-    process.exit(1);
-  });
-
-  child.on('close', (code) => {
-    if (code !== 0 && code !== null) {
-      log(`\n✗ Editor exited with code ${code}`, 'yellow');
+    if (!wait) {
+      log('   Editor will open in background (CLI exits immediately)', 'cyan');
+      log('   Use --wait flag to block until editor closes', 'cyan');
     }
-  });
+
+    // Convert to absolute paths
+    const absolutePaths = files.map((f) => join(REPO_ROOT, f));
+
+    // Spawn editor
+    spawnEditor(editor, absolutePaths, {
+      wait,
+      onError: (error) => {
+        log(`\n✗ Failed to open editor: ${error.message}`, 'red');
+        log('\nTroubleshooting:', 'yellow');
+        log('  1. Set EDITOR environment variable:', 'cyan');
+        log('     export EDITOR=vim', 'cyan');
+        log('  2. Or use --editor flag:', 'cyan');
+        log('     docs edit <url> --editor nano', 'cyan');
+        process.exit(1);
+      },
+    });
+
+    // In non-blocking mode, give process time to spawn before exit
+    if (!wait) {
+      setTimeout(() => {
+        log('✓ Editor launched\n', 'green');
+        process.exit(0);
+      }, 100);
+    }
+  } catch (error) {
+    log(`\n✗ ${error.message}`, 'red');
+    process.exit(1);
+  }
 }
 
 /**
@@ -184,12 +221,12 @@ async function main() {
   }
 
   // Find files
-  const { parsed, foundFiles } = findFiles(options.url);
+  const { foundFiles } = findFiles(options.url);
 
   if (foundFiles.length === 0) {
     log('\n✗ No files found for this URL', 'red');
     log('\nThe page may not exist yet. To create new content, use:', 'yellow');
-    log('  yarn docs:create --url <url> --draft <draft-file>', 'cyan');
+    log('  docs create <draft-path> --products <product>', 'cyan');
     process.exit(1);
   }
 
@@ -223,7 +260,10 @@ async function main() {
   }
 
   // Open in editor
-  openInEditor(filesToOpen);
+  openInEditor(filesToOpen, {
+    wait: options.wait,
+    editor: options.editor,
+  });
 }
 
 // Run if called directly
