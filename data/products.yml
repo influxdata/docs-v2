@@ -245,7 +245,7 @@ telegraf:
   versions: [v1]
   latest: v1.37
   latest_patches:
-    v1: 1.37.0
+    v1: 1.37.1
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -260,11 +260,6 @@ telegraf_controller:
   versions: [v1]
   latest: 0.0
   latest_patch: 0.0.0
-  # ai_sample_questions:
-  #   - How do I configure Telegraf for InfluxDB 3?
-  #   - How do I write a custom Telegraf plugin?
-  #   - How do I use Telegraf for MQTT?
-  # ai_input_placeholder: "Ask questions about Telegraf and InfluxDB"
 
 chronograf:
   name: Chronograf
@@ -274,7 +269,7 @@ chronograf:
   versions: [v1]
   latest: v1.10
   latest_patches:
-    v1: 1.10.8
+    v1: 1.10.9
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?

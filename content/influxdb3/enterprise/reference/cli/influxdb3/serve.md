@@ -249,6 +249,7 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --node-id my-host-01 \
   --cluster-id my-cluster-01 \
+  --plugin-dir ~/.influxdb3/plugins \
   --mode ingest,query,process
 ```
 

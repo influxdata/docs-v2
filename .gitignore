@@ -57,6 +57,7 @@ tmp
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
+.task.md
 
 # External repos
 .ext/*

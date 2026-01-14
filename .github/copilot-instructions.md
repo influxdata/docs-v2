@@ -1,11 +1,12 @@
 # InfluxData Documentation Repository (docs-v2)
 
 > **For GitHub Copilot and other AI coding agents**
-> 
+>
 > This is the primary instruction file for GitHub Copilot working with the InfluxData documentation site.
 > For detailed information on specific topics, refer to the specialized instruction files in `.github/instructions/`.
-> 
+>
 > **Other instruction resources**:
+>
 > - [AGENTS.md](../AGENTS.md) - For general AI assistants (Claude, ChatGPT, etc.) with detailed workflow examples
 > - [CLAUDE.md](../CLAUDE.md) - For Claude with MCP
 > - [.github/agents/](agents/) - Custom specialist agents for specific tasks
@@ -13,13 +14,107 @@
 
 ## Quick Reference
 
-| Task | Command | Time | Details |
-|------|---------|------|---------|
-| Install | `CYPRESS_INSTALL_BINARY=0 yarn install` | ~4s | Skip Cypress for CI |
-| Build | `npx hugo --quiet` | ~75s | NEVER CANCEL |
-| Dev Server | `npx hugo server` | ~92s | Port 1313 |
-| Test All | `yarn test:codeblocks:all` | 15-45m | NEVER CANCEL |
-| Lint | `yarn lint` | ~1m | Pre-commit checks |
+| Task             | Command                                               | Time    | Details                    |
+| ---------------- | ----------------------------------------------------- | ------- | -------------------------- |
+| Install          | `CYPRESS_INSTALL_BINARY=0 yarn install`               | \~4s    | Skip Cypress for CI        |
+| Build            | `npx hugo --quiet`                                    | \~75s   | NEVER CANCEL               |
+| Dev Server       | `npx hugo server`                                     | \~92s   | Port 1313                  |
+| Create Docs      | `docs create <draft> --products <keys>`               | varies  | AI-assisted scaffolding    |
+| Create & Open    | `docs create <draft> --products <keys> --open`        | instant | Non-blocking (background)  |
+| Create & Wait    | `docs create <draft> --products <keys> --open --wait` | varies  | Blocking (interactive)     |
+| Edit Docs        | `docs edit <url>`                                     | instant | Non-blocking (background)  |
+| Edit Docs (wait) | `docs edit <url> --wait`                              | varies  | Blocking (interactive)     |
+| List Files       | `docs edit <url> --list`                              | instant | Show files without opening |
+| Test All         | `yarn test:codeblocks:all`                            | 15-45m  | NEVER CANCEL               |
+| Lint             | `yarn lint`                                           | \~1m    | Pre-commit checks          |
+
+## CLI Tools
+
+### docs create - Create Documentation Files
+
+Scaffolds new documentation pages with AI-assisted analysis. **Optionally opens created files in editor.**
+
+**Examples:**
+
+```bash
+# Create from draft (no editor)
+docs create drafts/new-feature.md --products influxdb3_core
+
+# Create and open files (non-blocking, exits immediately)
+docs create drafts/new-feature.md --products influxdb3_core --open
+
+# Create and open, wait for editor (blocking, interactive)
+docs create drafts/new-feature.md --products influxdb3_core --open --wait
+
+# Use specific editor
+docs create drafts/new-feature.md --products influxdb3_core --open --editor nano
+
+# Create at specific URL location
+docs create --url /influxdb3/core/admin/new/ --from-draft drafts/feature.md
+```
+
+**Options:**
+
+- `--open` - Open created files in editor after creation (non-blocking by default)
+- `--wait` - Wait for editor to close (use with `--open`)
+- `--editor <cmd>` - Specify editor command (use with `--open`)
+- `--products <keys>` - Comma-separated product keys (required)
+- `--dry-run` - Show what would be created without creating files
+- `--yes` - Skip confirmation prompt
+
+### docs edit - Edit Documentation Files
+
+Opens documentation files in your editor. **Non-blocking by default** (agent-friendly).
+
+**Examples:**
+
+```bash
+# Quick edit (exits immediately, editor in background)
+docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+docs edit /influxdb3/core/admin/databases/
+
+# Interactive edit (waits for editor to close)
+docs edit /influxdb3/core/admin/databases/ --wait
+
+# List files without opening
+docs edit /influxdb3/core/admin/databases/ --list
+
+# Use specific editor
+docs edit /influxdb3/core/admin/databases/ --editor nano
+```
+
+**Options:**
+
+- `--list` - List files without opening editor
+- `--wait` - Wait for editor to close (blocking mode)
+- `--editor <cmd>` - Specify editor command
+
+### Editor Configuration
+
+Both `docs create --open` and `docs edit` use the same editor resolution:
+
+**Priority order:**
+
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable
+4. `EDITOR` environment variable
+5. System default (vim, nano, etc.)
+
+**Examples:**
+
+```bash
+export EDITOR=vim        # For all CLI tools
+export DOCS_EDITOR=nano  # Specifically for docs CLI
+export DOCS_EDITOR="code --wait"  # VS Code with wait flag
+```
+
+**Important for AI Agents:**
+
+- Both commands are **non-blocking by default** (exit immediately)
+- This prevents agents and automation from hanging
+- Use `--wait` flag only when you need blocking behavior
+- For `docs create`, omit `--open` to skip editor entirely
 
 ## Working Effectively
 
@@ -31,7 +126,7 @@ Be a critical thinking partner, provide honest feedback, and identify potential 
 
 1. Install dependencies (see Quick Reference table above)
 2. Build the static site
-3. Start development server at http://localhost:1313/
+3. Start development server at <http://localhost:1313/>
 4. Alternative: Use `docker compose up local-dev` if local setup fails
 
 ### Testing
@@ -39,6 +134,7 @@ Be a critical thinking partner, provide honest feedback, and identify potential 
 For comprehensive testing procedures, see **[DOCS-TESTING.md](../DOCS-TESTING.md)**.
 
 **Quick reference** (NEVER CANCEL long-running tests):
+
 - **Code blocks**: `yarn test:codeblocks:all` (15-45 minutes)
 - **Links**: `yarn test:links` (1-5 minutes, requires link-checker binary)
 - **Style**: `docker compose run -T vale content/**/*.md` (30-60 seconds)
@@ -79,7 +175,7 @@ yarn test:links content/example.md
 - **Config**: `/config/_default/`, `package.json`, `compose.yaml`, `lefthook.yml`
 - **Testing**: `cypress.config.js`, `pytest.ini`, `.vale.ini`
 - **Assets**: `/assets/` (JS, CSS), `/layouts/` (templates), `/data/` (YAML/JSON)
-- **Build output**: `/public/` (~529MB, gitignored)
+- **Build output**: `/public/` (\~529MB, gitignored)
 
 ## Technology Stack
 
@@ -91,7 +187,9 @@ yarn test:links content/example.md
 ## Common Issues
 
 ### Network Restrictions
+
 Commands that may fail in restricted environments:
+
 - Docker builds (external repos)
 - `docker compose up local-dev` (Alpine packages)
 - Cypress installation (use `CYPRESS_INSTALL_BINARY=0`)
@@ -116,7 +214,7 @@ npx hugo --quiet
 
 - **Product versions**: `/data/products.yml`
 - **Query languages**: SQL, InfluxQL, Flux (per product version)
-- **Site**: https://docs.influxdata.com
+- **Site**: <https://docs.influxdata.com>
 
 ### Writing Style
 
@@ -125,7 +223,7 @@ Follow these conventions when creating or editing documentation:
 - **Style guide**: Google Developer Documentation Style Guide
 - **Voice**: Active voice, present tense, second person for instructions
 - **Line breaks**: Use semantic line feeds (one sentence per line) for better diffs
-- **Formatting**: 
+- **Formatting**:
   - Headings: Use h2-h6 only (h1 auto-generated from frontmatter `title`)
   - Code blocks: Format within 80 characters where possible
   - CLI examples: Use long options (`--option` not `-o`)
@@ -136,6 +234,7 @@ Follow these conventions when creating or editing documentation:
 ### Common Shortcodes
 
 **Callouts** (use GitHub-style alerts):
+
 ```markdown
 > [!Note]
 > [!Warning]
@@ -145,17 +244,19 @@ Follow these conventions when creating or editing documentation:
 ```
 
 **Required elements**:
+
 ```markdown
 {{< req >}}
 {{< req type="key" >}}
 ```
 
 **Code placeholders**:
-~~~markdown
+
+````markdown
 ```sh { placeholders="DATABASE_NAME|API_TOKEN" }
 curl -X POST https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME
 ```
-~~~
+````
 
 For complete shortcode reference, see [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md).
 
@@ -172,7 +273,7 @@ Examples:
 - docs(core): update configuration examples
 ```
 
-**Types**: `fix`, `feat`, `style`, `refactor`, `test`, `chore`, `docs`  
+**Types**: `fix`, `feat`, `style`, `refactor`, `test`, `chore`, `docs`\
 **Scopes**: `enterprise`, `influxdb3`, `core`, `cloud`, `telegraf`, product/component names
 
 Skip pre-commit hooks (if needed): `git commit --no-verify`
@@ -180,6 +281,7 @@ Skip pre-commit hooks (if needed): `git commit --no-verify`
 ### Writing Documentation
 
 For detailed guidelines, see:
+
 - **Workflow**: [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) - Contribution guidelines and workflow
 - **Shortcodes**: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) - Complete shortcode reference
   - **Examples**: [content/example.md](../content/example.md) - Working examples for testing
@@ -204,6 +306,7 @@ weight:      # Sort order: 1-99 (top), 101-199 (level 2), 201-299 (level 3) (req
 ```
 
 **Shared content** (avoid duplication):
+
 ```yaml
 ---
 title: Page Title
@@ -217,6 +320,7 @@ source: /shared/influxdb3-admin/topic-name.md  # Points to shared content
 ```
 
 Shared content files in `/content/shared/`:
+
 - Don't include frontmatter (defined in referring files)
 - Can use `{{% show-in %}}` and `{{% hide-in %}}` for product-specific content
 - Can use the `version` keyword for version-specific paths
@@ -247,14 +351,14 @@ Hello, world!
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Pytest collected 0 items | Use `python` not `py` for language identifier |
-| Hugo build errors | Check `/config/_default/` |
-| Docker build fails | Expected in restricted networks - use local Hugo |
-| Cypress install fails | Use `CYPRESS_INSTALL_BINARY=0 yarn install` |
-| Link validation slow | Test specific files: `yarn test:links content/file.md` |
-| Vale errors | Check `.ci/vale/styles/config/vocabularies` |
+| Issue                    | Solution                                               |
+| ------------------------ | ------------------------------------------------------ |
+| Pytest collected 0 items | Use `python` not `py` for language identifier          |
+| Hugo build errors        | Check `/config/_default/`                              |
+| Docker build fails       | Expected in restricted networks - use local Hugo       |
+| Cypress install fails    | Use `CYPRESS_INSTALL_BINARY=0 yarn install`            |
+| Link validation slow     | Test specific files: `yarn test:links content/file.md` |
+| Vale errors              | Check `.ci/vale/styles/config/vocabularies`            |
 
 ## Specialized Instructions
 
@@ -262,29 +366,29 @@ Hello, world!
 
 These instructions are automatically loaded by GitHub Copilot based on the files you're working with:
 
-| Pattern | File | Description |
-|---------|------|-------------|
-| `content/**/*.md` | [content.instructions.md](instructions/content.instructions.md) | Content file guidelines, frontmatter, shortcodes |
-| `layouts/**/*.html` | [layouts.instructions.md](instructions/layouts.instructions.md) | Shortcode implementation patterns and testing |
-| `api-docs/**/*.yml` | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec workflow |
-| `assets/js/**/*.{js,ts}` | [assets.instructions.md](instructions/assets.instructions.md) | TypeScript/JavaScript and CSS development |
+| Pattern                  | File                                                              | Description                                      |
+| ------------------------ | ----------------------------------------------------------------- | ------------------------------------------------ |
+| `content/**/*.md`        | [content.instructions.md](instructions/content.instructions.md)   | Content file guidelines, frontmatter, shortcodes |
+| `layouts/**/*.html`      | [layouts.instructions.md](instructions/layouts.instructions.md)   | Shortcode implementation patterns and testing    |
+| `api-docs/**/*.yml`      | [api-docs.instructions.md](instructions/api-docs.instructions.md) | OpenAPI spec workflow                            |
+| `assets/js/**/*.{js,ts}` | [assets.instructions.md](instructions/assets.instructions.md)     | TypeScript/JavaScript and CSS development        |
 
 ### Custom Specialist Agents
 
 Use these agents for specialized tasks:
 
-| Agent | File | Use When |
-|-------|------|----------|
+| Agent                     | File                                                        | Use When                                                          |
+| ------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
 | **TypeScript & Hugo Dev** | [typescript-hugo-agent.md](agents/typescript-hugo-agent.md) | TypeScript migration, Hugo asset pipeline, component architecture |
 
 ### General Documentation
 
-| Topic | File | Description |
-|-------|------|-------------|
-| **Testing** | [DOCS-TESTING.md](../DOCS-TESTING.md) | Comprehensive testing procedures |
+| Topic            | File                                            | Description                               |
+| ---------------- | ----------------------------------------------- | ----------------------------------------- |
+| **Testing**      | [DOCS-TESTING.md](../DOCS-TESTING.md)           | Comprehensive testing procedures          |
 | **Contributing** | [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) | Full contribution workflow and guidelines |
-| **Frontmatter** | [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) | Complete page metadata reference |
-| **Shortcodes** | [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) | Complete shortcode reference |
+| **Frontmatter**  | [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md)   | Complete page metadata reference          |
+| **Shortcodes**   | [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)     | Complete shortcode reference              |
 
 ## Important Notes
 

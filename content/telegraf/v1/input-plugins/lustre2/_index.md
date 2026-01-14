@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/lustre2/README.md, Lustre Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/lustre2/README.md, Lustre Plugin Source
 ---
 
 # Lustre Input Plugin

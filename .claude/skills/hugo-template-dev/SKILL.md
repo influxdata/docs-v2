@@ -2,7 +2,7 @@
 name: hugo-template-dev
 description: Hugo template development skill for InfluxData docs-v2. Enforces proper build and runtime testing to catch template errors that build-only validation misses.
 author: InfluxData
-version: "1.0"
+version: "1.1"
 ---
 
 # Hugo Template Development Skill
@@ -23,9 +23,10 @@ Template errors like accessing undefined fields, nil values, or incorrect type a
 
 After modifying files in `layouts/`, `layouts/partials/`, or `layouts/shortcodes/`:
 
+**Step 1: Start Hugo server and capture output**
+
 ```bash
-# Step 1: Start Hugo server and capture output
-npx hugo server --port 1314 2>&1 | head -50
+npx hugo server --port 1315 2>&1 | head -50
 ```
 
 **Success criteria:**
@@ -33,20 +34,37 @@ npx hugo server --port 1314 2>&1 | head -50
 - No `error calling partial` messages
 - No `can't evaluate field` errors
 - No `template: ... failed` messages
-- Server shows "Web Server is available at <http://localhost:1314/>"
+- Server shows "Web Server is available at <http://localhost:1315/>"
 
 **If errors appear:** Fix the template and repeat Step 1 before proceeding.
 
+**Step 2: Verify the page renders**
+
 ```bash
-# Step 2: Verify the page renders (only after Step 1 passes)
-curl -s -o /dev/null -w "%{http_code}" http://localhost:1314/PATH/TO/PAGE/
+curl -s -o /dev/null -w "%{http_code}" http://localhost:1315/PATH/TO/PAGE/
 ```
 
 **Expected:** HTTP 200 status code
 
+**Step 3: Browser testing (if MCP browser tools available)**
+
+If `mcp__claude-in-chrome__*` tools are available, use them for visual inspection:
+
+```
+# Navigate and screenshot
+mcp__claude-in-chrome__navigate({ url: "http://localhost:1315/PATH/", tabId: ... })
+mcp__claude-in-chrome__computer({ action: "screenshot", tabId: ... })
+
+# Check for JavaScript errors
+mcp__claude-in-chrome__read_console_messages({ tabId: ..., onlyErrors: true })
+```
+
+This catches runtime JavaScript errors that template changes may introduce.
+
+**Step 4: Stop the test server**
+
 ```bash
-# Step 3: Stop the test server
-pkill -f "hugo server --port 1314"
+pkill -f "hugo server --port 1315"
 ```
 
 ### Quick Test Command
@@ -54,7 +72,7 @@ pkill -f "hugo server --port 1314"
 Use this one-liner to test and get immediate feedback:
 
 ```bash
-timeout 15 npx hugo server --port 1314 2>&1 | grep -E "(error|Error|ERROR|fail|FAIL)" | head -20; pkill -f "hugo server --port 1314" 2>/dev/null
+timeout 15 npx hugo server --port 1315 2>&1 | grep -E "(error|Error|ERROR|fail|FAIL)" | head -20; pkill -f "hugo server --port 1315" 2>/dev/null
 ```
 
 If output is empty, no errors were detected.
@@ -363,15 +381,14 @@ When creating a new interactive feature:
 4. [ ] Register in `main.js` componentRegistry
 5. [ ] Add `data-component` attribute to HTML element
 6. [ ] Pass data via `data-*` attributes (not inline JS)
-7. [ ] Write Cypress tests for the component
-8. [ ] **NO inline `<script>` tags in templates**
+7. [ ] **NO inline `<script>` tags in templates**
 
 ## Debugging Templates
 
 ### Enable Verbose Mode
 
 ```bash
-npx hugo server --port 1314 --verbose 2>&1 | head -100
+npx hugo server --port 1315 --verbose 2>&1 | head -100
 ```
 
 ### Print Variables for Debugging
@@ -400,8 +417,8 @@ pre-commit:
     hugo-template-test:
       glob: "layouts/**/*.html"
       run: |
-        timeout 20 npx hugo server --port 1314 2>&1 | grep -E "error|Error" && exit 1 || exit 0
-        pkill -f "hugo server --port 1314" 2>/dev/null
+        timeout 20 npx hugo server --port 1315 2>&1 | grep -E "error|Error" && exit 1 || exit 0
+        pkill -f "hugo server --port 1315" 2>/dev/null
 ```
 
 ### GitHub Actions Workflow
@@ -409,133 +426,20 @@ pre-commit:
 ```yaml
 - name: Test Hugo templates
   run: |
-    npx hugo server --port 1314 &
+    npx hugo server --port 1315 &
     sleep 10
-    curl -f http://localhost:1314/ || exit 1
+    curl -f http://localhost:1315/ || exit 1
     pkill -f hugo
 ```
-
-### Cypress E2E Tests for UI Features
-
-After template changes that affect UI functionality, run Cypress tests to verify:
-
-**Run a specific test file against a content page:**
-
-```bash
-node cypress/support/run-e2e-specs.js \
-  --spec "cypress/e2e/content/api-reference.cy.js" \
-  content/influxdb3/core/reference/api/_index.md
-```
-
-**Run tests against a URL (for deployed or running server):**
-
-```bash
-node cypress/support/run-e2e-specs.js \
-  --spec "cypress/e2e/content/api-reference.cy.js" \
-  http://localhost:<port>/influxdb3/core/reference/api/
-```
-
-**Example Cypress test structure for API reference:**
-
-```javascript
-// cypress/e2e/content/api-reference.cy.js
-describe('API Reference Documentation', () => {
-  beforeEach(() => {
-    cy.visit('/influxdb3/core/reference/api/');
-  });
-
-  it('displays 3-column layout with sidebar, content, and TOC', () => {
-    cy.get('.sidebar').should('be.visible');
-    cy.get('.api-content').should('be.visible');
-    cy.get('.api-toc').should('be.visible');
-  });
-
-  it('switches tabs correctly', () => {
-    cy.get('.tabs a').contains('Authentication').click();
-    cy.get('.tab-content').contains('Bearer Token').should('be.visible');
-  });
-
-  it('displays API navigation in sidebar', () => {
-    cy.get('.api-nav').should('be.visible');
-    cy.get('.api-nav').contains('API v3');
-  });
-
-  it('TOC updates highlight on scroll', () => {
-    cy.get('.api-toc-nav a').first().click();
-    cy.get('.api-toc-nav a.is-active').should('exist');
-  });
-});
-```
-
-**Check for JavaScript console errors (common pattern for feature development):**
-
-```javascript
-// cypress/e2e/content/my-component.cy.js
-describe('My Component', () => {
-  it('should not throw JavaScript console errors', () => {
-    cy.visit('/path/to/page/');
-
-    // Wait for component to initialize
-    cy.get('[data-component="my-component"]', { timeout: 5000 })
-      .should('be.visible');
-
-    cy.window().then((win) => {
-      const logs = [];
-      const originalError = win.console.error;
-
-      // Intercept console.error calls
-      win.console.error = (...args) => {
-        logs.push(args.join(' '));
-        originalError.apply(win.console, args);
-      };
-
-      // Allow time for async operations
-      cy.wait(2000);
-
-      cy.then(() => {
-        // Filter for relevant errors (customize for your component)
-        const relevantErrors = logs.filter(
-          (log) =>
-            log.includes('my-component') ||
-            log.includes('Failed to parse') ||
-            log.includes('is not a function')
-        );
-        expect(relevantErrors).to.have.length(0);
-      });
-    });
-  });
-});
-```
-
-This pattern is especially useful for catching:
-
-- TypeScript/JavaScript runtime errors in components
-- JSON parsing failures from `data-*` attributes
-- Undefined function calls from missing imports
-- Template data binding issues that only manifest at runtime
-
-**Integrate Cypress into development workflow:**
-
-1. Create test file in `cypress/e2e/content/` for your feature
-2. Run tests after template changes to verify UI behavior
-3. Include test execution in PR checklist
-
-**Quick Cypress commands:**
-
-| Purpose                | Command                                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------------------- |
-| Run specific spec      | `node cypress/support/run-e2e-specs.js --spec "path/to/spec.cy.js" content/path/to/page.md` |
-| Run all E2E tests      | `yarn test:e2e`                                                                             |
-| Run shortcode examples | `yarn test:shortcode-examples`                                                              |
 
 ## Quick Reference
 
 | Action                    | Command                                                              |
 | ------------------------- | -------------------------------------------------------------------- |
-| Test templates (runtime)  | `npx hugo server --port 1314 2>&1 \| head -50`                       |
+| Test templates (runtime)  | `npx hugo server --port 1315 2>&1 \| head -50`                       |
 | Build only (insufficient) | `npx hugo --quiet`                                                   |
-| Check specific page       | `curl -s -o /dev/null -w "%{http_code}" http://localhost:1314/path/` |
-| Stop test server          | `pkill -f "hugo server --port 1314"`                                 |
+| Check specific page       | `curl -s -o /dev/null -w "%{http_code}" http://localhost:1315/path/` |
+| Stop test server          | `pkill -f "hugo server --port 1315"`                                 |
 | Debug data access         | `<pre>{{ printf "%#v" $var }}</pre>`                                 |
 
 ## Remember
@@ -546,10 +450,9 @@ This pattern is especially useful for catching:
 4. **Use `isset` and `index`** for safe data access
 5. **Hyphenated keys require `index` function** - dot notation fails
 
-## Related Agents
+## Related Skills
 
-This skill focuses on Hugo template development practices. For specialized tasks, use:
-
-- **hugo-ui-dev** - Hugo templates and SASS/CSS styling
-- **ts-component-dev** - TypeScript component behavior and interactivity
-- **ui-testing** - Cypress E2E testing for UI components
+- **cypress-e2e-testing** - For E2E testing of UI components and pages
+- **docs-cli-workflow** - For creating/editing documentation content
+- **ts-component-dev** (agent) - TypeScript component behavior and interactivity
+- **ui-testing** (agent) - Cypress E2E testing for UI components
