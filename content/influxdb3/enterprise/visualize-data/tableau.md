@@ -4,11 +4,11 @@ list_title: Tableau
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query and visualize
   data from {{< product-name >}}.
-weight: 101
 menu:
   influxdb3_enterprise:
     parent: Visualize data
-    name: Tableau
+    name: Use Tableau
+weight: 101
 influxdb3/enterprise/tags: [Flight client, query, flightsql, tableau, sql]
 alt_links:
   v1: /influxdb/v1/tools/tableau/

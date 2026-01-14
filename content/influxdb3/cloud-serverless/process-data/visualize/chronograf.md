@@ -1,16 +1,22 @@
 ---
-title: Use Chronograf
+title: Use Chronograf to visualize data
 seotitle: Use Chronograf with InfluxDB Cloud Serverless
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB Cloud Serverless.
+list_title: Chronograf
+weight: 201
 menu:
   influxdb3_cloud_serverless:
     name: Use Chronograf
     parent: Visualize data
-weight: 202
 aliases:
   - /influxdb3/cloud-serverless/visualize-data/chronograf/
+alt_links:
+  v2: /influxdb/v2/tools/chronograf/
+  cloud: /influxdb/cloud/tools/chronograf/
+  core: /influxdb3/core/visualize-data/chronograf/
+  enterprise: /influxdb3/enterprise/visualize-data/chronograf/
 related:
   - /chronograf/v1/
   - /influxdb3/cloud-serverless/query-data/influxql/
@@ -87,6 +93,11 @@ chronograf
 ### Configure connection via CLI
 
 You can also configure the connection when starting Chronograf:
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: [API token](/influxdb3/cloud-serverless/admin/tokens/) with read permissions on the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: [Bucket](/influxdb3/cloud-serverless/admin/buckets/) name
 
 ```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 chronograf --influxdb-v3-support-enabled \

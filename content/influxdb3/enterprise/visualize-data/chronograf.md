@@ -1,14 +1,24 @@
 ---
-title: Use Chronograf
+title: Use Chronograf to visualize data
 seotitle: Use Chronograf with InfluxDB 3 Enterprise
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB 3 Enterprise.
+list_title: Chronograf
 menu:
   influxdb3_enterprise:
     name: Use Chronograf
     parent: Visualize data
-weight: 202
+weight: 101
+alt_links:
+  enterprise: /influxdb3/enterprise/visualize-data/chronograf/
+  enterprise_v1: /enterprise_influxdb/v1/tools/chronograf/
+  cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/chronograf/
+  cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/chronograf/
+  clustered: /influxdb3/clustered/process-data/visualize/chronograf/
+  v1: /influxdb/v1/tools/chronograf/
+  v2: /influxdb/v2/tools/chronograf/
+  cloud: /influxdb/cloud/tools/chronograf/
 related:
   - /chronograf/v1/
   - /influxdb3/enterprise/query-data/influxql/
@@ -22,7 +32,9 @@ This page walks through how to use Chronograf with **{{% product-name %}}**.
 ## Prerequisites
 
 - [Download and install Chronograf](/chronograf/v1/introduction/installation/#download-and-install)
-- An {{% product-name %}} cluster running and accessible
+- A running {{% product-name %}} cluster with:
+  - A [database](/influxdb3/enterprise/admin/databases/) to query
+  - A {{% token-link "database" %}} with read permissions
 
 ## Enable InfluxDB 3 support
 
@@ -66,10 +78,8 @@ chronograf
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Database Token:** InfluxDB [database token](/influxdb3/enterprise/admin/tokens/database/)
+    - **Database Token:** InfluxDB {{% token-link "database" %}}
       with read permissions on the database you want to query
-    - **Default Database:** _(Optional)_ Default [database](/influxdb3/enterprise/admin/databases/)
-      to use. When set, Chronograf limits queries to this database.
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/enterprise/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
 
@@ -84,6 +94,11 @@ chronograf
 ### Configure connection via CLI
 
 You can also configure the connection when starting Chronograf:
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: [Database](/influxdb3/enterprise/admin/databases/) name
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: {{% token-link "database" %}} with read permissions
 
 ```sh { placeholders="DATABASE_NAME|DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \

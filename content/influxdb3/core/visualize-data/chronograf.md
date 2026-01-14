@@ -1,14 +1,24 @@
 ---
-title: Use Chronograf
+title: Use Chronograf to visualize data
 seotitle: Use Chronograf with InfluxDB 3 Core
 description: >
   Chronograf is a data visualization and dashboarding tool designed to visualize data in InfluxDB 1.x.
   Learn how to use Chronograf with InfluxDB 3 Core.
+list_title: Chronograf
 menu:
   influxdb3_core:
     name: Use Chronograf
     parent: Visualize data
-weight: 202
+weight: 101
+alt_links:
+  enterprise: /influxdb3/enterprise/visualize-data/chronograf/
+  enterprise_v1: /enterprise_influxdb/v1/tools/chronograf/
+  cloud-serverless: /influxdb3/cloud-serverless/process-data/visualize/chronograf/
+  cloud-dedicated: /influxdb3/cloud-dedicated/process-data/visualize/chronograf/
+  clustered: /influxdb3/clustered/process-data/visualize/chronograf/
+  v1: /influxdb/v1/tools/chronograf/
+  v2: /influxdb/v2/tools/chronograf/
+  cloud: /influxdb/cloud/tools/chronograf/
 related:
   - /chronograf/v1/
   - /influxdb3/core/query-data/influxql/
@@ -22,7 +32,9 @@ This page walks through how to use Chronograf with **{{% product-name %}}**.
 ## Prerequisites
 
 - [Download and install Chronograf](/chronograf/v1/introduction/installation/#download-and-install)
-- An {{% product-name %}} instance running and accessible
+- A running {{% product-name %}} instance with:
+  - A [database](/influxdb3/core/admin/databases/) to query
+  - A {{% token-link "database" %}} with read permissions
 
 ## Enable InfluxDB 3 support
 
@@ -66,7 +78,7 @@ chronograf
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Database Token:** InfluxDB [database token](/influxdb3/core/admin/tokens/database/)
+    - **Database Token:** InfluxDB {{% token-link "database" %}}
       with read permissions on the database you want to query
     - **Telegraf Database Name:** InfluxDB [database](/influxdb3/core/admin/databases/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
@@ -82,6 +94,10 @@ chronograf
 ### Configure connection via CLI
 
 You can also configure the connection when starting Chronograf:
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: {{% token-link "database" %}} with read permissions
 
 ```sh { placeholders="DATABASE_TOKEN" }
 chronograf --influxdb-v3-support-enabled \
