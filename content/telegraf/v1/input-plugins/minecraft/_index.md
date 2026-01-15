@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/minecraft/README.md, Minecraft Plugin Source
 ---
 
 # Minecraft Input Plugin
