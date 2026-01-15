@@ -4,12 +4,12 @@ list_title: Superset
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
   to query and visualize data stored from {{< product-name >}}.
-weight: 101
 menu:
   influxdb3_core:
     parent: Visualize data
-    name: Superset
+    name: Use Superset
     identifier: query-with-superset
+weight: 101
 influxdb3/core/tags: [Flight client, query, flightsql, superset]
 metadata: [SQL only]
 alt_links:

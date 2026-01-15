@@ -1,6 +1,6 @@
 ---
 title: Use Tableau to query and visualize data
-list_title: Use Tableau
+list_title: Tableau
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query and visualize
   data stored in InfluxDB.

@@ -4,6 +4,7 @@ seotitle: Use Apache Superset to query data stored in InfluxDB Cloud Serverless
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
   to query and visualize data stored in an InfluxDB Cloud Serverless bucket.
+list_title: Superset
 weight: 201
 menu:
   influxdb3_cloud_serverless:
