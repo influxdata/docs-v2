@@ -1,7 +1,7 @@
 ---
 title: Undelete a table
 description: >
-  Use the [`influxctl table undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/undelete/)
+  Use the Admin UI or the [`influxctl table undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/undelete/)
   to restore a previously deleted table in your {{< product-name omit=" Cluster" >}} cluster.
 menu:
   influxdb3_cloud_dedicated:
@@ -17,7 +17,7 @@ related:
   - /influxdb3/cloud-dedicated/admin/tokens/table/create/
 ---
 
-Use the [`influxctl table undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/undelete/)
+Use the Admin UI or the [`influxctl table undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/undelete/)
 to restore a previously deleted table in your {{< product-name omit=" Cluster" >}} cluster.
 
 > [!Important]
@@ -36,7 +36,30 @@ other settings as when it was deleted.
 > After this grace period, all Parquet files associated with the deleted table
 > are permanently removed and the table cannot be undeleted.
 
-## Undelete a table using the influxctl CLI
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Admin UI](#admin-ui)
+[influxctl](#influxctl)
+{{% /tabs %}}
+{{% tab-content %}}
+{{< admin-ui-access >}}
+
+In the table list for a database, find the deleted table you want to restore.
+Deleted tables are shown with a "Deleted" status indicator.
+You can sort on column headers or use the **Search** field to find a specific table.
+
+1. In the options menu (three vertical dots to the right of the table), click **Restore Table**. The **Restore Table** dialog displays.
+2. In the **Restore Table** dialog, review the table name and deletion date.
+3. Click the **Restore Table** button to restore the table.
+{{% /tab-content %}}
+{{% tab-content %}}
+
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+2.  Use the [`influxctl table undelete` command](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/undelete/)
+    to restore a deleted table. Provide the following:
+
+    - The name of the database associated with the deleted table
+    - The ID of the deleted table to restore
 
 ```bash { placeholders="DATABASE_NAME|TABLE_ID" }
 influxctl table undelete DATABASE_NAME TABLE_ID
@@ -56,10 +79,12 @@ Replace the following:
 > the `--filter-status=deleted` flag--for example:
 >
 > <!--pytest.mark.skip-->
-> 
+>
 > ```bash {placeholders="DATABASE_NAME" }
 > influxctl table list --filter-status=deleted DATABASE_NAME
 > ```
 >
 > Replace {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}
 > with the name of the database associated with the table you want to undelete.
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
