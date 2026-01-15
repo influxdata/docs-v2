@@ -79,6 +79,21 @@ noaa
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Output to a Parquet file
+
+To output your list of databases to a Parquet file, use the `influxdb3 query` command
+
+- `--format`: `parquet`
+- `-o`, `--output`: the filepath to the Parquet file to output to
+
+```sh
+influxdb3 query \
+  --database _internal \
+  --format parquet \
+  --output databases.parquet \
+  "SELECT * FROM system.databases"
+```
+
 ### List deleted databases
 
 To list deleted databases, include the `--show-deleted` option with your
@@ -185,6 +200,7 @@ curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
 ```
 
 For Parquet responses, you must provide an output destination because the format is binary.
+
 The response contains the databases list.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
