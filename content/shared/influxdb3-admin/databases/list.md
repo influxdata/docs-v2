@@ -79,6 +79,22 @@ noaa
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### Output to a Parquet file
+
+You can also use the `influxdb3 query` command to output your list of databases to a Parquet file
+with the following options:
+
+- `--format`: `parquet`
+- `-o`, `--output`: the filepath to the Parquet file to output to
+
+```sh
+influxdb3 query \
+  --database _internal \
+  --format parquet \
+  --output databases.parquet \
+  "SELECT * FROM system.databases"
+```
+
 ### List deleted databases
 
 To list deleted databases, include the `--show-deleted` option with your
@@ -203,19 +219,3 @@ You can also view all databases using the [InfluxDB 3 Explorer](/influxdb3/explo
    - Creation date
 
 For more information, see [Manage databases with InfluxDB 3 Explorer](/influxdb3/explorer/manage-databases/).
-
-### Output to a Parquet file
-
-To output your list of databases to a Parquet file, use the `influxdb3 query` command
-with the following options:
-
-- `--format`: `parquet`
-- `-o`, `--output`: the filepath to the Parquet file to output to
-
-```sh
-influxdb3 query \
-  --database _internal \
-  --format parquet \
-  --output databases.parquet \
-  "SELECT * FROM system.databases"
-```
