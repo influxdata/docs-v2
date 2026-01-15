@@ -31,8 +31,7 @@ to delete a table from a database in your {{< product-name omit=" Cluster" >}} c
 > #### Deleted tables may be able to be restored
 >
 > Deleted tables may be able to be [restored](/influxdb3/clustered/admin/tables/undelete/)
-> within the configurable "hard-delete" grace period, depending on when cleanup jobs run.
-> After the cleanup job runs, the table and its data are permanently removed.
+> within the configurable "hard-delete" grace period.
 
 Provide the following arguments:
 

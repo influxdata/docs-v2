@@ -31,8 +31,7 @@ to delete a table from a database in your {{< product-name omit=" Cluster" >}} c
 > #### Deleted tables may be able to be restored
 >
 > Deleted tables may be able to be [restored](/influxdb3/cloud-dedicated/admin/tables/undelete/)
-> within approximately 7 days of deletion, depending on when cleanup jobs run.
-> After the cleanup job runs, the table and its data are permanently removed.
+> within approximately 7 days of deletion.
 
 Provide the following arguments:
 
