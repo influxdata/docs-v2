@@ -79,7 +79,7 @@ noaa
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Output to a Parquet file
+#### Output to Parquet
 
 To output your list of databases to a Parquet file, use the `influxdb3 query` command
 
