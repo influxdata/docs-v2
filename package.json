@@ -34,7 +34,7 @@
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-sql": "^0.18.0",
-    "puppeteer": "^23.11.1",
+    "puppeteer": "^24.35.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
