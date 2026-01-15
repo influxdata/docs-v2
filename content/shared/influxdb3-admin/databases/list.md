@@ -81,7 +81,7 @@ noaa
 
 ### Output to a Parquet file
 
-You can also use the `influxdb3 query` command to output your list of databases to a Parquet file
+To output your list of databases to a Parquet file, use the `influxdb3 query` command 
 with the following options:
 
 - `--format`: `parquet`
