@@ -20,7 +20,7 @@ Common use cases include:
 - Real-time analytics
 - Events handling
 
-{{< influxdb-cloud1-note type="oss" >}}
+{{< influxdb/cloud1-note type="oss" >}}
 
 ## Key features
 
@@ -39,5 +39,5 @@ It compiles into a single binary with no external dependencies.
 
 InfluxDB OSS v1 runs on a single node.
 If you require high availability to eliminate a single point of failure, consider [InfluxDB 3 Enterprise](/influxdb3/enterprise/),
-InfluxDB’s next generation that supports multi-node clustering, allows infinite series cardinality without impact on overall database performance, and
+InfluxDB's next generation that supports multi-node clustering, allows infinite series cardinality without impact on overall database performance, and
 brings native SQL support and improved InfluxQL performance.
