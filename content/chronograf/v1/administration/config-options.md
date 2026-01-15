@@ -14,6 +14,8 @@ Chronograf is configured using the configuration file (/etc/default/chronograf) 
 * [Usage](#usage)
 * [Chronograf service options](#chronograf-service-options)
   - [InfluxDB connection options](#influxdb-connection-options)
+     - [Connect to InfluxDB v1 or v2](#connect-to-influxdb-v1-or-v2)
+     - [Connect to InfluxDB 3](#connect-to-influxdb-3)
   - [Kapacitor connection options](#kapacitor-connection-options)
   - [TLS (Transport Layer Security) options](#tls-transport-layer-security-options)
   - [etcd options](#etcd-options)
@@ -140,6 +142,8 @@ $ chronograf -v
 
 ## InfluxDB connection options
 
+### Connect to InfluxDB v1 or v2
+
 {{% note %}}
 InfluxDB connection details specified via command line when starting Chronograf do not persist when Chronograf is shut down.
 To persist connection details, [include them in a `.src` file](/chronograf/v1/administration/creating-connections/#manage-influxdb-connections-using-src-files) located in your [`--resources-path`](#resources-path).
@@ -149,7 +153,7 @@ Configure InfluxDB 2.x and Cloud connections with CLI flags or in the
 [Chronograf UI](/chronograf/v1/administration/creating-connections/#manage-influxdb-connections-using-the-chronograf-ui).
 {{% /note %}}
 
-### `--influxdb-url`
+#### `--influxdb-url`
 
 The location of your InfluxDB instance, including the protocol, IP address, and port.
 
@@ -157,29 +161,130 @@ Example: `--influxdb-url http://localhost:8086`
 
 Environment variable: `$INFLUXDB_URL`
 
-### `--influxdb-username`
+#### `--influxdb-username`
 
 The [username] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_USERNAME`
 
-### `--influxdb-password`
+#### `--influxdb-password`
 
 The [password] for your InfluxDB instance.
 
 Environment variable: `$INFLUXDB_PASSWORD`
 
-### `--influxdb-org`
+#### `--influxdb-org`
 
 InfluxDB 2.x or InfluxDB Cloud organization name.
 
 Environment variable: `$INFLUXDB_ORG`
 
-### `--influxdb-token`
+#### `--influxdb-token`
 
 InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/admin/tokens/).
 
 Environment variable: `$INFLUXDB_TOKEN`
+
+### Connect to InfluxDB 3
+
+{{% note %}}
+To connect Chronograf to InfluxDB 3 products, you must enable InfluxDB 3 support when starting Chronograf.
+Use the following options to configure connections to InfluxDB 3 Core, InfluxDB 3 Enterprise, InfluxDB Cloud Dedicated, InfluxDB Cloud Serverless, and InfluxDB Clustered.
+
+For more information about connecting to InfluxDB 3 products, see [Create InfluxDB and Kapacitor connections](/chronograf/v1/administration/creating-connections/).
+{{% /note %}}
+
+#### `--influxdb-v3-support-enabled`
+
+{{< req >}} Enable InfluxDB 3 support in Chronograf.
+This flag is required to connect to any InfluxDB 3 product.
+
+
+Environment variable: `$INFLUXDB_V3_SUPPORT_ENABLED`
+
+#### `--influxdb-type=`
+
+The type of InfluxDB backend to connect to.
+Use with `--influxdb-v3-support-enabled` to configure a default InfluxDB 3 connection on startup.
+
+Valid values:
+
+| Value | InfluxDB Product |
+|:------|:-----------------|
+| `influx-v3-core` | InfluxDB 3 Core |
+| `influx-v3-enterprise` | InfluxDB 3 Enterprise |
+| `influx-v3-cloud-dedicated` | InfluxDB Cloud Dedicated |
+| `influx-v3-serverless` | InfluxDB Cloud Serverless |
+| `influx-v3-clustered` | InfluxDB Clustered |
+
+Example: `--influxdb-type=influx-v3-core`
+
+Environment variable: `$INFLUXDB_TYPE`
+
+#### `--influxdb-cluster-id=`
+
+_InfluxDB Cloud Dedicated only._
+The cluster ID for your InfluxDB Cloud Dedicated cluster.
+Required when using management features with Cloud Dedicated.
+
+Environment variable: `$INFLUXDB_CLUSTER_ID`
+
+#### `--influxdb-account-id=`
+
+_InfluxDB Cloud Dedicated only._
+The account ID for your InfluxDB Cloud Dedicated account.
+Required when using management features with Cloud Dedicated.
+
+Environment variable: `$INFLUXDB_ACCOUNT_ID`
+
+#### `--influxdb-mgmt-token=`
+
+_InfluxDB Cloud Dedicated and InfluxDB Clustered only._
+A management token for administrative operations.
+When provided, enables database management features in Chronograf.
+
+Environment variable: `$INFLUXDB_MGMT_TOKEN`
+
+#### `--influxdb-default-db=`
+
+The default database to use when connecting to an InfluxDB 3 instance.
+When set, Chronograf limits queries to this database.
+
+Supported with InfluxDB 3 Enterprise, InfluxDB Cloud Dedicated, InfluxDB Cloud Serverless, and InfluxDB Clustered.
+_Not available for InfluxDB 3 Core._
+
+Environment variable: `$INFLUXDB_DEFAULT_DB`
+
+#### `--tags-csv-path=`
+
+_InfluxDB Cloud Dedicated only._
+Path to a directory containing CSV files that predefine tags for the query builder and control filters.
+
+CSV file requirements:
+- File names must match database names (for example, `mydb.csv` for a database named `mydb`)
+- Use semicolons (`;`) as field delimiters
+- Three fields per line: `measurement;tag-key;tag-value`
+
+Example CSV content:
+
+```
+home;room;Living Room
+home;room;cellar
+home;room;attic
+```
+
+Environment variable: `$TAGS_CSV_PATH`
+
+#### `--influxdb-v3-time-condition=`
+
+The time condition used to limit tag value queries when setting up variables with dynamic tag values.
+Tags from records older than this time condition are ignored.
+
+Default value: `time > now() - 7d`
+
+Example: `--influxdb-v3-time-condition='time > now() - 3d'`
+
+Environment variable: `$INFLUXDB_V3_TIME_CONDITION`
 
 ## Kapacitor connection options
 
