@@ -81,8 +81,7 @@ noaa
 
 ### Output to a Parquet file
 
-To output your list of databases to a Parquet file, use the `influxdb3 query` command 
-with the following options:
+To output your list of databases to a Parquet file, use the `influxdb3 query` command
 
 - `--format`: `parquet`
 - `-o`, `--output`: the filepath to the Parquet file to output to
@@ -200,9 +199,9 @@ curl "{{< influxdb/host >}}/api/v3/configure/database?format=parquet" \
   --header "Authorization: Bearer AUTH_TOKEN"
 ```
 
-The response contains the databases list.
-
 For Parquet responses, you must provide an output destination because the format is binary.
+
+The response contains the databases list.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
