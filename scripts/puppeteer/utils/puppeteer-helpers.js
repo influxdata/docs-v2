@@ -35,7 +35,7 @@ export async function launchBrowser(options = {}) {
   } = options;
 
   const launchOptions = {
-    headless: headless ? 'new' : false,
+    headless,
     devtools,
     slowMo,
     args: [
