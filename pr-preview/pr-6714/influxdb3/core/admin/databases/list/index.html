@@ -2711,6 +2711,19 @@ the <a href="/influxdb3/version/api/v3/"><code>/api/v3/configure/database</code>
 
 </div>
 
+<h3 id="output-to-a-parquet-file">Output to a Parquet file</h3>
+<p>To output your list of databases to a Parquet file, use the <code>influxdb3 query</code> command</p>
+<ul>
+<li><code>--format</code>: <code>parquet</code></li>
+<li><code>-o</code>, <code>--output</code>: the filepath to the Parquet file to output to</li>
+</ul>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 query <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --database _internal <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --format parquet <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --output databases.parquet <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;SELECT * FROM system.databases&#34;</span></span></span></code></pre></div>
 <h3 id="list-deleted-databases">List deleted databases</h3>
 <p>To list deleted databases, include the <code>--show-deleted</code> option with your
 <code>influxdb3 show databases</code> command:</p>
@@ -2843,8 +2856,8 @@ the <a href="/influxdb3/version/api/v3/"><code>/api/v3/configure/database</code>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl <span class="s2">&#34;localhost:8181/api/v3/configure/database?format=parquet&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  -o databases.parquet <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
-<p>For Parquet responses, you must provide an output destination because the format is binary.
-The response contains the databases list.</p>
+<p>For Parquet responses, you must provide an output destination because the format is binary.</p>
+<p>The response contains the databases list.</p>
 
 </section>
 
