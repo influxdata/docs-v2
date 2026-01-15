@@ -98,7 +98,7 @@ Include the following in your request:
   - `db` _(string, required)_: Database name
   - `table` _(string, required)_: Table name
   - `tags` _(array, required)_: Tag column names
-  - `fields` _(array, optional)_: Field definitions with name and type
+  - `fields` _(array, required)_: Field definitions with name and type. Provide an empty array if no fields are defined.
   {{% show-in "enterprise" %}}
   - `retention_period` _(string, optional)_: [Retention period](#retention-period). If omitted, uses database retention period.
   {{% /show-in %}}
@@ -111,7 +111,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
   --data '{
     "db": "DATABASE_NAME",
     "table": "TABLE_NAME",
-    "tags": ["tag1", "tag2", "tag3"]
+    "tags": ["tag1", "tag2", "tag3"],
+    "fields": []
   }'
 
 # Create a table with tag and field columns
@@ -154,7 +155,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/table" \
   --data '{
     "db": "DATABASE_NAME",
     "table": "TABLE_NAME",
-    "tags": ["room", "sensor_id"]
+    "tags": ["room", "sensor_id"],
+    "fields": []
   }'
 ```
 {{% /show-in %}}
