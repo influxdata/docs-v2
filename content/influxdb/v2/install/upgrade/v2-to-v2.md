@@ -1,12 +1,12 @@
 ---
-title: Upgrade from InfluxDB 2.x to InfluxDB 2.7
+title: Upgrade from InfluxDB 2.x to {{< current-version >}}
 description: >
-  To upgrade from InfluxDB 2.0 beta 16 or earlier to InfluxDB 2.7 (stable),
+  To upgrade from InfluxDB 2.0 beta 16 or earlier to {{< current-version >}},
   manually upgrade all resources and data to the latest version by completing these steps.
 menu:
   influxdb_v2:
     parent: Upgrade InfluxDB
-    name: InfluxDB 2.x to 2.7
+    name: InfluxDB 2.x to 2.8
 weight: 9
 aliases:
   - /influxdb/v2/upgrade/v2-to-v2/

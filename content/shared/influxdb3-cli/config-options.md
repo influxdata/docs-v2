@@ -832,7 +832,92 @@ Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 
 #### log-filter
 
-Sets the filter directive for logs.
+Sets the filter directive for logs. Use this option to control the verbosity of
+server logs globally or for specific components.
+
+##### Log levels
+
+The following log levels are available (from least to most verbose):
+
+| Level   | Description                                                                                           |
+| :------ | :---------------------------------------------------------------------------------------------------- |
+| `error` | Only errors                                                           |
+| `warn`  | Warnings and errors                                                                                   |
+| `info`  | Informational messages, warnings, and errors _(default)_                                              |
+| `debug` | Debug information for troubleshooting, plus all above levels                                          |
+| `trace` | Very detailed tracing information, plus all above levels (produces high log volume)                   |
+
+##### Basic usage
+
+To set the log level globally, pass one of the log levels:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter debug
+```
+
+##### Targeted filtering
+
+Globally enabling `debug` or `trace` produces a high volume of log output.
+For more targeted debugging, you can set different log levels for specific
+components using the format `<global_level>,<component>=<level>`.
+
+###### Debug write buffer operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_write_buffer=debug
+```
+
+###### Trace WAL operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_wal=trace
+```
+
+###### Multiple targeted filters
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_write_buffer=debug,influxdb3_wal=debug
+```
+
+{{% show-in "enterprise" %}}
+
+###### Debug Enterprise storage engine operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_pacha_tree=debug
+```
+
+{{% /show-in %}}
+
+##### Common component names
+
+The following are common component names you can use for targeted filtering:
+
+| Component                             | Description                                              |
+| :------------------------------------ | :------------------------------------------------------- |
+| `influxdb3_write_buffer`              | Write buffer operations                                  |
+| `influxdb3_wal`                       | Write-ahead log operations                               |
+| `influxdb3_catalog`                   | Catalog and schema operations                            |
+| `influxdb3_cache`                     | Caching operations                                       |
+{{% show-in "enterprise" %}}`influxdb3_pacha_tree`                | Enterprise storage engine operations                     |
+`influxdb3_enterprise`                  | Enterprise-specific features                             |
+{{% /show-in %}}
+
+> [!Note]
+> Targeted filtering requires knowledge of the codebase component names.
+> The component names correspond to Rust package names in the InfluxDB 3 source
+> code. Use `debug` or `trace` sparingly on specific components to avoid
+> excessive log output.
 
 | influxdb3 serve option | Environment variable |
 | :--------------------- | :------------------- |

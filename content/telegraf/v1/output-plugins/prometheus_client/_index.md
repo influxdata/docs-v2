@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
 ---
 
 # Prometheus Output Plugin

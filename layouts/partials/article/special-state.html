@@ -2,26 +2,34 @@
 {{ $productPathData := split .RelPermalink "/" }}
 {{ $product := index $productPathData 1 }}
 {{ $version := index $productPathData 2 }}
-{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
+{{ $isInfluxDB3 := eq $product "influxdb3" }}
+{{ $isTelegrafController := and (eq $product "telegraf") (eq $version "controller") }}
+{{ .Store.Set "productKey" $product }}
+{{ if $isInfluxDB3 }}
+  {{ .Store.Set "productKey" (print "influxdb3_" (replaceRE "-" "_" $version)) }}
+{{ else if $isTelegrafController }}
+  {{ .Store.Set "productKey" "telegraf_controller" }}
+{{ end }}
+{{ $productKey := .Store.Get "productKey" }}
 {{ $productData := index $.Site.Data.products $productKey }}
 {{ $displayName := $productData.name }}
-{{ $earlyAccessList := slice "" }}
+{{ $productPathWhitelist := slice "telegraf/controller" }}
 
-{{ if in $earlyAccessList (print $product "/" $version )}}
+{{ if in $productPathWhitelist (print $product "/" $version )}}
 <div class="block special-state">
   <div class="state-content">
-    <h4 id="influxdb3-explorer-ga">{{ $displayName }} is Generally Available</h4>
+    <h4 id="telegraf-controller-private-alpha">{{ $displayName }} is in Private Alpha</h4>
     <p>
-      {{ $displayName }} is generally available and is ready for production use.
-      We welcome and encourage your input about your experience with Explorer and 
-      invite you to <strong>join our public channels</strong> for updates and to
-      share feedback.
+      {{ $displayName }} is in private alpha. If you are interested in being a
+      part of the private alpha program, please sign up:
     </p>
+    <p><a href="https://www.influxdata.com/products/telegraf-enterprise" class="btn">Sign Up for the Alpha</a></p>
     <p>
-      <em>The {{ $displayName}} documentation is a work in progress, and we are actively
+      While in alpha, {{ $displayName }} is <strong>not meant for production use</strong>.
+      The {{ $displayName}} documentation is a work in progress, and we are actively
       working to improve it. If you have any questions or suggestions, please
-      <a href="https://github.com/influxdata/docs-v2/issues/new?labels=InfluxDB%203%20Explorer">submit an issue</a>.
-      We welcome any and all contributions.</em>
+      <a href="https://github.com/influxdata/docs-v2/issues/new?labels=Telegraf%20Controller">submit an issue</a>.
+      We welcome any and all contributions.
     </p>
     <div class="expand-wrapper">
       <div class="expand" id="feedback-channels">
@@ -30,9 +38,9 @@
         </p>
         <div class="expand-content" style="display: none;" >
           <ul class="feedback-channels">
-            <li><a href="https://discord.gg/9zaNCW2PRT" target="_blank" class="discord">InfluxDB Discord Server <em style="opacity:.5">(Preferred)</em></a></li>
+            <!-- <li><a href="https://discord.gg/9zaNCW2PRT" target="_blank" class="discord">InfluxDB Discord Server <em style="opacity:.5">(Preferred)</em></a></li> -->
+            <li><a href="https://influxdata.com/slack" target="_blank" class="slack">InfluxDB Community Slack <em style="opacity:.5">(Preferred)</em></a></li>
             <li><a href="https://community.influxdata.com" target="_blank" class="community">InfluxData Community</a></li>
-            <li><a href="https://influxdata.com/slack" target="_blank" class="slack">InfluxDB Community Slack</a></li>
             <li><a href="https://reddit.com/r/influxdb" target="_blank" class="reddit">InfluxDB Subreddit</a></li>
           </ul>
         </div>

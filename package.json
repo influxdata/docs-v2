@@ -9,7 +9,7 @@
     "./product-mappings": "./dist/utils/product-mappings.js"
   },
   "bin": {
-    "docs": "scripts/docs-cli.js"
+    "docs": "scripts/docs-cli/docs-cli.js"
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2"
@@ -28,10 +28,13 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.14.0",
     "hugo-extended": ">=0.101.0",
+    "pixelmatch": "^6.0.0",
+    "pngjs": "^7.0.0",
     "postcss": ">=8.4.31",
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-sql": "^0.18.0",
+    "puppeteer": "^24.35.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
@@ -59,8 +62,8 @@
   },
   "scripts": {
     "postinstall": "node scripts/setup-local-bin.js",
-    "docs:create": "node scripts/docs-create.js",
-    "docs:edit": "node scripts/docs-edit.js",
+    "docs:create": "node scripts/docs-cli/docs-create.js",
+    "docs:edit": "node scripts/docs-cli/docs-edit.js",
     "docs:add-placeholders": "node scripts/add-placeholders.js",
     "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
@@ -87,7 +90,10 @@
     "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md",
     "sync-plugins": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js",
     "sync-plugins:dry-run": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --dry-run",
-    "validate-plugin-config": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --validate"
+    "validate-plugin-config": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --validate",
+    "debug:browser": "node scripts/puppeteer/debug-browser.js",
+    "debug:screenshot": "node scripts/puppeteer/screenshot.js",
+    "debug:inspect": "node scripts/puppeteer/inspect-page.js"
   },
   "type": "module",
   "browserslist": [

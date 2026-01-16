@@ -242,7 +242,7 @@ services:
       - --cluster-id=cluster0
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
-      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     environment:
       - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=EMAIL_ADDRESS
     volumes:
@@ -275,7 +275,7 @@ services:
       - --node-id=node0
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
-      - --plugin-dir=/var/lib/influxdb3/plugins
+      - --plugin-dir=/var/lib/influxdb3/plugins  # Optional: only needed for processing engine plugins
     volumes:
       - type: bind
         # Path to store data on your host system
@@ -319,16 +319,21 @@ Provide your bucket name and credentials to access the S3 object store.
 
 {{% show-in "enterprise" %}}
 ```bash
-# S3 object store (default is the us-east-1 region)
+# S3 object store
 # Specify the object store type and associated options
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
   --object-store s3 \
   --bucket OBJECT_STORE_BUCKET \
-  --aws-access-key AWS_ACCESS_KEY_ID \
+  --aws-default-region AWS_REGION \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
+
+> [!Note]
+> If not specified, `--aws-default-region` defaults to `us-east-1`.
+> Specify a different region if your bucket is in another AWS region to avoid redirect errors.
 
 ```bash
 # Minio or other open source object store
@@ -347,15 +352,20 @@ influxdb3 serve \
 {{% /show-in %}}
 {{% show-in "core" %}}
 ```bash
-# S3 object store (default is the us-east-1 region)
+# S3 object store
 # Specify the object store type and associated options
 influxdb3 serve \
   --node-id host01 \
   --object-store s3 \
   --bucket OBJECT_STORE_BUCKET \
-  --aws-access-key AWS_ACCESS_KEY_ID \
+  --aws-default-region AWS_REGION \
+  --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY
 ```
+
+> [!Note]
+> If not specified, `--aws-default-region` defaults to `us-east-1`.
+> Specify a different region if your bucket is in another AWS region to avoid redirect errors.
 
 ```bash
 # Minio or other open source object store
