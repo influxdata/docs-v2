@@ -11,13 +11,13 @@ Identifying which InfluxDB product and version you're using is essential for acc
 
 If you access InfluxDB via a URL, the hostname often indicates which product you're using:
 
-| URL Pattern                                | Product                   |
-| ------------------------------------------ | ------------------------- |
-| `*.influxdb.io`                            | InfluxDB Cloud Dedicated  |
-| `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless |
-| `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless |
-| `*.influxcloud.net`                        | InfluxDB Cloud 1 (legacy) |
-| Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)      |
+| URL Pattern                                | Product                                       |
+| ------------------------------------------ | --------------------------------------------- |
+| `*.influxdb.io`                            | InfluxDB Cloud Dedicated                      |
+| `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
+| `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
+| `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
+| Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
 
 ### By default port
 
@@ -396,7 +396,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
 | **InfluxDB OSS v1**           | Free      | Self-hosted              | InfluxQL            | 8086         |
 | **InfluxDB Enterprise v1**    | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **InfluxDB Cloud 1**          | Paid      | Cloud                    | InfluxQL            | N/A          |
+| **[InfluxDB Cloud 1](/platform/#influxdb-cloud-1)**          | Paid      | Cloud (legacy)           | InfluxQL            | N/A          |
 
 ### Key characteristics
 

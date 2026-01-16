@@ -1,0 +1,42 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+{{ $type := .Get "type" | default "enterprise" }}
+
+<div class="note block">
+  <h4>InfluxDB Cloud 1 users</h4>
+  {{ if eq $type "oss" }}
+  <p>
+    <strong>InfluxDB Cloud 1</strong> (InfluxCloud 1.x) is based on InfluxDB
+    Enterprise v1. Use the
+    <a href="/enterprise_influxdb/v1/">Enterprise v1 documentation</a> instead.
+  </p>
+  <ul>
+    <li>
+      <strong>InfluxDB Cloud 1 Support</strong>:
+      <a href="https://help.influxcloud.net">help.influxcloud.net</a>
+    </li>
+    <li>
+      <strong>Migrate</strong>: Consider
+      <a href="/platform/#migration-to-influxdb-3">migrating to InfluxDB 3</a>
+      (Enterprise, Cloud Serverless, or Cloud Dedicated) with v1 API
+      compatibility
+    </li>
+  </ul>
+  {{ else }}
+  <p>
+    <strong>InfluxDB Cloud 1</strong> (InfluxCloud 1.x) is based on InfluxDB
+    Enterprise v1. This is the correct documentation.
+  </p>
+  <ul>
+    <li>
+      <strong>InfluxDB Cloud 1 Support</strong>:
+      <a href="https://help.influxcloud.net">help.influxcloud.net</a>
+    </li>
+    <li>
+      <strong>Migrate</strong>: Consider
+      <a href="/platform/#migration-to-influxdb-3">migrating to InfluxDB 3</a>
+      (Enterprise, Cloud Serverless, or Cloud Dedicated) with v1 API
+      compatibility
+    </li>
+  </ul>
+  {{ end }}
+</div>

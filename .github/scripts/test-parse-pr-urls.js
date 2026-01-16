@@ -140,10 +140,12 @@ test('Special characters: pipes and brackets', () => {
   assertEquals(result, [], 'Should reject paths with curly braces');
 });
 
-test('Special characters: backticks', () => {
+test('Special characters: backticks are delimiters', () => {
+  // Backticks act as delimiters, stopping URL extraction
+  // This prevents command substitution injection
   const text = '/influxdb3/`whoami`/';
   const result = extractDocsUrls(text);
-  assertEquals(result, [], 'Should reject paths with backticks');
+  assertEquals(result, ['/influxdb3/'], 'Should truncate at backtick delimiter');
 });
 
 test('Special characters: single quotes truncate at extraction', () => {
@@ -250,6 +252,36 @@ test('Normalization: removes query string', () => {
   const text = 'https://docs.influxdata.com/influxdb3/core/?param=value';
   const result = extractDocsUrls(text);
   assertEquals(result, ['/influxdb3/core/'], 'Should remove query string');
+});
+
+test('Normalization: strips wildcard from path', () => {
+  const text = '/influxdb3/enterprise/*';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/enterprise/'], 'Should strip wildcard character');
+});
+
+test('Normalization: strips wildcard in middle of path', () => {
+  const text = '/influxdb3/*/admin/';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/admin/'], 'Should strip wildcard from middle of path');
+});
+
+test('Normalization: strips multiple wildcards', () => {
+  const text = '/influxdb3/*/admin/*';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/admin/'], 'Should strip all wildcard characters');
+});
+
+test('Wildcard in markdown-style notation', () => {
+  const text = '**InfluxDB 3 Enterprise pages** (`/influxdb3/enterprise/*`)';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/enterprise/'], 'Should extract and normalize path with wildcard in backticks');
+});
+
+test('Wildcard in parentheses', () => {
+  const text = 'Affects pages under (/influxdb3/enterprise/*)';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/influxdb3/enterprise/'], 'Should extract and normalize path with wildcard in parentheses');
 });
 
 // Test deduplication
