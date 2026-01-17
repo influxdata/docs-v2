@@ -304,13 +304,29 @@ services:
         source: test-content
         target: /app/content
     working_dir: /app
+  # ============================================================================
+  # InfluxDB 3 Core - PER-WORKTREE INSTANCE
+  # ============================================================================
+  # Data is stored in the worktree's test/ directory for isolation.
+  # Token is auto-generated on first start and saved to test/.influxdb3/core/.token
+  #
+  # USAGE:
+  #   docker compose up -d influxdb3-core
+  #
+  # FIRST-TIME SETUP:
+  #   1. Create directories: mkdir -p test/.influxdb3/core/{data,plugins} test/.influxdb3/plugins
+  #   2. Generate token: openssl rand -hex 32 > test/.influxdb3/core/.token
+  #   3. Start: docker compose up -d influxdb3-core
+  #
+  # Or let the init script handle it: ./test/scripts/init-influxdb3.sh core
+  # ============================================================================
   influxdb3-core:
     container_name: influxdb3-core
     image: influxdb:3-core
     pull_policy: always
-    # Set variables (except your auth token) for Core in the .env.3core file.
     env_file:
-      - .env.3core
+      - path: .env.3core
+        required: false
     ports:
       - 8282:8181
     command:
@@ -320,30 +336,85 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
-      - --log-filter=debug
-      - --verbose
+      - --log-filter=info
     volumes:
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/core/data
         target: /var/lib/influxdb3/data
-      - type: bind 
-        source: test/.influxdb3/plugins/influxdata
+      - type: bind
+        source: test/.influxdb3/plugins
         target: /var/lib/influxdb3/plugins
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/core/plugins
         target: /var/lib/influxdb3/plugins/custom
+      # Token file - generated on first setup
+      - type: bind
+        source: test/.influxdb3/core/.token
+        target: /var/lib/influxdb3/.token
+        read_only: true
     environment:
-      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-core-admin-token
+      - INFLUXDB3_AUTH_TOKEN_FILE=/var/lib/influxdb3/.token
       - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
-    secrets:
-      - influxdb3-core-admin-token
+  # ============================================================================
+  # InfluxDB 3 Core - NO AUTH (for endpoint testing)
+  # ============================================================================
+  # Use this service to test /ping and /health endpoints without authentication.
+  # Auth is disabled only for health and ping endpoints.
+  #
+  # USAGE:
+  #   docker compose up -d influxdb3-core-noauth
+  #   curl -i http://localhost:8283/ping   # Returns version headers + JSON
+  #   curl -i http://localhost:8283/health # Returns "OK"
+  #
+  # NOTE: HEAD requests to /ping return 404 - use GET instead.
+  # ============================================================================
+  influxdb3-core-noauth:
+    container_name: influxdb3-core-noauth
+    image: influxdb:3-core
+    pull_policy: always
+    ports:
+      - 8283:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --disable-authz=health,ping
+      - --log-filter=info
+    volumes:
+      - type: bind
+        source: test/.influxdb3/core-noauth/data
+        target: /var/lib/influxdb3/data
+    profiles:
+      - noauth
+  # ============================================================================
+  # InfluxDB 3 Enterprise - SHARED INSTANCE
+  # ============================================================================
+  # This service uses a shared data directory outside the worktree to:
+  # - Preserve license across worktrees (trial license in data dir)
+  # - Allow single Enterprise instance for all docs testing
+  # - Avoid conflicts with users' personal ~/.influxdb3/ installs
+  #
+  # USAGE:
+  #   docker compose --profile shared up -d influxdb3-enterprise
+  #
+  # FIRST-TIME SETUP:
+  #   1. Create directories: mkdir -p ~/influxdata-docs/.influxdb3/enterprise/data ~/influxdata-docs/.influxdb3/plugins
+  #   2. Create admin token JSON file at ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+  #   3. Create license email file: echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=you@example.com" > ~/influxdata-docs/.influxdb3/enterprise/.env
+  #   4. Start: docker compose --profile shared up -d influxdb3-enterprise
+  #   Note: License is persisted in data dir after first activation (30-day trial, renewable)
+  #
+  # The 'shared' profile prevents accidental startup from `docker compose up`.
+  # ============================================================================
   influxdb3-enterprise:
     container_name: influxdb3-enterprise
     image: influxdb:3-enterprise
     pull_policy: always
-    # Set license email and other variables (except your auth token) for Enterprise in the .env.3ent file.
+    # License email for first-time activation (from shared .env file)
     env_file:
-      - .env.3ent
+      - ~/influxdata-docs/.influxdb3/enterprise/.env
     ports:
       - 8181:8181
     command:
@@ -354,23 +425,26 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
-      - --log-filter=debug
-      - --verbose
+      - --admin-token-file=/var/lib/influxdb3/admin-token.json
+      - --license-type=trial
+      - --log-filter=info
     environment:
-      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
       - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
     volumes:
+      # Shared data directory - persists license and data across worktrees
       - type: bind
-        source: test/.influxdb3/enterprise/data
+        source: ~/influxdata-docs/.influxdb3/enterprise/data
         target: /var/lib/influxdb3/data
       - type: bind
-        source: test/.influxdb3/plugins/influxdata
+        source: ~/influxdata-docs/.influxdb3/plugins
         target: /var/lib/influxdb3/plugins
+      # Admin token file for authentication
       - type: bind
-        source: test/.influxdb3/enterprise/plugins
-        target: /var/lib/influxdb3/plugins/custom
-    secrets:
-      - influxdb3-enterprise-admin-token
+        source: ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+        target: /var/lib/influxdb3/admin-token.json
+        read_only: true
+    profiles:
+      - shared
   influxdb3-explorer:
     container_name: influxdb3-explorer
     image: influxdata/influxdb3-ui:latest

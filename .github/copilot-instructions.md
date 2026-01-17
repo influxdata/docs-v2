@@ -131,6 +131,30 @@ For comprehensive testing procedures, see **[DOCS-TESTING.md](../DOCS-TESTING.md
 - **Style**: `docker compose run -T vale content/**/*.md` (30-60 seconds)
 - **Pre-commit**: `yarn lint` (or skip with `--no-verify`)
 
+#### InfluxDB 3 Test Setup
+
+For setting up InfluxDB 3 Core and Enterprise instances for testing code blocks:
+
+**Quick setup commands:**
+```bash
+# Initialize Core (per-worktree, port 8282)
+./test/scripts/init-influxdb3.sh core
+
+# Initialize Enterprise (shared, port 8181)
+./test/scripts/init-influxdb3.sh enterprise
+
+# Initialize both
+./test/scripts/init-influxdb3.sh all
+```
+
+**Key features:**
+- Core: Per-worktree data isolation at `test/.influxdb3/core/`
+- Enterprise: Shared data at `~/influxdata-docs/.influxdb3/enterprise/` (persists license)
+- Worktree-specific databases for test isolation on shared Enterprise instance
+- Auto-configured `.env.test` files for pytest-codeblocks
+
+For detailed workflows and troubleshooting, see the **[influxdb3-test-setup skill](.claude/skills/influxdb3-test-setup/SKILL.md)** or invoke the `influxdb3-test-setup` skill.
+
 ### Validation
 
 Test these after changes:
@@ -363,6 +387,17 @@ Use these agents for specialized tasks:
 | Agent | File | Use When |
 |-------|------|----------|
 | **TypeScript & Hugo Dev** | [typescript-hugo-agent.md](agents/typescript-hugo-agent.md) | TypeScript migration, Hugo asset pipeline, component architecture |
+
+### Skills
+
+Specialized skills that can be invoked using the `skill` tool for specific workflows:
+
+| Skill | File | Description |
+|-------|------|-------------|
+| **cypress-e2e-testing** | [.claude/skills/cypress-e2e-testing/SKILL.md](../.claude/skills/cypress-e2e-testing/SKILL.md) | Run, validate, and analyze Cypress E2E tests for the InfluxData documentation site |
+| **docs-cli-workflow** | [.claude/skills/docs-cli-workflow/SKILL.md](../.claude/skills/docs-cli-workflow/SKILL.md) | Guides when to use docs create/edit CLI tools versus direct file editing |
+| **hugo-template-dev** | [.claude/skills/hugo-template-dev/SKILL.md](../.claude/skills/hugo-template-dev/SKILL.md) | Hugo template development with proper build and runtime testing |
+| **influxdb3-test-setup** | [.claude/skills/influxdb3-test-setup/SKILL.md](../.claude/skills/influxdb3-test-setup/SKILL.md) | Set up InfluxDB 3 Core and Enterprise instances for running documentation code block tests |
 
 ### General Documentation
 
