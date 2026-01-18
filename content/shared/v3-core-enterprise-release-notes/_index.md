@@ -203,8 +203,12 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
 - Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
-#### Security & Misc
+#### Operational and security improvements
 
+- Introduce a new `v2` catalog path structure:
+
+  - `catalog/v2/logs/` directory for log files (instead of `catalogs/`)
+  - `catalog/v2/snapshot` file for checkpoint/snapshot files (instead of `_catalog_checkpoint`)
 - Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
 - WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
 - Remove unsafe signal\_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
