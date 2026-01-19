@@ -11,13 +11,13 @@ Identifying which InfluxDB product and version you're using is essential for acc
 
 If you access InfluxDB via a URL, the hostname often indicates which product you're using:
 
-| URL Pattern                                | Product                   |
-| ------------------------------------------ | ------------------------- |
-| `*.influxdb.io`                            | InfluxDB Cloud Dedicated  |
-| `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless |
-| `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless |
-| `*.influxcloud.net`                        | InfluxDB Cloud 1 (legacy) |
-| Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)      |
+| URL Pattern                                | Product                                       |
+| ------------------------------------------ | --------------------------------------------- |
+| `*.influxdb.io`                            | InfluxDB Cloud Dedicated                      |
+| `us-east-1-1.aws.cloud2.influxdata.com`    | InfluxDB Cloud Serverless                     |
+| `eu-central-1-1.aws.cloud2.influxdata.com` | InfluxDB Cloud Serverless                     |
+| `*.influxcloud.net`                        | [InfluxDB Cloud 1](/platform/#influxdb-cloud-1) (legacy) |
+| Other `*.cloud2.influxdata.com` regions    | InfluxDB Cloud (TSM)                          |
 
 ### By default port
 
@@ -28,9 +28,13 @@ Different InfluxDB products use different default ports:
 
 ### By HTTP headers
 
-Check the `/ping` endpoint to examine HTTP response headers:
+Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--for example:
 
 ```bash
+# InfluxDB 3 (port 8181)
+curl -i http://localhost:8181/ping
+
+# InfluxDB v1/v2 (port 8086)
 curl -i http://localhost:8086/ping
 ```
 
@@ -46,9 +50,9 @@ The response headers reveal your InfluxDB product:
 
 {{% /hide-in %}}
 
-{{% show-in "core" %}}
+{{% show-in "core,enterprise" %}}
 
-### InfluxDB 3 Core detection
+### InfluxDB 3 version detection
 
 Check the version using the `influxdb3` command:
 
@@ -56,52 +60,36 @@ Check the version using the `influxdb3` command:
 influxdb3 --version
 ```
 
-Query the `/health` endpoint:
-
-```bash
-curl http://localhost:8181/health
-```
-
-Check the `/ping` endpoint headers:
+Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--for example:
 
 ```bash
 curl -i http://localhost:8181/ping
 ```
 
-Look for:
+The response includes version information in the **headers** and **body**:
 
-- `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
-- `x-influxdb-build`: `Core`
+- **Headers**:
+  - `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
+  - `x-influxdb-build`: {{% show-in "core" %}}`Core`{{% /show-in %}}{{% show-in "enterprise" %}}`Enterprise`{{% /show-in %}}
+- **JSON body**: Contains `version`, `revision`, and `process_id`
 
-{{% /show-in %}}
+Example response:
+
+```http
+HTTP/1.1 200 OK
+x-influxdb-build: {{% show-in "core" %}}Core{{% /show-in %}}{{% show-in "enterprise" %}}Enterprise{{% /show-in %}}
+x-influxdb-version: {{% latest-patch %}}
+
+{"version":"{{% latest-patch %}}","revision":"abc123def","process_id":"..."}
+```
 
 {{% show-in "enterprise" %}}
-
-### InfluxDB 3 Enterprise detection
-
-Check the version using the `influxdb3` command:
-
-```bash
-influxdb3 --version
-```
-
-Query the `/health` endpoint:
-
-```bash
-curl http://localhost:8181/health
-```
-
-Check the `/ping` endpoint headers:
-
-```bash
-curl -i http://localhost:8181/ping
-```
-
-Look for:
-
-- `x-influxdb-version`: Version number (for example, {{% latest-patch %}})
-- `x-influxdb-build`: `Enterprise`
-
+> [!Note]
+> The `/ping` endpoint requires authentication by default in InfluxDB 3 Enterprise.
+> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
+> with `system:ping:read` permission.
+{{% /show-in %}}
 
 {{% /show-in %}}
 
@@ -242,60 +230,48 @@ For Enterprise v1, the `x-influxdb-build` header will show `Enterprise`.
 
 ### InfluxDB 3 Core and Enterprise
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[Command line](#)
-[Health endpoint](#)
-[HTTP headers](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-
 Check the version using the `influxdb3` command:
 
 ```bash
 influxdb3 --version
 ```
 
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-Query the `/health` endpoint:
-
-```bash
-curl http://localhost:8181/health
-```
-
-The response includes version information and build details.
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-Check the `/ping` endpoint headers:
+Send a `GET` request to the `/ping` endpoint to examine HTTP response headers--for example:
 
 ```bash
 curl -i http://localhost:8181/ping
 ```
 
-Look for:
+The response includes version information in the **headers** and **body**:
 
-- `x-influxdb-version`: Version number (for example, `3.6.0`)
-- `x-influxdb-build`: `Core` or `Enterprise`
+- **Headers**:
+  - `x-influxdb-version`: Version number (for example, `3.8.0`)
+  - `x-influxdb-build`: `Core` or `Enterprise`
+- **JSON body**: Contains `version`, `revision`, and `process_id`
+
+Example response:
+
+```http
+HTTP/1.1 200 OK
+x-influxdb-build: Core
+x-influxdb-version: 3.8.0
+
+{"version":"3.8.0","revision":"abc123def","process_id":"..."}
+```
 
 > [!Note]
->
+> The `/ping` endpoint requires authentication by default in [InfluxDB 3 Enterprise](/influxdb3/enterprise/).
+> Use an [admin token](/influxdb3/enterprise/admin/tokens/admin/) or a
+> [system token](/influxdb3/enterprise/admin/tokens/resource/create/#create-a-system-token)
+> with `system:ping:read` permission.
+
+> [!Note]
 > #### SQL version() function
 >
 > The SQL `version()` function returns the
 > [DataFusion](https://datafusion.apache.org/) query engine version, not the
 > InfluxDB product version. Use the methods above to identify your InfluxDB
 > version.
-
-{{% /tab-content %}}
-
-{{< /tabs-wrapper >}}
 
 ### InfluxDB Clustered
 
@@ -420,7 +396,7 @@ InfluxData offers multiple InfluxDB products to suit different use cases:
 | **InfluxDB Cloud (TSM)**      | Free/Paid | Cloud                    | InfluxQL, Flux      | N/A          |
 | **InfluxDB OSS v1**           | Free      | Self-hosted              | InfluxQL            | 8086         |
 | **InfluxDB Enterprise v1**    | Paid      | Self-hosted              | InfluxQL, Flux      | 8086         |
-| **InfluxDB Cloud 1**          | Paid      | Cloud                    | InfluxQL            | N/A          |
+| **[InfluxDB Cloud 1](/platform/#influxdb-cloud-1)**          | Paid      | Cloud (legacy)           | InfluxQL            | N/A          |
 
 ### Key characteristics
 
