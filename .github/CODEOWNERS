@@ -90,13 +90,13 @@
 # PMs: Scott (primary), Jason (secondary), Docs: Documentation team
 /content/flux/ @sanderson @jstirnaman @influxdata/docs-team
 
+# Shared content (used by multiple products)
+/content/shared/ @influxdata/docs-team, @influxdata/product-managers 
 # API documentation (general/shared)
 # Docs team for shared API tooling and configuration
-/api-docs/ @influxdata/docs-team
 
 # Infrastructure and tooling
 /.circleci/ @influxdata/docs-team
-/.github/ @influxdata/docs-team
 /layouts/ @influxdata/docs-team
 /assets/ @influxdata/docs-team
 /scripts/ @influxdata/docs-team
