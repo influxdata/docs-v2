@@ -988,10 +988,19 @@ paths:
     get:
       operationId: GetHealth
       summary: Health check
-      description: Checks the status of the service.
+      description: |
+        Checks the status of the service.
+
+        Returns `OK` if the service is running. This endpoint does not return version information.
+        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
       responses:
         '200':
-          description: Service is running.
+          description: Service is running. Returns `OK`.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
         '500':
           description: Service is unavailable.
       tags:
@@ -1015,16 +1024,50 @@ paths:
       tags:
         - Server information
       summary: Ping the server
-      description: Returns version information for the server.
+      description: |
+        Returns version information for the server.
+
+        **Important**: Use a GET request. HEAD requests return `404 Not Found`.
+
+        The response includes version information in both headers and the JSON body:
+
+        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Body**: JSON object with `version`, `revision`, and `process_id`
       responses:
         '200':
           description: Success. The response body contains server information.
+          headers:
+            x-influxdb-version:
+              description: The InfluxDB version number (for example, `3.8.0`).
+              schema:
+                type: string
+                example: '3.8.0'
+            x-influxdb-build:
+              description: The InfluxDB build type (`Core` or `Enterprise`).
+              schema:
+                type: string
+                example: Core
           content:
             application/json:
               schema:
-                example:
-                  version: 0.1.0
-                  revision: f3d3d3d
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: The InfluxDB version number.
+                    example: '3.8.0'
+                  revision:
+                    type: string
+                    description: The git revision hash for the build.
+                    example: '5276213d5b'
+                  process_id:
+                    type: string
+                    description: A unique identifier for the server process.
+                    example: 'b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7'
+        '404':
+          description: |
+            Not Found. Returned for HEAD requests.
+            Use a GET request to retrieve version information.
   /metrics:
     get:
       operationId: GetMetrics
