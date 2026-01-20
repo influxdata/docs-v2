@@ -311,6 +311,91 @@ The command pulls the latest {{% product-name %}} Docker image and starts
 > Docker guide for [Publishing and exposing ports](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/).
 
 {{% /expand %}}
+{{% expand "Docker Compose with preconfigured admin tokens" %}}
+
+For automated deployments or CI/CD pipelines, you can start {{% product-name %}} with a preconfigured admin token file that contains your admin token in JSON format.
+
+### Create an admin token file
+
+Create a JSON file with your admin token:
+
+```json
+{
+  "token": "apiv3_your_token_here",
+  "name": "admin",
+  "description": "Admin token for automated deployment"
+}
+```
+
+For security, restrict file permissions:
+
+```bash
+chmod 600 path/to/admin-token.json
+```
+
+### Use Docker Compose with secrets
+
+For secure token management in Docker Compose, use Docker secrets instead of bind mounts:
+
+```yaml
+# compose.yaml
+services:
+  influxdb3-{{< product-key >}}:
+    image: influxdb:3-{{< product-key >}}
+    ports:
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      {{% show-in "enterprise" %}}--cluster-id=cluster0{{% /show-in %}}
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --admin-token-file=/run/secrets/admin-token
+    {{% show-in "enterprise" %}}environment:
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com{{% /show-in %}}
+    secrets:
+      - admin-token
+    volumes:
+      - type: bind
+        source: ~/.influxdb3/data
+        target: /var/lib/influxdb3/data
+
+secrets:
+  admin-token:
+    file: path/to/admin-token.json
+```
+
+Start the service:
+
+```bash
+docker compose up -d influxdb3-{{< product-key >}}
+```
+
+> [!Important]
+> #### Docker secrets security benefits
+>
+> Docker secrets provide better security than bind mounts:
+> - Secrets are stored encrypted in memory
+> - Not visible in `docker inspect` output
+> - Not exposed in environment variables or logs
+> - Follow Docker and Kubernetes best practices
+
+### CI/CD setup
+
+For automated environments, create the admin token file from environment variables:
+
+```bash
+# Create token file from environment
+echo "{\"token\": \"$INFLUXDB3_ADMIN_TOKEN\", \"name\": \"admin\", \"description\": \"CI/CD admin token\"}" > admin-token.json
+chmod 600 admin-token.json
+```
+
+Then use the file in your Docker Compose configuration as shown above.
+
+For more information about preconfigured admin tokens, see [Use a preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/).
+
+{{% /expand %}}
 {{% expand "S3 object storage" %}}
 
 Store data in an S3-compatible object store.
