@@ -195,6 +195,7 @@ function buildMatchPattern(matchPaths: string, title?: string): string {
 function createRapiDocElement(
   specUrl: string,
   matchPaths?: string,
+  matchType?: string,
   title?: string
 ): HTMLElement {
   const element = document.createElement(RAPIDOC_ELEMENT);
@@ -207,6 +208,9 @@ function createRapiDocElement(
   if (matchPaths) {
     element.setAttribute('match-paths', buildMatchPattern(matchPaths, title));
   }
+
+  // Set match-type for filtering mode ('includes' shows all methods matching path)
+  element.setAttribute('match-type', matchType || 'includes');
 
   // Typography - match docs theme fonts
   element.setAttribute(
@@ -722,6 +726,7 @@ export default async function RapiDocMini({
     // Get configuration from data attributes
     const specUrl = component.dataset.specUrl;
     const matchPaths = component.dataset.matchPaths;
+    const matchType = component.dataset.matchType;
     const title = component.dataset.title;
 
     if (!specUrl) {
@@ -743,7 +748,12 @@ export default async function RapiDocMini({
     }
 
     // Create and append RapiDoc Mini element
-    const rapiDocElement = createRapiDocElement(specUrl, matchPaths, title);
+    const rapiDocElement = createRapiDocElement(
+      specUrl,
+      matchPaths,
+      matchType,
+      title
+    );
     component.appendChild(rapiDocElement);
 
     // Inject custom styles into shadow DOM to remove borders/spacing
