@@ -178,17 +178,17 @@ describe('API reference layout', () => {
 
 /**
  * RapiDoc Mini Component Tests
- * Tests the api-operation shortcode and RapiDoc Mini component behavior
+ * Tests the RapiDoc Mini component behavior on path pages
  */
 describe('RapiDoc Mini component', () => {
-  // Operation pages use RapiDoc Mini for single operation rendering
-  const operationPages = [
-    '/influxdb3/core/api/write/post/',
-    '/influxdb3/core/api/api/v3/write_lp/post/',
+  // Path pages use RapiDoc Mini with match-type="includes" to show all methods
+  const pathPages = [
+    '/influxdb3/core/api/v1/write/',
+    '/influxdb3/core/api/v3/write_lp/',
   ];
 
-  operationPages.forEach((page) => {
-    describe(`Operation page ${page}`, () => {
+  pathPages.forEach((page) => {
+    describe(`Path page ${page}`, () => {
       beforeEach(() => {
         cy.intercept('GET', '**', (req) => {
           req.continue((res) => {
@@ -214,10 +214,18 @@ describe('RapiDoc Mini component', () => {
             .and('match', /\.ya?ml$/);
         });
 
-        it('has data-match-paths attribute', () => {
+        it('has data-match-paths attribute with API path', () => {
           cy.get('[data-component="rapidoc-mini"]')
             .should('have.attr', 'data-match-paths')
-            .and('match', /^(get|post|put|patch|delete)\s+\//i);
+            .and('match', /^\//);
+        });
+
+        it('has data-match-type attribute set to includes', () => {
+          cy.get('[data-component="rapidoc-mini"]').should(
+            'have.attr',
+            'data-match-type',
+            'includes'
+          );
         });
 
         it('includes machine-readable spec links', () => {
@@ -307,7 +315,7 @@ describe('RapiDoc Mini component', () => {
           }
         });
       });
-      cy.visit('/influxdb3/core/api/write/post/');
+      cy.visit('/influxdb3/core/api/v1/write/');
     });
 
     it('applies light theme by default', () => {
@@ -427,11 +435,11 @@ describe('All endpoints page', () => {
         );
       });
 
-      it('operation cards link to operation pages', () => {
+      it('operation cards link to path pages with method anchors', () => {
         cy.get('.api-operation-card')
           .first()
           .should('have.attr', 'href')
-          .and('match', /\/api\//);
+          .and('match', /\/api\/.*\/#(get|post|put|patch|delete)$/i);
       });
 
       it('is accessible from navigation', () => {
