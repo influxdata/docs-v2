@@ -91,7 +91,7 @@
 /content/flux/ @sanderson @jstirnaman @influxdata/docs-team
 
 # Shared content (used by multiple products)
-/content/shared/ @influxdata/docs-team, @influxdata/product-managers 
+/content/shared/ @influxdata/docs-team @influxdata/product-managers 
 # API documentation (general/shared)
 # Docs team for shared API tooling and configuration
 
