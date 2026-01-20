@@ -65,13 +65,14 @@ object with the following fields:
 
 - **token**: The raw token string (must begin with `apiv3_`)
 - **name**: The token name (default is `_admin`)
-- **expiry_millis**: <em class="op50">(Optional)</em> Token expiration time as a
-  millisecond Unix timestamp
+- **description**: <em class="op50">(Optional)</em> A description of the token
+- **expiry_millis**: <em class="op50">(Optional)</em> Token expiration time as a millisecond Unix timestamp
 
 ```json
 {
   "token": "apiv3_0XXXX-xxxXxXxxxXX_OxxxX...",
   "name": "_admin",
+  "description": "Admin token for InfluxDB 3",
   "expiry_millis": 1756400061529
 }
 ```
