@@ -36,6 +36,8 @@ then you can skip those sections.
 7. [Copy all resources from old instance to the new one](#7-copy-all-resources-from-old-instance-to-the-new-one)
 8. [Set up integrations to point to new instance](#8-set-up-integrations-to-point-to-new-instance)
 9. [Load historical data into new instance](#9-load-historical-data-into-new-instance)
+10. [Verify InfluxDB resources, data, and integrations](#verify-influxdb-resources-data-and-integrations)
+11. [Upgrade to the latest InfluxDB v2 version](#upgrade-to-the-latest-influxdb-v2-version)
 
 ### Why is this manual process required?
 
@@ -337,7 +339,7 @@ Repeat that process for each bucket.
 
 ## Verify InfluxDB resources, data, and integrations
 
-Verify that the latest version of InfluxDB is running with all your resources, data, and integrations configured.
+Verify that the latest version of InfluxDB {{< current-version >}} is running with all your resources, data, and integrations configured.
 Double-check that everything is there and it is working as expected.
 Once you're set up with the latest InfluxDB, you can safely turn off your old instance and archive the previous data directory.
 
