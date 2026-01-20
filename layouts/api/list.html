@@ -1,16 +1,10 @@
-{{/*
-  API Documentation Layout
-
-  Handles two cases:
-  1. Section index (no 'tag' param) - shows list of tag pages from article data
-  2. Tag pages (has 'tag' param) - shows operations list and description
-
-  For conceptual pages (isConceptual: true), shows content without operations list.
-*/}}
+{{/* API Documentation Layout Handles two cases: 1. Section index (no 'tag'
+param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
+param) - shows operations list and description For conceptual pages
+(isConceptual: true), shows content without operations list. */}}
 
 <!-- USING_API_LIST_HTML_TEMPLATE -->
-{{ partial "header.html" . }}
-{{ partial "topnav.html" . }}
+{{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -20,97 +14,69 @@
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
           <h1 class="article--title">{{ .Title }}</h1>
-          {{/* Only show description in header for section index pages, not tag pages */}}
-          {{/* Tag pages show their full description in the Overview section below */}}
-          {{ if not (isset .Params "tag") }}
-          {{ with .Description }}
+          {{/* Only show description in header for section index pages, not tag
+          pages */}} {{/* Tag pages show their full description in the Overview
+          section below */}} {{ if not (isset .Params "tag") }} {{ with
+          .Description }}
           <p class="article--description">{{ . }}</p>
-          {{ end }}
-          {{ end }}
+          {{ end }} {{ end }}
         </header>
 
         {{/* Check if this is a section index (no tag param) or a tag page */}}
-        {{ $hasTag := isset .Params "tag" }}
-
-        {{ if not $hasTag }}
-        {{/* SECTION INDEX - Show intro content then tag-based children */}}
-        {{ with .Content }}
-        <section class="api-section-content">
-          {{ . }}
-        </section>
-        {{ end }}
-        {{/* Always show tag pages from article data */}}
-        {{ partial "api/section-children.html" . }}
-
-        {{ else }}
-        {{/* TAG PAGE - Show operations or conceptual content */}}
-        {{ $isConceptual := .Params.isConceptual | default false }}
-
-        {{ if $isConceptual }}
-        {{/* Conceptual Page - Show content directly */}}
+        {{ $hasTag := isset .Params "tag" }} {{ if not $hasTag }} {{/* SECTION
+        INDEX - Show intro content then tag-based children */}} {{ with .Content
+        }}
+        <section class="api-section-content">{{ . }}</section>
+        {{ end }} {{/* Always show tag pages from article data */}} {{ partial
+        "api/section-children.html" . }} {{ else }} {{/* TAG PAGE - Show
+        operations or conceptual content */}} {{ $isConceptual :=
+        .Params.isConceptual | default false }} {{ if $isConceptual }} {{/*
+        Conceptual Page - Show content directly */}}
         <section class="api-conceptual-content">
-          {{ with .Content }}
-            {{ . }}
-          {{ else }}
-            {{ with .Params.tagDescription }}
-              {{ . | markdownify }}
-            {{ end }}
-          {{ end }}
+          {{ with .Content }} {{ . }} {{ else }} {{ with .Params.tagDescription
+          }} {{ . | markdownify }} {{ end }} {{ end }}
         </section>
 
-        {{ else }}
-        {{/* Operational Page - Show operations list then description */}}
-        {{ $operations := .Params.operations }}
-        {{ if $operations }}
+        {{ else }} {{/* Operational Page - Show operations list then description
+        */}} {{ $operations := .Params.operations }} {{ if $operations }}
         <section class="api-operations-list">
           <h2 id="endpoints">Endpoints</h2>
           <div class="api-operations-grid">
-            {{ range $operations }}
-            {{/*
-              Build operation URL from API path
-              1. Strip "/api" prefix (parent directory already provides /api/)
-              2. Add v1/ prefix for paths without version (e.g., /write → v1/write)
-              3. Strip leading "/" to avoid double slashes
-            */}}
-            {{ $apiBase := $.Parent.RelPermalink }}
-            {{ $pathWithoutApiPrefix := .path | strings.TrimPrefix "/api" }}
-            {{ $normalizedPath := $pathWithoutApiPrefix }}
-            {{ if not (findRE `^/v\d+/` $pathWithoutApiPrefix) }}
-              {{ $normalizedPath = printf "/v1%s" $pathWithoutApiPrefix }}
-            {{ end }}
-            {{ $normalizedPath = $normalizedPath | strings.TrimPrefix "/" }}
-            {{ $operationURL := printf "%s%s/%s/" $apiBase $normalizedPath (lower .method) }}
-            <a href="{{ $operationURL }}" class="api-operation-card">
-              <span class="api-method api-method--{{ lower .method }}">{{ upper .method }}</span>
+            {{ range $operations }} {{/* Build operation URL from API path 1.
+            Strip "/api" prefix (parent directory already provides /api/) 2. Add
+            v1/ prefix for paths without version (e.g., /write → v1/write) 3.
+            Strip leading "/" to avoid double slashes */}} {{ $apiBase :=
+            $.Parent.RelPermalink }} {{ $pathWithoutApiPrefix := .path |
+            strings.TrimPrefix "/api" }} {{ $normalizedPath :=
+            $pathWithoutApiPrefix }} {{ if not (findRE `^/v\d+/`
+            $pathWithoutApiPrefix) }} {{ $normalizedPath = printf "/v1%s"
+            $pathWithoutApiPrefix }} {{ end }} {{ $normalizedPath =
+            $normalizedPath | strings.TrimPrefix "/" }} {{/* Build path URL
+            (without method suffix) and add method as anchor */}} {{ $pathURL :=
+            printf "%s%s/" $apiBase $normalizedPath }} {{ $methodAnchor :=
+            printf "#%s" (lower .method) }}
+            <a
+              href="{{ $pathURL }}{{ $methodAnchor }}"
+              class="api-operation-card"
+            >
+              <span class="api-method api-method--{{ lower .method }}"
+                >{{ upper .method }}</span
+              >
               <code class="api-path">{{ .path }}</code>
               <span class="api-operation-summary">{{ .summary }}</span>
             </a>
             {{ end }}
           </div>
         </section>
-        {{ end }}
-
-        {{/* Overview - full tag description after endpoints */}}
-        {{ $desc := .Description | strings.TrimSpace }}
-        {{ if gt (len $desc) 0 }}
+        {{ end }} {{/* Overview - full tag description after endpoints */}} {{
+        $desc := .Description | strings.TrimSpace }} {{ if gt (len $desc) 0 }}
         <section class="api-description">
           <h2 id="overview">Overview</h2>
           {{ $desc | markdownify }}
         </section>
-        {{ end }}
-
-        {{/* Hugo page content if any */}}
-        {{ with .Content }}
-        <section class="api-content-body">
-          {{ . }}
-        </section>
-        {{ end }}
-
-        {{ end }}
-        {{ end }}
-
-        {{ partial "article/related.html" . }}
-
+        {{ end }} {{/* Hugo page content if any */}} {{ with .Content }}
+        <section class="api-content-body">{{ . }}</section>
+        {{ end }} {{ end }} {{ end }} {{ partial "article/related.html" . }}
       </article>
     </div>
 
