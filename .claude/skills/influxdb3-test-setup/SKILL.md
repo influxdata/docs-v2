@@ -58,14 +58,14 @@ Use when testing Core-specific documentation or when you need complete isolation
 # 2. Verify it's running
 curl -i http://localhost:8282/ping
 
-# 3. Get your token
-cat test/.influxdb3/core/.token
+# 3. Get your token (JSON format)
+jq -r .token test/.influxdb3/core/.token
 
 # 4. Create a database for testing
 curl -X POST "http://localhost:8282/api/v3/configure/database" \
-  -H "Authorization: Bearer $(cat test/.influxdb3/core/.token)" \
+  -H "Authorization: Bearer $(jq -r .token test/.influxdb3/core/.token)" \
   -H "Content-Type: application/json" \
-  -d '{"name": "test_db"}'
+  -d '{"db": "test_db"}'
 ```
 
 ### Workflow 2: Enterprise (Shared Instance)
@@ -78,22 +78,22 @@ mkdir -p ~/influxdata-docs/.influxdb3/enterprise
 echo 'INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com' > \
   ~/influxdata-docs/.influxdb3/enterprise/.env
 
-# 2. Initialize Enterprise
+# 2. Initialize Enterprise (generates admin token and starts service)
 ./test/scripts/init-influxdb3.sh enterprise
 
-# 3. Get admin token from container logs (first run)
-docker logs influxdb3-enterprise 2>&1 | grep -A2 "Admin token"
+# 3. Get admin token from the generated file
+ADMIN_TOKEN=$(jq -r .token ~/influxdata-docs/.influxdb3/enterprise/admin-token.json)
 
 # 4. Verify it's running
 curl -i http://localhost:8181/ping \
-  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+  -H "Authorization: Bearer $ADMIN_TOKEN"
 
 # 5. Create worktree-named database for test isolation
 WORKTREE_NAME=$(basename "$(pwd)" | tr '-' '_')
 curl -X POST "http://localhost:8181/api/v3/configure/database" \
-  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"name\": \"${WORKTREE_NAME}_db\"}"
+  -d "{\"db\": \"${WORKTREE_NAME}_db\"}"
 ```
 
 ### Workflow 3: Both Services
@@ -122,7 +122,7 @@ echo "Database name: ${WORKTREE_NAME}_db"
 curl -X POST "http://localhost:8181/api/v3/configure/database" \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{\"name\": \"${WORKTREE_NAME}_db\"}"
+  -d "{\"db\": \"${WORKTREE_NAME}_db\"}"
 
 # List databases to verify
 curl "http://localhost:8181/api/v3/configure/database" \
@@ -142,16 +142,17 @@ Create `content/<product>/.env.test` with test credentials:
 
 ```bash
 # For Enterprise testing
-cat > content/influxdb3/enterprise/.env.test << 'EOF'
+ADMIN_TOKEN=$(jq -r .token ~/influxdata-docs/.influxdb3/enterprise/admin-token.json)
+cat > content/influxdb3/enterprise/.env.test << EOF
 INFLUX_HOST=http://localhost:8181
-INFLUX_TOKEN=YOUR_ADMIN_TOKEN
+INFLUX_TOKEN=$ADMIN_TOKEN
 INFLUX_DATABASE=YOUR_WORKTREE_DB
 EOF
 
 # For Core testing
-cat > content/influxdb3/core/.env.test << 'EOF'
+cat > content/influxdb3/core/.env.test << EOF
 INFLUX_HOST=http://localhost:8282
-INFLUX_TOKEN=$(cat test/.influxdb3/core/.token)
+INFLUX_TOKEN=$(jq -r .token test/.influxdb3/core/.token)
 INFLUX_DATABASE=test_db
 EOF
 ```
@@ -185,7 +186,8 @@ ls -la ~/influxdata-docs/.influxdb3/enterprise/.env
 # 2. Wrong env var name (must be INFLUXDB3_ENTERPRISE_LICENSE_EMAIL)
 cat ~/influxdata-docs/.influxdb3/enterprise/.env
 
-# 3. Missing --license-type=trial flag (check compose.yaml)
+# 3. Missing admin-token.json (run init script to generate)
+ls -la ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
 ```
 
 ### Core Token Not Working
@@ -195,11 +197,12 @@ cat ~/influxdata-docs/.influxdb3/enterprise/.env
 **Check:**
 
 ```bash
-# Verify token file exists
+# Verify token file exists and is valid JSON
 cat test/.influxdb3/core/.token
+jq . test/.influxdb3/core/.token  # Should parse without errors
 
-# Verify token is being read by container
-docker exec influxdb3-core cat /var/lib/influxdb3/.token
+# Verify token is accessible in container (as secret)
+docker exec influxdb3-core cat /run/secrets/influxdb3-core-token
 ```
 
 ### Port Already in Use
@@ -217,16 +220,34 @@ lsof -i :8282  # Core
 docker compose down influxdb3-enterprise influxdb3-core
 ```
 
-### Enterprise Requires Auth for /ping
+### Getting the Admin Token
 
-**Note:** This is expected behavior. Enterprise requires authentication by default.
+The init script generates and saves admin tokens to JSON files for both Core and Enterprise:
 
 ```bash
-# Get admin token from logs or token file
-docker logs influxdb3-enterprise 2>&1 | grep -A2 "Admin token"
+# Core token
+cat test/.influxdb3/core/.token
+jq -r .token test/.influxdb3/core/.token
 
-# Or check the admin-token.json file
-docker exec influxdb3-enterprise cat /var/lib/influxdb3/admin-token.json
+# Enterprise token
+cat ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+jq -r .token ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+
+# Export for use in commands
+export INFLUXDB3_CORE_TOKEN=$(jq -r .token test/.influxdb3/core/.token)
+export INFLUXDB3_ENTERPRISE_TOKEN=$(jq -r .token ~/influxdata-docs/.influxdb3/enterprise/admin-token.json)
+
+# Use in API calls
+curl -i http://localhost:8282/ping -H "Authorization: Bearer $INFLUXDB3_CORE_TOKEN"
+curl -i http://localhost:8181/ping -H "Authorization: Bearer $INFLUXDB3_ENTERPRISE_TOKEN"
+```
+
+**Token File Format** (both Core and Enterprise):
+```json
+{
+  "token": "64-character-hexadecimal-token",
+  "description": "Admin token for InfluxDB 3 Core/Enterprise"
+}
 ```
 
 ## Service Comparison
