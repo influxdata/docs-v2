@@ -2,7 +2,7 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to query and visualize data from {{% product-name %}}.
 
 > [!Note]
-> {{< influxdb-version-detector >}}
+> {{< influxdb-version-detector context="grafana" >}}
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.
