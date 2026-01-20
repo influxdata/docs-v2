@@ -12,7 +12,8 @@
     "docs": "scripts/docs-cli/docs-cli.js"
   },
   "resolutions": {
-    "serialize-javascript": "^6.0.2"
+    "serialize-javascript": "^6.0.2",
+    "tar": "7.5.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
@@ -39,6 +40,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
+    "tar": "7.5.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
     "unified": "^11.0.5",
@@ -96,11 +98,7 @@
     "debug:inspect": "node scripts/puppeteer/inspect-page.js"
   },
   "type": "module",
-  "browserslist": [
-    "last 2 versions",
-    "not dead",
-    "not IE 11"
-  ],
+  "browserslist": ["last 2 versions", "not dead", "not IE 11"],
   "engines": {
     "node": ">=16.0.0"
   },
