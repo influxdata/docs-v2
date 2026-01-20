@@ -556,8 +556,8 @@ ${yaml.dump(frontmatter)}---
     `✓ Generated ${data.articles.length} tag-based content pages in ${contentPath}`
   );
 
-  // Generate individual operation pages for standalone URLs
-  generateOperationPages({
+  // Generate path pages for standalone URLs (one page per API path)
+  generatePathPages({
     articlesPath,
     contentPath,
     pathSpecFiles,
@@ -565,14 +565,14 @@ ${yaml.dump(frontmatter)}---
 }
 
 /**
- * Options for generating operation pages
+ * Options for generating path pages
  */
-interface GenerateOperationPagesOptions {
+interface GeneratePathPagesOptions {
   /** Path to the articles data directory */
   articlesPath: string;
   /** Output path for generated content pages */
   contentPath: string;
-  /** Map of API path to path-specific spec file (for single-operation rendering) */
+  /** Map of API path to path-specific spec file (for single-path rendering) */
   pathSpecFiles?: Map<string, string>;
 }
 
@@ -613,19 +613,22 @@ function apiPathToSlug(apiPath: string): string {
   return normalizedPath;
 }
 
+/** Method sort order for consistent display */
+const METHOD_ORDER = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
 /**
- * Generate standalone Hugo content pages for each API operation
+ * Generate standalone Hugo content pages for each API path
  *
- * Creates individual pages at path-based URLs like /api/write/post/
- * for each operation, using RapiDoc Mini.
+ * Creates individual pages at path-based URLs like /api/v3/configure/database/
+ * for each unique API path. Each page includes all HTTP methods (operations)
+ * for that path, rendered using RapiDoc with match-type='includes'.
  *
- * When pathSpecFiles is provided, uses path-specific specs for single-operation
- * rendering (filters by method only, avoiding path prefix conflicts).
+ * When pathSpecFiles is provided, uses path-specific specs for isolated rendering.
  * Falls back to tag-based specs when pathSpecFiles is not available.
  *
  * @param options - Generation options
  */
-function generateOperationPages(options: GenerateOperationPagesOptions): void {
+function generatePathPages(options: GeneratePathPagesOptions): void {
   const { articlesPath, contentPath, pathSpecFiles } = options;
   const yaml = require('js-yaml');
   const articlesFile = path.join(articlesPath, 'articles.yml');
@@ -658,9 +661,17 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
     return;
   }
 
-  let operationCount = 0;
+  // Collect all operations and group by API path
+  const pathOperations = new Map<
+    string,
+    {
+      operations: OperationMeta[];
+      tagSpecFile?: string;
+      tagName: string;
+    }
+  >();
 
-  // Process each article (tag) and generate pages for its operations
+  // Process each article (tag) and collect operations by path
   for (const article of data.articles) {
     // Skip conceptual articles (they don't have operations)
     if (article.fields.isConceptual) {
@@ -672,72 +683,95 @@ function generateOperationPages(options: GenerateOperationPagesOptions): void {
     const tagName = article.fields.tag || article.fields.name || '';
 
     for (const op of operations) {
-      // Build operation page path: api/{path}/{method}/
-      // e.g., /write -> api/write/post/
-      // e.g., /api/v3/write_lp -> api/v3/write_lp/post/
-      const pathSlug = apiPathToSlug(op.path);
-      const method = op.method.toLowerCase();
-      // Only add 'api/' prefix if the path doesn't already start with 'api/'
-      const basePath = pathSlug.startsWith('api/')
-        ? pathSlug
-        : `api/${pathSlug}`;
-      const operationDir = path.join(contentPath, basePath, method);
-      const operationFile = path.join(operationDir, '_index.md');
-
-      // Create directory if needed
-      if (!fs.existsSync(operationDir)) {
-        fs.mkdirSync(operationDir, { recursive: true });
+      const existing = pathOperations.get(op.path);
+      if (existing) {
+        // Add operation to existing path group
+        existing.operations.push(op);
+      } else {
+        // Create new path group
+        pathOperations.set(op.path, {
+          operations: [op],
+          tagSpecFile,
+          tagName,
+        });
       }
-
-      // Build frontmatter
-      const title = op.summary || `${op.method} ${op.path}`;
-
-      // Determine spec file and match-paths based on availability of path-specific specs
-      // Path-specific specs isolate the path at file level, so we only filter by method
-      // This avoids substring matching issues (e.g., /admin matching /admin/regenerate)
-      const pathSpecFile = pathSpecFiles?.get(op.path);
-      const specFile = pathSpecFile || tagSpecFile;
-      const matchPaths = pathSpecFile ? method : `${method} ${op.path}`;
-
-      const frontmatter: Record<string, unknown> = {
-        title,
-        description: `API reference for ${op.method} ${op.path}`,
-        type: 'api-operation',
-        layout: 'operation',
-        // RapiDoc Mini configuration
-        specFile,
-        // When using path-specific spec: just method (e.g., "post")
-        // When using tag spec: method + path (e.g., "post /write")
-        matchPaths,
-        // Operation metadata
-        operationId: op.operationId,
-        method: op.method,
-        apiPath: op.path,
-        tag: tagName,
-      };
-
-      // Add compatibility version if present
-      if (op.compatVersion) {
-        frontmatter.compatVersion = op.compatVersion;
-      }
-
-      // Add related links from operation's externalDocs
-      if (op.externalDocs?.url) {
-        frontmatter.related = [op.externalDocs.url];
-      }
-
-      const pageContent = `---
-${yaml.dump(frontmatter)}---
-`;
-
-      fs.writeFileSync(operationFile, pageContent);
-      operationCount++;
     }
   }
 
-  console.log(
-    `✓ Generated ${operationCount} operation pages in ${contentPath}/api/`
-  );
+  let pathCount = 0;
+
+  // Generate a page for each unique API path
+  for (const [apiPath, pathData] of pathOperations) {
+    // Build page path: api/{path}/
+    // e.g., /api/v3/configure/database -> api/v3/configure/database/
+    const pathSlug = apiPathToSlug(apiPath);
+    // Only add 'api/' prefix if the path doesn't already start with 'api/'
+    const basePath = pathSlug.startsWith('api/') ? pathSlug : `api/${pathSlug}`;
+    const pathDir = path.join(contentPath, basePath);
+    const pathFile = path.join(pathDir, '_index.md');
+
+    // Create directory if needed
+    if (!fs.existsSync(pathDir)) {
+      fs.mkdirSync(pathDir, { recursive: true });
+    }
+
+    // Sort operations by method order
+    const sortedOperations = [...pathData.operations].sort((a, b) => {
+      const aIndex = METHOD_ORDER.indexOf(a.method.toUpperCase());
+      const bIndex = METHOD_ORDER.indexOf(b.method.toUpperCase());
+      return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
+    });
+
+    // Use first operation's summary or construct from methods
+    const methods = sortedOperations.map((op) => op.method.toUpperCase());
+    const title =
+      sortedOperations.length === 1 && sortedOperations[0].summary
+        ? sortedOperations[0].summary
+        : `${apiPath}`;
+
+    // Determine spec file - use path-specific spec if available
+    const pathSpecFile = pathSpecFiles?.get(apiPath);
+    const specFile = pathSpecFile || pathData.tagSpecFile;
+
+    const frontmatter: Record<string, unknown> = {
+      title,
+      description: `API reference for ${apiPath} - ${methods.join(', ')}`,
+      type: 'api-path',
+      layout: 'path',
+      // RapiDoc configuration
+      specFile,
+      apiPath,
+      // Include all operations for TOC generation
+      operations: sortedOperations.map((op) => ({
+        operationId: op.operationId,
+        method: op.method,
+        path: op.path,
+        summary: op.summary,
+        ...(op.compatVersion && { compatVersion: op.compatVersion }),
+      })),
+      tag: pathData.tagName,
+    };
+
+    // Collect related links from all operations
+    const relatedLinks: string[] = [];
+    for (const op of sortedOperations) {
+      if (op.externalDocs?.url && !relatedLinks.includes(op.externalDocs.url)) {
+        relatedLinks.push(op.externalDocs.url);
+      }
+    }
+    if (relatedLinks.length > 0) {
+      frontmatter.related = relatedLinks;
+    }
+
+    const pageContent = `---
+${yaml.dump(frontmatter)}---
+`;
+
+    fs.writeFileSync(pathFile, pageContent);
+    pathCount++;
+  }
+
+  console.log(`✓ Generated ${pathCount} path pages in ${contentPath}/api/`);
 }
 
 /**
