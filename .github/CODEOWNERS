@@ -1,0 +1,124 @@
+# CODEOWNERS file for InfluxData Documentation
+#
+# This file defines code ownership for the docs-v2 repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# Order matters - the last matching pattern takes precedence.
+# More specific patterns should appear later in this file.
+#
+# Three-tier review approach for product documentation:
+#   1. Engineering teams (technical accuracy and implementation details)
+#   2. Product managers (product strategy and feature alignment)
+#   3. Documentation team (content quality, style, and user experience)
+#
+# Syntax: path/to/code @owner1 @owner2
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+# Docs team handles all documentation changes
+* @influxdata/docs-team
+
+# Product-specific ownership
+# Each product area includes engineering team, specific product managers, and docs team
+# API docs subdirectories are grouped with their respective content directories
+
+# Platform (legacy)
+# Docs: Documentation team
+/content/platform/ @influxdata/docs-team
+
+# InfluxDB Cloud (TSM)
+# PMs: Scott (Cloud 1 primary), Daniel (Cloud 2 primary), Jason (secondary), Docs: Documentation team
+/content/influxdb/cloud/ @sanderson @mavarius @jstirnaman @influxdata/docs-team
+/api-docs/influxdb/cloud/ @sanderson @mavarius @jstirnaman @influxdata/docs-team
+
+# InfluxDB v2
+# Engineering: Edge team, PMs: Scott (primary), Jason (secondary), Docs: Documentation team
+/content/influxdb/v2/ @influxdata/edge @sanderson @jstirnaman @influxdata/docs-team
+/api-docs/influxdb/v2/ @influxdata/edge @sanderson @jstirnaman @influxdata/docs-team
+
+# InfluxDB v1
+# Engineering: Edge team, PMs: Scott (primary), Jason (secondary), Docs: Documentation team
+/content/influxdb/v1/ @influxdata/edge @sanderson @jstirnaman @influxdata/docs-team
+
+# InfluxDB 3 Core
+# Engineering: Monolith team, PMs: Pete (primary), Gary (secondary), Docs: Documentation team
+/content/influxdb3/core/ @influxdata/monolith-team @peterbarnett03 @garylfowler @influxdata/docs-team
+/api-docs/influxdb3/core/ @influxdata/monolith-team @peterbarnett03 @garylfowler @influxdata/docs-team
+
+# InfluxDB 3 Enterprise
+# Engineering: Monolith team, PMs: Pete (primary), Gary (secondary), Docs: Documentation team
+/content/influxdb3/enterprise/ @influxdata/monolith-team @peterbarnett03 @garylfowler @influxdata/docs-team
+/api-docs/influxdb3/enterprise/ @influxdata/monolith-team @peterbarnett03 @garylfowler @influxdata/docs-team
+
+# InfluxDB 3 Clustered
+# Engineering: Platform team, PMs: Ritwika (primary), Scott (secondary), Docs: Documentation team
+/content/influxdb3/clustered/ @influxdata/platform-team @ritwika314 @sanderson @influxdata/docs-team
+/api-docs/influxdb3/clustered/ @influxdata/platform-team @ritwika314 @sanderson @influxdata/docs-team
+
+# InfluxDB 3 Cloud Dedicated
+# Engineering: Cloud single-tenant, PMs: Ritwika (primary), Scott (secondary), Docs: Documentation team
+/content/influxdb3/cloud-dedicated/ @influxdata/cloud-single-tenant @ritwika314 @sanderson @influxdata/docs-team
+/api-docs/influxdb3/cloud-dedicated/ @influxdata/cloud-single-tenant @ritwika314 @sanderson @influxdata/docs-team
+
+# InfluxDB 3 Cloud Serverless
+# PMs: Daniel (primary), Gary (secondary), Docs: Documentation team
+/content/influxdb3/cloud-serverless/ @mavarius @garylfowler @influxdata/docs-team
+/api-docs/influxdb3/cloud-serverless/ @mavarius @garylfowler @influxdata/docs-team
+
+# InfluxDB 3 Explorer
+# PMs: Daniel (primary), Pete (secondary), Docs: Documentation team
+/content/influxdb3/explorer/ @mavarius @peterbarnett03 @influxdata/docs-team
+
+# InfluxDB Enterprise (v1)
+# Engineering: Edge team, PMs: Scott (primary), Jason (secondary), Docs: Documentation team
+/content/enterprise_influxdb/ @influxdata/edge @sanderson @jstirnaman @influxdata/docs-team
+
+# Telegraf
+# Engineering: Telegraf team, PMs: Scott (primary), Ryan (secondary), Docs: Documentation team
+/content/telegraf/ @influxdata/telegraf-team @sanderson @caterryan @influxdata/docs-team
+
+# Kapacitor
+# Engineering: Bonitoo team, PMs: Scott (primary), Jason (secondary), Docs: Documentation team
+/content/kapacitor/ @influxdata/bonitoo @sanderson @jstirnaman @influxdata/docs-team
+
+# Chronograf
+# Engineering: Bonitoo team, PMs: Daniel (primary), Ryan (secondary), Docs: Documentation team
+/content/chronograf/ @influxdata/bonitoo @mavarius @caterryan @influxdata/docs-team
+
+# Flux
+# PMs: Scott (primary), Jason (secondary), Docs: Documentation team
+/content/flux/ @sanderson @jstirnaman @influxdata/docs-team
+
+# Shared content (used by multiple products)
+/content/shared/ @influxdata/docs-team @influxdata/product-managers 
+# API documentation (general/shared)
+# Docs team for shared API tooling and configuration
+
+# Infrastructure and tooling
+/.circleci/ @influxdata/docs-team
+/layouts/ @influxdata/docs-team
+/assets/ @influxdata/docs-team
+/scripts/ @influxdata/docs-team
+/cypress/ @influxdata/docs-team
+/test/ @influxdata/docs-team
+/.ci/ @influxdata/docs-team
+/deploy/ @influxdata/docs-team
+
+# Build and dependency configuration
+/package.json @influxdata/docs-team
+/yarn.lock @influxdata/docs-team
+/tsconfig.json @influxdata/docs-team
+/compose.yaml @influxdata/docs-team
+/Dockerfile* @influxdata/docs-team
+/.vale.ini @influxdata/docs-team
+/.vale-instructions.ini @influxdata/docs-team
+
+# Agent-modified files - require human review
+# These files guide AI assistants and require careful oversight
+AGENTS.md @influxdata/docs-team
+CLAUDE.md @influxdata/docs-team
+/.github/copilot-instructions.md @influxdata/docs-team
+/.github/agents/ @influxdata/docs-team
+/.github/instructions/ @influxdata/docs-team
+/.claude/ @influxdata/docs-team

@@ -140,7 +140,7 @@ with your `influxdb3 serve` command:
 - `--bucket`: Your Azure Blob Storage container name
 - `--azure-storage-account`: Your Azure Blob Storage account name  
   _(can also be defined using the `AZURE_STORAGE_ACCOUNT` environment variable)_
-- `--aws-secret-access-key`: Your Azure Blob Storage access key  
+- `--azure-storage-access-key`: Your Azure Blob Storage access key  
   _(can also be defined using the `AZURE_STORAGE_ACCESS_KEY` environment variable)_
 
 {{% code-placeholders "AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" %}}
