@@ -14,6 +14,7 @@ agents. It provides a user-friendly interface for managing Telegraf
 configurations, monitoring agents, and organizing plugins.
 
 - [System Requirements](#system-requirements)
+- [Review the EULA](#review-the-eula)
 - [Download and install {{% product-name %}}](#download-and-install-telegraf-controller)
 - [Set up your database](#set-up-your-database)
 - [Configure {{% product-name %}}](#configure-telegraf-controller)
@@ -25,6 +26,50 @@ configurations, monitoring agents, and organizing plugins.
 - **Architecture**: x64 (Intel/AMD) or ARM64 (Apple Silicon/ARM)
 - **Database**: SQLite (default), PostgreSQL, or PostgreSQL-compatible
 - **Ports**: 8888 (web interface), 8000 (heartbeat service)
+
+
+## Review the EULA
+
+Review the [InfluxData End User Software License Agreement (EULA)](/telegraf/controller/reference/eula/)
+for {{% product-name %}} before downloading and installing.
+
+{{% product-name %}} requires that you accept the EULA before the server can
+start. When you first run {{% product-name %}} in interactive mode (default), it
+prompts you to accept the EULA.
+Once accepted on a host machine, the EULA does not need to be accepted again
+unless the EULA is updated or the {{% product-name %}} local data directory is
+removed.
+
+### Accept in interactive mode
+
+Run the executable in a terminal and follow the prompt.
+
+```bash
+telegraf_controller
+```
+
+Enter `v` to view the full text of the {{% product-name %}} EULA.
+Enter `accept` to accept the EULA and proceed.
+
+### Accept non-interactively
+
+Use the `--eula-accept` command option or set the `TELEGRAF_CONTROLLER_EULA`
+environment variable to `accept`.
+This is required for non-interactive runs such as systemd, LaunchDaemons,
+or CI—for example:
+
+```bash
+telegraf_controller --eula-accept --no-interactive
+```
+
+```bash
+TELEGRAF_CONTROLLER_EULA=accept telegraf_controller --no-interactive
+```
+
+```powershell
+$env:TELEGRAF_CONTROLLER_EULA="accept"
+./telegraf_controller.exe --no-interactive
+```
 
 ## Download and install {{% product-name %}}
 
@@ -85,6 +130,10 @@ run it in place. You can also run {{% product-name %}} as a service.
 ```
 
 #### Install the executable as a systemd service {note="Optional"}
+
+> [!Note]
+> If this is the first run on the host, accept the EULA in a TTY or set
+> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
 
 1.  Create a {{% product-name %}} service file:
 
@@ -167,6 +216,10 @@ export PATH="/usr/local/bin:$PATH"
 
 #### Install as a LaunchDaemon {note="Optional"}
 
+> [!Note]
+> If this is the first run on the host, accept the EULA in a TTY or set
+> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
+
 1.  Create a plist file:
 
     ```bash
@@ -232,6 +285,10 @@ run:
 
 Use NSSM (Non-Sucking Service Manager) to run {{% product-name %}} as a Windows
 service.
+
+> [!Note]
+> If this is the first run on the host, accept the EULA in a TTY or set
+> `TELEGRAF_CONTROLLER_EULA=accept` in the service environment.
 
 1.  [Download NSSM](https://nssm.cc/download)
 
@@ -300,13 +357,15 @@ Use the following command line options to configure {{% product-name %}}.
 
 ### Configuration options
 
-| Command Flag     | Environment Variable | Description                  | Default              |
-| :--------------- | :------------------- | :--------------------------- | :------------------- |
-| --port           | PORT                 | Web interface and API port   | `8888`               |
-| --heartbeat-port | HEARTBEAT_PORT       | Agent heartbeat service port | `8000`               |
-| --database       | DATABASE             | Database connection string   | Auto-detected SQLite |
-| --ssl-cert       | SSL_CERT             | SSL certificate file path    | None                 |
-| --ssl-key        | SSL_KEY              | SSL private key file path    | None                 |
+| Command Flag     | Environment Variable     | Description                   | Default              |
+| :--------------- | :----------------------- | :---------------------------- | :------------------- |
+| --port           | PORT                     | Web interface and API port    | `8888`               |
+| --heartbeat-port | HEARTBEAT_PORT           | Agent heartbeat service port  | `8000`               |
+| --database       | DATABASE                 | Database connection string    | Auto-detected SQLite |
+| --ssl-cert       | SSL_CERT                 | SSL certificate file path     | None                 |
+| --ssl-key        | SSL_KEY                  | SSL private key file path     | None                 |
+| --no-interactive |                          | Skip prompts and use defaults | None                 |
+| --eula-accept    | TELEGRAF_CONTROLLER_EULA | Accept EULA non-interactively | None                 |
 
 #### Examples
 
@@ -342,6 +401,11 @@ telegraf_controller \
 telegraf_controller \
   --ssl-cert="/path/to/cert.pem" \
   --ssl-key="/path/to/key.pem"
+
+# Accept the EULA non-interactively
+telegraf_controller \
+  --no-interactive \
+  --eula-accept
 ```
 
 <!------------------- END LINUX/MACOS COMMAND FLAGS ------------------->
@@ -365,6 +429,11 @@ telegraf_controller \
 ./telegraf_controller.exe `
   --ssl-cert="C:\path\to\cert.pem" `
   --ssl-key="C:\path\to\key.pem"
+
+# Accept the EULA non-interactively
+./telegraf_controller.exe `
+  --no-interactive `
+  --eula-accept
 ```
 
 <!--------------------- END WINDOWS COMMAND FLAGS --------------------->
@@ -399,6 +468,9 @@ DATABASE=/path/to/custom/database.db
 SSL_CERT=/path/to/cert.pem
 SSL_KEY=/path/to/key.pem
 
+# Accept the EULA
+TELEGRAF_CONTROLLER_EULA=accept
+
 telegraf_controller
 ```
 
@@ -421,6 +493,9 @@ $env:DATABASE=C:\path\to\custom\database.db
 # Enable HTTPS
 $env:SSL_CERT=C:\path\to\cert.pem
 $env:SSL_KEY=C:\path\to\key.pem
+
+# Accept the EULA
+$env:TELEGRAF_CONTROLLER_EULA=accept
 
 ./telegraf_controller.exe
 ```
