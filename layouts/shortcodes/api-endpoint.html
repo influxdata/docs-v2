@@ -6,13 +6,11 @@
 {{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
 {{- $parsedProductKey := cond $isOSS "oss" $currentVersion -}}
 {{- $productKey := .Get "influxdb_host" | default $parsedProductKey -}}
-{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" -}}
-{{- $productRef := index $productAliases $productKey | default "influxdb" -}}
-{{- $productData := index .Site.Data.products $productRef -}}
-{{- $placeholderHost := "localhost:8086" -}}
-{{- with $productData -}}
-  {{- $placeholderHost = .placeholder_host | default "localhost:8086" -}}
-{{- end -}}
+{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" "cloud1" "influxdb_cloud1" -}}
+{{- $productRef := index $productAliases $productKey -}}
+{{- $productData := dict -}}
+{{- with $productRef }}{{- $productData = index $.Site.Data.products . | default dict -}}{{- end -}}
+{{- $placeholderHost := $productData.placeholder_host | default "localhost:8086" }}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
 {{- $apiRef := .Get "api-ref" | default "" -}}

@@ -5,15 +5,18 @@ info:
     The InfluxDB HTTP API for InfluxDB 3 Enterprise provides a programmatic interface for
     interacting with InfluxDB 3 Enterprise databases and resources.
     Use this API to:
+
     - Write data to InfluxDB 3 Enterprise databases
     - Query data using SQL or InfluxQL
     - Process data using Processing engine plugins
     - Manage databases, tables, and Processing engine triggers
     - Perform administrative tasks and access system information
+
     The API includes endpoints under the following paths:
     - `/api/v3`: InfluxDB 3 Enterprise native endpoints
     - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
+
     <!-- TODO: verify where to host the spec that users can download.
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
@@ -37,73 +40,106 @@ servers:
         description: InfluxDB 3 Enterprise URL
 security:
   - BearerAuthentication: []
+  - TokenAuthentication: []
+  - BasicAuthentication: []
+  - QuerystringAuthentication: []
 tags:
   - name: Authentication
     description: |
       Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
+
       | Authentication scheme | Works with |
-      |:----------------------|:-----------|
-      | Bearer authentication | All endpoints |
-      | Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |
-      | Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |
-      | Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |
-      See the **Security Schemes** section below for details on each authentication method.
+      |:-------------------|:-----------|
+      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
+      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
+      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
+      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
+      <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
   - name: Cache data
     description: |
       Manage the in-memory cache.
+
       #### Distinct Value Cache
+
       The Distinct Value Cache (DVC) lets you cache distinct
       values of one or more columns in a table, improving the performance of
-      queries that return distinct tag and field values. 
+      queries that return distinct tag and field values.
+
       The DVC is an in-memory cache that stores distinct values for specific columns
       in a table. When you create an DVC, you can specify what columns' distinct
       values to cache, the maximum number of distinct value combinations to cache, and
       the maximum age of cached values. A DVC is associated with a table, which can
       have multiple DVCs.
+
       #### Last value cache
+
       The Last Value Cache (LVC) lets you cache the most recent
       values for specific fields in a table, improving the performance of queries that
       return the most recent value of a field for specific series or the last N values
       of a field.
+
       The LVC is an in-memory cache that stores the last N number of values for
       specific fields of series in a table. When you create an LVC, you can specify
       what fields to cache, what tags to use to identify each series, and the
       number of values to cache for each unique series.
       An LVC is associated with a table, which can have multiple LVCs.
+
       #### Related guides
+
       - [Manage the Distinct Value Cache](/influxdb3/enterprise/admin/distinct-value-cache/)
       - [Manage the Last Value Cache](/influxdb3/enterprise/admin/last-value-cache/)
-  - name: Migrate from InfluxDB v1 or v2
-    x-traitTag: true
+  - name: Compatibility endpoints
     description: |
-      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
-      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
-      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
-      ### Migration guides
-      - [Migrate from InfluxDB v1](/influxdb3/enterprise/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
-      - [Migrate from InfluxDB v2](/influxdb3/enterprise/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
-      - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
-      - [Use the v1 HTTP query API](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
+      InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and InfluxDB 2.x workloads and clients.
+
+      ### Write data using v1- or v2-compatible endpoints
+
+      - [`/api/v2/write` endpoint](#operation/PostV2Write)
+          for InfluxDB v2 clients and when you bring existing InfluxDB v2 write workloads to InfluxDB 3.
+      - [`/write` endpoint](#operation/PostV1Write) for InfluxDB v1 clients and when you bring existing InfluxDB v1 write workloads to InfluxDB 3.
+
+      For new workloads, use the [`/api/v3/write_lp` endpoint](#operation/PostWriteLP).
+
+      All endpoints accept the same line protocol format.
+
+      ### Query data
+
+      Use the HTTP [`/query`](#operation/GetV1ExecuteQuery) endpoint for InfluxDB v1 clients and v1 query workloads using InfluxQL.
+
+      For new workloads, use one of the following:
+
+      - HTTP [`/api/v3/query_sql` endpoint](#operation/GetExecuteQuerySQL) for new query workloads using SQL.
+      - HTTP [`/api/v3/query_influxql` endpoint](#operation/GetExecuteInfluxQLQuery) for new query workloads using InfluxQL.
+      - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or InfluxQL. For more information about using Flight APIs, see [InfluxDB 3 client libraries](https://github.com/InfluxCommunity?q=influxdb3&type=public&language=&sort=).
+
+      ### Server information
+
+      Server information endpoints such as `/health` and `metrics` are compatible with InfluxDB 1.x and InfluxDB 2.x clients.
   - name: Database
     description: Manage databases
   - description: |
       Most InfluxDB API endpoints require parameters in the request--for example, specifying the database to use.
+
       ### Common parameters
+
       The following table shows common parameters used by many InfluxDB API endpoints.
       Many endpoints may require other parameters in the query string or in the
       request body that perform functions specific to those endpoints.
+
       | Query parameter          | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `db`                 | string                | The database name |
+
       InfluxDB HTTP API endpoints use standard HTTP request and response headers.
       The following table shows common headers used by many InfluxDB API endpoints.
       Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
       the write endpoints accept the `Content-Encoding` header to indicate that line protocol is compressed in the request body.
+
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
+      | `Authorization`          | string                | The authorization scheme and credential. |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers and parameters
@@ -111,33 +147,40 @@ tags:
   - name: Processing engine
     description: |
       Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
+
       InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
       Use Processing engine plugins and triggers to run code and perform tasks for different database events.
+
       To get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/enterprise/processing-engine/) guide.
   - name: Query data
     description: Query data using SQL or InfluxQL
   - name: Quick start
     description: |
-      Authenticate, write, and query with the API:
-
       1. [Create an admin token](#section/Authentication) to authorize API requests.
+
          ```bash
          curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
          ```
       2. [Check the status](#section/Server-information) of the InfluxDB server.
+
          ```bash
          curl "http://localhost:8181/health" \
             --header "Authorization: Bearer ADMIN_TOKEN"
          ```
+
       3. [Write data](#operation/PostWriteLP) to InfluxDB.
+
          ```bash
          curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
            --header "Authorization: Bearer ADMIN_TOKEN" \
            --data-raw "home,room=Kitchen temp=72.0
           home,room=Living\ room temp=71.5"
          ```
+
          If all data is written, the response is `204 No Content`.
+
       4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.
+
          ```bash
          curl -G "http://localhost:8181/api/v3/query_sql" \
            --header "Authorization: Bearer ADMIN_TOKEN" \
@@ -145,26 +188,30 @@ tags:
            --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
            --data-urlencode "format=jsonl"
          ```
-         
+
          Output:
+
          ```jsonl
          {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
          ```
-        
+
       For more information about using InfluxDB 3 Enterprise, see the [Get started](/influxdb3/enterprise/get-started/) guide.
     x-traitTag: true
   - name: Server information
     description: Retrieve server metrics, status, and version information
   - name: Table
     description: Manage table schemas and data
-  - name: Auth token
+  - name: Token
     description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
       Write data to InfluxDB 3 using line protocol format.
+
       #### Timestamp precision across write APIs
+
       InfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.
       The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
       | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
       |-----------|---------------|----------------------|-------------------------|
       | **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
@@ -175,19 +222,24 @@ tags:
       | **Minutes** | ✅ `m` | ❌ No | ❌ No |
       | **Hours** | ✅ `h` | ❌ No | ❌ No |
       | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
       All timestamps are stored internally as nanoseconds.
 paths:
   /write:
     post:
       operationId: PostV1Write
       summary: Write line protocol (v1-compatible)
-      x-compatibility-version: v1
       description: |
         Writes line protocol to the specified database.
-        Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
-      externalDocs:
-        description: Use compatibility APIs to write data
-        url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
+
+        This endpoint provides backward compatibility for InfluxDB 1.x write workloads using tools such as InfluxDB 1.x client libraries, the Telegraf `outputs.influxdb` output plugin, or third-party tools.
+
+        Use this endpoint to send data in [line protocol](https://docs.influxdata.com/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
+        Use query parameters to specify options for writing data.
+
+        #### Related
+
+        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
         - $ref: '#/components/parameters/compatibilityPrecisionParam'
@@ -251,6 +303,7 @@ paths:
           description: |
             Bad request. Some (a _partial write_) or all of the data from the batch was rejected and not written.
             If a partial write occurred, then some points from the batch are written and queryable.
+
             The response body:
               - indicates if a partial write occurred or all data was rejected.
               - contains details about the [rejected points](/influxdb3/enterprise/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
@@ -289,12 +342,8 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
-      security:
-        - BearerAuthentication: []
-        - TokenAuthentication: []
-        - BasicAuthentication: []
-        - QuerystringAuthentication: []
       tags:
+        - Compatibility endpoints
         - Write data
       x-influxdata-guides:
         - title: Use compatibility APIs to write data
@@ -303,13 +352,17 @@ paths:
     post:
       operationId: PostV2Write
       summary: Write line protocol (v2-compatible)
-      x-compatibility-version: v2
       description: |
         Writes line protocol to the specified database.
+
+        This endpoint provides backward compatibility for InfluxDB 2.x write workloads using tools such as InfluxDB 2.x client libraries, the Telegraf `outputs.influxdb_v2` output plugin, or third-party tools.
+
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
-      externalDocs:
-        description: Use compatibility APIs to write data
-        url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
+        Use query parameters to specify options for writing data.
+
+        #### Related
+
+        - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
       parameters:
         - name: Content-Type
           in: header
@@ -382,10 +435,8 @@ paths:
           description: Access denied.
         '413':
           description: Request entity too large.
-      security:
-        - BearerAuthentication: []
-        - TokenAuthentication: []
       tags:
+        - Compatibility endpoints
         - Write data
       x-influxdata-guides:
         - title: Use compatibility APIs to write data
@@ -396,22 +447,31 @@ paths:
       summary: Write line protocol
       description: |
         Writes line protocol to the specified database.
-        This is the native InfluxDB 3 Enterprise write endpoint that provides enhanced control 
+
+        This is the native InfluxDB 3 Enterprise write endpoint that provides enhanced control
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
+
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format to InfluxDB.
         Use query parameters to specify options for writing data.
+
         #### Features
+
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
+
         #### Auto precision detection
+
         When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
         the timestamp precision based on the magnitude of the timestamp value:
+
         - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
         - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
         - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
         - Larger timestamps → Nanosecond precision (no conversion needed)
+
         #### Related
+
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/enterprise/write-data/http-api/v3-write-lp/)
       parameters:
         - $ref: '#/components/parameters/dbWriteParam'
@@ -460,6 +520,38 @@ paths:
           description: Request entity too large.
         '422':
           description: Unprocessable entity.
+      x-codeSamples:
+        - label: cURL - Basic write
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000000000"
+        - label: cURL - Write with millisecond precision
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ms" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2 1638360000000"
+        - label: cURL - Asynchronous write with partial acceptance
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&accept_partial=true&no_sync=true&precision=auto" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01 usage=85.2
+            memory,host=server01 used=4096"
+        - label: cURL - Multiple measurements with tags
+          lang: Shell
+          source: |
+            curl --request POST "http://localhost:8181/api/v3/write_lp?db=sensors&precision=ns" \
+              --header "Authorization: Bearer DATABASE_TOKEN" \
+              --header "Content-Type: text/plain" \
+              --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
+            memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
+            disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
       tags:
         - Write data
   /api/v3/query_sql:
@@ -643,13 +735,15 @@ paths:
     get:
       operationId: GetV1ExecuteQuery
       summary: Execute InfluxQL query (v1-compatible)
-      x-compatibility-version: v1
       description: |
         Executes an InfluxQL query to retrieve data from the specified database.
-        Compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
-      externalDocs:
-        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-        url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
+
+        This endpoint is compatible with InfluxDB 1.x client libraries and third-party integrations such as Grafana.
+        Use query parameters to specify the database and the InfluxQL query.
+
+        #### Related
+
+        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
       parameters:
         - name: Accept
           in: header
@@ -663,7 +757,9 @@ paths:
           required: false
           description: |
             The content type that the client can understand.
+
             If `text/csv` is specified, the `Content-type` response header is `application/csv` and the response is formatted as CSV.
+
             Returns an error if the format is invalid or non-UTF8.
         - in: query
           name: chunked
@@ -742,6 +838,7 @@ paths:
               description: |
                 The content type of the response.
                 Default is `application/json`.
+
                 If the `Accept` request header is `application/csv` or `text/csv`, the `Content-type` response header is `application/csv`
                 and the response is formatted as CSV.
               schema:
@@ -762,24 +859,21 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
-      security:
-        - BearerAuthentication: []
-        - TokenAuthentication: []
-        - BasicAuthentication: []
-        - QuerystringAuthentication: []
       tags:
         - Query data
+        - Compatibility endpoints
       x-influxdata-guides:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
     post:
       operationId: PostExecuteV1Query
       summary: Execute InfluxQL query (v1-compatible)
-      x-compatibility-version: v1
-      description: Executes an InfluxQL query to retrieve data from the specified database.
-      externalDocs:
-        description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-        url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        #### Related
+
+        - [Use the InfluxDB v1 HTTP query API and InfluxQL to query data](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
       requestBody:
         content:
           application/json:
@@ -805,12 +899,14 @@ paths:
                 epoch:
                   description: |
                     A unix timestamp precision.
+
                     - `h` for hours
                     - `m` for minutes
                     - `s` for seconds
                     - `ms` for milliseconds
                     - `u` or `µ` for microseconds
                     - `ns` for nanoseconds
+
                     Formats timestamps as [unix (epoch) timestamps](/influxdb3/enterprise/reference/glossary/#unix-timestamp) with the specified precision
                     instead of [RFC3339 timestamps](/influxdb3/enterprise/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
                   enum:
@@ -841,7 +937,9 @@ paths:
           required: false
           description: |
             The content type that the client can understand.
+
             If `text/csv` is specified, the `Content-type` response header is `application/csv` and the response is formatted as CSV.
+
             Returns an error if the format is invalid or non-UTF8.
       responses:
         '200':
@@ -859,6 +957,7 @@ paths:
               description: |
                 The content type of the response.
                 Default is `application/json`.
+
                 If the `Accept` request header is `application/csv` or `text/csv`, the `Content-type` response header is `application/csv`
                 and the response is formatted as CSV.
               schema:
@@ -879,13 +978,9 @@ paths:
           description: Method not allowed.
         '422':
           description: Unprocessable entity.
-      security:
-        - BearerAuthentication: []
-        - TokenAuthentication: []
-        - BasicAuthentication: []
-        - QuerystringAuthentication: []
       tags:
         - Query data
+        - Compatibility endpoints
       x-influxdata-guides:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
@@ -893,10 +988,23 @@ paths:
     get:
       operationId: GetHealth
       summary: Health check
-      description: Checks the status of the service.
+      description: |
+        Checks the status of the service.
+
+        Returns `OK` if the service is running. This endpoint does not return version information.
+        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
+
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
       responses:
         '200':
-          description: Service is running.
+          description: Service is running. Returns `OK`.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+        '401':
+          description: Unauthorized. Authentication is required.
         '500':
           description: Service is unavailable.
       tags:
@@ -904,8 +1012,7 @@ paths:
   /api/v1/health:
     get:
       operationId: GetHealthV1
-      summary: Health check (v1-compatible)
-      x-compatibility-version: v1
+      summary: Health check (v1)
       description: Checks the status of the service.
       responses:
         '200':
@@ -914,22 +1021,61 @@ paths:
           description: Service is unavailable.
       tags:
         - Server information
+        - Compatibility endpoints
   /ping:
     get:
       operationId: GetPing
       tags:
         - Server information
       summary: Ping the server
-      description: Returns version information for the server.
+      description: |
+        Returns version information for the server.
+
+        **Important**: Use a GET request. HEAD requests return `404 Not Found`.
+
+        The response includes version information in both headers and the JSON body:
+
+        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Body**: JSON object with `version`, `revision`, and `process_id`
+
+        > **Note**: This endpoint requires authentication by default in InfluxDB 3 Enterprise.
       responses:
         '200':
           description: Success. The response body contains server information.
+          headers:
+            x-influxdb-version:
+              description: The InfluxDB version number (for example, `3.8.0`).
+              schema:
+                type: string
+                example: '3.8.0'
+            x-influxdb-build:
+              description: The InfluxDB build type (`Core` or `Enterprise`).
+              schema:
+                type: string
+                example: Enterprise
           content:
             application/json:
               schema:
-                example:
-                  version: 0.1.0
-                  revision: f3d3d3d
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: The InfluxDB version number.
+                    example: '3.8.0'
+                  revision:
+                    type: string
+                    description: The git revision hash for the build.
+                    example: '83b589b883'
+                  process_id:
+                    type: string
+                    description: A unique identifier for the server process.
+                    example: 'b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7'
+        '401':
+          description: Unauthorized. Authentication is required.
+        '404':
+          description: |
+            Not Found. Returned for HEAD requests.
+            Use a GET request to retrieve version information.
   /metrics:
     get:
       operationId: GetMetrics
@@ -1011,7 +1157,9 @@ paths:
             Schedule the database for hard deletion at the specified time.
             If not provided, the database will be soft deleted.
             Use ISO 8601 date-time format (for example, "2025-12-31T23:59:59Z").
+
             #### Deleting a database cannot be undone
+
             Deleting a database is a destructive action.
             Once a database is deleted, data stored in that database cannot be recovered.
       responses:
@@ -1069,7 +1217,9 @@ paths:
         Soft deletes a table.
         The table is scheduled for deletion and unavailable for querying.
         Use the `hard_delete_at` parameter to schedule a hard deletion.
+
         #### Deleting a table cannot be undone
+
         Deleting a table is a destructive action.
         Once a table is deleted, data stored in that table cannot be recovered.
       parameters:
@@ -1176,6 +1326,7 @@ paths:
       description: Creates a distinct cache for a table.
       tags:
         - Cache data
+        - Table
       requestBody:
         required: true
         content:
@@ -1190,6 +1341,7 @@ paths:
         '400':
           description: |
             Bad request.
+
             The server responds with status `400` if the request would overwrite an existing cache with a different configuration.
     delete:
       operationId: DeleteConfigureDistinctCache
@@ -1220,6 +1372,7 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
+        - Table
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1244,6 +1397,7 @@ paths:
           description: Cache already exists.
       tags:
         - Cache data
+        - Table
     delete:
       operationId: DeleteConfigureLastCache
       summary: Delete last cache
@@ -1273,13 +1427,16 @@ paths:
           description: Cache not found.
       tags:
         - Cache data
+        - Table
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
       summary: Create processing engine trigger
       description: |
         Creates a processing engine trigger with the specified plugin file and trigger specification.
+
         ### Related guides
+
         - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
       requestBody:
         required: true
@@ -1494,8 +1651,11 @@ paths:
       summary: Install plugin packages
       description: |
         Installs the specified Python packages into the processing engine plugin environment.
+
         This endpoint is synchronous and blocks until the packages are installed.
+
         ### Related guides
+
         - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
       parameters:
         - $ref: '#/components/parameters/ContentType'
@@ -1541,8 +1701,11 @@ paths:
       summary: Install plugin requirements
       description: |
         Installs requirements from a requirements file (also known as a "pip requirements file") into the processing engine plugin environment.
+
         This endpoint is synchronous and blocks until the requirements are installed.
+
         ### Related
+
         - [Processing engine and Python plugins](/influxdb3/enterprise/plugins/)
         - [Python requirements file format](https://pip.pypa.io/en/stable/reference/requirements-file-format/)
       parameters:
@@ -1622,12 +1785,15 @@ paths:
       - name: request_path
         description: |
           The path configured in the request trigger specification for the plugin.
+
           For example, if you define a trigger with the following:
+
           ```json
           trigger_specification: "request:hello-world"
           ```
+
           then, the HTTP API exposes the following plugin endpoint:
-            
+
           ```
           <INFLUXDB3_HOST>/api/v3/engine/hello-world
           ```
@@ -1641,10 +1807,13 @@ paths:
       description: |
         Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
+
         An On Request plugin implements the following signature:
+
         ```python
         def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None)
         ```
+
         The response depends on the plugin implementation.
       responses:
         '200':
@@ -1665,10 +1834,13 @@ paths:
       description: |
         Executes the On Request processing engine plugin specified in the trigger's `plugin_filename`.
         The request can include request headers, query string parameters, and a request body, which InfluxDB passes to the plugin.
+
         An On Request plugin implements the following signature:
+
         ```python
         def process_request(influxdb3_local, query_parameters, request_headers, request_body, args=None)
         ```
+
         The response depends on the plugin implementation.
       parameters:
         - $ref: '#/components/parameters/ContentType'
@@ -1699,6 +1871,7 @@ paths:
       description: |
         Creates a resource (fine-grained permissions) token.
         A resource token is a token that has access to specific resources in the system.
+
         This endpoint is only available in InfluxDB 3 Enterprise.
       responses:
         '201':
@@ -1713,7 +1886,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Auth token
+        - Token
   /api/v3/configure/token/admin:
     post:
       operationId: PostCreateAdminToken
@@ -1732,11 +1905,9 @@ paths:
                 $ref: '#/components/schemas/AdminTokenObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
-      security:
-        - BearerAuthentication: []
-        - {} # No auth required for initial token creation
       tags:
-        - Auth token
+        - Authentication
+        - Token
   /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
@@ -1755,7 +1926,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       tags:
         - Authentication
-        - Auth token
+        - Token
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1778,7 +1949,7 @@ paths:
           description: Token not found.
       tags:
         - Authentication
-        - Auth token
+        - Token
   /api/v3/configure/token/named_admin:
     post:
       operationId: PostCreateNamedAdminToken
@@ -1808,7 +1979,7 @@ paths:
           description: A token with this name already exists.
       tags:
         - Authentication
-        - Auth token
+        - Token
   /api/v3/plugins/files:
     put:
       operationId: PutPluginFile
@@ -1921,6 +2092,7 @@ components:
         type: string
       description: |
         The name of the database.
+
         If you provide a query that specifies the database, you can omit the 'db' parameter from your request.
     accept_partial:
       name: accept_partial
@@ -1989,23 +2161,16 @@ components:
         text/plain:
           schema:
             type: string
-            description: |
-              Line protocol data. Each line represents a point with a measurement name,
-              optional tag set, field set, and optional timestamp.
-
-              Format: `<measurement>[,<tag_key>=<tag_value>...] <field_key>=<field_value>[,<field_key>=<field_value>...] [<timestamp>]`
           examples:
-            single-point:
-              summary: Write a single point
-              description: Write one point with tags and fields to a table.
-              value: cpu,host=server01 usage=85.2,load=0.75 1638360000000000000
-            multiple-tables:
-              summary: Write to multiple tables
-              description: Write points to different tables (measurements) in a single request.
+            line:
+              summary: Example line protocol
+              value: measurement,tag=value field=1 1234567890
+            multiline:
+              summary: Example line protocol with UTF-8 characters
               value: |
-                cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
-                memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
-                disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000
+                measurement,tag=value field=1 1234567890
+                measurement,tag=value field=2 1234567900
+                measurement,tag=value field=3 1234568000
     queryRequestBody:
       required: true
       content:
@@ -2082,7 +2247,9 @@ components:
       description: |
         Content coding.
         Use `gzip` for compressed data or `identity` for unmodified, uncompressed data.
+
         #### Multi-member gzip support
+
         InfluxDB 3 supports multi-member gzip payloads (concatenated gzip files per [RFC 1952](https://www.rfc-editor.org/rfc/rfc1952)).
         This allows you to:
         - Concatenate multiple gzip files and send them in a single request
@@ -2120,7 +2287,9 @@ components:
       default: false
       description: |
         Acknowledges a successful write without waiting for WAL persistence.
+
         #### Related
+
         - [Use the HTTP API and client libraries to write data](/influxdb3/enterprise/write-data/api-client-libraries/)
         - [Data durability](/influxdb3/enterprise/reference/internals/durability/)
     PrecisionWriteCompatibility:
@@ -2143,6 +2312,7 @@ components:
       type: string
       description: |
         The precision for unix timestamps in the line protocol batch.
+
         Supported values:
         - `auto` (default): Automatically detects precision based on timestamp magnitude
         - `nanosecond`: Nanoseconds
@@ -2239,6 +2409,7 @@ components:
         - db
         - table
         - tags
+        - fields
     DistinctCacheCreateRequest:
       type: object
       properties:
@@ -2324,6 +2495,7 @@ components:
             The path and filename of the plugin to execute--for example,
             `schedule.py` or `endpoints/report.py`.
             The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+
             The plugin file must implement the trigger interface associated with the trigger's specification.
         node_spec:
           $ref: '#/components/schemas/ApiNodeSpec'
@@ -2337,9 +2509,12 @@ components:
         trigger_specification:
           description: |
             Specifies when and how the processing engine trigger should be invoked.
+
             ## Supported trigger specifications:
+
             ### Cron-based scheduling
             Format: `cron:CRON_EXPRESSION`
+
             Uses extended (6-field) cron format (second minute hour day_of_month month day_of_week):
             ```
             ┌───────────── second (0-59)
@@ -2355,8 +2530,10 @@ components:
             - `cron:0 0 6 * * 1-5` - Every weekday at 6:00 AM
             - `cron:0 30 14 * * 5` - Every Friday at 2:30 PM
             - `cron:0 0 0 1 * *` - First day of every month at midnight
-            ### Interval-based scheduling  
+
+            ### Interval-based scheduling
             Format: `every:DURATION`
+
             Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years):
             - `every:30s` - Every 30 seconds
             - `every:5m` - Every 5 minutes
@@ -2365,12 +2542,16 @@ components:
             - `every:1w` - Every week
             - `every:1M` - Every month
             - `every:1y` - Every year
+
             **Maximum interval**: 1 year
+
             ### Table-based triggers
             - `all_tables` - Triggers on write events to any table in the database
             - `table:TABLE_NAME` - Triggers on write events to a specific table
+
             ### On-demand triggers
             Format: `request:REQUEST_PATH`
+
             Creates an HTTP endpoint `/api/v3/engine/REQUEST_PATH` for manual invocation:
             - `request:hello-world` - Creates endpoint `/api/v3/engine/hello-world`
             - `request:data-export` - Creates endpoint `/api/v3/engine/data-export`
@@ -2695,6 +2876,7 @@ components:
     BadRequest:
       description: |
         Request failed. Possible reasons:
+
           - Invalid database name
           - Malformed request body
           - Invalid timestamp precision
@@ -2732,24 +2914,34 @@ components:
       scheme: basic
       description: |
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
+
         Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints in InfluxDB 3.
+
         When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
         and ignores the `username` part of the decoded credential.
+
         ### Syntax
+
         ```http
         Authorization: Basic <base64-encoded [USERNAME]:AUTH_TOKEN>
         ```
+
         ### Example
+
         ```bash
         curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s" \
           --user "":"AUTH_TOKEN" \
           --header "Content-type: text/plain; charset=utf-8" \
           --data-binary 'home,room=kitchen temp=72 1641024000'
         ```
+
         Replace the following:
+
         - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
         - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+
         #### Related guides
+
         - [Authenticate v1 API requests](/influxdb3/enterprise/guides/api-compatibility/v1/)
         - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
     QuerystringAuthentication:
@@ -2758,23 +2950,32 @@ components:
       name: u=&p=
       description: |
         Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
+
         Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints.
+
         When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
         and ignores the `u` (_username_) query parameter.
+
         ### Syntax
+
         ```http
         https://localhost:8181/query/?[u=any]&p=AUTH_TOKEN
         https://localhost:8181/write/?[u=any]&p=AUTH_TOKEN
         ```
+
         ### Examples
+
         ```bash
         curl "http://localhost:8181/write?db=DATABASE_NAME&precision=s&p=AUTH_TOKEN" \
           --header "Content-type: text/plain; charset=utf-8" \
           --data-binary 'home,room=kitchen temp=72 1641024000'
         ```
+
         Replace the following:
+
         - **`DATABASE_NAME`**: your InfluxDB 3 Enterprise database
         - **`AUTH_TOKEN`**: an admin token or database token authorized for the database
+
         ```bash
         #######################################
         # Use an InfluxDB 1.x compatible username and password
@@ -2783,15 +2984,20 @@ components:
         # Use authentication query parameters:
         #   ?p=AUTH_TOKEN
         #######################################
+
         curl --get "http://localhost:8181/query" \
           --data-urlencode "p=AUTH_TOKEN" \
           --data-urlencode "db=DATABASE_NAME" \
           --data-urlencode "q=SELECT * FROM MEASUREMENT"
         ```
+
         Replace the following:
+
         - **`DATABASE_NAME`**: the database to query
         - **`AUTH_TOKEN`**: a database token with sufficient permissions to the database
+
         #### Related guides
+
         - [Authenticate v1 API requests](/influxdb3/enterprise/guides/api-compatibility/v1/)
         - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
     BearerAuthentication:
@@ -2799,16 +3005,23 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: |
+
         Use the OAuth Bearer authentication
         scheme to provide an authorization token to InfluxDB 3.
+
         Bearer authentication works with all endpoints.
+
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Bearer` followed by a space and a database token.
+
         ### Syntax
+
         ```http
         Authorization: Bearer AUTH_TOKEN
         ```
+
         ### Example
+
         ```bash
         curl http://localhost:8181/api/v3/query_influxql \
           --header "Authorization: Bearer AUTH_TOKEN"
@@ -2816,26 +3029,51 @@ components:
     TokenAuthentication:
       description: |
         Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+
         The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.
         The word `Token` is case-sensitive.
+
         ### Syntax
+
         ```http
         Authorization: Token AUTH_TOKEN
         ```
+
         ### Example
+
         ```sh
         ########################################################
         # Use the Token authentication scheme with /api/v2/write
         # to write data.
         ########################################################
+
         curl --request post "http://localhost:8181/api/v2/write?bucket=DATABASE_NAME&precision=s" \
           --header "Authorization: Token AUTH_TOKEN" \
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
+
         ### Related guides
+
         - [Manage tokens](/influxdb3/enterprise/admin/tokens/)
       in: header
       name: Authorization
       type: apiKey
+x-tagGroups:
+  - name: Using the InfluxDB HTTP API
+    tags:
+      - Quick start
+      - Authentication
+      - Cache data
+      - Common parameters
+      - Response codes
+      - Compatibility endpoints
+      - Database
+      - Processing engine
+      - Server information
+      - Table
+      - Token
+      - Query data
+      - Write data

@@ -1,7 +1,9 @@
 {{- $cli := .Get "cli" | default false }}
 {{- $productPathData := split .Page.RelPermalink "/" -}}
-{{- $parsedProduct := index $productPathData 1 | default "influxdb" -}}
-{{- $parsedVersion := index $productPathData 2 -}}
+{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
+{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
+{{- $parsedProduct := index $productPathData (add $pathOffset 1) | default "influxdb" -}}
+{{- $parsedVersion := index $productPathData (add $pathOffset 2) -}}
 {{- $productArg := .Get "product" | default "" -}}
 {{- $versionArg := .Get "version" | default "" -}}
 {{- $product := cond (gt (len $productArg) 0) $productArg $parsedProduct -}}
