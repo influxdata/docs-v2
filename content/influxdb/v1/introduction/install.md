@@ -222,6 +222,11 @@ docker run -p 8086:8086 \
   influxdb:{{< latest-patch >}}
 ```
 
+#### Kubernetes with Helm
+
+For Kubernetes deployments, InfluxData provides Helm charts.
+See the [influxdb Helm chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb) for InfluxDB v1-specific configuration options and installation instructions.
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
