@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6758/light-theme.ae22f89456cf2723bbe6f5a082169042ab4cf2b99f8e2498ae67b0821952752c.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6758/light-theme.e7ff0ff9cc3d7d2fd73e859ed9494ec21d3659ed891080bf95bef6b24efb7d4c.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6758/dark-theme.ded27951f9731aef4890f8beae8fc4c5c79e65fbf9ee9a83d43fbc00d01eb7e3.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6758/dark-theme.103fb40c650cdfb934a059efb6c1252d373c64241478310d991f00398d5edc15.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6758/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-21 13:35:52 -0600 -0600">
+<meta name="last-modified" content="2026-01-24 17:56:07 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2878,7 +2878,7 @@ example: <code>cpuset</code> or <code>cpu.shares</code>.</p>
 </div>
 <h2 id="upgrade-from-influxdb-3-core">Upgrade from InfluxDB 3 Core</h2>
 <p>If you&rsquo;re running InfluxDB 3 Core and want to upgrade to InfluxDB 3 Enterprise,
-follow these instructions. Your existing data is compatible with Enterprise&ndash;no
+follow these instructions. Your existing data and plugins are compatible with Enterprise&ndash;no
 data migration is required.</p>
 
 <div class="block warning">
@@ -2898,7 +2898,7 @@ before upgrading. For more information, see <a href="/influxdb3/core/admin/backu
 </li>
 <li>
 <p><strong>Note your current configuration</strong>: Record your Core startup options,
-including <code>--data-dir</code>, <code>--object-store</code>, and any other configuration.
+including <code>--data-dir</code>, <code>--object-store</code>, <code>--plugin-dir</code>, and any other configuration.
 You&rsquo;ll use the same data directory with Enterprise.</p>
 </li>
 <li>
@@ -3051,8 +3051,9 @@ After starting the container, check your email and click the verification link.<
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- --<span class="l">object-store=file</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- --<span class="l">data-dir=/var/lib/influxdb3/data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Use the same paths as Core</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">~/.influxdb3/data </span><span class="w"> </span><span class="c"># Same path as Core</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">~/.influxdb3/data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/influxdb3/data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">~/.influxdb3/plugins</span><span class="w">
@@ -3077,6 +3078,7 @@ After starting the container, check your email and click the verification link.<
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl stop influxdb3-core</span></span></code></pre></div>
 <h4 id="install-influxdb-3-enterprise">Install InfluxDB 3 Enterprise</h4>
+<p>First, remove the Core package (this doesn&rsquo;t remove your data or configuration):</p>
 <div class="expand-wrapper">
 <div class="expand" id="deb-based-systems-debian-ubuntu">
   <a class="expand-link" href="#deb-based-systems-debian-ubuntu"><span class="cf-icon Link"></span></a>
@@ -3085,7 +3087,9 @@ After starting the container, check your email and click the verification link.<
   </p>
   <div class="expand-content" style="display: none;" >
       <!-- pytest.mark.skip -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get install influxdb3-enterprise</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo apt-get remove influxdb3-core  <span class="c1"># doesn&#39;t remove /var/lib/influxdb3 or /etc/influxdb3</span>
+</span></span><span class="line"><span class="cl">sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get install influxdb3-enterprise</span></span></code></pre></div>
   </div>
 </div>
 <div class="expand" id="rpm-based-systems-rhel-centos-fedora">
@@ -3095,28 +3099,34 @@ After starting the container, check your email and click the verification link.<
   </p>
   <div class="expand-content" style="display: none;" >
       <!-- pytest.mark.skip -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yum install influxdb3-enterprise</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># RHEL/CentOS/Fedora</span>
+</span></span><span class="line"><span class="cl">sudo yum remove influxdb3-core  <span class="c1"># doesn&#39;t remove /var/lib/influxdb3 or /etc/influxdb3</span>
+</span></span><span class="line"><span class="cl">sudo yum install influxdb3-enterprise</span></span></code></pre></div>
   </div>
 </div>
 </div>
-
-<div class="block note">
-  
-  
-  <p>The Core and Enterprise packages share the same data directory
-(<code>/var/lib/influxdb3/data</code>) but use different configuration files and
-systemd unit names. The packages are not coinstallable&ndash;installing Enterprise
-doesn&rsquo;t remove Core, but you should only run one at a time.</p>
-</div>
 <h4 id="configure-influxdb-3-enterprise">Configure InfluxDB 3 Enterprise</h4>
-<p>Copy your Core configuration to the Enterprise configuration file and add
-Enterprise-specific options:</p>
-<!-- pytest.mark.skip -->
+<ol>
+<li>
+<p>Copy relevant settings from your Core configuration:</p>
+ <!-- pytest.mark.skip -->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Copy relevant settings from Core config</span>
-</span></span><span class="line"><span class="cl">sudo cp /etc/influxdb3/influxdb3-core.conf /etc/influxdb3/influxdb3-enterprise.conf</span></span></code></pre></div>
-<p>Edit <code>/etc/influxdb3/influxdb3-enterprise.conf</code> to add Enterprise-specific options:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp /etc/influxdb3/influxdb3-core.conf /etc/influxdb3/influxdb3-enterprise.conf</span></span></code></pre></div>
+</li>
+<li>
+<p>Add Enterprise-specific settings after the <code>[general]</code> section:</p>
+<ul>
+<li><code>cluster-id</code>: Set the <a href="/influxdb3/enterprise/reference/glossary/#cluster">cluster</a> ID. The example uses <code>primary-cluster</code> which is the DEB/RPM installation default (equivalent to running <code>influxdb3 serve</code> without the <code>--cluster-id</code> option)</li>
+<li><code>license-email</code>: Set to your email address</li>
+</ul>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo sed -i <span class="s1">&#39;/\[general\]/a cluster-id = &#34;primary-cluster&#34;\nlicense-email = &#34;your-email@example.com&#34;&#39;</span> /etc/influxdb3/influxdb3-enterprise.conf</span></span></code></pre></div>
+</li>
+<li>
+<p>Verify <code>/etc/influxdb3/influxdb3-enterprise.conf</code> to ensure the settings were added correctly, and update the license email to your actual email address:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Existing settings from Core</span>
@@ -3125,9 +3135,11 @@ Enterprise-specific options:</p>
 </span></span><span class="line"><span class="cl"><span class="nx">data-dir</span> <span class="p">=</span> <span class="s2">&#34;/var/lib/influxdb3/data&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">plugin-dir</span> <span class="p">=</span> <span class="s2">&#34;/var/lib/influxdb3/plugins&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c"># Add Enterprise-specific settings</span>
-</span></span><span class="line"><span class="cl"><span class="nx">cluster-id</span> <span class="p">=</span> <span class="s2">&#34;cluster0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Verify Enterprise-specific settings</span>
+</span></span><span class="line"><span class="cl"><span class="nx">cluster-id</span> <span class="p">=</span> <span class="s2">&#34;primary-cluster&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">license-email</span> <span class="p">=</span> <span class="s2">&#34;your-email@example.com&#34;</span></span></span></code></pre></div>
+</li>
+</ol>
 <h4 id="start-influxdb-3-enterprise">Start InfluxDB 3 Enterprise</h4>
 <!-- pytest.mark.skip -->
 
@@ -3140,12 +3152,6 @@ Enterprise-specific options:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">journalctl --unit influxdb3-enterprise -f</span></span></code></pre></div>
 <p>After starting, check your email and click the verification link to activate
 your license.</p>
-<h4 id="optional-disable-core-service">(Optional) Disable Core service</h4>
-<p>To prevent accidentally starting Core:</p>
-<!-- pytest.mark.skip -->
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl disable influxdb3-core</span></span></code></pre></div>
 <!------------------------------- END DEB/RPM --------------------------------->
 
 </section>
@@ -3519,9 +3525,26 @@ from Trial to At-Home, or from Trial to Commercial&ndash;follow these steps.</p>
 <p>To switch between Trial and At-Home licenses (or to reset a Trial license),
 you need to remove the existing license file so the server prompts you to
 select a new license type.</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">Quick install (Linux/macOS)</a>
+<a href="#">Docker</a>
+<a href="#">DEB/RPM (systemd)</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!---------------------------- BEGIN QUICK INSTALL ---------------------------->
 <ol>
 <li>
-<p><strong>Stop the server.</strong></p>
+<p><strong>Stop the server</strong> (press Ctrl+C or <code>pkill -f &quot;influxdb3 serve&quot;</code>).</p>
 </li>
 <li>
 <p><strong>Back up and remove the existing license file</strong> from your object store.
@@ -3554,17 +3577,6 @@ The license file is stored in your object store at:</p>
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --license-email <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit EMAIL' class='code-placeholder' data-code-var='EMAIL' data-code-var-value='EMAIL' data-code-var-escaped="EMAIL">EMAIL<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ... other options</span></span></span></code></pre></div>
-<p>Or with Docker:</p>
- <!-- pytest.mark.skip -->
-
-
-  
-  
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXDB3_ENTERPRISE_LICENSE_<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit EMAIL' class='code-placeholder' data-code-var='EMAIL' data-code-var-value='EMAIL' data-code-var-escaped="EMAIL">EMAIL<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit EMAIL' class='code-placeholder' data-code-var='EMAIL' data-code-var-value='EMAIL' data-code-var-escaped="EMAIL">EMAIL<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ... other options</span>
-</span></span><span class="line"><span class="cl">  influxdb:3-enterprise</span></span></code></pre></div>
 </li>
 <li>
 <p><strong>Select the new license type</strong> when prompted (or the server automatically
@@ -3581,6 +3593,133 @@ activates the license associated with your email).</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
 </li>
 </ol>
+<!----------------------------- END QUICK INSTALL ----------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------------ BEGIN DOCKER --------------------------------->
+<ol>
+<li>
+<p><strong>Stop the container:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker stop influxdb3-enterprise</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Back up and remove the existing license file</strong> from your data volume.
+The license file is stored at:</p>
+
+
+  
+  
+  
+  <pre tabindex="0"><code>/var/lib/influxdb3/data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license</code></pre>
+<p>For example:</p>
+ <!-- pytest.mark.skip -->
+
+
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Access the volume and back up the license</span>
+</span></span><span class="line"><span class="cl">docker run --rm -v <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATA_VOLUME' class='code-placeholder' data-code-var='DATA_VOLUME' data-code-var-value='DATA_VOLUME' data-code-var-escaped="DATA_VOLUME">DATA_VOLUME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>:/data alpine <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  mv /data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>     /data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license.bak</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Restart the container</strong> with your license email:</p>
+ <!-- pytest.mark.skip -->
+
+
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXDB3_ENTERPRISE_LICENSE_<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit EMAIL' class='code-placeholder' data-code-var='EMAIL' data-code-var-value='EMAIL' data-code-var-escaped="EMAIL">EMAIL<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit EMAIL' class='code-placeholder' data-code-var='EMAIL' data-code-var-value='EMAIL' data-code-var-escaped="EMAIL">EMAIL<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ... other options</span>
+</span></span><span class="line"><span class="cl">  influxdb:3-enterprise</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Check your email</strong> and click the verification link to activate the license.</p>
+</li>
+<li>
+<p><strong>Verify the new license:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
+</li>
+</ol>
+<!-------------------------------- END DOCKER --------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!----------------------------- BEGIN DEB/RPM --------------------------------->
+<ol>
+<li>
+<p><strong>Stop the server:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl stop influxdb3-enterprise</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Back up and remove the existing license file</strong> from your data directory.
+The license file is stored at:</p>
+
+
+  
+  
+  
+  <pre tabindex="0"><code>/var/lib/influxdb3/data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license</code></pre>
+<p>For example:</p>
+ <!-- pytest.mark.skip -->
+
+
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Back up the license file</span>
+</span></span><span class="line"><span class="cl">sudo mv /var/lib/influxdb3/data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        /var/lib/influxdb3/data/<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit CLUSTER_ID' class='code-placeholder' data-code-var='CLUSTER_ID' data-code-var-value='CLUSTER_ID' data-code-var-escaped="CLUSTER_ID">CLUSTER_ID<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>/trial_or_home_license.bak</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Update the license email</strong> in your configuration file:</p>
+<p>Edit <code>/etc/influxdb3/influxdb3-enterprise.conf</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">license-email</span> <span class="p">=</span> <span class="s2">&#34;new-email@example.com&#34;</span></span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Restart the server:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl start influxdb3-enterprise</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Check your email</strong> and click the verification link to activate the license.</p>
+</li>
+<li>
+<p><strong>Verify the new license:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
+</li>
+</ol>
+<!------------------------------- END DEB/RPM --------------------------------->
+
+</section>
+
+
+</div>
+
 <h3 id="change-to-a-commercial-license">Change to a Commercial license</h3>
 <p>To upgrade to a Commercial license from any other license type:</p>
 <ol>
@@ -3596,15 +3735,37 @@ a Commercial license file. Provide:</p>
 <p><strong>Stop the server.</strong></p>
 </li>
 <li>
-<p><strong>Start the server with the commercial license file:</strong></p>
- <!-- pytest.mark.skip -->
+<p><strong>Start the server with the commercial license file.</strong></p>
+</li>
+</ol>
+<p>The commercial license takes precedence over any existing trial or at-home
+license in your object store.</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">Quick install (Linux/macOS)</a>
+<a href="#">Docker</a>
+<a href="#">DEB/RPM (systemd)</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!---------------------------- BEGIN QUICK INSTALL ---------------------------->
+<p>Start the server with the <code>--license-file</code> option:</p>
+<!-- pytest.mark.skip -->
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  --license-file /path/to/commercial-license.jwt <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ... other options</span></span></span></code></pre></div>
 <p>Or set the environment variable:</p>
- <!-- pytest.mark.skip -->
+<!-- pytest.mark.skip -->
 
 
   
@@ -3612,8 +3773,62 @@ a Commercial license file. Provide:</p>
   
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit INFLUXDB3_ENTERPRISE_LICENSE_FILE' class='code-placeholder' data-code-var='INFLUXDB3_ENTERPRISE_LICENSE_FILE' data-code-var-value='INFLUXDB3_ENTERPRISE_LICENSE_FILE' data-code-var-escaped="INFLUXDB3_ENTERPRISE_LICENSE_FILE">INFLUXDB3_ENTERPRISE_LICENSE_FILE<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="o">=</span>/path/to/commercial-license.jwt
 </span></span><span class="line"><span class="cl">influxdb3 serve <span class="c1"># ... other options</span></span></span></code></pre></div>
-<p>The commercial license takes precedence over any existing trial or at-home
-license in your object store.</p>
+<p>Verify the new license:</p>
+<!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
+<!----------------------------- END QUICK INSTALL ----------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------------ BEGIN DOCKER --------------------------------->
+<p>Mount the license file and set the environment variable:</p>
+<!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /path/to/commercial-license.jwt:/license.jwt:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">INFLUXDB3_ENTERPRISE_LICENSE_FILE</span><span class="o">=</span>/license.jwt <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ... other options</span>
+</span></span><span class="line"><span class="cl">  influxdb:3-enterprise</span></span></code></pre></div>
+<p>Verify the new license:</p>
+<!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
+<!-------------------------------- END DOCKER --------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!----------------------------- BEGIN DEB/RPM --------------------------------->
+<ol>
+<li>
+<p><strong>Copy the license file</strong> to the server:</p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp /path/to/commercial-license.jwt /etc/influxdb3/license.jwt
+</span></span><span class="line"><span class="cl">sudo chown influxdb3:influxdb3 /etc/influxdb3/license.jwt
+</span></span><span class="line"><span class="cl">sudo chmod <span class="m">600</span> /etc/influxdb3/license.jwt</span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Update the configuration</strong> to use the license file:</p>
+<p>Edit <code>/etc/influxdb3/influxdb3-enterprise.conf</code>:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">license-file</span> <span class="p">=</span> <span class="s2">&#34;/etc/influxdb3/license.jwt&#34;</span></span></span></code></pre></div>
+</li>
+<li>
+<p><strong>Start the server:</strong></p>
+ <!-- pytest.mark.skip -->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl start influxdb3-enterprise</span></span></code></pre></div>
 </li>
 <li>
 <p><strong>Verify the new license:</strong></p>
@@ -3623,6 +3838,13 @@ license in your object store.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 show license --host http://localhost:8181</span></span></code></pre></div>
 </li>
 </ol>
+<!------------------------------- END DEB/RPM --------------------------------->
+
+</section>
+
+
+</div>
+
 <h2 id="renew-a-license">Renew a license</h2>
 <p>To renew an InfluxDB 3 Enterprise Commercial license, contact
 <a href="https://influxdata.com/contact-sales/">InfluxData Sales</a>.</p>
