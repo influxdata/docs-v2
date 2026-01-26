@@ -12,17 +12,14 @@
   <div class="plugin-card filter-item visible{{ if eq $minorVer $latestTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ lower $osTags }} {{ if eq $minorVer $latestTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
     <div class="info">
       <h3 id="{{ $type }}-{{ .id }}">{{ .name }}</h3>
-      {{ if in .tags "external"}}
-        <a class="external" href="{{ $externalPluginLink }}">External</a>
-      {{ end }}
       <p class="meta">
         Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
         Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}
       </p>
       <p>{{ .description | markdownify | safeHTML }}</p>
     </div>
-    <a class="btn github-link" href="{{ if .link }}{{ .link }}{{ else }}https://github.com/influxdata/telegraf/blob/release-{{ $latestTelegrafVersion }}/plugins/{{ $type }}s/{{ .id }}/README.md{{ end }}" target="_blank">
-      <span class="icon-github"></span> <span class="hide">View</span>
+    <a class="btn plugin-link" href="{{ if .link }}{{ .link }}{{ else }}/telegraf/v1/{{ $type }}-plugins/{{ .id }}/{{ end }}">
+      <span class="hide">View</span>
     </a>
   </div>
 {{ end }}
