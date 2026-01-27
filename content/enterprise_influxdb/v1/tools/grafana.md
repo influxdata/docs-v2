@@ -10,6 +10,8 @@ menu:
 related:
   - /flux/v0/get-started/, Get started with Flux
   - https://grafana.com/docs/, Grafana documentation
+aliases:
+  - /enterprise_influxdb/v1/visualize-data/grafana/
 alt_links:
   core: /influxdb3/core/visualize-data/grafana/
   enterprise: /influxdb3/enterprise/visualize-data/grafana/
@@ -23,7 +25,7 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB Enterprise** cluster.
 
 > [!Note]
-> {{< influxdb-version-detector >}}
+> {{< influxdb-version-detector context="grafana" >}}
 
 > [!Note]
 > #### Required
