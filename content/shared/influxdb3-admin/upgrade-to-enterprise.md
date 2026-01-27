@@ -1,5 +1,5 @@
 
-Upgrade from InfluxDB 3 Core to {{% product-name %}}.
+Upgrade from InfluxDB 3 Core to InfluxDB 3 Enterprise.
 Your existing data and plugins are compatible with Enterprise--no data migration is required.
 
 - [Before you begin](#before-you-begin)
@@ -8,7 +8,7 @@ Your existing data and plugins are compatible with Enterprise--no data migration
 > [!Warning]
 > #### Downgrading is not supported
 >
-> After upgrading to {{% product-name %}}, you cannot downgrade back to
+> After upgrading to InfluxDB 3 Enterprise, you cannot downgrade back to
 > InfluxDB 3 Core. Enterprise makes catalog changes that are incompatible with Core.
 > To revert to Core, you must restore from a backup taken before the upgrade.
 >
@@ -28,7 +28,7 @@ Your existing data and plugins are compatible with Enterprise--no data migration
    If you use a cloud object store (S3, Azure, or Google Cloud Storage), see
    [Configure object storage](/influxdb3/enterprise/admin/object-storage/).
 
-3. **Choose a license type**: Decide which {{% product-name %}} license you need:
+3. **Choose a license type**: Decide which InfluxDB 3 Enterprise license you need:
    - **Trial**: 30-day full-featured trial
    - **At-Home**: Free for hobbyist use (2 CPU limit, single-node only)
    - **Commercial**: For production and commercial use
