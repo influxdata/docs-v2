@@ -51,10 +51,12 @@ exclude = [
   # TODO: Remove after fixing canonical URL generation or link-checker domain replacement
   "^https://docs\\.influxdata\\.com/",
 
-  # Local file URLs with fragments (workaround for link-checker Hugo pretty URL bug)
-  # link-checker converts /path/to/page#fragment to file:///path/to/page#fragment
-  # but the actual file is at /path/to/page/index.html, causing false fragment errors
-  # TODO: Remove after fixing link-checker to handle Hugo pretty URLs with fragments
+  # Local file URLs with fragments — lychee resolves /path/to/page#fragment to
+  # file:///path/to/page#fragment, but the actual file is at /path/to/page/index.html.
+  # This causes false "Cannot find file" errors for valid pages with Hugo pretty URLs.
+  # NOTE: This also means lychee CANNOT validate fragments on local files.
+  # Fragment validation for internal links is a known gap (lychee doesn't open
+  # index.html to check heading anchors).
   "^file://.*#",
 
   # Common documentation placeholders
@@ -110,6 +112,8 @@ max_execution_time_minutes = 10
 
 [reporting]
 # Report configuration
+# NOTE: lychee's --include-fragments does not validate fragments on local file
+# URLs. It only works for HTTP responses. Set to false to avoid confusion.
 include_fragments = false
 verbose = false
 no_progress = true  # Disable progress bar in CI
