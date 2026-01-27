@@ -1,10 +1,10 @@
 extends: substitution
 message: Use '%s' instead of '%s'
 level: warning
-ignorecase: false 
+ignorecase: false
 # swap maps tokens in form of bad: good
-  # NOTE: The left-hand (bad) side can match the right-hand (good) side;
-  # Vale ignores alerts that match the intended form.
+# NOTE: The left-hand (bad) side can match the right-hand (good) side;
+# Vale ignores alerts that match the intended form.
 swap:
   'the compactor': the Compactor
   'dedupe': deduplicate
