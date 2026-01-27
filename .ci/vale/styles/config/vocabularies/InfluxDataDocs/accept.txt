@@ -17,7 +17,7 @@ ExecutionPlan
 Flight SQL
 FlightQuery
 GBs?
-Grafana|\{\{.*grafana.*\}\}
+(?i)Grafana|\{\{.*grafana.*\}\}
 HostURL
 [Hh]ardcod(e|ed|es|ing)
 InfluxDB Cloud
