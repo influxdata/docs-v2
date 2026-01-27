@@ -85,6 +85,8 @@ warning_codes = [500, 502, 503, 504]
 info_codes = [401, 403, 429]
 
 # Set to true to treat warnings as errors (stricter validation)
+# NOTE: Missing local files (file-not-found) have no HTTP status code and
+# default to "warning" severity. The workflow reclassifies these as errors.
 strict = false
 
 [ci]

@@ -179,6 +179,25 @@ jobs:
             TOTAL_COUNT=$(jq -r '.summary.total_checked // 0' link-check-results.json)
             SUCCESS_RATE=$(jq -r '.summary.success_rate // 0' link-check-results.json)
 
+            # Reclassify file-not-found warnings as errors
+            # link-checker classifies missing local files as warnings (no HTTP status code),
+            # but these represent genuinely broken internal links and should fail CI.
+            FILE_NOT_FOUND_COUNT=$(jq '[.warnings[] | select(.error | test("Cannot find file"))] | length' link-check-results.json 2>/dev/null || echo 0)
+            if [[ $FILE_NOT_FOUND_COUNT -gt 0 ]]; then
+              echo "⚠️ Found $FILE_NOT_FOUND_COUNT missing local file(s) — reclassifying as errors"
+              # Move file-not-found entries from warnings to errors
+              jq '
+                .errors += [.warnings[] | select(.error | test("Cannot find file")) | .severity = "error"]
+                | .warnings = [.warnings[] | select(.error | test("Cannot find file") | not)]
+                | .summary.error_count = (.errors | length)
+                | .summary.warning_count = (.warnings | length)
+              ' link-check-results.json > link-check-results-fixed.json
+              mv link-check-results-fixed.json link-check-results.json
+
+              ERROR_COUNT=$(jq -r '.summary.error_count // 0' link-check-results.json)
+              WARNING_COUNT=$(jq -r '.summary.warning_count // 0' link-check-results.json)
+            fi
+
             echo "error-count=$ERROR_COUNT" >> $GITHUB_OUTPUT
             echo "warning-count=$WARNING_COUNT" >> $GITHUB_OUTPUT
             echo "total-count=$TOTAL_COUNT" >> $GITHUB_OUTPUT
