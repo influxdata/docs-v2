@@ -15,7 +15,7 @@ alt_links:
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
 _**If you haven't already, make sure to install InfluxDB v1.8+, [enable Flux](/influxdb/v1/flux/installation),
-and choose a [tool for writing Flux queries](/influxdb/v1/flux/get-started#tools-for-working-with-fluxxx).**_
+and choose a [tool for writing Flux queries](/influxdb/v1/flux/get-started#tools-for-working-with-flux).**_
 
 Every Flux query needs the following:
 
