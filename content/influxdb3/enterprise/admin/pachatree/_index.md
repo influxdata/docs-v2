@@ -39,7 +39,7 @@ these improvements will be coming to InfluxDB 3 Core in subsequent release cycle
 - **Wide-and-sparse table support**: Handle schemas with up to hundres of thousands of
   columns and dynamic schema evolution without expensive rewrites.
 - **Automatic distinct value caches**: Dramatically reduced latency for metadata
-  queries like "show tag values."
+  queries like `SHOW TAG VALUES` in InfluxQL.
 
 ## Enable the preview
 
