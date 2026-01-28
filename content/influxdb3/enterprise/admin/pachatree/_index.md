@@ -39,7 +39,7 @@ these improvements will be coming to InfluxDB 3 Core in subsequent release cycle
 - **Wide-and-sparse table support**: Handles schemas with up to hundreds of
   thousands of columns and dynamic schema evolution without expensive rewrites.
 - **Automatic distinct value caches**: Dramatically reduced latency for metadata
-  queries like "show tag values."
+  queries like `SHOW TAG VALUES` in InfluxQL.
 
 ## Enable the preview
 
@@ -70,11 +70,11 @@ Your feedback on stability and speed at scale helps inform the development of
 features planned for general availability in the 3.10 and 3.11 releases.
 
 > [!Important]
-> #### Upgraded file format
-> These upgrades use a new file format (`.pt` files). When you enable the
-> preview, your existing data is automatically converted to the new format
-> in place. While you can downgrade, any data written after the upgrade is
-> not available after downgrading.
+> #### Important: Upgraded file format
+> These upgrades use an upgraded file format (`.pt` files). When you enable the preview,
+> your existing data is automatically upgraded to the new format in place.
+> While downgrading is possible, any data written after the upgrade will not
+> be included in the downgrade.
 >
 > Systems with large amounts of data may take longer to complete the
 > conversion. For the beta, we recommend starting with a fresh setup for
