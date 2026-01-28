@@ -363,10 +363,10 @@ influxdb3 serve \
 
 ### Development (minimal resources)
 
-```bash
+```bash { placeholders="dev01|dev-cluster"}
 influxdb3 serve \
   --node-id dev01 \
-  --cluster-id dev \
+  --cluster-id dev-cluster \
   --object-store file \
   --data-dir ~/.influxdb3 \
   --use-pacha-tree \
@@ -378,12 +378,12 @@ influxdb3 serve \
 
 ### Production all-in-one (8 cores, 32 GB RAM)
 
-```bash
+```bash { placeholders="prod01|prod-cluster|S3_BUCKET|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"}
 influxdb3 serve \
   --node-id prod01 \
-  --cluster-id prod \
+  --cluster-id prod-cluster \
   --object-store s3 \
-  --bucket YOUR_BUCKET \
+  --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
@@ -397,12 +397,12 @@ influxdb3 serve \
 
 ### High-throughput ingest node
 
-```bash
+```bash { placeholders="ingest01|prod-cluster|S3_BUCKET|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"}
 influxdb3 serve \
   --node-id ingest01 \
-  --cluster-id prod \
+  --cluster-id prod-cluster \
   --object-store s3 \
-  --bucket YOUR_BUCKET \
+  --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
@@ -416,12 +416,12 @@ influxdb3 serve \
 
 ### Query-optimized node
 
-```bash
+```bash { placeholders="query01|prod-cluster|S3_BUCKET|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"}
 influxdb3 serve \
   --node-id query01 \
-  --cluster-id prod \
+  --cluster-id prod-cluster \
   --object-store s3 \
-  --bucket YOUR_BUCKET \
+  --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \
@@ -435,12 +435,12 @@ influxdb3 serve \
 
 ### Dedicated compactor
 
-```bash
+```bash { placeholders="compact01|prod-cluster|S3_BUCKET|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"}
 influxdb3 serve \
   --node-id compact01 \
-  --cluster-id prod \
+  --cluster-id prod-cluster \
   --object-store s3 \
-  --bucket YOUR_BUCKET \
+  --bucket S3_BUCKET \
   --aws-access-key-id AWS_ACCESS_KEY_ID \
   --aws-secret-access-key AWS_SECRET_ACCESS_KEY \
   --use-pacha-tree \

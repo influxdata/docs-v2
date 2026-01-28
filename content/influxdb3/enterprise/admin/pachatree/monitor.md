@@ -119,6 +119,9 @@ curl -X GET "http://localhost:8181/api/v3/query_sql_telemetry" \
   -H "Authorization: Bearer AUTH_TOKEN"
 ```
 
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}
+with your {{% token-link %}}.
+
 ### Telemetry response
 
 The response includes:
