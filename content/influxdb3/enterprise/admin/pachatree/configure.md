@@ -104,7 +104,7 @@ influxdb3 serve \
 
 ## WAL configuration
 
-Configure Write-Ahead Log behavior for durability and performance.
+Configure Write-Ahead Log (WAL) behavior for durability and performance.
 
 | Option | Description | Default |
 |:-------|:------------|:--------|
