@@ -21,8 +21,12 @@ related:
 > #### Private preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
 > and Commercial users as a private beta. These features are subject to breaking changes
-> and **should not be used for production workloads**. Your feedback on stability
+> and **should not be used for production workloads**.
+>
+> To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
+> Your feedback on stability
 > and performance at scale helps shape the future of InfluxDB 3.
+
 
 This page provides a complete reference for all configuration options available
 with these performance upgrades. All options require the `--use-pacha-tree` flag.
@@ -54,7 +58,7 @@ Control how the upgraded storage uses memory for buffers, caches, and processing
 | `--pt-wal-max-buffer-size` | Maximum WAL buffer size before flush | `15MB` |
 | `--pt-snapshot-max-unmerged-size` | Unmerged data threshold for snapshot | `500MB` |
 | `--pt-merge-threshold-size` | Size threshold to trigger merge | `125MB` |
-| `--pt-replica-max-buffer-size` | Query node buffer maximum | 50% system memory (max 16GB) |
+| `--pt-replica-max-buffer-size` | Query node buffer maximum | 50% system memory (max 16 GB) |
 
 ### WAL buffer size
 
@@ -372,7 +376,7 @@ influxdb3 serve \
   --pt-compactor-concurrency 2
 ```
 
-### Production all-in-one (8 cores, 32GB RAM)
+### Production all-in-one (8 cores, 32 GB RAM)
 
 ```bash
 influxdb3 serve \

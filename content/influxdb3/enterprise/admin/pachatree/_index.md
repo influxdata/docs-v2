@@ -22,7 +22,10 @@ related:
 > #### Private preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
 > and Commercial users as a private beta. These features are subject to breaking changes
-> and **should not be used for production workloads**. Your feedback on stability
+> and **should not be used for production workloads**.
+>
+> To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
+> Your feedback on stability
 > and performance at scale helps shape the future of InfluxDB 3.
 
 {{% product-name %}} includes a private preview of major performance and
@@ -36,8 +39,8 @@ these improvements will be coming to InfluxDB 3 Core in subsequent release cycle
   trends over long time windows, with single-digit millisecond response times.
 - **Consistent resource usage**: Reduced CPU and memory spikes during heavy
   compaction or ingestion bursts through key-range partitioning.
-- **Wide-and-sparse table support**: Handle schemas with up to hundres of thousands of
-  columns and dynamic schema evolution without expensive rewrites.
+- **Wide-and-sparse table support**: Handles schemas with up to hundreds of
+  thousands of columns and dynamic schema evolution without expensive rewrites.
 - **Automatic distinct value caches**: Dramatically reduced latency for metadata
   queries like `SHOW TAG VALUES` in InfluxQL.
 
@@ -71,13 +74,15 @@ features planned for general availability in the 3.10 and 3.11 releases.
 
 > [!Important]
 > #### Important: Upgraded file format
-> These upgrades use an upgraded file format (`.pt` files). When you enable the preview,
+>
+> These upgrades use a new file format (`.pt` files).
+> When you enable the preview,
 > your existing data is automatically upgraded to the new format in place.
 > While downgrading is possible, any data written after the upgrade will not
 > be included in the downgrade.
 >
-> Systems with large amounts of data may take time to complete the upgrade.
-> For the beta, we recommend using a fresh setup for testing and evaluation
-> rather than upgrading existing data.
+> Systems with large amounts of data may take longer to complete the
+> conversion. For the beta, we recommend starting with a fresh setup for
+> testing and evaluation rather than converting existing data.
 
 {{< children hlevel="h2" readmore=true hr=true >}}
