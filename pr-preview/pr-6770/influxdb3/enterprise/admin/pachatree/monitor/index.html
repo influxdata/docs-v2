@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-27 16:40:16 -0500 -0500">
+<meta name="last-modified" content="2026-01-28 12:42:29 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2825,7 +2825,9 @@
   <h4 id="private-preview-beta">Private preview beta</h4>
 <p>The performance upgrade preview is available to InfluxDB 3 Enterprise Trial
 and Commercial users as a private beta. These features are subject to breaking changes
-and <strong>should not be used for production workloads</strong>. Your feedback on stability
+and <strong>should not be used for production workloads</strong>.</p>
+<p>To share feedback on this preview, see <a href="#bug-reports-and-feedback">Support and feedback options</a>.
+Your feedback on stability
 and performance at scale helps shape the future of InfluxDB 3.</p>
 </div>
 <p>InfluxDB 3 Enterprise provides system tables and a query telemetry endpoint to
@@ -2959,8 +2961,11 @@ analyzing query performance.</p>
 <p>Query the telemetry endpoint after executing a query:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;http://localhost:8181/api/v3/query_sql_telemetry&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer YOUR_TOKEN&#34;</span></span></span></code></pre></div>
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;http://localhost:8181/api/v3/query_sql_telemetry&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
 <h3 id="telemetry-response">Telemetry response</h3>
 <p>The response includes:</p>
 <table>
@@ -3063,8 +3068,8 @@ analyzing query performance.</p>
       </tr>
       <tr>
           <td style="text-align: left">Unmerged size</td>
-          <td style="text-align: left">&lt;500MB</td>
-          <td style="text-align: left">&gt;1GB</td>
+          <td style="text-align: left">&lt;500 MB</td>
+          <td style="text-align: left">&gt;1 GB</td>
           <td style="text-align: left">Check compaction status</td>
       </tr>
       <tr>
@@ -3846,7 +3851,43 @@ analyzing query performance.</p>
   
   <div id="docs-notifications">
   
-    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+    <div class="notification note min" id="influxdb3.9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/admin/pachatree/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a private preview of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/admin/pachatree/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/%22">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude='/influxdb3/enterprise/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         
