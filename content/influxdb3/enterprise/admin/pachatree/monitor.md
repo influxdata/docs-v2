@@ -20,7 +20,10 @@ related:
 > #### Private preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
 > and Commercial users as a private beta. These features are subject to breaking changes
-> and **should not be used for production workloads**. Your feedback on stability
+> and **should not be used for production workloads**.
+>
+> To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
+> Your feedback on stability
 > and performance at scale helps shape the future of InfluxDB 3.
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to

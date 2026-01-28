@@ -44,35 +44,31 @@
   level: note
   scope:
     - /influxdb3/enterprise/
+  exclude:
+    - /influxdb3/enterprise/admin/pachatree/
   title: 'InfluxDB 3.9: Performance upgrade preview'
   slug: |
     InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
     with faster single-series queries, wide-and-sparse table support, and more.
 
-    <a class="btn" href="/influxdb3/enterprise/admin/pachatree/">Learn More</a>
   message: |
     InfluxDB 3 Enterprise 3.9 includes a private preview of major performance and
-    feature updates. These updates represent the foundation for the upcoming 3.10
-    and 3.11 releases.
+    feature updates.
 
     **Key improvements:**
 
-    - **Faster single-series queries**: Optimized data path with single-digit
-      millisecond response times.
-    - **Consistent resource usage**: Reduced CPU and memory spikes during heavy
-      compaction or ingestion bursts.
-    - **Wide-and-sparse table support**: Handles schemas with up to hundreds of
-      thousands of columns.
-    - **Automatic distinct value caches**: Dramatically reduced latency for metadata
-      queries like "show tag values."
+    - Faster single-series queries
+    - Consistent resource usage
+    - Wide-and-sparse table support
+    - Automatic distinct value caches for reduced latency with metadata queries
 
-    > **Private preview beta**: These features are subject to breaking changes and
-    > should not be used for production workloads.
+    _Preview features are subject to breaking changes._
 
     For more information, see:
 
     - [Performance upgrade preview](/influxdb3/enterprise/admin/pachatree/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
+    - [InfluxData Blog post](https://www.influxdata.com/blog/influxdb-3-9/")
 
 - id: influxdb3.8-explorer-1.6
   level: note

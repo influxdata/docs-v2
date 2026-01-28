@@ -22,7 +22,10 @@ related:
 > #### Private preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
 > and Commercial users as a private beta. These features are subject to breaking changes
-> and **should not be used for production workloads**. Your feedback on stability
+> and **should not be used for production workloads**.
+>
+> To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
+> Your feedback on stability
 > and performance at scale helps shape the future of InfluxDB 3.
 
 {{% product-name %}} includes a private preview of major performance and
@@ -71,7 +74,9 @@ features planned for general availability in the 3.10 and 3.11 releases.
 
 > [!Important]
 > #### Important: Upgraded file format
-> These upgrades use an upgraded file format (`.pt` files). When you enable the preview,
+>
+> These upgrades use a new file format (`.pt` files).
+> When you enable the preview,
 > your existing data is automatically upgraded to the new format in place.
 > While downgrading is possible, any data written after the upgrade will not
 > be included in the downgrade.
