@@ -13,7 +13,8 @@
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2",
-    "tar": "7.5.3"
+    "tar": "7.5.7",
+    "lodash-es": "^4.17.23"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
@@ -97,11 +98,7 @@
     "debug:inspect": "node scripts/puppeteer/inspect-page.js"
   },
   "type": "module",
-  "browserslist": [
-    "last 2 versions",
-    "not dead",
-    "not IE 11"
-  ],
+  "browserslist": ["last 2 versions", "not dead", "not IE 11"],
   "engines": {
     "node": ">=16.0.0"
   },
