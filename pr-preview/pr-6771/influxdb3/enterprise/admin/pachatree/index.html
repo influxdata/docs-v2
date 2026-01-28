@@ -46,10 +46,10 @@
 
 
 
-<title>Monitor the performance upgrade preview in InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
+<title>Performance upgrade preview for InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Use system tables and query telemetry to monitor file status, query execution, and overall performance when using InfluxDB 3 Enterprise performance upgrades.">
+    <meta name="description" content="Preview performance upgrades in InfluxDB 3 Enterprise with improved single-series query performance, consistent resource usage, wide-and-sparse table support, and automatic distinct value caching.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6771/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/monitor/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6771/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-28 08:58:45 -0600 -0600">
+<meta name="last-modified" content="2026-01-28 11:00:06 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -1441,9 +1441,9 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       <a href="#" class="children-toggle open"></a>
-      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/'>Performance upgrade preview</a>
+      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/'>Performance upgrade preview</a>
       
         <ul class="children open">
         
@@ -1454,13 +1454,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/configure/'>Configuration reference</a>
+      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/configure/'>Configuration reference</a>
       
     </li>
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/monitor/'>Monitor</a>
+      <a href='/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/monitor/'>Monitor</a>
       
     </li>
   
@@ -2712,7 +2712,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Monitor the performance upgrade preview</h1>
+      <h1>Performance upgrade preview</h1>
       
 
 
@@ -2724,14 +2724,15 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0">
+  data-child-count="2"
+  data-estimated-tokens="1000"
+  data-section-download-url="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/-download.zip">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -2741,7 +2742,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -2828,402 +2829,107 @@ and Commercial users as a private beta. These features are subject to breaking c
 and <strong>should not be used for production workloads</strong>. Your feedback on stability
 and performance at scale helps shape the future of InfluxDB 3.</p>
 </div>
-<p>InfluxDB 3 Enterprise provides system tables and a query telemetry endpoint to
-monitor file status, query execution, and overall performance of these upgrades.</p>
-<h2 id="system-tables">System tables</h2>
-<p>The upgraded storage exposes internal state through system tables that you can
-query with SQL.</p>
-<h3 id="systempt_ingest_wal">system.pt_ingest_wal</h3>
-<p>View WAL files and their partitions:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_wal</span><span class="p">;</span></span></span></code></pre></div>
-<p>Example output:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">wal_file_id</th>
-          <th style="text-align: left">partition_id</th>
-          <th style="text-align: left">database_id</th>
-          <th style="text-align: left">table_id</th>
-          <th style="text-align: left">min_time</th>
-          <th style="text-align: left">max_time</th>
-          <th style="text-align: left">row_count</th>
-          <th style="text-align: left">size_bytes</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">wal_001</td>
-          <td style="text-align: left">p_1</td>
-          <td style="text-align: left">db_1</td>
-          <td style="text-align: left">t_1</td>
-          <td style="text-align: left">2024-01-01T00:00:00Z</td>
-          <td style="text-align: left">2024-01-01T00:10:00Z</td>
-          <td style="text-align: left">50000</td>
-          <td style="text-align: left">2456789</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">wal_002</td>
-          <td style="text-align: left">p_1</td>
-          <td style="text-align: left">db_1</td>
-          <td style="text-align: left">t_1</td>
-          <td style="text-align: left">2024-01-01T00:10:00Z</td>
-          <td style="text-align: left">2024-01-01T00:20:00Z</td>
-          <td style="text-align: left">48000</td>
-          <td style="text-align: left">2345678</td>
-      </tr>
-  </tbody>
-</table>
-<p>Use this table to monitor:</p>
+<p>InfluxDB 3 Enterprise includes a private preview of major performance and
+feature updates. These updates represent the foundation for the upcoming 3.10
+and 3.11 releases. Available in beta now for InfluxDB 3 Enterprise, many of
+these improvements will be coming to InfluxDB 3 Core in subsequent release cycles.</p>
+<h2 id="key-improvements">Key improvements</h2>
 <ul>
-<li><strong>WAL accumulation</strong>: Track the number and size of unmerged WAL files</li>
-<li><strong>Partition distribution</strong>: See how data is distributed across partitions</li>
-<li><strong>Time coverage</strong>: Verify data time ranges</li>
+<li><strong>Faster single-series queries</strong>: Optimized data path for fetching specific
+trends over long time windows, with single-digit millisecond response times.</li>
+<li><strong>Consistent resource usage</strong>: Reduced CPU and memory spikes during heavy
+compaction or ingestion bursts through key-range partitioning.</li>
+<li><strong>Wide-and-sparse table support</strong>: Handles schemas with up to hundreds of
+thousands of columns and dynamic schema evolution without expensive rewrites.</li>
+<li><strong>Automatic distinct value caches</strong>: Dramatically reduced latency for metadata
+queries like &ldquo;show tag values.&rdquo;</li>
 </ul>
-<h4 id="monitor-wal-backlog">Monitor WAL backlog</h4>
-<p>Check for WAL accumulation that may indicate merging is falling behind:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">wal_file_count</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_size_mb</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">MIN</span><span class="p">(</span><span class="n">min_time</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">oldest_data</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">MAX</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">newest_data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_wal</span><span class="p">;</span></span></span></code></pre></div>
-<h3 id="systempt_ingest_files">system.pt_ingest_files</h3>
-<p>View Gen0 files with metadata:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_files</span><span class="p">;</span></span></span></code></pre></div>
-<p>Example output:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">file_id</th>
-          <th style="text-align: left">generation</th>
-          <th style="text-align: left">database_id</th>
-          <th style="text-align: left">table_id</th>
-          <th style="text-align: left">min_time</th>
-          <th style="text-align: left">max_time</th>
-          <th style="text-align: left">row_count</th>
-          <th style="text-align: left">size_bytes</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">gen0_001</td>
-          <td style="text-align: left">0</td>
-          <td style="text-align: left">db_1</td>
-          <td style="text-align: left">t_1</td>
-          <td style="text-align: left">2024-01-01T00:00:00Z</td>
-          <td style="text-align: left">2024-01-01T01:00:00Z</td>
-          <td style="text-align: left">500000</td>
-          <td style="text-align: left">45678901</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">gen0_002</td>
-          <td style="text-align: left">0</td>
-          <td style="text-align: left">db_1</td>
-          <td style="text-align: left">t_1</td>
-          <td style="text-align: left">2024-01-01T01:00:00Z</td>
-          <td style="text-align: left">2024-01-01T02:00:00Z</td>
-          <td style="text-align: left">480000</td>
-          <td style="text-align: left">43567890</td>
-      </tr>
-  </tbody>
-</table>
-<p>Use this table to monitor:</p>
-<ul>
-<li><strong>File counts per generation</strong>: Track compaction progress</li>
-<li><strong>File sizes</strong>: Verify files are within configured limits</li>
-<li><strong>Time ranges</strong>: Identify time-unbounded Gen0 files</li>
-</ul>
-<h4 id="monitor-file-distribution">Monitor file distribution</h4>
-<p>Check file distribution and compaction status:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">generation</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">file_count</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="k">row_count</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_rows</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_size_mb</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AVG</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">avg_file_size_mb</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_files</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">generation</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">generation</span><span class="p">;</span></span></span></code></pre></div>
-<h2 id="query-telemetry">Query telemetry</h2>
-<p>The query telemetry endpoint provides detailed execution statistics for
-analyzing query performance.</p>
-<h3 id="enable-query-telemetry">Enable query telemetry</h3>
-<p>Query the telemetry endpoint after executing a query:</p>
-
-
-  
-  
-  
-  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -X GET <span class="s2">&#34;http://localhost:8181/api/v3/query_sql_telemetry&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span></span></span></code></pre></div>
-<p>Replace <span class="code-placeholder-key"><code>AUTH_TOKEN</code></span> with your <a href="/docs-v2/pr-preview/admin/tokens/">admin token</a>.</p>
-<h3 id="telemetry-response">Telemetry response</h3>
-<p>The response includes:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Field</th>
-          <th style="text-align: left">Description</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>query_id</code></td>
-          <td style="text-align: left">Unique identifier for the query</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>execution_time_us</code></td>
-          <td style="text-align: left">Total execution time in microseconds</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>chunks</code></td>
-          <td style="text-align: left">Per-chunk statistics</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>cache_stats</code></td>
-          <td style="text-align: left">Cache hit rates by type</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>file_stats</code></td>
-          <td style="text-align: left">File-level read statistics</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="example-telemetry-output">Example telemetry output</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query_id&#34;</span><span class="p">:</span> <span class="s2">&#34;q_12345&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;execution_time_us&#34;</span><span class="p">:</span> <span class="mi">4523</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;chunks&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;chunk_id&#34;</span><span class="p">:</span> <span class="s2">&#34;c_1&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;files_scanned&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;blocks_processed&#34;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;rows_read&#34;</span><span class="p">:</span> <span class="mi">24000</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;rows_returned&#34;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;bytes_read&#34;</span><span class="p">:</span> <span class="mi">1234567</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cache_stats&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;gen0_hits&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;gen0_misses&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compacted_hits&#34;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compacted_misses&#34;</span><span class="p">:</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
-<h2 id="performance-analysis">Performance analysis</h2>
-<h3 id="query-performance-metrics">Query performance metrics</h3>
-<p>Track these key metrics for query performance:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Metric</th>
-          <th style="text-align: left">Good</th>
-          <th style="text-align: left">Warning</th>
-          <th style="text-align: left">Action</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">Cache hit rate</td>
-          <td style="text-align: left">&gt;80%</td>
-          <td style="text-align: left">&lt;60%</td>
-          <td style="text-align: left">Increase cache size or recency window</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Rows read vs returned ratio</td>
-          <td style="text-align: left">&lt;100:1</td>
-          <td style="text-align: left">&gt;1000:1</td>
-          <td style="text-align: left">Add more selective predicates</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="ingest-performance-metrics">Ingest performance metrics</h3>
-<p>Monitor these metrics for write performance:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Metric</th>
-          <th style="text-align: left">Healthy</th>
-          <th style="text-align: left">Warning</th>
-          <th style="text-align: left">Action</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">WAL file count</td>
-          <td style="text-align: left">&lt;50</td>
-          <td style="text-align: left">&gt;100</td>
-          <td style="text-align: left">Increase merge concurrency</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Unmerged size</td>
-          <td style="text-align: left">&lt;500MB</td>
-          <td style="text-align: left">&gt;1GB</td>
-          <td style="text-align: left">Check compaction status</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Gen0 file count</td>
-          <td style="text-align: left">&lt;100</td>
-          <td style="text-align: left">&gt;200</td>
-          <td style="text-align: left">Increase compaction concurrency</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="monitor-with-sql">Monitor with SQL</h3>
-<p>Create a performance summary query:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- File generation summary
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s1">&#39;Gen0 files&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">count</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">size_mb</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_files</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s1">&#39;Compacted files&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">count</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">size_mb</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_files</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="s1">&#39;WAL files&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">count</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">size_bytes</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">size_mb</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">pt_ingest_wal</span><span class="p">;</span></span></span></code></pre></div>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="high-wal-file-count">High WAL file count</h3>
-<p><strong>Symptom</strong>: <code>system.pt_ingest_wal</code> shows many accumulated files.</p>
-<p><strong>Possible causes</strong>:</p>
-<ul>
-<li>Merge operations falling behind write rate</li>
-<li>Insufficient merge concurrency</li>
-<li>Object storage latency</li>
-</ul>
-<p><strong>Solutions</strong>:</p>
-<ol>
-<li>
-<p>Increase merge concurrency:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-snapshot-merge-concurrency <span class="m">8</span></span></span></code></pre></div>
-</li>
-<li>
-<p>Increase WAL flush interval to create larger, fewer files:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-wal-flush-interval 5s</span></span></code></pre></div>
-</li>
-<li>
-<p>Check object storage performance and connectivity</p>
-</li>
-</ol>
-<h3 id="high-cache-miss-rate">High cache miss rate</h3>
-<p><strong>Symptom</strong>: <code>cache_stats</code> shows &gt;40% miss rate.</p>
-<p><strong>Possible causes</strong>:</p>
-<ul>
-<li>Cache size too small for working set</li>
-<li>Cache recency window too narrow</li>
-<li>Random access patterns across time ranges</li>
-</ul>
-<p><strong>Solutions</strong>:</p>
-<ol>
-<li>
-<p>Increase cache size:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-file-cache-size 16GB</span></span></code></pre></div>
-</li>
-<li>
-<p>Extend cache recency window:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-file-cache-recency 24h</span></span></code></pre></div>
-</li>
-<li>
-<p>Extend eviction timeout:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-file-cache-evict-after 48h</span></span></code></pre></div>
-</li>
-</ol>
-<h3 id="slow-compaction">Slow compaction</h3>
-<p><strong>Symptom</strong>: Gen0 file count continues to grow.</p>
-<p><strong>Possible causes</strong>:</p>
-<ul>
-<li>Compaction concurrency too low</li>
-<li>Compaction cache undersized</li>
-<li>High write rate overwhelming compaction</li>
-</ul>
-<p><strong>Solutions</strong>:</p>
-<ol>
-<li>
-<p>Increase compaction concurrency:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-compactor-concurrency <span class="m">8</span></span></span></code></pre></div>
-</li>
-<li>
-<p>Increase compaction cache:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-compactor-cache 4GB</span></span></code></pre></div>
-</li>
-<li>
-<p>For distributed deployments, add dedicated compactor nodes:</p>
+<h2 id="enable-the-preview">Enable the preview</h2>
+<p>Add the <code>--use-pacha-tree</code> flag to your normal
+<a href="/influxdb3/enterprise/get-started/setup/"><code>influxdb3 serve</code> startup command</a>:</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode compact</span></span></code></pre></div>
-</li>
-</ol>
-<h3 id="query-node-lag">Query node lag</h3>
-<p><strong>Symptom</strong>: Query nodes return stale data.</p>
-<p><strong>Possible causes</strong>:</p>
-<ul>
-<li>Replication falling behind</li>
-<li>Network latency to object storage</li>
-<li>Insufficient replica concurrency</li>
-</ul>
-<p><strong>Solutions</strong>:</p>
-<ol>
-<li>
-<p>Increase replication concurrency:</p>
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id host01 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id cluster01 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store file <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --data-dir ~/.influxdb3 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree</span></span></code></pre></div>
+<p>The flag exposes additional configuration options prefixed with <code>--pt-</code>.
+See <a href="/influxdb3/enterprise/admin/pachatree/configure/">Configure the preview</a>
+for tuning options, or <a href="/influxdb3/enterprise/admin/pachatree/monitor/">Monitor the preview</a>
+for system tables and telemetry.</p>
+<h2 id="who-should-try-the-preview">Who should try the preview</h2>
+<p>Consider enabling the preview in your staging or development environment if
+you have workloads with high cardinality, wide tables, frequent backfill, or
+query-heavy access patterns.</p>
+<p>Your feedback on stability and speed at scale helps inform the development of
+features planned for general availability in the 3.10 and 3.11 releases.</p>
+
+<div class="block important">
+  
+  
+  <h4 id="upgraded-file-format">Upgraded file format</h4>
+<p>These upgrades use a new file format (<code>.pt</code> files). When you enable the
+preview, your existing data is automatically converted to the new format
+in place. While you can downgrade, any data written after the upgrade is
+not available after downgrading.</p>
+<p>Systems with large amounts of data may take longer to complete the
+conversion. For the beta, we recommend starting with a fresh setup for
+testing and evaluation rather than converting existing data.</p>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-wal-replica-steady-concurrency <span class="m">8</span></span></span></code></pre></div>
-</li>
-<li>
-<p>Reduce merge interval:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-replica-merge-interval 50ms</span></span></code></pre></div>
-</li>
-<li>
-<p>Increase replica queue size:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--pt-wal-replica-queue-size <span class="m">200</span></span></span></code></pre></div>
-</li>
-</ol>
+
+
+	
+
+
+
+
+
+	<div class="children-links">
+		
+			
+			
+			
+			 <h2 id="configure-the-performance-upgrade-preview"><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/configure/" target="">Configure the performance upgrade preview</a></h2>
+			
+			<p>Complete reference for all configuration options available with the InfluxDB 3 Enterprise performance upgrades, including memory, compaction, WAL, caching, and replication settings.</p>
+			
+			
+
+			
+
+			
+			
+				<hr />
+			
+	
+			
+			
+			
+			 <h2 id="monitor-the-performance-upgrade-preview"><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/monitor/" target="">Monitor the performance upgrade preview</a></h2>
+			
+			<p>Use system tables and query telemetry to monitor file status, query execution, and overall performance when using InfluxDB 3 Enterprise performance upgrades.</p>
+			
+			
+
+			
+
+			
+			
+				<hr />
+			
+	
+	</div>
+
+
+
 
 
 
@@ -3249,7 +2955,7 @@ analyzing query performance.</p>
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/" >Performance upgrade preview</a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/get-started/setup/" >Set up InfluxDB 3 Enterprise</a></li>
         
       
     
@@ -3266,7 +2972,7 @@ analyzing query performance.</p>
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/configure/" >Configure the performance upgrade preview</a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/configure/" >Configure the performance upgrade preview</a></li>
         
       
     
@@ -3283,7 +2989,24 @@ analyzing query performance.</p>
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/query-system-data/" >Query system data</a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/monitor/" >Monitor the performance upgrade preview</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/performance-tuning/" >Performance tuning</a></li>
         
       
     
@@ -3356,8 +3079,8 @@ analyzing query performance.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/admin/storage-preview/monitor.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/storage-preview/monitor/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/admin/pachatree/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6771/influxdb3/enterprise/admin/pachatree/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
@@ -3860,7 +3583,7 @@ analyzing query performance.</p>
       <div class="notification-slug">
         <p>InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
 with faster single-series queries, wide-and-sparse table support, and more.</p>
-<p><a class="btn" href="/influxdb3/enterprise/admin/storage-preview/">Learn More</a></p>
+<p><a class="btn" href="/influxdb3/enterprise/admin/pachatree/">Learn More</a></p>
 
       </div>
       
@@ -3888,7 +3611,7 @@ should not be used for production workloads.</p>
 </blockquote>
 <p>For more information, see:</p>
 <ul>
-<li><a href="/influxdb3/enterprise/admin/storage-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/admin/pachatree/">Performance upgrade preview</a></li>
 <li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
 </ul>
 
