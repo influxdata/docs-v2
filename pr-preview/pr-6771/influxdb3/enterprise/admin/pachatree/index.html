@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-28 11:00:06 -0600 -0600">
+<meta name="last-modified" content="2026-01-28 11:26:42 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2842,7 +2842,7 @@ compaction or ingestion bursts through key-range partitioning.</li>
 <li><strong>Wide-and-sparse table support</strong>: Handles schemas with up to hundreds of
 thousands of columns and dynamic schema evolution without expensive rewrites.</li>
 <li><strong>Automatic distinct value caches</strong>: Dramatically reduced latency for metadata
-queries like &ldquo;show tag values.&rdquo;</li>
+queries like <code>SHOW TAG VALUES</code> in InfluxQL.</li>
 </ul>
 <h2 id="enable-the-preview">Enable the preview</h2>
 <p>Add the <code>--use-pacha-tree</code> flag to your normal
@@ -2869,11 +2869,11 @@ features planned for general availability in the 3.10 and 3.11 releases.</p>
 <div class="block important">
   
   
-  <h4 id="upgraded-file-format">Upgraded file format</h4>
-<p>These upgrades use a new file format (<code>.pt</code> files). When you enable the
-preview, your existing data is automatically converted to the new format
-in place. While you can downgrade, any data written after the upgrade is
-not available after downgrading.</p>
+  <h4 id="important-upgraded-file-format">Important: Upgraded file format</h4>
+<p>These upgrades use an upgraded file format (<code>.pt</code> files). When you enable the preview,
+your existing data is automatically upgraded to the new format in place.
+While downgrading is possible, any data written after the upgrade will not
+be included in the downgrade.</p>
 <p>Systems with large amounts of data may take longer to complete the
 conversion. For the beta, we recommend starting with a fresh setup for
 testing and evaluation rather than converting existing data.</p>
