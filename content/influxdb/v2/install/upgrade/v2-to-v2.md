@@ -20,7 +20,7 @@ Upgrade to InfluxDB {{< current-version >}} from an earlier version of InfluxDB 
 {{% note %}}
 #### InfluxDB 2.0 beta-16 or earlier
 If you're upgrading from InfluxDB 2.0 beta-16 or earlier, you must first
-[upgrade to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2/),
+[upgrade to InfluxDB 2.0](/influxdb/v2/install/upgrade/v2-beta-to-v2/),
 and then complete the steps below.
 {{% /note %}}
 

@@ -95,7 +95,7 @@ jobs:
           curl -L -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -o link-checker-info.json \
-            "https://api.github.com/repos/influxdata/docs-v2/releases/tags/link-checker-v1.3.0"
+            "https://api.github.com/repos/influxdata/docs-v2/releases/tags/link-checker-v1.4.0"
           
           # Extract download URL for linux binary
           DOWNLOAD_URL=$(jq -r '.assets[] | select(.name | test("link-checker.*linux")) | .url' link-checker-info.json)
@@ -173,60 +173,151 @@ jobs:
           EXIT_CODE=$?
           
           if [[ -f link-check-results.json ]]; then
-            # Parse results
-            BROKEN_COUNT=$(jq -r '.summary.broken_count // 0' link-check-results.json)
+            # Parse results using actual v1.3.1 JSON structure
+            ERROR_COUNT=$(jq -r '.summary.error_count // 0' link-check-results.json)
+            WARNING_COUNT=$(jq -r '.summary.warning_count // 0' link-check-results.json)
             TOTAL_COUNT=$(jq -r '.summary.total_checked // 0' link-check-results.json)
             SUCCESS_RATE=$(jq -r '.summary.success_rate // 0' link-check-results.json)
-            
-            echo "broken-count=$BROKEN_COUNT" >> $GITHUB_OUTPUT
+
+            # Reclassify file-not-found warnings as errors
+            # link-checker classifies missing local files as warnings (no HTTP status code),
+            # but these represent genuinely broken internal links and should fail CI.
+            FILE_NOT_FOUND_COUNT=$(jq '[.warnings[] | select(.error | test("Cannot find file"))] | length' link-check-results.json 2>/dev/null || echo 0)
+            if [[ $FILE_NOT_FOUND_COUNT -gt 0 ]]; then
+              echo "⚠️ Found $FILE_NOT_FOUND_COUNT missing local file(s) — reclassifying as errors"
+              # Move file-not-found entries from warnings to errors
+              jq '
+                .errors += [.warnings[] | select(.error | test("Cannot find file")) | .severity = "error"]
+                | .warnings = [.warnings[] | select(.error | test("Cannot find file") | not)]
+                | .summary.error_count = (.errors | length)
+                | .summary.warning_count = (.warnings | length)
+              ' link-check-results.json > link-check-results-fixed.json
+              mv link-check-results-fixed.json link-check-results.json
+
+              ERROR_COUNT=$(jq -r '.summary.error_count // 0' link-check-results.json)
+              WARNING_COUNT=$(jq -r '.summary.warning_count // 0' link-check-results.json)
+            fi
+
+            echo "error-count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+            echo "warning-count=$WARNING_COUNT" >> $GITHUB_OUTPUT
             echo "total-count=$TOTAL_COUNT" >> $GITHUB_OUTPUT
             echo "success-rate=$SUCCESS_RATE" >> $GITHUB_OUTPUT
-            
-            if [[ $BROKEN_COUNT -gt 0 ]]; then
-              echo "❌ Found $BROKEN_COUNT broken links out of $TOTAL_COUNT total links"
+
+            if [[ $ERROR_COUNT -gt 0 ]]; then
+              echo "❌ Found $ERROR_COUNT broken links out of $TOTAL_COUNT total links"
               echo "check-result=failed" >> $GITHUB_OUTPUT
             else
-              echo "✅ All $TOTAL_COUNT links are valid"
+              echo "✅ All $TOTAL_COUNT links are valid ($WARNING_COUNT warnings)"
               echo "check-result=passed" >> $GITHUB_OUTPUT
             fi
           else
             echo "❌ Link check failed to generate results"
             echo "check-result=error" >> $GITHUB_OUTPUT
           fi
-          
+
           exit $EXIT_CODE
           
       - name: Process and report results
         if: always() && steps.detect.outputs.has-changes == 'true' && steps.mapping.outputs.public-files != ''
+        env:
+          FILE_COUNT: ${{ steps.mapping.outputs.file-count }}
+          TOTAL_COUNT: ${{ steps.link-check.outputs.total-count }}
+          ERROR_COUNT: ${{ steps.link-check.outputs.error-count }}
+          WARNING_COUNT: ${{ steps.link-check.outputs.warning-count }}
+          SUCCESS_RATE: ${{ steps.link-check.outputs.success-rate }}
+          CHECK_RESULT: ${{ steps.link-check.outputs.check-result }}
         run: |
           if [[ -f link-check-results.json ]]; then
-            # Create detailed error annotations for broken links
-            if [[ "${{ steps.link-check.outputs.check-result }}" == "failed" ]]; then
-              echo "Creating error annotations for broken links..."
-              
-              jq -r '.broken_links[]? | 
-                "::error file=\(.file // "unknown"),line=\(.line // 1)::Broken link: \(.url) - \(.error // "Unknown error")"' \
-                link-check-results.json || true
-            fi
-            
-            # Generate summary comment
-            cat >> $GITHUB_STEP_SUMMARY << 'EOF'
-          ## Link Check Results
-          
-          **Files Checked:** ${{ steps.mapping.outputs.file-count }}  
-          **Total Links:** ${{ steps.link-check.outputs.total-count }}  
-          **Broken Links:** ${{ steps.link-check.outputs.broken-count }}  
-          **Success Rate:** ${{ steps.link-check.outputs.success-rate }}%
-          
-          EOF
-          
-            if [[ "${{ steps.link-check.outputs.check-result }}" == "failed" ]]; then
-              echo "❌ **Link check failed** - see annotations above for details" >> $GITHUB_STEP_SUMMARY
+            # Generate summary header
+            echo "## Link Check Results" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Files Checked | ${FILE_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Total Links | ${TOTAL_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Errors | ${ERROR_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Warnings | ${WARNING_COUNT} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Success Rate | ${SUCCESS_RATE}% |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            # Report broken links (errors) with annotations
+            if [[ "${CHECK_RESULT}" == "failed" ]]; then
+              echo "### Broken Links" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "| Severity | Source File | Broken URL | Error |" >> $GITHUB_STEP_SUMMARY
+              echo "|----------|------------|------------|-------|" >> $GITHUB_STEP_SUMMARY
+
+              # Process errors (these fail CI)
+              jq -c '.errors[]?' link-check-results.json 2>/dev/null | while read -r entry; do
+                URL=$(echo "$entry" | jq -r '.url // "unknown"')
+                ERROR=$(echo "$entry" | jq -r '.error // "Unknown error"')
+                FILE=$(echo "$entry" | jq -r '.file // "unknown"')
+                LINE=$(echo "$entry" | jq -r '.line // empty')
+
+                # Map public path to content path for annotations
+                CONTENT_FILE=$(echo "$FILE" | sed 's|.*/public/|content/|' | sed 's|/index\.html$|/_index.md|')
+
+                # Create GitHub annotation
+                if [[ -n "$LINE" && "$LINE" != "null" ]]; then
+                  echo "::error file=${CONTENT_FILE},line=${LINE}::Broken link: ${URL} (${ERROR})"
+                else
+                  echo "::error file=${CONTENT_FILE}::Broken link: ${URL} (${ERROR})"
+                fi
+
+                # Add row to summary table
+                SAFE_URL=$(echo "$URL" | sed 's/|/\\|/g')
+                SAFE_ERROR=$(echo "$ERROR" | sed 's/|/\\|/g' | cut -c1-80)
+                echo "| 🔴 error | \`${CONTENT_FILE}\` | ${SAFE_URL} | ${SAFE_ERROR} |" >> $GITHUB_STEP_SUMMARY
+              done
+
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "---" >> $GITHUB_STEP_SUMMARY
+              echo "❌ **Link check failed** — fix the broken links listed above before merging." >> $GITHUB_STEP_SUMMARY
             else
               echo "✅ **All links are valid**" >> $GITHUB_STEP_SUMMARY
             fi
+
+            # Report warnings (don't fail CI, but useful context)
+            WARNING_ARRAY_LEN=$(jq '.warnings | length' link-check-results.json 2>/dev/null || echo 0)
+            if [[ "$WARNING_ARRAY_LEN" -gt 0 ]]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "<details>" >> $GITHUB_STEP_SUMMARY
+              echo "<summary>⚠️ ${WARNING_ARRAY_LEN} warning(s) (do not fail CI)</summary>" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "| Source File | URL | Issue |" >> $GITHUB_STEP_SUMMARY
+              echo "|------------|-----|-------|" >> $GITHUB_STEP_SUMMARY
+
+              jq -c '.warnings[]?' link-check-results.json 2>/dev/null | head -20 | while read -r entry; do
+                URL=$(echo "$entry" | jq -r '.url // "unknown"')
+                ERROR=$(echo "$entry" | jq -r '.error // "Unknown"')
+                FILE=$(echo "$entry" | jq -r '.file // "unknown"')
+                CONTENT_FILE=$(echo "$FILE" | sed 's|.*/public/|content/|' | sed 's|/index\.html$|/_index.md|')
+                SAFE_URL=$(echo "$URL" | sed 's/|/\\|/g')
+                SAFE_ERROR=$(echo "$ERROR" | sed 's/|/\\|/g' | cut -c1-80)
+                echo "| \`${CONTENT_FILE}\` | ${SAFE_URL} | ${SAFE_ERROR} |" >> $GITHUB_STEP_SUMMARY
+              done
+
+              if [[ "$WARNING_ARRAY_LEN" -gt 20 ]]; then
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "_Showing first 20 of ${WARNING_ARRAY_LEN} warnings. Download the artifact for full results._" >> $GITHUB_STEP_SUMMARY
+              fi
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "</details>" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            # Add helpful tips
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "<details>" >> $GITHUB_STEP_SUMMARY
+            echo "<summary>💡 Troubleshooting Tips</summary>" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **404 errors**: The linked page doesn't exist. Check for typos or update the link." >> $GITHUB_STEP_SUMMARY
+            echo "- **Relative links**: Use relative paths starting with \`/\` for internal links." >> $GITHUB_STEP_SUMMARY
+            echo "- **Anchors**: Ensure heading anchors match the linked fragment exactly." >> $GITHUB_STEP_SUMMARY
+            echo "- **Warnings**: External sites may be temporarily unavailable — these don't fail CI." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "</details>" >> $GITHUB_STEP_SUMMARY
           else
-            echo "⚠️ **Link check could not complete** - no results file generated" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **Link check could not complete** — no results file generated" >> $GITHUB_STEP_SUMMARY
           fi
           
       - name: Upload detailed results
