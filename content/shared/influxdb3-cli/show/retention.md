@@ -5,6 +5,7 @@ The `influxdb3 show retention` command displays effective retention periods for 
 <!--pytest.mark.skip-->
 
 ```bash
+# Syntax
 influxdb3 show retention [OPTIONS]
 ```
 
@@ -35,25 +36,28 @@ You can use the following environment variables to set command options:
 - [Show retention for all tables](#show-retention-for-all-tables)
 - [Show retention for a specific database](#show-retention-for-a-specific-database)
 - [Show retention in JSON format](#show-retention-in-json-format)
+- [Export retention data to Parquet format](#export-retention-data-to-parquet-format)
+
+In the examples below, replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your authentication token.
 
 ### Show retention for all tables
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show retention \
   --host http://localhost:8181 \
-  --token YOUR_AUTH_TOKEN
+  --token AUTH_TOKEN
 ```
 
 ### Show retention for a specific database
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show retention \
   --host http://localhost:8181 \
-  --token YOUR_AUTH_TOKEN \
+  --token AUTH_TOKEN \
   --database mydb
 ```
 
@@ -61,11 +65,27 @@ influxdb3 show retention \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 influxdb3 show retention \
   --host http://localhost:8181 \
-  --token YOUR_AUTH_TOKEN \
+  --token AUTH_TOKEN \
   --format json
+```
+
+### Export retention data to Parquet format
+
+[Parquet](https://parquet.apache.org/) is a binary format.
+When using the `parquet` format, data is written to standard output by default.
+Use output redirection or the `--output` option to save the data to a file.
+
+<!--pytest.mark.skip-->
+
+```bash { placeholders="AUTH_TOKEN" }
+influxdb3 show retention \
+  --host http://localhost:8181 \
+  --token AUTH_TOKEN \
+  --format parquet \
+  --output retention-data.parquet
 ```
 
 ## Output

@@ -6,6 +6,7 @@ The `influxdb3 delete trigger` command deletes a processing engine trigger.
 <!--pytest.mark.skip-->
 
 ```bash
+# Syntax
 influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 ```
 
@@ -19,25 +20,27 @@ influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 --trigger-name: internal variable, use positional <TRIGGER_NAME>
 -->
 
-| Option |              | Description                                                                              |
-| :----- | :----------- | :--------------------------------------------------------------------------------------- |
-| `-H`   | `--host`     | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-| `-d`   | `--database` | _({{< req >}})_ Name of the database to operate on                                       |
-|        | `--token`    | _({{< req >}})_ Authentication token                                                     |
-|        | `--force`    | Force delete even if the trigger is active                                               |
-|        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-| `-h`   | `--help`     | Print help information                                                                   |
-|        | `--help-all` | Print detailed help information                                                          |
+| Option |                   | Description                                                                              |
+| :----- | :---------------- | :--------------------------------------------------------------------------------------- |
+| `-H`   | `--host`          | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
+| `-d`   | `--database`      | _({{< req >}})_ Name of the database to operate on                                       |
+|        | `--token`         | _({{< req >}})_ Authentication token                                                     |
+|        | `--force`         | Force delete even if the trigger is active                                               |
+|        | `--tls-ca`        | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+|        | `--tls-no-verify` | Disable TLS certificate verification (useful for development or self-signed certificates)|
+| `-h`   | `--help`          | Print help information                                                                   |
+|        | `--help-all`      | Print detailed help information                                                          |
 
 ### Option environment variables
 
 You can use the following environment variables to set command options:
 
-| Environment Variable      | Option       |
-| :------------------------ | :----------- |
-| `INFLUXDB3_HOST_URL`      | `--host`     |
-| `INFLUXDB3_DATABASE_NAME` | `--database` |
-| `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| Environment Variable      | Option            |
+| :------------------------ | :---------------- |
+| `INFLUXDB3_HOST_URL`      | `--host`          |
+| `INFLUXDB3_DATABASE_NAME` | `--database`      |
+| `INFLUXDB3_AUTH_TOKEN`    | `--token`         |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Examples
 
@@ -50,16 +53,14 @@ In the examples below, replace the following:
   Database name
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: 
   Authentication token
-- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: 
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}:
   Name of the trigger to delete
-
-{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN" %}}
 
 ### Delete a trigger
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|TRIGGER_NAME" }
 influxdb3 delete trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -70,12 +71,10 @@ influxdb3 delete trigger \
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|TRIGGER_NAME" }
 influxdb3 delete trigger \
   --force \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
   TRIGGER_NAME
 ```
-
-{{% /code-placeholders %}}
