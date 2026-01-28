@@ -46,10 +46,10 @@
 
 
 
-<title>Performance upgrade preview for InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
+<title>Use the InfluxDB 3 MCP server | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Preview performance upgrades in InfluxDB 3 Enterprise with improved single-series query performance, consistent resource usage, wide-and-sparse table support, and automatic distinct value caching.">
+    <meta name="description" content="Use the InfluxDB MCP server to interact with and manage InfluxDB 3 Core using natural language with LLM agents to query and analyze data, manage databases and more.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,70 @@
 
 
 
+  
+  
+    
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/mcp-server/" />
 
     
 <style>
@@ -168,7 +228,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-28 11:26:42 -0600 -0600">
+<meta name="last-modified" content="2026-01-27 12:16:48 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -272,7 +332,7 @@
   
   
   
-  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/' class="active">InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -285,7 +345,7 @@
   
   
   
-  <a href='/influxdb3/enterprise/' class="active">InfluxDB 3 Enterprise <span class="state">New</span></a>
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
 </li>
         <li>
   
@@ -586,13 +646,19 @@
   
     <li class="nav-category ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/'>InfluxDB 3 Enterprise</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/'>InfluxDB 3 Core</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/install/'>Install InfluxDB 3 Core</a>
       
     </li>
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/'>Install InfluxDB 3 Enterprise</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/get-started/'>Get started</a>
       
         <ul class="children ">
         
@@ -603,53 +669,25 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/kubernetes/'>Deploy on Kubernetes</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/'>Get started</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/setup/'>Set up Enterprise</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/get-started/setup/'>Set up Core</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/multi-server/'>Create a multi-node cluster</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/get-started/write/'>Write data</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/write/'>Write data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/get-started/query/'>Query data</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/query/'>Query data</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/process/'>Process data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/get-started/process/'>Process data</a>
       
     </li>
   
@@ -660,7 +698,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/'>Write data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/'>Write data</a>
       
         <ul class="children ">
         
@@ -671,13 +709,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/client-libraries/'>Use client libraries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/client-libraries/'>Use client libraries</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/http-api/'>Use the HTTP API</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/http-api/'>Use the HTTP API</a>
       
         <ul class="children ">
         
@@ -688,13 +726,47 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/http-api/v3-write-lp/'>Use the v3 write_lp API</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/http-api/v3-write-lp/'>Use the v3 write_lp API</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/http-api/compatibility-apis/'>Use v1 and v2 compatibility APIs</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/http-api/compatibility-apis/'>Use v1 and v2 compatibility APIs</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/use-telegraf/'>Use Telegraf</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/use-telegraf/configure/'>Configure Telegraf</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/use-telegraf/dual-write/'>Dual write to InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/use-telegraf/csv/'>Write CSV</a>
       
     </li>
   
@@ -705,13 +777,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/compatibility-apis/'>Use v1 and v2 compatibility APIs</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/influxdb3-cli/'>Use the influxdb3 CLI</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/use-telegraf/'>Use Telegraf</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/best-practices/'>Best practices</a>
       
         <ul class="children ">
         
@@ -722,19 +794,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/use-telegraf/configure/'>Configure Telegraf</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/best-practices/schema-design/'>Schema design</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/use-telegraf/dual-write/'>Dual write to InfluxDB</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/use-telegraf/csv/'>Write CSV</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/best-practices/optimize-writes/'>Optimize writes</a>
       
     </li>
   
@@ -745,41 +811,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/influxdb3-cli/'>Use the influxdb3 CLI</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/best-practices/'>Best practices</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/best-practices/schema-design/'>Schema design</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/best-practices/optimize-writes/'>Optimize writes</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/write-data/troubleshoot/'>Troubleshoot issues</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/write-data/troubleshoot/'>Troubleshoot issues</a>
       
     </li>
   
@@ -790,7 +822,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/'>Processing engine and Python plugins</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/'>Processing engine and Python plugins</a>
       
         <ul class="children ">
         
@@ -801,13 +833,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/extend-plugin/'>Extend plugins</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/extend-plugin/'>Extend plugins</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/'>Plugin library</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/'>Plugin library</a>
       
         <ul class="children ">
         
@@ -818,7 +850,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/examples/'>Example plugins</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/examples/'>Example plugins</a>
       
         <ul class="children ">
         
@@ -829,7 +861,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/examples/wal-plugin/'>WAL plugin</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/examples/wal-plugin/'>WAL plugin</a>
       
     </li>
   
@@ -840,7 +872,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/'>Official plugins</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/'>Official plugins</a>
       
         <ul class="children ">
         
@@ -851,67 +883,67 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/basic-transformation/'>Basic transformation</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/basic-transformation/'>Basic transformation</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/downsampler/'>Downsampler</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/downsampler/'>Downsampler</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/forecast-error-evaluator/'>Forecast error evaluator</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/forecast-error-evaluator/'>Forecast error evaluator</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/influxdb-to-iceberg/'>InfluxDB to Iceberg</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/influxdb-to-iceberg/'>InfluxDB to Iceberg</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/mad-anomaly-detection/'>MAD anomaly detection</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/mad-anomaly-detection/'>MAD anomaly detection</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/notifier/'>Notifier</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/notifier/'>Notifier</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/prophet-forecasting/'>Prophet forecasting</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/prophet-forecasting/'>Prophet forecasting</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/state-change/'>State change</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/state-change/'>State change</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/stateless-adtk-detector/'>Stateless ADTK detector</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/stateless-adtk-detector/'>Stateless ADTK detector</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/system-metrics/'>System metrics</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/system-metrics/'>System metrics</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/plugins/library/official/threshold-deadman-checks/'>Threshold deadman checks</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/plugins/library/official/threshold-deadman-checks/'>Threshold deadman checks</a>
       
     </li>
   
@@ -932,7 +964,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/'>Query data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/'>Query data</a>
       
         <ul class="children ">
         
@@ -943,7 +975,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/execute-queries/'>Execute queries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/execute-queries/'>Execute queries</a>
       
         <ul class="children ">
         
@@ -954,19 +986,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/execute-queries/influxdb3-cli/'>Use the influxdb3 CLI</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/execute-queries/influxdb3-cli/'>Use the influxdb3 CLI</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/execute-queries/influxdb-v3-api/'>Use the v3 query API</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/execute-queries/influxdb-v3-api/'>Use the v3 query API</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/'>Use the v1 query API</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/execute-queries/influxdb-v1-api/'>Use the v1 query API</a>
       
     </li>
   
@@ -977,7 +1009,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/'>Query with SQL</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/'>Query with SQL</a>
       
         <ul class="children ">
         
@@ -988,43 +1020,43 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/explore-schema/'>Explore your schema</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/explore-schema/'>Explore your schema</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/basic-query/'>Basic query</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/basic-query/'>Basic query</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/aggregate-select/'>Aggregate data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/aggregate-select/'>Aggregate data</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/cast-types/'>Cast types</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/cast-types/'>Cast types</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/compare-values/'>Compare values</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/compare-values/'>Compare values</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/fill-gaps/'>Fill gaps in data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/fill-gaps/'>Fill gaps in data</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/sql/parameterized-queries/'>Parameterized queries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/sql/parameterized-queries/'>Parameterized queries</a>
       
     </li>
   
@@ -1035,7 +1067,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/'>Query with InfluxQL</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/'>Query with InfluxQL</a>
       
         <ul class="children ">
         
@@ -1046,31 +1078,31 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/explore-schema/'>Explore your schema</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/explore-schema/'>Explore your schema</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/basic-query/'>Basic query</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/basic-query/'>Basic query</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/aggregate-select/'>Aggregate data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/aggregate-select/'>Aggregate data</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/troubleshoot/'>Troubleshoot errors</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/troubleshoot/'>Troubleshoot errors</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/query-data/influxql/parameterized-queries/'>Parameterized queries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/query-data/influxql/parameterized-queries/'>Parameterized queries</a>
       
     </li>
   
@@ -1086,7 +1118,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/'>Visualize data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/visualize-data/'>Visualize data</a>
       
         <ul class="children ">
         
@@ -1097,19 +1129,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/chronograf/'>Use Chronograf</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/visualize-data/chronograf/'>Use Chronograf</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/grafana/'>Use Grafana</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/visualize-data/grafana/'>Use Grafana</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/powerbi/'>Use Power BI</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/visualize-data/powerbi/'>Use Power BI</a>
       
     </li>
   
@@ -1120,7 +1152,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle open"></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/'>Administer InfluxDB</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/'>Administer InfluxDB</a>
       
         <ul class="children open">
         
@@ -1131,25 +1163,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/identify-version/'>Identify version</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/clustering/'>Configure specialized cluster nodes</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/license/'>Manage your license</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/identify-version/'>Identify version</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tables/'>Manage tables</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/databases/'>Manage databases</a>
       
         <ul class="children ">
         
@@ -1160,19 +1180,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tables/create/'>Create a table</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/databases/create/'>Create a database</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tables/list/'>List tables</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/databases/list/'>List databases</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tables/delete/'>Delete a table</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/databases/delete/'>Delete a database</a>
       
     </li>
   
@@ -1183,7 +1203,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/databases/'>Manage databases</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tables/'>Manage tables</a>
       
         <ul class="children ">
         
@@ -1194,19 +1214,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/databases/create/'>Create a database</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tables/create/'>Create a table</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/databases/list/'>List databases</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tables/list/'>List tables</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/databases/delete/'>Delete a database</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tables/delete/'>Delete a table</a>
       
     </li>
   
@@ -1217,7 +1237,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/'>Manage tokens</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/'>Manage tokens</a>
       
         <ul class="children ">
         
@@ -1228,7 +1248,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/admin/'>Admin tokens</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/admin/'>Admin tokens</a>
       
         <ul class="children ">
         
@@ -1239,59 +1259,25 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/admin/create/'>Create an admin token</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/admin/create/'>Create an admin token</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/admin/list/'>List admin tokens</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/admin/list/'>List admin tokens</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/admin/regenerate/'>Regenerate an operator admin token</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/admin/regenerate/'>Regenerate an admin token</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/admin/preconfigured/'>Use preconfigured admin token</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/resource/'>Resource tokens</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/resource/create/'>Create a resource token</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/resource/list/'>List resource tokens</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/tokens/resource/preconfigured/'>Use preconfigured resource tokens</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/tokens/admin/preconfigured/'>Use preconfigured admin token</a>
       
     </li>
   
@@ -1307,7 +1293,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/last-value-cache/'>Manage the Last Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/last-value-cache/'>Manage the Last Value Cache</a>
       
         <ul class="children ">
         
@@ -1318,25 +1304,25 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/last-value-cache/create/'>Create a Last Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/last-value-cache/create/'>Create a Last Value Cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/last-value-cache/query/'>Query a Last Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/last-value-cache/query/'>Query a Last Value Cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/last-value-cache/show/'>Show Last Value Caches</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/last-value-cache/show/'>Show Last Value Caches</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/last-value-cache/delete/'>Delete a Last Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/last-value-cache/delete/'>Delete a Last Value Cache</a>
       
     </li>
   
@@ -1347,7 +1333,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/distinct-value-cache/'>Manage the Distinct Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/distinct-value-cache/'>Manage the Distinct Value Cache</a>
       
         <ul class="children ">
         
@@ -1358,25 +1344,25 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/distinct-value-cache/create/'>Create a Distinct Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/distinct-value-cache/create/'>Create a Distinct Value Cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/distinct-value-cache/query/'>Query a Distinct Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/distinct-value-cache/query/'>Query a Distinct Value Cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/distinct-value-cache/show/'>Show Distinct Value Caches</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/distinct-value-cache/show/'>Show Distinct Value Caches</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/distinct-value-cache/delete/'>Delete a Distinct Value Cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/distinct-value-cache/delete/'>Delete a Distinct Value Cache</a>
       
     </li>
   
@@ -1387,7 +1373,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/file-index/'>Manage file indexes</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/object-storage/'>Configure object storage</a>
       
         <ul class="children ">
         
@@ -1398,35 +1384,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/file-index/create/'>Create a custom file index</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/file-index/delete/'>Delete a custom file index</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/object-storage/'>Configure object storage</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/object-storage/minio/'>MinIO</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/object-storage/minio/'>MinIO</a>
       
     </li>
   
@@ -1437,71 +1395,43 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/query-system-data/'>Query system data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/query-system-data/'>Query system data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/backup-restore/'>Back up and restore</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/performance-tuning/'>Performance tuning</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/security/'>Security</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/upgrade/'>Upgrade Core</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/upgrade-to-enterprise/'>Upgrade to Enterprise</a>
       
     </li>
   
     <li class="nav-item active">
-      <a href="#" class="children-toggle open"></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/'>Performance upgrade preview</a>
       
-        <ul class="children open">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/'>Configuration reference</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/monitor/'>Monitor</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/backup-restore/'>Back up and restore</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/performance-tuning/'>Performance tuning</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/security/'>Security</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/upgrade/'>Upgrade Enterprise</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/upgrade-from-core/'>Upgrade from Core</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/mcp-server/'>Use the InfluxDB MCP server</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/mcp-server/'>Use the InfluxDB MCP server</a>
       
     </li>
   
@@ -1512,7 +1442,7 @@
   
     <li class="nav-category ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/'>Reference</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/'>Reference</a>
       
         <ul class="children ">
         
@@ -1523,13 +1453,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/config-options/'>Configuration options</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/config-options/'>Configuration options</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/'>CLIs</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/'>CLIs</a>
       
         <ul class="children ">
         
@@ -1540,7 +1470,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/'>influxdb3</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/'>influxdb3</a>
       
         <ul class="children ">
         
@@ -1551,18 +1481,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/'>influxdb3 create</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/token/'>influxdb3 create token</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/'>influxdb3 create</a>
       
         <ul class="children ">
         
@@ -1573,13 +1492,42 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/'>influxdb3 create token --permission</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/database/'>influxdb3 create database</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/token/admin/'>influxdb3 create token --admin</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/distinct_cache/'>influxdb3 create distinct_cache</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/last_cache/'>influxdb3 create last_cache</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/table/'>influxdb3 create table</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/token/'>influxdb3 create token</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/token/admin/'>influxdb3 create token --admin</a>
       
     </li>
   
@@ -1590,37 +1538,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/database/'>influxdb3 create database</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/distinct_cache/'>influxdb3 create distinct_cache</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/file_index/'>influxdb3 create file_index</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/last_cache/'>influxdb3 create last_cache</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/table/'>influxdb3 create table</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/'>influxdb3 create trigger</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/create/trigger/'>influxdb3 create trigger</a>
       
     </li>
   
@@ -1631,7 +1549,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/'>influxdb3 delete</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/'>influxdb3 delete</a>
       
         <ul class="children ">
         
@@ -1642,43 +1560,37 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/token/'>influxdb3 delete token</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/token/'>influxdb3 delete token</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/database/'>influxdb3 delete database</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/database/'>influxdb3 delete database</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/distinct_cache/'>influxdb3 delete distinct_cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/distinct_cache/'>influxdb3 delete distinct_cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/file_index/'>influxdb3 delete file_index</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/last_cache/'>influxdb3 delete last_cache</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/last_cache/'>influxdb3 delete last_cache</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/table/'>influxdb3 delete table</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/table/'>influxdb3 delete table</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/delete/trigger/'>influxdb3 delete trigger</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/delete/trigger/'>influxdb3 delete trigger</a>
       
     </li>
   
@@ -1689,7 +1601,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/disable/'>influxdb3 disable</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/disable/'>influxdb3 disable</a>
       
         <ul class="children ">
         
@@ -1700,7 +1612,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/disable/trigger/'>influxdb3 disable trigger</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/disable/trigger/'>influxdb3 disable trigger</a>
       
     </li>
   
@@ -1711,7 +1623,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/enable/'>influxdb3 enable</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/enable/'>influxdb3 enable</a>
       
         <ul class="children ">
         
@@ -1722,7 +1634,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/enable/trigger/'>influxdb3 enable trigger</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/enable/trigger/'>influxdb3 enable trigger</a>
       
     </li>
   
@@ -1733,7 +1645,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/install/'>influxdb3 install</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/install/'>influxdb3 install</a>
       
         <ul class="children ">
         
@@ -1744,7 +1656,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/install/package/'>influxdb3 install package</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/install/package/'>influxdb3 install package</a>
       
     </li>
   
@@ -1755,19 +1667,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/query/'>influxdb3 query</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/query/'>influxdb3 query</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/serve/'>influxdb3 serve</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/serve/'>influxdb3 serve</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/'>influxdb3 show</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/'>influxdb3 show</a>
       
         <ul class="children ">
         
@@ -1778,31 +1690,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/license/'>influxdb3 show license</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/plugins/'>influxdb3 show plugins</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/nodes/'>influxdb3 show nodes</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/plugins/'>influxdb3 show plugins</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/databases/'>influxdb3 show databases</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/databases/'>influxdb3 show databases</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/system/'>influxdb3 show system</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/system/'>influxdb3 show system</a>
       
         <ul class="children ">
         
@@ -1813,19 +1713,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/system/summary/'>influxdb3 show system summary</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/system/summary/'>influxdb3 show system summary</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/system/table/'>influxdb3 show system table</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/system/table/'>influxdb3 show system table</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/system/table-list/'>influxdb3 show system table-list</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/system/table-list/'>influxdb3 show system table-list</a>
       
     </li>
   
@@ -1836,13 +1736,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/tokens/'>influxdb3 show tokens</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/tokens/'>influxdb3 show tokens</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/show/retention/'>influxdb3 show retention</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/show/retention/'>influxdb3 show retention</a>
       
     </li>
   
@@ -1853,7 +1753,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/test/'>influxdb3 test</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/test/'>influxdb3 test</a>
       
         <ul class="children ">
         
@@ -1864,13 +1764,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/test/wal_plugin/'>influxdb3 test wal_plugin</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/test/wal_plugin/'>influxdb3 test wal_plugin</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/test/schedule_plugin/'>influxdb3 test schedule_plugin</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/test/schedule_plugin/'>influxdb3 test schedule_plugin</a>
       
     </li>
   
@@ -1881,7 +1781,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/update/'>influxdb3 update</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/update/'>influxdb3 update</a>
       
         <ul class="children ">
         
@@ -1892,19 +1792,13 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/update/database/'>influxdb3 update database</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/update/database/'>influxdb3 update database</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/update/table/'>influxdb3 update table</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/update/trigger/'>influxdb3 update trigger</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/update/trigger/'>influxdb3 update trigger</a>
       
     </li>
   
@@ -1915,29 +1809,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/write/'>influxdb3 write</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/stop/'>influxdb3 stop</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/cli/influxdb3/stop/node/'>influxdb3 stop node</a>
-      
-    </li>
-  
-
-        </ul>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/cli/influxdb3/write/'>influxdb3 write</a>
       
     </li>
   
@@ -1953,19 +1825,19 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/line-protocol/'>Line protocol</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/line-protocol/'>Line protocol</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/processing-engine/'>Processing engine</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/processing-engine/'>Processing engine</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/'>SQL reference</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/'>SQL reference</a>
       
         <ul class="children ">
         
@@ -1976,79 +1848,79 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/data-types/'>Data types</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/data-types/'>Data types</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/select/'>SELECT statement</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/select/'>SELECT statement</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/join/'>JOIN clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/join/'>JOIN clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/where/'>WHERE clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/where/'>WHERE clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/group-by/'>GROUP BY clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/group-by/'>GROUP BY clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/order-by/'>ORDER BY clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/order-by/'>ORDER BY clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/having/'>HAVING clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/having/'>HAVING clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/limit/'>LIMIT clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/limit/'>LIMIT clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/union/'>UNION clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/union/'>UNION clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/explain/'>EXPLAIN command</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/explain/'>EXPLAIN command</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/information-schema/'>Information schema</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/information-schema/'>Information schema</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/subqueries/'>Subqueries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/subqueries/'>Subqueries</a>
       
     </li>
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/'>Operators</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/'>Operators</a>
       
         <ul class="children ">
         
@@ -2059,148 +1931,31 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/arithmetic/'>Arithmetic operators</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/arithmetic/'>Arithmetic operators</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/comparison/'>Comparison operators</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/comparison/'>Comparison operators</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/logical/'>Logical operators</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/logical/'>Logical operators</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/bitwise/'>Bitwise operators</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/bitwise/'>Bitwise operators</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/operators/other/'>Other operators</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/'>Functions</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/aggregate/'>Aggregate</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/selector/'>Selector</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/time-and-date/'>Time and date</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/conditional/'>Conditional</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/math/'>Math</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/string/'>String</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/binary-string/'>Binary string</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/array/'>Array</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/map/'>Map</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/struct/'>Struct</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/regular-expression/'>Regular expression</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/hashing/'>Hashing</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/cache/'>Cache</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/misc/'>Miscellaneous</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/functions/window/'>Window</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sql/table-value-constructor/'>Table value constructor</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/operators/other/'>Other operators</a>
       
     </li>
   
@@ -2211,7 +1966,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/'>InfluxQL reference</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/'>Functions</a>
       
         <ul class="children ">
         
@@ -2222,90 +1977,91 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/select/'>SELECT statement</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/aggregate/'>Aggregate</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/where/'>WHERE clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/selector/'>Selector</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/group-by/'>GROUP BY clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/time-and-date/'>Time and date</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/order-by/'>ORDER BY clause</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/conditional/'>Conditional</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/limit-and-slimit/'>LIMIT and SLIMIT clauses</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/math/'>Math</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/offset-and-soffset/'>OFFSET and SOFFSET clauses</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/string/'>String</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/show/'>SHOW statements</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/binary-string/'>Binary string</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/subqueries/'>Subqueries</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/'>InfluxQL functions</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/aggregates/'>Aggregates</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/array/'>Array</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/selectors/'>Selectors</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/map/'>Map</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/transformations/'>Transformations</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/struct/'>Struct</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/date-time/'>Date and time</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/regular-expression/'>Regular expression</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/functions/misc/'>Miscellaneous</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/hashing/'>Hashing</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/cache/'>Cache</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/misc/'>Miscellaneous</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/functions/window/'>Window</a>
       
     </li>
   
@@ -2316,100 +2072,7 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/time-and-timezone/'>Time and time zones</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/regular-expressions/'>Regular expressions</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/quoting/'>Quotation</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/math-operators/'>Math operators</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/internals/'>InfluxQL internals</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/influxql/feature-support/'>InfluxQL feature support</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/api/'>InfluxDB HTTP API</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/'>Client libraries</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/'>Arrow Flight clients</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/csharp-flight/'>C# .NET</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/go-flight/'>Go</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/java-flightsql/'>Java Flight SQL</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/python-flight/'>Python</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/flight/python-flightsql-dbapi/'>Python Flight SQL</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sql/table-value-constructor/'>Table value constructor</a>
       
     </li>
   
@@ -2420,7 +2083,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/'>v3 client libraries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/'>InfluxQL reference</a>
       
         <ul class="children ">
         
@@ -2431,31 +2094,194 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/csharp/'>C# .NET</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/select/'>SELECT statement</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/go/'>Go</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/where/'>WHERE clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/java/'>Java</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/group-by/'>GROUP BY clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/javascript/'>JavaScript</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/order-by/'>ORDER BY clause</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v3/python/'>Python</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/limit-and-slimit/'>LIMIT and SLIMIT clauses</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/offset-and-soffset/'>OFFSET and SOFFSET clauses</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/show/'>SHOW statements</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/subqueries/'>Subqueries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/'>InfluxQL functions</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/aggregates/'>Aggregates</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/selectors/'>Selectors</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/transformations/'>Transformations</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/date-time/'>Date and time</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/functions/misc/'>Miscellaneous</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/time-and-timezone/'>Time and time zones</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/regular-expressions/'>Regular expressions</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/quoting/'>Quotation</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/math-operators/'>Math operators</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/internals/'>InfluxQL internals</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/influxql/feature-support/'>InfluxQL feature support</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/api/'>InfluxDB HTTP API</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/'>Client libraries</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/'>Arrow Flight clients</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/csharp-flight/'>C# .NET</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/go-flight/'>Go</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/java-flightsql/'>Java Flight SQL</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/python-flight/'>Python</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/flight/python-flightsql-dbapi/'>Python Flight SQL</a>
       
     </li>
   
@@ -2466,7 +2292,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/'>v2 client libraries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/'>v3 client libraries</a>
       
         <ul class="children ">
         
@@ -2477,134 +2303,31 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/arduino/'>Arduino</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/csharp/'>C# .NET</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/csharp/'>C#</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/go/'>Go</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/dart/'>Dart</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/java/'>Java</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/go/'>Go</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/javascript/'>JavaScript</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/java/'>Java</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/javascript/'>JavaScript</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/javascript/browser/'>Browsers and web clients</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/javascript/nodejs/'>Node.js</a>
-      
-        <ul class="children ">
-        
-  
-  
-  
-  
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/javascript/nodejs/install/'>Install</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/javascript/nodejs/write/'>Write</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/kotlin/'>Kotlin</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/php/'>PHP</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/python/'>Python</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/r/'>R</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/ruby/'>Ruby</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/scala/'>Scala</a>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v2/swift/'>Swift</a>
-      
-    </li>
-  
-
-        </ul>
-      
-    </li>
-  
-    <li class="nav-item ">
-      
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/client-libraries/v1/'>v1 client libraries</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v3/python/'>Python</a>
       
     </li>
   
@@ -2615,7 +2338,7 @@
   
     <li class="nav-item ">
       <a href="#" class="children-toggle "></a>
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/internals/'>Enterprise internals</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/'>v2 client libraries</a>
       
         <ul class="children ">
         
@@ -2626,19 +2349,76 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/internals/data-retention/'>Data retention</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/arduino/'>Arduino</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/internals/authentication/'>Authentication and authorization</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/csharp/'>C#</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/internals/durability/'>Data durability</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/dart/'>Dart</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/go/'>Go</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/java/'>Java</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/javascript/'>JavaScript</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/javascript/browser/'>Browsers and web clients</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/javascript/nodejs/'>Node.js</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/javascript/nodejs/install/'>Install</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/javascript/nodejs/write/'>Write</a>
+      
+    </li>
+  
+
+        </ul>
       
     </li>
   
@@ -2649,31 +2429,123 @@
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/naming-restrictions/'>Naming restrictions and conventions</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/kotlin/'>Kotlin</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/telemetry/'>Usage telemetry</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/php/'>PHP</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/glossary/'>Glossary</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/python/'>Python</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/sample-data/'>Sample data</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/r/'>R</a>
       
     </li>
   
     <li class="nav-item ">
       
-      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/release-notes/'>Release Notes</a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/ruby/'>Ruby</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/scala/'>Scala</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v2/swift/'>Swift</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/client-libraries/v1/'>v1 client libraries</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/internals/'>Core internals</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/internals/data-retention/'>Data retention</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/internals/authentication/'>Authentication and authorization</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/internals/durability/'>Data durability</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/naming-restrictions/'>Naming restrictions and conventions</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/telemetry/'>Usage telemetry</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/glossary/'>Glossary</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/reference/sample-data/'>Sample data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-6770/influxdb3/core/release-notes/'>Release Notes</a>
       
     </li>
   
@@ -2712,7 +2584,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Performance upgrade preview</h1>
+      <h1>Use the InfluxDB 3 MCP server</h1>
       
 
 
@@ -2724,15 +2596,14 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="2"
-  data-estimated-tokens="1000"
-  data-section-download-url="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/-download.zip">
+  data-child-count="0"
+  data-estimated-tokens="0">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy section for AI - Access documentation in different formats"
+    aria-label="Copy page for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -2742,7 +2613,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy section for AI
+      Copy page for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -2820,116 +2691,124 @@
 
 
   
-<div class="block warning">
-  
-  
-  <h4 id="private-preview-beta">Private preview beta</h4>
-<p>The performance upgrade preview is available to InfluxDB 3 Enterprise Trial
-and Commercial users as a private beta. These features are subject to breaking changes
-and <strong>should not be used for production workloads</strong>. Your feedback on stability
-and performance at scale helps shape the future of InfluxDB 3.</p>
-</div>
-<p>InfluxDB 3 Enterprise includes a private preview of major performance and
-feature updates. These updates represent the foundation for the upcoming 3.10
-and 3.11 releases. Available in beta now for InfluxDB 3 Enterprise, many of
-these improvements will be coming to InfluxDB 3 Core in subsequent release cycles.</p>
-<h2 id="key-improvements">Key improvements</h2>
+  <p>The <strong>InfluxDB Model Context Protocol (MCP) server</strong> lets you interact with
+InfluxDB 3 Core using natural language with large language model (LLM) agents.
+It enables database management, token handling, and SQL query generation in plain
+English—no coding required.</p>
+<p>This guide walks you through configuring your LLM agent to run and use the
+InfluxDB MCP server to interact with your
+InfluxDB 3 Core .</p>
+<h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li><strong>Faster single-series queries</strong>: Optimized data path for fetching specific
-trends over long time windows, with single-digit millisecond response times.</li>
-<li><strong>Consistent resource usage</strong>: Reduced CPU and memory spikes during heavy
-compaction or ingestion bursts through key-range partitioning.</li>
-<li><strong>Wide-and-sparse table support</strong>: Handle schemas with up to hundres of thousands of
-columns and dynamic schema evolution without expensive rewrites.</li>
-<li><strong>Automatic distinct value caches</strong>: Dramatically reduced latency for metadata
-queries like <code>SHOW TAG VALUES</code> in InfluxQL.</li>
+<li>
+<p>Node.js v18+ <em>(if using <code>npx</code> to run the MCP server)</em></p>
+</li>
+<li>
+<p>Docker <em>(if using Docker to run the MCP server)</em></p>
+</li>
+<li>
+<p>A running and reachable InfluxDB 3 Core
+.</p>
+</li>
+<li>
+<p><em>(Optional)</em> An LLM assistant like Claude Desktop, ChatGPT Desktop, etc.</p>
+</li>
 </ul>
-<h2 id="enable-the-preview">Enable the preview</h2>
-<p>Add the <code>--use-pacha-tree</code> flag to your normal
-<a href="/influxdb3/enterprise/get-started/setup/"><code>influxdb3 serve</code> startup command</a>:</p>
+<h2 id="configure-the-mcp-server">Configure the MCP server</h2>
+<p>Use environment variables to configure the InfluxDB 3 MCP server and connect it
+to your InfluxDB 3 Core
+.
+Set the following environment variables when you start the MCP server:</p>
+<h3 id="required-influxdb-connection-variables">Required InfluxDB connection variables</h3>
+<h2 id="configure-your-llm-agent-to-run-the-mcp-server">Configure your LLM agent to run the MCP server</h2>
+<p>To run the MCP, user either Node.js and <code>npm</code> or Docker to run the server.
+Some LLM agents, like <a href="https://claude.ai/download">Claude Desktop</a>, start, run,
+and connect to the MCP server for you:</p>
+<p>The following instructions provide information for how to configure
+<strong>Claude Desktop</strong> to use the InfluxDB MCP server.</p>
 
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id host01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id cluster01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store file <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --data-dir ~/.influxdb3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree</span></span></code></pre></div>
-<p>The flag exposes additional configuration options prefixed with <code>--pt-</code>.
-See <a href="/influxdb3/enterprise/admin/pachatree/configure/">Configure the preview</a>
-for tuning options, or <a href="/influxdb3/enterprise/admin/pachatree/monitor/">Monitor the preview</a>
-for system tables and telemetry.</p>
-<h2 id="who-should-try-the-preview">Who should try the preview</h2>
-<p>Consider enabling the preview in your staging or development environment if
-you have workloads with high cardinality, wide tables, frequent backfill, or
-query-heavy access patterns.</p>
-<p>Your feedback on stability and speed at scale helps inform the development of
-features planned for general availability in the 3.10 and 3.11 releases.</p>
-
-<div class="block important">
+<div class="tabs-wrapper">
   
-  
-  <h4 id="important-upgraded-file-format">Important: Upgraded file format</h4>
-<p>These upgrades use an upgraded file format (<code>.pt</code> files). When you enable the preview,
-your existing data is automatically upgraded to the new format in place.
-While downgrading is possible, any data written after the upgrade will not
-be included in the downgrade.</p>
-<p>Systems with large amounts of data may take time to complete the upgrade.
-For the beta, we recommend using a fresh setup for testing and evaluation
-rather than upgrading existing data.</p>
+
+
+
+
+<div class="tabs">
+  <p><a href="#">Node.js</a>
+<a href="#">Docker</a></p>
+
 </div>
 
 
+<section class="tab-content">
+  <!------------------------------- BEGIN NODE.JS ------------------------------->
+<ol>
+<li>
+<p>Clone the <a href="https://github.com/influxdata/influxdb3_mcp_server">influxdata/influxdb3_mcp_server repository</a>
+from GitHub.</p>
+</li>
+<li>
+<p>Navigate to the <code>influxdb3_mcp_server</code> project directory:</p>
 
 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> influxdb3_mcp_server/</span></span></code></pre></div>
+</li>
+<li>
+<p>Install dependencies:</p>
 
 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm install</span></span></code></pre></div>
+</li>
+<li>
+<p>Build the MCP server:</p>
 
 
-	
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run build</span></span></code></pre></div>
+</li>
+</ol>
+<p>This builds the files necessary to run the MCP server and stores them in <code>./build</code>.
+The <code>./build/index.js</code> file starts the MCP server.</p>
+<h3 id="configure-your-llm-agent-to-use-the-nodejs-based-mcp-server">Configure your LLM Agent to use the Node.js-based MCP server</h3>
+<p>In <strong>Claude Desktop</strong>, go to <strong>Settings</strong> &gt; <strong>Developers</strong> and edit your configuration.
+Enter the following JSON configuration:</p>
+<!-------------------------------- END NODE.JS -------------------------------->
+
+</section>
 
 
+<section class="tab-content">
+  <!------------------------------- BEGIN DOCKER -------------------------------->
+<h3 id="configure-your-llm-agent-to-use-the-docker-based-mcp-server">Configure your LLM Agent to use the Docker-based MCP server</h3>
+<p>In <strong>Claude Desktop</strong>, go to <strong>Settings</strong> &gt; <strong>Developers</strong> and edit your configuration.
+Enter the following JSON configuration:</p>
+<!------------------------------- END DOCKER -------------------------------->
+
+</section>
 
 
+</div>
 
-	<div class="children-links">
-		
-			
-			
-			
-			 <h2 id="configure-the-performance-upgrade-preview"><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/" target="">Configure the performance upgrade preview</a></h2>
-			
-			<p>Complete reference for all configuration options available with the InfluxDB 3 Enterprise performance upgrades, including memory, compaction, WAL, caching, and replication settings.</p>
-			
-			
+<h3 id="supported-features">Supported Features</h3>
+<p>Once connected, you can use your LLM agent to perform tasks on your
+InfluxDB 3 Core ,
+including:</p>
+<ul>
+<li>Create, update, and delete databases</li>
+<li>List tables and inspect schemas</li>
+<li>Create and manage tokens</li>
+<li>Query data without writing SQL or InfluxQL</li>
+<li>Check server health and connection status</li>
+</ul>
+<h5 id="examples-of-supported-prompts">Examples of supported prompts</h5>
 
-			
+<blockquote>
+<p>“List all tables in the <code>production</code> database.”</p>
+<p>“Create a read-only token for the <code>metrics</code> database.”</p>
+<p>“Analyze last week’s sensor data for anomalies.”</p>
+<p>“Create a new database called <code>iot_sensors</code> with a 30-day retention policy.”</p>
+<p>“Show me the schema for the <code>sensor_data</code> table.”</p>
 
-			
-			
-				<hr />
-			
-	
-			
-			
-			
-			 <h2 id="monitor-the-performance-upgrade-preview"><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/monitor/" target="">Monitor the performance upgrade preview</a></h2>
-			
-			<p>Use system tables and query telemetry to monitor file status, query execution, and overall performance when using InfluxDB 3 Enterprise performance upgrades.</p>
-			
-			
-
-			
-
-			
-			
-				<hr />
-			
-	
-	</div>
-
-
-
+</blockquote>
 
 
 
@@ -2947,22 +2826,7 @@ rather than upgrading existing data.</p>
 
       
       
-
-      
-      
-
-      
-      
         
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/get-started/setup/" >Set up InfluxDB 3 Enterprise</a></li>
-        
-      
-    
-      
-      
-
-      
       
 
       
@@ -2972,42 +2836,10 @@ rather than upgrading existing data.</p>
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/" >Configure the performance upgrade preview</a></li>
         
-      
-    
-      
-      
+        <li><a href="https://github.com/influxdata/influxdb3_mcp_server" target="_blank">InfluxDB 3 MCP Server GitHub Repository</a></li>
 
       
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/monitor/" >Monitor the performance upgrade preview</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/performance-tuning/" >Performance tuning</a></li>
-        
       
     
     </ul>
@@ -3030,6 +2862,8 @@ rather than upgrading existing data.</p>
 
 
   
+  
+    
   
 
 
@@ -3079,8 +2913,8 @@ rather than upgrading existing data.</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/admin/pachatree/_index.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3-admin/mcp-server.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/core/admin/mcp-server/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
@@ -3142,8 +2976,8 @@ rather than upgrading existing data.</p>
 
 
 <div class="modal-content" id="influxdb-url-list">
-  <h3>What is your InfluxDB 3 Enterprise URL?</h3>
-  <p>Customize your <strong>InfluxDB 3 Enterprise URL</strong> and we&rsquo;ll update code examples for you.</p>
+  <h3>What is your InfluxDB 3 Core URL?</h3>
+  <p>Customize your <strong>InfluxDB 3 Core URL</strong> and we&rsquo;ll update code examples for you.</p>
   <div class="products">
     
       <ul id="pref-tabs">

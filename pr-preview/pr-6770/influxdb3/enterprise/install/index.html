@@ -46,10 +46,10 @@
 
 
 
-<title>Performance upgrade preview configuration reference for InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
+<title>Install InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Complete reference for all configuration options available with the InfluxDB 3 Enterprise performance upgrades, including memory, compaction, WAL, caching, and replication settings.">
+    <meta name="description" content="Download and install InfluxDB 3 Enterprise.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,51 @@
 
 
 
+  
+  
+    
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/" />
 
     
 <style>
@@ -168,7 +209,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-28 11:26:49 -0600 -0600">
+<meta name="last-modified" content="2025-10-25 07:42:53 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -403,7 +444,7 @@
   
   
   
-  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+  <a href='/influxdb/v1/introduction/install/' >InfluxDB OSS v1</a>
 </li>
         <li>
   
@@ -590,11 +631,11 @@
       
     </li>
   
-    <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+    <li class="nav-category active">
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/'>Install InfluxDB 3 Enterprise</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -1119,10 +1160,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/'>Administer InfluxDB</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1442,17 +1483,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/'>Performance upgrade preview</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/'>Configuration reference</a>
       
@@ -2712,7 +2753,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Configure the performance upgrade preview</h1>
+      <h1>Install InfluxDB 3 Enterprise</h1>
       
 
 
@@ -2724,14 +2765,15 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0">
+  data-child-count="1"
+  data-estimated-tokens="500"
+  data-section-download-url="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/-download.zip">
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -2741,7 +2783,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -2819,524 +2861,307 @@
 
 
   
-<div class="block warning">
+  <!-- Comment: This file is used to generate the InfluxDB 3 install page. -->
+<ul>
+<li><a href="#system-requirements">System Requirements</a></li>
+<li><a href="#install">Install</a>
+<ul>
+<li><a href="#quick-install-for-linux-and-macos">Quick install for Linux and macOS</a></li>
+<li><a href="#download-and-install-the-latest-build-artifacts">Download and install the latest build artifacts</a></li>
+<li><a href="#pull-the-docker-image">Pull the Docker image</a></li>
+<li><a href="#linux-deb-or-rpm">Linux DEB or RPM</a>
+<ul>
+<li><a href="#toml-configuration-linux">TOML configuration (Linux)</a></li>
+<li><a href="#run-as-a-system-service-linux">Run as a system service (Linux)</a></li>
+</ul>
+</li>
+<li><a href="#verify-the-installation">Verify the installation</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2>
+<h4 id="operating-system">Operating system</h4>
+<p>InfluxDB 3 Enterprise runs on <strong>Linux</strong>, <strong>macOS</strong>, and <strong>Windows</strong>.</p>
+<h4 id="object-storage">Object storage</h4>
+<p>A key feature of InfluxDB 3 is its use of object storage to store time series
+data in Apache Parquet format. You can choose to store these files on your local
+file system. Performance on your local filesystem will likely be better, but
+object storage has the advantage of not running out of space and being accessible
+by other systems over the network. InfluxDB 3 Enterprise natively supports Amazon S3,
+Azure Blob Storage, and Google Cloud Storage.
+You can also use many local object storage implementations that provide an
+S3-compatible API, such as <a href="https://min.io/">Minio</a>.</p>
+<h2 id="install">Install</h2>
+<p>InfluxDB 3 Enterprise runs on <strong>Linux</strong>, <strong>macOS</strong>, and <strong>Windows</strong>.</p>
+<p>Choose one of the following methods to install InfluxDB 3 Enterprise:</p>
+<ul>
+<li><a href="#quick-install-for-linux-and-macos">Quick install for Linux and macOS</a></li>
+<li><a href="#download-and-install-the-latest-build-artifacts">Download and install the latest build artifacts</a></li>
+<li><a href="#pull-the-docker-image">Pull the Docker image</a></li>
+<li><a href="#linux-deb-or-rpm">Linux DEB or RPM</a></li>
+</ul>
+<h3 id="quick-install-for-linux-and-macos">Quick install for Linux and macOS</h3>
+<p>To install InfluxDB 3 Enterprise on <strong>Linux</strong> or <strong>macOS</strong>, download and run the quick
+installer script for InfluxDB 3 Enterprise&ndash;for example, using <a href="https://curl.se/"><code>curl</code></a>
+to download the script:</p>
+<!--pytest.mark.skip-->
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -O https://www.influxdata.com/d/install_influxdb3.sh <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> sh install_influxdb3.sh </span></span></code></pre></div>
+
+<div class="block note">
   
   
-  <h4 id="private-preview-beta">Private preview beta</h4>
-<p>The performance upgrade preview is available to InfluxDB 3 Enterprise Trial
-and Commercial users as a private beta. These features are subject to breaking changes
-and <strong>should not be used for production workloads</strong>. Your feedback on stability
-and performance at scale helps shape the future of InfluxDB 3.</p>
+  <p>The quick installer script is updated with each InfluxDB 3 Enterprise release,
+so it always installs the latest version.</p>
 </div>
-<p>This page provides a complete reference for all configuration options available
-with these performance upgrades. All options require the <code>--use-pacha-tree</code> flag.</p>
-<h2 id="core-settings">Core settings</h2>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--use-pacha-tree</code></td>
-          <td style="text-align: left">Enable the performance upgrade preview</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-max-columns</code></td>
-          <td style="text-align: left">Maximum total columns across the instance</td>
-          <td style="text-align: left"><code>6500000</code> (~6.5M)</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="set-maximum-columns">Set maximum columns</h3>
-<p>Limit the total number of columns across all databases and tables:</p>
+
+<div class="block important">
+  
+  
+  <h4 metadata="v3.8+" id="production-deployment">Production deployment</h4>
+<p>For production deployments, use <a href="#linux-deb-or-rpm">Linux DEB or RPM</a>
+for built-in systemd sandboxing, or <a href="#pull-the-docker-image">Docker</a> with your own
+container security configuration.</p>
+<p>For detailed security options, see <a href="/influxdb3/version/admin/security/">Manage security</a>.</p>
+</div>
+<h3 id="download-and-install-the-latest-build-artifacts">Download and install the latest build artifacts</h3>
+<p>You can also download and install <a href="/influxdb3/version/install/#download-influxdb-3-pr-preview-binaries">InfluxDB 3 Enterprise build artifacts</a> directly:</p>
+<div class="expand-wrapper">
+  
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-max-columns <span class="m">1000000</span></span></span></code></pre></div>
-<h2 id="memory-management">Memory management</h2>
-<p>Control how the upgraded storage uses memory for buffers, caches, and processing.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-max-buffer-size</code></td>
-          <td style="text-align: left">Maximum WAL buffer size before flush</td>
-          <td style="text-align: left"><code>15MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-snapshot-max-unmerged-size</code></td>
-          <td style="text-align: left">Unmerged data threshold for snapshot</td>
-          <td style="text-align: left"><code>500MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-merge-threshold-size</code></td>
-          <td style="text-align: left">Size threshold to trigger merge</td>
-          <td style="text-align: left"><code>125MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-max-buffer-size</code></td>
-          <td style="text-align: left">Query node buffer maximum</td>
-          <td style="text-align: left">50% system memory (max 16GB)</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="wal-buffer-size">WAL buffer size</h3>
-<p>The WAL buffer accumulates incoming writes before flushing to object storage.
-Larger buffers reduce flush frequency but increase memory usage:</p>
+
+<div class="expand" id="linux-binaries">
+  <a class="expand-link" href="#linux-binaries"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Linux binaries</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <ul>
+<li><a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_linux_amd64.tar.gz">Linux | AMD64 (x86_64) | GNU</a>
+•
+<a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_linux_amd64.tar.gz.sha256">sha256</a></li>
+<li><a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_linux_arm64.tar.gz">Linux | ARM64 (AArch64) | GNU</a>
+•
+<a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_linux_arm64.tar.gz.sha256">sha256</a></li>
+</ul>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 30MB</span></span></code></pre></div>
-<h3 id="snapshot-threshold">Snapshot threshold</h3>
-<p>Control when the snapshot buffer triggers a snapshot creation:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 1GB</span></span></code></pre></div>
-<h3 id="merge-threshold">Merge threshold</h3>
-<p>Set the size threshold that triggers background merge operations:</p>
+<div class="expand" id="macos-binaries">
+  <a class="expand-link" href="#macos-binaries"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>macOS binaries</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <ul>
+<li><a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_darwin_arm64.tar.gz">macOS | Silicon (ARM64)</a>
+•
+<a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0_darwin_arm64.tar.gz.sha256">sha256</a></li>
+</ul>
+
+<div class="block note">
+  
+  
+  <p>macOS Intel builds are coming soon.</p>
+</div>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-merge-threshold-size 250MB</span></span></code></pre></div>
-<h3 id="query-node-buffer-distributed">Query node buffer (distributed)</h3>
-<p>For query nodes in distributed deployments, control the maximum buffer size:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-max-buffer-size 8GB</span></span></code></pre></div>
-<h2 id="wal-configuration">WAL configuration</h2>
-<p>Configure Write-Ahead Log (WAL) behavior for durability and performance.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-flush-interval</code></td>
-          <td style="text-align: left">Automatic flush interval</td>
-          <td style="text-align: left"><code>1s</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-merge-on-interval</code></td>
-          <td style="text-align: left">Enable interval-based merging</td>
-          <td style="text-align: left"><code>true</code> (all-in-one), <code>false</code> (multi-node)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-flush-concurrency</code></td>
-          <td style="text-align: left">WAL flush worker concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replication-interval</code></td>
-          <td style="text-align: left">Query node WAL polling interval</td>
-          <td style="text-align: left"><code>250ms</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="flush-interval">Flush interval</h3>
-<p>Control how frequently the WAL buffer flushes to object storage:</p>
+<div class="expand" id="windows-binaries">
+  <a class="expand-link" href="#windows-binaries"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Windows binaries</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <ul>
+<li><a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0-windows_amd64.zip">Windows (AMD64, x86_64) binary</a>
+•
+<a href="https://dl.influxdata.com/influxdb/releases/influxdb3-pr-preview-3.8.0-windows_amd64.zip.sha256">sha256</a></li>
+</ul>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># More frequent flushes (lower latency, more I/O)</span>
-</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 500ms</span></span></code></pre></div>
+</div>
+
+<h3 id="pull-the-docker-image">Pull the Docker image</h3>
+<p>Run the following command to pull the <a href="https://hub.docker.com/_/influxdb/tags?tag=3-pr-preview&amp;name=3-pr-preview"><code>influxdb:3-pr-preview</code> image</a>, available for x86_64 (AMD64) and ARM64 architectures:</p>
+<!--pytest.mark.skip-->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Less frequent flushes (higher latency, less I/O)</span>
-</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 5s</span></span></code></pre></div>
-<h3 id="flush-concurrency">Flush concurrency</h3>
-<p>Increase flush workers for high-throughput workloads:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker pull influxdb:3-pr-preview</span></span></code></pre></div>
+<p>Docker automatically pulls the appropriate image for your system architecture.</p>
+<div class="expand-wrapper">
+  
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">8</span></span></span></code></pre></div>
-<h3 id="interval-based-merging">Interval-based merging</h3>
-<p>In all-in-one mode, WAL files are merged on a time interval.
-Disable for more control over merge timing:</p>
+
+<div class="expand" id="pull-for-a-specific-system-architecture">
+  <a class="expand-link" href="#pull-for-a-specific-system-architecture"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Pull for a specific system architecture</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>To specify the system architecture, use platform-specific tags&ndash;for example:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-merge-on-interval false</span></span></code></pre></div>
-<h2 id="compaction-settings">Compaction settings</h2>
-<p>Configure background compaction behavior.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-concurrency</code></td>
-          <td style="text-align: left">Compaction worker concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-snapshot-merge-concurrency</code></td>
-          <td style="text-align: left">Snapshot merge concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-cache</code></td>
-          <td style="text-align: left">Compaction cache size</td>
-          <td style="text-align: left">20% of file cache</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="compaction-concurrency">Compaction concurrency</h3>
-<p>Increase compaction workers for faster background processing:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># For x86_64/AMD64</span>
+</span></span><span class="line"><span class="cl">docker pull <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--platform linux/amd64 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>influxdb:3-pr-preview</span></span></code></pre></div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">8</span></span></span></code></pre></div>
-<h3 id="snapshot-merge-concurrency">Snapshot merge concurrency</h3>
-<p>Control parallelism for snapshot merge operations:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># For ARM64</span>
+</span></span><span class="line"><span class="cl">docker pull <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--platform linux/arm64 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>influxdb:3-pr-preview</span></span></code></pre></div>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-merge-concurrency <span class="m">4</span></span></span></code></pre></div>
-<h3 id="compaction-cache">Compaction cache</h3>
-<p>Dedicated cache for compaction operations (separate from query cache):</p>
+</div>
+
+<h3 id="linux-deb-or-rpm">Linux DEB or RPM</h3>
+<p>When installed via DEB or RPM on a <code>systemd</code>-enabled system, InfluxDB 3 Enterprise runs in a sandboxed environment.
+The included <code>systemd</code> unit file configures the environment to provide security isolation for typical deployments.
+For more information, see <a href="/influxdb3/version/admin/security/">Manage security</a>.</p>
+
+<div class="block note">
+  
+  
+  <p>DEB and RPM installation is <strong>recommended for non-Docker production deployments</strong> due to built-in <code>systemd</code> sandboxing.</p>
+</div>
+<div class="expand-wrapper">
+  
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache 2GB</span></span></code></pre></div>
-<h2 id="cache-configuration">Cache configuration</h2>
-<p>Configure data caching for query performance.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-size</code></td>
-          <td style="text-align: left">Data file cache size</td>
-          <td style="text-align: left">~20% system memory</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-recency</code></td>
-          <td style="text-align: left">Only cache files newer than this</td>
-          <td style="text-align: left"><code>5h</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-evict-after</code></td>
-          <td style="text-align: left">Evict entries not read within this duration</td>
-          <td style="text-align: left"><code>24h</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-cache-ttl</code></td>
-          <td style="text-align: left">Compaction cache TTL</td>
-          <td style="text-align: left"><code>5m</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-disable-data-file-cache</code></td>
-          <td style="text-align: left">Disable data file caching</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="file-cache-size">File cache size</h3>
-<p>Set the maximum size for the data file cache:</p>
+
+<div class="expand" id="deb-based-systems">
+  <a class="expand-link" href="#deb-based-systems"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>DEB-based systems</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Use <code>apt-get</code> to install InfluxDB 3 Enterprise from the InfluxData repository:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 8GB</span></span></code></pre></div>
-<h3 id="cache-recency-filter">Cache recency filter</h3>
-<p>Only cache files containing data from the specified time window:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+</span></span><span class="line"><span class="cl">gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> grep -q <span class="s1">&#39;^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> cat influxdata-archive.key <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> gpg --dearmor <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> sudo tee /usr/share/keyrings/influxdata-archive.gpg &gt; /dev/null <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;deb [signed-by=/usr/share/keyrings/influxdata-archive.gpg] https://repos.influxdata.com/debian stable main&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> sudo tee /etc/apt/sources.list.d/influxdata.list
+</span></span><span class="line"><span class="cl">sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get install influxdb3-pr-preview</span></span></code></pre></div>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-recency 24h</span></span></code></pre></div>
-<h3 id="cache-eviction">Cache eviction</h3>
-<p>Control how long cached entries persist without access:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-evict-after 12h</span></span></code></pre></div>
-<h3 id="disable-caching">Disable caching</h3>
-<p>For memory-constrained environments or when using external caching:</p>
+<div class="expand" id="rpm-based-systems">
+  <a class="expand-link" href="#rpm-based-systems"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>RPM-based systems</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Use <code>yum</code> to install InfluxDB 3 Enterprise from the InfluxData repository:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-disable-data-file-cache</span></span></code></pre></div>
-<h2 id="file-size-limits">File size limits</h2>
-<p>Control the size of generated files.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-gen0-max-rows-per-file</code></td>
-          <td style="text-align: left">Maximum rows per Gen0 file</td>
-          <td style="text-align: left"><code>10000000</code> (10M)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-gen0-max-bytes-per-file</code></td>
-          <td style="text-align: left">Maximum bytes per Gen0 file</td>
-          <td style="text-align: left"><code>100MB</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="gen0-file-size-limits">Gen0 file size limits</h3>
-<p>Control the size of Gen0 files for query and compaction performance:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key
+</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d /usr/share/influxdata-archive-keyring/keyrings <span class="o">||</span> sudo mkdir -p /usr/share/influxdata-archive-keyring/keyrings
+</span></span><span class="line"><span class="cl">gpg --show-keys --with-fingerprint --with-colons ./influxdata-archive.key 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> grep -q <span class="s1">&#39;^fpr:\+24C975CBA61A024EE1B631787C3D57159FC2F927:$&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> sudo cp ./influxdata-archive.key /usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> cat <span class="s">&lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdata.repo
+</span></span></span><span class="line"><span class="cl"><span class="s">[influxdata]
+</span></span></span><span class="line"><span class="cl"><span class="s">name = InfluxData Repository - Stable
+</span></span></span><span class="line"><span class="cl"><span class="s">baseurl = https://repos.influxdata.com/stable/\$basearch/main
+</span></span></span><span class="line"><span class="cl"><span class="s">enabled = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">gpgcheck = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">gpgkey = file:///usr/share/influxdata-archive-keyring/keyrings/influxdata-archive.asc
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">sudo yum install influxdb3-pr-preview</span></span></code></pre></div>
+
+  </div>
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-gen0-max-rows-per-file <span class="m">5000000</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-gen0-max-bytes-per-file 50MB</span></span></code></pre></div>
-<h2 id="enterprise-replication">Enterprise replication</h2>
-<p>Configure replication behavior for distributed deployments.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-recovery-concurrency</code></td>
-          <td style="text-align: left">Concurrent WAL fetches during recovery</td>
-          <td style="text-align: left"><code>8</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-steady-concurrency</code></td>
-          <td style="text-align: left">Concurrent fetches during steady-state</td>
-          <td style="text-align: left"><code>8</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-queue-size</code></td>
-          <td style="text-align: left">Queue between fetching and merging</td>
-          <td style="text-align: left"><code>100</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-recovery-tail-skip-limit</code></td>
-          <td style="text-align: left">Missing files before stopping recovery</td>
-          <td style="text-align: left"><code>128</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-gen0-load-concurrency</code></td>
-          <td style="text-align: left">Gen0 loads at startup</td>
-          <td style="text-align: left"><code>16</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-merge-interval</code></td>
-          <td style="text-align: left">Query node merge cycle interval</td>
-          <td style="text-align: left"><code>100ms</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="recovery-concurrency">Recovery concurrency</h3>
-<p>Control parallelism during query node recovery:</p>
+</div>
+
+<h4 id="toml-configuration-linux">TOML configuration (Linux)</h4>
+<p>After you install the DEB or RPM package, the InfluxDB 3 Enterprise TOML
+configuration file is located at <code>/etc/influxdb3/influxdb3-pr-preview.conf</code>
+and contains the following settings:</p>
+<ul>
+<li><a href="/influxdb3/version/reference/config-options/#object-store">object-store</a>: <code>file</code></li>
+<li><a href="/influxdb3/version/reference/config-options/#data-dir">data-dir</a>: <code>/var/lib/influxdb3/data</code></li>
+<li><a href="/influxdb3/version/reference/config-options/#plugin-dir">plugin-dir</a>: <code>/var/lib/influxdb3/plugins</code></li>
+<li><a href="/influxdb3/version/reference/config-options/#node-id">node-id</a>: <code>primary-node</code></li>
+</ul>
+<h4 metadata="v3.8+" id="run-as-a-system-service-linux">Run as a system service (Linux)</h4>
+<p>InfluxDB 3 Enterprise DEB and RPM installs include service files for running as
+a managed system service on Linux:</p>
+<ul>
+<li><strong>systemd</strong>: For modern Linux distributions</li>
+<li><strong>SysV init</strong>: For legacy system compatibility</li>
+</ul>
+<h5 id="run-using-systemd">Run using systemd</h5>
+<p>On <code>systemd</code> systems, the <code>influxdb3-pr-preview</code> unit file is
+<code>enabled</code> on install, but the unit is not started in order to allow
+configuration.</p>
+<p>To start the database, enter the following commands:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-recovery-concurrency <span class="m">16</span></span></span></code></pre></div>
-<h3 id="steady-state-replication">Steady-state replication</h3>
-<p>Configure ongoing replication performance:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Start the service</span>
+</span></span><span class="line"><span class="cl">systemctl start influxdb3-pr-preview
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># View status</span>
+</span></span><span class="line"><span class="cl">systemctl status influxdb3-pr-preview
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># View logs</span>
+</span></span><span class="line"><span class="cl">journalctl --unit influxdb3-pr-preview</span></span></code></pre></div>
+<h5 id="run-using-sysv">Run using SysV</h5>
+<p>On SysV init systems, <code>influxdb3-pr-preview</code> is disabled on install
+and can be enabled by adjusting <code>/etc/default/influxdb3-pr-preview</code> to
+contain <code>ENABLED=yes</code>.</p>
+<p>To start the database, enter the following commands:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-steady-concurrency <span class="m">4</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-queue-size <span class="m">200</span></span></span></code></pre></div>
-<h3 id="merge-interval">Merge interval</h3>
-<p>Control how frequently query nodes merge replicated data:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Start the database</span>
+</span></span><span class="line"><span class="cl">/etc/init.d/influxdb3-pr-preview start
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># View status</span>
+</span></span><span class="line"><span class="cl">/etc/init.d/influxdb3-pr-preview status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># View logs</span>
+</span></span><span class="line"><span class="cl">tail -f /var/lib/influxdb3/influxdb3-pr-preview.log</span></span></code></pre></div>
+<h3 id="verify-the-installation">Verify the installation</h3>
+<p>After installing InfluxDB 3 Enterprise, enter the following command to verify
+that it installed successfully:</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-merge-interval 50ms</span></span></code></pre></div>
-<h2 id="other-settings">Other settings</h2>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-enable-retention</code></td>
-          <td style="text-align: left">Enforce retention policies</td>
-          <td style="text-align: left"><code>true</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-disable-hybrid-query</code></td>
-          <td style="text-align: left">Disable hybrid Parquet queries</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="retention-policies">Retention policies</h3>
-<p>Retention policies are enforced by default. Disable for testing or debugging:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 --version</span></span></code></pre></div>
+<p>If your system can&rsquo;t locate <code>influxdb3</code> following a <a href="#quick-install-for-linux-and-macos">quick install</a>, <code>source</code> the configuration file (for example, <code>.bashrc</code>, <code>.zshrc</code>) for your shell&ndash;for example:</p>
+<!--pytest.mark.skip-->
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-enable-retention false</span></span></code></pre></div>
-<h3 id="hybrid-query-mode">Hybrid query mode</h3>
-<p>Disable access to legacy Parquet data:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-disable-hybrid-query</span></span></code></pre></div>
-<h2 id="example-configurations">Example configurations</h2>
-<h3 id="development-minimal-resources">Development (minimal resources)</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id dev01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id dev <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store file <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --data-dir ~/.influxdb3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 512MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 5MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 100MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">2</span></span></span></code></pre></div>
-<h3 id="production-all-in-one-8-cores-32gb-ram">Production all-in-one (8 cores, 32GB RAM)</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id prod01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 8GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 30MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 1GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">4</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">4</span></span></span></code></pre></div>
-<h3 id="high-throughput-ingest-node">High-throughput ingest node</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id ingest01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode ingest <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">16</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 50MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 2s <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 2GB</span></span></code></pre></div>
-<h3 id="query-optimized-node">Query-optimized node</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id query01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">16</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 16GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-recency 24h <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-max-buffer-size 8GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-merge-interval 50ms</span></span></code></pre></div>
-<h3 id="dedicated-compactor">Dedicated compactor</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id compact01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode compact <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache 4GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache-ttl 10m</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc</span></span></code></pre></div>
 
 
 
@@ -3362,58 +3187,7 @@ Disable for more control over merge timing:</p>
       
         
         
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/" >Performance upgrade preview</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/monitor/" >Monitor the performance upgrade preview</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/performance-tuning/" >Performance tuning</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/config-options/" >InfluxDB 3 Enterprise configuration options</a></li>
+          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/upgrade/" >Upgrade InfluxDB 3 Enterprise</a></li>
         
       
     
@@ -3437,6 +3211,8 @@ Disable for more control over merge timing:</p>
 
 
   
+  
+    
   
 
 
@@ -3486,8 +3262,8 @@ Disable for more control over merge timing:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/admin/pachatree/configure.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb3/install.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/install/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

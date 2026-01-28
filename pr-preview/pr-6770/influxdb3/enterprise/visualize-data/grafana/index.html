@@ -46,10 +46,10 @@
 
 
 
-<title>Performance upgrade preview configuration reference for InfluxDB 3 Enterprise | &lt;nil&gt; Documentation</title>
+<title>Use Grafana to visualize data | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Complete reference for all configuration options available with the InfluxDB 3 Enterprise performance upgrades, including memory, compaction, WAL, caching, and replication settings.">
+    <meta name="description" content="Install and run Grafana to query and visualize data from InfluxDB 3 Enterprise.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,108 @@
 
 
 
+  
+  
+    
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6770/docs-v2/pr-preview/pr-6770/influxdb3/clustered/process-data/visualize/grafana/" />
 
     
 <style>
@@ -168,7 +266,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-01-28 11:26:49 -0600 -0600">
+<meta name="last-modified" content="2026-01-15 11:24:09 -0800 -0800">
     
 <script type="text/javascript">
 (function() {
@@ -272,7 +370,7 @@
   
   
   
-  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+  <a href='/influxdb3/core/visualize-data/grafana/' >InfluxDB 3 Core <span class="state">New</span></a>
 </li>
         <li>
   
@@ -298,7 +396,7 @@
   
   
   
-  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+  <a href='/influxdb3/clustered/process-data/visualize/grafana/' >InfluxDB Clustered</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Fully-Managed">
@@ -313,7 +411,7 @@
   
   
   
-  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+  <a href='/influxdb3/cloud-serverless/process-data/visualize/grafana/' >InfluxDB Cloud Serverless</a>
 </li>
         <li>
   
@@ -326,7 +424,7 @@
   
   
   
-  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+  <a href='/influxdb3/cloud-dedicated/process-data/visualize/grafana/' >InfluxDB Cloud Dedicated</a>
 </li>
       </ul>
       <ul class="item-list products" data-category="Tools">
@@ -359,7 +457,7 @@
   
   
   
-  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+  <a href='/influxdb/v2/tools/grafana/' >InfluxDB OSS v2</a>
 </li>
         <li>
   
@@ -372,7 +470,7 @@
   
   
   
-  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+  <a href='/influxdb/cloud/tools/grafana/' >InfluxDB Cloud (TSM)</a>
 </li>
         <li>
   
@@ -403,7 +501,7 @@
   
   
   
-  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+  <a href='/influxdb/v1/tools/grafana/' >InfluxDB OSS v1</a>
 </li>
         <li>
   
@@ -416,7 +514,7 @@
   
   
   
-  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+  <a href='/enterprise_influxdb/v1/tools/grafana/' >InfluxDB Enterprise</a>
 </li>
         <li>
   
@@ -1085,10 +1183,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/'>Visualize data</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -1101,7 +1199,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/grafana/'>Use Grafana</a>
       
@@ -1119,10 +1217,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/'>Administer InfluxDB</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1442,17 +1540,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/'>Performance upgrade preview</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/'>Configuration reference</a>
       
@@ -2712,7 +2810,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Configure the performance upgrade preview</h1>
+      <h1>Use Grafana to visualize data</h1>
       
 
 
@@ -2819,606 +2917,419 @@
 
 
   
-<div class="block warning">
+  <p>Use <a href="https://grafana.com/">Grafana</a> or <a href="https://grafana.com/products/cloud/">Grafana Cloud</a>
+to query and visualize data from InfluxDB 3 Enterprise.</p>
+
+<div class="block note">
   
   
-  <h4 id="private-preview-beta">Private preview beta</h4>
-<p>The performance upgrade preview is available to InfluxDB 3 Enterprise Trial
-and Commercial users as a private beta. These features are subject to breaking changes
-and <strong>should not be used for production workloads</strong>. Your feedback on stability
-and performance at scale helps shape the future of InfluxDB 3.</p>
+  
+
+
+
+
+<h4 id="identify-your-influxdb-version">Identify your InfluxDB version</h4>
+
+<p>
+If you are unsure which InfluxDB product you are using, use our interactive version detector to help identify it:</p>
+
+<p>
+  
+  <a href="#"
+    class="btn influxdb-detector-trigger"
+    data-context="grafana"
+    
+    onclick="
+      if (window.gtag) {
+        window.gtag('event', 'influxdb_version_detector', {
+          'custom_map.interaction_type': 'modal_trigger',
+          'custom_map.section': location.pathname,
+          'custom_map.context': 'grafana'
+        });
+      }
+      window.influxdatadocs.toggleModal('#influxdb-version-detector');
+      return false;
+    ">
+    Detect my InfluxDB version
+  </a>
+  
+</p>
+
+
 </div>
-<p>This page provides a complete reference for all configuration options available
-with these performance upgrades. All options require the <code>--use-pacha-tree</code> flag.</p>
-<h2 id="core-settings">Core settings</h2>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--use-pacha-tree</code></td>
-          <td style="text-align: left">Enable the performance upgrade preview</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-max-columns</code></td>
-          <td style="text-align: left">Maximum total columns across the instance</td>
-          <td style="text-align: left"><code>6500000</code> (~6.5M)</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="set-maximum-columns">Set maximum columns</h3>
-<p>Limit the total number of columns across all databases and tables:</p>
 
+<blockquote>
+<p>[Grafana] enables you to query, visualize, alert on, and explore your metrics,
+logs, and traces wherever they are stored.
+[Grafana] provides you with tools to turn your time-series database (TSDB)
+data into insightful graphs and visualizations.</p>
+<p><span class="cite">&ndash; <a href="https://grafana.com/docs/grafana/latest/introduction/">Grafana documentation</a></span></p>
+
+</blockquote>
+<ul>
+<li><a href="#install-grafana-or-log-in-to-grafana-cloud">Install Grafana or log in to Grafana Cloud</a></li>
+<li><a href="#influxdb-data-source">InfluxDB data source</a></li>
+<li><a href="#before-you-begin">Before you begin</a></li>
+<li><a href="#create-an-influxdb-data-source">Create an InfluxDB data source</a></li>
+<li><a href="#query-and-visualize-data">Query and visualize data</a></li>
+</ul>
+<h2 id="install-grafana-or-log-in-to-grafana-cloud">Install Grafana or log in to Grafana Cloud</h2>
+<ol>
+<li>
+<p><a href="https://grafana.com/products/cloud/">Sign up for Grafana Cloud</a> or follow the
+<a href="https://grafana.com/docs/grafana/latest/setup-grafana/installation/">Grafana installation instructions</a>
+to install Grafana for your operating system.</p>
+</li>
+<li>
+<p>If running Grafana locally, enable the <code>newInfluxDSConfigPageDesign</code> feature flag to use the latest InfluxDB data source plugin.</p>
+<div class="expand-wrapper">
+  
+   
+
+
+<div class="expand" id="option-1-configuration-file-recommended">
+  <a class="expand-link" href="#option-1-configuration-file-recommended"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Option 1: Configuration file (recommended)</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Add the following to your <code>grafana.ini</code> configuration file:</p>
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[feature_toggles]</span>
+</span></span><span class="line"><span class="cl"><span class="na">enable</span> <span class="o">=</span> <span class="s">newInfluxDSConfigPageDesign</span></span></span></code></pre></div>
+<p>Configuration file locations:</p>
+<ul>
+<li><strong>Linux</strong>: <code>/etc/grafana/grafana.ini</code></li>
+<li><strong>macOS (Homebrew)</strong>: <code>/opt/homebrew/etc/grafana/grafana.ini</code></li>
+<li><strong>Windows</strong>: <code>&lt;GRAFANA_INSTALL_DIR&gt;\conf\grafana.ini</code></li>
+</ul>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-max-columns <span class="m">1000000</span></span></span></code></pre></div>
-<h2 id="memory-management">Memory management</h2>
-<p>Control how the upgraded storage uses memory for buffers, caches, and processing.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-max-buffer-size</code></td>
-          <td style="text-align: left">Maximum WAL buffer size before flush</td>
-          <td style="text-align: left"><code>15MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-snapshot-max-unmerged-size</code></td>
-          <td style="text-align: left">Unmerged data threshold for snapshot</td>
-          <td style="text-align: left"><code>500MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-merge-threshold-size</code></td>
-          <td style="text-align: left">Size threshold to trigger merge</td>
-          <td style="text-align: left"><code>125MB</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-max-buffer-size</code></td>
-          <td style="text-align: left">Query node buffer maximum</td>
-          <td style="text-align: left">50% system memory (max 16GB)</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="wal-buffer-size">WAL buffer size</h3>
-<p>The WAL buffer accumulates incoming writes before flushing to object storage.
-Larger buffers reduce flush frequency but increase memory usage:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 30MB</span></span></code></pre></div>
-<h3 id="snapshot-threshold">Snapshot threshold</h3>
-<p>Control when the snapshot buffer triggers a snapshot creation:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 1GB</span></span></code></pre></div>
-<h3 id="merge-threshold">Merge threshold</h3>
-<p>Set the size threshold that triggers background merge operations:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-merge-threshold-size 250MB</span></span></code></pre></div>
-<h3 id="query-node-buffer-distributed">Query node buffer (distributed)</h3>
-<p>For query nodes in distributed deployments, control the maximum buffer size:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-max-buffer-size 8GB</span></span></code></pre></div>
-<h2 id="wal-configuration">WAL configuration</h2>
-<p>Configure Write-Ahead Log (WAL) behavior for durability and performance.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-flush-interval</code></td>
-          <td style="text-align: left">Automatic flush interval</td>
-          <td style="text-align: left"><code>1s</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-merge-on-interval</code></td>
-          <td style="text-align: left">Enable interval-based merging</td>
-          <td style="text-align: left"><code>true</code> (all-in-one), <code>false</code> (multi-node)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-flush-concurrency</code></td>
-          <td style="text-align: left">WAL flush worker concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replication-interval</code></td>
-          <td style="text-align: left">Query node WAL polling interval</td>
-          <td style="text-align: left"><code>250ms</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="flush-interval">Flush interval</h3>
-<p>Control how frequently the WAL buffer flushes to object storage:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># More frequent flushes (lower latency, more I/O)</span>
-</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 500ms</span></span></code></pre></div>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Less frequent flushes (higher latency, less I/O)</span>
-</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 5s</span></span></code></pre></div>
-<h3 id="flush-concurrency">Flush concurrency</h3>
-<p>Increase flush workers for high-throughput workloads:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">8</span></span></span></code></pre></div>
-<h3 id="interval-based-merging">Interval-based merging</h3>
-<p>In all-in-one mode, WAL files are merged on a time interval.
-Disable for more control over merge timing:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-merge-on-interval false</span></span></code></pre></div>
-<h2 id="compaction-settings">Compaction settings</h2>
-<p>Configure background compaction behavior.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-concurrency</code></td>
-          <td style="text-align: left">Compaction worker concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-snapshot-merge-concurrency</code></td>
-          <td style="text-align: left">Snapshot merge concurrency</td>
-          <td style="text-align: left"><code>max(io_threads - 2, 2)</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-cache</code></td>
-          <td style="text-align: left">Compaction cache size</td>
-          <td style="text-align: left">20% of file cache</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="compaction-concurrency">Compaction concurrency</h3>
-<p>Increase compaction workers for faster background processing:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">8</span></span></span></code></pre></div>
-<h3 id="snapshot-merge-concurrency">Snapshot merge concurrency</h3>
-<p>Control parallelism for snapshot merge operations:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-merge-concurrency <span class="m">4</span></span></span></code></pre></div>
-<h3 id="compaction-cache">Compaction cache</h3>
-<p>Dedicated cache for compaction operations (separate from query cache):</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache 2GB</span></span></code></pre></div>
-<h2 id="cache-configuration">Cache configuration</h2>
-<p>Configure data caching for query performance.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-size</code></td>
-          <td style="text-align: left">Data file cache size</td>
-          <td style="text-align: left">~20% system memory</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-recency</code></td>
-          <td style="text-align: left">Only cache files newer than this</td>
-          <td style="text-align: left"><code>5h</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-file-cache-evict-after</code></td>
-          <td style="text-align: left">Evict entries not read within this duration</td>
-          <td style="text-align: left"><code>24h</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-compactor-cache-ttl</code></td>
-          <td style="text-align: left">Compaction cache TTL</td>
-          <td style="text-align: left"><code>5m</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-disable-data-file-cache</code></td>
-          <td style="text-align: left">Disable data file caching</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="file-cache-size">File cache size</h3>
-<p>Set the maximum size for the data file cache:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 8GB</span></span></code></pre></div>
-<h3 id="cache-recency-filter">Cache recency filter</h3>
-<p>Only cache files containing data from the specified time window:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-recency 24h</span></span></code></pre></div>
-<h3 id="cache-eviction">Cache eviction</h3>
-<p>Control how long cached entries persist without access:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-evict-after 12h</span></span></code></pre></div>
-<h3 id="disable-caching">Disable caching</h3>
-<p>For memory-constrained environments or when using external caching:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-disable-data-file-cache</span></span></code></pre></div>
-<h2 id="file-size-limits">File size limits</h2>
-<p>Control the size of generated files.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-gen0-max-rows-per-file</code></td>
-          <td style="text-align: left">Maximum rows per Gen0 file</td>
-          <td style="text-align: left"><code>10000000</code> (10M)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-gen0-max-bytes-per-file</code></td>
-          <td style="text-align: left">Maximum bytes per Gen0 file</td>
-          <td style="text-align: left"><code>100MB</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="gen0-file-size-limits">Gen0 file size limits</h3>
-<p>Control the size of Gen0 files for query and compaction performance:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-gen0-max-rows-per-file <span class="m">5000000</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-gen0-max-bytes-per-file 50MB</span></span></code></pre></div>
-<h2 id="enterprise-replication">Enterprise replication</h2>
-<p>Configure replication behavior for distributed deployments.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-recovery-concurrency</code></td>
-          <td style="text-align: left">Concurrent WAL fetches during recovery</td>
-          <td style="text-align: left"><code>8</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-steady-concurrency</code></td>
-          <td style="text-align: left">Concurrent fetches during steady-state</td>
-          <td style="text-align: left"><code>8</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-queue-size</code></td>
-          <td style="text-align: left">Queue between fetching and merging</td>
-          <td style="text-align: left"><code>100</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-wal-replica-recovery-tail-skip-limit</code></td>
-          <td style="text-align: left">Missing files before stopping recovery</td>
-          <td style="text-align: left"><code>128</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-gen0-load-concurrency</code></td>
-          <td style="text-align: left">Gen0 loads at startup</td>
-          <td style="text-align: left"><code>16</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-replica-merge-interval</code></td>
-          <td style="text-align: left">Query node merge cycle interval</td>
-          <td style="text-align: left"><code>100ms</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="recovery-concurrency">Recovery concurrency</h3>
-<p>Control parallelism during query node recovery:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-recovery-concurrency <span class="m">16</span></span></span></code></pre></div>
-<h3 id="steady-state-replication">Steady-state replication</h3>
-<p>Configure ongoing replication performance:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-steady-concurrency <span class="m">4</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-replica-queue-size <span class="m">200</span></span></span></code></pre></div>
-<h3 id="merge-interval">Merge interval</h3>
-<p>Control how frequently query nodes merge replicated data:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-merge-interval 50ms</span></span></code></pre></div>
-<h2 id="other-settings">Other settings</h2>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Option</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Default</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><code>--pt-enable-retention</code></td>
-          <td style="text-align: left">Enforce retention policies</td>
-          <td style="text-align: left"><code>true</code></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>--pt-disable-hybrid-query</code></td>
-          <td style="text-align: left">Disable hybrid Parquet queries</td>
-          <td style="text-align: left"><code>false</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="retention-policies">Retention policies</h3>
-<p>Retention policies are enforced by default. Disable for testing or debugging:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-enable-retention false</span></span></code></pre></div>
-<h3 id="hybrid-query-mode">Hybrid query mode</h3>
-<p>Disable access to legacy Parquet data:</p>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="c1"># ...</span>
-</span></span><span class="line"><span class="cl">  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-disable-hybrid-query</span></span></code></pre></div>
-<h2 id="example-configurations">Example configurations</h2>
-<h3 id="development-minimal-resources">Development (minimal resources)</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id dev01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id dev <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store file <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --data-dir ~/.influxdb3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 512MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 5MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 100MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">2</span></span></span></code></pre></div>
-<h3 id="production-all-in-one-8-cores-32gb-ram">Production all-in-one (8 cores, 32GB RAM)</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id prod01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 8GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 30MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 1GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">4</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">4</span></span></span></code></pre></div>
-<h3 id="high-throughput-ingest-node">High-throughput ingest node</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id ingest01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode ingest <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">16</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-max-buffer-size 50MB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-interval 2s <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-wal-flush-concurrency <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-snapshot-max-unmerged-size 2GB</span></span></code></pre></div>
-<h3 id="query-optimized-node">Query-optimized node</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id query01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">16</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-size 16GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-file-cache-recency 24h <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-max-buffer-size 8GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-replica-merge-interval 50ms</span></span></code></pre></div>
-<h3 id="dedicated-compactor">Dedicated compactor</h3>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --node-id compact01 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --cluster-id prod <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --object-store s3 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bucket YOUR_BUCKET <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-access-key-id AWS_ACCESS_KEY_ID <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --aws-secret-access-key AWS_SECRET_ACCESS_KEY <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --use-pacha-tree <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --mode compact <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --num-io-threads <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-concurrency <span class="m">8</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache 4GB <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --pt-compactor-cache-ttl 10m</span></span></code></pre></div>
-
-
-
-    
-
-    
-    
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/" >Performance upgrade preview</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/monitor/" >Monitor the performance upgrade preview</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/performance-tuning/" >Performance tuning</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/reference/config-options/" >InfluxDB 3 Enterprise configuration options</a></li>
-        
-      
-    
-    </ul>
   </div>
+</div>
+
+
+   
+
+
+<div class="expand" id="option-2-command-line">
+  <a class="expand-link" href="#option-2-command-line"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Option 2: Command line</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <p>Enable the feature flag when starting Grafana:</p>
+<div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">Linux</a>
+<a href="#">macOS (Homebrew)</a>
+<a href="#">Windows</a></p>
+</div>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">grafana-server --config /etc/grafana/grafana.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.feature_toggles.enable<span class="o">=</span>newInfluxDSConfigPageDesign</span></span></code></pre></div>
+</section>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">/opt/homebrew/opt/grafana/bin/grafana server <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --config /opt/homebrew/etc/grafana/grafana.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --homepath /opt/homebrew/opt/grafana/share/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --packaging<span class="o">=</span>brew <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.logs<span class="o">=</span>/opt/homebrew/var/log/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.data<span class="o">=</span>/opt/homebrew/var/lib/grafana <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.paths.plugins<span class="o">=</span>/opt/homebrew/var/lib/grafana/plugins <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  cfg:default.feature_toggles.enable<span class="o">=</span>newInfluxDSConfigPageDesign</span></span></code></pre></div>
+</section>
+<section class="code-tab-content">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">grafana-server</span><span class="p">.</span><span class="py">exe</span> <span class="p">-</span><span class="n">-config</span> <span class="p">&lt;</span><span class="n">GRAFANA_INSTALL_DIR</span><span class="p">&gt;\</span><span class="n">conf</span><span class="p">\</span><span class="n">grafana</span><span class="p">.</span><span class="py">ini</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cfg</span><span class="err">:</span><span class="k">default</span><span class="p">.</span><span class="py">feature_toggles</span><span class="p">.</span><span class="n">enable</span><span class="p">=</span><span class="n">newInfluxDSConfigPageDesign</span></span></span></code></pre></div>
+</section>
+</div>
+
+  </div>
+</div>
+
+   
+</div>
+
+<p>For more information, see <a href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/">Configure feature toggles</a> in the Grafana documentation.</p>
+</li>
+<li>
+<p>Visit your <strong>Grafana Cloud user interface</strong> (UI) or, if running Grafana locally,
+<a href="https://grafana.com/docs/grafana/latest/installation/">start Grafana</a> and visit
+<a href="http://localhost:3000">http://localhost:3000</a> in your browser.</p>
+</li>
+</ol>
+<h2 id="influxdb-data-source">InfluxDB data source</h2>
+<p>The InfluxDB data source plugin is included in the Grafana core distribution.
+Use the plugin to query and visualize data from InfluxDB 3 Enterprise with
+both SQL and InfluxQL.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="grafana-122">Grafana 12.2+</h4>
+<p>The instructions below are for <strong>Grafana 12.2+</strong> with the <code>newInfluxDSConfigPageDesign</code>
+feature flag enabled. This introduces the newest version of the InfluxDB core plugin.
+The updated plugin includes <strong>SQL support</strong> for InfluxDB 3-based products such
+as InfluxDB 3 Enterprise, and the interface dynamically adapts based on your
+product and query language selection in <a href="#configure-url-and-authentication">URL and authentication</a>.</p>
+</div>
+<h2 id="before-you-begin">Before you begin</h2>
+<p><strong>Prerequisites:</strong></p>
+<ul>
+<li>Grafana 12.2 or later</li>
+<li>Administrator role in Grafana</li>
+<li></li>
+</ul>
+<h3 id="quick-reference-hahahugoshortcode3393s10hbhb-configuration">Quick reference: InfluxDB 3 Enterprise configuration</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Configuration</th>
+          <th style="text-align: left">Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Product selection</strong></td>
+          <td style="text-align: left"><strong>InfluxDB 3 Enterprise</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>URL</strong></td>
+          <td style="text-align: left">&ndash;for example, <code>https://localhost:8181</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Query languages</strong></td>
+          <td style="text-align: left">SQL (requires HTTP/2), InfluxQL</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Authentication</strong></td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Database/Bucket</strong></td>
+          <td style="text-align: left">Database name</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="create-an-influxdb-data-source">Create an InfluxDB data source</h2>
+<ol>
+<li>In your Grafana interface, click <strong>Connections</strong> in the left sidebar.</li>
+<li>Click <strong>Data sources</strong>.</li>
+<li>Click <strong>Add new data source</strong>.</li>
+<li>Search for and select <strong>InfluxDB</strong>. The InfluxDB data source configuration page displays.</li>
+<li>In the <strong>Settings</strong> tab, enter a <strong>Name</strong> for your data source.</li>
+</ol>
+<h3 id="configure-url-and-authentication">Configure URL and authentication</h3>
+<p>In the <strong>URL and authentication</strong> section, configure the following:</p>
+<ul>
+<li><strong>URL</strong>: Your InfluxDB 3 Enterprise&ndash;for example, <code>https://localhost:8181</code></li>
+<li><strong>Product</strong>: From the dropdown, select <strong>InfluxDB 3 Enterprise</strong></li>
+<li><strong>Query Language</strong>: Select <strong>SQL</strong> or <strong>InfluxQL</strong></li>
+<li><em>(Optional)</em> <strong>Advanced HTTP Settings</strong>, <strong>Auth</strong>, and <strong>TLS/SSL Settings</strong> as needed for your environment</li>
+</ul>
+<h3 id="configure-database-settings">Configure database settings</h3>
+<p>The fields in this section change based on your query language selection in <a href="#configure-url-and-authentication">URL and authentication</a>.</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">SQL</a>
+<a href="#">InfluxQL</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!--------------------------------- BEGIN SQL --------------------------------->
+<h4 id="sql-configuration">SQL configuration</h4>
+<p>When you select <strong>SQL</strong> as the query language, configure the following fields:</p>
+<ul>
+<li>
+<p><strong>Database</strong>: Your <a href="/influxdb3/version/admin/databases/">database</a> name.</p>
+</li>
+<li>
+<p><strong>Token</strong>:</p>
+</li>
+</ul>
+
+<div class="block important">
+  
+  
+  <h4 id="grafana-queries-through-a-proxy-require-http2">Grafana queries through a proxy require HTTP/2</h4>
+<p>For SQL queries, Grafana uses the Flight SQL protocol (gRPC) to query InfluxDB 3 Enterprise, which requires <strong>HTTP/2</strong>.
+If you query InfluxDB 3 Enterprise through a proxy (such as HAProxy, nginx, or a load balancer),
+verify that your proxy is configured to support HTTP/2.
+Without HTTP/2 support, SQL queries through Grafana will fail to connect.</p>
+<p>InfluxQL queries use HTTP/1.1 and are not affected by this requirement.</p>
+</div>
+<p>Click <strong>Save &amp; test</strong>. Grafana attempts to connect to InfluxDB 3 Enterprise and returns the result of the test.</p>
+<!---------------------------------- END SQL ---------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------------- BEGIN INFLUXQL ------------------------------>
+<h4 id="influxql-configuration">InfluxQL configuration</h4>
+<p>When you select <strong>InfluxQL</strong> as the query language, configure the following fields:</p>
+<ul>
+<li>
+<p><strong>Database</strong>: Your <a href="/influxdb3/version/admin/databases/">database</a> name.</p>
+</li>
+<li>
+<p><strong>User</strong>: A username (can be any non-empty value).</p>
+</li>
+<li>
+<p><strong>Password</strong>: Your <a href="/influxdb3/version/admin/tokens/#database-tokens">database token</a> with read access to the database.</p>
+</li>
+<li>
+<p><strong>HTTP Method</strong>: Select <strong>POST</strong> (recommended) or <strong>GET</strong></p>
+</li>
+</ul>
+<p>Click <strong>Save &amp; test</strong>. Grafana attempts to connect to InfluxDB 3 Enterprise and returns the result of the test.</p>
+<!-------------------------------- END INFLUXQL ------------------------------->
+
+</section>
+
+
+</div>
+
+<h2 id="query-and-visualize-data">Query and visualize data</h2>
+<p>With your InfluxDB connection configured, use Grafana to query and visualize time series data.</p>
+<h3 id="query-influxdb-with-grafana">Query InfluxDB with Grafana</h3>
+<p>After you <a href="#create-an-influxdb-data-source">configure and save an InfluxDB datasource</a>,
+use Grafana to build, run, and inspect queries against InfluxDB 3 Enterprise.</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">SQL</a>
+<a href="#">InfluxQL</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <!--------------------------------- BEGIN SQL --------------------------------->
+
+<div class="block note">
+  
+  
+  <p>When working with the <no value> SQL implementation
+a <strong>bucket</strong> is equivalent to a <strong>database</strong>,
+a <strong>measurement</strong> is equivalent to a <strong>table</strong>, and <strong>time</strong>, <strong>fields</strong>, and
+<strong>tags</strong> are structured as <strong>columns</strong>.
+To learn more, see <a href="/influxdb3/version/query-data/sql/">Query Data</a>.</p>
+</div>
+<ol>
+<li>
+<p>Click <strong>Explore</strong>.</p>
+</li>
+<li>
+<p>In the dropdown, select the saved InfluxDB data source to query.</p>
+</li>
+<li>
+<p>Use the SQL query form to build your query:</p>
+<ul>
+<li>
+<p><strong>Table</strong>: Select the table (measurement) to query.</p>
+</li>
+<li>
+<p><strong>Column</strong>: Select one or more fields and tags to return as columns in query results.</p>
+<p>With SQL, select the <code>time</code> column to include timestamps with the data.
+Grafana relies on the <code>time</code> column to correctly graph time series data.</p>
+</li>
+<li>
+<p><em><strong>Optional:</strong></em> Toggle <strong>filter</strong> to generate <strong>WHERE</strong> clause statements.</p>
+<ul>
+<li><strong>WHERE</strong>: Configure condition expressions to include in the <code>WHERE</code> clause.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Optional:</strong></em> Toggle <strong>group</strong> to generate <strong>GROUP BY</strong> clause statements.</p>
+<ul>
+<li><strong>GROUP BY</strong>: Select columns to group by.
+If you include an aggregation function in the <strong>SELECT</strong> list,
+you must group by one or more of the queried columns.
+SQL returns the aggregation for each group.</li>
+</ul>
+</li>
+<li>
+<p><span class="req  green">Recommended</span>:
+Toggle <strong>order</strong> to generate <strong>ORDER BY</strong> clause statements.</p>
+<ul>
+<li><strong>ORDER BY</strong>: Select columns to sort by.
+You can sort by time and multiple fields or tags.
+To sort in descending order, select <strong>DESC</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="req  green">Recommended</span>: Change format to <strong>Time series</strong>.</p>
+<ul>
+<li>Use the <strong>Format</strong> dropdown to change the format of the query results.
+For example, to visualize the query results as a time series, select <strong>Time series</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Run query</strong> to execute the query.</p>
+</li>
+</ol>
+<!---------------------------------- END SQL ---------------------------------->
+
+</section>
+
+
+<section class="tab-content">
+  <!------------------------------- BEGIN INFLUXQL ------------------------------>
+<ol>
+<li>Click <strong>Explore</strong>.</li>
+<li>In the dropdown, select the <strong>InfluxDB</strong> data source that you want to query.</li>
+<li>Use the InfluxQL query form to build your query:
+<ul>
+<li><strong>FROM</strong>: Select the measurement that you want to query.</li>
+<li><strong>WHERE</strong>: To filter the query results, enter a conditional expression.</li>
+<li><strong>SELECT</strong>: Select fields to query and an aggregate function to apply to each.
+The aggregate function is applied to each time interval defined in the
+<code>GROUP BY</code> clause.</li>
+<li><strong>GROUP BY</strong>: By default, Grafana groups data by time to downsample results
+and improve query performance.
+You can also add other tags to group by.</li>
+</ul>
+</li>
+<li>Click <strong>Run query</strong> to execute the query.</li>
+</ol>
+<!-------------------------------- END INFLUXQL ------------------------------->
+
+</section>
+
+
+</div>
+
+<p>With your InfluxDB connection configured, use Grafana to query and visualize time series data.</p>
+<h3 id="build-visualizations-with-grafana">Build visualizations with Grafana</h3>
+<p>For a comprehensive walk-through of creating visualizations with
+Grafana, see the <a href="https://grafana.com/docs/grafana/latest/">Grafana documentation</a>.</p>
+<h3 id="query-inspection-in-grafana">Query inspection in Grafana</h3>
+<p>To learn more about query management and inspection in Grafana, see the
+<a href="https://grafana.com/docs/grafana/latest/explore/">Grafana Explore documentation</a>.</p>
+
+
+
+    
+
+    
+    
 
 
     
@@ -3437,6 +3348,8 @@ Disable for more control over merge timing:</p>
 
 
   
+  
+    
   
 
 
@@ -3486,8 +3399,8 @@ Disable for more control over merge timing:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb3/enterprise/admin/pachatree/configure.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/admin/pachatree/configure/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/v3-process-data/visualize/grafana.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6770/influxdb3/enterprise/visualize-data/grafana/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>
