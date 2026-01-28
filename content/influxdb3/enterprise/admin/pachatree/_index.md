@@ -69,7 +69,7 @@ query-heavy access patterns.
 Your feedback on stability and speed at scale helps inform the development of
 features planned for general availability in the 3.10 and 3.11 releases.
 
-> [!Note]
+> [!Important]
 > #### Important: Upgraded file format
 > These upgrades use an upgraded file format (`.pt` files). When you enable the preview,
 > your existing data is automatically upgraded to the new format in place.
