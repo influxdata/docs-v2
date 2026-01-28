@@ -40,10 +40,42 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
+- id: influxdb3.9-performance-preview
+  level: note
+  scope:
+    - /influxdb3/enterprise/
+  exclude:
+    - /influxdb3/enterprise/admin/pachatree/
+  title: 'InfluxDB 3.9: Performance upgrade preview'
+  slug: |
+    InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
+    with faster single-series queries, wide-and-sparse table support, and more.
+
+  message: |
+    InfluxDB 3 Enterprise 3.9 includes a private preview of major performance and
+    feature updates.
+
+    **Key improvements:**
+
+    - Faster single-series queries
+    - Consistent resource usage
+    - Wide-and-sparse table support
+    - Automatic distinct value caches for reduced latency with metadata queries
+
+    _Preview features are subject to breaking changes._
+
+    For more information, see:
+
+    - [Performance upgrade preview](/influxdb3/enterprise/admin/pachatree/)
+    - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
+    - [InfluxData Blog post](https://www.influxdata.com/blog/influxdb-3-9/")
+
 - id: influxdb3.8-explorer-1.6
   level: note
   scope:
     - /
+  exclude:
+    - /influxdb3/enterprise/
   title: New in InfluxDB 3.8
   slug: |
     Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.
