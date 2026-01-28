@@ -111,9 +111,9 @@ analyzing query performance.
 
 Query the telemetry endpoint after executing a query:
 
-```bash
+```bash { placeholders="AUTH_TOKEN" }
 curl -X GET "http://localhost:8181/api/v3/query_sql_telemetry" \
-  -H "Authorization: Bearer YOUR_TOKEN"
+  -H "Authorization: Bearer AUTH_TOKEN"
 ```
 
 ### Telemetry response
@@ -171,7 +171,7 @@ Monitor these metrics for write performance:
 | Metric | Healthy | Warning | Action |
 |:-------|:--------|:--------|:-------|
 | WAL file count | <50 | >100 | Increase merge concurrency |
-| Unmerged size | <500MB | >1GB | Check compaction status |
+| Unmerged size | <500 MB | >1 GB | Check compaction status |
 | Gen0 file count | <100 | >200 | Increase compaction concurrency |
 
 ### Monitor with SQL
