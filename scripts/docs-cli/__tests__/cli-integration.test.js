@@ -39,7 +39,7 @@ function runCommand(args, options = {}) {
   return new Promise((resolve) => {
     const cliPath = join(__dirname, '..', 'docs-cli.js');
     const proc = spawn('node', [cliPath, ...args], {
-      cwd: join(__dirname, '..', '..', '..'),  // repo root
+      cwd: join(__dirname, '..', '..', '..'), // repo root
       timeout: options.timeout || 10000,
       env: { ...process.env, ...options.env },
     });
@@ -47,8 +47,12 @@ function runCommand(args, options = {}) {
     let stdout = '';
     let stderr = '';
 
-    proc.stdout.on('data', (data) => { stdout += data.toString(); });
-    proc.stderr.on('data', (data) => { stderr += data.toString(); });
+    proc.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+    proc.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
 
     proc.on('close', (code) => {
       resolve({ code, stdout, stderr });
@@ -118,9 +122,10 @@ async function runTests() {
 
   // Test 8: Unknown command gives proper error
   const unknownResult = await runCommand(['nonexistent-command']);
-  test('unknown command: returns error message',
-    unknownResult.code !== 0 &&
-    unknownResult.stderr.includes('Unknown command'));
+  test(
+    'unknown command: returns error message',
+    unknownResult.code !== 0 && unknownResult.stderr.includes('Unknown command')
+  );
 
   // Test 9: Create command actually executes (not just --help)
   // Create a temp draft file
@@ -138,11 +143,20 @@ async function runTests() {
       [tempDraft, '--context-only'],
       'executes with draft file (context preparation)',
       (result) => {
-        // Should either succeed or fail gracefully (not with import errors)
-        const hasImportError = result.stderr.includes('Cannot find module') ||
-                               result.stderr.includes('ERR_MODULE_NOT_FOUND');
-        if (hasImportError) {
-          console.log(colors.red('   Import error detected - bad module path!'));
+        // Must succeed (exit code 0)
+        if (result.code !== 0) {
+          console.log(
+            colors.red(`   Command failed with exit code ${result.code}`)
+          );
+          return false;
+        }
+        // Check for actual errors (not progress messages which may go to stderr)
+        const hasError =
+          result.stderr.includes('Error:') ||
+          result.stderr.includes('ERR_') ||
+          result.stderr.includes('Cannot find module');
+        if (hasError) {
+          console.log(colors.red(`   Error detected in output`));
           return false;
         }
         return true;
@@ -150,8 +164,12 @@ async function runTests() {
     );
   } finally {
     // Cleanup
-    try { unlinkSync(tempDraft); } catch {}
-    try { rmdirSync(tempDir); } catch {}
+    try {
+      unlinkSync(tempDraft);
+    } catch {}
+    try {
+      rmdirSync(tempDir);
+    } catch {}
   }
 
   // Test 10: Edit command actually executes
@@ -160,32 +178,58 @@ async function runTests() {
     ['/influxdb3/core/get-started/', '--list'],
     'executes with URL (list mode)',
     (result) => {
-      const hasImportError = result.stderr.includes('Cannot find module') ||
-                             result.stderr.includes('ERR_MODULE_NOT_FOUND');
-      if (hasImportError) {
-        console.log(colors.red('   Import error detected - bad module path!'));
+      // Must succeed (exit code 0) with no errors
+      if (result.code !== 0) {
+        console.log(
+          colors.red(`   Command failed with exit code ${result.code}`)
+        );
         return false;
       }
-      // Should find files or report not found - either is fine
+      if (result.stderr && result.stderr.trim()) {
+        console.log(colors.red(`   Unexpected stderr output`));
+        return false;
+      }
       return true;
     }
   );
 
   // Test 11: Placeholders command actually executes
-  await testCommandExecution(
-    'placeholders',
-    ['--dry', 'nonexistent-file.md'],
-    'executes with dry-run (handles missing file gracefully)',
-    (result) => {
-      const hasImportError = result.stderr.includes('Cannot find module') ||
-                             result.stderr.includes('ERR_MODULE_NOT_FOUND');
-      if (hasImportError) {
-        console.log(colors.red('   Import error detected - bad module path!'));
-        return false;
+  // Create a temp file with a code block to test
+  const tempPlaceholderFile = join(tempDir, 'test-placeholders.md');
+  try {
+    mkdirSync(tempDir, { recursive: true });
+    writeFileSync(
+      tempPlaceholderFile,
+      '# Test\n\n```sql\nSELECT * FROM MY_TABLE\n```\n'
+    );
+
+    await testCommandExecution(
+      'placeholders',
+      [tempPlaceholderFile, '--dry'],
+      'executes with dry-run on test file',
+      (result) => {
+        // Must succeed (exit code 0) with no errors
+        if (result.code !== 0) {
+          console.log(
+            colors.red(`   Command failed with exit code ${result.code}`)
+          );
+          return false;
+        }
+        if (result.stderr && result.stderr.trim()) {
+          console.log(colors.red(`   Unexpected stderr output`));
+          return false;
+        }
+        return true;
       }
-      return true;
-    }
-  );
+    );
+  } finally {
+    try {
+      unlinkSync(tempPlaceholderFile);
+    } catch {}
+    try {
+      rmdirSync(tempDir);
+    } catch {}
+  }
 
   // Summary
   console.log(colors.cyan(`\n📊 Results: ${passed}/${passed + failed} passed`));

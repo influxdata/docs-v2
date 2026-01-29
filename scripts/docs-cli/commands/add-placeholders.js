@@ -15,25 +15,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { parseArgs } from 'node:util';
 
-// Parse command-line arguments
-const { positionals, values } = parseArgs({
-  allowPositionals: true,
-  options: {
-    dry: {
-      type: 'boolean',
-      short: 'd',
-      default: false,
-    },
-    help: {
-      type: 'boolean',
-      short: 'h',
-      default: false,
-    },
-  },
-});
-
-// Show help if requested
-if (values.help) {
+/**
+ * Print usage information
+ */
+function printUsage() {
   console.log(`
 Add placeholder syntax to code blocks
 
@@ -53,18 +38,31 @@ What it does:
   2. Adds { placeholders="PATTERN1|PATTERN2" } attribute to code fences
   3. Wraps placeholder descriptions with {{% code-placeholder-key %}} shortcodes
 `);
-  process.exit(0);
 }
 
-if (positionals.length === 0) {
-  console.error('Error: Missing file path argument');
-  console.error('Usage: docs placeholders <file.md> [--dry]');
-  console.error('Run "docs placeholders --help" for more information');
-  process.exit(1);
+/**
+ * Parse command-line arguments
+ * @param {string[]} argv - Arguments to parse (defaults to process.argv.slice(2))
+ */
+function parseArguments(argv = null) {
+  const { positionals, values } = parseArgs({
+    args: argv,
+    allowPositionals: true,
+    options: {
+      dry: {
+        type: 'boolean',
+        short: 'd',
+        default: false,
+      },
+      help: {
+        type: 'boolean',
+        short: 'h',
+        default: false,
+      },
+    },
+  });
+  return { positionals, values };
 }
-
-const filePath = positionals[0];
-const isDryRun = values.dry;
 
 /**
  * Extract UPPERCASE placeholders from a code block
@@ -239,8 +237,27 @@ function processMarkdown(content) {
 
 /**
  * Main function
+ * @param {string[]} argv - Arguments to parse (optional, for CLI router)
  */
-function main() {
+function main(argv = null) {
+  const { positionals, values } = parseArguments(argv);
+
+  // Show help if requested
+  if (values.help) {
+    printUsage();
+    process.exit(0);
+  }
+
+  if (positionals.length === 0) {
+    console.error('Error: Missing file path argument');
+    console.error('Usage: docs placeholders <file.md> [--dry]');
+    console.error('Run "docs placeholders --help" for more information');
+    process.exit(1);
+  }
+
+  const filePath = positionals[0];
+  const isDryRun = values.dry;
+
   try {
     // Read file
     const content = readFileSync(filePath, 'utf-8');
@@ -265,7 +282,7 @@ function main() {
 
 // Export for CLI router
 export default async function addPlaceholders({ args }) {
-  return main();
+  return main(args);
 }
 
 // Run if called directly
