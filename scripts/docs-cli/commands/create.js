@@ -40,11 +40,11 @@ const __dirname = dirname(__filename);
 // Repository root (reassigned in create() for portability)
 let REPO_ROOT = join(__dirname, '..');
 
-// Temp directory for context and proposal
-const TMP_DIR = join(REPO_ROOT, '.tmp');
-const CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
-const PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
-const PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
+// Temp directory for context and proposal (mutable for router compatibility)
+let TMP_DIR = join(REPO_ROOT, '.tmp');
+let CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
+let PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+let PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
 
 // Colors for console output
 const colors = {
@@ -1429,14 +1429,11 @@ export default async function create({ args }) {
     process.exit(1);
   }
 
-  // Re-initialize paths with found repo
-  const TMP_DIR_NEW = join(REPO_ROOT, '.tmp');
-  Object.assign(globalThis, {
-    TMP_DIR: TMP_DIR_NEW,
-    CONTEXT_FILE: join(TMP_DIR_NEW, 'scaffold-context.json'),
-    PROPOSAL_FILE: join(TMP_DIR_NEW, 'scaffold-proposal.yml'),
-    PROMPT_FILE: join(TMP_DIR_NEW, 'scaffold-prompt.txt'),
-  });
+  // Re-initialize paths with found repo root
+  TMP_DIR = join(REPO_ROOT, '.tmp');
+  CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
+  PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+  PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
 
   // Pass args from router to main (otherwise parseArgs reads process.argv)
   return main(args);
