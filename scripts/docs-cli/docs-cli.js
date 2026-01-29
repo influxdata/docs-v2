@@ -15,7 +15,7 @@ const [command, ...args] = process.argv.slice(2);
 
 // Command aliases for convenience
 const COMMAND_ALIASES = {
-  'placeholders': 'add-placeholders'
+  placeholders: 'add-placeholders',
 };
 
 function printUsage() {
@@ -83,7 +83,9 @@ async function main() {
     const { readFileSync } = await import('fs');
     const { join } = await import('path');
     // Go up two levels: docs-cli -> scripts -> repo root
-    const pkg = JSON.parse(readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf8'));
+    const pkg = JSON.parse(
+      readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf8')
+    );
     console.log(`docs-cli v${pkg.version}`);
     process.exit(0);
   }
@@ -96,11 +98,16 @@ async function main() {
     const commandModule = await import(commandPath);
     await commandModule.default({ args, command: resolvedCommand });
   } catch (error) {
-    if (error.code === 'ERR_MODULE_NOT_FOUND') {
+    // Check if the command file itself wasn't found (unknown command)
+    if (
+      error.code === 'ERR_MODULE_NOT_FOUND' &&
+      error.message.includes(`commands/${resolvedCommand}`)
+    ) {
       console.error(`Error: Unknown command '${command}'`);
       console.error(`Run 'docs --help' for usage information`);
       process.exit(1);
     } else {
+      // Other errors (missing dependencies, runtime errors, etc.)
       console.error(`Error executing command '${command}':`, error.message);
       if (process.env.DEBUG) {
         console.error(error.stack);

@@ -13,7 +13,7 @@
 
 import { join } from 'path';
 import { existsSync } from 'fs';
-import { parseDocumentationURL, urlToFilePaths } from '../lib/url-parser.js';
+import { parseDocumentationURL, urlToFilePaths } from '../../lib/url-parser.js';
 import { getSourceFromFrontmatter } from '../lib/content-utils.js';
 import { resolveEditor } from '../lib/editor-resolver.js';
 import { spawnEditor, shouldWait } from '../lib/process-manager.js';
@@ -157,7 +157,7 @@ function openInEditor(files, repoRoot, options = {}) {
 
 export default async function edit(args) {
   const positionals = args.args || [];
-  
+
   // Parse options
   let url = null;
   let listOnly = false;
