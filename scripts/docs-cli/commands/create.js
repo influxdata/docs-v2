@@ -22,14 +22,14 @@ import {
   analyzeURLs,
   loadProducts,
   analyzeStructure,
-} from '../lib/content-scaffolding.js';
+} from '../../lib/content-scaffolding.js';
 import {
   writeJson,
   readJson,
   fileExists,
   readDraft,
-} from '../lib/file-operations.js';
-import { parseMultipleURLs } from '../lib/url-parser.js';
+} from '../../lib/file-operations.js';
+import { parseMultipleURLs } from '../../lib/url-parser.js';
 import { resolveEditor } from '../lib/editor-resolver.js';
 import { findDocsV2Root } from '../lib/config-loader.js';
 import { spawnEditor, shouldWait } from '../lib/process-manager.js';
@@ -37,8 +37,8 @@ import { spawnEditor, shouldWait } from '../lib/process-manager.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Repository root
-const REPO_ROOT = join(__dirname, '..');
+// Repository root (reassigned in create() for portability)
+let REPO_ROOT = join(__dirname, '..');
 
 // Temp directory for context and proposal
 const TMP_DIR = join(REPO_ROOT, '.tmp');
@@ -1218,7 +1218,7 @@ async function executePhase(options) {
 
       try {
         const editorCommand = resolveEditor(options.editor);
-        const filePaths = result.created.map(file => join(REPO_ROOT, file));
+        const filePaths = result.created.map((file) => join(REPO_ROOT, file));
         const wait = shouldWait(options.wait);
 
         spawnEditor(editorCommand, filePaths, wait);
@@ -1226,13 +1226,19 @@ async function executePhase(options) {
         if (wait) {
           log('✓ Editor closed', 'green');
         } else {
-          log('   Editor will open in background (CLI exits immediately)', 'cyan');
+          log(
+            '   Editor will open in background (CLI exits immediately)',
+            'cyan'
+          );
           log('   Use --wait flag to block until editor closes', 'cyan');
           log('✓ Editor launched', 'green');
         }
       } catch (error) {
         log(`\n✗ Failed to open editor: ${error.message}`, 'red');
-        log('\nFiles were created successfully but could not be opened.', 'yellow');
+        log(
+          '\nFiles were created successfully but could not be opened.',
+          'yellow'
+        );
         log('You can open them manually:', 'yellow');
         result.created.forEach((file) => {
           log(`  ${file}`, 'yellow');
@@ -1408,7 +1414,7 @@ async function main() {
 // Export for unified CLI
 export default async function create(args) {
   REPO_ROOT = findDocsV2Root();
-  
+
   if (!REPO_ROOT) {
     console.error('\n❌ Could not find docs-v2 repository');
     console.error('');
@@ -1419,7 +1425,7 @@ export default async function create(args) {
     console.error('');
     process.exit(1);
   }
-  
+
   // Re-initialize paths with found repo
   const TMP_DIR_NEW = join(REPO_ROOT, '.tmp');
   Object.assign(globalThis, {
@@ -1428,6 +1434,6 @@ export default async function create(args) {
     PROPOSAL_FILE: join(TMP_DIR_NEW, 'scaffold-proposal.yml'),
     PROMPT_FILE: join(TMP_DIR_NEW, 'scaffold-prompt.txt'),
   });
-  
+
   return main();
 }
