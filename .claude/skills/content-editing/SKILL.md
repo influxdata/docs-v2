@@ -474,9 +474,12 @@ ls content/influxdb3/core/api/
 
 | Task | Command |
 |------|---------|
-| Create new content | `npx docs create draft.md --products <product-key>` |
+| Create new content | `docs create draft.md --products <product-key>` |
 | Edit by URL | `docs edit https://docs.influxdata.com/...` |
 | List files without editing | `docs edit <url> --list` |
+| Add placeholders to code | `docs placeholders file.md` or `docs placeholders file.md --dry` |
+| Audit documentation | `docs audit core v3.9` or `docs audit enterprise v3.9` |
+| Generate release notes | `docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb` |
 | Build Hugo site | `npx hugo --quiet` |
 | Test links | `yarn test:links` |
 | Test code blocks | `yarn test:codeblocks:all` |
