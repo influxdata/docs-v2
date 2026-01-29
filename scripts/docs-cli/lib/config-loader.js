@@ -47,8 +47,8 @@ export function getConfig(key, { defaultValue = null, required = false } = {}) {
   if (required && !value) {
     throw new Error(
       `Missing required configuration: ${key}\n` +
-      `Please add ${key} to your .env file in the repository root.\n` +
-      `See config/.env.example for a template.`
+        `Please add ${key} to your .env file in the repository root.\n` +
+        `See config/.env.example for a template.`
     );
   }
 
@@ -110,7 +110,7 @@ export function checkGitHubAuth() {
   } catch {
     return {
       authenticated: false,
-      message: 'GitHub CLI not authenticated. Run: gh auth login'
+      message: 'GitHub CLI not authenticated. Run: gh auth login',
     };
   }
 }
@@ -125,38 +125,52 @@ export function getConfigSummary() {
   return {
     hasEnterpriseAccess: hasEnterpriseAccess(),
     githubAuthenticated: githubAuth.authenticated,
-    worktreePath: getConfig('WORKTREE_BASE_PATH', { defaultValue: './.worktrees' }),
+    worktreePath: getConfig('WORKTREE_BASE_PATH', {
+      defaultValue: './.worktrees',
+    }),
     hasDocsV2Path: !!getRepoPath('docs-v2', 'DOCS_V2_PATH'),
     hasInfluxDBPath: !!getRepoPath('influxdb', 'INFLUXDB_CORE_PATH'),
   };
 }
 
 /**
+ * Check if a directory is a docs-v2 repository
+ */
+function isDocsV2Repo(dir) {
+  const pkgPath = join(dir, 'package.json');
+  if (!existsSync(pkgPath)) return false;
+
+  try {
+    const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+    // Check for known package names (current and legacy)
+    return (
+      pkg.name === '@influxdata/docs-site' || pkg.name === 'docs.influxdata.com'
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Find docs-v2 repository root
+ * Priority: 1) Walk up from cwd, 2) DOCS_V2_PATH env, 3) Common locations
  */
 export function findDocsV2Root() {
-  const envPath = getConfig('DOCS_V2_PATH');
-  if (envPath && existsSync(envPath)) {
-    const pkgPath = join(envPath, 'package.json');
-    if (existsSync(pkgPath)) {
-      const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
-      if (pkg.name === 'docs.influxdata.com') {
-        return envPath;
-      }
-    }
-  }
-
+  // First, walk up from current directory - this ensures worktrees are found
   let dir = process.cwd();
   while (dir !== '/') {
-    const pkgPath = join(dir, 'package.json');
-    if (existsSync(pkgPath)) {
-      const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
-      if (pkg.name === 'docs.influxdata.com') {
-        return dir;
-      }
+    if (isDocsV2Repo(dir)) {
+      return dir;
     }
     dir = dirname(dir);
   }
 
+  // Then check explicit env var
+  const envPath = getConfig('DOCS_V2_PATH');
+  if (envPath && existsSync(envPath) && isDocsV2Repo(envPath)) {
+    return envPath;
+  }
+
+  // Finally, try common locations
   return getRepoPath('docs-v2', 'DOCS_V2_PATH');
 }
