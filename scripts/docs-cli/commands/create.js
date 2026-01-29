@@ -710,6 +710,25 @@ async function selectProducts(context, options) {
   }
 
   // Case 4: Ambiguous or none detected - show interactive menu
+  // But first, check if we're being piped - interactive input won't work
+  const isBeingPiped = !process.stdout.isTTY;
+  if (isBeingPiped) {
+    log(
+      '\n✗ Cannot show interactive product selection when piping output.',
+      'red'
+    );
+    log('  Use --products flag to specify target products:', 'yellow');
+    log(
+      `  Example: docs create <draft> --products ${Object.keys(context.products).slice(0, 2).join(',')}`,
+      'yellow'
+    );
+    log(
+      `\n  Available products: ${Object.keys(context.products).join(', ')}`,
+      'cyan'
+    );
+    process.exit(1);
+  }
+
   log('\n📦 Select target products:\n', 'bright');
   allProducts.forEach((p, i) => {
     const mark = detected.includes(p) ? '✓' : ' ';
@@ -750,6 +769,17 @@ async function selectLinksToFollow(links) {
   // Local files are followed automatically (no user prompt)
   // External links require user selection
   if (links.external.length === 0) {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  // Check if we're being piped - interactive input won't work
+  const isBeingPiped = !process.stdout.isTTY;
+  if (isBeingPiped) {
+    // When piping, skip external link selection silently (include none)
+    log('  ℹ Skipping external link selection (piped output)', 'yellow');
     return {
       selectedLocal: links.localFiles || [],
       selectedExternal: [],

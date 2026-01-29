@@ -231,6 +231,47 @@ async function runTests() {
     } catch {}
   }
 
+  // Test 12: Create command errors helpfully when piping without --products
+  // Simulates piping by checking for the error message in stderr
+  await testCommandExecution(
+    'create',
+    ['content/influxdb3/core/_index.md'],
+    'errors helpfully when piping without --products',
+    (result) => {
+      // When run in this test harness, stdout is not a TTY (similar to piping)
+      // Should exit with error about needing --products
+      const hasProductError =
+        result.stderr.includes('Cannot show interactive product selection') ||
+        result.stderr.includes('--products');
+      return result.code !== 0 && hasProductError;
+    }
+  );
+
+  // Test 13: Create command works when --products is provided (even when piping)
+  await testCommandExecution(
+    'create',
+    ['content/influxdb3/core/_index.md', '--products', 'influxdb3_core'],
+    'succeeds with --products flag when piping',
+    (result) => {
+      // Should succeed and output prompt text
+      if (result.code !== 0) {
+        console.log(
+          colors.red(`   Command failed with exit code ${result.code}`)
+        );
+        return false;
+      }
+      // Should contain prompt text in stdout
+      const hasPrompt = result.stdout.includes(
+        'expert InfluxData documentation'
+      );
+      if (!hasPrompt) {
+        console.log(colors.red(`   Expected prompt text in stdout`));
+        return false;
+      }
+      return true;
+    }
+  );
+
   // Summary
   console.log(colors.cyan(`\n📊 Results: ${passed}/${passed + failed} passed`));
 
