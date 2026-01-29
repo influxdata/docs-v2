@@ -1,6 +1,6 @@
 /**
  * Configuration loader with security best practices
- * 
+ *
  * SECURITY: This file must NOT contain any references to private repository names or URLs
  */
 
@@ -16,14 +16,14 @@ const REPO_ROOT = join(CLI_ROOT, '..');
 // Simple .env parser (avoiding external dependency)
 function loadEnvFile(path) {
   if (!existsSync(path)) return;
-  
+
   const content = readFileSync(path, 'utf8');
   const lines = content.split('\n');
-  
+
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) continue;
-    
+
     const match = trimmed.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
     if (match) {
       const [, key, value] = match;
@@ -43,7 +43,7 @@ loadEnvFile(envPath);
  */
 export function getConfig(key, { defaultValue = null, required = false } = {}) {
   const value = process.env[key] || defaultValue;
-  
+
   if (required && !value) {
     throw new Error(
       `Missing required configuration: ${key}\n` +
@@ -51,7 +51,7 @@ export function getConfig(key, { defaultValue = null, required = false } = {}) {
       `See config/.env.example for a template.`
     );
   }
-  
+
   return value;
 }
 
@@ -63,7 +63,17 @@ export function getRepoPath(repoName, envKey) {
   if (envPath && existsSync(envPath)) {
     return envPath;
   }
-  
+
+  // Try parent directories (up to 3 levels)
+  let current = process.cwd();
+  for (let i = 0; i < 3; i++) {
+    const siblingPath = join(current, '..', repoName);
+    if (existsSync(siblingPath)) {
+      return siblingPath;
+    }
+    current = join(current, '..');
+  }
+
   // Try common locations (only for PUBLIC repos)
   const commonPaths = [
     join(process.env.HOME, 'github', 'influxdata', repoName),
@@ -71,13 +81,13 @@ export function getRepoPath(repoName, envKey) {
     join(process.env.HOME, 'code', 'influxdata', repoName),
     join(process.env.HOME, 'src', 'influxdata', repoName),
   ];
-  
+
   for (const path of commonPaths) {
     if (existsSync(path)) {
       return path;
     }
   }
-  
+
   return null;
 }
 
@@ -111,7 +121,7 @@ export function checkGitHubAuth() {
  */
 export function getConfigSummary() {
   const githubAuth = checkGitHubAuth();
-  
+
   return {
     hasEnterpriseAccess: hasEnterpriseAccess(),
     githubAuthenticated: githubAuth.authenticated,
@@ -135,7 +145,7 @@ export function findDocsV2Root() {
       }
     }
   }
-  
+
   let dir = process.cwd();
   while (dir !== '/') {
     const pkgPath = join(dir, 'package.json');
@@ -147,6 +157,6 @@ export function findDocsV2Root() {
     }
     dir = dirname(dir);
   }
-  
+
   return getRepoPath('docs-v2', 'DOCS_V2_PATH');
 }
