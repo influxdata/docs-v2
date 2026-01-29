@@ -13,6 +13,11 @@ const __dirname = dirname(__filename);
 
 const [command, ...args] = process.argv.slice(2);
 
+// Command aliases for convenience
+const COMMAND_ALIASES = {
+  'placeholders': 'add-placeholders'
+};
+
 function printUsage() {
   console.log(`
 InfluxData Documentation Tooling CLI
@@ -24,7 +29,8 @@ Commands:
   create <draft> --products <p>       Create new documentation
   edit <url>                          Edit existing documentation
   release-notes <from> <to> [paths]   Generate release notes
-  add-placeholders <file>             Add placeholder syntax to code blocks
+  placeholders <file>                 Add placeholder syntax to code blocks
+  add-placeholders                    (alias for placeholders)
 
 Products:
   core        - InfluxDB 3 Core
@@ -82,10 +88,13 @@ async function main() {
     process.exit(0);
   }
 
+  // Resolve command aliases
+  const resolvedCommand = COMMAND_ALIASES[command] || command;
+
   try {
-    const commandPath = `./commands/${command}.js`;
+    const commandPath = `./commands/${resolvedCommand}.js`;
     const commandModule = await import(commandPath);
-    await commandModule.default({ args, command });
+    await commandModule.default({ args, command: resolvedCommand });
   } catch (error) {
     if (error.code === 'ERR_MODULE_NOT_FOUND') {
       console.error(`Error: Unknown command '${command}'`);

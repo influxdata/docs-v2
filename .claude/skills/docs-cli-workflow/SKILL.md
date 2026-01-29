@@ -118,32 +118,38 @@ No additional guidance needed—the CLI manages product selection, file generati
 
 ## CLI Reference
 
+The unified `docs` CLI includes all documentation tooling commands:
+
 ```bash
-# Create new documentation from a draft
-npx docs create <draft-path> --products <product-key>
+# CREATE: Create new documentation from a draft
+docs create <draft-path> --products <product-key>
+docs create <draft-path> --products <product-key> --open        # Non-blocking
+docs create <draft-path> --products <product-key> --open --wait # Blocking
+docs create --url <url> --from-draft <draft-path>              # Create at URL
 
-# Create and open files in editor (non-blocking)
-npx docs create <draft-path> --products <product-key> --open
+# EDIT: Find and edit existing documentation
+docs edit <url-or-path>                  # Non-blocking, agent-friendly
+docs edit <url-or-path> --list           # List files without opening
+docs edit <url-or-path> --wait           # Block until editor closes
+docs edit <url-or-path> --editor nano    # Use specific editor
 
-# Create and open, wait for editor (blocking)
-npx docs create <draft-path> --products <product-key> --open --wait
+# PLACEHOLDERS: Add placeholder syntax to code blocks
+docs placeholders <file.md>              # Add { placeholders="PATTERN" } syntax
+docs placeholders <file.md> --dry        # Preview changes without writing
 
-# Create at specific URL location
-npx docs create --url <url> --from-draft <draft-path>
+# AUDIT: Audit documentation coverage
+docs audit core v3.9                     # Audit InfluxDB Core docs
+docs audit enterprise v3.9               # Audit Enterprise docs
+docs audit telegraf v1.33                # Audit Telegraf plugin docs
 
-# Find and list files for an existing page (non-blocking, agent-friendly)
-docs edit <url-or-path>
-docs edit <url-or-path> --list        # List files without opening editor
+# RELEASE-NOTES: Generate release notes from commits
+docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb
 
-# Interactive editing (blocks until editor closes)
-docs edit <url-or-path> --wait
-
-# Use specific editor
-docs edit <url-or-path> --editor nano
-
-# Examples (both full URL and path work)
+# Examples
 docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
 docs edit /influxdb3/core/admin/databases/
+docs placeholders content/influxdb3/core/admin/databases/create.md
+docs audit core main
 ```
 
 **Editor Selection** (checked in order):
