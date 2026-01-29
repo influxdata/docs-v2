@@ -485,7 +485,7 @@ async function preparePhase(draftPath, options, stdinContent = null) {
 
     // Extract links from draft
     const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
-      './lib/content-scaffolding.js'
+      '../../lib/content-scaffolding.js'
     );
 
     const links = extractLinks(draft.content);
@@ -1283,7 +1283,7 @@ async function main() {
     }
 
     // Import readDraftFromStdin
-    const { readDraftFromStdin } = await import('./lib/file-operations.js');
+    const { readDraftFromStdin } = await import('../../lib/file-operations.js');
     log('📥 Reading draft from stdin...', 'cyan');
     stdinContent = await readDraftFromStdin();
   }
