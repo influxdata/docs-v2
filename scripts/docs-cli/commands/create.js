@@ -30,8 +30,9 @@ import {
   readDraft,
 } from '../lib/file-operations.js';
 import { parseMultipleURLs } from '../lib/url-parser.js';
-import { resolveEditor } from './lib/editor-resolver.js';
-import { spawnEditor, shouldWait } from './lib/process-manager.js';
+import { resolveEditor } from '../lib/editor-resolver.js';
+import { findDocsV2Root } from '../lib/config-loader.js';
+import { spawnEditor, shouldWait } from '../lib/process-manager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1404,12 +1405,29 @@ async function main() {
 }
 
 // Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    log(`\nFatal error: ${error.message}`, 'red');
-    console.error(error.stack);
+// Export for unified CLI
+export default async function create(args) {
+  REPO_ROOT = findDocsV2Root();
+  
+  if (!REPO_ROOT) {
+    console.error('\n❌ Could not find docs-v2 repository');
+    console.error('');
+    console.error('Options:');
+    console.error('  1. Run from within docs-v2 repository');
+    console.error('  2. Set DOCS_V2_PATH in .env file');
+    console.error('  3. Place docs-v2 in a common location');
+    console.error('');
     process.exit(1);
+  }
+  
+  // Re-initialize paths with found repo
+  const TMP_DIR_NEW = join(REPO_ROOT, '.tmp');
+  Object.assign(globalThis, {
+    TMP_DIR: TMP_DIR_NEW,
+    CONTEXT_FILE: join(TMP_DIR_NEW, 'scaffold-context.json'),
+    PROPOSAL_FILE: join(TMP_DIR_NEW, 'scaffold-proposal.yml'),
+    PROMPT_FILE: join(TMP_DIR_NEW, 'scaffold-prompt.txt'),
   });
+  
+  return main();
 }
-
-export { preparePhase, executePhase };
