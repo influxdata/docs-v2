@@ -76,7 +76,8 @@ async function main() {
   if (command === '--version' || command === '-v') {
     const { readFileSync } = await import('fs');
     const { join } = await import('path');
-    const pkg = JSON.parse(readFileSync(join(dirname(__dirname), 'package.json'), 'utf8'));
+    // Go up two levels: docs-cli -> scripts -> repo root
+    const pkg = JSON.parse(readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf8'));
     console.log(`docs-cli v${pkg.version}`);
     process.exit(0);
   }
