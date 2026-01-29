@@ -784,6 +784,26 @@ Flux queries, set the value to `true`.
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_FLUX_ENABLED`
 
+#### flux-log-enabled
+
+Determines whether detailed logs for Flux queries are enabled. 
+When set to `true`, InfluxDB logs detailed information about Flux queries, including:
+
+- `compiler_type`: Compiler used for processing the query (will always be Flux).
+- `response_size`: Size of the response, in bytes.
+- `query`: The textual representation of the query.
+- `err`: Errors encountered while processing the query.
+- `stat_total_duration`: Total duration to process the query.
+- `stat_compile_duration`: Duration to compile the query.
+- `stat_execute_duration`: Duration to execute the query.
+- `stat_total_allocated`: Total allocated memory for the query.
+
+To enable Flux logging, both `flux-enabled` and `flux-log-enabled` must be set to `true`.
+For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1/administration/logs).
+
+**Default**: `false`  
+**Environment variable**: `INFLUXDB_HTTP_FLUX_LOG_ENABLED`
+
 #### bind-address {#http-bind-address}
 
 The bind address (port) used by the HTTP service.
