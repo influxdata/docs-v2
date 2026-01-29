@@ -789,7 +789,7 @@ Flux queries, set the value to `true`.
 Determines whether detailed logs for Flux queries are enabled. 
 When set to `true`, InfluxDB logs detailed information about Flux queries, including:
 
-- `compiler_type`: Compiler used for processing the query (will always be Flux).
+- `compiler_type`: Compiler used for processing the query (typically Flux).
 - `response_size`: Size of the response, in bytes.
 - `query`: The textual representation of the query.
 - `err`: Errors encountered while processing the query.
