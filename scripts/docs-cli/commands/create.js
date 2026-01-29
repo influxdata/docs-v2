@@ -124,9 +124,11 @@ function divider() {
 
 /**
  * Parse command line arguments
+ * @param {string[]} argv - Arguments to parse (defaults to process.argv.slice(2))
  */
-function parseArguments() {
+function parseArguments(argv = null) {
   const { values, positionals } = parseArgs({
+    args: argv, // If null, parseArgs uses process.argv.slice(2)
     options: {
       'from-draft': { type: 'string' },
       url: { type: 'string', multiple: true },
@@ -1254,9 +1256,10 @@ async function executePhase(options) {
 
 /**
  * Main entry point
+ * @param {string[]} argv - Arguments to parse (optional, for CLI router)
  */
-async function main() {
-  const options = parseArguments();
+async function main(argv = null) {
+  const options = parseArguments(argv);
 
   // Show help first (don't wait for stdin)
   if (options.help) {
@@ -1412,7 +1415,7 @@ async function main() {
 
 // Run if called directly
 // Export for unified CLI
-export default async function create(args) {
+export default async function create({ args }) {
   REPO_ROOT = findDocsV2Root();
 
   if (!REPO_ROOT) {
@@ -1435,5 +1438,6 @@ export default async function create(args) {
     PROMPT_FILE: join(TMP_DIR_NEW, 'scaffold-prompt.txt'),
   });
 
-  return main();
+  // Pass args from router to main (otherwise parseArgs reads process.argv)
+  return main(args);
 }
