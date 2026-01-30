@@ -1,0 +1,15 @@
+{{ partial "header.html" . }}
+{{ partial "topnav.html" . }}
+{{ $productPathData := split .RelPermalink "/" }}
+{{ $product := index $productPathData 1 }}
+{{ $version := index $productPathData 2 }}
+{{ $productPortalLinks := dict
+  "influxdb3_enterprise" "https://portal.productboard.com/s4ypqjwpwk7d33grlsfswkfm"
+  "influxdb3_core" "https://portal.productboard.com/paeu8mii9jrzjkiucwfep1ea"
+}}
+
+<div class="page-wrapper">
+  <iframe style="width:100%;height:calc(100vh - 55px);" src='{{ index $productPortalLinks (print $product "_" $version) }}' frameborder="0"></iframe>
+</div>
+
+{{ partial "footer.html" . }}
