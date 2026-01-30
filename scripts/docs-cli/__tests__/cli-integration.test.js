@@ -315,15 +315,16 @@ async function runTests() {
     }
   );
 
-  // Test 17: audit command with version before flags
+  // Test 17: audit command with --products flag (version defaults to main)
   await testCommandExecution(
     'audit',
-    ['main', '--products', 'influxdb3_core'],
-    'version before --products flag',
+    ['--products', 'influxdb3_core'],
+    '--products flag parses correctly',
     (result) => {
       // Should attempt to run audit (may fail due to missing auditor module)
       const parsedCorrectly =
         result.stderr.includes('influxdb3_core') ||
+        result.stderr.includes('Resolved products') ||
         result.stderr.includes('Using cached clone') ||
         result.stderr.includes('Running CLI audit') ||
         result.stderr.includes('Cannot find module'); // Expected - auditor not in test env
@@ -334,7 +335,7 @@ async function runTests() {
   // Test 18: audit --repos flag parsing
   await testCommandExecution(
     'audit',
-    ['main', '--repos', '/nonexistent/path'],
+    ['--repos', '/nonexistent/path'],
     '--repos flag parses correctly',
     (result) => {
       // Should error about path not found (parsing worked, validation caught it)
@@ -347,7 +348,7 @@ async function runTests() {
   // Test 19: audit error when no products or repos specified
   await testCommandExecution(
     'audit',
-    ['main'],
+    [],
     'errors when no --products or --repos specified',
     (result) => {
       return (
@@ -362,10 +363,13 @@ async function runTests() {
   // Test 20: audit with invalid product key
   await testCommandExecution(
     'audit',
-    ['main', '--products', 'invalid_product'],
+    ['--products', 'invalid_product'],
     'errors on invalid product key',
     (result) => {
-      return result.code !== 0 && result.stderr.includes('Invalid product key');
+      return (
+        result.code !== 0 &&
+        result.stderr.includes('Could not resolve product identifier')
+      );
     }
   );
 

@@ -17,12 +17,17 @@ import {
   getRepoPathOrClone,
   cloneOrUpdateRepo,
 } from '../lib/config-loader.js';
+import {
+  resolveProducts,
+  validateMutualExclusion,
+  getProductInfo,
+} from '../lib/product-resolver.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Map product keys to audit product types
-const PRODUCT_KEY_MAP = {
+const PRODUCT_KEY_TO_AUDIT_TYPE = {
   influxdb3_core: 'core',
   influxdb3_enterprise: 'enterprise',
   telegraf: 'telegraf',
@@ -32,21 +37,21 @@ function printUsage() {
   console.log(`
 Documentation Coverage Audit
 
-Usage: docs audit <version> [options]
-
-Arguments:
-  <version>              Version/branch/tag to audit (e.g., main, v3.3.0, master)
+Usage: docs audit [options]
 
 Options:
-  --products <keys>      Comma-separated product keys to audit
-                         (e.g., influxdb3_core,influxdb3_enterprise)
-  --repos <paths>        Comma-separated repo paths or URLs (alternative to --products)
-  --categories <list>    Comma-separated categories
+  --products <keys>      Product keys or content paths (comma-separated)
+                         Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>        Direct repo paths or URLs (alternative to --products)
+  --version <v>          Version/branch/tag to audit (default: main)
+  --categories <list>    Comma-separated categories to audit
   --branch <name>        docs-v2 branch to compare against (default: master)
   --output-format <fmt>  Output format: report | drafts | json (default: report)
   --help, -h             Show this help message
 
-Product Keys:
+Note: --products and --repos are mutually exclusive.
+
+Product Keys (or use content paths like /influxdb3/core):
   influxdb3_core         InfluxDB 3 Core
   influxdb3_enterprise   InfluxDB 3 Enterprise
   telegraf               Telegraf
@@ -62,20 +67,23 @@ Available Categories:
   GENERAL_REFERENCE      General reference documentation
 
 Examples:
-  # Audit using product keys from config
-  docs audit main --products influxdb3_core
+  # Audit using product keys (version defaults to main)
+  docs audit --products influxdb3_core
 
-  # Audit multiple products
-  docs audit v3.3.0 --products influxdb3_core,influxdb3_enterprise
+  # Audit using content paths
+  docs audit --products /influxdb3/core,/influxdb3/enterprise
+
+  # Audit specific version
+  docs audit --products influxdb3_core --version v3.3.0
 
   # Audit using direct repo path
-  docs audit main --repos ~/github/influxdata/influxdb
+  docs audit --repos ~/github/influxdata/influxdb
 
   # Audit using repo URL (will clone automatically)
-  docs audit master --repos https://github.com/influxdata/telegraf
+  docs audit --repos https://github.com/influxdata/telegraf
 
   # Audit with specific categories
-  docs audit main --products influxdb3_core --categories CLI_REFERENCE
+  docs audit --products influxdb3_core --categories CLI_REFERENCE
 
 Configuration:
   Requires GitHub CLI authentication: gh auth login
@@ -94,7 +102,7 @@ Configuration:
 function validatePrerequisites(product) {
   const auth = checkGitHubAuth();
   if (!auth.authenticated) {
-    console.error('❌ GitHub CLI not authenticated');
+    console.error('Error: GitHub CLI not authenticated');
     console.error('');
     console.error('Run: gh auth login');
     console.error('');
@@ -105,7 +113,7 @@ function validatePrerequisites(product) {
     (product === 'enterprise' || product === 'both') &&
     !hasEnterpriseAccess()
   ) {
-    console.error('⚠️  Enterprise audit requires configuration');
+    console.error('Warning: Enterprise audit requires configuration');
     console.error('');
     console.error('To audit Enterprise products:');
     console.error(
@@ -140,47 +148,46 @@ export default async function audit(args) {
   }
 
   // Parse arguments
-  let productKeys = [];
-  let repoPaths = [];
-  let version = null;
+  let productsInput = null;
+  let reposInput = null;
+  let version = 'main'; // Default to main
   let categoryFilter = null;
   let docsBranch = 'master';
   let outputFormat = 'report';
-  const otherPositionals = [];
 
   for (let i = 0; i < positionals.length; i++) {
     const arg = positionals[i];
 
     if (arg === '--products' || arg === '--product') {
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
-        const keys = positionals[i + 1].split(',').map((k) => k.trim());
-        productKeys.push(...keys);
+        productsInput = positionals[i + 1];
         i++;
       } else {
-        console.error('Error: --products requires product keys');
+        console.error('Error: --products requires product keys or paths');
         process.exit(1);
       }
     } else if (arg.startsWith('--products=')) {
-      const keys = arg
-        .split('=')[1]
-        .split(',')
-        .map((k) => k.trim());
-      productKeys.push(...keys);
+      productsInput = arg.split('=')[1];
     } else if (arg === '--repos' || arg === '--repo') {
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
-        const paths = positionals[i + 1].split(',').map((p) => p.trim());
-        repoPaths.push(...paths);
+        reposInput = positionals[i + 1];
         i++;
       } else {
         console.error('Error: --repos requires paths or URLs');
         process.exit(1);
       }
     } else if (arg.startsWith('--repos=')) {
-      const paths = arg
-        .split('=')[1]
-        .split(',')
-        .map((p) => p.trim());
-      repoPaths.push(...paths);
+      reposInput = arg.split('=')[1];
+    } else if (arg === '--version') {
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        version = positionals[i + 1];
+        i++;
+      } else {
+        console.error('Error: --version requires a value');
+        process.exit(1);
+      }
+    } else if (arg.startsWith('--version=')) {
+      version = arg.split('=')[1];
     } else if (arg === '--categories') {
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
         categoryFilter = positionals[i + 1]
@@ -208,9 +215,24 @@ export default async function audit(args) {
     } else if (arg.startsWith('--output-format=')) {
       outputFormat = arg.split('=')[1];
     } else if (!arg.startsWith('--')) {
-      otherPositionals.push(arg);
+      // Positional arguments are no longer supported
+      console.error(`Error: Unexpected positional argument '${arg}'`);
+      console.error('');
+      console.error('Positional arguments are no longer supported. Use flags:');
+      console.error('  docs audit --products influxdb3_core --version v3.9');
+      console.error('');
+      console.error('Quick migration:');
+      console.error('  core       → --products influxdb3_core');
+      console.error('  enterprise → --products influxdb3_enterprise');
+      console.error('  telegraf   → --products telegraf');
+      console.error('');
+      console.error("Run 'docs audit --help' for usage information.");
+      process.exit(1);
     }
   }
+
+  // Validate mutual exclusion
+  validateMutualExclusion({ products: productsInput, repos: reposInput });
 
   // Validate output format
   if (!['report', 'drafts', 'json'].includes(outputFormat)) {
@@ -219,48 +241,82 @@ export default async function audit(args) {
     process.exit(1);
   }
 
-  // First positional argument is the version
-  if (otherPositionals.length > 0) {
-    version = otherPositionals[0];
-  }
-
   // Validate we have products or repos to audit
-  if (productKeys.length === 0 && repoPaths.length === 0) {
+  if (!productsInput && !reposInput) {
     console.error('Error: No products or repositories specified');
     console.error('');
     console.error('Options:');
+    console.error('  --products <keys>  Product keys or content paths');
     console.error(
-      '  --products <keys>  Use product keys from config (e.g., influxdb3_core)'
+      '                     Examples: influxdb3_core, /influxdb3/core'
     );
-    console.error('  --repos <paths>    Use direct paths or URLs');
+    console.error('  --repos <paths>    Direct repository paths or URLs');
     console.error('');
-    console.error('Available product keys:');
-    for (const [key, desc] of Object.entries(PRODUCT_KEY_MAP)) {
-      console.error(`  ${key} → ${desc}`);
+    console.error('Available products:');
+    for (const [key, auditType] of Object.entries(PRODUCT_KEY_TO_AUDIT_TYPE)) {
+      const info = getProductInfo(key);
+      const path = info?.contentPath ? ` (/${info.contentPath}/)` : '';
+      console.error(`  ${key}${path}`);
     }
+    console.error('');
+    console.error("Run 'docs audit --help' for full usage information.");
     process.exit(1);
   }
 
-  // Validate product keys (if provided)
-  if (productKeys.length > 0) {
-    const invalidKeys = productKeys.filter((k) => !PRODUCT_KEY_MAP[k]);
-    if (invalidKeys.length > 0) {
-      console.error(`Error: Invalid product key(s): ${invalidKeys.join(', ')}`);
-      console.error('');
-      console.error('Available product keys:');
-      for (const [key, desc] of Object.entries(PRODUCT_KEY_MAP)) {
-        console.error(`  ${key} → ${desc}`);
+  // Resolve product keys
+  let productKeys = [];
+  let repoPaths = [];
+
+  if (productsInput) {
+    try {
+      const resolved = resolveProducts(productsInput);
+      productKeys = resolved.map((r) => r.key);
+
+      // Filter to only auditable products
+      const auditableKeys = productKeys.filter(
+        (key) => PRODUCT_KEY_TO_AUDIT_TYPE[key]
+      );
+      const nonAuditableKeys = productKeys.filter(
+        (key) => !PRODUCT_KEY_TO_AUDIT_TYPE[key]
+      );
+
+      if (nonAuditableKeys.length > 0) {
+        console.warn(
+          `Warning: Skipping non-auditable products: ${nonAuditableKeys.join(', ')}`
+        );
+        console.warn(
+          'Auditing is only supported for: influxdb3_core, influxdb3_enterprise, telegraf'
+        );
+        console.warn('');
       }
+
+      if (auditableKeys.length === 0) {
+        console.error('Error: No auditable products specified');
+        console.error(
+          'Auditing is only supported for: influxdb3_core, influxdb3_enterprise, telegraf'
+        );
+        process.exit(1);
+      }
+
+      productKeys = auditableKeys;
+      console.log(`✓ Resolved products: ${productKeys.join(', ')}`);
+    } catch (error) {
+      console.error(error.message);
       process.exit(1);
     }
   }
 
-  // Default version
-  version = version || 'main';
+  if (reposInput) {
+    repoPaths = reposInput.split(',').map((p) => p.trim());
+  }
+
+  console.log(`✓ Version: ${version}`);
+  console.log(`✓ Docs branch: ${docsBranch}`);
+  console.log('');
 
   // Convert product keys to audit product types
   const auditProducts = [
-    ...new Set(productKeys.map((k) => PRODUCT_KEY_MAP[k])),
+    ...new Set(productKeys.map((k) => PRODUCT_KEY_TO_AUDIT_TYPE[k])),
   ];
 
   // Check if auditing both core and enterprise
@@ -269,8 +325,10 @@ export default async function audit(args) {
   let hasTelegraf = auditProducts.includes('telegraf');
 
   // Validate prerequisites for products (skip for direct repos)
-  for (const product of auditProducts) {
-    validatePrerequisites(product);
+  if (productKeys.length > 0) {
+    for (const product of auditProducts) {
+      validatePrerequisites(product);
+    }
   }
 
   // Set repository URLs/paths from --products

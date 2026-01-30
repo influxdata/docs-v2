@@ -10,6 +10,10 @@ import {
   getRepoPathOrClone,
   cloneOrUpdateRepo,
 } from '../lib/config-loader.js';
+import {
+  resolveProducts,
+  validateMutualExclusion,
+} from '../lib/product-resolver.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -1134,20 +1138,30 @@ function printUsage() {
 Usage: docs release-notes <from_version> <to_version> [options]
 
 Options:
-  --products <keys>       Comma-separated product keys to include (e.g., influxdb3_core,influxdb3_enterprise)
-  --repos <paths>         Comma-separated repo paths or URLs
+  --products <keys>       Product keys or content paths (comma-separated)
+                          Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>         Direct repo paths or URLs (alternative to --products)
   --no-fetch              Skip fetching latest commits from remote
   --pull                  Pull latest changes (implies fetch) - use with caution
   --no-pr-links           Omit PR links from commit messages (default: include links)
   --format <type>         Output format: 'integrated' or 'separated'
   -h, --help              Show this help message
 
+Note: --products and --repos are mutually exclusive.
+
 Examples:
+  # Use product keys
   docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+
+  # Use content paths
+  docs release-notes v3.1.0 v3.2.0 --products /influxdb3/core,/influxdb3/enterprise
+
+  # Use direct repo paths
   docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb,~/repos/enterprise
+
+  # Additional options
   docs release-notes --no-fetch v3.1.0 v3.2.0 --products influxdb3_core
-  docs release-notes --pull v3.1.0 v3.2.0 --repos /path/to/influxdb
-  docs release-notes --format separated v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+  docs release-notes --format separated v3.1.0 v3.2.0 --products influxdb3_core
 `);
 }
 
@@ -1177,8 +1191,8 @@ export default async function releaseNotes(args) {
   // Parse command line arguments
   const options = {};
   const versions = [];
+  let productsInput = null; // Raw --products input (will be resolved)
   const repoPaths = []; // Direct paths or URLs (--repos)
-  const productKeys = []; // Product keys from config (--products)
 
   for (let i = 0; i < positionals.length; i++) {
     const arg = positionals[i];
@@ -1187,42 +1201,44 @@ export default async function releaseNotes(args) {
       console.log(`
 Release Notes Generator
 
-Usage: docs release-notes [options] <from_version> <to_version>
+Usage: docs release-notes <from_version> <to_version> [options]
 
 Options:
   --config <file>      Load configuration from YAML/JSON file
   --format <type>      Output format: 'integrated' or 'separated'
-  --products <keys>    Comma-separated product keys (e.g., influxdb3_core)
-  --repos <paths>      Comma-separated repo paths or URLs
+  --products <keys>    Product keys or content paths (comma-separated)
+                       Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>      Direct repo paths or URLs (alternative to --products)
   --no-fetch           Skip fetching latest commits
   --pull               Pull latest changes (use with caution)
   --no-pr-links        Omit PR links from commits
 
+Note: --products and --repos are mutually exclusive.
+
 Examples:
-  # Use product keys from config
+  # Use product keys
   docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+
+  # Use content paths
+  docs release-notes v3.1.0 v3.2.0 --products /influxdb3/core,/influxdb3/enterprise
 
   # Use direct repo paths
   docs release-notes v3.1.0 v3.2.0 --repos ~/github/influxdata/influxdb
 
-  # Use repo URLs (will clone automatically)
-  docs release-notes v3.1.0 v3.2.0 --repos https://github.com/influxdata/telegraf
-
-Note: Configure product paths in ~/.influxdata-docs/docs-cli.yml
-      Release notes for private repos won't contain PR links.
 See scripts/docs-cli/config/README.md for configuration details.
 `);
       process.exit(0);
     } else if (arg === '--products' || arg === '--product') {
-      // Product keys from config (comma-separated)
+      // Product keys or paths (comma-separated)
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
-        const keys = positionals[i + 1].split(',').map((k) => k.trim());
-        productKeys.push(...keys);
+        productsInput = positionals[i + 1];
         i++;
       } else {
-        console.error('Error: --products requires product keys');
+        console.error('Error: --products requires product keys or paths');
         process.exit(1);
       }
+    } else if (arg.startsWith('--products=')) {
+      productsInput = arg.split('=')[1];
     } else if (arg === '--repos' || arg === '--repo') {
       // Direct repo paths or URLs (comma-separated)
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
@@ -1254,6 +1270,12 @@ See scripts/docs-cli/config/README.md for configuration details.
     process.exit(1);
   }
 
+  // Validate mutual exclusion
+  validateMutualExclusion({
+    products: productsInput,
+    repos: repoPaths.length > 0 ? repoPaths.join(',') : null,
+  });
+
   // Load shared config (merges defaults with user/project overrides)
   const sharedConfig = await loadConfig({ configFile: options.config });
   const releaseNotesConfig = await getReleaseNotesConfig({
@@ -1263,9 +1285,20 @@ See scripts/docs-cli/config/README.md for configuration details.
   // Build repository list
   let repositories = [];
 
-  // 1. If --products provided, resolve product keys from config
-  if (productKeys.length > 0) {
-    for (const key of productKeys) {
+  // 1. If --products provided, resolve product keys using product-resolver
+  if (productsInput) {
+    let resolvedProducts;
+    try {
+      resolvedProducts = resolveProducts(productsInput);
+      console.log(
+        `✓ Resolved products: ${resolvedProducts.map((p) => p.key).join(', ')}`
+      );
+    } catch (error) {
+      console.error(error.message);
+      process.exit(1);
+    }
+
+    for (const { key } of resolvedProducts) {
       const repoPath = await getRepoPathOrClone(key, {
         configFile: options.config,
         allowClone: true,
