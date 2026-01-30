@@ -1,21 +1,34 @@
 #!/bin/bash
 
-# Simple test runner for docs CLI unit tests
+# Test runner for docs CLI tests
 # Run with: bash scripts/docs-cli/__tests__/run-tests.sh
 
-echo "🧪 Running docs CLI unit tests..."
+echo "🧪 Running docs CLI tests..."
 echo ""
 
-# Run each test file
+FAILED=0
+
+# Unit tests
+echo "━━━ Unit Tests ━━━"
+echo ""
+
 node scripts/docs-cli/__tests__/editor-resolver.test.js
-EDITOR_RESULT=$?
+[ $? -ne 0 ] && FAILED=1
 
 node scripts/docs-cli/__tests__/process-manager.test.js
-PROCESS_RESULT=$?
+[ $? -ne 0 ] && FAILED=1
+
+# Integration tests (catches import path errors)
+echo ""
+echo "━━━ Integration Tests ━━━"
+
+node scripts/docs-cli/__tests__/cli-integration.test.js
+[ $? -ne 0 ] && FAILED=1
 
 # Summary
-if [ $EDITOR_RESULT -eq 0 ] && [ $PROCESS_RESULT -eq 0 ]; then
-  echo "✅ All unit tests passed!"
+echo ""
+if [ $FAILED -eq 0 ]; then
+  echo "✅ All tests passed!"
   exit 0
 else
   echo "❌ Some tests failed"

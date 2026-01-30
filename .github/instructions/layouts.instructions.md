@@ -7,6 +7,13 @@ applyTo: "layouts/**/*.html"
 **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 **Test examples**: [content/example.md](../../content/example.md)
 
+**For detailed Hugo template development workflow**, see [.claude/skills/hugo-template-dev/SKILL.md](../../.claude/skills/hugo-template-dev/SKILL.md) which covers:
+
+- Hugo template syntax and data access patterns
+- Build-time vs runtime testing strategies
+- Shortcode implementation best practices
+- Complete TDD workflow for Hugo templates
+
 ## Implementing Shortcodes
 
 When creating or modifying Hugo layouts and shortcodes:
@@ -60,3 +67,9 @@ Add shortcode usage examples to `content/example.md` to verify:
 6. Verify the feature works as intended before marking complete
 
 See [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md) for complete shortcode documentation.
+
+## Related Resources
+
+- **Complete Hugo template workflow**: [.claude/skills/hugo-template-dev/SKILL.md](../../.claude/skills/hugo-template-dev/SKILL.md)
+- **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
+- **Test examples**: [content/example.md](../../content/example.md)
