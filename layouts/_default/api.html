@@ -1,20 +1,11 @@
-{{/*
-  API Documentation Default Layout
-
-  Fallback layout for API documentation pages.
-  Delegates to appropriate templates based on page type:
-  - Section pages: Use section.html logic (children listing)
-  - Pages with staticFilePath: Use RapiDoc renderer
-
-  Note: This template exists as a catch-all but specific templates
-  (api/section.html, api/list.html, api/single.html) should be preferred.
-*/}}
-
-{{/* Section pages without staticFilePath should render content directly, not use RapiDoc */}}
-{{ if and .IsSection (not .Params.staticFilePath) }}
-
-{{ partial "header.html" . }}
-{{ partial "topnav.html" . }}
+{{/* API Documentation Default Layout Fallback layout for API documentation
+pages. Delegates to appropriate templates based on page type: - Section pages:
+Use section.html logic (children listing) - Pages with staticFilePath: Use
+RapiDoc renderer Note: This template exists as a catch-all but specific
+templates (api/section.html, api/list.html, api/single.html) should be
+preferred. */}} {{/* Section pages without staticFilePath should render content
+directly, not use RapiDoc */}} {{ if and .IsSection (not .Params.staticFilePath)
+}} {{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -29,17 +20,11 @@
           {{ end }}
         </header>
 
-        {{/* SECTION INDEX - Show page content then children listing */}}
-        {{ with .Content }}
-        <section class="api-section-content">
-          {{ . }}
-        </section>
-        {{ end }}
-        {{/* Always show tag pages from article data */}}
-        {{ partial "api/section-children.html" . }}
-
-        {{ partial "article/related.html" . }}
-
+        {{/* SECTION INDEX - Show page content then children listing */}} {{
+        with .Content }}
+        <section class="api-section-content">{{ . }}</section>
+        {{ end }} {{/* Always show tag pages from article data */}} {{ partial
+        "api/section-children.html" . }} {{ partial "article/related.html" . }}
       </article>
     </div>
 
@@ -50,13 +35,9 @@
   </div>
 </div>
 
-{{ partial "footer.html" . }}
-
-{{ else }}
-{{/* Pages with staticFilePath (operation pages) use RapiDoc renderer */}}
-
-{{ partial "header.html" . }}
-{{ partial "topnav.html" . }}
+{{ partial "footer.html" . }} {{ else }} {{/* Pages with staticFilePath
+(operation pages) use RapiDoc renderer */}} {{ partial "header.html" . }} {{
+partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -69,14 +50,11 @@
         {{ end }}
       </header>
 
-      {{/* Render API documentation using the configured renderer */}}
-      {{ partial "api/renderer.html" . }}
-
+      {{/* Render API documentation using the configured renderer */}} {{
+      partial "api/renderer.html" . }}
     </article>
     <div class="copyright">&copy; {{ now.Year }} InfluxData, Inc.</div>
   </div>
 </div>
 
-{{ partial "footer.html" . }}
-
-{{ end }}
+{{ partial "footer.html" . }} {{ end }}

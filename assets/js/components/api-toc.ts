@@ -254,6 +254,43 @@ function setupScrollHighlighting(
 }
 
 /**
+ * Set up RapiDoc navigation for TOC links (for tag pages)
+ * Uses RapiDoc's scrollToPath method instead of native scroll
+ */
+function setupRapiDocNavigation(container: HTMLElement): void {
+  container.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const link = target.closest<HTMLAnchorElement>('.api-toc-link');
+
+    if (!link) {
+      return;
+    }
+
+    const href = link.getAttribute('href');
+    if (!href?.startsWith('#')) {
+      return;
+    }
+
+    event.preventDefault();
+
+    // Get the path from the hash (e.g., "post-/api/v3/configure/distinct_cache")
+    const path = href.slice(1);
+
+    // Find RapiDoc element and call scrollToPath
+    const rapiDoc = document.querySelector('rapi-doc') as HTMLElement & {
+      scrollToPath?: (path: string) => void;
+    };
+
+    if (rapiDoc && typeof rapiDoc.scrollToPath === 'function') {
+      rapiDoc.scrollToPath(path);
+    }
+
+    // Update URL hash
+    history.pushState(null, '', href);
+  });
+}
+
+/**
  * Set up smooth scroll for TOC links
  */
 function setupSmoothScroll(container: HTMLElement): void {
@@ -359,6 +396,25 @@ export default function ApiToc({ component }: ComponentOptions): void {
 
   if (!nav) {
     console.warn('[API TOC] No .api-toc-nav element found');
+    return;
+  }
+
+  // Check if TOC was pre-rendered server-side (has existing links)
+  // For tag pages with RapiDoc, the TOC is rendered by Hugo from operations frontmatter
+  const hasServerRenderedToc = nav.querySelectorAll('.api-toc-link').length > 0;
+
+  if (hasServerRenderedToc) {
+    // Server-side TOC exists - just show it and set up navigation
+    component.classList.remove('is-hidden');
+
+    // For tag pages with RapiDoc, use RapiDoc's scrollToPath for navigation
+    // instead of smooth scrolling (which can't access shadow DOM elements)
+    const rapiDocWrapper = document.querySelector('[data-tag-page="true"]');
+    if (rapiDocWrapper) {
+      setupRapiDocNavigation(component);
+    } else {
+      setupSmoothScroll(component);
+    }
     return;
   }
 

@@ -1,14 +1,7 @@
-{{/*
-  API Documentation Section Layout
-
-  Used for API section index pages (e.g., /influxdb3/core/api/).
-  Shows page content with children listing instead of RapiDoc renderer.
-
-  For tag pages (with 'tag' param), Hugo uses list.html instead.
-*/}}
-
-{{ partial "header.html" . }}
-{{ partial "topnav.html" . }}
+{{/* API Documentation Section Layout Used for API section index pages (e.g.,
+/influxdb3/core/api/). Shows page content with children listing instead of
+RapiDoc renderer. For tag pages (with 'tag' param), Hugo uses list.html instead.
+*/}} {{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -23,17 +16,11 @@
           {{ end }}
         </header>
 
-        {{/* SECTION INDEX - Show intro content then tag-based children */}}
-        {{ with .Content }}
-        <section class="api-section-content">
-          {{ . }}
-        </section>
-        {{ end }}
-        {{/* Always show tag pages from article data */}}
-        {{ partial "api/section-children.html" . }}
-
-        {{ partial "article/related.html" . }}
-
+        {{/* SECTION INDEX - Show intro content then tag-based children */}} {{
+        with .Content }}
+        <section class="api-section-content">{{ . }}</section>
+        {{ end }} {{/* Always show tag pages from article data */}} {{ partial
+        "api/section-children.html" . }} {{ partial "article/related.html" . }}
       </article>
     </div>
 

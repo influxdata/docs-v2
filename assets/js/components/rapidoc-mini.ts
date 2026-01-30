@@ -196,7 +196,9 @@ function createRapiDocElement(
   specUrl: string,
   matchPaths?: string,
   matchType?: string,
-  title?: string
+  title?: string,
+  isTagPage?: boolean,
+  renderStyle?: string
 ): HTMLElement {
   const element = document.createElement(RAPIDOC_ELEMENT);
 
@@ -253,9 +255,23 @@ function createRapiDocElement(
   //
   // Layout and render style for compact operation display
   element.setAttribute('layout', 'column');
-  element.setAttribute('render-style', 'read');
+  element.setAttribute('render-style', renderStyle || 'read');
   element.setAttribute('show-header', 'false');
   element.setAttribute('allow-server-selection', 'false');
+
+  // Tag page specific settings
+  if (isTagPage) {
+    // Enable URL hash updates as user scrolls/clicks operations
+    element.setAttribute('update-route', 'true');
+
+    // If URL has a hash, navigate to that operation on load
+    // Hash format: #{method}-{path} (e.g., #post-/api/v3/configure/distinct_cache)
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      const gotoPath = hash.substring(1); // Remove the '#'
+      element.setAttribute('goto-path', gotoPath);
+    }
+  }
 
   // Schema display - use 'table' style to reduce parameter indentation
   element.setAttribute('schema-style', 'table');
@@ -728,6 +744,8 @@ export default async function RapiDocMini({
     const matchPaths = component.dataset.matchPaths;
     const matchType = component.dataset.matchType;
     const title = component.dataset.title;
+    const isTagPage = component.dataset.tagPage === 'true';
+    const renderStyle = component.dataset.renderStyle;
 
     if (!specUrl) {
       console.error('[RapiDoc Mini] No data-spec-url attribute provided');
@@ -752,7 +770,9 @@ export default async function RapiDocMini({
       specUrl,
       matchPaths,
       matchType,
-      title
+      title,
+      isTagPage,
+      renderStyle
     );
     component.appendChild(rapiDocElement);
 

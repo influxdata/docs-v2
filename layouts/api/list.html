@@ -1,7 +1,7 @@
 {{/* API Documentation Layout Handles two cases: 1. Section index (no 'tag'
 param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
-param) - shows operations list and description For conceptual pages
-(isConceptual: true), shows content without operations list. */}}
+param) - shows RapiDoc with all operations for the tag For conceptual pages
+(isConceptual: true), shows content without operations. */}}
 
 <!-- USING_API_LIST_HTML_TEMPLATE -->
 {{ partial "header.html" . }} {{ partial "topnav.html" . }}
@@ -37,54 +37,142 @@ param) - shows operations list and description For conceptual pages
           }} {{ . | markdownify }} {{ end }} {{ end }}
         </section>
 
-        {{ else }} {{/* Operational Page - Show operations list then description
-        */}} {{ $operations := .Params.operations }} {{ if $operations }}
-        <section class="api-operations-list">
-          <h2 id="endpoints">Endpoints</h2>
-          <div class="api-operations-grid">
-            {{ range $operations }} {{/* Build operation URL from API path 1.
-            Strip "/api" prefix (parent directory already provides /api/) 2. Add
-            v1/ prefix for paths without version (e.g., /write → v1/write) 3.
-            Strip leading "/" to avoid double slashes */}} {{ $apiBase :=
-            $.Parent.RelPermalink }} {{ $pathWithoutApiPrefix := .path |
-            strings.TrimPrefix "/api" }} {{ $normalizedPath :=
-            $pathWithoutApiPrefix }} {{ if not (findRE `^/v\d+/`
-            $pathWithoutApiPrefix) }} {{ $normalizedPath = printf "/v1%s"
-            $pathWithoutApiPrefix }} {{ end }} {{ $normalizedPath =
-            $normalizedPath | strings.TrimPrefix "/" }} {{/* Build path URL
-            (without method suffix) and add method as anchor */}} {{ $pathURL :=
-            printf "%s%s/" $apiBase $normalizedPath }} {{ $methodAnchor :=
-            printf "#%s" (lower .method) }}
-            <a
-              href="{{ $pathURL }}{{ $methodAnchor }}"
-              class="api-operation-card"
-            >
-              <span class="api-method api-method--{{ lower .method }}"
-                >{{ upper .method }}</span
-              >
-              <code class="api-path">{{ .path }}</code>
-              <span class="api-operation-summary">{{ .summary }}</span>
-            </a>
-            {{ end }}
-          </div>
-        </section>
-        {{ end }} {{/* Overview - full tag description after endpoints */}} {{
-        $desc := .Description | strings.TrimSpace }} {{ if gt (len $desc) 0 }}
-        <section class="api-description">
-          <h2 id="overview">Overview</h2>
-          {{ $desc | markdownify }}
-        </section>
-        {{ end }} {{/* Hugo page content if any */}} {{ with .Content }}
+        {{ else }} {{/* Operational Page - Show RapiDoc with all operations */}}
+        {{/* Note: Description is shown in the RapiDoc info section from the
+        spec */}} {{/* Hugo page content if any (for custom intro content) */}}
+        {{ with .Content }}
         <section class="api-content-body">{{ . }}</section>
+        {{ end }} {{/* RapiDoc renders all operations for this tag */}} {{ with
+        .Params.staticFilePath }}
+        <section class="api-operations-section">
+          {{ partial "api/rapidoc-tag.html" $ }}
+        </section>
         {{ end }} {{ end }} {{ end }} {{ partial "article/related.html" . }}
       </article>
     </div>
 
+    {{/* ON THIS PAGE TOC - Generated from operations array */}} {{ $operations
+    := .Params.operations }} {{ $hasTag := isset .Params "tag" }} {{
+    $isConceptual := .Params.isConceptual | default false }} {{ if and $hasTag
+    (not $isConceptual) }}
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav">
+        {{/* Operation links - use RapiDoc anchor format: {method}-{path} Use
+        safeURL to prevent URL-encoding of slashes Show method badge +
+        human-readable summary (not path) */}} {{ range $operations }} {{
+        $anchor := printf "#%s-%s" (lower .method) .path }}
+        <a
+          href="{{ $anchor | safeURL }}"
+          class="api-toc-link api-toc-link--operation"
+        >
+          <span
+            class="api-method api-method--{{ lower .method }} api-method--small"
+            >{{ upper .method }}</span
+          >
+          <span class="api-toc-summary"
+            >{{ with .summary }}{{ . }}{{ else }}{{ .path }}{{ end }}</span
+          >
+        </a>
+        {{ end }}
+      </nav>
+    </aside>
+    {{ else }}
     <aside class="api-toc" data-component="api-toc">
       <h4 class="api-toc-header">ON THIS PAGE</h4>
       <nav class="api-toc-nav"></nav>
     </aside>
+    {{ end }}
   </div>
 </div>
 
 {{ partial "footer.html" . }}
+
+<style>
+  /* API TOC styling */
+  .api-toc {
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 1rem;
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .api-toc-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #545667;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .api-toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .api-toc-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.85rem;
+    color: #545667;
+    text-decoration: none;
+    border-radius: 4px;
+    transition:
+      background-color 0.15s,
+      color 0.15s;
+  }
+
+  .api-toc-link:hover {
+    background-color: rgba(0, 163, 255, 0.08);
+    color: #00a3ff;
+  }
+
+  .api-toc-link--operation {
+    /* Use default font for human-readable summaries */
+  }
+
+  .api-toc-summary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  /* Small method badges for TOC */
+  .api-method--small {
+    font-size: 0.65rem;
+    padding: 0.125rem 0.375rem;
+    flex-shrink: 0;
+  }
+
+  /* Dark mode */
+  [data-theme='dark'] .api-toc-header,
+  html:has(link[title='dark-theme']:not([disabled])) .api-toc-header {
+    color: #9ea0a6;
+  }
+
+  [data-theme='dark'] .api-toc-link,
+  html:has(link[title='dark-theme']:not([disabled])) .api-toc-link {
+    color: #b4b6bc;
+  }
+
+  [data-theme='dark'] .api-toc-link:hover,
+  html:has(link[title='dark-theme']:not([disabled])) .api-toc-link:hover {
+    background-color: rgba(0, 163, 255, 0.15);
+    color: #00a3ff;
+  }
+
+  /* Responsive - hide TOC on smaller screens */
+  @media (max-width: 1200px) {
+    .api-toc {
+      display: none;
+    }
+  }
+</style>

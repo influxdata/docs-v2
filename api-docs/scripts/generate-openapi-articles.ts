@@ -556,12 +556,13 @@ ${yaml.dump(frontmatter)}---
     `✓ Generated ${data.articles.length} tag-based content pages in ${contentPath}`
   );
 
-  // Generate path pages for standalone URLs (one page per API path)
-  generatePathPages({
-    articlesPath,
-    contentPath,
-    pathSpecFiles,
-  });
+  // NOTE: Path page generation is disabled - all operations are now displayed
+  // inline on tag pages using RapiDoc with hash-based navigation for deep linking.
+  // The tag pages render all operations in a single scrollable view with a
+  // server-side generated TOC for quick navigation.
+  //
+  // Previously this generated individual pages per API path:
+  // generatePathPages({ articlesPath, contentPath, pathSpecFiles });
 }
 
 /**
