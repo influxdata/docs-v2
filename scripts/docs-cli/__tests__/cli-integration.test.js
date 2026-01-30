@@ -272,6 +272,103 @@ async function runTests() {
     }
   );
 
+  // Test 14: release-notes --products flag parsing
+  await testCommandExecution(
+    'release-notes',
+    ['v3.7.0', 'v3.8.0', '--products', 'influxdb3_core', '--no-fetch'],
+    '--products flag parses correctly',
+    (result) => {
+      // Should attempt to use the product (may fail due to missing repo, but parsing worked)
+      const parsedCorrectly =
+        result.stderr.includes('influxdb3_core') ||
+        result.stderr.includes('Using cached clone') ||
+        result.stderr.includes('Cloning');
+      return parsedCorrectly;
+    }
+  );
+
+  // Test 15: release-notes --repos flag parsing
+  await testCommandExecution(
+    'release-notes',
+    ['v1.0.0', 'v1.1.0', '--repos', '/nonexistent/path', '--no-fetch'],
+    '--repos flag parses correctly',
+    (result) => {
+      // Should error about path not found (parsing worked, validation caught it)
+      return (
+        result.code !== 0 && result.stderr.includes('Repository path not found')
+      );
+    }
+  );
+
+  // Test 16: release-notes error when no repos specified
+  await testCommandExecution(
+    'release-notes',
+    ['v3.7.0', 'v3.8.0'],
+    'errors when no --products or --repos specified',
+    (result) => {
+      return (
+        result.code !== 0 &&
+        result.stderr.includes('No repositories specified') &&
+        result.stderr.includes('--products') &&
+        result.stderr.includes('--repos')
+      );
+    }
+  );
+
+  // Test 17: audit command with version before flags
+  await testCommandExecution(
+    'audit',
+    ['main', '--products', 'influxdb3_core'],
+    'version before --products flag',
+    (result) => {
+      // Should attempt to run audit (may fail due to missing auditor module)
+      const parsedCorrectly =
+        result.stderr.includes('influxdb3_core') ||
+        result.stderr.includes('Using cached clone') ||
+        result.stderr.includes('Running CLI audit') ||
+        result.stderr.includes('Cannot find module'); // Expected - auditor not in test env
+      return parsedCorrectly;
+    }
+  );
+
+  // Test 18: audit --repos flag parsing
+  await testCommandExecution(
+    'audit',
+    ['main', '--repos', '/nonexistent/path'],
+    '--repos flag parses correctly',
+    (result) => {
+      // Should error about path not found (parsing worked, validation caught it)
+      return (
+        result.code !== 0 && result.stderr.includes('Repository path not found')
+      );
+    }
+  );
+
+  // Test 19: audit error when no products or repos specified
+  await testCommandExecution(
+    'audit',
+    ['main'],
+    'errors when no --products or --repos specified',
+    (result) => {
+      return (
+        result.code !== 0 &&
+        result.stderr.includes('No products or repositories specified') &&
+        result.stderr.includes('--products') &&
+        result.stderr.includes('--repos')
+      );
+    }
+  );
+
+  // Test 20: audit with invalid product key
+  await testCommandExecution(
+    'audit',
+    ['main', '--products', 'invalid_product'],
+    'errors on invalid product key',
+    (result) => {
+      return result.code !== 0 && result.stderr.includes('Invalid product key');
+    }
+  );
+
   // Summary
   console.log(colors.cyan(`\n📊 Results: ${passed}/${passed + failed} passed`));
 

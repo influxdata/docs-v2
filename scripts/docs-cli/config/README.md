@@ -1,290 +1,113 @@
-# Configuration Guide
+# docs CLI Configuration
 
-## Overview
+The docs CLI uses a layered configuration system that merges defaults with local overrides.
 
-The docs CLI uses environment variables for configuration. All sensitive information (repository URLs, access flags) is user-provided via `.env` file, never hardcoded in the codebase.
+## Quick Start
 
-## Quick Setup
+Copy `example.yml` to one of:
 
-1. **Copy the example configuration:**
-   ```bash
-   cp config/.env.example .env
-   ```
+- `~/.influxdata-docs/docs-cli.yml` - User-level config (applies to all projects)
+- `.docs-cli.local.yml` - Project-level config (gitignored)
 
-2. **Authenticate with GitHub CLI:**
-   ```bash
-   gh auth login
-   ```
+Then edit to add your local repository paths.
 
-3. **Run commands:**
-   ```bash
-   npm run docs audit core main
-   ```
+## Configuration Files
 
-**IMPORTANT:** Never commit the `.env` file - it's in `.gitignore`.
+Files are loaded in this order (later files override earlier ones):
 
----
+1. **`lib/defaults.js`** - Shipped defaults (public repos only)
+2. **`~/.influxdata-docs/docs-cli.yml`** - User-level config
+3. **`.docs-cli.local.yml`** - Project-level config (gitignored)
+4. **`DOCS_CLI_CONFIG` env var** - Points to a custom config file
+5. **`--config` flag** - Command-line override
 
-## Configuration Options
+## Setting Up Local Repository Paths
 
-### Product Access
+The defaults contain public GitHub URLs but no local paths. To use commands that need local repo access (like `release-notes`), create a local config:
 
-#### `DOCS_ENTERPRISE_ACCESS`
-Flag indicating you have access to audit Enterprise products.
+```yaml
+# ~/.influxdata-docs/docs-cli.yml
+repositories:
+  influxdb3_core:
+    path: ~/github/influxdata/influxdb
 
-**Default:** `false`
+  influxdb3_enterprise:
+    # Private repo - add your local path
+    path: ~/github/influxdata/<private-repo>
 
-**When to set:** You have access to Enterprise repositories and want to run Enterprise audits.
-
-**Example:**
-```bash
-DOCS_ENTERPRISE_ACCESS=true
+  telegraf:
+    path: ~/github/influxdata/telegraf
 ```
 
-**Requires:** 
-- GitHub authentication (`gh auth login`)
-- Access to Enterprise repositories on GitHub
-- `DOCS_ENTERPRISE_REPO_URL` configured
+## Configuration Reference
 
----
+### repositories
 
-### Repository URLs
+Repository keys match product keys in `data/products.yml`:
 
-The audit command clones repositories from GitHub. Defaults are set for public repositories. Configure these if using forks, mirrors, or private repositories.
-
-#### `DOCS_CORE_REPO_URL`
-URL for the Core product repository.
-
-**Default:** `https://github.com/influxdata/influxdb.git` (public)
-
-**When to set:** Using a fork or mirror.
-
-**Example:**
-```bash
-DOCS_CORE_REPO_URL=https://github.com/your-org/your-repo.git
+```yaml
+repositories:
+  influxdb3_core:
+    path: ~/local/path/to/repo
+  influxdb3_enterprise:
+    path: ~/local/path/to/private-repo
 ```
 
-#### `DOCS_ENTERPRISE_REPO_URL`
-URL for the Enterprise product repository.
+### releaseNotes
 
-**Default:** None (must be configured for Enterprise audits)
+Configure the `docs release-notes` command:
 
-**When to set:** Running Enterprise audits.
-
-**Requires:** `DOCS_ENTERPRISE_ACCESS=true`
-
-**Example:**
-```bash
-DOCS_ENTERPRISE_ACCESS=true
-DOCS_ENTERPRISE_REPO_URL=https://github.com/your-org/your-enterprise-repo.git
+```yaml
+releaseNotes:
+  outputFormat: integrated  # 'integrated' or 'separated'
+  includePrLinks: true      # Note: private repos won't have PR links
+  primaryRepo: influxdb3_core
 ```
 
-#### `DOCS_TELEGRAF_REPO_URL`
-URL for Telegraf repository.
+### editor
 
-**Default:** `https://github.com/influxdata/telegraf.git` (public)
+Configure editor behavior for `docs edit`:
 
-**When to set:** Using a fork or mirror.
-
-**Example:**
-```bash
-DOCS_TELEGRAF_REPO_URL=https://github.com/your-org/telegraf.git
+```yaml
+editor:
+  default: code    # Default editor command
+  wait: false      # Wait for editor to close
 ```
 
-#### `DOCS_REPO_URL`
-URL for the documentation repository.
+### scaffolding
 
-**Default:** `https://github.com/influxdata/docs-v2.git` (public)
+Configure `docs create` defaults:
 
-**When to set:** Testing against a fork or staging docs repository.
-
-**Example:**
-```bash
-DOCS_REPO_URL=https://github.com/your-org/docs-v2.git
+```yaml
+scaffolding:
+  ai: claude           # AI tool: claude, copilot, etc.
+  followExternal: false
 ```
 
----
+## Using Configs with Commands
 
-### Repository Paths (Local Development)
+### release-notes
 
-For local development workflows, you can specify filesystem paths. The CLI will search common locations automatically.
-
-#### `DOCS_V2_PATH`
-Local path to docs-v2 repository.
-
-**Default:** Auto-detected in common locations
-
-**When to set:** Repository is in non-standard location.
-
-**Example:**
 ```bash
-DOCS_V2_PATH=~/my-projects/docs-v2
+# Use repos from config by name
+docs release-notes v3.1.0 v3.2.0 --repo influxdb3_core
+
+# Override with specific paths
+docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb
 ```
 
-#### `INFLUXDB_CORE_PATH`
-Local path to Core product repository.
+### edit
 
-**Default:** Auto-detected
-
-**When to set:** Non-standard location.
-
-**Example:**
 ```bash
-INFLUXDB_CORE_PATH=~/my-projects/influxdb
+# Uses editor.default from config
+docs edit /influxdb3/core/install/
+
+# Override with flag
+docs edit /influxdb3/core/install/ --editor vim
 ```
 
-#### `TELEGRAF_PATH`
-Local path to Telegraf repository.
+## Security Notes
 
-**Default:** Auto-detected
-
-**When to set:** Non-standard location.
-
-**Example:**
-```bash
-TELEGRAF_PATH=~/my-projects/telegraf
-```
-
----
-
-### Worktree Configuration
-
-#### `WORKTREE_BASE_PATH`
-Base directory for worktree project folders.
-
-**Default:** `./.worktrees`
-
-**When to set:** You want worktree projects in a different location.
-
-**Example:**
-```bash
-WORKTREE_BASE_PATH=~/projects/worktrees
-```
-
----
-
-## GitHub Authentication
-
-This CLI uses the **GitHub CLI (`gh`)** for authentication.
-
-### Setup
-```bash
-# Install gh CLI (if not installed)
-# macOS: brew install gh
-
-# Authenticate
-gh auth login
-
-# Verify
-gh auth status
-```
-
-### Why GitHub CLI?
-
-✅ **Secure:** No tokens in config files  
-✅ **Easy:** One-time setup  
-✅ **Standard:** Works with all repositories  
-✅ **Automatic:** Token refresh handled automatically
-
----
-
-## Security Best Practices
-
-### ✅ DO
-
-- Keep `.env` file local only (never commit)
-- Use `config/.env.example` as your template
-- Use GitHub CLI (`gh`) for authentication
-- Only configure what you need
-- Review configuration before committing code changes
-
-### ❌ DON'T
-
-- Commit `.env` to git (it's in `.gitignore`)
-- Share repository URLs in public channels
-- Hardcode paths or credentials in code
-- Expose private repository names in documentation
-- Store tokens in environment variables (use `gh` CLI)
-
----
-
-## Example Configurations
-
-### Minimal (Public repositories only)
-```bash
-# No .env needed - uses public defaults
-# Just authenticate with GitHub
-```
-
-### Enterprise Developer
-```bash
-# .env file
-DOCS_ENTERPRISE_ACCESS=true
-DOCS_ENTERPRISE_REPO_URL=<your-enterprise-repo-url>
-```
-
-### Custom Repository Locations
-```bash
-# .env file
-DOCS_V2_PATH=~/custom/path/docs-v2
-INFLUXDB_CORE_PATH=~/custom/path/influxdb
-```
-
-### Using Forks
-```bash
-# .env file
-DOCS_CORE_REPO_URL=https://github.com/myorg/influxdb.git
-DOCS_REPO_URL=https://github.com/myorg/docs-v2.git
-```
-
----
-
-## Troubleshooting
-
-### "GitHub CLI not authenticated"
-
-**Solution:**
-```bash
-gh auth login
-```
-
-### "Enterprise audit requires configuration"
-
-**Solution:**
-1. Verify you have GitHub access to Enterprise repositories
-2. Add to `.env`:
-   ```bash
-   DOCS_ENTERPRISE_ACCESS=true
-   DOCS_ENTERPRISE_REPO_URL=<your-enterprise-repo-url>
-   ```
-
-### Repository Not Found
-
-**Solution:**
-1. Check repository exists and you have access
-2. Verify URL in `.env` is correct
-3. Ensure `gh auth status` shows authentication
-
-### Configuration Not Loading
-
-**Solution:**
-1. Verify `.env` is in repository root (not `config/` directory)
-2. Check file syntax (KEY=value format, no spaces around `=`)
-3. Restart any running CLI processes
-
----
-
-## Getting Help
-
-- **CLI help:** `npm run docs -- --help`
-- **Command help:** `npm run docs audit --help`
-- **Configuration issues:** Check this README
-- **Security concerns:** Contact your team lead
-
----
-
-## Related Documentation
-
-- [Main README](../README.md) - CLI overview and commands
-- [.env.example](./env.example) - Configuration template
-- [GitHub CLI docs](https://cli.github.com/manual/) - GitHub authentication
+- **Never commit private repo URLs/paths** to checked-in files
+- Use local configs (`~/.docs-cli.yml` or `.docs-cli.local.yml`) for private repos
+- The `.docs-cli.local.yml` pattern is gitignored by default

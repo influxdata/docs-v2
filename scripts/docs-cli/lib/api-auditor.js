@@ -14,8 +14,15 @@ import { tmpdir } from 'os';
 import { spawn } from 'child_process';
 import { APIParser, detectEnterpriseEndpoints } from './api-parser.js';
 import { APIRequestParser } from './api-request-parser.js';
-import { APIDocScanner, compareEndpoints, compareParameters } from './api-doc-scanner.js';
-import { generateAPIAuditReport, generateParameterAuditReport } from './api-audit-reporter.js';
+import {
+  APIDocScanner,
+  compareEndpoints,
+  compareParameters,
+} from './api-doc-scanner.js';
+import {
+  generateAPIAuditReport,
+  generateParameterAuditReport,
+} from './api-audit-reporter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,7 +30,12 @@ const __dirname = dirname(__filename);
 /**
  * Run API documentation audit
  */
-export async function runAPIAudit(product, version, docsBranch = 'master', outputFormat = 'report') {
+export async function runAPIAudit(
+  product,
+  version,
+  docsBranch = 'master',
+  outputFormat = 'report'
+) {
   console.log('\n🔍 API Documentation Audit');
   console.log('==========================================');
   console.log(`Product: ${product}`);
@@ -32,7 +44,13 @@ export async function runAPIAudit(product, version, docsBranch = 'master', outpu
   console.log('');
 
   // Setup paths
-  const outputDir = join(dirname(__dirname), '..', 'influxdb3-monolith', 'output', 'cli-audit');
+  const outputDir = join(
+    dirname(__dirname),
+    '..',
+    'influxdb3-monolith',
+    'output',
+    'cli-audit'
+  );
   await fs.mkdir(outputDir, { recursive: true });
 
   // Repository paths (use generic names, not private repo names)
@@ -49,13 +67,13 @@ export async function runAPIAudit(product, version, docsBranch = 'master', outpu
 
   if (product === 'enterprise' || product === 'both') {
     // Use environment variable for Enterprise repo URL (security: no hardcoded private repo)
-    const enterpriseRepoUrl = process.env.INFLUXDB_PRO_REPO_URL;
+    const enterpriseRepoUrl = process.env.INFLUXDB_ENTERPRISE_REPO_URL;
 
     if (!enterpriseRepoUrl) {
       throw new Error(
         'Enterprise repository URL not configured.\n' +
-        'Set DOCS_ENTERPRISE_REPO_URL in your .env file.\n' +
-        'See scripts/docs-cli/config/README.md for configuration details.'
+          'Set DOCS_ENTERPRISE_REPO_URL in your .env file.\n' +
+          'See scripts/docs-cli/config/README.md for configuration details.'
       );
     }
 
@@ -74,12 +92,24 @@ export async function runAPIAudit(product, version, docsBranch = 'master', outpu
   try {
     // Run audit for Core if requested
     if (product === 'core' || product === 'both') {
-      await auditProduct('core', version, coreRepoPath, tempDocsRepo, outputDir);
+      await auditProduct(
+        'core',
+        version,
+        coreRepoPath,
+        tempDocsRepo,
+        outputDir
+      );
     }
 
     // Run audit for Enterprise if requested
     if (product === 'enterprise' || product === 'both') {
-      await auditProduct('enterprise', version, enterpriseRepoPath, tempDocsRepo, outputDir);
+      await auditProduct(
+        'enterprise',
+        version,
+        enterpriseRepoPath,
+        tempDocsRepo,
+        outputDir
+      );
     }
 
     console.log('\n✅ API documentation audit complete!');
@@ -94,7 +124,13 @@ export async function runAPIAudit(product, version, docsBranch = 'master', outpu
 /**
  * Audit a single product (core or enterprise)
  */
-async function auditProduct(product, version, repoPath, docsRepoPath, outputDir) {
+async function auditProduct(
+  product,
+  version,
+  repoPath,
+  docsRepoPath,
+  outputDir
+) {
   console.log(`\n📦 Auditing ${product} API documentation...`);
 
   // Step 1: Parse API endpoints from source code
@@ -123,7 +159,12 @@ async function auditProduct(product, version, repoPath, docsRepoPath, outputDir)
 
   // Step 7: Generate parameter audit report if there are missing params
   if (paramComparison.summary.totalMissingParams > 0) {
-    await generateParameterAuditReport(paramComparison, product, version, outputDir);
+    await generateParameterAuditReport(
+      paramComparison,
+      product,
+      version,
+      outputDir
+    );
   }
 }
 
@@ -131,7 +172,10 @@ async function auditProduct(product, version, repoPath, docsRepoPath, outputDir)
  * Ensure repository exists and is checked out to the correct version
  */
 async function ensureRepository(repoUrl, repoPath, version, name) {
-  const exists = await fs.access(repoPath).then(() => true).catch(() => false);
+  const exists = await fs
+    .access(repoPath)
+    .then(() => true)
+    .catch(() => false);
 
   if (exists) {
     console.log(`📁 Using existing ${name} repository clone`);
@@ -145,7 +189,15 @@ async function ensureRepository(repoUrl, repoPath, version, name) {
     await runCommand('git', ['checkout', version], repoPath);
   } else {
     console.log(`📥 Cloning ${name} repository...`);
-    await runCommand('git', ['clone', '--depth', '1', '--branch', version, repoUrl, repoPath]);
+    await runCommand('git', [
+      'clone',
+      '--depth',
+      '1',
+      '--branch',
+      version,
+      repoUrl,
+      repoPath,
+    ]);
   }
 }
 
@@ -153,15 +205,19 @@ async function ensureRepository(repoUrl, repoPath, version, name) {
  * Clone docs-v2 repository with sparse checkout
  */
 async function cloneDocsRepo(tempPath, branch) {
-  console.log(`📥 Cloning docs-v2 repository (branch: ${branch}) with sparse-checkout...`);
+  console.log(
+    `📥 Cloning docs-v2 repository (branch: ${branch}) with sparse-checkout...`
+  );
 
   // Step 1: Clone with no-checkout
   console.log('  🔄 Initializing repository...');
   await runCommand('git', [
     'clone',
     '--no-checkout',
-    '--depth', '1',
-    '--branch', branch,
+    '--depth',
+    '1',
+    '--branch',
+    branch,
     'https://github.com/influxdata/docs-v2.git',
     tempPath,
   ]);
@@ -171,9 +227,7 @@ async function cloneDocsRepo(tempPath, branch) {
   await runCommand('git', ['sparse-checkout', 'init', '--cone'], tempPath);
 
   // Step 3: Set sparse-checkout patterns
-  const patterns = [
-    'api-docs/influxdb3',
-  ];
+  const patterns = ['api-docs/influxdb3'];
   await runCommand('git', ['sparse-checkout', 'set', ...patterns], tempPath);
 
   // Step 4: Checkout the files
@@ -213,7 +267,9 @@ function runCommand(command, args, cwd = process.cwd()) {
       if (code === 0) {
         resolve({ code, stdout, stderr });
       } else {
-        reject(new Error(`Command failed with code ${code}: ${stderr || stdout}`));
+        reject(
+          new Error(`Command failed with code ${code}: ${stderr || stdout}`)
+        );
       }
     });
 

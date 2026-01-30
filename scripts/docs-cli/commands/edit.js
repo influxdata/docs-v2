@@ -164,7 +164,8 @@ export default async function edit(args) {
   let wait = false;
   let editor = null;
 
-  for (const arg of positionals) {
+  for (let i = 0; i < positionals.length; i++) {
+    const arg = positionals[i];
     if (arg === '--help' || arg === '-h') {
       printUsage();
       process.exit(0);
@@ -174,6 +175,14 @@ export default async function edit(args) {
       wait = true;
     } else if (arg.startsWith('--editor=')) {
       editor = arg.split('=')[1];
+    } else if (arg === '--editor') {
+      // Handle --editor value (space-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        editor = positionals[++i];
+      } else {
+        log('✗ --editor requires a value', 'red');
+        process.exit(1);
+      }
     } else if (!url) {
       url = arg;
     }
