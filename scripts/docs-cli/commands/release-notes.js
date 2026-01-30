@@ -4,7 +4,12 @@ import { execSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import { getConfig, hasEnterpriseAccess } from '../lib/config-loader.js';
+import {
+  loadConfig,
+  getReleaseNotesConfig,
+  getRepoPathOrClone,
+  cloneOrUpdateRepo,
+} from '../lib/config-loader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -49,7 +54,8 @@ class ReleaseNotesGenerator {
     this.includePrLinks = options.includePrLinks !== false; // Default to true
     this.config = options.config || DEFAULT_CONFIG;
     this.outputDir =
-      options.outputDir || join(__dirname, '..', 'output', 'release-notes');
+      options.outputDir ||
+      join(__dirname, '..', '..', '..', '.tmp', 'release-notes');
   }
 
   log(message, color = 'nc') {
@@ -1125,48 +1131,23 @@ function parseArgs() {
 
 function printUsage() {
   console.log(`
-Usage: node generate-release-notes.js [options] <from_version> <to_version> <primary_repo_path> [additional_repo_paths...]
+Usage: docs release-notes <from_version> <to_version> [options]
 
 Options:
+  --products <keys>       Comma-separated product keys to include (e.g., influxdb3_core,influxdb3_enterprise)
+  --repos <paths>         Comma-separated repo paths or URLs
   --no-fetch              Skip fetching latest commits from remote
   --pull                  Pull latest changes (implies fetch) - use with caution
   --no-pr-links           Omit PR links from commit messages (default: include links)
-  --config <file>         Load configuration from JSON file
   --format <type>         Output format: 'integrated' or 'separated'
   -h, --help              Show this help message
 
 Examples:
-  node generate-release-notes.js v3.1.0 v3.2.0 /path/to/influxdb
-  node generate-release-notes.js --no-fetch v3.1.0 v3.2.0 /path/to/influxdb
-  node generate-release-notes.js --pull v3.1.0 v3.2.0 /path/to/influxdb /path/to/enterprise-repo
-  node generate-release-notes.js --config config.json v3.1.0 v3.2.0
-  node generate-release-notes.js --format separated v3.1.0 v3.2.0 /path/to/influxdb /path/to/enterprise-repo
-
-Configuration file format (JSON):
-{
-  "outputFormat": "separated",
-  "primaryRepo": "influxdb",
-  "repositories": [
-    {
-      "name": "influxdb",
-      "path": "/path/to/influxdb",
-      "label": "Core",
-      "includePrLinks": true
-    },
-    {
-      "name": "enterprise", 
-      "path": "/path/to/enterprise-repo",
-      "label": "Enterprise",
-      "includePrLinks": false
-    }
-  ],
-  "separatedTemplate": {
-    "header": "> [!Note]\\n> #### InfluxDB 3 Core and Enterprise relationship\\n>\\n> InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.\\n> All updates to Core are automatically included in Enterprise.\\n> The Enterprise sections below only list updates exclusive to Enterprise.",
-    "primaryLabel": "Core",
-    "secondaryLabel": "Enterprise",
-    "secondaryIntro": "All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:"
-  }
-}
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+  docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb,~/repos/enterprise
+  docs release-notes --no-fetch v3.1.0 v3.2.0 --products influxdb3_core
+  docs release-notes --pull v3.1.0 v3.2.0 --repos /path/to/influxdb
+  docs release-notes --format separated v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
 `);
 }
 
@@ -1192,41 +1173,66 @@ export { ReleaseNotesGenerator };
 // Export for unified CLI
 export default async function releaseNotes(args) {
   const positionals = args.args || [];
-  
+
   // Parse command line arguments
   const options = {};
   const versions = [];
-  const repoPaths = [];
-  
+  const repoPaths = []; // Direct paths or URLs (--repos)
+  const productKeys = []; // Product keys from config (--products)
+
   for (let i = 0; i < positionals.length; i++) {
     const arg = positionals[i];
-    
+
     if (arg === '--help' || arg === '-h') {
       console.log(`
 Release Notes Generator
 
-Usage: docs release-notes [options] <from_version> <to_version> [repo_paths...]
+Usage: docs release-notes [options] <from_version> <to_version>
 
 Options:
-  --config <file>   Load configuration from JSON file
-  --format <type>   Output format: 'integrated' or 'separated'
-  --no-fetch        Skip fetching latest commits
-  --pull            Pull latest changes (use with caution)
-  --no-pr-links     Omit PR links from commits
+  --config <file>      Load configuration from YAML/JSON file
+  --format <type>      Output format: 'integrated' or 'separated'
+  --products <keys>    Comma-separated product keys (e.g., influxdb3_core)
+  --repos <paths>      Comma-separated repo paths or URLs
+  --no-fetch           Skip fetching latest commits
+  --pull               Pull latest changes (use with caution)
+  --no-pr-links        Omit PR links from commits
 
 Examples:
-  # Using configuration file
-  docs release-notes --config config.json v3.1.0 v3.2.0
-  
-  # Specify repository paths
-  docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb
+  # Use product keys from config
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
 
-Note: Configuration files should not contain private repository names.
-Use environment variables or provide paths directly.
+  # Use direct repo paths
+  docs release-notes v3.1.0 v3.2.0 --repos ~/github/influxdata/influxdb
 
-See config/README.md for configuration details.
+  # Use repo URLs (will clone automatically)
+  docs release-notes v3.1.0 v3.2.0 --repos https://github.com/influxdata/telegraf
+
+Note: Configure product paths in ~/.influxdata-docs/docs-cli.yml
+      Release notes for private repos won't contain PR links.
+See scripts/docs-cli/config/README.md for configuration details.
 `);
       process.exit(0);
+    } else if (arg === '--products' || arg === '--product') {
+      // Product keys from config (comma-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        const keys = positionals[i + 1].split(',').map((k) => k.trim());
+        productKeys.push(...keys);
+        i++;
+      } else {
+        console.error('Error: --products requires product keys');
+        process.exit(1);
+      }
+    } else if (arg === '--repos' || arg === '--repo') {
+      // Direct repo paths or URLs (comma-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        const paths = positionals[i + 1].split(',').map((p) => p.trim());
+        repoPaths.push(...paths);
+        i++;
+      } else {
+        console.error('Error: --repos requires paths or URLs');
+        process.exit(1);
+      }
     } else if (arg.startsWith('--')) {
       const key = arg.replace('--', '');
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
@@ -1241,13 +1247,119 @@ See config/README.md for configuration details.
       versions.push(arg);
     }
   }
-  
+
   if (versions.length < 2) {
     console.error('Error: Please specify from_version and to_version');
     console.error('Run: docs release-notes --help');
     process.exit(1);
   }
-  
+
+  // Load shared config (merges defaults with user/project overrides)
+  const sharedConfig = await loadConfig({ configFile: options.config });
+  const releaseNotesConfig = await getReleaseNotesConfig({
+    configFile: options.config,
+  });
+
+  // Build repository list
+  let repositories = [];
+
+  // 1. If --products provided, resolve product keys from config
+  if (productKeys.length > 0) {
+    for (const key of productKeys) {
+      const repoPath = await getRepoPathOrClone(key, {
+        configFile: options.config,
+        allowClone: true,
+        fetch: options['no-fetch'] !== true,
+      });
+      if (!repoPath) {
+        console.error(
+          `Error: Product '${key}' not found - no local path or URL configured`
+        );
+        console.error(
+          `Configure path or url in ~/.influxdata-docs/docs-cli.yml or .docs-cli.local.yml`
+        );
+        process.exit(1);
+      }
+      repositories.push({
+        name: key,
+        path: repoPath,
+        label: sharedConfig.repositories?.[key]?.description || key,
+        includePrLinks: releaseNotesConfig.includePrLinks !== false,
+      });
+    }
+  }
+
+  // 2. If --repos provided, use direct paths or clone from URLs
+  if (repoPaths.length > 0) {
+    for (const pathOrUrl of repoPaths) {
+      let repoPath = pathOrUrl;
+      let repoName = pathOrUrl
+        .split('/')
+        .pop()
+        .replace(/\.git$/, '');
+
+      // Check if it's a URL (needs cloning)
+      if (
+        pathOrUrl.startsWith('http://') ||
+        pathOrUrl.startsWith('https://') ||
+        pathOrUrl.startsWith('git@')
+      ) {
+        repoPath = await cloneOrUpdateRepo(pathOrUrl, repoName, {
+          fetch: options['no-fetch'] !== true,
+        });
+      } else if (!existsSync(pathOrUrl)) {
+        console.error(`Error: Repository path not found: ${pathOrUrl}`);
+        process.exit(1);
+      }
+
+      repositories.push({
+        name: repoName,
+        path: repoPath,
+        label: repoName,
+        includePrLinks: releaseNotesConfig.includePrLinks !== false,
+      });
+    }
+  }
+
+  // 3. If no repos specified, show available options
+  if (repositories.length === 0) {
+    console.error('Error: No repositories specified');
+    console.error('');
+    console.error('Options:');
+    console.error(
+      '  --products <keys>  Use product keys from config (e.g., influxdb3_core)'
+    );
+    console.error('  --repos <paths>    Use direct paths or URLs');
+    console.error('');
+
+    // Show available products from config
+    if (sharedConfig.repositories) {
+      console.error('Available products in config:');
+      for (const [name, repo] of Object.entries(sharedConfig.repositories)) {
+        const hasPath = repo.path && existsSync(repo.path);
+        const hasUrl = !!repo.url;
+        const status = hasPath ? '✓ local' : hasUrl ? '↓ url' : '✗ none';
+        console.error(`  [${status}] ${name}: ${repo.description || ''}`);
+      }
+      console.error('');
+      console.error('Configure paths in ~/.influxdata-docs/docs-cli.yml');
+    }
+    process.exit(1);
+  }
+
+  // Build generator config
+  const generatorConfig = {
+    ...DEFAULT_CONFIG,
+    outputFormat:
+      options.format || releaseNotesConfig.outputFormat || 'integrated',
+    primaryRepo: releaseNotesConfig.primaryRepo || null,
+    repositories,
+    separatedTemplate: {
+      ...DEFAULT_CONFIG.separatedTemplate,
+      ...releaseNotesConfig.separatedTemplate,
+    },
+  };
+
   // Create generator with options
   const generator = new ReleaseNotesGenerator({
     fromVersion: versions[0],
@@ -1255,19 +1367,9 @@ See config/README.md for configuration details.
     fetchCommits: options['no-fetch'] !== true,
     pullCommits: options['pull'] === true,
     includePrLinks: options['no-pr-links'] !== true,
-    config: options.config ? JSON.parse(require('fs').readFileSync(options.config, 'utf8')) : undefined,
+    config: generatorConfig,
   });
-  
-  // Set repository paths if provided
-  if (repoPaths.length > 0) {
-    generator.config.repositories = repoPaths.map((path, i) => ({
-      name: `repo${i}`,
-      path,
-      label: `repo${i}`,
-      includePrLinks: true,
-    }));
-  }
-  
+
   // Generate release notes
   await generator.generate();
 }
