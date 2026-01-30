@@ -25,18 +25,19 @@ InfluxData Documentation Tooling CLI
 Usage: docs <command> [options]
 
 Commands:
-  audit <product> <version>           Audit documentation coverage
+  audit --products <p>                Audit documentation coverage
   create <draft> --products <p>       Create new documentation
   edit <url>                          Edit existing documentation
-  release-notes <from> <to> [paths]   Generate release notes
+  release-notes <from> <to>           Generate release notes
   placeholders <file>                 Add placeholder syntax to code blocks
-  add-placeholders                    (alias for placeholders)
 
-Products:
-  core        - InfluxDB 3 Core
-  enterprise  - InfluxDB 3 Enterprise
-  both        - Both Core and Enterprise
-  telegraf    - Telegraf plugins
+Product Targeting:
+  --products accepts product keys OR content paths:
+    influxdb3_core        or  /influxdb3/core
+    influxdb3_enterprise  or  /influxdb3/enterprise
+    telegraf              or  /telegraf
+
+  --repos accepts direct repository paths or URLs (alternative to --products)
 
 Configuration:
   Uses environment variables for configuration.
@@ -48,17 +49,22 @@ Configuration:
     3. Run commands
 
 Examples:
-  # Audit documentation
-  docs audit core main
+  # Audit documentation (using product key or path)
+  docs audit --products influxdb3_core
+  docs audit --products /influxdb3/core --version v3.3.0
 
   # Create new content
   docs create drafts/feature.md --products influxdb3_core
+  docs create drafts/feature.md --products /influxdb3/core,/influxdb3/enterprise
 
   # Edit existing page
   docs edit /influxdb3/core/admin/databases/
 
   # Generate release notes
-  docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core
+
+  # Add placeholders to code blocks
+  docs placeholders content/influxdb3/core/admin/databases.md
 
   # Get command help
   docs audit --help

@@ -33,6 +33,7 @@ import { parseMultipleURLs } from '../../lib/url-parser.js';
 import { resolveEditor } from '../lib/editor-resolver.js';
 import { findDocsV2Root } from '../lib/config-loader.js';
 import { spawnEditor, shouldWait } from '../lib/process-manager.js';
+import { resolveProduct } from '../lib/product-resolver.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -192,8 +193,8 @@ ${colors.bright}Options:${colors.reset}
   <draft-path>        Path to draft markdown file (positional argument)
   --from-draft <path> Path to draft markdown file
   --url <url>         Documentation URL for new content location
-  --products <list>   Comma-separated product keys (required for stdin)
-                      Examples: influxdb3_core, influxdb3_enterprise
+  --products <list>   Product keys or content paths (required for stdin)
+                      Examples: influxdb3_core, /influxdb3/core
   --follow-external   Include external (non-docs.influxdata.com) URLs
                       when extracting links from draft. Without this flag,
                       only local documentation links are followed.
@@ -638,13 +639,22 @@ async function selectProducts(context, options) {
 
   // Case 1: Explicit flag provided
   if (options.products) {
-    const requestedKeys = options.products.split(',').map((p) => p.trim());
+    const requestedInputs = options.products.split(',').map((p) => p.trim());
 
-    // Map product keys to display names
+    // Map product keys/paths to display names
     const requestedNames = [];
-    const invalidKeys = [];
+    const invalidInputs = [];
 
-    for (const key of requestedKeys) {
+    for (const input of requestedInputs) {
+      // Try to resolve as path first using product-resolver
+      let key = input;
+      try {
+        const resolved = resolveProduct(input);
+        key = resolved.key;
+      } catch {
+        // Not a path, treat as potential key or display name
+      }
+
       const product = context.products[key];
 
       if (product) {
@@ -663,18 +673,18 @@ async function selectProducts(context, options) {
             requestedNames.push(product.name);
           }
         }
-      } else if (allProducts.includes(key)) {
+      } else if (allProducts.includes(input)) {
         // It's already a display name (backwards compatibility)
-        requestedNames.push(key);
+        requestedNames.push(input);
       } else {
-        invalidKeys.push(key);
+        invalidInputs.push(input);
       }
     }
 
-    if (invalidKeys.length > 0) {
+    if (invalidInputs.length > 0) {
       const validKeys = Object.keys(context.products).join(', ');
       log(
-        `\n✗ Invalid product keys: ${invalidKeys.join(', ')}\n` +
+        `\n✗ Invalid product keys/paths: ${invalidInputs.join(', ')}\n` +
           `Valid keys: ${validKeys}`,
         'red'
       );
