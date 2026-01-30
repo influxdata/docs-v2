@@ -12,6 +12,7 @@ version: "1.0"
 This skill guides the complete workflow for creating and editing InfluxData documentation, from initial content creation through testing and validation. It integrates docs CLI tools, MCP server fact-checking, shared content management, and comprehensive testing.
 
 **Use this skill when:**
+
 - Creating new documentation pages
 - Editing existing documentation
 - Working with shared content that affects multiple pages
@@ -34,6 +35,7 @@ Need to verify technical accuracy?
 ## Using `docs create` and `docs edit`
 
 **For detailed guidance on when and how to use the docs CLI tools**, see the **docs-cli-workflow** skill, which covers:
+
 - When to suggest `docs create` vs direct file creation
 - When to suggest `docs edit` vs direct file editing
 - CLI command syntax and examples
@@ -44,13 +46,16 @@ Need to verify technical accuracy?
 
 ```bash
 # Create new documentation from draft
-npx docs create <draft-path> --products <product-key>
+docs create <draft-path> --products <product-key>
 
 # Edit existing documentation by URL or path
 docs edit <url-or-path>
 
 # List files without opening editor (agent-friendly)
 docs edit <url-or-path> --list
+
+# Add placeholder syntax to code blocks
+docs placeholders <file.md>
 
 # Important: Both commands are non-blocking by default
 # - Launch editor in background
@@ -80,6 +85,7 @@ content/
 ```
 
 **Frontmatter file example:**
+
 ```yaml
 ---
 title: Database Management
@@ -141,6 +147,7 @@ function getSharedSource(filePath) {
 ### Why This Matters
 
 **Failure to touch sourcing files means:**
+
 - Hugo won't rebuild the pages
 - Your changes won't appear in test/preview
 - Tests will fail because content hasn't changed
@@ -154,7 +161,7 @@ After making content changes, run tests to validate:
 
 ```bash
 # Verify Hugo can build the site
-npx hugo --quiet
+hugo --quiet
 
 # Look for errors like:
 # - Template errors
@@ -202,8 +209,9 @@ node cypress/support/run-e2e-specs.js \
 ```
 
 **Important prerequisites:**
+
 - API tests: Run `yarn build:api-docs` first
-- Markdown validation: Run `npx hugo --quiet && yarn build:md` first
+- Markdown validation: Run `hugo --quiet && yarn build:md` first
 
 See **cypress-e2e-testing** skill for detailed test workflow.
 
@@ -211,7 +219,7 @@ See **cypress-e2e-testing** skill for detailed test workflow.
 
 ```bash
 # Start Hugo development server
-npx hugo server
+hugo server
 
 # Visit http://localhost:1313
 # Preview your changes in browser
@@ -224,6 +232,7 @@ The InfluxData documentation MCP server (`influxdata`) provides access to **Ask 
 ### When to Use MCP Server
 
 **Use for:**
+
 - Verifying technical accuracy of claims
 - Checking current API syntax
 - Confirming feature availability across products
@@ -231,6 +240,7 @@ The InfluxData documentation MCP server (`influxdata`) provides access to **Ask 
 - Finding related documentation
 
 **Don't use for:**
+
 - Basic style/grammar checks
 - Link validation (use `yarn test:links`)
 - Testing code examples (use `yarn test:codeblocks`)
@@ -285,6 +295,7 @@ The MCP server requires configuration in `.mcp.json`:
 ```
 
 **Required:**
+
 - `DOCS_MCP_SERVER_PATH`: Path to docs-mcp-server installation
 - `DOCS_API_KEY_FILE`: Path to file containing Kapa.ai API key
 
@@ -311,12 +322,14 @@ The MCP server requires configuration in `.mcp.json`:
 ### Best Practices
 
 **DO:**
+
 - Ask specific, focused questions
 - Verify claims about features, limits, syntax
 - Cross-check answers with official docs links provided
 - Use for understanding complex interactions
 
 **DON'T:**
+
 - Rely solely on MCP without reviewing source docs
 - Use for subjective style decisions
 - Expect real-time product behavior (it knows documentation, not live systems)
@@ -328,7 +341,7 @@ The MCP server requires configuration in `.mcp.json`:
 
 ```bash
 # Step 1: Create content from draft
-npx docs create database-tutorial.md --products influxdb3-core,influxdb3-enterprise
+docs create database-tutorial.md --products influxdb3-core,influxdb3-enterprise
 
 # CLI scaffolds files:
 # - content/shared/influxdb3/guides/database-tutorial.md
@@ -343,7 +356,7 @@ kapa_query({
 })
 
 # Step 3: Test Hugo build
-npx hugo --quiet
+hugo --quiet
 
 # Step 4: Run E2E tests
 node cypress/support/run-e2e-specs.js \
@@ -379,7 +392,7 @@ kapa_query({
 })
 
 # Step 4: Test the build
-npx hugo --quiet
+hugo --quiet
 
 # Step 5: Test affected pages
 node cypress/support/run-e2e-specs.js \
@@ -397,10 +410,10 @@ yarn test:links
 # Edit content/influxdb3/core/get-started/_index.md
 
 # Step 2: Test Hugo build
-npx hugo --quiet
+hugo --quiet
 
 # Step 3: Quick visual check
-npx hugo server
+hugo server
 # Visit http://localhost:1313/influxdb3/core/get-started/
 
 # Done! (No need for comprehensive testing on typo fixes)
@@ -412,7 +425,7 @@ npx hugo server
 
 ```bash
 # Check for detailed errors
-npx hugo
+hugo
 
 # Common issues:
 # - Invalid frontmatter YAML
@@ -472,21 +485,23 @@ ls content/influxdb3/core/api/
 
 ## Part 6: Quick Reference
 
-| Task | Command |
-|------|---------|
-| Create new content | `docs create draft.md --products <product-key>` |
-| Edit by URL | `docs edit https://docs.influxdata.com/...` |
-| List files without editing | `docs edit <url> --list` |
-| Add placeholders to code | `docs placeholders file.md` or `docs placeholders file.md --dry` |
-| Audit documentation | `docs audit core v3.9` or `docs audit enterprise v3.9` |
-| Generate release notes | `docs release-notes v3.1.0 v3.2.0 ~/repos/influxdb` |
-| Build Hugo site | `npx hugo --quiet` |
-| Test links | `yarn test:links` |
-| Test code blocks | `yarn test:codeblocks:all` |
-| Test specific page | `node cypress/support/run-e2e-specs.js content/path/file.md` |
-| Fact-check with MCP | `kapa_query({ query: "...", stream: false })` |
-| Preview locally | `npx hugo server` (visit localhost:1313) |
-| Generate API docs | `yarn build:api-docs` (before API reference tests) |
+| Task                       | Command                                                                           |
+| -------------------------- | --------------------------------------------------------------------------------- |
+| Create new content         | `docs create draft.md --products <key-or-path>`                                   |
+| Edit by URL                | `docs edit https://docs.influxdata.com/...`                                       |
+| List files without editing | `docs edit <url> --list`                                                          |
+| Add placeholders to code   | `docs placeholders file.md` or `docs placeholders file.md --dry`                  |
+| Audit documentation        | `docs audit --products influxdb3_core` or `docs audit --products /influxdb3/core` |
+| Generate release notes     | `docs release-notes v3.1.0 v3.2.0 --products influxdb3_core`                      |
+| Build Hugo site            | `hugo --quiet`                                                                    |
+| Test links                 | `yarn test:links`                                                                 |
+| Test code blocks           | `yarn test:codeblocks:all`                                                        |
+| Test specific page         | `yarn test:e2e content/path/file.md`                                              |
+| Fact-check with MCP        | `kapa_query({ query: "...", stream: false })`                                     |
+| Preview locally            | `hugo server` (visit localhost:1313)                                              |
+| Generate API docs          | `yarn build:api-docs` (before API reference tests)                                |
+
+**Note:** `--products` accepts both product keys (`influxdb3_core`) and content paths (`/influxdb3/core`).
 
 ## Related Skills
 
@@ -499,7 +514,7 @@ ls content/influxdb3/core/api/
 - [ ] Content created/edited using appropriate method (CLI or direct)
 - [ ] If shared content: Sourcing files touched (or used `docs edit`)
 - [ ] Technical accuracy verified (MCP fact-check if needed)
-- [ ] Hugo builds without errors (`npx hugo --quiet`)
+- [ ] Hugo builds without errors (`hugo --quiet`)
 - [ ] Links validated (`yarn test:links`)
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
