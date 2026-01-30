@@ -253,7 +253,7 @@ export default async function audit(args) {
     console.error('  --repos <paths>    Direct repository paths or URLs');
     console.error('');
     console.error('Available products:');
-    for (const [key, auditType] of Object.entries(PRODUCT_KEY_TO_AUDIT_TYPE)) {
+    for (const key of Object.keys(PRODUCT_KEY_TO_AUDIT_TYPE)) {
       const info = getProductInfo(key);
       const path = info?.contentPath ? ` (/${info.contentPath}/)` : '';
       console.error(`  ${key}${path}`);
@@ -346,7 +346,7 @@ export default async function audit(args) {
           'https://github.com/influxdata/influxdb.git'
         );
     } else if (productKey === 'influxdb3_enterprise') {
-      process.env.INFLUXDB_ENTERPRISE_REPO_URL =
+      process.env.INFLUXDB3_ENTERPRISE_REPO_URL =
         repoPath || getRepoURL('DOCS_ENTERPRISE_REPO_URL', '');
     } else if (productKey === 'telegraf') {
       process.env.TELEGRAF_REPO_URL =
@@ -390,7 +390,7 @@ export default async function audit(args) {
         lowerName.includes('enterprise') ||
         lowerName.includes('pro')
       ) {
-        process.env.INFLUXDB_ENTERPRISE_REPO_URL = repoPath;
+        process.env.INFLUXDB3_ENTERPRISE_REPO_URL = repoPath;
         hasEnterprise = true;
       } else {
         // Default to core/influxdb

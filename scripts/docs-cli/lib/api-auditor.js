@@ -12,7 +12,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { tmpdir } from 'os';
 import { spawn } from 'child_process';
-import { APIParser, detectEnterpriseEndpoints } from './api-parser.js';
+import { APIParser } from './api-parser.js';
 import { APIRequestParser } from './api-request-parser.js';
 import {
   APIDocScanner,
@@ -67,12 +67,12 @@ export async function runAPIAudit(
 
   if (product === 'enterprise' || product === 'both') {
     // Use environment variable for Enterprise repo URL (security: no hardcoded private repo)
-    const enterpriseRepoUrl = process.env.INFLUXDB_ENTERPRISE_REPO_URL;
+    const enterpriseRepoUrl = process.env.INFLUXDB3_ENTERPRISE_REPO_URL;
 
     if (!enterpriseRepoUrl) {
       throw new Error(
         'Enterprise repository URL not configured.\n' +
-          'Set DOCS_ENTERPRISE_REPO_URL in your .env file.\n' +
+          'Configure the repository in ~/.influxdata-docs/docs-cli.yml or provide --repos.\n' +
           'See scripts/docs-cli/config/README.md for configuration details.'
       );
     }
@@ -139,7 +139,7 @@ async function auditProduct(
 
   // Step 2: Parse API request/response types from source code
   const requestParser = new APIRequestParser(repoPath);
-  const endpointParams = await requestParser.discoverRequestTypes();
+  await requestParser.discoverRequestTypes();
 
   // Step 3: Scan documentation for existing API docs
   const scanner = new APIDocScanner(docsRepoPath, product);

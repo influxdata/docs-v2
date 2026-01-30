@@ -37,14 +37,6 @@ function assertEquals(actual, expected, message) {
   }
 }
 
-function assertDeepEquals(actual, expected, message) {
-  const actualStr = JSON.stringify(actual);
-  const expectedStr = JSON.stringify(expected);
-  if (actualStr !== expectedStr) {
-    throw new Error(message || `Expected ${expectedStr}, got ${actualStr}`);
-  }
-}
-
 function assertThrows(fn, expectedMessage) {
   try {
     fn();
