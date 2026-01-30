@@ -482,7 +482,12 @@ commands and HTTP API requests.
 {{% product-name %}} supports _admin_ tokens, which grant access to all CLI actions and API endpoints. 
 {{% /show-in %}}
 
-For more information about tokens and authorization, see [Manage tokens](/influxdb3/version/admin/tokens/).
+
+> [!Tip]
+> ### Preconfigured admin tokens for automated deployments
+>
+> For CI/CD pipelines or automated deployments, you can start {{% product-name %}} with a preconfigured admin token file instead of creating tokens manually after startup.
+> For more information, see [Use a preconfigured admin token](/influxdb3/version/admin/tokens/admin/preconfigured/).
 
 ### Create an operator token
 
