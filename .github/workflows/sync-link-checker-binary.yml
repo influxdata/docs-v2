@@ -12,34 +12,80 @@ jobs:
   sync-binary:
     name: Sync link-checker binary from docs-tooling
     runs-on: ubuntu-latest
-    
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download binary from docs-tooling release
         run: |
           echo "Downloading link-checker ${{ inputs.version }} from docs-tooling..."
-          
-          # Download binary from docs-tooling release
-          curl -L -H "Accept: application/octet-stream" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+
+          # Download binary from docs-tooling release using the GitHub API
+          # NOTE: requires DOCS_TOOLING_TOKEN secret with read access to docs-tooling releases
+          RELEASE_INFO=$(curl -sL \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.DOCS_TOOLING_TOKEN }}" \
+            "https://api.github.com/repos/influxdata/docs-tooling/releases/tags/link-checker-${{ inputs.version }}")
+
+          # Check if release was found
+          if echo "$RELEASE_INFO" | jq -e '.message == "Not Found"' >/dev/null 2>&1; then
+            echo "❌ Release link-checker-${{ inputs.version }} not found in docs-tooling"
+            exit 1
+          fi
+
+          # Download linux binary asset
+          BINARY_URL=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "link-checker-linux-x86_64") | .url')
+          if [[ -z "$BINARY_URL" || "$BINARY_URL" == "null" ]]; then
+            echo "❌ No linux binary found in release"
+            echo "Available assets:"
+            echo "$RELEASE_INFO" | jq -r '.assets[].name'
+            exit 1
+          fi
+
+          curl -sL \
+            -H "Accept: application/octet-stream" \
+            -H "Authorization: Bearer ${{ secrets.DOCS_TOOLING_TOKEN }}" \
             -o link-checker-linux-x86_64 \
-            "https://github.com/influxdata/docs-tooling/releases/download/link-checker-${{ inputs.version }}/link-checker-linux-x86_64"
-          
-          # Download checksums
-          curl -L -H "Accept: application/octet-stream" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -o checksums.txt \
-            "https://github.com/influxdata/docs-tooling/releases/download/link-checker-${{ inputs.version }}/checksums.txt"
-          
-          # Verify downloads
-          ls -la link-checker-linux-x86_64 checksums.txt
-          
+            "$BINARY_URL"
+
+          # Download checksums if available
+          CHECKSUMS_URL=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "checksums.txt") | .url')
+          if [[ -n "$CHECKSUMS_URL" && "$CHECKSUMS_URL" != "null" ]]; then
+            curl -sL \
+              -H "Accept: application/octet-stream" \
+              -H "Authorization: Bearer ${{ secrets.DOCS_TOOLING_TOKEN }}" \
+              -o checksums.txt \
+              "$CHECKSUMS_URL"
+          fi
+
+          # Verify the binary is valid (not an error page)
+          FILE_SIZE=$(stat -c%s link-checker-linux-x86_64 2>/dev/null || stat -f%z link-checker-linux-x86_64)
+          if [[ "$FILE_SIZE" -lt 1000 ]]; then
+            echo "❌ Downloaded binary is only ${FILE_SIZE} bytes - likely a failed download"
+            echo "Content:"
+            cat link-checker-linux-x86_64
+            exit 1
+          fi
+
+          echo "✅ Downloaded binary: ${FILE_SIZE} bytes"
+          ls -la link-checker-linux-x86_64
+
       - name: Create docs-v2 release
         run: |
           echo "Creating link-checker-${{ inputs.version }} release in docs-v2..."
-          
+
+          # Collect assets to upload
+          ASSETS="link-checker-linux-x86_64"
+          if [[ -f checksums.txt ]]; then
+            ASSETS="$ASSETS checksums.txt"
+          fi
+
           gh release create \
+            --repo "${{ github.repository }}" \
             --title "Link Checker Binary ${{ inputs.version }}" \
-            --notes "Link validation tooling binary for docs-v2 GitHub Actions workflows.
+            --notes "$(cat <<NOTES
+          Link validation tooling binary for docs-v2 GitHub Actions workflows.
 
           This binary is distributed from the docs-tooling repository release link-checker-${{ inputs.version }}.
 
@@ -60,9 +106,10 @@ jobs:
 
           ### Changes in ${{ inputs.version }}
 
-          See the [docs-tooling release](https://github.com/influxdata/docs-tooling/releases/tag/link-checker-${{ inputs.version }}) for detailed changelog." \
-            link-checker-${{ inputs.version }} \
-            link-checker-linux-x86_64 \
-            checksums.txt
+          See the [docs-tooling release](https://github.com/influxdata/docs-tooling/releases/tag/link-checker-${{ inputs.version }}) for detailed changelog.
+          NOTES
+          )" \
+            "link-checker-${{ inputs.version }}" \
+            $ASSETS
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
