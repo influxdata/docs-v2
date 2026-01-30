@@ -2,6 +2,7 @@
   All Endpoints List
 
   Renders all API operations grouped by version (v3, v2, v1) and sorted by path.
+  Links point to tag pages with hash anchors (e.g., /api/cache-data/#post-/api/v3/configure/distinct_cache)
   Excludes conceptual/trait tag operations.
 
   Uses data from:
@@ -38,6 +39,21 @@
   {{ end }}
 {{ end }}
 
+{{/* Build a map of tag name -> article path for URL lookups */}}
+{{ $tagToPath := dict }}
+{{ range $articles }}
+  {{ if and (reflect.IsMap .) (isset . "fields") }}
+    {{ $fields := index . "fields" }}
+    {{ if reflect.IsMap $fields }}
+      {{ if isset $fields "tag" }}
+        {{ $tag := index $fields "tag" }}
+        {{ $path := index . "path" }}
+        {{ $tagToPath = merge $tagToPath (dict $tag $path) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 {{/* Collect all operations from non-conceptual articles */}}
 {{ $allOperations := slice }}
 {{ range $articles }}
@@ -51,8 +67,9 @@
       {{ if not $isConceptual }}
         {{ if isset $fields "operations" }}
           {{ $tag := index $fields "tag" }}
+          {{ $articlePath := index . "path" }}
           {{ range index $fields "operations" }}
-            {{ $allOperations = $allOperations | append (dict "op" . "tag" $tag) }}
+            {{ $allOperations = $allOperations | append (dict "op" . "tag" $tag "articlePath" $articlePath) }}
           {{ end }}
         {{ end }}
       {{ end }}
@@ -109,13 +126,11 @@
     <div class="api-operations-grid">
       {{ range $sortV3 }}
         {{ $op := .data.op }}
-        {{ $tag := .data.tag }}
-        {{ $apiBase := $currentPage.Parent.RelPermalink }}
-        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
-        {{ $normalizedPath := $pathWithoutApiPrefix | strings.TrimPrefix "/" }}
-        {{ $pathURL := printf "%s%s/" $apiBase $normalizedPath }}
-        {{ $methodAnchor := printf "#%s" (lower $op.method) }}
-      <a href="{{ $pathURL }}{{ $methodAnchor }}" class="api-operation-card">
+        {{ $articlePath := .data.articlePath }}
+        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+      <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
@@ -132,13 +147,11 @@
     <div class="api-operations-grid">
       {{ range $sortV2 }}
         {{ $op := .data.op }}
-        {{ $tag := .data.tag }}
-        {{ $apiBase := $currentPage.Parent.RelPermalink }}
-        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
-        {{ $normalizedPath := $pathWithoutApiPrefix | strings.TrimPrefix "/" }}
-        {{ $pathURL := printf "%s%s/" $apiBase $normalizedPath }}
-        {{ $methodAnchor := printf "#%s" (lower $op.method) }}
-      <a href="{{ $pathURL }}{{ $methodAnchor }}" class="api-operation-card">
+        {{ $articlePath := .data.articlePath }}
+        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+      <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
@@ -156,18 +169,11 @@
     <div class="api-operations-grid">
       {{ range $sortV1 }}
         {{ $op := .data.op }}
-        {{ $tag := .data.tag }}
-        {{ $apiBase := $currentPage.Parent.RelPermalink }}
-        {{ $pathWithoutApiPrefix := $op.path | strings.TrimPrefix "/api" }}
-        {{ $normalizedPath := $pathWithoutApiPrefix }}
-        {{/* v1 paths may not have /api prefix - normalize */}}
-        {{ if not (findRE `^/v\d+/` $pathWithoutApiPrefix) }}
-          {{ $normalizedPath = printf "/v1%s" $pathWithoutApiPrefix }}
-        {{ end }}
-        {{ $normalizedPath = $normalizedPath | strings.TrimPrefix "/" }}
-        {{ $pathURL := printf "%s%s/" $apiBase $normalizedPath }}
-        {{ $methodAnchor := printf "#%s" (lower $op.method) }}
-      <a href="{{ $pathURL }}{{ $methodAnchor }}" class="api-operation-card">
+        {{ $articlePath := .data.articlePath }}
+        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+      <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
