@@ -32,7 +32,7 @@ Telegraf input plugins. To view prebuilt dashboards:
 ## Import monitoring dashboards
 Use the dashboards below to visualize and monitor key TICK stack metrics.
 Download the dashboard file and import it into Chronograf.
-For detailed instructions, see [Importing a dashboard](/chronograf/v1/administration/import-export-dashboards/#importing-a-dashboard).
+For detailed instructions, see [Import a dashboard](/chronograf/v1/administration/import-export-dashboards/#import-a-dashboard).
 
 - [Monitor InfluxDB OSS](#monitor-influxdb-oss)
 - [Monitor InfluxDB Enterprise](#monitor-influxdb-enterprise)
