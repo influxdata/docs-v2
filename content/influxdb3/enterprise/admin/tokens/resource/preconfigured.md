@@ -10,7 +10,6 @@ menu:
     name: Use preconfigured resource tokens
 weight: 202
 related:
-  - /influxdb3/enterprise/admin/tokens/admin/preconfigured/
   - /influxdb3/enterprise/reference/config-options/#permission-tokens-file, Configuration options > permission-tokens-file
   - /influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/
 ---
@@ -22,6 +21,10 @@ specified in the provided permission (resource) tokens file.
 - [Generate an offline permissions (resource) tokens file](#generate-an-offline-permissions-resource-tokens-file)
   - [Offline permission tokens file schema](#offline-permission-tokens-file-schema)
 - [Start InfluxDB with the preconfigured permission tokens](#start-influxdb-with-the-preconfigured-permission-tokens)
+- [Use Docker Compose with preconfigured resource tokens](#use-docker-compose-with-preconfigured-resource-tokens)
+  - [Create a permission tokens file](#create-a-permission-tokens-file)
+  - [Configure Docker Compose with secrets](#configure-docker-compose-with-secrets)
+  - [CI/CD setup](#cicd-setup)
 
 ## Generate an offline permissions (resource) tokens file
 
@@ -170,3 +173,119 @@ influxdb3 serve \
 When the server starts, you can use the preconfigured permission (resource) tokens
 to write data to and query data from with your {{% product-name %}} instance or
 cluster.
+
+## Use Docker Compose with preconfigured resource tokens
+
+For containerized deployments, you can use Docker Compose with Docker secrets to securely manage your preconfigured resource tokens.
+
+### Create a permission tokens file
+
+Create a JSON file with your resource tokens using the
+[offline permission tokens file schema](#offline-permission-tokens-file-schema):
+
+```json
+{
+  "create_databases": [
+    "sensors",
+    "metrics"
+  ],
+  "tokens": [
+    {
+      "token": "apiv3_your_token_here",
+      "name": "app-writer",
+      "permissions": [
+        "db:sensors,metrics:read,write"
+      ]
+    },
+    {
+      "token": "apiv3_another_token_here",
+      "name": "dashboard-reader",
+      "permissions": [
+        "db:sensors,metrics:read"
+      ]
+    }
+  ]
+}
+```
+
+For security, restrict file permissions:
+
+```bash
+chmod 600 path/to/permission-tokens.json
+```
+
+### Configure Docker Compose with secrets
+
+Use Docker secrets to securely provide the permission tokens file to your container:
+
+```yaml
+# compose.yaml
+services:
+  influxdb3-enterprise:
+    image: influxdb:3-enterprise
+    ports:
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --cluster-id=cluster0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --permission-tokens-file=/run/secrets/permission-tokens
+    environment:
+      - INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=your-email@example.com
+    secrets:
+      - permission-tokens
+    volumes:
+      - type: bind
+        source: ~/.influxdb3/data
+        target: /var/lib/influxdb3/data
+
+secrets:
+  permission-tokens:
+    file: path/to/permission-tokens.json
+```
+
+Start the service:
+
+<!--pytest.mark.skip-->
+
+```bash
+docker compose up -d
+```
+
+> [!Important]
+> #### Docker secrets security benefits
+>
+> Docker secrets provide better security than bind mounts for sensitive data:
+> - Secrets are stored encrypted in memory
+> - Not visible in `docker inspect` output
+> - Not exposed in environment variables or logs
+> - Follow Docker and Kubernetes security best practices
+
+### CI/CD setup
+
+For CI/CD pipelines and automated environments, create the permission tokens file from
+environment variables:
+
+<!--pytest.mark.skip-->
+
+```bash
+# Create permission tokens file from CI/CD environment variables
+cat > permission-tokens.json << EOF
+{
+  "create_databases": ["$INFLUXDB3_DATABASE"],
+  "tokens": [
+    {
+      "token": "$INFLUXDB3_RESOURCE_TOKEN",
+      "name": "app-token",
+      "permissions": ["db:$INFLUXDB3_DATABASE:read,write"]
+    }
+  ]
+}
+EOF
+chmod 600 permission-tokens.json
+```
+
+Then use the file in your Docker Compose configuration as shown above.

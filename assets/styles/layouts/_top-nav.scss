@@ -221,6 +221,32 @@
     width: 0;
     opacity: 0;
   }
+
+  &.feature-board {
+    .back-btn {
+      color: $article-bold;
+      background: rgba($article-text, .15);
+      border: 1px solid rgba($article-text, 0);
+      font-weight: $medium;
+      text-decoration: none;
+      padding: .35rem 1rem;
+      border-radius: $radius;
+      font-size: .9rem;
+      transition: border .2s;
+      &:before {
+        content: '\e909';
+        font-family: 'icomoon-v4';
+        font-weight: bold;
+        line-height: 0;
+        margin: 0 .5rem 0 -.25rem;
+        vertical-align: middle;
+      }
+      &:hover {
+        text-decoration: none;
+        border: 1px solid rgba($article-text, .25);
+      }
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -237,7 +263,12 @@
 @include media(small) {
   .icon-influx-logotype { display: none; }
 
-  .topnav { min-height: 5.75rem; }
+  .topnav {
+    min-height: 5.75rem;
+    &.feature-board {
+      min-height: auto;
+    }
+  }
   .topnav-right {
     flex-direction: column-reverse;
     align-items: flex-end;
