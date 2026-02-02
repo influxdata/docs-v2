@@ -25,7 +25,7 @@ terms and conditions. By loading or using the Software, you agree to the terms
 of this Agreement. If you do not wish to so agree, do not install or use the
 Software.
 
-LICENSE. Subject to the terms and conditions of this Agreement,, InfluxData
+LICENSE. Subject to the terms and conditions of this Agreement, InfluxData
 hereby grants you the following non-exclusive, non-transferable, worldwide,
 revocable, perpetual licenses, without right to sub-license, solely for your or
 your employer’s internal purposes: (a) to reproduce a reasonable number of
