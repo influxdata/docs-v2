@@ -59,6 +59,7 @@
     "markdown-link": "^0.1.1",
     "mermaid": "^11.10.0",
     "p-limit": "^5.0.0",
+    "playwright": "^1.58.1",
     "turndown": "^7.2.2",
     "vanillajs-datepicker": "^1.3.4"
   },
@@ -98,7 +99,11 @@
     "debug:inspect": "node scripts/puppeteer/inspect-page.js"
   },
   "type": "module",
-  "browserslist": ["last 2 versions", "not dead", "not IE 11"],
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
   "engines": {
     "node": ">=16.0.0"
   },
