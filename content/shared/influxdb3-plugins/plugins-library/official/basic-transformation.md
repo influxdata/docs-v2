@@ -97,7 +97,7 @@ Run transformations periodically on historical data:
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename gh:influxdata/basic_transformation/basic_transformation.py \
+  --path "gh:influxdata/basic_transformation/basic_transformation.py" \
   --trigger-spec "every:1h" \
   --trigger-arguments 'measurement=temperature,window=24h,target_measurement=temperature_normalized,names_transformations=temp:"snake",values_transformations=temp:"convert_degC_to_degF"' \
   hourly_temp_transform
@@ -109,7 +109,7 @@ Transform data as it's written:
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename gh:influxdata/basic_transformation/basic_transformation.py \
+  --path "gh:influxdata/basic_transformation/basic_transformation.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=sensor_data,target_measurement=sensor_data_clean,names_transformations=.*:"snake remove_special_chars normalize_underscores"' \
   realtime_clean
@@ -124,7 +124,7 @@ Convert temperature readings from Celsius to Fahrenheit while standardizing fiel
 # Create the trigger
 influxdb3 create trigger \
   --database weather \
-  --plugin-filename gh:influxdata/basic_transformation/basic_transformation.py \
+  --path "gh:influxdata/basic_transformation/basic_transformation.py" \
   --trigger-spec "every:30m" \
   --trigger-arguments 'measurement=raw_temps,window=1h,target_measurement=temps_fahrenheit,names_transformations=Temperature:"snake",values_transformations=temperature:"convert_degC_to_degF"' \
   temp_converter
@@ -158,7 +158,7 @@ Clean and standardize field names from various sensors:
 # Create trigger with multiple transformations
 influxdb3 create trigger \
   --database sensors \
-  --plugin-filename gh:influxdata/basic_transformation/basic_transformation.py \
+  --path "gh:influxdata/basic_transformation/basic_transformation.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=raw_sensors,target_measurement=clean_sensors,names_transformations=.*:"remove_special_chars snake collapse_underscore trim_underscore"' \
   field_cleaner
@@ -192,7 +192,7 @@ Replace specific strings in field values:
 # Create trigger with custom replacements
 influxdb3 create trigger \
   --database inventory \
-  --plugin-filename gh:influxdata/basic_transformation/basic_transformation.py \
+  --path "gh:influxdata/basic_transformation/basic_transformation.py" \
   --trigger-spec "every:1d" \
   --trigger-arguments 'measurement=products,window=7d,target_measurement=products_updated,values_transformations=status:"status_replace",custom_replacements=status_replace:"In Stock=available.Out of Stock=unavailable"' \
   status_updater
@@ -233,7 +233,7 @@ This plugin supports using TOML configuration files to specify all plugin argume
    ```bash
    influxdb3 create trigger \
      --database mydb \
-     --plugin-filename basic_transformation.py \
+     --path "gh:influxdata/basic_transformation/basic_transformation.py" \
      --trigger-spec "every:1d" \
      --trigger-arguments config_file_path=basic_transformation_config_scheduler.toml \
      basic_transform_trigger

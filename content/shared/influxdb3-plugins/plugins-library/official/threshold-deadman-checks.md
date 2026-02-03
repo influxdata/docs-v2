@@ -1,16 +1,14 @@
-⚡ scheduled, data-write  
-🏷️ monitoring, alerting, thresholds, deadman-detection 🔧 {{% product-name %}}
-
-
 The Threshold Deadman Checks Plugin provides comprehensive monitoring capabilities for time series data in {{% product-name %}}, combining real-time threshold detection with deadman monitoring. Monitor field values against configurable thresholds, detect data absence patterns, and trigger multi-level alerts based on aggregated metrics. Features both scheduled batch monitoring and real-time data write monitoring with configurable trigger counts and severity levels.
-
-## Plugin metadata
-
-This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [{{% product-name %}} Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
 ## Configuration
 
-### Scheduled trigger parameters
+Plugin parameters may be specified as key-value pairs in the `--trigger-arguments` flag (CLI) or in the `trigger_arguments` field (API) when creating a trigger.
+
+### Plugin metadata
+
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
+
+### Required parameters
 
 | Parameter     | Type   | Default  | Description                                                                                       |
 |---------------|--------|----------|---------------------------------------------------------------------------------------------------|
@@ -92,26 +90,28 @@ The plugin assumes that the table schema is already defined in the database, as 
    ```
 3. **Optional**: For notifications, install and configure the [influxdata/notifier plugin](../notifier/README.md)
 
-### Create scheduled trigger
+## Trigger setup
+
+### Scheduled trigger
 
 Create a trigger for periodic threshold and deadman checks:
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:10m" \
   --trigger-arguments "measurement=cpu,senders=slack,field_aggregation_values=temp:avg@>=30-ERROR,window=10m,trigger_count=3,deadman_check=true,slack_webhook_url=https://hooks.slack.com/services/..." \
   threshold_scheduler
 ```
-### Create data write trigger
+### Data write trigger
 
 Create a trigger for real-time threshold monitoring:
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments "measurement=cpu,field_conditions=temp>30-WARN:status==ok-INFO,senders=slack,trigger_count=2,slack_webhook_url=https://hooks.slack.com/services/..." \
   threshold_datawrite
@@ -122,16 +122,49 @@ influxdb3 create trigger \
 influxdb3 enable trigger --database mydb threshold_scheduler
 influxdb3 enable trigger --database mydb threshold_datawrite
 ```
-## Examples
+## Example usage
 
-### Deadman monitoring
+### Example 1: Basic threshold monitoring
+
+Write test data and monitor for threshold violations:
+
+```bash
+# Write test data
+influxdb3 write \
+  --database sensors \
+  "heartbeat,host=server1 status=1"
+
+influxdb3 write \
+  --database sensors \
+  "heartbeat,host=server1 status=0"
+
+# Create and enable the trigger
+influxdb3 create trigger \
+  --database sensors \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
+  --trigger-spec "every:5m" \
+  --trigger-arguments "measurement=heartbeat,senders=slack,window=5m,deadman_check=true,slack_webhook_url=https://hooks.slack.com/services/..." \
+  heartbeat_monitor
+
+influxdb3 enable trigger --database sensors heartbeat_monitor
+
+# Query to verify data
+influxdb3 query \
+  --database sensors \
+  "SELECT * FROM heartbeat ORDER BY time DESC LIMIT 5"
+```
+**Expected output**
+
+When no data is received within the window, a deadman alert is sent: "CRITICAL: No heartbeat data from heartbeat between 2025-06-01T10:00:00Z and 2025-06-01T10:05:00Z"
+
+### Example 2: Deadman monitoring
 
 Monitor for data absence and alert when no data is received:
 
 ```bash
 influxdb3 create trigger \
   --database sensors \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:15m" \
   --trigger-arguments "measurement=heartbeat,senders=sms,window=10m,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321,notification_deadman_text=CRITICAL: No heartbeat data from \$table between \$time_from and \$time_to" \
   heartbeat_monitor
@@ -143,7 +176,7 @@ Monitor aggregated values with different severity levels:
 ```bash
 influxdb3 create trigger \
   --database monitoring \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:5m" \
   --trigger-arguments "measurement=system_metrics,senders=slack.discord,field_aggregation_values='cpu_usage:avg@>=80-WARN cpu_usage:avg@>=95-ERROR memory_usage:max@>=90-WARN',window=5m,interval=1min,trigger_count=3,slack_webhook_url=https://hooks.slack.com/services/...,discord_webhook_url=https://discord.com/api/webhooks/..." \
   system_threshold_monitor
@@ -155,7 +188,7 @@ Monitor data writes for immediate threshold violations:
 ```bash
 influxdb3 create trigger \
   --database applications \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments "measurement=response_times,field_conditions=latency>500-WARN:latency>1000-ERROR:error_rate>0.05-CRITICAL,senders=http,trigger_count=1,http_webhook_url=https://alertmanager.example.com/webhook,notification_text=[\$level] Application alert: \$field \$op_sym \$compare_val (actual: \$actual)" \
   app_performance_monitor
@@ -167,40 +200,56 @@ Monitor both aggregation thresholds and deadman conditions:
 ```bash
 influxdb3 create trigger \
   --database comprehensive \
-  --plugin-filename threshold_deadman_checks_plugin.py \
+  --path "gh:influxdata/threshold_deadman_checks/threshold_deadman_checks_plugin.py" \
   --trigger-spec "every:10m" \
   --trigger-arguments "measurement=temperature_sensors,senders=whatsapp,field_aggregation_values='temperature:avg@>=35-WARN temperature:max@>=40-ERROR',window=15m,deadman_check=true,trigger_count=2,twilio_from_number=+1234567890,twilio_to_number=+0987654321" \
   comprehensive_sensor_monitor
 ```
 
+## Code overview
+
+### Files
+
+- `threshold_deadman_checks_plugin.py`: The main plugin code containing handlers for scheduled and data write triggers
+- `threshold_deadman_config_scheduler.toml`: Example TOML configuration for scheduled triggers
+- `threshold_deadman_config_data_writes.toml`: Example TOML configuration for data write triggers
+
+### Logging
+
+Logs are stored in the `_internal` database in the `system.processing_engine_logs` table. To view logs:
+
+```bash
+influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'threshold_scheduler'"
+```
+### Main functions
+
+#### `process_scheduled_call(influxdb3_local, call_time, args)`
+
+Handles scheduled threshold and deadman checks. Queries data within the specified window, evaluates aggregation-based conditions, and checks for data absence.
+
+#### `process_writes(influxdb3_local, table_batches, args)`
+
+Handles real-time threshold monitoring on data writes. Evaluates incoming data against configured field conditions with multi-level severity.
+
 ## Troubleshooting
 
 ### Common issues
 
-**No alerts triggered**
+#### Issue: No alerts triggered
 
-- Verify threshold values are appropriate for your data ranges
-- Check that notification channels are properly configured
-- Ensure the Notifier Plugin is installed and accessible
-- Review plugin logs for configuration errors
+**Solution**: Verify threshold values are appropriate for your data ranges. Check that notification channels are properly configured. Ensure the Notifier Plugin is installed and accessible. Review plugin logs for configuration errors.
 
-**False positive alerts**
+#### Issue: False positive alerts
 
-- Increase `trigger_count` to require more consecutive failures
-- Adjust threshold values to be less sensitive
-- Consider longer aggregation intervals for noisy data
+**Solution**: Increase `trigger_count` to require more consecutive failures. Adjust threshold values to be less sensitive. Consider longer aggregation intervals for noisy data.
 
-**Missing deadman alerts**
+#### Issue: Missing deadman alerts
 
-- Verify `deadman_check=true` is set in configuration
-- Check that the measurement name matches existing data
-- Ensure the time window is appropriate for your data frequency
+**Solution**: Verify `deadman_check=true` is set in configuration. Check that the measurement name matches existing data. Ensure the time window is appropriate for your data frequency.
 
-**Authentication issues**
+#### Issue: Authentication issues
 
-- Set `INFLUXDB3_AUTH_TOKEN` environment variable
-- Verify API token has required database permissions
-- Check Twilio credentials for SMS/WhatsApp notifications
+**Solution**: Set `INFLUXDB3_AUTH_TOKEN` environment variable. Verify API token has required database permissions. Check Twilio credentials for SMS/WhatsApp notifications.
 
 ### Configuration formats
 
@@ -262,21 +311,6 @@ influxdb3 create trigger \
 The `row` variable uniquely identifies alert contexts using format: `measurement:level:tag1=value1:tag2=value2`
 
 This ensures trigger counts are maintained independently for each unique combination of measurement, severity level, and tag values.
-
-
-## Logging
-
-Logs are stored in the `_internal` database (or the database where the trigger is created) in the `system.processing_engine_logs` table. To view logs:
-
-```bash
-influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
-```
-
-Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
 
 ## Report an issue
 

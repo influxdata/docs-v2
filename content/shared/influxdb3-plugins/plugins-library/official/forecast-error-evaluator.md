@@ -9,7 +9,7 @@ If a plugin supports multiple trigger specifications, some parameters may depend
 
 ### Plugin metadata
 
-This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [{{% product-name %}} Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
 ### Required parameters
 
@@ -127,7 +127,7 @@ Run forecast error evaluation periodically:
 ```bash
 influxdb3 create trigger \
   --database weather_forecasts \
-  --plugin-filename gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py \
+  --path "gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py" \
   --trigger-spec "every:30m" \
   --trigger-arguments 'forecast_measurement=temperature_forecast,actual_measurement=temperature_actual,forecast_field=predicted_temp,actual_field=temp,error_metric=rmse,error_thresholds=INFO-"0.5":WARN-"1.0":ERROR-"2.0",window=1h,senders=slack,slack_webhook_url="https://hooks.slack.com/services/YOUR/WEBHOOK/URL"' \
   forecast_validation
@@ -142,7 +142,7 @@ Validate temperature forecast accuracy and send Slack notifications:
 # Create the trigger
 influxdb3 create trigger \
   --database weather_db \
-  --plugin-filename gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py \
+  --path "gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py" \
   --trigger-spec "every:15m" \
   --trigger-arguments 'forecast_measurement=temp_forecast,actual_measurement=temp_actual,forecast_field=predicted,actual_field=temperature,error_metric=rmse,error_thresholds=INFO-"0.5":WARN-"1.0":ERROR-"2.0":CRITICAL-"3.0",window=30m,senders=slack,slack_webhook_url="https://hooks.slack.com/services/YOUR/WEBHOOK/URL",min_condition_duration=10m' \
   temp_forecast_check
@@ -162,7 +162,7 @@ influxdb3 query \
   --database _internal \
   "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'temp_forecast_check'"
 ```
-### Expected behavior
+**Expected output**
 
 - Plugin computes RMSE between forecast and actual values
 - If RMSE > 0.5, sends INFO-level notification
@@ -181,7 +181,7 @@ Monitor multiple forecast metrics with different notification channels:
 # Create trigger with Discord and HTTP notifications
 influxdb3 create trigger \
   --database analytics \
-  --plugin-filename gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py \
+  --path "gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py" \
   --trigger-spec "every:1h" \
   --trigger-arguments 'forecast_measurement=sales_forecast,actual_measurement=sales_actual,forecast_field=predicted_sales,actual_field=sales_amount,error_metric=mae,error_thresholds=WARN-"1000":ERROR-"5000":CRITICAL-"10000",window=6h,senders=discord.http,discord_webhook_url="https://discord.com/api/webhooks/YOUR/WEBHOOK",http_webhook_url="https://your-api.com/alerts",notification_text="[$$level] Sales forecast error: $$metric=$$error (threshold exceeded)",rounding_freq=5min' \
   sales_forecast_monitor
@@ -198,7 +198,7 @@ export TWILIO_TOKEN="your_twilio_token"
 # Create trigger with SMS notifications
 influxdb3 create trigger \
   --database production_forecasts \
-  --plugin-filename gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py \
+  --path "gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py" \
   --trigger-spec "every:5m" \
   --trigger-arguments 'forecast_measurement=demand_forecast,actual_measurement=demand_actual,forecast_field=predicted_demand,actual_field=actual_demand,error_metric=mse,error_thresholds=CRITICAL-"100000",window=15m,senders=sms,twilio_from_number="+1234567890",twilio_to_number="+0987654321",notification_text="CRITICAL: Production demand forecast error exceeded threshold. MSE: $$error",min_condition_duration=2m' \
   critical_forecast_alert
@@ -243,7 +243,7 @@ influxdb3_auth_token = "your_token_here"
 ```bash
 influxdb3 create trigger \
   --database weather_db \
-  --plugin-filename forecast_error_evaluator.py \
+  --path "gh:influxdata/forecast_error_evaluator/forecast_error_evaluator.py" \
   --trigger-spec "every:30m" \
   --trigger-arguments config_file_path=forecast_error_config_scheduler.toml \
   forecast_validation_trigger

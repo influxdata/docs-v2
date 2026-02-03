@@ -1,7 +1,3 @@
-⚡ scheduled, http  
-🏷️ forecasting, machine-learning, time-series, predictive-analytics 🔧 {{% product-name %}}
-
-
 The Prophet Forecasting Plugin enables time series forecasting for data in {{% product-name %}} using Facebook's Prophet library. Generate predictions for future data points based on historical patterns, including seasonality, trends, and custom events. Supports both scheduled batch forecasting and on-demand HTTP-triggered forecasts with model persistence and validation capabilities.
 
 - **Model persistence**: Save and reuse trained models for consistent predictions
@@ -18,9 +14,9 @@ If a plugin supports multiple trigger specifications, some parameters may depend
 
 ### Plugin metadata
 
-This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [{{% product-name %}} Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
-### Scheduled trigger parameters
+### Required parameters
 
 | Parameter            | Type   | Default  | Description                                                       |
 |----------------------|--------|----------|-------------------------------------------------------------------|
@@ -114,26 +110,28 @@ For more information on using TOML configuration files, see the Using TOML Confi
    influxdb3 install package requests
    influxdb3 install package prophet
    ```
-### Create scheduled trigger
+## Trigger setup
+
+### Scheduled trigger
 
 Create a trigger for periodic forecasting:
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename prophet_forecasting.py \
+  --path "gh:influxdata/prophet_forecasting/prophet_forecasting.py" \
   --trigger-spec "every:1d" \
   --trigger-arguments "measurement=temperature,field=value,window=30d,forecast_horizont=2d,tag_values=region:us-west.device:sensor1,target_measurement=temperature_forecast,model_mode=train,unique_suffix=20250619_v1" \
   prophet_forecast_trigger
 ```
-### Create HTTP trigger
+### HTTP trigger
 
 Create a trigger for on-demand forecasting:
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename prophet_forecasting.py \
+  --path "gh:influxdata/prophet_forecasting/prophet_forecasting.py" \
   --trigger-spec "request:forecast" \
   prophet_forecast_http_trigger
 ```
@@ -143,9 +141,44 @@ influxdb3 create trigger \
 influxdb3 enable trigger --database mydb prophet_forecast_trigger
 influxdb3 enable trigger --database mydb prophet_forecast_http_trigger
 ```
-## Examples
+## Example usage
 
-### Scheduled forecasting
+### Example 1: Basic scheduled forecasting
+
+Write historical data and create a forecast:
+
+```bash
+# Write historical temperature data
+influxdb3 write \
+  --database mydb \
+  "temperature,region=us-west,device=sensor1 value=22.5"
+
+# Create and enable the trigger
+influxdb3 create trigger \
+  --database mydb \
+  --path "gh:influxdata/prophet_forecasting/prophet_forecasting.py" \
+  --trigger-spec "every:1d" \
+  --trigger-arguments "measurement=temperature,field=value,window=30d,forecast_horizont=2d,tag_values=region:us-west.device:sensor1,target_measurement=temperature_forecast,model_mode=train,unique_suffix=v1" \
+  prophet_forecast
+
+influxdb3 enable trigger --database mydb prophet_forecast
+
+# Query forecast results (after trigger runs)
+influxdb3 query \
+  --database mydb \
+  "SELECT time, forecast, yhat_lower, yhat_upper FROM temperature_forecast ORDER BY time DESC LIMIT 5"
+```
+**Expected output**
+
+```
++----------------------+---------+------------+------------+
+| time                 | forecast| yhat_lower | yhat_upper |
++----------------------+---------+------------+------------+
+| 2025-06-21T00:00:00Z | 23.2    | 21.8       | 24.6       |
+| 2025-06-20T00:00:00Z | 22.9    | 21.5       | 24.3       |
++----------------------+---------+------------+------------+
+```
+### Example 2: On-demand HTTP forecasting
 
 Example HTTP request for on-demand forecasting:
 
@@ -210,34 +243,57 @@ Forecast results are written to the target measurement with the following struct
 
 - `time`: Forecast timestamp in nanoseconds
 
+## Code overview
+
+### Files
+
+- `prophet_forecasting.py`: The main plugin code containing handlers for scheduled and HTTP triggers
+- `prophet_forecasting_scheduler.toml`: Example TOML configuration file for scheduled triggers
+
+### Logging
+
+Logs are stored in the `_internal` database in the `system.processing_engine_logs` table. To view logs:
+
+```bash
+influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'prophet_forecast_trigger'"
+```
+### Main functions
+
+#### `process_scheduled_call(influxdb3_local, call_time, args)`
+
+Handles scheduled forecasting tasks. Queries historical data, trains or loads Prophet model, generates forecasts, and writes results.
+
+Key operations:
+
+1. Parses configuration from arguments or TOML file
+2. Queries historical data within specified window
+3. Trains Prophet model or loads existing model
+4. Generates forecasts for specified horizon
+5. Optionally validates against actual data and sends alerts
+
+#### `process_http_request(influxdb3_local, request_body, args)`
+
+Handles on-demand forecast requests via HTTP. Supports backfill operations with configurable time ranges.
+
 ## Troubleshooting
 
 ### Common issues
 
-**Model training failures**
+#### Issue: Model training failures
 
-- Ensure sufficient historical data points for the specified window
-- Verify data contains required time column and forecast field
-- Check for data gaps that might affect frequency inference
-- Set `inferred_freq` manually if automatic detection fails
+**Solution**: Ensure sufficient historical data points for the specified window. Verify data contains required time column and forecast field. Check for data gaps that might affect frequency inference. Set `inferred_freq` manually if automatic detection fails.
 
-**Validation failures**
+#### Issue: Validation failures
 
-- Review MSRE threshold settings - values too low may cause frequent failures
-- Ensure validation window provides sufficient data for comparison
-- Check that validation data aligns temporally with forecast period
+**Solution**: Review MSRE threshold settings - values too low may cause frequent failures. Ensure validation window provides sufficient data for comparison. Check that validation data aligns temporally with forecast period.
 
-**HTTP trigger issues**
+#### Issue: HTTP trigger issues
 
-- Verify JSON request body format matches expected schema
-- Check authentication tokens and database permissions
-- Ensure start_time and end_time are in valid ISO 8601 format with timezone
+**Solution**: Verify JSON request body format matches expected schema. Check authentication tokens and database permissions. Ensure start_time and end_time are in valid ISO 8601 format with timezone.
 
-**Model persistence problems**
+#### Issue: Model persistence problems
 
-- Verify plugin directory permissions for model storage
-- Check disk space availability in plugin directory
-- Ensure unique_suffix values don't conflict between different model versions
+**Solution**: Verify plugin directory permissions for model storage. Check disk space availability in plugin directory. Ensure unique_suffix values don't conflict between different model versions.
 
 ### Model storage
 
@@ -261,21 +317,6 @@ When validation_window is set:
 2. Validation data: `current_time - validation_window` to `current_time`
 3. MSRE calculation: `mean((actual - predicted)² / actual²)`
 4. Threshold comparison and optional alert dispatch
-
-
-## Logging
-
-Logs are stored in the `_internal` database (or the database where the trigger is created) in the `system.processing_engine_logs` table. To view logs:
-
-```bash
-influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
-```
-
-Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
 
 ## Report an issue
 

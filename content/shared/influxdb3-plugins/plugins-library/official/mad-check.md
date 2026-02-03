@@ -9,7 +9,7 @@ If a plugin supports multiple trigger specifications, some parameters may depend
 
 ### Plugin metadata
 
-This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [{{% product-name %}} Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
 ### Required parameters
 
@@ -130,7 +130,7 @@ Detect anomalies as data is written:
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename gh:influxdata/mad_check/mad_check_plugin.py \
+  --path "gh:influxdata/mad_check/mad_check_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=cpu,mad_thresholds="temp:2.5:20:5@load:3:10:2m",senders=slack,slack_webhook_url="https://hooks.slack.com/services/..."' \
   mad_anomaly_detector
@@ -145,7 +145,7 @@ Detect when temperature exceeds 2.5 MADs from the median for 5 consecutive point
 # Create trigger for count-based detection
 influxdb3 create trigger \
   --database sensors \
-  --plugin-filename gh:influxdata/mad_check/mad_check_plugin.py \
+  --path "gh:influxdata/mad_check/mad_check_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=environment,mad_thresholds="temperature:2.5:20:5",senders=slack,slack_webhook_url="https://hooks.slack.com/services/YOUR/WEBHOOK/URL"' \
   temp_anomaly_detector
@@ -162,7 +162,7 @@ influxdb3 write \
   "environment,room=office temperature=45.8"  # Anomaly
 # Continue writing anomalous values...
 ```
-### Expected results
+**Expected output**
 
 - Plugin maintains a 20-point window of recent temperature values
 - Computes median and MAD from this window
@@ -177,12 +177,12 @@ Monitor CPU load and memory usage with different thresholds:
 # Create trigger with multiple thresholds
 influxdb3 create trigger \
   --database monitoring \
-  --plugin-filename gh:influxdata/mad_check/mad_check_plugin.py \
+  --path "gh:influxdata/mad_check/mad_check_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=system_metrics,mad_thresholds="cpu_load:3:30:2m@memory_used:2.5:30:5m",senders=slack.discord,slack_webhook_url="https://hooks.slack.com/...",discord_webhook_url="https://discord.com/api/webhooks/..."' \
   system_anomaly_detector
 ```
-### Expected results
+**Expected output**
 
 - Monitors two fields independently:
  	- `cpu_load`: Alerts when exceeds 3 MADs for 2 minutes
@@ -197,12 +197,12 @@ Prevent alert fatigue from rapidly fluctuating values:
 # Create trigger with flip suppression
 influxdb3 create trigger \
   --database iot \
-  --plugin-filename gh:influxdata/mad_check/mad_check_plugin.py \
+  --path "gh:influxdata/mad_check/mad_check_plugin.py" \
   --trigger-spec "all_tables" \
   --trigger-arguments 'measurement=sensor_data,mad_thresholds="vibration:2:50:10",state_change_count=3,senders=http,http_webhook_url="https://api.example.com/alerts",notification_count_text="Vibration anomaly detected on $table. Field: $field, Tags: $tags"' \
   vibration_monitor
 ```
-### Expected results
+**Expected output**
 
 - Detects vibration anomalies exceeding 2 MADs for 10 consecutive points
 - If values flip between normal/anomalous more than 3 times in the 50-point window, suppresses notifications
@@ -245,7 +245,7 @@ This plugin supports using TOML configuration files to specify all plugin argume
    ```bash
    influxdb3 create trigger \
      --database mydb \
-     --plugin-filename mad_check_plugin.py \
+     --path "gh:influxdata/mad_check/mad_check_plugin.py" \
      --trigger-spec "all_tables" \
      --trigger-arguments config_file_path=mad_anomaly_config_data_writes.toml \
      mad_toml_trigger

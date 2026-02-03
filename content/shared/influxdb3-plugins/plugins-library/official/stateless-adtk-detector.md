@@ -8,7 +8,7 @@ If a plugin supports multiple trigger specifications, some parameters may depend
 
 ### Plugin metadata
 
-This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [{{% product-name %}} Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
+This plugin includes a JSON metadata schema in its docstring that defines supported trigger types and configuration parameters. This metadata enables the [InfluxDB 3 Explorer](https://docs.influxdata.com/influxdb3/explorer/) UI to display and configure the plugin.
 
 ### Required parameters
 
@@ -64,13 +64,15 @@ For more information on using TOML configuration files, see the Using TOML Confi
 | `PersistAD`            | Detects persistent anomalous values   | None                     |
 | `SeasonalAD`           | Detects seasonal pattern deviations   | None                     |
 
-## Requirements
+## Software Requirements
 
 - **{{% product-name %}}**: with the Processing Engine enabled.
 - **Python packages**:
  	- `adtk` (for anomaly detection)
  	- `pandas` (for data manipulation)
  	- `requests` (for HTTP notifications)
+
+### Installation steps
 
 1. Start {{% product-name %}} with the Processing Engine enabled (`--plugin-dir /path/to/plugins`):
 
@@ -88,14 +90,16 @@ For more information on using TOML configuration files, see the Using TOML Confi
    influxdb3 install package adtk
    influxdb3 install package pandas
    ```
-### Create trigger
+## Trigger setup
+
+### Scheduled trigger
 
 Create a scheduled trigger for anomaly detection:
 
 ```bash
 influxdb3 create trigger \
   --database mydb \
-  --plugin-filename adtk_anomaly_detection_plugin.py \
+  --path "gh:influxdata/stateless_adtk_detector/adtk_anomaly_detection_plugin.py" \
   --trigger-spec "every:10m" \
   --trigger-arguments "measurement=cpu,field=usage,detectors=QuantileAD.LevelShiftAD,detector_params=eyJRdWFudGlsZUFKIjogeyJsb3ciOiAwLjA1LCAiaGlnaCI6IDAuOTV9LCAiTGV2ZWxTaGlmdEFKIjogeyJ3aW5kb3ciOiA1fX0=,window=10m,senders=slack,slack_webhook_url=https://hooks.slack.com/services/..." \
   anomaly_detector
@@ -105,9 +109,36 @@ influxdb3 create trigger \
 ```bash
 influxdb3 enable trigger --database mydb anomaly_detector
 ```
-## Examples
+## Example usage
 
-### Basic anomaly detection
+### Example 1: Basic anomaly detection
+
+Detect outliers using quantile-based detection:
+
+```bash
+# Write test data with normal and anomalous values
+influxdb3 write \
+  --database sensors \
+  "temperature,location=warehouse value=22.0"
+
+influxdb3 write \
+  --database sensors \
+  "temperature,location=warehouse value=23.1"
+
+influxdb3 write \
+  --database sensors \
+  "temperature,location=warehouse value=85.5"  # Anomaly
+
+# Query to verify data
+influxdb3 query \
+  --database sensors \
+  "SELECT * FROM temperature ORDER BY time DESC LIMIT 5"
+```
+**Expected output**
+
+When an anomaly is detected, a notification is sent: "Anomaly detected in temperature.value using QuantileAD. Tags: location=warehouse"
+
+### Example 2: Quantile-based detection
 
 Detect outliers using quantile-based detection:
 
@@ -117,7 +148,7 @@ echo '{"QuantileAD": {"low": 0.05, "high": 0.95}}' | base64
 
 influxdb3 create trigger \
   --database sensors \
-  --plugin-filename adtk_anomaly_detection_plugin.py \
+  --path "gh:influxdata/stateless_adtk_detector/adtk_anomaly_detection_plugin.py" \
   --trigger-spec "every:5m" \
   --trigger-arguments "measurement=temperature,field=value,detectors=QuantileAD,detector_params=eyJRdWFudGlsZUFKIjogeyJsb3ciOiAwLjA1LCAiaGlnaCI6IDAuOTV9fQ==,window=1h,senders=slack,slack_webhook_url=https://hooks.slack.com/services/..." \
   temp_anomaly_detector
@@ -132,7 +163,7 @@ echo '{"QuantileAD": {"low": 0.1, "high": 0.9}, "LevelShiftAD": {"window": 10}}'
 
 influxdb3 create trigger \
   --database monitoring \
-  --plugin-filename adtk_anomaly_detection_plugin.py \
+  --path "gh:influxdata/stateless_adtk_detector/adtk_anomaly_detection_plugin.py" \
   --trigger-spec "every:15m" \
   --trigger-arguments "measurement=cpu_metrics,field=utilization,detectors=QuantileAD.LevelShiftAD,detector_params=eyJRdWFudGlsZUFEIjogeyJsb3ciOiAwLjEsICJoaWdoIjogMC45fSwgIkxldmVsU2hpZnRBRCI6IHsid2luZG93IjogMTB9fQ==,min_consensus=2,window=30m,senders=discord,discord_webhook_url=https://discord.com/api/webhooks/..." \
   cpu_consensus_detector
@@ -147,38 +178,59 @@ echo '{"VolatilityShiftAD": {"window": 20}}' | base64
 
 influxdb3 create trigger \
   --database trading \
-  --plugin-filename adtk_anomaly_detection_plugin.py \
+  --path "gh:influxdata/stateless_adtk_detector/adtk_anomaly_detection_plugin.py" \
   --trigger-spec "every:1m" \
   --trigger-arguments "measurement=stock_prices,field=price,detectors=VolatilityShiftAD,detector_params=eyJWb2xhdGlsaXR5U2hpZnRBRCI6IHsid2luZG93IjogMjB9fQ==,window=1h,min_condition_duration=5m,senders=sms,twilio_from_number=+1234567890,twilio_to_number=+0987654321" \
   volatility_detector
 ```
 
+## Code overview
+
+### Files
+
+- `adtk_anomaly_detection_plugin.py`: The main plugin code containing the scheduled handler for anomaly detection
+- `adtk_anomaly_config_scheduler.toml`: Example TOML configuration file
+
+### Logging
+
+Logs are stored in the `_internal` database in the `system.processing_engine_logs` table. To view logs:
+
+```bash
+influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'anomaly_detector'"
+```
+### Main functions
+
+#### `process_scheduled_call(influxdb3_local, call_time, args)`
+
+Handles scheduled anomaly detection tasks. Queries data within the specified window, applies ADTK detectors, and sends notifications for detected anomalies.
+
+Key operations:
+
+1. Parses configuration and decodes detector parameters
+2. Queries data from source measurement
+3. Applies configured ADTK detectors
+4. Evaluates consensus across detectors
+5. Sends notifications when anomalies are confirmed
+
 ## Troubleshooting
 
 ### Common issues
 
-**Detector parameter encoding**
+#### Issue: Detector parameter encoding errors
 
-- Ensure detector_params is valid Base64-encoded JSON
-- Use command line Base64 encoding: `echo '{"QuantileAD": {"low": 0.05}}' | base64`
-- Verify JSON structure matches detector requirements
+**Solution**: Ensure detector_params is valid Base64-encoded JSON. Use command line Base64 encoding: `echo '{"QuantileAD": {"low": 0.05}}' | base64`. Verify JSON structure matches detector requirements.
 
-**False positive notifications**
+#### Issue: False positive notifications
 
-- Increase `min_consensus` to require more detectors to agree
-- Add `min_condition_duration` to require anomalies to persist
-- Adjust detector-specific thresholds in `detector_params`
+**Solution**: Increase `min_consensus` to require more detectors to agree. Add `min_condition_duration` to require anomalies to persist. Adjust detector-specific thresholds in `detector_params`.
 
-**Missing dependencies**
+#### Issue: Missing dependencies
 
-- Install required packages: `adtk`, `pandas`, `requests`
-- Ensure the Notifier Plugin is installed for notifications
+**Solution**: Install required packages: `adtk`, `pandas`, `requests`. Ensure the Notifier Plugin is installed for notifications.
 
-**Data quality issues**
+#### Issue: Data quality issues
 
-- Verify sufficient data points in the specified window
-- Check for null values or data gaps that affect detection
-- Ensure field contains numeric data suitable for analysis
+**Solution**: Verify sufficient data points in the specified window. Check for null values or data gaps that affect detection. Ensure field contains numeric data suitable for analysis.
 
 ### Base64 parameter encoding
 
@@ -208,21 +260,6 @@ Available variables for notification templates:
 ### Detector configuration reference
 
 For detailed detector parameters and options, see the [ADTK documentation](https://adtk.readthedocs.io/en/stable/api/detectors.html).
-
-
-## Logging
-
-Logs are stored in the `_internal` database (or the database where the trigger is created) in the `system.processing_engine_logs` table. To view logs:
-
-```bash
-influxdb3 query --database _internal "SELECT * FROM system.processing_engine_logs WHERE trigger_name = 'your_trigger_name'"
-```
-
-Log columns:
-- **event_time**: Timestamp of the log event
-- **trigger_name**: Name of the trigger that generated the log
-- **log_level**: Severity level (INFO, WARN, ERROR)
-- **log_text**: Message describing the action or error
 
 ## Report an issue
 
