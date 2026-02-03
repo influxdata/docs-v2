@@ -1,3 +1,4 @@
+
 The Threshold Deadman Checks Plugin provides comprehensive monitoring capabilities for time series data in {{% product-name %}}, combining real-time threshold detection with deadman monitoring. Monitor field values against configurable thresholds, detect data absence patterns, and trigger multi-level alerts based on aggregated metrics. Features both scheduled batch monitoring and real-time data write monitoring with configurable trigger counts and severity levels.
 
 ## Configuration

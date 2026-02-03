@@ -1,3 +1,4 @@
+
 The State Change Plugin provides comprehensive field monitoring and threshold detection for {{% product-name %}} data streams. Detect field value changes, monitor threshold conditions, and trigger notifications when specified criteria are met. Supports both scheduled batch monitoring and real-time data write monitoring with configurable stability checks and multi-channel alerts.
 
 ## Configuration

@@ -1,3 +1,4 @@
+
 The ADTK Anomaly Detector Plugin provides advanced time series anomaly detection for {{% product-name %}} using the ADTK (Anomaly Detection Toolkit) library. Apply statistical and machine learning-based detection methods to identify outliers, level shifts, volatility changes, and seasonal anomalies in your data. Features consensus-based detection requiring multiple detectors to agree before triggering alerts, reducing false positives.
 
 ## Configuration

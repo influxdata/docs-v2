@@ -1,8 +1,9 @@
+
 The Notifier Plugin provides multi-channel notification capabilities for {{% product-name %}}, enabling real-time alert delivery through various communication channels. Send notifications via Slack, Discord, HTTP webhooks, SMS, or WhatsApp based on incoming HTTP requests. Acts as a centralized notification dispatcher that receives data from other plugins or external systems and routes notifications to the appropriate channels.
 
 ## Configuration
 
-This HTTP-triggered plugin receives all parameters in the request body when you call the trigger endpoint.
+This HTTP plugin receives all configuration via the request body. No trigger arguments are required.
 
 ### Plugin metadata
 
@@ -19,7 +20,7 @@ Send these parameters as JSON in the HTTP POST request body:
 
 ### Sender-specific configuration (in request body)
 
-The `senders_config` parameter accepts channel configurations where keys are sender names and values contain channel-specific settings:
+The `senders_config` object accepts channel configurations where keys are sender names and values contain channel-specific settings:
 
 #### Slack notifications
 
