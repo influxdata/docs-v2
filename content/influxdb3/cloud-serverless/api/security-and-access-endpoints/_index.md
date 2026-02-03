@@ -4,7 +4,7 @@ description: API reference for Security and access endpoints
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-security-and-access-endpoints.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-security-and-access-endpoints.yaml
 weight: 100
 tag: Security and access endpoints
 isConceptual: false
@@ -40,4 +40,12 @@ operations:
     summary: Delete an authorization
     tags:
       - Security and access endpoints
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

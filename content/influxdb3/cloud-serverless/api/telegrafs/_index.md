@@ -4,7 +4,7 @@ description: API reference for Telegrafs
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-telegrafs.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-telegrafs.yaml
 weight: 100
 tag: Telegrafs
 isConceptual: false
@@ -94,4 +94,12 @@ operations:
     summary: Remove an owner from a Telegraf config
     tags:
       - Telegrafs
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

@@ -1,8 +1,8 @@
 ---
 title: Pagination
-description: >
-  Some InfluxDB API [list operations](#tag/SupportedOperations) may support the
-  following query parameters for paginating results:
+description: >-
+  Some InfluxDB API list operations may support the following query parameters
+  for paginating results:
 
     | Query parameter          | Value type            | Description                                |
     |:------------------------ |:--------------------- |:-------------------------------------------|
@@ -39,14 +39,14 @@ description: >
 type: api
 layout: single
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-pagination.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-pagination.yaml
 weight: 100
 tag: Pagination
 isConceptual: true
 menuGroup: Other
-tagDescription: >
-  Some InfluxDB API [list operations](#tag/SupportedOperations) may support the
-  following query parameters for paginating results:
+tagDescription: >-
+  Some InfluxDB API list operations may support the following query parameters
+  for paginating results:
 
     | Query parameter          | Value type            | Description                                |
     |:------------------------ |:--------------------- |:-------------------------------------------|
@@ -80,4 +80,12 @@ tagDescription: >
         "buckets": []
       }
       ```
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

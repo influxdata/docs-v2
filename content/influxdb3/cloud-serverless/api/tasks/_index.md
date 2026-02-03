@@ -1,6 +1,6 @@
 ---
 title: Tasks
-description: >
+description: >-
   Process and analyze your data with tasks
 
   in the InfluxDB task engine.
@@ -11,8 +11,7 @@ description: >
 
   To configure a task, provide the script and the schedule to run the task.
 
-  For examples, see how to create a task with the [`POST /api/v2/tasks`
-  endpoint](#operation/PostTasks).
+  For examples, see how to create a task with the `POST /api/v2/tasks` endpoint.
 
 
   <span id="tasks-schemaref-task" />
@@ -34,7 +33,7 @@ description: >
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-tasks.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-tasks.yaml
 weight: 100
 tag: Tasks
 isConceptual: false
@@ -166,4 +165,12 @@ operations:
     summary: Retry a task run
     tags:
       - Tasks
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

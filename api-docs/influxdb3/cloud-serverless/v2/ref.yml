@@ -29,6 +29,8 @@ security:
   - TokenAuthentication: []
 tags:
   - description: |
+      Use InfluxDB v1 and v2 compatible endpoints to write and query data.
+
       ### Write data
 
       InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints for writing data:
@@ -61,6 +63,8 @@ tags:
     name: API compatibility
     x-traitTag: true
   - description: |
+      Authenticate API requests using tokens, basic auth, or query strings.
+
       Use one of the following schemes to authenticate to the InfluxDB API:
 
       - [Token authentication](#section/Authentication/TokenAuthentication)
@@ -116,6 +120,8 @@ tags:
   - name: Cells
   - name: Checks
   - description: |
+      Parameters for specifying resources in API requests.
+
       To specify resources, some InfluxDB API endpoints require parameters or
       properties in the request--for example,
       writing to a `bucket` resource in an `org` (_organization_ resource).
@@ -132,7 +138,6 @@ tags:
     x-traitTag: true
   - name: Config
   - name: Dashboards
-  - name: Data I/O endpoints
   - description: |
       The InfluxDB 1.x data model includes [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
       and [retention policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
@@ -245,8 +250,10 @@ tags:
 
       - [Get started querying InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
       - [Execute queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
-    name: Query
+    name: Query data
   - description: |
+      Get started quickly with tutorials and client libraries.
+
       See the [**Get started**](/influxdb3/cloud-serverless/get-started/) tutorial
       to get up and running authenticating with tokens, writing to buckets, and querying data.
 
@@ -357,7 +364,7 @@ tags:
   - name: Views
   - description: |
       Write time series data to [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using InfluxDB v1 or v2 endpoints.
-    name: Write
+    name: Write data
 paths:
   /api/v2:
     get:
@@ -3885,7 +3892,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
-        - Query
+        - Query data
   /api/v2/query/analyze:
     post:
       deprecated: true
@@ -3989,7 +3996,7 @@ paths:
                 type: string
       summary: Analyze a Flux query
       tags:
-        - Query
+        - Query data
   /api/v2/query/ast:
     post:
       deprecated: true
@@ -4052,7 +4059,7 @@ paths:
           description: Internal server error.
       summary: Generate a query Abstract Syntax Tree (AST)
       tags:
-        - Query
+        - Query data
   /api/v2/query/suggestions:
     get:
       deprecated: true
@@ -4095,7 +4102,7 @@ paths:
           description: Internal server error.
       summary: List Flux query suggestions
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: cURL
           lang: Shell
@@ -4142,7 +4149,7 @@ paths:
             The value passed for _`name`_ may have been misspelled.
       summary: Retrieve a query suggestion for a branching suggestion
       tags:
-        - Query
+        - Query data
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -7678,10 +7685,9 @@ paths:
                 type: integer
         default:
           $ref: '#/components/responses/GeneralServerError'
-      summary: Write data
+      summary: Write data using the InfluxDB v2 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
   /legacy/authorizations:
     servers:
       - url: /private
@@ -7847,8 +7853,7 @@ paths:
           description: Error processing query
       summary: Query using the InfluxDB v1 HTTP API
       tags:
-        - Data I/O endpoints
-        - Query
+        - Query data
   /write:
     post:
       operationId: PostLegacyWrite
@@ -8011,8 +8016,7 @@ paths:
           description: Internal server error
       summary: Write data using the InfluxDB v1 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
 components:
   examples:
     AuthorizationPostRequest:
@@ -14756,7 +14760,7 @@ x-tagGroups:
       - Invokable Scripts
       - Limits
       - Organizations
-      - Query
+      - Query data
       - Resources
       - Routes
       - Secrets
@@ -14765,4 +14769,4 @@ x-tagGroups:
       - Templates
       - Usage
       - Variables
-      - Write
+      - Write data

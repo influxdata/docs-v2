@@ -1,13 +1,13 @@
 ---
 title: Invokable Scripts
-description: |
+description: |-
   Store, manage, and execute scripts in InfluxDB.
   A script stores your custom Flux script and provides an invokable
   endpoint that accepts runtime parameters.
   In a script, you can specify custom runtime parameters
   (`params`)--for example, `params.myparameter`.
   Once you create a script, InfluxDB generates an
-  [`/api/v2/scripts/SCRIPT_ID/invoke` endpoint](#operation/PostScriptsIDInvoke)
+  `/api/v2/scripts/SCRIPT_ID/invoke` endpoint
   for your organization.
   You can run the script from API requests and tasks, defining parameter
   values for each run.
@@ -21,7 +21,7 @@ description: |
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-invokable-scripts.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-invokable-scripts.yaml
 weight: 100
 tag: Invokable Scripts
 isConceptual: false
@@ -69,4 +69,12 @@ operations:
     summary: Find script parameters.
     tags:
       - Invokable Scripts
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

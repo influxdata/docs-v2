@@ -1,13 +1,12 @@
 ---
 title: Buckets
-description: >
+description: >-
   Store your data in InfluxDB
-  [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+  [buckets](/influxdb3/cloud-serverless/reference/glossary/).
 
   A bucket is a named location where time series data is stored. All buckets
 
-  have a [retention
-  period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+  have a [retention period](/influxdb3/cloud-serverless/reference/glossary/),
 
   a duration of time that each data point persists. InfluxDB drops all
 
@@ -23,7 +22,7 @@ description: >
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-buckets.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-buckets.yaml
 weight: 100
 tag: Buckets
 isConceptual: false
@@ -113,4 +112,12 @@ operations:
     summary: Remove an owner from a bucket
     tags:
       - Buckets
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

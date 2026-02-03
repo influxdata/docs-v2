@@ -1,6 +1,6 @@
 ---
 title: Headers
-description: >
+description: >-
   InfluxDB HTTP API endpoints use standard HTTP request and response headers.
 
   The following table shows common headers used by many InfluxDB API endpoints.
@@ -32,12 +32,12 @@ description: >
 type: api
 layout: single
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-headers.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-headers.yaml
 weight: 100
 tag: Headers
 isConceptual: true
 menuGroup: Other
-tagDescription: >
+tagDescription: >-
   InfluxDB HTTP API endpoints use standard HTTP request and response headers.
 
   The following table shows common headers used by many InfluxDB API endpoints.
@@ -66,4 +66,12 @@ tagDescription: >
 
   | `Content-Type`           | string                | The format of the data in
   the request body. |
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

@@ -4,7 +4,10 @@ articles:
       name: API compatibility
       describes: []
       title: API compatibility
-      description: >
+      description: >-
+        Use InfluxDB v1 and v2 compatible endpoints to write and query data.
+
+
         ### Write data
 
 
@@ -12,10 +15,10 @@ articles:
         for writing data:
 
 
-        - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
+        - **Recommended**: `/api/v2/write` endpoint
           for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-        - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing
-        InfluxDB v1 write workloads to InfluxDB 3.
+        - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
+        InfluxDB 3.
 
 
         Both endpoints accept the same line protocol format and process data in
@@ -33,19 +36,16 @@ articles:
         InfluxQL query. See how to [get started querying InfluxDB using Flight
         and SQL](/influxdb3/cloud-serverless/get-started/query/).
 
-        - HTTP API [`/query`
-        request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that
+        - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/) that
         contains an InfluxQL query.
           Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
 
         ### InfluxDB v2 compatibility
 
 
-        The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with
-        the [`Token` authentication
-        scheme](#section/Authentication/TokenAuthentication) and existing
-        InfluxDB 2.x tools and code for [writing
-        data](/influxdb3/cloud-serverless/write-data/).
+        The HTTP API `/api/v2/write` endpoint works with the `Token`
+        authentication scheme and existing InfluxDB 2.x tools and code for
+        [writing data](/influxdb3/cloud-serverless/write-data/).
 
 
         See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud
@@ -55,10 +55,9 @@ articles:
         ### InfluxDB v1 compatibility
 
 
-        The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and
-        [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x
-        username/password [authentication schemes](#section/Authentication/) and
-        existing InfluxDB 1.x tools and code.
+        The HTTP API `/write` endpoint and `/query` endpoint work with InfluxDB
+        1.x username/password authentication schemes and existing InfluxDB 1.x
+        tools and code.
 
 
         See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud
@@ -67,7 +66,10 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
+      tagDescription: >-
+        Use InfluxDB v1 and v2 compatible endpoints to write and query data.
+
+
         ### Write data
 
 
@@ -75,10 +77,10 @@ articles:
         for writing data:
 
 
-        - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
+        - **Recommended**: `/api/v2/write` endpoint
           for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-        - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing
-        InfluxDB v1 write workloads to InfluxDB 3.
+        - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
+        InfluxDB 3.
 
 
         Both endpoints accept the same line protocol format and process data in
@@ -96,19 +98,16 @@ articles:
         InfluxQL query. See how to [get started querying InfluxDB using Flight
         and SQL](/influxdb3/cloud-serverless/get-started/query/).
 
-        - HTTP API [`/query`
-        request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that
+        - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/) that
         contains an InfluxQL query.
           Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
 
         ### InfluxDB v2 compatibility
 
 
-        The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with
-        the [`Token` authentication
-        scheme](#section/Authentication/TokenAuthentication) and existing
-        InfluxDB 2.x tools and code for [writing
-        data](/influxdb3/cloud-serverless/write-data/).
+        The HTTP API `/api/v2/write` endpoint works with the `Token`
+        authentication scheme and existing InfluxDB 2.x tools and code for
+        [writing data](/influxdb3/cloud-serverless/write-data/).
 
 
         See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud
@@ -118,56 +117,47 @@ articles:
         ### InfluxDB v1 compatibility
 
 
-        The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and
-        [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x
-        username/password [authentication schemes](#section/Authentication/) and
-        existing InfluxDB 1.x tools and code.
+        The HTTP API `/write` endpoint and `/query` endpoint work with InfluxDB
+        1.x username/password authentication schemes and existing InfluxDB 1.x
+        tools and code.
 
 
         See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud
         Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-api-compatibility.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-api-compatibility.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-api-compatibility.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-api-compatibility.yaml
   - path: api/authentication
     fields:
       name: Authentication
       describes: []
       title: Authentication
-      description: >
+      description: |-
+        Authenticate API requests using tokens, basic auth, or query strings.
+
         Use one of the following schemes to authenticate to the InfluxDB API:
 
-
-        - [Token authentication](#section/Authentication/TokenAuthentication)
-
-        - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-        - [Querystring
-        authentication](#section/Authentication/QuerystringAuthentication)
-
-        <!-- ReDoc-Inject: <security-definitions> -->
+        - Token authentication
+        - Basic authentication
+        - Querystring authentication
       tag: Authentication
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: |-
+        Authenticate API requests using tokens, basic auth, or query strings.
+
         Use one of the following schemes to authenticate to the InfluxDB API:
 
-
-        - [Token authentication](#section/Authentication/TokenAuthentication)
-
-        - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-        - [Querystring
-        authentication](#section/Authentication/QuerystringAuthentication)
-
-        <!-- ReDoc-Inject: <security-definitions> -->
+        - Token authentication
+        - Basic authentication
+        - Querystring authentication
       showSecuritySchemes: true
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authentication.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-authentication.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authentication.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-authentication.yaml
   - path: api/authorizations-api-tokens
     fields:
       name: Authorizations (API tokens)
@@ -175,7 +165,7 @@ articles:
         - /api/v2/authorizations
         - /api/v2/authorizations/{authID}
       title: Authorizations (API tokens)
-      description: >
+      description: >-
         Create and manage authorizations (API tokens).
 
 
@@ -211,23 +201,22 @@ articles:
         For more information, see [how to assign a token to a specific
         user](/influxdb3/cloud-serverless/security/tokens/create-token/).
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related endpoints
 
 
-        - [Signin](#tag/Signin)
+        - Signin
 
-        - [Signout](#tag/Signout)
+        - Signout
 
 
         ### Related guides
 
 
         - [Authorize API
-        requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
+        requests](/influxdb3/cloud-serverless/api-guide/api_intro/)
 
         - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
 
@@ -267,7 +256,7 @@ articles:
           summary: Delete an authorization
           tags:
             - Authorizations (API tokens)
-      tagDescription: >
+      tagDescription: >-
         Create and manage authorizations (API tokens).
 
 
@@ -303,32 +292,31 @@ articles:
         For more information, see [how to assign a token to a specific
         user](/influxdb3/cloud-serverless/security/tokens/create-token/).
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related endpoints
 
 
-        - [Signin](#tag/Signin)
+        - Signin
 
-        - [Signout](#tag/Signout)
+        - Signout
 
 
         ### Related guides
 
 
         - [Authorize API
-        requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
+        requests](/influxdb3/cloud-serverless/api-guide/api_intro/)
 
         - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
 
         - [Assign a token to a specific
         user](/influxdb3/cloud-serverless/security/tokens/create-token/)
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authorizations-api-tokens.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-authorizations-api-tokens.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authorizations-api-tokens.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-authorizations-api-tokens.yaml
   - path: api/bucket-schemas
     fields:
       name: Bucket Schemas
@@ -366,9 +354,9 @@ articles:
           tags:
             - Bucket Schemas
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-bucket-schemas.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-bucket-schemas.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-bucket-schemas.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-bucket-schemas.yaml
   - path: api/buckets
     fields:
       name: Buckets
@@ -382,15 +370,15 @@ articles:
         - /api/v2/buckets/{bucketID}/owners
         - /api/v2/buckets/{bucketID}/owners/{userID}
       title: Buckets
-      description: >
+      description: >-
         Store your data in InfluxDB
-        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/).
 
         A bucket is a named location where time series data is stored. All
         buckets
 
         have a [retention
-        period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+        period](/influxdb3/cloud-serverless/reference/glossary/),
 
         a duration of time that each data point persists. InfluxDB drops all
 
@@ -491,15 +479,15 @@ articles:
           summary: Remove an owner from a bucket
           tags:
             - Buckets
-      tagDescription: >
+      tagDescription: >-
         Store your data in InfluxDB
-        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket).
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/).
 
         A bucket is a named location where time series data is stored. All
         buckets
 
         have a [retention
-        period](/influxdb3/cloud-serverless/reference/glossary/#retention-period),
+        period](/influxdb3/cloud-serverless/reference/glossary/),
 
         a duration of time that each data point persists. InfluxDB drops all
 
@@ -513,15 +501,18 @@ articles:
 
         - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-buckets.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-buckets.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-buckets.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-buckets.yaml
   - path: api/common-parameters
     fields:
       name: Common parameters
       describes: []
       title: Common parameters
-      description: >
+      description: >-
+        Parameters for specifying resources in API requests.
+
+
         To specify resources, some InfluxDB API endpoints require parameters or
 
         properties in the request--for example,
@@ -559,7 +550,10 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
+      tagDescription: >-
+        Parameters for specifying resources in API requests.
+
+
         To specify resources, some InfluxDB API endpoints require parameters or
 
         properties in the request--for example,
@@ -594,44 +588,9 @@ articles:
         organization](/influxdb3/cloud-serverless/admin/organizations/view-orgs/).
         |
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-common-parameters.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-common-parameters.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-common-parameters.yaml
-  - path: api/data-i-o-endpoints
-    fields:
-      name: Data I/O endpoints
-      describes:
-        - /api/v2/write
-        - /query
-        - /write
-      title: Data I/O endpoints
-      description: API reference for Data I/O endpoints
-      tag: Data I/O endpoints
-      isConceptual: false
-      menuGroup: Other
-      operations:
-        - operationId: PostWrite
-          method: POST
-          path: /api/v2/write
-          summary: Write data
-          tags:
-            - Data I/O endpoints
-        - operationId: GetLegacyQuery
-          method: GET
-          path: /query
-          summary: Query using the InfluxDB v1 HTTP API
-          tags:
-            - Data I/O endpoints
-        - operationId: PostLegacyWrite
-          method: POST
-          path: /write
-          summary: Write data using the InfluxDB v1 HTTP API
-          tags:
-            - Data I/O endpoints
-      source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-data-i-o-endpoints.yaml
-      staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-data-i-o-endpoints.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-common-parameters.yaml
   - path: api/dbrps
     fields:
       name: DBRPs
@@ -639,12 +598,12 @@ articles:
         - /api/v2/dbrps
         - /api/v2/dbrps/{dbrpID}
       title: DBRPs
-      description: >
+      description: >-
         The InfluxDB 1.x data model includes
-        [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
+        [databases](/influxdb3/cloud-serverless/reference/glossary/)
 
         and [retention
-        policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+        policies](/influxdb3/cloud-serverless/reference/glossary/).
 
         InfluxDB 2.x replaces databases and retention policies with buckets.
 
@@ -699,12 +658,12 @@ articles:
           summary: Delete a database retention policy
           tags:
             - DBRPs
-      tagDescription: >
+      tagDescription: >-
         The InfluxDB 1.x data model includes
-        [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
+        [databases](/influxdb3/cloud-serverless/reference/glossary/)
 
         and [retention
-        policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+        policies](/influxdb3/cloud-serverless/reference/glossary/).
 
         InfluxDB 2.x replaces databases and retention policies with buckets.
 
@@ -726,17 +685,16 @@ articles:
         - [Database and retention policy
         mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-dbrps.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-dbrps.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-dbrps.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-dbrps.yaml
   - path: api/delete
     fields:
       name: Delete
       describes:
         - /api/v2/delete
       title: Delete
-      description: |
-        Delete data from an InfluxDB bucket.
+      description: Delete data from an InfluxDB bucket.
       tag: Delete
       isConceptual: false
       menuGroup: Other
@@ -747,18 +705,17 @@ articles:
           summary: Delete data
           tags:
             - Delete
-      tagDescription: |
-        Delete data from an InfluxDB bucket.
+      tagDescription: Delete data from an InfluxDB bucket.
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-delete.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-delete.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-delete.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-delete.yaml
   - path: api/headers
     fields:
       name: Headers
       describes: []
       title: Headers
-      description: >
+      description: >-
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
 
@@ -795,7 +752,7 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
+      tagDescription: >-
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
 
@@ -829,9 +786,9 @@ articles:
         | `Content-Type`           | string                | The format of the
         data in the request body. |
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-headers.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-headers.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-headers.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-headers.yaml
   - path: api/invokable-scripts
     fields:
       name: Invokable Scripts
@@ -841,7 +798,7 @@ articles:
         - /api/v2/scripts/{scriptID}/invoke
         - /api/v2/scripts/{scriptID}/params
       title: Invokable Scripts
-      description: >
+      description: >-
         Store, manage, and execute scripts in InfluxDB.
 
         A script stores your custom Flux script and provides an invokable
@@ -854,8 +811,7 @@ articles:
 
         Once you create a script, InfluxDB generates an
 
-        [`/api/v2/scripts/SCRIPT_ID/invoke`
-        endpoint](#operation/PostScriptsIDInvoke)
+        `/api/v2/scripts/SCRIPT_ID/invoke` endpoint
 
         for your organization.
 
@@ -921,7 +877,7 @@ articles:
           summary: Find script parameters.
           tags:
             - Invokable Scripts
-      tagDescription: >
+      tagDescription: >-
         Store, manage, and execute scripts in InfluxDB.
 
         A script stores your custom Flux script and provides an invokable
@@ -934,8 +890,7 @@ articles:
 
         Once you create a script, InfluxDB generates an
 
-        [`/api/v2/scripts/SCRIPT_ID/invoke`
-        endpoint](#operation/PostScriptsIDInvoke)
+        `/api/v2/scripts/SCRIPT_ID/invoke` endpoint
 
         for your organization.
 
@@ -956,9 +911,9 @@ articles:
 
         <!-- TSM-only -->
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-invokable-scripts.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-invokable-scripts.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-invokable-scripts.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-invokable-scripts.yaml
   - path: api/limits
     fields:
       name: Limits
@@ -977,9 +932,9 @@ articles:
           tags:
             - Limits
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-limits.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-limits.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-limits.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-limits.yaml
   - path: api/organizations
     fields:
       name: Organizations
@@ -991,9 +946,9 @@ articles:
         - /api/v2/orgs/{orgID}/owners
         - /api/v2/orgs/{orgID}/owners/{userID}
       title: Organizations
-      description: >
+      description: >-
         Manage your
-        [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+        [organization](/influxdb3/cloud-serverless/reference/glossary/).
 
         An organization is a workspace for a group of users. Organizations can
         be
@@ -1074,9 +1029,9 @@ articles:
           summary: Remove an owner from an organization
           tags:
             - Organizations
-      tagDescription: >
+      tagDescription: >-
         Manage your
-        [organization](/influxdb3/cloud-serverless/reference/glossary/#organization).
+        [organization](/influxdb3/cloud-serverless/reference/glossary/).
 
         An organization is a workspace for a group of users. Organizations can
         be
@@ -1088,17 +1043,17 @@ articles:
 
         Use the `/api/v2/orgs` endpoints to view and manage organizations.
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-organizations.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-organizations.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-organizations.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-organizations.yaml
   - path: api/pagination
     fields:
       name: Pagination
       describes: []
       title: Pagination
-      description: >
-        Some InfluxDB API [list operations](#tag/SupportedOperations) may
-        support the following query parameters for paginating results:
+      description: >-
+        Some InfluxDB API list operations may support the following query
+        parameters for paginating results:
 
           | Query parameter          | Value type            | Description                                |
           |:------------------------ |:--------------------- |:-------------------------------------------|
@@ -1136,9 +1091,9 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
-        Some InfluxDB API [list operations](#tag/SupportedOperations) may
-        support the following query parameters for paginating results:
+      tagDescription: >-
+        Some InfluxDB API list operations may support the following query
+        parameters for paginating results:
 
           | Query parameter          | Value type            | Description                                |
           |:------------------------ |:--------------------- |:-------------------------------------------|
@@ -1173,12 +1128,12 @@ articles:
             }
             ```
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-pagination.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-pagination.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-pagination.yaml
-  - path: api/query
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-pagination.yaml
+  - path: api/query-data
     fields:
-      name: Query
+      name: Query data
       describes:
         - /api/v2/query
         - /api/v2/query/analyze
@@ -1186,13 +1141,13 @@ articles:
         - /api/v2/query/suggestions
         - /api/v2/query/suggestions/{name}
         - /query
-      title: Query
-      description: >
+      title: Query data
+      description: >-
         Query data stored in a bucket.
 
 
         - HTTP clients can query the v1 [`/query`
-        endpoint](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery)
+        endpoint](/influxdb3/cloud-serverless/api/)
 
         using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
 
@@ -1208,52 +1163,52 @@ articles:
 
         - [Execute
         queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
-      tag: Query
+      tag: Query data
       isConceptual: false
-      menuGroup: Other
+      menuGroup: Data Operations
       operations:
         - operationId: PostQuery
           method: POST
           path: /api/v2/query
           summary: Query data
           tags:
-            - Query
+            - Query data
         - operationId: PostQueryAnalyze
           method: POST
           path: /api/v2/query/analyze
           summary: Analyze a Flux query
           tags:
-            - Query
+            - Query data
         - operationId: PostQueryAst
           method: POST
           path: /api/v2/query/ast
           summary: Generate a query Abstract Syntax Tree (AST)
           tags:
-            - Query
+            - Query data
         - operationId: GetQuerySuggestions
           method: GET
           path: /api/v2/query/suggestions
           summary: List Flux query suggestions
           tags:
-            - Query
+            - Query data
         - operationId: GetQuerySuggestionsName
           method: GET
           path: /api/v2/query/suggestions/{name}
           summary: Retrieve a query suggestion for a branching suggestion
           tags:
-            - Query
+            - Query data
         - operationId: GetLegacyQuery
           method: GET
           path: /query
           summary: Query using the InfluxDB v1 HTTP API
           tags:
-            - Query
-      tagDescription: >
+            - Query data
+      tagDescription: >-
         Query data stored in a bucket.
 
 
         - HTTP clients can query the v1 [`/query`
-        endpoint](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery)
+        endpoint](/influxdb3/cloud-serverless/api/)
 
         using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
 
@@ -1270,15 +1225,18 @@ articles:
         - [Execute
         queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-query.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-query-data.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-query.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-query-data.yaml
   - path: api/quick-start
     fields:
       name: Quick start
       describes: []
       title: Quick start
-      description: >
+      description: >-
+        Get started quickly with tutorials and client libraries.
+
+
         See the [**Get started**](/influxdb3/cloud-serverless/get-started/)
         tutorial
 
@@ -1294,7 +1252,10 @@ articles:
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: >-
+        Get started quickly with tutorials and client libraries.
+
+
         See the [**Get started**](/influxdb3/cloud-serverless/get-started/)
         tutorial
 
@@ -1307,9 +1268,9 @@ articles:
 
         are available to integrate InfluxDB with your application.
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-quick-start.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-quick-start.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-quick-start.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-quick-start.yaml
   - path: api/resources
     fields:
       name: Resources
@@ -1328,15 +1289,15 @@ articles:
           tags:
             - Resources
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-resources.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-resources.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-resources.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-resources.yaml
   - path: api/response-codes
     fields:
       name: Response codes
       describes: []
       title: Response codes
-      description: >
+      description: >-
         InfluxDB HTTP API endpoints use standard HTTP status codes for success
         and failure responses.
 
@@ -1357,10 +1318,9 @@ articles:
         | `200`       | Success                  |                       |
 
         | `201`       | Created                  | Successfully created a
-        resource. The response body may contain details, for example
-        [`/write`](#operation/PostLegacyWrite) and
-        [`/api/v2/write`](#operation/PostWrite) response bodies contain details
-        of partial write failures. |
+        resource. The response body may contain details, for example `/write`
+        and `/api/v2/write` response bodies contain details of partial write
+        failures. |
 
         | `204`       | No content               | The request succeeded. |
 
@@ -1408,7 +1368,7 @@ articles:
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: >-
         InfluxDB HTTP API endpoints use standard HTTP status codes for success
         and failure responses.
 
@@ -1429,10 +1389,9 @@ articles:
         | `200`       | Success                  |                       |
 
         | `201`       | Created                  | Successfully created a
-        resource. The response body may contain details, for example
-        [`/write`](#operation/PostLegacyWrite) and
-        [`/api/v2/write`](#operation/PostWrite) response bodies contain details
-        of partial write failures. |
+        resource. The response body may contain details, for example `/write`
+        and `/api/v2/write` response bodies contain details of partial write
+        failures. |
 
         | `204`       | No content               | The request succeeded. |
 
@@ -1477,9 +1436,9 @@ articles:
         unavailable to process the request. The `Retry-After` header describes
         when to try the request again. |
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-response-codes.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-response-codes.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-response-codes.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-response-codes.yaml
   - path: api/routes
     fields:
       name: Routes
@@ -1498,9 +1457,9 @@ articles:
           tags:
             - Routes
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-routes.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-routes.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-routes.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-routes.yaml
   - path: api/secrets
     fields:
       name: Secrets
@@ -1539,9 +1498,9 @@ articles:
           tags:
             - Secrets
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-secrets.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-secrets.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-secrets.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-secrets.yaml
   - path: api/security-and-access-endpoints
     fields:
       name: Security and access endpoints
@@ -1585,24 +1544,24 @@ articles:
           tags:
             - Security and access endpoints
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-security-and-access-endpoints.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-security-and-access-endpoints.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-security-and-access-endpoints.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-security-and-access-endpoints.yaml
   - path: api/supported-operations
     fields:
       name: Supported operations
       describes: []
       title: Supported operations
-      description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |"
       tag: Supported operations
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      tagDescription: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |"
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-supported-operations.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-supported-operations.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-supported-operations.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-supported-operations.yaml
   - path: api/system-information-endpoints
     fields:
       name: System information endpoints
@@ -1628,9 +1587,9 @@ articles:
           tags:
             - System information endpoints
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-system-information-endpoints.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-system-information-endpoints.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-system-information-endpoints.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-system-information-endpoints.yaml
   - path: api/tasks
     fields:
       name: Tasks
@@ -1649,7 +1608,7 @@ articles:
         - /api/v2/tasks/{taskID}/runs/{runID}/logs
         - /api/v2/tasks/{taskID}/runs/{runID}/retry
       title: Tasks
-      description: >
+      description: >-
         Process and analyze your data with tasks
 
         in the InfluxDB task engine.
@@ -1661,8 +1620,8 @@ articles:
         To configure a task, provide the script and the schedule to run the
         task.
 
-        For examples, see how to create a task with the [`POST /api/v2/tasks`
-        endpoint](#operation/PostTasks).
+        For examples, see how to create a task with the `POST /api/v2/tasks`
+        endpoint.
 
 
         <span id="tasks-schemaref-task" />
@@ -1811,7 +1770,7 @@ articles:
           summary: Retry a task run
           tags:
             - Tasks
-      tagDescription: >
+      tagDescription: >-
         Process and analyze your data with tasks
 
         in the InfluxDB task engine.
@@ -1823,8 +1782,8 @@ articles:
         To configure a task, provide the script and the schedule to run the
         task.
 
-        For examples, see how to create a task with the [`POST /api/v2/tasks`
-        endpoint](#operation/PostTasks).
+        For examples, see how to create a task with the `POST /api/v2/tasks`
+        endpoint.
 
 
         <span id="tasks-schemaref-task" />
@@ -1844,9 +1803,9 @@ articles:
 
         <!-- TSM-only -->
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-tasks.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-tasks.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-tasks.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-tasks.yaml
   - path: api/telegrafs
     fields:
       name: Telegrafs
@@ -1950,9 +1909,9 @@ articles:
           tags:
             - Telegrafs
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-telegrafs.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-telegrafs.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-telegrafs.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-telegrafs.yaml
   - path: api/templates
     fields:
       name: Templates
@@ -1963,7 +1922,7 @@ articles:
         - /api/v2/templates/apply
         - /api/v2/templates/export
       title: Templates
-      description: >
+      description: >-
         Export and apply InfluxDB **templates**.
 
         Manage **stacks** of templated InfluxDB resources.
@@ -2049,7 +2008,7 @@ articles:
           summary: Export a new template
           tags:
             - Templates
-      tagDescription: >
+      tagDescription: >-
         Export and apply InfluxDB **templates**.
 
         Manage **stacks** of templated InfluxDB resources.
@@ -2084,9 +2043,9 @@ articles:
 
         <!-- TSM-only -->
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-templates.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-templates.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-templates.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-templates.yaml
   - path: api/usage
     fields:
       name: Usage
@@ -2105,9 +2064,9 @@ articles:
           tags:
             - Usage
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-usage.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-usage.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-usage.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-usage.yaml
   - path: api/variables
     fields:
       name: Variables
@@ -2177,41 +2136,41 @@ articles:
           tags:
             - Variables
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-variables.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-variables.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-variables.yaml
-  - path: api/write
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-variables.yaml
+  - path: api/write-data
     fields:
-      name: Write
+      name: Write data
       describes:
         - /api/v2/write
         - /write
-      title: Write
-      description: >
+      title: Write data
+      description: >-
         Write time series data to
-        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/) using
         InfluxDB v1 or v2 endpoints.
-      tag: Write
+      tag: Write data
       isConceptual: false
-      menuGroup: Other
+      menuGroup: Data Operations
       operations:
         - operationId: PostWrite
           method: POST
           path: /api/v2/write
-          summary: Write data
+          summary: Write data using the InfluxDB v2 HTTP API
           tags:
-            - Write
+            - Write data
         - operationId: PostLegacyWrite
           method: POST
           path: /write
           summary: Write data using the InfluxDB v1 HTTP API
           tags:
-            - Write
-      tagDescription: >
+            - Write data
+      tagDescription: >-
         Write time series data to
-        [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using
+        [buckets](/influxdb3/cloud-serverless/reference/glossary/) using
         InfluxDB v1 or v2 endpoints.
       source: >-
-        static/openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-write.yaml
+        static/openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-write-data.yaml
       staticFilePath: >-
-        /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-write.yaml
+        /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-write-data.yaml

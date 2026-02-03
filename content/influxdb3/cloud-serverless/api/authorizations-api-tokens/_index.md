@@ -1,6 +1,6 @@
 ---
 title: Authorizations (API tokens)
-description: >
+description: >-
   Create and manage authorizations (API tokens).
 
 
@@ -34,23 +34,21 @@ description: >
   For more information, see [how to assign a token to a specific
   user](/influxdb3/cloud-serverless/security/tokens/create-token/).
 
-  To create a user session, use the [`POST /api/v2/signin`
-  endpoint](#operation/PostSignin).
+  To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
   ### Related endpoints
 
 
-  - [Signin](#tag/Signin)
+  - Signin
 
-  - [Signout](#tag/Signout)
+  - Signout
 
 
   ### Related guides
 
 
-  - [Authorize API
-  requests](/influxdb3/cloud-serverless/api-guide/api_intro/#authentication)
+  - [Authorize API requests](/influxdb3/cloud-serverless/api-guide/api_intro/)
 
   - [Manage API tokens](/influxdb3/cloud-serverless/security/tokens/)
 
@@ -59,7 +57,7 @@ description: >
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-authorizations-api-tokens.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-authorizations-api-tokens.yaml
 weight: 100
 tag: Authorizations (API tokens)
 isConceptual: false
@@ -95,4 +93,12 @@ operations:
     summary: Delete an authorization
     tags:
       - Authorizations (API tokens)
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

@@ -1,6 +1,6 @@
 ---
 title: Response codes
-description: >
+description: >-
   InfluxDB HTTP API endpoints use standard HTTP status codes for success and
   failure responses.
 
@@ -21,10 +21,8 @@ description: >
   | `200`       | Success                  |                       |
 
   | `201`       | Created                  | Successfully created a resource.
-  The response body may contain details, for example
-  [`/write`](#operation/PostLegacyWrite) and
-  [`/api/v2/write`](#operation/PostWrite) response bodies contain details of
-  partial write failures. |
+  The response body may contain details, for example `/write` and
+  `/api/v2/write` response bodies contain details of partial write failures. |
 
   | `204`       | No content               | The request succeeded. |
 
@@ -69,12 +67,12 @@ description: >
 type: api
 layout: single
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-response-codes.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-response-codes.yaml
 weight: 100
 tag: Response codes
 isConceptual: true
 menuGroup: Concepts
-tagDescription: >
+tagDescription: >-
   InfluxDB HTTP API endpoints use standard HTTP status codes for success and
   failure responses.
 
@@ -95,10 +93,8 @@ tagDescription: >
   | `200`       | Success                  |                       |
 
   | `201`       | Created                  | Successfully created a resource.
-  The response body may contain details, for example
-  [`/write`](#operation/PostLegacyWrite) and
-  [`/api/v2/write`](#operation/PostWrite) response bodies contain details of
-  partial write failures. |
+  The response body may contain details, for example `/write` and
+  `/api/v2/write` response bodies contain details of partial write failures. |
 
   | `204`       | No content               | The request succeeded. |
 
@@ -140,4 +136,12 @@ tagDescription: >
   | `503`       | Service unavailable      | Server is temporarily unavailable
   to process the request. The `Retry-After` header describes when to try the
   request again. |
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

@@ -28,9 +28,11 @@ security:
   - bearerAuthManagementToken: []
     bearerAuthJwt: []
 tags:
-  - name: Authentication
+  - name: Admin authentication (management operations)
     x-traitTag: true
     description: |
+      Authenticate requests to the InfluxDB Management API.
+
       With InfluxDB 3 Cloud Dedicated, the InfluxDB Management API endpoints require the following credentials:
 
       - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
@@ -45,9 +47,11 @@ tags:
     description: Manage database read/write tokens for a cluster
   - name: Databases
     description: Manage databases for a cluster
-  - name: Quickstart
+  - name: Quick start
     x-traitTag: true
     description: |
+      Get started quickly with example API requests.
+
       The following example script shows how to use `curl` to make database and token management requests:
 
       ```shell
@@ -2016,7 +2020,7 @@ x-tagGroups:
   - name: Using the Management API
     tags:
       - Authentication
-      - Quickstart
+      - Quick start
   - name: All endpoints
     tags:
       - Database tokens

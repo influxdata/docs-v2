@@ -32,6 +32,8 @@ security:
   - QuerystringAuthentication: []
 tags:
   - description: |
+      Use InfluxDB v1 and v2 compatible endpoints to write and query data.
+
       ### Write data
 
       InfluxDB 3 Cloud Dedicated provides the following HTTP API endpoints for writing data:
@@ -63,6 +65,8 @@ tags:
     name: API compatibility
     x-traitTag: true
   - description: |
+      Authenticate API requests using tokens, basic auth, or query strings.
+
       Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
 
       | Authentication scheme | Works with |
@@ -75,6 +79,8 @@ tags:
     name: Authentication
     x-traitTag: true
   - description: |
+      Parameters for specifying resources in API requests.
+
       To specify resources, some InfluxDB API endpoints require parameters or
       properties in the request--for example,
       writing to a `database` resource.
@@ -86,9 +92,6 @@ tags:
       | `database`, `db`                 | string        | The database name |
     name: Common parameters
     x-traitTag: true
-  - name: Data I/O endpoints
-    description: |
-      Write and query data stored in InfluxDB.
   - description: |
       InfluxDB HTTP API endpoints use standard HTTP request and response headers.
       The following table shows common headers used by many InfluxDB API endpoints.
@@ -116,8 +119,10 @@ tags:
 
       - [Get started querying InfluxDB](/influxdb3/cloud-dedicated/get-started/query/)
       - [Execute queries](/influxdb3/cloud-dedicated/query-data/execute-queries/)
-    name: Query
+    name: Query data
   - description: |
+      Get started quickly with tutorials and client libraries.
+
       See the [**Get Started**](/influxdb3/cloud-dedicated/get-started/) tutorial
       to get up and running authenticating with tokens, writing to databases, and querying data.
 
@@ -151,7 +156,7 @@ tags:
   - name: Usage
   - description: |
       Write time series data to [databases](/influxdb3/cloud-dedicated/admin/databases/) using InfluxDB v1 or v2 endpoints.
-    name: Write
+    name: Write data
 paths:
   /ping:
     get:
@@ -427,10 +432,9 @@ paths:
 
         default:
           $ref: '#/components/responses/GeneralServerError'
-      summary: Write data
+      summary: Write data using the InfluxDB v2 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
   /query:
     get:
       description: Queries InfluxDB using InfluxQL with InfluxDB v1 request and response formats.
@@ -567,8 +571,7 @@ paths:
           description: Error processing query
       summary: Query using the InfluxDB v1 HTTP API
       tags:
-        - Query
-        - Data I/O endpoints
+        - Query data
   /write:
     post:
       operationId: PostLegacyWrite
@@ -715,8 +718,7 @@ paths:
           description: Internal server error
       summary: Write data using the InfluxDB v1 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
 components:
   parameters:
     TraceSpan:
@@ -2111,5 +2113,5 @@ x-tagGroups:
   - name: All endpoints
     tags:
       - Ping
-      - Query
-      - Write
+      - Query data
+      - Write data

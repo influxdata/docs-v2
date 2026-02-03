@@ -1,11 +1,10 @@
 ---
 title: DBRPs
-description: >
+description: >-
   The InfluxDB 1.x data model includes
-  [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
+  [databases](/influxdb3/cloud-serverless/reference/glossary/)
 
-  and [retention
-  policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+  and [retention policies](/influxdb3/cloud-serverless/reference/glossary/).
 
   InfluxDB 2.x replaces databases and retention policies with buckets.
 
@@ -28,7 +27,7 @@ description: >
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-dbrps.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-dbrps.yaml
 weight: 100
 tag: DBRPs
 isConceptual: false
@@ -64,4 +63,12 @@ operations:
     summary: Delete a database retention policy
     tags:
       - DBRPs
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---

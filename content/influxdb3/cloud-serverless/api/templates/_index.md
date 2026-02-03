@@ -1,6 +1,6 @@
 ---
 title: Templates
-description: >
+description: >-
   Export and apply InfluxDB **templates**.
 
   Manage **stacks** of templated InfluxDB resources.
@@ -33,7 +33,7 @@ description: >
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/tags/tags/influxdb-cloud-serverless-templates.yaml
+  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-templates.yaml
 weight: 100
 tag: Templates
 isConceptual: false
@@ -87,4 +87,12 @@ operations:
     summary: Export a new template
     tags:
       - Templates
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
 ---
