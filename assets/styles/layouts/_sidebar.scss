@@ -256,6 +256,51 @@
       }
     }
   }
+
+  .feature-board-badge {
+    position: relative;
+    padding: 1rem;
+    margin: 2rem 0 1.5rem -1.5rem;
+    background: rgba($nav-category, .05);
+    border: 1px solid rgba($nav-category, .2);
+    border-radius: $radius * 4;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+    overflow: hidden;
+
+    &:before {
+      content: "NEW";
+      position: absolute;
+      padding: .1rem 1.2rem;
+      font-size: .65rem;
+      letter-spacing: .03rem;
+      font-weight: bold;
+      top: 6px;
+      right: -17px;
+      color: $g20-white;
+      background: $br-new-magenta;
+      transform: rotate(45deg);
+    }
+
+    h5 {
+      margin: 0 0 .25rem 0;
+      color: $nav-category;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0;
+      color: $article-text;
+      font-size: 0.9rem;
+      line-height: 1.4rem;
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    &:hover {
+      border-color: rgba($nav-category, .75);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
