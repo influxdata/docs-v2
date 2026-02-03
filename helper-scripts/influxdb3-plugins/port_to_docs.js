@@ -126,8 +126,8 @@ function addProductShortcodes(content) {
     [/InfluxDB 3 Core\/Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core and InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core, InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
-    // Be careful not to replace in URLs or code blocks
-    [/(?<!\/)InfluxDB 3(?![/_])/g, '{{% product-name %}}'],
+    // Be careful not to replace in URLs, code blocks, or product names like "InfluxDB 3 Explorer"
+    [/(?<!\/)InfluxDB 3(?! Explorer)(?![/_])/g, '{{% product-name %}}'],
   ];
 
   for (const [pattern, replacement] of replacements) {
