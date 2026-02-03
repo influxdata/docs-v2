@@ -9,7 +9,7 @@ articles:
         - /api/v3/configure/token
         - /api/v3/configure/token/named_admin
       title: Auth token
-      description: Manage tokens for authentication and authorization
+      description: API reference for Auth token
       tag: Auth token
       isConceptual: false
       menuGroup: Other
@@ -44,7 +44,6 @@ articles:
           summary: Create named admin token
           tags:
             - Auth token
-      tagDescription: Manage tokens for authentication and authorization
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-auth-token.yaml
       staticFilePath: >-
@@ -54,6 +53,7 @@ articles:
       name: Authentication
       describes:
         - /api/v3/configure/enterprise/token
+        - /api/v3/configure/token/admin
         - /api/v3/configure/token/admin/regenerate
         - /api/v3/configure/token
         - /api/v3/configure/token/named_admin
@@ -62,23 +62,25 @@ articles:
         Depending on your workflow, use one of the following schemes to
         authenticate to the InfluxDB 3 API:
 
+
         | Authentication scheme | Works with |
 
-        |:----------------------|:-----------|
+        |:-------------------|:-----------|
 
-        | Bearer authentication | All endpoints |
+        | [Bearer authentication](#section/Authentication/BearerAuthentication)
+        | All endpoints |
 
-        | Token authentication  | v1 and v2 compatibility endpoints (`/write`,
-        `/query`, `/api/v2/write`) |
+        | [Token authentication](#section/Authentication/TokenAuthentication) |
+        v1, v2 endpoints |
 
-        | Basic authentication  | v1 compatibility endpoints (`/write`,
-        `/query`) |
+        | [Basic authentication](#section/Authentication/BasicAuthentication) |
+        v1 endpoints |
 
-        | Querystring authentication | v1 compatibility endpoints (`/write`,
-        `/query`) |
+        | [Querystring
+        authentication](#section/Authentication/QuerystringAuthentication) | v1
+        endpoints |
 
-        See the **Security Schemes** section below for details on each
-        authentication method.
+        <!-- ReDoc-Inject: <security-definitions> -->
       tag: Authentication
       isConceptual: true
       menuGroup: Concepts
@@ -87,6 +89,12 @@ articles:
           method: POST
           path: /api/v3/configure/enterprise/token
           summary: Create a resource token
+          tags:
+            - Authentication
+        - operationId: PostCreateAdminToken
+          method: POST
+          path: /api/v3/configure/token/admin
+          summary: Create admin token
           tags:
             - Authentication
         - operationId: PostRegenerateAdminToken
@@ -111,23 +119,25 @@ articles:
         Depending on your workflow, use one of the following schemes to
         authenticate to the InfluxDB 3 API:
 
+
         | Authentication scheme | Works with |
 
-        |:----------------------|:-----------|
+        |:-------------------|:-----------|
 
-        | Bearer authentication | All endpoints |
+        | [Bearer authentication](#section/Authentication/BearerAuthentication)
+        | All endpoints |
 
-        | Token authentication  | v1 and v2 compatibility endpoints (`/write`,
-        `/query`, `/api/v2/write`) |
+        | [Token authentication](#section/Authentication/TokenAuthentication) |
+        v1, v2 endpoints |
 
-        | Basic authentication  | v1 compatibility endpoints (`/write`,
-        `/query`) |
+        | [Basic authentication](#section/Authentication/BasicAuthentication) |
+        v1 endpoints |
 
-        | Querystring authentication | v1 compatibility endpoints (`/write`,
-        `/query`) |
+        | [Querystring
+        authentication](#section/Authentication/QuerystringAuthentication) | v1
+        endpoints |
 
-        See the **Security Schemes** section below for details on each
-        authentication method.
+        <!-- ReDoc-Inject: <security-definitions> -->
       showSecuritySchemes: true
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-authentication.yaml
@@ -143,13 +153,16 @@ articles:
       description: >
         Manage the in-memory cache.
 
+
         #### Distinct Value Cache
+
 
         The Distinct Value Cache (DVC) lets you cache distinct
 
         values of one or more columns in a table, improving the performance of
 
-        queries that return distinct tag and field values. 
+        queries that return distinct tag and field values.
+
 
         The DVC is an in-memory cache that stores distinct values for specific
         columns
@@ -165,7 +178,9 @@ articles:
 
         have multiple DVCs.
 
+
         #### Last value cache
+
 
         The Last Value Cache (LVC) lets you cache the most recent
 
@@ -176,6 +191,7 @@ articles:
         N values
 
         of a field.
+
 
         The LVC is an in-memory cache that stores the last N number of values
         for
@@ -189,7 +205,9 @@ articles:
 
         An LVC is associated with a table, which can have multiple LVCs.
 
+
         #### Related guides
+
 
         - [Manage the Distinct Value
         Cache](/influxdb3/enterprise/admin/distinct-value-cache/)
@@ -227,13 +245,16 @@ articles:
       tagDescription: >
         Manage the in-memory cache.
 
+
         #### Distinct Value Cache
+
 
         The Distinct Value Cache (DVC) lets you cache distinct
 
         values of one or more columns in a table, improving the performance of
 
-        queries that return distinct tag and field values. 
+        queries that return distinct tag and field values.
+
 
         The DVC is an in-memory cache that stores distinct values for specific
         columns
@@ -249,7 +270,9 @@ articles:
 
         have multiple DVCs.
 
+
         #### Last value cache
+
 
         The Last Value Cache (LVC) lets you cache the most recent
 
@@ -260,6 +283,7 @@ articles:
         N values
 
         of a field.
+
 
         The LVC is an in-memory cache that stores the last N number of values
         for
@@ -273,7 +297,9 @@ articles:
 
         An LVC is associated with a table, which can have multiple LVCs.
 
+
         #### Related guides
+
 
         - [Manage the Distinct Value
         Cache](/influxdb3/enterprise/admin/distinct-value-cache/)
@@ -284,6 +310,151 @@ articles:
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-cache-data.yaml
       staticFilePath: >-
         /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-cache-data.yaml
+  - path: api/compatibility-endpoints
+    fields:
+      name: Compatibility endpoints
+      describes:
+        - /write
+        - /api/v2/write
+        - /query
+        - /api/v1/health
+      title: Compatibility endpoints
+      description: >
+        InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and
+        InfluxDB 2.x workloads and clients.
+
+
+        ### Write data using v1- or v2-compatible endpoints
+
+
+        - [`/api/v2/write` endpoint](#operation/PostV2Write)
+            for InfluxDB v2 clients and when you bring existing InfluxDB v2 write workloads to InfluxDB 3.
+        - [`/write` endpoint](#operation/PostV1Write) for InfluxDB v1 clients
+        and when you bring existing InfluxDB v1 write workloads to InfluxDB 3.
+
+
+        For new workloads, use the [`/api/v3/write_lp`
+        endpoint](#operation/PostWriteLP).
+
+
+        All endpoints accept the same line protocol format.
+
+
+        ### Query data
+
+
+        Use the HTTP [`/query`](#operation/GetV1ExecuteQuery) endpoint for
+        InfluxDB v1 clients and v1 query workloads using InfluxQL.
+
+
+        For new workloads, use one of the following:
+
+
+        - HTTP [`/api/v3/query_sql` endpoint](#operation/GetExecuteQuerySQL) for
+        new query workloads using SQL.
+
+        - HTTP [`/api/v3/query_influxql`
+        endpoint](#operation/GetExecuteInfluxQLQuery) for new query workloads
+        using InfluxQL.
+
+        - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or
+        InfluxQL. For more information about using Flight APIs, see [InfluxDB 3
+        client
+        libraries](https://github.com/InfluxCommunity?q=influxdb3&type=public&language=&sort=).
+
+
+        ### Server information
+
+
+        Server information endpoints such as `/health` and `metrics` are
+        compatible with InfluxDB 1.x and InfluxDB 2.x clients.
+      tag: Compatibility endpoints
+      isConceptual: false
+      menuGroup: Compatibility
+      operations:
+        - operationId: PostV1Write
+          method: POST
+          path: /write
+          summary: Write line protocol (v1-compatible)
+          tags:
+            - Compatibility endpoints
+        - operationId: PostV2Write
+          method: POST
+          path: /api/v2/write
+          summary: Write line protocol (v2-compatible)
+          tags:
+            - Compatibility endpoints
+        - operationId: GetV1ExecuteQuery
+          method: GET
+          path: /query
+          summary: Execute InfluxQL query (v1-compatible)
+          tags:
+            - Compatibility endpoints
+        - operationId: PostExecuteV1Query
+          method: POST
+          path: /query
+          summary: Execute InfluxQL query (v1-compatible)
+          tags:
+            - Compatibility endpoints
+        - operationId: GetHealthV1
+          method: GET
+          path: /api/v1/health
+          summary: Health check (v1)
+          tags:
+            - Compatibility endpoints
+      tagDescription: >
+        InfluxDB 3 provides compatibility endpoints for InfluxDB 1.x and
+        InfluxDB 2.x workloads and clients.
+
+
+        ### Write data using v1- or v2-compatible endpoints
+
+
+        - [`/api/v2/write` endpoint](#operation/PostV2Write)
+            for InfluxDB v2 clients and when you bring existing InfluxDB v2 write workloads to InfluxDB 3.
+        - [`/write` endpoint](#operation/PostV1Write) for InfluxDB v1 clients
+        and when you bring existing InfluxDB v1 write workloads to InfluxDB 3.
+
+
+        For new workloads, use the [`/api/v3/write_lp`
+        endpoint](#operation/PostWriteLP).
+
+
+        All endpoints accept the same line protocol format.
+
+
+        ### Query data
+
+
+        Use the HTTP [`/query`](#operation/GetV1ExecuteQuery) endpoint for
+        InfluxDB v1 clients and v1 query workloads using InfluxQL.
+
+
+        For new workloads, use one of the following:
+
+
+        - HTTP [`/api/v3/query_sql` endpoint](#operation/GetExecuteQuerySQL) for
+        new query workloads using SQL.
+
+        - HTTP [`/api/v3/query_influxql`
+        endpoint](#operation/GetExecuteInfluxQLQuery) for new query workloads
+        using InfluxQL.
+
+        - Flight SQL and InfluxDB 3 _Flight+gRPC_ APIs for querying with SQL or
+        InfluxQL. For more information about using Flight APIs, see [InfluxDB 3
+        client
+        libraries](https://github.com/InfluxCommunity?q=influxdb3&type=public&language=&sort=).
+
+
+        ### Server information
+
+
+        Server information endpoints such as `/health` and `metrics` are
+        compatible with InfluxDB 1.x and InfluxDB 2.x clients.
+      source: >-
+        static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-compatibility-endpoints.yaml
+      staticFilePath: >-
+        /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-compatibility-endpoints.yaml
   - path: api/database
     fields:
       name: Database
@@ -341,7 +512,9 @@ articles:
         Most InfluxDB API endpoints require parameters in the request--for
         example, specifying the database to use.
 
+
         ### Common parameters
+
 
         The following table shows common parameters used by many InfluxDB API
         endpoints.
@@ -351,6 +524,7 @@ articles:
 
         request body that perform functions specific to those endpoints.
 
+
         | Query parameter          | Value type            |
         Description                                |
 
@@ -358,6 +532,7 @@ articles:
         |:-------------------------------------------|
 
         | `db`                 | string                | The database name |
+
 
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
@@ -371,6 +546,7 @@ articles:
         the write endpoints accept the `Content-Encoding` header to indicate
         that line protocol is compressed in the request body.
 
+
         | Header                   | Value type            |
         Description                                |
 
@@ -380,8 +556,8 @@ articles:
         | `Accept`                 | string                | The content type
         that the client can understand. |
 
-        | `Authorization`          | string                | The [authorization
-        scheme and credential](/influxdb3/enterprise/api/authentication/). |
+        | `Authorization`          | string                | The authorization
+        scheme and credential. |
 
         | `Content-Length`         | integer               | The size of the
         entity-body, in bytes. |
@@ -396,7 +572,9 @@ articles:
         Most InfluxDB API endpoints require parameters in the request--for
         example, specifying the database to use.
 
+
         ### Common parameters
+
 
         The following table shows common parameters used by many InfluxDB API
         endpoints.
@@ -406,6 +584,7 @@ articles:
 
         request body that perform functions specific to those endpoints.
 
+
         | Query parameter          | Value type            |
         Description                                |
 
@@ -413,6 +592,7 @@ articles:
         |:-------------------------------------------|
 
         | `db`                 | string                | The database name |
+
 
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
@@ -426,6 +606,7 @@ articles:
         the write endpoints accept the `Content-Encoding` header to indicate
         that line protocol is compressed in the request body.
 
+
         | Header                   | Value type            |
         Description                                |
 
@@ -435,8 +616,8 @@ articles:
         | `Accept`                 | string                | The content type
         that the client can understand. |
 
-        | `Authorization`          | string                | The [authorization
-        scheme and credential](/influxdb3/enterprise/api/authentication/). |
+        | `Authorization`          | string                | The authorization
+        scheme and credential. |
 
         | `Content-Length`         | integer               | The size of the
         entity-body, in bytes. |
@@ -447,75 +628,6 @@ articles:
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-headers-and-parameters.yaml
       staticFilePath: >-
         /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-headers-and-parameters.yaml
-  - path: api/migrate-from-influxdb-v1-or-v2
-    fields:
-      name: Migrate from InfluxDB v1 or v2
-      describes: []
-      title: Migrate from InfluxDB v1 or v2
-      description: >
-        Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
-
-        InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x
-        and 2.x client libraries and tools.
-
-        Operations marked with <span class="api-compat-badge
-        api-compat-badge--v1">v1</span> or <span class="api-compat-badge
-        api-compat-badge--v2">v2</span> badges are compatible with the
-        respective InfluxDB version.
-
-        ### Migration guides
-
-        - [Migrate from InfluxDB
-        v1](/influxdb3/enterprise/guides/migrate/influxdb-1x/) - For users
-        migrating from InfluxDB 1.x
-
-        - [Migrate from InfluxDB
-        v2](/influxdb3/enterprise/guides/migrate/influxdb-2x/) - For users
-        migrating from InfluxDB 2.x or Cloud
-
-        - [Use compatibility APIs to write
-        data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/) -
-        v1 and v2 write endpoints
-
-        - [Use the v1 HTTP query
-        API](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
-        - InfluxQL queries via HTTP
-      tag: Migrate from InfluxDB v1 or v2
-      isConceptual: true
-      menuGroup: Other
-      operations: []
-      tagDescription: >
-        Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
-
-        InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x
-        and 2.x client libraries and tools.
-
-        Operations marked with <span class="api-compat-badge
-        api-compat-badge--v1">v1</span> or <span class="api-compat-badge
-        api-compat-badge--v2">v2</span> badges are compatible with the
-        respective InfluxDB version.
-
-        ### Migration guides
-
-        - [Migrate from InfluxDB
-        v1](/influxdb3/enterprise/guides/migrate/influxdb-1x/) - For users
-        migrating from InfluxDB 1.x
-
-        - [Migrate from InfluxDB
-        v2](/influxdb3/enterprise/guides/migrate/influxdb-2x/) - For users
-        migrating from InfluxDB 2.x or Cloud
-
-        - [Use compatibility APIs to write
-        data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/) -
-        v1 and v2 write endpoints
-
-        - [Use the v1 HTTP query
-        API](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/)
-        - InfluxQL queries via HTTP
-      source: >-
-        static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-migrate-from-influxdb-v1-or-v2.yaml
-      staticFilePath: >-
-        /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-migrate-from-influxdb-v1-or-v2.yaml
   - path: api/processing-engine
     fields:
       name: Processing engine
@@ -535,12 +647,14 @@ articles:
         Manage Processing engine triggers, test plugins, and send requests to
         trigger On Request plugins.
 
+
         InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an
         embedded Python VM that can dynamically load and trigger Python plugins
         in response to events in your database.
 
         Use Processing engine plugins and triggers to run code and perform tasks
         for different database events.
+
 
         To get started with the processing engine, see the [Processing engine
         and Python plugins](/influxdb3/enterprise/processing-engine/) guide.
@@ -624,12 +738,14 @@ articles:
         Manage Processing engine triggers, test plugins, and send requests to
         trigger On Request plugins.
 
+
         InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an
         embedded Python VM that can dynamically load and trigger Python plugins
         in response to events in your database.
 
         Use Processing engine plugins and triggers to run code and perform tasks
         for different database events.
+
 
         To get started with the processing engine, see the [Processing engine
         and Python plugins](/influxdb3/enterprise/processing-engine/) guide.
@@ -680,23 +796,13 @@ articles:
           summary: Execute InfluxQL query (v1-compatible)
           tags:
             - Query data
-          compatVersion: v1
-          externalDocs:
-            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-            url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
         - operationId: PostExecuteV1Query
           method: POST
           path: /query
           summary: Execute InfluxQL query (v1-compatible)
           tags:
             - Query data
-          compatVersion: v1
-          externalDocs:
-            description: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
-            url: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
       tagDescription: Query data using SQL or InfluxQL
-      related:
-        - /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-query-data.yaml
       staticFilePath: >-
@@ -707,29 +813,33 @@ articles:
       describes: []
       title: Quick start
       description: >
-        Authenticate, write, and query with the API:
-
-
         1. [Create an admin token](#section/Authentication) to authorize API
         requests.
+
            ```bash
            curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
            ```
         2. [Check the status](#section/Server-information) of the InfluxDB
         server.
+
            ```bash
            curl "http://localhost:8181/health" \
               --header "Authorization: Bearer ADMIN_TOKEN"
            ```
+
         3. [Write data](#operation/PostWriteLP) to InfluxDB.
+
            ```bash
            curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
              --header "Authorization: Bearer ADMIN_TOKEN" \
              --data-raw "home,room=Kitchen temp=72.0
             home,room=Living\ room temp=71.5"
            ```
+
            If all data is written, the response is `204 No Content`.
+
         4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.
+
            ```bash
            curl -G "http://localhost:8181/api/v3/query_sql" \
              --header "Authorization: Bearer ADMIN_TOKEN" \
@@ -737,12 +847,13 @@ articles:
              --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
              --data-urlencode "format=jsonl"
            ```
-           
+
            Output:
+
            ```jsonl
            {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
            ```
-          
+
         For more information about using InfluxDB 3 Enterprise, see the [Get
         started](/influxdb3/enterprise/get-started/) guide.
       tag: Quick start
@@ -750,29 +861,33 @@ articles:
       menuGroup: Concepts
       operations: []
       tagDescription: >
-        Authenticate, write, and query with the API:
-
-
         1. [Create an admin token](#section/Authentication) to authorize API
         requests.
+
            ```bash
            curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
            ```
         2. [Check the status](#section/Server-information) of the InfluxDB
         server.
+
            ```bash
            curl "http://localhost:8181/health" \
               --header "Authorization: Bearer ADMIN_TOKEN"
            ```
+
         3. [Write data](#operation/PostWriteLP) to InfluxDB.
+
            ```bash
            curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
              --header "Authorization: Bearer ADMIN_TOKEN" \
              --data-raw "home,room=Kitchen temp=72.0
             home,room=Living\ room temp=71.5"
            ```
+
            If all data is written, the response is `204 No Content`.
+
         4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.
+
            ```bash
            curl -G "http://localhost:8181/api/v3/query_sql" \
              --header "Authorization: Bearer ADMIN_TOKEN" \
@@ -780,12 +895,13 @@ articles:
              --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
              --data-urlencode "format=jsonl"
            ```
-           
+
            Output:
+
            ```jsonl
            {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
            ```
-          
+
         For more information about using InfluxDB 3 Enterprise, see the [Get
         started](/influxdb3/enterprise/get-started/) guide.
       source: >-
@@ -816,10 +932,9 @@ articles:
         - operationId: GetHealthV1
           method: GET
           path: /api/v1/health
-          summary: Health check (v1-compatible)
+          summary: Health check (v1)
           tags:
             - Server information
-          compatVersion: v1
         - operationId: GetPing
           method: GET
           path: /ping
@@ -848,6 +963,8 @@ articles:
       name: Table
       describes:
         - /api/v3/configure/table
+        - /api/v3/configure/distinct_cache
+        - /api/v3/configure/last_cache
       title: Table
       description: Manage table schemas and data
       tag: Table
@@ -872,10 +989,83 @@ articles:
           summary: Delete a table
           tags:
             - Table
+        - operationId: PostConfigureDistinctCache
+          method: POST
+          path: /api/v3/configure/distinct_cache
+          summary: Create distinct cache
+          tags:
+            - Table
+        - operationId: DeleteConfigureDistinctCache
+          method: DELETE
+          path: /api/v3/configure/distinct_cache
+          summary: Delete distinct cache
+          tags:
+            - Table
+        - operationId: PostConfigureLastCache
+          method: POST
+          path: /api/v3/configure/last_cache
+          summary: Create last cache
+          tags:
+            - Table
+        - operationId: DeleteConfigureLastCache
+          method: DELETE
+          path: /api/v3/configure/last_cache
+          summary: Delete last cache
+          tags:
+            - Table
       tagDescription: Manage table schemas and data
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-table.yaml
       staticFilePath: /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-table.yaml
+  - path: api/token
+    fields:
+      name: Token
+      describes:
+        - /api/v3/configure/enterprise/token
+        - /api/v3/configure/token/admin
+        - /api/v3/configure/token/admin/regenerate
+        - /api/v3/configure/token
+        - /api/v3/configure/token/named_admin
+      title: Token
+      description: Manage tokens for authentication and authorization
+      tag: Token
+      isConceptual: false
+      menuGroup: Administration
+      operations:
+        - operationId: PostCreateResourceToken
+          method: POST
+          path: /api/v3/configure/enterprise/token
+          summary: Create a resource token
+          tags:
+            - Token
+        - operationId: PostCreateAdminToken
+          method: POST
+          path: /api/v3/configure/token/admin
+          summary: Create admin token
+          tags:
+            - Token
+        - operationId: PostRegenerateAdminToken
+          method: POST
+          path: /api/v3/configure/token/admin/regenerate
+          summary: Regenerate admin token
+          tags:
+            - Token
+        - operationId: DeleteToken
+          method: DELETE
+          path: /api/v3/configure/token
+          summary: Delete token
+          tags:
+            - Token
+        - operationId: PostCreateNamedAdminToken
+          method: POST
+          path: /api/v3/configure/token/named_admin
+          summary: Create named admin token
+          tags:
+            - Token
+      tagDescription: Manage tokens for authentication and authorization
+      source: >-
+        static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-token.yaml
+      staticFilePath: /openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-token.yaml
   - path: api/write-data
     fields:
       name: Write data
@@ -887,13 +1077,16 @@ articles:
       description: >
         Write data to InfluxDB 3 using line protocol format.
 
+
         #### Timestamp precision across write APIs
+
 
         InfluxDB 3 provides multiple write endpoints for compatibility with
         different InfluxDB versions.
 
         The following table compares timestamp precision support across v1, v2,
         and v3 write APIs:
+
 
         | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3
         (`/api/v3/write_lp`) |
@@ -915,6 +1108,7 @@ articles:
         | **Hours** | ✅ `h` | ❌ No | ❌ No |
 
         | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
 
         All timestamps are stored internally as nanoseconds.
       tag: Write data
@@ -927,20 +1121,12 @@ articles:
           summary: Write line protocol (v1-compatible)
           tags:
             - Write data
-          compatVersion: v1
-          externalDocs:
-            description: Use compatibility APIs to write data
-            url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
         - operationId: PostV2Write
           method: POST
           path: /api/v2/write
           summary: Write line protocol (v2-compatible)
           tags:
             - Write data
-          compatVersion: v2
-          externalDocs:
-            description: Use compatibility APIs to write data
-            url: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
         - operationId: PostWriteLP
           method: POST
           path: /api/v3/write_lp
@@ -950,13 +1136,16 @@ articles:
       tagDescription: >
         Write data to InfluxDB 3 using line protocol format.
 
+
         #### Timestamp precision across write APIs
+
 
         InfluxDB 3 provides multiple write endpoints for compatibility with
         different InfluxDB versions.
 
         The following table compares timestamp precision support across v1, v2,
         and v3 write APIs:
+
 
         | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3
         (`/api/v3/write_lp`) |
@@ -979,9 +1168,8 @@ articles:
 
         | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
 
+
         All timestamps are stored internally as nanoseconds.
-      related:
-        - /influxdb3/enterprise/write-data/http-api/compatibility-apis/
       source: >-
         static/openapi/influxdb3-enterprise/tags/tags/influxdb3-enterprise-write-data.yaml
       staticFilePath: >-
