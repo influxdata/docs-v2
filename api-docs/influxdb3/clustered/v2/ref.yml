@@ -38,8 +38,8 @@ tags:
 
       InfluxDB 3 Clustered provides the following HTTP API endpoints for writing data:
 
-      - **Recommended**: [`/api/v2/write` endpoint](/influxdb3/clustered/api/#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](/influxdb3/clustered/api/#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+      - **Recommended**: [`/api/v2/write` endpoint](/influxdb3/clustered/api/#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Clustered.
+      - [`/write` endpoint](/influxdb3/clustered/api/#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB Clustered.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
@@ -49,7 +49,7 @@ tags:
 
       - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/clustered/get-started/query/).
       - HTTP API [`/query` request](/influxdb3/clustered/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Clustered.
 
       ### InfluxDB v2 compatibility
 
@@ -628,7 +628,7 @@ paths:
         '400':
           description: |
             Data from the batch was rejected and not written. The response body indicates if a partial write occurred or all data was rejected.
-            If a partial write occurred, then some points from the batch are written and queryable. 
+            If a partial write occurred, then some points from the batch are written and queryable.
             The response body contains details about the [rejected points](/influxdb3/clustered/write-data/troubleshoot/#troubleshoot-rejected-points), up to 100 points.
           content:
             application/json:
@@ -2030,7 +2030,7 @@ components:
       description: |
 
         Use the OAuth Bearer authentication
-        scheme to provide an authorization token to InfluxDB 3.
+        scheme to provide an authorization token to InfluxDB Clustered.
 
         Bearer authentication works with all endpoints.
 
@@ -2052,9 +2052,9 @@ components:
         ```
     TokenAuthentication:
       description: |
-        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB Clustered.
 
-        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB Clustered.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.

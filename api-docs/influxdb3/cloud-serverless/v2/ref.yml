@@ -36,8 +36,8 @@ tags:
       InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints for writing data:
 
       - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
-        for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+        for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Serverless.
+      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB Cloud Serverless.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
@@ -47,7 +47,7 @@ tags:
 
       - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/cloud-serverless/get-started/query/).
       - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Cloud Serverless.
 
       ### InfluxDB v2 compatibility
 
@@ -7455,7 +7455,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
         - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
@@ -7881,7 +7881,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
         - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).

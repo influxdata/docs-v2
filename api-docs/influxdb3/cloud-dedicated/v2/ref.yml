@@ -38,8 +38,8 @@ tags:
 
       InfluxDB 3 Cloud Dedicated provides the following HTTP API endpoints for writing data:
 
-      - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+      - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Dedicated.
+      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB Cloud Dedicated.
 
       Both endpoints accept the same line protocol format and process data in the same way.
 
@@ -49,7 +49,7 @@ tags:
 
       - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/cloud-dedicated/get-started/query/).
       - HTTP API [`/query` request](#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Cloud Dedicated.
 
       ### InfluxDB v2 compatibility
 
@@ -259,7 +259,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Dedicated.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Dedicated.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
@@ -599,7 +599,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Dedicated.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Dedicated.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
@@ -2046,7 +2046,7 @@ components:
       description: |
 
         Use the OAuth Bearer authentication
-        scheme to provide an authorization token to InfluxDB 3.
+        scheme to provide an authorization token to InfluxDB Cloud Dedicated.
 
         Bearer authentication works with all endpoints.
 
@@ -2068,9 +2068,9 @@ components:
         ```
     TokenAuthentication:
       description: |
-        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB Cloud Dedicated.
 
-        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB Cloud Dedicated.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.

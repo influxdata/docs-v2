@@ -93,7 +93,7 @@ tags:
   - name: Migrate from InfluxDB v1 or v2
     x-traitTag: true
     description: |
-      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3.
+      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3 Core.
 
       InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
       Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
@@ -195,7 +195,7 @@ tags:
     description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
-      Write data to InfluxDB 3 using line protocol format.
+      Write data to InfluxDB 3 Core using line protocol format.
 
       #### Timestamp precision across write APIs
 
@@ -2652,7 +2652,7 @@ components:
       description: |
 
         Use the OAuth Bearer authentication
-        scheme to provide an authorization token to InfluxDB 3.
+        scheme to provide an authorization token to InfluxDB 3 Core.
 
         Bearer authentication works with all endpoints.
 
@@ -2674,9 +2674,9 @@ components:
         ```
     TokenAuthentication:
       description: |
-        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3 Core.
 
-        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3 Core.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.

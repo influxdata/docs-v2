@@ -181,7 +181,7 @@ tags:
     description: Manage tokens for authentication and authorization
   - name: Write data
     description: |
-      Write data to InfluxDB 3 using line protocol format.
+      Write data to InfluxDB 3 Enterprise using line protocol format.
 
       #### Timestamp precision across write APIs
 
@@ -2983,7 +2983,7 @@ components:
       description: |
 
         Use the OAuth Bearer authentication
-        scheme to provide an authorization token to InfluxDB 3.
+        scheme to provide an authorization token to InfluxDB 3 Enterprise.
 
         Bearer authentication works with all endpoints.
 
@@ -3004,9 +3004,9 @@ components:
         ```
     TokenAuthentication:
       description: |
-        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3.
+        Use InfluxDB v2 Token authentication to provide an authorization token to InfluxDB 3 Enterprise.
 
-        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3.
+        The v2 Token scheme works with v1 and v2 compatibility endpoints in InfluxDB 3 Enterprise.
 
         In your API requests, send an `Authorization` header.
         For the header value, provide the word `Token` followed by a space and a database token.
