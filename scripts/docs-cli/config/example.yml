@@ -1,0 +1,98 @@
+# Example docs CLI configuration
+#
+# Copy this file to one of:
+#   - ~/.influxdata-docs/docs-cli.yml (user-level, applies to all projects)
+#   - .docs-cli.local.yml (project-level, gitignored)
+#
+# Or set DOCS_CLI_CONFIG env var to point to your config file.
+#
+# Only uncomment settings you want to override.
+# Repository keys match product keys in data/products.yml
+
+# Configure local paths for repositories you work with
+repositories:
+  # InfluxDB 3 products
+  # influxdb3_core:
+  #   path: ~/github/influxdata/influxdb
+  # influxdb3_enterprise:
+  #   path: ~/github/influxdata/<private-repo>
+  # influxdb3_cloud_serverless:
+  #   path:
+  # influxdb3_cloud_dedicated:
+  #   path:
+  # influxdb3_clustered:
+  #   path:
+  # influxdb3_explorer:
+  #   path:
+
+  # InfluxDB OSS (v1/v2)
+  # influxdb:
+  #   path: ~/github/influxdata/influxdb
+  # influxdb_cloud:
+  #   path:
+
+  # Telegraf
+  # telegraf:
+  #   path: ~/github/influxdata/telegraf
+  # telegraf_controller:
+  #   path:
+
+  # Other tools
+  # chronograf:
+  #   path: ~/github/influxdata/chronograf
+  # kapacitor:
+  #   path: ~/github/influxdata/kapacitor
+  # enterprise_influxdb:
+  #   path:
+  # flux:
+  #   path: ~/github/influxdata/flux
+
+  # Plugins and extensions
+  # influxdb3_plugins:
+  #   path: ~/github/influxdata/influxdb3_plugins
+
+  # CLI and client libraries
+  # influx_cli:
+  #   path: ~/github/influxdata/influx-cli
+  # influxdb3_python:
+  #   path: ~/github/influxdata/influxdb3-python
+  # influxdb3_go:
+  #   path: ~/github/influxdata/influxdb3-go
+  # influxdb_client_js:
+  #   path: ~/github/influxdata/influxdb-client-js
+
+  # Documentation
+  # docs_v2:
+  #   path: ~/github/influxdata/docs-v2
+# Release notes settings
+# releaseNotes:
+#   # Output format: 'integrated' (single list) or 'separated' (by repo)
+#   outputFormat: integrated
+#
+#   # Include PR links (note: private repos won't have PR links)
+#   includePrLinks: true
+#
+#   # Primary repository for release notes (when using separated format)
+#   primaryRepo: influxdb3_core
+#
+#   # Template settings for separated format
+#   separatedTemplate:
+#     primaryLabel: Core Changes
+#     secondaryLabel: Additional Changes
+#     secondaryIntro: "All core updates are included above. Additional repository-specific changes:"
+
+# Editor settings
+# editor:
+#   # Default editor command
+#   default: code
+#
+#   # Wait for editor to close before continuing
+#   wait: false
+
+# Content scaffolding settings
+# scaffolding:
+#   # Default AI tool for scaffolding
+#   ai: claude
+#
+#   # Whether to follow external links by default
+#   followExternal: false
