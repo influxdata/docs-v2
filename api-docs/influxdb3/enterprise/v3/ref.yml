@@ -2567,6 +2567,7 @@ components:
           description: Whether the trigger is disabled.
       required:
         - db
+        - disabled
         - plugin_filename
         - trigger_name
         - trigger_settings
