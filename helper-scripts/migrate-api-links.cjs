@@ -119,9 +119,142 @@ function buildLookupTable() {
   return lookup;
 }
 
-// Test: Build and display lookup table
-console.log(`API Link Migration Script`);
-console.log(`Mode: ${DRY_RUN ? 'DRY RUN (no changes)' : 'EXECUTE'}\n`);
+/**
+ * Find all #operation/ links in a file
+ * Returns array of { match, operationId, urlPath, fullUrl }
+ */
+function findOperationLinks(content) {
+  const links = [];
+  // Match patterns like: /influxdb/cloud/api/#operation/PostTasks
+  // or /influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken
+  const regex = /(\/[a-z0-9_/-]+\/api(?:\/management)?(?:\/[a-z0-9-]*)?\/)#operation\/(\w+)/g;
 
-const lookupTable = buildLookupTable();
-console.log('Lookup table built successfully.\n');
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    links.push({
+      match: match[0],
+      urlPath: match[1],
+      operationId: match[2],
+    });
+  }
+
+  return links;
+}
+
+/**
+ * Find the best matching URL prefix for a given URL path
+ */
+function findUrlPrefix(urlPath, lookup) {
+  // Sort by length descending to match most specific first
+  const prefixes = Object.keys(lookup).sort((a, b) => b.length - a.length);
+
+  for (const prefix of prefixes) {
+    if (urlPath.startsWith(prefix) || urlPath === prefix.slice(0, -1)) {
+      return prefix;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Scan content directory for files with #operation/ links
+ */
+async function scanContentFiles(lookup) {
+  console.log('Scanning content files for #operation/ links...\n');
+
+  const files = await glob('**/*.md', { cwd: CONTENT_DIR });
+  const results = {
+    filesWithLinks: [],
+    totalLinks: 0,
+    unmapped: [],
+  };
+
+  for (const file of files) {
+    const filePath = path.join(CONTENT_DIR, file);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const links = findOperationLinks(content);
+
+    if (links.length > 0) {
+      const fileResult = {
+        file,
+        links: [],
+      };
+
+      for (const link of links) {
+        const urlPrefix = findUrlPrefix(link.urlPath, lookup);
+
+        if (!urlPrefix) {
+          results.unmapped.push({ file, ...link, reason: 'No matching URL prefix' });
+          continue;
+        }
+
+        const productLookup = lookup[urlPrefix];
+        const anchor = productLookup[link.operationId];
+
+        if (!anchor) {
+          results.unmapped.push({ file, ...link, reason: 'OperationId not found in spec' });
+          continue;
+        }
+
+        fileResult.links.push({
+          ...link,
+          urlPrefix,
+          newAnchor: anchor,
+          oldLink: `${link.urlPath}#operation/${link.operationId}`,
+          newLink: `${link.urlPath}#${anchor}`,
+        });
+      }
+
+      if (fileResult.links.length > 0) {
+        results.filesWithLinks.push(fileResult);
+        results.totalLinks += fileResult.links.length;
+      }
+    }
+  }
+
+  return results;
+}
+
+async function main() {
+  console.log(`API Link Migration Script`);
+  console.log(`Mode: ${DRY_RUN ? 'DRY RUN (no changes)' : 'EXECUTE'}\n`);
+
+  // Build lookup table
+  const lookupTable = buildLookupTable();
+
+  // Scan content files
+  const results = await scanContentFiles(lookupTable);
+
+  // Report findings
+  console.log('=== SCAN RESULTS ===\n');
+  console.log(`Files with links: ${results.filesWithLinks.length}`);
+  console.log(`Total links to migrate: ${results.totalLinks}`);
+  console.log(`Unmapped links: ${results.unmapped.length}\n`);
+
+  if (VERBOSE && results.filesWithLinks.length > 0) {
+    console.log('Links to migrate:');
+    for (const { file, links } of results.filesWithLinks) {
+      console.log(`\n  ${file}:`);
+      for (const link of links) {
+        console.log(`    ${link.oldLink}`);
+        console.log(`    → ${link.newLink}`);
+      }
+    }
+  }
+
+  if (results.unmapped.length > 0) {
+    console.log('\n=== UNMAPPED LINKS (require manual review) ===\n');
+    for (const item of results.unmapped) {
+      console.log(`  ${item.file}:`);
+      console.log(`    ${item.match}`);
+      console.log(`    Reason: ${item.reason}\n`);
+    }
+  }
+
+  if (DRY_RUN) {
+    console.log('\n[DRY RUN] No files modified. Run without --dry-run to apply changes.');
+  }
+}
+
+main().catch(console.error);
