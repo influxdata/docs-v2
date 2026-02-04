@@ -23,23 +23,13 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.writePathSpecificSpecs = writePathSpecificSpecs;
 exports.generateHugoDataByTag = generateHugoDataByTag;
@@ -607,6 +597,50 @@ function writeOpenapiArticleData(sourcePath, targetPath, opts) {
     }
 }
 /**
+ * Sanitize markdown description by removing fragment links and ReDoc directives
+ *
+ * Handles three cases:
+ * 1. RapiDoc fragment links: [text](#section/...) -> text (removes the link entirely)
+ * 2. Relative links with fragments: [text](/path/#anchor) -> [text](/path/) (keeps link, removes fragment)
+ * 3. ReDoc injection directives: <!-- ReDoc-Inject: ... --> (removes entirely)
+ *
+ * This sanitization is necessary because fragment links don't work when article
+ * descriptions are rendered via the {{< children >}} shortcode on parent pages.
+ *
+ * @param description - Markdown description that may contain fragment links
+ * @returns Sanitized description suitable for children shortcode rendering
+ */
+function sanitizeDescription(description) {
+    if (!description) {
+        return '';
+    }
+    let sanitized = description;
+    // Remove ReDoc injection directives (e.g., <!-- ReDoc-Inject: <security-definitions> -->)
+    sanitized = sanitized.replace(/<!--\s*ReDoc-Inject:.*?-->/g, '');
+    // Handle markdown links:
+    // 1. RapiDoc fragment links (#section/..., #operation/..., #tag/...) -> replace with just the text
+    // 2. Relative links with fragments (/path/#anchor) -> keep link but remove fragment
+    sanitized = sanitized.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+        // Case 1: RapiDoc fragment links (starts with #section/, #operation/, #tag/)
+        if (url.match(/^#(section|operation|tag)\//)) {
+            return text; // Just return the link text, no markdown link
+        }
+        // Case 2: Relative link with fragment (starts with /, contains #)
+        if (url.startsWith('/') && url.includes('#')) {
+            const urlWithoutFragment = url.split('#')[0];
+            if (urlWithoutFragment === '/' || urlWithoutFragment === '') {
+                return text;
+            }
+            return `[${text}](${urlWithoutFragment})`;
+        }
+        // Case 3: Keep other links as-is (external links, non-fragment links)
+        return match;
+    });
+    // Clean up extra whitespace left by directive removals
+    sanitized = sanitized.replace(/\n\n\n+/g, '\n\n').trim();
+    return sanitized;
+}
+/**
  * Create article data for a tag-based grouping
  *
  * @param openapi - OpenAPI document with x-tagGroup
@@ -624,9 +658,9 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
             name: tagName,
             describes: Object.keys(openapi.paths),
             title: tagName,
-            description: tagMeta?.description ||
+            description: sanitizeDescription(tagMeta?.description ||
                 openapi.info?.description ||
-                `API reference for ${tagName}`,
+                `API reference for ${tagName}`),
             tag: tagName,
             isConceptual,
             menuGroup: getMenuGroupForTag(tagName),
@@ -641,9 +675,9 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
             })),
         },
     };
-    // Add tag description for conceptual pages
+    // Add tag description for conceptual pages (sanitized for children shortcode)
     if (tagMeta?.description) {
-        article.fields.tagDescription = tagMeta.description;
+        article.fields.tagDescription = sanitizeDescription(tagMeta.description);
     }
     // Show security schemes section on Authentication pages
     if (tagName === 'Authentication') {
