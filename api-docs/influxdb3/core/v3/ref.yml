@@ -14,8 +14,8 @@ info:
 
     The API includes endpoints under the following paths:
     - `/api/v3`: InfluxDB 3 Core native endpoints
-    - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
-    - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
+    - `/api/v2/write`: v2-compatible write endpoint
+    - `/write`, `/query`: v1-compatible endpoints
 
     <!-- TODO: verify where to host the spec that users can download.
     This documentation is generated from the
@@ -29,6 +29,9 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
+  x-influxdata-related:
+    - title: Migrate from InfluxDB v1 or v2
+      href: /influxdb3/core/get-started/migrate-from-influxdb-v1-v2/
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Core API URL
@@ -143,19 +146,19 @@ tags:
     description: |
       Authenticate, write, and query with the API:
 
-      1. [Create an admin token](#section/Authentication) to authorize API requests.
+      1. Create an admin token to authorize API requests.
 
          ```bash
          curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
          ```
-      2. [Check the status](#section/Server-information) of the InfluxDB server.
+      2. Check the status of the InfluxDB server.
 
          ```bash
          curl "http://localhost:8181/health" \
             --header "Authorization: Bearer ADMIN_TOKEN"
          ```
 
-      3. [Write data](#operation/PostWriteLP) to InfluxDB.
+      3. Write data to InfluxDB.
 
          ```bash
          curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
@@ -166,7 +169,7 @@ tags:
 
          If all data is written, the response is `204 No Content`.
 
-      4. [Query data](#operation/GetExecuteQuerySQL) from InfluxDB.
+      4. Query data from InfluxDB.
 
          ```bash
          curl -G "http://localhost:8181/api/v3/query_sql" \
@@ -332,7 +335,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Write data
-      x-influxdata-guides:
+      x-influxdata-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v2/write:
@@ -423,7 +426,7 @@ paths:
         - TokenAuthentication: []
       tags:
         - Write data
-      x-influxdata-guides:
+      x-influxdata-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v3/write_lp:
@@ -817,7 +820,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Query data
-      x-influxdata-guides:
+      x-influxdata-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
     post:
@@ -939,7 +942,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Query data
-      x-influxdata-guides:
+      x-influxdata-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
   /health:
@@ -950,7 +953,7 @@ paths:
         Checks the status of the service.
 
         Returns `OK` if the service is running. This endpoint does not return version information.
-        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
+        Use the `/ping` endpoint to retrieve version details.
       responses:
         '200':
           description: Service is running. Returns `OK`.
@@ -2563,7 +2566,7 @@ components:
       description: |
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
 
-        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints in InfluxDB 3.
+        Works with v1-compatible `/write` and `/query` endpoints.
 
         When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
         and ignores the `username` part of the decoded credential.
@@ -2593,7 +2596,7 @@ components:
       description: |
         Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
 
-        Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints.
+        Querystring authentication works with v1-compatible `/write` and `/query` endpoints.
 
         When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
         and ignores the `u` (_username_) query parameter.
