@@ -1,0 +1,1084 @@
+openapi: 3.0.0
+info:
+  title: InfluxDB Enterprise v1 HTTP API
+  version: 1.11.6
+  description: |
+    The InfluxDB Enterprise v1 HTTP API provides a simple way to interact with the database.
+    It uses HTTP response codes, authentication with username and password credentials
+    or API tokens, and JSON-formatted response data.
+
+    ## Cluster Features
+
+    InfluxDB Enterprise includes additional parameters for cluster operations:
+    - **Write Consistency**: Control write consistency across cluster nodes
+
+    ## Authentication
+
+    InfluxDB Enterprise v1 supports multiple authentication methods:
+
+    - **Basic Authentication**: Use HTTP Basic Auth with username and password
+    - **Query String Authentication**: Pass `u` (username) and `p` (password) as query parameters
+    - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
+
+    Authentication is optional unless [enabled in the configuration](/enterprise_influxdb/v1/administration/authentication_and_authorization/).
+
+  contact:
+    name: InfluxData
+    url: https://www.influxdata.com
+  license:
+    name: Proprietary
+    url: https://www.influxdata.com/legal/slsa/
+
+servers:
+  - url: http://localhost:8086
+    description: Local InfluxDB Enterprise data node
+
+tags:
+  - name: System Information
+    description: |
+      Endpoints for checking server status, health, and version information.
+  - name: Query
+    description: |
+      Query data using InfluxQL. The `/query` endpoint supports both read queries
+      (SELECT, SHOW) and write queries (CREATE, DROP, ALTER, etc.).
+  - name: Write
+    description: |
+      Write time series data using InfluxDB line protocol.
+
+      **Enterprise Feature**: Use the `consistency` parameter to control write consistency
+      across cluster nodes.
+  - name: Debug
+    description: |
+      Debugging and profiling endpoints for troubleshooting and performance analysis.
+  - name: v2 Compatibility
+    description: |
+      InfluxDB 2.x API compatibility endpoints. These endpoints allow you to use
+      InfluxDB 2.x client libraries with InfluxDB Enterprise 1.8+.
+
+      Use the `Token` scheme with v1.x credentials:
+      ```
+      Authorization: Token username:password
+      ```
+  - name: Authentication
+    x-traitTag: true
+    description: |
+      InfluxDB Enterprise v1 supports multiple authentication methods:
+
+      ### Basic Authentication
+      ```bash
+      curl -u username:password http://localhost:8086/query?q=SHOW+DATABASES
+      ```
+
+      ### Query String Authentication
+      ```bash
+      curl "http://localhost:8086/query?u=username&p=password&q=SHOW+DATABASES"
+      ```
+
+      ### Token Authentication (v2-compatible)
+      For v2-compatible endpoints, use the Token scheme:
+      ```bash
+      curl -H "Authorization: Token username:password" http://localhost:8086/api/v2/query
+      ```
+
+security:
+  - BasicAuth: []
+  - QueryAuth: []
+
+paths:
+  /ping:
+    get:
+      operationId: GetPing
+      summary: Check server status
+      description: |
+        Check the status of your InfluxDB Enterprise instance and retrieve version information.
+        The `/ping` endpoint returns a `204 No Content` response by default.
+
+        Use the `verbose=true` query parameter to return a `200 OK` response,
+        which is required for [Google Cloud Load Balancing](https://cloud.google.com/load-balancing/docs/health-check-concepts) health checks.
+      tags:
+        - System Information
+      parameters:
+        - name: verbose
+          in: query
+          description: |
+            When `true`, returns HTTP 200 instead of 204. Required for Google Cloud Load Balancing health checks.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Server is running (verbose mode)
+          headers:
+            X-Influxdb-Build:
+              description: InfluxDB build type (`ENT` for Enterprise)
+              schema:
+                type: string
+                enum: [ENT]
+            X-Influxdb-Version:
+              description: InfluxDB version
+              schema:
+                type: string
+        '204':
+          description: Server is running
+          headers:
+            X-Influxdb-Build:
+              description: InfluxDB build type (`ENT` for Enterprise)
+              schema:
+                type: string
+                enum: [ENT]
+            X-Influxdb-Version:
+              description: InfluxDB version
+              schema:
+                type: string
+    head:
+      operationId: HeadPing
+      summary: Check server status (HEAD)
+      description: |
+        Check the status of your InfluxDB Enterprise instance using a HEAD request.
+        Returns the same headers as GET but without a response body.
+      tags:
+        - System Information
+      responses:
+        '204':
+          description: Server is running
+          headers:
+            X-Influxdb-Build:
+              description: InfluxDB build type (`ENT` for Enterprise)
+              schema:
+                type: string
+                enum: [ENT]
+            X-Influxdb-Version:
+              description: InfluxDB version
+              schema:
+                type: string
+
+  /health:
+    get:
+      operationId: GetHealth
+      summary: Check server health
+      description: |
+        Check the health of your InfluxDB Enterprise instance.
+        Returns health status as JSON with a `pass` or `fail` status.
+      tags:
+        - System Information
+        - v2 Compatibility
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+              example:
+                name: influxdb
+                message: ready for queries and writes
+                status: pass
+                version: "1.11.6"
+        '503':
+          description: Server is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+              example:
+                name: influxdb
+                message: "service unavailable"
+                status: fail
+                version: "1.11.6"
+
+  /query:
+    get:
+      operationId: GetQuery
+      summary: Query data (GET)
+      description: |
+        Query data using InfluxQL. Use GET for read-only queries that start with:
+        - `SELECT` (except queries with `INTO` clause)
+        - `SHOW`
+
+        For write operations (CREATE, DROP, ALTER, etc.), use POST.
+      tags:
+        - Query
+      parameters:
+        - $ref: '#/components/parameters/QueryDB'
+        - $ref: '#/components/parameters/QueryQ'
+        - $ref: '#/components/parameters/QueryEpoch'
+        - $ref: '#/components/parameters/QueryPretty'
+        - $ref: '#/components/parameters/QueryChunked'
+        - $ref: '#/components/parameters/AuthUsername'
+        - $ref: '#/components/parameters/AuthPassword'
+      responses:
+        '200':
+          description: Query executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+              example:
+                results:
+                  - statement_id: 0
+                    series:
+                      - name: mymeas
+                        columns: [time, myfield, mytag1, mytag2]
+                        values:
+                          - ["2017-03-01T00:16:18Z", 33.1, null, null]
+                          - ["2017-03-01T00:17:18Z", 12.4, "12", "14"]
+            application/csv:
+              schema:
+                type: string
+              example: |
+                name,tags,time,myfield,mytag1,mytag2
+                mymeas,,1488327378000000000,33.1,,
+                mymeas,,1488327438000000000,12.4,12,14
+        '400':
+          description: Bad request (syntax error in query)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "error parsing query: found EOF, expected FROM at line 1, char 9"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: authorization failed
+    post:
+      operationId: PostQuery
+      summary: Query data (POST)
+      description: |
+        Query data or execute database management commands using InfluxQL.
+        Use POST for queries that start with:
+        - `SELECT` with `INTO` clause
+        - `ALTER`
+        - `CREATE`
+        - `DELETE`
+        - `DROP`
+        - `GRANT`
+        - `KILL`
+        - `REVOKE`
+      tags:
+        - Query
+      parameters:
+        - $ref: '#/components/parameters/QueryDB'
+        - $ref: '#/components/parameters/QueryEpoch'
+        - $ref: '#/components/parameters/QueryPretty'
+        - $ref: '#/components/parameters/QueryChunked'
+        - $ref: '#/components/parameters/AuthUsername'
+        - $ref: '#/components/parameters/AuthPassword'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - q
+              properties:
+                q:
+                  type: string
+                  description: InfluxQL query string
+                  example: CREATE DATABASE mydb
+                params:
+                  type: string
+                  description: |
+                    JSON object containing bind parameter values.
+                    Use `$<key>` syntax in the query to reference parameters.
+                  example: '{"tag_value":"12","field_value":30}'
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  format: binary
+                  description: File containing InfluxQL queries (separated by semicolons)
+                async:
+                  type: boolean
+                  description: Execute queries asynchronously
+                  default: false
+      responses:
+        '200':
+          description: Query executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /write:
+    post:
+      operationId: PostWrite
+      summary: Write data
+      description: |
+        Write time series data to InfluxDB Enterprise using line protocol format.
+
+        Data must be sent as binary encoded line protocol in the request body.
+        Use the `--data-binary` flag with curl to preserve newlines.
+
+        **Enterprise Feature**: Use the `consistency` parameter to control write
+        consistency across cluster nodes.
+
+        **Best Practices:**
+        - Write points in batches of 5,000 to 10,000 for optimal performance
+        - Use the least precise timestamp precision possible for better compression
+      tags:
+        - Write
+      parameters:
+        - name: db
+          in: query
+          required: true
+          description: Target database for the write
+          schema:
+            type: string
+          example: mydb
+        - name: rp
+          in: query
+          description: |
+            Target retention policy. If not specified, writes to the default retention policy.
+          schema:
+            type: string
+        - name: precision
+          in: query
+          description: |
+            Timestamp precision. InfluxDB assumes nanoseconds if not specified.
+          schema:
+            type: string
+            enum: [n, u, ms, s, m, h]
+            default: n
+        - name: consistency
+          in: query
+          description: |
+            **Enterprise only.** Sets the write consistency for the point.
+            See [write consistency documentation](/enterprise_influxdb/v1/concepts/clustering#write-consistency)
+            for detailed descriptions of each option.
+          schema:
+            type: string
+            enum: [any, one, quorum, all]
+            default: one
+        - $ref: '#/components/parameters/AuthUsername'
+        - $ref: '#/components/parameters/AuthPassword'
+      requestBody:
+        required: true
+        description: |
+          Line protocol data. Multiple points should be separated by newlines.
+          Use `@filename` to write from a file.
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: |
+              mymeas,mytag=1 myfield=90 1463683075000000000
+              mymeas,mytag=2 myfield=34 1463683076000000000
+      responses:
+        '204':
+          description: Write successful
+        '400':
+          description: Bad request (line protocol syntax error or type conflict)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                badTimestamp:
+                  summary: Invalid timestamp
+                  value:
+                    error: "unable to parse 'mymeas,mytag=1 myfield=91 abc123': bad timestamp"
+                typeConflict:
+                  summary: Field type conflict
+                  value:
+                    error: 'field type conflict: input field "myfield" on measurement "mymeas" is type int64, already exists as type float'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Database not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: 'database not found: "mydb1"'
+        '413':
+          description: Request entity too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Request Entity Too Large
+        '500':
+          description: Internal server error (e.g., retention policy not found)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "retention policy not found: myrp"
+
+  /debug/pprof:
+    get:
+      operationId: GetDebugPprof
+      summary: Get profiling index
+      description: |
+        Returns an HTML page listing available Go pprof profiles.
+        Use the individual profile endpoints to retrieve specific profile data.
+      tags:
+        - Debug
+      responses:
+        '200':
+          description: HTML page with profile links
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /debug/pprof/{profile}:
+    get:
+      operationId: GetDebugPprofProfile
+      summary: Get profile data
+      description: |
+        Retrieve a specific Go pprof profile. Available profiles:
+        - `block`: Stack traces that led to blocking on synchronization primitives
+        - `goroutine`: Stack traces of all current goroutines
+        - `heap`: Sampling of stack traces for heap allocations
+        - `mutex`: Stack traces of holders of contended mutexes
+        - `threadcreate`: Stack traces that led to creation of new OS threads
+        - `profile`: CPU profile (use `seconds` parameter to specify duration)
+        - `trace`: Execution trace (use `seconds` parameter to specify duration)
+      tags:
+        - Debug
+      parameters:
+        - name: profile
+          in: path
+          required: true
+          description: Profile name
+          schema:
+            type: string
+            enum: [block, goroutine, heap, mutex, threadcreate, profile, trace, allocs, cmdline]
+        - name: seconds
+          in: query
+          description: Duration in seconds for CPU profile or trace
+          schema:
+            type: integer
+            default: 30
+        - name: debug
+          in: query
+          description: Return human-readable text output instead of binary
+          schema:
+            type: integer
+            enum: [0, 1]
+            default: 0
+      responses:
+        '200':
+          description: Profile data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+            text/plain:
+              schema:
+                type: string
+
+  /debug/pprof/all:
+    get:
+      operationId: GetDebugPprofAll
+      summary: Get all profiles archive
+      description: |
+        Generate a `profiles.tar.gz` archive containing all standard Go profiling
+        information and additional debugging data. Intended primarily for use by
+        InfluxData support.
+
+        Use the `cpu` parameter to include a CPU profile of the specified duration.
+      tags:
+        - Debug
+      parameters:
+        - name: cpu
+          in: query
+          description: |
+            Duration for CPU profile. Specify as a duration string (e.g., `30s`).
+          schema:
+            type: string
+          example: 30s
+      responses:
+        '200':
+          description: Compressed archive containing all profiles
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+
+  /debug/requests:
+    get:
+      operationId: GetDebugRequests
+      summary: Track HTTP requests
+      description: |
+        Track HTTP client requests to the `/write` and `/query` endpoints.
+        Returns the number of writes and queries per username and IP address
+        over the specified time interval.
+      tags:
+        - Debug
+      parameters:
+        - name: seconds
+          in: query
+          description: Duration in seconds to collect request data
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Request statistics by user and IP
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    writes:
+                      type: integer
+                    queries:
+                      type: integer
+              example:
+                "user1:123.45.678.91":
+                  writes: 1
+                  queries: 0
+                "user1:000.0.0.0":
+                  writes: 0
+                  queries: 16
+
+  /debug/vars:
+    get:
+      operationId: GetDebugVars
+      summary: Get server statistics
+      description: |
+        Retrieve runtime statistics and information about the InfluxDB Enterprise instance.
+        Returns detailed metrics in JSON format including memory usage,
+        goroutine counts, and database statistics.
+
+        The [InfluxDB Telegraf input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb)
+        can collect these metrics automatically.
+      tags:
+        - Debug
+      responses:
+        '200':
+          description: Server statistics in JSON format
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Server runtime statistics
+
+  # v2 Compatibility Endpoints
+  /api/v2/query:
+    post:
+      operationId: PostApiV2Query
+      summary: Query with Flux (v2 compatible)
+      description: |
+        Query data using [Flux](/enterprise_influxdb/v1/flux/) language.
+        This endpoint provides forward compatibility with InfluxDB 2.x client libraries.
+
+        **Required Headers:**
+        - `Accept: application/csv`
+        - `Content-type: application/vnd.flux`
+        - `Authorization: Token username:password` (if authentication is enabled)
+      tags:
+        - v2 Compatibility
+        - Query
+      security:
+        - TokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/vnd.flux:
+            schema:
+              type: string
+            example: |
+              from(bucket:"telegraf")
+                |> range(start:-5m)
+                |> filter(fn:(r) => r._measurement == "cpu")
+      responses:
+        '200':
+          description: Query results in CSV format
+          content:
+            application/csv:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v2/write:
+    post:
+      operationId: PostApiV2Write
+      summary: Write data (v2 compatible)
+      description: |
+        Write data using the InfluxDB 2.x API format.
+        This endpoint provides forward compatibility with InfluxDB 2.x client libraries.
+
+        **Bucket Mapping:**
+        The `bucket` parameter maps to InfluxDB 1.x database and retention policy:
+        - `database/retention-policy` - specific retention policy
+        - `database/` or `database` - default retention policy
+
+        The `org` parameter is ignored in InfluxDB Enterprise 1.x.
+      tags:
+        - v2 Compatibility
+        - Write
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: bucket
+          in: query
+          required: true
+          description: |
+            Database and retention policy in format `database/retention-policy`.
+            Use `database/` or `database` for the default retention policy.
+          schema:
+            type: string
+          example: mydb/autogen
+        - name: org
+          in: query
+          description: Organization (ignored in InfluxDB Enterprise 1.x)
+          schema:
+            type: string
+        - name: precision
+          in: query
+          description: Timestamp precision
+          schema:
+            type: string
+            enum: [ns, us, ms, s]
+            default: ns
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: "mem,host=host1 used_percent=23.43234543 1556896326"
+      responses:
+        '204':
+          description: Write successful
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v2/buckets:
+    get:
+      operationId: GetApiV2Buckets
+      summary: List buckets (v2 compatible)
+      description: |
+        List all databases as buckets. Provides forward compatibility with
+        InfluxDB 2.x client libraries.
+      tags:
+        - v2 Compatibility
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: List of buckets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BucketList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: PostApiV2Buckets
+      summary: Create bucket (v2 compatible)
+      description: |
+        Create a new database as a bucket. Provides forward compatibility with
+        InfluxDB 2.x client libraries.
+      tags:
+        - v2 Compatibility
+      security:
+        - TokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BucketCreate'
+      responses:
+        '201':
+          description: Bucket created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bucket'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v2/buckets/{bucketID}:
+    delete:
+      operationId: DeleteApiV2BucketsBucketID
+      summary: Delete bucket (v2 compatible)
+      description: |
+        Delete a database/retention policy combination.
+        The bucketID format is `database/retention-policy`.
+      tags:
+        - v2 Compatibility
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: bucketID
+          in: path
+          required: true
+          description: Bucket ID in format `database/retention-policy`
+          schema:
+            type: string
+          example: test/autogen
+      responses:
+        '204':
+          description: Bucket deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Bucket not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v2/delete:
+    post:
+      operationId: PostApiV2Delete
+      summary: Delete data (v2 compatible)
+      description: |
+        Delete data from InfluxDB Enterprise using predicate expressions.
+        Supports deletion by tag value, timestamp, and measurement.
+
+        **Predicate Syntax:**
+        ```
+        _measurement="example" AND tagKey="tagValue"
+        ```
+
+        See [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate/)
+        for detailed syntax and [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
+      tags:
+        - v2 Compatibility
+      security:
+        - TokenAuth: []
+      parameters:
+        - name: bucket
+          in: query
+          required: true
+          description: Database and retention policy in format `database/retention-policy`
+          schema:
+            type: string
+          example: exampleDB/autogen
+        - name: precision
+          in: query
+          description: Timestamp precision
+          schema:
+            type: string
+            enum: [ns, us, ms, s]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRequest'
+            examples:
+              timeRange:
+                summary: Delete by time range
+                value:
+                  start: "2020-03-01T00:00:00Z"
+                  stop: "2020-11-14T00:00:00Z"
+              withPredicate:
+                summary: Delete with predicate
+                value:
+                  start: "2020-03-01T00:00:00Z"
+                  stop: "2020-11-14T00:00:00Z"
+                  predicate: '_measurement="example-measurement" AND exampleTag="exampleTagValue"'
+      responses:
+        '204':
+          description: Delete successful
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: |
+        Use HTTP Basic Authentication by including your username and password in the request.
+
+        ```bash
+        curl -u username:password "http://localhost:8086/query?q=SHOW+DATABASES"
+        ```
+
+        Or encode credentials in the URL (not recommended for production):
+
+        ```bash
+        curl "http://username:password@localhost:8086/query?q=SHOW+DATABASES"
+        ```
+    QueryAuth:
+      type: apiKey
+      in: query
+      name: u
+      description: |
+        Pass your credentials as query parameters. Use `u` for username and `p` for password.
+
+        ```bash
+        curl "http://localhost:8086/query?u=username&p=password&q=SHOW+DATABASES"
+        ```
+
+        > [!Note]
+        > Query string authentication exposes credentials in URLs and server logs.
+        > Use Basic Authentication or Token Authentication for production environments.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: |
+        For v2-compatible endpoints (`/api/v2/*`), use the `Authorization` header with the `Token` scheme.
+
+        Include your InfluxDB 1.x username and password separated by a colon:
+
+        ```bash
+        curl -H "Authorization: Token username:password" \
+          "http://localhost:8086/api/v2/query"
+        ```
+
+        This format is compatible with InfluxDB 2.x client libraries, allowing you to
+        use the same code with both InfluxDB 1.8+ and InfluxDB 2.x.
+
+  parameters:
+    QueryDB:
+      name: db
+      in: query
+      description: Target database for the query
+      schema:
+        type: string
+      example: mydb
+    QueryQ:
+      name: q
+      in: query
+      required: true
+      description: InfluxQL query string
+      schema:
+        type: string
+      example: SELECT * FROM "mymeas"
+    QueryEpoch:
+      name: epoch
+      in: query
+      description: |
+        Return timestamps as Unix epoch values with specified precision.
+        By default, timestamps are returned in RFC3339 format.
+      schema:
+        type: string
+        enum: [ns, u, µ, ms, s, m, h]
+    QueryPretty:
+      name: pretty
+      in: query
+      description: Enable pretty-printed JSON output (not recommended for production)
+      schema:
+        type: boolean
+        default: false
+    QueryChunked:
+      name: chunked
+      in: query
+      description: |
+        Return results in streamed batches. Set to `true` to chunk by series
+        or every 10,000 points. Set to a number to chunk by that many points.
+      schema:
+        oneOf:
+          - type: boolean
+          - type: integer
+    AuthUsername:
+      name: u
+      in: query
+      description: Username for authentication
+      schema:
+        type: string
+    AuthPassword:
+      name: p
+      in: query
+      description: Password for authentication
+      schema:
+        type: string
+
+  schemas:
+    HealthCheck:
+      type: object
+      properties:
+        name:
+          type: string
+          example: influxdb
+        message:
+          type: string
+          example: ready for queries and writes
+        status:
+          type: string
+          enum: [pass, fail]
+        version:
+          type: string
+          example: "1.11.6"
+
+    QueryResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              statement_id:
+                type: integer
+              series:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Series'
+              error:
+                type: string
+
+    Series:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Measurement name
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+        columns:
+          type: array
+          items:
+            type: string
+        values:
+          type: array
+          items:
+            type: array
+            items: {}
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+
+    DeleteRequest:
+      type: object
+      required:
+        - start
+        - stop
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: Start time (inclusive)
+        stop:
+          type: string
+          format: date-time
+          description: Stop time (exclusive)
+        predicate:
+          type: string
+          description: |
+            InfluxQL-like predicate expression to filter data to delete.
+            Example: `_measurement="example" AND tagKey="tagValue"`
+
+    BucketList:
+      type: object
+      properties:
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bucket'
+
+    Bucket:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Bucket ID (database/retention-policy)
+        name:
+          type: string
+          description: Bucket name
+        retentionRules:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [expire]
+              everySeconds:
+                type: integer
+
+    BucketCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Database name
+        retentionRules:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [expire]
+              everySeconds:
+                type: integer
+                description: Retention period in seconds
