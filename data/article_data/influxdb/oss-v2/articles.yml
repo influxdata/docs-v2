@@ -1,41 +1,1882 @@
 articles:
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/authorizations
+        - /api/v2/authorizations/{authID}
+      title: ''
+      description: API reference for /api/v2/authorizations
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetAuthorizations
+          method: GET
+          path: /api/v2/authorizations
+          summary: List authorizations
+          tags:
+            - Authorizations (API tokens)
+            - Security and access endpoints
+        - operationId: PostAuthorizations
+          method: POST
+          path: /api/v2/authorizations
+          summary: Create an authorization
+          tags:
+            - Authorizations (API tokens)
+            - Security and access endpoints
+        - operationId: GetAuthorizationsID
+          method: GET
+          path: /api/v2/authorizations/{authID}
+          summary: Retrieve an authorization
+          tags:
+            - Authorizations (API tokens)
+            - Security and access endpoints
+          externalDocs:
+            description: View tokens
+            url: >-
+              https://docs.influxdata.com/influxdb/v2/security/tokens/view-tokens/
+        - operationId: PatchAuthorizationsID
+          method: PATCH
+          path: /api/v2/authorizations/{authID}
+          summary: Update an API token to be active or inactive
+          tags:
+            - Authorizations (API tokens)
+            - Security and access endpoints
+        - operationId: DeleteAuthorizationsID
+          method: DELETE
+          path: /api/v2/authorizations/{authID}
+          summary: Delete an authorization
+          tags:
+            - Authorizations (API tokens)
+            - Security and access endpoints
+      related:
+        - https://docs.influxdata.com/influxdb/v2/security/tokens/view-tokens/
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-authorizations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-authorizations.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/backup/kv
+        - /api/v2/backup/metadata
+        - /api/v2/backup/shards/{shardID}
+      title: ''
+      description: API reference for /api/v2/backup
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetBackupKV
+          method: GET
+          path: /api/v2/backup/kv
+          summary: >-
+            Download snapshot of metadata stored in the server's embedded KV
+            store. Don't use with InfluxDB versions greater than InfluxDB 2.1.x.
+          tags:
+            - Backup
+        - operationId: GetBackupMetadata
+          method: GET
+          path: /api/v2/backup/metadata
+          summary: Download snapshot of all metadata in the server
+          tags:
+            - Backup
+        - operationId: GetBackupShardId
+          method: GET
+          path: /api/v2/backup/shards/{shardID}
+          summary: Download snapshot of all TSM data in a shard
+          tags:
+            - Backup
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-backup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-backup.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/buckets
+        - /api/v2/buckets/{bucketID}
+        - /api/v2/buckets/{bucketID}/labels
+        - /api/v2/buckets/{bucketID}/labels/{labelID}
+        - /api/v2/buckets/{bucketID}/members
+        - /api/v2/buckets/{bucketID}/members/{userID}
+        - /api/v2/buckets/{bucketID}/owners
+        - /api/v2/buckets/{bucketID}/owners/{userID}
+      title: ''
+      description: API reference for /api/v2/buckets
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetBuckets
+          method: GET
+          path: /api/v2/buckets
+          summary: List buckets
+          tags:
+            - Buckets
+        - operationId: PostBuckets
+          method: POST
+          path: /api/v2/buckets
+          summary: Create a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsID
+          method: GET
+          path: /api/v2/buckets/{bucketID}
+          summary: Retrieve a bucket
+          tags:
+            - Buckets
+        - operationId: PatchBucketsID
+          method: PATCH
+          path: /api/v2/buckets/{bucketID}
+          summary: Update a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}
+          summary: Delete a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDLabels
+          method: GET
+          path: /api/v2/buckets/{bucketID}/labels
+          summary: List all labels for a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDLabels
+          method: POST
+          path: /api/v2/buckets/{bucketID}/labels
+          summary: Add a label to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDLabelsID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/labels/{labelID}
+          summary: Delete a label from a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDMembers
+          method: GET
+          path: /api/v2/buckets/{bucketID}/members
+          summary: List all users with member privileges for a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDMembers
+          method: POST
+          path: /api/v2/buckets/{bucketID}/members
+          summary: Add a member to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDMembersID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/members/{userID}
+          summary: Remove a member from a bucket
+          tags:
+            - Buckets
+        - operationId: GetBucketsIDOwners
+          method: GET
+          path: /api/v2/buckets/{bucketID}/owners
+          summary: List all owners of a bucket
+          tags:
+            - Buckets
+        - operationId: PostBucketsIDOwners
+          method: POST
+          path: /api/v2/buckets/{bucketID}/owners
+          summary: Add an owner to a bucket
+          tags:
+            - Buckets
+        - operationId: DeleteBucketsIDOwnersID
+          method: DELETE
+          path: /api/v2/buckets/{bucketID}/owners/{userID}
+          summary: Remove an owner from a bucket
+          tags:
+            - Buckets
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-buckets.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-buckets.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/checks
+        - /api/v2/checks/{checkID}
+        - /api/v2/checks/{checkID}/labels
+        - /api/v2/checks/{checkID}/labels/{labelID}
+        - /api/v2/checks/{checkID}/query
+      title: ''
+      description: API reference for /api/v2/checks
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetChecks
+          method: GET
+          path: /api/v2/checks
+          summary: List all checks
+          tags:
+            - Checks
+        - operationId: CreateCheck
+          method: POST
+          path: /api/v2/checks
+          summary: Add new check
+          tags:
+            - Checks
+        - operationId: GetChecksID
+          method: GET
+          path: /api/v2/checks/{checkID}
+          summary: Retrieve a check
+          tags:
+            - Checks
+        - operationId: PutChecksID
+          method: PUT
+          path: /api/v2/checks/{checkID}
+          summary: Update a check
+          tags:
+            - Checks
+        - operationId: PatchChecksID
+          method: PATCH
+          path: /api/v2/checks/{checkID}
+          summary: Update a check
+          tags:
+            - Checks
+        - operationId: DeleteChecksID
+          method: DELETE
+          path: /api/v2/checks/{checkID}
+          summary: Delete a check
+          tags:
+            - Checks
+        - operationId: GetChecksIDLabels
+          method: GET
+          path: /api/v2/checks/{checkID}/labels
+          summary: List all labels for a check
+          tags:
+            - Checks
+        - operationId: PostChecksIDLabels
+          method: POST
+          path: /api/v2/checks/{checkID}/labels
+          summary: Add a label to a check
+          tags:
+            - Checks
+        - operationId: DeleteChecksIDLabelsID
+          method: DELETE
+          path: /api/v2/checks/{checkID}/labels/{labelID}
+          summary: Delete label from a check
+          tags:
+            - Checks
+        - operationId: GetChecksIDQuery
+          method: GET
+          path: /api/v2/checks/{checkID}/query
+          summary: Retrieve a check query
+          tags:
+            - Checks
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-checks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-checks.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/config
+      title: ''
+      description: API reference for /api/v2/config
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetConfig
+          method: GET
+          path: /api/v2/config
+          summary: Retrieve runtime configuration
+          tags:
+            - Config
+            - System information endpoints
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-config.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-config.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/dashboards
+        - /api/v2/dashboards/{dashboardID}
+        - /api/v2/dashboards/{dashboardID}/cells
+        - /api/v2/dashboards/{dashboardID}/cells/{cellID}
+        - /api/v2/dashboards/{dashboardID}/cells/{cellID}/view
+        - /api/v2/dashboards/{dashboardID}/labels
+        - /api/v2/dashboards/{dashboardID}/labels/{labelID}
+        - /api/v2/dashboards/{dashboardID}/members
+        - /api/v2/dashboards/{dashboardID}/members/{userID}
+        - /api/v2/dashboards/{dashboardID}/owners
+        - /api/v2/dashboards/{dashboardID}/owners/{userID}
+      title: ''
+      description: API reference for /api/v2/dashboards
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDashboards
+          method: GET
+          path: /api/v2/dashboards
+          summary: List dashboards
+          tags:
+            - Dashboards
+        - operationId: PostDashboards
+          method: POST
+          path: /api/v2/dashboards
+          summary: Create a dashboard
+          tags:
+            - Dashboards
+        - operationId: GetDashboardsID
+          method: GET
+          path: /api/v2/dashboards/{dashboardID}
+          summary: Retrieve a dashboard
+          tags:
+            - Dashboards
+        - operationId: PatchDashboardsID
+          method: PATCH
+          path: /api/v2/dashboards/{dashboardID}
+          summary: Update a dashboard
+          tags:
+            - Dashboards
+        - operationId: DeleteDashboardsID
+          method: DELETE
+          path: /api/v2/dashboards/{dashboardID}
+          summary: Delete a dashboard
+          tags:
+            - Dashboards
+        - operationId: PostDashboardsIDCells
+          method: POST
+          path: /api/v2/dashboards/{dashboardID}/cells
+          summary: Create a dashboard cell
+          tags:
+            - Cells
+            - Dashboards
+        - operationId: PutDashboardsIDCells
+          method: PUT
+          path: /api/v2/dashboards/{dashboardID}/cells
+          summary: Replace cells in a dashboard
+          tags:
+            - Cells
+            - Dashboards
+        - operationId: PatchDashboardsIDCellsID
+          method: PATCH
+          path: /api/v2/dashboards/{dashboardID}/cells/{cellID}
+          summary: Update the non-positional information related to a cell
+          tags:
+            - Cells
+            - Dashboards
+        - operationId: DeleteDashboardsIDCellsID
+          method: DELETE
+          path: /api/v2/dashboards/{dashboardID}/cells/{cellID}
+          summary: Delete a dashboard cell
+          tags:
+            - Cells
+            - Dashboards
+        - operationId: GetDashboardsIDCellsIDView
+          method: GET
+          path: /api/v2/dashboards/{dashboardID}/cells/{cellID}/view
+          summary: Retrieve the view for a cell
+          tags:
+            - Cells
+            - Dashboards
+            - Views
+        - operationId: PatchDashboardsIDCellsIDView
+          method: PATCH
+          path: /api/v2/dashboards/{dashboardID}/cells/{cellID}/view
+          summary: Update the view for a cell
+          tags:
+            - Cells
+            - Dashboards
+            - Views
+        - operationId: GetDashboardsIDLabels
+          method: GET
+          path: /api/v2/dashboards/{dashboardID}/labels
+          summary: List all labels for a dashboard
+          tags:
+            - Dashboards
+        - operationId: PostDashboardsIDLabels
+          method: POST
+          path: /api/v2/dashboards/{dashboardID}/labels
+          summary: Add a label to a dashboard
+          tags:
+            - Dashboards
+        - operationId: DeleteDashboardsIDLabelsID
+          method: DELETE
+          path: /api/v2/dashboards/{dashboardID}/labels/{labelID}
+          summary: Delete a label from a dashboard
+          tags:
+            - Dashboards
+        - operationId: GetDashboardsIDMembers
+          method: GET
+          path: /api/v2/dashboards/{dashboardID}/members
+          summary: List all dashboard members
+          tags:
+            - Dashboards
+        - operationId: PostDashboardsIDMembers
+          method: POST
+          path: /api/v2/dashboards/{dashboardID}/members
+          summary: Add a member to a dashboard
+          tags:
+            - Dashboards
+        - operationId: DeleteDashboardsIDMembersID
+          method: DELETE
+          path: /api/v2/dashboards/{dashboardID}/members/{userID}
+          summary: Remove a member from a dashboard
+          tags:
+            - Dashboards
+        - operationId: GetDashboardsIDOwners
+          method: GET
+          path: /api/v2/dashboards/{dashboardID}/owners
+          summary: List all dashboard owners
+          tags:
+            - Dashboards
+        - operationId: PostDashboardsIDOwners
+          method: POST
+          path: /api/v2/dashboards/{dashboardID}/owners
+          summary: Add an owner to a dashboard
+          tags:
+            - Dashboards
+        - operationId: DeleteDashboardsIDOwnersID
+          method: DELETE
+          path: /api/v2/dashboards/{dashboardID}/owners/{userID}
+          summary: Remove an owner from a dashboard
+          tags:
+            - Dashboards
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-dashboards.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-dashboards.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/dbrps
+        - /api/v2/dbrps/{dbrpID}
+      title: ''
+      description: API reference for /api/v2/dbrps
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDBRPs
+          method: GET
+          path: /api/v2/dbrps
+          summary: List database retention policy mappings
+          tags:
+            - DBRPs
+        - operationId: PostDBRP
+          method: POST
+          path: /api/v2/dbrps
+          summary: Add a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: GetDBRPsID
+          method: GET
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Retrieve a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: PatchDBRPID
+          method: PATCH
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Update a database retention policy mapping
+          tags:
+            - DBRPs
+        - operationId: DeleteDBRPID
+          method: DELETE
+          path: /api/v2/dbrps/{dbrpID}
+          summary: Delete a database retention policy
+          tags:
+            - DBRPs
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-dbrps.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-dbrps.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/delete
+      title: ''
+      description: API reference for /api/v2/delete
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostDelete
+          method: POST
+          path: /api/v2/delete
+          summary: Delete data
+          tags:
+            - Delete
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-delete.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-delete.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/flags
+      title: ''
+      description: API reference for /api/v2/flags
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetFlags
+          method: GET
+          path: /api/v2/flags
+          summary: Retrieve feature flags
+          tags:
+            - Config
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-flags.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-flags.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/labels
+        - /api/v2/labels/{labelID}
+      title: ''
+      description: API reference for /api/v2/labels
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetLabels
+          method: GET
+          path: /api/v2/labels
+          summary: List all labels
+          tags:
+            - Labels
+        - operationId: PostLabels
+          method: POST
+          path: /api/v2/labels
+          summary: Create a label
+          tags:
+            - Labels
+        - operationId: GetLabelsID
+          method: GET
+          path: /api/v2/labels/{labelID}
+          summary: Retrieve a label
+          tags:
+            - Labels
+        - operationId: PatchLabelsID
+          method: PATCH
+          path: /api/v2/labels/{labelID}
+          summary: Update a label
+          tags:
+            - Labels
+        - operationId: DeleteLabelsID
+          method: DELETE
+          path: /api/v2/labels/{labelID}
+          summary: Delete a label
+          tags:
+            - Labels
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-labels.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-labels.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/maps/mapToken
+      title: ''
+      description: API reference for /api/v2/maps
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: getMapboxToken
+          method: GET
+          path: /api/v2/maps/mapToken
+          summary: Get a mapbox token
+          tags: []
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-maps.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-maps.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/me
+        - /api/v2/me/password
+      title: ''
+      description: API reference for /api/v2/me
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetMe
+          method: GET
+          path: /api/v2/me
+          summary: Retrieve the currently authenticated user
+          tags:
+            - Users
+        - operationId: PutMePassword
+          method: PUT
+          path: /api/v2/me/password
+          summary: Update a password
+          tags:
+            - Users
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-me.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-me.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/notificationEndpoints
+        - /api/v2/notificationEndpoints/{endpointID}
+        - /api/v2/notificationEndpoints/{endpointID}/labels
+        - /api/v2/notificationEndpoints/{endpointID}/labels/{labelID}
+      title: ''
+      description: API reference for /api/v2/notificationEndpoints
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetNotificationEndpoints
+          method: GET
+          path: /api/v2/notificationEndpoints
+          summary: List all notification endpoints
+          tags:
+            - NotificationEndpoints
+        - operationId: CreateNotificationEndpoint
+          method: POST
+          path: /api/v2/notificationEndpoints
+          summary: Add a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: GetNotificationEndpointsID
+          method: GET
+          path: /api/v2/notificationEndpoints/{endpointID}
+          summary: Retrieve a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: PutNotificationEndpointsID
+          method: PUT
+          path: /api/v2/notificationEndpoints/{endpointID}
+          summary: Update a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: PatchNotificationEndpointsID
+          method: PATCH
+          path: /api/v2/notificationEndpoints/{endpointID}
+          summary: Update a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: DeleteNotificationEndpointsID
+          method: DELETE
+          path: /api/v2/notificationEndpoints/{endpointID}
+          summary: Delete a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: GetNotificationEndpointsIDLabels
+          method: GET
+          path: /api/v2/notificationEndpoints/{endpointID}/labels
+          summary: List all labels for a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: PostNotificationEndpointIDLabels
+          method: POST
+          path: /api/v2/notificationEndpoints/{endpointID}/labels
+          summary: Add a label to a notification endpoint
+          tags:
+            - NotificationEndpoints
+        - operationId: DeleteNotificationEndpointsIDLabelsID
+          method: DELETE
+          path: /api/v2/notificationEndpoints/{endpointID}/labels/{labelID}
+          summary: Delete a label from a notification endpoint
+          tags:
+            - NotificationEndpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-notificationEndpoints.yaml
+      staticFilePath: >-
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-notificationEndpoints.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/notificationRules
+        - /api/v2/notificationRules/{ruleID}
+        - /api/v2/notificationRules/{ruleID}/labels
+        - /api/v2/notificationRules/{ruleID}/labels/{labelID}
+        - /api/v2/notificationRules/{ruleID}/query
+      title: ''
+      description: API reference for /api/v2/notificationRules
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetNotificationRules
+          method: GET
+          path: /api/v2/notificationRules
+          summary: List all notification rules
+          tags:
+            - NotificationRules
+        - operationId: CreateNotificationRule
+          method: POST
+          path: /api/v2/notificationRules
+          summary: Add a notification rule
+          tags:
+            - NotificationRules
+        - operationId: GetNotificationRulesID
+          method: GET
+          path: /api/v2/notificationRules/{ruleID}
+          summary: Retrieve a notification rule
+          tags:
+            - NotificationRules
+        - operationId: PutNotificationRulesID
+          method: PUT
+          path: /api/v2/notificationRules/{ruleID}
+          summary: Update a notification rule
+          tags:
+            - NotificationRules
+        - operationId: PatchNotificationRulesID
+          method: PATCH
+          path: /api/v2/notificationRules/{ruleID}
+          summary: Update a notification rule
+          tags:
+            - NotificationRules
+        - operationId: DeleteNotificationRulesID
+          method: DELETE
+          path: /api/v2/notificationRules/{ruleID}
+          summary: Delete a notification rule
+          tags:
+            - NotificationRules
+        - operationId: GetNotificationRulesIDLabels
+          method: GET
+          path: /api/v2/notificationRules/{ruleID}/labels
+          summary: List all labels for a notification rule
+          tags:
+            - NotificationRules
+        - operationId: PostNotificationRuleIDLabels
+          method: POST
+          path: /api/v2/notificationRules/{ruleID}/labels
+          summary: Add a label to a notification rule
+          tags:
+            - NotificationRules
+        - operationId: DeleteNotificationRulesIDLabelsID
+          method: DELETE
+          path: /api/v2/notificationRules/{ruleID}/labels/{labelID}
+          summary: Delete label from a notification rule
+          tags:
+            - NotificationRules
+        - operationId: GetNotificationRulesIDQuery
+          method: GET
+          path: /api/v2/notificationRules/{ruleID}/query
+          summary: Retrieve a notification rule query
+          tags:
+            - Rules
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-notificationRules.yaml
+      staticFilePath: >-
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-notificationRules.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/orgs
+        - /api/v2/orgs/{orgID}
+        - /api/v2/orgs/{orgID}/members
+        - /api/v2/orgs/{orgID}/members/{userID}
+        - /api/v2/orgs/{orgID}/owners
+        - /api/v2/orgs/{orgID}/owners/{userID}
+        - /api/v2/orgs/{orgID}/secrets
+        - /api/v2/orgs/{orgID}/secrets/delete
+        - /api/v2/orgs/{orgID}/secrets/{secretID}
+      title: ''
+      description: API reference for /api/v2/orgs
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetOrgs
+          method: GET
+          path: /api/v2/orgs
+          summary: List organizations
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: PostOrgs
+          method: POST
+          path: /api/v2/orgs
+          summary: Create an organization
+          tags:
+            - Organizations
+        - operationId: GetOrgsID
+          method: GET
+          path: /api/v2/orgs/{orgID}
+          summary: Retrieve an organization
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: PatchOrgsID
+          method: PATCH
+          path: /api/v2/orgs/{orgID}
+          summary: Update an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}
+          summary: Delete an organization
+          tags:
+            - Organizations
+        - operationId: GetOrgsIDMembers
+          method: GET
+          path: /api/v2/orgs/{orgID}/members
+          summary: List all members of an organization
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: PostOrgsIDMembers
+          method: POST
+          path: /api/v2/orgs/{orgID}/members
+          summary: Add a member to an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsIDMembersID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/members/{userID}
+          summary: Remove a member from an organization
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: GetOrgsIDOwners
+          method: GET
+          path: /api/v2/orgs/{orgID}/owners
+          summary: List all owners of an organization
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: PostOrgsIDOwners
+          method: POST
+          path: /api/v2/orgs/{orgID}/owners
+          summary: Add an owner to an organization
+          tags:
+            - Organizations
+        - operationId: DeleteOrgsIDOwnersID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/owners/{userID}
+          summary: Remove an owner from an organization
+          tags:
+            - Organizations
+            - Security and access endpoints
+        - operationId: GetOrgsIDSecrets
+          method: GET
+          path: /api/v2/orgs/{orgID}/secrets
+          summary: List all secret keys for an organization
+          tags:
+            - Secrets
+            - Security and access endpoints
+        - operationId: PatchOrgsIDSecrets
+          method: PATCH
+          path: /api/v2/orgs/{orgID}/secrets
+          summary: Update secrets in an organization
+          tags:
+            - Secrets
+        - operationId: PostOrgsIDSecrets
+          method: POST
+          path: /api/v2/orgs/{orgID}/secrets/delete
+          summary: Delete secrets from an organization
+          tags:
+            - Secrets
+            - Security and access endpoints
+        - operationId: DeleteOrgsIDSecretsID
+          method: DELETE
+          path: /api/v2/orgs/{orgID}/secrets/{secretID}
+          summary: Delete a secret from an organization
+          tags:
+            - Secrets
+            - Security and access endpoints
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-orgs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-orgs.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/query
+        - /api/v2/query/analyze
+        - /api/v2/query/ast
+        - /api/v2/query/suggestions
+        - /api/v2/query/suggestions/{name}
+      title: ''
+      description: API reference for /api/v2/query
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostQuery
+          method: POST
+          path: /api/v2/query
+          summary: Query data
+          tags:
+            - Query data
+        - operationId: PostQueryAnalyze
+          method: POST
+          path: /api/v2/query/analyze
+          summary: Analyze a Flux query
+          tags:
+            - Query data
+        - operationId: PostQueryAst
+          method: POST
+          path: /api/v2/query/ast
+          summary: Generate a query Abstract Syntax Tree (AST)
+          tags:
+            - Query data
+        - operationId: GetQuerySuggestions
+          method: GET
+          path: /api/v2/query/suggestions
+          summary: List Flux query suggestions
+          tags:
+            - Query data
+        - operationId: GetQuerySuggestionsName
+          method: GET
+          path: /api/v2/query/suggestions/{name}
+          summary: Retrieve a query suggestion for a branching suggestion
+          tags:
+            - Query data
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-query.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-query.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/remotes
+        - /api/v2/remotes/{remoteID}
+      title: ''
+      description: API reference for /api/v2/remotes
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetRemoteConnections
+          method: GET
+          path: /api/v2/remotes
+          summary: List all remote connections
+          tags:
+            - RemoteConnections
+        - operationId: PostRemoteConnection
+          method: POST
+          path: /api/v2/remotes
+          summary: Register a new remote connection
+          tags:
+            - RemoteConnections
+        - operationId: GetRemoteConnectionByID
+          method: GET
+          path: /api/v2/remotes/{remoteID}
+          summary: Retrieve a remote connection
+          tags:
+            - RemoteConnections
+        - operationId: PatchRemoteConnectionByID
+          method: PATCH
+          path: /api/v2/remotes/{remoteID}
+          summary: Update a remote connection
+          tags:
+            - RemoteConnections
+        - operationId: DeleteRemoteConnectionByID
+          method: DELETE
+          path: /api/v2/remotes/{remoteID}
+          summary: Delete a remote connection
+          tags:
+            - RemoteConnections
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-remotes.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-remotes.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/replications
+        - /api/v2/replications/{replicationID}
+        - /api/v2/replications/{replicationID}/validate
+      title: ''
+      description: API reference for /api/v2/replications
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetReplications
+          method: GET
+          path: /api/v2/replications
+          summary: List all replications
+          tags:
+            - Replications
+        - operationId: PostReplication
+          method: POST
+          path: /api/v2/replications
+          summary: Register a new replication
+          tags:
+            - Replications
+        - operationId: GetReplicationByID
+          method: GET
+          path: /api/v2/replications/{replicationID}
+          summary: Retrieve a replication
+          tags:
+            - Replications
+        - operationId: PatchReplicationByID
+          method: PATCH
+          path: /api/v2/replications/{replicationID}
+          summary: Update a replication
+          tags:
+            - Replications
+        - operationId: DeleteReplicationByID
+          method: DELETE
+          path: /api/v2/replications/{replicationID}
+          summary: Delete a replication
+          tags:
+            - Replications
+        - operationId: PostValidateReplicationByID
+          method: POST
+          path: /api/v2/replications/{replicationID}/validate
+          summary: Validate a replication
+          tags:
+            - Replications
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-replications.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-replications.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/resources
+      title: ''
+      description: API reference for /api/v2/resources
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetResources
+          method: GET
+          path: /api/v2/resources
+          summary: List all known resources
+          tags:
+            - Resources
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-resources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-resources.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/restore/bucket/{bucketID}
+        - /api/v2/restore/bucketMetadata
+        - /api/v2/restore/kv
+        - /api/v2/restore/shards/{shardID}
+        - /api/v2/restore/sql
+      title: ''
+      description: API reference for /api/v2/restore
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostRestoreBucketID
+          method: POST
+          path: /api/v2/restore/bucket/{bucketID}
+          summary: >-
+            Overwrite storage metadata for a bucket with shard info from a
+            backup.
+          tags:
+            - Restore
+        - operationId: PostRestoreBucketMetadata
+          method: POST
+          path: /api/v2/restore/bucketMetadata
+          summary: Create a new bucket pre-seeded with shard info from a backup.
+          tags:
+            - Restore
+        - operationId: PostRestoreKV
+          method: POST
+          path: /api/v2/restore/kv
+          summary: >-
+            Overwrite the embedded KV store on the server with a backed-up
+            snapshot.
+          tags:
+            - Restore
+        - operationId: PostRestoreShardId
+          method: POST
+          path: /api/v2/restore/shards/{shardID}
+          summary: Restore a TSM snapshot into a shard.
+          tags:
+            - Restore
+        - operationId: PostRestoreSQL
+          method: POST
+          path: /api/v2/restore/sql
+          summary: >-
+            Overwrite the embedded SQL store on the server with a backed-up
+            snapshot.
+          tags:
+            - Restore
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-restore.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-restore.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/scrapers
+        - /api/v2/scrapers/{scraperTargetID}
+        - /api/v2/scrapers/{scraperTargetID}/labels
+        - /api/v2/scrapers/{scraperTargetID}/labels/{labelID}
+        - /api/v2/scrapers/{scraperTargetID}/members
+        - /api/v2/scrapers/{scraperTargetID}/members/{userID}
+        - /api/v2/scrapers/{scraperTargetID}/owners
+        - /api/v2/scrapers/{scraperTargetID}/owners/{userID}
+      title: ''
+      description: API reference for /api/v2/scrapers
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetScrapers
+          method: GET
+          path: /api/v2/scrapers
+          summary: List all scraper targets
+          tags:
+            - Scraper Targets
+        - operationId: PostScrapers
+          method: POST
+          path: /api/v2/scrapers
+          summary: Create a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: GetScrapersID
+          method: GET
+          path: /api/v2/scrapers/{scraperTargetID}
+          summary: Retrieve a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: PatchScrapersID
+          method: PATCH
+          path: /api/v2/scrapers/{scraperTargetID}
+          summary: Update a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: DeleteScrapersID
+          method: DELETE
+          path: /api/v2/scrapers/{scraperTargetID}
+          summary: Delete a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: GetScrapersIDLabels
+          method: GET
+          path: /api/v2/scrapers/{scraperTargetID}/labels
+          summary: List all labels for a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: PostScrapersIDLabels
+          method: POST
+          path: /api/v2/scrapers/{scraperTargetID}/labels
+          summary: Add a label to a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: DeleteScrapersIDLabelsID
+          method: DELETE
+          path: /api/v2/scrapers/{scraperTargetID}/labels/{labelID}
+          summary: Delete a label from a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: GetScrapersIDMembers
+          method: GET
+          path: /api/v2/scrapers/{scraperTargetID}/members
+          summary: List all users with member privileges for a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: PostScrapersIDMembers
+          method: POST
+          path: /api/v2/scrapers/{scraperTargetID}/members
+          summary: Add a member to a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: DeleteScrapersIDMembersID
+          method: DELETE
+          path: /api/v2/scrapers/{scraperTargetID}/members/{userID}
+          summary: Remove a member from a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: GetScrapersIDOwners
+          method: GET
+          path: /api/v2/scrapers/{scraperTargetID}/owners
+          summary: List all owners of a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: PostScrapersIDOwners
+          method: POST
+          path: /api/v2/scrapers/{scraperTargetID}/owners
+          summary: Add an owner to a scraper target
+          tags:
+            - Scraper Targets
+        - operationId: DeleteScrapersIDOwnersID
+          method: DELETE
+          path: /api/v2/scrapers/{scraperTargetID}/owners/{userID}
+          summary: Remove an owner from a scraper target
+          tags:
+            - Scraper Targets
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-scrapers.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-scrapers.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/setup
+      title: ''
+      description: API reference for /api/v2/setup
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetSetup
+          method: GET
+          path: /api/v2/setup
+          summary: Check if database has default user, org, bucket
+          tags:
+            - Setup
+        - operationId: PostSetup
+          method: POST
+          path: /api/v2/setup
+          summary: Set up initial user, org and bucket
+          tags:
+            - Setup
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-setup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-setup.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/signin
+      title: ''
+      description: API reference for /api/v2/signin
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostSignin
+          method: POST
+          path: /api/v2/signin
+          summary: Create a user session.
+          tags:
+            - Security and access endpoints
+            - Signin
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-signin.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-signin.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/signout
+      title: ''
+      description: API reference for /api/v2/signout
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostSignout
+          method: POST
+          path: /api/v2/signout
+          summary: Expire a user session
+          tags:
+            - Security and access endpoints
+            - Signout
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-signout.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-signout.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/sources
+        - /api/v2/sources/{sourceID}
+        - /api/v2/sources/{sourceID}/buckets
+        - /api/v2/sources/{sourceID}/health
+      title: ''
+      description: API reference for /api/v2/sources
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetSources
+          method: GET
+          path: /api/v2/sources
+          summary: List all sources
+          tags:
+            - Sources
+        - operationId: PostSources
+          method: POST
+          path: /api/v2/sources
+          summary: Create a source
+          tags:
+            - Sources
+        - operationId: GetSourcesID
+          method: GET
+          path: /api/v2/sources/{sourceID}
+          summary: Retrieve a source
+          tags:
+            - Sources
+        - operationId: PatchSourcesID
+          method: PATCH
+          path: /api/v2/sources/{sourceID}
+          summary: Update a Source
+          tags:
+            - Sources
+        - operationId: DeleteSourcesID
+          method: DELETE
+          path: /api/v2/sources/{sourceID}
+          summary: Delete a source
+          tags:
+            - Sources
+        - operationId: GetSourcesIDBuckets
+          method: GET
+          path: /api/v2/sources/{sourceID}/buckets
+          summary: Get buckets in a source
+          tags:
+            - Sources
+            - Buckets
+        - operationId: GetSourcesIDHealth
+          method: GET
+          path: /api/v2/sources/{sourceID}/health
+          summary: Get the health of a source
+          tags:
+            - Sources
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-sources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-sources.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/stacks
+        - /api/v2/stacks/{stack_id}
+        - /api/v2/stacks/{stack_id}/uninstall
+      title: ''
+      description: API reference for /api/v2/stacks
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: ListStacks
+          method: GET
+          path: /api/v2/stacks
+          summary: List installed stacks
+          tags:
+            - Templates
+        - operationId: CreateStack
+          method: POST
+          path: /api/v2/stacks
+          summary: Create a stack
+          tags:
+            - Templates
+        - operationId: ReadStack
+          method: GET
+          path: /api/v2/stacks/{stack_id}
+          summary: Retrieve a stack
+          tags:
+            - Templates
+        - operationId: UpdateStack
+          method: PATCH
+          path: /api/v2/stacks/{stack_id}
+          summary: Update a stack
+          tags:
+            - Templates
+        - operationId: DeleteStack
+          method: DELETE
+          path: /api/v2/stacks/{stack_id}
+          summary: Delete a stack and associated resources
+          tags:
+            - Templates
+        - operationId: UninstallStack
+          method: POST
+          path: /api/v2/stacks/{stack_id}/uninstall
+          summary: Uninstall a stack
+          tags:
+            - Templates
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-stacks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-stacks.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/tasks
+        - /api/v2/tasks/{taskID}
+        - /api/v2/tasks/{taskID}/labels
+        - /api/v2/tasks/{taskID}/labels/{labelID}
+        - /api/v2/tasks/{taskID}/logs
+        - /api/v2/tasks/{taskID}/members
+        - /api/v2/tasks/{taskID}/members/{userID}
+        - /api/v2/tasks/{taskID}/owners
+        - /api/v2/tasks/{taskID}/owners/{userID}
+        - /api/v2/tasks/{taskID}/runs
+        - /api/v2/tasks/{taskID}/runs/{runID}
+        - /api/v2/tasks/{taskID}/runs/{runID}/logs
+        - /api/v2/tasks/{taskID}/runs/{runID}/retry
+      title: ''
+      description: API reference for /api/v2/tasks
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetTasks
+          method: GET
+          path: /api/v2/tasks
+          summary: List tasks
+          tags:
+            - Tasks
+        - operationId: PostTasks
+          method: POST
+          path: /api/v2/tasks
+          summary: Create a task
+          tags:
+            - Tasks
+        - operationId: GetTasksID
+          method: GET
+          path: /api/v2/tasks/{taskID}
+          summary: Retrieve a task
+          tags:
+            - Tasks
+        - operationId: PatchTasksID
+          method: PATCH
+          path: /api/v2/tasks/{taskID}
+          summary: Update a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}
+          summary: Delete a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDLabels
+          method: GET
+          path: /api/v2/tasks/{taskID}/labels
+          summary: List labels for a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDLabels
+          method: POST
+          path: /api/v2/tasks/{taskID}/labels
+          summary: Add a label to a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDLabelsID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/labels/{labelID}
+          summary: Delete a label from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDLogs
+          method: GET
+          path: /api/v2/tasks/{taskID}/logs
+          summary: Retrieve all logs for a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDMembers
+          method: GET
+          path: /api/v2/tasks/{taskID}/members
+          summary: List all task members
+          tags:
+            - Tasks
+        - operationId: PostTasksIDMembers
+          method: POST
+          path: /api/v2/tasks/{taskID}/members
+          summary: Add a member to a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDMembersID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/members/{userID}
+          summary: Remove a member from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDOwners
+          method: GET
+          path: /api/v2/tasks/{taskID}/owners
+          summary: List all owners of a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDOwners
+          method: POST
+          path: /api/v2/tasks/{taskID}/owners
+          summary: Add an owner for a task
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDOwnersID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/owners/{userID}
+          summary: Remove an owner from a task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRuns
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs
+          summary: List runs for a task
+          tags:
+            - Tasks
+        - operationId: PostTasksIDRuns
+          method: POST
+          path: /api/v2/tasks/{taskID}/runs
+          summary: Start a task run, overriding the schedule
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRunsID
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs/{runID}
+          summary: Retrieve a run for a task.
+          tags:
+            - Tasks
+        - operationId: DeleteTasksIDRunsID
+          method: DELETE
+          path: /api/v2/tasks/{taskID}/runs/{runID}
+          summary: Cancel a running task
+          tags:
+            - Tasks
+        - operationId: GetTasksIDRunsIDLogs
+          method: GET
+          path: /api/v2/tasks/{taskID}/runs/{runID}/logs
+          summary: Retrieve all logs for a run
+          tags:
+            - Tasks
+        - operationId: PostTasksIDRunsIDRetry
+          method: POST
+          path: /api/v2/tasks/{taskID}/runs/{runID}/retry
+          summary: Retry a task run
+          tags:
+            - Tasks
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-tasks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-tasks.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/telegraf/plugins
+      title: ''
+      description: API reference for /api/v2/telegraf
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetTelegrafPlugins
+          method: GET
+          path: /api/v2/telegraf/plugins
+          summary: List all Telegraf plugins
+          tags:
+            - Telegraf Plugins
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-telegraf.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-telegraf.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/telegrafs
+        - /api/v2/telegrafs/{telegrafID}
+        - /api/v2/telegrafs/{telegrafID}/labels
+        - /api/v2/telegrafs/{telegrafID}/labels/{labelID}
+        - /api/v2/telegrafs/{telegrafID}/members
+        - /api/v2/telegrafs/{telegrafID}/members/{userID}
+        - /api/v2/telegrafs/{telegrafID}/owners
+        - /api/v2/telegrafs/{telegrafID}/owners/{userID}
+      title: ''
+      description: API reference for /api/v2/telegrafs
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetTelegrafs
+          method: GET
+          path: /api/v2/telegrafs
+          summary: List all Telegraf configurations
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafs
+          method: POST
+          path: /api/v2/telegrafs
+          summary: Create a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsID
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Retrieve a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: PutTelegrafsID
+          method: PUT
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Update a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}
+          summary: Delete a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDLabels
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/labels
+          summary: List all labels for a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDLabels
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/labels
+          summary: Add a label to a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDLabelsID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/labels/{labelID}
+          summary: Delete a label from a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDMembers
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/members
+          summary: List all users with member privileges for a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDMembers
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/members
+          summary: Add a member to a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDMembersID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/members/{userID}
+          summary: Remove a member from a Telegraf config
+          tags:
+            - Telegrafs
+        - operationId: GetTelegrafsIDOwners
+          method: GET
+          path: /api/v2/telegrafs/{telegrafID}/owners
+          summary: List all owners of a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: PostTelegrafsIDOwners
+          method: POST
+          path: /api/v2/telegrafs/{telegrafID}/owners
+          summary: Add an owner to a Telegraf configuration
+          tags:
+            - Telegrafs
+        - operationId: DeleteTelegrafsIDOwnersID
+          method: DELETE
+          path: /api/v2/telegrafs/{telegrafID}/owners/{userID}
+          summary: Remove an owner from a Telegraf config
+          tags:
+            - Telegrafs
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-telegrafs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-telegrafs.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/templates/apply
+        - /api/v2/templates/export
+      title: ''
+      description: API reference for /api/v2/templates
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: ApplyTemplate
+          method: POST
+          path: /api/v2/templates/apply
+          summary: Apply or dry-run a template
+          tags:
+            - Templates
+        - operationId: ExportTemplate
+          method: POST
+          path: /api/v2/templates/export
+          summary: Export a new template
+          tags:
+            - Templates
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-templates.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-templates.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/users
+        - /api/v2/users/{userID}
+        - /api/v2/users/{userID}/password
+      title: ''
+      description: API reference for /api/v2/users
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetUsers
+          method: GET
+          path: /api/v2/users
+          summary: List users
+          tags:
+            - Security and access endpoints
+            - Users
+        - operationId: PostUsers
+          method: POST
+          path: /api/v2/users
+          summary: Create a user
+          tags:
+            - Users
+        - operationId: GetUsersID
+          method: GET
+          path: /api/v2/users/{userID}
+          summary: Retrieve a user
+          tags:
+            - Security and access endpoints
+            - Users
+        - operationId: PatchUsersID
+          method: PATCH
+          path: /api/v2/users/{userID}
+          summary: Update a user
+          tags:
+            - Users
+        - operationId: DeleteUsersID
+          method: DELETE
+          path: /api/v2/users/{userID}
+          summary: Delete a user
+          tags:
+            - Users
+        - operationId: PostUsersIDPassword
+          method: POST
+          path: /api/v2/users/{userID}/password
+          summary: Update a password
+          tags:
+            - Security and access endpoints
+            - Users
+        - operationId: PutUsersIDPassword
+          method: PUT
+          path: /api/v2/users/{userID}/password
+          summary: Update a password
+          tags:
+            - Security and access endpoints
+            - Users
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-users.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-users.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/variables
+        - /api/v2/variables/{variableID}
+        - /api/v2/variables/{variableID}/labels
+        - /api/v2/variables/{variableID}/labels/{labelID}
+      title: ''
+      description: API reference for /api/v2/variables
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetVariables
+          method: GET
+          path: /api/v2/variables
+          summary: List all variables
+          tags:
+            - Variables
+        - operationId: PostVariables
+          method: POST
+          path: /api/v2/variables
+          summary: Create a variable
+          tags:
+            - Variables
+        - operationId: GetVariablesID
+          method: GET
+          path: /api/v2/variables/{variableID}
+          summary: Retrieve a variable
+          tags:
+            - Variables
+        - operationId: PutVariablesID
+          method: PUT
+          path: /api/v2/variables/{variableID}
+          summary: Replace a variable
+          tags:
+            - Variables
+        - operationId: PatchVariablesID
+          method: PATCH
+          path: /api/v2/variables/{variableID}
+          summary: Update a variable
+          tags:
+            - Variables
+        - operationId: DeleteVariablesID
+          method: DELETE
+          path: /api/v2/variables/{variableID}
+          summary: Delete a variable
+          tags:
+            - Variables
+        - operationId: GetVariablesIDLabels
+          method: GET
+          path: /api/v2/variables/{variableID}/labels
+          summary: List all labels for a variable
+          tags:
+            - Variables
+        - operationId: PostVariablesIDLabels
+          method: POST
+          path: /api/v2/variables/{variableID}/labels
+          summary: Add a label to a variable
+          tags:
+            - Variables
+        - operationId: DeleteVariablesIDLabelsID
+          method: DELETE
+          path: /api/v2/variables/{variableID}/labels/{labelID}
+          summary: Delete a label from a variable
+          tags:
+            - Variables
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-variables.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-variables.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2/write
+      title: ''
+      description: API reference for /api/v2/write
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostWrite
+          method: POST
+          path: /api/v2/write
+          summary: Write data
+          tags:
+            - Write data
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-write.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2-write.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /api/v2
+      title: ''
+      description: API reference for /api/v2
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetRoutes
+          method: GET
+          path: /api/v2
+          summary: List all top level routes
+          tags:
+            - Routes
+            - System information endpoints
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-api-v2.yaml
   - path: api/authentication
     fields:
       name: Authentication
       describes: []
       title: Authentication
-      description: >
+      description: |-
         Use one of the following schemes to authenticate to the InfluxDB API:
 
-
-        - [Token authentication](#section/Authentication/TokenAuthentication)
-
-        - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-        - [Querystring
-        authentication](#section/Authentication/QuerystringAuthentication)
-
-        <!-- ReDoc-Inject: <security-definitions> -->
+        - Token authentication
+        - Basic authentication
+        - Querystring authentication
       tag: Authentication
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: |-
         Use one of the following schemes to authenticate to the InfluxDB API:
 
-
-        - [Token authentication](#section/Authentication/TokenAuthentication)
-
-        - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-        - [Querystring
-        authentication](#section/Authentication/QuerystringAuthentication)
-
-        <!-- ReDoc-Inject: <security-definitions> -->
+        - Token authentication
+        - Basic authentication
+        - Querystring authentication
       showSecuritySchemes: true
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authentication.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authentication.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authentication.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authentication.yaml
   - path: api/authorizations-api-tokens
     fields:
       name: Authorizations (API tokens)
@@ -43,7 +1884,7 @@ articles:
         - /api/v2/authorizations
         - /api/v2/authorizations/{authID}
       title: Authorizations (API tokens)
-      description: >
+      description: >-
         Create and manage authorizations (API tokens).
 
 
@@ -75,23 +1916,21 @@ articles:
         For more information, see [how to assign a token to a specific
         user](/influxdb/v2/security/tokens/create-token/).
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related endpoints
 
 
-        - [Signin](#tag/Signin)
+        - Signin
 
-        - [Signout](#tag/Signout)
+        - Signout
 
 
         ### Related guides
 
 
-        - [Authorize API
-        requests](/influxdb/v2/api-guide/api_intro/#authentication)
+        - [Authorize API requests](/influxdb/v2/api-guide/api_intro/)
 
         - [Manage API tokens](/influxdb/v2/security/tokens/)
 
@@ -135,7 +1974,7 @@ articles:
           summary: Delete an authorization
           tags:
             - Authorizations (API tokens)
-      tagDescription: >
+      tagDescription: >-
         Create and manage authorizations (API tokens).
 
 
@@ -167,23 +2006,21 @@ articles:
         For more information, see [how to assign a token to a specific
         user](/influxdb/v2/security/tokens/create-token/).
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related endpoints
 
 
-        - [Signin](#tag/Signin)
+        - Signin
 
-        - [Signout](#tag/Signout)
+        - Signout
 
 
         ### Related guides
 
 
-        - [Authorize API
-        requests](/influxdb/v2/api-guide/api_intro/#authentication)
+        - [Authorize API requests](/influxdb/v2/api-guide/api_intro/)
 
         - [Manage API tokens](/influxdb/v2/security/tokens/)
 
@@ -192,9 +2029,9 @@ articles:
       related:
         - https://docs.influxdata.com/influxdb/v2/security/tokens/view-tokens/
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authorizations-api-tokens.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authorizations-api-tokens.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authorizations-api-tokens.yaml
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authorizations-api-tokens.yaml
   - path: api/authorizations-v1-compatible
     fields:
       name: Authorizations (v1-compatible)
@@ -245,9 +2082,9 @@ articles:
           tags:
             - Authorizations (v1-compatible)
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authorizations-v1-compatible.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authorizations-v1-compatible.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-authorizations-v1-compatible.yaml
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-authorizations-v1-compatible.yaml
   - path: api/backup
     fields:
       name: Backup
@@ -281,8 +2118,8 @@ articles:
           summary: Download snapshot of all TSM data in a shard
           tags:
             - Backup
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-backup.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-backup.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-backup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-backup.yaml
   - path: api/buckets
     fields:
       name: Buckets
@@ -297,15 +2134,13 @@ articles:
         - /api/v2/buckets/{bucketID}/owners/{userID}
         - /api/v2/sources/{sourceID}/buckets
       title: Buckets
-      description: >
-        Store your data in InfluxDB
-        [buckets](/influxdb/v2/reference/glossary/#bucket).
+      description: >-
+        Store your data in InfluxDB [buckets](/influxdb/v2/reference/glossary/).
 
         A bucket is a named location where time series data is stored. All
         buckets
 
-        have a [retention
-        period](/influxdb/v2/reference/glossary/#retention-period),
+        have a [retention period](/influxdb/v2/reference/glossary/),
 
         a duration of time that each data point persists. InfluxDB drops all
 
@@ -412,15 +2247,13 @@ articles:
           summary: Get buckets in a source
           tags:
             - Buckets
-      tagDescription: >
-        Store your data in InfluxDB
-        [buckets](/influxdb/v2/reference/glossary/#bucket).
+      tagDescription: >-
+        Store your data in InfluxDB [buckets](/influxdb/v2/reference/glossary/).
 
         A bucket is a named location where time series data is stored. All
         buckets
 
-        have a [retention
-        period](/influxdb/v2/reference/glossary/#retention-period),
+        have a [retention period](/influxdb/v2/reference/glossary/),
 
         a duration of time that each data point persists. InfluxDB drops all
 
@@ -433,8 +2266,8 @@ articles:
 
 
         - [Manage buckets](/influxdb/v2/organizations/buckets/)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-buckets.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-buckets.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-buckets.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-buckets.yaml
   - path: api/cells
     fields:
       name: Cells
@@ -484,8 +2317,8 @@ articles:
           summary: Update the view for a cell
           tags:
             - Cells
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-cells.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-cells.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-cells.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-cells.yaml
   - path: api/checks
     fields:
       name: Checks
@@ -561,14 +2394,14 @@ articles:
           summary: Retrieve a check query
           tags:
             - Checks
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-checks.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-checks.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-checks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-checks.yaml
   - path: api/common-parameters
     fields:
       name: Common parameters
       describes: []
       title: Common parameters
-      description: >
+      description: >-
         To specify resources, some InfluxDB API endpoints require parameters or
 
         properties in the request--for example,
@@ -602,7 +2435,7 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
+      tagDescription: >-
         To specify resources, some InfluxDB API endpoints require parameters or
 
         properties in the request--for example,
@@ -633,9 +2466,8 @@ articles:
         | `orgID`                  | 16-byte string        | The organization ID
         ([find your organization](/influxdb/v2/organizations/view-orgs/). |
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-common-parameters.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-common-parameters.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-common-parameters.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-common-parameters.yaml
   - path: api/config
     fields:
       name: Config
@@ -660,8 +2492,8 @@ articles:
           summary: Retrieve feature flags
           tags:
             - Config
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-config.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-config.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-config.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-config.yaml
   - path: api/dashboards
     fields:
       name: Dashboards
@@ -803,70 +2635,8 @@ articles:
           summary: Remove an owner from a dashboard
           tags:
             - Dashboards
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-dashboards.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-dashboards.yaml
-  - path: api/data-i-o-endpoints
-    fields:
-      name: Data I/O endpoints
-      describes:
-        - /api/v2/delete
-        - /api/v2/query
-        - /api/v2/tasks
-        - /api/v2/tasks/{taskID}
-        - /api/v2/tasks/{taskID}/runs
-        - /api/v2/write
-      title: Data I/O endpoints
-      description: API reference for Data I/O endpoints
-      tag: Data I/O endpoints
-      isConceptual: false
-      menuGroup: Other
-      operations:
-        - operationId: PostDelete
-          method: POST
-          path: /api/v2/delete
-          summary: Delete data
-          tags:
-            - Data I/O endpoints
-        - operationId: PostQuery
-          method: POST
-          path: /api/v2/query
-          summary: Query data
-          tags:
-            - Data I/O endpoints
-        - operationId: GetTasks
-          method: GET
-          path: /api/v2/tasks
-          summary: List tasks
-          tags:
-            - Data I/O endpoints
-        - operationId: PostTasks
-          method: POST
-          path: /api/v2/tasks
-          summary: Create a task
-          tags:
-            - Data I/O endpoints
-        - operationId: GetTasksID
-          method: GET
-          path: /api/v2/tasks/{taskID}
-          summary: Retrieve a task
-          tags:
-            - Data I/O endpoints
-        - operationId: PostTasksIDRuns
-          method: POST
-          path: /api/v2/tasks/{taskID}/runs
-          summary: Start a task run, overriding the schedule
-          tags:
-            - Data I/O endpoints
-        - operationId: PostWrite
-          method: POST
-          path: /api/v2/write
-          summary: Write data
-          tags:
-            - Data I/O endpoints
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-data-i-o-endpoints.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-data-i-o-endpoints.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-dashboards.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-dashboards.yaml
   - path: api/dbrps
     fields:
       name: DBRPs
@@ -874,12 +2644,11 @@ articles:
         - /api/v2/dbrps
         - /api/v2/dbrps/{dbrpID}
       title: DBRPs
-      description: >
+      description: >-
         The InfluxDB 1.x data model includes
-        [databases](/influxdb/v2/reference/glossary/#database)
+        [databases](/influxdb/v2/reference/glossary/)
 
-        and [retention
-        policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
+        and [retention policies](/influxdb/v2/reference/glossary/).
 
         InfluxDB 2.x replaces databases and retention policies with buckets.
 
@@ -934,12 +2703,11 @@ articles:
           summary: Delete a database retention policy
           tags:
             - DBRPs
-      tagDescription: >
+      tagDescription: >-
         The InfluxDB 1.x data model includes
-        [databases](/influxdb/v2/reference/glossary/#database)
+        [databases](/influxdb/v2/reference/glossary/)
 
-        and [retention
-        policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
+        and [retention policies](/influxdb/v2/reference/glossary/).
 
         InfluxDB 2.x replaces databases and retention policies with buckets.
 
@@ -960,8 +2728,218 @@ articles:
 
         - [Database and retention policy
         mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-dbrps.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-dbrps.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-dbrps.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-dbrps.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/all
+      title: ''
+      description: API reference for /debug/pprof/all
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofAllProfiles
+          method: GET
+          path: /debug/pprof/all
+          summary: Retrieve all runtime profiles
+          tags:
+            - Debug
+            - System information endpoints
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-all.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-all.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/allocs
+      title: ''
+      description: API reference for /debug/pprof/allocs
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofAllocs
+          method: GET
+          path: /debug/pprof/allocs
+          summary: Retrieve the memory allocations runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-allocs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-allocs.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/block
+      title: ''
+      description: API reference for /debug/pprof/block
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofBlock
+          method: GET
+          path: /debug/pprof/block
+          summary: Retrieve the block runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-block.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-block.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/cmdline
+      title: ''
+      description: API reference for /debug/pprof/cmdline
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofCmdline
+          method: GET
+          path: /debug/pprof/cmdline
+          summary: Retrieve the command line invocation
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-cmdline.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-cmdline.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/goroutine
+      title: ''
+      description: API reference for /debug/pprof/goroutine
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofGoroutine
+          method: GET
+          path: /debug/pprof/goroutine
+          summary: Retrieve the goroutines runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-goroutine.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-goroutine.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/heap
+      title: ''
+      description: API reference for /debug/pprof/heap
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofHeap
+          method: GET
+          path: /debug/pprof/heap
+          summary: Retrieve the heap runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-heap.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-heap.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/mutex
+      title: ''
+      description: API reference for /debug/pprof/mutex
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofMutex
+          method: GET
+          path: /debug/pprof/mutex
+          summary: Retrieve the mutual exclusion (mutex) runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-mutex.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-mutex.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/profile
+      title: ''
+      description: API reference for /debug/pprof/profile
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofProfile
+          method: GET
+          path: /debug/pprof/profile
+          summary: Retrieve the CPU runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-profile.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-profile.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/threadcreate
+      title: ''
+      description: API reference for /debug/pprof/threadcreate
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofThreadCreate
+          method: GET
+          path: /debug/pprof/threadcreate
+          summary: Retrieve the threadcreate runtime profile
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-threadcreate.yaml
+      staticFilePath: >-
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-threadcreate.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /debug/pprof/trace
+      title: ''
+      description: API reference for /debug/pprof/trace
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetDebugPprofTrace
+          method: GET
+          path: /debug/pprof/trace
+          summary: Retrieve the runtime execution trace
+          tags:
+            - Debug
+            - System information endpoints
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-trace.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug-pprof-trace.yaml
   - path: api/debug
     fields:
       name: Debug
@@ -977,7 +2955,7 @@ articles:
         - /debug/pprof/threadcreate
         - /debug/pprof/trace
       title: Debug
-      description: >
+      description: >-
         Generate profiling and trace reports.
 
 
@@ -1065,7 +3043,7 @@ articles:
           summary: Retrieve the runtime execution trace
           tags:
             - Debug
-      tagDescription: >
+      tagDescription: >-
         Generate profiling and trace reports.
 
 
@@ -1089,16 +3067,15 @@ articles:
         - [Google pprof tool](https://github.com/google/pprof)
 
         - [Golang diagnostics](https://go.dev/doc/diagnostics)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-debug.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-debug.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-debug.yaml
   - path: api/delete
     fields:
       name: Delete
       describes:
         - /api/v2/delete
       title: Delete
-      description: |
-        Delete data from an InfluxDB bucket.
+      description: Delete data from an InfluxDB bucket.
       tag: Delete
       isConceptual: false
       menuGroup: Other
@@ -1109,16 +3086,15 @@ articles:
           summary: Delete data
           tags:
             - Delete
-      tagDescription: |
-        Delete data from an InfluxDB bucket.
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-delete.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-delete.yaml
+      tagDescription: Delete data from an InfluxDB bucket.
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-delete.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-delete.yaml
   - path: api/headers
     fields:
       name: Headers
       describes: []
       title: Headers
-      description: >
+      description: >-
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
 
@@ -1154,7 +3130,7 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
+      tagDescription: >-
         InfluxDB HTTP API endpoints use standard HTTP request and response
         headers.
 
@@ -1186,8 +3162,8 @@ articles:
 
         | `Content-Type`           | string                | The format of the
         data in the request body. |
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-headers.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-headers.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-headers.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-headers.yaml
   - path: api/health
     fields:
       name: Health
@@ -1205,8 +3181,8 @@ articles:
           summary: Retrieve the health of the instance
           tags:
             - Health
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-health.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-health.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-health.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-health.yaml
   - path: api/labels
     fields:
       name: Labels
@@ -1249,8 +3225,60 @@ articles:
           summary: Delete a label
           tags:
             - Labels
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-labels.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-labels.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-labels.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-labels.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /legacy/authorizations
+        - /legacy/authorizations/{authID}
+        - /legacy/authorizations/{authID}/password
+      title: ''
+      description: API reference for /legacy/authorizations
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetLegacyAuthorizations
+          method: GET
+          path: /legacy/authorizations
+          summary: List all legacy authorizations
+          tags:
+            - Authorizations (v1-compatible)
+        - operationId: PostLegacyAuthorizations
+          method: POST
+          path: /legacy/authorizations
+          summary: Create a legacy authorization
+          tags:
+            - Authorizations (v1-compatible)
+        - operationId: GetLegacyAuthorizationsID
+          method: GET
+          path: /legacy/authorizations/{authID}
+          summary: Retrieve a legacy authorization
+          tags:
+            - Authorizations (v1-compatible)
+        - operationId: PatchLegacyAuthorizationsID
+          method: PATCH
+          path: /legacy/authorizations/{authID}
+          summary: Update a legacy authorization to be active or inactive
+          tags:
+            - Authorizations (v1-compatible)
+        - operationId: DeleteLegacyAuthorizationsID
+          method: DELETE
+          path: /legacy/authorizations/{authID}
+          summary: Delete a legacy authorization
+          tags:
+            - Authorizations (v1-compatible)
+        - operationId: PostLegacyAuthorizationsIDPassword
+          method: POST
+          path: /legacy/authorizations/{authID}/password
+          summary: Set a legacy authorization password
+          tags:
+            - Authorizations (v1-compatible)
+      source: >-
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-legacy-authorizations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-legacy-authorizations.yaml
   - path: api/metrics
     fields:
       name: Metrics
@@ -1268,8 +3296,8 @@ articles:
           summary: Retrieve workload performance metrics
           tags:
             - Metrics
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-metrics.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-metrics.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-metrics.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-metrics.yaml
   - path: api/notificationendpoints
     fields:
       name: NotificationEndpoints
@@ -1339,9 +3367,8 @@ articles:
           tags:
             - NotificationEndpoints
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-notificationendpoints.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-notificationendpoints.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-notificationendpoints.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-notificationendpoints.yaml
   - path: api/notificationrules
     fields:
       name: NotificationRules
@@ -1411,9 +3438,8 @@ articles:
           tags:
             - NotificationRules
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-notificationrules.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-notificationrules.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-notificationrules.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-notificationrules.yaml
   - path: api/organizations
     fields:
       name: Organizations
@@ -1425,9 +3451,9 @@ articles:
         - /api/v2/orgs/{orgID}/owners
         - /api/v2/orgs/{orgID}/owners/{userID}
       title: Organizations
-      description: >
+      description: >-
         Create and manage your
-        [organizations](/influxdb/v2/reference/glossary/#organization).
+        [organizations](/influxdb/v2/reference/glossary/).
 
         An organization is a workspace for a group of users. Organizations can
         be
@@ -1509,9 +3535,9 @@ articles:
           summary: Remove an owner from an organization
           tags:
             - Organizations
-      tagDescription: >
+      tagDescription: >-
         Create and manage your
-        [organizations](/influxdb/v2/reference/glossary/#organization).
+        [organizations](/influxdb/v2/reference/glossary/).
 
         An organization is a workspace for a group of users. Organizations can
         be
@@ -1523,17 +3549,16 @@ articles:
 
         Use the `/api/v2/orgs` endpoints to create, view, and manage
         organizations.
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-organizations.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-organizations.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-organizations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-organizations.yaml
   - path: api/pagination
     fields:
       name: Pagination
       describes: []
       title: Pagination
-      description: >
-        Some InfluxDB API [list operations](#tag/SupportedOperations) may
-        support the following query parameters for paginating results:
+      description: >-
+        Some InfluxDB API list operations may support the following query
+        parameters for paginating results:
 
 
         | Query parameter          | Value type            |
@@ -1586,9 +3611,9 @@ articles:
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: >
-        Some InfluxDB API [list operations](#tag/SupportedOperations) may
-        support the following query parameters for paginating results:
+      tagDescription: >-
+        Some InfluxDB API list operations may support the following query
+        parameters for paginating results:
 
 
         | Query parameter          | Value type            |
@@ -1637,8 +3662,8 @@ articles:
             "buckets": []
           }
           ```
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-pagination.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-pagination.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-pagination.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-pagination.yaml
   - path: api/ping
     fields:
       name: Ping
@@ -1662,8 +3687,8 @@ articles:
           summary: Get the status of the instance
           tags:
             - Ping
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-ping.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-ping.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-ping.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-ping.yaml
   - path: api/query-data-v1-compatible
     fields:
       name: Query data (v1-compatible)
@@ -1688,65 +3713,88 @@ articles:
           tags:
             - Query data (v1-compatible)
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-query-data-v1-compatible.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query-data-v1-compatible.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-query-data-v1-compatible.yaml
-  - path: api/query
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query-data-v1-compatible.yaml
+  - path: api/query-data
     fields:
-      name: Query
+      name: Query data
       describes:
         - /api/v2/query
         - /api/v2/query/analyze
         - /api/v2/query/ast
         - /api/v2/query/suggestions
         - /api/v2/query/suggestions/{name}
-      title: Query
-      description: |
-        Retrieve data, analyze queries, and get query suggestions.
-      tag: Query
+      title: Query data
+      description: Retrieve data, analyze queries, and get query suggestions.
+      tag: Query data
       isConceptual: false
-      menuGroup: Other
+      menuGroup: Data Operations
       operations:
         - operationId: PostQuery
           method: POST
           path: /api/v2/query
           summary: Query data
           tags:
-            - Query
+            - Query data
         - operationId: PostQueryAnalyze
           method: POST
           path: /api/v2/query/analyze
           summary: Analyze a Flux query
           tags:
-            - Query
+            - Query data
         - operationId: PostQueryAst
           method: POST
           path: /api/v2/query/ast
           summary: Generate a query Abstract Syntax Tree (AST)
           tags:
-            - Query
+            - Query data
         - operationId: GetQuerySuggestions
           method: GET
           path: /api/v2/query/suggestions
           summary: List Flux query suggestions
           tags:
-            - Query
+            - Query data
         - operationId: GetQuerySuggestionsName
           method: GET
           path: /api/v2/query/suggestions/{name}
           summary: Retrieve a query suggestion for a branching suggestion
           tags:
-            - Query
-      tagDescription: |
-        Retrieve data, analyze queries, and get query suggestions.
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-query.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-query.yaml
+            - Query data
+      tagDescription: Retrieve data, analyze queries, and get query suggestions.
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query-data.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query-data.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /query
+      title: ''
+      description: API reference for /query
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: GetLegacyQuery
+          method: GET
+          path: /query
+          summary: Execute InfluxQL query (v1-compatible)
+          tags:
+            - Query data (v1-compatible)
+        - operationId: PostQueryV1
+          method: POST
+          path: /query
+          summary: Execute InfluxQL query (v1-compatible)
+          tags:
+            - Query data (v1-compatible)
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-query.yaml
   - path: api/quick-start
     fields:
       name: Quick start
       describes: []
       title: Quick start
-      description: >
+      description: >-
         See the [**API Quick Start**](/influxdb/v2/api-guide/api_intro/)
 
         to get up and running authenticating with tokens, writing to buckets,
@@ -1762,7 +3810,7 @@ articles:
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: >-
         See the [**API Quick Start**](/influxdb/v2/api-guide/api_intro/)
 
         to get up and running authenticating with tokens, writing to buckets,
@@ -1774,9 +3822,8 @@ articles:
 
         are available for popular languages and ready to import into your
         application.
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-quick-start.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-quick-start.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-quick-start.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-quick-start.yaml
   - path: api/ready
     fields:
       name: Ready
@@ -1794,8 +3841,8 @@ articles:
           summary: Get the readiness of an instance at startup
           tags:
             - Ready
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-ready.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-ready.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-ready.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-ready.yaml
   - path: api/remoteconnections
     fields:
       name: RemoteConnections
@@ -1839,9 +3886,8 @@ articles:
           tags:
             - RemoteConnections
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-remoteconnections.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-remoteconnections.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-remoteconnections.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-remoteconnections.yaml
   - path: api/replications
     fields:
       name: Replications
@@ -1891,9 +3937,8 @@ articles:
           summary: Validate a replication
           tags:
             - Replications
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-replications.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-replications.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-replications.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-replications.yaml
   - path: api/resources
     fields:
       name: Resources
@@ -1911,14 +3956,14 @@ articles:
           summary: List all known resources
           tags:
             - Resources
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-resources.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-resources.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-resources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-resources.yaml
   - path: api/response-codes
     fields:
       name: Response codes
       describes: []
       title: Response codes
-      description: >
+      description: >-
         InfluxDB HTTP API endpoints use standard HTTP status codes for success
         and failure responses.
 
@@ -1981,7 +4026,7 @@ articles:
       isConceptual: true
       menuGroup: Concepts
       operations: []
-      tagDescription: >
+      tagDescription: >-
         InfluxDB HTTP API endpoints use standard HTTP status codes for success
         and failure responses.
 
@@ -2040,9 +4085,8 @@ articles:
         | `503`       | Service unavailable      | Server is temporarily
         unavailable to process the request. The `Retry-After` header describes
         when to try the request again. |
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-response-codes.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-response-codes.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-response-codes.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-response-codes.yaml
   - path: api/restore
     fields:
       name: Restore
@@ -2094,8 +4138,8 @@ articles:
             snapshot.
           tags:
             - Restore
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-restore.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-restore.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-restore.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-restore.yaml
   - path: api/routes
     fields:
       name: Routes
@@ -2113,8 +4157,8 @@ articles:
           summary: List all top level routes
           tags:
             - Routes
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-routes.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-routes.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-routes.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-routes.yaml
   - path: api/rules
     fields:
       name: Rules
@@ -2132,8 +4176,8 @@ articles:
           summary: Retrieve a notification rule query
           tags:
             - Rules
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-rules.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-rules.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-rules.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-rules.yaml
   - path: api/scraper-targets
     fields:
       name: Scraper Targets
@@ -2236,9 +4280,8 @@ articles:
           summary: Remove an owner from a scraper target
           tags:
             - Scraper Targets
-      source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-scraper-targets.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-scraper-targets.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-scraper-targets.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-scraper-targets.yaml
   - path: api/secrets
     fields:
       name: Secrets
@@ -2276,8 +4319,8 @@ articles:
           summary: Delete secrets from an organization
           tags:
             - Secrets
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-secrets.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-secrets.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-secrets.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-secrets.yaml
   - path: api/security-and-access-endpoints
     fields:
       name: Security and access endpoints
@@ -2431,9 +4474,9 @@ articles:
       related:
         - https://docs.influxdata.com/influxdb/v2/security/tokens/view-tokens/
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-security-and-access-endpoints.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-security-and-access-endpoints.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-security-and-access-endpoints.yaml
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-security-and-access-endpoints.yaml
   - path: api/setup
     fields:
       name: Setup
@@ -2457,8 +4500,8 @@ articles:
           summary: Set up initial user, org and bucket
           tags:
             - Setup
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-setup.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-setup.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-setup.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-setup.yaml
   - path: api/signin
     fields:
       name: Signin
@@ -2476,8 +4519,8 @@ articles:
           summary: Create a user session.
           tags:
             - Signin
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-signin.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-signin.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-signin.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-signin.yaml
   - path: api/signout
     fields:
       name: Signout
@@ -2495,8 +4538,8 @@ articles:
           summary: Expire a user session
           tags:
             - Signout
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-signout.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-signout.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-signout.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-signout.yaml
   - path: api/sources
     fields:
       name: Sources
@@ -2553,23 +4596,22 @@ articles:
           summary: Get the health of a source
           tags:
             - Sources
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-sources.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-sources.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-sources.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-sources.yaml
   - path: api/supported-operations
     fields:
       name: Supported operations
       describes: []
       title: Supported operations
-      description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |"
       tag: Supported operations
       isConceptual: true
       menuGroup: Other
       operations: []
-      tagDescription: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+      tagDescription: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |"
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-supported-operations.yaml
-      staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-supported-operations.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-supported-operations.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-supported-operations.yaml
   - path: api/system-information-endpoints
     fields:
       name: System information endpoints
@@ -2700,9 +4742,9 @@ articles:
           tags:
             - System information endpoints
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-system-information-endpoints.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-system-information-endpoints.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-system-information-endpoints.yaml
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-system-information-endpoints.yaml
   - path: api/tasks
     fields:
       name: Tasks
@@ -2721,9 +4763,9 @@ articles:
         - /api/v2/tasks/{taskID}/runs/{runID}/logs
         - /api/v2/tasks/{taskID}/runs/{runID}/retry
       title: Tasks
-      description: >
+      description: >-
         Process and analyze your data with
-        [tasks](/influxdb/v2/reference/glossary/#task)
+        [tasks](/influxdb/v2/reference/glossary/)
 
         in the InfluxDB task engine.
 
@@ -2734,8 +4776,8 @@ articles:
         To configure a task, provide the script and the schedule to run the
         task.
 
-        For examples, see how to create a task with the [`POST /api/v2/tasks`
-        endpoint](#operation/PostTasks).
+        For examples, see how to create a task with the `POST /api/v2/tasks`
+        endpoint.
 
 
         <span id="tasks-schemaref-task" />
@@ -2891,9 +4933,9 @@ articles:
           summary: Retry a task run
           tags:
             - Tasks
-      tagDescription: >
+      tagDescription: >-
         Process and analyze your data with
-        [tasks](/influxdb/v2/reference/glossary/#task)
+        [tasks](/influxdb/v2/reference/glossary/)
 
         in the InfluxDB task engine.
 
@@ -2904,8 +4946,8 @@ articles:
         To configure a task, provide the script and the schedule to run the
         task.
 
-        For examples, see how to create a task with the [`POST /api/v2/tasks`
-        endpoint](#operation/PostTasks).
+        For examples, see how to create a task with the `POST /api/v2/tasks`
+        endpoint.
 
 
         <span id="tasks-schemaref-task" />
@@ -2931,8 +4973,8 @@ articles:
 
         - [Common data processing
         tasks](/influxdb/v2/process-data/common-tasks/)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-tasks.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-tasks.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-tasks.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-tasks.yaml
   - path: api/telegraf-plugins
     fields:
       name: Telegraf Plugins
@@ -2951,8 +4993,8 @@ articles:
           tags:
             - Telegraf Plugins
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-telegraf-plugins.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-telegraf-plugins.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-telegraf-plugins.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-telegraf-plugins.yaml
   - path: api/telegrafs
     fields:
       name: Telegrafs
@@ -3055,8 +5097,8 @@ articles:
           summary: Remove an owner from a Telegraf config
           tags:
             - Telegrafs
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-telegrafs.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-telegrafs.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-telegrafs.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-telegrafs.yaml
   - path: api/templates
     fields:
       name: Templates
@@ -3067,7 +5109,7 @@ articles:
         - /api/v2/templates/apply
         - /api/v2/templates/export
       title: Templates
-      description: >
+      description: >-
         Export and apply InfluxDB **templates**.
 
         Manage **stacks** of templated InfluxDB resources.
@@ -3164,7 +5206,7 @@ articles:
           summary: Export a new template
           tags:
             - Templates
-      tagDescription: >
+      tagDescription: >-
         Export and apply InfluxDB **templates**.
 
         Manage **stacks** of templated InfluxDB resources.
@@ -3209,8 +5251,8 @@ articles:
         - [InfluxDB stacks](/influxdb/v2/influxdb-templates/stacks/)
 
         - [InfluxDB templates](/influxdb/v2/influxdb-templates/)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-templates.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-templates.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-templates.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-templates.yaml
   - path: api/users
     fields:
       name: Users
@@ -3221,7 +5263,7 @@ articles:
         - /api/v2/users/{userID}
         - /api/v2/users/{userID}/password
       title: Users
-      description: >
+      description: >-
         Manage users for your organization.
 
         Users are those with access to InfluxDB.
@@ -3243,8 +5285,7 @@ articles:
         the session carries the permissions granted by all the user's
         authorizations.
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related guides
@@ -3253,7 +5294,7 @@ articles:
         - [Manage users](/influxdb/v2/influxdb/v2/users/)
 
         - [Create a token scoped to a
-        user](/influxdb/v2/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user)
+        user](/influxdb/v2/latest/security/tokens/create-token/)
       tag: Users
       isConceptual: false
       menuGroup: Other
@@ -3312,7 +5353,7 @@ articles:
           summary: Update a password
           tags:
             - Users
-      tagDescription: >
+      tagDescription: >-
         Manage users for your organization.
 
         Users are those with access to InfluxDB.
@@ -3334,8 +5375,7 @@ articles:
         the session carries the permissions granted by all the user's
         authorizations.
 
-        To create a user session, use the [`POST /api/v2/signin`
-        endpoint](#operation/PostSignin).
+        To create a user session, use the `POST /api/v2/signin` endpoint.
 
 
         ### Related guides
@@ -3344,9 +5384,9 @@ articles:
         - [Manage users](/influxdb/v2/influxdb/v2/users/)
 
         - [Create a token scoped to a
-        user](/influxdb/v2/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user)
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-users.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-users.yaml
+        user](/influxdb/v2/latest/security/tokens/create-token/)
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-users.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-users.yaml
   - path: api/variables
     fields:
       name: Variables
@@ -3415,8 +5455,8 @@ articles:
           summary: Delete a label from a variable
           tags:
             - Variables
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-variables.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-variables.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-variables.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-variables.yaml
   - path: api/views
     fields:
       name: Views
@@ -3440,8 +5480,8 @@ articles:
           summary: Update the view for a cell
           tags:
             - Views
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-views.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-views.yaml
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-views.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-views.yaml
   - path: api/write-data-v1-compatible
     fields:
       name: Write data (v1-compatible)
@@ -3460,30 +5500,45 @@ articles:
           tags:
             - Write data (v1-compatible)
       source: >-
-        static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-write-data-v1-compatible.yaml
+        static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write-data-v1-compatible.yaml
       staticFilePath: >-
-        /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-write-data-v1-compatible.yaml
-  - path: api/write
+        /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write-data-v1-compatible.yaml
+  - path: api/write-data
     fields:
-      name: Write
+      name: Write data
       describes:
         - /api/v2/write
-      title: Write
-      description: >
-        Write time series data to
-        [buckets](/influxdb/v2/reference/glossary/#bucket).
-      tag: Write
+      title: Write data
+      description: Write time series data to [buckets](/influxdb/v2/reference/glossary/).
+      tag: Write data
       isConceptual: false
-      menuGroup: Other
+      menuGroup: Data Operations
       operations:
         - operationId: PostWrite
           method: POST
           path: /api/v2/write
           summary: Write data
           tags:
-            - Write
-      tagDescription: >
-        Write time series data to
-        [buckets](/influxdb/v2/reference/glossary/#bucket).
-      source: static/openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-write.yaml
-      staticFilePath: /openapi/influxdb-oss-v2/tags/tags/influxdb-oss-v2-write.yaml
+            - Write data
+      tagDescription: Write time series data to [buckets](/influxdb/v2/reference/glossary/).
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write-data.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write-data.yaml
+  - path: api/
+    fields:
+      name: ''
+      describes:
+        - /write
+      title: ''
+      description: API reference for /write
+      tag: ''
+      isConceptual: false
+      menuGroup: Other
+      operations:
+        - operationId: PostLegacyWrite
+          method: POST
+          path: /write
+          summary: Write data using a v1-compatible request
+          tags:
+            - Write data (v1-compatible)
+      source: static/openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write.yaml
+      staticFilePath: /openapi/influxdb-oss-v2/tags/influxdb-oss-v2-write.yaml
