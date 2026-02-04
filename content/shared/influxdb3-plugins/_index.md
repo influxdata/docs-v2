@@ -458,7 +458,7 @@ For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/refe
 
 To update a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -477,8 +477,6 @@ curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
 ```
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-
-For complete reference, see [Update plugin file](/influxdb3/version/api/v3/#operation/PutPluginFile).
 
 **The update operation:**
 - Replaces plugin files immediately
@@ -592,7 +590,7 @@ For complete reference, see [`influxdb3 create trigger`](/influxdb3/version/refe
 
 To create a trigger using the HTTP API, send a `POST` request to the `/api/v3/configure/processing_engine_trigger` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger" %}}
 
 Include the following in your request:
 
@@ -607,8 +605,8 @@ Include the following in your request:
   - `trigger_settings` _(object, required)_: Configuration for error handling and execution
     - `run_async` _(boolean)_: Whether to run asynchronously (default: `false`)
     - `error_behavior` _(string)_: How to handle errors: `Log`, `Retry`, or `Disable` (default: `Log`)
+  - `disabled` _(boolean, required)_: Whether the trigger is disabled
   - `trigger_arguments` _(object, optional)_: Arguments passed to the plugin
-  - `disabled` _(boolean, optional)_: Whether the trigger is disabled (default: `false`)
 
 {{% code-placeholders "DATABASE_NAME|PLUGIN_FILE|TRIGGER_NAME|TRIGGER_SPEC|AUTH_TOKEN" %}}
 
@@ -625,7 +623,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -638,8 +637,6 @@ In the example above, replace the following:
 - {{% code-placeholder-key %}}`PLUGIN_FILE`{{% /code-placeholder-key %}}: Plugin filename relative to your configured plugin directory
 - {{% code-placeholder-key %}}`TRIGGER_SPEC`{{% /code-placeholder-key %}}: Trigger specification (see [examples](#trigger-specification-examples))
 - {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
-
-For complete reference, see [Create processing engine trigger](/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger).
 
 
 ### Trigger specification examples
@@ -690,7 +687,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 
 # Trigger on writes to all tables
@@ -705,7 +703,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -814,7 +813,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 
 # Run on a cron schedule (8am daily)
@@ -830,7 +830,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -882,7 +883,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -958,7 +960,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_arguments": {
       "threshold": "90",
       "notify_email": "admin@example.com"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -1025,7 +1028,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": true,
       "error_behavior": "Log"
-    }
+    },
+    "disabled": false
   }'
 ```
 
@@ -1090,7 +1094,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Retry"
-    }
+    },
+    "disabled": false
   }'
 
 # Disable the trigger on error
@@ -1105,7 +1110,8 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" 
     "trigger_settings": {
       "run_async": false,
       "error_behavior": "Disable"
-    }
+    },
+    "disabled": false
   }'
 ```
 
