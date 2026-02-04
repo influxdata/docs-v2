@@ -20,6 +20,7 @@ package-lock.json
 /content/influxdb/*/api/**
 /content/influxdb3/*/api/**
 /content/influxdb3/*/reference/api/**
+/content/enterprise_influxdb/*/api/**
 /static/openapi
 /data/article_data
 
