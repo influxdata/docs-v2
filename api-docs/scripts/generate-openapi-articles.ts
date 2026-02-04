@@ -890,10 +890,7 @@ interface ArticleData {
  */
 function mergeArticleData(articlesFiles: string[], outputPath: string): void {
   const yaml = require('js-yaml');
-  const mergedArticles = new Map<
-    string,
-    ArticleData['articles'][0]
-  >();
+  const mergedArticles = new Map<string, ArticleData['articles'][0]>();
 
   for (const file of articlesFiles) {
     if (!fs.existsSync(file)) {
@@ -935,7 +932,8 @@ function mergeArticleData(articlesFiles: string[], outputPath: string): void {
         if (
           article.fields.description &&
           (!existing.fields.description ||
-            article.fields.description.length > existing.fields.description.length)
+            article.fields.description.length >
+              existing.fields.description.length)
         ) {
           existing.fields.description = article.fields.description;
         }
@@ -963,7 +961,9 @@ function mergeArticleData(articlesFiles: string[], outputPath: string): void {
   }
 
   // Write both YAML and JSON versions
-  const yamlPath = outputPath.endsWith('.yml') ? outputPath : `${outputPath}.yml`;
+  const yamlPath = outputPath.endsWith('.yml')
+    ? outputPath
+    : `${outputPath}.yml`;
   const jsonPath = yamlPath.replace(/\.yml$/, '.json');
 
   fs.writeFileSync(yamlPath, yaml.dump(mergedData));
@@ -1449,7 +1449,9 @@ function processProduct(productKey: string, config: ProductConfig): void {
 
     // Step 5: Merge article data from all specs (for multi-spec products)
     if (processedSpecs.length > 1) {
-      console.log(`\n📋 Merging article data from ${processedSpecs.length} specs...`);
+      console.log(
+        `\n📋 Merging article data from ${processedSpecs.length} specs...`
+      );
       const articlesFiles = processedSpecs.map((s) =>
         path.join(s.articlesPath, 'articles.yml')
       );
@@ -1513,9 +1515,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
  */
 function main(): void {
   // Filter out CLI flags from arguments
-  const args = process.argv
-    .slice(2)
-    .filter((arg) => !arg.startsWith('--'));
+  const args = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 
   // Determine which products to process
   let productsToProcess: string[];
