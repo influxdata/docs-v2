@@ -4,6 +4,16 @@ import { execSync } from 'child_process';
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  loadConfig,
+  getReleaseNotesConfig,
+  getRepoPathOrClone,
+  cloneOrUpdateRepo,
+} from '../lib/config-loader.js';
+import {
+  resolveProducts,
+  validateMutualExclusion,
+} from '../lib/product-resolver.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -48,7 +58,8 @@ class ReleaseNotesGenerator {
     this.includePrLinks = options.includePrLinks !== false; // Default to true
     this.config = options.config || DEFAULT_CONFIG;
     this.outputDir =
-      options.outputDir || join(__dirname, '..', 'output', 'release-notes');
+      options.outputDir ||
+      join(__dirname, '..', '..', '..', '.tmp', 'release-notes');
   }
 
   log(message, color = 'nc') {
@@ -643,7 +654,7 @@ class ReleaseNotesGenerator {
     }
 
     lines.push('');
-    lines.push('### Bug Fixes');
+    lines.push('### Bug fixes');
     lines.push('');
 
     if (commits.fixes.length > 0) {
@@ -804,7 +815,7 @@ class ReleaseNotesGenerator {
     }
 
     lines.push('');
-    lines.push('#### Bug Fixes');
+    lines.push('#### Bug fixes');
     lines.push('');
 
     if (primaryCommits.fixes.length > 0) {
@@ -856,7 +867,7 @@ class ReleaseNotesGenerator {
 
       // Secondary fixes
       if (secondaryCommits.fixes.length > 0) {
-        lines.push('#### Bug Fixes');
+        lines.push('#### Bug fixes');
         lines.push('');
         secondaryCommits.fixes.forEach((fix) => {
           lines.push(fix);
@@ -1124,48 +1135,33 @@ function parseArgs() {
 
 function printUsage() {
   console.log(`
-Usage: node generate-release-notes.js [options] <from_version> <to_version> <primary_repo_path> [additional_repo_paths...]
+Usage: docs release-notes <from_version> <to_version> [options]
 
 Options:
+  --products <keys>       Product keys or content paths (comma-separated)
+                          Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>         Direct repo paths or URLs (alternative to --products)
   --no-fetch              Skip fetching latest commits from remote
   --pull                  Pull latest changes (implies fetch) - use with caution
   --no-pr-links           Omit PR links from commit messages (default: include links)
-  --config <file>         Load configuration from JSON file
   --format <type>         Output format: 'integrated' or 'separated'
   -h, --help              Show this help message
 
-Examples:
-  node generate-release-notes.js v3.1.0 v3.2.0 /path/to/influxdb
-  node generate-release-notes.js --no-fetch v3.1.0 v3.2.0 /path/to/influxdb
-  node generate-release-notes.js --pull v3.1.0 v3.2.0 /path/to/influxdb /path/to/influxdb_pro
-  node generate-release-notes.js --config config.json v3.1.0 v3.2.0
-  node generate-release-notes.js --format separated v3.1.0 v3.2.0 /path/to/influxdb /path/to/influxdb_pro
+Note: --products and --repos are mutually exclusive.
 
-Configuration file format (JSON):
-{
-  "outputFormat": "separated",
-  "primaryRepo": "influxdb",
-  "repositories": [
-    {
-      "name": "influxdb",
-      "path": "/path/to/influxdb",
-      "label": "Core",
-      "includePrLinks": true
-    },
-    {
-      "name": "influxdb_pro", 
-      "path": "/path/to/influxdb_pro",
-      "label": "Enterprise",
-      "includePrLinks": false
-    }
-  ],
-  "separatedTemplate": {
-    "header": "> [!Note]\\n> #### InfluxDB 3 Core and Enterprise relationship\\n>\\n> InfluxDB 3 Enterprise is a superset of InfluxDB 3 Core.\\n> All updates to Core are automatically included in Enterprise.\\n> The Enterprise sections below only list updates exclusive to Enterprise.",
-    "primaryLabel": "Core",
-    "secondaryLabel": "Enterprise",
-    "secondaryIntro": "All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:"
-  }
-}
+Examples:
+  # Use product keys
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+
+  # Use content paths
+  docs release-notes v3.1.0 v3.2.0 --products /influxdb3/core,/influxdb3/enterprise
+
+  # Use direct repo paths
+  docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb,~/repos/enterprise
+
+  # Additional options
+  docs release-notes --no-fetch v3.1.0 v3.2.0 --products influxdb3_core
+  docs release-notes --format separated v3.1.0 v3.2.0 --products influxdb3_core
 `);
 }
 
@@ -1187,3 +1183,226 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 }
 
 export { ReleaseNotesGenerator };
+
+// Export for unified CLI
+export default async function releaseNotes(args) {
+  const positionals = args.args || [];
+
+  // Parse command line arguments
+  const options = {};
+  const versions = [];
+  let productsInput = null; // Raw --products input (will be resolved)
+  const repoPaths = []; // Direct paths or URLs (--repos)
+
+  for (let i = 0; i < positionals.length; i++) {
+    const arg = positionals[i];
+
+    if (arg === '--help' || arg === '-h') {
+      console.log(`
+Release Notes Generator
+
+Usage: docs release-notes <from_version> <to_version> [options]
+
+Options:
+  --config <file>      Load configuration from YAML/JSON file
+  --format <type>      Output format: 'integrated' or 'separated'
+  --products <keys>    Product keys or content paths (comma-separated)
+                       Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>      Direct repo paths or URLs (alternative to --products)
+  --no-fetch           Skip fetching latest commits
+  --pull               Pull latest changes (use with caution)
+  --no-pr-links        Omit PR links from commits
+
+Note: --products and --repos are mutually exclusive.
+
+Examples:
+  # Use product keys
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+
+  # Use content paths
+  docs release-notes v3.1.0 v3.2.0 --products /influxdb3/core,/influxdb3/enterprise
+
+  # Use direct repo paths
+  docs release-notes v3.1.0 v3.2.0 --repos ~/github/influxdata/influxdb
+
+See scripts/docs-cli/config/README.md for configuration details.
+`);
+      process.exit(0);
+    } else if (arg === '--products' || arg === '--product') {
+      // Product keys or paths (comma-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        productsInput = positionals[i + 1];
+        i++;
+      } else {
+        console.error('Error: --products requires product keys or paths');
+        process.exit(1);
+      }
+    } else if (arg.startsWith('--products=')) {
+      productsInput = arg.split('=')[1];
+    } else if (arg === '--repos' || arg === '--repo') {
+      // Direct repo paths or URLs (comma-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        const paths = positionals[i + 1].split(',').map((p) => p.trim());
+        repoPaths.push(...paths);
+        i++;
+      } else {
+        console.error('Error: --repos requires paths or URLs');
+        process.exit(1);
+      }
+    } else if (arg.startsWith('--')) {
+      const key = arg.replace('--', '');
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        options[key] = positionals[i + 1];
+        i++;
+      } else {
+        options[key] = true;
+      }
+    } else if (!arg.startsWith('v') && versions.length >= 2) {
+      repoPaths.push(arg);
+    } else {
+      versions.push(arg);
+    }
+  }
+
+  if (versions.length < 2) {
+    console.error('Error: Please specify from_version and to_version');
+    console.error('Run: docs release-notes --help');
+    process.exit(1);
+  }
+
+  // Validate mutual exclusion
+  validateMutualExclusion({
+    products: productsInput,
+    repos: repoPaths.length > 0 ? repoPaths.join(',') : null,
+  });
+
+  // Load shared config (merges defaults with user/project overrides)
+  const sharedConfig = await loadConfig({ configFile: options.config });
+  const releaseNotesConfig = await getReleaseNotesConfig({
+    configFile: options.config,
+  });
+
+  // Build repository list
+  let repositories = [];
+
+  // 1. If --products provided, resolve product keys using product-resolver
+  if (productsInput) {
+    let resolvedProducts;
+    try {
+      resolvedProducts = resolveProducts(productsInput);
+      console.log(
+        `✓ Resolved products: ${resolvedProducts.map((p) => p.key).join(', ')}`
+      );
+    } catch (error) {
+      console.error(error.message);
+      process.exit(1);
+    }
+
+    for (const { key } of resolvedProducts) {
+      const repoPath = await getRepoPathOrClone(key, {
+        configFile: options.config,
+        allowClone: true,
+        fetch: options['no-fetch'] !== true,
+      });
+      if (!repoPath) {
+        console.error(
+          `Error: Product '${key}' not found - no local path or URL configured`
+        );
+        console.error(
+          `Configure path or url in ~/.influxdata-docs/docs-cli.yml or .docs-cli.local.yml`
+        );
+        process.exit(1);
+      }
+      repositories.push({
+        name: key,
+        path: repoPath,
+        label: sharedConfig.repositories?.[key]?.description || key,
+        includePrLinks: releaseNotesConfig.includePrLinks !== false,
+      });
+    }
+  }
+
+  // 2. If --repos provided, use direct paths or clone from URLs
+  if (repoPaths.length > 0) {
+    for (const pathOrUrl of repoPaths) {
+      let repoPath = pathOrUrl;
+      let repoName = pathOrUrl
+        .split('/')
+        .pop()
+        .replace(/\.git$/, '');
+
+      // Check if it's a URL (needs cloning)
+      if (
+        pathOrUrl.startsWith('http://') ||
+        pathOrUrl.startsWith('https://') ||
+        pathOrUrl.startsWith('git@')
+      ) {
+        repoPath = await cloneOrUpdateRepo(pathOrUrl, repoName, {
+          fetch: options['no-fetch'] !== true,
+        });
+      } else if (!existsSync(pathOrUrl)) {
+        console.error(`Error: Repository path not found: ${pathOrUrl}`);
+        process.exit(1);
+      }
+
+      repositories.push({
+        name: repoName,
+        path: repoPath,
+        label: repoName,
+        includePrLinks: releaseNotesConfig.includePrLinks !== false,
+      });
+    }
+  }
+
+  // 3. If no repos specified, show available options
+  if (repositories.length === 0) {
+    console.error('Error: No repositories specified');
+    console.error('');
+    console.error('Options:');
+    console.error(
+      '  --products <keys>  Use product keys from config (e.g., influxdb3_core)'
+    );
+    console.error('  --repos <paths>    Use direct paths or URLs');
+    console.error('');
+
+    // Show available products from config
+    if (sharedConfig.repositories) {
+      console.error('Available products in config:');
+      for (const [name, repo] of Object.entries(sharedConfig.repositories)) {
+        const hasPath = repo.path && existsSync(repo.path);
+        const hasUrl = !!repo.url;
+        const status = hasPath ? '✓ local' : hasUrl ? '↓ url' : '✗ none';
+        console.error(`  [${status}] ${name}: ${repo.description || ''}`);
+      }
+      console.error('');
+      console.error('Configure paths in ~/.influxdata-docs/docs-cli.yml');
+    }
+    process.exit(1);
+  }
+
+  // Build generator config
+  const generatorConfig = {
+    ...DEFAULT_CONFIG,
+    outputFormat:
+      options.format || releaseNotesConfig.outputFormat || 'integrated',
+    primaryRepo: releaseNotesConfig.primaryRepo || null,
+    repositories,
+    separatedTemplate: {
+      ...DEFAULT_CONFIG.separatedTemplate,
+      ...releaseNotesConfig.separatedTemplate,
+    },
+  };
+
+  // Create generator with options
+  const generator = new ReleaseNotesGenerator({
+    fromVersion: versions[0],
+    toVersion: versions[1],
+    fetchCommits: options['no-fetch'] !== true,
+    pullCommits: options['pull'] === true,
+    includePrLinks: options['no-pr-links'] !== true,
+    config: generatorConfig,
+  });
+
+  // Generate release notes
+  await generator.generate();
+}
