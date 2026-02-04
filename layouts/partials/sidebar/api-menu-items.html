@@ -25,12 +25,30 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 
-{{/* Build data key for article data lookup */}}
+{{/* Build data key for article data lookup
+    Data directories use productConfig keys from generate-openapi-articles.ts:
+    - influxdb3_core, influxdb3_enterprise (use influxdb3_ prefix)
+    - clustered, cloud-dedicated, cloud-serverless (no prefix)
+    - oss-v2, cloud-v2 (use -v2 suffix)
+*/}}
 {{ $dataKey := "" }}
 {{ if eq $product "influxdb3" }}
-  {{ $dataKey = print "influxdb3_" $version }}
+  {{/* InfluxDB 3 Core and Enterprise use influxdb3_ prefix */}}
+  {{ if or (eq $version "core") (eq $version "enterprise") }}
+    {{ $dataKey = print "influxdb3_" $version }}
+  {{ else }}
+    {{/* Clustered, cloud-dedicated, cloud-serverless use version directly */}}
+    {{ $dataKey = $version }}
+  {{ end }}
 {{ else if eq $product "influxdb" }}
-  {{ $dataKey = print $version }}
+  {{/* InfluxDB v2 and Cloud use -v2 suffix */}}
+  {{ if eq $version "v2" }}
+    {{ $dataKey = "oss-v2" }}
+  {{ else if eq $version "cloud" }}
+    {{ $dataKey = "cloud-v2" }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
 {{ else }}
   {{ $dataKey = $product }}
 {{ end }}

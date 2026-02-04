@@ -8,25 +8,38 @@ The llms.txt format helps LLMs discover and understand documentation structure. 
 
 ## Template Files
 
-### `index.llms.txt`
-- **Location**: `/layouts/index.llms.txt`
+### `index.llmstxt.txt`
+
+- **Location**: `/layouts/index.llmstxt.txt`
 - **Output**: `/llms.txt` (site-level)
 - **Type**: Hugo template
 - **Purpose**: Primary entry point for LLM discovery
-- **Content**: Dynamically generated from `data/products.yml` with:
-  - Product descriptions from data files
-  - Organized by product category
-  - Conditional rendering for optional products
+- **Content**: Hardcoded curated list of major product sections with:
+  - Direct links to product documentation
+  - Product descriptions
+  - Organized by product category (InfluxDB 3, InfluxDB 2, InfluxDB 1, Tools)
 
-### `section.llms.txt`
-- **Location**: `/layouts/_default/section.llms.txt`
-- **Output**: Product/section-level llms.txt files (e.g., `/influxdb3/core/llms.txt`)
-- **Type**: Hugo template
-- **Purpose**: Provide curated navigation for specific products/sections
+### `landing-influxdb.llms.txt`
+
+- **Location**: `/layouts/section/landing-influxdb.llms.txt`
+- **Output**: Section-level llms.txt files (e.g., `/influxdb3/core/llms.txt`)
+- **Type**: Hugo template (for `landing-influxdb` layout type)
+- **Purpose**: Provide curated navigation for specific products/sections with landing-influxdb layout
 - **Content**: Dynamically generated from:
   - Product metadata from `data/products.yml`
   - Section content and child pages
   - Page descriptions
+
+### `landing-influxdb.llmstxt.txt`
+
+- **Location**: `/layouts/_default/landing-influxdb.llmstxt.txt`
+- **Output**: Landing page llms.txt files
+- **Type**: Hugo template (for `landing-influxdb` layout type in \_default)
+- **Purpose**: Generate llms.txt for landing pages
+- **Content**: Dynamically generated from:
+  - Product metadata from `data/products.yml`
+  - Page title and description
+  - Child pages list
 
 ## Hugo Configuration
 
@@ -58,39 +71,47 @@ After building with `hugo`:
 
 ```
 public/
-├── llms.txt                              # Site-level discovery file
+├── llms.txt                              # Site-level discovery file (from index.llmstxt.txt)
 ├── influxdb3/
 │   ├── core/
-│   │   ├── llms.txt                      # InfluxDB 3 Core product index
-│   │   ├── get-started/
-│   │   │   └── llms.txt                  # Section-level index
-│   │   └── query-data/
-│   │       └── llms.txt                  # Section-level index
+│   │   └── llms.txt                      # InfluxDB 3 Core product index (landing-influxdb layout)
 │   ├── cloud-dedicated/
-│   │   └── llms.txt                      # Cloud Dedicated product index
-│   └── cloud-serverless/
-│       └── llms.txt                      # Cloud Serverless product index
+│   │   └── llms.txt                      # Cloud Dedicated product index (landing-influxdb layout)
+│   ├── cloud-serverless/
+│   │   └── llms.txt                      # Cloud Serverless product index (landing-influxdb layout)
+│   └── clustered/
+│       └── llms.txt                      # Clustered product index (landing-influxdb layout)
+├── influxdb/
+│   ├── v2/
+│   │   └── llms.txt                      # InfluxDB v2 product index (landing-influxdb layout)
+│   └── cloud/
+│       └── llms.txt                      # InfluxDB Cloud TSM index (landing-influxdb layout)
 ├── telegraf/
 │   └── v1/
-│       └── llms.txt                      # Telegraf product index
+│       └── llms.txt                      # Telegraf product index (landing-influxdb layout)
 └── flux/
     └── v0/
-        └── llms.txt                      # Flux product index
+        └── llms.txt                      # Flux product index (landing-influxdb layout)
 ```
+
+Note: llms.txt files are only generated for pages with the `landing-influxdb` layout type and for the site root.
 
 ## llmstxt.org Specification Compliance
 
 ### Required Elements
+
 - ✅ **H1 header**: Product or section name
 - ✅ **Curated links**: Not exhaustive - intentionally selective
 
 ### Optional Elements
+
 - ✅ **Blockquote summary**: Brief product/section description
 - ✅ **Content paragraphs**: Additional context (NO headings allowed)
 - ✅ **H2-delimited sections**: Organize links by category
 - ✅ **Link format**: `[Title](url): Description`
 
 ### Key Rules
+
 1. **H1 is required** - Only the product/section name
 2. **Content sections cannot have headings** - Use paragraphs only
 3. **Curate, don't list everything** - Be selective with links
@@ -101,24 +122,25 @@ public/
 
 ### For Site-Level (/llms.txt)
 
-Edit `/layouts/index.llms.txt` directly. This file is hardcoded for precise curation of top-level products.
+Edit `/layouts/index.llmstxt.txt` directly. This file is hardcoded for precise curation of top-level products.
 
-### For Product/Section-Level
+### For Product/Section-Level (landing-influxdb layout)
 
-The `/layouts/_default/section.llms.txt` template automatically generates llms.txt files for all sections.
+The `/layouts/section/landing-influxdb.llms.txt` template automatically generates llms.txt files for pages with the `landing-influxdb` layout type.
 
 **To customize a specific product's llms.txt:**
 
 1. Create a product-specific template following Hugo's lookup order:
    ```
-   layouts/influxdb3/core/section.llms.txt  # Specific to Core
-   layouts/influxdb3/section.llms.txt       # All InfluxDB 3 products
-   layouts/_default/section.llms.txt        # Default for all
+   layouts/influxdb3/core/landing-influxdb.llms.txt      # Specific to Core
+   layouts/influxdb3/landing-influxdb.llms.txt           # All InfluxDB 3 products
+   layouts/section/landing-influxdb.llms.txt             # Default for all sections
    ```
 
 2. **Example: Custom template for InfluxDB 3 Core**
 
-   Create `/layouts/influxdb3/core/section.llms.txt`:
+   Create `/layouts/influxdb3/core/landing-influxdb.llms.txt`:
+
    ```
    # InfluxDB 3 Core
 
@@ -136,6 +158,10 @@ The `/layouts/_default/section.llms.txt` template automatically generates llms.t
    - [Write data](/influxdb3/core/write-data/): Write data guide
    - [Query with SQL](/influxdb3/core/query-data/sql/): SQL query guide
    ```
+
+### For Landing Pages in \_default
+
+The `/layouts/_default/landing-influxdb.llmstxt.txt` template generates llms.txt for landing pages that use the default layout lookup.
 
 ### Using Product Metadata from data/products.yml
 
@@ -206,7 +232,7 @@ llms.txt files are automatically generated during:
 
 ### Updating Site-Level llms.txt
 
-Edit `/layouts/index.llms.txt` to add/remove product links.
+Edit `/layouts/index.llmstxt.txt` to add/remove product links.
 
 ### Troubleshooting
 
@@ -223,4 +249,10 @@ Edit `/layouts/index.llms.txt` to add/remove product links.
 
 - [llmstxt.org specification](https://llmstxt.org/)
 - [Hugo output formats](https://gohugo.io/templates/output-formats/)
-- [InfluxData products.yml](../../data/products.yml)
+- [InfluxData products.yml](../data/products.yml)
+
+## Current Template Files
+
+- `/layouts/index.llmstxt.txt` - Root site llms.txt generator
+- `/layouts/section/landing-influxdb.llms.txt` - Section-level llms.txt for landing-influxdb layout
+- `/layouts/_default/landing-influxdb.llmstxt.txt` - Default landing page llms.txt generator

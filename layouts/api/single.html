@@ -58,10 +58,13 @@
               {{ end }}
             </div>
 
-            {{/* Download OpenAPI spec button */}}
+            {{/* Download OpenAPI spec button - link to complete spec, not partial */}}
             {{ with .Params.staticFilePath }}
+            {{/* Extract product name from path like /openapi/influxdb-oss-v2/tags/... */}}
+            {{ $productName := replaceRE `^/openapi/([^/]+)/.*$` "$1" . }}
+            {{ $completeSpecPath := printf "/openapi/%s.yml" $productName }}
             <div class="api-spec-actions">
-              <a href="{{ . }}" class="btn api-spec-download" download>
+              <a href="{{ $completeSpecPath }}" class="btn api-spec-download" download>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                   <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
                   <path d="M1 14h14v2H1v-2z"/>

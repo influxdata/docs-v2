@@ -1,8 +1,14 @@
 {{/*
   Security Schemes Display
 
-  Renders OpenAPI security schemes as styled documentation.
+  Renders OpenAPI security schemes as human-readable documentation.
   Extracts securitySchemes from the referenced OpenAPI spec file.
+
+  Design principles:
+  - Each scheme gets an h2 heading (appears in "On this page" TOC)
+  - Focus on human-readable descriptions, not OpenAPI schema details
+  - Technical details (type, scheme, in) are omitted - they're for machines
+  - Descriptions should include usage examples
 
   Required page params:
   - staticFilePath: Path to the OpenAPI specification file
@@ -17,34 +23,44 @@
     {{ $spec := transform.Unmarshal $specContent }}
     {{ with $spec.components.securitySchemes }}
     <section class="api-security-schemes">
-      <h2 id="security-schemes">Security Schemes</h2>
       {{ range $name, $scheme := . }}
-      <div class="security-scheme">
-        <h3 id="scheme-{{ $name | urlize }}">{{ $name }}</h3>
-        <div class="scheme-details">
-          <dl>
-            <dt>Type</dt>
-            <dd><code>{{ $scheme.type }}</code></dd>
-            {{ with $scheme.scheme }}
-            <dt>Scheme</dt>
-            <dd><code>{{ . }}</code></dd>
-            {{ end }}
-            {{ with $scheme.in }}
-            <dt>In</dt>
-            <dd><code>{{ . }}</code></dd>
-            {{ end }}
-            {{ with $scheme.name }}
-            <dt>Parameter Name</dt>
-            <dd><code>{{ . }}</code></dd>
-            {{ end }}
-          </dl>
-        </div>
+      <article class="security-scheme">
+        {{/* Human-friendly title from scheme name */}}
+        {{ $title := $name }}
+        {{/* Convert common scheme names to readable titles */}}
+        {{/* Short names (v1 specs) */}}
+        {{ if eq $name "BasicAuth" }}{{ $title = "Basic Authentication" }}{{ end }}
+        {{ if eq $name "TokenAuth" }}{{ $title = "Token Authentication" }}{{ end }}
+        {{ if eq $name "QueryAuth" }}{{ $title = "Query String Authentication" }}{{ end }}
+        {{ if eq $name "BearerAuth" }}{{ $title = "Bearer Token Authentication" }}{{ end }}
+        {{ if eq $name "ApiKeyAuth" }}{{ $title = "API Key Authentication" }}{{ end }}
+        {{/* Long names (v2+ specs) */}}
+        {{ if eq $name "BasicAuthentication" }}{{ $title = "Basic Authentication" }}{{ end }}
+        {{ if eq $name "TokenAuthentication" }}{{ $title = "Token Authentication" }}{{ end }}
+        {{ if eq $name "QuerystringAuthentication" }}{{ $title = "Query String Authentication" }}{{ end }}
+
+        <h2 id="{{ $name | urlize }}-authentication">{{ $title }}</h2>
+
+        {{/* Description is the primary content - should include usage examples */}}
         {{ with $scheme.description }}
         <div class="scheme-description">
           {{ . | markdownify }}
         </div>
+        {{ else }}
+        {{/* Fallback descriptions when OpenAPI spec doesn't provide one */}}
+        <div class="scheme-description">
+          {{ if eq $scheme.type "http" }}
+            {{ if eq $scheme.scheme "basic" }}
+            <p>Use HTTP Basic Authentication by including your credentials in the request.</p>
+            {{ else if eq $scheme.scheme "bearer" }}
+            <p>Include a bearer token in the <code>Authorization</code> header.</p>
+            {{ end }}
+          {{ else if eq $scheme.type "apiKey" }}
+            <p>Pass your API key {{ if eq $scheme.in "header" }}in the <code>{{ $scheme.name }}</code> header{{ else if eq $scheme.in "query" }}as the <code>{{ $scheme.name }}</code> query parameter{{ end }}.</p>
+          {{ end }}
+        </div>
         {{ end }}
-      </div>
+      </article>
       {{ end }}
     </section>
     {{ end }}

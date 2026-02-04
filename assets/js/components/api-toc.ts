@@ -3,7 +3,7 @@
  *
  * Generates "ON THIS PAGE" navigation from content headings or operations data.
  * Features:
- * - Builds TOC from h2/h3 headings in the active tab panel (legacy)
+ * - Builds TOC from h2 headings by default (avoids RapiDoc h3 fragment collisions)
  * - Builds TOC from operations data passed via data-operations attribute (tag-based)
  * - Highlights current section on scroll (intersection observer)
  * - Smooth scroll to anchors
@@ -14,6 +14,10 @@
  *   <h4 class="api-toc-header">ON THIS PAGE</h4>
  *   <nav class="api-toc-nav"></nav>
  * </aside>
+ *
+ * Attributes:
+ * - data-operations: JSON array of operation objects for server-rendered TOC
+ * - data-toc-depth: Max heading level to include (default: "2", use "3" for h2+h3)
  */
 
 interface ComponentOptions {
@@ -39,8 +43,14 @@ interface OperationMeta {
 
 /**
  * Get headings from the currently visible content
+ *
+ * For API pages, only h2 headings are collected to avoid fragment collisions
+ * from repetitive h3 headings like "Syntax", "Parameters", "Responses" that
+ * RapiDoc generates for each operation.
+ *
+ * @param maxLevel - Maximum heading level to include (default: 2 for API pages)
  */
-function getVisibleHeadings(): TocEntry[] {
+function getVisibleHeadings(maxLevel: number = 2): TocEntry[] {
   // Find the active tab panel or main content area
   const activePanel = document.querySelector(
     '.tab-content:not([style*="display: none"]), [data-tab-panel]:not([style*="display: none"]), .article--content'
@@ -50,7 +60,12 @@ function getVisibleHeadings(): TocEntry[] {
     return [];
   }
 
-  const headings = activePanel.querySelectorAll('h2, h3');
+  // Build selector based on maxLevel (e.g., 'h2' or 'h2, h3')
+  const selectors = [];
+  for (let level = 2; level <= maxLevel; level++) {
+    selectors.push(`h${level}`);
+  }
+  const headings = activePanel.querySelectorAll(selectors.join(', '));
   const entries: TocEntry[] = [];
 
   headings.forEach((heading) => {
@@ -65,10 +80,11 @@ function getVisibleHeadings(): TocEntry[] {
       return;
     }
 
+    const level = parseInt(heading.tagName.charAt(1), 10);
     entries.push({
       id: heading.id,
       text: heading.textContent?.trim() || '',
-      level: heading.tagName === 'H2' ? 2 : 3,
+      level,
     });
   });
 
@@ -278,6 +294,7 @@ function setupRapiDocNavigation(container: HTMLElement): void {
 
     // Find RapiDoc element and call scrollToPath
     const rapiDoc = document.querySelector('rapi-doc') as HTMLElement & {
+      // eslint-disable-next-line no-unused-vars
       scrollToPath?: (path: string) => void;
     };
 
@@ -422,6 +439,13 @@ export default function ApiToc({ component }: ComponentOptions): void {
   const operations = parseOperationsData(component);
   let observer: IntersectionObserver | null = null;
 
+  // Get max heading level from data attribute (default: 2 to avoid RapiDoc h3 collisions)
+  // Use data-toc-depth="3" to include h3 headings if needed
+  const maxHeadingLevel = parseInt(
+    component.getAttribute('data-toc-depth') || '2',
+    10
+  );
+
   /**
    * Rebuild the TOC
    */
@@ -443,7 +467,8 @@ export default function ApiToc({ component }: ComponentOptions): void {
     }
 
     // Otherwise, fall back to heading-based TOC
-    const entries = getVisibleHeadings();
+    // Use configured max heading level to avoid fragment collisions from RapiDoc h3s
+    const entries = getVisibleHeadings(maxHeadingLevel);
     if (nav) {
       nav.innerHTML = buildTocHtml(entries);
     }

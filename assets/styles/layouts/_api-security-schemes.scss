@@ -17,10 +17,6 @@
 
   .security-scheme {
     margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: $article-bg;
-    border: 1px solid $g5-pepper;
-    border-radius: 4px;
 
     h3 {
       margin: 0 0 1rem 0;
@@ -79,8 +75,7 @@ html:has(link[title="dark-theme"]:not([disabled])) {
     border-top-color: $grey25;
 
     .security-scheme {
-      background: $grey15;
-      border-color: $grey25;
+      // Removed background and border - now using plain styling
     }
 
     .scheme-details {

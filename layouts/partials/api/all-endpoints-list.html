@@ -18,9 +18,25 @@
 {{/* Build data key for article data lookup */}}
 {{ $dataKey := "" }}
 {{ if eq $product "influxdb3" }}
-  {{ $dataKey = print "influxdb3_" $version }}
+  {{/* Core and Enterprise use influxdb3_ prefix; cloud-* and clustered don't */}}
+  {{ if or (eq $version "core") (eq $version "enterprise") }}
+    {{ $dataKey = print "influxdb3_" $version }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
 {{ else if eq $product "influxdb" }}
-  {{ $dataKey = print $version }}
+  {{/* Map URL versions to data directory names */}}
+  {{ if eq $version "v2" }}
+    {{ $dataKey = "oss-v2" }}
+  {{ else if eq $version "cloud" }}
+    {{ $dataKey = "cloud-v2" }}
+  {{ else if eq $version "v1" }}
+    {{ $dataKey = "oss-v1" }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
+{{ else if eq $product "enterprise_influxdb" }}
+  {{ $dataKey = print "enterprise-" $version }}
 {{ else }}
   {{ $dataKey = $product }}
 {{ end }}
@@ -178,6 +194,33 @@
         <code class="api-path">{{ $op.path }}</code>
         <span class="api-operation-summary">{{ $op.summary }}</span>
         {{ with $op.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Render Management API endpoints (paths not matching v1/v2/v3 patterns) */}}
+  {{ if gt (len $otherOps) 0 }}
+  {{ $sortOther := slice }}
+  {{ range $otherOps }}
+    {{ $sortKey := printf "%s %s" .op.path (upper .op.method) }}
+    {{ $sortOther = $sortOther | append (dict "sortKey" $sortKey "data" .) }}
+  {{ end }}
+  {{ $sortOther = sort $sortOther "sortKey" }}
+  <section class="api-operations-list api-version-group">
+    <h2 id="management-api">Management API</h2>
+    <div class="api-operations-grid">
+      {{ range $sortOther }}
+        {{ $op := .data.op }}
+        {{ $articlePath := .data.articlePath }}
+        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+      <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
+        <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
+        <code class="api-path">{{ $op.path }}</code>
+        <span class="api-operation-summary">{{ $op.summary }}</span>
       </a>
       {{ end }}
     </div>
