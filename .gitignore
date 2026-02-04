@@ -21,6 +21,7 @@ package-lock.json
 /content/influxdb3/*/api/**
 /content/influxdb3/*/reference/api/**
 /static/openapi
+/data/article_data
 
 # Exception: hand-crafted API conceptual pages (not generated)
 !/content/influxdb3/*/api/administration/

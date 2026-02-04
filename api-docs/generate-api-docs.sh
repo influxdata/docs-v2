@@ -187,3 +187,9 @@ function build {
 }
 
 build
+
+# Generate tag-based article data and content pages
+echo "Generating OpenAPI article data..."
+cd ..
+node api-docs/scripts/dist/generate-openapi-articles.js
+cd api-docs
