@@ -2,6 +2,8 @@ influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
   namespace: influxdb3
+  api_path: /influxdb3/core/api/
+  alt_link_key: core
   menu_category: self-managed
   versions: [core]
   list_order: 2
@@ -34,6 +36,8 @@ influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3
+  api_path: /influxdb3/enterprise/api/
+  alt_link_key: enterprise
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
@@ -82,6 +86,8 @@ influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
   altname: InfluxDB Cloud
   namespace: influxdb
+  api_path: /influxdb3/cloud-serverless/api/
+  alt_link_key: cloud-serverless
   menu_category: managed
   versions: [cloud-serverless]
   list_order: 2
@@ -116,6 +122,8 @@ influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
   altname: InfluxDB Cloud
   namespace: influxdb
+  api_path: /influxdb3/cloud-dedicated/api/
+  alt_link_key: cloud-dedicated
   menu_category: managed
   versions: [cloud-dedicated]
   list_order: 3
@@ -145,6 +153,8 @@ influxdb3_clustered:
   name: InfluxDB Clustered
   altname: InfluxDB Clustered
   namespace: influxdb
+  api_path: /influxdb3/clustered/api/
+  alt_link_key: clustered
   menu_category: self-managed
   versions: [clustered]
   list_order: 3
@@ -177,6 +187,8 @@ influxdb:
   name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
+  api_path: /influxdb/v2/api/
+  alt_link_key: v2
   succeeded_by: influxdb3_core
   menu_category: self-managed
   list_order: 1
@@ -228,6 +240,8 @@ influxdb_cloud:
   name__vcloud: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
   namespace: influxdb
+  api_path: /influxdb/cloud/api/
+  alt_link_key: cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1
