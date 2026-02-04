@@ -78,7 +78,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/version/api/#get-/api/v2/authorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/version/api/#get-/api/v2/authorizations/-authID-" %}}
 
 ### Filter the token list
 

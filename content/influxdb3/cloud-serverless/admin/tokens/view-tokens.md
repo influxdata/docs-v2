@@ -101,7 +101,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{authID}" api-ref="/influxdb3/cloud-serverless/api/#get-/api/v2/authorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{authID}" api-ref="/influxdb3/cloud-serverless/api/#get-/api/v2/authorizations/-authID-" %}}
 
 Include the following in your request:
 

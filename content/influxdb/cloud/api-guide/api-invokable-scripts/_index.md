@@ -88,7 +88,7 @@ InfluxDB returns the newly created script. Next, see how to [invoke a script](#i
 ## Invoke a script
 To invoke a script, send a request using the `POST` method to the `/api/v2/scripts/SCRIPT_ID/invoke` InfluxDB API endpoint. 
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#post-/api/v2/scriptsIDInvoke" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID/invoke" api-ref="/influxdb/cloud/api/#post-/api/v2/scripts/-scriptID-/invoke" >}}
 
 Replace *`SCRIPT_ID`* with the ID of the script you want to execute. To find the script ID, see how to [list scripts](#list-scripts).
 
