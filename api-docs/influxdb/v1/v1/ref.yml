@@ -22,18 +22,18 @@ info:
     - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
 
     Authentication is optional unless [enabled in the configuration](/influxdb/v1/administration/authentication_and_authorization/).
-
   contact:
     name: InfluxData
     url: https://www.influxdata.com
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-
 servers:
   - url: http://localhost:8086
     description: Local InfluxDB instance
-
+security:
+  - BasicAuth: []
+  - QueryAuth: []
 tags:
   - name: System Information
     description: |
@@ -77,11 +77,6 @@ tags:
       ```bash
       curl -H "Authorization: Token username:password" http://localhost:8086/api/v2/query
       ```
-
-security:
-  - BasicAuth: []
-  - QueryAuth: []
-
 paths:
   /ping:
     get:
@@ -111,7 +106,9 @@ paths:
               description: InfluxDB build type (`OSS` or `ENT`)
               schema:
                 type: string
-                enum: [OSS, ENT]
+                enum:
+                  - OSS
+                  - ENT
             X-Influxdb-Version:
               description: InfluxDB version
               schema:
@@ -123,7 +120,9 @@ paths:
               description: InfluxDB build type (`OSS` or `ENT`)
               schema:
                 type: string
-                enum: [OSS, ENT]
+                enum:
+                  - OSS
+                  - ENT
             X-Influxdb-Version:
               description: InfluxDB version
               schema:
@@ -144,12 +143,13 @@ paths:
               description: InfluxDB build type (`OSS` or `ENT`)
               schema:
                 type: string
-                enum: [OSS, ENT]
+                enum:
+                  - OSS
+                  - ENT
             X-Influxdb-Version:
               description: InfluxDB version
               schema:
                 type: string
-
   /health:
     get:
       operationId: GetHealth
@@ -171,7 +171,7 @@ paths:
                 name: influxdb
                 message: ready for queries and writes
                 status: pass
-                version: "1.8.10"
+                version: 1.8.10
         '503':
           description: Server is unhealthy
           content:
@@ -180,10 +180,9 @@ paths:
                 $ref: '#/components/schemas/HealthCheck'
               example:
                 name: influxdb
-                message: "service unavailable"
+                message: service unavailable
                 status: fail
-                version: "1.8.10"
-
+                version: 1.8.10
   /query:
     get:
       operationId: GetQuery
@@ -216,10 +215,20 @@ paths:
                   - statement_id: 0
                     series:
                       - name: mymeas
-                        columns: [time, myfield, mytag1, mytag2]
+                        columns:
+                          - time
+                          - myfield
+                          - mytag1
+                          - mytag2
                         values:
-                          - ["2017-03-01T00:16:18Z", 33.1, null, null]
-                          - ["2017-03-01T00:17:18Z", 12.4, "12", "14"]
+                          - - '2017-03-01T00:16:18Z'
+                            - 33.1
+                            - null
+                            - null
+                          - - '2017-03-01T00:17:18Z'
+                            - 12.4
+                            - '12'
+                            - '14'
             application/csv:
               schema:
                 type: string
@@ -234,7 +243,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
-                error: "error parsing query: found EOF, expected FROM at line 1, char 9"
+                error: 'error parsing query: found EOF, expected FROM at line 1, char 9'
         '401':
           description: Unauthorized
           content:
@@ -316,7 +325,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /write:
     post:
       operationId: PostWrite
@@ -352,8 +360,14 @@ paths:
             Timestamp precision. InfluxDB assumes nanoseconds if not specified.
           schema:
             type: string
-            enum: [n, u, ms, s, m, h]
-            default: n
+            enum:
+              - 'n'
+              - u
+              - ms
+              - s
+              - m
+              - h
+            default: 'n'
         - $ref: '#/components/parameters/AuthUsername'
         - $ref: '#/components/parameters/AuthPassword'
       requestBody:
@@ -381,7 +395,7 @@ paths:
                 badTimestamp:
                   summary: Invalid timestamp
                   value:
-                    error: "unable to parse 'mymeas,mytag=1 myfield=91 abc123': bad timestamp"
+                    error: 'unable to parse ''mymeas,mytag=1 myfield=91 abc123'': bad timestamp'
                 typeConflict:
                   summary: Field type conflict
                   value:
@@ -415,8 +429,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
-                error: "retention policy not found: myrp"
-
+                error: 'retention policy not found: myrp'
   /debug/pprof:
     get:
       operationId: GetDebugPprof
@@ -433,7 +446,6 @@ paths:
             text/html:
               schema:
                 type: string
-
   /debug/pprof/{profile}:
     get:
       operationId: GetDebugPprofProfile
@@ -456,7 +468,16 @@ paths:
           description: Profile name
           schema:
             type: string
-            enum: [block, goroutine, heap, mutex, threadcreate, profile, trace, allocs, cmdline]
+            enum:
+              - block
+              - goroutine
+              - heap
+              - mutex
+              - threadcreate
+              - profile
+              - trace
+              - allocs
+              - cmdline
         - name: seconds
           in: query
           description: Duration in seconds for CPU profile or trace
@@ -468,7 +489,9 @@ paths:
           description: Return human-readable text output instead of binary
           schema:
             type: integer
-            enum: [0, 1]
+            enum:
+              - 0
+              - 1
             default: 0
       responses:
         '200':
@@ -481,7 +504,6 @@ paths:
             text/plain:
               schema:
                 type: string
-
   /debug/pprof/all:
     get:
       operationId: GetDebugPprofAll
@@ -511,7 +533,6 @@ paths:
               schema:
                 type: string
                 format: binary
-
   /debug/requests:
     get:
       operationId: GetDebugRequests
@@ -544,13 +565,12 @@ paths:
                     queries:
                       type: integer
               example:
-                "user1:123.45.678.91":
+                user1:123.45.678.91:
                   writes: 1
                   queries: 0
-                "user1:000.0.0.0":
+                user1:000.0.0.0:
                   writes: 0
                   queries: 16
-
   /debug/vars:
     get:
       operationId: GetDebugVars
@@ -572,8 +592,6 @@ paths:
               schema:
                 type: object
                 description: Server runtime statistics
-
-  # v2 Compatibility Endpoints
   /api/v2/query:
     post:
       operationId: PostApiV2Query
@@ -614,7 +632,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /api/v2/write:
     post:
       operationId: PostApiV2Write
@@ -654,7 +671,11 @@ paths:
           description: Timestamp precision
           schema:
             type: string
-            enum: [ns, us, ms, s]
+            enum:
+              - ns
+              - us
+              - ms
+              - s
             default: ns
       requestBody:
         required: true
@@ -662,7 +683,7 @@ paths:
           text/plain:
             schema:
               type: string
-            example: "mem,host=host1 used_percent=23.43234543 1556896326"
+            example: mem,host=host1 used_percent=23.43234543 1556896326
       responses:
         '204':
           description: Write successful
@@ -678,7 +699,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /api/v2/buckets:
     get:
       operationId: GetApiV2Buckets
@@ -732,7 +752,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /api/v2/buckets/{bucketID}:
     delete:
       operationId: DeleteApiV2BucketsBucketID
@@ -767,7 +786,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /api/v2/delete:
     post:
       operationId: PostApiV2Delete
@@ -800,7 +818,11 @@ paths:
           description: Timestamp precision
           schema:
             type: string
-            enum: [ns, us, ms, s]
+            enum:
+              - ns
+              - us
+              - ms
+              - s
       requestBody:
         required: true
         content:
@@ -811,14 +833,14 @@ paths:
               timeRange:
                 summary: Delete by time range
                 value:
-                  start: "2020-03-01T00:00:00Z"
-                  stop: "2020-11-14T00:00:00Z"
+                  start: '2020-03-01T00:00:00Z'
+                  stop: '2020-11-14T00:00:00Z'
               withPredicate:
                 summary: Delete with predicate
                 value:
-                  start: "2020-03-01T00:00:00Z"
-                  stop: "2020-11-14T00:00:00Z"
-                  predicate: '_measurement="example-measurement" AND exampleTag="exampleTagValue"'
+                  start: '2020-03-01T00:00:00Z'
+                  stop: '2020-11-14T00:00:00Z'
+                  predicate: _measurement="example-measurement" AND exampleTag="exampleTagValue"
       responses:
         '204':
           description: Delete successful
@@ -834,7 +856,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
 components:
   securitySchemes:
     BasicAuth:
@@ -882,7 +903,6 @@ components:
 
         This format is compatible with InfluxDB 2.x client libraries, allowing you to
         use the same code with both InfluxDB 1.8+ and InfluxDB 2.x.
-
   parameters:
     QueryDB:
       name: db
@@ -907,7 +927,14 @@ components:
         By default, timestamps are returned in RFC3339 format.
       schema:
         type: string
-        enum: [ns, u, µ, ms, s, m, h]
+        enum:
+          - ns
+          - u
+          - µ
+          - ms
+          - s
+          - m
+          - h
     QueryPretty:
       name: pretty
       in: query
@@ -937,7 +964,6 @@ components:
       description: Password for authentication
       schema:
         type: string
-
   schemas:
     HealthCheck:
       type: object
@@ -950,11 +976,12 @@ components:
           example: ready for queries and writes
         status:
           type: string
-          enum: [pass, fail]
+          enum:
+            - pass
+            - fail
         version:
           type: string
-          example: "1.8.10"
-
+          example: 1.8.10
     QueryResponse:
       type: object
       properties:
@@ -971,7 +998,6 @@ components:
                   $ref: '#/components/schemas/Series'
               error:
                 type: string
-
     Series:
       type: object
       properties:
@@ -991,7 +1017,6 @@ components:
           items:
             type: array
             items: {}
-
     Error:
       type: object
       required:
@@ -1000,7 +1025,6 @@ components:
         error:
           type: string
           description: Error message
-
     DeleteRequest:
       type: object
       required:
@@ -1020,7 +1044,6 @@ components:
           description: |
             InfluxQL-like predicate expression to filter data to delete.
             Example: `_measurement="example" AND tagKey="tagValue"`
-
     BucketList:
       type: object
       properties:
@@ -1028,7 +1051,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bucket'
-
     Bucket:
       type: object
       properties:
@@ -1045,10 +1067,10 @@ components:
             properties:
               type:
                 type: string
-                enum: [expire]
+                enum:
+                  - expire
               everySeconds:
                 type: integer
-
     BucketCreate:
       type: object
       required:
@@ -1064,7 +1086,8 @@ components:
             properties:
               type:
                 type: string
-                enum: [expire]
+                enum:
+                  - expire
               everySeconds:
                 type: integer
                 description: Retention period in seconds

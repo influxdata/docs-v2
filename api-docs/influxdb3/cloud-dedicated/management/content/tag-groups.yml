@@ -1,6 +1,0 @@
-- name: Using the Management API
-  tags:
-    - Authentication
-    - Quick start
-- name: All endpoints
-  tags: []

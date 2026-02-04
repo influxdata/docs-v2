@@ -1,0 +1,2 @@
+- url: http://localhost:8086
+  description: Local InfluxDB Enterprise data node
