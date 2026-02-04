@@ -26,4 +26,4 @@ When querying:
   - [Filter for tag values](/influxdb3/cloud-serverless/query-data/sql/basic-query/#query-fields-based-on-tag-values) in your version tags.
   - [Use time boundaries](/influxdb3/cloud-serverless/query-data/sql/basic-query/#query-data-within-time-boundaries) that exclude old data.
 
-_To delete a bucket and **all** its data, use the [InfluxDB `/api/v2/buckets` API endpoint](/influxdb3/cloud-serverless/api/#operation/DeleteBucketsID)._
+_To delete a bucket and **all** its data, use the [InfluxDB `/api/v2/buckets` API endpoint](/influxdb3/cloud-serverless/api/#delete-/api/v2/buckets/-bucketID-)._

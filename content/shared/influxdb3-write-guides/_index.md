@@ -28,7 +28,7 @@ is the text-based format used to write data to InfluxDB.
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
 > When bringing existing *v1* write workloads, use the {{% product-name %}}
-> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
+> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#post-/write).
 >
 > When bringing existing *v2* write workloads, use the {{% product-name %}}
 > HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#operation/PostV2Write).

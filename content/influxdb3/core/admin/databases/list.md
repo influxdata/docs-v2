@@ -17,7 +17,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/core/reference/cli/influxdb3/show/databases/
-  - /influxdb3/core/api/v3/#operation/GetConfigureDatabase, List databases API
+  - /influxdb3/core/api/v3/#get-/api/v3/configure/database, List databases API
   - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/list.md
 ---

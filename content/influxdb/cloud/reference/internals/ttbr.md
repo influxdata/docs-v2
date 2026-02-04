@@ -31,7 +31,7 @@ Whenever you send a write request to the `/api/v2/write` endpoint, the following
 2. If the write is queued, API responds with an HTTP 204 status code.
 3. API handles the write asynchronously and reaches eventual consistency.
 
-_For more information, see [`/api/v2/write` documentation](/influxdb/cloud/api/#operation/PostWrite)._
+_For more information, see [`/api/v2/write` documentation](/influxdb/cloud/api/#post-/api/v2/write)._
 
 {{% note %}}
 The returned 204 status code does not mean that the point is queryable;

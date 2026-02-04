@@ -183,7 +183,7 @@ The retention period value cannot be negative or contain whitespace.
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-{{< api-endpoint method="post" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb3/cloud-serverless/api/#operation/PostBuckets" >}}
+{{< api-endpoint method="post" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb3/cloud-serverless/api/#post-/api/v2/buckets" >}}
 
 Include the following in your request:
 
@@ -266,7 +266,7 @@ The retention period value can't be negative or contain whitespace.
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets reference documentation](/influxdb3/cloud-serverless/api/#operation/PostBuckets)._
+[InfluxDB API Buckets reference documentation](/influxdb3/cloud-serverless/api/#post-/api/v2/buckets)._
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

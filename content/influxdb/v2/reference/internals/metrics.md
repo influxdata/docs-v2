@@ -13,7 +13,7 @@ Get metrics about the workload performance of an InfluxDB OSS instance.
 InfluxDB OSS exposes a `/metrics` endpoint that returns
 performance, resource, and usage metrics formatted in the [Prometheus plain-text exposition format](https://prometheus.io/docs/instrumenting/exposition_formats).
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/metrics" api-ref="/influxdb/v2/api/#operation/GetMetrics" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/metrics" api-ref="/influxdb/v2/api/#get-/metrics" >}}
 
 Metrics contain a name, an optional set of key-value pairs, and a value.
 

@@ -116,7 +116,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/DeleteClusterDatabase" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#delete-/accounts/-accountId-/clusters/-clusterId-/databases/-databaseName-" %}}
 
     In the URL, provide the following:
 

@@ -386,10 +386,10 @@ The output is the DBRP.
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps` API endpoint](/influxdb3/cloud-serverless/api/#operation/PostDBRP)
+Use the [`/api/v2/dbrps` API endpoint](/influxdb3/cloud-serverless/api/#post-/api/v2/dbrps)
 to create a new DBRP mapping.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="POST" api-ref="/influxdb3/cloud-serverless/api/#operation/PostDBRP" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="POST" api-ref="/influxdb3/cloud-serverless/api/#post-/api/v2/dbrps" >}}
 
 Include the following:
 
@@ -477,9 +477,9 @@ influx v1 dbrp list \
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps` API endpoint](/influxdb3/cloud-serverless/api/#operation/GetDBRPs) to list DBRP mappings.
+Use the [`/api/v2/dbrps` API endpoint](/influxdb3/cloud-serverless/api/#get-/api/v2/dbrps) to list DBRP mappings.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="GET" api-ref="/influxdb3/cloud-serverless/api/#operation/GetDBRPs" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="GET" api-ref="/influxdb3/cloud-serverless/api/#get-/api/v2/dbrps" >}}
 
 Include the following:
 
@@ -586,9 +586,9 @@ The output is the DBRP.
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb3/cloud-serverless/api/#operation/GetDBRPs) to update DBRP mappings.
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb3/cloud-serverless/api/#get-/api/v2/dbrps) to update DBRP mappings.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb3/cloud-serverless/api/#operation/PatchDBRPID" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb3/cloud-serverless/api/#patch-/api/v2/dbrps/-dbrpID-" >}}
 
 Include the following:
 
@@ -678,10 +678,10 @@ The output is the DBRP.
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb3/cloud-serverless/api/#operation/DeleteDBRPID)
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb3/cloud-serverless/api/#delete-/api/v2/dbrps/-dbrpID-)
 to delete a DBRP mapping.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb3/cloud-serverless/api/#operation/DeleteDBRPID" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb3/cloud-serverless/api/#delete-/api/v2/dbrps/-dbrpID-" >}}
 
 Include the following:
 

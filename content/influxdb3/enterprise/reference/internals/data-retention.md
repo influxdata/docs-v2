@@ -15,9 +15,9 @@ related:
   - /influxdb3/enterprise/reference/cli/influxdb3/create/database/
   - /influxdb3/enterprise/reference/cli/influxdb3/create/table/
   - /influxdb3/enterprise/reference/cli/influxdb3/update/database/
-  - /influxdb3/enterprise/api/v3/#operation/PostConfigureDatabase, Create database API
-  - /influxdb3/enterprise/api/v3/#operation/PostConfigureTable, Create table API
-  - /influxdb3/enterprise/api/v3/#operation/PatchConfigureDatabase, Update database API
+  - /influxdb3/enterprise/api/v3/#post-/api/v3/configure/database, Create database API
+  - /influxdb3/enterprise/api/v3/#post-/api/v3/configure/table, Create table API
+  - /influxdb3/enterprise/api/v3/#patch-/api/v3/configure/database/-db-, Update database API
   - /influxdb3/enterprise/reference/glossary/#retention-period
 source: /shared/influxdb3-internals/data-retention.md
 ---

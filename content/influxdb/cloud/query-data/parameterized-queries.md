@@ -22,7 +22,7 @@ see the [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.ow
 While this guide is about SQL, it contains useful general advice.
 {{% /note %}}
 
-The InfluxDB Cloud [`/api/v2/query` API endpoint](/influxdb/cloud/api/#operation/PostQuery)
+The InfluxDB Cloud [`/api/v2/query` API endpoint](/influxdb/cloud/api/#post-/api/v2/query)
 accepts a `params` field in the request body.
 The `params` field is a JSON object with key-value pairs where the key is a
 parameter name and the value is the parameter value.

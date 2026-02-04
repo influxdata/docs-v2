@@ -418,11 +418,11 @@ Write data with your existing workloads that already use the InfluxDB v1
 To write data to InfluxDB using the
 [InfluxDB v1 HTTP API](/influxdb3/cloud-dedicated/reference/api/), send a request
 to the
-[InfluxDB API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite)
+[InfluxDB API `/write` endpoint](/influxdb3/cloud-dedicated/api/#post-/write)
 using the `POST` request method.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post"
-api-ref="/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite"%}}
+api-ref="/influxdb3/cloud-dedicated/api/#post-/write"%}}
 
 Include the following with your request:
 
@@ -438,7 +438,7 @@ Include the following with your request:
 
 > [!Note]
 > With the {{% product-name %}}
-> [v1 API `/write` endpoint](/influxdb3/cloud-dedicated/api/#operation/PostLegacyWrite),
+> [v1 API `/write` endpoint](/influxdb3/cloud-dedicated/api/#post-/write),
 > `Authorization: Bearer` and `Authorization: Token` are equivalent and you can
 > use either scheme to pass a database token in your request. For more information
 > about HTTP API token schemes, see how to
@@ -530,7 +530,7 @@ To write data to InfluxDB using the
 to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write"
-method="post" api-ref="/influxdb3/cloud-dedicated/api/#operation/PostWrite" >}}
+method="post" api-ref="/influxdb3/cloud-dedicated/api/#post-/api/v2/write" >}}
 
 Include the following with your request:
 

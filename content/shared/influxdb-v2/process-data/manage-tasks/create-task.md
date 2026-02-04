@@ -162,10 +162,10 @@ An InfluxDB Cloud task can run either an [invokable script](/influxdb/cloud/api-
 With InfluxDB Cloud invokable scripts, you can manage, reuse, and invoke scripts as API endpoints.
 You can use tasks to pass script parameters and schedule runs.
 
-Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#post-/api/v2/tasks) to create a task
 that references a script ID.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/cloud/api/#operation/PostTasks" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/cloud/api/#post-/api/v2/tasks" >}}
 
 Provide the following in your API request:
 
@@ -243,9 +243,9 @@ Replace **`INFLUX_API_TOKEN`** with your InfluxDB API token.
 
 ### Create a task that contains a Flux script
 
-Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task that contains a Flux script with task options.
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#post-/api/v2/tasks) to create a task that contains a Flux script with task options.
 
-{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" api-ref="/influxdb/cloud/api/#operation/PostTasks" >}}
+{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" api-ref="/influxdb/cloud/api/#post-/api/v2/tasks" >}}
 
 Provide the following in your API request:
 

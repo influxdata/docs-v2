@@ -86,9 +86,9 @@ Replace the following with your values:
 
 To query InfluxDB {{< current-version >}} using the [InfluxQL query language](/influxdb/v2/reference/syntax/influxql/), send a request to the v1-compatible API endpoint:
 
-{{% api-endpoint method="GET" endpoint="/query" api-ref="/influxdb/v2/api/v2/#operation/GetLegacyQuery" %}}
+{{% api-endpoint method="GET" endpoint="/query" api-ref="/influxdb/v2/api/v2/#get-/query" %}}
 
-{{% api-endpoint method="POST" endpoint="/query" api-ref="/influxdb/v2/api/v2/#operation/PostQueryV1" %}}
+{{% api-endpoint method="POST" endpoint="/query" api-ref="/influxdb/v2/api/v2/#post-/query" %}}
 
 In your request, set the following:
 

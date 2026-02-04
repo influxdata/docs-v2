@@ -10,7 +10,7 @@ Different APIs are available depending on your integration method.
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
 > When bringing existing _v1_ write workloads, use the {{% product-name %}}
-> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
+> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#post-/write).
 >
 > When bringing existing _v2_ write workloads, use the {{% product-name %}}
 > HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#operation/PostV2Write).

@@ -28,7 +28,7 @@ for your [organization](/influxdb/v2/reference/glossary/#organization),
 send a request using the `POST` method to the `/api/v2/scripts` InfluxDB API endpoint.
 
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts" api-ref="/influxdb/cloud/api/#operation/PostScripts" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts" api-ref="/influxdb/cloud/api/#post-/api/v2/scripts" >}}
 
 Provide the following in your API request:
 
@@ -88,7 +88,7 @@ InfluxDB returns the newly created script. Next, see how to [invoke a script](#i
 ## Invoke a script
 To invoke a script, send a request using the `POST` method to the `/api/v2/scripts/SCRIPT_ID/invoke` InfluxDB API endpoint. 
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#operation/PostScriptsIDInvoke" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#post-/api/v2/scriptsIDInvoke" >}}
 
 Replace *`SCRIPT_ID`* with the ID of the script you want to execute. To find the script ID, see how to [list scripts](#list-scripts).
 
@@ -206,7 +206,7 @@ Provide the following in your request:
 
 To find a specific script for an organization, send a request using the `GET` method to the `/api/v2/scripts/SCRIPT_ID` InfluxDB API endpoint.
 
-{{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#operation/GetScriptsID" >}}
+{{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#get-/api/v2/scripts/-scriptID-" >}}
 
 Replace *`SCRIPT_ID`* with the ID of the script you want to find. 
 
@@ -228,7 +228,7 @@ Use the API to replace the following properties of an invokable script:
 To update an existing script for an organization, send a request using the `PATCH` method to the `/api/v2/scripts/SCRIPT_ID` InfluxDB API endpoint.
 Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
 
-{{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#operation/PatchScriptsID" >}}
+{{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#patch-/api/v2/scripts/-scriptID-" >}}
 
 Provide the following in your request:
 
@@ -258,7 +258,7 @@ InfluxDB returns the updated invokable script.
 To delete a script, send a request using the `DELETE` method to the `/api/v2/scripts/SCRIPT_ID` InfluxDB API endpoint.
 Replace *`SCRIPT_ID`* with the ID of the script you want to update. 
 
-{{< api-endpoint method="delete" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#operation/DeleteScriptsID" >}}
+{{< api-endpoint method="delete" endpoint="https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID" api-ref="/influxdb/cloud/api/#delete-/api/v2/scripts/-scriptID-" >}}
 
 Provide the following in your request:
 

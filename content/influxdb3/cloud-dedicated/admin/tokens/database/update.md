@@ -160,7 +160,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="patch" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/UpdateDatabaseToken" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="patch" api-ref="/influxdb3/cloud-dedicated/api/management/#patch-/accounts/-accountId-/clusters/-clusterId-/tokens/-tokenId-" %}}
 
    In the URL, provide the following:
 
@@ -176,7 +176,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
    In the request body, provide the following parameters:
 
-    - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
+    - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/tokens) (read or write) objects:
       - `"action"`: Specify `read` or `write` permission to the database.
       - `"resource"`: Specify the database name.
     - `description`: Provide a description of the token.

@@ -112,7 +112,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 {{% api-endpoint method="POST" 
 endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME/tables"
-api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabaseTable" %}}
+api-ref="/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/databases/-databaseName-/tables" %}}
 
 {{% code-placeholders "ACCOUNT_ID|CLUSTER_ID|DATABASE_NAME|TABLE_NAME|MANAGEMENT_TOKEN" %}}
 ```bash
@@ -242,7 +242,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
 {{% api-endpoint method="POST" 
 endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases/DATABASE_NAME/tables"
-api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabaseTable" %}}
+api-ref="/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/databases/-databaseName-/tables" %}}
 
 In the request body, include the `partitionTemplate` property and specify the [partition template parts](/influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/#tag-part-templates) as an array of objects--for example:
 
