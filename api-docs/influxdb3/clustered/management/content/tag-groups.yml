@@ -1,6 +1,6 @@
 - name: Using the Management API
   tags:
     - Authentication
-    - Quickstart
+    - Quick start
 - name: All endpoints
   tags: []

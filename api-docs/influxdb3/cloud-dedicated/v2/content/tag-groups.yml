@@ -9,5 +9,5 @@
 - name: All endpoints
   tags:
     - Ping
-    - Query
-    - Write
+    - Query data
+    - Write data

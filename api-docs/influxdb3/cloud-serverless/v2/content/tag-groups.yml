@@ -16,7 +16,7 @@
     - Invokable Scripts
     - Limits
     - Organizations
-    - Query
+    - Query data
     - Resources
     - Routes
     - Secrets
@@ -25,4 +25,4 @@
     - Templates
     - Usage
     - Variables
-    - Write
+    - Write data
