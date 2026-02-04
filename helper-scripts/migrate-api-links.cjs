@@ -39,6 +39,21 @@ const SPEC_MAPPINGS = [
   { spec: 'influxdb3/clustered/management/openapi.yml', urlPrefix: '/influxdb3/clustered/api/management/' },
 ];
 
+// Version placeholder mappings for shared content
+// Maps /version/ placeholder URLs to representative specs for operationId lookup
+const VERSION_PLACEHOLDER_MAPPINGS = [
+  // InfluxDB 3 v3 API (core/enterprise share same operationIds)
+  { pattern: /^\/influxdb3\/version\/api\/v3\//, lookupPrefix: '/influxdb3/core/api/' },
+  // InfluxDB 3 reference path variant
+  { pattern: /^\/influxdb3\/[^/]+\/reference\/api\/v3\//, lookupPrefix: '/influxdb3/core/api/' },
+  // InfluxDB v2 API - use v2 (OSS) as it has more operations than cloud (replication, etc.)
+  { pattern: /^\/influxdb\/version\/api\/v2\//, lookupPrefix: '/influxdb/v2/api/' },
+  { pattern: /^\/influxdb\/version\/api\/v1\//, lookupPrefix: '/influxdb/v2/api/' },  // v1 compat is in v2 spec
+  { pattern: /^\/influxdb\/version\/api\//, lookupPrefix: '/influxdb/v2/api/' },
+  // InfluxDB 3 version placeholder (generic)
+  { pattern: /^\/influxdb3\/version\/api\//, lookupPrefix: '/influxdb3/cloud-serverless/api/' },
+];
+
 /**
  * Convert path parameters from {param} to -param- (RapiDoc format)
  */
@@ -143,6 +158,7 @@ function findOperationLinks(content) {
 
 /**
  * Find the best matching URL prefix for a given URL path
+ * Also handles /version/ placeholders in shared content
  */
 function findUrlPrefix(urlPath, lookup) {
   // Sort by length descending to match most specific first
@@ -151,6 +167,16 @@ function findUrlPrefix(urlPath, lookup) {
   for (const prefix of prefixes) {
     if (urlPath.startsWith(prefix) || urlPath === prefix.slice(0, -1)) {
       return prefix;
+    }
+  }
+
+  // Check version placeholder mappings for shared content
+  for (const { pattern, lookupPrefix } of VERSION_PLACEHOLDER_MAPPINGS) {
+    if (pattern.test(urlPath)) {
+      if (VERBOSE) {
+        console.log(`    Mapped ${urlPath} → ${lookupPrefix} (version placeholder)`);
+      }
+      return lookupPrefix;
     }
   }
 

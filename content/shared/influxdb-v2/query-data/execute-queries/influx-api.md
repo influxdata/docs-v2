@@ -9,7 +9,7 @@ To query InfluxDB {{< current-version >}}, do one of the following:
 
 Send a Flux query request to the following endpoint:
 
-{{% api-endpoint method="POST" endpoint="/api/v2/query" api-ref="/influxdb/version/api/#operation/PostQueryAnalyze" %}}
+{{% api-endpoint method="POST" endpoint="/api/v2/query" api-ref="/influxdb/version/api/#post-/api/v2/query/analyze" %}}
 
 In your request, set the following:
 

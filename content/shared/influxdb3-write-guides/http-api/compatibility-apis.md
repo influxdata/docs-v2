@@ -16,7 +16,7 @@ to write points as line protocol data to {{% product-name %}}.
 > HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#post-/write).
 >
 > When bringing existing v2 write workloads, use the {{% product-name %}}
-> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#operation/PostV2Write).
+> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#post-/api/v2/write).
 >
 > **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
 > See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
@@ -34,7 +34,7 @@ to write points as line protocol data to {{% product-name %}}.
 The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards
 compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
 
-{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#operation/PostV1Write" >}}
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#post-/write" >}}
 
 ### Authenticate v2 API requests
 
@@ -108,7 +108,7 @@ Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 The `/write` InfluxDB v1 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB v1.x.
 
-{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#operation/PostV2Write" >}}
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#post-/api/v2/write" >}}
 
 ### Authenticate v1 API requests
 

@@ -117,9 +117,9 @@ option task = {
 
 {{% show-in "v2" %}}
 
-Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/version/api/#operation/PostTasks) to create a task.
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/version/api/#post-/api/v2/tasks) to create a task.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/version/api/#operation/PostTasks" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/version/api/#post-/api/v2/tasks" >}}
 
 Provide the following in your API request:
 ##### Request headers

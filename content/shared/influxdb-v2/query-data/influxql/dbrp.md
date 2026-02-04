@@ -83,9 +83,9 @@ influx v1 dbrp create \
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps` API endpoint](/influxdb/version/api/#operation/PostDBRP) to create a new DBRP mapping.
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/version/api/#post-/api/v2/dbrps) to create a new DBRP mapping.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="POST" api-ref="/influxdb/version/api/#operation/PostDBRP" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="POST" api-ref="/influxdb/version/api/#post-/api/v2/dbrps" >}}
 
 Include the following:
 
@@ -155,9 +155,9 @@ influx v1 dbrp list --bucket-id 00oxo0oXx000x0Xo
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
-Use the [`/api/v2/dbrps` API endpoint](/influxdb/version/api/#operation/GetDBRPs) to list DBRP mappings.
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/version/api/#get-/api/v2/dbrps) to list DBRP mappings.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="GET" api-ref="/influxdb/version/api/#operation/GetDBRPs" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="GET" api-ref="/influxdb/version/api/#get-/api/v2/dbrps" >}}
 
 Include the following:
 
@@ -238,9 +238,9 @@ influx v1 dbrp update \
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/version/api/#operation/GetDBRPs) to update DBRP mappings.
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/version/api/#get-/api/v2/dbrps) to update DBRP mappings.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/version/api/#operation/PatchDBRPID" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/version/api/#patch-/api/v2/dbrps/-dbrpID-" >}}
 
 Include the following:
 
@@ -306,9 +306,9 @@ influx v1 dbrp delete --id 00oxo0X0xx0XXoX0
 {{% /tab-content %}}
 {{% tab-content %}}
 
-Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/version/api/#operation/DeleteDBRPID) to delete a DBRP mapping.
+Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/version/api/#delete-/api/v2/dbrps/-dbrpID-) to delete a DBRP mapping.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/version/api/#operation/DeleteDBRPID" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/version/api/#delete-/api/v2/dbrps/-dbrpID-" >}}
 
 Include the following:
 

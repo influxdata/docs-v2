@@ -98,7 +98,7 @@ You can combine multiple duration units in a single value:
 
 ### Set database retention period
 
-Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/) or the [/api/v3/configure/database](/influxdb3/version/api/v3/#operation/PostConfigureDatabase) HTTP API endpoint to create a database with a retention period:
+Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/) or the [/api/v3/configure/database](/influxdb3/version/api/v3/#post-/api/v3/configure/database) HTTP API endpoint to create a database with a retention period:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -180,7 +180,7 @@ Replace the following:
 
 ### Set table retention period
 
-Use the [`influxdb3 create table` command](/influxdb3/enterprise/reference/cli/influxdb3/create/table/) or the [/api/v3/configure/table](/influxdb3/enterprise/reference/api/v3/#operation/PostConfigureTable) HTTP API endpoint to create a table with a retention period:
+Use the [`influxdb3 create table` command](/influxdb3/enterprise/reference/cli/influxdb3/create/table/) or the [/api/v3/configure/table](/influxdb3/enterprise/reference/api/v3/#post-/api/v3/configure/table) HTTP API endpoint to create a table with a retention period:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

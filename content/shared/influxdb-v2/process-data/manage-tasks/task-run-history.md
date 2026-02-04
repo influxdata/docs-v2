@@ -49,23 +49,23 @@ To retry failed task runs, see how to [run tasks](/influxdb/version/process-data
 
 ## View logs for a task with the InfluxDB API
 
-Use the [`/api/v2/tasks/TASK_ID/logs` InfluxDB API endpoint](/influxdb/version/api/#operation/GetTasksIDLogs)
+Use the [`/api/v2/tasks/TASK_ID/logs` InfluxDB API endpoint](/influxdb/version/api/#get-/api/v2/tasks/-taskID-/logs)
 to view the log events for a task and exclude additional task metadata.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" api-ref="/influxdb/version/api/#operation/GetTasksIDLogs" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" api-ref="/influxdb/version/api/#get-/api/v2/tasks/-taskID-/logs" >}}
 
 ## View a task's run history with the InfluxDB API
 
-Use the [`/tasks/TASK_ID/runs` InfluxDB API endpoint](/influxdb/version/api/#operation/GetTasksIDRuns)
+Use the [`/tasks/TASK_ID/runs` InfluxDB API endpoint](/influxdb/version/api/#get-/api/v2/tasks/-taskID-/runs)
 to view a task's run history.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/{taskID}/runs" api-ref="/influxdb/version/api/#operation/GetTasksIDRuns" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/{taskID}/runs" api-ref="/influxdb/version/api/#get-/api/v2/tasks/-taskID-/runs" >}}
 
 ### View task run logs with the InfluxDB API
 
 To view logs associated with a run, use the
-[`/api/v2/tasks/TASK_ID/runs/RUN_ID/logs` InfluxDB API endpoint](/influxdb/version/api/#operation/GetTasksIDRunsIDLogs).
+[`/api/v2/tasks/TASK_ID/runs/RUN_ID/logs` InfluxDB API endpoint](/influxdb/version/api/#get-/api/v2/tasks/-taskID-/runsIDLogs).
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" api-ref="/influxdb/version/api/#operation/GetTasksIDRunsIDLogs" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" api-ref="/influxdb/version/api/#get-/api/v2/tasks/-taskID-/runsIDLogs" >}}
 
 To retry failed task runs, see how to [run tasks](/influxdb/version/process-data/manage-tasks/run-task/).
