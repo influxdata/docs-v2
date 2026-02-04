@@ -216,6 +216,46 @@ async function scanContentFiles(lookup) {
   return results;
 }
 
+/**
+ * Replace operation links in a file
+ * Returns the modified content
+ */
+function replaceLinks(content, links) {
+  let modified = content;
+
+  for (const link of links) {
+    // Replace all occurrences of this specific link
+    modified = modified.split(link.oldLink).join(link.newLink);
+  }
+
+  return modified;
+}
+
+/**
+ * Apply migrations to files
+ */
+async function applyMigrations(results) {
+  console.log('\n=== APPLYING MIGRATIONS ===\n');
+
+  let filesModified = 0;
+  let linksReplaced = 0;
+
+  for (const { file, links } of results.filesWithLinks) {
+    const filePath = path.join(CONTENT_DIR, file);
+    const originalContent = fs.readFileSync(filePath, 'utf8');
+    const modifiedContent = replaceLinks(originalContent, links);
+
+    if (originalContent !== modifiedContent) {
+      fs.writeFileSync(filePath, modifiedContent, 'utf8');
+      filesModified++;
+      linksReplaced += links.length;
+      console.log(`  ✓ ${file} (${links.length} links)`);
+    }
+  }
+
+  console.log(`\nMigration complete: ${filesModified} files modified, ${linksReplaced} links replaced.`);
+}
+
 async function main() {
   console.log(`API Link Migration Script`);
   console.log(`Mode: ${DRY_RUN ? 'DRY RUN (no changes)' : 'EXECUTE'}\n`);
@@ -252,8 +292,13 @@ async function main() {
     }
   }
 
+  // Apply migrations if not dry-run
   if (DRY_RUN) {
     console.log('\n[DRY RUN] No files modified. Run without --dry-run to apply changes.');
+  } else if (results.filesWithLinks.length > 0) {
+    await applyMigrations(results);
+  } else {
+    console.log('\nNo links to migrate.');
   }
 }
 
