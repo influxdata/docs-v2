@@ -1153,12 +1153,13 @@ influxdb3 install package pandas
 docker exec -it CONTAINER_NAME influxdb3 install package pandas
 ```
 
+{{% /code-tab-content %}}
 
 {{% code-tab-content %}}
 
 ```bash
 # Use the HTTP API to install Python packages
-- Use the HTTP API for programmatic package installation or CI/CD workflows.
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/plugin_environment/install_packages" \
   --header "Authorization: Bearer AUTH_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
@@ -1171,14 +1172,14 @@ Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: y
 For complete reference, see [Install plugin packages](/influxdb3/version/api/v3/#operation/PostInstallPluginPackages).
 
 {{% /code-tab-content %}}
-{{% /code-tab-content %}}
 
 {{< /code-tabs-wrapper >}}
 
-These examples install the specified Python package (for example, pandas) into the Processing Engine’s embedded virtual environment.
+These examples install the specified Python packages (for example, pandas) into the Processing Engine’s embedded virtual environment.
 
 - Use the CLI command when running InfluxDB directly on your system.
 - Use the Docker variant if you're running InfluxDB in a containerized environment.
+- Use the HTTP API for programmatic package installation or CI/CD workflows.
 
 > [!Important]
 > #### Use bundled Python for plugins
