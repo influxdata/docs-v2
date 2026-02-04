@@ -1365,6 +1365,7 @@ paths:
                   The cron expression `0 0 6 * * 1-5` means the trigger will run at 6:00 AM every weekday (Monday to Friday).
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
@@ -1378,6 +1379,7 @@ paths:
                   The duration `1h` means the trigger will run every hour.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
@@ -1390,6 +1392,7 @@ paths:
                   Example of scheduling a trigger to run every 30 seconds.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
@@ -1402,6 +1405,7 @@ paths:
                   Example of scheduling a trigger to run every 5 minutes.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
@@ -1414,6 +1418,7 @@ paths:
                   Trigger that fires on write events to any table in the database.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
@@ -1426,6 +1431,7 @@ paths:
                   Trigger that fires on write events to a specific table.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
@@ -1438,6 +1444,7 @@ paths:
                   Creates an HTTP endpoint `/api/v3/engine/hello-world` for manual invocation.
                 value:
                   db: mydb
+                  disabled: false
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
@@ -1450,6 +1457,7 @@ paths:
                   Example of a cron trigger that runs every Friday at 2:30 PM.
                 value:
                   db: reports
+                  disabled: false
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
@@ -1462,6 +1470,7 @@ paths:
                   Example of a cron trigger that runs on the first day of every month at midnight.
                 value:
                   db: monthly_data
+                  disabled: false
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
