@@ -394,7 +394,7 @@ For more information, see the [`influxdb3 create trigger` CLI reference](/influx
 
 To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -413,8 +413,6 @@ curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
 ```
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
-
-For complete reference, see [Update plugin file](/influxdb3/version/api/v3/#operation/PutPluginFile).
 
 > [!Important]
 > #### Admin privileges required
