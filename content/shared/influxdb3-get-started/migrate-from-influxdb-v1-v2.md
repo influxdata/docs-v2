@@ -11,7 +11,7 @@ InfluxDB 3 supports v1 and v2 compatible write endpoints:
 
 Both endpoints accept line protocol and write data the same way.
 
-{{< page-link "/write-data/http-api/compatibility-apis/" "Use v1 and v2 compatibility APIs to write data" >}}
+For more information, see [Use compatibility APIs to write data](/influxdb3/version/write-data/http-api/compatibility-apis/).
 
 ## Query data
 
@@ -19,11 +19,11 @@ InfluxDB 3 supports the v1 HTTP query API for InfluxQL queries:
 
 - **`/query`**: Compatible with InfluxDB v1 query clients
 
-{{< page-link "/query-data/execute-queries/influxdb-v1-api/" "Use the v1 HTTP query API" >}}
+For more information, see [Use the v1 HTTP query API](/influxdb3/version/query-data/execute-queries/influxdb-v1-api/).
 
 ## Client libraries
 
 Use InfluxDB v1 and v2 client libraries with {{% product-name %}}:
 
-- [v2 client libraries](/influxdb3/{{< version-key >}}/reference/client-libraries/v2/)
-- [v1 client libraries](/influxdb3/{{< version-key >}}/reference/client-libraries/v1/)
+- [v2 client libraries](/influxdb3/version/reference/client-libraries/v2/)
+- [v1 client libraries](/influxdb3/version/reference/client-libraries/v1/)
