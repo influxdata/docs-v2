@@ -363,6 +363,11 @@ After writing your plugin:
 
 For local development and testing, you can upload plugin files directly from your machine when creating triggers. This eliminates the need to manually copy files to the server's plugin directory.
 
+- [Upload a plugin using the influxdb3 CLI](#upload-a-plugin-using-the-influxdb3-cli)
+- [Upload a plugin using the HTTP API](#upload-a-plugin-using-the-http-api)
+
+#### Upload a plugin using the influxdb3 CLI
+
 Use the `--upload` flag with `--path` to transfer local files or directories:
 
 ```bash
@@ -383,6 +388,32 @@ influxdb3 create trigger \
   complex_trigger
 ```
 
+For more information, see the [`influxdb3 create trigger` CLI reference](/influxdb3/version/reference/cli/influxdb3/create/trigger/).
+
+#### Upload a plugin using the HTTP API
+
+To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
+
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Authorization: Bearer` with your admin token
+  - `Content-Type: application/octet-stream`
+- **Query parameters**:
+  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+
+```bash{placeholders="AUTH_TOKEN"}
+# Upload a single-file plugin
+curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/octet-stream" \
+  --data-binary "@/local/path/to/plugin.py"
+```
+
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
 > [!Important]
 > #### Admin privileges required
 >
@@ -394,11 +425,14 @@ influxdb3 create trigger \
 - Rapid iteration on plugin code
 - Automating plugin deployment in CI/CD pipelines
 
-For more information, see the [`influxdb3 create trigger` CLI reference](/influxdb3/version/reference/cli/influxdb3/create/trigger/).
-
 ### Update existing plugins
 
 Modify plugin code for running triggers without recreating them. This allows you to iterate on plugin development while preserving trigger configuration and history.
+
+- [Update a plugin using the influxdb3 CLI](#update-a-plugin-using-the-influxdb3-cli)
+- [Update a plugin using the HTTP API](#update-a-plugin-using-the-http-api)
+
+#### Update a plugin using the influxdb3 CLI
 
 Use the `influxdb3 update trigger` command:
 
@@ -416,13 +450,37 @@ influxdb3 update trigger \
   --path "/path/to/updated/plugin-dir"
 ```
 
-The update operation:
+For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/reference/cli/influxdb3/update/trigger/).
+
+#### Update a plugin using the HTTP API
+
+To update a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
+
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Authorization: Bearer` with your admin token
+  - `Content-Type: application/octet-stream`
+- **Query parameters**:
+  - `path` _(string, required)_: Path to the plugin file relative to the plugin directory
+
+```bash{placeholders="AUTH_TOKEN"}
+# Update a plugin file
+curl -X PUT "{{< influxdb/host >}}/api/v3/plugins/files?path=plugin.py" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/octet-stream" \
+  --data-binary "@/path/to/updated/plugin.py"
+```
+
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
+**The update operation:**
 - Replaces plugin files immediately
 - Preserves trigger configuration (spec, schedule, arguments)
 - Requires admin token for security
 - Works with both local paths and uploaded files
-
-For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/reference/cli/influxdb3/update/trigger/).
 
 ### View loaded plugins
 
@@ -477,6 +535,13 @@ For more information, see the [`influxdb3 show plugins` reference](/influxdb3/ve
 
 ## Set up a trigger
 
+A trigger connects your plugin code to database events. When the specified event occurs, the processing engine executes your plugin.
+
+- [Understand trigger types](#understand-trigger-types)
+- [Create a trigger using the influxdb3 CLI](#create-a-trigger-using-the-influxdb3-cli)
+- [Create a trigger using the HTTP API](#create-a-trigger-using-the-http-api)
+- [Trigger specification examples](#trigger-specification-examples)
+
 ### Understand trigger types
 
 | Plugin Type | Trigger Specification | When Plugin Runs |
@@ -485,7 +550,7 @@ For more information, see the [`influxdb3 show plugins` reference](/influxdb3/ve
 | Scheduled | `every:<DURATION>` or `cron:<EXPRESSION>` | At specified time intervals |
 | HTTP request | `request:<REQUEST_PATH>` | When HTTP requests are received |
 
-### Use the create trigger command
+### Create a trigger using the influxdb3 CLI
 
 Use the `influxdb3 create trigger` command with the appropriate trigger specification:
 
@@ -517,10 +582,73 @@ In the example above, replace the following:
 > When not using `--upload`, the server resolves paths relative to the configured `--plugin-dir`.
 > For details about multi-file plugin structure, see [Create your plugin file](#create-your-plugin-file).
 
+For complete reference, see [`influxdb3 create trigger`](/influxdb3/version/reference/cli/influxdb3/create/trigger/).
+
+### Create a trigger using the HTTP API
+
+To create a trigger using the HTTP API, send a `POST` request to the `/api/v3/configure/processing_engine_trigger` endpoint:
+
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger" %}}
+
+Include the following in your request:
+
+- **Headers**:
+  - `Authorization: Bearer` with your authentication token
+  - `Content-Type: application/json`
+- **Request body**: JSON object with trigger configuration
+  - `db` _(string, required)_: Database name
+  - `trigger_name` _(string, required)_: Trigger name
+  - `plugin_filename` _(string, required)_: Plugin filename relative to the plugin directory
+  - `trigger_specification` _(string, required)_: When the plugin runs (see [trigger types](#understand-trigger-types))
+  - `trigger_settings` _(object, required)_: Configuration for error handling and execution
+    - `run_async` _(boolean)_: Whether to run asynchronously (default: `false`)
+    - `error_behavior` _(string)_: How to handle errors: `Log`, `Retry`, or `Disable` (default: `Log`)
+  - `disabled` _(boolean, required)_: Whether the trigger is disabled
+  - `trigger_arguments` _(object, optional)_: Arguments passed to the plugin
+
+{{% code-placeholders "DATABASE_NAME|PLUGIN_FILE|TRIGGER_NAME|TRIGGER_SPEC|AUTH_TOKEN" %}}
+
+```bash
+# Create a basic trigger
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "TRIGGER_NAME",
+    "plugin_filename": "PLUGIN_FILE",
+    "trigger_specification": "TRIGGER_SPEC",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+In the example above, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: Name of the database
+- {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: Name of the new trigger
+- {{% code-placeholder-key %}}`PLUGIN_FILE`{{% /code-placeholder-key %}}: Plugin filename relative to your configured plugin directory
+- {{% code-placeholder-key %}}`TRIGGER_SPEC`{{% /code-placeholder-key %}}: Trigger specification (see [examples](#trigger-specification-examples))
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
 
 ### Trigger specification examples
 
+The following examples demonstrate how to create triggers for different event types using both the CLI and HTTP API.
+
 #### Trigger on data writes 
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 
 ```bash
 # Trigger on writes to a specific table
@@ -538,6 +666,55 @@ influxdb3 create trigger \
   --database my_database \
   all_data_processor
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+# Trigger on writes to a specific table
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "sensor_processor",
+    "plugin_filename": "process_sensors.py",
+    "trigger_specification": "table:sensor_data",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+
+# Trigger on writes to all tables
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "all_data_processor",
+    "plugin_filename": "process_all_data.py",
+    "trigger_specification": "all_tables",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 The trigger runs when the database flushes ingested data for the specified tables to the Write-Ahead Log (WAL) in the Object store (default is every second).
 
@@ -592,6 +769,13 @@ def on_write(self, database, table_name, batch):
 
 #### Trigger on a schedule 
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```bash
 # Run every 5 minutes
 influxdb3 create trigger \
@@ -609,9 +793,66 @@ influxdb3 create trigger \
   daily_report
 ```
 
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+# Run every 5 minutes
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "regular_check",
+    "plugin_filename": "periodic_check.py",
+    "trigger_specification": "every:5m",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+
+# Run on a cron schedule (8am daily)
+# Supports extended cron format with seconds
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "daily_report",
+    "plugin_filename": "daily_report.py",
+    "trigger_specification": "cron:0 0 8 * * *",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 The plugin receives the scheduled call time.
 
 #### Trigger on HTTP requests
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 
 ```bash
 # Create an endpoint at /api/v3/engine/webhook
@@ -621,6 +862,39 @@ influxdb3 create trigger \
   --database my_database \
   webhook_processor
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+# Create an endpoint at /api/v3/engine/webhook
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "webhook_processor",
+    "plugin_filename": "webhook_handler.py",
+    "trigger_specification": "request:webhook",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 Access your endpoint at `/api/v3/engine/{REQUEST_PATH}` (in this example, `/api/v3/engine/webhook`).
 The trigger is enabled by default and runs when an HTTP request is received at the specified path.
@@ -647,6 +921,13 @@ Use trigger arguments to pass configuration from a trigger to the plugin it runs
 - Connection properties for external services
 - Configuration settings for plugin behavior
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```bash
 influxdb3 create trigger \
   --trigger-spec "every:1h" \
@@ -655,6 +936,42 @@ influxdb3 create trigger \
   --database my_database \
   threshold_monitor
 ```
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "threshold_monitor",
+    "plugin_filename": "threshold_check.py",
+    "trigger_specification": "every:1h",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Log"
+    },
+    "trigger_arguments": {
+      "threshold": "90",
+      "notify_email": "admin@example.com"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
 The arguments are passed to the plugin as a `Dict[str, str]` where the key is the argument name and the value is the argument value:
 
@@ -674,6 +991,13 @@ By default, triggers run synchronously—each instance waits for previous instan
 
 To allow multiple instances of the same trigger to run simultaneously, configure triggers to run asynchronously:
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
 ```bash
 # Allow multiple trigger instances to run simultaneously
 influxdb3 create trigger \
@@ -684,13 +1008,53 @@ influxdb3 create trigger \
   async_processor
 ```
 
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+# Allow multiple trigger instances to run simultaneously
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "async_processor",
+    "plugin_filename": "heavy_process.py",
+    "trigger_specification": "table:metrics",
+    "trigger_settings": {
+      "run_async": true,
+      "error_behavior": "Log"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 ### Configure error handling for a trigger
 
-To configure error handling behavior for a trigger, use the `--error-behavior <ERROR_BEHAVIOR>` CLI option with one of the following values:
+To configure error handling behavior for a trigger, specify one of the following values:
 
 - `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` system table.
 - `retry`: Attempt to run the plugin again immediately after an error.
-- `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI).
+- `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later).
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3 CLI](#)
+[HTTP API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 
 ```bash
 # Automatically retry on error
@@ -710,6 +1074,55 @@ influxdb3 create trigger \
   auto_disable_processor
 ```
 
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN" %}}
+
+```bash
+# Automatically retry on error
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "critical_processor",
+    "plugin_filename": "critical_process.py",
+    "trigger_specification": "table:important_data",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Retry"
+    },
+    "disabled": false
+  }'
+
+# Disable the trigger on error
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "db": "DATABASE_NAME",
+    "trigger_name": "auto_disable_processor",
+    "plugin_filename": "webhook_handler.py",
+    "trigger_specification": "request:webhook",
+    "trigger_settings": {
+      "run_async": false,
+      "error_behavior": "Disable"
+    },
+    "disabled": false
+  }'
+```
+
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "database" %}}{{% show-in "enterprise" %}} with write permissions on the specified database{{% /show-in %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 ## Manage plugin dependencies
 
 
@@ -717,13 +1130,14 @@ influxdb3 create trigger \
 Use the `influxdb3 install package` command to add third-party libraries (like `pandas`, `requests`, or `influxdb3-python`) to your plugin environment.  
 This installs packages into the Processing Engine’s embedded Python environment to ensure compatibility with your InfluxDB instance.
 
-{{% code-placeholders "CONTAINER_NAME|PACKAGE_NAME" %}}
+{{% code-placeholders "CONTAINER_NAME|PACKAGE_NAME|AUTH_TOKEN" %}}
 
 {{< code-tabs-wrapper >}}
 
 {{% code-tabs %}}
-[CLI](#)
+[influxdb3 CLI](#)
 [Docker](#)
+[HTTP API](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -745,12 +1159,31 @@ docker exec -it CONTAINER_NAME influxdb3 install package pandas
 
 {{% /code-tab-content %}}
 
+{{% code-tab-content %}}
+
+```bash
+# Use the HTTP API to install Python packages
+curl -X POST "{{< influxdb/host >}}/api/v3/configure/plugin_environment/install_packages" \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "packages": ["pandas", "requests", "numpy"]
+  }'
+```
+
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
+For complete reference, see [Install plugin packages](/influxdb3/version/api/v3/#operation/PostInstallPluginPackages).
+
+{{% /code-tab-content %}}
+
 {{< /code-tabs-wrapper >}}
 
-These examples install the specified Python package (for example, pandas) into the Processing Engine’s embedded virtual environment.
+These examples install the specified Python packages (for example, pandas) into the Processing Engine’s embedded virtual environment.
 
 - Use the CLI command when running InfluxDB directly on your system.
 - Use the Docker variant if you're running InfluxDB in a containerized environment.
+- Use the HTTP API for programmatic package installation or CI/CD workflows.
 
 > [!Important]
 > #### Use bundled Python for plugins
