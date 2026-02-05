@@ -6,7 +6,63 @@ scope: heading
 match: $sentence
 style: AP # AP or Chicago; only applies when match is set to $title.
 exceptions:
-# SQL_INFO_SQL_KEYWORDS
+  # InfluxDB-specific terms
+  - InfluxDB
+  - InfluxQL
+  - Telegraf
+  - Kapacitor
+  - Chronograf
+  - Flux
+  - TSM
+  - WAL
+  - OSS
+  - API
+  - APIs
+  - CLI
+  - SQL
+  - HTTP
+  - HTTPS
+  - URL
+  - URLs
+  - CSV
+  - JSON
+  - YAML
+  - TOML
+  - TLS
+  - SSL
+  - TCP
+  - UDP
+  - gRPC
+  - OAuth
+  - JWT
+  - AWS
+  - GCP
+  - Azure
+  - S3
+  - IoT
+  - UI
+  - ID
+  - IDs
+  - UUID
+  - UUIDs
+  - CPU
+  - GPU
+  - RAM
+  - SSD
+  - HDD
+  - DNS
+  - IP
+  - IPv4
+  - IPv6
+  - MQTT
+  - SNMP
+  - OPC
+  - PLC
+  - REST
+  - CRUD
+  - ETL
+  - EOF
+  # SQL_INFO_SQL_KEYWORDS
 # Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/flightsql/src/sql_info
   - absolute
   - action

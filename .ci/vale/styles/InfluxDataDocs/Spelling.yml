@@ -1,7 +1,13 @@
 extends: spelling
 message: "Did you really mean '%s'?"
 level: warning
+# Exclude code blocks, inline code, and table cells from spell checking
+# - code: fenced code blocks (```...```)
+# - raw: inline code (`...`)
+# - table.*: table headers and cells
 scope:
+  - ~code
+  - ~raw
   - ~table.header
   - ~table.cell
 ignore:
