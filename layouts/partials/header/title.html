@@ -38,6 +38,8 @@
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else if and (eq $product "enterprise_influxdb") (in $currentVersion "v1")}}
   {{ $scratch.Set "siteTitle" "InfluxDB Enterprise v1 Documentation" }}
+{{ else if and (eq $product "telegraf") (eq $currentVersion "controller")}}
+  {{ $scratch.Set "siteTitle" "Telegraf Controller Documentation" }}
 {{ else }}
   {{ with (index .Site.Data.products $product).altname }}
     {{ $scratch.Set "siteTitle" (print . " Documentation") }}
