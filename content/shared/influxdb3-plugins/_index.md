@@ -27,7 +27,7 @@ Once you have all the prerequisites in place, follow these steps to implement th
   - [Upload plugins from local machine](#upload-plugins-from-local-machine)
   - [Update existing plugins](#update-existing-plugins)
   - [View loaded plugins](#view-loaded-plugins)
-- [Set up a trigger](#set-up-a-trigger)
+- [Create a trigger](#create-a-trigger)
 - [Manage plugin dependencies](#manage-plugin-dependencies)
 - [Plugin security](#plugin-security)
 {{% show-in "enterprise" %}}
@@ -273,7 +273,7 @@ def process_data(influxdb3_local, table_batch, settings):
     pass
 ```
 
-After writing your plugin, [create a trigger](#use-the-create-trigger-command) to connect it to a database event and define when it runs.
+After writing your plugin, [create a trigger](#create-a-trigger) to connect it to a database event and define when it runs.
 
 #### Create a data write plugin
 
@@ -351,7 +351,7 @@ def process_request(influxdb3_local, query_parameters, request_headers, request_
 
 After writing your plugin:
 
-- [Create a trigger](#use-the-create-trigger-command) to connect your plugin to database events
+- [Create a trigger](#create-a-trigger) to connect your plugin to database events
 - [Install any Python dependencies](#manage-plugin-dependencies) your plugin requires
 - Learn how to [extend plugins with the API](/influxdb3/version/extend-plugin/)
 
@@ -529,7 +529,7 @@ ORDER BY last_modified DESC;
 
 For more information, see the [`influxdb3 show plugins` reference](/influxdb3/version/reference/cli/influxdb3/show/plugins/) and [Query system data](/influxdb3/version/admin/query-system-data/#query-plugin-files).
 
-## Set up a trigger
+## Create a trigger
 
 A trigger connects your plugin code to database events. When the specified event occurs, the processing engine executes your plugin.
 
