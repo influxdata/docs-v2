@@ -1455,6 +1455,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1468,6 +1469,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1480,6 +1482,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1492,6 +1495,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1504,6 +1508,7 @@ paths:
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1516,6 +1521,7 @@ paths:
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1528,6 +1534,7 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1540,6 +1547,7 @@ paths:
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1552,6 +1560,7 @@ paths:
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -2571,6 +2580,7 @@ components:
         - trigger_name
         - trigger_settings
         - trigger_specification
+        - disabled
     TriggerSettings:
       type: object
       description: |

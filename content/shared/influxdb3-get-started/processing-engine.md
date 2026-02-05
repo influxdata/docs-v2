@@ -62,14 +62,12 @@ the processing engine to run.
 > [!Note]
 > If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.
 
-{{% code-placeholders "PLUGIN_DIR" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash {placeholders="PLUGIN_DIR"}
 influxdb3 serve \
   # ...
   --plugin-dir PLUGIN_DIR
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}
 with the path to your plugin directory. This path can be absolute or relative
@@ -170,8 +168,7 @@ To test a `process_writes` (WAL) plugin:
    - `--lp` or  `--file`: The line protocol to test
    - Optional: `--input-arguments`: A comma-delimited list of `<KEY>=<VALUE>` arguments for your plugin code
 
-{{% code-placeholders "INPUT_LINE_PROTOCOL|INPUT_ARGS|DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME" %}}
-```bash
+```bash {placeholders="INPUT_LINE_PROTOCOL|INPUT_ARGS|DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME"}
 influxdb3 test wal_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -179,14 +176,13 @@ influxdb3 test wal_plugin \
   --input-arguments INPUT_ARGS \
   PLUGIN_FILENAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`INPUT_LINE_PROTOCOL`{{% /code-placeholder-key %}}: the line protocol to test
 - Optional: {{% code-placeholder-key %}}`INPUT_ARGS`{{% /code-placeholder-key %}}: a comma-delimited list of `<KEY>=<VALUE>` arguments for your plugin code--for example, `arg1=hello,arg2=world`
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to test against
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: the {{% token-link "admin" %}} for your {{% product-name %}} server
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} for your {{% product-name %}} server
 - {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: the name of the plugin file to test. Provide only the filename (for example, `test.py`), not a relative or absolute path.
 
 ### Example: Test a plugin
@@ -252,19 +248,17 @@ influxdb3 create trigger \
 After you have created a plugin and trigger, enter the following command to
 enable the trigger and have it run the plugin as you write data:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TRIGGER_NAME" %}}
-```bash
+```bash {placeholders="DATABASE_NAME|AUTH_TOKEN|TRIGGER_NAME"}
 influxdb3 enable trigger \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   TRIGGER_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to enable the trigger in
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: the name of the trigger to enable
 
 For example, to enable the trigger named `trigger1` in the `sensors` database:
