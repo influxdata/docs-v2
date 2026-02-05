@@ -13,7 +13,8 @@
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2",
-    "tar": "7.5.3"
+    "tar": "7.5.7",
+    "lodash-es": "^4.17.23"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
@@ -58,14 +59,19 @@
     "markdown-link": "^0.1.1",
     "mermaid": "^11.10.0",
     "p-limit": "^5.0.0",
+    "playwright": "^1.58.1",
     "turndown": "^7.2.2",
     "vanillajs-datepicker": "^1.3.4"
   },
   "scripts": {
     "postinstall": "node scripts/setup-local-bin.js",
-    "docs:create": "node scripts/docs-cli/docs-create.js",
-    "docs:edit": "node scripts/docs-cli/docs-edit.js",
-    "docs:add-placeholders": "node scripts/add-placeholders.js",
+    "docs": "node scripts/docs-cli/docs-cli.js",
+    "docs:create": "node scripts/docs-cli/docs-cli.js create",
+    "docs:edit": "node scripts/docs-cli/docs-cli.js edit",
+    "docs:placeholders": "node scripts/docs-cli/docs-cli.js placeholders",
+    "docs:add-placeholders": "node scripts/docs-cli/docs-cli.js add-placeholders",
+    "docs:audit": "node scripts/docs-cli/docs-cli.js audit",
+    "docs:release-notes": "node scripts/docs-cli/docs-cli.js release-notes",
     "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",

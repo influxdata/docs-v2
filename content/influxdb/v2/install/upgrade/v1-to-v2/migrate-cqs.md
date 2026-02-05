@@ -99,7 +99,7 @@ The `ON` clause defines the database to query.
 In InfluxDB OSS {{< current-version >}}, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)).
 
-Use the [`from()` function](/flux/v0/stdlib/universe/from)
+Use the [`from()` function](/flux/v0/stdlib/influxdata/influxdb/from/)
 to specify the bucket to query:
 
 ###### InfluxQL

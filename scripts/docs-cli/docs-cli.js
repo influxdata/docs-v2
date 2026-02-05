@@ -1,246 +1,132 @@
 #!/usr/bin/env node
 
 /**
- * Main CLI entry point for docs tools
- * Supports subcommands: create, edit, placeholders
- *
- * Usage:
- *   docs create <draft-path> [options]
- *   docs edit <url> [options]
- *   docs placeholders <file.md> [options]
+ * Main CLI entry point for docs-v2
+ * Unified documentation CLI with secure configuration
  */
 
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { spawn } from 'child_process';
+import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Get subcommand and remaining arguments
-const subcommand = process.argv[2];
-const args = process.argv.slice(3);
+const [command, ...args] = process.argv.slice(2);
 
-// Map subcommands to script files
-const subcommands = {
-  create: 'docs-create.js',
-  edit: 'docs-edit.js',
-  placeholders: 'add-placeholders.js',
+// Command aliases for convenience
+const COMMAND_ALIASES = {
+  placeholders: 'add-placeholders',
 };
 
-/**
- * Print usage information
- */
 function printUsage() {
   console.log(`
+InfluxData Documentation Tooling CLI
+
 Usage: docs <command> [options]
 
 Commands:
-  create <draft-path>     Create new documentation from draft
-  edit <url>              Edit existing documentation (non-blocking)
-  placeholders <file.md>  Add placeholder syntax to code blocks
-  test                    Run test suite to verify CLI functionality
+  audit --products <p>                Audit documentation coverage
+  create <draft> --products <p>       Create new documentation
+  edit <url>                          Edit existing documentation
+  release-notes <from> <to>           Generate release notes
+  placeholders <file>                 Add placeholder syntax to code blocks
+
+Product Targeting:
+  --products accepts product keys OR content paths:
+    influxdb3_core        or  /influxdb3/core
+    influxdb3_enterprise  or  /influxdb3/enterprise
+    telegraf              or  /telegraf
+
+  --repos accepts direct repository paths or URLs (alternative to --products)
+
+Configuration:
+  Uses environment variables for configuration.
+  See scripts/docs-cli/config/README.md for full documentation.
+
+  Quick setup:
+    1. (Optional) Copy config/.env.example to .env
+    2. Authenticate with GitHub: gh auth login
+    3. Run commands
 
 Examples:
-  docs create drafts/new-feature.md --products influxdb3_core
-  docs edit https://docs.influxdata.com/influxdb3/core/admin/
-  docs edit /influxdb3/core/admin/ --wait
-  docs edit /influxdb3/core/admin/ --list
-  docs placeholders content/influxdb3/core/admin/upgrade.md
-  docs test
+  # Audit documentation (using product key or path)
+  docs audit --products influxdb3_core
+  docs audit --products /influxdb3/core --version v3.3.0
 
-For command-specific help:
+  # Create new content
+  docs create drafts/feature.md --products influxdb3_core
+  docs create drafts/feature.md --products /influxdb3/core,/influxdb3/enterprise
+
+  # Edit existing page
+  docs edit /influxdb3/core/admin/databases/
+
+  # Generate release notes
+  docs release-notes v3.1.0 v3.2.0 --products influxdb3_core
+
+  # Add placeholders to code blocks
+  docs placeholders content/influxdb3/core/admin/databases.md
+
+  # Get command help
+  docs audit --help
   docs create --help
   docs edit --help
-  docs placeholders --help
+  docs release-notes --help
 
-Note: 'docs edit' is non-blocking by default (agent-friendly).
-      Use --wait flag for interactive editing sessions.
+For more information:
+  Documentation: scripts/docs-cli/README.md
+  Configuration: scripts/docs-cli/config/README.md
+  GitHub: https://github.com/influxdata/docs-v2
 `);
 }
 
-// Handle test command (async, so don't continue)
-if (subcommand === 'test') {
-  runTests();
-} else if (!subcommand || subcommand === '--help' || subcommand === '-h') {
-  // Handle no subcommand or help
-  printUsage();
-  process.exit(subcommand ? 0 : 1);
-} else if (!subcommands[subcommand]) {
-  // Validate subcommand
-  console.error(`Error: Unknown command '${subcommand}'`);
-  console.error(`Run 'docs --help' for usage information`);
-  process.exit(1);
-} else {
-  // Execute the appropriate script
-  const scriptPath = join(__dirname, subcommands[subcommand]);
-  const child = spawn('node', [scriptPath, ...args], {
-    stdio: 'inherit',
-    env: process.env,
-  });
+async function main() {
+  if (!command || command === '--help' || command === '-h') {
+    printUsage();
+    process.exit(command ? 0 : 1);
+  }
 
-  child.on('exit', (code) => {
-    process.exit(code || 0);
-  });
+  if (command === '--version' || command === '-v') {
+    const { readFileSync } = await import('fs');
+    const { join } = await import('path');
+    // Go up two levels: docs-cli -> scripts -> repo root
+    const pkg = JSON.parse(
+      readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf8')
+    );
+    console.log(`docs-cli v${pkg.version}`);
+    process.exit(0);
+  }
 
-  child.on('error', (err) => {
-    console.error(`Failed to execute ${subcommand}:`, err.message);
-    process.exit(1);
-  });
-}
+  // Resolve command aliases
+  const resolvedCommand = COMMAND_ALIASES[command] || command;
 
-/**
- * Test function to verify docs CLI functionality
- * Run with: npx docs test
- */
-function runTests() {
-  import('child_process').then(({ execSync }) => {
-    const tests = [];
-    const testResults = [];
-
-    console.log('\n🧪 Testing docs CLI functionality...\n');
-
-    // Test 1: docs --help
-    tests.push({
-      name: 'docs --help',
-      command: 'npx docs --help',
-      expectedInOutput: [
-        'create <draft-path>',
-        'edit <url>',
-        'placeholders <file.md>',
-      ],
-    });
-
-    // Test 2: docs create --help
-    tests.push({
-      name: 'docs create --help',
-      command: 'npx docs create --help',
-      expectedInOutput: [
-        'Documentation Content Scaffolding',
-        '--products',
-        'Pipe to external agent',
-      ],
-    });
-
-    // Test 3: docs edit --help (updated to check for new flags)
-    tests.push({
-      name: 'docs edit --help',
-      command: 'npx docs edit --help',
-      expectedInOutput: [
-        'Documentation File Opener',
-        '--list',
-        '--wait',
-        '--editor',
-      ],
-    });
-
-    // Test 4: docs placeholders --help
-    tests.push({
-      name: 'docs placeholders --help',
-      command: 'npx docs placeholders --help',
-      expectedInOutput: [
-        'Add placeholder syntax',
-        '--dry',
-        'code-placeholder-key',
-      ],
-    });
-
-    // Test 5: docs placeholders with missing args shows error
-    tests.push({
-      name: 'docs placeholders (no args)',
-      command: 'npx docs placeholders 2>&1',
-      expectedInOutput: ['Error: Missing file path'],
-      expectFailure: true,
-    });
-
-    // Test 6: Verify symlink exists
-    tests.push({
-      name: 'symlink exists',
-      command: 'ls -la node_modules/.bin/docs',
-      expectedInOutput: ['scripts/docs-cli.js'],
-    });
-
-    // Test 7: Unknown command shows error
-    tests.push({
-      name: 'unknown command',
-      command: 'npx docs invalid-command 2>&1',
-      expectedInOutput: ['Error: Unknown command'],
-      expectFailure: true,
-    });
-
-    // Run tests
-    for (const test of tests) {
-      try {
-        const output = execSync(test.command, {
-          encoding: 'utf8',
-          stdio: 'pipe',
-        });
-
-        const passed = test.expectedInOutput.every((expected) =>
-          output.includes(expected)
-        );
-
-        if (passed) {
-          console.log(`✅ ${test.name}`);
-          testResults.push({ name: test.name, passed: true });
-        } else {
-          console.log(`❌ ${test.name} - Expected output not found`);
-          console.log(`   Expected: ${test.expectedInOutput.join(', ')}`);
-          testResults.push({
-            name: test.name,
-            passed: false,
-            reason: 'Expected output not found',
-          });
-        }
-      } catch (error) {
-        if (test.expectFailure) {
-          // Expected to fail - check if error output contains expected strings
-          const errorOutput =
-            error.stderr?.toString() || error.stdout?.toString() || '';
-          const passed = test.expectedInOutput.every((expected) =>
-            errorOutput.includes(expected)
-          );
-
-          if (passed) {
-            console.log(`✅ ${test.name} (expected failure)`);
-            testResults.push({ name: test.name, passed: true });
-          } else {
-            console.log(`❌ ${test.name} - Expected error message not found`);
-            console.log(`   Expected: ${test.expectedInOutput.join(', ')}`);
-            testResults.push({
-              name: test.name,
-              passed: false,
-              reason: 'Expected error message not found',
-            });
-          }
-        } else {
-          console.log(`❌ ${test.name} - Command failed unexpectedly`);
-          console.log(`   Error: ${error.message}`);
-          testResults.push({
-            name: test.name,
-            passed: false,
-            reason: error.message,
-          });
-        }
-      }
-    }
-
-    const passed = testResults.filter((r) => r.passed).length;
-    const failed = testResults.filter((r) => !r.passed).length;
-
-    console.log(`\n📊 Test Results: ${passed}/${tests.length} passed`);
-
-    if (failed > 0) {
-      console.log(`\n❌ Failed tests:`);
-      testResults
-        .filter((r) => !r.passed)
-        .forEach((r) => {
-          console.log(`   - ${r.name}: ${r.reason}`);
-        });
+  try {
+    const commandPath = `./commands/${resolvedCommand}.js`;
+    const commandModule = await import(commandPath);
+    await commandModule.default({ args, command: resolvedCommand });
+  } catch (error) {
+    // Check if the command file itself wasn't found (unknown command)
+    if (
+      error.code === 'ERR_MODULE_NOT_FOUND' &&
+      error.message.includes(`commands/${resolvedCommand}`)
+    ) {
+      console.error(`Error: Unknown command '${command}'`);
+      console.error(`Run 'docs --help' for usage information`);
       process.exit(1);
     } else {
-      console.log(`\n✅ All tests passed!\n`);
-      process.exit(0);
+      // Other errors (missing dependencies, runtime errors, etc.)
+      console.error(`Error executing command '${command}':`, error.message);
+      if (process.env.DEBUG) {
+        console.error(error.stack);
+      }
+      process.exit(1);
     }
-  });
+  }
 }
+
+main().catch((error) => {
+  console.error('Fatal error:', error.message);
+  if (process.env.DEBUG) {
+    console.error(error.stack);
+  }
+  process.exit(1);
+});

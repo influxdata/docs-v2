@@ -22,28 +22,30 @@ import {
   analyzeURLs,
   loadProducts,
   analyzeStructure,
-} from '../lib/content-scaffolding.js';
+} from '../../lib/content-scaffolding.js';
 import {
   writeJson,
   readJson,
   fileExists,
   readDraft,
-} from '../lib/file-operations.js';
-import { parseMultipleURLs } from '../lib/url-parser.js';
-import { resolveEditor } from './lib/editor-resolver.js';
-import { spawnEditor, shouldWait } from './lib/process-manager.js';
+} from '../../lib/file-operations.js';
+import { parseMultipleURLs } from '../../lib/url-parser.js';
+import { resolveEditor } from '../lib/editor-resolver.js';
+import { findDocsV2Root } from '../lib/config-loader.js';
+import { spawnEditor, shouldWait } from '../lib/process-manager.js';
+import { resolveProduct } from '../lib/product-resolver.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Repository root
-const REPO_ROOT = join(__dirname, '..');
+// Repository root (reassigned in create() for portability)
+let REPO_ROOT = join(__dirname, '..');
 
-// Temp directory for context and proposal
-const TMP_DIR = join(REPO_ROOT, '.tmp');
-const CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
-const PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
-const PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
+// Temp directory for context and proposal (mutable for router compatibility)
+let TMP_DIR = join(REPO_ROOT, '.tmp');
+let CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
+let PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+let PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
 
 // Colors for console output
 const colors = {
@@ -123,9 +125,11 @@ function divider() {
 
 /**
  * Parse command line arguments
+ * @param {string[]} argv - Arguments to parse (defaults to process.argv.slice(2))
  */
-function parseArguments() {
+function parseArguments(argv = null) {
   const { values, positionals } = parseArgs({
+    args: argv, // If null, parseArgs uses process.argv.slice(2)
     options: {
       'from-draft': { type: 'string' },
       url: { type: 'string', multiple: true },
@@ -189,8 +193,8 @@ ${colors.bright}Options:${colors.reset}
   <draft-path>        Path to draft markdown file (positional argument)
   --from-draft <path> Path to draft markdown file
   --url <url>         Documentation URL for new content location
-  --products <list>   Comma-separated product keys (required for stdin)
-                      Examples: influxdb3_core, influxdb3_enterprise
+  --products <list>   Product keys or content paths (required for stdin)
+                      Examples: influxdb3_core, /influxdb3/core
   --follow-external   Include external (non-docs.influxdata.com) URLs
                       when extracting links from draft. Without this flag,
                       only local documentation links are followed.
@@ -484,7 +488,7 @@ async function preparePhase(draftPath, options, stdinContent = null) {
 
     // Extract links from draft
     const { extractLinks, followLocalLinks, fetchExternalLinks } = await import(
-      './lib/content-scaffolding.js'
+      '../../lib/content-scaffolding.js'
     );
 
     const links = extractLinks(draft.content);
@@ -635,13 +639,22 @@ async function selectProducts(context, options) {
 
   // Case 1: Explicit flag provided
   if (options.products) {
-    const requestedKeys = options.products.split(',').map((p) => p.trim());
+    const requestedInputs = options.products.split(',').map((p) => p.trim());
 
-    // Map product keys to display names
+    // Map product keys/paths to display names
     const requestedNames = [];
-    const invalidKeys = [];
+    const invalidInputs = [];
 
-    for (const key of requestedKeys) {
+    for (const input of requestedInputs) {
+      // Try to resolve as path first using product-resolver
+      let key = input;
+      try {
+        const resolved = resolveProduct(input);
+        key = resolved.key;
+      } catch {
+        // Not a path, treat as potential key or display name
+      }
+
       const product = context.products[key];
 
       if (product) {
@@ -660,18 +673,18 @@ async function selectProducts(context, options) {
             requestedNames.push(product.name);
           }
         }
-      } else if (allProducts.includes(key)) {
+      } else if (allProducts.includes(input)) {
         // It's already a display name (backwards compatibility)
-        requestedNames.push(key);
+        requestedNames.push(input);
       } else {
-        invalidKeys.push(key);
+        invalidInputs.push(input);
       }
     }
 
-    if (invalidKeys.length > 0) {
+    if (invalidInputs.length > 0) {
       const validKeys = Object.keys(context.products).join(', ');
       log(
-        `\n✗ Invalid product keys: ${invalidKeys.join(', ')}\n` +
+        `\n✗ Invalid product keys/paths: ${invalidInputs.join(', ')}\n` +
           `Valid keys: ${validKeys}`,
         'red'
       );
@@ -707,6 +720,25 @@ async function selectProducts(context, options) {
   }
 
   // Case 4: Ambiguous or none detected - show interactive menu
+  // But first, check if we're being piped - interactive input won't work
+  const isBeingPiped = !process.stdout.isTTY;
+  if (isBeingPiped) {
+    log(
+      '\n✗ Cannot show interactive product selection when piping output.',
+      'red'
+    );
+    log('  Use --products flag to specify target products:', 'yellow');
+    log(
+      `  Example: docs create <draft> --products ${Object.keys(context.products).slice(0, 2).join(',')}`,
+      'yellow'
+    );
+    log(
+      `\n  Available products: ${Object.keys(context.products).join(', ')}`,
+      'cyan'
+    );
+    process.exit(1);
+  }
+
   log('\n📦 Select target products:\n', 'bright');
   allProducts.forEach((p, i) => {
     const mark = detected.includes(p) ? '✓' : ' ';
@@ -747,6 +779,17 @@ async function selectLinksToFollow(links) {
   // Local files are followed automatically (no user prompt)
   // External links require user selection
   if (links.external.length === 0) {
+    return {
+      selectedLocal: links.localFiles || [],
+      selectedExternal: [],
+    };
+  }
+
+  // Check if we're being piped - interactive input won't work
+  const isBeingPiped = !process.stdout.isTTY;
+  if (isBeingPiped) {
+    // When piping, skip external link selection silently (include none)
+    log('  ℹ Skipping external link selection (piped output)', 'yellow');
     return {
       selectedLocal: links.localFiles || [],
       selectedExternal: [],
@@ -1217,7 +1260,7 @@ async function executePhase(options) {
 
       try {
         const editorCommand = resolveEditor(options.editor);
-        const filePaths = result.created.map(file => join(REPO_ROOT, file));
+        const filePaths = result.created.map((file) => join(REPO_ROOT, file));
         const wait = shouldWait(options.wait);
 
         spawnEditor(editorCommand, filePaths, wait);
@@ -1225,13 +1268,19 @@ async function executePhase(options) {
         if (wait) {
           log('✓ Editor closed', 'green');
         } else {
-          log('   Editor will open in background (CLI exits immediately)', 'cyan');
+          log(
+            '   Editor will open in background (CLI exits immediately)',
+            'cyan'
+          );
           log('   Use --wait flag to block until editor closes', 'cyan');
           log('✓ Editor launched', 'green');
         }
       } catch (error) {
         log(`\n✗ Failed to open editor: ${error.message}`, 'red');
-        log('\nFiles were created successfully but could not be opened.', 'yellow');
+        log(
+          '\nFiles were created successfully but could not be opened.',
+          'yellow'
+        );
         log('You can open them manually:', 'yellow');
         result.created.forEach((file) => {
           log(`  ${file}`, 'yellow');
@@ -1247,9 +1296,10 @@ async function executePhase(options) {
 
 /**
  * Main entry point
+ * @param {string[]} argv - Arguments to parse (optional, for CLI router)
  */
-async function main() {
-  const options = parseArguments();
+async function main(argv = null) {
+  const options = parseArguments(argv);
 
   // Show help first (don't wait for stdin)
   if (options.help) {
@@ -1276,7 +1326,7 @@ async function main() {
     }
 
     // Import readDraftFromStdin
-    const { readDraftFromStdin } = await import('./lib/file-operations.js');
+    const { readDraftFromStdin } = await import('../../lib/file-operations.js');
     log('📥 Reading draft from stdin...', 'cyan');
     stdinContent = await readDraftFromStdin();
   }
@@ -1404,12 +1454,27 @@ async function main() {
 }
 
 // Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    log(`\nFatal error: ${error.message}`, 'red');
-    console.error(error.stack);
-    process.exit(1);
-  });
-}
+// Export for unified CLI
+export default async function create({ args }) {
+  REPO_ROOT = findDocsV2Root();
 
-export { preparePhase, executePhase };
+  if (!REPO_ROOT) {
+    console.error('\n❌ Could not find docs-v2 repository');
+    console.error('');
+    console.error('Options:');
+    console.error('  1. Run from within docs-v2 repository');
+    console.error('  2. Set DOCS_V2_PATH in .env file');
+    console.error('  3. Place docs-v2 in a common location');
+    console.error('');
+    process.exit(1);
+  }
+
+  // Re-initialize paths with found repo root
+  TMP_DIR = join(REPO_ROOT, '.tmp');
+  CONTEXT_FILE = join(TMP_DIR, 'scaffold-context.json');
+  PROPOSAL_FILE = join(TMP_DIR, 'scaffold-proposal.yml');
+  PROMPT_FILE = join(TMP_DIR, 'scaffold-prompt.txt');
+
+  // Pass args from router to main (otherwise parseArgs reads process.argv)
+  return main(args);
+}

@@ -1,8 +1,11 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $currentVersion := index $productPathData 1 }}
+{{ $productPathData := split .RelPermalink "/" }}
+{{ $product := index $productPathData 1 }}
+{{ $version := index $productPathData 2 }}
+{{ $productData := index $.Site.Data.products (print $product "_" $version) }}
+{{ $productName := $productData.name }}
+{{ $layout := .Params.layout }}
 
-<div class="topnav">
+<div class="topnav{{ if $layout }} {{ $layout }}{{ end }}">
   <div class="topnav-left">
     <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
         class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
@@ -10,20 +13,24 @@
     <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
   </div>
   <div class="topnav-right">
-    <div class="selector-dropdowns">
-      {{ partial "topnav/product-selector.html" . }}
-    </div>
-    <div class="buttons">
-      <div class="search-btn" data-component="search-button">
-        <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+    {{ if eq $layout "feature-board" }}
+      <a class="back-btn" href="/{{ $product }}/{{ $version }}/">{{ $productName }} Docs</a>
+    {{ else }}
+      <div class="selector-dropdowns">
+        {{ partial "topnav/product-selector.html" . }}
       </div>
-      <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
-      <span data-component="theme-switch">
-        <button class="theme-switch theme-switch-light">
-          <span class="cf-icon Lightmode_New"></span></button>
-        <button class="theme-switch theme-switch-dark">
-          <span class="cf-icon Darkmode_New"></span></button>
-      </span>
-    </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    {{ end }}
   </div>
 </div>

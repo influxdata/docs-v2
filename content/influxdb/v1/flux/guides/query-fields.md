@@ -60,7 +60,7 @@ r = {foo: "bar", baz: "quz"}
 ```
 
 ## Filter by fields and tags
-The combination of [`from()`](/flux/v0/stdlib/universe/from),
+The combination of [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/),
 [`range()`](/flux/v0/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 

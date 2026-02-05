@@ -1,4 +1,13 @@
 <!-- Comment: This file is used to generate the InfluxDB 3 install page. -->
+{{% show-in "core" %}}
+> [!Note]
+> #### Upgrade to InfluxDB 3 Enterprise
+>
+> If you want to upgrade from {{% product-name %}} to InfluxDB 3 Enterprise
+> for features like high availability, read replicas, and historical query capability,
+> see [Upgrade to Enterprise](/influxdb3/version/admin/upgrade-to-enterprise/).
+{{% /show-in %}}
+
 - [System Requirements](#system-requirements)
 - [Install](#install)
   - [Quick install for Linux and macOS](#quick-install-for-linux-and-macos)
@@ -10,6 +19,13 @@
   - [Verify the installation](#verify-the-installation)
 
 {{% show-in "enterprise" %}}
+> [!Note]
+> #### Upgrading from InfluxDB 3 Core?
+>
+> If you're currently running InfluxDB 3 Core and want to upgrade to {{% product-name %}},
+> see [Upgrade from Core](/influxdb3/version/admin/license/upgrade-from-core/)
+> for step-by-step instructions.
+
 > [!Note]
 > #### Multi-node cluster setup
 > For information about setting up a multi-node {{% product-name %}} cluster,
