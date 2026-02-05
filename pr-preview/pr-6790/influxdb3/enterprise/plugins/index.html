@@ -2880,7 +2880,7 @@ code on different events in an InfluxDB 3 Enterprise instance.">
 <li><a href="#view-loaded-plugins">View loaded plugins</a></li>
 </ul>
 </li>
-<li><a href="#set-up-a-trigger">Set up a trigger</a></li>
+<li><a href="#create-a-trigger">Create a trigger</a></li>
 <li><a href="#manage-plugin-dependencies">Manage plugin dependencies</a></li>
 <li><a href="#plugin-security">Plugin security</a></li>
 </ul>
@@ -3113,7 +3113,7 @@ See the <a href="/influxdb3/version/reference/config-options/#plugin-repo">plugi
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">influxdb3_local</span><span class="p">,</span> <span class="n">table_batch</span><span class="p">,</span> <span class="n">settings</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># Processing logic here</span>
 </span></span><span class="line"><span class="cl">    <span class="k">pass</span></span></span></code></pre></div>
-<p>After writing your plugin, <a href="#use-the-create-trigger-command">create a trigger</a> to connect it to a database event and define when it runs.</p>
+<p>After writing your plugin, <a href="#create-a-trigger">create a trigger</a> to connect it to a database event and define when it runs.</p>
 <h4 id="create-a-data-write-plugin">Create a data write plugin</h4>
 <p>Use a data write plugin to process data as it&rsquo;s written to the database. These plugins use <a href="#trigger-on-data-writes"><code>table:</code> or <code>all_tables:</code></a> trigger specifications. Ideal use cases include:</p>
 <ul>
@@ -3183,7 +3183,7 @@ See the <a href="/influxdb3/version/reference/config-options/#plugin-repo">plugi
 <h4 id="next-steps">Next steps</h4>
 <p>After writing your plugin:</p>
 <ul>
-<li><a href="#use-the-create-trigger-command">Create a trigger</a> to connect your plugin to database events</li>
+<li><a href="#create-a-trigger">Create a trigger</a> to connect your plugin to database events</li>
 <li><a href="#manage-plugin-dependencies">Install any Python dependencies</a> your plugin requires</li>
 <li>Learn how to <a href="/influxdb3/version/extend-plugin/">extend plugins with the API</a></li>
 </ul>
@@ -3354,7 +3354,7 @@ See the <a href="/influxdb3/version/reference/config-options/#plugin-repo">plugi
 </span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">plugin_files</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">last_modified</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span></span></span></code></pre></div>
 <p>For more information, see the <a href="/influxdb3/version/reference/cli/influxdb3/show/plugins/"><code>influxdb3 show plugins</code> reference</a> and <a href="/influxdb3/version/admin/query-system-data/#query-plugin-files">Query system data</a>.</p>
-<h2 id="set-up-a-trigger">Set up a trigger</h2>
+<h2 id="create-a-trigger">Create a trigger</h2>
 <p>A trigger connects your plugin code to database events. When the specified event occurs, the processing engine executes your plugin.</p>
 <ul>
 <li><a href="#understand-trigger-types">Understand trigger types</a></li>
