@@ -12,9 +12,9 @@ description: >-
 
 
   - **Recommended**: `/api/v2/write` endpoint
-    for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+    for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Serverless.
   - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
-  InfluxDB 3.
+  InfluxDB Cloud Serverless.
 
 
   Both endpoints accept the same line protocol format and process data in the
@@ -34,7 +34,7 @@ description: >-
 
   - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/) that contains
   an InfluxQL query.
-    Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+    Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Cloud Serverless.
 
   ### InfluxDB v2 compatibility
 
@@ -78,9 +78,9 @@ tagDescription: >-
 
 
   - **Recommended**: `/api/v2/write` endpoint
-    for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+    for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Serverless.
   - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
-  InfluxDB 3.
+  InfluxDB Cloud Serverless.
 
 
   Both endpoints accept the same line protocol format and process data in the
@@ -100,7 +100,7 @@ tagDescription: >-
 
   - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/) that contains
   an InfluxQL query.
-    Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+    Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Cloud Serverless.
 
   ### InfluxDB v2 compatibility
 
