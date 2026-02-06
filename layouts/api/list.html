@@ -3,6 +3,11 @@ param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
 param) - shows RapiDoc with all operations for the tag For conceptual pages
 (isConceptual: true), shows content without operations. */}}
 
+{{/* Extract product and version from URL for download buttons */}}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
 <!-- USING_API_LIST_HTML_TEMPLATE -->
 {{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
@@ -24,8 +29,31 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
 
         {{/* Check if this is a section index (no tag param) or a tag page */}}
         {{ $hasTag := isset .Params "tag" }} {{ if not $hasTag }} {{/* SECTION
-        INDEX - Show intro content then tag-based children */}} {{ with .Content
-        }}
+        INDEX - Show intro content then tag-based children */}}
+
+        {{/* Dual download buttons for Clustered and Cloud Dedicated */}}
+        {{ if or (eq $version "clustered") (eq $version "cloud-dedicated") }}
+        <div class="api-spec-actions api-spec-actions--dual">
+          <a href="/openapi/influxdb-{{ $version }}-v2-data-api.yml" class="btn api-spec-download" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Data API Spec
+          </a>
+          <a href="/openapi/influxdb-{{ $version }}-management-api.yml" class="btn api-spec-download" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Management API Spec
+          </a>
+        </div>
+        {{ end }}
+
+        {{ with .Content }}
         <section class="api-section-content">{{ . }}</section>
         {{ end }} {{/* Always show tag pages from article data */}} {{ partial
         "api/section-children.html" . }} {{ else }} {{/* TAG PAGE - Show
@@ -173,6 +201,66 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
   @media (max-width: 1200px) {
     .api-toc {
       display: none;
+    }
+  }
+
+  /* Dual download buttons for Clustered/Cloud Dedicated */
+  .api-spec-actions--dual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .api-spec-actions--dual .api-spec-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #545667;
+    background-color: #f5f6f7;
+    border: 1px solid #d0d4d9;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .api-spec-actions--dual .api-spec-download:hover {
+    background-color: #e8eaed;
+    border-color: #b4b8be;
+    color: #2e3039;
+  }
+
+  .api-spec-actions--dual .api-spec-download svg {
+    flex-shrink: 0;
+  }
+
+  /* Dark mode for dual download buttons */
+  [data-theme='dark'] .api-spec-actions--dual .api-spec-download,
+  html:has(link[title='dark-theme']:not([disabled])) .api-spec-actions--dual .api-spec-download {
+    color: #b4b6bc;
+    background-color: #2a2d35;
+    border-color: #454952;
+  }
+
+  [data-theme='dark'] .api-spec-actions--dual .api-spec-download:hover,
+  html:has(link[title='dark-theme']:not([disabled])) .api-spec-actions--dual .api-spec-download:hover {
+    background-color: #353840;
+    border-color: #5a5f69;
+    color: #e0e2e6;
+  }
+
+  /* Responsive - stack buttons on smaller screens */
+  @media (max-width: 600px) {
+    .api-spec-actions--dual {
+      flex-direction: column;
+    }
+
+    .api-spec-actions--dual .api-spec-download {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
