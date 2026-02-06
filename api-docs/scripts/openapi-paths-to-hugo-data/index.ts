@@ -41,6 +41,8 @@ interface Operation {
   externalDocs?: ExternalDocs;
   /** Compatibility version for migration context (v1 or v2) */
   'x-compatibility-version'?: string;
+  /** Related documentation links (replaces inline "Related guides" sections) */
+  'x-influxdatadocs-related'?: string[];
   [key: string]: unknown;
 }
 
@@ -216,6 +218,8 @@ interface Tag {
   externalDocs?: ExternalDocs;
   /** Indicates this is a conceptual/supplementary tag (no operations) */
   'x-traitTag'?: boolean;
+  /** Related documentation links (replaces inline "Related guides" sections) */
+  'x-influxdatadocs-related'?: string[];
   [key: string]: unknown;
 }
 
@@ -235,6 +239,8 @@ interface OperationMeta {
     description: string;
     url: string;
   };
+  /** Related documentation links */
+  related?: string[];
 }
 
 /**
@@ -277,6 +283,8 @@ interface Article {
     menuGroup?: string;
     /** Operations metadata for TOC generation */
     operations?: OperationMeta[];
+    /** Page weight for ordering in navigation */
+    weight?: number;
   };
 }
 
@@ -455,6 +463,14 @@ function extractOperationsByTag(
             description: operation.externalDocs.description || '',
             url: operation.externalDocs.url,
           };
+        }
+
+        // Extract x-influxdatadocs-related if present
+        if (
+          operation['x-influxdatadocs-related'] &&
+          Array.isArray(operation['x-influxdatadocs-related'])
+        ) {
+          opMeta.related = operation['x-influxdatadocs-related'];
         }
 
         // Add operation to each of its tags
@@ -1089,17 +1105,34 @@ function createArticleDataForTag(
     article.fields.showSecuritySchemes = true;
   }
 
-  // Aggregate unique externalDocs URLs from operations into article-level related
+  // Set custom weight for Quick start to appear first in nav
+  if (tagName === 'Quick start') {
+    article.fields.weight = 1;
+  }
+
+  // Aggregate unique related URLs from multiple sources into article-level related
   // This populates Hugo frontmatter `related` field for "Related content" links
   const relatedUrls = new Set<string>();
 
-  // First check tag-level externalDocs
+  // First check tag-level x-influxdatadocs-related
+  if (tagMeta?.['x-influxdatadocs-related']) {
+    (tagMeta['x-influxdatadocs-related'] as string[]).forEach((url) =>
+      relatedUrls.add(url)
+    );
+  }
+
+  // Then check tag-level externalDocs (legacy single link)
   if (tagMeta?.externalDocs?.url) {
     relatedUrls.add(tagMeta.externalDocs.url);
   }
 
   // Then aggregate from operations
   operations.forEach((op) => {
+    // Check operation-level x-influxdatadocs-related (via opMeta.related)
+    if (op.related) {
+      op.related.forEach((url) => relatedUrls.add(url));
+    }
+    // Check operation-level externalDocs (legacy single link)
     if (op.externalDocs?.url) {
       relatedUrls.add(op.externalDocs.url);
     }
@@ -1183,6 +1216,14 @@ function writeOpenapiTagArticleData(
                   description: operation.externalDocs.description || '',
                   url: operation.externalDocs.url,
                 };
+              }
+
+              // Extract x-influxdatadocs-related if present
+              if (
+                operation['x-influxdatadocs-related'] &&
+                Array.isArray(operation['x-influxdatadocs-related'])
+              ) {
+                opMeta.related = operation['x-influxdatadocs-related'];
               }
 
               operations.push(opMeta);

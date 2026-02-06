@@ -127,12 +127,10 @@ tags:
       using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
       - The `/api/v2/query` endpoint can't query InfluxDB 3 Cloud Dedicated.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
-
-      #### Related guides
-
-      - [Get started querying InfluxDB](/influxdb3/cloud-dedicated/get-started/query/)
-      - [Execute queries](/influxdb3/cloud-dedicated/query-data/execute-queries/)
     name: Query data
+    x-influxdatadocs-related:
+      - /influxdb3/cloud-dedicated/get-started/query/
+      - /influxdb3/cloud-dedicated/query-data/execute-queries/
   - description: |
       Get started with the InfluxDB 3 Cloud Dedicated API:
 
@@ -302,14 +300,12 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb3/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb3/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
       operationId: PostWrite
+      x-influxdatadocs-related:
+        - /influxdb3/cloud-dedicated/get-started/write/
+        - /influxdb3/cloud-dedicated/write-data/
+        - /influxdb3/cloud-dedicated/write-data/best-practices/
+        - /influxdb3/cloud-dedicated/write-data/troubleshoot/
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
@@ -357,10 +353,6 @@ paths:
 
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
-
-            #### Related guides
-
-            - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
           in: header
           name: Accept
           schema:
@@ -422,10 +414,6 @@ paths:
             1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
-
-          #### Related guides
-
-          - [Best practices for optimizing writes](/influxdb3/cloud-dedicated/write-data/best-practices/optimize-writes/)
         required: true
       responses:
         '201':
@@ -642,13 +630,11 @@ paths:
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
         - Use the [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
-
-        #### Related guides
-
-        - [Get started writing data](/influxdb3/cloud-dedicated/get-started/write/)
-        - [Write data](/influxdb3/cloud-dedicated/write-data/)
-        - [Best practices for writing data](/influxdb3/cloud-dedicated/write-data/best-practices/)
-        - [Troubleshoot issues writing data](/influxdb3/cloud-dedicated/write-data/troubleshoot/)
+      x-influxdatadocs-related:
+        - /influxdb3/cloud-dedicated/get-started/write/
+        - /influxdb3/cloud-dedicated/write-data/
+        - /influxdb3/cloud-dedicated/write-data/best-practices/
+        - /influxdb3/cloud-dedicated/write-data/troubleshoot/
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
@@ -1086,9 +1072,7 @@ components:
             Annotation rows to include in the results.
             An _annotation_ is metadata associated with an object (column) in the data model.
 
-            #### Related guides
-
-            - See [Annotated CSV annotations](/influxdb3/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
+            See [Annotated CSV annotations](/influxdb3/cloud-dedicated/reference/syntax/annotated-csv/#annotations) for examples and more information.
 
             For more information about **annotations** in tabular data,
             see [W3 metadata vocabulary for tabular data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
@@ -1852,9 +1836,7 @@ components:
 
             - Doesn't use `shardGroupDurationsSeconds`.
 
-            #### Related guides
-
-            - InfluxDB [shards and shard groups](/influxdb3/cloud-dedicated/reference/internals/shards/)
+            For more information, see [shards and shard groups](/influxdb3/cloud-dedicated/reference/internals/shards/).
           format: int64
           type: integer
         type:
@@ -2018,10 +2000,8 @@ components:
         - **`DATABASE_NAME`**: your InfluxDB 3 Cloud Dedicated database
         - **`DATABASE_TOKEN`**: a database token with sufficient permissions to the database
 
-        #### Related guides
-
-        - [Authenticate v1 API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/)
-        - [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/)
+        For more information, see [Authenticate v1 API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/)
+        and [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/).
     QuerystringAuthentication:
       type: apiKey
       in: query
@@ -2074,10 +2054,8 @@ components:
         - **`DATABASE_NAME`**: the database to query
         - **`DATABASE_TOKEN`**: a database token with sufficient permissions to the database
 
-        #### Related guides
-
-        - [Authenticate v1 API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/)
-        - [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/)
+        For more information, see [Authenticate v1 API requests](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/)
+        and [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/).
     BearerAuthentication:
       type: http
       scheme: bearer
@@ -2134,9 +2112,7 @@ components:
           --data-binary 'home,room=kitchen temp=72 1463683075'
         ```
 
-        ### Related guides
-
-        - [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/)
+        For more information, see [Manage tokens](/influxdb3/cloud-dedicated/admin/tokens/).
       in: header
       name: Authorization
       type: apiKey

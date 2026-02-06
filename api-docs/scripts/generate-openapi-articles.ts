@@ -441,6 +441,7 @@ function generateTagPagesFromArticleData(
         staticFilePath?: string;
         operations?: OperationMeta[];
         related?: string[];
+        weight?: number;
       };
     }>;
   };
@@ -571,13 +572,16 @@ All {{% product-name %}} API endpoints, sorted by path.
     const title = article.fields.title || article.fields.name || article.path;
     const isConceptual = article.fields.isConceptual === true;
 
+    // Determine weight: use article.fields.weight if set, otherwise default to 100
+    const weight = article.fields.weight ?? 100;
+
     const frontmatter: Record<string, unknown> = {
       title,
       description: article.fields.description || `API reference for ${title}`,
       type: 'api',
       layout: isConceptual ? 'single' : 'list',
       staticFilePath: article.fields.staticFilePath,
-      weight: 100,
+      weight,
       // Tag-based fields
       tag: article.fields.tag,
       isConceptual,
@@ -734,6 +738,7 @@ function generatePathPages(options: GeneratePathPagesOptions): void {
         staticFilePath?: string;
         operations?: OperationMeta[];
         related?: string[];
+        weight?: number;
       };
     }>;
   };

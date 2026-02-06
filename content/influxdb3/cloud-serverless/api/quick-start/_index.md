@@ -35,7 +35,7 @@ type: api
 layout: single
 staticFilePath: >-
   /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-quick-start.yaml
-weight: 100
+weight: 1
 tag: Quick start
 isConceptual: true
 menuGroup: Concepts
