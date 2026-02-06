@@ -1,0 +1,51 @@
+{
+  "name": "InfluxData Docs",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+
+  "features": {
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "extended": true,
+      "version": "0.149.0"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml",
+        "errata-ai.vale-server"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[markdown]": {
+          "editor.wordWrap": "on",
+          "editor.quickSuggestions": false
+        },
+        "vale.valeCLI.path": "/usr/local/bin/vale"
+      }
+    }
+  },
+
+  "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "API key for Claude Code CLI (get from console.anthropic.com)"
+    }
+  },
+
+  "forwardPorts": [1313],
+  "portsAttributes": {
+    "1313": {
+      "label": "Hugo Dev Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "remoteUser": "node"
+}
