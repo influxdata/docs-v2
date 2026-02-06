@@ -73,8 +73,8 @@ tags:
 
       | Token type | Used for | How to create |
       |:-----------|:---------|:--------------|
-      | **Management token** | [Management API](/influxdb3/clustered/api/management/) (`/api/v0/*`) - manage databases, tables, and database tokens | [`influxctl management create`](/influxdb3/clustered/reference/cli/influxctl/management/create/) |
-      | **Database token** | Data API (`/api/v2/write`, `/query`, etc.) - write and query data | [Management API](/influxdb3/clustered/api/management/#operation/PostDatabaseToken) or [`influxctl token create`](/influxdb3/clustered/reference/cli/influxctl/token/create/) |
+      | **Management token** | Management operations (`/api/v0/*`) - manage databases, tables, and database tokens | [`influxctl management create`](/influxdb3/clustered/reference/cli/influxctl/management/create/) |
+      | **Database token** | Data API (`/api/v2/write`, `/query`, etc.) - write and query data | [Database tokens API](/influxdb3/clustered/api/database-tokens/) or [`influxctl token create`](/influxdb3/clustered/reference/cli/influxctl/token/create/) |
 
       ## Authentication schemes
 
@@ -87,7 +87,7 @@ tags:
       | [Basic](#section/Authentication/BasicAuthentication) | Database | v1 endpoints | `Authorization: Basic base64(username:DATABASE_TOKEN)` |
       | [Query string](#section/Authentication/QuerystringAuthentication) | Database | v1 endpoints | `?u=username&p=DATABASE_TOKEN` |
 
-      For Management API authentication, see the [Management API reference](/influxdb3/clustered/api/management/#section/Authentication).
+      Management operations (`/api/v0/*`) require a management token in the `Authorization: Bearer` header.
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -138,7 +138,7 @@ tags:
 
       1. **Create a management token** using [`influxctl management create`](/influxdb3/clustered/reference/cli/influxctl/management/create/).
 
-      2. **Create a database** using the [Management API](/influxdb3/clustered/api/management/).
+      2. **Create a database** using the [Databases API](/influxdb3/clustered/api/databases/).
 
          ```bash
          curl -X POST "https://cluster-host.com/api/v0/databases" \
