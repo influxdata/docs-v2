@@ -3,10 +3,15 @@ param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
 param) - shows RapiDoc with all operations for the tag For conceptual pages
 (isConceptual: true), shows content without operations. */}}
 
-{{/* Extract product and version from URL for download buttons */}}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $version := index $productPathData 1 }}
+{{/* Extract product and version from URL path for download buttons */}}
+{{/* Example: /influxdb3/clustered/api/ → ["", "influxdb3", "clustered", "api", ""] */}}
+{{ $pathParts := split .RelPermalink "/" }}
+{{ $product := "" }}
+{{ $version := "" }}
+{{ if ge (len $pathParts) 3 }}
+  {{ $product = index $pathParts 1 }}
+  {{ $version = index $pathParts 2 }}
+{{ end }}
 
 <!-- USING_API_LIST_HTML_TEMPLATE -->
 {{ partial "header.html" . }} {{ partial "topnav.html" . }}

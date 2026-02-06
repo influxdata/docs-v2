@@ -3,7 +3,17 @@ pages. Delegates to appropriate templates based on page type: - Section pages:
 Use section.html logic (children listing) - Pages with staticFilePath: Use
 RapiDoc renderer Note: This template exists as a catch-all but specific
 templates (api/section.html, api/list.html, api/single.html) should be
-preferred. */}} {{/* Section pages without staticFilePath should render content
+preferred. */}}
+
+{{/* Extract product and version from URL path for download buttons */}}
+{{/* Example: /influxdb3/clustered/api/ → ["", "influxdb3", "clustered", "api", ""] */}}
+{{ $pathParts := split .RelPermalink "/" }}
+{{ $version := "" }}
+{{ if ge (len $pathParts) 3 }}
+  {{ $version = index $pathParts 2 }}
+{{ end }}
+
+{{/* Section pages without staticFilePath should render content
 directly, not use RapiDoc */}} {{ if and .IsSection (not .Params.staticFilePath)
 }} {{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
@@ -19,6 +29,26 @@ directly, not use RapiDoc */}} {{ if and .IsSection (not .Params.staticFilePath)
           <p class="article--description">{{ . }}</p>
           {{ end }}
         </header>
+
+        {{/* Dual download buttons for Clustered and Cloud Dedicated */}}
+        {{ if or (eq $version "clustered") (eq $version "cloud-dedicated") }}
+        <div class="api-spec-actions api-spec-actions--dual">
+          <a href="/openapi/influxdb-{{ $version }}-v2-data-api.yml" class="btn api-spec-download" download>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+              <path d="M1 14h14v2H1v-2z"/>
+            </svg>
+            Download Data API Spec
+          </a>
+          <a href="/openapi/influxdb-{{ $version }}-management-api.yml" class="btn api-spec-download" download>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+              <path d="M1 14h14v2H1v-2z"/>
+            </svg>
+            Download Management API Spec
+          </a>
+        </div>
+        {{ end }}
 
         {{/* SECTION INDEX - Show page content then children listing */}} {{
         with .Content }}
@@ -58,3 +88,25 @@ partial "topnav.html" . }}
 </div>
 
 {{ partial "footer.html" . }} {{ end }}
+
+<style>
+  /* Dual download buttons container for Clustered/Cloud Dedicated */
+  .api-spec-actions--dual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  /* Responsive - stack buttons on smaller screens */
+  @media (max-width: 600px) {
+    .api-spec-actions--dual {
+      flex-direction: column;
+    }
+
+    .api-spec-actions--dual .api-spec-download {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

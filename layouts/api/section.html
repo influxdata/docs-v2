@@ -1,7 +1,17 @@
 {{/* API Documentation Section Layout Used for API section index pages (e.g.,
 /influxdb3/core/api/). Shows page content with children listing instead of
 RapiDoc renderer. For tag pages (with 'tag' param), Hugo uses list.html instead.
-*/}} {{ partial "header.html" . }} {{ partial "topnav.html" . }}
+*/}}
+
+{{/* Extract product and version from URL path for download buttons */}}
+{{/* Example: /influxdb3/clustered/api/ → ["", "influxdb3", "clustered", "api", ""] */}}
+{{ $pathParts := split .RelPermalink "/" }}
+{{ $version := "" }}
+{{ if ge (len $pathParts) 3 }}
+  {{ $version = index $pathParts 2 }}
+{{ end }}
+
+{{ partial "header.html" . }} {{ partial "topnav.html" . }}
 
 <div class="page-wrapper">
   {{ partial "sidebar.html" . }}
@@ -15,6 +25,26 @@ RapiDoc renderer. For tag pages (with 'tag' param), Hugo uses list.html instead.
           <p class="article--description">{{ . }}</p>
           {{ end }}
         </header>
+
+        {{/* Dual download buttons for Clustered and Cloud Dedicated */}}
+        {{ if or (eq $version "clustered") (eq $version "cloud-dedicated") }}
+        <div class="api-spec-actions api-spec-actions--dual">
+          <a href="/openapi/influxdb-{{ $version }}-v2-data-api.yml" class="btn api-spec-download" download>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+              <path d="M1 14h14v2H1v-2z"/>
+            </svg>
+            Download Data API Spec
+          </a>
+          <a href="/openapi/influxdb-{{ $version }}-management-api.yml" class="btn api-spec-download" download>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+              <path d="M1 14h14v2H1v-2z"/>
+            </svg>
+            Download Management API Spec
+          </a>
+        </div>
+        {{ end }}
 
         {{/* SECTION INDEX - Show intro content then tag-based children */}} {{
         with .Content }}
@@ -32,3 +62,25 @@ RapiDoc renderer. For tag pages (with 'tag' param), Hugo uses list.html instead.
 </div>
 
 {{ partial "footer.html" . }}
+
+<style>
+  /* Dual download buttons container for Clustered/Cloud Dedicated */
+  .api-spec-actions--dual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  /* Responsive - stack buttons on smaller screens */
+  @media (max-width: 600px) {
+    .api-spec-actions--dual {
+      flex-direction: column;
+    }
+
+    .api-spec-actions--dual .api-spec-download {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
