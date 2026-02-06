@@ -4,8 +4,7 @@
 
   "features": {
     "ghcr.io/devcontainers/features/hugo:1": {
-      "extended": true,
-      "version": "0.149.0"
+      "extended": true
     },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
@@ -30,12 +29,9 @@
         },
         "vale.valeCLI.path": "/usr/local/bin/vale"
       }
-    }
-  },
-
-  "secrets": {
-    "ANTHROPIC_API_KEY": {
-      "description": "API key for Claude Code CLI (get from console.anthropic.com)"
+    },
+    "codespaces": {
+      "openFiles": ["README.md"]
     }
   },
 
