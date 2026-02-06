@@ -134,29 +134,39 @@ tags:
       - [Execute queries](/influxdb3/clustered/query-data/execute-queries/)
     name: Query data
   - description: |
-      Authenticate, write, and query with the API:
+      Get started with the InfluxDB 3 Clustered API:
 
-      1. Create a database token for read/write access.
+      1. **Create a management token** using [`influxctl management create`](/influxdb3/clustered/reference/cli/influxctl/management/create/).
+
+      2. **Create a database** using the [Management API](/influxdb3/clustered/api/management/).
 
          ```bash
-         curl -X POST "https://CLUSTER_HOST/api/v0/tokens" \
+         curl -X POST "https://cluster-host.com/api/v0/databases" \
            --header "Authorization: Bearer MANAGEMENT_TOKEN" \
            --header "Content-Type: application/json" \
-           --data '{"description": "my token", "permissions": [{"action": "write", "resource": "DATABASE_NAME"}]}'
+           --data '{"name": "sensors"}'
          ```
 
-      2. Write data to InfluxDB Clustered.
+      3. **Create a database token** for read/write access.
 
          ```bash
-         curl -X POST "https://CLUSTER_HOST/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+         curl -X POST "https://cluster-host.com/api/v0/tokens" \
+           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+           --header "Content-Type: application/json" \
+           --data '{"description": "my token", "permissions": [{"action": "write", "resource": "sensors"}]}'
+         ```
+
+      4. **Write data** to InfluxDB 3 Clustered.
+
+         ```bash
+         curl -X POST "https://cluster-host.com/api/v2/write?bucket=sensors&precision=ns" \
            --header "Authorization: Token DATABASE_TOKEN" \
            --data-raw "home,room=Kitchen temp=72.0"
          ```
 
-      3. Query data using SQL or InfluxQL with a Flight client or the HTTP API.
+      5. **Query data** using SQL or InfluxQL with a [Flight client](/influxdb3/clustered/query-data/execute-queries/flight-sql/) or the HTTP [`/query` endpoint](#operation/GetLegacyQuery).
 
-      For more information, see the
-      [Get started](/influxdb3/clustered/get-started/) guide.
+      For more information, see the [Get started](/influxdb3/clustered/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - description: |
