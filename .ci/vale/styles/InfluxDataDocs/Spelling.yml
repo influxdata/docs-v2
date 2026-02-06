@@ -1,7 +1,13 @@
 extends: spelling
 message: "Did you really mean '%s'?"
 level: warning
+# Exclude from spell checking:
+# - code: fenced code blocks (```...```)
+# - raw: inline code (`...`)
+# - table.*: table headers and cells
 scope:
+  - ~code
+  - ~raw
   - ~table.header
   - ~table.cell
 ignore:
@@ -10,6 +16,12 @@ ignore:
   - InfluxDataDocs/Terms/ignore.txt
   - InfluxDataDocs/Terms/query-functions.txt
 filters:
-# Allow product-specific Branding.yml configurations to handle [Ss]erverless while also allowing serverless as a valid dictionary word.
+# Allow product-specific Branding.yml configurations to handle [Ss]erverless
+# while also allowing serverless as a valid dictionary word.
   - '[Ss]erverless'
-
+# Ignore URL paths (e.g., /api/v2/write, /kapacitor/v1/api/v2/tasks)
+  - '/[a-zA-Z0-9/_\-\.\{\}]+'
+# Ignore full URLs
+  - 'https?://[^\s\)\]>"]+'
+# Ignore shortcode attribute values (e.g., endpoint="..." method="...")
+  - '(?:endpoint|method|url|href|src|path)="[^"]+"'

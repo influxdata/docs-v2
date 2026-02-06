@@ -1,12 +1,14 @@
 {
   "permissions": {
     "allow": [
+       "Bash(.ci/vale/vale.sh:*)",
        "Bash(npm:*)",
        "Bash(yarn:*)",
        "Bash(pnpm:*)",
        "Bash(npx:*)",
        "Bash(node:*)",
        "Bash(python:*)",
+       "Bash(python3:*)",
        "Bash(pip:*)",
        "Bash(poetry:*)",
        "Bash(make:*)",
@@ -24,6 +26,14 @@
        "Bash(grep:*)",
        "Bash(find:*)",
        "Bash(bash:*)",
+       "Bash(wc:*)",
+       "Bash(sort:*)",
+       "Bash(uniq:*)",
+       "Bash(head:*)",
+       "Bash(tail:*)",
+       "Bash(awk:*)",
+       "Bash(touch:*)",
+       "Bash(docker:*)",
        "Edit",
        "Read",
        "Write",
@@ -42,7 +52,9 @@
       "Read(./build)"
     ],
     "ask": [
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "Read(/tmp)"
     ]
   }
 }

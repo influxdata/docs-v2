@@ -1,12 +1,69 @@
 extends: capitalization
 message: "'%s' should be in sentence case"
+link: "https://developers.google.com/style/capitalization#capitalization-in-titles-and-headings"
 level: warning
 scope: heading
 # $title, $sentence, $lower, $upper, or a pattern.
 match: $sentence
 style: AP # AP or Chicago; only applies when match is set to $title.
 exceptions:
-# SQL_INFO_SQL_KEYWORDS
+  # InfluxDB products and components
+  - InfluxDB
+  - InfluxQL
+  - Telegraf
+  - Kapacitor
+  - Chronograf
+  - Flux
+  - TSM
+  - WAL
+  - OSS
+  # Common technical acronyms
+  - API
+  - APIs
+  - CLI
+  - SQL
+  - HTTP
+  - HTTPS
+  - URL
+  - URLs
+  - CSV
+  - JSON
+  - YAML
+  - TOML
+  - TLS
+  - SSL
+  - TCP
+  - UDP
+  - gRPC
+  - OAuth
+  - JWT
+  - REST
+  - MQTT
+  - OPC
+  - SNMP
+  # Cloud providers
+  - AWS
+  - GCP
+  - Azure
+  - S3
+  # Computing terms
+  - CPU
+  - GPU
+  - RAM
+  - SSD
+  - HDD
+  - DNS
+  - IP
+  - IPv4
+  - IPv6
+  - IoT
+  - UI
+  - ID
+  - IDs
+  - UUID
+  - UUIDs
+  - EOF
+  # SQL_INFO_SQL_KEYWORDS
 # Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/flightsql/src/sql_info
   - absolute
   - action
