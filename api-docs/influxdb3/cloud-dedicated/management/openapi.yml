@@ -28,21 +28,6 @@ security:
   - bearerAuthManagementToken: []
     bearerAuthJwt: []
 tags:
-  - name: Admin authentication (management operations)
-    x-traitTag: true
-    description: |
-      Authenticate requests to the InfluxDB Management API.
-
-      With InfluxDB 3 Cloud Dedicated, the InfluxDB Management API endpoints require the following credentials:
-
-      - `ACCOUNT_ID`: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the cluster belongs to. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
-      - `CLUSTER_ID`: The ID of the [cluster](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that you want to manage. To view account ID and cluster ID, [list cluster details](/influxdb3/cloud-dedicated/admin/clusters/list/#detailed-output-in-json).
-      - `Authorization MANAGEMENT_TOKEN`: the `Authorization` HTTP header with a [management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
-
-        See how to [create a management token](/influxdb3/cloud-dedicated/admin/tokens/management/).
-
-        By default, management tokens in InfluxDB 3 are short-lived tokens issued by an OAuth2 identity provider that grant a specific user administrative access to your InfluxDB cluster. However, for automation purposes, you can manually create management tokens that authenticate directly with your InfluxDB cluster and do not require human interaction with your identity provider.
-        <!-- ReDoc-Inject: <security-definitions> -->
   - name: Database tokens
     description: Manage database read/write tokens for a cluster
   - name: Databases
@@ -50,251 +35,40 @@ tags:
   - name: Quick start
     x-traitTag: true
     description: |
-      Get started quickly with example API requests.
+      Authenticate, write, and query with the API:
 
-      The following example script shows how to use `curl` to make database and token management requests:
+      1. Create a management token using `influxctl token create`.
 
-      ```shell
-       #!/bin/bash
+      2. Create a database using the Management API.
 
-       # Usage:
-       # Note the leading space in the command below to keep secrets out of the shell history
-       #
-       # ```
-       #  MANAGEMENT_TOKEN=<MANAGEMENT_TOKEN> ACCOUNT_ID=<ACCOUNT_ID> CLUSTER_ID=<CLUSTER_ID> ./scripts/test_http_api_v0_endpoints.sh
-       # ```
+         ```bash
+         curl -X POST "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" \
+           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+           --header "Content-Type: application/json" \
+           --data '{"name": "sensors"}'
+         ```
 
-       # Env var validation
-       if [ -z "${MANAGEMENT_TOKEN}" ]; then
-         echo "
-       [Error]: ❌
-         \$MANAGEMENT_TOKEN env var is required.
-           "
-           exit 1
-       fi
+      3. Create a database token for read/write access.
 
-       if [ -z "${ACCOUNT_ID}" ]; then
-         echo "
-       [Error]: ❌
-         \$ACCOUNT_ID env var is required.
-           "
-           exit 1
-       fi
+         ```bash
+         curl -X POST "https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" \
+           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+           --header "Content-Type: application/json" \
+           --data '{"description": "my token", "permissions": [{"action": "write", "resource": "sensors"}]}'
+         ```
 
-       if [ -z "${CLUSTER_ID}" ]; then
-         echo "
-       [Error]: ❌
-         \$CLUSTER_ID env var is required.
-           "
-           exit 1
-       fi
+      4. Write data to InfluxDB Cloud Dedicated.
 
-      HOST="https://console.influxdata.com"
+         ```bash
+         curl -X POST "https://CLUSTER_HOST/api/v2/write?bucket=sensors&precision=ns" \
+           --header "Authorization: Token DATABASE_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0"
+         ```
 
-       # Database request functions
-       list_databases () {
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
-             --header "Accept: application/json" \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-         )
-         echo "$response"
-       }
+      5. Query data using SQL or InfluxQL with a Flight client or the HTTP API.
 
-       create_database () {
-         local databaseName=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases" \
-             --header "Accept: application/json" \
-             --header 'Content-Type: application/json' \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-             --data '{
-               "name": "'$databaseName'",
-               "maxTables": 75,
-               "maxColumnsPerTable": 90,
-               "retentionPeriod": 600000000000,
-               "partitionTemplate": [
-                 {
-                   "type": "tag",
-                   "value": "abc"
-                 },
-                 {
-                   "type": "bucket",
-                   "value": {
-                     "tagName": "def",
-                     "numberOfBuckets": 5
-                   }
-                 }
-               ]
-             }' \
-         )
-         echo "$response"
-       }
-
-       update_database () {
-         local databaseName=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
-             --request PATCH \
-             --header "Accept: application/json" \
-             --header 'Content-Type: application/json' \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-             --data '{
-               "maxTables": 150,
-               "maxColumnsPerTable": 180,
-               "retentionPeriod": 1200000000000
-             }' \
-         )
-         echo "$response"
-       }
-
-       delete_database () {
-         local databaseName=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/databases/$databaseName" \
-             --request DELETE \
-             --header "Accept: application/json" \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-         )
-         echo "$response"
-       }
-
-       # Token request functions
-       list_tokens () {
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
-             --header "Accept: application/json" \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-         )
-         echo "$response"
-       }
-
-       create_token () {
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens" \
-             --header "Accept: application/json" \
-             --header 'Content-Type: application/json' \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-             --data '{
-               "description": "my test token",
-               "permissions": [
-                 {
-                   "action": "write",
-                   "resource": "database_one"
-                 },
-                 {
-                   "action": "read",
-                   "resource": "database_two"
-                 }
-               ]
-             }' \
-         )
-         echo "$response"
-       }
-
-       get_token () {
-         local token_id=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
-             --header "Accept: application/json" \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-         )
-         echo "$response"
-       }
-
-       update_token () {
-         local token_id=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
-             --request PATCH \
-             --header "Accept: application/json" \
-             --header 'Content-Type: application/json' \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-             --data '{
-               "description": "my updated test token",
-               "permissions": [
-                 {
-                   "action": "database_one",
-                   "resource": "read"
-                 }
-               ]
-             }' \
-         )
-         echo "$response"
-       }
-
-       delete_token () {
-         local token_id=$1
-         local response=$( \
-           curl \
-             --location "$HOST/api/v0/accounts/$ACCOUNT_ID/clusters/$CLUSTER_ID/tokens/$tokenId" \
-             --request DELETE \
-             --header "Accept: application/json" \
-             --header "Authorization: Bearer $MANAGEMENT_TOKEN" \
-         )
-         echo "$response"
-       }
-
-
-       # Test database endpoints
-       databaseName="test_database_$RANDOM"
-
-       printf "\n🏗️   Creating database...  🏗️\n\n"
-       response="$(create_database $databaseName)"
-       echo $response | jq
-       printf "\n🏗️   Creating database successful  🏗️\n\n"
-
-       printf "\n⬆️   Updating database...  ⬆️\n\n"
-       response="$(update_database $databaseName)"
-       echo $response | jq
-       printf "\n⬆️   Updating database successful  ⬆️\n\n"
-
-       printf "\n⬇️   Listing databases...  ⬇️\n\n"
-       response="$(list_databases)"
-       echo $response | jq
-       printf "\n⬇️   Listing databases successful  ⬇️\n\n"
-
-       printf "\n🗑️   Deleting database...  🗑️\n\n"
-       response="$(delete_database $databaseName)"
-       echo $response | jq
-       printf "\n🗑️   Deleting database successful  🗑️\n\n"
-
-
-       # Test token endpoints
-       printf "\n🏗️   Creating token...  🏗️\n\n"
-       response="$(create_token)"
-       echo $response | jq
-       tokenId=$(echo $response | jq '.id')
-       printf "\n🏗️   Creating token successful  🏗️\n\n"
-
-       printf "\n⬇️   Getting token...  ⬇️\n\n"
-       response="$(get_token $tokenId)"
-       echo $response | jq
-       printf "\n⬇️   Getting token successful  ⬇️\n\n"
-
-       printf "\n⬆️   Updating token...  ⬆️\n\n"
-       response="$(update_token $tokenId)"
-       echo $response | jq
-       printf "\n⬆️   Updating token successful  ⬆️\n\n"
-
-       printf "\n📋   Listing tokens...  📋\n\n"
-       response="$(list_tokens)"
-       echo $response | jq
-       printf "\n📋   Listing tokens successful  📋\n\n"
-
-       printf "\n🗑️   Deleting token...  🗑️\n\n"
-       response="$(delete_token $tokenId)"
-       echo $response | jq
-       printf "\n🗑️   Deleting token successful  🗑️\n\n"
-           ```
+      For more information, see the
+      [Get started](/influxdb3/cloud-dedicated/get-started/) guide.
   - name: Tables
     description: Manage tables in a database
 paths:
@@ -2019,7 +1793,6 @@ components:
 x-tagGroups:
   - name: Using the Management API
     tags:
-      - Authentication
       - Quick start
   - name: All endpoints
     tags:

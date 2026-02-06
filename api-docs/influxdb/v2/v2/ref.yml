@@ -91,13 +91,11 @@ tags:
     x-traitTag: true
   - name: Compatibility endpoints
     description: |
-      InfluxDB v2 provides a v1-compatible API for backward compatibility with InfluxDB 1.x clients and integrations.
+      InfluxDB v2 provides v1-compatible API endpoints for backward compatibility with InfluxDB 1.x clients and integrations.
 
-      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x. The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
+      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x.
 
-      - [Write data (v1-compatible)](#tag/Write-data-(v1-compatible))
-      - [Query data using InfluxQL (v1-compatible)](#tag/Query-data-(v1-compatible))
-      - [Manage v1-compatible users and permissions](#tag/Authorizations-(v1-compatible))
+      The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
   - name: Config
   - name: Dashboards
   - description: |
@@ -202,11 +200,37 @@ tags:
     name: Query data
   - name: Query data (v1-compatible)
   - description: |
-      See the [**API Quick Start**](/influxdb/v2/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and querying data.
+      Authenticate, write, and query with the API:
 
-      [**InfluxDB API client libraries**](/influxdb/v2/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your application.
+      1. Create an API token to authorize API requests.
+         Use the InfluxDB UI or `POST /api/v2/authorizations`.
+
+      2. Check the status of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:8086/health"
+         ```
+
+      3. Write data to InfluxDB.
+
+         ```bash
+         curl -X POST "http://localhost:8086/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=ns" \
+           --header "Authorization: Token API_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ Room temp=71.5"
+         ```
+
+      4. Query data using Flux.
+
+         ```bash
+         curl -X POST "http://localhost:8086/api/v2/query?org=ORG_NAME" \
+           --header "Authorization: Token API_TOKEN" \
+           --header "Content-Type: application/vnd.flux" \
+           --data 'from(bucket: "BUCKET_NAME") |> range(start: -1h)'
+         ```
+
+      For more information, see the
+      [Get started](/influxdb/v2/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - name: Ready

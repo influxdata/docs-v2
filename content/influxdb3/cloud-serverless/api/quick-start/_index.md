@@ -1,19 +1,36 @@
 ---
 title: Quick start
-description: >-
-  Get started quickly with tutorials and client libraries.
+description: |-
+  Authenticate, write, and query with the API:
 
+  1. Create a database token to authorize API requests in the InfluxDB Cloud
+     Serverless UI.
 
-  See the [**Get started**](/influxdb3/cloud-serverless/get-started/) tutorial
+  2. Write data to InfluxDB Cloud Serverless.
 
-  to get up and running authenticating with tokens, writing to buckets, and
-  querying data.
+     ```bash
+     curl -X POST "https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+       --header "Authorization: Token DATABASE_TOKEN" \
+       --header "Content-Type: text/plain; charset=utf-8" \
+       --data-raw "home,room=Kitchen temp=72.0
+     home,room=Living\ room temp=71.5"
+     ```
 
+     If all data is written, the response is `204 No Content`.
 
-  [**InfluxDB API client libraries and Flight
-  clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
+  3. Query data from InfluxDB Cloud Serverless using SQL or InfluxQL.
+     For best performance, use a Flight client to query data.
+     The HTTP API `/query` endpoint supports InfluxQL queries.
 
-  are available to integrate InfluxDB with your application.
+     ```bash
+     curl -G "https://cloud2.influxdata.com/query" \
+       --header "Authorization: Token DATABASE_TOKEN" \
+       --data-urlencode "db=DATABASE_NAME" \
+       --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h"
+     ```
+
+  For more information about using InfluxDB Cloud Serverless, see the
+  [Get started](/influxdb3/cloud-serverless/get-started/) guide.
 type: api
 layout: single
 staticFilePath: >-
@@ -22,20 +39,37 @@ weight: 100
 tag: Quick start
 isConceptual: true
 menuGroup: Concepts
-tagDescription: >-
-  Get started quickly with tutorials and client libraries.
+tagDescription: |-
+  Authenticate, write, and query with the API:
 
+  1. Create a database token to authorize API requests in the InfluxDB Cloud
+     Serverless UI.
 
-  See the [**Get started**](/influxdb3/cloud-serverless/get-started/) tutorial
+  2. Write data to InfluxDB Cloud Serverless.
 
-  to get up and running authenticating with tokens, writing to buckets, and
-  querying data.
+     ```bash
+     curl -X POST "https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+       --header "Authorization: Token DATABASE_TOKEN" \
+       --header "Content-Type: text/plain; charset=utf-8" \
+       --data-raw "home,room=Kitchen temp=72.0
+     home,room=Living\ room temp=71.5"
+     ```
 
+     If all data is written, the response is `204 No Content`.
 
-  [**InfluxDB API client libraries and Flight
-  clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
+  3. Query data from InfluxDB Cloud Serverless using SQL or InfluxQL.
+     For best performance, use a Flight client to query data.
+     The HTTP API `/query` endpoint supports InfluxQL queries.
 
-  are available to integrate InfluxDB with your application.
+     ```bash
+     curl -G "https://cloud2.influxdata.com/query" \
+       --header "Authorization: Token DATABASE_TOKEN" \
+       --data-urlencode "db=DATABASE_NAME" \
+       --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h"
+     ```
+
+  For more information about using InfluxDB Cloud Serverless, see the
+  [Get started](/influxdb3/cloud-serverless/get-started/) guide.
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

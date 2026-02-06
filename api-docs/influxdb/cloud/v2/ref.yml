@@ -209,11 +209,31 @@ tags:
       Retrieve data, analyze queries, and get query suggestions.
     name: Query data
   - description: |
-      See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and querying data.
+      Authenticate, write, and query with the API:
 
-      [**InfluxDB API client libraries**](/influxdb/cloud/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your application.
+      1. Create an API token to authorize API requests.
+         Use the InfluxDB Cloud UI or `POST /api/v2/authorizations`.
+
+      2. Write data to InfluxDB Cloud.
+
+         ```bash
+         curl -X POST "https://cloud2.influxdata.com/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=ns" \
+           --header "Authorization: Token API_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ Room temp=71.5"
+         ```
+
+      3. Query data using Flux.
+
+         ```bash
+         curl -X POST "https://cloud2.influxdata.com/api/v2/query?org=ORG_NAME" \
+           --header "Authorization: Token API_TOKEN" \
+           --header "Content-Type: application/vnd.flux" \
+           --data 'from(bucket: "BUCKET_NAME") |> range(start: -1h)'
+         ```
+
+      For more information, see the
+      [Get started](/influxdb/cloud/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - name: Resources
