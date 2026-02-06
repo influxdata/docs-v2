@@ -1,26 +1,25 @@
 #!/bin/bash
-set -e
 
-echo "🔧 Setting up InfluxData Docs development environment..."
+echo "Setting up InfluxData Docs development environment..."
 
 # Install project dependencies
-echo "📦 Installing Node.js dependencies..."
-yarn install
+echo "Installing Node.js dependencies..."
+yarn install || echo "Warning: yarn install had issues"
 
 # Install Vale CLI
-echo "📝 Installing Vale linter..."
+echo "Installing Vale linter..."
 VALE_VERSION="3.12.0"
 curl -sfL "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz" | tar -xz -C /tmp
-sudo mv /tmp/vale /usr/local/bin/vale
-sudo chmod +x /usr/local/bin/vale
+sudo mv /tmp/vale /usr/local/bin/vale 2>/dev/null || mv /tmp/vale ~/bin/vale
+chmod +x /usr/local/bin/vale 2>/dev/null || chmod +x ~/bin/vale
 
 # Sync Vale styles
-echo "📚 Syncing Vale styles..."
-vale sync || echo "Vale sync completed (some styles may already exist)"
+echo "Syncing Vale styles..."
+vale sync 2>/dev/null || echo "Vale sync skipped (styles exist locally)"
 
 # Install Claude Code CLI
-echo "🤖 Installing Claude Code CLI..."
-npm install -g @anthropic-ai/claude-code
+echo "Installing Claude Code CLI..."
+npm install -g @anthropic-ai/claude-code || echo "Warning: Claude Code install had issues"
 
 # Verify installations
 echo ""
