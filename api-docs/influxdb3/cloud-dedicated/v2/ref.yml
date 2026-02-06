@@ -38,43 +38,56 @@ tags:
 
       InfluxDB 3 Cloud Dedicated provides the following HTTP API endpoints for writing data:
 
-      - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Dedicated.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB Cloud Dedicated.
+      - `/api/v2/write` endpoint (recommended) for new write workloads or for
+        bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Dedicated.
+      - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
+        InfluxDB Cloud Dedicated.
 
-      Both endpoints accept the same line protocol format and process data in the same way.
+      Both endpoints accept line protocol format and process data the same way.
 
       ### Query data
 
       InfluxDB 3 Cloud Dedicated provides the following protocols for executing a query:
 
-      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/cloud-dedicated/get-started/query/).
-      - HTTP API [`/query` request](#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB Cloud Dedicated.
+      - Flight+gRPC request (recommended) that contains an SQL or InfluxQL query.
+      - HTTP API `/query` request that contains an InfluxQL query.
+        Use this protocol for existing InfluxDB v1 query workloads.
 
       ### InfluxDB v2 compatibility
 
-      The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with the [`Bearer`](#section/Authentication/BearerAuthentication) and [`Token`](#section/Authentication/TokenAuthentication) authentication schemes and existing InfluxDB 2.x tools and code for [writing data](/influxdb3/cloud-dedicated/write-data/).
-
-      See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud Dedicated](/influxdb3/cloud-dedicated/guides/api-compatibility/v2/).
+      The `/api/v2/write` endpoint works with Bearer and Token authentication
+      and existing InfluxDB 2.x tools and code.
 
       ### InfluxDB v1 compatibility
 
-      The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
-
-      See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud Dedicated](/influxdb3/cloud-dedicated/guides/api-compatibility/v1/).
+      The `/write` and `/query` endpoints work with InfluxDB 1.x username/password
+      authentication and existing InfluxDB 1.x tools and code.
     name: API compatibility
     x-traitTag: true
   - description: |
       Authenticate API requests using tokens, basic auth, or query strings.
 
-      Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
+      ## Token types
 
-      | Authentication scheme | Works with |
-      |:-------------------|:-----------|
-      | [Bearer authentication](#section/Authentication/BearerAuthentication) | All endpoints |
-      | [Token authentication](#section/Authentication/TokenAuthentication) | v1, v2 endpoints |
-      | [Basic authentication](#section/Authentication/BasicAuthentication) | v1 endpoints |
-      | [Querystring authentication](#section/Authentication/QuerystringAuthentication) | v1 endpoints |
+      InfluxDB 3 Cloud Dedicated uses two types of tokens for API authentication:
+
+      | Token type | Used for | How to create |
+      |:-----------|:---------|:--------------|
+      | **Management token** | [Management API](/influxdb3/cloud-dedicated/api/management/) (`/api/v0/*`) - manage databases, tables, and database tokens | [`influxctl management create`](/influxdb3/cloud-dedicated/reference/cli/influxctl/management/create/) |
+      | **Database token** | Data API (`/api/v2/write`, `/query`, etc.) - write and query data | [Management API](/influxdb3/cloud-dedicated/api/management/#operation/PostDatabaseToken) or [`influxctl token create`](/influxdb3/cloud-dedicated/reference/cli/influxctl/token/create/) |
+
+      ## Authentication schemes
+
+      Choose an authentication scheme based on the endpoint and your workflow:
+
+      | Scheme | Token type | Endpoints | Header format |
+      |:-------|:-----------|:----------|:--------------|
+      | [Bearer](#section/Authentication/BearerAuthentication) | Database | All data endpoints | `Authorization: Bearer DATABASE_TOKEN` |
+      | [Token](#section/Authentication/TokenAuthentication) | Database | v1, v2 endpoints | `Authorization: Token DATABASE_TOKEN` |
+      | [Basic](#section/Authentication/BasicAuthentication) | Database | v1 endpoints | `Authorization: Basic base64(username:DATABASE_TOKEN)` |
+      | [Query string](#section/Authentication/QuerystringAuthentication) | Database | v1 endpoints | `?u=username&p=DATABASE_TOKEN` |
+
+      For Management API authentication, see the [Management API reference](/influxdb3/cloud-dedicated/api/management/#section/Authentication).
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
@@ -121,13 +134,29 @@ tags:
       - [Execute queries](/influxdb3/cloud-dedicated/query-data/execute-queries/)
     name: Query data
   - description: |
-      Get started quickly with tutorials and client libraries.
+      Authenticate, write, and query with the API:
 
-      See the [**Get Started**](/influxdb3/cloud-dedicated/get-started/) tutorial
-      to get up and running authenticating with tokens, writing to databases, and querying data.
+      1. Create a database token for read/write access.
 
-      [**InfluxDB API client libraries and Flight clients**](/influxdb3/cloud-dedicated/reference/client-libraries/)
-      are available to integrate InfluxDB APIs with your application.
+         ```bash
+         curl -X POST "https://CLUSTER_HOST/api/v0/tokens" \
+           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
+           --header "Content-Type: application/json" \
+           --data '{"description": "my token", "permissions": [{"action": "write", "resource": "DATABASE_NAME"}]}'
+         ```
+
+      2. Write data to InfluxDB Cloud Dedicated.
+
+         ```bash
+         curl -X POST "https://CLUSTER_HOST/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+           --header "Authorization: Token DATABASE_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0"
+         ```
+
+      3. Query data using SQL or InfluxQL with a Flight client or the HTTP API.
+
+      For more information, see the
+      [Get started](/influxdb3/cloud-dedicated/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - description: |
