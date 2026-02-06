@@ -215,7 +215,30 @@ node cypress/support/run-e2e-specs.js \
 
 See **cypress-e2e-testing** skill for detailed test workflow.
 
-### 5. Visual Preview (Optional)
+### 5. Style Linting (Pre-commit)
+
+Vale style linting runs automatically via pre-commit hooks, but you can run it manually:
+
+```bash
+# Lint specific files
+.ci/vale/vale.sh --config=.vale.ini content/influxdb3/core/path/to/file.md
+
+# Lint with minimum alert level
+.ci/vale/vale.sh --config=.vale.ini --minAlertLevel=warning content/path/
+
+# Sync Vale packages (after .vale.ini changes)
+.ci/vale/vale.sh sync
+```
+
+**Common issues:**
+
+- `admin` flagged → Use "administrator" in prose, or it's in a code context
+- Duration literals (`30d`) → These are valid InfluxDB syntax
+- Technical terms flagged → Add to `.ci/vale/styles/InfluxDataDocs/Terms/ignore.txt`
+
+See **vale-linting** skill for comprehensive Vale workflow.
+
+### 6. Visual Preview (Optional)
 
 ```bash
 # Start Hugo development server
@@ -500,6 +523,7 @@ ls content/influxdb3/core/api/
 | Fact-check with MCP        | `kapa_query({ query: "...", stream: false })`                                     |
 | Preview locally            | `hugo server` (visit localhost:1313)                                              |
 | Generate API docs          | `yarn build:api-docs` (before API reference tests)                                |
+| Style linting              | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
 
 **Note:** `--products` accepts both product keys (`influxdb3_core`) and content paths (`/influxdb3/core`).
 
@@ -508,6 +532,7 @@ ls content/influxdb3/core/api/
 - **docs-cli-workflow** - When to use CLI vs direct editing (decision guidance)
 - **cypress-e2e-testing** - Detailed Cypress test execution and debugging
 - **hugo-template-dev** - Hugo template syntax and development
+- **vale-linting** - Vale style linting configuration and debugging
 
 ## Checklist: Before Claiming Content is Complete
 
