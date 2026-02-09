@@ -5,4 +5,6 @@ nonword: true
 level: warning
 scope: sentence
 tokens:
-  - '(?<!:[^ ]+?):\s[A-Z]'
+  - ':\s[A-Z]'
+exceptions:
+  - ':[^ ]+?:\s[A-Z]'
