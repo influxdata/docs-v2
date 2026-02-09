@@ -1110,6 +1110,11 @@ function createArticleDataForTag(
     article.fields.weight = 1;
   }
 
+  // Set default weight for consistent sorting (articles without explicit weight)
+  if (article.fields.weight === undefined) {
+    article.fields.weight = 100;
+  }
+
   // Aggregate unique related URLs from multiple sources into article-level related
   // This populates Hugo frontmatter `related` field for "Related content" links
   const relatedUrls = new Set<string>();

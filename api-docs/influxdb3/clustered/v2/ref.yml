@@ -123,7 +123,7 @@ tags:
   - description: |
       Query data stored in a database.
 
-      - HTTP clients can query the v1 [`/query` endpoint](/influxdb3/clustered/api/#operation/GetLegacyQuery)
+      - HTTP clients can query the v1 [`/query` endpoint](/influxdb3/clustered/api/query-data/)
       using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
       - The `/api/v2/query` endpoint can't query InfluxDB 3 Clustered.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
@@ -162,7 +162,7 @@ tags:
            --data-raw "home,room=Kitchen temp=72.0"
          ```
 
-      5. **Query data** using SQL or InfluxQL with a [Flight client](/influxdb3/clustered/query-data/execute-queries/flight-sql/) or the HTTP [`/query` endpoint](#operation/GetLegacyQuery).
+      5. **Query data** using SQL or InfluxQL with a [Flight client](/influxdb3/clustered/query-data/execute-queries/flight-sql/) or the HTTP [`/query` endpoint](/influxdb3/clustered/api/query-data/).
 
       For more information, see the [Get started](/influxdb3/clustered/get-started/) guide.
     name: Quick start
@@ -1959,7 +1959,7 @@ components:
       description: |
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API requests.
 
-        Works with v1 compatibility [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints in InfluxDB 3.
+        Works with v1 compatibility [`/write`](/influxdb3/clustered/api/write-data/) and [`/query`](/influxdb3/clustered/api/query-data/) endpoints in InfluxDB 3.
 
         When authenticating requests, InfluxDB 3 checks that the `password` part of the decoded credential is an authorized token
         and ignores the `username` part of the decoded credential.
@@ -1993,7 +1993,7 @@ components:
       description: |
         Use InfluxDB 1.x API parameters to provide credentials through the query string for v1 API requests.
 
-        Querystring authentication works with v1-compatible [`/write`](#operation/PostV1Write) and [`/query`](#operation/GetV1Query) endpoints.
+        Querystring authentication works with v1-compatible [`/write`](/influxdb3/clustered/api/write-data/) and [`/query`](/influxdb3/clustered/api/query-data/) endpoints.
 
         When authenticating requests, InfluxDB 3 checks that the `p` (_password_) query parameter is an authorized token
         and ignores the `u` (_username_) query parameter.

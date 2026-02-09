@@ -75,9 +75,9 @@
   {{ end }}
 {{ end }}
 
-{{/* Sort each group alphabetically by tag name */}}
-{{ $conceptualArticles = sort $conceptualArticles "fields.tag" }}
-{{ $operationArticles = sort $operationArticles "fields.tag" }}
+{{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+{{ $operationArticles = sort $operationArticles "fields.weight" }}
 
 {{/* Combine: conceptual first, then operations */}}
 {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
