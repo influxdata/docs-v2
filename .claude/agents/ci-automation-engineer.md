@@ -4,11 +4,11 @@ description: |
   Use this agent when you need expertise in continuous integration,
   automation pipelines, or DevOps workflows.
   Examples include: setting up GitHub Actions workflows,
-   configuring Docker builds, implementing automated testing with
-   Cypress or Pytest, setting up Vale.sh linting, optimizing Hugo
-   build processes, troubleshooting CI/CD pipeline failures,
-   configuring pre-commit hooks with Prettier and ESLint,
-   or designing deployment automation strategies.
+  configuring Docker builds, implementing automated testing with
+  Cypress or Pytest, setting up Vale.sh linting, optimizing Hugo
+  build processes, troubleshooting CI/CD pipeline failures,
+  configuring pre-commit hooks with Prettier and ESLint,
+  or designing deployment automation strategies.
 model: sonnet
 ---
 
