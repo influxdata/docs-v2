@@ -692,7 +692,7 @@ To configure error handling behavior for a trigger, use the `--error-behavior <E
 - `retry`: Attempt to run the plugin again immediately after an error.
 - `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI).
 
-For more information about querying trigger logs, see [Query trigger logs](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
+For more information, see how to [Query trigger logs](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
 
 ```bash
 # Automatically retry on error
