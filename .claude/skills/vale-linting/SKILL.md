@@ -138,10 +138,10 @@ deadman
 # The ignore.txt is referenced by Spelling.yml
 ```
 
-**Key difference:**
+**Key difference in this repo:**
 
-- `accept.txt` - Terms that are correct AND create substitution rules via Vale.Terms
-- `ignore.txt` - Terms to skip in spell checking only (no substitution rules)
+- `accept.txt` - Terms that are part of the shared spelling vocabulary (via `Vocab = InfluxDataDocs`). In this repository, it does **not** currently create substitution rules because `Vale.Terms` is disabled in `.vale.ini`. If `Vale.Terms` is enabled in the future, these terms may also drive substitution behavior.
+- `ignore.txt` - Additional terms to skip in spell checking only (an ignore list layered on top of the shared vocabulary; no substitution rules).
 
 ### When to Use Each
 
