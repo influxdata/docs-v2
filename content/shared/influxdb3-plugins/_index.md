@@ -688,9 +688,11 @@ influxdb3 create trigger \
 
 To configure error handling behavior for a trigger, use the `--error-behavior <ERROR_BEHAVIOR>` CLI option with one of the following values:
 
-- `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` system table.
+- `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` table in the trigger's database.
 - `retry`: Attempt to run the plugin again immediately after an error.
 - `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later via CLI).
+
+For more information, see how to [Query trigger logs](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
 
 ```bash
 # Automatically retry on error
