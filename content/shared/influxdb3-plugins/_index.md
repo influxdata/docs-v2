@@ -1011,7 +1011,7 @@ Replace the following:
 
 To configure error handling behavior for a trigger, specify one of the following values:
 
-- `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` system table.
+- `log` (default): Log all plugin errors to stdout and the `system.processing_engine_logs` table in the trigger's database.
 - `retry`: Attempt to run the plugin again immediately after an error.
 - `disable`: Automatically disable the plugin when an error occurs (can be re-enabled later).
 
@@ -1021,6 +1021,8 @@ To configure error handling behavior for a trigger, specify one of the following
 [HTTP API](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
+
+For more information, see how to [Query trigger logs](/influxdb3/version/admin/query-system-data/#query-trigger-logs).
 
 ```bash
 # Automatically retry on error
