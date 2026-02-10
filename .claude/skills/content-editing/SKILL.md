@@ -26,10 +26,14 @@ Need to decide when to use CLI vs direct editing?
 
 Made content changes?
 ├─ To shared content? Touch sourcing files! (See Part 1: Shared Content)
-└─ To any content? Run tests (See Part 2: Testing)
+├─ Run Vale linting (See Part 3: Vale Style Linting)
+└─ Run tests (See Part 2: Testing)
 
 Need to verify technical accuracy?
-└─ Use Kapa MCP server (See Part 3: Fact-Checking)
+└─ Use Kapa MCP server (See Part 4: Fact-Checking)
+
+Need to write/debug Vale rules?
+└─ See vale-rule-config skill (for CI/Quality Engineers)
 ```
 
 ## Using `docs create` and `docs edit`
@@ -248,7 +252,80 @@ hugo server
 # Preview your changes in browser
 ```
 
-## Part 3: Fact-Checking with MCP Server
+## Part 3: Vale Style Linting
+
+Vale checks documentation for style guide violations, spelling errors, and branding consistency.
+
+**For writing Vale rules and understanding regex patterns**, see the **vale-rule-config** skill.
+
+### Running Vale
+
+```bash
+# Basic linting (all markdown files)
+docker compose run -T vale content/**/*.md
+
+# Lint specific product
+docker compose run -T vale content/influxdb3/core/**/*.md
+
+# With specific config and alert level
+docker compose run -T vale \
+  --config=content/influxdb/cloud-dedicated/.vale.ini \
+  --minAlertLevel=error \
+  content/influxdb/cloud-dedicated/write-data/**/*.md
+```
+
+### Understanding Vale Alerts
+
+Vale reports three alert levels:
+
+- **Error** (red): Critical issues - branding violations, broken style rules, rejected terms
+- **Warning** (yellow): Style guide recommendations - should be fixed
+- **Suggestion** (blue): Optional improvements - consider fixing
+
+### Fixing Common Vale Issues
+
+**Spelling/vocabulary errors:**
+```bash
+# If Vale flags a legitimate term, add it to vocabulary
+echo "YourTerm" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
+```
+
+**Style violations:**
+Vale will suggest the correct form. For example:
+```
+content/file.md:25:1: Use 'InfluxDB 3' instead of 'InfluxDB v3'
+```
+
+Simply make the suggested change.
+
+**False positives:**
+If Vale incorrectly flags something:
+1. Check if it's a new technical term that should be in vocabulary
+2. See if the rule needs refinement (consult **vale-rule-config** skill)
+3. Add inline comments to disable specific rules if necessary:
+
+```markdown
+<!-- vale InfluxDataDocs.TechnicalTerms = NO -->
+This paragraph contains technical terms that Vale might flag.
+<!-- vale InfluxDataDocs.TechnicalTerms = YES -->
+```
+
+### VS Code Integration (Optional)
+
+For real-time linting while editing:
+
+1. Install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode)
+2. Configure the extension to use the workspace Vale:
+   - Set `Vale:Vale CLI:Path` to `${workspaceFolder}/node_modules/.bin/vale`
+
+### When to Run Vale
+
+- **During editing**: If you have VS Code extension enabled
+- **Before committing**: Pre-commit hooks run Vale automatically
+- **After content changes**: Run manually to catch issues early
+- **In CI/CD**: Automated on pull requests
+
+## Part 4: Fact-Checking with MCP Server
 
 The InfluxData documentation MCP server (`influxdata`) provides access to **Ask AI (Kapa.ai)** for fact-checking and answering questions about InfluxData products.
 
@@ -358,7 +435,7 @@ The MCP server requires configuration in `.mcp.json`:
 - Expect real-time product behavior (it knows documentation, not live systems)
 - Use as a replacement for testing (always test code examples)
 
-## Part 4: Complete Example Workflows
+## Part 5: Complete Example Workflows
 
 ### Example 1: Creating New Multi-Product Documentation
 
@@ -442,7 +519,7 @@ hugo server
 # Done! (No need for comprehensive testing on typo fixes)
 ```
 
-## Part 5: Troubleshooting
+## Part 6: Troubleshooting
 
 ### Hugo Build Fails
 
@@ -506,7 +583,7 @@ ls content/influxdb3/core/api/
 # If empty: yarn build:api-docs
 ```
 
-## Part 6: Quick Reference
+## Part 7: Quick Reference
 
 | Task                       | Command                                                                           |
 | -------------------------- | --------------------------------------------------------------------------------- |
@@ -517,6 +594,7 @@ ls content/influxdb3/core/api/
 | Audit documentation        | `docs audit --products influxdb3_core` or `docs audit --products /influxdb3/core` |
 | Generate release notes     | `docs release-notes v3.1.0 v3.2.0 --products influxdb3_core`                      |
 | Build Hugo site            | `hugo --quiet`                                                                    |
+| Run Vale linting           | `docker compose run -T vale content/**/*.md`                                      |
 | Test links                 | `yarn test:links`                                                                 |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
 | Test specific page         | `yarn test:e2e content/path/file.md`                                              |
@@ -530,6 +608,7 @@ ls content/influxdb3/core/api/
 ## Related Skills
 
 - **docs-cli-workflow** - When to use CLI vs direct editing (decision guidance)
+- **vale-rule-config** - Writing Vale rules and understanding regex patterns (for CI/Quality Engineers)
 - **cypress-e2e-testing** - Detailed Cypress test execution and debugging
 - **hugo-template-dev** - Hugo template syntax and development
 - **vale-linting** - Vale style linting configuration and debugging
@@ -540,6 +619,7 @@ ls content/influxdb3/core/api/
 - [ ] If shared content: Sourcing files touched (or used `docs edit`)
 - [ ] Technical accuracy verified (MCP fact-check if needed)
 - [ ] Hugo builds without errors (`hugo --quiet`)
+- [ ] Vale style linting passes (`docker compose run -T vale content/**/*.md`)
 - [ ] Links validated (`yarn test:links`)
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
