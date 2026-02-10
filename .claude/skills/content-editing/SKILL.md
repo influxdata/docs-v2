@@ -29,7 +29,7 @@ Made content changes?
 └─ To any content? Run tests (See Part 2: Testing)
 
 Need to verify technical accuracy?
-└─ Use Kapa MCP server (See Part 3: Fact-Checking)
+└─ Use Kapa MCP server (See Part 4: Fact-Checking)
 ```
 
 ## Using `docs create` and `docs edit`
@@ -225,7 +225,64 @@ hugo server
 # Preview your changes in browser
 ```
 
-## Part 3: Fact-Checking with MCP Server
+## Part 3: Vale Style Linting and Regex Support
+
+### Vale's Regex Engine
+
+Vale uses the [regexp2](https://pkg.go.dev/github.com/dlclark/regexp2) library, **not** Go's standard `regexp` package. This is an important distinction when writing Vale rules.
+
+**Key capabilities:**
+
+- ✅ Vale supports **PCRE-style lookarounds** despite being written in Go
+- ✅ Positive lookahead: `(?=re)`
+- ✅ Negative lookahead: `(?!re)`
+- ✅ Positive lookbehind: `(?<=re)`
+- ✅ Negative lookbehind: `(?<!re)`
+
+**Why this matters:**
+
+The Go standard library uses RE2, which doesn't support lookaround assertions. However, Vale explicitly uses regexp2 to enable these features. According to Vale's maintainer:
+
+> "Vale uses a superset of the Go flavor, supporting PCRE-style lookarounds."
+
+**Examples of valid Vale patterns:**
+
+```yaml
+# Existence rule with negative lookbehind
+extends: existence
+message: "'%s' should be in lowercase."
+scope: sentence
+tokens:
+  - '(?<!:[^ ]+?):\s[A-Z]'  # ✅ This works!
+
+# Existence rule with positive lookbehind
+extends: existence
+message: "'%s' should only be capitalized when starting a sentence."
+scope: sentence
+tokens:
+  - '(?<=\s)Internet(?! Service Provider| Protocol)'  # ✅ This works!
+```
+
+**Running Vale:**
+
+```bash
+# Basic linting
+docker compose run -T vale content/**/*.md
+
+# With specific config and alert level
+docker compose run -T vale \
+  --config=content/influxdb/cloud-dedicated/.vale.ini \
+  --minAlertLevel=error \
+  content/influxdb/cloud-dedicated/write-data/**/*.md
+```
+
+### References
+
+- [Vale issue #233 - RFC on lookarounds](https://github.com/errata-ai/vale/issues/233)
+- [Vale discussion #817 - Working lookbehind example](https://github.com/errata-ai/vale/discussions/817)
+- [regexp2 documentation](https://pkg.go.dev/github.com/dlclark/regexp2)
+
+## Part 4: Fact-Checking with MCP Server
 
 The InfluxData documentation MCP server (`influxdata`) provides access to **Ask AI (Kapa.ai)** for fact-checking and answering questions about InfluxData products.
 
@@ -335,7 +392,7 @@ The MCP server requires configuration in `.mcp.json`:
 - Expect real-time product behavior (it knows documentation, not live systems)
 - Use as a replacement for testing (always test code examples)
 
-## Part 4: Complete Example Workflows
+## Part 5: Complete Example Workflows
 
 ### Example 1: Creating New Multi-Product Documentation
 
@@ -419,7 +476,7 @@ hugo server
 # Done! (No need for comprehensive testing on typo fixes)
 ```
 
-## Part 5: Troubleshooting
+## Part 6: Troubleshooting
 
 ### Hugo Build Fails
 
@@ -483,7 +540,7 @@ ls content/influxdb3/core/api/
 # If empty: yarn build:api-docs
 ```
 
-## Part 6: Quick Reference
+## Part 7: Quick Reference
 
 | Task                       | Command                                                                           |
 | -------------------------- | --------------------------------------------------------------------------------- |
@@ -494,6 +551,7 @@ ls content/influxdb3/core/api/
 | Audit documentation        | `docs audit --products influxdb3_core` or `docs audit --products /influxdb3/core` |
 | Generate release notes     | `docs release-notes v3.1.0 v3.2.0 --products influxdb3_core`                      |
 | Build Hugo site            | `hugo --quiet`                                                                    |
+| Run Vale linting           | `docker compose run -T vale content/**/*.md`                                      |
 | Test links                 | `yarn test:links`                                                                 |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
 | Test specific page         | `yarn test:e2e content/path/file.md`                                              |
