@@ -208,14 +208,16 @@ weight:      # Required: 1-99, 101-199, 201-299...
 
 ## Troubleshooting
 
-| Issue                    | Solution                                               |
-| ------------------------ | ------------------------------------------------------ |
-| Pytest collected 0 items | Use `python` not `py` for language identifier          |
-| Hugo build errors        | Check `/config/_default/`                              |
-| Docker build fails       | Expected in restricted networks - use local Hugo       |
-| Cypress install fails    | Use `CYPRESS_INSTALL_BINARY=0 yarn install`            |
-| Link validation slow     | Test specific files: `yarn test:links content/file.md` |
-| Vale errors              | Check `.ci/vale/styles/config/vocabularies`            |
+| Issue                    | Solution                                                         |
+| ------------------------ | ---------------------------------------------------------------- |
+| Pytest collected 0 items | Use `python` not `py` for language identifier                    |
+| Hugo build errors        | Check `/config/_default/`                                        |
+| Docker build fails       | Expected in restricted networks - use local Hugo                 |
+| Cypress install fails    | Use `CYPRESS_INSTALL_BINARY=0 yarn install`                      |
+| Link validation slow     | Test specific files: `yarn test:links content/file.md`           |
+| Vale "0 errors in stdin" | File is outside repo - Vale Docker can only access repo files    |
+| Vale false positives     | Add terms to `.ci/vale/styles/InfluxDataDocs/Terms/ignore.txt`   |
+| Vale duration warnings   | Duration literals (`30d`) are valid - check InfluxDataDocs.Units |
 
 ## Specialized Instructions
 
@@ -244,6 +246,7 @@ These instructions are automatically loaded by GitHub Copilot based on the files
 - [cypress-e2e-testing](../.claude/skills/cypress-e2e-testing/SKILL.md) - E2E testing
 - [hugo-template-dev](../.claude/skills/hugo-template-dev/SKILL.md) - Hugo templates
 - [influxdb3-test-setup](../.claude/skills/influxdb3-test-setup/SKILL.md) - InfluxDB 3 setup
+- [vale-linting](../.claude/skills/vale-linting/SKILL.md) - Vale configuration and debugging
 
 **Documentation**:
 
