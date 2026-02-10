@@ -85,17 +85,12 @@ _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl
 
 Running backups with different compression settings on ~5.3 GB of data
 
-  ┌───────────────────┬─────────────┬──────────────┬───────────────────────────────┐
-  │ Compression Level │ Backup Time │ Size on Disk │             Notes             │
-  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
-  │ default           │ 51s         │ ~3.0 GB      │ ~50% compression ratio        │
-  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
-  │ full              │ 95s         │ ~2.7 GB      │ ~2x slower, ~10% less space   │
-  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
-  │ speedy            │ 23s         │ ~3.3 GB      │ ~2.2x faster, ~10% more space │
-  ├───────────────────┼─────────────┼──────────────┼───────────────────────────────┤
-  │ none              │ 10s         │ ~5.3 GB      │ ~5x faster, ~77% more space   │
-  └───────────────────┴─────────────┴──────────────┴───────────────────────────────┘
+| Compression Level | Backup Time | Size on Disk | Notes                         |
+| :---------------- | :---------: | :----------: | :---------------------------- |
+| default           |     51s     |   ~3.0 GB    | ~50% compression ratio        |
+| full              |     95s     |   ~2.7 GB    | ~2x slower, ~10% less space   |
+| speedy            |     23s     |   ~3.3 GB    | ~2.2x faster, ~10% more space |
+| none              |     10s     |   ~5.3 GB    | ~5x faster, ~77% more space   |
 
   It is not recommended to change the values for `-gzipBlockCount` and `-gzipBlockSize`, they are set to sensible defaults per the [pgzip library](https://github.com/klauspost/pgzip).
 
