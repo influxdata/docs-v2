@@ -26,10 +26,14 @@ Need to decide when to use CLI vs direct editing?
 
 Made content changes?
 ├─ To shared content? Touch sourcing files! (See Part 1: Shared Content)
-└─ To any content? Run tests (See Part 2: Testing)
+├─ Run Vale linting (See Part 3: Vale Style Linting)
+└─ Run tests (See Part 2: Testing)
 
 Need to verify technical accuracy?
 └─ Use Kapa MCP server (See Part 4: Fact-Checking)
+
+Need to write/debug Vale rules?
+└─ See vale-rule-config skill (for CI/Quality Engineers)
 ```
 
 ## Using `docs create` and `docs edit`
@@ -225,49 +229,20 @@ hugo server
 # Preview your changes in browser
 ```
 
-## Part 3: Vale Style Linting and Regex Support
+## Part 3: Vale Style Linting
 
-### Vale's Regex Engine
+Vale checks documentation for style guide violations, spelling errors, and branding consistency.
 
-Vale uses the [regexp2](https://pkg.go.dev/github.com/dlclark/regexp2) library, **not** Go's standard `regexp` package. This is an important distinction when writing Vale rules.
+**For writing Vale rules and understanding regex patterns**, see the **vale-rule-config** skill.
 
-**Key capabilities:**
-
-- ✅ Vale supports **PCRE-style lookarounds** despite being written in Go
-- ✅ Positive lookahead: `(?=re)`
-- ✅ Negative lookahead: `(?!re)`
-- ✅ Positive lookbehind: `(?<=re)`
-- ✅ Negative lookbehind: `(?<!re)`
-
-**Why this matters:**
-
-The Go standard library uses RE2, which doesn't support lookaround assertions. However, Vale explicitly uses regexp2 to enable these features. According to Vale's maintainer:
-
-> "Vale uses a superset of the Go flavor, supporting PCRE-style lookarounds."
-
-**Examples of valid Vale patterns:**
-
-```yaml
-# Existence rule with negative lookbehind
-extends: existence
-message: "'%s' should be in lowercase."
-scope: sentence
-tokens:
-  - '(?<!:[^ ]+?):\s[A-Z]'  # ✅ This works!
-
-# Existence rule with positive lookbehind
-extends: existence
-message: "'%s' should only be capitalized when starting a sentence."
-scope: sentence
-tokens:
-  - '(?<=\s)Internet(?! Service Provider| Protocol)'  # ✅ This works!
-```
-
-**Running Vale:**
+### Running Vale
 
 ```bash
-# Basic linting
+# Basic linting (all markdown files)
 docker compose run -T vale content/**/*.md
+
+# Lint specific product
+docker compose run -T vale content/influxdb3/core/**/*.md
 
 # With specific config and alert level
 docker compose run -T vale \
@@ -276,11 +251,56 @@ docker compose run -T vale \
   content/influxdb/cloud-dedicated/write-data/**/*.md
 ```
 
-### References
+### Understanding Vale Alerts
 
-- [Vale issue #233 - RFC on lookarounds](https://github.com/errata-ai/vale/issues/233)
-- [Vale discussion #817 - Working lookbehind example](https://github.com/errata-ai/vale/discussions/817)
-- [regexp2 documentation](https://pkg.go.dev/github.com/dlclark/regexp2)
+Vale reports three alert levels:
+
+- **Error** (red): Critical issues - branding violations, broken style rules, rejected terms
+- **Warning** (yellow): Style guide recommendations - should be fixed
+- **Suggestion** (blue): Optional improvements - consider fixing
+
+### Fixing Common Vale Issues
+
+**Spelling/vocabulary errors:**
+```bash
+# If Vale flags a legitimate term, add it to vocabulary
+echo "YourTerm" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
+```
+
+**Style violations:**
+Vale will suggest the correct form. For example:
+```
+content/file.md:25:1: Use 'InfluxDB 3' instead of 'InfluxDB v3'
+```
+
+Simply make the suggested change.
+
+**False positives:**
+If Vale incorrectly flags something:
+1. Check if it's a new technical term that should be in vocabulary
+2. See if the rule needs refinement (consult **vale-rule-config** skill)
+3. Add inline comments to disable specific rules if necessary:
+
+```markdown
+<!-- vale InfluxDataDocs.TechnicalTerms = NO -->
+This paragraph contains technical terms that Vale might flag.
+<!-- vale InfluxDataDocs.TechnicalTerms = YES -->
+```
+
+### VS Code Integration (Optional)
+
+For real-time linting while editing:
+
+1. Install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode)
+2. Configure the extension to use the workspace Vale:
+   - Set `Vale:Vale CLI:Path` to `${workspaceFolder}/node_modules/.bin/vale`
+
+### When to Run Vale
+
+- **During editing**: If you have VS Code extension enabled
+- **Before committing**: Pre-commit hooks run Vale automatically
+- **After content changes**: Run manually to catch issues early
+- **In CI/CD**: Automated on pull requests
 
 ## Part 4: Fact-Checking with MCP Server
 
@@ -564,6 +584,7 @@ ls content/influxdb3/core/api/
 ## Related Skills
 
 - **docs-cli-workflow** - When to use CLI vs direct editing (decision guidance)
+- **vale-rule-config** - Writing Vale rules and understanding regex patterns (for CI/Quality Engineers)
 - **cypress-e2e-testing** - Detailed Cypress test execution and debugging
 - **hugo-template-dev** - Hugo template syntax and development
 
@@ -573,6 +594,7 @@ ls content/influxdb3/core/api/
 - [ ] If shared content: Sourcing files touched (or used `docs edit`)
 - [ ] Technical accuracy verified (MCP fact-check if needed)
 - [ ] Hugo builds without errors (`hugo --quiet`)
+- [ ] Vale style linting passes (`docker compose run -T vale content/**/*.md`)
 - [ ] Links validated (`yarn test:links`)
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
