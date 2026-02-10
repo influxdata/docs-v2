@@ -102,7 +102,6 @@ level: warning
 
 ### Critical: Vale Uses regexp2, Not RE2
 
-**This is the most important thing to understand when writing Vale rules.**
 
 Vale uses the [regexp2](https://pkg.go.dev/github.com/dlclark/regexp2) library, **not** Go's standard `regexp` package (which uses RE2). This is a common source of confusion because Vale is written in Go.
 
