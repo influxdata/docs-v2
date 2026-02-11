@@ -10,10 +10,30 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
-      test_suite:
-        description: 'Test suite to run (all, cloud, v2, telegraf, or specific products)'
+      products:
+        description: 'Products to test (comma-separated: core,enterprise,telegraf,v2,cloud,cloud-dedicated,cloud-serverless,clustered)'
         required: false
-        default: 'all'
+        default: ''
+      use_default_group:
+        description: 'Use default group (core + telegraf) if no products specified'
+        type: boolean
+        required: false
+        default: true
+
+# Product to test script mapping
+# Products that run automatically in CI (on PR):
+#   - core (influxdb3_core) → influxdb3-core-pytest
+#   - telegraf → telegraf-pytest
+#   - v2 → v2-pytest
+# Products available for manual dispatch only:
+#   - cloud → cloud-pytest
+#   - cloud-dedicated → cloud-dedicated-pytest
+#   - cloud-serverless → cloud-serverless-pytest
+#   - clustered → clustered-pytest
+# Products without pytest services (content paths only):
+#   - enterprise → content/influxdb3/enterprise
+#   - v1 → content/influxdb/v1
+#   - explorer → content/influxdb3/explorer
 
 jobs:
   detect-changes:
@@ -32,10 +52,72 @@ jobs:
       - name: Check if tests should run
         id: check
         run: |
-          # For workflow_dispatch, always run tests
+          # Default product group: core + telegraf
+          DEFAULT_PRODUCTS=("influxdb3_core" "telegraf")
+
+          # For workflow_dispatch, use specified products or default
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should-run=true" >> $GITHUB_OUTPUT
-            echo "test-products=[\"cloud\", \"v2\", \"telegraf\"]" >> $GITHUB_OUTPUT
+
+            INPUT_PRODUCTS="${{ github.event.inputs.products }}"
+            USE_DEFAULT="${{ github.event.inputs.use_default_group }}"
+
+            if [[ -n "$INPUT_PRODUCTS" ]]; then
+              # Parse comma-separated products and normalize names
+              PRODUCTS=()
+              IFS=',' read -ra PRODUCT_LIST <<< "$INPUT_PRODUCTS"
+              for product in "${PRODUCT_LIST[@]}"; do
+                # Trim whitespace and normalize product names
+                product=$(echo "$product" | xargs)
+                case "$product" in
+                  core|influxdb3_core|influxdb3-core)
+                    PRODUCTS+=("influxdb3_core")
+                    ;;
+                  enterprise|influxdb3_enterprise|influxdb3-enterprise)
+                    PRODUCTS+=("influxdb3_enterprise")
+                    ;;
+                  telegraf)
+                    PRODUCTS+=("telegraf")
+                    ;;
+                  v2|influxdb_v2)
+                    PRODUCTS+=("v2")
+                    ;;
+                  v1|influxdb_v1)
+                    PRODUCTS+=("v1")
+                    ;;
+                  cloud|influxdb_cloud)
+                    PRODUCTS+=("cloud")
+                    ;;
+                  cloud-dedicated|cloud_dedicated)
+                    PRODUCTS+=("cloud-dedicated")
+                    ;;
+                  cloud-serverless|cloud_serverless)
+                    PRODUCTS+=("cloud-serverless")
+                    ;;
+                  clustered)
+                    PRODUCTS+=("clustered")
+                    ;;
+                  explorer|influxdb3_explorer)
+                    PRODUCTS+=("explorer")
+                    ;;
+                  *)
+                    echo "⚠️ Unknown product: $product (skipping)"
+                    ;;
+                esac
+              done
+            elif [[ "$USE_DEFAULT" == "true" ]]; then
+              PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
+              echo "📦 Using default product group: ${PRODUCTS[*]}"
+            else
+              echo "❌ No products specified and default group disabled"
+              echo "should-run=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+
+            # Convert to JSON array
+            PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "✅ Will run tests for: ${PRODUCTS[*]}"
             exit 0
           fi
 
@@ -51,23 +133,65 @@ jobs:
           echo "should-run=true" >> $GITHUB_OUTPUT
 
           # Determine which product tests to run based on changed files
+          # Note: cloud, cloud-dedicated, cloud-serverless, and clustered are excluded
+          # from automatic CI runs. Use manual workflow_dispatch to test these products.
           PRODUCTS=()
 
-          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/cloud/'; then
-            PRODUCTS+=("cloud")
+          # InfluxDB 3 products (automatic CI)
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/core/'; then
+            PRODUCTS+=("influxdb3_core")
           fi
 
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/enterprise/'; then
+            PRODUCTS+=("influxdb3_enterprise")
+          fi
+
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/explorer/'; then
+            PRODUCTS+=("explorer")
+          fi
+
+          # InfluxDB v1/v2 products (automatic CI - v2 only)
           if echo "$CHANGED_FILES" | grep -q '^content/influxdb/v2/'; then
             PRODUCTS+=("v2")
           fi
 
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/v1/'; then
+            PRODUCTS+=("v1")
+          fi
+
+          # Telegraf (automatic CI)
           if echo "$CHANGED_FILES" | grep -q '^content/telegraf/'; then
             PRODUCTS+=("telegraf")
           fi
 
-          # If no specific products matched or shared content changed, run all
-          if [[ ${#PRODUCTS[@]} -eq 0 ]] || echo "$CHANGED_FILES" | grep -q '^content/shared/'; then
-            PRODUCTS=("cloud" "v2" "telegraf")
+          # Log excluded products if their content changed (for visibility)
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/cloud-dedicated/'; then
+            echo "ℹ️ cloud-dedicated content changed - excluded from automatic CI (use manual dispatch)"
+          fi
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/cloud-serverless/'; then
+            echo "ℹ️ cloud-serverless content changed - excluded from automatic CI (use manual dispatch)"
+          fi
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb3/clustered/'; then
+            echo "ℹ️ clustered content changed - excluded from automatic CI (use manual dispatch)"
+          fi
+          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/cloud/'; then
+            echo "ℹ️ cloud content changed - excluded from automatic CI (use manual dispatch)"
+          fi
+
+          # If shared content changed, use default group (core + telegraf)
+          if echo "$CHANGED_FILES" | grep -q '^content/shared/'; then
+            echo "📁 Shared content changed - adding default products"
+            for default_product in "${DEFAULT_PRODUCTS[@]}"; do
+              if [[ ! " ${PRODUCTS[*]} " =~ " ${default_product} " ]]; then
+                PRODUCTS+=("$default_product")
+              fi
+            done
+          fi
+
+          # If no specific products matched, use default group
+          if [[ ${#PRODUCTS[@]} -eq 0 ]]; then
+            echo "📦 No specific products detected - using default group"
+            PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
           fi
 
           # Convert to JSON array
@@ -112,10 +236,51 @@ jobs:
         run: |
           # Create mock .env.test files for CI
           # In production, these would be configured with actual credentials
+
+          # InfluxDB 3 products
+          mkdir -p content/influxdb3/core
+          mkdir -p content/influxdb3/enterprise
+          mkdir -p content/influxdb3/cloud-dedicated
+          mkdir -p content/influxdb3/cloud-serverless
+          mkdir -p content/influxdb3/clustered
+
+          # InfluxDB v1/v2 products
           mkdir -p content/influxdb/cloud
           mkdir -p content/influxdb/v2
+          mkdir -p content/influxdb/v1
+
+          # Telegraf
           mkdir -p content/telegraf/v1
 
+          # InfluxDB 3 Core
+          cat > content/influxdb3/core/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8282
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          EOF
+
+          # InfluxDB 3 Enterprise
+          cat > content/influxdb3/enterprise/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8181
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          EOF
+
+          # InfluxDB 3 Cloud products
+          for product in cloud-dedicated cloud-serverless clustered; do
+            cat > content/influxdb3/$product/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=https://cluster.influxdata.com
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          ACCOUNT_ID=mock_account
+          CLUSTER_ID=mock_cluster
+          EOF
+          done
+
+          # InfluxDB Cloud (v2)
           cat > content/influxdb/cloud/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=https://cloud2.influxdata.com
@@ -124,6 +289,7 @@ jobs:
           INFLUX_BUCKET=mock_bucket
           EOF
 
+          # InfluxDB v2
           cat > content/influxdb/v2/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=http://localhost:8086
@@ -132,6 +298,15 @@ jobs:
           INFLUX_BUCKET=mock_bucket
           EOF
 
+          # InfluxDB v1
+          cat > content/influxdb/v1/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8086
+          INFLUX_USERNAME=mock_user
+          INFLUX_PASSWORD=mock_password
+          EOF
+
+          # Telegraf
           cat > content/telegraf/v1/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=https://cloud2.influxdata.com
@@ -146,8 +321,58 @@ jobs:
         run: |
           echo "Running tests for ${{ matrix.product }}..."
 
-          # Run the specific product test suite
-          yarn test:codeblocks:${{ matrix.product }} || EXIT_CODE=$?
+          # Map product names to yarn test commands
+          # Some products don't have pytest services yet - skip them gracefully
+          case "${{ matrix.product }}" in
+            influxdb3_core)
+              TEST_CMD="yarn test:codeblocks:influxdb3_core"
+              ;;
+            influxdb3_enterprise)
+              echo "⚠️ InfluxDB 3 Enterprise tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            telegraf)
+              TEST_CMD="yarn test:codeblocks:telegraf"
+              ;;
+            v2)
+              TEST_CMD="yarn test:codeblocks:v2"
+              ;;
+            v1)
+              echo "⚠️ InfluxDB v1 tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            cloud)
+              TEST_CMD="yarn test:codeblocks:cloud"
+              ;;
+            cloud-dedicated)
+              TEST_CMD="yarn test:codeblocks:cloud-dedicated"
+              ;;
+            cloud-serverless)
+              TEST_CMD="yarn test:codeblocks:cloud-serverless"
+              ;;
+            clustered)
+              TEST_CMD="yarn test:codeblocks:clustered"
+              ;;
+            explorer)
+              echo "⚠️ InfluxDB 3 Explorer tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            *)
+              echo "❌ Unknown product: ${{ matrix.product }}"
+              echo "test-status=failed" >> $GITHUB_OUTPUT
+              echo "exit-code=1" >> $GITHUB_OUTPUT
+              exit 1
+              ;;
+          esac
+
+          # Run the test command
+          $TEST_CMD || EXIT_CODE=$?
 
           # Capture exit code for reporting
           if [[ -n "$EXIT_CODE" ]]; then
@@ -161,16 +386,29 @@ jobs:
       - name: Generate test summary
         if: always()
         run: |
-          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          STATUS="${{ steps.test.outputs.test-status }}"
+          case "$STATUS" in
+            passed)
+              STATUS_ICON="✅ Passed"
+              ;;
+            skipped)
+              STATUS_ICON="⏭️ Skipped"
+              ;;
+            *)
+              STATUS_ICON="❌ Failed"
+              ;;
+          esac
+
+          cat >> $GITHUB_STEP_SUMMARY << EOF
           ## Code Block Test Results - ${{ matrix.product }}
 
-          **Status:** ${{ steps.test.outputs.test-status == 'passed' && '✅ Passed' || '❌ Failed' }}
+          **Status:** $STATUS_ICON
           **Product:** ${{ matrix.product }}
           **Exit Code:** ${{ steps.test.outputs.exit-code }}
 
           EOF
 
-          if [[ "${{ steps.test.outputs.test-status }}" == "failed" ]]; then
+          if [[ "$STATUS" == "failed" ]]; then
             cat >> $GITHUB_STEP_SUMMARY << 'EOF'
           ⚠️ **Note:** Code block tests require valid credentials configured in `.env.test` files.
           In CI, mock credentials are used which may cause some tests to fail.
@@ -178,7 +416,12 @@ jobs:
 
           To test locally with real credentials:
           1. Create `.env.test` files in product directories
-          2. Run `yarn test:codeblocks:${{ matrix.product }}`
+          2. Run `yarn test:codeblocks:<product>`
+          EOF
+          elif [[ "$STATUS" == "skipped" ]]; then
+            cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ℹ️ **Note:** This product does not have a pytest service configured yet.
+          To add testing support, create a Docker Compose service in `compose.yaml`.
           EOF
           fi
 
@@ -198,6 +441,11 @@ jobs:
         run: |
           echo "::error::Code block tests failed for ${{ matrix.product }}"
           exit 1
+
+      - name: Report skipped tests
+        if: steps.test.outputs.test-status == 'skipped'
+        run: |
+          echo "::notice::Tests skipped for ${{ matrix.product }} - pytest service not configured"
 
   test-summary:
     name: Code Block Test Summary
