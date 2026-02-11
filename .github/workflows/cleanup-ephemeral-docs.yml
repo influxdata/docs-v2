@@ -1,0 +1,89 @@
+# Cleanup Ephemeral Planning Documents
+#
+# This workflow automatically removes PLAN.md and other ephemeral planning
+# documents when a PR is merged. This serves as a safety net in case the
+# /finish skill wasn't used before merging.
+#
+# Ephemeral documents are temporary files used during development that
+# shouldn't persist on the main branch:
+# - PLAN.md: Planning and task tracking
+# - HANDOVER.md: Session handover notes
+#
+# These files are tracked on feature branches but should be deleted before
+# merge. If they slip through, this action cleans them up.
+#
+# To use in your repo:
+# 1. Copy this file to .github/workflows/cleanup-ephemeral-docs.yml
+# 2. Update the 'branches' list to match your main branch (master or main)
+# 3. Commit and push
+
+name: Cleanup ephemeral docs
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+      - main
+
+jobs:
+  cleanup:
+    # Only run when PR is actually merged (not just closed)
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 1
+
+      - name: Check for ephemeral files
+        id: check
+        run: |
+          FILES_TO_REMOVE=""
+
+          if [ -f "PLAN.md" ]; then
+            FILES_TO_REMOVE="$FILES_TO_REMOVE PLAN.md"
+            echo "Found: PLAN.md"
+          fi
+
+          if [ -f "HANDOVER.md" ]; then
+            FILES_TO_REMOVE="$FILES_TO_REMOVE HANDOVER.md"
+            echo "Found: HANDOVER.md"
+          fi
+
+          if [ -z "$FILES_TO_REMOVE" ]; then
+            echo "No ephemeral files found"
+            echo "has_files=false" >> $GITHUB_OUTPUT
+          else
+            echo "Files to remove:$FILES_TO_REMOVE"
+            echo "has_files=true" >> $GITHUB_OUTPUT
+            echo "files=$FILES_TO_REMOVE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Remove ephemeral files
+        if: steps.check.outputs.has_files == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Remove files
+          git rm -f ${{ steps.check.outputs.files }}
+
+          # Commit with skip-ci to avoid triggering other workflows
+          git commit -m "chore: remove ephemeral planning docs [skip ci]
+
+          Automated cleanup of development planning documents.
+          These files are used during development but shouldn't
+          persist on the main branch.
+
+          Files removed:${{ steps.check.outputs.files }}"
+
+          git push
+
+          echo "✓ Removed ephemeral files and pushed cleanup commit"
