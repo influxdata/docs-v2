@@ -122,7 +122,6 @@ jobs:
                   PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
                 else
                   echo "❌ All specified products were invalid and default group is disabled"
-                  echo "has-changes=false" >> $GITHUB_OUTPUT
                   exit 1
                 fi
               fi
