@@ -614,6 +614,28 @@ Vale can raise different alert levels:
 
 For more configuration details, see [Vale configuration](https://vale.sh/docs/topics/config).
 
+### CI Integration
+
+Vale runs automatically on pull requests that modify markdown files. The workflow:
+
+1. Detects changed markdown files (content, README, instruction files)
+2. Resolves shared content to consuming product pages
+3. Maps files to appropriate Vale configs (matching local Lefthook behavior)
+4. Runs Vale via Docker (`jdkato/vale:latest`)
+5. Reports results as inline annotations and a PR summary comment
+
+**Alert levels:**
+- **Errors** block merging
+- **Warnings** and **suggestions** are informational only
+
+**Files checked:**
+- `content/**/*.md`
+- `README.md`, `DOCS-*.md`
+- `**/AGENTS.md`, `**/CLAUDE.md`
+- `.github/**/*.md`, `.claude/**/*.md`
+
+The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
+
 ## Pre-commit Hooks
 
 docs-v2 uses [Lefthook](https://github.com/evilmartians/lefthook) to manage Git hooks that run automatically during pre-commit and pre-push.
