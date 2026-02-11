@@ -64,7 +64,7 @@ tags:
 
       The Distinct Value Cache (DVC) lets you cache distinct
       values of one or more columns in a table, improving the performance of
-      queries that return distinct tag and field values. 
+      queries that return distinct tag and field values.
 
       The DVC is an in-memory cache that stores distinct values for specific columns
       in a table. When you create an DVC, you can specify what columns' distinct
@@ -188,13 +188,13 @@ tags:
            --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
            --data-urlencode "format=jsonl"
          ```
-         
+
          Output:
 
          ```jsonl
          {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
          ```
-        
+
       For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
     x-traitTag: true
   - name: Server information
@@ -448,7 +448,7 @@ paths:
       description: |
         Writes line protocol to the specified database.
 
-        This is the native InfluxDB 3 Core write endpoint that provides enhanced control 
+        This is the native InfluxDB 3 Core write endpoint that provides enhanced control
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
         Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to InfluxDB.
@@ -988,10 +988,19 @@ paths:
     get:
       operationId: GetHealth
       summary: Health check
-      description: Checks the status of the service.
+      description: |
+        Checks the status of the service.
+
+        Returns `OK` if the service is running. This endpoint does not return version information.
+        Use the [`/ping`](#operation/GetPing) endpoint to retrieve version details.
       responses:
         '200':
-          description: Service is running.
+          description: Service is running. Returns `OK`.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
         '500':
           description: Service is unavailable.
       tags:
@@ -1015,16 +1024,50 @@ paths:
       tags:
         - Server information
       summary: Ping the server
-      description: Returns version information for the server.
+      description: |
+        Returns version information for the server.
+
+        **Important**: Use a GET request. HEAD requests return `404 Not Found`.
+
+        The response includes version information in both headers and the JSON body:
+
+        - **Headers**: `x-influxdb-version` and `x-influxdb-build`
+        - **Body**: JSON object with `version`, `revision`, and `process_id`
       responses:
         '200':
           description: Success. The response body contains server information.
+          headers:
+            x-influxdb-version:
+              description: The InfluxDB version number (for example, `3.8.0`).
+              schema:
+                type: string
+                example: '3.8.0'
+            x-influxdb-build:
+              description: The InfluxDB build type (`Core` or `Enterprise`).
+              schema:
+                type: string
+                example: Core
           content:
             application/json:
               schema:
-                example:
-                  version: 0.1.0
-                  revision: f3d3d3d
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: The InfluxDB version number.
+                    example: '3.8.0'
+                  revision:
+                    type: string
+                    description: The git revision hash for the build.
+                    example: '5276213d5b'
+                  process_id:
+                    type: string
+                    description: A unique identifier for the server process.
+                    example: 'b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7'
+        '404':
+          description: |
+            Not Found. Returned for HEAD requests.
+            Use a GET request to retrieve version information.
   /metrics:
     get:
       operationId: GetMetrics
@@ -1325,6 +1368,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1338,6 +1382,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1350,6 +1395,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1362,6 +1408,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1374,6 +1421,7 @@ paths:
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1386,6 +1434,7 @@ paths:
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1398,6 +1447,7 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1410,6 +1460,7 @@ paths:
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1422,6 +1473,7 @@ paths:
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1648,7 +1700,7 @@ paths:
           ```
 
           then, the HTTP API exposes the following plugin endpoint:
-            
+
           ```
           <INFLUXDB3_HOST>/api/v3/engine/hello-world
           ```
@@ -2183,6 +2235,7 @@ components:
         - db
         - table
         - tags
+        - fields
     DistinctCacheCreateRequest:
       type: object
       properties:
@@ -2299,7 +2352,7 @@ components:
             - `cron:0 30 14 * * 5` - Every Friday at 2:30 PM
             - `cron:0 0 0 1 * *` - First day of every month at midnight
 
-            ### Interval-based scheduling  
+            ### Interval-based scheduling
             Format: `every:DURATION`
 
             Supported durations: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years):
@@ -2339,6 +2392,7 @@ components:
         - trigger_name
         - trigger_settings
         - trigger_specification
+        - disabled
     TriggerSettings:
       type: object
       description: |

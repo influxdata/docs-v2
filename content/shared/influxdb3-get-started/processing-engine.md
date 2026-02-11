@@ -3,6 +3,7 @@ The {{% product-name %}} processing engine is an embedded Python virtual machine
 Create processing engine [plugins](#plugin) that run when [triggered](#trigger)
 by specific events.
 
+- [Before you begin](#before-you-begin)
 - [Processing engine terminology](#processing-engine-terminology)
   - [Plugin](#plugin)
   - [Trigger](#trigger)
@@ -31,8 +32,8 @@ what data it receives.
 InfluxDB 3 provides the following types of triggers, each with specific
 specifications:
 
-- **Data write** (`table:` or `all_tables`): Sends a batch of written data (for a specific table or all
-  tables) to a plugin when the database flushes data to the Write-Ahead Log (by default, every second).
+- **WAL rows** (`table:` or `all_tables`): Sends a batch of written data (for a specific table or all
+  tables) to a plugin when the database flushes data to the [Write-Ahead Log (WAL)](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence (by default, every second).
 - **Scheduled** (`every:` or `cron:`): Executes a plugin on a user-configured schedule (using a
   crontab or a duration). This trigger type is useful for data collection and
   deadman monitoring.
@@ -40,6 +41,16 @@ specifications:
   `/api/v3/engine/<REQUEST_PATH>`.
   The plugin receives the HTTP request headers and content, and can parse,
   process, and send the data into the database or to third-party services.
+
+## Before you begin
+
+Before you can use the processing engine, you need:
+
+- A running {{% product-name %}} server
+- An admin token for authentication
+- A database to attach triggers to
+
+If you haven't completed these steps, see [Set up {{% product-name %}}](/influxdb3/version/get-started/setup/).
 
 ## Activate the processing engine
 
@@ -51,14 +62,12 @@ the processing engine to run.
 > [!Note]
 > If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.
 
-{{% code-placeholders "PLUGIN_DIR" %}}
 <!-- pytest.mark.skip -->
-```bash
+```bash {placeholders="PLUGIN_DIR"}
 influxdb3 serve \
   # ...
   --plugin-dir PLUGIN_DIR
 ```
-{{% /code-placeholders %}}
 
 Replace {{% code-placeholder-key %}}`PLUGIN_DIR`{{% /code-placeholder-key %}}
 with the path to your plugin directory. This path can be absolute or relative
@@ -67,27 +76,25 @@ to the current working directory of the `influxdb3` server.
 ## Create a plugin
 
 To create a plugin, write and store a Python file in your configured `PLUGIN_DIR`.
-The following example is a data write plugin that processes data before it gets
-persisted to the object store.
+The following example shows a WAL rows plugin, which receives data as it's flushed to the Write-Ahead Log. The example shows how to process, query, and write data from within a plugin.
 
 ##### Example Python plugin for data writes 
 
 ```python
-# This is the basic structure for Python plugin code that runs in the
-# InfluxDB 3 Processing engine.
+# Example: A data write plugin for the InfluxDB 3 Processing Engine
 
 # When creating a trigger, you can provide runtime arguments to your plugin,
 # allowing you to write generic code that uses variables such as monitoring
 # thresholds, environment variables, and host names.
 #
-# Use the following exact signature to define a function for the data write
-# trigger.
-# When you create a trigger for a data write plugin, you specify the database
+# This example implements the process_writes signature compatible with a wal_rows
+# trigger specification.
+# Use the exact signature to define the function.
+# When you create a wal_rows trigger, you specify the database
 # and tables that the plugin receives written data from on every WAL flush
 # (default is once per second).
 def process_writes(influxdb3_local, table_batches, args=None):
-    # here you can see logging. for now this won't do anything, but soon 
-    # we'll capture this so you can query it from system tables
+    # Use logging to track plugin execution
     if args and "arg1" in args:
         influxdb3_local.info("arg1: " + args["arg1"])
 
@@ -144,14 +151,14 @@ def process_writes(influxdb3_local, table_batches, args=None):
 
 ## Test a plugin on the server
 
-Use the [`influxdb3 test wal_plugin`](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/)
-CLI command to test your processing engine plugin safely without
+Use one of the [`influxdb3 test`](/influxdb3/version/reference/cli/influxdb3/test/)
+CLI commands to test your processing engine plugin safely without
 affecting actual data. During a plugin test:
 
 - A query executed by the plugin queries against the server you send the request to.
 - Writes aren't sent to the server but are returned to you.
 
-To test a plugin:
+To test a `process_writes` (WAL) plugin:
 
 1.  Save the [example plugin code](#example-python-plugin-for-data-writes) to a
     plugin file inside of the plugin directory. If you haven't yet written data
@@ -161,8 +168,7 @@ To test a plugin:
    - `--lp` or  `--file`: The line protocol to test
    - Optional: `--input-arguments`: A comma-delimited list of `<KEY>=<VALUE>` arguments for your plugin code
 
-{{% code-placeholders "INPUT_LINE_PROTOCOL|INPUT_ARGS|DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME" %}}
-```bash
+```bash {placeholders="INPUT_LINE_PROTOCOL|INPUT_ARGS|DATABASE_NAME|AUTH_TOKEN|PLUGIN_FILENAME"}
 influxdb3 test wal_plugin \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -170,15 +176,14 @@ influxdb3 test wal_plugin \
   --input-arguments INPUT_ARGS \
   PLUGIN_FILENAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
 - {{% code-placeholder-key %}}`INPUT_LINE_PROTOCOL`{{% /code-placeholder-key %}}: the line protocol to test
 - Optional: {{% code-placeholder-key %}}`INPUT_ARGS`{{% /code-placeholder-key %}}: a comma-delimited list of `<KEY>=<VALUE>` arguments for your plugin code--for example, `arg1=hello,arg2=world`
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to test against
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: the {{% token-link "admin" %}} for your {{% product-name %}} server
-- {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: the name of the plugin file to test
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}} for your {{% product-name %}} server
+- {{% code-placeholder-key %}}`PLUGIN_FILENAME`{{% /code-placeholder-key %}}: the name of the plugin file to test. Provide only the filename (for example, `test.py`), not a relative or absolute path.
 
 ### Example: Test a plugin
 <!-- pytest.mark.skip -->
@@ -196,15 +201,19 @@ influxdb3 test wal_plugin \
   test.py
 ```
 
-The command runs the plugin code with the test data, yields the data to the
-plugin code, and then responds with the plugin result.
+The command runs the plugin code, yields the test data to the
+plugin, and then responds with the plugin result.
 You can quickly see how the plugin behaves, what data it would have written to
 the database, and any errors.
 You can then edit your Python code in the plugins directory, and rerun the test.
 The server reloads the file for every request to the `test` API.
 
-For more information, see [`influxdb3 test wal_plugin`](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/)
-or run `influxdb3 test wal_plugin -h`.
+For more information about testing plugins, see the following:
+
+- [`influxdb3 test wal_plugin`](/influxdb3/version/reference/cli/influxdb3/test/wal_plugin/)
+or run `influxdb3 test wal_plugin -h`
+- [`influxdb3 test schedule_plugin`](/influxdb3/version/reference/cli/influxdb3/test/schedule_plugin/)
+or run `influxdb3 test schedule_plugin -h`
 
 ## Create a trigger
 
@@ -214,34 +223,42 @@ you're ready to create a trigger to run the plugin. Use the
 to create a trigger.
 
 ```bash
-# Create a trigger that runs the plugin
+# Create a trigger that runs the single-file plugin
 influxdb3 create trigger \
   --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
   --database sensors \
-  --plugin test_plugin \
+  --path test_plugin.py \
   --trigger-spec "table:foo" \
   --trigger-arguments "arg1=hello,arg2=world" \
   trigger1
 ```
+
+> [!Note]
+> 
+> #### Plugin paths
+> 
+> - For **single-file plugins**, provide just the `.py` filename to `--path` (for example, `test_plugin.py`).
+> - For **multi-file plugins**, provide the directory name containing `__init__.py`.
+> 
+> When not using `--upload`, the server resolves paths relative to the configured `--plugin-dir`.
+> For details about multi-file plugin structure, see [Create your plugin file](/influxdb3/version/plugins/#create-your-plugin-file).
 
 ## Enable the trigger
 
 After you have created a plugin and trigger, enter the following command to
 enable the trigger and have it run the plugin as you write data:
 
-{{% code-placeholders "DATABASE_NAME|AUTH_TOKEN|TRIGGER_NAME" %}}
-```bash
+```bash {placeholders="DATABASE_NAME|AUTH_TOKEN|TRIGGER_NAME"}
 influxdb3 enable trigger \
   --token AUTH_TOKEN \
   --database DATABASE_NAME \
   TRIGGER_NAME
 ```
-{{% /code-placeholders %}}
 
 Replace the following placeholders with your values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database to enable the trigger in
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link %}}
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}: the name of the trigger to enable
 
 For example, to enable the trigger named `trigger1` in the `sensors` database:
@@ -249,7 +266,7 @@ For example, to enable the trigger named `trigger1` in the `sensors` database:
 ```bash
 influxdb3 enable trigger \
   --token apiv3_0xxx0o0XxXxx00Xxxx000xXXxoo0== \
-  --database sensors
+  --database sensors \
   trigger1 
 ```
 

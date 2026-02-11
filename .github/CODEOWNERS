@@ -1,0 +1,41 @@
+# CODEOWNERS file for InfluxData Documentation
+#
+# This file defines the MINIMUM required reviewers for pull requests.
+# Additional reviewers should be requested manually based on the content area.
+# See the PR template for suggested reviewers by product.
+#
+# Design principle: Reduce notification noise by auto-assigning only the docs team.
+# Engineering and PM reviewers are suggested in the PR template for manual assignment.
+#
+# Syntax: path/to/code @owner1 @owner2
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: Documentation team reviews all changes
+* @influxdata/docs-team
+
+# Infrastructure and tooling (docs-team only)
+/.circleci/                            @influxdata/docs-team
+/.github/workflows/                    @influxdata/docs-team
+/layouts/                              @influxdata/docs-team
+/assets/                               @influxdata/docs-team
+/scripts/                              @influxdata/docs-team
+/cypress/                              @influxdata/docs-team
+/test/                                 @influxdata/docs-team
+/.ci/                                  @influxdata/docs-team
+/deploy/                               @influxdata/docs-team
+/config/                               @influxdata/docs-team
+
+# Build configuration
+/package.json                          @influxdata/docs-team
+/yarn.lock                             @influxdata/docs-team
+/tsconfig.json                         @influxdata/docs-team
+/compose.yaml                          @influxdata/docs-team
+/Dockerfile*                           @influxdata/docs-team
+
+# AI assistant instructions (require careful oversight)
+AGENTS.md                              @influxdata/docs-team
+CLAUDE.md                              @influxdata/docs-team
+/.github/copilot-instructions.md       @influxdata/docs-team
+/.github/agents/                       @influxdata/docs-team
+/.github/instructions/                 @influxdata/docs-team
+/.claude/                              @influxdata/docs-team

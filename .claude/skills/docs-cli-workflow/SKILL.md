@@ -67,7 +67,7 @@ When a trigger is detected, present a concise recommendation and wait for confir
 ```
 I'd recommend using the docs CLI for this:
 
-npx docs create <draft-path> --products <product>
+docs create <draft-path> --products <product-key-or-path>
 
 **Why**: [1-2 sentences explaining the specific benefit]
 
@@ -83,12 +83,12 @@ Which do you prefer?
 ```
 I can use the docs CLI to find the source files for this page:
 
-npx docs edit <url>
+docs edit <url-or-path>
 
 **Why**: [1-2 sentences explaining the benefit]
 
 Options:
-1. **Use CLI** - I'll find and open the relevant files
+1. **Use CLI** - I'll find and list the relevant files (non-blocking)
 2. **I know the file** - Tell me the path and I'll edit directly
 
 Which do you prefer?
@@ -118,19 +118,62 @@ No additional guidance needed—the CLI manages product selection, file generati
 
 ## CLI Reference
 
+The unified `docs` CLI includes all documentation tooling commands.
+
+**Product targeting:** `--products` accepts both product keys (`influxdb3_core`) and content paths (`/influxdb3/core`).
+
 ```bash
-# Create new documentation from a draft
-npx docs create <draft-path> --products <product-key>
+# CREATE: Create new documentation from a draft
+docs create <draft-path> --products <key-or-path>
+docs create <draft-path> --products /influxdb3/core,/influxdb3/enterprise
+docs create <draft-path> --products influxdb3_core --open       # Non-blocking
+docs create --url <url> --from-draft <draft-path>               # Create at URL
 
-# Create at specific URL location
-npx docs create --url <url> --from-draft <draft-path>
+# EDIT: Find and edit existing documentation
+docs edit <url-or-path>                  # Non-blocking, agent-friendly
+docs edit <url-or-path> --list           # List files without opening
+docs edit <url-or-path> --wait           # Block until editor closes
+docs edit <url-or-path> --editor nano    # Use specific editor
 
-# Find and open files for an existing page
-npx docs edit <url>
-npx docs edit --list <url>  # List files without opening
+# PLACEHOLDERS: Add placeholder syntax to code blocks
+docs placeholders <file.md>              # Add { placeholders="PATTERN" } syntax
+docs placeholders <file.md> --dry        # Preview changes without writing
+
+# AUDIT: Audit documentation coverage
+docs audit --products influxdb3_core                    # Default version: main
+docs audit --products /influxdb3/core --version v3.3.0  # Specific version
+docs audit --products influxdb3_core,influxdb3_enterprise
+docs audit --repos ~/github/influxdata/influxdb         # Direct repo path
+
+# RELEASE-NOTES: Generate release notes from commits
+docs release-notes v3.1.0 v3.2.0 --products influxdb3_core
+docs release-notes v3.1.0 v3.2.0 --products /influxdb3/core,/influxdb3/enterprise
+docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb
+
+# Examples
+docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
+docs edit /influxdb3/core/admin/databases/
+docs placeholders content/influxdb3/core/admin/databases/create.md
 ```
 
-For full CLI documentation, run `npx docs --help`.
+**Note:** `--products` and `--repos` are mutually exclusive for `audit` and `release-notes`.
+
+**Editor Selection** (checked in order):
+
+1. `--editor` flag
+2. `DOCS_EDITOR` environment variable
+3. `VISUAL` environment variable
+4. `EDITOR` environment variable
+5. System default
+
+**Important for AI Agents**:
+
+- Both `docs edit` and `docs create --open` commands are non-blocking by default (launch editor in background and exit immediately)
+- This prevents agents from hanging while waiting for user editing
+- Use `--wait` only when you need to block until editing is complete
+- For `docs create`, omit `--open` to skip editor entirely (files are created and CLI exits)
+
+For full CLI documentation, run `docs --help`.
 
 ## Related Skills
 

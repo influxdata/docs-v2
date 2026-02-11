@@ -10,7 +10,7 @@ introduced: "v1.28.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/s7comm/README.md, Siemens S7 Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/s7comm/README.md, Siemens S7 Plugin Source
 ---
 
 # Siemens S7 Input Plugin

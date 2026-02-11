@@ -28,7 +28,7 @@ When you install via DEB or RPM on a `systemd`-enabled system, {{< product-name 
 
 The provided unit file assumes the following filesystem layout:
 
-* `/etc/influxdb3`: directory for {{< product-name >}} configuration (`0755` permissions with `influxdb3:influxdb3` ownership by default)
+* `/etc/influxdb3`: directory for {{< product-name >}} configuration (`0755` permissions with `root:influxdb3` ownership by default)
 * `/etc/influxdb3/influxdb3-{{< product-key >}}.conf`: TOML configuration file
 * `/usr/bin/influxdb3`: {{< product-name >}} binary
 * `/usr/lib/influxdb3/python`: directory containing the embedded interpreter used by the {{< product-name >}} processing engine

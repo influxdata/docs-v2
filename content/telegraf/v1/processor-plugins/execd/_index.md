@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/processors/execd/README.md, Execd Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/processors/execd/README.md, Execd Plugin Source
 ---
 
 # Execd Processor Plugin

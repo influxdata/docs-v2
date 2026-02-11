@@ -61,7 +61,7 @@
     - [InfluxDB 3 Core release notes](/influxdb3/core/release-notes/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
 
-- id: influxdb-docker-latest-tag
+- id: influxdb-docker-latest-tag-apr
   level: warn
   scope:
     - /
@@ -76,7 +76,7 @@
     - /influxdb/cloud
   title: InfluxDB Docker latest tag changing to InfluxDB 3 Core
   slug: |
-    On **February 3, 2026**, the `latest` tag for InfluxDB Docker images will
+    On **April 7, 2026**, the `latest` tag for InfluxDB Docker images will
     point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
     tags in your Docker deployments.
   message: |

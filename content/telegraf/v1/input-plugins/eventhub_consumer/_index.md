@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.0/plugins/inputs/eventhub_consumer/README.md, Azure Event Hub Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/eventhub_consumer/README.md, Azure Event Hub Consumer Plugin Source
 ---
 
 # Azure Event Hub Consumer Input Plugin
