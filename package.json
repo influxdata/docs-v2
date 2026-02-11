@@ -91,6 +91,7 @@
     "test:codeblocks:cloud-dedicated": "./test/scripts/monitor-tests.sh start cloud-dedicated-pytest && docker compose run --name cloud-dedicated-pytest cloud-dedicated-pytest",
     "test:codeblocks:cloud-serverless": "docker compose run --rm --name cloud-serverless-pytest cloud-serverless-pytest",
     "test:codeblocks:clustered": "./test/scripts/monitor-tests.sh start clustered-pytest && docker compose run --name clustered-pytest clustered-pytest",
+    "test:codeblocks:influxdb3-core": "docker compose run --rm --name influxdb3-core-pytest influxdb3-core-pytest",
     "test:codeblocks:telegraf": "docker compose run --rm --name telegraf-pytest telegraf-pytest",
     "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
     "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
