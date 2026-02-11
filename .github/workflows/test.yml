@@ -114,6 +114,18 @@ jobs:
                     ;;
                 esac
               done
+
+              # Guard: if all products were invalid/unknown, handle gracefully
+              if [[ ${#PRODUCTS[@]} -eq 0 ]]; then
+                if [[ "$USE_DEFAULT" == "true" ]]; then
+                  echo "⚠️ All specified products were invalid. Falling back to default group."
+                  PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
+                else
+                  echo "❌ All specified products were invalid and default group is disabled"
+                  echo "has-changes=false" >> $GITHUB_OUTPUT
+                  exit 1
+                fi
+              fi
             elif [[ "$USE_DEFAULT" == "true" ]]; then
               PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
               echo "📦 Using default product group: ${PRODUCTS[*]}"
