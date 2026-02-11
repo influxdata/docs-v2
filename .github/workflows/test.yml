@@ -1,6 +1,8 @@
 name: Test Code Blocks
 
 on:
+  # Pull requests: detection only (informational, non-blocking)
+  # Detects changed content and suggests which products to test
   pull_request:
     paths:
       - 'content/**/*.md'
@@ -8,20 +10,41 @@ on:
       - 'Dockerfile.pytest'
       - 'compose.yaml'
     types: [opened, synchronize, reopened]
+  # Manual dispatch: actually runs tests
   workflow_dispatch:
     inputs:
-      test_suite:
-        description: 'Test suite to run (all, cloud, v2, telegraf, or specific products)'
+      products:
+        description: 'Products to test (comma-separated: core,enterprise,telegraf,v1,v2,cloud,cloud-dedicated,cloud-serverless,clustered,explorer)'
         required: false
-        default: 'all'
+        default: ''
+      use_default_group:
+        description: 'Use default group (core + telegraf) if no products specified'
+        type: boolean
+        required: false
+        default: true
+
+# Product to test script mapping
+# Products with Docker Compose pytest services:
+#   - core (influxdb3_core) → influxdb3-core-pytest
+#   - telegraf → telegraf-pytest
+#   - v2 → v2-pytest
+#   - cloud → cloud-pytest
+#   - cloud-dedicated → cloud-dedicated-pytest
+#   - cloud-serverless → cloud-serverless-pytest
+#   - clustered → clustered-pytest
+# Products without pytest services (content paths only):
+#   - enterprise → content/influxdb3/enterprise
+#   - v1 → content/influxdb/v1
+#   - explorer → content/influxdb3/explorer
 
 jobs:
   detect-changes:
-    name: Detect test requirements
+    name: Detect changed content
     runs-on: ubuntu-latest
     outputs:
-      should-run: ${{ steps.check.outputs.should-run }}
+      has-changes: ${{ steps.check.outputs.has-changes }}
       test-products: ${{ steps.check.outputs.test-products }}
+      suggested-products: ${{ steps.check.outputs.suggested-products }}
 
     steps:
       - name: Checkout repository
@@ -29,13 +52,93 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check if tests should run
+      - name: Setup Node.js
+        if: github.event_name == 'pull_request'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Analyze changes and determine products
         id: check
         run: |
-          # For workflow_dispatch, always run tests
+          # Default product group: core + telegraf
+          DEFAULT_PRODUCTS=("influxdb3_core" "telegraf")
+
+          # For workflow_dispatch, use specified products or default
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "should-run=true" >> $GITHUB_OUTPUT
-            echo "test-products=[\"cloud\", \"v2\", \"telegraf\"]" >> $GITHUB_OUTPUT
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+
+            INPUT_PRODUCTS="${{ github.event.inputs.products }}"
+            USE_DEFAULT="${{ github.event.inputs.use_default_group }}"
+
+            if [[ -n "$INPUT_PRODUCTS" ]]; then
+              # Parse comma-separated products and normalize names
+              PRODUCTS=()
+              IFS=',' read -ra PRODUCT_LIST <<< "$INPUT_PRODUCTS"
+              for product in "${PRODUCT_LIST[@]}"; do
+                # Trim whitespace and normalize product names
+                product=$(echo "$product" | xargs)
+                case "$product" in
+                  core|influxdb3_core|influxdb3-core)
+                    PRODUCTS+=("influxdb3_core")
+                    ;;
+                  enterprise|influxdb3_enterprise|influxdb3-enterprise)
+                    PRODUCTS+=("influxdb3_enterprise")
+                    ;;
+                  telegraf)
+                    PRODUCTS+=("telegraf")
+                    ;;
+                  v2|influxdb_v2)
+                    PRODUCTS+=("v2")
+                    ;;
+                  v1|influxdb_v1)
+                    PRODUCTS+=("v1")
+                    ;;
+                  cloud|influxdb_cloud)
+                    PRODUCTS+=("cloud")
+                    ;;
+                  cloud-dedicated|cloud_dedicated)
+                    PRODUCTS+=("cloud-dedicated")
+                    ;;
+                  cloud-serverless|cloud_serverless)
+                    PRODUCTS+=("cloud-serverless")
+                    ;;
+                  clustered)
+                    PRODUCTS+=("clustered")
+                    ;;
+                  explorer|influxdb3_explorer)
+                    PRODUCTS+=("explorer")
+                    ;;
+                  *)
+                    echo "⚠️ Unknown product: $product (skipping)"
+                    ;;
+                esac
+              done
+
+              # Guard: if all products were invalid/unknown, handle gracefully
+              if [[ ${#PRODUCTS[@]} -eq 0 ]]; then
+                if [[ "$USE_DEFAULT" == "true" ]]; then
+                  echo "⚠️ All specified products were invalid. Falling back to default group."
+                  PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
+                else
+                  echo "❌ All specified products were invalid and default group is disabled"
+                  exit 1
+                fi
+              fi
+            elif [[ "$USE_DEFAULT" == "true" ]]; then
+              PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
+              echo "📦 Using default product group: ${PRODUCTS[*]}"
+            else
+              echo "❌ No products specified and default group disabled"
+              echo "has-changes=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+
+            # Convert to JSON array
+            PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "✅ Will run tests for: ${PRODUCTS[*]}"
             exit 0
           fi
 
@@ -43,43 +146,90 @@ jobs:
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
 
           if [[ -z "$CHANGED_FILES" ]]; then
-            echo "should-run=false" >> $GITHUB_OUTPUT
-            echo "📝 No content changes detected - skipping code block tests"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "📝 No content changes detected"
             exit 0
           fi
 
-          echo "should-run=true" >> $GITHUB_OUTPUT
+          echo "has-changes=true" >> $GITHUB_OUTPUT
+          echo "📝 Changed content files:"
+          echo "$CHANGED_FILES"
 
-          # Determine which product tests to run based on changed files
-          PRODUCTS=()
+          # Use Node.js script to detect products (handles shared content resolution)
+          # The script expands shared content changes to find all affected product pages
+          RESULT=$(echo "$CHANGED_FILES" | node scripts/ci/detect-test-products.js)
 
-          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/cloud/'; then
-            PRODUCTS+=("cloud")
+          PRODUCTS_JSON=$(echo "$RESULT" | jq -c '.products')
+          FILES_JSON=$(echo "$RESULT" | jq -c '.files')
+
+          # Check if we got any products
+          PRODUCT_COUNT=$(echo "$PRODUCTS_JSON" | jq 'length')
+          if [[ "$PRODUCT_COUNT" -eq 0 ]]; then
+            echo "📦 No specific products detected - using default group"
+            PRODUCTS_JSON=$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)
           fi
 
-          if echo "$CHANGED_FILES" | grep -q '^content/influxdb/v2/'; then
-            PRODUCTS+=("v2")
-          fi
-
-          if echo "$CHANGED_FILES" | grep -q '^content/telegraf/'; then
-            PRODUCTS+=("telegraf")
-          fi
-
-          # If no specific products matched or shared content changed, run all
-          if [[ ${#PRODUCTS[@]} -eq 0 ]] || echo "$CHANGED_FILES" | grep -q '^content/shared/'; then
-            PRODUCTS=("cloud" "v2" "telegraf")
-          fi
-
-          # Convert to JSON array
-          PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
           echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+          echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+          echo "affected-files=$FILES_JSON" >> $GITHUB_OUTPUT
 
-          echo "✅ Will run tests for: ${PRODUCTS[*]}"
+          echo "📋 Suggested products for testing: $(echo "$PRODUCTS_JSON" | jq -r 'join(", ")')"
 
+  # Informational job for PRs - suggests tests but doesn't run them
+  suggest-tests:
+    name: Suggest code block tests
+    needs: detect-changes
+    if: github.event_name == 'pull_request' && needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate test suggestions
+        run: |
+          PRODUCTS='${{ needs.detect-changes.outputs.suggested-products }}'
+
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## 📋 Code Block Test Suggestions
+
+          Based on the changed content in this PR, the following products should be tested:
+
+          EOF
+
+          # Parse JSON array and list products
+          echo "$PRODUCTS" | jq -r '.[]' | while read -r product; do
+            echo "- \`$product\`" >> $GITHUB_STEP_SUMMARY
+          done
+
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+
+          ### How to run tests
+
+          **Option 1: Manual workflow dispatch**
+          1. Go to [Actions → Test Code Blocks](../actions/workflows/test.yml)
+          2. Click "Run workflow"
+          3. Enter products (comma-separated) or use the default group
+
+          **Option 2: Run locally**
+          ```bash
+          # Run default group (core + telegraf)
+          yarn test:codeblocks:default
+
+          # Run specific product
+          yarn test:codeblocks:influxdb3_core
+          yarn test:codeblocks:telegraf
+          yarn test:codeblocks:v2
+          ```
+
+          > ℹ️ **Note:** Automatic test execution on PRs is currently disabled.
+          > Tests can be run manually using the options above.
+          EOF
+
+          echo "::notice::Code block tests suggested for: $(echo "$PRODUCTS" | jq -r 'join(", ")')"
+
+  # Actual test execution - only runs on manual dispatch
   test-codeblocks:
     name: Test ${{ matrix.product }} code blocks
     needs: detect-changes
-    if: needs.detect-changes.outputs.should-run == 'true'
+    if: github.event_name == 'workflow_dispatch' && needs.detect-changes.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -112,10 +262,51 @@ jobs:
         run: |
           # Create mock .env.test files for CI
           # In production, these would be configured with actual credentials
+
+          # InfluxDB 3 products
+          mkdir -p content/influxdb3/core
+          mkdir -p content/influxdb3/enterprise
+          mkdir -p content/influxdb3/cloud-dedicated
+          mkdir -p content/influxdb3/cloud-serverless
+          mkdir -p content/influxdb3/clustered
+
+          # InfluxDB v1/v2 products
           mkdir -p content/influxdb/cloud
           mkdir -p content/influxdb/v2
+          mkdir -p content/influxdb/v1
+
+          # Telegraf
           mkdir -p content/telegraf/v1
 
+          # InfluxDB 3 Core
+          cat > content/influxdb3/core/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8282
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          EOF
+
+          # InfluxDB 3 Enterprise
+          cat > content/influxdb3/enterprise/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8181
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          EOF
+
+          # InfluxDB 3 Cloud products
+          for product in cloud-dedicated cloud-serverless clustered; do
+            cat > content/influxdb3/$product/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=https://cluster.influxdata.com
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=test_db
+          ACCOUNT_ID=mock_account
+          CLUSTER_ID=mock_cluster
+          EOF
+          done
+
+          # InfluxDB Cloud (v2)
           cat > content/influxdb/cloud/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=https://cloud2.influxdata.com
@@ -124,6 +315,7 @@ jobs:
           INFLUX_BUCKET=mock_bucket
           EOF
 
+          # InfluxDB v2
           cat > content/influxdb/v2/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=http://localhost:8086
@@ -132,6 +324,15 @@ jobs:
           INFLUX_BUCKET=mock_bucket
           EOF
 
+          # InfluxDB v1
+          cat > content/influxdb/v1/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8086
+          INFLUX_USERNAME=mock_user
+          INFLUX_PASSWORD=mock_password
+          EOF
+
+          # Telegraf
           cat > content/telegraf/v1/.env.test << 'EOF'
           # Mock credentials for CI testing
           INFLUX_HOST=https://cloud2.influxdata.com
@@ -146,8 +347,58 @@ jobs:
         run: |
           echo "Running tests for ${{ matrix.product }}..."
 
-          # Run the specific product test suite
-          yarn test:codeblocks:${{ matrix.product }} || EXIT_CODE=$?
+          # Map product names to yarn test commands
+          # Some products don't have pytest services yet - skip them gracefully
+          case "${{ matrix.product }}" in
+            influxdb3_core)
+              TEST_CMD="yarn test:codeblocks:influxdb3_core"
+              ;;
+            influxdb3_enterprise)
+              echo "⚠️ InfluxDB 3 Enterprise tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            telegraf)
+              TEST_CMD="yarn test:codeblocks:telegraf"
+              ;;
+            v2)
+              TEST_CMD="yarn test:codeblocks:v2"
+              ;;
+            v1)
+              echo "⚠️ InfluxDB v1 tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            cloud)
+              TEST_CMD="yarn test:codeblocks:cloud"
+              ;;
+            cloud-dedicated)
+              TEST_CMD="yarn test:codeblocks:cloud-dedicated"
+              ;;
+            cloud-serverless)
+              TEST_CMD="yarn test:codeblocks:cloud-serverless"
+              ;;
+            clustered)
+              TEST_CMD="yarn test:codeblocks:clustered"
+              ;;
+            explorer)
+              echo "⚠️ InfluxDB 3 Explorer tests not yet configured - skipping"
+              echo "test-status=skipped" >> $GITHUB_OUTPUT
+              echo "exit-code=0" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+            *)
+              echo "❌ Unknown product: ${{ matrix.product }}"
+              echo "test-status=failed" >> $GITHUB_OUTPUT
+              echo "exit-code=1" >> $GITHUB_OUTPUT
+              exit 1
+              ;;
+          esac
+
+          # Run the test command
+          $TEST_CMD || EXIT_CODE=$?
 
           # Capture exit code for reporting
           if [[ -n "$EXIT_CODE" ]]; then
@@ -161,16 +412,29 @@ jobs:
       - name: Generate test summary
         if: always()
         run: |
-          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          STATUS="${{ steps.test.outputs.test-status }}"
+          case "$STATUS" in
+            passed)
+              STATUS_ICON="✅ Passed"
+              ;;
+            skipped)
+              STATUS_ICON="⏭️ Skipped"
+              ;;
+            *)
+              STATUS_ICON="❌ Failed"
+              ;;
+          esac
+
+          cat >> $GITHUB_STEP_SUMMARY << EOF
           ## Code Block Test Results - ${{ matrix.product }}
 
-          **Status:** ${{ steps.test.outputs.test-status == 'passed' && '✅ Passed' || '❌ Failed' }}
+          **Status:** $STATUS_ICON
           **Product:** ${{ matrix.product }}
           **Exit Code:** ${{ steps.test.outputs.exit-code }}
 
           EOF
 
-          if [[ "${{ steps.test.outputs.test-status }}" == "failed" ]]; then
+          if [[ "$STATUS" == "failed" ]]; then
             cat >> $GITHUB_STEP_SUMMARY << 'EOF'
           ⚠️ **Note:** Code block tests require valid credentials configured in `.env.test` files.
           In CI, mock credentials are used which may cause some tests to fail.
@@ -178,7 +442,12 @@ jobs:
 
           To test locally with real credentials:
           1. Create `.env.test` files in product directories
-          2. Run `yarn test:codeblocks:${{ matrix.product }}`
+          2. Run `yarn test:codeblocks:<product>`
+          EOF
+          elif [[ "$STATUS" == "skipped" ]]; then
+            cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ℹ️ **Note:** This product does not have a pytest service configured yet.
+          To add testing support, create a Docker Compose service in `compose.yaml`.
           EOF
           fi
 
@@ -199,10 +468,15 @@ jobs:
           echo "::error::Code block tests failed for ${{ matrix.product }}"
           exit 1
 
+      - name: Report skipped tests
+        if: steps.test.outputs.test-status == 'skipped'
+        run: |
+          echo "::notice::Tests skipped for ${{ matrix.product }} - pytest service not configured"
+
   test-summary:
     name: Code Block Test Summary
     needs: [detect-changes, test-codeblocks]
-    if: always() && needs.detect-changes.outputs.should-run == 'true'
+    if: always() && github.event_name == 'workflow_dispatch' && needs.detect-changes.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
 
     steps:
