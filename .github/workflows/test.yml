@@ -40,7 +40,7 @@ jobs:
           fi
 
           # For PRs, check if content files changed
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '^content/.*\.md$' || true)
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
 
           if [[ -z "$CHANGED_FILES" ]]; then
             echo "should-run=false" >> $GITHUB_OUTPUT
