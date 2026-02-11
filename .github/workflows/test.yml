@@ -1,10 +1,16 @@
 name: Test Code Blocks
 
-# Manual-only workflow for testing code blocks in documentation.
-# This workflow is informational and does not block pull requests.
-# Run manually from Actions tab to validate code examples.
-
 on:
+  # Pull requests: detection only (informational, non-blocking)
+  # Detects changed content and suggests which products to test
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'test/**'
+      - 'Dockerfile.pytest'
+      - 'compose.yaml'
+    types: [opened, synchronize, reopened]
+  # Manual dispatch: actually runs tests
   workflow_dispatch:
     inputs:
       products:
@@ -18,7 +24,7 @@ on:
         default: true
 
 # Product to test script mapping
-# Available products:
+# Products with Docker Compose pytest services:
 #   - core (influxdb3_core) → influxdb3-core-pytest
 #   - telegraf → telegraf-pytest
 #   - v2 → v2-pytest
@@ -26,105 +32,200 @@ on:
 #   - cloud-dedicated → cloud-dedicated-pytest
 #   - cloud-serverless → cloud-serverless-pytest
 #   - clustered → clustered-pytest
-# Products without pytest services (skipped):
+# Products without pytest services (content paths only):
 #   - enterprise → content/influxdb3/enterprise
 #   - v1 → content/influxdb/v1
 #   - explorer → content/influxdb3/explorer
 
 jobs:
-  parse-inputs:
-    name: Parse test inputs
+  detect-changes:
+    name: Detect changed content
     runs-on: ubuntu-latest
     outputs:
-      should-run: ${{ steps.parse.outputs.should-run }}
-      test-products: ${{ steps.parse.outputs.test-products }}
+      has-changes: ${{ steps.check.outputs.has-changes }}
+      test-products: ${{ steps.check.outputs.test-products }}
+      suggested-products: ${{ steps.check.outputs.suggested-products }}
 
     steps:
-      - name: Parse product inputs
-        id: parse
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        if: github.event_name == 'pull_request'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Analyze changes and determine products
+        id: check
         run: |
           # Default product group: core + telegraf
           DEFAULT_PRODUCTS=("influxdb3_core" "telegraf")
 
-          INPUT_PRODUCTS="${{ github.event.inputs.products }}"
-          USE_DEFAULT="${{ github.event.inputs.use_default_group }}"
+          # For workflow_dispatch, use specified products or default
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "has-changes=true" >> $GITHUB_OUTPUT
 
-          if [[ -n "$INPUT_PRODUCTS" ]]; then
-            # Parse comma-separated products and normalize names
-            PRODUCTS=()
-            IFS=',' read -ra PRODUCT_LIST <<< "$INPUT_PRODUCTS"
-            for product in "${PRODUCT_LIST[@]}"; do
-              # Trim whitespace and normalize product names
-              product=$(echo "$product" | xargs)
-              case "$product" in
-                core|influxdb3_core|influxdb3-core)
-                  PRODUCTS+=("influxdb3_core")
-                  ;;
-                enterprise|influxdb3_enterprise|influxdb3-enterprise)
-                  PRODUCTS+=("influxdb3_enterprise")
-                  ;;
-                telegraf)
-                  PRODUCTS+=("telegraf")
-                  ;;
-                v2|influxdb_v2)
-                  PRODUCTS+=("v2")
-                  ;;
-                v1|influxdb_v1)
-                  PRODUCTS+=("v1")
-                  ;;
-                cloud|influxdb_cloud)
-                  PRODUCTS+=("cloud")
-                  ;;
-                cloud-dedicated|cloud_dedicated)
-                  PRODUCTS+=("cloud-dedicated")
-                  ;;
-                cloud-serverless|cloud_serverless)
-                  PRODUCTS+=("cloud-serverless")
-                  ;;
-                clustered)
-                  PRODUCTS+=("clustered")
-                  ;;
-                explorer|influxdb3_explorer)
-                  PRODUCTS+=("explorer")
-                  ;;
-                *)
-                  echo "⚠️ Unknown product: $product (skipping)"
-                  ;;
-              esac
-            done
-          elif [[ "$USE_DEFAULT" == "true" ]]; then
-            PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
-            echo "📦 Using default product group: ${PRODUCTS[*]}"
-          else
-            echo "❌ No products specified and default group disabled"
-            echo "should-run=false" >> $GITHUB_OUTPUT
+            INPUT_PRODUCTS="${{ github.event.inputs.products }}"
+            USE_DEFAULT="${{ github.event.inputs.use_default_group }}"
+
+            if [[ -n "$INPUT_PRODUCTS" ]]; then
+              # Parse comma-separated products and normalize names
+              PRODUCTS=()
+              IFS=',' read -ra PRODUCT_LIST <<< "$INPUT_PRODUCTS"
+              for product in "${PRODUCT_LIST[@]}"; do
+                # Trim whitespace and normalize product names
+                product=$(echo "$product" | xargs)
+                case "$product" in
+                  core|influxdb3_core|influxdb3-core)
+                    PRODUCTS+=("influxdb3_core")
+                    ;;
+                  enterprise|influxdb3_enterprise|influxdb3-enterprise)
+                    PRODUCTS+=("influxdb3_enterprise")
+                    ;;
+                  telegraf)
+                    PRODUCTS+=("telegraf")
+                    ;;
+                  v2|influxdb_v2)
+                    PRODUCTS+=("v2")
+                    ;;
+                  v1|influxdb_v1)
+                    PRODUCTS+=("v1")
+                    ;;
+                  cloud|influxdb_cloud)
+                    PRODUCTS+=("cloud")
+                    ;;
+                  cloud-dedicated|cloud_dedicated)
+                    PRODUCTS+=("cloud-dedicated")
+                    ;;
+                  cloud-serverless|cloud_serverless)
+                    PRODUCTS+=("cloud-serverless")
+                    ;;
+                  clustered)
+                    PRODUCTS+=("clustered")
+                    ;;
+                  explorer|influxdb3_explorer)
+                    PRODUCTS+=("explorer")
+                    ;;
+                  *)
+                    echo "⚠️ Unknown product: $product (skipping)"
+                    ;;
+                esac
+              done
+            elif [[ "$USE_DEFAULT" == "true" ]]; then
+              PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
+              echo "📦 Using default product group: ${PRODUCTS[*]}"
+            else
+              echo "❌ No products specified and default group disabled"
+              echo "has-changes=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+
+            # Convert to JSON array
+            PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "✅ Will run tests for: ${PRODUCTS[*]}"
             exit 0
           fi
 
-          if [[ ${#PRODUCTS[@]} -eq 0 ]]; then
-            echo "❌ No valid products to test"
-            echo "should-run=false" >> $GITHUB_OUTPUT
+          # For PRs, check if content files changed
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
+
+          if [[ -z "$CHANGED_FILES" ]]; then
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "📝 No content changes detected"
             exit 0
           fi
 
-          echo "should-run=true" >> $GITHUB_OUTPUT
+          echo "has-changes=true" >> $GITHUB_OUTPUT
+          echo "📝 Changed content files:"
+          echo "$CHANGED_FILES"
 
-          # Convert to JSON array
-          PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+          # Use Node.js script to detect products (handles shared content resolution)
+          # The script expands shared content changes to find all affected product pages
+          RESULT=$(echo "$CHANGED_FILES" | node scripts/ci/detect-test-products.js)
+
+          PRODUCTS_JSON=$(echo "$RESULT" | jq -c '.products')
+          FILES_JSON=$(echo "$RESULT" | jq -c '.files')
+
+          # Check if we got any products
+          PRODUCT_COUNT=$(echo "$PRODUCTS_JSON" | jq 'length')
+          if [[ "$PRODUCT_COUNT" -eq 0 ]]; then
+            echo "📦 No specific products detected - using default group"
+            PRODUCTS_JSON=$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)
+          fi
+
           echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
-          echo "✅ Will run tests for: ${PRODUCTS[*]}"
+          echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+          echo "affected-files=$FILES_JSON" >> $GITHUB_OUTPUT
 
+          echo "📋 Suggested products for testing: $(echo "$PRODUCTS_JSON" | jq -r 'join(", ")')"
+
+  # Informational job for PRs - suggests tests but doesn't run them
+  suggest-tests:
+    name: Suggest code block tests
+    needs: detect-changes
+    if: github.event_name == 'pull_request' && needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate test suggestions
+        run: |
+          PRODUCTS='${{ needs.detect-changes.outputs.suggested-products }}'
+
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## 📋 Code Block Test Suggestions
+
+          Based on the changed content in this PR, the following products should be tested:
+
+          EOF
+
+          # Parse JSON array and list products
+          echo "$PRODUCTS" | jq -r '.[]' | while read -r product; do
+            echo "- \`$product\`" >> $GITHUB_STEP_SUMMARY
+          done
+
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+
+          ### How to run tests
+
+          **Option 1: Manual workflow dispatch**
+          1. Go to [Actions → Test Code Blocks](../actions/workflows/test.yml)
+          2. Click "Run workflow"
+          3. Enter products (comma-separated) or use the default group
+
+          **Option 2: Run locally**
+          ```bash
+          # Run default group (core + telegraf)
+          yarn test:codeblocks:default
+
+          # Run specific product
+          yarn test:codeblocks:influxdb3_core
+          yarn test:codeblocks:telegraf
+          yarn test:codeblocks:v2
+          ```
+
+          > ℹ️ **Note:** Automatic test execution on PRs is currently disabled.
+          > Tests can be run manually using the options above.
+          EOF
+
+          echo "::notice::Code block tests suggested for: $(echo "$PRODUCTS" | jq -r 'join(", ")')"
+
+  # Actual test execution - only runs on manual dispatch
   test-codeblocks:
     name: Test ${{ matrix.product }} code blocks
-    needs: parse-inputs
-    if: needs.parse-inputs.outputs.should-run == 'true'
+    needs: detect-changes
+    if: github.event_name == 'workflow_dispatch' && needs.detect-changes.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
     strategy:
       fail-fast: false
       matrix:
-        product: ${{ fromJson(needs.parse-inputs.outputs.test-products) }}
+        product: ${{ fromJson(needs.detect-changes.outputs.test-products) }}
 
     steps:
       - name: Checkout repository
@@ -350,35 +451,32 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-      - name: Report test status
-        if: always()
+      - name: Fail job if tests failed
+        if: steps.test.outputs.test-status == 'failed'
         run: |
-          STATUS="${{ steps.test.outputs.test-status }}"
-          if [[ "$STATUS" == "failed" ]]; then
-            echo "::warning::Code block tests failed for ${{ matrix.product }}"
-          elif [[ "$STATUS" == "skipped" ]]; then
-            echo "::notice::Tests skipped for ${{ matrix.product }} - pytest service not configured"
-          fi
-          # Always exit 0 - this workflow is informational only
-          exit 0
+          echo "::error::Code block tests failed for ${{ matrix.product }}"
+          exit 1
+
+      - name: Report skipped tests
+        if: steps.test.outputs.test-status == 'skipped'
+        run: |
+          echo "::notice::Tests skipped for ${{ matrix.product }} - pytest service not configured"
 
   test-summary:
     name: Code Block Test Summary
-    needs: [parse-inputs, test-codeblocks]
-    if: always() && needs.parse-inputs.outputs.should-run == 'true'
+    needs: [detect-changes, test-codeblocks]
+    if: always() && github.event_name == 'workflow_dispatch' && needs.detect-changes.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
 
     steps:
       - name: Check test results
         run: |
-          # Report results (informational only)
+          # This job will fail if any of the test jobs failed
           if [[ "${{ needs.test-codeblocks.result }}" == "failure" ]]; then
-            echo "::warning::One or more code block test suites had failures"
-            echo "⚠️ Some tests failed - review results above"
+            echo "::error::One or more code block test suites failed"
+            exit 1
           elif [[ "${{ needs.test-codeblocks.result }}" == "success" ]]; then
             echo "✅ All code block tests passed"
           else
-            echo "ℹ️ Tests were skipped or cancelled"
+            echo "⚠️ Tests were skipped or cancelled"
           fi
-          # Always exit 0 - this workflow is informational only
-          exit 0
