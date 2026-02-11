@@ -39,12 +39,24 @@ jobs:
             exit 0
           fi
 
-          # For PRs, check if content files changed
+          # For PRs, check if content or test harness files changed
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
+          CHANGED_HARNESS_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep -E '^(test/|Dockerfile\.pytest$|compose\.yaml$)' || true)
 
-          if [[ -z "$CHANGED_FILES" ]]; then
+          # If neither content nor harness files changed, skip tests
+          if [[ -z "$CHANGED_FILES" && -z "$CHANGED_HARNESS_FILES" ]]; then
             echo "should-run=false" >> $GITHUB_OUTPUT
-            echo "📝 No content changes detected - skipping code block tests"
+            echo "📝 No relevant changes detected - skipping code block tests"
+            exit 0
+          fi
+
+          # If only harness files changed, run influxdb3-core tests
+          if [[ -z "$CHANGED_FILES" && -n "$CHANGED_HARNESS_FILES" ]]; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            PRODUCTS=("influxdb3-core")
+            PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "✅ Test harness changes detected - running influxdb3-core tests"
             exit 0
           fi
 
@@ -115,6 +127,7 @@ jobs:
           mkdir -p content/influxdb/cloud
           mkdir -p content/influxdb/v2
           mkdir -p content/telegraf/v1
+          mkdir -p content/influxdb3/core
 
           cat > content/influxdb/cloud/.env.test << 'EOF'
           # Mock credentials for CI testing
@@ -136,6 +149,13 @@ jobs:
           # Mock credentials for CI testing
           INFLUX_HOST=https://cloud2.influxdata.com
           INFLUX_TOKEN=mock_token_for_ci
+          EOF
+
+          cat > content/influxdb3/core/.env.test << 'EOF'
+          # Mock credentials for CI testing
+          INFLUX_HOST=http://localhost:8181
+          INFLUX_TOKEN=mock_token_for_ci
+          INFLUX_DATABASE=mock_database_for_ci
           EOF
 
           echo "✅ Mock test credentials created"
