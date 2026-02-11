@@ -41,7 +41,7 @@ jobs:
 
           # For PRs, check if content or test harness files changed
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
-          CHANGED_HARNESS_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep -E '^(test/|Dockerfile\.pytest|compose\.yaml)' || true)
+          CHANGED_HARNESS_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep -E '^(test/|Dockerfile\.pytest$|compose\.yaml$)' || true)
 
           # If neither content nor harness files changed, skip tests
           if [[ -z "$CHANGED_FILES" && -z "$CHANGED_HARNESS_FILES" ]]; then
@@ -155,7 +155,7 @@ jobs:
           # Mock credentials for CI testing
           INFLUX_HOST=http://localhost:8181
           INFLUX_TOKEN=mock_token_for_ci
-          INFLUX_DATABASE=mock_database
+          INFLUX_DATABASE=mock_database_for_ci
           EOF
 
           echo "✅ Mock test credentials created"
