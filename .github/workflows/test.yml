@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       products:
-        description: 'Products to test (comma-separated: core,enterprise,telegraf,v2,cloud,cloud-dedicated,cloud-serverless,clustered)'
+        description: 'Products to test (comma-separated: core,enterprise,telegraf,v1,v2,cloud,cloud-dedicated,cloud-serverless,clustered,explorer)'
         required: false
         default: ''
       use_default_group:
