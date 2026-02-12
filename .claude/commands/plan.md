@@ -181,4 +181,4 @@ Agent: Updated PLAN.md:
 - PLAN.md is ephemeral - delete before merging to main
 - Use `/finish` skill to properly cleanup and merge
 - Tasks use standard markdown checkbox format: `- [ ]` and `- [x]`
-- The startup hook auto-injects PLAN.md at session start
+- A startup hook can be configured to auto-inject PLAN.md at session start
