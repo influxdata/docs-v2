@@ -21,7 +21,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --files)
       shift
-      while IFS= read -r f; do
+      while IFS= read -r f || [[ -n "$f" ]]; do
         [[ -n "$f" ]] && FILES+=("$f")
       done < "$1"
       shift
@@ -35,7 +35,7 @@ done
 
 # Read from stdin if no files provided
 if [[ ${#FILES[@]} -eq 0 ]]; then
-  while IFS= read -r f; do
+  while IFS= read -r f || [[ -n "$f" ]]; do
     [[ -n "$f" ]] && FILES+=("$f")
   done
 fi
