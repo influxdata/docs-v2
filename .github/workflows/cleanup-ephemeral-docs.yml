@@ -12,6 +12,12 @@
 # These files are tracked on feature branches but should be deleted before
 # merge. If they slip through, this action cleans them up.
 #
+# Security Note: Uses pull_request_target to ensure write permissions for
+# PRs from forks. This is safe because:
+# 1. The workflow only checks out the base branch (not PR code)
+# 2. File paths are validated (hardcoded list of allowed files)
+# 3. No PR-controlled code is executed
+#
 # To use in your repo:
 # 1. Copy this file to .github/workflows/cleanup-ephemeral-docs.yml
 # 2. Update the 'branches' list to match your main branch (master or main)
@@ -73,7 +79,12 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Pull latest changes to avoid non-fast-forward errors
-          git pull --rebase origin ${{ github.event.pull_request.base.ref }}
+          # If rebase fails due to conflicts, fall back to regular merge
+          if ! git pull --rebase origin ${{ github.event.pull_request.base.ref }}; then
+            echo "Rebase failed, falling back to merge"
+            git rebase --abort
+            git pull origin ${{ github.event.pull_request.base.ref }}
+          fi
 
           # Remove files
           git rm -f ${{ steps.check.outputs.files }}
