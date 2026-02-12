@@ -83,7 +83,7 @@ jobs:
           if ! git pull --rebase origin ${{ github.event.pull_request.base.ref }}; then
             echo "Rebase failed, falling back to merge"
             git rebase --abort
-            git pull origin ${{ github.event.pull_request.base.ref }}
+            git pull --no-rebase --no-edit origin ${{ github.event.pull_request.base.ref }}
           fi
 
           # Remove files
