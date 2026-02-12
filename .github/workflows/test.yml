@@ -52,12 +52,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        if: github.event_name == 'pull_request'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Analyze changes and determine products
         id: check
         run: |
@@ -144,25 +138,63 @@ jobs:
           echo "📝 Changed content files:"
           echo "$CHANGED_FILES"
 
-          # Use Node.js script to detect products (handles shared content resolution)
-          # The script expands shared content changes to find all affected product pages
-          RESULT=$(echo "$CHANGED_FILES" | node scripts/ci/detect-test-products.js)
+          # Resolve shared content to consuming product pages
+          RESOLVED_FILES=$(echo "$CHANGED_FILES" | ./.github/scripts/resolve-shared-content.sh)
+          echo "📂 Resolved files (after shared content expansion):"
+          echo "$RESOLVED_FILES"
 
-          PRODUCTS_JSON=$(echo "$RESULT" | jq -c '.products')
-          FILES_JSON=$(echo "$RESULT" | jq -c '.files')
+          # Extract products from resolved file paths
+          PRODUCTS=()
+          while IFS= read -r file; do
+            case "$file" in
+              content/influxdb3/core/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " influxdb3_core " ]] && PRODUCTS+=("influxdb3_core")
+                ;;
+              content/influxdb3/enterprise/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " influxdb3_enterprise " ]] && PRODUCTS+=("influxdb3_enterprise")
+                ;;
+              content/influxdb3/cloud-dedicated/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " cloud-dedicated " ]] && PRODUCTS+=("cloud-dedicated")
+                ;;
+              content/influxdb3/cloud-serverless/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " cloud-serverless " ]] && PRODUCTS+=("cloud-serverless")
+                ;;
+              content/influxdb3/clustered/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " clustered " ]] && PRODUCTS+=("clustered")
+                ;;
+              content/influxdb3/explorer/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " explorer " ]] && PRODUCTS+=("explorer")
+                ;;
+              content/influxdb/cloud/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " cloud " ]] && PRODUCTS+=("cloud")
+                ;;
+              content/influxdb/v2/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " v2 " ]] && PRODUCTS+=("v2")
+                ;;
+              content/influxdb/v1/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " v1 " ]] && PRODUCTS+=("v1")
+                ;;
+              content/telegraf/*)
+                [[ ! " ${PRODUCTS[*]} " =~ " telegraf " ]] && PRODUCTS+=("telegraf")
+                ;;
+            esac
+          done <<< "$RESOLVED_FILES"
 
-          # Check if we got any products
-          PRODUCT_COUNT=$(echo "$PRODUCTS_JSON" | jq 'length')
-          if [[ "$PRODUCT_COUNT" -eq 0 ]]; then
+          # If no products detected, use default group
+          if [[ ${#PRODUCTS[@]} -eq 0 ]]; then
             echo "📦 No specific products detected - using default group"
-            PRODUCTS_JSON=$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            PRODUCTS=("${DEFAULT_PRODUCTS[@]}")
           fi
+
+          # Convert to JSON array
+          PRODUCTS_JSON=$(printf '%s\n' "${PRODUCTS[@]}" | jq -R . | jq -s -c .)
+          FILES_JSON=$(echo "$RESOLVED_FILES" | jq -R . | jq -s -c .)
 
           echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
           echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
           echo "affected-files=$FILES_JSON" >> $GITHUB_OUTPUT
 
-          echo "📋 Suggested products for testing: $(echo "$PRODUCTS_JSON" | jq -r 'join(", ")')"
+          echo "📋 Suggested products for testing: ${PRODUCTS[*]}"
 
   # Informational job for PRs - suggests tests but doesn't run them
   suggest-tests:
