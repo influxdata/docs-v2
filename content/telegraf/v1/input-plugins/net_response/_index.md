@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/net_response/README.md, Network Response Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/net_response/README.md, Network Response Plugin Source
 ---
 
 # Network Response Input Plugin
