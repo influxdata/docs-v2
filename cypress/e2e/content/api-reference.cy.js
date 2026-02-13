@@ -179,10 +179,12 @@ describe('API reference layout', () => {
         });
 
         it('operation has method badge and path', () => {
-          cy.get('.api-operation').first().within(() => {
-            cy.get('.api-method').should('exist');
-            cy.get('.api-path').should('exist');
-          });
+          cy.get('.api-operation')
+            .first()
+            .within(() => {
+              cy.get('.api-method').should('exist');
+              cy.get('.api-path').should('exist');
+            });
         });
       });
     });
@@ -225,14 +227,16 @@ describe('API tag pages', () => {
       });
 
       it('operations have proper structure', () => {
-        cy.get('.api-operation').first().within(() => {
-          // Check for operation header with method and path
-          cy.get('.api-operation-header, .api-operation-endpoint').should(
-            'exist'
-          );
-          cy.get('.api-method').should('exist');
-          cy.get('.api-path').should('exist');
-        });
+        cy.get('.api-operation')
+          .first()
+          .within(() => {
+            // Check for operation header with method and path
+            cy.get('.api-operation-header, .api-operation-endpoint').should(
+              'exist'
+            );
+            cy.get('.api-method').should('exist');
+            cy.get('.api-path').should('exist');
+          });
       });
 
       it('TOC contains operation links', () => {
