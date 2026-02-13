@@ -1,0 +1,65 @@
+{{/*
+  Hugo-Native Parameter Row Renderer
+
+  Renders a single parameter with name, type, required badge, and description.
+
+  Params:
+    - param: Parameter object with name, schema, required, description
+    - spec: The full OpenAPI spec object for resolving schema $ref
+*/}}
+
+{{ $param := .param }}
+{{ $spec := .spec }}
+
+{{ $name := $param.name }}
+{{ $required := $param.required | default false }}
+{{ $description := $param.description | default "" }}
+
+{{/* Resolve schema type */}}
+{{ $schema := $param.schema | default dict }}
+{{ $type := $schema.type | default "string" }}
+{{ $format := $schema.format | default "" }}
+{{ $enum := $schema.enum | default slice }}
+{{ $default := $schema.default }}
+
+{{/* Build type display string */}}
+{{ $typeDisplay := $type }}
+{{ if $format }}
+  {{ $typeDisplay = printf "%s <%s>" $type $format }}
+{{ end }}
+
+<div class="api-param-row{{ if $required }} api-param-row--required{{ end }}">
+  <div class="api-param-info">
+    <div class="api-param-name-line">
+      <code class="api-param-name">{{ $name }}</code>
+      {{ if $required }}
+      <span class="api-badge api-badge--required">required</span>
+      {{ end }}
+      <span class="api-param-type">{{ $typeDisplay }}</span>
+    </div>
+
+    {{ if $description }}
+    <div class="api-param-description">
+      {{ $description | markdownify }}
+    </div>
+    {{ end }}
+
+    {{/* Show enum values if present */}}
+    {{ if gt (len $enum) 0 }}
+    <div class="api-param-enum">
+      <span class="api-param-enum-label">Allowed values:</span>
+      {{ range $i, $val := $enum }}
+        {{ if $i }}, {{ end }}<code class="api-param-enum-value">{{ $val }}</code>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Show default value if present */}}
+    {{ if $default }}
+    <div class="api-param-default">
+      <span class="api-param-default-label">Default:</span>
+      <code class="api-param-default-value">{{ $default }}</code>
+    </div>
+    {{ end }}
+  </div>
+</div>

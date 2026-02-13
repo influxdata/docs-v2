@@ -1,0 +1,60 @@
+{{/*
+  Hugo-Native Request Body Renderer
+
+  Renders the request body section including schema properties.
+
+  Params:
+    - requestBody: OpenAPI requestBody object
+    - spec: The full OpenAPI spec object for resolving $ref
+*/}}
+
+{{ $requestBody := .requestBody }}
+{{ $spec := .spec }}
+
+{{ $required := $requestBody.required | default false }}
+{{ $description := $requestBody.description | default "" }}
+
+{{/* Get content schema - typically application/json */}}
+{{ $content := $requestBody.content | default dict }}
+{{ $jsonContent := index $content "application/json" | default dict }}
+{{ $schema := $jsonContent.schema | default dict }}
+
+{{/* Resolve $ref if present */}}
+{{ $resolvedSchema := $schema }}
+{{ if isset $schema "$ref" }}
+  {{ $refPath := index $schema "$ref" }}
+  {{/* Parse ref like "#/components/schemas/DistinctCacheCreateRequest" */}}
+  {{ $refParts := split $refPath "/" }}
+  {{ if ge (len $refParts) 4 }}
+    {{ $schemaName := index $refParts 3 }}
+    {{ with index $spec.components.schemas $schemaName }}
+      {{ $resolvedSchema = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="api-request-body">
+  <h4 class="api-section-title">
+    Request body
+    {{ if $required }}
+    <span class="api-badge api-badge--required">required</span>
+    {{ end }}
+  </h4>
+
+  {{ if $description }}
+  <div class="api-request-body-description">
+    {{ $description | markdownify }}
+  </div>
+  {{ end }}
+
+  {{/* Content type indicator */}}
+  <div class="api-content-type">
+    <span class="api-content-type-label">Content-Type:</span>
+    <code>application/json</code>
+  </div>
+
+  {{/* Render schema properties */}}
+  {{ with $resolvedSchema }}
+    {{ partial "api/hugo-native/schema.html" (dict "schema" . "spec" $spec "level" 0) }}
+  {{ end }}
+</div>

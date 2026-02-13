@@ -1,0 +1,598 @@
+// Hugo-Native API Documentation Styles
+// Styled after docusaurus-openapi aesthetic with clean, readable layouts
+
+// Variables
+$api-border-radius: 6px;
+$api-spacing-sm: 0.5rem;
+$api-spacing-md: 1rem;
+$api-spacing-lg: 1.5rem;
+$api-spacing-xl: 2rem;
+
+// Method colors (matching existing theme)
+$method-get: #00A3FF;
+$method-post: #34BB55;
+$method-put: #FFB94A;
+$method-delete: #F95F53;
+$method-patch: #9b2aff;
+
+// Status code colors
+$status-success: #34BB55;
+$status-redirect: #FFB94A;
+$status-client-error: #F95F53;
+$status-server-error: #9b2aff;
+
+// ============================================
+// Operation Block
+// ============================================
+
+.api-hugo-native {
+  width: 100%;
+}
+
+.api-operation {
+  margin-bottom: $api-spacing-xl;
+  padding: $api-spacing-lg;
+  background: var(--article-bg, #fff);
+  border: 1px solid var(--article-border, #e8e8f0);
+  border-radius: $api-border-radius;
+
+  &:target {
+    animation: highlight-operation 1.5s ease-out;
+  }
+}
+
+@keyframes highlight-operation {
+  0% {
+    box-shadow: 0 0 0 4px rgba($method-get, 0.3);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+// Operation Header
+.api-operation-header {
+  margin-bottom: $api-spacing-md;
+}
+
+.api-operation-endpoint {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: $api-spacing-sm;
+}
+
+.api-method {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: #fff;
+
+  &--get { background-color: $method-get; }
+  &--post { background-color: $method-post; }
+  &--put { background-color: $method-put; }
+  &--delete { background-color: $method-delete; }
+  &--patch { background-color: $method-patch; }
+}
+
+.api-path {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.95rem;
+  color: var(--article-text, #2b2b2b);
+  background: var(--code-bg, #f5f5f5);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.api-operation-summary {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--article-heading, #2b2b2b);
+}
+
+.api-operation-description {
+  margin: $api-spacing-md 0;
+  color: var(--article-text, #545667);
+  line-height: 1.6;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// Section Titles
+// ============================================
+
+.api-section-title {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin: $api-spacing-lg 0 $api-spacing-md;
+  padding-bottom: $api-spacing-sm;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--article-heading, #2b2b2b);
+  border-bottom: 1px solid var(--article-border, #e8e8f0);
+}
+
+// ============================================
+// Parameters Section
+// ============================================
+
+.api-parameters {
+  margin: $api-spacing-lg 0;
+}
+
+.api-param-group {
+  margin-bottom: $api-spacing-md;
+}
+
+.api-param-group-title {
+  margin: $api-spacing-sm 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--article-text-muted, #777);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.api-param-list {
+  border: 1px solid var(--article-border, #e8e8f0);
+  border-radius: $api-border-radius;
+  overflow: hidden;
+}
+
+.api-param-row {
+  padding: $api-spacing-md;
+  border-bottom: 1px solid var(--article-border, #e8e8f0);
+  background: var(--article-bg, #fff);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--article-bg-hover, #f9f9fb);
+  }
+
+  &--required {
+    background: rgba($method-post, 0.03);
+
+    &:hover {
+      background: rgba($method-post, 0.06);
+    }
+  }
+}
+
+.api-param-name-line {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: 0.25rem;
+}
+
+.api-param-name {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--article-heading, #2b2b2b);
+}
+
+.api-param-type {
+  font-size: 0.8rem;
+  color: var(--article-text-muted, #777);
+}
+
+.api-param-description {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--article-text, #545667);
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.api-param-enum,
+.api-param-default {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.api-param-enum-label,
+.api-param-default-label {
+  color: var(--article-text-muted, #777);
+}
+
+.api-param-enum-value,
+.api-param-default-value {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.8rem;
+  background: var(--code-bg, #f5f5f5);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+}
+
+// ============================================
+// Badges
+// ============================================
+
+.api-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 3px;
+
+  &--required {
+    background: rgba($method-delete, 0.1);
+    color: $method-delete;
+  }
+}
+
+// ============================================
+// Request Body Section
+// ============================================
+
+.api-request-body {
+  margin: $api-spacing-lg 0;
+}
+
+.api-request-body-description {
+  margin: $api-spacing-sm 0;
+  color: var(--article-text, #545667);
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.api-content-type {
+  margin: $api-spacing-sm 0;
+  font-size: 0.85rem;
+
+  code {
+    font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+    background: var(--code-bg, #f5f5f5);
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+  }
+}
+
+.api-content-type-label {
+  color: var(--article-text-muted, #777);
+}
+
+// ============================================
+// Schema Section
+// ============================================
+
+.api-schema {
+  margin: $api-spacing-md 0;
+
+  &--nested {
+    margin-left: $api-spacing-lg;
+    padding-left: $api-spacing-md;
+    border-left: 2px solid var(--article-border, #e8e8f0);
+  }
+}
+
+.api-schema-properties {
+  border: 1px solid var(--article-border, #e8e8f0);
+  border-radius: $api-border-radius;
+  overflow: hidden;
+}
+
+.api-schema-property {
+  padding: $api-spacing-md;
+  border-bottom: 1px solid var(--article-border, #e8e8f0);
+  background: var(--article-bg, #fff);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--article-bg-hover, #f9f9fb);
+  }
+
+  &--required {
+    .api-schema-property-name {
+      &::after {
+        content: '*';
+        color: $method-delete;
+        margin-left: 0.25rem;
+      }
+    }
+  }
+}
+
+.api-schema-property-header {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: 0.25rem;
+}
+
+.api-schema-property-name {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--article-heading, #2b2b2b);
+}
+
+.api-schema-property-type {
+  font-size: 0.8rem;
+  color: var(--article-text-muted, #777);
+}
+
+.api-schema-property-description {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--article-text, #545667);
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.api-schema-property-enum,
+.api-schema-property-default,
+.api-schema-property-example {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.api-enum-label,
+.api-default-label,
+.api-example-label {
+  color: var(--article-text-muted, #777);
+}
+
+.api-enum-value,
+.api-default-value,
+.api-example-value {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.8rem;
+  background: var(--code-bg, #f5f5f5);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+}
+
+// Schema Example Block
+.api-schema-example {
+  margin-top: $api-spacing-md;
+  padding: $api-spacing-md;
+  background: var(--code-bg, #f5f5f5);
+  border-radius: $api-border-radius;
+}
+
+.api-schema-example-title {
+  margin: 0 0 $api-spacing-sm;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--article-text-muted, #777);
+}
+
+.api-schema-example-code {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow-x: auto;
+
+  code {
+    font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+    font-size: 0.85rem;
+  }
+}
+
+// ============================================
+// Responses Section
+// ============================================
+
+.api-responses {
+  margin: $api-spacing-lg 0;
+}
+
+.api-response-list {
+  display: flex;
+  flex-direction: column;
+  gap: $api-spacing-sm;
+}
+
+.api-response {
+  border: 1px solid var(--article-border, #e8e8f0);
+  border-radius: $api-border-radius;
+  overflow: hidden;
+}
+
+.api-response-header {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  padding: $api-spacing-sm $api-spacing-md;
+  background: var(--article-bg-alt, #f9f9fb);
+}
+
+.api-response-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  color: #fff;
+
+  &--success { background-color: $status-success; }
+  &--redirect { background-color: $status-redirect; }
+  &--client-error { background-color: $status-client-error; }
+  &--server-error { background-color: $status-server-error; }
+  &--info { background-color: var(--article-text-muted, #777); }
+}
+
+.api-response-description {
+  font-size: 0.9rem;
+  color: var(--article-text, #545667);
+}
+
+.api-response-body {
+  padding: $api-spacing-md;
+  border-top: 1px solid var(--article-border, #e8e8f0);
+}
+
+// ============================================
+// Tag Overview
+// ============================================
+
+.api-tag-overview {
+  margin-bottom: $api-spacing-xl;
+  padding-bottom: $api-spacing-lg;
+  border-bottom: 1px solid var(--article-border, #e8e8f0);
+}
+
+.api-tag-description {
+  color: var(--article-text, #545667);
+  line-height: 1.7;
+
+  h4, h5 {
+    margin-top: $api-spacing-lg;
+    margin-bottom: $api-spacing-sm;
+    color: var(--article-heading, #2b2b2b);
+  }
+
+  ul, ol {
+    padding-left: $api-spacing-lg;
+  }
+
+  a {
+    color: var(--link-color, #00A3FF);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================
+// Related Guides Section
+// ============================================
+
+.api-related-guides {
+  margin-top: $api-spacing-xl;
+  padding-top: $api-spacing-lg;
+  border-top: 1px solid var(--article-border, #e8e8f0);
+}
+
+.api-related-title {
+  margin: 0 0 $api-spacing-md;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--article-heading, #2b2b2b);
+}
+
+.api-related-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin-bottom: $api-spacing-sm;
+  }
+
+  a {
+    color: var(--link-color, #00A3FF);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================
+// Dark Mode Overrides
+// ============================================
+
+[data-theme='dark'],
+html:has(link[title='dark-theme']:not([disabled])) {
+  .api-operation {
+    background: var(--article-bg, #1a1a2a);
+    border-color: var(--article-border, #2a2a3a);
+  }
+
+  .api-related-guides {
+    border-color: var(--article-border, #2a2a3a);
+  }
+
+  .api-related-title {
+    color: var(--article-heading, #e0e0e0);
+  }
+
+  .api-path {
+    background: var(--code-bg, #252535);
+    color: var(--article-text, #d4d7dd);
+  }
+
+  .api-param-row,
+  .api-schema-property {
+    background: var(--article-bg, #1a1a2a);
+
+    &:hover {
+      background: var(--article-bg-hover, #252535);
+    }
+  }
+
+  .api-param-enum-value,
+  .api-param-default-value,
+  .api-enum-value,
+  .api-default-value,
+  .api-example-value {
+    background: var(--code-bg, #252535);
+  }
+
+  .api-schema-example {
+    background: var(--code-bg, #252535);
+  }
+
+  .api-response-header {
+    background: var(--article-bg-alt, #252535);
+  }
+}
+
+// ============================================
+// Responsive Adjustments
+// ============================================
+
+@media (max-width: 768px) {
+  .api-operation {
+    padding: $api-spacing-md;
+  }
+
+  .api-operation-endpoint {
+    flex-wrap: wrap;
+  }
+
+  .api-path {
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  .api-param-name-line,
+  .api-schema-property-header {
+    flex-wrap: wrap;
+  }
+}

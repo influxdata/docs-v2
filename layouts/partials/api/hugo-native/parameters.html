@@ -1,0 +1,85 @@
+{{/*
+  Hugo-Native Parameters Renderer
+
+  Renders a table of API operation parameters (query, path, header).
+  Resolves $ref references to component parameters.
+
+  Params:
+    - parameters: Array of parameter objects
+    - spec: The full OpenAPI spec object for resolving $ref
+*/}}
+
+{{ $parameters := .parameters }}
+{{ $spec := .spec }}
+
+{{/* Resolve $ref parameters and group by location */}}
+{{ $queryParams := slice }}
+{{ $pathParams := slice }}
+{{ $headerParams := slice }}
+
+{{ range $parameters }}
+  {{ $param := . }}
+
+  {{/* Resolve $ref if present */}}
+  {{ if isset . "$ref" }}
+    {{ $refPath := index . "$ref" }}
+    {{/* Parse ref like "#/components/parameters/db" */}}
+    {{ $refParts := split $refPath "/" }}
+    {{ if ge (len $refParts) 4 }}
+      {{ $paramName := index $refParts 3 }}
+      {{ with index $spec.components.parameters $paramName }}
+        {{ $param = . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Group by 'in' location */}}
+  {{ $location := $param.in | default "query" }}
+  {{ if eq $location "query" }}
+    {{ $queryParams = $queryParams | append $param }}
+  {{ else if eq $location "path" }}
+    {{ $pathParams = $pathParams | append $param }}
+  {{ else if eq $location "header" }}
+    {{ $headerParams = $headerParams | append $param }}
+  {{ end }}
+{{ end }}
+
+<div class="api-parameters">
+  <h4 class="api-section-title">Parameters</h4>
+
+  {{/* Path Parameters */}}
+  {{ if gt (len $pathParams) 0 }}
+  <div class="api-param-group">
+    <h5 class="api-param-group-title">Path parameters</h5>
+    <div class="api-param-list">
+      {{ range $pathParams }}
+        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* Query Parameters */}}
+  {{ if gt (len $queryParams) 0 }}
+  <div class="api-param-group">
+    <h5 class="api-param-group-title">Query parameters</h5>
+    <div class="api-param-list">
+      {{ range $queryParams }}
+        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* Header Parameters */}}
+  {{ if gt (len $headerParams) 0 }}
+  <div class="api-param-group">
+    <h5 class="api-param-group-title">Header parameters</h5>
+    <div class="api-param-list">
+      {{ range $headerParams }}
+        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+</div>

@@ -1,0 +1,79 @@
+{{/*
+  Hugo-Native Responses Renderer
+
+  Renders the responses section for an API operation.
+  Shows status codes, descriptions, and response schemas.
+
+  Params:
+    - responses: Map of status codes to response objects
+    - spec: The full OpenAPI spec object for resolving $ref
+*/}}
+
+{{ $responses := .responses }}
+{{ $spec := .spec }}
+
+<div class="api-responses">
+  <h4 class="api-section-title">Responses</h4>
+
+  <div class="api-response-list">
+    {{ range $statusCode, $response := $responses }}
+      {{/* Resolve $ref if present */}}
+      {{ $resolvedResponse := $response }}
+      {{ if isset $response "$ref" }}
+        {{ $refPath := index $response "$ref" }}
+        {{ $refParts := split $refPath "/" }}
+        {{ if ge (len $refParts) 4 }}
+          {{ $responseName := index $refParts 3 }}
+          {{ with index $spec.components.responses $responseName }}
+            {{ $resolvedResponse = . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ $description := $resolvedResponse.description | default "" }}
+      {{ $content := $resolvedResponse.content | default dict }}
+
+      {{/* Determine status category for styling */}}
+      {{ $statusCategory := "info" }}
+      {{ if hasPrefix $statusCode "2" }}
+        {{ $statusCategory = "success" }}
+      {{ else if hasPrefix $statusCode "3" }}
+        {{ $statusCategory = "redirect" }}
+      {{ else if hasPrefix $statusCode "4" }}
+        {{ $statusCategory = "client-error" }}
+      {{ else if hasPrefix $statusCode "5" }}
+        {{ $statusCategory = "server-error" }}
+      {{ end }}
+
+      <div class="api-response api-response--{{ $statusCategory }}">
+        <div class="api-response-header">
+          <span class="api-response-status api-response-status--{{ $statusCategory }}">{{ $statusCode }}</span>
+          <span class="api-response-description">{{ $description }}</span>
+        </div>
+
+        {{/* Response body schema if present */}}
+        {{ with $content }}
+          {{ $jsonContent := index . "application/json" | default dict }}
+          {{ with $jsonContent.schema }}
+            {{/* Resolve schema $ref if present */}}
+            {{ $resolvedSchema := . }}
+            {{ if isset . "$ref" }}
+              {{ $refPath := index . "$ref" }}
+              {{ $refParts := split $refPath "/" }}
+              {{ if ge (len $refParts) 4 }}
+                {{ $schemaName := index $refParts 3 }}
+                {{ with index $spec.components.schemas $schemaName }}
+                  {{ $resolvedSchema = . }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+            <div class="api-response-body">
+              {{ partial "api/hugo-native/schema.html" (dict "schema" $resolvedSchema "spec" $spec "level" 0) }}
+            </div>
+          {{ end }}
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</div>

@@ -1,0 +1,83 @@
+{{/*
+  Hugo-Native Tag Page Renderer
+
+  Renders all operations for a tag page using Hugo templates instead of RapiDoc.
+  Parses the OpenAPI spec file and renders each operation natively.
+
+  Required page params:
+    - staticFilePath: Path to the OpenAPI specification file (YAML)
+    - operations: Array of operation metadata from frontmatter
+
+  Usage:
+    {{ partial "api/hugo-native/tag-renderer.html" . }}
+*/}}
+
+{{ $page := . }}
+{{ $specPath := .Params.staticFilePath }}
+{{ $operations := .Params.operations | default slice }}
+
+{{/* Load and parse the OpenAPI spec from static/ directory */}}
+{{ $spec := dict }}
+{{ if $specPath }}
+  {{/* Build path to static file (staticFilePath has leading slash, e.g. /openapi/...) */}}
+  {{ $staticFile := printf "static%s" $specPath }}
+
+  {{/* Use os.ReadFile (Hugo 0.121+) to read from static directory */}}
+  {{ with os.ReadFile $staticFile }}
+    {{ $spec = . | transform.Unmarshal }}
+  {{ else }}
+    {{/* Fallback: try unmounted resources (for assets mount configuration) */}}
+    {{ $cleanPath := strings.TrimPrefix "/" $specPath }}
+    {{ with resources.Get $cleanPath }}
+      {{ $spec = .Content | transform.Unmarshal }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Tag description and related links from spec */}}
+{{ $tagDescription := "" }}
+{{ $tagRelated := slice }}
+{{ $tagName := .Params.tag | default "" }}
+{{ range $spec.tags }}
+  {{ if eq .name $tagName }}
+    {{ $tagDescription = .description | default "" }}
+    {{/* Extract x-influxdata-related from the tag */}}
+    {{ with index . "x-influxdata-related" }}
+      {{ $tagRelated = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="api-hugo-native" data-component="api-hugo-native">
+  {{/* Tag Overview/Description */}}
+  {{ if $tagDescription }}
+  <section class="api-tag-overview">
+    <div class="api-tag-description">
+      {{ $tagDescription | markdownify }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Operations List */}}
+  <section class="api-operations">
+    {{ range $operations }}
+      {{ partial "api/hugo-native/operation.html" (dict
+        "operation" .
+        "spec" $spec
+        "context" $page
+      ) }}
+    {{ end }}
+  </section>
+
+  {{/* Related Guides - displayed at bottom like standard page template */}}
+  {{ if gt (len $tagRelated) 0 }}
+  <section class="api-related-guides">
+    <h4 class="api-related-title">Related guides</h4>
+    <ul class="api-related-list">
+      {{ range $tagRelated }}
+      <li><a href="{{ .href }}">{{ .title }}</a></li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>

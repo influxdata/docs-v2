@@ -1,0 +1,117 @@
+{{/*
+  Hugo-Native Schema Renderer
+
+  Renders a JSON schema as a property table with nested object support.
+  Similar to docusaurus-openapi's schema tables.
+
+  Params:
+    - schema: OpenAPI schema object
+    - spec: The full OpenAPI spec object for resolving $ref
+    - level: Nesting level (0 = root)
+*/}}
+
+{{ $schema := .schema }}
+{{ $spec := .spec }}
+{{ $level := .level | default 0 }}
+
+{{ $type := $schema.type | default "object" }}
+{{ $properties := $schema.properties | default dict }}
+{{ $required := $schema.required | default slice }}
+{{ $example := $schema.example }}
+
+{{/* Convert required slice to map for easy lookup */}}
+{{ $requiredMap := dict }}
+{{ range $required }}
+  {{ $requiredMap = merge $requiredMap (dict . true) }}
+{{ end }}
+
+<div class="api-schema{{ if gt $level 0 }} api-schema--nested{{ end }}" data-level="{{ $level }}">
+  {{ if gt (len $properties) 0 }}
+  <div class="api-schema-properties">
+    {{ range $propName, $propSchema := $properties }}
+      {{ $isRequired := index $requiredMap $propName | default false }}
+      {{ $propType := $propSchema.type | default "string" }}
+      {{ $propDescription := $propSchema.description | default "" }}
+      {{ $propFormat := $propSchema.format | default "" }}
+      {{ $propEnum := $propSchema.enum | default slice }}
+      {{ $propDefault := $propSchema.default }}
+      {{ $propExample := $propSchema.example }}
+
+      {{/* Build type display */}}
+      {{ $typeDisplay := $propType }}
+      {{ if eq $propType "array" }}
+        {{ $itemsType := "object" }}
+        {{ with $propSchema.items }}
+          {{ $itemsType = .type | default "object" }}
+        {{ end }}
+        {{ $typeDisplay = printf "%s[]" $itemsType }}
+      {{ else if $propFormat }}
+        {{ $typeDisplay = printf "%s <%s>" $propType $propFormat }}
+      {{ end }}
+
+      <div class="api-schema-property{{ if $isRequired }} api-schema-property--required{{ end }}">
+        <div class="api-schema-property-header">
+          <code class="api-schema-property-name">{{ $propName }}</code>
+          {{ if $isRequired }}
+          <span class="api-badge api-badge--required">required</span>
+          {{ end }}
+          <span class="api-schema-property-type">{{ $typeDisplay }}</span>
+        </div>
+
+        {{ if $propDescription }}
+        <div class="api-schema-property-description">
+          {{ $propDescription | markdownify }}
+        </div>
+        {{ end }}
+
+        {{/* Enum values */}}
+        {{ if gt (len $propEnum) 0 }}
+        <div class="api-schema-property-enum">
+          <span class="api-enum-label">Allowed:</span>
+          {{ range $i, $val := $propEnum }}
+            {{ if $i }}, {{ end }}<code class="api-enum-value">{{ $val }}</code>
+          {{ end }}
+        </div>
+        {{ end }}
+
+        {{/* Default value */}}
+        {{ if $propDefault }}
+        <div class="api-schema-property-default">
+          <span class="api-default-label">Default:</span>
+          <code class="api-default-value">{{ $propDefault }}</code>
+        </div>
+        {{ end }}
+
+        {{/* Example value */}}
+        {{ if $propExample }}
+        <div class="api-schema-property-example">
+          <span class="api-example-label">Example:</span>
+          <code class="api-example-value">{{ jsonify $propExample }}</code>
+        </div>
+        {{ end }}
+
+        {{/* Nested object/array rendering (limit depth to prevent infinite loops) */}}
+        {{ if and (eq $propType "object") (lt $level 2) }}
+          {{ with $propSchema.properties }}
+            {{ partial "api/hugo-native/schema.html" (dict "schema" $propSchema "spec" $spec "level" (add $level 1)) }}
+          {{ end }}
+        {{ else if and (eq $propType "array") (lt $level 2) }}
+          {{ with $propSchema.items }}
+            {{ if isset . "properties" }}
+              {{ partial "api/hugo-native/schema.html" (dict "schema" . "spec" $spec "level" (add $level 1)) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{/* Show example at schema level */}}
+  {{ if and $example (eq $level 0) }}
+  <div class="api-schema-example">
+    <h5 class="api-schema-example-title">Example</h5>
+    <pre class="api-schema-example-code"><code class="language-json">{{ jsonify (dict "indent" "  ") $example }}</code></pre>
+  </div>
+  {{ end }}
+</div>

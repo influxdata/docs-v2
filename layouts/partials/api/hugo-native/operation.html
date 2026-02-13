@@ -1,0 +1,61 @@
+{{/*
+  Hugo-Native Operation Renderer
+
+  Renders a single API operation with parameters, request body, and responses.
+  Styled to match docusaurus-openapi aesthetic.
+
+  Params:
+    - operation: Map with method, path, summary, operationId
+    - spec: The full OpenAPI spec object
+    - context: The page context for URL generation
+*/}}
+
+{{ $operation := .operation }}
+{{ $spec := .spec }}
+{{ $method := lower $operation.method }}
+{{ $path := $operation.path }}
+{{ $operationId := $operation.operationId }}
+
+{{/* Find the operation definition in the spec */}}
+{{ $pathDef := index $spec.paths $path }}
+{{ $opDef := dict }}
+{{ if $pathDef }}
+  {{ $opDef = index $pathDef $method | default dict }}
+{{ end }}
+
+{{/* Generate anchor ID matching existing TOC format */}}
+{{ $anchorId := printf "%s-%s" $method $path }}
+
+<div class="api-operation" id="{{ $anchorId }}" data-method="{{ $method }}" data-operation-id="{{ $operationId }}">
+  {{/* Operation Header */}}
+  <div class="api-operation-header">
+    <div class="api-operation-endpoint">
+      <span class="api-method api-method--{{ $method }}">{{ upper $method }}</span>
+      <code class="api-path">{{ $path }}</code>
+    </div>
+    <h3 class="api-operation-summary">{{ $operation.summary }}</h3>
+  </div>
+
+  {{/* Operation Description */}}
+  {{ with $opDef.description }}
+  <div class="api-operation-description">
+    {{ . | markdownify }}
+  </div>
+  {{ end }}
+
+  {{/* Parameters Section */}}
+  {{ $params := $opDef.parameters | default slice }}
+  {{ if gt (len $params) 0 }}
+    {{ partial "api/hugo-native/parameters.html" (dict "parameters" $params "spec" $spec) }}
+  {{ end }}
+
+  {{/* Request Body Section */}}
+  {{ with $opDef.requestBody }}
+    {{ partial "api/hugo-native/request-body.html" (dict "requestBody" . "spec" $spec) }}
+  {{ end }}
+
+  {{/* Responses Section */}}
+  {{ with $opDef.responses }}
+    {{ partial "api/hugo-native/responses.html" (dict "responses" . "spec" $spec) }}
+  {{ end }}
+</div>

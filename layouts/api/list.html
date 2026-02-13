@@ -124,10 +124,20 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
         {{/* Hugo page content if any (for custom intro content) */}}
         {{ with .Content }}
         <section class="api-content-body">{{ . }}</section>
-        {{ end }} {{/* RapiDoc renders all operations for this tag */}} {{ with
-        .Params.staticFilePath }}
+        {{ end }}
+
+        {{/* Choose rendering mode: Hugo-native (POC) or RapiDoc (default) */}}
+        {{ $useHugoNative := .Params.useHugoNative | default false }}
+
+        {{ with .Params.staticFilePath }}
         <section class="api-operations-section">
-          {{ partial "api/rapidoc-tag.html" $ }}
+          {{ if $useHugoNative }}
+            {{/* Hugo-Native rendering (docusaurus-openapi style) */}}
+            {{ partial "api/hugo-native/tag-renderer.html" $ }}
+          {{ else }}
+            {{/* RapiDoc rendering (current default) */}}
+            {{ partial "api/rapidoc-tag.html" $ }}
+          {{ end }}
         </section>
         {{ end }} {{ end }} {{ end }} {{ partial "article/related.html" . }}
       </article>
