@@ -57,24 +57,22 @@ tags:
 
       See the **Security Schemes** section below for details on each authentication method.
     x-traitTag: true
-  - name: Cache data
+  - name: Cache distinct values
     description: |
-      Manage the in-memory cache.
-
-      #### Distinct Value Cache
-
       The Distinct Value Cache (DVC) lets you cache distinct
       values of one or more columns in a table, improving the performance of
       queries that return distinct tag and field values.
 
       The DVC is an in-memory cache that stores distinct values for specific columns
-      in a table. When you create an DVC, you can specify what columns' distinct
+      in a table. When you create a DVC, you can specify what columns' distinct
       values to cache, the maximum number of distinct value combinations to cache, and
       the maximum age of cached values. A DVC is associated with a table, which can
       have multiple DVCs.
-
-      #### Last value cache
-
+    x-influxdata-related:
+      - title: Manage the Distinct Value Cache
+        href: /influxdb3/core/admin/distinct-value-cache/
+  - name: Cache last value
+    description: |
       The Last Value Cache (LVC) lets you cache the most recent
       values for specific fields in a table, improving the performance of queries that
       return the most recent value of a field for specific series or the last N values
@@ -85,11 +83,9 @@ tags:
       what fields to cache, what tags to use to identify each series, and the
       number of values to cache for each unique series.
       An LVC is associated with a table, which can have multiple LVCs.
-
-      #### Related guides
-
-      - [Manage the Distinct Value Cache](/influxdb3/core/admin/distinct-value-cache/)
-      - [Manage the Last Value Cache](/influxdb3/core/admin/last-value-cache/)
+    x-influxdata-related:
+      - title: Manage the Last Value Cache
+        href: /influxdb3/core/admin/last-value-cache/
   - name: Migrate from InfluxDB v1 or v2
     x-traitTag: true
     description: |
@@ -1199,7 +1195,7 @@ paths:
       summary: Create distinct cache
       description: Creates a distinct cache for a table.
       tags:
-        - Cache data
+        - Cache distinct values
       requestBody:
         required: true
         content:
@@ -1244,7 +1240,7 @@ paths:
         '404':
           description: Cache not found.
       tags:
-        - Cache data
+        - Cache distinct values
   /api/v3/configure/last_cache:
     post:
       operationId: PostConfigureLastCache
@@ -1268,7 +1264,7 @@ paths:
         '409':
           description: Cache already exists.
       tags:
-        - Cache data
+        - Cache last value
     delete:
       operationId: DeleteConfigureLastCache
       summary: Delete last cache
@@ -1297,7 +1293,7 @@ paths:
         '404':
           description: Cache not found.
       tags:
-        - Cache data
+        - Cache last value
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
