@@ -2,20 +2,14 @@
   API Documentation Single Page Layout
 
   Used for:
-  - Individual operation pages (nested under tag pages)
   - Conceptual pages (isConceptual: true) like Authentication, Quick start
-
-  For operation pages:
-  - Renders RapiDoc with "Mix your own HTML" slots for custom content
-  - Shows method badge, path, and operation details
+  - Individual operation pages (legacy - being phased out)
 
   For conceptual pages:
   - Shows Hugo content or tagDescription markdown
 
   Required frontmatter:
   - title: Page title
-  - staticFilePath: Path to OpenAPI spec (for operation pages)
-  - operationId: Operation ID to render (for operation pages)
   - isConceptual: true (for conceptual pages)
 */}}
 
@@ -128,19 +122,14 @@
         {{ partial "api/security-schemes.html" . }}
         {{ end }}
         {{ else }}
-        {{/* Operation Page - RapiDoc with custom slots */}}
+        {{/* Operation Page - Hugo-native rendering */}}
+        {{/* Note: Individual operation pages are being phased out. */}}
+        {{/* Operations are now accessed via tag pages only. */}}
 
         {{/* Hugo page content shown as overview */}}
         {{ with .Content }}
         <section class="api-content-overview">
           {{ . }}
-        </section>
-        {{ end }}
-
-        {{/* RapiDoc renderer with slot-based customization */}}
-        {{ with .Params.staticFilePath }}
-        <section class="api-renderer-section">
-          {{ partial "api/rapidoc.html" $ }}
         </section>
         {{ end }}
 

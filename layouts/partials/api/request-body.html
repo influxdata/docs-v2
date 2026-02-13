@@ -55,6 +55,6 @@
 
   {{/* Render schema properties */}}
   {{ with $resolvedSchema }}
-    {{ partial "api/hugo-native/schema.html" (dict "schema" . "spec" $spec "level" 0) }}
+    {{ partial "api/schema.html" (dict "schema" . "spec" $spec "level" 0) }}
   {{ end }}
 </div>

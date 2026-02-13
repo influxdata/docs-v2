@@ -53,7 +53,7 @@
     <h5 class="api-param-group-title">Path parameters</h5>
     <div class="api-param-list">
       {{ range $pathParams }}
-        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+        {{ partial "api/parameter-row.html" (dict "param" . "spec" $spec) }}
       {{ end }}
     </div>
   </div>
@@ -65,7 +65,7 @@
     <h5 class="api-param-group-title">Query parameters</h5>
     <div class="api-param-list">
       {{ range $queryParams }}
-        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+        {{ partial "api/parameter-row.html" (dict "param" . "spec" $spec) }}
       {{ end }}
     </div>
   </div>
@@ -77,7 +77,7 @@
     <h5 class="api-param-group-title">Header parameters</h5>
     <div class="api-param-list">
       {{ range $headerParams }}
-        {{ partial "api/hugo-native/parameter-row.html" (dict "param" . "spec" $spec) }}
+        {{ partial "api/parameter-row.html" (dict "param" . "spec" $spec) }}
       {{ end }}
     </div>
   </div>

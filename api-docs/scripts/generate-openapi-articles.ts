@@ -213,7 +213,7 @@ interface GeneratePagesOptions {
  * Generate Hugo content pages from article data
  *
  * Creates markdown files with frontmatter from article metadata.
- * Each article becomes a page with type: api that renders via RapiDoc.
+ * Each article becomes a page with type: api that renders via Hugo-native templates.
  *
  * @param options - Generation options
  */
@@ -399,7 +399,7 @@ interface GenerateTagPagesOptions {
  * Generate Hugo content pages from tag-based article data
  *
  * Creates markdown files with frontmatter from article metadata.
- * Each article becomes a page with type: api that renders via RapiDoc.
+ * Each article becomes a page with type: api that renders via Hugo-native templates.
  * Includes operation metadata for TOC generation.
  *
  * @param options - Generation options
@@ -642,223 +642,9 @@ ${yaml.dump(frontmatter)}---
   );
 
   // NOTE: Path page generation is disabled - all operations are now displayed
-  // inline on tag pages using RapiDoc with hash-based navigation for deep linking.
-  // The tag pages render all operations in a single scrollable view with a
-  // server-side generated TOC for quick navigation.
-  //
-  // Previously this generated individual pages per API path:
-  // generatePathPages({ articlesPath, contentPath, pathSpecFiles });
-}
-
-/**
- * Options for generating path pages
- */
-interface GeneratePathPagesOptions {
-  /** Path to the articles data directory */
-  articlesPath: string;
-  /** Output path for generated content pages */
-  contentPath: string;
-  /** Map of API path to path-specific spec file (for single-path rendering) */
-  pathSpecFiles?: Map<string, string>;
-}
-
-/**
- * Convert API path to URL-safe slug with normalized version prefix
- *
- * Transforms an API path to a URL-friendly format:
- * - Removes leading "/api" prefix (added by parent directory structure)
- * - Ensures all paths have a version prefix (defaults to v1 if none)
- * - Removes leading slash
- * - Removes curly braces from path parameters (e.g., {db} → db)
- *
- * Examples:
- * - "/write" → "v1/write"
- * - "/api/v3/configure/database" → "v3/configure/database"
- * - "/api/v3/configure/database/{db}" → "v3/configure/database/db"
- * - "/api/v2/write" → "v2/write"
- * - "/health" → "v1/health"
- *
- * @param apiPath - The API path (e.g., "/write", "/api/v3/write_lp")
- * @returns URL-safe path slug with version prefix (e.g., "v1/write", "v3/configure/database")
- */
-function apiPathToSlug(apiPath: string): string {
-  // Remove leading "/api" prefix if present
-  let normalizedPath = apiPath.replace(/^\/api/, '');
-  // Remove leading slash
-  normalizedPath = normalizedPath.replace(/^\//, '');
-
-  // If path doesn't start with version prefix, add v1/
-  if (!/^v\d+\//.test(normalizedPath)) {
-    normalizedPath = `v1/${normalizedPath}`;
-  }
-
-  // Remove curly braces from path parameters (e.g., {db} → db)
-  // to avoid URL encoding issues in Hugo
-  normalizedPath = normalizedPath.replace(/[{}]/g, '');
-
-  return normalizedPath;
-}
-
-/** Method sort order for consistent display */
-const METHOD_ORDER = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
-
-/**
- * Generate standalone Hugo content pages for each API path
- *
- * Creates individual pages at path-based URLs like /api/v3/configure/database/
- * for each unique API path. Each page includes all HTTP methods (operations)
- * for that path, rendered using RapiDoc with match-type='includes'.
- *
- * When pathSpecFiles is provided, uses path-specific specs for isolated rendering.
- * Falls back to tag-based specs when pathSpecFiles is not available.
- *
- * @param options - Generation options
- */
-function generatePathPages(options: GeneratePathPagesOptions): void {
-  const { articlesPath, contentPath, pathSpecFiles } = options;
-  const yaml = require('js-yaml');
-  const articlesFile = path.join(articlesPath, 'articles.yml');
-
-  if (!fs.existsSync(articlesFile)) {
-    console.warn(`⚠️  Articles file not found: ${articlesFile}`);
-    return;
-  }
-
-  // Read articles data
-  const articlesContent = fs.readFileSync(articlesFile, 'utf8');
-  const data = yaml.load(articlesContent) as {
-    articles: Array<{
-      path: string;
-      fields: {
-        name?: string;
-        title?: string;
-        tag?: string;
-        isConceptual?: boolean;
-        showSecuritySchemes?: boolean;
-        staticFilePath?: string;
-        operations?: OperationMeta[];
-        related?: string[];
-        weight?: number;
-      };
-    }>;
-  };
-
-  if (!data.articles || !Array.isArray(data.articles)) {
-    console.warn(`⚠️  No articles found in ${articlesFile}`);
-    return;
-  }
-
-  // Collect all operations and group by API path
-  const pathOperations = new Map<
-    string,
-    {
-      operations: OperationMeta[];
-      tagSpecFile?: string;
-      tagName: string;
-    }
-  >();
-
-  // Process each article (tag) and collect operations by path
-  for (const article of data.articles) {
-    // Skip conceptual articles (they don't have operations)
-    if (article.fields.isConceptual) {
-      continue;
-    }
-
-    const operations = article.fields.operations || [];
-    const tagSpecFile = article.fields.staticFilePath;
-    const tagName = article.fields.tag || article.fields.name || '';
-
-    for (const op of operations) {
-      const existing = pathOperations.get(op.path);
-      if (existing) {
-        // Add operation to existing path group
-        existing.operations.push(op);
-      } else {
-        // Create new path group
-        pathOperations.set(op.path, {
-          operations: [op],
-          tagSpecFile,
-          tagName,
-        });
-      }
-    }
-  }
-
-  let pathCount = 0;
-
-  // Generate a page for each unique API path
-  for (const [apiPath, pathData] of pathOperations) {
-    // Build page path: api/{path}/
-    // e.g., /api/v3/configure/database -> api/v3/configure/database/
-    const pathSlug = apiPathToSlug(apiPath);
-    // Only add 'api/' prefix if the path doesn't already start with 'api/'
-    const basePath = pathSlug.startsWith('api/') ? pathSlug : `api/${pathSlug}`;
-    const pathDir = path.join(contentPath, basePath);
-    const pathFile = path.join(pathDir, '_index.md');
-
-    // Create directory if needed
-    if (!fs.existsSync(pathDir)) {
-      fs.mkdirSync(pathDir, { recursive: true });
-    }
-
-    // Sort operations by method order
-    const sortedOperations = [...pathData.operations].sort((a, b) => {
-      const aIndex = METHOD_ORDER.indexOf(a.method.toUpperCase());
-      const bIndex = METHOD_ORDER.indexOf(b.method.toUpperCase());
-      return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex);
-    });
-
-    // Use first operation's summary or construct from methods
-    const methods = sortedOperations.map((op) => op.method.toUpperCase());
-    const title =
-      sortedOperations.length === 1 && sortedOperations[0].summary
-        ? sortedOperations[0].summary
-        : `${apiPath}`;
-
-    // Determine spec file - use path-specific spec if available
-    const pathSpecFile = pathSpecFiles?.get(apiPath);
-    const specFile = pathSpecFile || pathData.tagSpecFile;
-
-    const frontmatter: Record<string, unknown> = {
-      title,
-      description: `API reference for ${apiPath} - ${methods.join(', ')}`,
-      type: 'api-path',
-      layout: 'path',
-      // RapiDoc configuration
-      specFile,
-      apiPath,
-      // Include all operations for TOC generation
-      operations: sortedOperations.map((op) => ({
-        operationId: op.operationId,
-        method: op.method,
-        path: op.path,
-        summary: op.summary,
-        ...(op.compatVersion && { compatVersion: op.compatVersion }),
-      })),
-      tag: pathData.tagName,
-    };
-
-    // Collect related links from all operations
-    const relatedLinks: string[] = [];
-    for (const op of sortedOperations) {
-      if (op.externalDocs?.url && !relatedLinks.includes(op.externalDocs.url)) {
-        relatedLinks.push(op.externalDocs.url);
-      }
-    }
-    if (relatedLinks.length > 0) {
-      frontmatter.related = relatedLinks;
-    }
-
-    const pageContent = `---
-${yaml.dump(frontmatter)}---
-`;
-
-    fs.writeFileSync(pathFile, pageContent);
-    pathCount++;
-  }
-
-  console.log(`✓ Generated ${pathCount} path pages in ${contentPath}/api/`);
+  // inline on tag pages using Hugo-native templates with hash-based navigation
+  // for deep linking. The tag pages render all operations in a single scrollable
+  // view with a server-side generated TOC for quick navigation.
 }
 
 /**

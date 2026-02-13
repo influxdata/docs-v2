@@ -1,7 +1,7 @@
 {{/* API Documentation Layout Handles two cases: 1. Section index (no 'tag'
 param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
-param) - shows RapiDoc with all operations for the tag For conceptual pages
-(isConceptual: true), shows content without operations. */}}
+param) - shows all operations for the tag using Hugo-native templates.
+For conceptual pages (isConceptual: true), shows content without operations. */}}
 
 {{/* Extract product and version from URL path for download buttons */}}
 {{/* Example: /influxdb3/clustered/api/ → ["", "influxdb3", "clustered", "api", ""] */}}
@@ -68,9 +68,7 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
           }} {{ . | markdownify }} {{ end }} {{ end }}
         </section>
 
-        {{ else }} {{/* Operational Page - Show RapiDoc with all operations */}}
-        {{/* Note: Description is shown in the RapiDoc info section from the
-        spec */}}
+        {{ else }} {{/* Operational Page - Show all operations */}}
 
         {{/* Download OpenAPI spec button - context-aware for Clustered/Cloud Dedicated */}}
         {{ with .Params.staticFilePath }}
@@ -126,18 +124,10 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
         <section class="api-content-body">{{ . }}</section>
         {{ end }}
 
-        {{/* Choose rendering mode: Hugo-native (POC) or RapiDoc (default) */}}
-        {{ $useHugoNative := .Params.useHugoNative | default false }}
-
+        {{/* Render operations using Hugo-native templates */}}
         {{ with .Params.staticFilePath }}
         <section class="api-operations-section">
-          {{ if $useHugoNative }}
-            {{/* Hugo-Native rendering (docusaurus-openapi style) */}}
-            {{ partial "api/hugo-native/tag-renderer.html" $ }}
-          {{ else }}
-            {{/* RapiDoc rendering (current default) */}}
-            {{ partial "api/rapidoc-tag.html" $ }}
-          {{ end }}
+          {{ partial "api/tag-renderer.html" $ }}
         </section>
         {{ end }} {{ end }} {{ end }} {{ partial "article/related.html" . }}
       </article>
@@ -150,9 +140,9 @@ param) - shows RapiDoc with all operations for the tag For conceptual pages
     <aside class="api-toc" data-component="api-toc">
       <h4 class="api-toc-header">ON THIS PAGE</h4>
       <nav class="api-toc-nav">
-        {{/* Operation links - use RapiDoc anchor format: {method}-{path} Use
-        safeURL to prevent URL-encoding of slashes Show method badge +
-        human-readable summary (not path) */}} {{ range $operations }} {{
+        {{/* Operation links - use anchor format: {method}-{path}
+        Use safeURL to prevent URL-encoding of slashes
+        Show method badge + human-readable summary (not path) */}} {{ range $operations }} {{
         $anchor := printf "#%s-%s" (lower .method) .path }}
         <a
           href="{{ $anchor | safeURL }}"

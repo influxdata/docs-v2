@@ -3,9 +3,10 @@
 /**
  * API Reference Documentation E2E Tests
  *
- * Tests both:
- * 1. Legacy API reference pages (link validation, content structure)
- * 2. New 3-column layout with tabs and TOC (for InfluxDB 3 Core/Enterprise)
+ * Tests:
+ * 1. API reference pages (link validation, content structure)
+ * 2. 3-column layout with TOC (for InfluxDB 3 Core/Enterprise)
+ * 3. Hugo-native tag page rendering
  *
  * Run with:
  * node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/api-reference.cy.js" content/influxdb3/core/reference/api/_index.md
@@ -128,13 +129,12 @@ describe('API reference content', () => {
 
 /**
  * API Reference Layout Tests
- * Tests layout and renderer for InfluxDB 3 Core/Enterprise API documentation
+ * Tests layout for InfluxDB 3 Core/Enterprise API documentation
  */
 describe('API reference layout', () => {
-  // API tag pages have RapiDoc renderer
   const layoutSubjects = [
-    '/influxdb3/core/api/v3/engine/',
-    '/influxdb3/enterprise/api/v3/engine/',
+    '/influxdb3/core/api/write-data/',
+    '/influxdb3/enterprise/api/write-data/',
   ];
 
   layoutSubjects.forEach((subject) => {
@@ -163,13 +163,26 @@ describe('API reference layout', () => {
             'exist'
           );
         });
+
+        it('displays TOC on page', () => {
+          cy.get('.api-toc').should('exist');
+        });
       });
 
-      describe('API Renderer', () => {
-        it('loads API documentation renderer', () => {
-          cy.get(
-            '.api-reference-container, rapi-doc, .api-reference-wrapper'
-          ).should('exist');
+      describe('Hugo-native renderer', () => {
+        it('renders API operations container', () => {
+          cy.get('.api-hugo-native, .api-operations-section').should('exist');
+        });
+
+        it('renders operation elements', () => {
+          cy.get('.api-operation').should('have.length.at.least', 1);
+        });
+
+        it('operation has method badge and path', () => {
+          cy.get('.api-operation').first().within(() => {
+            cy.get('.api-method').should('exist');
+            cy.get('.api-path').should('exist');
+          });
         });
       });
     });
@@ -177,18 +190,18 @@ describe('API reference layout', () => {
 });
 
 /**
- * RapiDoc Mini Component Tests
- * Tests the RapiDoc Mini component behavior on path pages
+ * API Tag Page Tests
+ * Tests Hugo-native tag pages render operations correctly
  */
-describe('RapiDoc Mini component', () => {
-  // Path pages use RapiDoc Mini with match-type="includes" to show all methods
-  const pathPages = [
-    '/influxdb3/core/api/v1/write/',
-    '/influxdb3/core/api/v3/write_lp/',
+describe('API tag pages', () => {
+  const tagPages = [
+    '/influxdb3/core/api/write-data/',
+    '/influxdb3/core/api/query-data/',
+    '/influxdb3/enterprise/api/write-data/',
   ];
 
-  pathPages.forEach((page) => {
-    describe(`Path page ${page}`, () => {
+  tagPages.forEach((page) => {
+    describe(`Tag page ${page}`, () => {
       beforeEach(() => {
         cy.intercept('GET', '**', (req) => {
           req.continue((res) => {
@@ -203,139 +216,33 @@ describe('RapiDoc Mini component', () => {
         cy.visit(page);
       });
 
-      describe('Component initialization', () => {
-        it('renders rapidoc-mini component container', () => {
-          cy.get('[data-component="rapidoc-mini"]').should('exist');
-        });
+      it('displays page title', () => {
+        cy.get('h1').should('exist');
+      });
 
-        it('has data-spec-url attribute', () => {
-          cy.get('[data-component="rapidoc-mini"]')
-            .should('have.attr', 'data-spec-url')
-            .and('match', /\.ya?ml$/);
-        });
+      it('renders operations section', () => {
+        cy.get('.api-operations, .api-operations-section').should('exist');
+      });
 
-        it('has data-match-paths attribute with API path', () => {
-          cy.get('[data-component="rapidoc-mini"]')
-            .should('have.attr', 'data-match-paths')
-            .and('match', /^\//);
-        });
-
-        it('has data-match-type attribute set to includes', () => {
-          cy.get('[data-component="rapidoc-mini"]').should(
-            'have.attr',
-            'data-match-type',
-            'includes'
-          );
-        });
-
-        it('includes machine-readable spec links', () => {
-          cy.get('link[rel="alternate"][type="application/x-yaml"]').should(
+      it('operations have proper structure', () => {
+        cy.get('.api-operation').first().within(() => {
+          // Check for operation header with method and path
+          cy.get('.api-operation-header, .api-operation-endpoint').should(
             'exist'
           );
-          cy.get('link[rel="alternate"][type="application/json"]').should(
-            'exist'
-          );
+          cy.get('.api-method').should('exist');
+          cy.get('.api-path').should('exist');
         });
       });
 
-      describe('RapiDoc element creation', () => {
-        it('creates rapi-doc-mini custom element', () => {
-          // Wait for component to initialize and create the element
-          cy.get('rapi-doc-mini', { timeout: 10000 }).should('exist');
-        });
-
-        it('rapi-doc-mini has spec-url attribute', () => {
-          cy.get('rapi-doc-mini', { timeout: 10000 })
-            .should('have.attr', 'spec-url')
-            .and('match', /\.ya?ml$/);
-        });
-
-        it('rapi-doc-mini has theme attributes', () => {
-          cy.get('rapi-doc-mini', { timeout: 10000 }).should(
-            'have.attr',
-            'theme'
-          );
-        });
-      });
-    });
-  });
-
-  describe('api-operation shortcode on example page', () => {
-    beforeEach(() => {
-      cy.intercept('GET', '**', (req) => {
-        req.continue((res) => {
-          if (res.headers['content-type']?.includes('text/html')) {
-            res.body = res.body.replace(
-              /data-user-analytics-fingerprint-enabled="true"/,
-              'data-user-analytics-fingerprint-enabled="false"'
-            );
-          }
-        });
-      });
-      cy.visit('/example/');
-    });
-
-    describe('Multiple instances', () => {
-      it('renders multiple rapidoc-mini containers', () => {
-        cy.get('[data-component="rapidoc-mini"]').should(
-          'have.length.at.least',
-          2
-        );
+      it('TOC contains operation links', () => {
+        cy.get('.api-toc-nav').should('exist');
+        cy.get('.api-toc-link').should('have.length.at.least', 1);
       });
 
-      it('each instance has unique match-paths', () => {
-        cy.get('[data-component="rapidoc-mini"]').then(($containers) => {
-          const matchPaths = [];
-          $containers.each((_, el) => {
-            const path = el.getAttribute('data-match-paths');
-            expect(matchPaths).to.not.include(path);
-            matchPaths.push(path);
-          });
-        });
+      it('TOC links have method badges', () => {
+        cy.get('.api-toc-link .api-method').should('have.length.at.least', 1);
       });
-
-      it('each instance creates its own rapi-doc-mini element', () => {
-        cy.get('rapi-doc-mini', { timeout: 10000 }).should(
-          'have.length.at.least',
-          2
-        );
-      });
-    });
-  });
-
-  describe('Theme synchronization', () => {
-    beforeEach(() => {
-      cy.intercept('GET', '**', (req) => {
-        req.continue((res) => {
-          if (res.headers['content-type']?.includes('text/html')) {
-            res.body = res.body.replace(
-              /data-user-analytics-fingerprint-enabled="true"/,
-              'data-user-analytics-fingerprint-enabled="false"'
-            );
-          }
-        });
-      });
-      cy.visit('/influxdb3/core/api/v1/write/');
-    });
-
-    it('applies light theme by default', () => {
-      cy.get('rapi-doc-mini', { timeout: 10000 })
-        .should('have.attr', 'theme')
-        .and('match', /light|dark/);
-    });
-
-    it('rapi-doc-mini has background color attribute', () => {
-      cy.get('rapi-doc-mini', { timeout: 10000 }).should(
-        'have.attr',
-        'bg-color'
-      );
-    });
-
-    it('rapi-doc-mini has text color attribute', () => {
-      cy.get('rapi-doc-mini', { timeout: 10000 }).should(
-        'have.attr',
-        'text-color'
-      );
     });
   });
 });
@@ -435,11 +342,11 @@ describe('All endpoints page', () => {
         );
       });
 
-      it('operation cards link to path pages with method anchors', () => {
+      it('operation cards link to tag pages with method anchors', () => {
         cy.get('.api-operation-card')
           .first()
           .should('have.attr', 'href')
-          .and('match', /\/api\/.*\/#(get|post|put|patch|delete)$/i);
+          .and('match', /\/api\/.*\/#(get|post|put|patch|delete)-/i);
       });
 
       it('is accessible from navigation', () => {

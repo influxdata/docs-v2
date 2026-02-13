@@ -46,16 +46,16 @@
   {{/* Parameters Section */}}
   {{ $params := $opDef.parameters | default slice }}
   {{ if gt (len $params) 0 }}
-    {{ partial "api/hugo-native/parameters.html" (dict "parameters" $params "spec" $spec) }}
+    {{ partial "api/parameters.html" (dict "parameters" $params "spec" $spec) }}
   {{ end }}
 
   {{/* Request Body Section */}}
   {{ with $opDef.requestBody }}
-    {{ partial "api/hugo-native/request-body.html" (dict "requestBody" . "spec" $spec) }}
+    {{ partial "api/request-body.html" (dict "requestBody" . "spec" $spec) }}
   {{ end }}
 
   {{/* Responses Section */}}
   {{ with $opDef.responses }}
-    {{ partial "api/hugo-native/responses.html" (dict "responses" . "spec" $spec) }}
+    {{ partial "api/responses.html" (dict "responses" . "spec" $spec) }}
   {{ end }}
 </div>

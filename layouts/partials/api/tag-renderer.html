@@ -1,7 +1,7 @@
 {{/*
-  Hugo-Native Tag Page Renderer
+  Tag Page Renderer
 
-  Renders all operations for a tag page using Hugo templates instead of RapiDoc.
+  Renders all operations for a tag page using Hugo templates.
   Parses the OpenAPI spec file and renders each operation natively.
 
   Required page params:
@@ -9,7 +9,7 @@
     - operations: Array of operation metadata from frontmatter
 
   Usage:
-    {{ partial "api/hugo-native/tag-renderer.html" . }}
+    {{ partial "api/tag-renderer.html" . }}
 */}}
 
 {{ $page := . }}
@@ -61,7 +61,7 @@
   {{/* Operations List */}}
   <section class="api-operations">
     {{ range $operations }}
-      {{ partial "api/hugo-native/operation.html" (dict
+      {{ partial "api/operation.html" (dict
         "operation" .
         "spec" $spec
         "context" $page

@@ -93,12 +93,12 @@
         {{/* Nested object/array rendering (limit depth to prevent infinite loops) */}}
         {{ if and (eq $propType "object") (lt $level 2) }}
           {{ with $propSchema.properties }}
-            {{ partial "api/hugo-native/schema.html" (dict "schema" $propSchema "spec" $spec "level" (add $level 1)) }}
+            {{ partial "api/schema.html" (dict "schema" $propSchema "spec" $spec "level" (add $level 1)) }}
           {{ end }}
         {{ else if and (eq $propType "array") (lt $level 2) }}
           {{ with $propSchema.items }}
             {{ if isset . "properties" }}
-              {{ partial "api/hugo-native/schema.html" (dict "schema" . "spec" $spec "level" (add $level 1)) }}
+              {{ partial "api/schema.html" (dict "schema" . "spec" $spec "level" (add $level 1)) }}
             {{ end }}
           {{ end }}
         {{ end }}

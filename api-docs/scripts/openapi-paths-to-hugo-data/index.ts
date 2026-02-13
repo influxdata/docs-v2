@@ -517,7 +517,7 @@ function writeTagOpenapis(
         const operation = pathItem[method] as Operation | undefined;
         if (operation?.tags?.includes(tagName)) {
           // Clone the operation and restrict tags to only this tag
-          // This prevents RapiDoc from rendering the operation multiple times
+          // This prevents the operation from being rendered multiple times
           // (once per tag) when an operation belongs to multiple tags
           const filteredOperation = { ...operation, tags: [tagName] };
           filteredPathItem[method] = filteredOperation;
@@ -636,8 +636,8 @@ export function writePathSpecificSpecs(
     // Deep clone pathItem to avoid mutating original
     const clonedPathItem: PathItem = JSON.parse(JSON.stringify(pathItem));
 
-    // Limit each operation to a single tag to prevent duplicate rendering in RapiDoc
-    // RapiDoc renders operations once per tag, so multiple tags cause duplicates
+    // Limit each operation to a single tag to prevent duplicate rendering
+    // Operations with multiple tags would be rendered once per tag
     const usedTags = new Set<string>();
     HTTP_METHODS.forEach((method) => {
       const operation = clonedPathItem[method] as Operation | undefined;
@@ -654,7 +654,7 @@ export function writePathSpecificSpecs(
     });
 
     // Create spec with just this path (all its methods)
-    // Include global security requirements so RapiDoc displays auth correctly
+    // Include global security requirements so auth info displays correctly
     const pathSpec: OpenAPIDocument = {
       openapi: openapi.openapi,
       info: {
@@ -1001,7 +1001,7 @@ function writeOpenapiArticleData(
  * Sanitize markdown description by removing fragment links and ReDoc directives
  *
  * Handles three cases:
- * 1. RapiDoc fragment links: [text](#section/...) -> text (removes the link entirely)
+ * 1. OpenAPI fragment links: [text](#section/...) -> text (removes the link entirely)
  * 2. Relative links with fragments: [text](/path/#anchor) -> [text](/path/) (keeps link, removes fragment)
  * 3. ReDoc injection directives: <!-- ReDoc-Inject: ... --> (removes entirely)
  *
@@ -1022,12 +1022,12 @@ function sanitizeDescription(description: string | undefined): string {
   sanitized = sanitized.replace(/<!--\s*ReDoc-Inject:.*?-->/g, '');
 
   // Handle markdown links:
-  // 1. RapiDoc fragment links (#section/..., #operation/..., #tag/...) -> replace with just the text
+  // 1. OpenAPI fragment links (#section/..., #operation/..., #tag/...) -> replace with just the text
   // 2. Relative links with fragments (/path/#anchor) -> keep link but remove fragment
   sanitized = sanitized.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
     (match, text, url) => {
-      // Case 1: RapiDoc fragment links (starts with #section/, #operation/, #tag/)
+      // Case 1: OpenAPI fragment links (starts with #section/, #operation/, #tag/)
       if (url.match(/^#(section|operation|tag)\//)) {
         return text; // Just return the link text, no markdown link
       }

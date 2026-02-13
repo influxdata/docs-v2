@@ -69,7 +69,7 @@
             {{ end }}
 
             <div class="api-response-body">
-              {{ partial "api/hugo-native/schema.html" (dict "schema" $resolvedSchema "spec" $spec "level" 0) }}
+              {{ partial "api/schema.html" (dict "schema" $resolvedSchema "spec" $spec "level" 0) }}
             </div>
           {{ end }}
         {{ end }}

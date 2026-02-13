@@ -1,10 +1,12 @@
 {{/*
   API Renderer
 
-  Renders API documentation using RapiDoc.
+  Renders API documentation using Hugo-native templates.
+  This partial is maintained for backward compatibility.
 
   Required page params:
   - staticFilePath: Path to the OpenAPI specification file
+  - operations: Array of operation metadata
 */}}
 
-{{ partial "api/rapidoc.html" . }}
+{{ partial "api/tag-renderer.html" . }}
