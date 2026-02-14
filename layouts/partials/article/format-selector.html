@@ -44,9 +44,8 @@
   {{- if $sectionDownloadUrl }}
   data-section-download-url="{{ $sectionDownloadUrl }}"
   {{- end }}
-  {{- /* Future MCP server URLs - commented out for now */ -}}
-  {{- /* data-mcp-cursor-url="/docs/mcp/cursor-setup/" */ -}}
-  {{- /* data-mcp-vscode-url="/docs/mcp/vscode-setup/" */ -}}
+  {{- /* Documentation MCP server URL - link to setup docs */ -}}
+  data-mcp-docs-url="/influxdb3/core/reference/mcp-server/"
 >
   {{/* Button triggers dropdown */}}
   <button
