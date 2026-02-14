@@ -142,24 +142,37 @@ Simplified Cypress tests now that we use standard HTML instead of shadow DOM.
 
 ***
 
-### Task 6: Clean up styles
+### Task 6: Clean up styles ✅ COMPLETED
 
-**Priority:** Medium
+**Priority:** Medium | **Status:** Completed 2026-02-13
 
-Remove RapiDoc-specific styles and consolidate Hugo-native styles.
+Remove RapiDoc-specific styles, JavaScript, and references from the codebase.
 
-**Files to review:**
+**Files modified:**
 
-- `assets/styles/layouts/_api-layout.scss`
-- `assets/styles/layouts/_api-overrides.scss`
-- `assets/styles/layouts/_api-hugo-native.scss`
+- `assets/styles/layouts/_api-layout.scss` - Removed \~40 lines of `rapi-doc::part()` CSS selectors
+- `assets/styles/layouts/_api-overrides.scss` - Updated comment header
+- `assets/styles/layouts/_api-security-schemes.scss` - Removed \~290 lines of dead auth modal styles
+- `assets/js/main.js` - Removed dead `api-auth-input` import and registration
+- `assets/js/components/api-toc.ts` - Removed RapiDoc-specific code and updated comments
+
+**Files deleted:**
+
+- `static/css/rapidoc-custom.css` - Unused static CSS file
 
 **Changes:**
 
-1. Remove RapiDoc-specific CSS variables and selectors
-2. Merge `_api-hugo-native.scss` into `_api-layout.scss`
-3. Remove `_api-overrides.scss` if only contains RapiDoc overrides
-4. Update SCSS imports in the main stylesheet
+1. ✅ Removed `rapi-doc` container styling and `::part()` selectors from `_api-layout.scss`
+2. ✅ Removed dead auth modal section from `_api-security-schemes.scss` (was for RapiDoc "Try it" integration)
+3. ✅ Removed `api-auth-input` dead import from `main.js` (component file was already deleted)
+4. ✅ Removed `setupRapiDocNavigation()` dead function and references from `api-toc.ts`
+5. ✅ Updated comments throughout to remove RapiDoc mentions
+6. ✅ Rebuilt `api-docs/scripts/dist/` to update compiled JavaScript
+
+**Architecture decision:** Kept operation styles separate from layout styles for cleaner separation of concerns:
+
+- `_api-layout.scss` handles page structure and navigation
+- `_api-operations.scss` handles operation/schema component rendering (renamed from `_api-hugo-native.scss`)
 
 ***
 

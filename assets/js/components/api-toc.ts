@@ -3,7 +3,7 @@
  *
  * Generates "ON THIS PAGE" navigation from content headings or operations data.
  * Features:
- * - Builds TOC from h2 headings by default (avoids RapiDoc h3 fragment collisions)
+ * - Builds TOC from h2 headings by default
  * - Builds TOC from operations data passed via data-operations attribute (tag-based)
  * - Highlights current section on scroll (intersection observer)
  * - Smooth scroll to anchors
@@ -44,11 +44,7 @@ interface OperationMeta {
 /**
  * Get headings from the currently visible content
  *
- * For API pages, only h2 headings are collected to avoid fragment collisions
- * from repetitive h3 headings like "Syntax", "Parameters", "Responses" that
- * RapiDoc generates for each operation.
- *
- * @param maxLevel - Maximum heading level to include (default: 2 for API pages)
+ * @param maxLevel - Maximum heading level to include (default: 2)
  */
 function getVisibleHeadings(maxLevel: number = 2): TocEntry[] {
   // Find the active tab panel or main content area
@@ -147,7 +143,7 @@ function buildOperationsTocHtml(operations: OperationMeta[]): string {
   let html = '<ul class="api-toc-list api-toc-list--operations">';
 
   operations.forEach((op) => {
-    // Generate anchor ID from operationId (RapiDoc uses operationId for anchors)
+    // Generate anchor ID from operationId
     const anchorId = op.operationId;
     const methodClass = getMethodClass(op.method);
 
@@ -270,44 +266,6 @@ function setupScrollHighlighting(
 }
 
 /**
- * Set up RapiDoc navigation for TOC links (for tag pages)
- * Uses RapiDoc's scrollToPath method instead of native scroll
- */
-function setupRapiDocNavigation(container: HTMLElement): void {
-  container.addEventListener('click', (event) => {
-    const target = event.target as HTMLElement;
-    const link = target.closest<HTMLAnchorElement>('.api-toc-link');
-
-    if (!link) {
-      return;
-    }
-
-    const href = link.getAttribute('href');
-    if (!href?.startsWith('#')) {
-      return;
-    }
-
-    event.preventDefault();
-
-    // Get the path from the hash (e.g., "post-/api/v3/configure/distinct_cache")
-    const path = href.slice(1);
-
-    // Find RapiDoc element and call scrollToPath
-    const rapiDoc = document.querySelector('rapi-doc') as HTMLElement & {
-      // eslint-disable-next-line no-unused-vars
-      scrollToPath?: (path: string) => void;
-    };
-
-    if (rapiDoc && typeof rapiDoc.scrollToPath === 'function') {
-      rapiDoc.scrollToPath(path);
-    }
-
-    // Update URL hash
-    history.pushState(null, '', href);
-  });
-}
-
-/**
  * Set up smooth scroll for TOC links
  */
 function setupSmoothScroll(container: HTMLElement): void {
@@ -348,7 +306,6 @@ function setupSmoothScroll(container: HTMLElement): void {
 
 /**
  * Update TOC visibility based on active tab
- * Hide TOC for Operations tab (RapiDoc has built-in navigation)
  */
 function updateTocVisibility(container: HTMLElement): void {
   const operationsPanel = document.querySelector(
@@ -417,21 +374,12 @@ export default function ApiToc({ component }: ComponentOptions): void {
   }
 
   // Check if TOC was pre-rendered server-side (has existing links)
-  // For tag pages with RapiDoc, the TOC is rendered by Hugo from operations frontmatter
   const hasServerRenderedToc = nav.querySelectorAll('.api-toc-link').length > 0;
 
   if (hasServerRenderedToc) {
     // Server-side TOC exists - just show it and set up navigation
     component.classList.remove('is-hidden');
-
-    // For tag pages with RapiDoc, use RapiDoc's scrollToPath for navigation
-    // instead of smooth scrolling (which can't access shadow DOM elements)
-    const rapiDocWrapper = document.querySelector('[data-tag-page="true"]');
-    if (rapiDocWrapper) {
-      setupRapiDocNavigation(component);
-    } else {
-      setupSmoothScroll(component);
-    }
+    setupSmoothScroll(component);
     return;
   }
 
@@ -439,7 +387,7 @@ export default function ApiToc({ component }: ComponentOptions): void {
   const operations = parseOperationsData(component);
   let observer: IntersectionObserver | null = null;
 
-  // Get max heading level from data attribute (default: 2 to avoid RapiDoc h3 collisions)
+  // Get max heading level from data attribute (default: 2)
   // Use data-toc-depth="3" to include h3 headings if needed
   const maxHeadingLevel = parseInt(
     component.getAttribute('data-toc-depth') || '2',
@@ -467,7 +415,6 @@ export default function ApiToc({ component }: ComponentOptions): void {
     }
 
     // Otherwise, fall back to heading-based TOC
-    // Use configured max heading level to avoid fragment collisions from RapiDoc h3s
     const entries = getVisibleHeadings(maxHeadingLevel);
     if (nav) {
       nav.innerHTML = buildTocHtml(entries);

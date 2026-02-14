@@ -35,7 +35,7 @@
   padding: 1rem;
   border-left: 1px solid $nav-border;
 
-  // Hidden state (used when Operations/RapiDoc tab is active)
+  // Hidden state (used when a tab panel hides the TOC)
   &.is-hidden {
     display: none;
   }
@@ -589,43 +589,6 @@
   .tab-content:not(:first-of-type) {
     display: none;
   }
-
-  // RapiDoc container styling
-  rapi-doc {
-    display: block;
-    width: 100%;
-    min-height: 400px;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////// RapiDoc Overrides ///////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-// Hide RapiDoc's internal navigation (we provide our own)
-rapi-doc::part(section-navbar) {
-  display: none !important;
-}
-
-// Hide RapiDoc's internal tag headers/titles (we use custom tabs for navigation)
-// label-tag-title is the "PROCESSING ENGINE" header with auth badges shown in tag groups
-rapi-doc::part(label-tag-title) {
-  display: none !important;
-}
-
-// Hide RapiDoc's authentication section (we have separate Auth tab)
-rapi-doc::part(section-auth) {
-  display: none !important;
-}
-
-// Ensure RapiDoc content fills available space
-rapi-doc::part(section-main-content) {
-  padding: 0;
-}
-
-// Match RapiDoc's operation section styling to our theme
-rapi-doc::part(section-operations) {
-  padding: 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

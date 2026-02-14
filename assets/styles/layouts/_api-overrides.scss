@@ -1,9 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // API Documentation Style Overrides
 //
-// Provides loading spinner and reusable API-related styles.
-// Note: Legacy Redoc-specific overrides have been removed in favor of
-// Scalar/RapiDoc renderers which use CSS custom properties for theming.
+// Provides loading spinner and reusable HTTP method badge colors.
+// Used by Hugo-native API templates for consistent styling.
 ////////////////////////////////////////////////////////////////////////////////
 
 @import "tools/color-palette";
