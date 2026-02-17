@@ -10,8 +10,7 @@ menu:
     parent: Downsample data
     identifier: influxdb-dedicated-downsample-quix
 weight: 102
-alt_links:
-  cloud-serverless: /influxdb3/cloud-serverless/process-data/downsample/quix/
-  clustered: /influxdb3/clustered/process-data/downsample/quix/
+aliases:
+  - /influxdb3/cloud-dedicated/process-data/downsample-quix/
 source: /content/shared/v3-process-data/downsample/quix.md
 ---
