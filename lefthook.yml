@@ -17,7 +17,7 @@ pre-commit:
           errors=1
         fi
         # Check for abbreviated 'py' language identifier
-        if grep -l '^```py$\|^```py ' {staged_files} 2>/dev/null; then
+        if grep -lE '^\s*```py(\s|$)' {staged_files} 2>/dev/null; then
           echo "❌ Found abbreviated 'py' code fence language."
           echo "   Use 'python' instead of 'py' for code fences."
           errors=1
