@@ -10,7 +10,7 @@ introduced: "v1.12.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/processors/unpivot/README.md, Unpivot Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/processors/unpivot/README.md, Unpivot Plugin Source
 ---
 
 # Unpivot Processor Plugin

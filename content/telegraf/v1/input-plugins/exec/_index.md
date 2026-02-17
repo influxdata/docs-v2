@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/exec/README.md, Exec Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/exec/README.md, Exec Plugin Source
 ---
 
 # Exec Input Plugin
