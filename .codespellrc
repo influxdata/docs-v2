@@ -1,0 +1,6 @@
+[codespell]
+skip = public,node_modules,dist,.git,.vale
+# Ignore technical terms and false positives
+ignore-words-list = aks,tage
+# Include rare and code-specific dictionaries
+builtin = clear,rare,code
