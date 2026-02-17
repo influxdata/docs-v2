@@ -223,6 +223,35 @@ function getCleanupPaths(
 }
 
 /**
+ * Clean output directories for a product before regeneration
+ *
+ * @param productKey - Product identifier
+ * @param config - Product configuration
+ */
+function cleanProductOutputs(productKey: string, config: ProductConfig): void {
+  const { directories, files } = getCleanupPaths(productKey, config);
+
+  // Remove directories recursively
+  for (const dir of directories) {
+    console.log(`🧹 Removing directory: ${dir}`);
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+
+  // Remove individual files
+  for (const file of files) {
+    console.log(`🧹 Removing file: ${file}`);
+    fs.unlinkSync(file);
+  }
+
+  const total = directories.length + files.length;
+  if (total > 0) {
+    console.log(
+      `✓ Cleaned ${directories.length} directories, ${files.length} files for ${productKey}`
+    );
+  }
+}
+
+/**
  * Generate Hugo data files from OpenAPI specification
  *
  * @param specFile - Path to the OpenAPI spec file
