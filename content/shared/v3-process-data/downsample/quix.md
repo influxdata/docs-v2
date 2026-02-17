@@ -379,7 +379,7 @@ def send_data_to_influx(message):
 sdf = app.dataframe(input_topic)
 sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' function to each message in the incoming stream
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 ```
 
 Replace the following:
