@@ -10,7 +10,7 @@ introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/github/README.md, GitHub Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/github/README.md, GitHub Plugin Source
 ---
 
 # GitHub Input Plugin

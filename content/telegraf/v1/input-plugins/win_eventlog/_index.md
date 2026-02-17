@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/win_eventlog/README.md, Windows Eventlog Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/win_eventlog/README.md, Windows Eventlog Plugin Source
 ---
 
 # Windows Eventlog Input Plugin

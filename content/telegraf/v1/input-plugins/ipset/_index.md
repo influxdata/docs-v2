@@ -10,7 +10,7 @@ introduced: "v1.6.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/ipset/README.md, Ipset Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/ipset/README.md, Ipset Plugin Source
 ---
 
 # Ipset Input Plugin

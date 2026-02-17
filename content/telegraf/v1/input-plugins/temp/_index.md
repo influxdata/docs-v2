@@ -10,7 +10,7 @@ introduced: "v1.8.0"
 os_support: "linux, macos, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/temp/README.md, Temperature Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/temp/README.md, Temperature Plugin Source
 ---
 
 # Temperature Input Plugin

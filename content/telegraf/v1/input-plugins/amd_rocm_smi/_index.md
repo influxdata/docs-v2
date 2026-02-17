@@ -10,7 +10,7 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/amd_rocm_smi/README.md, AMD ROCm System Management Interface (SMI) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/amd_rocm_smi/README.md, AMD ROCm System Management Interface (SMI) Plugin Source
 ---
 
 # AMD ROCm System Management Interface (SMI) Input Plugin
