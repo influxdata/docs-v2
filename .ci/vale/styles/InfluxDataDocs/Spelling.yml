@@ -2,11 +2,10 @@ extends: spelling
 message: "Did you really mean '%s'?"
 level: warning
 # Exclude from spell checking:
-# - code: fenced code blocks (```...```)
 # - raw: inline code (`...`)
 # - table.*: table headers and cells
+# NOTE: code blocks are now included to check comments and documentation strings
 scope:
-  - ~code
   - ~raw
   - ~table.header
   - ~table.cell
@@ -25,3 +24,11 @@ filters:
   - 'https?://[^\s\)\]>"]+'
 # Ignore shortcode attribute values (e.g., endpoint="..." method="...")
   - '(?:endpoint|method|url|href|src|path)="[^"]+"'
+# Ignore camelCase identifiers and snake_case variable names
+  - '[a-z_][a-zA-Z0-9_]*(?:[A-Z][a-zA-Z0-9_]*)*'
+  - '[A-Z_][A-Z0-9_]+'
+# Ignore hexadecimal values and version numbers
+  - '0[xX][0-9a-fA-F]+'
+  - '\d+\.\d+(?:\.\d+)*'
+# Ignore common code punctuation and symbols
+  - '[@#$%^&*()_+=\[\]{};:,.<>?/\\|-]+'
