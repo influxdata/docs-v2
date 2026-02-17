@@ -10,9 +10,6 @@ menu:
     parent: Downsample data
     identifier: downsample-quix
 weight: 202
-alt_links:
-  cloud-dedicated: /influxdb3/cloud-dedicated/process-data/downsample/downsample-quix/
-  clustered: /influxdb3/clustered/process-data/downsample/quix/
 related:
   - /influxdb3/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 source: /content/shared/v3-process-data/downsample/quix.md
