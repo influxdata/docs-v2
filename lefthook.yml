@@ -5,6 +5,25 @@
 pre-commit:
   parallel: true
   commands:
+    deprecated-markdown-patterns:
+      tags: lint
+      glob: "content/**/*.md"
+      run: |
+        errors=0
+        # Check for deprecated code-placeholders shortcode
+        if grep -l '{{% code-placeholders' {staged_files} 2>/dev/null; then
+          echo "❌ Found deprecated {{% code-placeholders %}} shortcode."
+          echo "   Use \`\`\`language { placeholders=\"...\" } instead."
+          errors=1
+        fi
+        # Check for abbreviated 'py' language identifier
+        if grep -l '^```py$\|^```py ' {staged_files} 2>/dev/null; then
+          echo "❌ Found abbreviated 'py' code fence language."
+          echo "   Use 'python' instead of 'py' for code fences."
+          errors=1
+        fi
+        exit $errors
+      fail_text: "Deprecated markdown patterns found. See messages above for details."
     eslint-debug-check:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}

@@ -157,6 +157,27 @@ function getSharedSource(filePath) {
 - Tests will fail because content hasn't changed
 - Published site won't reflect your edits
 
+### Check for Path Differences and Add `alt_links`
+
+When creating or editing shared content, check if the URL paths differ between products. If they do, add `alt_links` frontmatter to each product file to cross-reference the equivalent pages.
+
+See [DOCS-FRONTMATTER.md](../../../DOCS-FRONTMATTER.md#alternative-links-alt_links) for syntax and examples.
+
+### Check product resource terms are cross-referenced
+
+When creating or editing content, check that product resource terms link to `admin/` or `reference/` pages that help the user understand and set up the resource.
+Product resource terms often appear inside `code-placeholder-key` shortcode text and bullet item text.
+Example product resource terms:
+
+- "database token"
+- "database name"
+
+**TODOs for CI/config:**
+
+- Add automated check to validate `alt_links` are present when shared content paths differ across products
+- Add check for product-specific URL patterns in shared content (e.g., Cloud Serverless uses `/reference/regions` for URLs, Cloud Dedicated/Clustered do not have this page - cluster URLs come from account setup)
+- Add check/helper to ensure resource references (tokens, databases, buckets) link to proper admin pages using `/influxdb3/version/admin/` pattern
+
 ## Part 2: Testing Workflow
 
 After making content changes, run tests to validate:
@@ -285,6 +306,7 @@ Vale reports three alert levels:
 ### Fixing Common Vale Issues
 
 **Spelling/vocabulary errors:**
+
 ```bash
 # If Vale flags a legitimate term, add it to vocabulary
 echo "YourTerm" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
@@ -292,6 +314,7 @@ echo "YourTerm" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
 
 **Style violations:**
 Vale will suggest the correct form. For example:
+
 ```
 content/file.md:25:1: Use 'InfluxDB 3' instead of 'InfluxDB v3'
 ```
@@ -300,6 +323,7 @@ Simply make the suggested change.
 
 **False positives:**
 If Vale incorrectly flags something:
+
 1. Check if it's a new technical term that should be in vocabulary
 2. See if the rule needs refinement (consult **vale-rule-config** skill)
 3. Add inline comments to disable specific rules if necessary:
@@ -617,6 +641,7 @@ ls content/influxdb3/core/api/
 
 - [ ] Content created/edited using appropriate method (CLI or direct)
 - [ ] If shared content: Sourcing files touched (or used `docs edit`)
+- [ ] If shared content: Check for path differences and add `alt_links` if paths vary
 - [ ] Technical accuracy verified (MCP fact-check if needed)
 - [ ] Hugo builds without errors (`hugo --quiet`)
 - [ ] Vale style linting passes (`docker compose run -T vale content/**/*.md`)
