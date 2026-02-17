@@ -3442,7 +3442,6 @@ local Apache Kafka or Redpanda installation.</li>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip install influxdb3-python pandas quixstreams&lt;2.5</span></span></code></pre></div>
-<h2 id="prepare-influxdb">Prepare InfluxDB</h2>
 <p>The downsampling process involves two InfluxDB .
 Each  has a <a href="/influxdb3/version/reference/glossary/#retention-period">retention period</a>
 that specifies how long data persists before it expires and is deleted.
@@ -3472,7 +3471,7 @@ downsamples it, and then sends it to an output topic that is used to write back 
 </li>
 <li>
 <p>Configure the Quix Streams built-in windowing function to create a tumbling
-window that continously downsamples the data into 1-minute buckets.</p>
+window that continuously downsamples the data into 1-minute buckets.</p>
 
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># ...</span>
@@ -3556,7 +3555,7 @@ Read data from the Query and publish it to Kafka
 &quot;&quot;&quot;
 #&hellip; remaining code trunctated for brevity &hellip;</p>
 <pre><code>        for index, obj in enumerate(records):
-            print(obj) # Obj contains each row in the table includimng temperature
+            print(obj) # Obj contains each row in the table including temperature
             # Generate a unique message_key for each row
             message_key = obj['machineId']
             logger.info(f'Produced message with key:{message_key}, value:{obj}')
