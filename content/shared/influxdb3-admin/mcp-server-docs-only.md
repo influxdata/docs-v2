@@ -81,6 +81,8 @@ Each result includes:
 - `source_url`: URL of the original documentation page
 - `content`: The chunk content in Markdown
 
+{{< img-hd src="/img/influxdb3/core-mcp-influxdb3-plugin.png" alt="MCP tool search results showing InfluxDB documentation" />}}
+
 ## Use the documentation MCP server
 
 After you install the documentation MCP server, your AI assistant can search InfluxDB

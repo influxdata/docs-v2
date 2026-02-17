@@ -50,10 +50,14 @@
   {{- $mcpDocsUrl = "/influxdb/cloud/reference/mcp-server/" -}}
 {{- else if hasPrefix $path "/influxdb/v2/" -}}
   {{- $mcpDocsUrl = "/influxdb/v2/reference/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb/v1/" -}}
+  {{- $mcpDocsUrl = "/influxdb/v1/tools/mcp-server/" -}}
+{{- else if hasPrefix $path "/enterprise_influxdb/v1/" -}}
+  {{- $mcpDocsUrl = "/enterprise_influxdb/v1/tools/mcp-server/" -}}
 {{- else if hasPrefix $path "/telegraf/" -}}
   {{- $mcpDocsUrl = "/telegraf/v1/mcp-server/" -}}
 {{- else -}}
-  {{/* Default to Core docs for other products (Flux, Kapacitor, Chronograf, v1) */}}
+  {{/* Default to Core docs for other products (Flux, Kapacitor, Chronograf) */}}
   {{- $mcpDocsUrl = "/influxdb3/core/admin/mcp-server/" -}}
 {{- end -}}
 
