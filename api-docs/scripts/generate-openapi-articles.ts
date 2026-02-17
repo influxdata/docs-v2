@@ -171,6 +171,58 @@ function getStaticDirName(productKey: string): string {
 }
 
 /**
+ * Get all paths that would be cleaned for a product
+ *
+ * @param productKey - Product identifier (e.g., 'influxdb3_core')
+ * @param config - Product configuration
+ * @returns Object with directories and files arrays
+ */
+function getCleanupPaths(
+  productKey: string,
+  config: ProductConfig
+): { directories: string[]; files: string[] } {
+  const staticDirName = getStaticDirName(productKey);
+  const staticPath = path.join(DOCS_ROOT, 'static/openapi');
+
+  const directories: string[] = [];
+  const files: string[] = [];
+
+  // Tag specs directory: static/openapi/{staticDirName}/
+  const tagSpecsDir = path.join(staticPath, staticDirName);
+  if (fs.existsSync(tagSpecsDir)) {
+    directories.push(tagSpecsDir);
+  }
+
+  // Article data directory: data/article_data/influxdb/{productKey}/
+  const articleDataDir = path.join(
+    DOCS_ROOT,
+    `data/article_data/influxdb/${productKey}`
+  );
+  if (fs.existsSync(articleDataDir)) {
+    directories.push(articleDataDir);
+  }
+
+  // Content pages directory: content/{pagesDir}/api/
+  const contentApiDir = path.join(config.pagesDir, 'api');
+  if (fs.existsSync(contentApiDir)) {
+    directories.push(contentApiDir);
+  }
+
+  // Root spec files: static/openapi/{staticDirName}-*.yml and .json
+  if (fs.existsSync(staticPath)) {
+    const staticFiles = fs.readdirSync(staticPath);
+    const pattern = new RegExp(`^${staticDirName}-.*\\.(yml|json)$`);
+    staticFiles
+      .filter((f) => pattern.test(f))
+      .forEach((f) => {
+        files.push(path.join(staticPath, f));
+      });
+  }
+
+  return { directories, files };
+}
+
+/**
  * Generate Hugo data files from OpenAPI specification
  *
  * @param specFile - Path to the OpenAPI spec file
