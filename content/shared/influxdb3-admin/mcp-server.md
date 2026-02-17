@@ -167,11 +167,11 @@ Replace the following:
       "command": "node",
       "args": ["/path/to/influxdb3_mcp_server/build/index.js"],
       "env": {
-        "INFLUX_DB_PRODUCT_TYPE"="{{% product-key %}}",
-        "INFLUX_DB_CLUSTER_ID"="DEDICATED_CLUSTER_ID",
-        "INFLUX_DB_ACCOUNT_ID"="DEDICATED_ACCOUNT_ID",
-        "INFLUX_DB_TOKEN"="DEDICATED_DATABASE_TOKEN",
-        "INFLUX_DB_MANAGEMENT_TOKEN"="DEDICATED_MANAGEMENT_TOKEN"
+        "INFLUX_DB_PRODUCT_TYPE": "{{% product-key %}}",
+        "INFLUX_DB_CLUSTER_ID": "DEDICATED_CLUSTER_ID",
+        "INFLUX_DB_ACCOUNT_ID": "DEDICATED_ACCOUNT_ID",
+        "INFLUX_DB_TOKEN": "DEDICATED_DATABASE_TOKEN",
+        "INFLUX_DB_MANAGEMENT_TOKEN": "DEDICATED_MANAGEMENT_TOKEN"
       }
     }
   }
@@ -183,10 +183,10 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`path/to`{{% /code-placeholder-key %}}:
   The absolute path to your `influxdb3_mcp_server` project directory.
-- {{% code-placeholder-key %}}`DEDICATED_CLUSTER_ID`{{% /code-placeholder-key %}}:
-  Your {{% product-name omit=" Clustered" %}} cluster ID
 - {{% code-placeholder-key %}}`DEDICATED_ACCOUNT_ID`{{% /code-placeholder-key %}}:
   Your {{% product-name %}} account ID
+- {{% code-placeholder-key %}}`DEDICATED_CLUSTER_ID`{{% /code-placeholder-key %}}:
+  Your {{% product-name omit=" Clustered" %}} cluster ID
 - {{% code-placeholder-key %}}`DEDICATED_DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with
   permissions that grant access to all databases you would like your LLM agent
@@ -264,7 +264,7 @@ In the examples below, replace the following:
         "run",
         "--rm",
         "--interactive",
-        "--add-host=host.docker.internal:host-gateway"
+        "--add-host=host.docker.internal:host-gateway",
         "--env",
         "INFLUX_DB_PRODUCT_TYPE",
         "--env",
@@ -311,11 +311,11 @@ In the examples below, replace the following:
         "influxdata/influxdb3-mcp-server"
       ],
       "env": {
-        "INFLUX_DB_PRODUCT_TYPE"="{{% product-key %}}",
-        "INFLUX_DB_ACCOUNT_ID"="DEDICATED_ACCOUNT_ID",
-        "INFLUX_DB_CLUSTER_ID"="DEDICATED_CLUSTER_ID",
-        "INFLUX_DB_TOKEN"="DEDICATED_DATABASE_TOKEN",
-        "INFLUX_DB_MANAGEMENT_TOKEN"="DEDICATED_MANAGEMENT_TOKEN"
+        "INFLUX_DB_PRODUCT_TYPE": "{{% product-key %}}",
+        "INFLUX_DB_ACCOUNT_ID": "DEDICATED_ACCOUNT_ID",
+        "INFLUX_DB_CLUSTER_ID": "DEDICATED_CLUSTER_ID",
+        "INFLUX_DB_TOKEN": "DEDICATED_DATABASE_TOKEN",
+        "INFLUX_DB_MANAGEMENT_TOKEN": "DEDICATED_MANAGEMENT_TOKEN"
       }
     }
   }
@@ -325,8 +325,6 @@ In the examples below, replace the following:
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`path/to`{{% /code-placeholder-key %}}:
-  The absolute path to your `influxdb3_mcp_server` project directory.
 - {{% code-placeholder-key %}}`DEDICATED_ACCOUNT_ID`{{% /code-placeholder-key %}}:
   Your {{% product-name %}} account ID
 - {{% code-placeholder-key %}}`DEDICATED_CLUSTER_ID`{{% /code-placeholder-key %}}:
