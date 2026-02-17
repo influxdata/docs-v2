@@ -107,7 +107,7 @@ downsamples it, and then sends it to an output topic that is used to write back 
     ```
 
 2.  Configure the Quix Streams built-in windowing function to create a tumbling
-    window that continously downsamples the data into 1-minute buckets. 
+    window that continuously downsamples the data into 1-minute buckets. 
 
     ```py
     # ...
@@ -223,7 +223,7 @@ def main():
     #... remaining code trunctated for brevity ...
 
             for index, obj in enumerate(records):
-                print(obj) # Obj contains each row in the table includimng temperature
+                print(obj) # Obj contains each row in the table including temperature
                 # Generate a unique message_key for each row
                 message_key = obj['machineId']
                 logger.info(f'Produced message with key:{message_key}, value:{obj}')
