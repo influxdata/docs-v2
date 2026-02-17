@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/aggregators/merge/README.md, Merge Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/aggregators/merge/README.md, Merge Plugin Source
 ---
 
 # Merge Aggregator Plugin

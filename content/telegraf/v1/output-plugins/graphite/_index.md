@@ -10,7 +10,7 @@ introduced: "v0.10.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/graphite/README.md, Graphite Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/graphite/README.md, Graphite Plugin Source
 ---
 
 # Graphite Output Plugin
