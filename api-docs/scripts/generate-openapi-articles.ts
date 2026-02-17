@@ -87,6 +87,8 @@ const API_DOCS_ROOT = 'api-docs';
 // CLI flags
 const validateLinks = process.argv.includes('--validate-links');
 const skipFetch = process.argv.includes('--skip-fetch');
+const noClean = process.argv.includes('--no-clean');
+const dryRun = process.argv.includes('--dry-run');
 
 /**
  * Product data from products.yml with api_path
