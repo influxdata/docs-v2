@@ -3520,117 +3520,118 @@ window that continuously downsamples the data into 1-minute buckets.</p>
 <h3 id="create-the-producer-client">Create the producer client</h3>
 <p>Provide the following credentials for the producer:</p>
 <p>The producer queries for fresh data from InfluxDB at specific intervals. It&rsquo;s configured to look for a specific measurement defined in a variable. It writes the raw data to a Kafka topic called &lsquo;raw-data&rsquo;</p>
-<h1 id="osenvironlocaldev--true--uncomment-if-youre-using-local-kafka-rather-than-quix-cloud">os.environ[&rsquo;localdev&rsquo;] = &rsquo;true&rsquo; # Uncomment if you&rsquo;re using local Kafka rather than Quix Cloud</h1>
-<h1 id="create-a-quix-streams-producer-application-that-connects-to-a-local-kafka-installation">Create a Quix Streams producer application that connects to a local Kafka installation</h1>
-<p>app = Application(
-broker_address=os.environ.get(&lsquo;BROKER_ADDRESS&rsquo;,&rsquo;localhost:9092&rsquo;),
-consumer_group=consumer_group_name,
-auto_create_topics=True
-)</p>
-<h1 id="override-the-app-variable-if-the-local-development-env-var-is-set-to-false-or-is-not-present">Override the app variable if the local development env var is set to false or is not present.</h1>
-<h1 id="this-causes-quix-streams-to-use-an-application-configured-for-quix-cloud">This causes Quix Streams to use an application configured for Quix Cloud</h1>
-<p>localdev = os.environ.get(&rsquo;localdev&rsquo;, &lsquo;false&rsquo;)</p>
-<p>if localdev == &lsquo;false&rsquo;:
-# Create a Quix platform-specific application instead (broker address is in-built)
-app = Application(consumer_group=consumer_group_name, auto_create_topics=True)</p>
-<p>topic = app.topic(name=&lsquo;raw-data&rsquo;)</p>
-<h2 id="-remaining-code-trunctated-for-brevity-">&hellip; remaining code trunctated for brevity &hellip;</h2>
-<h1 id="query-influxdb-for-the-raw-data-and-store-it-in-a-dataframe">Query InfluxDB for the raw data and store it in a Dataframe</h1>
-<p>def get_data():
-# Run in a loop until the main thread is terminated
-while run:
-try:
-myquery = f&rsquo;SELECT * FROM &ldquo;{measurement_name}&rdquo; WHERE time &gt;= {interval}&rsquo;
-print(f&rsquo;sending query {myquery}&rsquo;)
-# Query InfluxDB 3 using influxql or sql
-table = influxdb_raw.query(
-query=myquery,
-mode=&lsquo;pandas&rsquo;,
-language=&lsquo;influxql&rsquo;)</p>
-<p>#&hellip; remaining code trunctated for brevity &hellip;</p>
-<h1 id="send-the-data-to-a-kafka-topic-for-the-downsampling-process-to-consumer">Send the data to a Kafka topic for the downsampling process to consumer</h1>
-<p>def main():
-&quot;&quot;&quot;
-Read data from the Query and publish it to Kafka
-&quot;&quot;&quot;
-#&hellip; remaining code trunctated for brevity &hellip;</p>
-<pre><code>        for index, obj in enumerate(records):
-            print(obj) # Obj contains each row in the table including temperature
-            # Generate a unique message_key for each row
-            message_key = obj['machineId']
-            logger.info(f'Produced message with key:{message_key}, value:{obj}')
-
-            serialized = topic.serialize(
-                key=message_key, value=obj, headers={'uuid': str(uuid.uuid4())}
-                )
-
-            # publish each row returned in the query to the topic 'raw-data'
-            producer.produce(
-                topic=topic.name,
-                headers=serialized.headers,
-                key=serialized.key,
-                value=serialized.value,
-            )
-</code></pre>
 
 
-<pre tabindex="0"><code>
-You can find the full code for this process in the
-[Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py).
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># os.environ[&#39;localdev&#39;] = &#39;true&#39; # Uncomment if you&#39;re using local Kafka rather than Quix Cloud</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a Quix Streams producer application that connects to a local Kafka installation</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">broker_address</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BROKER_ADDRESS&#39;</span><span class="p">,</span><span class="s1">&#39;localhost:9092&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">consumer_group</span><span class="o">=</span><span class="n">consumer_group_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">auto_create_topics</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Override the app variable if the local development env var is set to false or is not present.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This causes Quix Streams to use an application configured for Quix Cloud</span>
+</span></span><span class="line"><span class="cl"><span class="n">localdev</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;localdev&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">localdev</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create a Quix platform-specific application instead (broker address is in-built)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span><span class="n">consumer_group</span><span class="o">=</span><span class="n">consumer_group_name</span><span class="p">,</span> <span class="n">auto_create_topics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">topic</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">topic</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;raw-data&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## ... remaining code trunctated for brevity ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Query InfluxDB for the raw data and store it in a Dataframe</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_data</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Run in a loop until the main thread is terminated</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">run</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">myquery</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;SELECT * FROM &#34;</span><span class="si">{</span><span class="n">measurement_name</span><span class="si">}</span><span class="s1">&#34; WHERE time &gt;= </span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sending query </span><span class="si">{</span><span class="n">myquery</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Query InfluxDB 3 using influxql or sql</span>
+</span></span><span class="line"><span class="cl">            <span class="n">table</span> <span class="o">=</span> <span class="n">influxdb_raw</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">query</span><span class="o">=</span><span class="n">myquery</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;pandas&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">language</span><span class="o">=</span><span class="s1">&#39;influxql&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#... remaining code trunctated for brevity ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Send the data to a Kafka topic for the downsampling process to consumer</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Read data from the Query and publish it to Kafka
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#... remaining code trunctated for brevity ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c1"># Obj contains each row in the table including temperature</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># Generate a unique message_key for each row</span>
+</span></span><span class="line"><span class="cl">                <span class="n">message_key</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">&#39;machineId&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Produced message with key:</span><span class="si">{</span><span class="n">message_key</span><span class="si">}</span><span class="s1">, value:</span><span class="si">{</span><span class="n">obj</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="n">serialized</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">key</span><span class="o">=</span><span class="n">message_key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1"># publish each row returned in the query to the topic &#39;raw-data&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">producer</span><span class="o">.</span><span class="n">produce</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">headers</span><span class="o">=</span><span class="n">serialized</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">key</span><span class="o">=</span><span class="n">serialized</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">value</span><span class="o">=</span><span class="n">serialized</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span></span></span></code></pre></div>
+<p>Replace the following:</p>
+<p>You can find the full code for this process in the
+<a href="https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py">Quix GitHub repository</a>.</p>
+<h3 id="create-the-consumer-client">Create the consumer client</h3>
+<p>As before, provide the following credentials for the consumer:</p>
+<p>This process reads messages from the Kafka topic <code>downsampled-data</code> and writes each message as a point dictionary back to InfluxDB.</p>
 
-### Create the consumer client
 
-As before, provide the following credentials for the consumer:
-
-
-
-
-This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
-
-
-
-
-# os.environ[&#39;localdev&#39;] = &#39;true&#39; # Uncomment if you&#39;re using local Kafka rather than Quix Cloud
-
-# Create a Quix Streams consumer application that connects to a local Kafka installation
-app = Application(
-  broker_address=os.environ.get(&#39;BROKER_ADDRESS&#39;,&#39;localhost:9092&#39;),
-  consumer_group=consumer_group_name,
-  auto_create_topics=True
-)
-
-# Override the app variable if the local development env var is set to false or is not present.
-# This causes Quix Streams to use an application configured for Quix Cloud
-localdev = os.environ.get(&#39;localdev&#39;, &#39;false&#39;)
-
-if localdev == &#39;false&#39;:
-    # Create a Quix platform-specific application instead (broker address is in-built)
-    app = Application(consumer_group=consumer_group_name, auto_create_topics=True)
-
-input_topic = app.topic(&#39;downsampled-data&#39;)
-
-## ... remaining code trunctated for brevity ...
-
-def send_data_to_influx(message):
-    logger.info(f&#39;Processing message: {message}&#39;)
-    try:
-
-        ## ... remaining code trunctated for brevity ...
-
-        # Construct the points dictionary
-        points = {
-            &#39;measurement&#39;: measurement_name,
-            &#39;tags&#39;: tags,
-            &#39;fields&#39;: fields,
-            &#39;time&#39;: message[&#39;time&#39;]
-        }
-
-        influxdb_downsampled.write(record=points, write_precision=&#39;ms&#39;)
-
-sdf = app.dataframe(input_topic)
-sdf = sdf.update(send_data_to_influx) # Continuously apply the &#39;send_data&#39; function to each message in the incoming stream
-
-## ... remaining code trunctated for brevity ...</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># os.environ[&#39;localdev&#39;] = &#39;true&#39; # Uncomment if you&#39;re using local Kafka rather than Quix Cloud</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a Quix Streams consumer application that connects to a local Kafka installation</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">broker_address</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BROKER_ADDRESS&#39;</span><span class="p">,</span><span class="s1">&#39;localhost:9092&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="n">consumer_group</span><span class="o">=</span><span class="n">consumer_group_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">auto_create_topics</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Override the app variable if the local development env var is set to false or is not present.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This causes Quix Streams to use an application configured for Quix Cloud</span>
+</span></span><span class="line"><span class="cl"><span class="n">localdev</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;localdev&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">localdev</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create a Quix platform-specific application instead (broker address is in-built)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span><span class="n">consumer_group</span><span class="o">=</span><span class="n">consumer_group_name</span><span class="p">,</span> <span class="n">auto_create_topics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">input_topic</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">topic</span><span class="p">(</span><span class="s1">&#39;downsampled-data&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## ... remaining code trunctated for brevity ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">send_data_to_influx</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Processing message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">## ... remaining code trunctated for brevity ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Construct the points dictionary</span>
+</span></span><span class="line"><span class="cl">        <span class="n">points</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;measurement&#39;</span><span class="p">:</span> <span class="n">measurement_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;tags&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;fields&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">influxdb_downsampled</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">write_precision</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sdf</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">dataframe</span><span class="p">(</span><span class="n">input_topic</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sdf</span> <span class="o">=</span> <span class="n">sdf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">send_data_to_influx</span><span class="p">)</span> <span class="c1"># Continuously apply the &#39;send_data&#39; function to each message in the incoming stream</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## ... remaining code trunctated for brevity ...</span></span></span></code></pre></div>
+<p>Replace the following:</p>
 <p>You can find the full code for this process in the
 <a href="https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Sink/main.py">Quix GitHub repository</a>.</p>
 <h2 id="get-the-full-downsampling-code-files">Get the full downsampling code files</h2>
