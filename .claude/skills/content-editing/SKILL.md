@@ -177,6 +177,7 @@ Example product resource terms:
 - Add automated check to validate `alt_links` are present when shared content paths differ across products
 - Add check for product-specific URL patterns in shared content (e.g., Cloud Serverless uses `/reference/regions` for URLs, Cloud Dedicated/Clustered do not have this page - cluster URLs come from account setup)
 - Add check/helper to ensure resource references (tokens, databases, buckets) link to proper admin pages using `/influxdb3/version/admin/` pattern
+- Rethink `code-placeholder-key` workflow: `docs placeholders` adds `placeholders` attributes to code blocks but doesn't generate the "Replace the following:" lists with `{{% code-placeholder-key %}}` shortcodes. Either improve automation to generate these lists, or simplify by removing `code-placeholder-key` if the attribute alone is sufficient
 
 ## Part 2: Testing Workflow
 

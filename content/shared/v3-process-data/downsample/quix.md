@@ -195,6 +195,7 @@ influxdb_raw = InfluxDBClient3(
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
+```
 {{% /show-in %}}
 {{% show-in "cloud-dedicated,clustered" %}}
 ```python { placeholders="DATABASE_TOKEN|RAW_DATABASE_NAME" }
@@ -208,8 +209,10 @@ influxdb_raw = InfluxDBClient3(
     token='DATABASE_TOKEN',
     database='RAW_DATABASE_NAME'
 )
+```
 {{% /show-in %}}
 
+```python
 # os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams producer application that connects to a local Kafka installation
@@ -273,6 +276,17 @@ def main():
 
 ```
 
+Replace the following:
+
+{{% show-in "cloud-serverless" %}}
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [API token](/influxdb3/version/admin/tokens/) with read permission on the bucket
+- {{% code-placeholder-key %}}`RAW_BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [bucket](/influxdb3/version/admin/buckets/) with unmodified data
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with read permission on the database
+- {{% code-placeholder-key %}}`RAW_DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [database](/influxdb3/version/admin/databases/) with unmodified data
+{{% /show-in %}}
+
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py).
 
@@ -309,6 +323,7 @@ influxdb_downsampled = InfluxDBClient3(
     database='DOWNSAMPLED_BUCKET_NAME',
     org=''
 )
+```
 {{% /show-in %}}
 {{% show-in "cloud-dedicated,clustered" %}}
 ```python { placeholders="DATABASE_TOKEN|DOWNSAMPLED_DATABASE_NAME" }
@@ -320,8 +335,10 @@ influxdb_downsampled = InfluxDBClient3(
     database='DOWNSAMPLED_DATABASE_NAME',
     org=''
 )
+```
 {{% /show-in %}}
 
+```python
 # os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams consumer application that connects to a local Kafka installation
@@ -364,6 +381,17 @@ sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' funct
 
 ## ... remaining code trunctated for brevity ...
 ```
+
+Replace the following:
+
+{{% show-in "cloud-serverless" %}}
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [API token](/influxdb3/version/admin/tokens/) with write permission on the bucket
+- {{% code-placeholder-key %}}`DOWNSAMPLED_BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [bucket](/influxdb3/version/admin/buckets/) for downsampled data
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with write permission on the database
+- {{% code-placeholder-key %}}`DOWNSAMPLED_DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [database](/influxdb3/version/admin/databases/) for downsampled data
+{{% /show-in %}}
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Sink/main.py).
