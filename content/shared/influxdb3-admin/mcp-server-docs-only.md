@@ -41,9 +41,9 @@ The following instructions show how to configure popular AI assistants to use th
 {{% tabs %}}
 [Claude Desktop](#)
 [ChatGPT Desktop](#)
-[Cline (VS Code)](#)
+[GitHub Copilot (VS Code)](#)
 [Cursor](#)
-[Windsurf](#)
+[OpenCode](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!----------------------------- BEGIN CLAUDE DESKTOP ---------------------------->
@@ -87,33 +87,31 @@ Save the configuration and restart ChatGPT Desktop.
 <!----------------------------- END CHATGPT DESKTOP ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!----------------------------- BEGIN CLINE ---------------------------->
+<!----------------------------- BEGIN GITHUB COPILOT ---------------------------->
 
-In **VS Code**, open the **Cline** extension settings:
+In **VS Code**, configure GitHub Copilot to use the MCP server:
 
-1. Click the MCP Servers icon in the Cline sidebar
-2. Click **Configure MCP Servers** to open `cline_mcp_settings.json`
-3. Add the following configuration:
+1. Create or edit `.vscode/mcp.json` in your workspace or project directory
+2. Add the following configuration:
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "influxdb-docs": {
-      "url": "https://influxdb-docs.mcp.kapa.ai",
-      "disabled": false
+      "type": "http",
+      "url": "https://influxdb-docs.mcp.kapa.ai"
     }
   }
 }
 ```
 
-**Settings file location:**
-- **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
-- **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
-- **Linux:** `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+3. Restart or reload VS Code
+4. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+5. Run **MCP: List Servers** to verify the server is registered
 
-Save the file and reload VS Code.
+The InfluxDB documentation MCP server will now be available through GitHub Copilot Chat.
 
-<!----------------------------- END CLINE ---------------------------->
+<!----------------------------- END GITHUB COPILOT ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!----------------------------- BEGIN CURSOR ---------------------------->
@@ -140,33 +138,31 @@ Save the file and restart Cursor.
 <!----------------------------- END CURSOR ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!----------------------------- BEGIN WINDSURF ---------------------------->
+<!----------------------------- BEGIN OPENCODE ---------------------------->
 
-In **Windsurf**, enable MCP and configure the documentation server:
+In **OpenCode**, configure the MCP server in your configuration file:
 
-1. Open **Settings** (`Cmd/Ctrl + ,`)
-2. Navigate to **Advanced** > **Cascade** section
-3. Enable **Model Context Protocol (MCP)** toggle
-4. Edit the MCP configuration file at:
-   - **macOS/Linux:** `~/.codeium/windsurf/mcp_config.json`
-   - **Windows:** `%USERPROFILE%\.codeium\windsurf\mcp_config.json`
-5. Add the following configuration:
+1. Create or edit `opencode.json` (or `opencode.jsonc`) in your workspace
+2. Add the following configuration:
 
 ```json
 {
-  "mcpServers": {
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
     "influxdb-docs": {
-      "serverUrl": "https://influxdb-docs.mcp.kapa.ai"
+      "type": "remote",
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "enabled": true
     }
   }
 }
 ```
 
-Save the file and restart Windsurf.
+3. Start OpenCode and use the `/init` command to verify the MCP server is accessible
 
-Alternatively, use the **MCP Marketplace** in Windsurf's sidebar to add the server via the UI.
+The InfluxDB documentation search tools will be available in your OpenCode sessions.
 
-<!----------------------------- END WINDSURF ---------------------------->
+<!----------------------------- END OPENCODE ---------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
