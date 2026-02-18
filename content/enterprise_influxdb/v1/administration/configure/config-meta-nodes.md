@@ -170,6 +170,14 @@ Use either:
 
 Environment variable: `INFLUXDB_META_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when true.
+
+Environment variable: `INFLUXDB_META_HTTPS_INSECURE_CERTIFICATE`
+
 #### https-insecure-tls
 
 Default is `false`.
