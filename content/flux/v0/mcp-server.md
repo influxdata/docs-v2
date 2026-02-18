@@ -1,7 +1,7 @@
 ---
 title: Use the InfluxDB documentation MCP server
 description: >
-  Query InfluxDB documentation from your IDE using the InfluxDB documentation
+  Query Flux and InfluxDB documentation from your IDE using the InfluxDB documentation
   MCP server.
 menu:
   flux_v0_ref:

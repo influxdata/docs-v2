@@ -1,7 +1,7 @@
 ---
 title: Use the InfluxDB documentation MCP server
 description: >
-  Query InfluxDB documentation from your IDE using the InfluxDB documentation
+  Query Kapacitor and InfluxDB documentation from your IDE using the InfluxDB documentation
   MCP server.
 menu:
   kapacitor_v1_ref:

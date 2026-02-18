@@ -1,7 +1,7 @@
 ---
 title: Use the InfluxDB documentation MCP server
 description: >
-  Query InfluxDB documentation from your IDE using the InfluxDB documentation
+  Query InfluxDB 3 Explorer and InfluxDB documentation from your IDE using the InfluxDB documentation
   MCP server.
 menu:
   influxdb3_explorer:
