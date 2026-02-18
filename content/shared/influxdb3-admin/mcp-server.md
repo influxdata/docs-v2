@@ -379,7 +379,7 @@ in your IDE and get responses grounded in official documentation.
 ### Install the documentation MCP server
 
 The documentation MCP server is a hosted service—you don't need to install or run anything locally.
-Add the server URL to your AI tool's MCP configuration.
+Add the server URL to your AI assistant's MCP configuration.
 
 > [!Note]
 > On first use, you'll be prompted to sign in with Google.
@@ -392,7 +392,139 @@ https://influxdb-docs.mcp.kapa.ai
 ```
 
 The server uses SSE (Server-Sent Events) transport.
-For help adding MCP servers, refer to your tool's documentation or ask your AI assistant.
+
+#### Configure your AI assistant to use the documentation MCP server
+
+The following instructions show how to configure popular AI assistants to use the InfluxDB documentation MCP server.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Claude Desktop](#)
+[ChatGPT Desktop](#)
+[GitHub Copilot (VS Code)](#)
+[Cursor](#)
+[OpenCode](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CLAUDE DESKTOP ---------------------------->
+
+In **Claude Desktop**, go to **Settings** > **Developer** and edit your configuration.
+Add the following JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+Save the file and restart Claude Desktop for the changes to take effect.
+
+<!----------------------------- END CLAUDE DESKTOP ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CHATGPT DESKTOP ---------------------------->
+
+In **ChatGPT Desktop**, go to **Settings** > **Integrations** > **Enable MCP** and add a new server.
+Add the following JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+Save the configuration and restart ChatGPT Desktop.
+
+<!----------------------------- END CHATGPT DESKTOP ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN GITHUB COPILOT ---------------------------->
+
+In **VS Code**, configure GitHub Copilot to use the MCP server:
+
+1. Create or edit `.vscode/mcp.json` in your workspace or project directory
+2. Add the following configuration:
+
+```json
+{
+  "servers": {
+    "influxdb-docs": {
+      "type": "http",
+      "url": "https://influxdb-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+3. Restart or reload VS Code
+4. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+5. Run **MCP: List Servers** to verify the server is registered
+
+The InfluxDB documentation MCP server will now be available through GitHub Copilot Chat.
+
+<!----------------------------- END GITHUB COPILOT ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CURSOR ---------------------------->
+
+In **Cursor**, add the MCP server configuration to your MCP settings file.
+
+1. Open **Settings** and navigate to **MCP Servers**
+2. Click **Add MCP Server** or edit the configuration file directly
+3. Add the following configuration to `.cursor/mcp.json` (project-level) or `~/.cursor/mcp.json` (global):
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "transport": "streamableHttp"
+    }
+  }
+}
+```
+
+Save the file and restart Cursor.
+
+<!----------------------------- END CURSOR ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN OPENCODE ---------------------------->
+
+In **OpenCode**, configure the MCP server in your configuration file:
+
+1. Create or edit `opencode.json` (or `opencode.jsonc`) in your workspace
+2. Add the following configuration:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "influxdb-docs": {
+      "type": "remote",
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "enabled": true
+    }
+  }
+}
+```
+
+3. Start OpenCode and use the `/init` command to verify the MCP server is accessible
+
+The InfluxDB documentation search tools will be available in your OpenCode sessions.
+
+<!----------------------------- END OPENCODE ---------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ### Authentication and rate limits
 
