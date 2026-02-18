@@ -15,6 +15,7 @@ metadata: [1 / 3]
 related:
   - /influxdb3/cloud-dedicated/admin/databases/
   - /influxdb3/cloud-dedicated/admin/tokens/
+  - /influxdb3/cloud-dedicated/admin/mcp-server/
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/
   - /influxdb3/cloud-dedicated/reference/api/
 ---
