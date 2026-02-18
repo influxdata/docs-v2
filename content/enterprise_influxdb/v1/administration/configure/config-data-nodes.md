@@ -624,6 +624,14 @@ Use a separate private key location.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking on `https-certificate` and  `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
+
 #### https-insecure-tls
 
 Default is `false`.
@@ -1170,6 +1178,14 @@ Default is `""`.
 The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when true.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
 #### shared-secret
 
