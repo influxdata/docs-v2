@@ -390,7 +390,7 @@ in your IDE and get responses grounded in official documentation.
 ### Install the documentation MCP server
 
 The documentation MCP server is a hosted service—you don't need to install or run anything locally.
-Add the server URL to your AI tool's MCP configuration.
+Add the server URL to your AI assistant's MCP configuration.
 
 > [!Note]
 > On first use, you'll be prompted to sign in with Google.
@@ -403,7 +403,143 @@ https://influxdb-docs.mcp.kapa.ai
 ```
 
 The server uses SSE (Server-Sent Events) transport.
-For help adding MCP servers, refer to your tool's documentation or ask your AI assistant.
+
+#### Configure your AI assistant to use the documentation MCP server
+
+The following instructions show how to configure popular AI assistants to use the InfluxDB documentation MCP server.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[Claude Desktop](#)
+[ChatGPT Desktop](#)
+[Cline (VS Code)](#)
+[Cursor](#)
+[Windsurf](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CLAUDE DESKTOP ---------------------------->
+
+In **Claude Desktop**, go to **Settings** > **Developer** and edit your configuration.
+Add the following JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+Save the file and restart Claude Desktop for the changes to take effect.
+
+<!----------------------------- END CLAUDE DESKTOP ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CHATGPT DESKTOP ---------------------------->
+
+In **ChatGPT Desktop**, go to **Settings** > **Integrations** > **Enable MCP** and add a new server.
+Add the following JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+Save the configuration and restart ChatGPT Desktop.
+
+<!----------------------------- END CHATGPT DESKTOP ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CLINE ---------------------------->
+
+In **VS Code**, open the **Cline** extension settings:
+
+1. Click the MCP Servers icon in the Cline sidebar
+2. Click **Configure MCP Servers** to open `cline_mcp_settings.json`
+3. Add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "disabled": false
+    }
+  }
+}
+```
+
+**Settings file location:**
+- **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- **Windows:** `%APPDATA%\Code\User\globalStorage\saoudrizwan.claude-dev\settings\cline_mcp_settings.json`
+- **Linux:** `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+
+Save the file and reload VS Code.
+
+<!----------------------------- END CLINE ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN CURSOR ---------------------------->
+
+In **Cursor**, add the MCP server configuration to your MCP settings file.
+
+1. Open **Settings** and navigate to **MCP Servers**
+2. Click **Add MCP Server** or edit the configuration file directly
+3. Add the following configuration to `.cursor/mcp.json` (project-level) or `~/.cursor/mcp.json` (global):
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "transport": "streamableHttp"
+    }
+  }
+}
+```
+
+Save the file and restart Cursor.
+
+<!----------------------------- END CURSOR ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN WINDSURF ---------------------------->
+
+In **Windsurf**, enable MCP and configure the documentation server:
+
+1. Open **Settings** (`Cmd/Ctrl + ,`)
+2. Navigate to **Advanced** > **Cascade** section
+3. Enable **Model Context Protocol (MCP)** toggle
+4. Edit the MCP configuration file at:
+   - **macOS/Linux:** `~/.codeium/windsurf/mcp_config.json`
+   - **Windows:** `%USERPROFILE%\.codeium\windsurf\mcp_config.json`
+5. Add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "influxdb-docs": {
+      "serverUrl": "https://influxdb-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+Save the file and restart Windsurf.
+
+Alternatively, use the **MCP Marketplace** in Windsurf's sidebar to add the server via the UI.
+
+<!----------------------------- END WINDSURF ---------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ### Authentication and rate limits
 
