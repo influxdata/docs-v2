@@ -4,7 +4,7 @@ description: >
   Query {{% product-name %}} documentation from your IDE using the InfluxDB documentation
   MCP server.
 menu:
-  telegraf_v1_ref:
+  flux_v0_ref:
     name: Documentation MCP server
 weight: 206
 tags: [MCP, LLM, AI]
