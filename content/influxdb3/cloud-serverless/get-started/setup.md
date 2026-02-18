@@ -17,7 +17,7 @@ related:
   - /influxdb3/cloud-serverless/security/tokens/create-token/
   - /influxdb3/cloud-serverless/security/tokens/view-tokens/
   - /influxdb3/cloud-serverless/admin/buckets/
-  - /influxdb3/cloud-serverless/admin/mcp-server/
+  - /influxdb3/cloud-serverless/reference/mcp-server/
   - /influxdb3/cloud-serverless/reference/cli/influx/
   - /influxdb3/cloud-serverless/reference/api/
 aliases:
