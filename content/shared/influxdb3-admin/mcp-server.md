@@ -1,7 +1,7 @@
 InfluxDB provides two Model Context Protocol (MCP) servers for integrating with AI assistants:
 
 - [Manage your InfluxDB instance with the database MCP server](#manage-your-influxdb-instance-with-the-database-mcp-server)
-- [Query InfluxDB documentation from your IDE](#query-influxdb-documentation-from-your-ide)
+- [Query documentation from your IDE](#query-documentation-from-your-ide)
 
 ## Manage your InfluxDB instance with the database MCP server
 
@@ -129,8 +129,7 @@ In **Claude Desktop**, go to **Settings** > **Developer** and edit your configur
 Enter the following JSON configuration:
 
 {{% show-in "core,enterprise" %}}
-{{% code-placeholders "path/to|AUTH_TOKEN" %}}
-```json
+```json { placeholders="path/to|AUTH_TOKEN" }
 {
   "mcpServers": {
     "influxdb": {
@@ -145,7 +144,6 @@ Enter the following JSON configuration:
   }
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -159,8 +157,7 @@ Replace the following:
 
 {{% show-in "cloud-dedicated" %}}
 
-{{% code-placeholders "path/to|DEDICATED_(CLUSTER|ACCOUNT|DATABASE|MANAGEMENT)_(ID|TOKEN)" %}}
-```json
+```json { placeholders="path/to|DEDICATED_ACCOUNT_ID|DEDICATED_CLUSTER_ID|DEDICATED_DATABASE_TOKEN|DEDICATED_MANAGEMENT_TOKEN" }
 {
   "mcpServers": {
     "influxdb": {
@@ -177,7 +174,6 @@ Replace the following:
   }
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -188,11 +184,11 @@ Replace the following:
 - {{% code-placeholder-key %}}`DEDICATED_CLUSTER_ID`{{% /code-placeholder-key %}}:
   Your {{% product-name omit=" Clustered" %}} cluster ID
 - {{% code-placeholder-key %}}`DEDICATED_DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with
+  A [database token](/influxdb3/version/admin/tokens/database/) with
   permissions that grant access to all databases you would like your LLM agent
   to be able to write data to and query data from
 - {{% code-placeholder-key %}}`DEDICATED_MANAGEMENT_TOKEN`{{% /code-placeholder-key %}}:
-  A [management token](/influxdb3/cloud-dedicated/admin/tokens/management/) that
+  A [management token](/influxdb3/version/admin/tokens/management/) that
   lets your LLM agent perform administrative tasks on your {{% product-name %}} cluster
 
 {{% /show-in %}}
@@ -223,8 +219,7 @@ In the examples below, replace the following:
 
 ##### Connect to a remote InfluxDB server
 
-{{% code-placeholders "path/to|AUTH_TOKEN" %}}
-```json
+```json { placeholders="path/to|AUTH_TOKEN" }
 {
   "mcpServers": {
       "influxdb": {
@@ -250,12 +245,10 @@ In the examples below, replace the following:
   }
 }
 ```
-{{% /code-placeholders %}}
 
 ##### Connect to a local InfluxDB server
 
-{{% code-placeholders "path/to|AUTH_TOKEN" %}}
-```json
+```json { placeholders="AUTH_TOKEN" }
 {
   "mcpServers": {
       "influxdb": {
@@ -282,14 +275,11 @@ In the examples below, replace the following:
   }
 }
 ```
-{{% /code-placeholders %}}
-
 {{% /show-in %}}
 
 {{% show-in "cloud-dedicated" %}}
 
-{{% code-placeholders "path/to|DEDICATED_(CLUSTER|ACCOUNT|DATABASE|MANAGEMENT)_(ID|TOKEN)" %}}
-```json
+```json { placeholders="DEDICATED_ACCOUNT_ID|DEDICATED_CLUSTER_ID|DEDICATED_DATABASE_TOKEN|DEDICATED_MANAGEMENT_TOKEN" }
 {
   "mcpServers": {
     "influxdb": {
@@ -321,7 +311,6 @@ In the examples below, replace the following:
   }
 }
 ```
-{{% /code-placeholders %}}
 
 Replace the following:
 
@@ -367,16 +356,16 @@ including:
 >
 > "Show me the schema for the `sensor_data` table."
 
-## Query InfluxDB documentation from your IDE
+## Query documentation from your IDE
 
 The **InfluxDB documentation MCP server** lets AI tools and agents search InfluxDB
-documentation directly from your development environment.
+{{% product-name %}} documentation directly from your development environment.
 Use it to find answers, code examples, and configuration details without leaving your IDE.
 
 ### Why use the documentation MCP server?
 
 When you connect the documentation MCP server to your AI coding assistant, the assistant
-can search InfluxDB documentation to answer your questions with accurate, up-to-date information.
+can search InfluxDB and related tool documentation to answer your questions with accurate, up-to-date information.
 Instead of switching to a browser or guessing at syntax, you can ask questions
 in your IDE and get responses grounded in official documentation.
 
