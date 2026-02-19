@@ -340,8 +340,8 @@ This paragraph contains technical terms that Vale might flag.
 For real-time linting while editing:
 
 1. Install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode)
-2. Configure the extension to use the workspace Vale:
-   - Set `Vale:Vale CLI:Path` to `${workspaceFolder}/node_modules/.bin/vale`
+2. Install Vale on your system ([Vale installation guide](https://vale.sh/docs/install/))
+3. Set `Vale:Vale CLI:Path` to your Vale binary path (e.g., `/usr/local/bin/vale`)
 
 ### When to Run Vale
 

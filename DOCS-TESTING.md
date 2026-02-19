@@ -596,7 +596,8 @@ docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini -
 ### VS Code Integration
 
 1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension
-2. Set the `Vale:Vale CLI:Path` setting to `${workspaceFolder}/node_modules/.bin/vale`
+2. Install Vale on your system ([Vale installation guide](https://vale.sh/docs/install/))
+3. Set `Vale:Vale CLI:Path` to the path of your Vale binary (e.g., `/usr/local/bin/vale` or `vale` if in PATH)
 
 ### Alert Levels
 
