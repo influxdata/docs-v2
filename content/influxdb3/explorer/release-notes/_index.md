@@ -16,6 +16,22 @@ To upgrade, pull the latest Docker image:
 docker pull influxdata/influxdb3-ui
 ```
 
+## v1.6.3 {date="2026-02-19"}
+
+#### Features
+
+- **Show deleted databases**: Toggle visibility of deleted databases in the database list and data explorer.
+- **Upgrade information for Core users**: View Enterprise upgrade details directly in Explorer.
+- **AI model updates**: Updated AI model support for latest Anthropic models.
+
+#### Bug fixes
+
+- **SQL**: Fix handling of table names containing dashes and improve quoted identifier validation.
+- **SQL**: Improve validation for forbidden SQL keywords in queries.
+- **Charts**: Fix date display in the DataChart component.
+- **Schema**: Fix schema columns mapping.
+- **Security**: Update dependency versions (axios, qs, react-router, lodash-es).
+
 ## v1.6.2 {date="2026-01-14"}
 
 #### Bug fixes
