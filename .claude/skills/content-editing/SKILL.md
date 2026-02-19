@@ -30,7 +30,7 @@ Made content changes?
 └─ Run tests (See Part 2: Testing)
 
 Need to verify technical accuracy?
-└─ Use Kapa MCP server (See Part 4: Fact-Checking)
+└─ Use documentation MCP server (See Part 4: Fact-Checking)
 
 Need to write/debug Vale rules?
 └─ See vale-rule-config skill (for CI/Quality Engineers)
@@ -165,19 +165,12 @@ See [DOCS-FRONTMATTER.md](../../../DOCS-FRONTMATTER.md#alternative-links-alt_lin
 
 ### Check product resource terms are cross-referenced
 
-When creating or editing content, check that product resource terms link to `admin/` or `reference/` pages that help the user understand and set up the resource.
+When creating or editing content, check that product resource terms link to pages under `content/<product>/admin/` or `content<product>/reference/` that help the user understand and set up the resource.
 Product resource terms often appear inside `code-placeholder-key` shortcode text and bullet item text.
 Example product resource terms:
 
 - "database token"
 - "database name"
-
-**TODOs for CI/config:**
-
-- Add automated check to validate `alt_links` are present when shared content paths differ across products
-- Add check for product-specific URL patterns in shared content (e.g., Cloud Serverless uses `/reference/regions` for URLs, Cloud Dedicated/Clustered do not have this page - cluster URLs come from account setup)
-- Add check/helper to ensure resource references (tokens, databases, buckets) link to proper admin pages using `/influxdb3/version/admin/` pattern
-- Rethink `code-placeholder-key` workflow: `docs placeholders` adds `placeholders` attributes to code blocks but doesn't generate the "Replace the following:" lists with `{{% code-placeholder-key %}}` shortcodes. Either improve automation to generate these lists, or simplify by removing `code-placeholder-key` if the attribute alone is sufficient
 
 ## Part 2: Testing Workflow
 
@@ -187,7 +180,7 @@ After making content changes, run tests to validate:
 
 ```bash
 # Verify Hugo can build the site
-hugo --quiet
+yarn hugo --quiet
 
 # Look for errors like:
 # - Template errors
@@ -237,7 +230,7 @@ node cypress/support/run-e2e-specs.js \
 **Important prerequisites:**
 
 - API tests: Run `yarn build:api-docs` first
-- Markdown validation: Run `hugo --quiet && yarn build:md` first
+- Markdown validation: Run `yarn hugo --quiet && yarn build:md` first
 
 See **cypress-e2e-testing** skill for detailed test workflow.
 
@@ -268,7 +261,7 @@ See **vale-linting** skill for comprehensive Vale workflow.
 
 ```bash
 # Start Hugo development server
-hugo server
+yarn hugo server
 
 # Visit http://localhost:1313
 # Preview your changes in browser
@@ -335,26 +328,20 @@ This paragraph contains technical terms that Vale might flag.
 <!-- vale InfluxDataDocs.TechnicalTerms = YES -->
 ```
 
-### VS Code Integration (Optional)
-
-For real-time linting while editing:
-
-1. Install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode)
-2. Install Vale on your system ([Vale installation guide](https://vale.sh/docs/install/))
-3. Set `Vale:Vale CLI:Path` to your Vale binary path (e.g., `/usr/local/bin/vale`)
-
 ### When to Run Vale
 
-- **During editing**: If you have VS Code extension enabled
 - **Before committing**: Pre-commit hooks run Vale automatically
 - **After content changes**: Run manually to catch issues early
 - **In CI/CD**: Automated on pull requests
 
-## Part 4: Fact-Checking with MCP Server
+## Part 4: Fact-Checking with the Documentation MCP Server
 
-The InfluxData documentation MCP server (`influxdata`) provides access to **Ask AI (Kapa.ai)** for fact-checking and answering questions about InfluxData products.
+The **InfluxDB documentation MCP server** lets you search InfluxDB documentation (the rendered `content` managed in this repository) and related InfluxData references (source code READMEs, community forums, and some third-party tool documentation) directly from your AI assistant.
 
-### When to Use MCP Server
+### When to Use the Documentation MCP Server
+
+The primary source of content in the Documentation MCP Server is the fully rendered `public` HTML from this repository.
+Use the Documentation MCP Server when the information here is inconclusive or you need to deepen your understanding of InfluxData products and integrations.
 
 **Use for:**
 
@@ -362,67 +349,63 @@ The InfluxData documentation MCP server (`influxdata`) provides access to **Ask 
 - Checking current API syntax
 - Confirming feature availability across products
 - Understanding complex product behavior
-- Finding related documentation
+- Finding related documentation and code examples
 
 **Don't use for:**
 
-- Basic style/grammar checks
+- Basic style/grammar checks (use Vale)
 - Link validation (use `yarn test:links`)
 - Testing code examples (use `yarn test:codeblocks`)
 
-### Available MCP Tools
+### Setup
 
-The `influxdata` MCP server provides:
+The documentation MCP server is hosted—no local installation required. Add the server URL to your AI assistant's MCP configuration.
 
-```typescript
-// Query documentation knowledge base
-kapa_query({
-  query: string,           // Your question
-  stream: boolean          // Stream response (optional)
-})
+**MCP server URL:**
 
-// Examples:
-kapa_query({
-  query: "How do I create a database in InfluxDB 3 Core?",
-  stream: false
-})
-
-kapa_query({
-  query: "What's the difference between InfluxDB 3 Core and Enterprise clustering?",
-  stream: false
-})
-
-kapa_query({
-  query: "Show me InfluxQL SELECT syntax for filtering by time range",
-  stream: false
-})
+```text
+https://influxdb-docs.mcp.kapa.ai
 ```
 
-### Setup Requirements
-
-The MCP server requires configuration in `.mcp.json`:
+**Claude Desktop configuration** (Settings > Developer):
 
 ```json
 {
   "mcpServers": {
-    "influxdata": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["${DOCS_MCP_SERVER_PATH}/dist/index.js"],
-      "env": {
-        "DOCS_API_KEY_FILE": "${DOCS_API_KEY_FILE:-$HOME/.env.docs-kapa-api-key}",
-        "DOCS_MODE": "external-only",
-        "MCP_LOG_LEVEL": "${MCP_LOG_LEVEL:-info}"
-      }
+    "influxdb-docs": {
+      "url": "https://influxdb-docs.mcp.kapa.ai"
     }
   }
 }
 ```
 
-**Required:**
+For other AI assistants see the [InfluxDB documentation MCP server guide](/influxdb3/core/admin/mcp-server/)
+and verify the MCP configuration options and syntax for a specific AI assistant.
 
-- `DOCS_MCP_SERVER_PATH`: Path to docs-mcp-server installation
-- `DOCS_API_KEY_FILE`: Path to file containing Kapa.ai API key
+**Rate limits** (per Google OAuth user):
+
+- 40 requests per hour
+- 200 requests per day
+
+### Available Tool
+
+The MCP server exposes a semantic search tool:
+
+```text
+search_influxdb_knowledge_sources
+```
+
+**What it does:**
+
+- Searches all InfluxDB documentation for a given query
+- Returns relevant chunks in descending order of relevance
+- Each chunk includes `source_url` and Markdown `content`
+
+**Example queries:**
+
+- "How do I create a database in InfluxDB 3 Core?"
+- "What's the difference between InfluxDB 3 Core and Enterprise clustering?"
+- "Show me InfluxQL SELECT syntax for filtering by time range"
 
 ### Example Workflow: Fact-Checking During Editing
 
@@ -431,17 +414,14 @@ The MCP server requires configuration in `.mcp.json`:
 
 1. Draft claims: "InfluxDB 3 supports up to 10,000 databases per instance"
 
-2. Verify with MCP:
-   kapa_query({
-     query: "What are the database limits in InfluxDB 3 Core and Enterprise?",
-     stream: false
-   })
+2. Ask your AI assistant to verify using the MCP server:
+   "What are the database limits in InfluxDB 3 Core and Enterprise?"
 
-3. MCP response clarifies actual limits differ by product
+3. MCP response returns documentation chunks with actual limits
 
 4. Update draft with accurate information
 
-5. Cite source in documentation if needed
+5. Cite the source_url in documentation if needed
 ```
 
 ### Best Practices
@@ -450,14 +430,14 @@ The MCP server requires configuration in `.mcp.json`:
 
 - Ask specific, focused questions
 - Verify claims about features, limits, syntax
-- Cross-check answers with official docs links provided
+- Cross-check answers with source URLs provided
 - Use for understanding complex interactions
 
 **DON'T:**
 
 - Rely solely on MCP without reviewing source docs
 - Use for subjective style decisions
-- Expect real-time product behavior (it knows documentation, not live systems)
+- Expect real-time product behavior (it searches documentation, not live systems)
 - Use as a replacement for testing (always test code examples)
 
 ## Part 5: Complete Example Workflows
@@ -474,14 +454,11 @@ docs create database-tutorial.md --products influxdb3-core,influxdb3-enterprise
 # - content/influxdb3/enterprise/guides/database-tutorial.md (frontmatter)
 
 # Step 2: Verify technical accuracy
-# Use MCP to check claims in the tutorial
-kapa_query({
-  query: "Verify database creation syntax for InfluxDB 3",
-  stream: false
-})
+# Ask your AI assistant (with MCP configured) to verify claims:
+# "Verify database creation syntax for InfluxDB 3"
 
 # Step 3: Test Hugo build
-hugo --quiet
+yarn hugo --quiet
 
 # Step 4: Run E2E tests
 node cypress/support/run-e2e-specs.js \
@@ -511,13 +488,10 @@ docs edit https://docs.influxdata.com/influxdb3/core/reference/sql/
 # Step 2: Make edits to the shared source file
 
 # Step 3: Fact-check changes with MCP
-kapa_query({
-  query: "Verify SQL WHERE clause syntax in InfluxDB 3",
-  stream: false
-})
+# Ask your AI assistant: "Verify SQL WHERE clause syntax in InfluxDB 3"
 
 # Step 4: Test the build
-hugo --quiet
+yarn hugo --quiet
 
 # Step 5: Test affected pages
 node cypress/support/run-e2e-specs.js \
@@ -535,10 +509,10 @@ yarn test:links
 # Edit content/influxdb3/core/get-started/_index.md
 
 # Step 2: Test Hugo build
-hugo --quiet
+yarn hugo --quiet
 
 # Step 3: Quick visual check
-hugo server
+yarn hugo server
 # Visit http://localhost:1313/influxdb3/core/get-started/
 
 # Done! (No need for comprehensive testing on typo fixes)
@@ -550,7 +524,7 @@ hugo server
 
 ```bash
 # Check for detailed errors
-hugo
+yarn hugo
 
 # Common issues:
 # - Invalid frontmatter YAML
@@ -578,19 +552,17 @@ touch content/influxdb3/enterprise/path/to/file.md
 
 ### MCP Server Not Responding
 
-```bash
-# Check configuration
-cat .mcp.json
+The hosted MCP server (`https://influxdb-docs.mcp.kapa.ai`) requires:
 
-# Verify environment variables
-echo $DOCS_MCP_SERVER_PATH
-echo $DOCS_API_KEY_FILE
+1. **Google OAuth authentication** - On first use, sign in with Google
+2. **Rate limits** - 40 requests/hour, 200 requests/day per user
 
-# Check API key file exists and has content
-cat $HOME/.env.docs-kapa-api-key
+**Troubleshooting steps:**
 
-# Check MCP server logs (if available)
-```
+- Verify your AI assistant has the MCP server URL configured correctly
+- Check if you've exceeded rate limits (wait an hour or until the next day)
+- Try re-authenticating by clearing your OAuth session
+- Ensure your network allows connections to `*.kapa.ai`
 
 ### Cypress Tests Fail
 
@@ -618,15 +590,14 @@ ls content/influxdb3/core/api/
 | Add placeholders to code   | `docs placeholders file.md` or `docs placeholders file.md --dry`                  |
 | Audit documentation        | `docs audit --products influxdb3_core` or `docs audit --products /influxdb3/core` |
 | Generate release notes     | `docs release-notes v3.1.0 v3.2.0 --products influxdb3_core`                      |
-| Build Hugo site            | `hugo --quiet`                                                                    |
-| Run Vale linting           | `docker compose run -T vale content/**/*.md`                                      |
+| Build Hugo site            | `yarn hugo --quiet`                                                               |
+| Run Vale linting           | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
 | Test links                 | `yarn test:links`                                                                 |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
-| Test specific page         | `yarn test:e2e content/path/file.md`                                              |
-| Fact-check with MCP        | `kapa_query({ query: "...", stream: false })`                                     |
-| Preview locally            | `hugo server` (visit localhost:1313)                                              |
+| Test specific page         | `node cypress/support/run-e2e-specs.js content/path/file.md`                      |
+| Fact-check with MCP        | Ask AI assistant with `search_influxdb_knowledge_sources` tool configured         |
+| Preview locally            | `yarn hugo server` (visit localhost:1313)                                         |
 | Generate API docs          | `yarn build:api-docs` (before API reference tests)                                |
-| Style linting              | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
 
 **Note:** `--products` accepts both product keys (`influxdb3_core`) and content paths (`/influxdb3/core`).
 
@@ -644,8 +615,8 @@ ls content/influxdb3/core/api/
 - [ ] If shared content: Sourcing files touched (or used `docs edit`)
 - [ ] If shared content: Check for path differences and add `alt_links` if paths vary
 - [ ] Technical accuracy verified (MCP fact-check if needed)
-- [ ] Hugo builds without errors (`hugo --quiet`)
-- [ ] Vale style linting passes (`docker compose run -T vale content/**/*.md`)
+- [ ] Hugo builds without errors (`yarn hugo --quiet`)
+- [ ] Vale style linting passes (`.ci/vale/vale.sh --config=.vale.ini content/path/`)
 - [ ] Links validated (`yarn test:links`)
 - [ ] Code examples tested (if applicable)
 - [ ] E2E tests pass for affected pages
