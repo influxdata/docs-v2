@@ -69,10 +69,10 @@ Set the following environment variables when you start the MCP server:
 {{% show-in "cloud-dedicated,clustered" %}}
 
 - **INFLUX_DB_PRODUCT_TYPE**: `{{% product-key %}}`
-- **INFLUX_DB_ACCOUNT_ID**: Your {{% product-name %}} account ID
-- **INFLUX_DB_CLUSTER_ID**: Your {{% product-name %}} cluster ID
-- **INFLUX_DB_TOKEN**: An {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
-- **INFLUX_DB_MANAGEMENT_TOKEN**: An {{% product-name %}} [management token](/influxdb3/cloud-dedicated/admin/tokens/management/)
+- **INFLUX_DB_ACCOUNT_ID**: Your {{% product-name %}} [account ID](/influxdb3/version/admin/account/)
+- **INFLUX_DB_CLUSTER_ID**: Your {{% product-name %}} [cluster ID](/influxdb3/version/admin/clusters/)
+- **INFLUX_DB_TOKEN**: An {{% product-name %}} [database token](/influxdb3/version/admin/tokens/database/)
+- **INFLUX_DB_MANAGEMENT_TOKEN**: An {{% product-name %}} [management token](/influxdb3/version/admin/tokens/management/)
 
 > [!Note]
 > #### Optional tokens
