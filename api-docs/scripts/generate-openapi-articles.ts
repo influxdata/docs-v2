@@ -1244,6 +1244,11 @@ function processProduct(productKey: string, config: ProductConfig): void {
   console.log(`Processing ${config.description || productKey}`);
   console.log('='.repeat(80));
 
+  // Clean output directories before regeneration (unless --no-clean or --dry-run)
+  if (!noClean && !dryRun) {
+    cleanProductOutputs(productKey, config);
+  }
+
   const staticPath = path.join(DOCS_ROOT, 'static/openapi');
   const staticDirName = getStaticDirName(productKey);
   const staticPathsPath = path.join(staticPath, `${staticDirName}/paths`);
