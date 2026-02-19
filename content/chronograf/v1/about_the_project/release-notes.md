@@ -10,6 +10,23 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.0 {date="2026-02-19"}
+
+{{% warn %}}
+**Warning:** Chronograf 1.11.0 removes support for Linux i386, armhf, armel, and static builds.
+It also removes support for Darwin arm64.
+{{% /warn %}}
+
+### Maintenance updates
+
+- Upgrade Go to 1.24.13.
+- Upgrade TypeScript to 4.9.5.
+- Upgrade Node.js to v24.13.0.
+
+### Other
+
+- Update Flux help in the UI to align with stdlib 0.199.
+
 ## v1.10.9 {date="2026-01-07"}
 
 ### Features
