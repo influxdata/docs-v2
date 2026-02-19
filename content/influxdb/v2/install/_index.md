@@ -798,7 +798,9 @@ file system and a volume, use the
 ### Install InfluxDB in a Kubernetes cluster
 
 The instructions below use **minikube** or **kind**, but the steps should be similar in any Kubernetes cluster.
-InfluxData also makes [Helm charts](https://github.com/influxdata/helm-charts) available.
+InfluxData also provides [Helm charts](https://github.com/influxdata/helm-charts) for deploying InfluxDB.
+For InfluxDB v2-specific configuration options and installation instructions, see the
+[influxdb2 Helm chart documentation](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2).
 
 1. Install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or
    [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation).
