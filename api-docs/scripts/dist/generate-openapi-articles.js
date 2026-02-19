@@ -73,6 +73,8 @@ const API_DOCS_ROOT = 'api-docs';
 // CLI flags
 const validateLinks = process.argv.includes('--validate-links');
 const skipFetch = process.argv.includes('--skip-fetch');
+const noClean = process.argv.includes('--no-clean');
+const dryRun = process.argv.includes('--dry-run');
 /**
  * Load products with API paths from data/products.yml
  * Returns a map of alt_link_key to API path for alt_links generation
@@ -135,6 +137,90 @@ function getStaticDirName(productKey) {
     }
     // For other products, add 'influxdb-' prefix
     return `influxdb-${productKey}`;
+}
+/**
+ * Get all paths that would be cleaned for a product
+ *
+ * @param productKey - Product identifier (e.g., 'influxdb3_core')
+ * @param config - Product configuration
+ * @returns Object with directories and files arrays
+ */
+function getCleanupPaths(productKey, config) {
+    const staticDirName = getStaticDirName(productKey);
+    const staticPath = path.join(DOCS_ROOT, 'static/openapi');
+    const directories = [];
+    const files = [];
+    // Tag specs directory: static/openapi/{staticDirName}/
+    const tagSpecsDir = path.join(staticPath, staticDirName);
+    if (fs.existsSync(tagSpecsDir)) {
+        directories.push(tagSpecsDir);
+    }
+    // Article data directory: data/article_data/influxdb/{productKey}/
+    const articleDataDir = path.join(DOCS_ROOT, `data/article_data/influxdb/${productKey}`);
+    if (fs.existsSync(articleDataDir)) {
+        directories.push(articleDataDir);
+    }
+    // Content pages directory: content/{pagesDir}/api/
+    const contentApiDir = path.join(config.pagesDir, 'api');
+    if (fs.existsSync(contentApiDir)) {
+        directories.push(contentApiDir);
+    }
+    // Root spec files: static/openapi/{staticDirName}-*.yml and .json
+    if (fs.existsSync(staticPath)) {
+        const staticFiles = fs.readdirSync(staticPath);
+        const pattern = new RegExp(`^${staticDirName}-.*\\.(yml|json)$`);
+        staticFiles
+            .filter((f) => pattern.test(f))
+            .forEach((f) => {
+            files.push(path.join(staticPath, f));
+        });
+    }
+    return { directories, files };
+}
+/**
+ * Clean output directories for a product before regeneration
+ *
+ * @param productKey - Product identifier
+ * @param config - Product configuration
+ */
+function cleanProductOutputs(productKey, config) {
+    const { directories, files } = getCleanupPaths(productKey, config);
+    // Remove directories recursively
+    for (const dir of directories) {
+        console.log(`🧹 Removing directory: ${dir}`);
+        fs.rmSync(dir, { recursive: true, force: true });
+    }
+    // Remove individual files
+    for (const file of files) {
+        console.log(`🧹 Removing file: ${file}`);
+        fs.unlinkSync(file);
+    }
+    const total = directories.length + files.length;
+    if (total > 0) {
+        console.log(`✓ Cleaned ${directories.length} directories, ${files.length} files for ${productKey}`);
+    }
+}
+/**
+ * Display dry-run preview of what would be cleaned
+ *
+ * @param productKey - Product identifier
+ * @param config - Product configuration
+ */
+function showDryRunPreview(productKey, config) {
+    const { directories, files } = getCleanupPaths(productKey, config);
+    console.log(`\nDRY RUN: Would clean the following for ${productKey}:\n`);
+    if (directories.length > 0) {
+        console.log('Directories to remove:');
+        directories.forEach((dir) => console.log(`  - ${dir}`));
+    }
+    if (files.length > 0) {
+        console.log('\nFiles to remove:');
+        files.forEach((file) => console.log(`  - ${file}`));
+    }
+    if (directories.length === 0 && files.length === 0) {
+        console.log('  (no files to clean)');
+    }
+    console.log(`\nSummary: ${directories.length} directories, ${files.length} files would be removed`);
 }
 /**
  * Generate Hugo data files from OpenAPI specification
@@ -834,6 +920,10 @@ function processProduct(productKey, config) {
     console.log('\n' + '='.repeat(80));
     console.log(`Processing ${config.description || productKey}`);
     console.log('='.repeat(80));
+    // Clean output directories before regeneration (unless --no-clean or --dry-run)
+    if (!noClean && !dryRun) {
+        cleanProductOutputs(productKey, config);
+    }
     const staticPath = path.join(DOCS_ROOT, 'static/openapi');
     const staticDirName = getStaticDirName(productKey);
     const staticPathsPath = path.join(staticPath, `${staticDirName}/paths`);
@@ -977,6 +1067,15 @@ function main() {
             console.error(`  - ${key}: ${productConfigs[key].description}`);
         });
         process.exit(1);
+    }
+    // Handle dry-run mode
+    if (dryRun) {
+        console.log('\n📋 DRY RUN MODE - No files will be modified\n');
+        productsToProcess.forEach((productKey) => {
+            showDryRunPreview(productKey, productConfigs[productKey]);
+        });
+        console.log('\nDry run complete. No files were modified.');
+        return;
     }
     // Process each product
     productsToProcess.forEach((productKey) => {

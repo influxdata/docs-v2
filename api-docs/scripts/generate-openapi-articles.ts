@@ -1456,6 +1456,16 @@ function main(): void {
     process.exit(1);
   }
 
+  // Handle dry-run mode
+  if (dryRun) {
+    console.log('\n📋 DRY RUN MODE - No files will be modified\n');
+    productsToProcess.forEach((productKey) => {
+      showDryRunPreview(productKey, productConfigs[productKey]);
+    });
+    console.log('\nDry run complete. No files were modified.');
+    return;
+  }
+
   // Process each product
   productsToProcess.forEach((productKey) => {
     const config = productConfigs[productKey];
