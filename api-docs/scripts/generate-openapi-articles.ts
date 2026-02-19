@@ -252,6 +252,36 @@ function cleanProductOutputs(productKey: string, config: ProductConfig): void {
 }
 
 /**
+ * Display dry-run preview of what would be cleaned
+ *
+ * @param productKey - Product identifier
+ * @param config - Product configuration
+ */
+function showDryRunPreview(productKey: string, config: ProductConfig): void {
+  const { directories, files } = getCleanupPaths(productKey, config);
+
+  console.log(`\nDRY RUN: Would clean the following for ${productKey}:\n`);
+
+  if (directories.length > 0) {
+    console.log('Directories to remove:');
+    directories.forEach((dir) => console.log(`  - ${dir}`));
+  }
+
+  if (files.length > 0) {
+    console.log('\nFiles to remove:');
+    files.forEach((file) => console.log(`  - ${file}`));
+  }
+
+  if (directories.length === 0 && files.length === 0) {
+    console.log('  (no files to clean)');
+  }
+
+  console.log(
+    `\nSummary: ${directories.length} directories, ${files.length} files would be removed`
+  );
+}
+
+/**
  * Generate Hugo data files from OpenAPI specification
  *
  * @param specFile - Path to the OpenAPI spec file
