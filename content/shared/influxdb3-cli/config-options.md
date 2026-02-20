@@ -138,6 +138,9 @@ For detailed information about thread allocation, see the [Resource Limits](#res
   {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
+  {{% show-in "enterprise" %}}
+- [use-pacha-tree](#use-pacha-tree)
+  {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
@@ -273,6 +276,26 @@ This option supports the following values:
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ***
+
+{{% show-in "enterprise" %}}
+
+#### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
+
+Enables the PachaTree storage engine.
+
+> [!Caution]
+> PachaTree is an experimental feature not for production use.
+> It might not be compatible with other features and configuration options.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE`     |
+
+***
+
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
