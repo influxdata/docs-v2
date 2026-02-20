@@ -12,10 +12,9 @@ aliases:
 
 ## v1.11.0 {date="2026-02-19"}
 
-{{% warn %}}
-**Warning:** Chronograf 1.11.0 removes support for Linux i386, armhf, armel, and static builds.
-It also removes support for Darwin arm64.
-{{% /warn %}}
+> [!Warning]
+> Chronograf 1.11.0 removes support for Linux i386, armhf, armel, and static builds.
+> It also removes support for Darwin arm64.
 
 ### Maintenance updates
 
