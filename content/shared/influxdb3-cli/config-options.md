@@ -279,13 +279,13 @@ This option supports the following values:
 
 {{% show-in "enterprise" %}}
 
-#### use-pacha-tree
+#### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
 
 Enables the PachaTree storage engine.
 
 > [!Caution]
 > PachaTree is an experimental feature not for production use.
-> It may not be compatible with other features and configuration options.
+> It might not be compatible with other features and configuration options.
 
 **Default:** `false`
 
