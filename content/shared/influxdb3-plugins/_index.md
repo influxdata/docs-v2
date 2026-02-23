@@ -36,7 +36,22 @@ Once you have all the prerequisites in place, follow these steps to implement th
 
 ## Set up the Processing Engine
 
-To activate the Processing Engine, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
+The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
+
+### Default behavior by deployment type
+
+| Deployment | Default state | Configuration |
+|:-----------|:--------------|:--------------|
+| Docker images | **Enabled** | `INFLUXDB3_PLUGIN_DIR=/plugins` |
+| DEB/RPM packages | **Enabled** | `plugin-dir="/var/lib/influxdb3/plugins"` |
+| Binary/source | Disabled | No `plugin-dir` configured |
+
+If you installed {{% product-name %}} using Docker or a DEB/RPM package, the Processing Engine is already enabled.
+For information about disabling it, see [Enable and disable the Processing Engine](/influxdb3/version/reference/processing-engine/#enable-and-disable-the-processing-engine).
+
+### Enable the Processing Engine manually
+
+To activate the Processing Engine when running from a binary or source build, start your {{% product-name %}} server with the `--plugin-dir` flag. This flag tells InfluxDB where to load your plugin files.
 
 > [!Important]
 > #### Keep the influxdb3 binary with its python directory

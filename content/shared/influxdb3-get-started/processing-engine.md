@@ -60,6 +60,10 @@ when starting the {{% product-name %}} server.
 the processing engine to run.
 
 > [!Note]
+> **Docker and DEB/RPM installations**: The processing engine is already enabled by default.
+> For information about enabling and disabling the processing engine, see [Enable and disable the Processing Engine](/influxdb3/version/reference/processing-engine/#enable-and-disable-the-processing-engine).
+
+> [!Note]
 > If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.
 
 <!-- pytest.mark.skip -->
