@@ -1,5 +1,84 @@
 The Processing engine is an embedded Python virtual machine that runs inside an {{% product-name %}} database server. It executes Python code in response to triggers and database events without requiring external application servers or middleware.
 
+## Enable and disable the Processing Engine
+
+The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
+When not configured, the Python environment and PyO3 bindings aren't initialized, and the server runs without Processing Engine functionality.
+
+### Default behavior by deployment type
+
+| Deployment | Default state | Configuration |
+|:-----------|:--------------|:--------------|
+| Docker images | **Enabled** | `INFLUXDB3_PLUGIN_DIR=/plugins` |
+| DEB/RPM packages | **Enabled** | `plugin-dir="/var/lib/influxdb3/plugins"` |
+| Binary/source | Disabled | No `plugin-dir` configured |
+
+### Disable in Docker deployments
+
+Docker images set `INFLUXDB3_PLUGIN_DIR=/plugins` by default.
+
+> [!Warning]
+> Setting `INFLUXDB3_PLUGIN_DIR=""` (empty string) does **not** disable the Processing Engine.
+> You must unset the variable, not set it to empty.
+
+{{% show-in "enterprise" %}}
+Use the `INFLUXDB3_UNSET_VARS` feature to unset inherited environment variables:
+
+```bash
+docker run -e INFLUXDB3_UNSET_VARS="INFLUXDB3_PLUGIN_DIR" influxdb:3-enterprise
+```
+
+This is useful in orchestration environments (Kubernetes, Docker Compose) where removing an inherited variable isn't straightforward.
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+Use a custom entrypoint that unsets the variable:
+
+```bash
+docker run --entrypoint /bin/sh influxdb:3-core -c 'unset INFLUXDB3_PLUGIN_DIR && exec influxdb3 serve --object-store memory'
+```
+{{% /show-in %}}
+
+### Disable in systemd deployments (DEB/RPM)
+
+The post-install script sets `plugin-dir="/var/lib/influxdb3/plugins"` in the TOML configuration.
+To disable the Processing Engine:
+
+1. Edit the configuration file:
+
+   ```bash
+   sudo nano /etc/influxdb3/influxdb3-{{< product-key >}}.conf
+   ```
+
+2. Comment out or remove the `plugin-dir` line:
+
+   ```toml
+   # plugin-dir="/var/lib/influxdb3/plugins"
+   ```
+
+   > [!Warning]
+   > Do not set `plugin-dir=""` (empty string) — you must remove or comment out the line.
+
+3. Restart the service:
+
+   ```bash
+   sudo systemctl restart influxdb3-{{< product-key >}}
+   ```
+
+> [!Note]
+> The `/var/lib/influxdb3/plugins` directory can remain on disk.
+> The Processing Engine only activates based on the `plugin-dir` configuration, not directory existence.
+
+### Benefits of disabling
+
+When the Processing Engine is disabled:
+
+- The Python environment and PyO3 bindings are not initialized
+- Plugin-related operations return a "No plugin directory configured" error
+- The server runs with reduced resource usage
+
+This is useful for deployments that don't require plugin functionality and want a minimal server footprint.
+
 ## How it works
 
 ### Architecture

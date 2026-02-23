@@ -1649,6 +1649,60 @@ Specifies the local directory that contains Python plugins and their test files.
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
 
+##### Default behavior by deployment type
+
+| Deployment | Default state | Configuration |
+|:-----------|:--------------|:--------------|
+| Docker images | **Enabled** | `INFLUXDB3_PLUGIN_DIR=/plugins` |
+| DEB/RPM packages | **Enabled** | `plugin-dir="/var/lib/influxdb3/plugins"` |
+| Binary/source | Disabled | No `plugin-dir` configured |
+
+##### Disable the Processing Engine
+
+To disable the Processing Engine, ensure `plugin-dir` is not configured.
+
+> [!Warning]
+> Setting `plugin-dir=""` or `INFLUXDB3_PLUGIN_DIR=""` (empty string) does **not** disable the Processing Engine.
+> You must comment out, remove, or unset the configuration — not set it to empty.
+
+{{% show-in "enterprise" %}}
+**Docker:** Use `INFLUXDB3_UNSET_VARS` to unset the default:
+
+```bash
+docker run -e INFLUXDB3_UNSET_VARS="INFLUXDB3_PLUGIN_DIR" influxdb:3-enterprise
+```
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+**Docker:** Use a custom entrypoint:
+
+```bash
+docker run --entrypoint /bin/sh influxdb:3-core -c 'unset INFLUXDB3_PLUGIN_DIR && exec influxdb3 serve --object-store memory'
+```
+{{% /show-in %}}
+
+**systemd (DEB/RPM):** Comment out or remove `plugin-dir` in the configuration file:
+
+```bash
+sudo nano /etc/influxdb3/influxdb3-{{< product-key >}}.conf
+```
+
+```toml
+# plugin-dir="/var/lib/influxdb3/plugins"
+```
+
+Then restart the service:
+
+```bash
+sudo systemctl restart influxdb3-{{< product-key >}}
+```
+
+When the Processing Engine is disabled:
+
+- The Python environment and PyO3 bindings are not initialized
+- Plugin-related operations return a "No plugin directory configured" error
+- The server runs with reduced resource usage
+
 ***
 
 #### plugin-repo
