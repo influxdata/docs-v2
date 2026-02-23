@@ -153,7 +153,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--traces-jaeger-debug-name`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-debug-name)_                         |
 |                  | `--traces-jaeger-max-msgs-per-second`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-max-msgs-per-second)_                |
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-tags)_                               |
-|                  | `--use-pacha-tree`                                   | _See [configuration options](/influxdb3/enterprise/reference/config-options/#use-pacha-tree)_                                   |
+|                  | `--use-pacha-tree` <span class="badge experimental">Experimental</span> | _See [configuration options](/influxdb3/enterprise/reference/config-options/#use-pacha-tree)_ |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wait-for-running-ingestor`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wait-for-running-ingestor)_                        |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)_                               |
