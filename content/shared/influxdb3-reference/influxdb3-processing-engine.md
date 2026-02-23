@@ -2,21 +2,20 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 
 ## Enable and disable the Processing Engine
 
-{{% show-in "enterprise" %}}
-> [!Note]
-> #### Processing Engine vs. process mode
->
-> The Processing Engine (`--plugin-dir`) and cluster node mode (`--mode=process`) are independent configurations:
->
-> - **`--plugin-dir`**: Enables the Processing Engine by initializing the Python environment
-> - **`--mode=process`**: Configures a node's role in a cluster for processing workloads (see [Configure specialized cluster nodes](/influxdb3/enterprise/admin/clustering/#configure-process-nodes))
->
-> A node with `--mode=process` but no `--plugin-dir` won't have Processing Engine functionality.
-> A node with `--plugin-dir` but a different mode (such as `--mode=ingest`) will have the Processing Engine available but won't be optimized for processing workloads.
-{{% /show-in %}}
-
 The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
 When not configured, the Python environment and PyO3 bindings aren't initialized, and the server runs without Processing Engine functionality.
+
+{{% show-in "enterprise" %}}
+### Process mode and `--plugin-dir`
+
+Setting `--plugin-dir` automatically adds `process` mode to any node, regardless of the [`--mode`](/influxdb3/enterprise/reference/config-options/#mode) setting.
+You don't need to explicitly set `--mode=process` when `--plugin-dir` is configured.
+
+Conversely, if you explicitly set `--mode=process`, you **must** also set `--plugin-dir`.
+A node with `--mode=process` but no `--plugin-dir` won't function correctly.
+
+For cluster node configuration examples, see [Configure process nodes](/influxdb3/enterprise/admin/clustering/#configure-process-nodes).
+{{% /show-in %}}
 
 ### Default behavior by deployment type
 

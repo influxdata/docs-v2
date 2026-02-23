@@ -233,13 +233,25 @@ You can adjust compaction strategies to balance performance and resource usage:
 ## Configure process nodes
 
 Process nodes handle data transformations and processing plugins.
+Setting `--plugin-dir` automatically adds `process` mode to any node, so you don't need to explicitly set `--mode=process`.
+If you do set `--mode=process`, you must also set `--plugin-dir`.
 
-> [!Note]
-> `--mode=process` configures the node's role within the cluster but does **not** enable the Processing Engine.
-> You must configure `--plugin-dir` to activate the Processing Engine.
-> See [Enable and disable the Processing Engine](/influxdb3/enterprise/reference/processing-engine/#enable-and-disable-the-processing-engine).
+### Enable the Processing Engine on any node
 
-### Processing node (16 cores)
+```bash
+influxdb3 \
+  --num-io-threads=4 \
+  serve \
+  --num-cores=16 \
+  --datafusion-num-threads=12 \
+  --plugin-dir=/path/to/plugins \
+  --node-id=hybrid-01 \
+  --cluster-id=prod-cluster
+```
+
+### Dedicated process-only node (16 cores)
+
+To create a node that only handles processing (no ingest, query, or compaction), set `--mode=process`:
 
 ```bash
 influxdb3 \

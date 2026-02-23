@@ -37,6 +37,9 @@ Once you have all the prerequisites in place, follow these steps to implement th
 ## Set up the Processing Engine
 
 The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is configured.
+{{% show-in "enterprise" %}}
+In a cluster, this automatically adds `process` mode to the node.
+{{% /show-in %}}
 
 ### Default behavior by deployment type
 
@@ -46,8 +49,8 @@ The Processing Engine activates when `--plugin-dir` or `INFLUXDB3_PLUGIN_DIR` is
 | DEB/RPM packages | **Enabled** | `plugin-dir="/var/lib/influxdb3/plugins"` |
 | Binary/source | Disabled | No `plugin-dir` configured |
 
-If you installed {{% product-name %}} using Docker or a DEB/RPM package, the Processing Engine is already enabled.
-For information about disabling it, see [Enable and disable the Processing Engine](/influxdb3/version/reference/processing-engine/#enable-and-disable-the-processing-engine).
+If you installed {{% product-name %}} using Docker or a DEB/RPM package, the Processing Engine is already enabled—skip to [Add a Processing Engine plugin](#add-a-processing-engine-plugin).
+To disable the Processing Engine, see [Enable and disable the Processing Engine](/influxdb3/version/reference/processing-engine/#enable-and-disable-the-processing-engine).
 
 ### Enable the Processing Engine manually
 
