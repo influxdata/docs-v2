@@ -2,6 +2,19 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 
 ## Enable and disable the Processing Engine
 
+{{% show-in "enterprise" %}}
+> [!Note]
+> #### Processing Engine vs. process mode
+>
+> The Processing Engine (`--plugin-dir`) and cluster node mode (`--mode=process`) are independent configurations:
+>
+> - **`--plugin-dir`**: Enables the Processing Engine by initializing the Python environment
+> - **`--mode=process`**: Configures a node's role in a cluster for processing workloads (see [Configure specialized cluster nodes](/influxdb3/enterprise/admin/clustering/#configure-process-nodes))
+>
+> A node with `--mode=process` but no `--plugin-dir` won't have Processing Engine functionality.
+> A node with `--plugin-dir` but a different mode (such as `--mode=ingest`) will have the Processing Engine available but won't be optimized for processing workloads.
+{{% /show-in %}}
+
 The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
 When not configured, the Python environment and PyO3 bindings aren't initialized, and the server runs without Processing Engine functionality.
 
@@ -57,7 +70,7 @@ To disable the Processing Engine:
    ```
 
    > [!Warning]
-   > Do not set `plugin-dir=""` (empty string) — you must remove or comment out the line.
+   > Do not set `plugin-dir=""` (empty string)—you must remove or comment out the line.
 
 3. Restart the service:
 
