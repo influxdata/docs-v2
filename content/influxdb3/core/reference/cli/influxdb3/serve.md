@@ -71,14 +71,14 @@ influxdb3 serve [OPTIONS]
 |                  | `--datafusion-config`                                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-config)_                                |
 |                  | `--datafusion-max-parquet-fanout`                    | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-max-parquet-fanout)_                    |
 |                  | `--datafusion-num-threads`                           | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-num-threads)_                           |
-|                  | `--datafusion-runtime-disable-lifo-slot`             | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-disable-lifo-slot)_             |
-|                  | `--datafusion-runtime-event-interval`                | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-event-interval)_                |
-|                  | `--datafusion-runtime-global-queue-interval`         | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-global-queue-interval)_         |
-|                  | `--datafusion-runtime-max-blocking-threads`          | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-max-blocking-threads)_          |
-|                  | `--datafusion-runtime-max-io-events-per-tick`        | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-max-io-events-per-tick)_        |
-|                  | `--datafusion-runtime-thread-keep-alive`             | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-thread-keep-alive)_             |
-|                  | `--datafusion-runtime-thread-priority`               | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-thread-priority)_               |
-|                  | `--datafusion-runtime-type`                          | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-runtime-type)_                          |
+|                  | `--datafusion-runtime-disable-lifo-slot`             | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-event-interval`                | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-global-queue-interval`         | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-max-blocking-threads`          | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-max-io-events-per-tick`        | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-thread-keep-alive`             | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-thread-priority`               | Development-only Tokio runtime configuration                                                                               |
+|                  | `--datafusion-runtime-type`                          | Development-only Tokio runtime configuration                                                                               |
 |                  | `--datafusion-use-cached-parquet-loader`             | _See [configuration options](/influxdb3/core/reference/config-options/#datafusion-use-cached-parquet-loader)_             |
 |                  | `--delete-grace-period`                              | _See [configuration options](/influxdb3/core/reference/config-options/#delete-grace-period)_                              |
 |                  | `--disable-authz`                                    | _See [configuration options](/influxdb3/core/reference/config-options/#disable-authz)_                                    |
@@ -118,7 +118,7 @@ influxdb3 serve [OPTIONS]
 |                  | `--table-index-cache-concurrency-limit`              | _See [configuration options](/influxdb3/core/reference/config-options/#table-index-cache-concurrency-limit)_              |
 |                  | `--table-index-cache-max-entries`                    | _See [configuration options](/influxdb3/core/reference/config-options/#table-index-cache-max-entries)_                    |
 |                  | `--tcp-listener-file-path`                           | _See [configuration options](/influxdb3/core/reference/config-options/#tcp-listener-file-path)_                           |
-|                  | `--telemetry-disable-upload`                         | _See [configuration options](/influxdb3/core/reference/config-options/#telemetry-disable-upload)_                         |
+|                  | `--telemetry-disable-upload`                         | _See [configuration options](/influxdb3/core/reference/config-options/#disable-telemetry-upload)_                         |
 |                  | `--telemetry-endpoint`                               | _See [configuration options](/influxdb3/core/reference/config-options/#telemetry-endpoint)_                               |
 |                  | `--tls-cert`                                         | _See [configuration options](/influxdb3/core/reference/config-options/#tls-cert)_                                         |
 |                  | `--tls-key`                                          | _See [configuration options](/influxdb3/core/reference/config-options/#tls-key)_                                          |
