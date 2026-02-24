@@ -10,7 +10,7 @@ introduced: "v1.3.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/socket_writer/README.md, Socket Writer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/socket_writer/README.md, Socket Writer Plugin Source
 ---
 
 # Socket Writer Output Plugin

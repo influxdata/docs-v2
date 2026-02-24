@@ -1,0 +1,9 @@
+extends: existence
+message: "Put a nonbreaking space between the number and the unit in '%s'."
+link: "https://developers.google.com/style/units-of-measure"
+nonword: true
+level: warning
+# Only check byte units. Duration units (ns, ms, s, min, h, d) are excluded
+# because InfluxDB duration literals use no space (e.g., 30d, 24h, 1h).
+tokens:
+  - \b\d+(?:B|kB|MB|GB|TB|PB)

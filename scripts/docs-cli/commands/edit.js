@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Documentation file opener
+ * Documentation file editor
  * Opens existing documentation pages in your default editor
  *
  * Usage:
@@ -11,21 +11,13 @@
  *   docs edit <url> --editor vim       # Use specific editor
  */
 
-import { parseArgs } from 'node:util';
-import process from 'node:process';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import { existsSync } from 'fs';
-import { parseDocumentationURL, urlToFilePaths } from '../lib/url-parser.js';
+import { parseDocumentationURL, urlToFilePaths } from '../../lib/url-parser.js';
 import { getSourceFromFrontmatter } from '../lib/content-utils.js';
-import { resolveEditor } from './lib/editor-resolver.js';
-import { spawnEditor, shouldWait } from './lib/process-manager.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Repository root
-const REPO_ROOT = join(__dirname, '..', '..');
+import { resolveEditor } from '../lib/editor-resolver.js';
+import { spawnEditor, shouldWait } from '../lib/process-manager.js';
+import { findDocsV2Root } from '../lib/config-loader.js';
 
 // Colors for console output
 const colors = {
@@ -38,58 +30,30 @@ const colors = {
   cyan: '\x1b[36m',
 };
 
-/**
- * Print colored output
- */
 function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
-/**
- * Parse command line arguments
- */
-function parseArguments() {
-  const { values, positionals } = parseArgs({
-    options: {
-      help: { type: 'boolean', default: false },
-      list: { type: 'boolean', default: false },
-      wait: { type: 'boolean', default: false },
-      editor: { type: 'string' },
-    },
-    allowPositionals: true,
-  });
-
-  // First positional argument is the URL
-  if (positionals.length > 0 && !values.url) {
-    values.url = positionals[0];
-  }
-
-  return values;
-}
-
-/**
- * Print usage information
- */
 function printUsage() {
   console.log(`
-${colors.bright}Documentation File Opener${colors.reset}
+${colors.bright}Documentation File Editor${colors.reset}
 
-${colors.bright}Usage:${colors.reset}
+Usage:
   docs edit <url>                    Open in editor (non-blocking)
   docs edit <url> --wait             Wait for editor to close
   docs edit <url> --list             List files without opening
   docs edit <url> --editor <cmd>     Use specific editor
 
-${colors.bright}Arguments:${colors.reset}
+Arguments:
   <url>             Documentation URL or path
 
-${colors.bright}Options:${colors.reset}
+Options:
   --list            List matching files without opening
   --wait            Block until editor closes (for interactive use)
   --editor <cmd>    Override default editor
   --help            Show this help message
 
-${colors.bright}Examples:${colors.reset}
+Examples:
   # Quick edit (CLI exits immediately, editor runs in background)
   docs edit https://docs.influxdata.com/influxdb3/core/admin/databases/
   docs edit /influxdb3/core/admin/databases/
@@ -103,7 +67,7 @@ ${colors.bright}Examples:${colors.reset}
   # List files only (useful for scripting)
   docs edit /influxdb3/core/admin/databases/ --list
 
-${colors.bright}Editor Configuration:${colors.reset}
+Editor Configuration:
   The editor is selected in this order:
   1. --editor flag
   2. DOCS_EDITOR environment variable
@@ -116,30 +80,25 @@ ${colors.bright}Editor Configuration:${colors.reset}
     export EDITOR=nano
     export DOCS_EDITOR="code --wait"
 
-${colors.bright}Notes:${colors.reset}
+Notes:
   - Default behavior is non-blocking (agent-friendly)
   - Use --wait flag for interactive editing sessions
   - Multiple files may open if content is shared across products
 `);
 }
 
-/**
- * Find matching files for a URL
- */
-function findFiles(url) {
+function findFiles(url, repoRoot) {
   try {
-    // Parse URL
     const parsed = parseDocumentationURL(url);
     log(`\n🔍 Analyzing URL: ${url}`, 'bright');
     log(`   Product: ${parsed.namespace}/${parsed.product || 'N/A'}`, 'cyan');
     log(`   Section: ${parsed.section || 'N/A'}`, 'cyan');
 
-    // Get potential file paths
     const potentialPaths = urlToFilePaths(parsed);
     const foundFiles = [];
 
     for (const relativePath of potentialPaths) {
-      const fullPath = join(REPO_ROOT, relativePath);
+      const fullPath = join(repoRoot, relativePath);
       if (existsSync(fullPath)) {
         foundFiles.push(relativePath);
       }
@@ -152,22 +111,13 @@ function findFiles(url) {
   }
 }
 
-/**
- * Check if file uses shared content
- * @param {string} filePath - Relative path from repo root
- * @returns {string|null} Path to shared source file or null
- */
-function checkSharedContent(filePath) {
-  const fullPath = join(REPO_ROOT, filePath);
+function checkSharedContent(filePath, repoRoot) {
+  const fullPath = join(repoRoot, filePath);
   return getSourceFromFrontmatter(fullPath);
 }
 
-/**
- * Open files in editor
- */
-function openInEditor(files, options = {}) {
+function openInEditor(files, repoRoot, options = {}) {
   try {
-    // Resolve editor command
     const editor = resolveEditor({ editor: options.editor });
     const wait = shouldWait(options.wait);
 
@@ -178,10 +128,8 @@ function openInEditor(files, options = {}) {
       log('   Use --wait flag to block until editor closes', 'cyan');
     }
 
-    // Convert to absolute paths
-    const absolutePaths = files.map((f) => join(REPO_ROOT, f));
+    const absolutePaths = files.map((f) => join(repoRoot, f));
 
-    // Spawn editor
     spawnEditor(editor, absolutePaths, {
       wait,
       onError: (error) => {
@@ -195,7 +143,6 @@ function openInEditor(files, options = {}) {
       },
     });
 
-    // In non-blocking mode, give process time to spawn before exit
     if (!wait) {
       setTimeout(() => {
         log('✓ Editor launched\n', 'green');
@@ -208,20 +155,64 @@ function openInEditor(files, options = {}) {
   }
 }
 
-/**
- * Main entry point
- */
-async function main() {
-  const options = parseArguments();
+export default async function edit(args) {
+  const positionals = args.args || [];
 
-  // Show help
-  if (options.help || !options.url) {
-    printUsage();
-    process.exit(0);
+  // Parse options
+  let url = null;
+  let listOnly = false;
+  let wait = false;
+  let editor = null;
+
+  for (let i = 0; i < positionals.length; i++) {
+    const arg = positionals[i];
+    if (arg === '--help' || arg === '-h') {
+      printUsage();
+      process.exit(0);
+    } else if (arg === '--list') {
+      listOnly = true;
+    } else if (arg === '--wait') {
+      wait = true;
+    } else if (arg.startsWith('--editor=')) {
+      editor = arg.split('=')[1];
+    } else if (arg === '--editor') {
+      // Handle --editor value (space-separated)
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        editor = positionals[++i];
+      } else {
+        log('✗ --editor requires a value', 'red');
+        process.exit(1);
+      }
+    } else if (!url) {
+      url = arg;
+    }
   }
 
+  if (!url) {
+    printUsage();
+    process.exit(1);
+  }
+
+  // Find docs-v2 repository
+  const repoRoot = findDocsV2Root();
+  if (!repoRoot) {
+    log('\n✗ Could not find docs-v2 repository', 'red');
+    log('\nThe edit command needs access to the docs-v2 repository.', 'yellow');
+    log('');
+    log('Options:', 'bright');
+    log('  1. Run from within docs-v2 repository', 'cyan');
+    log('  2. Set DOCS_V2_PATH in .env file', 'cyan');
+    log('  3. Place docs-v2 in a common location:', 'cyan');
+    log('     ~/github/influxdata/docs-v2', 'cyan');
+    log('     ~/Documents/github/influxdata/docs-v2', 'cyan');
+    log('');
+    process.exit(1);
+  }
+
+  log(`\n📂 Using docs-v2 repository: ${repoRoot}`, 'cyan');
+
   // Find files
-  const { foundFiles } = findFiles(options.url);
+  const { foundFiles } = findFiles(url, repoRoot);
 
   if (foundFiles.length === 0) {
     log('\n✗ No files found for this URL', 'red');
@@ -239,9 +230,9 @@ async function main() {
     log(`  • ${file}`, 'cyan');
 
     // Check for shared content
-    const sharedSource = checkSharedContent(file);
+    const sharedSource = checkSharedContent(file, repoRoot);
     if (sharedSource) {
-      if (existsSync(join(REPO_ROOT, sharedSource))) {
+      if (existsSync(join(repoRoot, sharedSource))) {
         allFiles.add(sharedSource);
         log(
           `  • ${sharedSource} ${colors.yellow}(shared source)${colors.reset}`,
@@ -254,25 +245,11 @@ async function main() {
   const filesToOpen = Array.from(allFiles);
 
   // List only mode
-  if (options.list) {
+  if (listOnly) {
     log(`\n✓ Found ${filesToOpen.length} file(s)`, 'green');
     process.exit(0);
   }
 
   // Open in editor
-  openInEditor(filesToOpen, {
-    wait: options.wait,
-    editor: options.editor,
-  });
+  openInEditor(filesToOpen, repoRoot, { wait, editor });
 }
-
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    log(`\nFatal error: ${error.message}`, 'red');
-    console.error(error.stack);
-    process.exit(1);
-  });
-}
-
-export { findFiles, openInEditor };

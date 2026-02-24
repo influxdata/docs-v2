@@ -4,11 +4,11 @@ This repository has multiple instruction files for different AI tools and use ca
 
 ## Quick Navigation
 
-| If you are... | Use this file | Purpose |
-|---------------|---------------|---------|
-| **GitHub Copilot** | [copilot-instructions.md](copilot-instructions.md) | Primary instructions for coding agents, technical setup, build automation |
-| **Claude, ChatGPT, Gemini** | [../AGENTS.md](../AGENTS.md) | Comprehensive guide for content creation, workflows, style guidelines |
-| **Claude with MCP** | [../CLAUDE.md](../CLAUDE.md) | Lightweight pointer with references to other resources |
+| If you are...               | Use this file                                      | Purpose                                                                   |
+| --------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------- |
+| **GitHub Copilot**          | [copilot-instructions.md](copilot-instructions.md) | Primary instructions for coding agents, technical setup, build automation |
+| **Claude, ChatGPT, Gemini** | [../AGENTS.md](../AGENTS.md)                       | Comprehensive guide for content creation, workflows, style guidelines     |
+| **Claude with MCP**         | [../CLAUDE.md](../CLAUDE.md)                       | Lightweight pointer with references to other resources                    |
 
 ## Instruction File Organization
 
@@ -36,6 +36,7 @@ docs-v2/
 ## What's in Each File
 
 **[copilot-instructions.md](copilot-instructions.md)** - The primary instruction file with:
+
 - Quick command reference
 - Setup and testing procedures
 - Repository structure
@@ -45,6 +46,7 @@ docs-v2/
 - General documentation references
 
 **[../AGENTS.md](../AGENTS.md)** - Comprehensive guide for general AI assistants with:
+
 - Detailed content creation workflows
 - Common shortcode examples
 - Commit message format
@@ -53,24 +55,35 @@ docs-v2/
 **[../CLAUDE.md](../CLAUDE.md)** - Lightweight pointer to other instruction resources
 
 **[instructions/](instructions/)** - Auto-loaded pattern-specific instructions:
-- `content.instructions.md` - For Markdown content files
+
+- `content.instructions.md` - For Markdown content files (references Claude skills)
 - `layouts.instructions.md` - For Hugo template files
 - `api-docs.instructions.md` - For OpenAPI spec files
 - `assets.instructions.md` - For JavaScript/TypeScript files
 
-**[agents/](agents/)** - Custom specialist agents for complex tasks
+**[agents/](agents/)** - Custom specialist agents for complex tasks:
 
-**[../.claude/](../.claude/)** - Claude MCP configuration with specialized agents and commands
+- `typescript-hugo-agent.md` - TypeScript migration and Hugo asset pipeline
+- `copilot-instructions-agent.md` - Creating and managing Copilot instructions
+
+**[../.claude/](../.claude/)** - Claude MCP configuration with specialized agents, commands, and skills:
+
+- `skills/` - Detailed workflow guidance (referenced by Copilot instructions)
+- `commands/` - Custom Claude commands
+- `agents/` - Claude-specific agents
 
 ## Choosing the Right Instructions
 
-- **GitHub Copilot?** → [copilot-instructions.md](copilot-instructions.md)
+- **GitHub Copilot?** → [copilot-instructions.md](copilot-instructions.md) (now references Claude skills)
 - **General AI assistants?** → [../AGENTS.md](../AGENTS.md)
 - **Claude with MCP?** → [../CLAUDE.md](../CLAUDE.md) and [../.claude/](../.claude/)
+- **Creating/improving Copilot instructions?** → [agents/copilot-instructions-agent.md](agents/copilot-instructions-agent.md)
 
 ## Getting Started
 
 1. **New to the repository?** Start with [../README.md](../README.md)
 2. **Using GitHub Copilot?** Read [copilot-instructions.md](copilot-instructions.md)
+   - For detailed workflows, refer to [../.claude/skills/](../.claude/skills/)
 3. **Using other AI assistants?** Read [../AGENTS.md](../AGENTS.md)
 4. **Using Claude with MCP?** Check [../CLAUDE.md](../CLAUDE.md) and [../.claude/](../.claude/)
+5. **Managing Copilot instructions?** Use [agents/copilot-instructions-agent.md](agents/copilot-instructions-agent.md)

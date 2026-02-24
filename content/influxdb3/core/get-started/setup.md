@@ -11,6 +11,7 @@ weight: 3
 related:
   - /influxdb3/core/install/
   - /influxdb3/core/admin/tokens/
+  - /influxdb3/core/admin/mcp-server/
   - /influxdb3/core/reference/config-options/
 source: /shared/influxdb3-get-started/setup.md
 ---

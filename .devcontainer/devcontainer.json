@@ -1,0 +1,30 @@
+{
+  "name": "InfluxData Docs",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+
+  "features": {
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "extended": true
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yzhang.markdown-all-in-one",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "[markdown]": {
+          "editor.wordWrap": "on"
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [1313]
+}
