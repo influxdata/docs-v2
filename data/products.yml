@@ -101,10 +101,7 @@ influxdb3_cloud_serverless:
     characteristics: ['Paid/Free', 'Cloud', 'All languages', 'Token', 'Buckets']
     detection:
       url_contains:
-        [
-          'us-east-1-1.aws.cloud2.influxdata.com',
-          'eu-central-1-1.aws.cloud2.influxdata.com',
-        ]
+        ['us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I migrate from Cloud (TSM) to Cloud Serverless?
@@ -199,13 +196,7 @@ influxdb:
         required_params: ['URL', 'Token', 'Default bucket']
         optional_params: []
     characteristics:
-      [
-        'Free',
-        'Self-hosted',
-        'InfluxQL/Flux',
-        'Token or Username/Password',
-        'Buckets',
-      ]
+      ['Free', 'Self-hosted', 'InfluxQL/Flux', 'Token or Username/Password', 'Buckets']
     detection:
       ping_headers:
         x-influxdb-build: 'OSS'
@@ -245,15 +236,7 @@ influxdb_cloud:
       ['Paid/Free', 'Cloud', 'InfluxQL/Flux', 'Token', 'Databases/Buckets']
     detection:
       url_contains:
-        [
-          'us-west-2-1.aws.cloud2.influxdata.com',
-          'us-west-2-2.aws.cloud2.influxdata.com',
-          'us-east-1-1.aws.cloud2.influxdata.com',
-          'eu-central-1-1.aws.cloud2.influxdata.com',
-          'us-central1-1.gcp.cloud2.influxdata.com',
-          'westeurope-1.azure.cloud2.influxdata.com',
-          'eastus-1.azure.cloud2.influxdata.com',
-        ]
+        ['us-west-2-1.aws.cloud2.influxdata.com', 'us-west-2-2.aws.cloud2.influxdata.com', 'us-east-1-1.aws.cloud2.influxdata.com', 'eu-central-1-1.aws.cloud2.influxdata.com', 'us-central1-1.gcp.cloud2.influxdata.com', 'westeurope-1.azure.cloud2.influxdata.com', 'eastus-1.azure.cloud2.influxdata.com']
   ai_sample_questions:
     - What's my InfluxDB version?
     - How do I write and query data using InfluxDB Cloud (TSM)?
@@ -269,7 +252,7 @@ telegraf:
   versions: [v1]
   latest: v1.37
   latest_patches:
-    v1: 1.37.1
+    v1: 1.37.2
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -291,9 +274,9 @@ chronograf:
   menu_category: other
   list_order: 7
   versions: [v1]
-  latest: v1.10
+  latest: v1.11
   latest_patches:
-    v1: 1.10.9
+    v1: 1.11.0
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?

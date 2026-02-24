@@ -24,9 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     # Only run on issues with sync-plugin-docs label or manual dispatch
     if: |
-      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'sync-plugin-docs'))
-    
+
     steps:
       - name: Parse issue inputs
         id: parse-inputs
@@ -36,14 +36,14 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const body = issue.body || '';
-            
+
             // Extract plugins and source_commit from issue body
             const pluginsMatch = body.match(/### Plugin Names\s*\n\s*(.+)/);
             const commitMatch = body.match(/### Source Commit\/Branch\s*\n\s*(.+)/);
-            
+
             const plugins = pluginsMatch ? pluginsMatch[1].trim() : 'all';
             const sourceCommit = commitMatch ? commitMatch[1].trim() : 'main';
-            
+
             core.setOutput('plugins', plugins);
             core.setOutput('source_commit', sourceCommit);
             core.setOutput('issue_number', issue.number);
@@ -86,8 +86,8 @@ jobs:
           token: ${{ secrets.PLUGINS_CONTENT_READ_TOKEN }}
           path: .ext/influxdb3_plugins
           sparse-checkout: |
-              influxdata/
-              scripts/
+            influxdata/
+            scripts/
           ref: ${{ steps.inputs.outputs.source_commit }}
 
       - name: Setup Node.js
@@ -111,23 +111,23 @@ jobs:
         id: validate
         run: |
           cd .ext/influxdb3_plugins
-          
+
           # Determine which plugins to validate
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
             PLUGINS=""
           else
             PLUGINS="${{ steps.inputs.outputs.plugins }}"
           fi
-          
-          # Run validation
+
+          # Run validation with --errors-only flag (warnings are OK, only errors fail)
           if [[ -n "$PLUGINS" ]]; then
             echo "Validating specific plugins: $PLUGINS"
-            python scripts/validate_readme.py --plugins "$PLUGINS" 2>&1 | tee validation.log
+            python scripts/validate_readme.py --plugins "$PLUGINS" --errors-only 2>&1 | tee validation.log
           else
             echo "Validating all plugins"
-            python scripts/validate_readme.py 2>&1 | tee validation.log
+            python scripts/validate_readme.py --errors-only 2>&1 | tee validation.log
           fi
-          
+
           # Check if validation passed
           if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
             echo "validation_passed=true" >> $GITHUB_OUTPUT
@@ -147,7 +147,7 @@ jobs:
             } catch (e) {
               validationLog = 'Could not read validation log';
             }
-            
+
             const issueNumber = '${{ steps.inputs.outputs.issue_number }}';
             if (issueNumber) {
               await github.rest.issues.createComment({
@@ -155,16 +155,16 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: parseInt(issueNumber),
                 body: `❌ **Validation Failed**
-                
+
                 Plugin READMEs do not meet template requirements. Please fix the following issues in influxdb3_plugins:
-                
+
                 \`\`\`
                 ${validationLog}
                 \`\`\`
-                
+
                 See [README_TEMPLATE.md](https://github.com/influxdata/influxdb3_plugins/blob/main/README_TEMPLATE.md) for requirements.`
               });
-              
+
               await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -173,7 +173,7 @@ jobs:
                 labels: ['sync-plugin-docs', 'validation-failed']
               });
             }
-            
+
             core.setFailed('Plugin validation failed');
 
       - name: Debug - Check file structure
@@ -183,15 +183,15 @@ jobs:
           echo "DEBUG: Checking file structure"
           echo "======================================"
           echo ""
-              
+
           echo "1. Current working directory:"
           pwd
           echo ""
-              
+
           echo "2. List workspace root:"
           ls -la
           echo ""
-              
+
           echo "3. Check if .ext exists:"
           if [ -d ".ext" ]; then
             echo "✅ .ext directory exists"
@@ -200,7 +200,7 @@ jobs:
             echo "❌ .ext directory NOT found"
           fi
           echo ""
-              
+
           echo "4. Check if .ext/influxdb3_plugins exists:"
           if [ -d ".ext/influxdb3_plugins" ]; then
             echo "✅ .ext/influxdb3_plugins exists"
@@ -209,7 +209,7 @@ jobs:
             echo "❌ .ext/influxdb3_plugins NOT found"
           fi
           echo ""
-              
+
           echo "5. Check if influxdata directory exists:"
           if [ -d ".ext/influxdb3_plugins/influxdata" ]; then
             echo "✅ influxdata directory exists"
@@ -218,7 +218,7 @@ jobs:
             echo "❌ influxdata directory NOT found"
           fi
           echo ""
-              
+
           echo "6. Check if basic_transformation exists:"
           if [ -d ".ext/influxdb3_plugins/influxdata/basic_transformation" ]; then
             echo "✅ basic_transformation directory exists"
@@ -227,13 +227,13 @@ jobs:
             echo "❌ basic_transformation directory NOT found"
           fi
           echo ""
-              
+
           echo "7. Now checking from script directory:"
           cd docs-v2/helper-scripts/influxdb3-plugins
           echo "Current directory:"
           pwd
           echo ""
-              
+
           echo "8. Trying to access with ../../../.ext/influxdb3_plugins:"
           if [ -d "../../../.ext/influxdb3_plugins" ]; then
             echo "✅ Can access via ../../../.ext/influxdb3_plugins"
@@ -242,7 +242,7 @@ jobs:
             echo "❌ Cannot access via ../../../.ext/influxdb3_plugins"
           fi
           echo ""
-              
+
           echo "9. Checking all possible paths from script dir:"
           echo "Checking ../.ext/influxdb3_plugins:"
           ls -la ../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
@@ -253,22 +253,19 @@ jobs:
           echo "Checking ../../../.ext/influxdb3_plugins:"
           ls -la ../../../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
           echo ""
-          echo "Checking ../../../../.ext/influxdb3_plugins:"
-          ls -la ../../../../.ext/influxdb3_plugins/ 2>&1 || echo "❌ Not found"
-          echo ""
-              
+
           echo "======================================"
           echo "DEBUG: Complete"
-          echo "======================================"    
-      
+          echo "======================================"
+
       - name: Transform plugin documentation
         if: steps.validate.outputs.validation_passed == 'true'
         run: |
-          cd docs-v2/helper-scripts/influxdb3-plugins  
-              
+          cd docs-v2/helper-scripts/influxdb3-plugins
+
           # Set path to plugins repo (relative from script directory)
-          export INFLUXDB3_PLUGINS_PATH="../../../.ext/influxdb3_plugins" 
-              
+          export INFLUXDB3_PLUGINS_PATH="../../../.ext/influxdb3_plugins"
+
           # Run the transformation
           if [[ "${{ steps.inputs.outputs.plugins }}" == "all" ]]; then
             node port_to_docs.js  # ← CHANGE: Script is in current dir now
@@ -278,7 +275,7 @@ jobs:
             for plugin in "${PLUGIN_ARRAY[@]}"; do
               plugin=$(echo "$plugin" | xargs)  # trim whitespace
               echo "Transforming plugin: $plugin"
-              node port_to_docs.js --plugin "$plugin"  
+              node port_to_docs.js --plugin "$plugin"
             done
           fi
 
@@ -298,56 +295,56 @@ jobs:
         id: screenshots
         run: |
           cd docs-v2
-          
+
           # Start Hugo server in background
           npx hugo server --bind 0.0.0.0 --port 1313 --quiet &
           HUGO_PID=$!
-          
+
           # Wait for server to start
           sleep 10
-          
+
           # Create screenshots directory
           mkdir -p plugin-screenshots
-          
+
           # Generate screenshots for changed plugin pages
           node -e "
           const { chromium } = require('playwright');
           const fs = require('fs');
           const path = require('path');
-          
+
           async function captureScreenshots() {
             const browser = await chromium.launch();
             const page = await browser.newPage({ viewport: { width: 1200, height: 800 } });
-            
+
             // Find changed plugin files
             const glob = require('glob');
             const pluginFiles = glob.sync('content/shared/influxdb3-plugins/plugins-library/**/*.md');
-            
+
             for (const file of pluginFiles) {
               const pluginName = path.basename(file, '.md');
               const url = \`http://localhost:1313/influxdb3/core/reference/plugins/\${pluginName}/\`;
-              
+
               try {
                 console.log(\`Capturing screenshot for \${pluginName}\`);
                 await page.goto(url, { waitUntil: 'networkidle' });
-                await page.screenshot({ 
+                await page.screenshot({
                   path: \`plugin-screenshots/\${pluginName}.png\`,
-                  fullPage: true 
+                  fullPage: true
                 });
               } catch (error) {
                 console.log(\`Could not capture \${pluginName}: \${error.message}\`);
               }
             }
-            
+
             await browser.close();
           }
-          
+
           captureScreenshots().catch(console.error);
           "
-          
+
           # Stop Hugo server
           kill $HUGO_PID
-          
+
           # List generated screenshots
           ls -la plugin-screenshots/ || echo "No screenshots generated"
           echo "screenshots_generated=$(ls plugin-screenshots/ 2>/dev/null | wc -l)" >> $GITHUB_OUTPUT
@@ -361,39 +358,39 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
             sync: update plugin documentation from influxdb3_plugins@${{ steps.inputs.outputs.source_commit }}
-            
+
             Plugins: ${{ steps.inputs.outputs.plugins }}
           branch: sync-plugins-${{ github.run_number }}
           title: "Sync plugin documentation: ${{ steps.inputs.outputs.plugins }}"
           body: |
             ## Plugin Documentation Sync
-            
-            **Source**: influxdb3_plugins@${{ steps.inputs.outputs.source_commit }}  
-            **Plugins**: ${{ steps.inputs.outputs.plugins }}  
+
+            **Source**: influxdb3_plugins@${{ steps.inputs.outputs.source_commit }}
+            **Plugins**: ${{ steps.inputs.outputs.plugins }}
             **Triggered by**: ${{ github.event_name == 'issues' && format('Issue #{0}', steps.inputs.outputs.issue_number) || 'Manual workflow dispatch' }}
-            
+
             ### Changes Made
             - ✅ Validated source READMEs against template requirements
             - 🔄 Transformed content for docs-v2 compatibility
             - 🖼️ Generated ${{ steps.screenshots.outputs.screenshots_generated }} plugin page screenshots
-            
+
             ### Transformations Applied
             - Removed emoji metadata (already in plugin JSON metadata)
             - Converted relative links to GitHub URLs
             - Added Hugo product shortcodes (`{{% product-name %}}`)
             - Added standard logging section
             - Updated support sections with docs-v2 format
-            
+
             ### Screenshots
             Plugin page previews are available in the `plugin-screenshots/` directory (if any were generated).
-            
+
             ### Review Checklist
             - [ ] All plugin pages render correctly
             - [ ] GitHub links resolve properly
             - [ ] Product shortcodes display correctly
             - [ ] Code examples are properly formatted
             - [ ] Support sections link correctly
-            
+
             ---
             *This PR was automatically generated by the plugin sync workflow.*
 
@@ -407,15 +404,15 @@ jobs:
               repo: context.repo.repo,
               issue_number: ${{ steps.inputs.outputs.issue_number }},
               body: `✅ **Plugin sync completed successfully!**
-              
+
               **Pull Request**: #${{ steps.create-pr.outputs.pull-request-number }}
               **Plugins synced**: ${{ steps.inputs.outputs.plugins }}
               **Source commit**: ${{ steps.inputs.outputs.source_commit }}
               **Screenshots generated**: ${{ steps.screenshots.outputs.screenshots_generated }}
-              
+
               The PR is ready for review and includes all necessary transformations and validations.`
             });
-            
+
             await github.rest.issues.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -434,9 +431,9 @@ jobs:
               repo: context.repo.repo,
               issue_number: ${{ steps.inputs.outputs.issue_number }},
               body: `❌ **Plugin sync failed**
-              
+
               Please check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
-              
+
               You may need to:
               - Check that the source commit exists
               - Verify plugin names are correct

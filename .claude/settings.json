@@ -1,7 +1,49 @@
 {
   "permissions": {
     "allow": [
-    ],
+       "Bash(.ci/vale/vale.sh:*)",
+       "Bash(npm:*)",
+       "Bash(yarn:*)",
+       "Bash(pnpm:*)",
+       "Bash(npx:*)",
+       "Bash(node:*)",
+       "Bash(python:*)",
+       "Bash(python3:*)",
+       "Bash(pip:*)",
+       "Bash(poetry:*)",
+       "Bash(make:*)",
+       "Bash(cargo:*)",
+       "Bash(go:*)",
+       "Bash(curl:*)",
+       "Bash(gh:*)",
+       "Bash(hugo:*)",
+       "Bash(jq:*)",
+       "Bash(mkdir:*)",
+       "Bash(cat:*)",
+       "Bash(ls:*)",
+       "Bash(echo:*)",
+       "Bash(rg:*)",
+       "Bash(grep:*)",
+       "Bash(find:*)",
+       "Bash(bash:*)",
+       "Bash(wc:*)",
+       "Bash(sort:*)",
+       "Bash(uniq:*)",
+       "Bash(head:*)",
+       "Bash(tail:*)",
+       "Bash(awk:*)",
+       "Bash(touch:*)",
+       "Bash(docker:*)",
+       "Edit",
+       "Read",
+       "Write",
+       "Grep",
+       "Glob",
+       "LS",
+       "Skill(superpowers:brainstorming)",
+       "Skill(superpowers:brainstorming:*)",
+       "mcp__acp__Bash"
+     ],
     "deny": [
       "Read(./.env)",
       "Read(./.env.*)",
@@ -10,7 +52,9 @@
       "Read(./build)"
     ],
     "ask": [
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "Read(/tmp)"
     ]
   }
 }

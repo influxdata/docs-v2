@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/outputs/stackdriver/README.md, Google Cloud Monitoring Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/stackdriver/README.md, Google Cloud Monitoring Plugin Source
 ---
 
 # Google Cloud Monitoring Output Plugin

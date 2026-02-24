@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/ipvs/README.md, IPVS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/ipvs/README.md, IPVS Plugin Source
 ---
 
 # IPVS Input Plugin
