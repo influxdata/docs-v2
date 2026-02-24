@@ -29,8 +29,8 @@ You can also set the database name using the `INFLUXDB3_DATABASE_NAME` environme
 | `-H`   | `--host`             | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`)                                                         |
 |        | `--retention-period` | Database [retention period](/influxdb3/version/reference/glossary/#retention-period) ([duration](/influxdb3/version/reference/glossary/#duration) value, for example: `30d`, `24h`, `1h`) |
 |        | `--token`            | Authentication token                                                                                                                             |
-|        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
-|        | `--tls-no-verify`    | Disable TLS certificate verification (useful for development or self-signed certificates)                                                        |
+|        | `--tls-ca`           | Path to a custom TLS certificate authority (for self-signed or internal certificates)                                                            |
+|        | `--tls-no-verify`    | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                        |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
 

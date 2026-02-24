@@ -21,6 +21,7 @@ influxdb3 stop node [OPTIONS] --node-id <NODE_ID>
 | `-H`   | `--host`    | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
 |        | `--token`   | Authentication token                                                                     |
 |        | `--tls-ca`  | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
 | `-h`   | `--help`    | Print help information                                                                   |
 
 ### Option environment variables
@@ -31,6 +32,7 @@ You can use the following environment variables to set command options:
 | :--------------------- | :-------- |
 | `INFLUXDB3_HOST_URL`   | `--host`  |
 | `INFLUXDB3_AUTH_TOKEN` | `--token` |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Use case
 

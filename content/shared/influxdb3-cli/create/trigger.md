@@ -40,8 +40,8 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` |
 |        | `--run-asynchronous` | Run the trigger asynchronously, allowing multiple triggers to run simultaneously (default is synchronous)                                                 |
 {{% show-in "enterprise" %}}|        | `--node-spec`       | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |{{% /show-in %}}
-|        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)                     |
-|        | `--tls-no-verify`   | Disable TLS certificate verification (useful for development or self-signed certificates)                |
+|        | `--tls-ca`          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
+|        | `--tls-no-verify`   | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
 | `-h`   | `--help`            | Print help information                                                                                   |
 |        | `--help-all`        | Print detailed help information                                                                          |
 

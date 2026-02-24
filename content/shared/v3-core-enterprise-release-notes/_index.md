@@ -6,6 +6,54 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.2 {date="2026-02-23"}
+
+### Core
+
+#### Features
+
+- **TLS: Skip certificate verification in CLI subcommands**: Use the new `--tls-no-verify` flag with any CLI subcommand to skip TLS certificate verification when connecting to a server. Useful for testing environments with self-signed certificates.
+
+- **Environment variable prefix standardization**: All InfluxDB 3 specific environment variables now use the `INFLUXDB3_` prefix for consistency. Old names continue to work with a deprecation warning for backwards compatibility.
+
+- **Parquet output format for `show` subcommands**: You can now save query results from the `show` subcommand directly to a Parquet file.
+
+- **SQL: `tag_values()` table function**: Query distinct tag values using the new `tag_values()` SQL table function.
+
+- **InfluxQL: `SHOW TAG VALUES` improvements**: In Enterprise deployments with auto-DVC enabled, `SHOW TAG VALUES` queries now use the Distinct Value Cache (DVC) automatically for improved performance. The `WHERE` clause is also now supported in `SHOW TAG VALUES` queries backed by the DVC, including compound predicates using `AND` and `OR`.
+
+- **InfluxQL: `SHOW RETENTION POLICIES` returns duration**: The `duration` column in `SHOW RETENTION POLICIES` results now returns the configured retention period in InfluxDB v1-compatible format (for example, `168h0m0s`) instead of returning an empty value.
+
+- **Ceph S3 backend support**: Use `--aws-s3-custom-backend ceph` with `influxdb3 serve` to connect to Ceph S3-compatible object storage. This enables ETag quote stripping required for conditional PUT operations with Ceph.
+
+- **`_internal` database default retention**: The `_internal` system database now defaults to a 7-day retention period (previously infinite). Only admin tokens can modify retention on the `_internal` database.
+
+
+#### Bug fixes
+
+- **Sparse write handling for LVC, DVC, and Processing Engine**: Fixed incorrect behavior when processing sparse writes (writes that include only some fields from a table with multiple field families).
+
+- **`influxdb3-launcher`: SSL certificate path on RHEL systems**: Fixed an issue where the `SSL_CERT_FILE` environment variable was not correctly set on affected RHEL-based
+  systems when using the `influxdb3-launcher` script.
+- Additional bug fixes and performance improvements.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Data-only deletion for databases and tables**: Delete only the stored data from a database or table while preserving catalog entries, schema, and associated resources (tokens, triggers, caches, and processing engine configurations).
+
+#### Bug fixes
+
+- **Compaction stability**: Several fixes to compaction scheduling and processing to improve stability and correctness in multi-node clusters.
+
+- **TableIndexCache initialization**: Fixed a concurrency bug that could cause incorrect behavior during `TableIndexCache` initialization.
+
+- **Snapshot checkpointing**: Fixed an issue where snapshot checkpoint cleanup was not running as a background task.
+
 ## v3.8.0 {date="2025-12-18"}
 
 ### Core

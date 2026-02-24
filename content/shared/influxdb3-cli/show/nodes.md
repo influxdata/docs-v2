@@ -18,6 +18,7 @@ influxdb3 show nodes [OPTIONS]
 |        | `--output` | Path where to save output when using the `parquet` format                                |
 |        | `--token`  | Authentication token                                                                     |
 |        | `--tls-ca` | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
 | `-h`   | `--help`   | Print help information                                                                   |
 
 ### Option environment variables
@@ -28,6 +29,7 @@ You can use the following environment variables to set command options:
 | :--------------------- | :-------- |
 | `INFLUXDB3_HOST_URL`   | `--host`  |
 | `INFLUXDB3_AUTH_TOKEN` | `--token` |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Output
 

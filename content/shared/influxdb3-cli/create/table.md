@@ -36,8 +36,8 @@ influxdb3 create table [OPTIONS] \
 |        | `--token`         | _({{< req >}})_ Authentication token                                                     |
 |        | `--tags`          | _({{< req >}})_ Comma-separated list of tag columns to include in the table              |
 |        | `--fields`        | Comma-separated list of field columns and their types to include in the table            |
-|        | `--tls-ca`        | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-|        | `--tls-no-verify` | Disable TLS certificate verification (useful for development or self-signed certificates)|
+|        | `--tls-ca`        | Path to a custom TLS certificate authority (for self-signed or internal certificates)    |
+|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
 | `-h`   | `--help`          | Print help information                                                                   |
 |        | `--help-all`      | Print detailed help information                                                          |
 {{% /hide-in %}}
@@ -52,8 +52,8 @@ influxdb3 create table [OPTIONS] \
 |        | `--token`            | _({{< req >}})_ Authentication token                                                                                                             |
 |        | `--tags`             | _({{< req >}})_ Comma-separated list of tag columns to include in the table                                                                      |
 |        | `--fields`           | Comma-separated list of field columns and their types to include in the table                                                                    |
-|        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
-|        | `--tls-no-verify`    | Disable TLS certificate verification (useful for development or self-signed certificates)                                                        |
+|        | `--tls-ca`           | Path to a custom TLS certificate authority (for self-signed or internal certificates)                                                            |
+|        | `--tls-no-verify`    | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                        |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
 {{% /show-in %}}
