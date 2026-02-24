@@ -23,7 +23,7 @@ influxdb3 update table [OPTIONS] --database <DATABASE_NAME> <TABLE_NAME>
 |        | `--token`            | Authentication token                                                                                                                             |
 | `-r`   | `--retention-period` | The retention period as a [duration](/influxdb3/version/reference/glossary/#duration) value (for example: `30d`, `24h`) or `none` to clear     |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
-|        | `--tls-no-verify`    | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                        |
+|        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
 

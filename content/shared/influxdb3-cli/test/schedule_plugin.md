@@ -24,7 +24,7 @@ influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 |        | `--schedule`          | Cron schedule to simulate when testing the plugin <br>(default: `* * * * *`)                  |
 |        | `--cache-name`        | Optional cache name to associate with the test                                                |
 |        | `--tls-ca`            | Path to a custom TLS certificate authority for self-signed certs                              |
-|        | `--tls-no-verify`     | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify`     | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`              | Show basic help information                                                                   |
 |        | `--help-all`          | Show all available help options                                                               |
 

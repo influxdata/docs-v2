@@ -19,7 +19,7 @@ influxdb3 show databases [OPTIONS]
 |        | `--show-deleted` | Include databases marked as deleted in the output                                        |
 |        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
 |        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify` | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`         | Print help information                                                                   |
 |        | `--help-all`     | Print detailed help information                                                          |
 

@@ -25,7 +25,7 @@ influxdb3 test wal_plugin [OPTIONS] --database <DATABASE_NAME> <PLUGIN_NAME>
 |        | `--file`            | Line protocol file to use as input                                                       |
 |        | `--input-arguments` | Map of string key-value pairs as to use as plugin input arguments                        |
 |        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-|        | `--tls-no-verify`   | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`            | Print help information                                                                   |
 |        | `--help-all`        | Print detailed help information                                                          |
 

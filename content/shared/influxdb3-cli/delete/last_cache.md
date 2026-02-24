@@ -22,7 +22,7 @@ influxdb3 delete last_cache [OPTIONS] --database <DATABASE_NAME> --table <TABLE>
 |        | `--token`    | _({{< req >}})_ Authentication token                                                     |
 | `-t`   | `--table`    | _({{< req >}})_ Table to delete the cache from                                           |
 |        | `--tls-ca`   | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify` | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`     | Print help information                                                                   |
 |        | `--help-all` | Print detailed help information                                                          |
 

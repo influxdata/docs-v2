@@ -15,7 +15,7 @@ influxdb3 delete token [OPTIONS]
 | `--token`          | _({{< req >}})_ The token for authentication with the {{% product-name %}} server |         | `INFLUXDB3_AUTH_TOKEN`     |
 | `--token-name`     | _({{< req >}})_ The name of the token to be deleted                               |         |                            |
 | `--tls-ca`         | Path to a custom TLS certificate authority (for self-signed or internal certificates) |         | `INFLUXDB3_TLS_CA`         |
-| `--tls-no-verify`  | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |         | `INFLUXDB3_TLS_NO_VERIFY` |
+| `--tls-no-verify`  | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |         | `INFLUXDB3_TLS_NO_VERIFY` |
 | `-h`, `--help`     | Print help information                                                            |         |                            |
 | `--help-all`       | Print detailed help information                                                   |         |                            |
 

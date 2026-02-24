@@ -32,7 +32,7 @@ influxdb3 update trigger [OPTIONS] \
 |        | `--error-behavior`   | Error handling behavior: `log`, `retry`, or `disable`                                                                                             |
 |        | `--token`            | Authentication token                                                                                                                             |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
-|        | `--tls-no-verify`    | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                        |
+|        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
 

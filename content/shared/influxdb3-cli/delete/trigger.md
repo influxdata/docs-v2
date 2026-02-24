@@ -27,7 +27,7 @@ influxdb3 delete trigger [OPTIONS] --database <DATABASE_NAME> <TRIGGER_NAME>
 |        | `--token`         | _({{< req >}})_ Authentication token                                                     |
 |        | `--force`         | Force delete even if the trigger is active                                               |
 |        | `--tls-ca`        | Path to a custom TLS certificate authority (for self-signed or internal certificates)    |
-|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify` | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`          | Print help information                                                                   |
 |        | `--help-all`      | Print detailed help information                                                          |
 

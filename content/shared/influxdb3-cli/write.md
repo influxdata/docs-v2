@@ -34,7 +34,7 @@ influxdb3 write [OPTIONS] --database <DATABASE_NAME> [LINE_PROTOCOL]...
 |        | `--no-sync`        | Do not wait for WAL sync before acknowledging the write request                          |
 |        | `--precision`      | Precision of data timestamps (`ns`, `us`, `ms`, or `s`)                                  |
 |        | `--tls-ca`         | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
-|        | `--tls-no-verify`  | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |
+|        | `--tls-no-verify`  | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`           | Print help information                                                                   |
 |        | `--help-all`       | Print detailed help information                                                          |
 

@@ -28,7 +28,7 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 | `--plugin-repo <PLUGIN_REPO>`                   | Plugin repository URL                                               |                         | `INFLUXDB3_PLUGIN_REPO`     |
 | `-r`, `--requirements <REQUIREMENTS>`           | Path to a `requirements.txt` file                                   |                         |                             |
 | `--tls-ca <CA_CERT>`                            | Path to a custom TLS certificate authority (for self-signed or internal certificates) |                         | `INFLUXDB3_TLS_CA`          |
-| `--tls-no-verify`                               | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates |                         | `INFLUXDB3_TLS_NO_VERIFY`   |
+| `--tls-no-verify`                               | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |                         | `INFLUXDB3_TLS_NO_VERIFY`   |
 | `-h`, `--help`                                  | Print help information                                              |                         |                             |
 | `--help-all`                                    | Print detailed help information                                     |                         |                             |
 
