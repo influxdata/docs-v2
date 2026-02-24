@@ -1689,8 +1689,12 @@ To disable the Processing Engine, ensure `plugin-dir` is not configured.
 > You must comment out, remove, or unset the configuration — not set it to empty.
 
 {{% show-in "enterprise" %}}
-**Docker:** Use `INFLUXDB3_UNSET_VARS` to unset the default:
+**Docker:** Use `INFLUXDB3_UNSET_VARS` to unset default environment variables that are preconfigured in the container image.
 
+`INFLUXDB3_UNSET_VARS` accepts a comma-separated list of environment variable names to unset in the container entrypoint before {{< product-name >}} starts.
+This lets you disable or override image defaults (for example, `INFLUXDB3_PLUGIN_DIR`, logging, or other configuration variables) without modifying the container image itself.
+
+To disable the default plugin directory, unset `INFLUXDB3_PLUGIN_DIR`:
 ```bash
 docker run -e INFLUXDB3_UNSET_VARS="INFLUXDB3_PLUGIN_DIR" influxdb:3-enterprise
 ```
