@@ -341,7 +341,7 @@ USE "db_name"; DROP SERIES FROM "measurement_name" WHERE "tag" = 'value'
 USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '2020-01-01'
 ```
 
-- Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-2-0).
+- Add support for Bitbucket `emails` endpoint with generic OAuth. For more information, see [Bitbucket documentation](https://developer.atlassian.com/bitbucket/api/2/reference/resource/user/emails) and how to [configure Chronograf to authenticate with OAuth 2.0](/chronograf/v1/administration/managing-security/#configure-chronograf-to-authenticate-with-oauth-20).
 
 ### Bug Fixes
 
@@ -509,9 +509,9 @@ features and bug fixes below.
 
         If you're installing Chronograf for the first time, learn how to [create a new Chronograf HA configuration](/chronograf/v1/administration/create-high-availability/).
         If you're upgrading Chronograf, learn how to [migrate your existing Chronograf configuration to HA](/chronograf/v1/administration/migrate-to-high-availability/).
-- Add configuration option to [disable the Host List page](/chronograf/v1/administration/config-options/#host-page-disabled-h).
+- Add configuration option to [disable the Host List page](/chronograf/v1/administration/config-options/#host-page-disabled).
 - Add ability to select a data source when [creating a template variable](/chronograf/v1/guides/dashboard-template-variables/#create-custom-template-variables).
-- Add the `refresh` query parameter to set the dashboard auto-refresh interval (by default, 10000 milliseconds). Discover ways to [configure your dashboard](/chronograf/v1/guides/create-a-dashboard/#step-6-configure-your-dashboard).
+- Add the `refresh` query parameter to set the dashboard auto-refresh interval (by default, 10000 milliseconds). Discover ways to [configure your dashboard](/chronograf/v1/guides/create-a-dashboard/#configure-dashboard-wide-settings).
 
 ### Bug Fixes
 
@@ -1355,7 +1355,7 @@ features and bug fixes below.
   * When dashboard time range is changed, reset graphs that are zoomed in
   * [Bar graph](/chronograf/v1/guides/visualization-types/#bar-graph) option added to dashboard
   * Redesign source management table to be more intuitive
-  * Redesign [Line + Single Stat](/chronograf/v1/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
+  * Redesign [Line + Single Stat](/chronograf/v1/guides/visualization-types/#line-graph--single-stat) cells to appear more like a sparkline, and improve legibility
 
 
 ## v1.3.2.0 {date="2017-06-05"}
@@ -1391,7 +1391,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1/administration/config-options/#basepath-p)
+  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1/administration/config-options/#basepath)
   * Remove the query templates dropdown from dashboard cell editor mode
   * Fix the backwards sort arrows in table column headers
   * Make the logout button consistent with design
@@ -1420,25 +1420,25 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix the link to home when using the [`--basepath` option](/chronograf/v1/administration/config-options/#basepath-p)
+  * Fix the link to home when using the [`--basepath` option](/chronograf/v1/administration/config-options/#basepath)
   * Remove the notification to login on the login page
   * Support queries that perform math on functions
   * Prevent the creation of blank template variables
   * Ensure thresholds for Kapacitor Rule Alerts appear on page load
   * Update the Kapacitor configuration page when the configuration changes
-  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1/administration/config-options/#basepath-p)
+  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1/administration/config-options/#basepath)
   * Show red indicator on Hosts Page for an offline host
   * Support escaping from presentation mode in Safari
   * Re-implement level colors on the alerts page
   * Fix router bug introduced by upgrading to react-router v3.0
-  * Show legend on [Line+Stat](/chronograf/v1/guides/visualization-types/#line-graph-single-stat) visualization type
+  * Show legend on [Line+Stat](/chronograf/v1/guides/visualization-types/#line-graph--single-stat) visualization type
   * Prevent queries with `:dashboardTime:` from breaking the query builder
 
 ### Features
 
   * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
-  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1/guides/advanced-kapacitor/#tickscript-management)
+  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1/guides/advanced-kapacitor/#manage-kapacitor-tickscripts)
   * Allow users to delete Kapacitor configurations
 
 ### UI improvements
