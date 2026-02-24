@@ -40,6 +40,8 @@ Use the `INFLUXDB3_UNSET_VARS` feature to unset inherited environment variables:
 docker run -e INFLUXDB3_UNSET_VARS="INFLUXDB3_PLUGIN_DIR" influxdb:3-enterprise
 ```
 
+`INFLUXDB3_UNSET_VARS` accepts one or more environment variable names (for example, a comma-separated list) and unsets them before the server starts.
+Use it to clear any inherited variables that you don't want the InfluxDB 3 Enterprise container to see (for example, `INFLUXDB3_PLUGIN_DIR`, `INFLUXDB3_LOG_LEVEL`) when you can't modify the parent environment directly.
 This is useful in orchestration environments (Kubernetes, Docker Compose) where removing an inherited variable isn't straightforward.
 {{% /show-in %}}
 
