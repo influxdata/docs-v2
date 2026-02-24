@@ -314,7 +314,6 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management**:
   - Improve licensing suggestions for Core users
   - Update license information handling
-- **Storage engine**: Add experimental PachaTree storage engine with core implementation and server integration
 - **Database management**:
   - Enhance `TableIndexCache` with advanced features beyond Core's basic cleanup: persistent snapshots, object store integration, merge operations for distributed environments, and recovery capabilities for multi-node clusters
   - Add `TableIndexSnapshot`, `TableIndex`, and `TableIndices` types for distributed table index management

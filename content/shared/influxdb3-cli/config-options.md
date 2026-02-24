@@ -894,7 +894,7 @@ influxdb3 serve --log-filter info,influxdb3_write_buffer=debug,influxdb3_wal=deb
 <!--pytest.mark.skip-->
 
 ```sh
-influxdb3 serve --log-filter info,influxdb3_pacha_tree=debug
+influxdb3 serve --log-filter info,influxdb3_enterprise=debug
 ```
 
 {{% /show-in %}}
@@ -909,8 +909,7 @@ The following are common component names you can use for targeted filtering:
 | `influxdb3_wal`                       | Write-ahead log operations                               |
 | `influxdb3_catalog`                   | Catalog and schema operations                            |
 | `influxdb3_cache`                     | Caching operations                                       |
-{{% show-in "enterprise" %}}`influxdb3_pacha_tree`                | Enterprise storage engine operations                     |
-`influxdb3_enterprise`                  | Enterprise-specific features                             |
+{{% show-in "enterprise" %}}`influxdb3_enterprise`                  | Enterprise-specific features                             |
 {{% /show-in %}}
 
 > [!Note]
