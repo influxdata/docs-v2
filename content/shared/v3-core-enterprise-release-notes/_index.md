@@ -14,7 +14,10 @@
 
 - **TLS: Skip certificate verification in CLI subcommands**: Use the new `--tls-no-verify` flag with any CLI subcommand to skip TLS certificate verification when connecting to a server. Useful for testing environments with self-signed certificates.
 
-- **Environment variable prefix standardization**: All InfluxDB 3 specific environment variables now use the `INFLUXDB3_` prefix for consistency. Old names continue to work with a deprecation warning for backwards compatibility.
+- **Environment variable prefix standardization**: InfluxDB 3 specific environment variables use the `INFLUXDB3_` prefix for consistency. Legacy variable names continue to work (deprecated) for backward compatibility.
+
+  > [!IMPORTANT]
+  > `INFLUXDB3_LOG_FILTER` is currently ignored. To set the log filter, use `LOG_FILTER` or the `--log-filter` flag.
 
 - **Parquet output format for `show` subcommands**: You can now save query results from the `show` subcommand directly to a Parquet file.
 
