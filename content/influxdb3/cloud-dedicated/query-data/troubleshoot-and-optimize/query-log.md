@@ -130,15 +130,31 @@ influxctl query \
 
 ## Query log data and columns
 
-The `query_log` table in `_internal` includes information such as:
+The `query_log` table in `_internal` includes the following columns:
 
-- **Status and phase**: `success`, `running`, `phase` (for example, received, planned, permit, success, fail, cancel).
-- **Identifiers**: `id`, `namespace_id`, `namespace_name`, `query_type` (for example, sql, influxql), `auth_id`, `trace_id`.
-- **Query content**: `query_text`, `query_params`.
-- **Timing**: `time` (timestamp), `query_issue_time_ns`, `permit_duration_ns`, `plan_duration_ns`, `execute_duration_ns`, `end_to_end_duration_ns`, `compute_duration_ns`.
-- **Resource usage**: `partition_count`, `parquet_file_count`, `max_memory_bytes`, and ingester-related fields.
-
-Durations are stored in nanoseconds (for example, `compute_duration_ns`, `execute_duration_ns`).
+| Column | Data type | Description |
+| :----- | :-------- | :---------- |
+| **time** | timestamp | Timestamp when the query log entry was recorded |
+| **id** | string | Unique identifier for the query |
+| **namespace_id** | string | Internal identifier for the database |
+| **namespace_name** | string | Name of the database where the query was executed |
+| **query_type** | string | Type of query syntax used (`sql`, `influxql`) |
+| **query_text** | string | The actual query statement text |
+| **query_params** | string | Query parameters (if applicable) |
+| **auth_id** | string | Database token ID used to authenticate the query |
+| **trace_id** | string | Trace ID for debugging and monitoring |
+| **success** | string | Query execution status (`'true'` or `'false'` as string) |
+| **running** | string | Indicates if query is currently running (`'true'` or `'false'` as string) |
+| **phase** | string | Current query phase (for example, `received`, `planned`, `permit`, `success`, `fail`, `cancel`) |
+| **query_issue_time_ns** | int64 | Time when the query was issued (nanoseconds) |
+| **permit_duration_ns** | int64 | Time spent waiting for query permit (nanoseconds) |
+| **plan_duration_ns** | int64 | Time spent planning the query (nanoseconds) |
+| **execute_duration_ns** | int64 | Time spent executing the query (nanoseconds) |
+| **end_to_end_duration_ns** | int64 | Total end-to-end query duration (nanoseconds) |
+| **compute_duration_ns** | int64 | Compute time for the query (nanoseconds) |
+| **partition_count** | int64 | Number of partitions accessed |
+| **parquet_file_count** | int64 | Number of Parquet files read |
+| **max_memory_bytes** | int64 | Maximum memory used during query execution (bytes) |
 
 
 > [!Note]
