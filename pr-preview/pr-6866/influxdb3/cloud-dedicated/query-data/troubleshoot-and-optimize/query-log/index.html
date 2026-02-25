@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-25 16:03:14 -0600 -0600">
+<meta name="last-modified" content="2026-02-25 16:11:01 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2826,7 +2826,7 @@ Use it to monitor query performance, find slow-running queries, and troubleshoot
   
   
   <h4 id="query-logging-is-not-enabled-by-default">Query logging is not enabled by default</h4>
-<p>The query log is not enabled by default on all clusters as it can create a small additional ingest and storage load on your cluster.
+<p>The query log is disabled by default on all clusters because it generates additional ingest and storage overhead and is intended primarily for troubleshooting, not continuous monitoring.
 To enable it for your cluster, <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
 </div>
 <p>Use the Admin UI or the <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/query/"><code>influxctl query</code> command</a> to view the query log.</p>
@@ -2845,21 +2845,10 @@ To enable it for your cluster, <a href="https://support.influxdata.com">contact 
 
 
 <section class="tab-content">
-  <h2 id="access-the-cloud-dedicated-admin-ui">Access the Cloud Dedicated Admin UI</h2>
-<ol>
-<li>
-<p>To access the InfluxDB Cloud Dedicated Admin UI, visit the following URL in your browser:</p>
-<pre>
-<a href="https://console.influxdata.com">https://console.influxdata.com</a>
-</pre>
-</li>
-<li>
-<p>Use the credentials provided by InfluxData to log into the Admin UI.
+  <p>Access the InfluxDB Cloud Dedicated Admin UI at <a href="https://console.influxdata.com">console.influxdata.com</a>.
 If you don&rsquo;t have login credentials, <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
-</li>
-<li>
-<p>Open the cluster you want to inspect and go to <strong>Query History</strong>.</p>
-</li>
+<ol start="3">
+<li>Open the cluster you want to inspect and go to <strong>Query History</strong>.</li>
 </ol>
 <p>If query logging is enabled for your cluster, any admin user can access the query log in the Admin UI automatically; no database token is required.</p>
 <p>In Query History you can:</p>
