@@ -27,7 +27,7 @@ The `influxdb3 show databases` command supports output formats:
 - `json`
 - `jsonl`
 - `csv`
-<!-- - `parquet` _(must [output to a file](#output-to-a-parquet-file))_ -->
+- `parquet` _(must [output to a file](#output-to-a-parquet-file))_
 
 Use the `--format` flag to specify the output format:
 
@@ -79,12 +79,18 @@ noaa
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Output to Parquet
+#### Output to a Parquet file
 
-To output your list of databases to a Parquet file, use the `influxdb3 query` command
+[Parquet](https://parquet.apache.org/) is a binary format.
+Use the `--output` option to specify the file where you want to save the Parquet data.
 
-- `--format`: `parquet`
-- `-o`, `--output`: the filepath to the Parquet file to output to
+```sh
+influxdb3 show databases \
+  --format parquet \
+  --output databases.parquet
+```
+
+Alternatively, use the `influxdb3 query` command to query system tables:
 
 ```sh
 influxdb3 query \
