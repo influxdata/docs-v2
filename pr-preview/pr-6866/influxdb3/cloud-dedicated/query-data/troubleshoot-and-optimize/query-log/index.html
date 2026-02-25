@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-25 08:27:43 -0600 -0600">
+<meta name="last-modified" content="2026-02-25 12:52:08 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2894,10 +2894,11 @@ Query log entries are stored in the <code>_internal</code> database.</p>
 <ol>
 <li>If you haven&rsquo;t already, <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl">download and install the <code>influxctl</code> CLI</a>, and then <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles">configure an <code>influxctl</code> connection profile</a> for your cluster.</li>
 <li><a href="/influxdb3/cloud-dedicated/admin/tokens/database/create/?t=influxctl">Create a database token</a> that has read access to the <code>_internal</code> database.
-Replace <span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span> in the examples below with your token.</li>
+Replace <span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span> in the examples below with your <a href="/docs-v2/pr-preview/admin/tokens/">database token</a>.</li>
 <li>Run the <strong>query</strong> subcommand with <code>--database</code> and <code>--language</code> (and optionally <code>--config</code>).
 Global flags such as <code>--config</code> must come before the command; query flags such as <code>--database</code>, <code>--language</code>, and <code>--token</code> must come after <code>query</code>.</li>
 </ol>
+<h4 id="examples">Examples</h4>
 <p><strong>List recent successful queries with compute duration above a threshold (for example, 0.6 ms):</strong></p>
 
 
