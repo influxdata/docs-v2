@@ -1708,6 +1708,14 @@ In the preceding example, `max-version = "tls1.3"` specifies the maximum version
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
+#### advanced-expiration
+
+Default is `5d`.
+
+Sets how far in advanced warnings about TLS certificate expiration are logged.
+
+Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
+
 ## Flux query management settings
 
 ### [flux-controller]
