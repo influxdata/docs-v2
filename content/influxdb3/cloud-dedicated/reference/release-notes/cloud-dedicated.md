@@ -21,7 +21,7 @@ weight: 202
 
 ### User Interface (UI) Enhancements
 
-- **Simplified User Management:** The UI now includes a _users page_ lets you manage existing users and invite new users.
+- **Simplified User Management:** The UI now includes a _users page_ that lets you manage existing users and invite new users.
 - **Component-Based Cluster Sizing:** Cluster sizing information has been revamped to better show cluster components and offer a clearer understanding of resource allocation and usage.
 - **Schema browser:** You can now view table schema in the Admin UI, including column names and types.
 - **Embedded observability dashboards:** Embedded dashboards displaying component-level and aggregated metrics for clusters are available in the overview page.
