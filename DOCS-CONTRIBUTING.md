@@ -164,21 +164,6 @@ Save images using the following naming format: `project/version-context-descript
 For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
 Specify a version other than 2.0 only if the image is specific to that version.
 
-#### InfluxData Support links
-
-When linking to InfluxData Support, use the canonical URL without trailing slashes or paths:
-
-```markdown
-[contact InfluxData support](https://support.influxdata.com)
-```
-
-**Do not use**:
-- `https://support.influxdata.com/` (trailing slash)
-- `https://support.influxdata.com/s/contactsupport` (path)
-- `https://support.influxdata.com/s/login/?ec=302&startURL=%2Fs%2Fcontactsupport` (login redirect)
-
-The pre-commit hook will check for and reject non-standard support link formats.
-
 ### Essential Frontmatter Reference
 
 Every documentation page includes frontmatter which specifies information about the page.
