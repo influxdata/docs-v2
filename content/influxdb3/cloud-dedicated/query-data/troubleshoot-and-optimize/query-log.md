@@ -88,6 +88,8 @@ Query log entries are stored in the `_internal` database.
 3. Run the **query** subcommand with `--database` and `--language` (and optionally `--config`).
    Global flags such as `--config` must come before the command; query flags such as `--database`, `--language`, and `--token` must come after `query`.
 
+#### Examples
+
 **List recent successful queries with compute duration above a threshold (for example, 0.6 ms):**
 
 ```sh { placeholders="DATABASE_TOKEN" }
