@@ -71,7 +71,7 @@ You can also expand a row to see more details about that execution.
 
 
 <!-- vale Vale.Terms = NO -->
-{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-detail.png" alt="Query History detail view in the Admin UI" />}}
+{{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-query-log-detail-view.png" alt="Query History detail view in the Admin UI" />}}
 
 {{% /tab-content %}}
 {{% tab-content %}}
