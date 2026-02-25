@@ -390,7 +390,7 @@ For more information, see the [`influxdb3 create trigger` CLI reference](/influx
 
 To upload a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/reference/api/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -452,7 +452,7 @@ For complete reference, see [`influxdb3 update trigger`](/influxdb3/version/refe
 
 To update a plugin file using the HTTP API, send a `PUT` request to the `/api/v3/plugins/files` endpoint:
 
-{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/api/v3/#operation/PutPluginFile" %}}
+{{% api-endpoint method="PUT" endpoint="{{< influxdb/host >}}/api/v3/plugins/files" api-ref="/influxdb3/version/reference/api/#operation/PutPluginFile" %}}
 
 Include the following in your request:
 
@@ -580,7 +580,7 @@ For complete reference, see [`influxdb3 create trigger`](/influxdb3/version/refe
 
 To create a trigger using the HTTP API, send a `POST` request to the `/api/v3/configure/processing_engine_trigger` endpoint:
 
-{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureProcessingEngineTrigger" %}}
+{{% api-endpoint method="POST" endpoint="{{< influxdb/host >}}/api/v3/configure/processing_engine_trigger" api-ref="/influxdb3/version/reference/api/#operation/PostConfigureProcessingEngineTrigger" %}}
 
 Include the following in your request:
 
@@ -747,7 +747,7 @@ def on_write(self, database, table_name, batch):
 - **Performance**: Log skipped tables for debugging but avoid excessive logging in production.
 - **Multiple triggers**: For few tables, consider creating separate table-specific
   triggers instead of filtering within plugin code.
-  See HTTP API [Processing engine endpoints](/influxdb3/version/api/v3/#tag/Processing-engine) for managing triggers.
+  See HTTP API [Processing engine endpoints](/influxdb3/version/reference/api/#tag/Processing-engine) for managing triggers.
 
 #### Trigger on a schedule 
 
@@ -1135,7 +1135,7 @@ curl -X POST "{{< influxdb/host >}}/api/v3/configure/plugin_environment/install_
 
 Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" "admin" %}}
 
-For complete reference, see [Install plugin packages](/influxdb3/version/api/v3/#operation/PostInstallPluginPackages).
+For complete reference, see [Install plugin packages](/influxdb3/version/reference/api/#operation/PostInstallPluginPackages).
 
 {{% /code-tab-content %}}
 

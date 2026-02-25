@@ -1,6 +1,6 @@
 
 Use the [`influxdb3 create database` command](/influxdb3/version/reference/cli/influxdb3/create/database/),
-the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/explorer/)
+the [HTTP API](/influxdb3/version/reference/api/), or [InfluxDB 3 Explorer](/influxdb3/explorer/)
 to create a database in {{< product-name >}}.
 
 - [Create a database using the influxdb3 CLI](#create-a-database-using-the-influxdb3-cli)

@@ -14,7 +14,7 @@ related:
   - /influxdb3/core/reference/syntax/line-protocol/
   - /influxdb3/core/get-started/write/
   - /influxdb3/core/reference/client-libraries/v3/
-  - /influxdb3/core/api/v3/#operation/PostWriteLP, /api/v3/write_lp endpoint
+  - /influxdb3/core/reference/api/#operation/PostWriteLP, /api/v3/write_lp endpoint
 source: /shared/influxdb3-write-guides/client-libraries.md
 ---
 

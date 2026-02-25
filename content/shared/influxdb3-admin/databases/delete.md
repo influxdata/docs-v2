@@ -1,6 +1,6 @@
 
 Use the [`influxdb3 delete database` command](/influxdb3/version/reference/cli/influxdb3/delete/database/),
-the [HTTP API](/influxdb3/version/api/v3/), or [InfluxDB 3 Explorer](/influxdb3/explorer/) to delete a database from {{< product-name >}}.
+the [HTTP API](/influxdb3/version/reference/api/), or [InfluxDB 3 Explorer](/influxdb3/explorer/) to delete a database from {{< product-name >}}.
 
 > [!Caution]
 > #### Deleting a database cannot be undone

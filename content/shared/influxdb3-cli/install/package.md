@@ -1,4 +1,4 @@
-The `influxdb3 install package` command installs Python packages within the plugin environment for use in [{{< product-name >}} processing engine plugins](/influxdb3/version/process/).
+The `influxdb3 install package` command installs Python packages within the plugin environment for use in [{{< product-name >}} processing engine plugins](/influxdb3/version/get-started/process/).
 Use this command to add external dependencies that your plugins require, such as data processing libraries, notification tools, or forecasting packages.
 
 ## Usage
