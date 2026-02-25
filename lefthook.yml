@@ -22,6 +22,12 @@ pre-commit:
           echo "   Use 'python' instead of 'py' for code fences."
           errors=1
         fi
+        # Check for non-standard support.influxdata.com URLs
+        if grep -E 'https://support\.influxdata\.com/[^)\s]*' {staged_files} 2>/dev/null | grep -v 'https://support\.influxdata\.com)'; then
+          echo "❌ Found non-standard support.influxdata.com URL."
+          echo "   Use 'https://support.influxdata.com' (no trailing slash, no path)."
+          errors=1
+        fi
         exit $errors
       fail_text: "Deprecated markdown patterns found. See messages above for details."
     eslint-debug-check:
