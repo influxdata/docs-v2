@@ -17,7 +17,7 @@
     "lodash-es": "^4.17.23"
   },
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^10.0.1",
     "@evilmartians/lefthook": "^1.7.1",
     "@types/js-yaml": "^4.0.9",
     "@vvago/vale": "^3.12.0",
