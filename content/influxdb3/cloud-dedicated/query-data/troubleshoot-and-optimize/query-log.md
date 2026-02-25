@@ -34,7 +34,7 @@ Use the Admin UI or the [`influxctl query` command](/influxdb3/cloud-dedicated/r
 {{% tab-content %}}
 ## Access the Cloud Dedicated Admin UI
 
-1. To access the {{% product-name %}} Admin UI, visit the following url in your browser:
+1. To access the {{% product-name %}} Admin UI, visit the following URL in your browser:
 
    <pre>
    <a href="https://console.influxdata.com">https://console.influxdata.com</a>
