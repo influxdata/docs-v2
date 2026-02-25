@@ -11,13 +11,13 @@ menu:
 weight: 202
 ---
 
-##  2025 Product Highlights
+## 2025 Product Highlights
 
 ### New Features
 
 - **`influxctl` Database Management:** You can now use `influxctl` to delete, undelete, and rename databases. For complete details, see [Manage databases](/influxdb3/cloud-dedicated/admin/databases/) and the [`influxctl database` command reference](/influxdb3/cloud-dedicated/reference/cli/influxctl/database/).
-- **`influxctl` Table Deletion:** We've also added `influxctl` support for delete, undelete and rename tables. For more information, see [Delete a table](/influxdb3/cloud-dedicated/admin/tables/delete/) and the [`influxctl table delete` command reference](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/delete/).
-- **Query logs:** Query logs are in generally available for all Cloud Dedicated customers as an InfluxDB table in the `_internal` namespace for the `query_log` table. For information about using the query log, see [View the query log](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/).
+- **`influxctl` Table Deletion:** We've also added `influxctl` support to delete, undelete, and rename tables. For more information, see [Delete a table](/influxdb3/cloud-dedicated/admin/tables/delete/) and the [`influxctl table delete` command reference](/influxdb3/cloud-dedicated/reference/cli/influxctl/table/delete/).
+- **Query logs:** Query logs are generally available for all Cloud Dedicated customers as an InfluxDB table in the `_internal` namespace for the `query_log` table. For information about using the query log, see [View the query log](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/).
 
 ### User Interface (UI) Enhancements
 
@@ -28,7 +28,7 @@ weight: 202
 
 ### Reliability
 
-- **Deployment Pipeline Improvements:** We've enhanced our deployment pipeline to be more reliable and minimize downtime. 
+- **Deployment Pipeline Improvements:** We've enhanced our deployment pipeline to be more reliable and minimize downtime.
 - **Autoscaling General Availability:** _Autoscaling functionality_ is now generally available for all Cloud Dedicated customers, providing improved performance and reliability during traffic spikes.
 
 ### Performance Improvements
@@ -39,13 +39,13 @@ weight: 202
 
 ## January 2026 Product Highlights
 
-### New features
+### New Features
 
 - **Cluster storage observability:** To provide more visibility into storage, clusters now expose several views of live storage usage.
   - The **Cluster Details** card on the **Overview** page includes a **Storage used** field that shows total live database storage.
   - The **Overview** page now includes a dashboard of storage usage over time.
-  - The **Databases** page shows live database sizes sortable by size. 
-  
-- **Query request rate dashboard:** Customers can view error (broken down by error type) and success rates for query requests in the **Query request rate** dashboard.
+  - The **Databases** page shows live database sizes sortable by size.
+
+- **Query request rate dashboard:** Customers can view error rates (broken down by error type) and success rates for query requests in the **Query request rate** dashboard.
 - **Query log UI:** A new Query log UI is generally available to customers who have enabled query logging. For information about using the query log, see [View the query log](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/).
 
