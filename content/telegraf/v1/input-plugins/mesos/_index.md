@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/mesos/README.md, Apache Mesos Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/mesos/README.md, Apache Mesos Plugin Source
 ---
 
 # Apache Mesos Input Plugin

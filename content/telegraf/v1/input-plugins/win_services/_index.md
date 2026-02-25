@@ -10,7 +10,7 @@ introduced: "v1.4.0"
 os_support: "windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/win_services/README.md, Windows Services Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/win_services/README.md, Windows Services Plugin Source
 ---
 
 # Windows Services Input Plugin
