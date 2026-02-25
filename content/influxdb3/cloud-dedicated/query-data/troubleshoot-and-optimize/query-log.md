@@ -11,7 +11,7 @@ weight: 351
 influxdb3/cloud-dedicated/tags: [query, observability, admin]
 related:
   - /influxdb3/cloud-dedicated/reference/cli/influxctl/query/
-  - /influxdb3/cloud-dedicated/reference/admin-ui/
+  - /influxdb3/cloud-dedicated/admin/account/
   - /influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/system-information/
 ---
 
