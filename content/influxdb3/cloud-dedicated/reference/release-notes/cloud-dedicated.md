@@ -37,7 +37,6 @@ weight: 202
 - **Storage API performance improvements**: We've made several improvements to the performance of storage APIs, including faster responses for database size and table size queries.
 
 
-
 ## January 2026 Product Highlights
 
 ### New features
