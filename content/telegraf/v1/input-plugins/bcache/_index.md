@@ -10,7 +10,7 @@ introduced: "v0.2.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/bcache/README.md, Bcache Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/bcache/README.md, Bcache Plugin Source
 ---
 
 # Bcache Input Plugin
