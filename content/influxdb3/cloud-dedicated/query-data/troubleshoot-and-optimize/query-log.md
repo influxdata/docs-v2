@@ -32,16 +32,7 @@ Use the Admin UI or the [`influxctl query` command](/influxdb3/cloud-dedicated/r
 [influxctl](#)
 {{% /tabs %}}
 {{% tab-content %}}
-## Access the Cloud Dedicated Admin UI
-
-1. To access the {{% product-name %}} Admin UI, visit the following URL in your browser:
-
-   <pre>
-   <a href="https://console.influxdata.com">https://console.influxdata.com</a>
-   </pre>
-
-2. Use the credentials provided by InfluxData to log into the Admin UI.
-   If you don't have login credentials, [contact InfluxData support](https://support.influxdata.com).
+{{< admin-ui-access >}}
 
 3. Open the cluster you want to inspect and go to **Query History**.
 
