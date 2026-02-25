@@ -84,7 +84,7 @@ Query log entries are stored in the `_internal` database.
 
 1. If you haven't already, [download and install the `influxctl` CLI](/influxdb3/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl), and then [configure an `influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles) for your cluster.
 2. [Create a database token](/influxdb3/cloud-dedicated/admin/tokens/database/create/?t=influxctl) that has read access to the `_internal` database.
-   Replace {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}} in the examples below with your token.
+   Replace {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}} in the examples below with your {{% token-link "database" %}}.
 3. Run the **query** subcommand with `--database` and `--language` (and optionally `--config`).
    Global flags such as `--config` must come before the command; query flags such as `--database`, `--language`, and `--token` must come after `query`.
 
