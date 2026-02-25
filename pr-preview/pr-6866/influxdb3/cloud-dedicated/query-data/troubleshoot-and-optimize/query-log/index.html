@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-25 12:54:25 -0500 -0500">
+<meta name="last-modified" content="2026-02-25 16:03:14 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2938,15 +2938,123 @@ Global flags such as <code>--config</code> must come before the command; query f
 </div>
 
 <h2 id="query-log-data-and-columns">Query log data and columns</h2>
-<p>The <code>query_log</code> table in <code>_internal</code> includes information such as:</p>
-<ul>
-<li><strong>Status and phase</strong>: <code>success</code>, <code>running</code>, <code>phase</code> (for example, received, planned, permit, success, fail, cancel).</li>
-<li><strong>Identifiers</strong>: <code>id</code>, <code>namespace_id</code>, <code>namespace_name</code>, <code>query_type</code> (for example, sql, influxql), <code>auth_id</code>, <code>trace_id</code>.</li>
-<li><strong>Query content</strong>: <code>query_text</code>, <code>query_params</code>.</li>
-<li><strong>Timing</strong>: <code>time</code> (timestamp), <code>query_issue_time_ns</code>, <code>permit_duration_ns</code>, <code>plan_duration_ns</code>, <code>execute_duration_ns</code>, <code>end_to_end_duration_ns</code>, <code>compute_duration_ns</code>.</li>
-<li><strong>Resource usage</strong>: <code>partition_count</code>, <code>parquet_file_count</code>, <code>max_memory_bytes</code>, and ingester-related fields.</li>
-</ul>
-<p>Durations are stored in nanoseconds (for example, <code>compute_duration_ns</code>, <code>execute_duration_ns</code>).</p>
+<p>The <code>query_log</code> table in <code>_internal</code> includes the following columns:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Column</th>
+          <th style="text-align: left">Data type</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>time</strong></td>
+          <td style="text-align: left">timestamp</td>
+          <td style="text-align: left">Timestamp when the query log entry was recorded</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>id</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Unique identifier for the query</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>namespace_id</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Internal identifier for the database</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>namespace_name</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Name of the database where the query was executed</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>query_type</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Type of query syntax used (<code>sql</code>, <code>influxql</code>)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>query_text</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">The actual query statement text</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>query_params</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Query parameters (if applicable)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>auth_id</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Database token ID used to authenticate the query</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>trace_id</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Trace ID for debugging and monitoring</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>success</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Query execution status (<code>'true'</code> or <code>'false'</code> as string)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>running</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Indicates if query is currently running (<code>'true'</code> or <code>'false'</code> as string)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>phase</strong></td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">Current query phase (for example, <code>received</code>, <code>planned</code>, <code>permit</code>, <code>success</code>, <code>fail</code>, <code>cancel</code>)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>query_issue_time_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Time when the query was issued (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>permit_duration_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Time spent waiting for query permit (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>plan_duration_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Time spent planning the query (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>execute_duration_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Time spent executing the query (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>end_to_end_duration_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Total end-to-end query duration (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>compute_duration_ns</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Compute time for the query (nanoseconds)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>partition_count</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Number of partitions accessed</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>parquet_file_count</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Number of Parquet files read</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>max_memory_bytes</strong></td>
+          <td style="text-align: left">int64</td>
+          <td style="text-align: left">Maximum memory used during query execution (bytes)</td>
+      </tr>
+  </tbody>
+</table>
 
 <div class="block note">
   
