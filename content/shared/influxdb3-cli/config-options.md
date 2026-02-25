@@ -138,6 +138,9 @@ For detailed information about thread allocation, see the [Resource Limits](#res
   {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
+  {{% show-in "enterprise" %}}
+- [use-pacha-tree](#use-pacha-tree)
+  {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
@@ -273,6 +276,26 @@ This option supports the following values:
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ***
+
+{{% show-in "enterprise" %}}
+
+#### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
+
+Enables the PachaTree storage engine.
+
+> [!Caution]
+> PachaTree is an experimental feature not for production use.
+> It might not be compatible with other features and configuration options.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE`     |
+
+***
+
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
@@ -894,7 +917,7 @@ influxdb3 serve --log-filter info,influxdb3_write_buffer=debug,influxdb3_wal=deb
 <!--pytest.mark.skip-->
 
 ```sh
-influxdb3 serve --log-filter info,influxdb3_pacha_tree=debug
+influxdb3 serve --log-filter info,influxdb3_enterprise=debug
 ```
 
 {{% /show-in %}}
@@ -909,8 +932,7 @@ The following are common component names you can use for targeted filtering:
 | `influxdb3_wal`                       | Write-ahead log operations                               |
 | `influxdb3_catalog`                   | Catalog and schema operations                            |
 | `influxdb3_cache`                     | Caching operations                                       |
-{{% show-in "enterprise" %}}`influxdb3_pacha_tree`                | Enterprise storage engine operations                     |
-`influxdb3_enterprise`                  | Enterprise-specific features                             |
+{{% show-in "enterprise" %}}`influxdb3_enterprise`                  | Enterprise-specific features                             |
 {{% /show-in %}}
 
 > [!Note]

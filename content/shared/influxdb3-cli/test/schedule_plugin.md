@@ -24,6 +24,7 @@ influxdb3 test schedule_plugin [OPTIONS] --database <DATABASE_NAME> <FILENAME>
 |        | `--schedule`          | Cron schedule to simulate when testing the plugin <br>(default: `* * * * *`)                  |
 |        | `--cache-name`        | Optional cache name to associate with the test                                                |
 |        | `--tls-ca`            | Path to a custom TLS certificate authority for self-signed certs                              |
+|        | `--tls-no-verify`     | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`              | Show basic help information                                                                   |
 |        | `--help-all`          | Show all available help options                                                               |
 
@@ -38,6 +39,7 @@ You can use the following environment variables to set command options:
 | `INFLUXDB3_DATABASE_NAME` | `--database`         |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`            |
 | `INFLUXDB3_TLS_CA`        | `--tls-ca`           |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify`    |
 
 ## Examples 
 
