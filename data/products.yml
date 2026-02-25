@@ -6,7 +6,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.8.0
+  latest_patch: 3.8.2
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -38,7 +38,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.8.0
+  latest_patch: 3.8.2
   placeholder_host: localhost:8181
   detector_config:
     query_languages:
@@ -252,7 +252,7 @@ telegraf:
   versions: [v1]
   latest: v1.37
   latest_patches:
-    v1: 1.37.2
+    v1: 1.37.3
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -274,9 +274,9 @@ chronograf:
   menu_category: other
   list_order: 7
   versions: [v1]
-  latest: v1.10
+  latest: v1.11
   latest_patches:
-    v1: 1.10.9
+    v1: 1.11.0
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?

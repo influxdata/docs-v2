@@ -10,7 +10,7 @@ introduced: "v1.31.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/processors/timestamp/README.md, Timestamp Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/processors/timestamp/README.md, Timestamp Plugin Source
 ---
 
 # Timestamp Processor Plugin

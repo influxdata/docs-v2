@@ -10,7 +10,7 @@ introduced: "v1.0.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/cgroup/README.md, Control Group Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/cgroup/README.md, Control Group Plugin Source
 ---
 
 # Control Group Input Plugin
