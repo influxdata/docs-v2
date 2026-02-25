@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-25 08:01:44 -0600 -0600">
+<meta name="last-modified" content="2026-02-25 08:09:10 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2899,14 +2899,24 @@ Replace <span class="code-placeholder-key"><code>DATABASE_TOKEN</code></span> in
 Global flags such as <code>--config</code> must come before the command; query flags such as <code>--database</code>, <code>--language</code>, and <code>--token</code> must come after <code>query</code>.</li>
 </ol>
 <p><strong>List recent successful queries with compute duration above a threshold (for example, 0.6 ms):</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxctl query <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder magenta' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+
+
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxctl query <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --database _internal <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --language sql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  <span class="s1">&#39;SELECT * FROM query_log WHERE success = &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;true&#39;</span><span class="se">\&#39;</span><span class="s1">&#39; AND compute_duration_ns &gt; 600000 LIMIT 10&#39;</span></span></span></code></pre></div>
 <p><strong>Filter by namespace (database) and time range:</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxctl query <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder magenta' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+
+
+  
+  
+  
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxctl query <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --database _internal <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --language sql <span class="se">\
 </span></span></span><span class="line"><span class="cl">  <span class="s1">&#39;SELECT * FROM query_log WHERE namespace_name = &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;my_database&#39;</span><span class="se">\&#39;</span><span class="s1">&#39; AND time &gt;= now() - INTERVAL &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;1 day&#39;</span><span class="se">\&#39;</span><span class="s1">&#39; LIMIT 50&#39;</span></span></span></code></pre></div>
