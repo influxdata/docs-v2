@@ -8,6 +8,9 @@ menu:
   telegraf_controller:
     name: Telegraf Controller
 weight: 1
+cascade:
+  product: telegraf_controller
+  version: controller
 ---
 
 **Telegraf Controller** is a centralized application for managing Telegraf

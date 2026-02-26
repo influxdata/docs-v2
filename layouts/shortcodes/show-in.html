@@ -1,5 +1,4 @@
-{{- $productPathData := split .Page.RelPermalink "/" -}}
-{{- $productVersion := index $productPathData 2 -}}
+{{- $productVersion := .Page.Params.version -}}
 {{- $defaultShowInString := "v2,cloud,cloud-serverless,cloud-dedicated,clustered,core,enterprise" -}}
 {{- $showInString := .Get 0 |  default $defaultShowInString }}
 {{- $showInList := split $showInString "," -}}

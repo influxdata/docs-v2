@@ -10,6 +10,9 @@ menu:
   influxdb3_clustered:
     name: InfluxDB Clustered
 weight: 1
+cascade:
+  product: influxdb3_clustered
+  version: clustered
 ---
 
 InfluxDB Clustered is a highly available InfluxDB 3 cluster hosted and

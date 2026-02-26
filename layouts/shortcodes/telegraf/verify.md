@@ -1,7 +1,7 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $version := replaceRE "v" "" (index $productPathData 1) -}}
-{{- $patchVersions := .Site.Data.products.telegraf.latest_patches -}}
-{{- $latestPatch := print $version "." (index $patchVersions $version) -}}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $version := .Page.Params.version -}}
+{{- $latestPatch := index $productData.latest\_patches $version -}}
+
 ### Verify the authenticity of downloaded binary (optional)
 
 InfluxData cryptographically signs each Telegraf binary release.
@@ -12,25 +12,25 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 
 1. Download and import InfluxData's public key:
 
-    ```
-    curl -sL https://repos.influxdata.com/influxdata-archive.key | gpg --import
-    ```
+   ```
+   curl -sL https://repos.influxdata.com/influxdata-archive.key | gpg --import
+   ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
-    ```
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc
-    ```
+   ```
+   wget https://dl.influxdata.com/telegraf/releases/telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc
+   ```
 
 3. Verify the signature with `gpg --verify`:
 
-    ```
-    gpg --verify telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc telegraf-{{ $latestPatch }}_linux_amd64.tar.gz
-    ```
+   ```
+   gpg --verify telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc telegraf-{{ $latestPatch }}_linux_amd64.tar.gz
+   ```
 
-    The output from this command should include the following:
+   The output from this command should include the following:
 
-    ```
-    gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
-    ```
+   ```
+   gpg: Good signature from "InfluxData Package Signing Key <support@influxdata.com>" [unknown]
+   ```

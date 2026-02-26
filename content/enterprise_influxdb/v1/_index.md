@@ -8,6 +8,9 @@ menu:
   enterprise_influxdb_v1:
     name: InfluxDB Enterprise v1
 weight: 1
+cascade:
+  product: enterprise_influxdb
+  version: v1
 ---
 
 InfluxDB Enterprise provides a time series database designed to handle high write and query loads and offers highly scalable clusters on your infrastructure with a management UI. Use for DevOps monitoring, IoT sensor data, and real-time analytics.
