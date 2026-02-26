@@ -6,6 +6,15 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.3 {date="2026-02-24"}
+
+### Core
+
+#### Bug fixes
+
+- **WAL Buffer**: Fix an edge case that could potentially cause the WAL buffer to overflow
+
+
 ## v3.8.2 {date="2026-02-23"}
 
 ### Core
