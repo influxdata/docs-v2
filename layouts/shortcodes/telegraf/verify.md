@@ -1,6 +1,6 @@
 {{- $productData := partial "product/get-data.html" . -}}
 {{- $version := .Page.Params.version -}}
-{{- $latestPatch := index $productData.latest\_patches $version -}}
+{{- $latestPatch := index $productData.latest_patches $version -}}
 
 ### Verify the authenticity of downloaded binary (optional)
 

@@ -20,4 +20,4 @@
 {{- end -}}
 {{- end -}}
 {{- $showDescriptor := $s.Get "showDescriptor" -}}
-\[{{ if $showDescriptor }}{{ $descriptor }} {{ end }}token]\({{ $renderedLink }})
+[{{ if $showDescriptor }}{{ $descriptor }} {{ end }}token]({{ $renderedLink }})

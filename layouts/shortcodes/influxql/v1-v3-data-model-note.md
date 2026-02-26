@@ -1,7 +1,7 @@
 {{- $productData := partial "product/get-data.html" . -}}
 {{- $productName := $productData.name -}}
 
-> \[!Note]
+> [!Note]
 >
 > #### InfluxDB v1 to InfluxDB 3 data model
 >
