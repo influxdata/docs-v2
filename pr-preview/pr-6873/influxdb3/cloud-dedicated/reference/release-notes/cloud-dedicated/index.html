@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-26 12:33:45 -0500 -0500">
+<meta name="last-modified" content="2026-02-26 15:30:16 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2823,43 +2823,43 @@
 <h3 id="new-features">New Features</h3>
 <ul>
 <li>
-<p><strong>Cluster storage observability:</strong> To provide more visibility into storage, clusters now expose several views of live storage usage.</p>
+<p><strong>Cluster storage observability:</strong> Improve visibility into storage with new live storage usage views.</p>
 <ul>
-<li>The <strong>Cluster Details</strong> card on the <strong>Overview</strong> page includes a <strong>Storage used</strong> field that shows total live database storage.</li>
-<li>The <strong>Overview</strong> page now includes a dashboard of storage usage over time.</li>
-<li>The <strong>Databases</strong> page shows live database sizes sortable by size.</li>
+<li>View total live database storage in the <strong>Storage used</strong> field on the <strong>Cluster Details</strong> card on the <strong>Overview</strong> page.</li>
+<li>Track storage usage over time in the storage usage dashboard on the <strong>Overview</strong> page.</li>
+<li>Sort live database sizes by size on the <strong>Databases</strong> page.</li>
 </ul>
 </li>
 <li>
-<p><strong>Query request rate dashboard:</strong> Customers can view error rates (broken down by error type) and success rates for query requests in the <strong>Query request rate</strong> dashboard.</p>
+<p><strong>Query request rate dashboard:</strong> Monitor query request success and error rates (grouped by error type) in the <strong>Query request rate</strong> dashboard.</p>
 </li>
 <li>
-<p><strong>Query log UI:</strong> A new Query log UI is generally available to customers who have enabled query logging. For information about using the query log, see <a href="/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/">View the query log</a>.</p>
+<p><strong>Query log UI:</strong> Now generally available. After you enable <strong>query logging</strong>, use the UI to monitor query performance, find slow-running queries, and troubleshoot failed executions. For details, see <a href="/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/">View the query log</a>.</p>
 </li>
 </ul>
 <h2 id="2025-product-highlights">2025 Product Highlights</h2>
 <h3 id="new-features-1">New Features</h3>
 <ul>
 <li><strong><code>influxctl</code> Database Management:</strong> You can now use <code>influxctl</code> to delete, undelete, and rename databases. For complete details, see <a href="/influxdb3/cloud-dedicated/admin/databases/">Manage databases</a> and the <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/database/"><code>influxctl database</code> command reference</a>.</li>
-<li><strong><code>influxctl</code> Table Deletion:</strong> We&rsquo;ve also added <code>influxctl</code> support to delete, undelete, and rename tables. For more information, see <a href="/influxdb3/cloud-dedicated/admin/tables/delete/">Delete a table</a> and the <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/table/delete/"><code>influxctl table delete</code> command reference</a>.</li>
-<li><strong>Query logs:</strong> Query logs are generally available for all Cloud Dedicated customers as an InfluxDB table in the <code>_internal</code> namespace for the <code>query_log</code> table. For information about using the query log, see <a href="/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/">View the query log</a>.</li>
+<li><strong><code>influxctl</code> table deletion and management:</strong> Delete, undelete, and rename tables with <code>influxctl</code>. For details, see <a href="/influxdb3/cloud-dedicated/admin/tables/delete/">Delete a table</a> and the <a href="/influxdb3/cloud-dedicated/reference/cli/influxctl/table/delete/"><code>influxctl table delete</code> command reference</a>.</li>
+<li><strong>Query logs:</strong> Access query logs as an InfluxDB table (<code>_internal.query_log</code>). For details, see <a href="/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/">View the query log</a>.</li>
 </ul>
 <h3 id="user-interface-ui-enhancements">User Interface (UI) Enhancements</h3>
 <ul>
-<li><strong>Simplified User Management:</strong> The UI now includes a <em>users page</em> that lets you manage existing users and invite new users.</li>
+<li><strong>Simplified User Management:</strong> Invite and manage users via <strong>Admin UI &gt; Users</strong>. For details, see <a href="/influxdb3/cloud-dedicated/admin/users/admin-ui/">Manage users in the Admin UI</a>.</li>
 <li><strong>Component-Based Cluster Sizing:</strong> Cluster sizing information has been revamped to better show cluster components and offer a clearer understanding of resource allocation and usage.</li>
-<li><strong>Schema browser:</strong> You can now view table schema in the Admin UI, including column names and types.</li>
-<li><strong>Embedded observability dashboards:</strong> Embedded dashboards displaying component-level and aggregated metrics for clusters are available in the overview page.</li>
+<li><strong>Schema browser:</strong> View table schemas (including column names and data types) in the Admin UI. For details, see <a href="/influxdb3/cloud-dedicated/admin/tables/list/">List tables</a>.</li>
+<li><strong>Embedded observability dashboards:</strong> Use embedded dashboards on the <strong>Overview</strong> page to monitor component-level and aggregated cluster metrics. For details, see <a href="/influxdb3/cloud-dedicated/admin/monitor-your-cluster/">Monitor your cluster</a>.</li>
 </ul>
 <h3 id="reliability">Reliability</h3>
 <ul>
-<li><strong>Deployment Pipeline Improvements:</strong> We&rsquo;ve enhanced our deployment pipeline to be more reliable and minimize downtime.</li>
-<li><strong>Autoscaling General Availability:</strong> <em>Autoscaling functionality</em> is now generally available for all Cloud Dedicated customers, providing improved performance and reliability during traffic spikes.</li>
+<li><strong>Deployment pipeline improvements:</strong> Increase deployment reliability and minimize downtime.</li>
+<li><strong>Autoscaling (generally available):</strong> Enable autoscaling to maintain performance and reliability during traffic spikes.</li>
 </ul>
 <h3 id="performance-improvements">Performance Improvements</h3>
 <ul>
 <li><strong>New Disk Caching:</strong> Customers will experience improved performance thanks to new disk caching capabilities.</li>
-<li><strong>Storage API performance improvements</strong>: We&rsquo;ve made several improvements to the performance of storage APIs, including faster responses for database size and table size queries.</li>
+<li><strong>Storage API performance improvements:</strong> Reduce latency for storage APIs, including faster responses for database size and table size queries.</li>
 </ul>
 
 
