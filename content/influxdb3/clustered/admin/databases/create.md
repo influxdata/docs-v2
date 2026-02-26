@@ -272,4 +272,4 @@ For more information, see [Manage data partitioning](/influxdb3/clustered/admin/
 > #### Partition templates can only be applied on create
 > 
 > Partition templates can only be applied when creating a database.
-> You can't update a partition template on an existing database.
+> Partition templates on an existing database cannot be updated.
