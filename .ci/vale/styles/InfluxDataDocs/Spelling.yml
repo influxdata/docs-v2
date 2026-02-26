@@ -1,34 +1,55 @@
 extends: spelling
 message: "Did you really mean '%s'?"
 level: warning
-# Exclude from spell checking:
-# - raw: inline code (`...`)
-# - table.*: table headers and cells
-# NOTE: code blocks are now included to check comments and documentation strings
+# Scope configuration for spell checking
+# NOTE: Code blocks are intentionally INCLUDED to catch spelling errors in:
+#       - Comments (e.g., // NOTE: this is importent)
+#       - Documentation strings
+#       - Inline code comments (e.g., #!/bin/bash #comment typo)
+# This enables detection of spelling mistakes in code block comments that
+# users may copy into their own code.
 scope:
-  - ~raw
-  - ~table.header
-  - ~table.cell
+  - ~raw        # Exclude inline code (`...`) - already has IDE spell check
+  - ~table.header  # Exclude table headers and cells
+  - ~table.cell    # (often contain abbreviations, constants, etc.)
 ignore:
 # Ignore the following words. All words are case-insensitive.
 # To use case-sensitive matching, use the filters section or vocabulary Terms.
   - InfluxDataDocs/Terms/ignore.txt
   - InfluxDataDocs/Terms/query-functions.txt
 filters:
-# Allow product-specific Branding.yml configurations to handle [Ss]erverless
-# while also allowing serverless as a valid dictionary word.
+# === BRANDING TERMS ===
+# Allow product-specific configurations to handle [Ss]erverless
+# while also allowing "serverless" as a valid dictionary word
   - '[Ss]erverless'
+
+# === URL AND PATH PATTERNS ===
 # Ignore URL paths (e.g., /api/v2/write, /kapacitor/v1/api/v2/tasks)
+# Matches: /path/to/endpoint, /v2.0/api/write, /influxdb/v1.8/cli
   - '/[a-zA-Z0-9/_\-\.\{\}]+'
-# Ignore full URLs
+# Ignore full URLs (http, https, ftp, etc.)
+# Matches: https://docs.example.com, http://localhost:8086
   - 'https?://[^\s\)\]>"]+'
-# Ignore shortcode attribute values (e.g., endpoint="..." method="...")
-  - '(?:endpoint|method|url|href|src|path)="[^"]+"'
-# Ignore camelCase identifiers and snake_case variable names
+
+# === CODE IDENTIFIERS & VARIABLES ===
+# camelCase identifiers and variable names
+# Matches: myVariable, targetField, getRawData, terminationGracePeriodSeconds
   - '[a-z_][a-zA-Z0-9_]*(?:[A-Z][a-zA-Z0-9_]*)*'
+# UPPER_CASE constants and environment variables
+# Matches: API_KEY, MY_CONSTANT, AWS_REGION, INFLUXDB_TOKEN
   - '[A-Z_][A-Z0-9_]+'
-# Ignore hexadecimal values and version numbers
+
+# === CODE LITERALS ===
+# Hexadecimal values (0xFF, 0xDEADBEEF, etc.)
   - '0[xX][0-9a-fA-F]+'
+# Version numbers and semantic versioning (1.0, 2.3.1, 0.101.0, etc.)
   - '\d+\.\d+(?:\.\d+)*'
-# Ignore common code punctuation and symbols
+
+# === HUGO SHORTCODES ===
+# Ignore shortcode attribute values (endpoint="...", method="...", etc.)
+# Matches: {{<endpoint="...">}}, [method="GET"]
+  - '(?:endpoint|method|url|href|src|path)="[^"]+"'
+
+# === CODE PUNCTUATION & SYMBOLS ===
+# Common programming symbols that may appear in patterns
   - '[@#$%^&*()_+=\[\]{};:,.<>?/\\|-]+'
