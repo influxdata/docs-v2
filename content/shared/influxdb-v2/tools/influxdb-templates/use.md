@@ -159,7 +159,7 @@ influx apply \
 > and all new resources.
 > For more information, see [InfluxDB stacks](/influxdb/version/tools/influxdb-templates/stacks/).
 >
-> You can extract a stack ID from the output of `influx stacks` and pass it to `influx apply`:
+> Extract a stack ID from the output of `influx stacks` and pass it to `influx apply`:
 >
 > <!--pytest.mark.skip-->
 > ```bash

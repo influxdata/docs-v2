@@ -187,7 +187,7 @@ The anonymous Google ID enforces per-user rate limits to prevent abuse:
 > On Google's consent screen, this appears as "Associate you with your personal info on Google."
 > This is Google's generic wording for the `openid` scope—it means the app can recognize
 > that the same Google account is signing in again.
-> It does not grant access to your email, name, contacts, or other data.
+> This authorization does not grant access to your email, name, contacts, or other data.
 
 ## Search documentation with the MCP tool
 

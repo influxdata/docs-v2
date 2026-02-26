@@ -20,7 +20,7 @@ the `influx` command line interface (CLI), or the InfluxDB API.
 > - You can't change access (**read/write**) permissions for an API token after it's created.
 > - Tokens stop working when the user who created the token is deleted.
 > 
-> We recommend the following for managing your tokens:
+> Follow these recommendations for managing tokens:
 >
 > - Create a generic user to create and manage tokens for writing data.
 > - Store your tokens in a secure password vault for future access.

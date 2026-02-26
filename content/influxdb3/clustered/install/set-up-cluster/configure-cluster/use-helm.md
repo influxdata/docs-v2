@@ -568,7 +568,7 @@ To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `values.yaml`:
 
 > [!Note]
-> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> Store sensitive credentials, such as your PostgreSQL-compatible DSN,
 > as secrets in your Kubernetes cluster.
 
 - `catalog.dsn`

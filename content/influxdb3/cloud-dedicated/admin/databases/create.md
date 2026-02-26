@@ -250,8 +250,8 @@ For more information about partition template requirements and restrictions, see
 > [!Warning]
 > #### Partition templates can only be applied on create
 >
-> You can only apply a partition template when creating a database.
-> You can't update a partition template on an existing database.
+> Partition templates can only be applied when creating a database.
+> Partition templates cannot be updated on an existing database.
 
 ## Database attributes
 

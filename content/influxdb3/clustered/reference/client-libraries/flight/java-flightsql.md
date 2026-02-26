@@ -43,7 +43,7 @@ list_code_example: |
 > [!Note]
 > #### Use InfluxDB 3 client libraries
 > 
-> We recommend using the [`influxdb3-java` Go client library](/influxdb3/clustered/reference/client-libraries/v3/java/) for integrating InfluxDB 3 with your Java application code.
+> Use the [`influxdb3-java` Java client library](/influxdb3/clustered/reference/client-libraries/v3/java/) for integrating InfluxDB 3 with your Java application code.
 > 
 > [InfluxDB 3 client libraries](/influxdb3/clustered/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
 > and provide convenient methods for [writing](/influxdb3/clustered/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/clustered/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.

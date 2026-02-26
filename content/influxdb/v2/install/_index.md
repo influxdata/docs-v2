@@ -214,7 +214,7 @@ To install InfluxDB, do one of the following:
 - [Manually download and install for macOS](#manually-download-and-install-for-macos)
 
 > [!Tip]
-> We recommend using [Homebrew](https://brew.sh/) to install InfluxDB v2 on macOS.
+> Use [Homebrew](https://brew.sh/) to install InfluxDB v2 on macOS.
 
 > [!Note]
 >

@@ -23,7 +23,7 @@ Use the URLs below to interact with your InfluxDB Cloud Serverless instances wit
 > [!Note]
 > #### InfluxDB 3 cloud regions
 > 
-> We are in the process of deploying and enabling the InfluxDB 3 storage engine
+> Deployment and enablement of the InfluxDB 3 storage engine is in progress
 > on other cloud providers and regions.
 
 <a href="https://www.influxdata.com/influxdb-cloud-2-0-provider-region/" target="_blank" class="btn">Request a cloud region</a>

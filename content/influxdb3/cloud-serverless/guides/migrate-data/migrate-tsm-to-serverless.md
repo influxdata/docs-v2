@@ -422,7 +422,7 @@ curl -so /dev/null --request POST \
 ```
 
 > [!Note]
-> You can also use other HTTP API tools like [Postman](https://www.postman.com/)
+> Use other HTTP API tools like [Postman](https://www.postman.com/)
 > that provide the size of the response body.
 
 Divide the output of this command by 1000000 to convert it to megabytes (MB).

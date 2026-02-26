@@ -77,7 +77,7 @@ Set the following environment variables when you start the MCP server:
 > [!Note]
 > #### Optional tokens
 >
-> You can include one or both of `INFLUX_DB_TOKEN` and `INFLUX_DB_MANAGEMENT_TOKEN`,
+> Include one or both of `INFLUX_DB_TOKEN` and `INFLUX_DB_MANAGEMENT_TOKEN`,
 > but omitting either limits the type of operations your LLM agents can perform on your
 > {{% product-name omit=" Clustered" %}} cluster.
 
@@ -547,7 +547,7 @@ The anonymous Google ID enforces per-user rate limits to prevent abuse:
 > On Google's consent screen, this appears as "Associate you with your personal info on Google."
 > This is Google's generic wording for the `openid` scope—it means the app can recognize
 > that the same Google account is signing in again.
-> It does not grant access to your email, name, contacts, or other data.
+> This authorization does not grant access to your email, name, contacts, or other data.
 
 ### Search documentation with the MCP tool
 

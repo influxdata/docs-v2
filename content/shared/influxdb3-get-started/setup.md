@@ -452,7 +452,7 @@ InfluxDB 3 Enterprise licenses:
 > [!Tip]
 > #### Use the InfluxDB 3 Explorer query interface
 >
-> You can complete the remaining steps in this guide using InfluxDB 3 Explorer,
+> Complete the remaining steps in this guide using InfluxDB 3 Explorer,
 > the web-based query and administrative interface for InfluxDB 3.
 > Explorer provides visual management of databases and tokens and an
 > easy way to write and query your time series data.

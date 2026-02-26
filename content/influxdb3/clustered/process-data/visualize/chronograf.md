@@ -125,7 +125,7 @@ For a complete list of configuration options, see [InfluxDB 3 connection options
 >
 > {{% product-name %}} supports InfluxQL metaqueries, so schema information
 > is available in the Data Explorer to help build queries.
-> You can also use [fully qualified measurements](/influxdb3/clustered/reference/influxql/select/#fully-qualified-measurement)
+> Use [fully qualified measurements](/influxdb3/clustered/reference/influxql/select/#fully-qualified-measurement)
 > in the `FROM` clause. For example:
 >
 > ```sql

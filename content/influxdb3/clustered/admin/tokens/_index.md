@@ -39,7 +39,7 @@ to perform administrative actions.
 > #### Store secure tokens in a secret store
 > 
 > Token strings are returned _only_ on token creation.
-> We recommend storing database tokens in a **secure secret store**.
+> Store database tokens in a **secure secret store**.
 > For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 
 ---

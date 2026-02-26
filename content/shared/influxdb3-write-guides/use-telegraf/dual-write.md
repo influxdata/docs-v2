@@ -51,5 +51,5 @@ You cannot filter data based on the output.
 
 > [!Note]
 > InfluxDB v1 does _not_ support the unsigned integer data type.
-> You can only write unsigned integer field values to InfluxDB v2- and 3-based
+> Write unsigned integer field values to InfluxDB v2- and 3-based
 > products.

@@ -26,7 +26,7 @@ In your request, set the following:
 > To compress the query response, set the `Accept-Encoding` header to `gzip`.
 > This saves network bandwidth, but increases server-side load.
 > 
-> We recommend only using gzip compression on responses that are larger than 1.4 KB.
+> Use gzip compression only on responses larger than 1.4 KB.
 > If the response is smaller than 1.4 KB, gzip encoding will always return a 1.4 KB
 > response, despite the uncompressed response size.
 > 1500 bytes (~1.4 KB) is the maximum transmission unit (MTU) size for the public

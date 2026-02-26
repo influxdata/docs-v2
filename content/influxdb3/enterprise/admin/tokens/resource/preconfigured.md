@@ -72,7 +72,7 @@ influxdb3 create token \
 > 
 > The `influxdb3 create token --offline` command makes generating an
 > offline permission tokens file easy, but it is not required.
-> You can write or generate your own permission tokens file using the
+> Write or generate your own permission tokens file using the
 > [required JSON schema](#offline-permission-tokens-file-schema).
 >
 > ##### Token string security standards

@@ -13,7 +13,7 @@ weight: 201
 InfluxData adheres to the following process for any End-of-Life (EOL) of
 products and features.
 
-1.  **Email Notices**: Customers are given at least six months notice of the
+1.  **Email Notices**: InfluxData provides at least six months notice of the
     change in service via the following communication methods:
 
     - Email notifications are sent to all users and billing contacts

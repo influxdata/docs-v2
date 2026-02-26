@@ -221,7 +221,7 @@ If a new database token doesn't immediately work (you receive a `401 Unauthorize
 > #### Store secure tokens in a secret store
 > 
 > Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
-> We recommend storing database tokens in a **secure secret store**.
+> Store database tokens in a **secure secret store**.
 > For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 > 
 > If you lose a token, [delete the token from InfluxDB](/influxdb3/cloud-dedicated/admin/tokens/database/delete/) and create a new one.

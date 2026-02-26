@@ -54,9 +54,9 @@ _For detailed information about using the Telegraf Builder, see
 > [!Warning]
 > #### The Telegraf Builder does not support all Telegraf plugins
 > 
-> We are in the process of adding support for more Telegraf plugins in the
-> Telegraf Builder. You can use plugins that are not currently supported by the
-> builder, but you must add and edit them with the Code Editor.
+> Support for additional Telegraf plugins is being added to the
+> Telegraf Builder. Use plugins that are not currently supported by the
+> builder, but add and edit them with the Code Editor.
 
 ## Heartbeat output plugin {note="Telegraf 1.37+"}
 

@@ -23,7 +23,7 @@ An {{% product-name omit="Clustered" %}} instance can have one operator token an
 > #### Store secure tokens in a secret store
 > 
 > Token strings are returned _only_ on token creation.
-> We recommend storing database tokens in a **secure secret store**.
+> Store database tokens in a **secure secret store**.
 > Anyone with access to the named admin token has full control over your {{< product-name >}} instance.
 > If you lose the named admin token string, you must regenerate the token.
 

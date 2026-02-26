@@ -12,7 +12,7 @@ credentials.
 
 > [!Important]
 > #### Authenticate with an API token or 1.x-compatible credentials
-> You can't use an InfluxDB 2.x username and password to authenticate with the InfluxDB 1.x compatibility API.
+> InfluxDB 2.x username and password authentication is not supported with the InfluxDB 1.x compatibility API.
 
 - [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
 - [Authenticate with a 1.x username and password scheme](#authenticate-with-a-username-and-password-scheme)

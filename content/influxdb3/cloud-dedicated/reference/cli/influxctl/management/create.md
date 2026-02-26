@@ -34,7 +34,7 @@ Default: `table`.
 > #### Store secure tokens in a secret store
 > 
 > Management token strings are returned _only_ on token creation.
-> We recommend storing management tokens in a **secure secret store**.
+> Store management tokens in a **secure secret store**.
 
 ## Usage
 

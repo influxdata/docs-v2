@@ -183,7 +183,7 @@ Get started with one of the following tools for querying data stored in an {{% p
 > #### Avoid using /api/v2/query
 > 
 > Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx > query` CLI command and InfluxDB v2 client libraries.
-> You can't use SQL or InfluxQL with these tools.
+> SQL and InfluxQL are not supported with these tools.
 
 For this example, use the following query to select all the data written to the
 **get-started** bucket between

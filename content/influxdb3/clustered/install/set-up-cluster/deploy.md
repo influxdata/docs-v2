@@ -211,7 +211,7 @@ deployment, use the `kubectl get` command:
 > [!Note]
 > The following example uses the [`yq` command-line YAML parser](https://github.com/mikefarah/yq)
 > to parse and format the YAML output.
-> You can also specify the output as `json` and use the
+> Specify the output as `json` and use the
 > [`jq` command-line JSON parser](https://jqlang.github.io/jq/) to parse and
 > format the JSON output.
 > Installing and using either of these utilities is optional.

@@ -204,7 +204,7 @@ SHOW TAG VALUES FROM weather WITH KEY = location
 > 
 > #### Include a FROM clause
 > 
-> We strongly recommend including a `FROM` clause with the `SHOW TAG VALUES`
+> Include a `FROM` clause with the `SHOW TAG VALUES`
 > statement that specifies 1-50 tables to query.
 > Without a `FROM` clause, the InfluxDB query engine must read data from all
 > tables and return unique tag values from each.

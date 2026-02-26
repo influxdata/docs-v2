@@ -285,7 +285,7 @@ Enables the PachaTree storage engine.
 
 > [!Caution]
 > PachaTree is an experimental feature not for production use.
-> It might not be compatible with other features and configuration options.
+> This option might not be compatible with other features and configuration options.
 
 **Default:** `false`
 

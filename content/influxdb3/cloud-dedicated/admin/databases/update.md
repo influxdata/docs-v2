@@ -251,7 +251,7 @@ The retention period value cannot be negative or contain whitespace.
 >
 > #### Partition templates can't be updated
 >
-> You can only apply a partition template when creating a database.
+> Partition templates can only be applied when creating a database.
 > You can't update a partition template on an existing database.
 
 ### Database naming restrictions

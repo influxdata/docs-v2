@@ -21,7 +21,7 @@ The following diagram illustrates how data is passed between processes as it is 
 {{< html-diagram/quix-downsample-pipeline >}}
 
 > [!Note]
-> It is usually more efficient to write raw data directly to Kafka rather than
+> Writing raw data directly to Kafka is usually more efficient than
 > writing raw data to InfluxDB first (essentially starting the Quix Streams
 > pipeline with the "raw-data" topic). However, this guide assumes that you
 > already have raw data in InfluxDB that you want to downsample.

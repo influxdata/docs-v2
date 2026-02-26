@@ -63,7 +63,7 @@ influxdb3 create table [OPTIONS] \
 > #### Tag and field naming requirements
 > 
 > Tag and field keys are alphanumeric and must start with a letter or number.
-> They can contain dashes (`-`) and underscores (`_`).
+> Names can contain dashes (`-`) and underscores (`_`).
 
 ### Option environment variables
 

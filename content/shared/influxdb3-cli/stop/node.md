@@ -2,7 +2,7 @@ The `influxdb3 stop node` command marks a node as stopped in the catalog, freein
 
 > [!Important]
 > This command is designed for cleaning up the catalog **after** you have already stopped the physical instance.
-> It does not shut down the running process - you must stop the instance first (for example, using `kill` or stopping the container).
+> This command does not shut down the running process - stop the instance first (for example, using `kill` or stopping the container).
 
 ## Usage
 

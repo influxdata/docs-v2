@@ -368,7 +368,7 @@ CREATE USER <username> WITH PASSWORD '<password>'
 > - The user value must be wrapped in double quotes if it starts with a digit, is an InfluxQL keyword, contains a hyphen and or includes any special characters, for example: `!@#$%^&*()-`
 > - The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
 >   Do not include the single quotes when authenticating requests.
->   We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords.
+>   Avoid the single quote (`'`) and backslash (`\`) characters in passwords.
 >   For passwords that include these characters, escape the special character with a backslash (for example, (`\'`) when creating the password and when submitting authentication requests.
 > - Repeating the exact `CREATE USER` statement is idempotent. If any values change the database will return a duplicate user error. See GitHub Issue [#6890](https://github.com/influxdata/influxdb/pull/6890) for details.
 > 
@@ -468,7 +468,7 @@ CLI example:
 > The password [string](/influxdb/v1/query_language/spec/#strings) must be wrapped in single quotes.
 > Do not include the single quotes when authenticating requests.
 > 
-> We recommend avoiding the single quote (`'`) and backslash (`\`) characters in passwords
+> Avoid the single quote (`'`) and backslash (`\`) characters in passwords
 > For passwords that include these characters, escape the special character with a backslash (for example, (`\'`) when creating the password and when submitting authentication requests.
 
 ##### `DROP` a user

@@ -235,7 +235,7 @@ as well.
 > [!Important]
 > #### Object storage recommendations
 > 
-> We **strongly** recommend the following:
+> Follow these recommendations:
 > 
 > - ##### Enable object versioning
 > 
@@ -377,7 +377,7 @@ PostgreSQL-compatible database.
   exclusively to InfluxDB.
 
 > [!Note]
-> We **strongly** recommended running the PostgreSQL-compatible database
+> Run the PostgreSQL-compatible database
 > in a separate namespace from InfluxDB or external to Kubernetes entirely.
 > Doing so makes management of the InfluxDB cluster easier and helps to prevent
 > accidental data loss.

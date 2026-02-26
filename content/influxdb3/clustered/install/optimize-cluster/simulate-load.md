@@ -15,7 +15,7 @@ schema works as designed and that both your cluster's scale and configuration
 are able to meet your cluster's write requirements.
 
 > [!Warning]
-> We do not recommend writing production data to your InfluxDB cluster at this point.
+> Do not write production data to your InfluxDB cluster at this point.
 
 ## Load testing tools
 

@@ -40,7 +40,7 @@ Default: `table`.
 > #### Store secure tokens in a secret store
 > 
 > Token strings are viewable _only_ on token creation and aren't stored by InfluxDB.
-> We recommend storing database tokens in a **secure secret store**.
+> Store database tokens in a **secure secret store**.
 
 ## Usage
 

@@ -175,7 +175,7 @@ home;room;attic
 > When using Tags CSV files, the query builder uses the predefined tags.
 > When a Default Database is set, the `SHOW DATABASES` query result is limited to that database.
 >
-> You can also use [fully qualified measurements](/influxdb3/cloud-dedicated/reference/influxql/select/#fully-qualified-measurement)
+> Use [fully qualified measurements](/influxdb3/cloud-dedicated/reference/influxql/select/#fully-qualified-measurement)
 > in the `FROM` clause. For example:
 >
 > ```sql

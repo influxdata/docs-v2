@@ -407,7 +407,7 @@ in the `double`, `long`, and `unsignedLong` datatype annotations.
 > [!Note]
 > If your **numeric format separators** include a comma (`,`), wrap the column annotation in double
 > quotes (`""`) to prevent the comma from being parsed as a column separator or delimiter.
-> You can also [define a custom column separator](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/extended/#define-custom-column-separator).
+> [Define a custom column separator](/influxdb3/cloud-serverless/reference/syntax/annotated-csv/extended/#define-custom-column-separator).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

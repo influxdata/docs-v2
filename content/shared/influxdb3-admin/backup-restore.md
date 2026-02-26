@@ -482,7 +482,7 @@ Replace the following:
 > - The specific bucket name
 > - For file storage: the exact file path
 > 
-> You cannot restore a license file to a different bucket or path. Contact InfluxData support if you need to migrate to a different bucket.
+> License files cannot be restored to a different bucket or path. Contact InfluxData support to migrate to a different bucket.
 {{% /show-in %}}
 
 ### Docker considerations

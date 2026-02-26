@@ -21,7 +21,7 @@ Apache Arrow Flight RPC and Flight SQL protocols define APIs for servers and cli
 > [!Note]
 > #### Use InfluxDB 3 client libraries
 > 
-> We recommend using [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) for integrating InfluxDB 3 with your application code.
+> Use [InfluxDB 3 client libraries](/influxdb3/cloud-serverless/reference/client-libraries/v3/) for integrating InfluxDB 3 with your application code.
 > Client libraries wrap Apache Arrow Flight clients
 > and provide convenient methods for [writing](/influxdb3/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb3/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 

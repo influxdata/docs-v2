@@ -98,7 +98,7 @@ cp example-customer.yml myinfluxdb.yml
 > 
 > #### Use VS Code to edit your configuration file
 > 
-> We recommend using [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+> Use [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 > to edit your `myinfluxdb.yml` configuration file due to its JSON Schema support,
 > including autocompletion and validation features that help when 
 > editing your InfluxDB configuration. InfluxData provides an
@@ -590,7 +590,7 @@ To connect your InfluxDB cluster to your PostgreSQL-compatible database,
 provide values for the following fields in your `myinfluxdb.yml` configuration file:
 
 > [!Note]
-> We recommend storing sensitive credentials, such as your PostgreSQL-compatible DSN,
+> Store sensitive credentials, such as your PostgreSQL-compatible DSN,
 > as secrets in your Kubernetes cluster.
 
 - `spec.package.spec.catalog.dsn.valueFrom.secretKeyRef`

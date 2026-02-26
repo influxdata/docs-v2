@@ -26,7 +26,7 @@ The CLI communicates with InfluxDB through the HTTP API on port `8086`.
 
 > [!Note]
 > #### Directly access the API 
-> You can also interact with InfluxDB using the HTTP API directly.
+> Interact with InfluxDB using the HTTP API directly.
 > See [Writing Data](/influxdb/v1/guides/writing_data/) and [Querying Data](/influxdb/v1/guides/querying_data/) for examples using `curl`.
 
 ## Creating a database

@@ -84,7 +84,7 @@ To create a _resource_ token with read or write permissions for specific databas
 > #### Store tokens in a secure secret store
 > 
 > This is the _only_ time you are able to view and copy the raw token string.
-> We recommend storing tokens in a **secure secret store**.
+> Store tokens in a **secure secret store**.
 
 
 ## Delete a token

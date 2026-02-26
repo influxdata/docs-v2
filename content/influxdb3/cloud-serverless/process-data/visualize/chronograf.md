@@ -124,7 +124,7 @@ For a complete list of configuration options, see [InfluxDB 3 connection options
 >
 > For information, see [Create DBRP mappings](/influxdb3/cloud-serverless/query-data/influxql/dbrp/).
 >
-> You can use [fully qualified measurements](/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement)
+> Use [fully qualified measurements](/influxdb3/cloud-serverless/reference/influxql/select/#fully-qualified-measurement)
 > in the `FROM` clause. For example:
 >
 > ```sql

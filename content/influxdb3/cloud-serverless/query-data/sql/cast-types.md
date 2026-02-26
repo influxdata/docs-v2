@@ -313,7 +313,7 @@ SQL supports casting the following to a timestamp:
 > 
 > To cast a Unixnanosecond timestamp to a timestamp type, first cast the numeric
 > value to an unsigned integer (`BIGINT UNSIGNED`) and then a timestamp.
-> You can also use the [`to_timestamp_nanos`](/influxdb3/cloud-serverless/reference/sql/functions/time-and-date/#to_timestamp_nanos)
+> Use the [`to_timestamp_nanos`](/influxdb3/cloud-serverless/reference/sql/functions/time-and-date/#to_timestamp_nanos)
 > function.
 > 
 > {{< code-tabs-wrapper >}}

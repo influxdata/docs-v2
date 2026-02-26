@@ -59,7 +59,7 @@ _The HTTP API examples in this guide use [cURL](https://curl.se/) to send an API
 > #### Store secure tokens in a secret store
 > 
 > Token strings are returned _only_ on token creation.
-> We recommend storing database tokens in a **secure secret store**.
+> Store database tokens in a **secure secret store**.
 > If you lose a resource token string, revoke the token and create a new one.
 
 ## Create a database token

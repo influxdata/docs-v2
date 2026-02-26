@@ -33,7 +33,7 @@ weight: 202
 
 ### Performance Improvements
 
-- **New Disk Caching:** Customers will experience improved performance thanks to new disk caching capabilities.
+- **New Disk Caching:** Improved performance through new disk caching capabilities.
 - **Storage API performance improvements**: We've made several improvements to the performance of storage APIs, including faster responses for database size and table size queries.
 
 
@@ -46,6 +46,6 @@ weight: 202
   - The **Overview** page now includes a dashboard of storage usage over time.
   - The **Databases** page shows live database sizes sortable by size.
 
-- **Query request rate dashboard:** Customers can view error rates (broken down by error type) and success rates for query requests in the **Query request rate** dashboard.
+- **Query request rate dashboard:** View error rates (broken down by error type) and success rates for query requests in the **Query request rate** dashboard.
 - **Query log UI:** A new Query log UI is generally available to customers who have enabled query logging. For information about using the query log, see [View the query log](/influxdb3/cloud-dedicated/query-data/troubleshoot-and-optimize/query-log/).
 
