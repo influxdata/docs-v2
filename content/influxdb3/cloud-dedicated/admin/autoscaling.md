@@ -1,3 +1,4 @@
+---
 title: Enable autoscaling
 seotitle: Configure autoscaling for InfluxDB Cloud Dedicated
 description: >
@@ -46,7 +47,7 @@ At a high level:
 
 Autoscaling does not change other aspects of your contract, such as data retention or feature availability.
 
-Your {{% product-name %}} representative will confirm appropriate limits for each cluster. 
+Your {{% product-name %}} representative will confirm appropriate limits for each cluster.
 
 Important details:
 
