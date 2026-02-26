@@ -10,7 +10,7 @@ introduced: "v1.29.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/ldap/README.md, LDAP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/ldap/README.md, LDAP Plugin Source
 ---
 
 # LDAP Input Plugin

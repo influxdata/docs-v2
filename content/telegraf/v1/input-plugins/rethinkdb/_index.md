@@ -10,7 +10,7 @@ introduced: "v0.1.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/rethinkdb/README.md, RethinkDB Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/rethinkdb/README.md, RethinkDB Plugin Source
 ---
 
 # RethinkDB Input Plugin
