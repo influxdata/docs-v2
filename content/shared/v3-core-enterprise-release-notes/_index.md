@@ -12,7 +12,7 @@
 
 #### Bug fixes
 
-- **WAL Buffer**: An edge case causing potential overflow of the WAL Buffer has been fixed
+- **WAL Buffer**: Fix an edge case that could potentially cause the WAL buffer to overflow
 
 
 ## v3.8.2 {date="2026-02-23"}
