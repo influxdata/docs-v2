@@ -3476,7 +3476,7 @@ Enable storing hashed API tokens on disk. Hashed tokens are disabled by default 
 
 Storing hashed tokens increases security by storing API tokens as hashes on disk. When enabled, all unhashed tokens are converted to hashed tokens on every startup leaving no unhashed tokens on disk. Newly created tokens are also stored as hashes. Lost tokens must be replaced when token hashing is enabled because the hashing prevents them from being recovered.
 
-If token hashing is disabled after being enabled, any hashed tokens on disk remain as hashed tokens. Newly created tokens are stored unhashed when token hashing is disabled. Hashed tokens on disk remain valid and useable even with token hashing disabled.
+If token hashing is disabled after being enabled, any hashed tokens on disk remain as hashed tokens. Newly created tokens are stored unhashed when token hashing is disabled. Hashed tokens on disk remain valid and usable even with token hashing disabled.
 
 Hashed token support is available in versions 2.8.0 and newer. Downgrading to older versions is not recommended after enabling hashed tokens because the downgrade process deletes all stored hashed tokens. All hashed tokens must be replaced on a downgrade after hashed tokens are enabled.
 
