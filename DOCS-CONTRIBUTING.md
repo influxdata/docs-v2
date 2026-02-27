@@ -1,6 +1,7 @@
 # Contributing to InfluxData Documentation
 
 <!-- agent:instruct: essential -->
+
 ## Quick Start
 
 Ready to contribute?
@@ -14,7 +15,7 @@ Ready to contribute?
 
 For detailed setup and reference information, see the sections below.
 
----
+***
 
 ## Legal & Getting Started
 
@@ -27,18 +28,19 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 [Sign the InfluxData CLA](https://www.influxdata.com/legal/cla/)
 
-_**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
+***Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA.*
 
-_If you're new to contributing or you're looking for an easy update, see [`docs-v2` good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)._
+*If you're new to contributing or you're looking for an easy update, see [`docs-v2` good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
 
 ### Fork and clone InfluxData Documentation Repository
 
 [Fork this repository](https://help.github.com/articles/fork-a-repo/) and
 [clone it](https://help.github.com/articles/cloning-a-repository/) to your local machine.
 
----
+***
 
 <!-- agent:instruct: condense -->
+
 ## Development Environment Setup
 
 ### Prerequisites
@@ -76,9 +78,9 @@ dev dependencies used in pre-commit hooks for linting, syntax-checking, and test
 Dev dependencies include:
 
 - [Lefthook](https://github.com/evilmartians/lefthook): configures and
-manages git pre-commit and pre-push hooks for linting and testing Markdown content.
+  manages git pre-commit and pre-push hooks for linting and testing Markdown content.
 - [prettier](https://prettier.io/docs/en/): formats code, including Markdown, according to style rules for consistency
-- [Cypress]: e2e testing for UI elements and URLs in content
+- \[Cypress]: e2e testing for UI elements and URLs in content
 
 ### Install Docker
 
@@ -112,11 +114,11 @@ docs-v2 contains a `./.vscode/settings.json` that configures the following exten
 - Vale: shows linter errors and suggestions in the editor.
 - YAML Schemas: validates frontmatter attributes.
 
----
+***
 
 <!-- agent:instruct: condense -->
-## Making Changes
 
+## Making Changes
 
 ### Style Guidelines
 
@@ -128,7 +130,7 @@ Content follows Google Developer Documentation Style Guide and YouTube API docum
 
 Most docs-v2 documentation content uses [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
-_Some parts of the documentation, such as `./api-docs`, contain Markdown within YAML and rely on additional tooling._
+*Some parts of the documentation, such as `./api-docs`, contain Markdown within YAML and rely on additional tooling.*
 
 #### Semantic line feeds
 
@@ -163,6 +165,23 @@ h2-h6 headings act as section headings.
 Save images using the following naming format: `project/version-context-description.png`.
 For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
 Specify a version other than 2.0 only if the image is specific to that version.
+
+#### InfluxData Support links
+
+When linking to InfluxData Support, use one of these URLs:
+
+```markdown
+[InfluxData support](https://support.influxdata.com)
+[contact InfluxData support](https://support.influxdata.com/s/contactsupport)
+```
+
+**Do not use**:
+
+- `https://support.influxdata.com/` (trailing slash)
+- `https://support.influxdata.com/s/login/?ec=302&startURL=%2Fs%2Fcontactsupport` (login redirect)
+- Any other `support.influxdata.com` path
+
+The pre-commit hook will check for and reject non-standard support link formats.
 
 ### Essential Frontmatter Reference
 
@@ -268,6 +287,7 @@ Documentation audit tools should:
 4. Support both single-line and multi-line exclusion lists
 
 <!-- agent:instruct: essential -->
+
 ### Common Shortcodes Reference
 
 #### Callouts (notes and warnings)
@@ -325,7 +345,7 @@ For the complete shortcodes reference with all available shortcodes and usage ex
 
 Test shortcodes with working examples in **[content/example.md](content/example.md)**.
 
----
+***
 
 ### InfluxDB API documentation
 
@@ -336,10 +356,9 @@ InfluxDB API documentation when documentation is deployed.
 For more information about editing and generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
----
+***
 
 ## Testing & Quality Assurance
-
 
 Pre-commit hooks run automatically when you commit changes, testing your staged files with Vale, Prettier, Cypress, and Pytest. To skip hooks if needed:
 
@@ -362,13 +381,14 @@ docker compose run -T vale content/**/*.md
 
 For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[TESTING.md](TESTING.md)**.
 
-
----
+***
 
 <!-- agent:instruct: condense -->
+
 ## Submission Process
 
 <!-- agent:instruct: essential -->
+
 ### Commit Guidelines
 
 When creating commits, follow these guidelines:
@@ -381,6 +401,7 @@ When creating commits, follow these guidelines:
 - For multiple issues, use comma separation: `closes influxdata/DAR#517, closes influxdata/DAR#518`
 
 **Examples:**
+
 ```
 fix(enterprise): correct Docker environment variable name for license email
 fix(influxdb3): correct Docker environment variable and compose examples for monolith
@@ -392,7 +413,7 @@ chore(ci): update Vale configuration
 
 Push your changes up to your forked repository, then [create a new pull request](https://help.github.com/articles/creating-a-pull-request/).
 
----
+***
 
 ## Reference Documentation
 
@@ -402,6 +423,7 @@ For detailed reference documentation, see:
 - **[DOCS-SHORTCODES.md](DOCS-SHORTCODES.md)** - Complete shortcodes reference with usage examples for all available shortcodes
 
 <!-- agent:instruct: condense -->
+
 ### Advanced Configuration
 
 #### Vale style linting configuration
@@ -437,6 +459,7 @@ To add accepted/rejected terms for specific products, configure a style for the 
 To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
 <!-- agent:instruct: condense -->
+
 #### JavaScript in the documentation UI
 
 The InfluxData documentation UI uses TypeScript and JavaScript with ES6+ syntax and
@@ -453,13 +476,14 @@ If you're adding UI functionality that requires JavaScript, follow these steps:
 
    ```html
    <div data-component="my-component"></div>
-   ``` 
+   ```
 
 2. Following the component pattern, create a single-purpose JavaScript module
    (`assets/js/components/my-component.js`)
    that exports a single function that receives the component element and initializes it.
+
 3. In `assets/js/main.js`, import the module and register the component to ensure
-   the component is initialized on page load. 
+   the component is initialized on page load.
 
 ##### Debugging JavaScript
 
@@ -473,7 +497,7 @@ To debug JavaScript code used in the InfluxData documentation UI, choose one of 
 1. In VS Code, select Run > Start Debugging.
 2. Select the "Debug Docs (source maps)" configuration.
 3. Click the play button to start the debugger.
-5. Set breakpoints in the JavaScript source files--files in the
+4. Set breakpoints in the JavaScript source files--files in the
    `assets/js/ns-hugo-imp:` namespace-- in the
    VS Code editor or in the Chrome Developer Tools Sources panel:
 
@@ -487,8 +511,9 @@ To debug JavaScript code used in the InfluxData documentation UI, choose one of 
 1. In your JavaScript module, import debug helpers from `assets/js/utils/debug-helpers.js`.
    These helpers provide breakpoints and console logging as a workaround or alternative for
    using source maps and the Chrome DevTools debugger.
+
 2. Insert debug statements by calling the helper functions in your code--for example:
-   
+
    ```js
    import { debugLog, debugBreak, debugInspect } from './utils/debug-helpers.js';
 
