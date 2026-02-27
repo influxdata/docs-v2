@@ -276,13 +276,13 @@ Vale checks documentation for style guide violations, spelling errors, and brand
 
 ```bash
 # Basic linting (all markdown files)
-docker compose run -T vale content/**/*.md
+.ci/vale/vale.sh content/**/*.md
 
 # Lint specific product
-docker compose run -T vale content/influxdb3/core/**/*.md
+.ci/vale/vale.sh content/influxdb3/core/**/*.md
 
 # With specific config and alert level
-docker compose run -T vale \
+.ci/vale/vale.sh \
   --config=content/influxdb/cloud-dedicated/.vale.ini \
   --minAlertLevel=error \
   content/influxdb/cloud-dedicated/write-data/**/*.md

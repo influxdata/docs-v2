@@ -1,0 +1,82 @@
+name: Check pinned dependency updates
+
+on:
+  schedule:
+    # Run every Monday at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+# Each entry in the matrix defines a pinned dependency:
+#   name:        Human-readable name
+#   repo:        GitHub owner/repo to check for releases
+#   file:        Local file containing the pinned version
+#   pattern:     grep -oP pattern to extract the current version (must capture bare semver)
+#   sed_pattern: sed expression to replace the old version with the new one
+#                Use CURRENT and LATEST as placeholders.
+
+jobs:
+  check-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        dep:
+          - name: Vale
+            repo: errata-ai/vale
+            file: .ci/vale/vale.sh
+            pattern: '^VALE_VERSION="\K[^"]+'
+            sed_pattern: 's/^VALE_VERSION="CURRENT"/VALE_VERSION="LATEST"/'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for update
+        id: check
+        run: |
+          CURRENT=$(grep -oP '${{ matrix.dep.pattern }}' '${{ matrix.dep.file }}')
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+
+          LATEST=$(curl -sL \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ matrix.dep.repo }}/releases/latest" \
+            | jq -r '.tag_name' | sed 's/^v//')
+
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+
+          if [ "$CURRENT" = "$LATEST" ]; then
+            echo "up-to-date=true" >> "$GITHUB_OUTPUT"
+            echo "${{ matrix.dep.name }} is up to date ($CURRENT)"
+          else
+            echo "up-to-date=false" >> "$GITHUB_OUTPUT"
+            echo "${{ matrix.dep.name }} update available: $CURRENT → $LATEST"
+          fi
+
+      - name: Update pinned version
+        if: steps.check.outputs.up-to-date == 'false'
+        run: |
+          SED_EXPR='${{ matrix.dep.sed_pattern }}'
+          SED_EXPR="${SED_EXPR//CURRENT/${{ steps.check.outputs.current }}}"
+          SED_EXPR="${SED_EXPR//LATEST/${{ steps.check.outputs.latest }}}"
+          sed -i "$SED_EXPR" '${{ matrix.dep.file }}'
+
+          echo "Updated ${{ matrix.dep.file }}:"
+          grep -n '${{ steps.check.outputs.latest }}' '${{ matrix.dep.file }}'
+
+      - name: Create pull request
+        if: steps.check.outputs.up-to-date == 'false'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(deps): update ${{ matrix.dep.name }} to v${{ steps.check.outputs.latest }}"
+          branch: "chore/update-${{ matrix.dep.name }}-${{ steps.check.outputs.latest }}"
+          title: "chore(deps): update ${{ matrix.dep.name }} to v${{ steps.check.outputs.latest }}"
+          body: |
+            Updates pinned **${{ matrix.dep.name }}** version in `${{ matrix.dep.file }}`
+            from v${{ steps.check.outputs.current }} to v${{ steps.check.outputs.latest }}.
+
+            **Release notes**: https://github.com/${{ matrix.dep.repo }}/releases/tag/v${{ steps.check.outputs.latest }}
+          labels: dependencies
