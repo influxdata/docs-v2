@@ -176,22 +176,34 @@ Remove RapiDoc-specific styles, JavaScript, and references from the codebase.
 
 ***
 
-### Task 7: Fix Generation Script for Clean Regeneration
+### Task 7: Fix Generation Script for Clean Regeneration ✅ COMPLETED
 
-**Priority:** Medium
+**Priority:** Medium | **Status:** Completed 2026-02-17
 
-Update the generation script to properly clean directories before regenerating.
+Added clean regeneration to prevent stale files from accumulating when tags are renamed or removed.
 
-**Files to modify:**
+**Files modified:**
 
-- `api-docs/scripts/generate-openapi-articles.ts`
-- `api-docs/scripts/openapi-paths-to-hugo-data/index.ts`
+- `api-docs/scripts/generate-openapi-articles.ts` - Added cleanup functions and CLI flags
 
-**Requirements:**
+**Implementation:**
 
-1. Add `--clean` flag to remove target directories before generating
-2. Track expected output files and warn about stale entries
-3. Clear Hugo resource cache when structural changes detected
+1. ✅ Added `--no-clean` flag to skip cleanup (default is to clean)
+2. ✅ Added `--dry-run` flag to preview what would be deleted
+3. ✅ Added `getCleanupPaths()` function to identify directories/files to clean
+4. ✅ Added `cleanProductOutputs()` function to delete directories and files
+5. ✅ Added `showDryRunPreview()` function for dry-run output
+6. ✅ Integrated cleanup into `processProduct()` (runs before generation)
+7. ✅ Updated script header documentation with new usage examples
+
+**Cleaned directories per product:**
+
+- `static/openapi/{staticDirName}/` - Tag specs
+- `static/openapi/{staticDirName}-*.yml` and `.json` - Root specs
+- `data/article_data/influxdb/{productKey}/` - Article data
+- `content/{pagesDir}/api/` - Content pages
+
+**Design:** See `plans/2026-02-17-api-clean-regeneration-design.md`
 
 ***
 
