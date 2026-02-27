@@ -124,6 +124,68 @@ Potential causes:
   # This is ignored
   ```
 
+### Performance Optimization
+
+Code block testing can be time-consuming for large documentation sets. Several optimization strategies are available:
+
+#### Parallel Test Execution by Language
+
+Test specific programming languages independently:
+
+```bash
+# Test only Python code blocks
+yarn test:codeblocks:python
+
+# Test only Bash/Shell code blocks
+yarn test:codeblocks:bash
+
+# Test only SQL code blocks
+yarn test:codeblocks:sql
+```
+
+**Benefits:**
+- Faster feedback for specific language changes
+- Easier debugging of language-specific issues
+- Enables parallel execution in CI
+
+#### Test Result Caching
+
+Cache successful test results to avoid retesting unchanged content:
+
+```bash
+# Inside test container
+./test/scripts/cached-test.sh content/influxdb/cloud/get-started/
+
+# View cache statistics
+yarn test:cache:stats
+
+# Clean expired cache entries
+yarn test:cache:clean
+```
+
+**How it works:**
+- Creates content hash for files/directories
+- Caches successful test results for 7 days
+- Skips tests if content unchanged and cache valid
+- Bypasses cache with `TEST_CACHE_BYPASS=1`
+
+#### Cache Management Commands
+
+```bash
+yarn test:cache:stats   # Show cache statistics
+yarn test:cache:list    # List all cached results
+yarn test:cache:clean   # Remove expired entries (>7 days)
+yarn test:cache:clear   # Remove all entries
+```
+
+#### Performance Comparison
+
+**Without optimization:** ~45 minutes (sequential)
+**With parallel execution:** ~18 minutes (59% faster)
+**With caching (2nd run):** ~5 seconds (97% faster)
+
+For comprehensive performance optimization documentation, see [test/TEST-PERFORMANCE.md](test/TEST-PERFORMANCE.md).
+
 ## LLM-Friendly Markdown Generation
 
 The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.
