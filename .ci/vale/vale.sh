@@ -17,7 +17,7 @@ VALE_VERSION="3.13.1"
 VALE_MAJOR_MIN=3
 
 if command -v vale &>/dev/null; then
-  local_version=$(vale --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+  local_version=$(vale --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)
   local_major=${local_version%%.*}
 
   if [[ -z "$local_major" || "$local_major" -lt "$VALE_MAJOR_MIN" ]]; then
