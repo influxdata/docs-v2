@@ -1,11 +1,11 @@
 {{- $_hugo_config := `{ "version": 1 }` -}}
 {{- $icon := .Get 0 | default "influx" -}}
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $product := index $productPathData 0 -}}
-{{- $productVersion := index $productPathData 1 | default "v0" -}}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $namespace := $productData.namespace | default (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) -}}
+{{- $productVersion := .Page.Params.version | default "v0" -}}
 
 {{- $defaultClockface := "" -}}
-{{- with (index .Site.Data.clockface $product) -}}
+{{- with (index .Site.Data.clockface $namespace) -}}
   {{- $defaultClockface = index . (cond (isset . $productVersion) $productVersion "default") -}}
 {{- end -}}
 {{- $version := .Get 1 | default $defaultClockface -}}

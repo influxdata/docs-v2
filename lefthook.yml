@@ -34,10 +34,15 @@ pre-commit:
     # Auto-fix markdown formatting for instruction and README files (like prettier)
     lint-markdown-instructions:
       tags: lint
-      glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md}"
+      glob:
+        - "README.md"
+        - "[A-Z]*.md"
+        - ".github/**/*.md"
+        - ".claude/**/*.md"
       run: |
-        # Filter out content directory files, then prepend /workdir/ to each remaining file
-        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
+        # Filter out content and layout files (shortcode .md files contain Hugo template syntax
+        # that remark-lint would escape), then prepend /workdir/ to each remaining file
+        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | grep -v '^layouts/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
         if [ -n "$files" ]; then
           docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
             { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
