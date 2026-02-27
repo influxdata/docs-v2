@@ -39,13 +39,22 @@ jobs:
         id: check
         run: |
           CURRENT=$(grep -oP '${{ matrix.dep.pattern }}' '${{ matrix.dep.file }}')
+          if [ -z "$CURRENT" ]; then
+            echo "Failed to determine current version from ${{ matrix.dep.file }}" >&2
+            exit 1
+          fi
           echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
 
-          LATEST=$(curl -sL \
+          LATEST=$(curl -sSfL \
             -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ github.token }}" \
             "https://api.github.com/repos/${{ matrix.dep.repo }}/releases/latest" \
             | jq -r '.tag_name' | sed 's/^v//')
 
+          if [ -z "$LATEST" ] || [ "$LATEST" = "null" ]; then
+            echo "Failed to determine latest release tag from GitHub API for ${{ matrix.dep.repo }}" >&2
+            exit 1
+          fi
           echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
 
           if [ "$CURRENT" = "$LATEST" ]; then
