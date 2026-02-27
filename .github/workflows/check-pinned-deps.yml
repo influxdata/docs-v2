@@ -38,6 +38,7 @@ jobs:
       - name: Check for update
         id: check
         run: |
+          set -euo pipefail
           CURRENT=$(grep -oP '${{ matrix.dep.pattern }}' '${{ matrix.dep.file }}')
           if [ -z "$CURRENT" ]; then
             echo "Failed to determine current version from ${{ matrix.dep.file }}" >&2
@@ -68,6 +69,7 @@ jobs:
       - name: Update pinned version
         if: steps.check.outputs.up-to-date == 'false'
         run: |
+          set -euo pipefail
           SED_EXPR='${{ matrix.dep.sed_pattern }}'
           SED_EXPR="${SED_EXPR//CURRENT/${{ steps.check.outputs.current }}}"
           SED_EXPR="${SED_EXPR//LATEST/${{ steps.check.outputs.latest }}}"
