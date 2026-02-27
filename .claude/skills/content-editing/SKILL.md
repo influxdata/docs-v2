@@ -165,7 +165,6 @@ See [DOCS-FRONTMATTER.md](../../../DOCS-FRONTMATTER.md#alternative-links-alt_lin
 
 ### Check product resource terms are cross-referenced
 
-When creating or editing content, check that product resource terms link to pages under `content/<product>/admin/` or `content<product>/reference/` that help the user understand and set up the resource.
 Product resource terms often appear inside `code-placeholder-key` shortcode text and bullet item text.
 Example product resource terms:
 
