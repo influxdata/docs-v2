@@ -22,7 +22,7 @@ Autoscaling helps protect performance during spikes while minimizing manual inte
 
 ## What is autoscaling
 
-Autoscaling for InfluxDB Cloud Dedicated automatically scales cluster components based on workload demand.
+Autoscaling for {{% product-name %}} automatically scales cluster components based on workload demand.
 Clusters scale up from a minimum committed size to upper limits that you define, and scale back toward the baseline when demand decreases.
 
 With autoscaling, you can:
@@ -49,17 +49,19 @@ In particular, ingest and query components can scale separately based on their r
 Autoscaling does not change other aspects of your contract, such as data retention or feature availability.
 Your {{% product-name %}} representative or support team will confirm appropriate limits for each cluster.
 
-### Important details
+### Scaling and billing
 
-- Scaling occurs **only when your workload requires it**.
-- While the cluster runs at or below the baseline configuration, usage is covered by your existing commitment.
-- If autoscaling increases resources above the baseline, you may incur **additional usage charges** beyond your committed spend, in accordance with your agreement.
+Scaling occurs only when your workload requires it.
+While the cluster runs at or below the baseline configuration, usage is covered by your existing commitment.
 
-Work with your Account Executive to choose limits that balance performance goals and cost expectations.
+> [!Important]
+> If autoscaling increases resources above the baseline, you may incur **additional usage charges** beyond your committed spend, in accordance with your agreement.
+> Work with your Account Executive to choose limits that balance performance goals and cost expectations.
 
 ## Enable autoscaling for a cluster
 
-To enable autoscaling for a Cloud Dedicated cluster, [contact InfluxData support](https://support.influxdata.com) to review your autoscaling requirements and configure limits.
+[Contact InfluxData support](https://support.influxdata.com) to enable autoscaling for your cluster.
+Provide your autoscaling requirements so the support team can configure appropriate limits.
 
 ## Update or disable autoscaling
 
@@ -68,7 +70,7 @@ For example, you might raise the upper limit for querier CPU, lower the limit fo
 
 To update or disable autoscaling for a cluster, [contact InfluxData support](https://support.influxdata.com) and provide:
 
-- Cloud Dedicated account ID and cluster ID.
+- Cloud Dedicated [account ID](/influxdb3/cloud-dedicated/admin/account/) and [cluster ID](/influxdb3/cloud-dedicated/admin/clusters/).
 - Whether you want to:
   - Change autoscaling limits for querier and ingester components, or
   - Disable autoscaling for the cluster.
@@ -76,7 +78,7 @@ To update or disable autoscaling for a cluster, [contact InfluxData support](htt
 
 ## Monitor autoscaling behavior
 
-If autoscaling is enabled, you can view the configured limits in the cluster card on the **Overview** page of the Admin UI.
+If autoscaling is enabled, you can view the configured limits in the cluster card on the Admin UI **Overview** page.
 
 <!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-autoscaling.png" alt="Autoscaling enabled for cluster in Admin UI Cluster Overview page" />}}
