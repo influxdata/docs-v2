@@ -594,7 +594,7 @@ ls content/influxdb3/core/api/
 | Run Vale linting           | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
 | Test links                 | `yarn test:links`                                                                 |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
-| Test specific page         | `node cypress/support/run-e2e-specs.js content/path/file.md`                      |
+| Test specific page         | `yarn test:e2e content/path/file.md`                                              |
 | Fact-check with MCP        | Ask AI assistant with `search_influxdb_knowledge_sources` tool configured         |
 | Preview locally            | `yarn hugo server` (visit localhost:1313)                                         |
 | Generate API docs          | `yarn build:api-docs` (before API reference tests)                                |
