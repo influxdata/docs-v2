@@ -15,7 +15,7 @@
  *   CTA products:    cta-link (cloud-dedicated, clustered)
  *   Telegraf:        telegraf/verify
  *
- * Test pages live at /{content-path}/_test/shortcodes/.
+ * Test pages live at /{content-path}/__tests__/shortcodes/.
  * This array maps product keys to their content paths and versions.
  * All other test expectations (name, altname, limits, distributed, host)
  * are derived at runtime from products.yml via cy.task('getData').
@@ -142,7 +142,7 @@ describe('Cascade product shortcodes', function () {
 
   testPages.forEach(({ key, version, path }) => {
     const label = key === 'influxdb' ? `${key} (${version})` : key;
-    const testUrl = `${path}_test/shortcodes/`;
+    const testUrl = `${path}__tests__/shortcodes/`;
     const isInfluxdb3 = path.startsWith('/influxdb3/');
 
     describe(label, function () {
