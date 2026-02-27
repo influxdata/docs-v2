@@ -23,13 +23,13 @@ Autoscaling helps protect performance during spikes while minimizing manual inte
 ## What is autoscaling
 
 Autoscaling for InfluxDB Cloud Dedicated automatically scales cluster components based on workload demand.
-Clusters scale up from a minimum committed size to upper limits you have chosen, and scale back toward the baseline when demand decreases.
+Clusters scale up from a minimum committed size to upper limits that you define, and scale back toward the baseline when demand decreases.
 
 With autoscaling, you can:
 
 - **Improve performance**: Scale up automatically during peak loads to maintain ingest and query performance.
-- **Increase cost efficiency**: Scale down to your baseline commitment when demand is lower to optimize infrastructure costs.
-- **Simplify operations**: Reduce manual interventions needed to resize clusters depending on workload demand.
+- **Increase cost efficiency**: Scale down to your baseline commitment during periods of low demand to reduce infrastructure costs.
+- **Simplify operations**: Reduce manual interventions needed to resize clusters as workloads change.
 
 Autoscaling is generally available for {{% product-name %}} clusters.
 
@@ -44,24 +44,22 @@ In particular, ingest and query components can scale separately based on their r
 - You select **upper autoscaling limits** for key components (for example, querier and ingester CPU).
 - When workload demand increases and resource utilization exceeds thresholds, autoscaling increases resources for the affected components, up to the configured limits.
 - When demand drops and capacity is no longer required, autoscaling gradually scales components back toward the baseline.
-- Scaling events can be extremely granular, adding as few CPUs and memory as possible and use both CPU and memory as vectors to determine when and how to scale.
+- Scaling can be granular, adding as few CPUs and as little memory as needed; both CPU and memory are used to determine when and how to scale.
 
 Autoscaling does not change other aspects of your contract, such as data retention or feature availability.
- {{% product-name %}} Support will confirm appropriate limits for each cluster.
+Your {{% product-name %}} representative or support team will confirm appropriate limits for each cluster.
 
 ### Important details
 
-- Autoscaling occurs **only when your workload requires it**. 
+- Scaling occurs **only when your workload requires it**.
 - While the cluster runs at or below the baseline configuration, usage is covered by your existing commitment.
-- If autoscaling increases resources above the baseline, you may incur **additional usage charges** beyond your committed spend. 
+- If autoscaling increases resources above the baseline, you may incur **additional usage charges** beyond your committed spend, in accordance with your agreement.
 
 Work with your Account Executive to choose limits that balance performance goals and cost expectations.
 
 ## Enable autoscaling for a cluster
 
 To enable autoscaling for a Cloud Dedicated cluster, [contact InfluxData support](https://support.influxdata.com) to review your autoscaling requirements and configure limits.
-
-
 
 ## Update or disable autoscaling
 
@@ -78,17 +76,15 @@ To update or disable autoscaling for a cluster, [contact InfluxData support](htt
 
 ## Monitor autoscaling behavior
 
-If autoscaling is enabled, you will be able to see the limits in the cluster card on the overview page of the Admin UI. 
+If autoscaling is enabled, you can view the configured limits in the cluster card on the **Overview** page of the Admin UI. 
 
 <!-- vale Vale.Terms = NO -->
 {{< img-hd src="/img/influxdb3/cloud-dedicated-admin-ui-autoscaling.png" alt="Autoscaling enabled for cluster in Admin UI Cluster Overview page" />}}
 
 
 
-After autoscaling is enabled, you can monitor cluster performance and capacity to understand how and when scaling occurs.
-If autoscaling is enabled, you can use the same page to monitor CPU allocation, component CPU distribution, and cluster metrics.
-  See [Monitor your cluster](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/).
-
+After autoscaling is enabled, monitor cluster performance and capacity to understand how and when scaling occurs.
+Use the Admin UI **Overview** page to monitor CPU allocation, component CPU distribution, and cluster metrics.
+For more information, see [Monitor your cluster](/influxdb3/cloud-dedicated/admin/monitor-your-cluster/).
 
 If you see sustained utilization near your autoscaling limits or frequent scaling events during normal workloads, contact your Account Executive or support team to review and adjust limits.
-
