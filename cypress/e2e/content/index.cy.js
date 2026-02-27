@@ -1,25 +1,25 @@
 /// <reference types="cypress" />
 
-describe('Docs home', function() {
+describe('Docs home', function () {
   beforeEach(() => cy.visit('/'));
 
-  it('has metadata', function() {
+  it('has metadata', function () {
     cy.title().should('eq', 'InfluxData Documentation');
   });
 
-  it('can search with mispellings', function() {
+  it('can search with mispellings', function () {
     cy.get('.sidebar--search').within(() => {
       cy.get('input#algolia-search-input').type('sql uery');
-      cy.get('#algolia-autocomplete-listbox-0')
-        .should('contain', 'Basic query examples')
-      cy.get('input#algolia-search-input')
-        .type('{esc}')
-      cy.get('#algolia-autocomplete-listbox-0')
-        .should('not.be.visible'); 
+      cy.get('#algolia-autocomplete-listbox-0').should(
+        'contain',
+        'Basic query examples'
+      );
+      cy.get('input#algolia-search-input').type('{esc}');
+      cy.get('#algolia-autocomplete-listbox-0').should('not.be.visible');
     });
   });
 
-  it('main heading', function() {
+  it('main heading', function () {
     cy.get('h1').should('contain', 'InfluxData Documentation');
   });
 
@@ -37,4 +37,3 @@ describe('Docs home', function() {
       });
   });
 });
-
