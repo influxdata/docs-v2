@@ -349,7 +349,7 @@ paths:
                   clusterId: 33333333-3333-4333-8333-333333333333
                   name: DatabaseOne
                   maxTables: 500
-                  maxColumnsPerTable: 200
+                  maxColumnsPerTable: 250
                   retentionPeriod: 0
                 - accountId: 11111111-1111-4111-8111-111111111111
                   clusterId: 33333333-3333-4333-8333-333333333333
@@ -514,7 +514,7 @@ paths:
                     clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 500
-                    maxColumnsPerTable: 200
+                    maxColumnsPerTable: 250
                     retentionPeriod: 0
                 allFields:
                   summary: All Fields
@@ -688,7 +688,7 @@ paths:
                     clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 300
-                    maxColumnsPerTable: 200
+                    maxColumnsPerTable: 250
                     retentionPeriod: 0
                 maxColumnsPerTableOnly:
                   summary: Update Max Columns Per Table Only
@@ -706,7 +706,7 @@ paths:
                     clusterId: 33333333-3333-4333-8333-333333333333
                     name: DatabaseOne
                     maxTables: 500
-                    maxColumnsPerTable: 200
+                    maxColumnsPerTable: 250
                     retentionPeriod: 600000000000
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -2086,7 +2086,7 @@ components:
       description: The maximum number of columns per table for the cluster database
       type: integer
       format: int32
-      default: 200
+      default: 250
       examples:
         - 50
         - 150
