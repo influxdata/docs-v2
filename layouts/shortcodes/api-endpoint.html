@@ -1,16 +1,7 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
-{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
-{{- $currentVersion := index $productPathData (add $pathOffset 1) -}}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $hostOverride := .Get "influxdb_host" | default "" -}}
+{{- $placeholderHost := cond (gt (len $hostOverride) 0) $hostOverride ($productData.placeholder_host | default "localhost:8086") -}}
 {{- $endpoint := .Get "endpoint" -}}
-{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
-{{- $parsedProductKey := cond $isOSS "oss" $currentVersion -}}
-{{- $productKey := .Get "influxdb_host" | default $parsedProductKey -}}
-{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "core" "influxdb3_core" "enterprise" "influxdb3_enterprise" "cloud-serverless" "influxdb3_cloud_serverless" "serverless" "influxdb3_cloud_serverless" "cloud-dedicated" "influxdb3_cloud_dedicated" "dedicated" "influxdb3_cloud_dedicated" "clustered" "influxdb3_clustered" "cloud1" "influxdb_cloud1" -}}
-{{- $productRef := index $productAliases $productKey -}}
-{{- $productData := dict -}}
-{{- with $productRef }}{{- $productData = index $.Site.Data.products . | default dict -}}{{- end -}}
-{{- $placeholderHost := $productData.placeholder_host | default "localhost:8086" }}
 {{- $method := .Get "method" | upper -}}
 {{- $methodStyle := .Get "method" | lower -}}
 {{- $apiRef := .Get "api-ref" | default "" -}}

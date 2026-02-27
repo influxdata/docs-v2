@@ -1,13 +1,9 @@
-{{- $scratch := newScratch -}}
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $parsedVersion := replaceRE "v" "" (index $productPathData 1) -}}
 {{- $versionArg := .Get "version" | default "" -}}
+{{- $version := cond (gt (len $versionArg) 0) $versionArg .Page.Params.version -}}
 {{- $latestVersion := replaceRE "v" "" (index .Site.Data.products.influxdb "latest") -}}
-{{- $version := cond (gt (len $versionArg) 0) $versionArg $parsedVersion -}}
 {{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
 {{- if eq $version "cloud" -}}
-  {{- $scratch.Set "cliVersion" (index $cliVersions $latestVersion) -}}
+  {{- index $cliVersions $latestVersion -}}
 {{- else -}}
-  {{- $scratch.Set "cliVersion" (index $cliVersions $version) -}}
+  {{- index $cliVersions $version -}}
 {{- end -}}
-{{- $scratch.Get "cliVersion" -}}
