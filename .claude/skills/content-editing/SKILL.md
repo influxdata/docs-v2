@@ -341,7 +341,7 @@ The **InfluxDB documentation MCP server** lets you search InfluxDB documentation
 ### When to Use the Documentation MCP Server
 
 The primary source of content in the Documentation MCP Server is the fully rendered `public` HTML from this repository.
-Use the Documentation MCP Server when the information here is inconclusive or you need to deepen your understanding of InfluxData products and integrations.
+Use the Documentation MCP Server when the information here is inconclusive, when you need to deepen your understanding of InfluxData products and integrations, or when identifying content gaps in the documentation.
 
 **Use for:**
 
@@ -350,6 +350,7 @@ Use the Documentation MCP Server when the information here is inconclusive or yo
 - Confirming feature availability across products
 - Understanding complex product behavior
 - Finding related documentation and code examples
+- Identifying and analyzing content gaps in the documentation
 
 **Don't use for:**
 

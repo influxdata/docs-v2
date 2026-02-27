@@ -593,7 +593,7 @@ Style linting uses [Vale](https://vale.sh/) to enforce documentation writing sta
 docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
 ```
 
-### VS Code Integration
+### VS Code IDE Integration
 
 1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension
 2. Install Vale on your system ([Vale installation guide](https://vale.sh/docs/install/))
