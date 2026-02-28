@@ -27,9 +27,9 @@ filters:
 # Ignore URL paths (e.g., /api/v2/write, /kapacitor/v1/api/v2/tasks)
 # Matches: /path/to/endpoint, /v2.0/api/write, /influxdb/v1.8/cli
   - '/[a-zA-Z0-9/_\-\.\{\}]+'
-# Ignore full URLs (http, https, ftp, etc.)
-# Matches: https://docs.example.com, http://localhost:8086
-  - 'https?://[^\s\)\]>"]+'
+# Ignore full URLs (http, https, ftp, ftps, ssh, file, etc.)
+# Matches: https://docs.example.com, http://localhost:8086, ftp://server.com, ssh://host
+  - '(?:https?|ftp|ftps|ssh|file)://[^\s\)\]>"]+'
 
 # === CODE IDENTIFIERS & VARIABLES ===
 # camelCase and snake_case identifiers (requires >=1 uppercase OR >=1 underscore)
