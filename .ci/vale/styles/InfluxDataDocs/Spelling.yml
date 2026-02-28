@@ -32,9 +32,12 @@ filters:
   - 'https?://[^\s\)\]>"]+'
 
 # === CODE IDENTIFIERS & VARIABLES ===
-# camelCase identifiers and variable names
-# Matches: myVariable, targetField, getRawData, terminationGracePeriodSeconds
-  - '[a-z_][a-zA-Z0-9_]*(?:[A-Z][a-zA-Z0-9_]*)*'
+# camelCase and snake_case identifiers (requires >=1 uppercase OR >=1 underscore)
+# camelCase: _*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)* - requires >=1 uppercase
+# snake_case: [a-z_][a-z0-9]*_[a-z0-9_]* - requires >=1 underscore
+# Matches: myVariable, targetField, _privateVar, my_variable, terminationGracePeriodSeconds
+# Does NOT match prose: provide, database, variable (normal words)
+  - '(?:_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*|[a-z_][a-z0-9]*_[a-z0-9_]*)'
 # UPPER_CASE constants and environment variables
 # Matches: API_KEY, MY_CONSTANT, AWS_REGION, INFLUXDB_TOKEN
   - '[A-Z_][A-Z0-9_]+'
