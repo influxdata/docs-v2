@@ -51,13 +51,23 @@ Unlike other documentation style checkers, this configuration **intentionally in
 
 ### Filter Patterns Explained
 
-#### 1. camelCase Identifiers
+#### 1. camelCase and snake_case Identifiers
 ```regex
-[a-z_][a-zA-Z0-9_]*(?:[A-Z][a-zA-Z0-9_]*)*
+(?:_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*|[a-z_][a-z0-9]*_[a-z0-9_]*)
 ```
-**Why**: Prevents false positives on variable names and method names
-**Examples Ignored**: `myVariable`, `targetField`, `getCwd`, `terminationGracePeriodSeconds`
-**Limitations**: Won't match single-letter vars (A, B, C) - acceptable
+**Why**: Prevents false positives on variable/method names while NOT matching normal prose
+
+**Breakdown**:
+- **camelCase**: `_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*`
+  - Requires at least one uppercase letter (distinguishes `myVariable` from `provide`)
+  - Allows leading underscores for private variables (`_privateVar`, `__dunder__`)
+- **snake_case**: `[a-z_][a-z0-9]*_[a-z0-9_]*`
+  - Requires at least one underscore
+  - Distinguishes `my_variable` from normal words
+
+**Examples Ignored**: `myVariable`, `targetField`, `getCwd`, `_privateVar`, `my_variable`, `terminationGracePeriodSeconds`
+
+**Examples NOT Ignored** (caught by spell-checker): `provide`, `database`, `variable` (normal prose)
 
 #### 2. UPPER_CASE Constants
 ```regex
