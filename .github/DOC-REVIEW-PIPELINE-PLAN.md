@@ -14,7 +14,7 @@
 3. [Architecture Overview](#architecture-overview)
 4. [Phase 1: Label System Overhaul](#phase-1-label-system-overhaul)
 5. [Phase 2: Doc Review Workflow](#phase-2-doc-review-workflow)
-6. [Phase 3: Documentation and Integration](#phase-3-documentation-and-integration)
+6. [Phase 3: Documentation and Agent Instructions](#phase-3-documentation-and-agent-instructions)
 7. [Future Phases (Not In Scope)](#future-phases-not-in-scope)
 8. [Open Questions and Decisions](#open-questions-and-decisions)
 9. [Risk Assessment](#risk-assessment)
@@ -390,9 +390,64 @@ The prompt should instruct Claude to:
 
 ---
 
-## Phase 3: Documentation and Integration
+## Phase 3: Documentation and Agent Instructions
 
-### 3.1 — Label usage guide
+### 3.1 — Instruction file architecture
+
+**Principle:** One `CLAUDE.md` that references role-specific files. No per-role
+CLAUDE files — Claude Code only reads one `CLAUDE.md` per directory level. The
+role context comes from the task prompt (GitHub Actions workflow), not the config
+file.
+
+```
+CLAUDE.md                                  ← lightweight pointer (already exists)
+  ├── references .github/LABEL_GUIDE.md    ← label taxonomy + usage
+  ├── references .claude/agents/           ← role-specific agent instructions
+  │     ├── doc-triage-agent.md            ← NEW: triage + auto-label logic
+  │     └── doc-review-agent.md            ← NEW: diff + visual review logic
+  └── references .github/prompts/          ← workflow-specific prompts
+        └── doc-visual-review.md           ← NEW: prompt for Claude Code Action
+```
+
+**How roles are assigned at runtime:**
+- GitHub Actions workflow sets the task prompt (e.g., "Review this PR using
+  the instructions in `.claude/agents/doc-review-agent.md`")
+- The agent file contains role-specific logic (what to check, how to label)
+- Shared rules (style guide, frontmatter, shortcodes) stay in the existing
+  referenced files (`DOCS-CONTRIBUTING.md`, `DOCS-SHORTCODES.md`, etc.)
+- No duplication — each agent file says what's unique to that role
+
+### 3.2 — Agent instruction files
+
+#### `.claude/agents/doc-triage-agent.md`
+
+Role-specific instructions for issue/PR triage. Contents:
+
+- **Label taxonomy** — Full label list with categories, colors, descriptions
+- **Path-to-product mapping** — Which content paths map to which `product:*` labels
+- **Priority rules** — How to assess priority based on product, scope, and issue type
+- **Decision logic** — When to apply `agent-ready`, `waiting:*`, `review/needs-human`
+- **Migration context** — Old label → new label mapping (useful during transition)
+
+This file does NOT duplicate style guide rules. It references
+`DOCS-CONTRIBUTING.md` for those.
+
+#### `.claude/agents/doc-review-agent.md`
+
+Role-specific instructions for PR review. Contents:
+
+- **Review scope** — What to check in diff review vs. visual review
+- **Severity classification** — BLOCKING / WARNING / INFO definitions with examples
+- **Output format** — Structured review comment template
+- **Label application** — When to apply `review/approved`, `review/changes-requested`,
+  `review/needs-human`
+- **Screenshot analysis** — What to look for in rendered page screenshots
+  (raw shortcodes, broken layouts, placeholder text, 404s)
+
+This file references `DOCS-CONTRIBUTING.md` for style rules and
+`DOCS-SHORTCODES.md` for shortcode syntax — it does NOT restate them.
+
+### 3.3 — Label usage guide
 
 **File:** `.github/LABEL_GUIDE.md`
 
@@ -402,20 +457,45 @@ Contents:
 - GitHub filter queries for agents and humans
 - Auto-labeling behavior reference
 
-### 3.2 — Update agent instructions
+### 3.4 — Update existing pointer files
 
-- Add label workflow section to `AGENTS.md` (key labels for agents, when to
-  apply `agent-ready`, how `waiting:*` labels work)
-- Add reference in `CLAUDE.md` pointing to `.github/LABEL_GUIDE.md`
-- Update `.github/copilot-instructions.md` to reference the label guide
+**`CLAUDE.md`** — Add one line to the "Full instruction resources" list:
+```markdown
+- [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) - Label taxonomy and pipeline usage
+```
 
-### 3.3 — Review prompt file
+**`AGENTS.md`** — Add a section referencing the label guide and agent roles:
+```markdown
+## Doc Review Pipeline
+- Label guide: `.github/LABEL_GUIDE.md`
+- Triage agent: `.claude/agents/doc-triage-agent.md`
+- Review agent: `.claude/agents/doc-review-agent.md`
+```
+
+**`.github/copilot-instructions.md`** — Add the label guide to the
+"Specialized Resources" table.
+
+These are small additions — no restructuring of existing files.
+
+### 3.5 — Review prompt file
 
 **File:** `.github/prompts/doc-visual-review.md`
 
-Stored separately from the workflow so it can be iterated independently.
-Supplements (does not replace) the existing instructions in `CLAUDE.md` and
-`AGENTS.md`.
+This is the prompt passed to `claude-code-action` in the workflow. It is
+**separate from** the agent instruction file (`.claude/agents/doc-review-agent.md`)
+because:
+
+- The prompt is tightly coupled to the workflow (references artifact paths,
+  PR context variables, output format for GitHub comments)
+- The agent file is reusable across contexts (Claude Code CLI, manual review,
+  future workflows)
+
+The prompt should `@reference` the agent file:
+```markdown
+Follow the review instructions in `.claude/agents/doc-review-agent.md`.
+```
+
+This way the prompt stays small and the review logic lives in one place.
 
 ---
 
@@ -519,11 +599,13 @@ Files to create or modify:
 | Create | `.github/workflows/auto-label.yml` | 1.3 |
 | Create | `.github/workflows/doc-review.yml` | 2.1 |
 | Create | `.github/scripts/capture-screenshots.js` | 2.3 |
-| Create | `.github/prompts/doc-visual-review.md` | 2.4 |
-| Modify | `AGENTS.md` | 3.2 |
-| Modify | `CLAUDE.md` | 3.2 |
-| Modify | `.github/copilot-instructions.md` | 3.2 |
-| Create | `.github/LABEL_GUIDE.md` | 3.1 |
+| Create | `.claude/agents/doc-triage-agent.md` | 3.2 |
+| Create | `.claude/agents/doc-review-agent.md` | 3.2 |
+| Create | `.github/LABEL_GUIDE.md` | 3.3 |
+| Create | `.github/prompts/doc-visual-review.md` | 3.5 |
+| Modify | `CLAUDE.md` | 3.4 |
+| Modify | `AGENTS.md` | 3.4 |
+| Modify | `.github/copilot-instructions.md` | 3.4 |
 
 ---
 
@@ -532,9 +614,10 @@ Files to create or modify:
 1. **Phase 1.1–1.2** — Create label migration scripts (PR 1)
 2. **Phase 1.3** — Create auto-label workflow (can be in PR 1 or separate)
 3. **Execute label migration** — Run scripts with human gates (not a code PR)
-4. **Phase 2.1–2.2** — Workflow skeleton + URL resolution job (PR 2)
-5. **Phase 2.3** — Screenshot capture script + job (PR 2)
-6. **Phase 2.4** — Claude review job + prompt file (PR 2)
-7. **Phase 2.5** — Copilot review step (PR 2)
-8. **Phase 3.1–3.3** — Documentation updates (PR 3 or combined with PR 2)
-9. **Test end-to-end** — Open a test PR touching docs content, verify full pipeline
+4. **Phase 3.2** — Create agent instruction files (PR 2 — can start in parallel with Phase 2)
+5. **Phase 2.1–2.2** — Workflow skeleton + URL resolution job (PR 3)
+6. **Phase 2.3** — Screenshot capture script + job (PR 3)
+7. **Phase 2.4** — Claude review job + prompt file (PR 3, uses agent files from Phase 3.2)
+8. **Phase 2.5** — Copilot review step (PR 3)
+9. **Phase 3.3–3.5** — Label guide, pointer updates, review prompt (PR 4 or combined with PR 3)
+10. **Test end-to-end** — Open a test PR touching docs content, verify full pipeline
