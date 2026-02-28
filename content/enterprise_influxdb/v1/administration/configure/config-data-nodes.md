@@ -624,6 +624,14 @@ Use a separate private key location.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking on `https-certificate` and  `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
+
 #### https-insecure-tls
 
 Default is `false`.
@@ -1171,6 +1179,14 @@ The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when true.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
+
 #### shared-secret
 
 Default is `""`.
@@ -1691,6 +1707,14 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In the preceding example, `max-version = "tls1.3"` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
+
+#### advanced-expiration
+
+Default is `5d`.
+
+Sets how far in advanced warnings about TLS certificate expiration are logged.
+
+Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
 
 ## Flux query management settings
 
