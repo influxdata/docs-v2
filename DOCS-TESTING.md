@@ -601,7 +601,7 @@ Style linting uses [Vale](https://vale.sh/) to enforce documentation writing sta
 .ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
 ```
 
-### VS Code Integration
+### VS Code IDE Integration
 
 1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
 2. Set `Vale:Vale CLI:Path` to `vale` (or the full path to the binary).

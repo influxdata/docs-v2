@@ -9,7 +9,7 @@ Ready to contribute?
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
 3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Docker)
 4. Make your changes following [style guidelines](#making-changes)
-5. [Test your changes](TESTING.md) (pre-commit and pre-push hooks run automatically)
+5. [Test your changes](DOCS-TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)
 
 For detailed setup and reference information, see the sections below.
@@ -362,7 +362,7 @@ yarn test:links content/influxdb3/core/**/*.md
 .ci/vale/vale.sh content/**/*.md
 ```
 
-For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[TESTING.md](TESTING.md)**.
+For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[DOCS-TESTING.md](DOCS-TESTING.md)**.
 
 
 ---
