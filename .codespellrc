@@ -6,7 +6,6 @@ builtin = clear
 # Skip directories with generated or configuration content
 skip = public,node_modules,dist,.git,.vale,api-docs
 
-# Ignore product branding terms and technical acronyms
-# - aks: Azure Kubernetes Service
-# - invokable: InfluxData product feature name (scriptable tasks)
-ignore-words-list = aks,invokable
+# Use external ignore file for product branding terms and technical acronyms
+# (See .codespellignore for the complete list)
+ignore-words = .codespellignore

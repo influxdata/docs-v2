@@ -1,4 +1,6 @@
-AKS
+# Product and technical terms to ignore
+# - Azure Kubernetes Service (AKS)
 aks
+AKS
+# - InfluxData product feature for scriptable tasks/queries
 invokable
-tagE
