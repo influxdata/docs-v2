@@ -1,27 +1,58 @@
 extends: spelling
 message: "Did you really mean '%s'?"
 level: warning
-# Exclude from spell checking:
-# - code: fenced code blocks (```...```)
-# - raw: inline code (`...`)
-# - table.*: table headers and cells
+# Scope configuration for spell checking
+# NOTE: Code blocks are intentionally INCLUDED to catch spelling errors in:
+#       - Comments (e.g., // NOTE: this is importent)
+#       - Documentation strings
+#       - Inline code comments (e.g., #!/bin/bash #comment typo)
+# This enables detection of spelling mistakes in code block comments that
+# users may copy into their own code.
 scope:
-  - ~code
-  - ~raw
-  - ~table.header
-  - ~table.cell
+  - ~raw        # Exclude inline code (`...`) - already has IDE spell check
+  - ~table.header  # Exclude table headers and cells
+  - ~table.cell    # (often contain abbreviations, constants, etc.)
 ignore:
 # Ignore the following words. All words are case-insensitive.
 # To use case-sensitive matching, use the filters section or vocabulary Terms.
   - InfluxDataDocs/Terms/ignore.txt
   - InfluxDataDocs/Terms/query-functions.txt
 filters:
-# Allow product-specific Branding.yml configurations to handle [Ss]erverless
-# while also allowing serverless as a valid dictionary word.
+# === BRANDING TERMS ===
+# Allow product-specific configurations to handle [Ss]erverless
+# while also allowing "serverless" as a valid dictionary word
   - '[Ss]erverless'
+
+# === URL AND PATH PATTERNS ===
 # Ignore URL paths (e.g., /api/v2/write, /kapacitor/v1/api/v2/tasks)
+# Matches: /path/to/endpoint, /v2.0/api/write, /influxdb/v1.8/cli
   - '/[a-zA-Z0-9/_\-\.\{\}]+'
-# Ignore full URLs
-  - 'https?://[^\s\)\]>"]+'
-# Ignore shortcode attribute values (e.g., endpoint="..." method="...")
+# Ignore full URLs (http, https, ftp, ftps, ssh, file, etc.)
+# Matches: https://docs.example.com, http://localhost:8086, ftp://server.com, ssh://host
+  - '(?:https?|ftp|ftps|ssh|file)://[^\s\)\]>"]+'
+
+# === CODE IDENTIFIERS & VARIABLES ===
+# camelCase and snake_case identifiers (requires >=1 uppercase OR >=1 underscore)
+# camelCase: _*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)* - requires >=1 uppercase
+# snake_case: [a-z_][a-z0-9]*_[a-z0-9_]* - requires >=1 underscore
+# Matches: myVariable, targetField, _privateVar, my_variable, terminationGracePeriodSeconds
+# Does NOT match prose: provide, database, variable (normal words)
+  - '(?:_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*|[a-z_][a-z0-9]*_[a-z0-9_]*)'
+# UPPER_CASE constants and environment variables
+# Matches: API_KEY, MY_CONSTANT, AWS_REGION, INFLUXDB_TOKEN
+  - '[A-Z_][A-Z0-9_]+'
+
+# === CODE LITERALS ===
+# Hexadecimal values (0xFF, 0xDEADBEEF, etc.)
+  - '0[xX][0-9a-fA-F]+'
+# Version numbers and semantic versioning (1.0, 2.3.1, 0.101.0, etc.)
+  - '\d+\.\d+(?:\.\d+)*'
+
+# === HUGO SHORTCODES ===
+# Ignore shortcode attribute values (endpoint="...", method="...", etc.)
+# Matches: {{<endpoint="...">}}, [method="GET"]
   - '(?:endpoint|method|url|href|src|path)="[^"]+"'
+
+# === CODE PUNCTUATION & SYMBOLS ===
+# Common programming symbols that may appear in patterns
+  - '[@#$%^&*()_+=\[\]{};:,.<>?/\\|-]+'
