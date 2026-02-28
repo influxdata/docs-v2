@@ -1,0 +1,10 @@
+# ShellCheck configuration for docs-v2
+# https://www.shellcheck.net/wiki/
+
+# Follow source files (resolve `source` / `.` directives)
+external-sources=true
+
+# Disable rules that are noisy in a docs repo context:
+# SC1091 - Can't follow non-constant source (common with relative paths)
+# SC2154 - Variable referenced but not assigned (often set by sourcing .env files)
+disable=SC1091,SC2154

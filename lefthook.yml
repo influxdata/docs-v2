@@ -135,6 +135,15 @@ pre-commit:
       glob: "assets/js/*.{js,ts}"
       run: yarn eslint {staged_files}
       fail_text: "JavaScript linting failed. Fix errors before committing."
+    shellcheck:
+      tags: lint
+      glob: "*.sh"
+      exclude:
+        - "shared/text/**/*.sh"
+        - "layouts/shortcodes/**/*.sh"
+        - "node_modules/**"
+      run: .ci/shellcheck/shellcheck.sh {staged_files}
+      fail_text: "ShellCheck found issues in shell scripts. Fix errors before committing."
 pre-push:
   commands:
     packages-audit:
