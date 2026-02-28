@@ -298,13 +298,13 @@ Individual rules are YAML files in style directories:
 
 ```bash
 # Test specific rule on one file
-docker compose run -T vale \
+.ci/vale/vale.sh \
   --config=.vale.ini \
   --minAlertLevel=suggestion \
   content/influxdb3/core/get-started/_index.md
 
 # Test only error-level issues
-docker compose run -T vale \
+.ci/vale/vale.sh \
   --config=content/influxdb/cloud-dedicated/.vale.ini \
   --minAlertLevel=error \
   content/influxdb/cloud-dedicated/**/*.md
@@ -455,7 +455,7 @@ EOF
 
 ```bash
 # Test on one file first
-docker compose run -T vale content/influxdb3/core/get-started/_index.md
+.ci/vale/vale.sh content/influxdb3/core/get-started/_index.md
 ```
 
 ### Step 3: Refine if needed
@@ -475,7 +475,7 @@ tokens:
 
 ```bash
 # Test on entire product
-docker compose run -T vale content/influxdb3/**/*.md
+.ci/vale/vale.sh content/influxdb3/**/*.md
 ```
 
 ## Related Skills
