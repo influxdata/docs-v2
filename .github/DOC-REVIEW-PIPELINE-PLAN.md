@@ -110,19 +110,21 @@ PR opened/updated (content paths)
 
 The label system is a prerequisite for agentic workflows. Agents need clear
 signals about issue readiness (`agent-ready`), blocking states
-(`waiting:engineering`, `waiting:product`), and product scope (`product:v3`).
+(`waiting:engineering`, `waiting:product`), and product scope
+(`product:v3-monolith`, `product:v3-distributed`).
 Consistent label patterns also enable GitHub API queries for dashboards and
 automation.
 
 ### 1.1 — Label taxonomy
 
-**22 labels organized into 6 categories:**
+**23 labels organized into 6 categories:**
 
-#### Product labels (10) — Color: `#FFA500` (yellow)
+#### Product labels (11) — Color: `#FFA500` (yellow)
 
 | Label | Description |
 |-------|-------------|
-| `product:v3` | InfluxDB 3 (Core, Enterprise, Cloud, Clustered) |
+| `product:v3-monolith` | InfluxDB 3 Core and Enterprise (single-node / clusterable) |
+| `product:v3-distributed` | InfluxDB 3 Cloud Serverless, Cloud Dedicated, Clustered |
 | `product:v2` | InfluxDB v2 (Cloud, OSS) |
 | `product:v1` | InfluxDB v1 OSS |
 | `product:v1-enterprise` | InfluxDB Enterprise v1 |
@@ -183,9 +185,9 @@ Create migration scripts in `helper-scripts/label-migration/`:
 
 | Old Label | New Label |
 |-----------|-----------|
-| `InfluxDB 3 Core and Enterprise` | `product:v3` |
-| `InfluxDB v3` | `product:v3` |
-| `Processing engine` | `product:v3` |
+| `InfluxDB 3 Core and Enterprise` | `product:v3-monolith` |
+| `InfluxDB v3` | `product:v3-monolith` (review individually — some may be distributed) |
+| `Processing engine` | `product:v3-monolith` |
 | `InfluxDB v2` | `product:v2` |
 | `InfluxDB v1` | `product:v1` |
 | `Enterprise 1.x` | `product:v1-enterprise` |
@@ -218,7 +220,12 @@ plus all old product labels listed above.
 **Logic:**
 - List changed files via `github.rest.pulls.listFiles()`
 - Match file paths to product labels:
-  - `content/influxdb3/` → `product:v3`
+  - `content/influxdb3/core/` → `product:v3-monolith`
+  - `content/influxdb3/enterprise/` → `product:v3-monolith`
+  - `content/influxdb3/cloud-serverless/` → `product:v3-distributed`
+  - `content/influxdb3/cloud-dedicated/` → `product:v3-distributed`
+  - `content/influxdb3/clustered/` → `product:v3-distributed`
+  - `content/influxdb3/explorer/` → `product:explorer`
   - `content/influxdb/v2/` or `content/influxdb/cloud/` → `product:v2`
   - `content/influxdb/v1/` → `product:v1`
   - `content/enterprise_influxdb/` → `product:v1-enterprise`
