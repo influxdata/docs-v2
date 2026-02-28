@@ -72,8 +72,8 @@ Unlike other documentation style checkers, this configuration **intentionally in
 \d+\.\d+(?:\.\d+)*
 ```
 **Why**: Version numbers aren't words
-**Examples Ignored**: `1.0`, `2.3.1`, `0.101.0`, `v1.2.3`
-**Limitations**: Won't match 4-part versions like `1.2.3.4` (rare in InfluxDB)
+**Examples Ignored**: `1.0`, `2.3.1`, `0.101.0`, `1.2.3.4`, `v1.2.3`
+**Note**: Handles any number of version parts (2-part, 3-part, 4-part, etc.)
 
 #### 4. Hexadecimal Values
 ```regex
