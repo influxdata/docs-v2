@@ -7,7 +7,7 @@ Ready to contribute?
 
 1. [Sign the InfluxData CLA](#sign-the-influxdata-cla) (for substantial changes)
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
-3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Docker)
+3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Vale; Docker for code block tests / optional Vale fallback)
 4. Make your changes following [style guidelines](#making-changes)
 5. [Test your changes](DOCS-TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)

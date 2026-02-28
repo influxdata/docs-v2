@@ -22,7 +22,7 @@ if command -v vale &>/dev/null; then
 
   if [[ -z "$local_major" || "$local_major" -lt "$VALE_MAJOR_MIN" ]]; then
     echo "WARNING: local Vale version ($local_version) may be incompatible (expected v${VALE_MAJOR_MIN}.x+)." >&2
-    echo "  Upgrade: brew install vale  (or see https://vale.sh/docs/install/)" >&2
+    echo "  Upgrade or install Vale: see https://vale.sh/docs/install/ (for Homebrew: brew upgrade vale)" >&2
     echo "  Falling back to Docker (jdkato/vale:v${VALE_VERSION})..." >&2
   else
     vale "$@"
