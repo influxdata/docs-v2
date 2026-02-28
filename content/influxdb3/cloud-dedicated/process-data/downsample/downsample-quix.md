@@ -198,7 +198,7 @@ if localdev == 'false':
 
 topic = app.topic(name='raw-data')
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 
 # Query InfluxDB for the raw data and store it in a Dataframe
 def get_data():
@@ -213,14 +213,14 @@ def get_data():
                                     mode='pandas',
                                     language='influxql')
 
-#... remaining code trunctated for brevity ...
+#... remaining code truncated for brevity ...
 
 # Send the data to a Kafka topic for the downsampling process to consumer 
 def main():
     """
     Read data from the Query and publish it to Kafka
     """
-    #... remaining code trunctated for brevity ...
+    #... remaining code truncated for brevity ...
 
             for index, obj in enumerate(records):
                 print(obj) # Obj contains each row in the table including temperature
@@ -289,13 +289,13 @@ if localdev == 'false':
 
 input_topic = app.topic('downsampled-data')
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 
 def send_data_to_influx(message):
     logger.info(f'Processing message: {message}')
     try:
 
-        ## ... remaining code trunctated for brevity ...
+        ## ... remaining code truncated for brevity ...
 
         # Construct the points dictionary
         points = {
@@ -310,7 +310,7 @@ def send_data_to_influx(message):
 sdf = app.dataframe(input_topic)
 sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' function to each message in the incoming stream
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 ```
 {{% /code-placeholders %}}
 

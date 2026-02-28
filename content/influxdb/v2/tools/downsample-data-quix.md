@@ -171,7 +171,7 @@ influxdb2_client = influxdb_client.InfluxDBClient(token=os.environ["INFLUXDB_TOK
                         org=os.environ["INFLUXDB_ORG"],
                         url=os.environ["INFLUXDB_HOST"])
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 
 # Function to fetch data from InfluxDB
 # It runs in a continuous loop, periodically fetching data based on the interval.
@@ -187,7 +187,7 @@ def get_data():
             '''
             logger.info(f"Sending query: {flux_query}")
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 
 # Create a pre-configured Producer object.
 with app.get_producer() as producer:
@@ -240,13 +240,13 @@ influx2_client = InfluxDBClient(url={{< influxdb/host >}},
                                 token=API_TOKEN,
                                 org=ORG_NAME)
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 
 def send_data_to_influx(message: dict, state: State):
     global last_write_time_ns, points_buffer, service_start_state
 
     try:
-        ## ... code trunctated for brevity ...
+        ## ... code truncated for brevity ...
 
         # Check if it's time to write the batch
         # 10k records have accumulated or 15 seconds have passed
@@ -259,13 +259,13 @@ def send_data_to_influx(message: dict, state: State):
             points_buffer = []
             last_write_time_ns = int(time() * 1e9)
         
-            ## ... code trunctated for brevity ...
+            ## ... code truncated for brevity ...
 
     except Exception as e:
         logger.info(f"{str(datetime.utcnow())}: Write failed")
         logger.info(e)
 
-## ... code trunctated for brevity ...
+## ... code truncated for brevity ...
 
 # We use Quix Streams StreamingDataframe (SDF) to handle every message
 # in the Kafka topic by writing it to InfluxDB
