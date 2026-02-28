@@ -265,8 +265,7 @@ When adding content:
 
 ## Future Improvements
 
-1. Add `invokable` to `.codespellignore` for codespell
-2. Create comprehensive test suite for spell-checking rules
-3. Document how to add product-specific branding terms
-4. Consider adding codespell to CI/CD pipeline
-5. Monitor and update ignore lists quarterly
+1. Create comprehensive test suite for spell-checking rules
+2. Document how to add product-specific branding terms
+3. Consider adding codespell to CI/CD pipeline
+4. Monitor and update ignore lists quarterly
