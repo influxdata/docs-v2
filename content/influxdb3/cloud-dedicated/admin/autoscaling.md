@@ -16,7 +16,7 @@ Autoscaling helps protect performance during spikes while minimizing manual inte
 
 - [What is autoscaling](#what-is-autoscaling)
 - [How autoscaling works](#how-autoscaling-works)
-- [Enable autoscaling for a cluster](#enable-autoscaling-for-a-cluster)
+  - [Scaling and billing](#scaling-and-billing)
 - [Update or disable autoscaling](#update-or-disable-autoscaling)
 - [Monitor autoscaling behavior](#monitor-autoscaling-behavior)
 
