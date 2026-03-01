@@ -28,13 +28,13 @@ Build two interconnected systems:
 1. **Label system** — An automation-driven label taxonomy that supports
    cross-repo automation, agentic workflows, and human-in-the-loop review.
 2. **Doc review pipeline** — A GitHub Actions workflow that automates
-   documentation PR review using Claude (diff + visual) and Copilot
-   (text/structural), with screenshot-based visual verification of rendered
-   pages.
+   documentation PR review using Claude (diff-based Markdown review) and
+   Copilot (screenshot-based visual review), with rendered-page verification
+   that catches issues invisible in the Markdown source.
 
 The pipeline catches issues only visible in rendered output — expanded
-shortcodes, broken layouts, incorrect product names — not just what's in the
-Markdown source.
+shortcodes, broken layouts, incorrect product names — by having Copilot
+analyze screenshots of the deployed preview pages.
 
 ---
 
@@ -71,36 +71,34 @@ and there is no agent-readiness or blocking-state taxonomy.
 ```
 PR opened/updated (content paths)
         │
-        ▼
-┌─ Job 1: Resolve URLs ───────────────────────────────┐
-│  Reuse detect-preview-pages.js + content-utils.js    │
-│  changed files → preview URLs                        │
-│  Output: urls.json artifact                          │
-└──────────────┬───────────────────────────────────────┘
-               │
-               ▼
-┌─ Job 2: Wait for Preview + Screenshot ──────────────┐
-│  Poll until gh-pages preview deployment is live      │
-│  Playwright: capture full-page PNG per URL           │
-│  Output: screenshots/ artifact                       │
-└──────────────┬───────────────────────────────────────┘
-               │
-               ▼
-┌─ Job 3: Claude Review (diff + visual) ──────────────┐
-│  anthropics/claude-code-action                       │
-│  Inputs: PR diff + screenshots + prompt              │
-│  Outputs: structured PR review comment + label       │
-└──────────────┬───────────────────────────────────────┘
-               │
-               ▼
-┌─ Job 4: Copilot Review (text/structural) ───────────┐
-│  Automatic (Copilot code review) or @copilot comment │
-│  Text/structural review per existing config          │
-└──────────────┬───────────────────────────────────────┘
-               │
-               ▼
+        ├──────────────────────────────────┐
+        ▼                                  ▼
+┌─ Job 1: Resolve URLs ──────────┐  ┌─ Job 3: Claude Review ─────────┐
+│  detect-preview-pages.js        │  │  anthropics/claude-code-action  │
+│  changed files → preview URLs   │  │  Inputs: PR diff + prompt       │
+│  Output: urls.json artifact     │  │  Outputs: review comment +      │
+└──────────────┬──────────────────┘  │    review outcome label         │
+               │                     └──────────────┬─────────────────┘
+               ▼                                    │
+┌─ Job 2: Wait for Preview + Screenshot ──────┐     │
+│  Poll until gh-pages deployment is live      │     │
+│  Playwright: capture full-page PNG per URL   │     │
+│  Output: screenshots/ artifact               │     │
+└──────────────┬──────────────────────────────┘     │
+               │                                    │
+               ▼                                    │
+┌─ Job 4: Copilot Visual Review ──────────────┐     │
+│  Post screenshots as images in PR comment    │     │
+│  @copilot analyzes rendered page screenshots │     │
+│  Checks: layout, shortcodes, 404s, nav      │     │
+└──────────────┬──────────────────────────────┘     │
+               │                                    │
+               ▼                                    ▼
          Human reviews what remains
 ```
+
+**Job 3 (Claude) runs in parallel with Jobs 1→2→4** — it only needs the PR
+diff, not the screenshots. This reduces total wall-clock time.
 
 ---
 
@@ -318,73 +316,125 @@ Instead, create a new CI-focused script that:
 - Uses Playwright (not Puppeteer) for better CI reliability
 - Outputs a manifest JSON mapping filenames to source URLs
 
-### 2.4 — Job 3: Claude Review (diff + visual)
+### 2.4 — Job 3: Claude Review (diff-only)
 
-**Purpose:** Run a two-part review: diff-based (Markdown) + visual (screenshots).
+**Purpose:** Review Markdown changes against the style guide and documentation
+standards. This job does NOT review screenshots — visual review is handled by
+Copilot in Job 4.
+
+**Dependencies:** None beyond the PR itself. This job runs in parallel with
+Jobs 1→2 since it only needs the PR diff.
 
 **Implementation:**
 - Uses `anthropics/claude-code-action@v1`
-- Two-part review in a single prompt (stored separately for maintainability)
+- Prompt stored separately for maintainability
 
-**Prompt file:** `.github/prompts/doc-visual-review.md`
+**Prompt file:** `.github/prompts/doc-review.md`
 
-The prompt should instruct Claude to:
+The prompt should instruct Claude to check the Markdown changes against
+existing style guide and agent instructions (already in the repo as
+`CLAUDE.md`, `AGENTS.md`, `DOCS-CONTRIBUTING.md`). Look for:
 
-1. **Diff review** — Check the Markdown changes against existing style guide
-   and agent instructions (already in the repo as `CLAUDE.md`, `AGENTS.md`,
-   `DOCS-CONTRIBUTING.md`). Look for:
-   - Frontmatter correctness (required fields, menu structure, weights)
-   - Shortcode syntax
-   - Semantic line feeds
-   - Heading hierarchy (no h1 in content)
-   - Product-specific terminology
-   - Link format
+1. **Frontmatter correctness** — Required fields, menu structure, weights
+2. **Shortcode syntax** — Correct usage, closing tags, parameters
+3. **Semantic line feeds** — One sentence per line
+4. **Heading hierarchy** — No h1 in content (title comes from frontmatter)
+5. **Product-specific terminology** — Correct product names, versions
+6. **Link format** — Relative links, proper shortcode links
+7. **Shared content** — `source:` frontmatter correctness
 
-2. **Visual review** — For each screenshot, check that the rendered page looks correct:
-   - No raw shortcode syntax visible (`{{<` or `{{%`)
-   - No placeholder text that should have been replaced
-   - Broken layouts: overlapping text, missing images, collapsed sections
-   - Code blocks rendered correctly (no raw HTML/Markdown fences visible)
-   - Navigation/sidebar entries correct
-   - No visible 404 or error state
+**Severity classification:**
+- `BLOCKING` — Wrong product names, invalid frontmatter, broken shortcode syntax
+- `WARNING` — Style inconsistencies, missing semantic line feeds
+- `INFO` — Suggestions, not problems
 
-3. **Severity classification:**
-   - `BLOCKING` — Broken rendering, wrong product names, raw shortcodes
-   - `WARNING` — Minor layout issues, style inconsistencies
-   - `INFO` — Suggestions, not problems
+**Output:**
+- Post a single structured review comment on the PR
+- Apply a review outcome label: `review/approved`, `review/changes-requested`,
+  or `review/needs-human`
 
-4. **Output:**
-   - Post a single structured review comment on the PR
-   - Apply a review outcome label: `review/approved`, `review/changes-requested`, or `review/needs-human`
+### 2.5 — Job 4: Copilot Visual Review (screenshots)
 
-**Passing screenshots to Claude:**
-- The `claude-code-action` has access to the workspace files.
-  Download the screenshots artifact into the workspace before invoking the action.
-- Reference them in the prompt by file path.
-- If Claude Code Action doesn't support reading images from disk in the prompt,
-  fall back to: post screenshots as collapsed `<details>` blocks in a PR comment,
-  then reference the comment in the prompt.
-  This decision will be resolved during implementation (see [Open Questions](#open-questions-and-decisions)).
+**Purpose:** Have Copilot analyze screenshots of the rendered preview pages to
+catch visual issues invisible in the Markdown source.
 
-### 2.5 — Job 4: Copilot Review (text/structural)
+**Dependencies:** Depends on Job 2 (needs screenshots). Runs after screenshots
+are captured.
 
-**Purpose:** Leverage Copilot's built-in code review for text/structural checks.
+**Why Copilot for visual review:**
+- Copilot supports image processing — it can read text in screenshots,
+  interpret UI layouts, and detect rendering issues.
+- Visual review is a good fit for Copilot because the rendered pages are
+  self-contained visual artifacts (no need to cross-reference repo files).
+- Keeps Claude focused on diff review (where it excels at cross-referencing
+  style guides and repo conventions) and avoids the complexity of passing
+  images to Claude Code Action.
 
 **Implementation:**
-- Copilot code review triggers automatically if enabled for the repo — no
-  custom workflow step needed.
-- Optionally, after Claude's review completes, post a `@copilot review` comment
-  on the PR to explicitly request Copilot review.
-- This is a single `actions/github-script` step that creates a comment.
+
+1. **Post screenshots as images in a PR comment:**
+   - Use `actions/github-script@v7` to create a PR comment containing the
+     screenshot images as inline Markdown images.
+   - Upload screenshots as assets using the GitHub API (or reference them
+     via the workflow artifact download URL if accessible).
+   - Format as a collapsed `<details>` block per page to avoid visual clutter:
+     ```markdown
+     <details>
+     <summary>📸 /influxdb3/core/write-data/ (preview screenshot)</summary>
+
+     ![Screenshot of /influxdb3/core/write-data/](URL_TO_SCREENSHOT)
+
+     </details>
+     ```
+   - Include the screenshot manifest (filename → source URL mapping) in the
+     comment for traceability.
+
+2. **Trigger Copilot visual review:**
+   - Post a follow-up comment tagging `@copilot` with instructions to review
+     the screenshots in the previous comment. The comment should instruct
+     Copilot to check each screenshot for:
+     - Raw shortcode syntax visible on the page (`{{<` or `{{%`)
+     - Placeholder text that should have been replaced
+     - Broken layouts: overlapping text, missing images, collapsed sections
+     - Code blocks rendered incorrectly (raw HTML/Markdown fences visible)
+     - Navigation/sidebar entries correct
+     - Visible 404 or error state
+     - Product name inconsistencies in the rendered page header/breadcrumbs
+   - The review instruction template is stored in
+     `.github/prompts/copilot-visual-review.md` for maintainability.
+
+3. **Copilot automatic code review (bonus):**
+   - In addition to the explicit visual review, Copilot's built-in code
+     review triggers automatically on the PR diff if enabled for the repo.
+   - This provides text/structural review as a side effect — no extra config.
+
+**Image delivery mechanism:**
+Copilot can process images attached to Issues and Copilot Chat prompts.
+For PR-based workflows, the most reliable approach is to embed screenshots
+as Markdown images in a PR comment, then tag `@copilot` in a follow-up
+comment referencing the screenshots. This works because:
+- PR comments support inline images via GitHub's image hosting
+- Copilot can read images referenced in the conversation context
+- No external service or API required beyond GitHub itself
+
+**Limitations:**
+- Copilot's image analysis may not catch all visual issues that a human would
+- Image quality depends on screenshot resolution and page complexity
+- Large PRs with many screenshots may hit GitHub comment size limits (65,536
+  characters). Mitigation: batch into multiple comments if needed, or limit
+  to top 20 pages.
 
 ### 2.6 — Workflow failure handling
 
-- If preview deployment times out: skip screenshots, run diff-only Claude review,
-  post a comment explaining visual review was skipped.
+- If preview deployment times out: skip screenshots and Copilot visual review,
+  run diff-only Claude review, post a comment explaining visual review was skipped.
 - If a screenshot fails: log which URLs failed, continue with remaining screenshots,
-  note the failures in the review comment.
-- If Claude API errors: post a comment saying automated review failed, label PR
-  `review/needs-human`.
+  note the failures in the Copilot review comment.
+- If Claude API errors: post a comment saying diff review failed, label PR
+  `review/needs-human`. Visual review via Copilot still proceeds independently.
+- If Copilot does not respond to the `@copilot` mention or does not analyze
+  the images: the screenshots remain available as workflow artifacts for human
+  review. Post a comment noting that visual review requires manual inspection.
 - Never block PR merge on workflow failures — the workflow adds labels and comments
   but does not set required status checks.
 
@@ -404,9 +454,10 @@ CLAUDE.md                                  ← lightweight pointer (already exis
   ├── references .github/LABEL_GUIDE.md    ← label taxonomy + usage
   ├── references .claude/agents/           ← role-specific agent instructions
   │     ├── doc-triage-agent.md            ← NEW: triage + auto-label logic
-  │     └── doc-review-agent.md            ← NEW: diff + visual review logic
+  │     └── doc-review-agent.md            ← NEW: diff-only review logic (Claude)
   └── references .github/prompts/          ← workflow-specific prompts
-        └── doc-visual-review.md           ← NEW: prompt for Claude Code Action
+        ├── doc-review.md                  ← NEW: prompt for Claude Code Action
+        └── copilot-visual-review.md       ← NEW: prompt for Copilot visual review
 ```
 
 **How roles are assigned at runtime:**
@@ -434,15 +485,15 @@ This file does NOT duplicate style guide rules. It references
 
 #### `.claude/agents/doc-review-agent.md`
 
-Role-specific instructions for PR review. Contents:
+Role-specific instructions for Claude's diff-only PR review. Contents:
 
-- **Review scope** — What to check in diff review vs. visual review
+- **Review scope** — Markdown diff review only (frontmatter, shortcodes,
+  semantic line feeds, heading hierarchy, terminology, links, shared content).
+  Visual review is handled separately by Copilot.
 - **Severity classification** — BLOCKING / WARNING / INFO definitions with examples
 - **Output format** — Structured review comment template
 - **Label application** — When to apply `review/approved`, `review/changes-requested`,
   `review/needs-human`
-- **Screenshot analysis** — What to look for in rendered page screenshots
-  (raw shortcodes, broken layouts, placeholder text, 404s)
 
 This file references `DOCS-CONTRIBUTING.md` for style rules and
 `DOCS-SHORTCODES.md` for shortcode syntax — it does NOT restate them.
@@ -477,16 +528,17 @@ Contents:
 
 These are small additions — no restructuring of existing files.
 
-### 3.5 — Review prompt file
+### 3.5 — Review prompt files
 
-**File:** `.github/prompts/doc-visual-review.md`
+Two prompt files, one per reviewer:
 
-This is the prompt passed to `claude-code-action` in the workflow. It is
-**separate from** the agent instruction file (`.claude/agents/doc-review-agent.md`)
-because:
+#### `.github/prompts/doc-review.md` (Claude)
 
-- The prompt is tightly coupled to the workflow (references artifact paths,
-  PR context variables, output format for GitHub comments)
+The prompt passed to `claude-code-action` in Job 3. It is **separate from**
+the agent instruction file (`.claude/agents/doc-review-agent.md`) because:
+
+- The prompt is tightly coupled to the workflow (PR context variables,
+  output format for GitHub comments)
 - The agent file is reusable across contexts (Claude Code CLI, manual review,
   future workflows)
 
@@ -495,7 +547,18 @@ The prompt should `@reference` the agent file:
 Follow the review instructions in `.claude/agents/doc-review-agent.md`.
 ```
 
-This way the prompt stays small and the review logic lives in one place.
+This way the prompt stays small and the diff review logic lives in one place.
+
+#### `.github/prompts/copilot-visual-review.md` (Copilot)
+
+The template used to construct the `@copilot` comment in Job 4. Contains:
+
+- The visual review checklist (raw shortcodes, broken layouts, 404s, etc.)
+- Instructions for analyzing the screenshots posted in the preceding comment
+- Output format guidance (what to flag, severity levels)
+
+This file is referenced by the `actions/github-script` step that posts the
+`@copilot` comment — it is NOT a Claude Code Action prompt.
 
 ---
 
@@ -519,20 +582,21 @@ These are explicitly **not** part of this plan. Documented here for context.
 
 These must be resolved during implementation:
 
-### Q1: How to pass screenshots to Claude Code Action?
+### Q1: How to deliver screenshots to Copilot? — RESOLVED
 
-**Options:**
-- **A) Workspace files:** Download screenshots artifact into workspace, reference
-  by path in the prompt. Simplest, but depends on Claude Code Action supporting
-  image file reads.
-- **B) PR comment images:** Upload screenshots to the PR as image attachments in a
-  collapsed comment, reference the comment in the prompt. More robust but adds a
-  visual comment.
-- **C) Base64 in prompt:** Encode screenshots as base64 and include directly in
-  the action's prompt input. Size-limited; impractical for large/many pages.
+**Decision:** Post screenshots as inline Markdown images in a PR comment, then
+tag `@copilot` in a follow-up comment referencing them. See section 2.5 for
+full implementation details.
 
-**Recommendation:** Try A first. If the action can read images from the workspace
-filesystem, it's the simplest path. Fall back to B.
+This approach works because:
+- PR comments support inline images via GitHub's image hosting
+- Copilot can process images attached to Issues and Copilot Chat prompts,
+  and can read text within screenshots (OCR-like functionality)
+- No external service or API required beyond GitHub itself
+
+**Remaining risk:** Copilot's image analysis in PR comment context is a newer
+capability. If it doesn't reliably process images in `@copilot` mentions,
+the fallback is human review of the screenshot artifacts.
 
 ### Q2: Should the review workflow be a required status check?
 
@@ -564,7 +628,11 @@ URL pattern is known (`influxdata.github.io/docs-v2/pr-preview/pr-{N}/`).
 
 ### Q5: Cost and rate limiting
 
-Each PR review consumes Claude API tokens. Mitigations:
+Claude API token usage is reduced by moving visual review to Copilot —
+Claude only reviews the PR diff (text), not screenshots (images).
+Copilot visual review uses the repo's Copilot allocation, not Claude API tokens.
+
+Additional mitigations:
 - `paths` filter ensures only doc-content PRs trigger the workflow.
 - `skip-review` label allows trivial PRs to opt out.
 - Concurrency group cancels in-progress reviews when the PR is updated.
@@ -582,7 +650,8 @@ Each PR review consumes Claude API tokens. Mitigations:
 | Preview not deployed in time | Low | 10-minute polling timeout, fall back to diff-only review |
 | False positives in visual review | Medium | Start as advisory (not required check), iterate prompt |
 | Label migration data loss | Low | Migrate before deleting; human verification gate |
-| Copilot review conflicts with Claude | Low | Different scopes: Copilot = text/structural, Claude = diff + visual |
+| Copilot visual review misses issues | Medium | Screenshots remain as workflow artifacts for human review; start advisory |
+| Copilot review conflicts with Claude | Low | Different scopes: Claude = diff/Markdown, Copilot = visual/screenshots |
 
 ---
 
@@ -602,7 +671,8 @@ Files to create or modify:
 | Create | `.claude/agents/doc-triage-agent.md` | 3.2 |
 | Create | `.claude/agents/doc-review-agent.md` | 3.2 |
 | Create | `.github/LABEL_GUIDE.md` | 3.3 |
-| Create | `.github/prompts/doc-visual-review.md` | 3.5 |
+| Create | `.github/prompts/doc-review.md` | 3.5 |
+| Create | `.github/prompts/copilot-visual-review.md` | 2.5/3.5 |
 | Modify | `CLAUDE.md` | 3.4 |
 | Modify | `AGENTS.md` | 3.4 |
 | Modify | `.github/copilot-instructions.md` | 3.4 |
