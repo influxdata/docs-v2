@@ -16,7 +16,7 @@
 5. [Phase 2: Doc Review Workflow](#phase-2-doc-review-workflow)
 6. [Phase 3: Documentation and Agent Instructions](#phase-3-documentation-and-agent-instructions)
 7. [Future Phases (Not In Scope)](#future-phases-not-in-scope)
-8. [Open Questions and Decisions](#open-questions-and-decisions)
+8. [Decisions (Resolved)](#decisions-resolved)
 9. [Risk Assessment](#risk-assessment)
 
 ---
@@ -578,9 +578,7 @@ These are explicitly **not** part of this plan. Documented here for context.
 
 ---
 
-## Open Questions and Decisions
-
-These must be resolved during implementation:
+## Decisions (Resolved)
 
 ### Q1: How to deliver screenshots to Copilot? — RESOLVED
 
@@ -598,46 +596,49 @@ This approach works because:
 capability. If it doesn't reliably process images in `@copilot` mentions,
 the fallback is human review of the screenshot artifacts.
 
-### Q2: Should the review workflow be a required status check?
+### Q2: Should the review workflow be a required status check? — RESOLVED
 
-**Recommendation:** No. Start as advisory (labels + comments). Make it required
-only after the team confirms the false-positive rate is acceptable.
+**Decision:** No. Start as advisory (labels + comments only). The workflow adds
+review outcome labels and posts comments, but does not set required status
+checks. Make it required only after the team confirms the false-positive rate
+is acceptable (see Future Phases).
 
-### Q3: Should screenshots use Playwright or Puppeteer?
+### Q3: Should screenshots use Playwright or Puppeteer? — RESOLVED
 
-Both are already dependencies. Playwright is generally more reliable in CI
-environments and supports `waitUntil: 'networkidle'` natively. Puppeteer already
-has a `screenshot.js` utility in the repo for local debugging.
+**Decision:** Use Playwright for CI screenshots (new script at
+`.github/scripts/capture-screenshots.js`), keep Puppeteer for local debugging
+(existing `scripts/puppeteer/screenshot.js`). No duplication of logic.
 
-**Recommendation:** Use Playwright for CI (new script), keep Puppeteer for local
-debugging (existing script). No duplication of logic.
+Rationale: Both are already dependencies. Playwright is more reliable in CI
+environments and supports `waitUntil: 'networkidle'` natively. Puppeteer
+remains useful for interactive local debugging.
 
-### Q4: How to handle the `pr-preview.yml` dependency?
+### Q4: How to handle the `pr-preview.yml` dependency? — RESOLVED
 
-The review workflow needs the preview to be deployed before screenshots.
-Options:
-- **A) Poll the preview URL** until it returns 200 (simple, self-contained).
-- **B) Use `workflow_run` trigger** to start the review after `pr-preview.yml`
-  completes (cleaner, but more complex to wire up since preview may not deploy
-  for all PRs).
-- **C) Combine into a single workflow** (avoids coordination, but makes the
-  workflow very large).
+**Decision:** Option A — poll the preview URL with timeout. Job 2 polls
+`https://influxdata.github.io/docs-v2/pr-preview/pr-{N}/` with `curl --head`
+every 15 seconds until it returns 200, with a 10-minute timeout. If timeout is
+reached, skip screenshots and Copilot visual review; Claude diff review (Job 3)
+still runs independently.
 
-**Recommendation:** A — poll with timeout. Simple and resilient. The preview
-URL pattern is known (`influxdata.github.io/docs-v2/pr-preview/pr-{N}/`).
+Rationale: Polling is simple, self-contained, and resilient. The URL pattern is
+deterministic. Option B (`workflow_run`) adds complexity and doesn't handle
+cases where preview doesn't deploy. Option C (combined workflow) makes the
+workflow too large and eliminates the parallelism benefit.
 
-### Q5: Cost and rate limiting
+### Q5: Cost and rate limiting — RESOLVED
 
-Claude API token usage is reduced by moving visual review to Copilot —
-Claude only reviews the PR diff (text), not screenshots (images).
-Copilot visual review uses the repo's Copilot allocation, not Claude API tokens.
+**Decision:** Acceptable. Claude API usage is limited to diff-only text review
+(no image tokens). Copilot visual review uses the repo's Copilot allocation,
+not Claude API tokens.
 
-Additional mitigations:
+Mitigations already designed into the workflow:
 - `paths` filter ensures only doc-content PRs trigger the workflow.
 - `skip-review` label allows trivial PRs to opt out.
 - Concurrency group cancels in-progress reviews when the PR is updated.
 - Screenshot count is capped at 50 pages (matching `MAX_PAGES` in
   `detect-preview-pages.js`).
+- Draft and fork PRs are skipped entirely.
 
 ---
 
