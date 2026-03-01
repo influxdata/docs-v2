@@ -153,7 +153,10 @@ automation.
 | Label | Description |
 |-------|-------------|
 | `agent-ready` | Agent can work on this autonomously |
-| `review:approved` | Codeowner approved |
+| `approval:codeowner` | Codeowner approved |
+
+> [!Note]
+> The `approval:codeowner` label uses a distinct prefix (`approval:`) to avoid confusion with the `review/*` labels, which represent **automated review outcomes** from the doc review pipeline.
 
 #### Review outcome labels (3) — Color: `#28A745` / `#DC3545` / `#FFC107`
 
@@ -197,7 +200,16 @@ Create migration scripts in `helper-scripts/label-migration/`:
 | `release/influxdb3` | `release:pending` |
 | `sync-plugin-docs` | `source:auto-detected` |
 
-> **Note:** `release:pending` is an existing workflow state label that we are keeping as-is.
+> [!Important]
+> **Workflow Updates Required:**
+> The `sync-plugin-docs` label is used in GitHub Actions workflows. After migrating this label to `source:auto-detected`, the following files must be updated:
+> - `.github/workflows/sync-plugins.yml` (lines 28, 173, 421)
+> - `.github/ISSUE_TEMPLATE/sync-plugin-docs.yml` (line 4)
+>
+> Update all references from `sync-plugin-docs` to `source:auto-detected` to ensure the plugin sync automation continues to work after the label migration.
+
+> [!Note]
+> `release:pending` is an existing workflow state label that we are keeping as-is.
 > The migration scripts **must ensure** this label exists (create it if missing) and **must not** delete it in the cleanup step.
 **Labels to delete after migration:**
 `bug`, `priority`, `documentation`, `Proposal`, `Research Phase`,
