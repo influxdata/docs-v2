@@ -59,7 +59,7 @@ export INFLUXDB3_ENTERPRISE_CLUSTER_ID=cluster0
 {{% /show-in %}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export LOG_FILTER=info
+export INFLUXDB3_LOG_FILTER=info
 
 influxdb3 serve
 ```
@@ -789,9 +789,9 @@ this value.
 
 **Default:** `16`
 
-| influxdb3 serve option            | Environment variable            |
+| influxdb3 serve option            | Environment variables            |
 | :-------------------------------- | :------------------------------ |
-| `--object-store-connection-limit` | `OBJECT_STORE_CONNECTION_LIMIT` |
+| `--object-store-connection-limit` | `INFLUXDB3_OBJECT_STORE_CONNECTION_LIMIT` (preferred)<br>`OBJECT_STORE_CONNECTION_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -799,9 +799,9 @@ this value.
 
 Forces HTTP/2 connections to network-based object stores.
 
-| influxdb3 serve option      | Environment variable      |
+| influxdb3 serve option      | Environment variables      |
 | :-------------------------- | :------------------------ |
-| `--object-store-http2-only` | `OBJECT_STORE_HTTP2_ONLY` |
+| `--object-store-http2-only` | `INFLUXDB3_OBJECT_STORE_HTTP2_ONLY` (preferred)<br>`OBJECT_STORE_HTTP2_ONLY` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -809,9 +809,9 @@ Forces HTTP/2 connections to network-based object stores.
 
 Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--object-store-http2-max-frame-size` | `OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` |
+| `--object-store-http2-max-frame-size` | `INFLUXDB3_OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (preferred)<br>`OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -819,9 +819,9 @@ Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
 Defines the maximum number of times to retry a request.
 
-| influxdb3 serve option       | Environment variable       |
+| influxdb3 serve option       | Environment variables       |
 | :--------------------------- | :------------------------- |
-| `--object-store-max-retries` | `OBJECT_STORE_MAX_RETRIES` |
+| `--object-store-max-retries` | `INFLUXDB3_OBJECT_STORE_MAX_RETRIES` (preferred)<br>`OBJECT_STORE_MAX_RETRIES` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -830,9 +830,9 @@ Defines the maximum number of times to retry a request.
 Specifies the maximum length of time from the initial request after which no
 further retries are be attempted.
 
-| influxdb3 serve option         | Environment variable         |
+| influxdb3 serve option         | Environment variables         |
 | :----------------------------- | :--------------------------- |
-| `--object-store-retry-timeout` | `OBJECT_STORE_RETRY_TIMEOUT` |
+| `--object-store-retry-timeout` | `INFLUXDB3_OBJECT_STORE_RETRY_TIMEOUT` (preferred)<br>`OBJECT_STORE_RETRY_TIMEOUT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -840,9 +840,9 @@ further retries are be attempted.
 
 Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 
-| influxdb3 serve option          | Environment variable          |
+| influxdb3 serve option          | Environment variables          |
 | :------------------------------ | :---------------------------- |
-| `--object-store-cache-endpoint` | `OBJECT_STORE_CACHE_ENDPOINT` |
+| `--object-store-cache-endpoint` | `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT` (preferred)<br>`OBJECT_STORE_CACHE_ENDPOINT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -941,9 +941,9 @@ The following are common component names you can use for targeted filtering:
 > code. Use `debug` or `trace` sparingly on specific components to avoid
 > excessive log output.
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-filter`         | `LOG_FILTER`         |
+| `--log-filter`         | `INFLUXDB3_LOG_FILTER` (preferred)<br>`LOG_FILTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -958,9 +958,9 @@ This option supports the following values:
 
 **Default:** `stdout`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-destination`    | `LOG_DESTINATION`    |
+| `--log-destination`    | `INFLUXDB3_LOG_DESTINATION` (preferred)<br>`LOG_DESTINATION` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -974,9 +974,9 @@ This option supports the following values:
 
 **Default:** `full`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-format`         | `LOG_FORMAT`         |
+| `--log-format`         | `INFLUXDB3_LOG_FORMAT` (preferred)<br>`LOG_FORMAT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1010,9 +1010,9 @@ Sets the type of tracing exporter.
 
 **Default:** `none`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--traces-exporter`    | `TRACES_EXPORTER`    |
+| `--traces-exporter`    | `INFLUXDB3_TRACES_EXPORTER` (preferred)<br>`TRACES_EXPORTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1022,9 +1022,9 @@ Specifies the Jaeger agent network hostname for tracing.
 
 **Default:** `0.0.0.0`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-host` | `TRACES_EXPORTER_JAEGER_AGENT_HOST` |
+| `--traces-exporter-jaeger-agent-host` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_HOST` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_HOST` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1034,9 +1034,9 @@ Defines the Jaeger agent network port for tracing.
 
 **Default:** `6831`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-port` | `TRACES_EXPORTER_JAEGER_AGENT_PORT` |
+| `--traces-exporter-jaeger-agent-port` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_PORT` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_PORT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1046,9 +1046,9 @@ Sets the Jaeger service name for tracing.
 
 **Default:** `iox-conductor`
 
-| influxdb3 serve option                  | Environment variable                  |
+| influxdb3 serve option                  | Environment variables                  |
 | :-------------------------------------- | :------------------------------------ |
-| `--traces-exporter-jaeger-service-name` | `TRACES_EXPORTER_JAEGER_SERVICE_NAME` |
+| `--traces-exporter-jaeger-service-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_SERVICE_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_SERVICE_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1058,9 +1058,9 @@ Specifies the header name used for passing trace context.
 
 **Default:** `uber-trace-id`
 
-| influxdb3 serve option                               | Environment variable                               |
+| influxdb3 serve option                               | Environment variables                               |
 | :--------------------------------------------------- | :------------------------------------------------- |
-| `--traces-exporter-jaeger-trace-context-header-name` | `TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` |
+| `--traces-exporter-jaeger-trace-context-header-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1070,9 +1070,9 @@ Specifies the header name used for force sampling in tracing.
 
 **Default:** `jaeger-debug-id`
 
-| influxdb3 serve option       | Environment variable                |
+| influxdb3 serve option       | Environment variables                |
 | :--------------------------- | :---------------------------------- |
-| `--traces-jaeger-debug-name` | `TRACES_EXPORTER_JAEGER_DEBUG_NAME` |
+| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1080,9 +1080,9 @@ Specifies the header name used for force sampling in tracing.
 
 Defines a set of `key=value` pairs to annotate tracing spans with.
 
-| influxdb3 serve option | Environment variable          |
+| influxdb3 serve option | Environment variables          |
 | :--------------------- | :---------------------------- |
-| `--traces-jaeger-tags` | `TRACES_EXPORTER_JAEGER_TAGS` |
+| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1092,9 +1092,9 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 
 **Default:** `1000`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-jaeger-max-msgs-per-second` | `TRACES_JAEGER_MAX_MSGS_PER_SECOND` |
+| `--traces-jaeger-max-msgs-per-second` | `INFLUXDB3_TRACES_JAEGER_MAX_MSGS_PER_SECOND` (preferred)<br>`TRACES_JAEGER_MAX_MSGS_PER_SECOND` (deprecated; supported for backward compatibility) |
 
 ***
 
