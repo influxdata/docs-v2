@@ -197,6 +197,8 @@ Create migration scripts in `helper-scripts/label-migration/`:
 | `release/influxdb3` | `release:pending` |
 | `sync-plugin-docs` | `source:auto-detected` |
 
+> **Note:** `release:pending` is an existing workflow state label that we are keeping as-is.
+> The migration scripts **must ensure** this label exists (create it if missing) and **must not** delete it in the cleanup step.
 **Labels to delete after migration:**
 `bug`, `priority`, `documentation`, `Proposal`, `Research Phase`,
 `ready-for-collaboration`, `ui`, `javascript`, `dependencies`,
@@ -260,7 +262,7 @@ on:
 
 **Concurrency:** `group: doc-review-${{ github.event.number }}`, `cancel-in-progress: true`
 
-**Skip conditions:** Draft PRs, fork PRs, PRs with `skip-review` label.
+**Skip conditions:** Draft PRs, fork PRs, PRs with a `skip-review` label (new label to be added in Phase 1 via the label migration scripts).
 
 ### 2.2 — Job 1: Resolve URLs
 
@@ -375,8 +377,12 @@ are captured.
 1. **Post screenshots as images in a PR comment:**
    - Use `actions/github-script@v7` to create a PR comment containing the
      screenshot images as inline Markdown images.
-   - Upload screenshots as assets using the GitHub API (or reference them
-     via the workflow artifact download URL if accessible).
+   - Upload screenshots using a GitHub-supported image/asset upload workflow
+     (for example, via the GitHub Content API using the issue/PR comment upload
+     endpoint backed by `uploads.github.com`) so that each image has a URL
+     that can be embedded in Markdown; note that workflow artifact download
+     URLs require authentication and **cannot** be used directly in `![img](url)`
+     syntax.
    - Format as a collapsed `<details>` block per page to avoid visual clutter:
      ```markdown
      <details>
@@ -421,8 +427,9 @@ comment referencing the screenshots. This works because:
 - Copilot's image analysis may not catch all visual issues that a human would
 - Image quality depends on screenshot resolution and page complexity
 - Large PRs with many screenshots may hit GitHub comment size limits (65,536
-  characters). Mitigation: batch into multiple comments if needed, or limit
-  to top 20 pages.
+  characters). Mitigation: batch into multiple comments if needed (for example,
+  ~20 pages per comment), with screenshots capped at 50 pages total to match
+  `MAX_PAGES` in `detect-preview-pages.js`.
 
 ### 2.6 — Workflow failure handling
 
