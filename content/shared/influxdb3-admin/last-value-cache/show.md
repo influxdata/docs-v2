@@ -71,9 +71,9 @@ In the examples above, replace the following:
 
 To use the HTTP API to query and output cache information from the system table, send a `GET` or `POST` request to the `/api/v3/query_sql` endpoint.
 
-{{% api-endpoint method="GET" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/GetExecuteQuerySQL" %}}
+{{% api-endpoint method="GET" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/reference/api/#operation/GetExecuteQuerySQL" %}}
 
-{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/reference/api/#operation/PostExecuteQuerySQL" %}}
 
 ### Query all last value caches
 

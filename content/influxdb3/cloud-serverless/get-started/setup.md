@@ -331,6 +331,7 @@ Keep the following in mind when using API clients and client libraries:
     {{< /tabs-wrapper >}} 
 
 4.  {{< req text="Optional:" color="magenta" >}} **Create a bucket**.
+    <span id="create-a-bucket"></span>
 
     You can use an existing bucket or create a new one specifically for this
     getting started tutorial. All examples in this tutorial assume a bucket named

@@ -25,7 +25,7 @@ list_code_example: |
 related:
   - /influxdb3/core/reference/cli/influxdb3/create/table/
   - /influxdb3/core/reference/naming-restrictions/
-  - /influxdb3/core/api/v3/
+  - /influxdb3/core/reference/api/
 source: /shared/influxdb3-admin/tables/create.md
 ---
 

@@ -20,8 +20,8 @@ InfluxQL querying and built-in data processing capabilities.
 - Collect and label metrics with [Telegraf](/telegraf/v1/) and send them to your InfluxDB 3 instance
 - Store and query metrics using [InfluxDB 3 Core](/influxdb3/core/) or [InfluxDB 3 Enterprise](/influxdb3/enterprise/)
 - Process and analyze data directly in the database with the built-in Python processing engine—use and extend pre-built plugins to run analysis, generate alerts, and send notifications in real-time, on-demand, or on a schedule:
-  - [Use and extend plugins for InfluxDB 3 Core](/influxdb3/core/process-data/python/plugins/)
-  - [Use and extend plugins for InfluxDB 3 Enterprise](/influxdb3/enterprise/process-data/python/plugins/)
+  - [Use and extend plugins for InfluxDB 3 Core](/influxdb3/core/plugins/)
+  - [Use and extend plugins for InfluxDB 3 Enterprise](/influxdb3/enterprise/plugins/)
 - Visualize metrics and explore your data with [InfluxDB 3 Explorer](/influxdb3/explorer/)
 
 ## Monitor with other InfluxDB versions

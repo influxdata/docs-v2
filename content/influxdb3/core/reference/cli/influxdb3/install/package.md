@@ -9,7 +9,7 @@ menu:
     parent: influxdb3 install
 weight: 201
 related:
-  - /influxdb3/core/process/
+  - /influxdb3/core/get-started/process/
   - /influxdb3/core/plugins/
 source: /shared/influxdb3-cli/install/package.md
 ---
