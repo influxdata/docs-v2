@@ -5,6 +5,7 @@ The `influxdb3 show nodes` command displays information about nodes in your {{< 
 <!--pytest.mark.skip-->
 
 ```bash
+# Syntax
 influxdb3 show nodes [OPTIONS]
 ```
 
@@ -13,9 +14,11 @@ influxdb3 show nodes [OPTIONS]
 | Option |            | Description                                                                              |
 | :----- | :--------- | :--------------------------------------------------------------------------------------- |
 | `-H`   | `--host`   | Host URL of the running {{< product-name >}} server (default is `http://127.0.0.1:8181`) |
-|        | `--format` | Output format: `pretty` (default), `json`, or `csv`                                      |
+|        | `--format` | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
+|        | `--output` | Path where to save output when using the `parquet` format                                |
 |        | `--token`  | Authentication token                                                                     |
 |        | `--tls-ca` | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+|        | `--tls-no-verify` | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`   | Print help information                                                                   |
 
 ### Option environment variables
@@ -26,6 +29,7 @@ You can use the following environment variables to set command options:
 | :--------------------- | :-------- |
 | `INFLUXDB3_HOST_URL`   | `--host`  |
 | `INFLUXDB3_AUTH_TOKEN` | `--token` |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Output
 
@@ -44,6 +48,7 @@ The command displays the following information for each node:
 
 - [List all nodes in pretty format](#list-all-nodes-in-pretty-format)
 - [List nodes in JSON format](#list-nodes-in-json-format)
+- [Export nodes data to Parquet format](#export-nodes-data-to-parquet-format)
 - [List nodes on a remote server](#list-nodes-on-a-remote-server)
 
 ### List all nodes in pretty format
@@ -104,6 +109,19 @@ The output is similar to the following:
     "cli_params": "{\"http-bind\":\"127.0.0.1:8182\",\"node-id\":\"node-2\",\"data-dir\":\"/path/to/data\",\"object-store\":\"file\",\"mode\":\"ingest\"}"
   }
 ]
+```
+
+### Export nodes data to Parquet format
+
+[Parquet](https://parquet.apache.org/) is a binary format.
+Use the `--output` option to specify the file where you want to save the Parquet data.
+
+<!--pytest.mark.skip-->
+
+```bash
+influxdb3 show nodes \
+  --format parquet \
+  --output nodes-data.parquet
 ```
 
 ### List nodes on a remote server

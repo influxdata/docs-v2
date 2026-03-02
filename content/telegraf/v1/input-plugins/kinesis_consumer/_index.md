@@ -10,7 +10,7 @@ introduced: "v1.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/kinesis_consumer/README.md, Kinesis Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/kinesis_consumer/README.md, Kinesis Consumer Plugin Source
 ---
 
 # Kinesis Consumer Input Plugin

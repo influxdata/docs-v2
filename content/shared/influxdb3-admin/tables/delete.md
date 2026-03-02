@@ -13,9 +13,9 @@ You can also schedule a hard deletion to permanently remove the table and its da
 
 - [Delete a table using the influxdb3 CLI](#delete-a-table-using-the-influxdb3-cli)
 - [Delete a table using the HTTP API](#delete-a-table-using-the-http-api)
+{{% show-in "enterprise" %}}- [Delete data only (preserve schema and resources)](#delete-data-only-preserve-schema-and-resources){{% /show-in %}}
 
 ## Delete a table using the influxdb3 CLI
-
 
 Use the `influxdb3 delete table` command to delete a table:
 
@@ -106,3 +106,50 @@ If the table doesn't exist, the API returns HTTP status `404`:
   "error": "Table not found"
 }
 ```
+
+{{% show-in "enterprise" %}}
+## Delete data only (preserve schema and resources)
+
+{{< product-name >}} supports deleting only the data in a table while preserving the table schema and associated resources.
+This is useful when you want to clear old data and re-write new data to the same table structure without recreating resources.
+
+### What is preserved
+
+When using the data-only deletion option, the following are preserved:
+
+- **Table schema**: Column definitions and data types
+- **Caches**: Last value caches (LVC) and distinct value caches (DVC) associated with the table
+
+### Delete data only using the CLI
+
+Use the [`--data-only`](/influxdb3/version/reference/cli/influxdb3/delete/table/#options) flag to delete data while preserving the table schema and resources:
+
+```sh{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
+influxdb3 delete table \
+  --database DATABASE_NAME \
+  --token AUTH_TOKEN \
+  --data-only \
+  TABLE_NAME
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database containing the table
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+
+### Delete data only using the HTTP API
+
+To delete only data using the HTTP API, include the `data_only=true` query parameter:
+
+```bash{placeholders="DATABASE_NAME|TABLE_NAME|AUTH_TOKEN"}
+curl -X DELETE "{{< influxdb/host >}}/api/v3/configure/table?db=DATABASE_NAME&table=TABLE_NAME&data_only=true" \
+  --header "Authorization: Bearer AUTH_TOKEN"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the database containing the table
+- {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}: the name of the table
+- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}}
+{{% /show-in %}}

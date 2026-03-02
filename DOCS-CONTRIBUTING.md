@@ -7,9 +7,9 @@ Ready to contribute?
 
 1. [Sign the InfluxData CLA](#sign-the-influxdata-cla) (for substantial changes)
 2. [Fork and clone](#fork-and-clone-influxdata-documentation-repository) this repository
-3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Docker)
+3. [Install dependencies](#development-environment-setup) (Node.js, Yarn, Vale; Docker for code block tests / optional Vale fallback)
 4. Make your changes following [style guidelines](#making-changes)
-5. [Test your changes](TESTING.md) (pre-commit and pre-push hooks run automatically)
+5. [Test your changes](DOCS-TESTING.md) (pre-commit and pre-push hooks run automatically)
 6. [Submit a pull request](#submission-process)
 
 For detailed setup and reference information, see the sections below.
@@ -80,18 +80,20 @@ manages git pre-commit and pre-push hooks for linting and testing Markdown conte
 - [prettier](https://prettier.io/docs/en/): formats code, including Markdown, according to style rules for consistency
 - [Cypress]: e2e testing for UI elements and URLs in content
 
-### Install Docker
+### Install Vale (style linting)
 
-docs-v2 includes Docker configurations (`compose.yaml` and Dockerfiles) for running the Vale style linter and tests for code blocks (Shell, Bash, and Python) in Markdown files.
+The `.ci/vale/vale.sh` wrapper runs Vale for style linting.
+It uses a local `vale` binary if available, otherwise falls back to Docker.
 
-Install [Docker](https://docs.docker.com/get-docker/) for your system.
+1. **Option A — Install locally (recommended):** `brew install vale` (or see [Vale installation guide](https://vale.sh/docs/install/))
+2. **Option B — Use Docker:** Install [Docker](https://docs.docker.com/get-docker/). The wrapper pulls a pinned Vale image automatically.
 
-#### Build the test dependency image
+### Install Docker (code block testing)
 
-After you have installed Docker, run the following command to build the test
-dependency image, `influxdata:docs-pytest`.
-The tests defined in `compose.yaml` use the dependencies and execution
-environment from this image.
+Docker is required for code block tests (`compose.yaml` and `Dockerfile.pytest`).
+
+1. Install [Docker](https://docs.docker.com/get-docker/) for your system.
+2. Build the test dependency image:
 
 ```bash
 docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .
@@ -357,10 +359,10 @@ yarn test:codeblocks:all
 yarn test:links content/influxdb3/core/**/*.md
 
 # Run style linting
-docker compose run -T vale content/**/*.md
+.ci/vale/vale.sh content/**/*.md
 ```
 
-For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[TESTING.md](TESTING.md)**.
+For comprehensive testing information, including code block testing, link validation, style linting, and advanced testing procedures, see **[DOCS-TESTING.md](DOCS-TESTING.md)**.
 
 
 ---
@@ -406,18 +408,13 @@ For detailed reference documentation, see:
 
 #### Vale style linting configuration
 
-docs-v2 includes Vale writing style linter configurations to enforce documentation writing style rules, guidelines, branding, and vocabulary terms.
+Run Vale with `.ci/vale/vale.sh`:
 
-**Advanced Vale usage:**
+1. Lint specific files: `.ci/vale/vale.sh content/influxdb3/core/**/*.md`
+2. Use a product config: `.ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini content/path/`
+3. Set alert level: `.ci/vale/vale.sh --minAlertLevel=error content/path/`
 
-```sh
-docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
-```
-
-The output contains error-level style alerts for the Markdown content.
-
-If a file contains style, spelling, or punctuation problems,
-the Vale linter can raise one of the following alert levels:
+Vale raises the following alert levels:
 
 - **Error**:
   - Problems that can cause content to render incorrectly

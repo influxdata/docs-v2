@@ -10,7 +10,7 @@ introduced: "v0.2.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/kinesis/README.md, Amazon Kinesis Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/kinesis/README.md, Amazon Kinesis Plugin Source
 ---
 
 # Amazon Kinesis Output Plugin

@@ -10,7 +10,7 @@ introduced: "v1.10.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/cloud_pubsub/README.md, Google Cloud PubSub Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/cloud_pubsub/README.md, Google Cloud PubSub Plugin Source
 ---
 
 # Google Cloud PubSub Input Plugin

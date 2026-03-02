@@ -10,7 +10,7 @@ introduced: "v1.14.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/sflow/README.md, SFlow Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/sflow/README.md, SFlow Plugin Source
 ---
 
 # SFlow Input Plugin

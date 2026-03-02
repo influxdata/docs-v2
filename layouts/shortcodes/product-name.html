@@ -1,50 +1,6 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
-{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
-{{- $namespace := index $productPathData (add $pathOffset 0) -}}
-{{- $currentProduct := index $productPathData (add $pathOffset 1) -}}
+{{- $productData := partial "product/get-data.html" . -}}
 {{- $length := .Get 0 | default "long" -}}
 {{- $omit := .Get "omit" | default "" -}}
-{{- $scratch := newScratch -}}
-{{- /* Products identified by second path segment (influxdb, influxdb3) */ -}}
-{{- if eq $currentProduct "v2" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb -}}
-{{- else if eq $currentProduct "v1" -}}
-  {{- /* v1 requires checking namespace to distinguish products */ -}}
-  {{- if eq $namespace "influxdb" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.influxdb -}}
-  {{- else if eq $namespace "enterprise_influxdb" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.enterprise_influxdb -}}
-  {{- else if eq $namespace "telegraf" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.telegraf -}}
-  {{- else if eq $namespace "chronograf" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.chronograf -}}
-  {{- else if eq $namespace "kapacitor" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.kapacitor -}}
-  {{- end -}}
-{{- else if eq $currentProduct "v0" -}}
-  {{- /* v0 is Flux */ -}}
-  {{- if eq $namespace "flux" -}}
-    {{- $scratch.Set "productData" .Site.Data.products.flux -}}
-  {{- end -}}
-{{- else if eq $currentProduct "cloud" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud -}}
-{{- else if eq $currentProduct "core" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_core -}}
-{{- else if eq $currentProduct "enterprise" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_enterprise -}}
-{{- else if eq $currentProduct "explorer" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_explorer -}}
-{{- else if eq $currentProduct "cloud-serverless" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
-{{- else if eq $currentProduct "cloud-dedicated" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
-{{- else if eq $currentProduct "clustered" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
-{{- else if eq $currentProduct "controller" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.telegraf_controller -}}
-{{- end -}}
-{{- $productData := $scratch.Get "productData" -}}
 {{- if eq $length "long" }}
   {{- $productData.name | replaceRE $omit "" -}}
 {{ else if eq $length "short" }}
