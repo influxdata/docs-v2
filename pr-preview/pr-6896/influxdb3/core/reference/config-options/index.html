@@ -4030,7 +4030,7 @@ percentage (portion of available memory) or absolute value in MB&ndash;for examp
 <li><a href="#wal-replay-fail-on-error">wal-replay-fail-on-error</a></li>
 <li><a href="#wal-replay-concurrency-limit">wal-replay-concurrency-limit</a></li>
 </ul>
-<h4 id="checkpoint-interval" metadata="v3.8.2">checkpoint-interval</h4>
+<h4 id="checkpoint-interval" metadata="v3.8.2+">checkpoint-interval</h4>
 <p>Sets the interval for aggregating <a href="/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence">write-ahead log (WAL)</a> snapshot files into monthly checkpoint files
 to speed up server startup.
 Without checkpointing, the server loads all individual WAL snapshot files during startup,
