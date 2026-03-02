@@ -1227,12 +1227,42 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 ### Write-Ahead Log (WAL)
 
+- [checkpoint-interval](#checkpoint-interval)
 - [wal-flush-interval](#wal-flush-interval)
 - [wal-snapshot-size](#wal-snapshot-size)
 - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
 - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
+
+#### checkpoint-interval
+
+Sets the interval for aggregating WAL snapshot files into monthly checkpoint files
+to speed up server startup.
+Without checkpointing, the server loads all individual WAL snapshot files during startup,
+which can be thousands of files for long-running servers.
+With checkpointing enabled, the server loads one to two checkpoint files per calendar month,
+then loads only snapshots created since the last checkpoint (delta loading).
+
+Up to 10 checkpoints load concurrently during startup.
+The server retains two checkpoints per calendar month and handles month rollovers automatically.
+
+Accepts a duration value--for example: `1h`, `30m`, `10m`.
+
+**Default:** _Not set (disabled)_
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--checkpoint-interval` | `INFLUXDB3_CHECKPOINT_INTERVAL` |
+
+##### Example
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve --checkpoint-interval 1h
+```
+
+***
 
 #### wal-flush-interval
 
