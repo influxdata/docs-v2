@@ -28,7 +28,7 @@ const changed = getChangedContentFiles(BASE_REF);
 const htmlPaths = mapContentToPublic(changed, 'public');
 
 const urls = Array.from(htmlPaths)
-  .map(p => '/' + p.replace('public/', '').replace('/index.html', '/'))
+  .map((p) => '/' + p.replace('public/', '').replace('/index.html', '/'))
   .slice(0, MAX_PAGES);
 
 appendFileSync(GITHUB_OUTPUT, `urls=${JSON.stringify(urls)}\n`);
