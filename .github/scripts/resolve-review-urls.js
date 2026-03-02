@@ -1,0 +1,37 @@
+/**
+ * Resolve Review URLs
+ *
+ * Maps changed content files to URL paths for the doc-review workflow.
+ * Reuses the same content-utils functions as detect-preview-pages.js.
+ *
+ * Outputs (for GitHub Actions):
+ * - urls: JSON array of URL paths
+ * - url-count: Number of URLs
+ */
+
+import { appendFileSync } from 'fs';
+import {
+  getChangedContentFiles,
+  mapContentToPublic,
+} from '../../scripts/lib/content-utils.js';
+
+const GITHUB_OUTPUT = process.env.GITHUB_OUTPUT || '/dev/stdout';
+const BASE_REF = process.env.BASE_REF || 'origin/master';
+const MAX_PAGES = 50;
+
+if (!/^origin\/[a-zA-Z0-9._\/-]+$/.test(BASE_REF)) {
+  console.error(`Invalid BASE_REF: ${BASE_REF}`);
+  process.exit(1);
+}
+
+const changed = getChangedContentFiles(BASE_REF);
+const htmlPaths = mapContentToPublic(changed, 'public');
+
+const urls = Array.from(htmlPaths)
+  .map(p => '/' + p.replace('public/', '').replace('/index.html', '/'))
+  .slice(0, MAX_PAGES);
+
+appendFileSync(GITHUB_OUTPUT, `urls=${JSON.stringify(urls)}\n`);
+appendFileSync(GITHUB_OUTPUT, `url-count=${urls.length}\n`);
+
+console.log(`Detected ${urls.length} preview URLs`);

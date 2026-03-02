@@ -10,7 +10,8 @@
 > - [.claude/skills/](../.claude/skills/) - **Detailed workflows** (content editing, testing, InfluxDB setup, templates)
 > - [.github/instructions/](instructions/) - **Pattern-specific** (auto-loaded by file type)
 > - [.github/agents/](agents/) - **Specialist agents** (TypeScript/Hugo, Copilot management)
-> - [AGENTS.md](../AGENTS.md), [CLAUDE.md](../CLAUDE.md) - General AI assistant guides
+> - [AGENTS.md](../AGENTS.md) - Shared project guidelines (loaded by all AI assistants)
+> - [CLAUDE.md](../CLAUDE.md) - Claude with MCP (pointer file)
 
 ## Quick Reference
 
@@ -158,45 +159,7 @@ npx hugo --quiet
 
 ## Content Guidelines
 
-**Style guide**: Google Developer Documentation Style Guide\
-**Voice**: Active, present tense, second person\
-**Line breaks**: Semantic line feeds (one sentence per line)\
-**Files**: lowercase-with-hyphens.md
-
-### Quick Shortcodes
-
-````markdown
-# Callouts (GitHub-style alerts)
-> [!Note] / [!Warning] / [!Tip] / [!Important] / [!Caution]
-
-# Required elements
-{{< req >}}
-{{< req type="key" >}}
-
-# Code placeholders
-```sh { placeholders="DATABASE_NAME|API_TOKEN" }
-curl https://example.com/api?db=DATABASE_NAME
-````
-
-````
-
-**Complete reference**: [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md)
-
-### Required Frontmatter
-
-```yaml
-title:       # Required
-description: # Required
-menu:
-  product_menu_key:
-    name:    # Optional
-    parent:  # Optional
-weight:      # Required: 1-99, 101-199, 201-299...
-````
-
-**Shared content**: Add `source: /shared/path/to/file.md`
-
-**Complete reference**: [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md)
+Style rules, frontmatter, and shortcodes are documented in [AGENTS.md](../AGENTS.md) and the references below.
 
 ### Resources
 
@@ -254,9 +217,5 @@ These instructions are automatically loaded by GitHub Copilot based on the files
 - [DOCS-CONTRIBUTING.md](../DOCS-CONTRIBUTING.md) - Contribution guidelines
 - [DOCS-FRONTMATTER.md](../DOCS-FRONTMATTER.md) - Frontmatter reference
 - [DOCS-SHORTCODES.md](../DOCS-SHORTCODES.md) - Shortcodes reference
+- [LABEL_GUIDE.md](LABEL_GUIDE.md) - Label taxonomy and review pipeline
 
-## Important Notes
-
-- This is a large site (5,359+ pages) with complex build processes
-- **NEVER CANCEL** long-running operations (Hugo builds, tests)
-- Set appropriate timeouts: Hugo build (180s+), tests (30+ minutes)
