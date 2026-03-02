@@ -33,9 +33,8 @@ interface FormatSelectorConfig {
   chatGptUrl: string;
   claudeUrl: string;
 
-  // Future MCP server links
-  mcpCursorUrl?: string;
-  mcpVSCodeUrl?: string;
+  // Documentation MCP server link
+  mcpDocsUrl?: string;
 }
 
 interface FormatSelectorOption {
@@ -135,9 +134,8 @@ export default function FormatSelector(options: ComponentOptions) {
       chatGptUrl: generateChatGPTUrl(pageTitle, currentUrl, markdownUrl),
       claudeUrl: generateClaudeUrl(pageTitle, currentUrl, markdownUrl),
 
-      // Future MCP server links
-      mcpCursorUrl: component.dataset.mcpCursorUrl,
-      mcpVSCodeUrl: component.dataset.mcpVSCodeUrl,
+      // Documentation MCP server link
+      mcpDocsUrl: component.dataset.mcpDocsUrl,
     };
 
     // Update button label based on page type
@@ -406,37 +404,20 @@ export default function FormatSelector(options: ComponentOptions) {
     }
     */
 
-    // Future: MCP server options
-    // Commented out for now - will be implemented as future enhancement
-    /*
-    if (config.mcpCursorUrl) {
+    // Option 4: Connect to documentation MCP server
+    if (config.mcpDocsUrl) {
       options.push({
-        label: 'Connect to Cursor',
-        sublabel: 'Install MCP Server on Cursor',
-        icon: 'cursor',
-        action: () => handleExternalLink(config.mcpCursorUrl!),
-        href: config.mcpCursorUrl,
+        label: 'Connect to documentation MCP',
+        sublabel: 'Query docs from your IDE with AI agents',
+        icon: 'mcp',
+        action: () => handleExternalLink(config.mcpDocsUrl!),
+        href: config.mcpDocsUrl,
         target: '_blank',
         external: true,
         visible: true,
-        dataAttribute: 'connect-cursor',
+        dataAttribute: 'connect-mcp-docs',
       });
     }
-
-    if (config.mcpVSCodeUrl) {
-      options.push({
-        label: 'Connect to VS Code',
-        sublabel: 'Install MCP Server on VS Code',
-        icon: 'vscode',
-        action: () => handleExternalLink(config.mcpVSCodeUrl!),
-        href: config.mcpVSCodeUrl,
-        target: '_blank',
-        external: true,
-        visible: true,
-        dataAttribute: 'connect-vscode',
-      });
-    }
-    */
 
     return options.filter((opt) => opt.visible);
   }
@@ -474,6 +455,11 @@ export default function FormatSelector(options: ComponentOptions) {
         <path d="M14 3L6 10L3 7L14 3Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M14 17L6 10L3 13L14 17Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M14 3V17" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>`,
+      mcp: `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 2L3 6V14L10 18L17 14V6L10 2Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 18V10" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M17 6L10 10L3 6" stroke-width="1.5" stroke-linecap="round"/>
       </svg>`,
     };
     return icons[iconName] || icons.document;

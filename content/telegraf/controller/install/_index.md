@@ -357,15 +357,15 @@ Use the following command line options to configure {{% product-name %}}.
 
 ### Configuration options
 
-| Command Flag     | Environment Variable     | Description                   | Default              |
-| :--------------- | :----------------------- | :---------------------------- | :------------------- |
-| --port           | PORT                     | Web interface and API port    | `8888`               |
-| --heartbeat-port | HEARTBEAT_PORT           | Agent heartbeat service port  | `8000`               |
-| --database       | DATABASE                 | Database connection string    | Auto-detected SQLite |
-| --ssl-cert       | SSL_CERT                 | SSL certificate file path     | None                 |
-| --ssl-key        | SSL_KEY                  | SSL private key file path     | None                 |
-| --no-interactive |                          | Skip prompts and use defaults | None                 |
-| --eula-accept    | TELEGRAF_CONTROLLER_EULA | Accept EULA non-interactively | None                 |
+| Command Flag       | Environment Variable       | Description                   | Default              |
+| :----------------- | :------------------------- | :---------------------------- | :------------------- |
+| `--port`           | `PORT`                     | Web interface and API port    | `8888`               |
+| `--heartbeat-port` | `HEARTBEAT_PORT`           | Agent heartbeat service port  | `8000`               |
+| `--database`       | `DATABASE`                 | Database connection string    | Auto-detected SQLite |
+| `--ssl-cert`       | `SSL_CERT`                 | SSL certificate file path     | None                 |
+| `--ssl-key`        | `SSL_KEY`                  | SSL private key file path     | None                 |
+| `--no-interactive` |                            | Skip prompts and use defaults | None                 |
+| `--eula-accept`    | `TELEGRAF_CONTROLLER_EULA` | Accept EULA non-interactively | None                 |
 
 #### Examples
 

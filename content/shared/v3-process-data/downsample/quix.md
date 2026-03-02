@@ -1,17 +1,3 @@
----
-title: Downsample data stored in InfluxDB using Quix Streams
-description: >
-  Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
-  data stored in InfluxDB and written to Kafka at regular intervals, continuously
-  downsample it, and then write the downsampled data back to InfluxDB.
-menu:
-  influxdb3_cloud_dedicated:
-    name: Use Quix
-    parent: Downsample data
-    identifier: influxdb-dedicated-downsample-quix
-weight: 102
----
-
 Use [Quix Streams](https://github.com/quixio/quix-streams) to query time series
 data stored in InfluxDB and written to Kafka at regular intervals, continuously
 downsample it, and then write the downsampled data back to InfluxDB.
@@ -24,9 +10,9 @@ in [Quix Cloud](https://quix.io/) with a free trial.
 This guide uses [Python](https://www.python.org/) and the
 [InfluxDB 3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
 but you can use your runtime of choice and any of the available
-[InfluxDB 3 client libraries](/influxdb3/cloud-dedicated/reference/client-libraries/v3/).
+[InfluxDB 3 client libraries](/influxdb3/version/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb3/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb3/version/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 ## Pipeline architecture
 
@@ -44,21 +30,31 @@ The following diagram illustrates how data is passed between processes as it is 
 
 1.  [Set up prerequisites](#set-up-prerequisites)
 2.  [Install dependencies](#install-dependencies)
+{{% show-in "cloud-serverless" %}}
 3.  [Prepare InfluxDB buckets](#prepare-influxdb-buckets)
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+3.  [Prepare InfluxDB databases](#prepare-influxdb-databases)
+{{% /show-in %}}
 4.  [Create the downsampling logic](#create-the-downsampling-logic)
 5.  [Create the producer and consumer clients](#create-the-producer-and-consumer-clients)
-    1. [Create the producer](#create-the-producer)
-    2. [Create the consumer](#create-the-consumer)
+    1. [Create the producer client](#create-the-producer-client)
+    2. [Create the consumer client](#create-the-consumer-client)
 6.  [Get the full downsampling code files](#get-the-full-downsampling-code-files)
 
 ## Set up prerequisites
 
 The process described in this guide requires the following:
 
+{{% show-in "cloud-serverless" %}}
 - An InfluxDB Cloud Serverless account with data ready for downsampling.
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- An InfluxDB cluster with data ready for downsampling.
+{{% /show-in %}}
 - A [Quix Cloud](https://portal.platform.quix.io/self-sign-up/) account or a
-  local Apache Kafka or Red Panda installation.
-- Familiarity with basic Python and Docker concepts.
+  local Apache Kafka or Redpanda installation.
+- Familiarity with basic Python concepts.
 
 ## Install dependencies
 
@@ -72,22 +68,33 @@ Use `pip` to install the following dependencies:
 pip install influxdb3-python pandas quixstreams<2.5
 ```
 
+{{% show-in "cloud-serverless" %}}
 ## Prepare InfluxDB buckets
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+## Prepare InfluxDB databases
+{{% /show-in %}}
 
-The downsampling process involves two InfluxDB buckets.
-Each bucket has a [retention period](/influxdb3/cloud-dedicated/reference/glossary/#retention-period)
+The downsampling process involves two InfluxDB {{% show-in "cloud-serverless" %}}buckets{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}databases{{% /show-in %}}.
+Each {{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}} has a [retention period](/influxdb3/version/reference/glossary/#retention-period)
 that specifies how long data persists before it expires and is deleted.
-By using two buckets, you can store unmodified, high-resolution data in a bucket
+By using two {{% show-in "cloud-serverless" %}}buckets{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}databases{{% /show-in %}}, you can store unmodified, high-resolution data in a {{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}}
 with a shorter retention period and then downsampled, low-resolution data in a
-bucket with a longer retention period.
+{{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}} with a longer retention period.
 
-Ensure you have a bucket for each of the following:
+Ensure you have a {{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}} for each of the following:
 
 - One to query unmodified data from
 - The other to write downsampled data to
 
+{{% show-in "cloud-serverless" %}}
 For information about creating buckets, see
-[Create a bucket](/influxdb3/cloud-dedicated/admin/buckets/create-bucket/).
+[Create a bucket](/influxdb3/cloud-serverless/admin/buckets/create-bucket/).
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+For information about creating databases, see
+[Create a database](/influxdb3/version/admin/databases/create/).
+{{% /show-in %}}
 
 ## Create the downsampling logic
 
@@ -96,7 +103,7 @@ downsamples it, and then sends it to an output topic that is used to write back 
 
 1.  Use the Quix Streams library's `Application` class to initialize a connection to Apache Kafka.
 
-    ```py
+    ```python
     from quixstreams import Application
 
     app = Application(consumer_group='downsampling-process', auto_offset_reset='earliest')
@@ -107,9 +114,9 @@ downsamples it, and then sends it to an output topic that is used to write back 
     ```
 
 2.  Configure the Quix Streams built-in windowing function to create a tumbling
-    window that continously downsamples the data into 1-minute buckets. 
+    window that continuously downsamples the data into 1-minute buckets.
 
-    ```py
+    ```python
     # ...
     target_field = 'temperature' # The field that you want to downsample.
 
@@ -148,26 +155,36 @@ You can find the full code for this process in the
 
 ## Create the producer and consumer clients
 
-Use the `influxdb_client_3` and `quixstreams` modules to  instantiate two clients that interact with InfluxDB and Apache Kafka:
+Use the `influxdb_client_3` and `quixstreams` modules to instantiate two clients that interact with InfluxDB and Apache Kafka:
 
-- A **producer** client configured to read from your InfluxDB bucket with _unmodified_ data and _produce_ that data to Kafka.
-- A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB bucket.
+- A **producer** client configured to read from your InfluxDB {{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}} with _unmodified_ data and _produce_ that data to Kafka.
+- A **consumer** client configured to _consume_ data from Kafka and write the _downsampled_ data to the corresponding InfluxDB {{% show-in "cloud-serverless" %}}bucket{{% /show-in %}}{{% show-in "cloud-dedicated,clustered" %}}database{{% /show-in %}}.
 
 ### Create the producer client
 
 Provide the following credentials for the producer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb3/cloud-dedicated/reference/regions)
+{{% show-in "cloud-serverless" %}}
+- **host**: Your [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions)
   _(without the protocol)_
-- **org**: InfluxDB organization name
-- **token**: InfluxDB API token with read and write permissions on the buckets you
+- **org**: Your InfluxDB organization name
+- **token**: Your InfluxDB [API token](/influxdb3/version/admin/tokens/) with read and write permissions on the buckets you
   want to query and write to.
-- **database**: InfluxDB bucket name
+- **database**: Your InfluxDB [bucket](/influxdb3/version/admin/buckets/) name
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- **host**: Your {{% product-name omit=" Clustered" %}} cluster URL
+  _(without the protocol)_
+- **org**: An arbitrary string (InfluxDB ignores this parameter, but the client requires it)
+- **token**: Your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with read and write permissions on the databases you
+  want to query and write to.
+- **database**: Your InfluxDB [database](/influxdb3/version/admin/databases/) name
+{{% /show-in %}}
 
 The producer queries for fresh data from InfluxDB at specific intervals. It's configured to look for a specific measurement defined in a variable. It writes the raw data to a Kafka topic called 'raw-data'
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
+{{% show-in "cloud-serverless" %}}
+```python { placeholders="API_TOKEN|RAW_BUCKET_NAME" }
 from influxdb_client_3 import InfluxDBClient3
 from quixstreams import Application
 import pandas
@@ -178,7 +195,24 @@ influxdb_raw = InfluxDBClient3(
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
+```
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+```python { placeholders="DATABASE_TOKEN|RAW_DATABASE_NAME" }
+from influxdb_client_3 import InfluxDBClient3
+from quixstreams import Application
+import pandas
 
+# Instantiate an InfluxDBClient3 client configured for your unmodified database
+influxdb_raw = InfluxDBClient3(
+    host='{{< influxdb/host >}}',
+    token='DATABASE_TOKEN',
+    database='RAW_DATABASE_NAME'
+)
+```
+{{% /show-in %}}
+
+```python
 # os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams producer application that connects to a local Kafka installation
@@ -215,7 +249,7 @@ def get_data():
 
 #... remaining code trunctated for brevity ...
 
-# Send the data to a Kafka topic for the downsampling process to consumer 
+# Send the data to a Kafka topic for the downsampling process to consumer
 def main():
     """
     Read data from the Query and publish it to Kafka
@@ -223,7 +257,7 @@ def main():
     #... remaining code trunctated for brevity ...
 
             for index, obj in enumerate(records):
-                print(obj) # Obj contains each row in the table includimng temperature
+                print(obj) # Obj contains each row in the table including temperature
                 # Generate a unique message_key for each row
                 message_key = obj['machineId']
                 logger.info(f'Produced message with key:{message_key}, value:{obj}')
@@ -241,27 +275,47 @@ def main():
                 )
 
 ```
-{{% /code-placeholders %}}
+
+Replace the following:
+
+{{% show-in "cloud-serverless" %}}
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [API token](/influxdb3/version/admin/tokens/) with read permission on the bucket
+- {{% code-placeholder-key %}}`RAW_BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [bucket](/influxdb3/version/admin/buckets/) with unmodified data
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with read permission on the database
+- {{% code-placeholder-key %}}`RAW_DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [database](/influxdb3/version/admin/databases/) with unmodified data
+{{% /show-in %}}
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Source/main.py).
 
-### Create the consumer
+### Create the consumer client
 
 As before, provide the following credentials for the consumer:
 
-- **host**: [{{< product-name >}} region URL](/influxdb3/cloud-dedicated/reference/regions)
+{{% show-in "cloud-serverless" %}}
+- **host**: Your [{{% product-name %}} region URL](/influxdb3/cloud-serverless/reference/regions)
   _(without the protocol)_
-- **org**: InfluxDB organization name
-- **token**: InfluxDB API token with read and write permissions on the buckets you
+- **org**: Your InfluxDB organization name
+- **token**: Your InfluxDB [API token](/influxdb3/version/admin/tokens/) with read and write permissions on the buckets you
   want to query and write to.
-- **database**: InfluxDB bucket name
+- **database**: Your InfluxDB [bucket](/influxdb3/version/admin/buckets/) name
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- **host**: Your {{% product-name omit=" Clustered" %}} cluster URL
+  _(without the protocol)_
+- **org**: An arbitrary string (InfluxDB ignores this parameter, but the client requires it)
+- **token**: Your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with read and write permissions on the databases you
+  want to query and write to.
+- **database**: Your InfluxDB [database](/influxdb3/version/admin/databases/) name
+{{% /show-in %}}
 
 This process reads messages from the Kafka topic `downsampled-data` and writes each message as a point dictionary back to InfluxDB.
 
-{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
-```py
-# Instantiate an InfluxDBClient3 client configured for your downsampled database.
+{{% show-in "cloud-serverless" %}}
+```python { placeholders="API_TOKEN|DOWNSAMPLED_BUCKET_NAME" }
+# Instantiate an InfluxDBClient3 client configured for your downsampled bucket.
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='{{< influxdb/host >}}',
@@ -269,7 +323,22 @@ influxdb_downsampled = InfluxDBClient3(
     database='DOWNSAMPLED_BUCKET_NAME',
     org=''
 )
+```
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+```python { placeholders="DATABASE_TOKEN|DOWNSAMPLED_DATABASE_NAME" }
+# Instantiate an InfluxDBClient3 client configured for your downsampled database.
+# When writing, the org= argument is required by the client (but ignored by InfluxDB).
+influxdb_downsampled = InfluxDBClient3(
+    host='{{< influxdb/host >}}',
+    token='DATABASE_TOKEN',
+    database='DOWNSAMPLED_DATABASE_NAME',
+    org=''
+)
+```
+{{% /show-in %}}
 
+```python
 # os.environ['localdev'] = 'true' # Uncomment if you're using local Kafka rather than Quix Cloud
 
 # Create a Quix Streams consumer application that connects to a local Kafka installation
@@ -310,9 +379,19 @@ def send_data_to_influx(message):
 sdf = app.dataframe(input_topic)
 sdf = sdf.update(send_data_to_influx) # Continuously apply the 'send_data' function to each message in the incoming stream
 
-## ... remaining code trunctated for brevity ...
+## ... remaining code truncated for brevity ...
 ```
-{{% /code-placeholders %}}
+
+Replace the following:
+
+{{% show-in "cloud-serverless" %}}
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [API token](/influxdb3/version/admin/tokens/) with write permission on the bucket
+- {{% code-placeholder-key %}}`DOWNSAMPLED_BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [bucket](/influxdb3/version/admin/buckets/) for downsampled data
+{{% /show-in %}}
+{{% show-in "cloud-dedicated,clustered" %}}
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: your InfluxDB [database token](/influxdb3/version/admin/tokens/database/) with write permission on the database
+- {{% code-placeholder-key %}}`DOWNSAMPLED_DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your InfluxDB [database](/influxdb3/version/admin/databases/) for downsampled data
+{{% /show-in %}}
 
 You can find the full code for this process in the
 [Quix GitHub repository](https://github.com/quixio/template-influxdbv3-downsampling/blob/dev/InfluxDB%20V3%20Data%20Sink/main.py).
@@ -335,24 +414,24 @@ This repository contains the following folders which store different parts of th
   and writes it to InfluxDB. This is useful if you dont have your own data yet,
   or just want to work with test data first.
 
-  - It produces a reading every 250 milliseconds. 
+  - It produces a reading every 250 milliseconds.
   - This script originally comes from the
     [InfluxCommunity repository](https://github.com/InfluxCommunity/Arrow-Task-Engine/blob/master/machine_simulator/src/machine_generator.py)
     but has been adapted to write directly to InfluxDB rather than using an MQTT broker.
-    
-- **InfluxDB V3 Data Source**: A service that queries for fresh data from
+
+- **InfluxDB v3 Data Source**: A service that queries for fresh data from
   InfluxDB at specific intervals. It's configured to look for the measurement
-  produced by the previously-mentioned synthetic machine data generator.
+  produced by the synthetic machine data generator.
   It writes the raw data to a Kafka topic called "raw-data".
 - **Downsampler**: A service that performs a 1-minute tumbling window operation
   on the data from InfluxDB and emits the mean of the "temperature" reading
   every minute. It writes the output to a "downsampled-data" Kafka topic.
-- **InfluxDB V3 Data Sink**: A service that reads from the "downsampled-data"
+- **InfluxDB v3 Data Sink**: A service that reads from the "downsampled-data"
   topic and writes the downsample records as points back into InfluxDB.
 
 ### Use the downsampling Jupyter Notebook
 
-You can use the interactive notebook ["Continuously downsample data using InfluxDB and Quix Streams"](https://github.com/quixio/tutorial-code/edit/main/notebooks/Downsampling_viaKafka_Using_Quix_Influx.ipynb) to try downsampling code yourself. It is configured to install Apache Kafka within the runtime environment (such as Google Colab). 
+You can use the interactive notebook ["Continuously downsample data using InfluxDB and Quix Streams"](https://github.com/quixio/tutorial-code/edit/main/notebooks/Downsampling_viaKafka_Using_Quix_Influx.ipynb) to try downsampling code yourself. It is configured to install Apache Kafka within the runtime environment (such as Google Colab).
 
 Each process is also set up to run in the background so that a running cell does not block the rest of the tutorial.
 

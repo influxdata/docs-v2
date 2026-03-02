@@ -14,6 +14,7 @@ weight: 101
 metadata: [1 / 3]
 related:
   - /influxdb3/clustered/admin/databases/
+  - /influxdb3/clustered/admin/mcp-server/
   - /influxdb3/clustered/reference/cli/influxctl/
   - /influxdb3/clustered/reference/api/
 ---

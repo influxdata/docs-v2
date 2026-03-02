@@ -837,7 +837,7 @@ InfluxDB Clustered.
 
 #### Deployment
 
-- Ingesters now have a `terminationGracePeriodSeconds` value of `600` to provid
+- Ingesters now have a `terminationGracePeriodSeconds` value of `600` to provide
   enough time to persist all buffered data.
 
 #### Database engine
@@ -1534,7 +1534,7 @@ Support for custom certificates has been implemented since version
 [20230912-619813](#20230912-619813).
 Unfortunately, due to a bug, our Object store client didn't use the custom certificates.
 This release fixes that so you can use the existing configuration for custom
-certificates to also specify the certificate and certficate authority used by
+certificates to also specify the certificate and certificate authority used by
 your object store.
 
 #### Resource limits
@@ -1637,7 +1637,7 @@ Otherwise, no changes are necessary.
 #### Database engine
 
 - Catalog cache convergence improvements.
-- Retry after out of memeory (OOM) errors.
+- Retry after out of memory (OOM) errors.
 
 ---
 
@@ -1682,7 +1682,7 @@ spec:
 #### Updated Azure AD documentation
 
 The `Appendix` / `Configuring Identity Provider` / `Azure` section of the
-"Geting started" documentation has been updated:
+"Getting started" documentation has been updated:
 
 ```diff
 - https://login.microsoftonline.com/{AZURE_TENANT_ID}/.well-known/openid-configuration

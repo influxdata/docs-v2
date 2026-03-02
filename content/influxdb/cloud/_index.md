@@ -8,10 +8,13 @@ menu:
   influxdb_cloud:
     name: InfluxDB Cloud
 weight: 1
+cascade:
+  product: influxdb_cloud
+  version: cloud
 ---
 
 #### Welcome
-Welcome to the InfluxDB v2.0 documentation!
+Welcome to the InfluxDB v2.0 documentation.
 InfluxDB is an open source time series database designed to handle high write and query workloads.
 
 This documentation is meant to help you learn how to use and leverage InfluxDB to meet your needs.
