@@ -1237,7 +1237,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 #### checkpoint-interval {#checkpoint-interval metadata="v3.8.2"}
 
-Sets the interval for aggregating WAL snapshot files into monthly checkpoint files
+Sets the interval for aggregating [write-ahead log (WAL)](/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence) snapshot files into monthly checkpoint files
 to speed up server startup.
 Without checkpointing, the server loads all individual WAL snapshot files during startup,
 which can be thousands of files for long-running servers.
@@ -1247,7 +1247,7 @@ then loads only snapshots created since the last checkpoint (delta loading).
 Up to 10 checkpoints load concurrently during startup.
 The server retains two checkpoints per calendar month and handles month rollovers automatically.
 
-Accepts a duration value--for example: `1h`, `30m`, `10m`.
+Accepts a [duration](/influxdb3/version/reference/glossary/#duration) value--for example: `1h`, `30m`, `10m`.
 
 **Default:** _Not set (disabled)_
 
