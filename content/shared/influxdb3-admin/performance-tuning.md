@@ -12,6 +12,7 @@ based on your workload characteristics.
 {{% /show-in %}}
 - [Memory tuning](#memory-tuning)
 - [Advanced tuning options](#advanced-tuning-options)
+- [Startup optimization](#startup-optimization)
 - [Monitoring and validation](#monitoring-and-validation)
 - [Common performance issues](#common-performance-issues-1)
 
@@ -576,6 +577,33 @@ Performance tuning for cloud object stores:
 For all available configuration options, see:
 - [CLI serve command reference](/influxdb3/version/reference/cli/influxdb3/serve/)
 - [Configuration options](/influxdb3/version/reference/config-options/)
+
+## Startup optimization
+
+Server startup time scales with the number of WAL snapshot files stored in the object store.
+A long-running server can accumulate thousands of snapshot files, causing slow restarts.
+
+The `--checkpoint-interval` option periodically consolidates snapshot files into monthly
+checkpoint files.
+On startup, the server loads one to two checkpoint files per calendar month, then loads only
+snapshots created since the last checkpoint (delta loading), significantly reducing startup time.
+
+### Recommended checkpoint intervals
+
+| Scenario | Recommended interval |
+| :------- | :------------------- |
+| Production servers | `1h` |
+| Development / testing | `10m` |
+
+### Enable checkpoint creation
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve --checkpoint-interval 1h
+```
+
+For all checkpoint configuration options, see
+[checkpoint-interval](/influxdb3/version/reference/config-options/#checkpoint-interval).
 
 ## Monitoring and validation
 
