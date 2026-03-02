@@ -1235,7 +1235,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
 
-#### checkpoint-interval
+#### checkpoint-interval {#checkpoint-interval metadata="v3.8.2"}
 
 Sets the interval for aggregating WAL snapshot files into monthly checkpoint files
 to speed up server startup.
