@@ -10,7 +10,7 @@ introduced: "v1.13.0"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/systemd_units/README.md, Systemd-Units Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/systemd_units/README.md, Systemd-Units Plugin Source
 ---
 
 # Systemd-Units Input Plugin

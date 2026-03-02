@@ -10,7 +10,7 @@ introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/aggregators/valuecounter/README.md, Value Counter Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/aggregators/valuecounter/README.md, Value Counter Plugin Source
 ---
 
 # Value Counter Aggregator Plugin

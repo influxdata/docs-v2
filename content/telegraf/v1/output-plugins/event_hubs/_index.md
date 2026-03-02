@@ -10,7 +10,7 @@ introduced: "v1.21.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/event_hubs/README.md, Azure Event Hubs Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/event_hubs/README.md, Azure Event Hubs Plugin Source
 ---
 
 # Azure Event Hubs Output Plugin

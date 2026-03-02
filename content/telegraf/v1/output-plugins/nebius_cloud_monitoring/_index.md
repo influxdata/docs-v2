@@ -10,7 +10,7 @@ introduced: "v1.27.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/nebius_cloud_monitoring/README.md, Nebius Cloud Monitoring Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/nebius_cloud_monitoring/README.md, Nebius Cloud Monitoring Plugin Source
 ---
 
 # Nebius Cloud Monitoring Output Plugin

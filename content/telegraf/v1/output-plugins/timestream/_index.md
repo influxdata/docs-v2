@@ -10,7 +10,7 @@ introduced: "v1.16.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/outputs/timestream/README.md, Amazon Timestream Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/timestream/README.md, Amazon Timestream Plugin Source
 ---
 
 # Amazon Timestream Output Plugin

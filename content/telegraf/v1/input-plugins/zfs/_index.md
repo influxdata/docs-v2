@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/zfs/README.md, ZFS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/zfs/README.md, ZFS Plugin Source
 ---
 
 # ZFS Input Plugin

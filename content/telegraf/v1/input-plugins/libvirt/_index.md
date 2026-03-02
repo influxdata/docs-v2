@@ -10,7 +10,7 @@ introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.2/plugins/inputs/libvirt/README.md, Libvirt Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/libvirt/README.md, Libvirt Plugin Source
 ---
 
 # Libvirt Input Plugin

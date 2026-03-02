@@ -4,6 +4,7 @@ Use this command to add external dependencies that your plugins require, such as
 ## Usage
 
 ```bash
+# Syntax
 influxdb3 install package [OPTIONS] [PACKAGES]...
 ```
 
@@ -26,7 +27,8 @@ influxdb3 install package [OPTIONS] [PACKAGES]...
 | `--package-manager <PACKAGE_MANAGER>`           | Package manager to use: `discover`, `pip`, `uv`, or `disabled`      | `discover`              | `INFLUXDB3_PACKAGE_MANAGER` |
 | `--plugin-repo <PLUGIN_REPO>`                   | Plugin repository URL                                               |                         | `INFLUXDB3_PLUGIN_REPO`     |
 | `-r`, `--requirements <REQUIREMENTS>`           | Path to a `requirements.txt` file                                   |                         |                             |
-| `--tls-ca <CA_CERT>`                            | Custom CA certificate for TLS (useful for self-signed certificates) |                         | `INFLUXDB3_TLS_CA`          |
+| `--tls-ca <CA_CERT>`                            | Path to a custom TLS certificate authority (for self-signed or internal certificates) |                         | `INFLUXDB3_TLS_CA`          |
+| `--tls-no-verify`                               | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |                         | `INFLUXDB3_TLS_NO_VERIFY`   |
 | `-h`, `--help`                                  | Print help information                                              |                         |                             |
 | `--help-all`                                    | Print detailed help information                                     |                         |                             |
 
@@ -59,9 +61,7 @@ influxdb3 install package \
   pint pandas
 ```
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}}: your {{% token-link "admin" %}} for your {{< product-name >}} instance
+Replace {{% code-placeholder-key %}}`AUTH_TOKEN`{{% /code-placeholder-key %}} with your {{% token-link "admin" %}} for your {{< product-name >}} instance.
 
 ### Install packages with a specific package manager
 
