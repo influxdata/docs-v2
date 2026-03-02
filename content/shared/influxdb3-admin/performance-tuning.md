@@ -580,7 +580,7 @@ For all available configuration options, see:
 
 ## Startup optimization
 
-Server startup time scales with the number of WAL snapshot files stored in the object store.
+Server startup time scales with the number of [write-ahead log (WAL)](/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence) snapshot files stored in the object store.
 A long-running server can accumulate thousands of snapshot files, causing slow restarts.
 
 The `--checkpoint-interval` option periodically consolidates snapshot files into monthly
