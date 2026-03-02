@@ -1,5 +1,5 @@
 ---
-title: InfluxDB 3 Core documentation 
+title: InfluxDB 3 Core documentation
 description: >
   InfluxDB 3 Core is an open source time series database designed and optimized
   for real-time and recent data.
@@ -10,6 +10,9 @@ menu:
     name: InfluxDB 3 Core
 weight: 1
 source: /shared/influxdb3/_index.md
+cascade:
+  product: influxdb3_core
+  version: core
 ---
 
 <!-- 

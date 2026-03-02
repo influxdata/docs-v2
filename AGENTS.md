@@ -102,7 +102,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:1313/influxdb3/core/
 yarn test:links content/influxdb3/core/**/*.md
 
 # Run style linting
-docker compose run -T vale content/**/*.md
+.ci/vale/vale.sh content/**/*.md
 ```
 
 **📖 Complete Reference**: [DOCS-TESTING.md](DOCS-TESTING.md)

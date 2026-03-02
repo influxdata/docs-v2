@@ -11,6 +11,9 @@ aliases:
   - /influxdb/v2/reference/flux/
   - /influxdb/v2/reference/flux/
   - /influxdb/cloud/reference/flux/
+cascade:
+  product: flux
+  version: v0
 ---
 
 Flux is an open source functional data scripting language designed for querying,
