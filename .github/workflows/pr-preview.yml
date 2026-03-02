@@ -2,7 +2,7 @@ name: PR Preview
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, closed]
+    types: [opened, reopened, synchronize, closed, ready_for_review]
     paths:
       - 'content/**'
       - 'layouts/**'
