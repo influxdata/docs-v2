@@ -2,6 +2,8 @@ influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
   namespace: influxdb3
+  content_path: influxdb3/core
+  label_group: v3-monolith
   menu_category: self-managed
   versions: [core]
   list_order: 2
@@ -38,6 +40,8 @@ influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3
+  content_path: influxdb3/enterprise
+  label_group: v3-monolith
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
@@ -74,6 +78,8 @@ influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer
   namespace: influxdb3_explorer
+  content_path: influxdb3/explorer
+  label_group: explorer
   menu_category: tools
   list_order: 1
   latest: explorer
@@ -90,6 +96,8 @@ influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb3/cloud-serverless
+  label_group: v3-distributed
   menu_category: managed
   versions: [cloud-serverless]
   list_order: 2
@@ -123,6 +131,8 @@ influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb3/cloud-dedicated
+  label_group: v3-distributed
   menu_category: managed
   versions: [cloud-dedicated]
   list_order: 3
@@ -154,6 +164,8 @@ influxdb3_clustered:
   name: InfluxDB Clustered
   altname: InfluxDB Clustered
   namespace: influxdb
+  content_path: influxdb3/clustered
+  label_group: v3-distributed
   menu_category: self-managed
   versions: [clustered]
   list_order: 3
@@ -188,6 +200,12 @@ influxdb:
   name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
+  content_path:
+    v2: influxdb/v2
+    v1: influxdb/v1
+  label_group:
+    v2: v2
+    v1: v1
   succeeded_by: influxdb3_core
   menu_category: self-managed
   list_order: 1
@@ -233,6 +251,8 @@ influxdb_cloud:
   name__vcloud: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb/cloud
+  label_group: v2
   menu_category: managed
   versions: [cloud]
   list_order: 1
@@ -262,6 +282,8 @@ influxdb_cloud:
 telegraf:
   name: Telegraf
   namespace: telegraf
+  content_path: telegraf
+  label_group: telegraf
   menu_category: other
   list_order: 6
   versions: [v1]
@@ -286,6 +308,8 @@ telegraf_controller:
 chronograf:
   name: Chronograf
   namespace: chronograf
+  content_path: chronograf
+  label_group: chronograf
   menu_category: other
   list_order: 7
   versions: [v1]
@@ -301,6 +325,8 @@ chronograf:
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
+  content_path: kapacitor
+  label_group: kapacitor
   menu_category: other
   list_order: 7
   versions: [v1]
@@ -316,6 +342,8 @@ kapacitor:
 enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
   namespace: enterprise_influxdb
+  content_path: enterprise_influxdb
+  label_group: v1-enterprise
   menu_category: self-managed
   list_order: 5
   versions: [v1]
@@ -370,6 +398,8 @@ influxdb_cloud1:
 flux:
   name: Flux
   namespace: flux
+  content_path: flux
+  label_group: flux
   menu_category: languages
   list_order: 8
   versions: [v0]
