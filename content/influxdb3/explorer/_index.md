@@ -6,6 +6,9 @@ menu:
   influxdb3_explorer:
     name: InfluxDB 3 Explorer
 weight: 1
+cascade:
+  product: influxdb3_explorer
+  version: explorer
 ---
 
 InfluxDB 3 Explorer is the standalone web application designed for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.

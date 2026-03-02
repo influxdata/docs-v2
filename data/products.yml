@@ -8,6 +8,10 @@ influxdb3_core:
   latest: core
   latest_patch: 3.8.3
   placeholder_host: localhost:8181
+  limits:
+    database: 5
+    table: 2000
+    column: 500
   detector_config:
     query_languages:
       SQL:
@@ -40,6 +44,10 @@ influxdb3_enterprise:
   latest: enterprise
   latest_patch: 3.8.3
   placeholder_host: localhost:8181
+  limits:
+    database: 100
+    table: 10000
+    column: 500
   detector_config:
     query_languages:
       SQL:
@@ -87,6 +95,8 @@ influxdb3_cloud_serverless:
   list_order: 2
   latest: cloud-serverless
   placeholder_host: cloud2.influxdata.com
+  version_label: Cloud Serverless
+  distributed_architecture: true
   detector_config:
     query_languages:
       SQL:
@@ -120,6 +130,8 @@ influxdb3_cloud_dedicated:
   link: 'https://www.influxdata.com/contact-sales-cloud-dedicated/'
   latest_cli: 2.12.0
   placeholder_host: cluster-id.a.influxdb.io
+  version_label: Cloud Dedicated
+  distributed_architecture: true
   detector_config:
     query_languages:
       SQL:
@@ -148,6 +160,8 @@ influxdb3_clustered:
   latest: clustered
   link: 'https://www.influxdata.com/contact-sales-influxdb-clustered/'
   placeholder_host: cluster-host.com
+  version_label: Clustered
+  distributed_architecture: true
   detector_config:
     query_languages:
       SQL:
@@ -224,6 +238,7 @@ influxdb_cloud:
   list_order: 1
   latest: cloud
   placeholder_host: cloud2.influxdata.com
+  version_label: Cloud
   detector_config:
     query_languages:
       InfluxQL:

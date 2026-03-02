@@ -38,10 +38,15 @@ pre-commit:
     # Auto-fix markdown formatting for instruction and README files (like prettier)
     lint-markdown-instructions:
       tags: lint
-      glob: "{README.md,*[A-Z]*.md,.github/**/*.md,.claude/**/*.md}"
+      glob:
+        - "README.md"
+        - "[A-Z]*.md"
+        - ".github/**/*.md"
+        - ".claude/**/*.md"
       run: |
-        # Filter out content directory files, then prepend /workdir/ to each remaining file
-        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
+        # Filter out content and layout files (shortcode .md files contain Hugo template syntax
+        # that remark-lint would escape), then prepend /workdir/ to each remaining file
+        files=$(echo '{staged_files}' | tr ' ' '\n' | grep -v '^content/' | grep -v '^layouts/' | sed 's|^|/workdir/|' | tr '\n' ' ' | sed 's/ $//')
         if [ -n "$files" ]; then
           docker compose run --rm --name remark-lint remark-lint $files --output --quiet || \
             { echo "⚠️  Remark found formatting issues in instruction files. Automatic formatting applied."; }
@@ -134,6 +139,15 @@ pre-commit:
       glob: "assets/js/*.{js,ts}"
       run: yarn eslint {staged_files}
       fail_text: "JavaScript linting failed. Fix errors before committing."
+    shellcheck:
+      tags: lint
+      glob: "*.sh"
+      exclude:
+        - "shared/text/**/*.sh"
+        - "layouts/shortcodes/**/*.sh"
+        - "node_modules/**"
+      run: .ci/shellcheck/shellcheck.sh {staged_files}
+      fail_text: "ShellCheck found issues in shell scripts. Fix errors before committing."
 pre-push:
   commands:
     packages-audit:
