@@ -31,7 +31,7 @@ jobs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -43,7 +43,7 @@ jobs:
             package.json
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
         with:
           node-version: 22
 
@@ -70,7 +70,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository &&
       !contains(github.event.pull_request.labels.*.name, 'skip-review')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
           persist-credentials: false
 
@@ -91,7 +91,7 @@ jobs:
 
       - name: Run Claude review
         id: review
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@64c7a0ef71df67b14cb4471f4d9c8565c61042bf  # v1.0.66
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: ${{ steps.prompt.outputs.content }}
@@ -101,7 +101,7 @@ jobs:
 
       - name: Fallback on failure
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         with:
           script: |
             const marker = '<!-- doc-review-fallback -->';
@@ -123,23 +123,17 @@ jobs:
             });
 
             // Apply needs-human label
-            try {
-              await github.rest.issues.removeLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                name: 'review:approved',
-              });
-            } catch { /* label may not exist */ }
-
-            try {
-              await github.rest.issues.removeLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                name: 'review:changes-requested',
-              });
-            } catch { /* label may not exist */ }
+            // Remove all review:* labels before applying the new one
+            for (const label of ['review:approved', 'review:changes-requested', 'review:needs-human']) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  name: label,
+                });
+              } catch { /* label may not exist */ }
+            }
 
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
@@ -158,9 +152,9 @@ jobs:
       pull-requests: write
       issues: write
     needs: resolve-urls
-    if: needs.resolve-urls.outputs.url-count > 0
+    if: fromJson(needs.resolve-urls.outputs.url-count) > 0
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
           persist-credentials: false
           sparse-checkout: .github/prompts/copilot-visual-review.md
@@ -195,7 +189,7 @@ jobs:
 
       - name: Post visual review request
         if: steps.wait.outputs.available == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         env:
           PREVIEW_URLS: ${{ needs.resolve-urls.outputs.urls }}
         with:
@@ -256,7 +250,7 @@ jobs:
 
       - name: Post timeout notice
         if: steps.wait.outputs.available == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         with:
           script: |
             const marker = '<!-- doc-review-visual-timeout -->';

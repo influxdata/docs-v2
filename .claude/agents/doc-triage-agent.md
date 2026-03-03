@@ -14,66 +14,17 @@ documentation team.
 
 ## Label Taxonomy
 
-The repository uses 24 labels organized into 6 categories. Apply labels
-based on the rules below. For the complete reference with colors and
-descriptions, see [.github/LABEL_GUIDE.md](../../.github/LABEL_GUIDE.md).
+Apply labels using the definitions in these source files:
 
-### Product Labels (`product:*`)
-
-Map content paths to product labels using `data/products.yml`. Each product
-entry has `content_path` and `label_group` fields:
-
-| Content Path | Label |
-|-------------|-------|
-| `content/influxdb3/core/` | `product:v3-monolith` |
-| `content/influxdb3/enterprise/` | `product:v3-monolith` |
-| `content/influxdb3/cloud-serverless/` | `product:v3-distributed` |
-| `content/influxdb3/cloud-dedicated/` | `product:v3-distributed` |
-| `content/influxdb3/clustered/` | `product:v3-distributed` |
-| `content/influxdb3/explorer/` | `product:explorer` |
-| `content/influxdb/v2/` | `product:v2` |
-| `content/influxdb/cloud/` | `product:v2` |
-| `content/influxdb/v1/` | `product:v1` |
-| `content/enterprise_influxdb/` | `product:v1-enterprise` |
-| `content/telegraf/` | `product:telegraf` |
-| `content/chronograf/` | `product:chronograf` |
-| `content/kapacitor/` | `product:kapacitor` |
-| `content/flux/` | `product:flux` |
-| `content/shared/` | `product:shared` (+ expanded product labels) |
-
-**Multi-product:** Apply all matching labels. A PR touching both Core and
-Enterprise content gets `product:v3-monolith` once (they share the label
-group).
-
-**Shared content:** Apply `product:shared` plus labels for all products
-that reference the shared file.
-
-### Source Labels (`source:*`)
-
-| Label | When to Apply |
-|-------|--------------|
-| `source:auto-detected` | Created by change detection automation within this repo |
-| `source:dar` | Issue created by the DAR pipeline |
-| `source:sync` | PR created by plugin sync or external repo sync |
-| `source:manual` | Human-created issue (default for issues without automation markers) |
-
-### Waiting Labels (`waiting:*`)
-
-| Label | When to Apply |
-|-------|--------------|
-| `waiting:engineering` | Issue needs engineer confirmation (API behavior, implementation detail) |
-| `waiting:product` | Issue needs PM or product decision |
-
-### Workflow Labels
-
-| Label | When to Apply |
-|-------|--------------|
-| `agent-ready` | Issue has clear requirements, no blockers, can be worked autonomously |
-| `skip-review` | PR should skip the automated doc review pipeline |
-
-### Review Labels (`review:*`)
-
-These are applied by the doc-review workflow, not manually during triage.
+- **Product labels** (`product:*`): Read
+  [data/products.yml](../../data/products.yml) — match changed file paths
+  against each product's `content_path`, apply `product:{label_group}`.
+  Apply all matching labels. For shared content, apply `product:shared` plus
+  labels for all products that reference the shared file.
+- **Source, waiting, and workflow labels**: Read
+  [data/labels.yml](../../data/labels.yml) for label names and descriptions.
+- **Review labels** (`review:*`): Applied by the doc-review workflow, not
+  during triage.
 
 ## Priority Assessment
 

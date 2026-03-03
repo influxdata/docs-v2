@@ -109,6 +109,11 @@ automation.
 
 ### 1.1 — Label taxonomy
 
+> **Note:** The tables below are a planning snapshot. The authoritative
+> definitions live in `data/labels.yml` (non-product labels) and
+> `data/products.yml` (product labels). See `.github/LABEL_GUIDE.md` for
+> the current index.
+
 **24 labels organized into 6 categories:**
 
 #### Product labels (11) — Color: `#FFA500` (yellow)

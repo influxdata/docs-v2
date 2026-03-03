@@ -68,88 +68,11 @@ Rules: [DOCS-CONTRIBUTING.md](../../DOCS-CONTRIBUTING.md)
 - Shared files don't contain frontmatter (only content)
 - Changes to shared content are intentional (affects multiple products)
 
-## Severity Levels
-
-### BLOCKING
-
-Issues that will cause incorrect rendering, broken pages, or misleading
-content. These must be fixed before merge.
-
-Examples:
-- Missing required frontmatter (`title`, `description`)
-- Unclosed or malformed shortcode tags
-- Wrong product name in content (e.g., "InfluxDB 3" in v2 docs)
-- Broken `source:` path for shared content
-- h1 heading in content body
-
-### WARNING
-
-Style issues that should be fixed but don't break anything.
-
-Examples:
-- Missing semantic line feeds (multiple sentences on one line)
-- Heading level skipped (h2 → h4)
-- Long option not used in CLI examples (`-o` instead of `--output`)
-- Missing `weight` in frontmatter
-
-### INFO
-
-Suggestions and observations. Not problems.
-
-Examples:
-- Opportunity to use a shared content file
-- Unusually long page that could be split
-- Code block missing language identifier
-
 ## Output Format
 
-Post a single review comment on the PR with this structure:
-
-```markdown
-## Doc Review Summary
-
-**Result:** APPROVED | CHANGES REQUESTED | NEEDS HUMAN REVIEW
-
-### Issues Found
-
-#### BLOCKING
-
-- **file:line** — Description of the issue
-  - Suggested fix: ...
-
-#### WARNING
-
-- **file:line** — Description of the issue
-
-#### INFO
-
-- **file:line** — Observation
-
-### Files Reviewed
-
-- `path/to/file.md` — Brief summary of changes
-```
-
-Rules for the summary:
-- If zero BLOCKING issues → result is APPROVED
-- If any BLOCKING issues → result is CHANGES REQUESTED
-- If you cannot determine severity or the diff is ambiguous → result is
-  NEEDS HUMAN REVIEW
-- Only list issues you are confident about. Do not guess.
-- Group issues by file when multiple issues exist in the same file.
-
-## Label Application
-
-After posting the review comment, apply the appropriate label:
-
-| Result | Label | Action |
-|--------|-------|--------|
-| APPROVED | `review:approved` | Remove other `review:*` labels, add `review:approved` |
-| CHANGES REQUESTED | `review:changes-requested` | Remove other `review:*` labels, add `review:changes-requested` |
-| NEEDS HUMAN REVIEW | `review:needs-human` | Remove other `review:*` labels, add `review:needs-human` |
-
-Always remove existing `review:*` labels before adding the new one — they
-are mutually exclusive.
+Follow the shared review comment format, severity definitions, and label
+mapping in
+[.github/templates/review-comment.md](../../.github/templates/review-comment.md).
 
 ## What NOT to Review
 

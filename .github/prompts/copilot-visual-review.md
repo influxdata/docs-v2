@@ -21,17 +21,14 @@ For each preview URL, verify:
 - [ ] **Navigation correct** — Sidebar entries link to the right pages and
       the page appears in the expected location
 
-## Severity
-
-- **BLOCKING:** Raw shortcode syntax visible, 404 errors, wrong product
-  name in header/breadcrumbs
-- **WARNING:** Minor layout issues, missing images, placeholder text
-- **INFO:** Cosmetic suggestions
-
 ## Output
 
-Post your findings as a reply to this comment. List issues by page URL
-with severity level.
+Follow the shared review comment format, severity definitions, and label
+mapping in
+[templates/review-comment.md](../templates/review-comment.md).
+
+Adapt the "Files Reviewed" section to list preview URLs instead of file
+paths.
 
 ## Preview URLs
 

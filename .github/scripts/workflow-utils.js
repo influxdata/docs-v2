@@ -37,9 +37,7 @@ export {
  * @param {string} [productsPath='data/products.yml'] - Path to products.yml
  * @returns {Promise<Map<string, string>>} Map of "content/{path}/" → "product:{label_group}"
  */
-export async function getProductLabelMap(
-  productsPath = 'data/products.yml'
-) {
+export async function getProductLabelMap(productsPath = 'data/products.yml') {
   const { load } = await import('js-yaml');
   const products = load(readFileSync(productsPath, 'utf8'));
   const pathToLabel = new Map();
@@ -54,10 +52,7 @@ export async function getProductLabelMap(
     } else if (typeof cp === 'object' && typeof lg === 'object') {
       for (const version of Object.keys(cp)) {
         if (lg[version]) {
-          pathToLabel.set(
-            `content/${cp[version]}/`,
-            `product:${lg[version]}`
-          );
+          pathToLabel.set(`content/${cp[version]}/`, `product:${lg[version]}`);
         }
       }
     }
