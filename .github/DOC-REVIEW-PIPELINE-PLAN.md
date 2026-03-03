@@ -1,6 +1,6 @@
 # Doc Review Pipeline — Implementation Plan
 
-**Status:** Reviewed — approved for implementation
+**Status:** In progress — label migration scripts remaining
 **Repository:** influxdata/docs-v2
 **Author:** Triage agent (Claude Code)
 **Date:** 2026-02-28
@@ -28,9 +28,10 @@ Build two interconnected systems:
 1. **Label system** — An automation-driven label taxonomy that supports
    cross-repo automation, agentic workflows, and human-in-the-loop review.
 2. **Doc review pipeline** — A GitHub Actions workflow that automates
-   documentation PR review using Claude (diff-based Markdown review) and
-   Copilot (rendered HTML visual review), with rendered-page verification
-   that catches issues invisible in the Markdown source.
+   documentation PR review using Copilot for both code review (diff-based,
+   using auto-loaded instruction files) and visual review (rendered HTML
+   at preview URLs), with rendered-page verification that catches issues
+   invisible in the Markdown source.
 
 The pipeline catches issues only visible in rendered output — expanded
 shortcodes, broken layouts, incorrect product names — by having Copilot
@@ -51,7 +52,7 @@ analyze the rendered HTML of deployed preview pages.
 | Playwright | `package.json` | Already a dependency (`^1.58.1`) |
 | Claude agent instructions | `CLAUDE.md`, `AGENTS.md`, `.claude/` | Review criteria, style guide, skills, commands |
 | Copilot instructions | `.github/copilot-instructions.md` | Style guide, repo structure, patterns |
-| Claude GitHub App | Installed on repo | Can use `anthropics/claude-code-action` |
+| Copilot pattern instructions | `.github/instructions/` | Auto-loaded by Copilot based on changed file patterns |
 | Auto-labeling (path-based) | Not yet implemented | Needed for Phase 1 |
 | Link checker workflow | `.github/workflows/pr-link-check.yml` | Validates links on PR changes |
 | Sync plugins workflow | `.github/workflows/sync-plugins.yml` | Issue-triggered workflow pattern to follow |
@@ -73,11 +74,11 @@ PR opened/updated (content paths)
         │
         ├──────────────────────────┐
         ▼                          ▼
-┌─ Job 1: Resolve URLs ────┐  ┌─ Job 2: Claude Review ─────────┐
-│  detect-preview-pages.js  │  │  anthropics/claude-code-action  │
-│  changed files → URLs     │  │  Inputs: PR diff + prompt       │
-│  Output: urls.json        │  │  Outputs: review comment +      │
-└──────────┬───────────────┘  │    review outcome label         │
+┌─ Job 1: Resolve URLs ────┐  ┌─ Job 2: Copilot Code Review ───┐
+│  resolve-review-urls.js   │  │  gh pr edit --add-reviewer      │
+│  changed files → URLs     │  │  copilot-reviews                │
+│  Output: url list         │  │  Uses .github/instructions/     │
+└──────────┬───────────────┘  │  for auto-loaded review rules   │
            │                   └──────────────┬─────────────────┘
            ▼                                  │
 ┌─ Job 3: Copilot Visual Review ────────┐     │
@@ -91,8 +92,9 @@ PR opened/updated (content paths)
          Human reviews what remains
 ```
 
-**Job 2 (Claude) runs in parallel with Jobs 1→3** — it only needs the PR
-diff, not the rendered pages. This reduces total wall-clock time.
+**Job 2 (Copilot code review) runs in parallel with Jobs 1→3** — it uses
+GitHub's native Copilot reviewer, which analyzes the PR diff using
+auto-loaded instruction files from `.github/instructions/`.
 
 ---
 
@@ -156,20 +158,21 @@ automation.
 | `skip-review` | Skip automated doc review pipeline |
 
 > [!Note]
-> Human codeowner approval uses GitHub's native PR review mechanism (CODEOWNERS file), not a label. The `review:*` labels below represent **automated review outcomes** only.
+> Human codeowner approval uses GitHub's native PR review mechanism (CODEOWNERS file), not a label. The `review:*` labels below are applied **manually** after reviewing Copilot feedback.
 
 #### Review outcome labels (3) — Color: `#28A745` / `#DC3545` / `#FFC107`
 
 | Label | Description |
 |-------|-------------|
-| `review:approved` | Automated review passed — no blocking issues found |
-| `review:changes-requested` | Automated review found blocking issues |
-| `review:needs-human` | Automated review inconclusive, needs human |
+| `review:approved` | Review passed — no blocking issues found |
+| `review:changes-requested` | Review found blocking issues |
+| `review:needs-human` | Review inconclusive, needs human |
 
 > [!Note]
 > All labels use colons (`:`) as separators for consistency. The `review:*` labels
-> are mutually exclusive pipeline outcomes — the workflow removes old `review:*`
-> labels before applying a new one.
+> are mutually exclusive. They are applied manually after review — the CI workflow
+> does not manage labels. Copilot code review uses GitHub's native "Comment"
+> review type.
 
 #### Existing labels to keep (renamed) (2)
 
@@ -271,7 +274,7 @@ on:
       - 'data/**'
 ```
 
-**Permissions:** `contents: read`, `pull-requests: write`, `issues: write`
+**Permissions:** `contents: read`, `pull-requests: write`
 
 **Concurrency:** `group: doc-review-${{ github.event.number }}`, `cancel-in-progress: true`
 
@@ -292,24 +295,25 @@ from `scripts/lib/content-utils.js`, which already handles shared content
 expansion (if `content/shared/foo.md` changes, all pages with
 `source: /shared/foo.md` are included).
 
-### 2.3 — Job 2: Claude Review (diff-only)
+### 2.3 — Job 2: Copilot Code Review
 
 **Purpose:** Review Markdown changes against the style guide and documentation
-standards. Visual review of rendered pages is handled separately by Copilot
-in Job 3.
+standards using GitHub's native Copilot code review. Visual review of rendered
+pages is handled separately in Job 3.
 
 **Dependencies:** None beyond the PR itself. This job runs in parallel with
-Jobs 1→3 since it only needs the PR diff.
+Jobs 1→3.
 
 **Implementation:**
-- Uses `anthropics/claude-code-action@v1`
-- Prompt stored separately for maintainability
+- Adds `copilot-reviews` as a PR reviewer via `gh pr edit --add-reviewer`
+- Copilot automatically reviews the PR diff using instruction files from
+  `.github/instructions/` that are auto-loaded based on changed file patterns
+- No custom prompt or API key required
 
-**Prompt file:** `.github/prompts/doc-review.md`
+**Review criteria file:** `.github/instructions/content-review.instructions.md`
 
-The prompt should instruct Claude to check the Markdown changes against
-existing style guide and agent instructions (already in the repo as
-`CLAUDE.md`, `AGENTS.md`, `DOCS-CONTRIBUTING.md`). Look for:
+This file is auto-loaded by Copilot for PRs that change `content/**/*.md`
+files. It checks for:
 
 1. **Frontmatter correctness** — Required fields, menu structure, weights
 2. **Shortcode syntax** — Correct usage, closing tags, parameters
@@ -318,6 +322,7 @@ existing style guide and agent instructions (already in the repo as
 5. **Product-specific terminology** — Correct product names, versions
 6. **Link format** — Relative links, proper shortcode links
 7. **Shared content** — `source:` frontmatter correctness
+8. **Code blocks** — Language identifiers, line length, long CLI options
 
 **Severity classification:**
 - `BLOCKING` — Wrong product names, invalid frontmatter, broken shortcode syntax
@@ -325,11 +330,10 @@ existing style guide and agent instructions (already in the repo as
 - `INFO` — Suggestions, not problems
 
 **Output:**
-- Post a single structured review comment on the PR
-- Apply a review outcome label: `review:approved`, `review:changes-requested`,
-  or `review:needs-human`
-- Remove any existing `review:*` labels before applying the new one
-  (mutually exclusive outcomes)
+- Copilot posts inline review comments using GitHub's native "Comment"
+  review type
+- `review:*` labels are applied manually by humans after reviewing the
+  Copilot feedback — the workflow does not manage labels
 
 ### 2.4 — Job 3: Copilot Visual Review (rendered HTML)
 
@@ -344,8 +348,8 @@ and structural issues invisible in the Markdown source.
   screenshot capture or image upload required.
 - Visual review is a good fit for Copilot because the rendered pages are
   self-contained artifacts (no need to cross-reference repo files).
-- Keeps Claude focused on diff review (where it excels at cross-referencing
-  style guides and repo conventions).
+- Copilot code review (Job 2) handles the diff; visual review catches what
+  the diff review cannot.
 
 **Implementation:**
 
@@ -354,7 +358,7 @@ and structural issues invisible in the Markdown source.
      `curl --head` until it returns 200
    - Timeout: 10 minutes (preview build takes ~75s + deploy time)
    - Poll interval: 15 seconds
-   - If timeout, skip visual review; Claude diff review (Job 2) still runs
+   - If timeout, skip visual review; Copilot code review (Job 2) still runs
 
 2. **Post preview URLs and trigger Copilot review:**
    - Use `actions/github-script@v7` to post a PR comment listing the preview
@@ -374,23 +378,21 @@ and structural issues invisible in the Markdown source.
    - Preview URL count capped at 50 pages (matching `MAX_PAGES` in
      `detect-preview-pages.js`)
 
-3. **Copilot automatic code review (bonus):**
-   - In addition to the explicit visual review, Copilot's built-in code
-     review triggers automatically on the PR diff if enabled for the repo.
-   - This provides text/structural review as a side effect — no extra config.
+3. **Comment upsert pattern:**
+   - Visual review comments use a marker-based upsert pattern — the workflow
+     updates an existing comment if one with the marker exists, otherwise
+     creates a new one. This prevents duplicate comments on `synchronize`
+     events.
 
 ### 2.6 — Workflow failure handling
 
 - If preview deployment times out: skip Copilot visual review (Job 3),
-  run diff-only Claude review (Job 2), post a comment explaining visual
-  review was skipped.
-- If Claude API errors: post a comment saying diff review failed, label PR
-  `review:needs-human`. Visual review via Copilot still proceeds independently.
-- If Copilot does not respond to the `@copilot` mention: post a comment
-  noting that visual review requires manual inspection. Preview URLs remain
-  in the comment for human review.
-- Never block PR merge on workflow failures — the workflow adds labels and
-  comments but does not set required status checks.
+  Copilot code review (Job 2) still runs independently. Post a comment
+  explaining visual review was skipped.
+- If Copilot does not respond to the `@copilot` mention: the preview URLs
+  remain in the comment for human review.
+- Never block PR merge on workflow failures — the workflow adds comments
+  but does not set required status checks or manage labels.
 
 ---
 
@@ -407,20 +409,23 @@ file.
 CLAUDE.md                                  ← lightweight pointer (already exists)
   ├── references .github/LABEL_GUIDE.md    ← label taxonomy + usage
   ├── references .claude/agents/           ← role-specific agent instructions
-  │     ├── doc-triage-agent.md            ← NEW: triage + auto-label logic
-  │     └── doc-review-agent.md            ← NEW: diff-only review logic (Claude)
-  └── references .github/prompts/          ← workflow-specific prompts
-        ├── doc-review.md                  ← NEW: prompt for Claude Code Action
-        └── copilot-visual-review.md       ← NEW: prompt for Copilot visual review
+  │     ├── doc-triage-agent.md            ← triage + auto-label logic
+  │     └── doc-review-agent.md            ← local review sessions (Claude Code)
+  └── references .github/instructions/     ← Copilot auto-loaded instructions
+        └── content-review.instructions.md ← review criteria for content/**/*.md
 ```
 
-**How roles are assigned at runtime:**
-- GitHub Actions workflow sets the task prompt (e.g., "Review this PR using
-  the instructions in `.claude/agents/doc-review-agent.md`")
-- The agent file contains role-specific logic (what to check, how to label)
+**How review roles are assigned at runtime:**
+- **Copilot code review (CI):** GitHub's native reviewer. Auto-loads
+  instruction files from `.github/instructions/` based on changed file
+  patterns. No custom prompt or API key needed.
+- **Copilot visual review (CI):** Triggered by `@copilot` mention in a PR
+  comment with preview URLs and a review template.
+- **Claude local review:** Uses `.claude/agents/doc-review-agent.md` for
+  local Claude Code sessions. Not used in CI.
 - Shared rules (style guide, frontmatter, shortcodes) stay in the existing
   referenced files (`DOCS-CONTRIBUTING.md`, `DOCS-SHORTCODES.md`, etc.)
-- No duplication — each agent file says what's unique to that role
+- No duplication — each instruction file says what's unique to that context
 
 ### 3.2 — Agent instruction files
 
@@ -439,15 +444,16 @@ This file does NOT duplicate style guide rules. It references
 
 #### `.claude/agents/doc-review-agent.md`
 
-Role-specific instructions for Claude's diff-only PR review. Contents:
+Role-specific instructions for **local** Claude Code review sessions. This
+file is NOT used in CI — the CI review is handled by Copilot using
+`.github/instructions/content-review.instructions.md`.
+
+Contents:
 
 - **Review scope** — Markdown diff review only (frontmatter, shortcodes,
   semantic line feeds, heading hierarchy, terminology, links, shared content).
-  Visual review is handled separately by Copilot.
 - **Severity classification** — BLOCKING / WARNING / INFO definitions with examples
 - **Output format** — Structured review comment template
-- **Label application** — When to apply `review:approved`, `review:changes-requested`,
-  `review:needs-human`
 
 This file references `DOCS-CONTRIBUTING.md` for style rules and
 `DOCS-SHORTCODES.md` for shortcode syntax — it does NOT restate them.
@@ -482,37 +488,33 @@ Contents:
 
 These are small additions — no restructuring of existing files.
 
-### 3.5 — Review prompt files
+### 3.5 — Review instruction files
 
-Two prompt files, one per reviewer:
+#### `.github/instructions/content-review.instructions.md` (Copilot code review)
 
-#### `.github/prompts/doc-review.md` (Claude)
+Auto-loaded by Copilot for PRs that change `content/**/*.md` files. Contains
+the review criteria (frontmatter, shortcodes, heading hierarchy, terminology,
+links, code blocks) with severity classification.
 
-The prompt passed to `claude-code-action` in Job 3. It is **separate from**
-the agent instruction file (`.claude/agents/doc-review-agent.md`) because:
+This file replaces the original `.github/prompts/doc-review.md` Claude prompt.
+The review criteria are the same but delivered through Copilot's native
+instruction file mechanism instead of a custom action.
 
-- The prompt is tightly coupled to the workflow (PR context variables,
-  output format for GitHub comments)
-- The agent file is reusable across contexts (Claude Code CLI, manual review,
-  future workflows)
+#### `.github/templates/review-comment.md` (shared format)
 
-The prompt should `@reference` the agent file:
-```markdown
-Follow the review instructions in `.claude/agents/doc-review-agent.md`.
-```
+Shared definitions for severity levels, comment structure, and result → label
+mapping. Used by `doc-review-agent.md` (local review sessions) and the
+Copilot visual review template.
 
-This way the prompt stays small and the diff review logic lives in one place.
+#### Copilot visual review template
 
-#### `.github/prompts/copilot-visual-review.md` (Copilot)
-
-The template used to construct the `@copilot` comment in Job 3. Contains:
+The `@copilot` visual review comment is constructed inline in the
+`doc-review.yml` workflow using the review template from
+`.github/templates/review-comment.md`. Contains:
 
 - The visual review checklist (raw shortcodes, broken layouts, 404s, etc.)
 - Instructions for analyzing the rendered pages at the preview URLs
 - Output format guidance (what to flag, severity levels)
-
-This file is referenced by the `actions/github-script` step that posts the
-`@copilot` comment — it is NOT a Claude Code Action prompt.
 
 ---
 
@@ -532,7 +534,7 @@ These are explicitly **not** part of this plan. Documented here for context.
 ### v3 — Stale PR management
 - Cron job that scans for stale PRs (draft >3 days with no review activity)
   and pings the author.
-- Metrics tracking: % of PRs that pass Claude review on first attempt.
+- Metrics tracking: % of PRs that pass Copilot review on first attempt.
 
 ### v4 — Agent-driven issue resolution
 - Auto-assign doc issues to agents based on `agent-ready` label.
@@ -559,10 +561,10 @@ where visual regression testing matters.
 
 ### Q2: Should the review workflow be a required status check? — RESOLVED
 
-**Decision:** No. Start as advisory (labels + comments only). The workflow adds
-review outcome labels and posts comments, but does not set required status
-checks. Make it required only after the team confirms the false-positive rate
-is acceptable (see Future Phases).
+**Decision:** No. Start as advisory (comments only). The workflow posts review
+comments but does not set required status checks or manage labels. `review:*`
+labels are applied manually after review. Make it required only after the team
+confirms the false-positive rate is acceptable (see Future Phases).
 
 ### Q3: Should screenshots use Playwright or Puppeteer? — DEFERRED
 
@@ -576,7 +578,7 @@ debugging.
 **Decision:** Option A — poll the preview URL with timeout. Job 3 polls
 `https://influxdata.github.io/docs-v2/pr-preview/pr-{N}/` with `curl --head`
 every 15 seconds until it returns 200, with a 10-minute timeout. If timeout is
-reached, skip Copilot visual review; Claude diff review (Job 2) still runs
+reached, skip Copilot visual review; Copilot code review (Job 2) still runs
 independently.
 
 Rationale: Polling is simple, self-contained, and resilient. The URL pattern is
@@ -586,16 +588,15 @@ workflow too large and eliminates the parallelism benefit.
 
 ### Q5: Cost and rate limiting — RESOLVED
 
-**Decision:** Acceptable. Claude API usage is limited to diff-only text review
-(no image tokens). Copilot visual review uses the repo's Copilot allocation,
-not Claude API tokens.
+**Decision:** Acceptable. Both code review and visual review use the repo's
+Copilot allocation. No external API keys or per-call costs.
 
 Mitigations already designed into the workflow:
 - `paths` filter ensures only doc-content PRs trigger the workflow.
 - `skip-review` label allows trivial PRs to opt out.
 - Concurrency group cancels in-progress reviews when the PR is updated.
 - Preview URL count is capped at 50 pages (matching `MAX_PAGES` in
-  `detect-preview-pages.js`).
+  `resolve-review-urls.js`).
 - Draft and fork PRs are skipped entirely.
 
 ### Q6: Label separator convention — RESOLVED
@@ -636,12 +637,11 @@ product labels (resolved via `expandSharedContentChanges()`).
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
-| Claude API cost per PR | Medium | Path filters, skip-review label, concurrency cancellation |
-| Preview not deployed in time | Low | 10-minute polling timeout, fall back to diff-only review |
-| False positives in review | Medium | Start as advisory (not required check), iterate prompts |
+| Preview not deployed in time | Low | 10-minute polling timeout, fall back to code-only review |
+| False positives in review | Medium | Start as advisory (not required check), iterate instruction files |
 | Label migration data loss | Low | Migrate before deleting; human verification gate |
 | Copilot visual review misses issues | Medium | Preview URLs remain in comment for human review; start advisory |
-| Copilot review conflicts with Claude | Low | Different scopes: Claude = diff/Markdown, Copilot = rendered HTML |
+| Copilot code review quality | Medium | Review criteria in `.github/instructions/` can be iterated; local Claude review available as backup |
 | Product mapping drift | Low | Single source of truth in `data/products.yml`; auto-label and matrix-generator both derive from it |
 
 ---
@@ -650,34 +650,34 @@ product labels (resolved via `expandSharedContentChanges()`).
 
 Files to create or modify:
 
-| Action | File | Phase |
-|--------|------|-------|
-| Modify | `data/products.yml` | 1.0 |
-| Create | `helper-scripts/label-migration/create-labels.sh` | 1.2 |
-| Create | `helper-scripts/label-migration/migrate-labels.sh` | 1.2 |
-| Create | `helper-scripts/label-migration/delete-labels.sh` | 1.2 |
-| Create | `helper-scripts/label-migration/README.md` | 1.2 |
-| Create | `.github/workflows/auto-label.yml` | 1.3 |
-| Create | `.github/workflows/doc-review.yml` | 2.1 |
-| Create | `.claude/agents/doc-triage-agent.md` | 3.2 |
-| Create | `.claude/agents/doc-review-agent.md` | 3.2 |
-| Create | `.github/LABEL_GUIDE.md` | 3.3 |
-| Create | `.github/prompts/doc-review.md` | 3.5 |
-| Create | `.github/prompts/copilot-visual-review.md` | 2.5/3.5 |
-| Modify | `CLAUDE.md` | 3.4 |
-| Modify | `AGENTS.md` | 3.4 |
-| Modify | `.github/copilot-instructions.md` | 3.4 |
+| Action | File | Phase | Status |
+|--------|------|-------|--------|
+| Modify | `data/products.yml` | 1.0 | Done |
+| Create | `helper-scripts/label-migration/create-labels.sh` | 1.2 | |
+| Create | `helper-scripts/label-migration/migrate-labels.sh` | 1.2 | |
+| Create | `helper-scripts/label-migration/delete-labels.sh` | 1.2 | |
+| Create | `helper-scripts/label-migration/README.md` | 1.2 | |
+| Create | `.github/workflows/auto-label.yml` | 1.3 | Done |
+| Create | `.github/workflows/doc-review.yml` | 2.1 | Done |
+| Create | `.claude/agents/doc-triage-agent.md` | 3.2 | Done |
+| Create | `.claude/agents/doc-review-agent.md` | 3.2 | Done |
+| Create | `.github/LABEL_GUIDE.md` | 3.3 | Done |
+| Create | `.github/instructions/content-review.instructions.md` | 3.5 | Done |
+| Create | `.github/templates/review-comment.md` | 2.5/3.5 | Done |
+| Modify | `CLAUDE.md` | 3.4 | Done |
+| Modify | `AGENTS.md` | 3.4 | Done |
+| Modify | `.github/copilot-instructions.md` | 3.4 | Done |
 
 ---
 
 ## Implementation Order
 
-1. **Phase 1.0** — Extend `data/products.yml` with `content_path` and `label_group` (PR 1)
-2. **Phase 1.1–1.2** — Create label migration scripts (PR 1)
-3. **Phase 1.3** — Create auto-label workflow (PR 1)
+1. ~~**Phase 1.0** — Extend `data/products.yml` with `content_path` and `label_group`~~ ✅
+2. **Phase 1.1–1.2** — Create label migration scripts
+3. ~~**Phase 1.3** — Create auto-label workflow~~ ✅
 4. **Execute label migration** — Run scripts with human gates (not a code PR)
-5. **Phase 3.2** — Create agent instruction files (PR 2 — can start in parallel with Phase 2)
-6. **Phase 2.1–2.3** — Workflow skeleton + URL resolution + Claude review job + prompt (PR 3)
-7. **Phase 2.5** — Copilot visual review job (PR 3)
-8. **Phase 3.3–3.5** — Label guide, pointer updates, AGENTS.md fix (PR 4 or combined with PR 3)
+5. ~~**Phase 3.2** — Create agent instruction files~~ ✅
+6. ~~**Phase 2.1–2.3** — Workflow skeleton + URL resolution + Copilot code review~~ ✅
+7. ~~**Phase 2.5** — Copilot visual review job~~ ✅
+8. ~~**Phase 3.3–3.5** — Label guide, instruction files, pointer updates~~ ✅
 9. **Test end-to-end** — Open a test PR touching docs content, verify full pipeline
