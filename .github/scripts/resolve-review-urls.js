@@ -19,7 +19,7 @@ const GITHUB_OUTPUT = process.env.GITHUB_OUTPUT || '/dev/stdout';
 const BASE_REF = process.env.BASE_REF || 'origin/master';
 const MAX_PAGES = 50;
 
-if (!/^origin\/[a-zA-Z0-9._\/-]+$/.test(BASE_REF)) {
+if (!/^origin\/[a-zA-Z0-9._/-]+$/.test(BASE_REF)) {
   console.error(`Invalid BASE_REF: ${BASE_REF}`);
   process.exit(1);
 }
