@@ -219,6 +219,7 @@ Create migration scripts in `helper-scripts/label-migration/`:
 > [!Note]
 > `release:pending` is an existing workflow state label that we are keeping as-is.
 > The migration scripts **must ensure** this label exists (create it if missing) and **must not** delete it in the cleanup step.
+
 **Labels to delete after migration:**
 `bug`, `priority`, `documentation`, `Proposal`, `Research Phase`,
 `ready-for-collaboration`, `ui`, `javascript`, `dependencies`,
