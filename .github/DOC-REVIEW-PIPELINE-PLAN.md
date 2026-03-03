@@ -331,7 +331,7 @@ existing style guide and agent instructions (already in the repo as
 - Remove any existing `review:*` labels before applying the new one
   (mutually exclusive outcomes)
 
-### 2.5 — Job 3: Copilot Visual Review (rendered HTML)
+### 2.4 — Job 3: Copilot Visual Review (rendered HTML)
 
 **Purpose:** Have Copilot analyze the rendered preview pages to catch visual
 and structural issues invisible in the Markdown source.
