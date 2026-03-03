@@ -163,7 +163,7 @@ jobs:
               '',
               '---',
               '',
-              `@copilot`,
+              `@copilot please review the preview pages listed above using the template below:`,
               '',
               template.trim(),
               '',
