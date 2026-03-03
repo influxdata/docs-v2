@@ -9,6 +9,12 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.3 {date="2026-03-03"}
+
+### Dependency updates
+
+- Upgrade Go to 1.25.7.
+
 ## v1.8.2 {date="2025-09-29"}
 
 ### Features
