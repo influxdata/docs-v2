@@ -25,6 +25,8 @@
 - Use `python` not `py` for code block language identifiers (pytest won't collect `py` blocks)
 - Shared content files (`content/shared/`) have no frontmatter — the consuming page provides it
 - Product names and versions come from `data/products.yml` (single source of truth)
+- Commit format: `type(scope): description` — see [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md#commit-guidelines)
+- Network-restricted environments: Cypress (`CYPRESS_INSTALL_BINARY=0`), Docker builds, and Alpine packages may fail
 
 ## Style Rules
 
@@ -78,7 +80,8 @@ See [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) for the label taxonomy.
 |----------|------|
 | Label guide | [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) |
 | Triage agent | [.claude/agents/doc-triage-agent.md](.claude/agents/doc-triage-agent.md) |
-| Review agent | [.claude/agents/doc-review-agent.md](.claude/agents/doc-review-agent.md) |
+| Content review instructions | [.github/instructions/content-review.instructions.md](.github/instructions/content-review.instructions.md) |
+| Review agent (local) | [.claude/agents/doc-review-agent.md](.claude/agents/doc-review-agent.md) |
 | Auto-label workflow | [.github/workflows/auto-label.yml](.github/workflows/auto-label.yml) |
 | Doc review workflow | [.github/workflows/doc-review.yml](.github/workflows/doc-review.yml) |
 

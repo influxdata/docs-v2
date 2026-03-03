@@ -3,8 +3,7 @@ name: doc-review-agent
 description: |
   Diff-only PR review agent for documentation changes. Reviews Markdown
   changes against style guide, frontmatter rules, shortcode syntax, and
-  documentation standards. Used by the doc-review GitHub Actions workflow
-  and available for local Claude Code review sessions.
+  documentation standards. Available for local Claude Code review sessions.
 model: sonnet
 ---
 
@@ -31,7 +30,7 @@ Rules: [DOCS-FRONTMATTER.md](../../DOCS-FRONTMATTER.md)
 
 Rules: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 
-- Shortcodes use correct opening/closing syntax (`{{<` vs `{{% %}}`
+- Shortcodes use correct opening/closing syntax (`{{< >}}` vs `{{% %}}`
   depending on whether inner content is Markdown)
 - Required parameters are present
 - Closing tags match opening tags

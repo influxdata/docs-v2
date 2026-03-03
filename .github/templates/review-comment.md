@@ -1,7 +1,7 @@
 # Review Comment Format
 
 Shared definitions for severity levels, comment structure, and result → label
-mapping. Used by doc-review-agent.md (Markdown source review) and
+mapping. Used by doc-review-agent.md (local review sessions) and
 copilot-visual-review.md (rendered page review).
 
 ## Severity Levels
@@ -75,7 +75,7 @@ Post a single review comment on the PR with this structure:
 ```
 
 Adapt the "Files Reviewed" section to the review context:
-- **Source review (Claude):** list file paths from the diff
+- **Source review:** list file paths from the diff
 - **Visual review (Copilot):** list preview URLs instead of file paths
 
 ## Result Rules
@@ -88,11 +88,11 @@ Adapt the "Files Reviewed" section to the review context:
 
 ## Result → Label Mapping
 
-| Result | Label | Action |
-|--------|-------|--------|
-| APPROVED | `review:approved` | Remove other `review:*` labels, add `review:approved` |
-| CHANGES REQUESTED | `review:changes-requested` | Remove other `review:*` labels, add `review:changes-requested` |
-| NEEDS HUMAN REVIEW | `review:needs-human` | Remove other `review:*` labels, add `review:needs-human` |
+| Result | Label |
+|--------|-------|
+| APPROVED | `review:approved` |
+| CHANGES REQUESTED | `review:changes-requested` |
+| NEEDS HUMAN REVIEW | `review:needs-human` |
 
-Labels are mutually exclusive — remove existing `review:*` labels before
-applying the new one.
+Labels are mutually exclusive. Apply manually after review — Copilot code
+review uses GitHub's native "Comment" review type and does not manage labels.

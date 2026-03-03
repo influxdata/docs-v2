@@ -40,10 +40,12 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 
 1. PR opened → auto-label applies `product:*` labels
 2. Doc review workflow triggers (unless `skip-review` is present)
-3. Claude reviews diff → applies `review:approved`, `review:changes-requested`,
-   or `review:needs-human`
-4. Copilot reviews rendered preview pages
+3. Copilot code review runs on the diff (uses
+   [`.github/instructions/`](instructions/) files from the base branch)
+4. Copilot visual review checks rendered preview pages
 5. Human reviewer uses GitHub's PR review for final approval
+
+Review labels (`review:*`) are applied manually after review, not by CI.
 
 ### GitHub Filter Queries
 

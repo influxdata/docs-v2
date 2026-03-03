@@ -48,7 +48,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install js-yaml gray-matter glob
+        run: npm install js-yaml
 
       - name: Detect changed pages
         id: detect
@@ -57,90 +57,23 @@ jobs:
         run: node .github/scripts/resolve-review-urls.js
 
   # -----------------------------------------------------------------
-  # Job 2: Claude diff-only review (runs in parallel with Job 1)
+  # Job 2: Copilot code review (runs in parallel with Job 1)
   # -----------------------------------------------------------------
-  claude-review:
+  copilot-review:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: write
-      issues: write
     if: |
       !github.event.pull_request.draft &&
       github.event.pull_request.head.repo.full_name == github.repository &&
       !contains(github.event.pull_request.labels.*.name, 'skip-review')
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
-        with:
-          persist-credentials: false
-
-      - name: Load review prompt
-        id: prompt
+      - name: Request Copilot review
         env:
+          GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPOSITORY: ${{ github.repository }}
-        run: |
-          PROMPT=$(cat .github/prompts/doc-review.md)
-          PROMPT="${PROMPT//\$PR_NUMBER/$PR_NUMBER}"
-          PROMPT="${PROMPT//\$REPOSITORY/$REPOSITORY}"
-          {
-            echo "content<<PROMPT_EOF"
-            echo "$PROMPT"
-            echo "PROMPT_EOF"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Run Claude review
-        id: review
-        uses: anthropics/claude-code-action@64c7a0ef71df67b14cb4471f4d9c8565c61042bf  # v1.0.66
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: ${{ steps.prompt.outputs.content }}
-          claude_args: >-
-            --max-turns 10
-            --allowedTools "Bash(gh pr diff),Bash(gh pr comment),Bash(gh pr edit),Read,Grep,Glob"
-
-      - name: Fallback on failure
-        if: failure()
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
-        with:
-          script: |
-            const marker = '<!-- doc-review-fallback -->';
-
-            // Post fallback comment
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: [
-                marker,
-                '## Doc Review',
-                '',
-                'Automated diff review encountered an error and could not complete.',
-                'A human reviewer should check this PR manually.',
-                '',
-                `Run: [${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`,
-              ].join('\n'),
-            });
-
-            // Apply needs-human label
-            // Remove all review:* labels before applying the new one
-            for (const label of ['review:approved', 'review:changes-requested', 'review:needs-human']) {
-              try {
-                await github.rest.issues.removeLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.issue.number,
-                  name: label,
-                });
-              } catch { /* label may not exist */ }
-            }
-
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: ['review:needs-human'],
-            });
+          REPO: ${{ github.repository }}
+        run: gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot-reviews"
 
   # -----------------------------------------------------------------
   # Job 3: Copilot visual review (depends on Job 1 for URLs)
@@ -150,7 +83,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-      issues: write
     needs: resolve-urls
     if: fromJson(needs.resolve-urls.outputs.url-count) > 0
     steps:
@@ -195,7 +127,15 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const urls = JSON.parse(process.env.PREVIEW_URLS);
+
+            let urls;
+            try {
+              urls = JSON.parse(process.env.PREVIEW_URLS);
+            } catch (e) {
+              core.warning(`Failed to parse PREVIEW_URLS: ${e.message}`);
+              return;
+            }
+
             const prNumber = context.issue.number;
             const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
 
@@ -211,40 +151,51 @@ jobs:
             );
 
             const marker = '<!-- doc-review-visual -->';
+            const body = [
+              marker,
+              '## Preview Pages for Review',
+              '',
+              `${urls.length} page(s) changed in this PR:`,
+              '',
+              '<details>',
+              '<summary>Preview URLs</summary>',
+              '',
+              urlList,
+              '',
+              '</details>',
+              '',
+              '---',
+              '',
+              `@copilot`,
+              '',
+              template.trim(),
+              '',
+              urlList,
+            ].join('\n');
 
-            // Post preview URLs comment
-            await github.rest.issues.createComment({
+            // Update existing comment or create new one
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber,
-              body: [
-                marker,
-                '## Preview Pages for Review',
-                '',
-                `${urls.length} page(s) changed in this PR:`,
-                '',
-                '<details>',
-                '<summary>Preview URLs</summary>',
-                '',
-                urlList,
-                '',
-                '</details>',
-              ].join('\n'),
             });
+            const existing = comments.find(c => c.body.includes(marker));
 
-            // Post @copilot review comment with the template + URLs
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-              body: [
-                `@copilot`,
-                '',
-                template.trim(),
-                '',
-                urlList,
-              ].join('\n'),
-            });
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
 
             core.info(`Posted visual review request with ${urls.length} URLs`);
 
@@ -254,19 +205,36 @@ jobs:
         with:
           script: |
             const marker = '<!-- doc-review-visual-timeout -->';
+            const body = [
+              marker,
+              '## Visual Review Skipped',
+              '',
+              'The PR preview deployment did not become available within 10 minutes.',
+              'Visual review was skipped. The Copilot code review (Job 2) still ran.',
+              '',
+              'To trigger visual review manually, re-run this workflow after the',
+              'preview is deployed.',
+            ].join('\n');
 
-            await github.rest.issues.createComment({
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: [
-                marker,
-                '## Visual Review Skipped',
-                '',
-                'The PR preview deployment did not become available within 10 minutes.',
-                'Visual review was skipped. The Claude diff review (Job 2) still ran.',
-                '',
-                'To trigger visual review manually, re-run this workflow after the',
-                'preview is deployed.',
-              ].join('\n'),
             });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

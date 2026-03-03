@@ -21,10 +21,11 @@ Apply labels using the definitions in these source files:
   against each product's `content_path`, apply `product:{label_group}`.
   Apply all matching labels. For shared content, apply `product:shared` plus
   labels for all products that reference the shared file.
-- **Source, waiting, and workflow labels**: Read
-  [data/labels.yml](../../data/labels.yml) for label names and descriptions.
-- **Review labels** (`review:*`): Applied by the doc-review workflow, not
-  during triage.
+- **Non-product labels**: Read
+  [data/labels.yml](../../data/labels.yml) for all source, waiting, workflow,
+  and review label names and descriptions.
+- **Review labels** (`review:*`): Defined in `data/labels.yml` but applied
+  only by the doc-review workflow, not during triage.
 
 ## Priority Assessment
 
