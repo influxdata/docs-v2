@@ -3,7 +3,15 @@
   "description": "InfluxData documentation assistance via MCP servers",
   "mcpServers": {
     "influxdb-docs": {
-      "comment": "Hosted InfluxDB documentation search. Authenticates via Google OAuth on first use. Rate limits: 40 req/hr, 200 req/day.",
+      "comment": "Hosted InfluxDB documentation search. Uses API key auth (set DOCS_KAPA_API_KEY env var). Get your key from the Kapa dashboard. Rate limits: 60 req/min.",
+      "type": "sse",
+      "url": "https://influxdb-docs.mcp.kapa.ai",
+      "headers": {
+        "Authorization": "Bearer ${DOCS_KAPA_API_KEY}"
+      }
+    },
+    "influxdb-docs-oauth": {
+      "comment": "Hosted InfluxDB documentation search (OAuth). No API key needed--authenticates via Google OAuth on first use. Rate limits: 40 req/hr, 200 req/day.",
       "type": "sse",
       "url": "https://influxdb-docs.mcp.kapa.ai"
     },
