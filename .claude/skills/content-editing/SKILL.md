@@ -361,12 +361,10 @@ Use the Documentation MCP Server when the information here is inconclusive, when
 
 The documentation MCP server is hosted at `https://influxdb-docs.mcp.kapa.ai`—no local installation required.
 
-**Claude Code** (this repo): Already configured in [`.mcp.json`](/.mcp.json). Two server entries are available:
+Already configured in [`.mcp.json`](/.mcp.json). Two server entries are available:
 
 - **`influxdb-docs`** (API key) — Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var. 60 req/min.
 - **`influxdb-docs-oauth`** (OAuth) — No setup. Authenticates via Google on first use. 40 req/hr, 200 req/day.
-
-**Other AI assistants**: See the [InfluxDB documentation MCP server guide](/influxdb3/core/admin/mcp-server/) for Claude Desktop, ChatGPT, Cursor, and VS Code Copilot configuration.
 
 ### Available Tool
 

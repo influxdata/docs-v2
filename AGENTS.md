@@ -54,13 +54,10 @@ docs-v2/
 
 ## Documentation MCP Server
 
-A hosted MCP server at `https://influxdb-docs.mcp.kapa.ai` provides semantic search over all InfluxDB documentation.
+A hosted MCP server provides semantic search over all InfluxDB documentation.
 Use it to verify technical accuracy, check API syntax, and find related docs.
 
-**For Claude Code contributors**: Already configured in [`.mcp.json`](.mcp.json).
-Set `INFLUXDATA_DOCS_KAPA_API_KEY` for API key auth, or use the OAuth entry (no setup).
-
-**For other AI assistants**: See the [MCP server guide](https://docs.influxdata.com/influxdb3/core/admin/mcp-server/) for Claude Desktop, ChatGPT, Cursor, and VS Code Copilot configuration.
+See the [InfluxDB documentation MCP server guide](https://docs.influxdata.com/influxdb3/core/admin/mcp-server/) for setup instructions.
 
 ## Common Workflows
 
