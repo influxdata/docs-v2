@@ -3,11 +3,11 @@
   "description": "InfluxData documentation assistance via MCP servers",
   "mcpServers": {
     "influxdb-docs": {
-      "comment": "Hosted InfluxDB documentation search. Uses API key auth (set DOCS_KAPA_API_KEY env var). Get your key from the Kapa dashboard. Rate limits: 60 req/min.",
+      "comment": "Hosted InfluxDB documentation search. Uses API key auth (set INFLUXDATA_DOCS_KAPA_API_KEY env var). Get your key from the Kapa dashboard. Rate limits: 60 req/min.",
       "type": "sse",
       "url": "https://influxdb-docs.mcp.kapa.ai",
       "headers": {
-        "Authorization": "Bearer ${DOCS_KAPA_API_KEY}"
+        "Authorization": "Bearer ${INFLUXDATA_DOCS_KAPA_API_KEY}"
       }
     },
     "influxdb-docs-oauth": {
@@ -23,9 +23,9 @@
         "${DOCS_MCP_SERVER_PATH}/dist/index.js"
       ],
       "env": {
-        "DOCS_API_KEY_FILE": "${DOCS_API_KEY_FILE:-$HOME/.env.docs-kapa-api-key}",
-        "DOCS_MODE": "external-only",
-        "MCP_LOG_LEVEL": "${MCP_LOG_LEVEL:-info}",
+        "INFLUXDATA_DOCS_API_KEY_FILE": "${INFLUXDATA_DOCS_API_KEY_FILE:-$HOME/.env.docs-kapa-api-key}",
+        "INFLUXDATA_DOCS_MODE": "external-only",
+        "INFLUXDATA_DOCS_LOG_LEVEL": "${INFLUXDATA_DOCS_LOG_LEVEL:-info}",
         "NODE_ENV": "${NODE_ENV:-production}"
       }
     }
