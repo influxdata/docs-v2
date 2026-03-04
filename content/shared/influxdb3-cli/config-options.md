@@ -1237,12 +1237,23 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 #### checkpoint-interval {#checkpoint-interval metadata="v3.8.2+"}
 
-Sets the interval for aggregating [write-ahead log (WAL)](/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence) snapshot files into monthly checkpoint files
-to speed up server startup.
-Without checkpointing, the server loads all individual WAL snapshot files during startup,
-which can be thousands of files for long-running servers.
-With checkpointing enabled, the server loads one to two checkpoint files per calendar month,
-then loads only snapshots created since the last checkpoint (delta loading).
+Sets the interval for consolidating
+[snapshots](/influxdb3/version/admin/backup-restore/#file-structure) into
+monthly checkpoints to speed up server startup.
+Snapshots accumulate in object storage over time and are not automatically deleted.
+
+Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+([`gen1-lookback-duration`](#gen1-lookback-duration), default 1 month)
+divided by [`gen1-duration`](#gen1-duration) (default 10 minutes),
+with a minimum of 100.
+With default settings, that can be up to ~4,320 snapshots.
+
+With checkpointing enabled, the server periodically consolidates snapshot
+metadata into checkpoints in object storage.
+On startup, the server loads one to two checkpoints per calendar month,
+then loads only snapshots created since the last checkpoint.
+Enabling checkpointing does not delete old snapshots.
 
 Up to 10 checkpoints load concurrently during startup.
 The server retains two checkpoints per calendar month and handles month rollovers automatically.

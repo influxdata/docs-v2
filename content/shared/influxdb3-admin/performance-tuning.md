@@ -580,13 +580,33 @@ For all available configuration options, see:
 
 ## Startup optimization
 
-Server startup time scales with the number of [write-ahead log (WAL)](/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence) snapshot files stored in the object store.
-A long-running server can accumulate thousands of snapshot files, causing slow restarts.
+Server startup time scales with the number of
+[snapshots](/influxdb3/version/admin/backup-restore/#file-structure)
+stored in the object store.
+Snapshots accumulate over time and are not automatically deleted.
 
-The `--checkpoint-interval` option periodically consolidates snapshot files into monthly
-checkpoint files.
-On startup, the server loads one to two checkpoint files per calendar month, then loads only
-snapshots created since the last checkpoint (delta loading), significantly reducing startup time.
+Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+([`gen1-lookback-duration`](/influxdb3/version/reference/config-options/#gen1-lookback-duration),
+default 1 month) divided by
+[`gen1-duration`](/influxdb3/version/reference/config-options/#gen1-duration)
+(default 10 minutes), with a minimum of 100.
+With default settings, a long-running server can accumulate up to ~4,320
+snapshots, causing slow restarts.
+
+Two configuration options reduce startup time:
+
+- [`--checkpoint-interval`](/influxdb3/version/reference/config-options/#checkpoint-interval)--
+  periodically consolidates snapshot metadata into monthly checkpoints.
+  On startup, the server loads one to two checkpoints per calendar month,
+  then loads only snapshots created since the last checkpoint.
+- [`--gen1-lookback-duration`](/influxdb3/version/reference/config-options/#gen1-lookback-duration)--
+  limits how far back the server loads gen1 file index metadata on startup.
+  Files outside this window still exist in object storage but are not indexed.
+
+> [!Note]
+> Enabling checkpointing does not delete old snapshots.
+> They remain in object storage but are no longer needed for startup.
 
 ### Recommended checkpoint intervals
 
