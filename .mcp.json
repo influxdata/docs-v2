@@ -1,9 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/refs/heads/main/schema/2025-06-18/schema.json",
-  "description": "InfluxData documentation assistance via MCP server - Node.js execution",
+  "description": "InfluxData documentation assistance via MCP servers",
   "mcpServers": {
+    "influxdb-docs": {
+      "comment": "Hosted InfluxDB documentation search. Authenticates via Google OAuth on first use. Rate limits: 40 req/hr, 200 req/day.",
+      "type": "sse",
+      "url": "https://influxdb-docs.mcp.kapa.ai"
+    },
     "influxdata": {
-      "comment": "Use Node to run Docs MCP. To install and setup, see https://github.com/influxdata/docs-mcp-server",
+      "comment": "Local Docs MCP server (optional). To install and setup, see https://github.com/influxdata/docs-mcp-server. NOTE: uses deprecated endpoints--pending update.",
       "type": "stdio",
       "command": "node",
       "args": [
