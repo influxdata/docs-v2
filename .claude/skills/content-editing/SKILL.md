@@ -359,33 +359,14 @@ Use the Documentation MCP Server when the information here is inconclusive, when
 
 ### Setup
 
-The documentation MCP server is hosted—no local installation required. Add the server URL to your AI assistant's MCP configuration.
+The documentation MCP server is hosted at `https://influxdb-docs.mcp.kapa.ai`—no local installation required.
 
-**MCP server URL:**
+**Claude Code** (this repo): Already configured in [`.mcp.json`](/.mcp.json). Two server entries are available:
 
-```text
-https://influxdb-docs.mcp.kapa.ai
-```
+- **`influxdb-docs`** (API key) — Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var. 60 req/min.
+- **`influxdb-docs-oauth`** (OAuth) — No setup. Authenticates via Google on first use. 40 req/hr, 200 req/day.
 
-**Claude Desktop configuration** (Settings > Developer):
-
-```json
-{
-  "mcpServers": {
-    "influxdb-docs": {
-      "url": "https://influxdb-docs.mcp.kapa.ai"
-    }
-  }
-}
-```
-
-For other AI assistants see the [InfluxDB documentation MCP server guide](/influxdb3/core/admin/mcp-server/)
-and verify the MCP configuration options and syntax for a specific AI assistant.
-
-**Rate limits** (per Google OAuth user):
-
-- 40 requests per hour
-- 200 requests per day
+**Other AI assistants**: See the [InfluxDB documentation MCP server guide](/influxdb3/core/admin/mcp-server/) for Claude Desktop, ChatGPT, Cursor, and VS Code Copilot configuration.
 
 ### Available Tool
 
@@ -552,17 +533,12 @@ touch content/influxdb3/enterprise/path/to/file.md
 
 ### MCP Server Not Responding
 
-The hosted MCP server (`https://influxdb-docs.mcp.kapa.ai`) requires:
-
-1. **Google OAuth authentication** - On first use, sign in with Google
-2. **Rate limits** - 40 requests/hour, 200 requests/day per user
-
 **Troubleshooting steps:**
 
-- Verify your AI assistant has the MCP server URL configured correctly
-- Check if you've exceeded rate limits (wait an hour or until the next day)
-- Try re-authenticating by clearing your OAuth session
-- Ensure your network allows connections to `*.kapa.ai`
+- **API key auth** (`influxdb-docs`): Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set. Rate limit: 60 req/min.
+- **OAuth auth** (`influxdb-docs-oauth`): Sign in with Google on first use. Rate limits: 40 req/hr, 200 req/day.
+- Verify your network allows connections to `*.kapa.ai`
+- Check if you've exceeded rate limits (wait and retry)
 
 ### Cypress Tests Fail
 
