@@ -4031,12 +4031,21 @@ percentage (portion of available memory) or absolute value in MB&ndash;for examp
 <li><a href="#wal-replay-concurrency-limit">wal-replay-concurrency-limit</a></li>
 </ul>
 <h4 id="checkpoint-interval" metadata="v3.8.2+">checkpoint-interval</h4>
-<p>Sets the interval for aggregating <a href="/influxdb3/core/reference/internals/durability/#write-ahead-log-wal-persistence">write-ahead log (WAL)</a> snapshot files into monthly checkpoint files
-to speed up server startup.
-Without checkpointing, the server loads all individual WAL snapshot files during startup,
-which can be thousands of files for long-running servers.
-With checkpointing enabled, the server loads one to two checkpoint files per calendar month,
-then loads only snapshots created since the last checkpoint (delta loading).</p>
+<p>Sets the interval for consolidating
+<a href="/influxdb3/version/admin/backup-restore/#file-structure">snapshots</a> into
+monthly checkpoints to speed up server startup.
+Snapshots accumulate in object storage over time and are not automatically deleted.</p>
+<p>Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+(<a href="#gen1-lookback-duration"><code>gen1-lookback-duration</code></a>, default 1 month)
+divided by <a href="#gen1-duration"><code>gen1-duration</code></a> (default 10 minutes),
+with a minimum of 100.
+With default settings, that can be up to ~4,320 snapshots.</p>
+<p>With checkpointing enabled, the server periodically consolidates snapshot
+metadata into checkpoints in object storage.
+On startup, the server loads one to two checkpoints per calendar month,
+then loads only snapshots created since the last checkpoint.
+Enabling checkpointing does not delete old snapshots.</p>
 <p>Up to 10 checkpoints load concurrently during startup.
 The server retains two checkpoints per calendar month and handles month rollovers automatically.</p>
 <p>Accepts a <a href="/influxdb3/version/reference/glossary/#duration">duration</a> value&ndash;for example: <code>1h</code>, <code>30m</code>, <code>10m</code>.</p>
