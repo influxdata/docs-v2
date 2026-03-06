@@ -143,8 +143,8 @@ function buildOperationsTocHtml(operations: OperationMeta[]): string {
   let html = '<ul class="api-toc-list api-toc-list--operations">';
 
   operations.forEach((op) => {
-    // Generate anchor ID from operationId
-    const anchorId = op.operationId;
+    // Generate anchor ID matching Redocly operation/{operationId} format
+    const anchorId = `operation/${op.operationId}`;
     const methodClass = getMethodClass(op.method);
 
     html += `

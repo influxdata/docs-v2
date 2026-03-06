@@ -2,7 +2,7 @@
   All Endpoints List
 
   Renders all API operations grouped by version (v3, v2, v1) and sorted by path.
-  Links point to tag pages with hash anchors (e.g., /api/cache-data/#post-/api/v3/configure/distinct_cache)
+  Links point to tag pages with hash anchors (e.g., /api/cache-data/#operation/PostConfigureDistinctCache)
   Excludes conceptual/trait tag operations.
 
   Uses data from:
@@ -143,9 +143,9 @@
       {{ range $sortV3 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
         {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
-        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+        {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
@@ -164,9 +164,9 @@
       {{ range $sortV2 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
         {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
-        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+        {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
@@ -186,9 +186,9 @@
       {{ range $sortV1 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
         {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
-        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+        {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>
@@ -214,9 +214,9 @@
       {{ range $sortOther }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: {method}-{path} */}}
+        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
         {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
-        {{ $hashAnchor := printf "#%s-%s" (lower $op.method) $op.path }}
+        {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
         <code class="api-path">{{ $op.path }}</code>

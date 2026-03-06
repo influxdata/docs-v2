@@ -31,10 +31,13 @@ $status-server-error: #9b2aff;
 
 .api-operation {
   margin-bottom: $api-spacing-xl;
-  padding: $api-spacing-lg;
-  background: var(--article-bg, #fff);
-  border: 1px solid var(--article-border, #e8e8f0);
-  border-radius: $api-border-radius;
+  padding-top: $api-spacing-lg;
+  border-top: 1px solid $nav-border;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
 
   &:target {
     animation: highlight-operation 1.5s ease-out;
@@ -43,10 +46,11 @@ $status-server-error: #9b2aff;
 
 @keyframes highlight-operation {
   0% {
-    box-shadow: 0 0 0 4px rgba($method-get, 0.3);
+    outline: 2px solid rgba($method-get, 0.4);
+    outline-offset: 8px;
   }
   100% {
-    box-shadow: none;
+    outline-color: transparent;
   }
 }
 
@@ -59,7 +63,9 @@ $status-server-error: #9b2aff;
   display: flex;
   align-items: center;
   gap: $api-spacing-sm;
-  margin-bottom: $api-spacing-sm;
+  margin-bottom: $api-spacing-md;
+  padding-bottom: $api-spacing-md;
+  border-bottom: 1px solid $nav-border;
 }
 
 .api-method {
@@ -81,10 +87,10 @@ $status-server-error: #9b2aff;
 }
 
 .api-path {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: $code;
   font-size: 0.95rem;
-  color: var(--article-text, #2b2b2b);
-  background: var(--code-bg, #f5f5f5);
+  color: $article-text;
+  background: $article-code-bg;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
@@ -93,12 +99,12 @@ $status-server-error: #9b2aff;
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--article-heading, #2b2b2b);
+  color: $article-heading;
 }
 
 .api-operation-description {
   margin: $api-spacing-md 0;
-  color: var(--article-text, #545667);
+  color: $article-text;
   line-height: 1.6;
 
   p:last-child {
@@ -118,8 +124,8 @@ $status-server-error: #9b2aff;
   padding-bottom: $api-spacing-sm;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--article-heading, #2b2b2b);
-  border-bottom: 1px solid var(--article-border, #e8e8f0);
+  color: $article-heading;
+  border-bottom: 1px solid $nav-border;
 }
 
 // ============================================
@@ -138,36 +144,21 @@ $status-server-error: #9b2aff;
   margin: $api-spacing-sm 0;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .api-param-list {
-  border: 1px solid var(--article-border, #e8e8f0);
-  border-radius: $api-border-radius;
-  overflow: hidden;
+  // Flat list — no outer border, rows separated by dividers
 }
 
 .api-param-row {
-  padding: $api-spacing-md;
-  border-bottom: 1px solid var(--article-border, #e8e8f0);
-  background: var(--article-bg, #fff);
+  padding: $api-spacing-md 0;
+  border-bottom: 1px solid $nav-border;
 
   &:last-child {
     border-bottom: none;
-  }
-
-  &:hover {
-    background: var(--article-bg-hover, #f9f9fb);
-  }
-
-  &--required {
-    background: rgba($method-post, 0.03);
-
-    &:hover {
-      background: rgba($method-post, 0.06);
-    }
   }
 }
 
@@ -179,21 +170,21 @@ $status-server-error: #9b2aff;
 }
 
 .api-param-name {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: $code;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--article-heading, #2b2b2b);
+  color: $article-heading;
 }
 
 .api-param-type {
   font-size: 0.8rem;
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 .api-param-description {
   margin-top: 0.25rem;
   font-size: 0.9rem;
-  color: var(--article-text, #545667);
+  color: $article-text;
   line-height: 1.5;
 
   p {
@@ -209,14 +200,14 @@ $status-server-error: #9b2aff;
 
 .api-param-enum-label,
 .api-param-default-label {
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 .api-param-enum-value,
 .api-param-default-value {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: $code;
   font-size: 0.8rem;
-  background: var(--code-bg, #f5f5f5);
+  background: $article-code-bg;
   padding: 0.125rem 0.375rem;
   border-radius: 3px;
 }
@@ -251,7 +242,7 @@ $status-server-error: #9b2aff;
 
 .api-request-body-description {
   margin: $api-spacing-sm 0;
-  color: var(--article-text, #545667);
+  color: $article-text;
 
   p:last-child {
     margin-bottom: 0;
@@ -263,15 +254,15 @@ $status-server-error: #9b2aff;
   font-size: 0.85rem;
 
   code {
-    font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-    background: var(--code-bg, #f5f5f5);
+    font-family: $code;
+    background: $article-code-bg;
     padding: 0.125rem 0.375rem;
     border-radius: 3px;
   }
 }
 
 .api-content-type-label {
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 // ============================================
@@ -284,27 +275,20 @@ $status-server-error: #9b2aff;
   &--nested {
     margin-left: $api-spacing-lg;
     padding-left: $api-spacing-md;
-    border-left: 2px solid var(--article-border, #e8e8f0);
+    border-left: 2px solid $nav-border;
   }
 }
 
 .api-schema-properties {
-  border: 1px solid var(--article-border, #e8e8f0);
-  border-radius: $api-border-radius;
-  overflow: hidden;
+  // Flat list — no outer border, rows separated by dividers
 }
 
 .api-schema-property {
-  padding: $api-spacing-md;
-  border-bottom: 1px solid var(--article-border, #e8e8f0);
-  background: var(--article-bg, #fff);
+  padding: $api-spacing-md 0;
+  border-bottom: 1px solid $nav-border;
 
   &:last-child {
     border-bottom: none;
-  }
-
-  &:hover {
-    background: var(--article-bg-hover, #f9f9fb);
   }
 
   &--required {
@@ -326,21 +310,21 @@ $status-server-error: #9b2aff;
 }
 
 .api-schema-property-name {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: $code;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--article-heading, #2b2b2b);
+  color: $article-heading;
 }
 
 .api-schema-property-type {
   font-size: 0.8rem;
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 .api-schema-property-description {
   margin-top: 0.25rem;
   font-size: 0.9rem;
-  color: var(--article-text, #545667);
+  color: $article-text;
   line-height: 1.5;
 
   p {
@@ -358,15 +342,15 @@ $status-server-error: #9b2aff;
 .api-enum-label,
 .api-default-label,
 .api-example-label {
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 .api-enum-value,
 .api-default-value,
 .api-example-value {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: $code;
   font-size: 0.8rem;
-  background: var(--code-bg, #f5f5f5);
+  background: $article-code-bg;
   padding: 0.125rem 0.375rem;
   border-radius: 3px;
 }
@@ -375,7 +359,7 @@ $status-server-error: #9b2aff;
 .api-schema-example {
   margin-top: $api-spacing-md;
   padding: $api-spacing-md;
-  background: var(--code-bg, #f5f5f5);
+  background: $article-code-bg;
   border-radius: $api-border-radius;
 }
 
@@ -383,7 +367,7 @@ $status-server-error: #9b2aff;
   margin: 0 0 $api-spacing-sm;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--article-text-muted, #777);
+  color: rgba($article-text, 0.6);
 }
 
 .api-schema-example-code {
@@ -393,7 +377,7 @@ $status-server-error: #9b2aff;
   overflow-x: auto;
 
   code {
-    font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+    font-family: $code;
     font-size: 0.85rem;
   }
 }
@@ -413,17 +397,13 @@ $status-server-error: #9b2aff;
 }
 
 .api-response {
-  border: 1px solid var(--article-border, #e8e8f0);
-  border-radius: $api-border-radius;
-  overflow: hidden;
+  padding: $api-spacing-sm 0;
 }
 
 .api-response-header {
   display: flex;
   align-items: center;
   gap: $api-spacing-sm;
-  padding: $api-spacing-sm $api-spacing-md;
-  background: var(--article-bg-alt, #f9f9fb);
 }
 
 .api-response-status {
@@ -441,17 +421,16 @@ $status-server-error: #9b2aff;
   &--redirect { background-color: $status-redirect; }
   &--client-error { background-color: $status-client-error; }
   &--server-error { background-color: $status-server-error; }
-  &--info { background-color: var(--article-text-muted, #777); }
+  &--info { background-color: rgba($article-text, 0.6); }
 }
 
 .api-response-description {
   font-size: 0.9rem;
-  color: var(--article-text, #545667);
+  color: $article-text;
 }
 
 .api-response-body {
-  padding: $api-spacing-md;
-  border-top: 1px solid var(--article-border, #e8e8f0);
+  padding-top: $api-spacing-sm;
 }
 
 // ============================================
@@ -461,17 +440,17 @@ $status-server-error: #9b2aff;
 .api-tag-overview {
   margin-bottom: $api-spacing-xl;
   padding-bottom: $api-spacing-lg;
-  border-bottom: 1px solid var(--article-border, #e8e8f0);
+  border-bottom: 1px solid $nav-border;
 }
 
 .api-tag-description {
-  color: var(--article-text, #545667);
+  color: $article-text;
   line-height: 1.7;
 
   h4, h5 {
     margin-top: $api-spacing-lg;
     margin-bottom: $api-spacing-sm;
-    color: var(--article-heading, #2b2b2b);
+    color: $article-heading;
   }
 
   ul, ol {
@@ -479,7 +458,7 @@ $status-server-error: #9b2aff;
   }
 
   a {
-    color: var(--link-color, #00A3FF);
+    color: $article-link;
 
     &:hover {
       text-decoration: underline;
@@ -494,14 +473,14 @@ $status-server-error: #9b2aff;
 .api-related-guides {
   margin-top: $api-spacing-xl;
   padding-top: $api-spacing-lg;
-  border-top: 1px solid var(--article-border, #e8e8f0);
+  border-top: 1px solid $nav-border;
 }
 
 .api-related-title {
   margin: 0 0 $api-spacing-md;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--article-heading, #2b2b2b);
+  color: $article-heading;
 }
 
 .api-related-list {
@@ -514,7 +493,7 @@ $status-server-error: #9b2aff;
   }
 
   a {
-    color: var(--link-color, #00A3FF);
+    color: $article-link;
     text-decoration: none;
 
     &:hover {
@@ -524,64 +503,10 @@ $status-server-error: #9b2aff;
 }
 
 // ============================================
-// Dark Mode Overrides
-// ============================================
-
-[data-theme='dark'],
-html:has(link[title='dark-theme']:not([disabled])) {
-  .api-operation {
-    background: var(--article-bg, #1a1a2a);
-    border-color: var(--article-border, #2a2a3a);
-  }
-
-  .api-related-guides {
-    border-color: var(--article-border, #2a2a3a);
-  }
-
-  .api-related-title {
-    color: var(--article-heading, #e0e0e0);
-  }
-
-  .api-path {
-    background: var(--code-bg, #252535);
-    color: var(--article-text, #d4d7dd);
-  }
-
-  .api-param-row,
-  .api-schema-property {
-    background: var(--article-bg, #1a1a2a);
-
-    &:hover {
-      background: var(--article-bg-hover, #252535);
-    }
-  }
-
-  .api-param-enum-value,
-  .api-param-default-value,
-  .api-enum-value,
-  .api-default-value,
-  .api-example-value {
-    background: var(--code-bg, #252535);
-  }
-
-  .api-schema-example {
-    background: var(--code-bg, #252535);
-  }
-
-  .api-response-header {
-    background: var(--article-bg-alt, #252535);
-  }
-}
-
-// ============================================
 // Responsive Adjustments
 // ============================================
 
 @media (max-width: 768px) {
-  .api-operation {
-    padding: $api-spacing-md;
-  }
-
   .api-operation-endpoint {
     flex-wrap: wrap;
   }

@@ -140,10 +140,9 @@ For conceptual pages (isConceptual: true), shows content without operations. */}
     <aside class="api-toc" data-component="api-toc">
       <h4 class="api-toc-header">ON THIS PAGE</h4>
       <nav class="api-toc-nav">
-        {{/* Operation links - use anchor format: {method}-{path}
-        Use safeURL to prevent URL-encoding of slashes
-        Show method badge + human-readable summary (not path) */}} {{ range $operations }} {{
-        $anchor := printf "#%s-%s" (lower .method) .path }}
+        {{/* Operation links - use Redocly anchor format: operation/{operationId} */}}
+        {{ range $operations }} {{
+        $anchor := printf "#operation/%s" .operationId }}
         <a
           href="{{ $anchor | safeURL }}"
           class="api-toc-link api-toc-link--operation"

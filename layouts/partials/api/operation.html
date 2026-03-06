@@ -23,8 +23,8 @@
   {{ $opDef = index $pathDef $method | default dict }}
 {{ end }}
 
-{{/* Generate anchor ID matching existing TOC format */}}
-{{ $anchorId := printf "%s-%s" $method $path }}
+{{/* Generate anchor ID matching Redocly operation/{operationId} format */}}
+{{ $anchorId := printf "operation/%s" $operationId }}
 
 <div class="api-operation" id="{{ $anchorId }}" data-method="{{ $method }}" data-operation-id="{{ $operationId }}">
   {{/* Operation Header */}}

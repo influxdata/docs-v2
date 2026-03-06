@@ -41,7 +41,7 @@ Replace the current API reference documentation implementation (RapiDoc web comp
 4. ✅ **Remove operation pages** - Delete individual operation page generation
 5. ✅ **Update Cypress tests** - Simplify tests for static HTML
 6. ✅ **Clean up styles** - Remove RapiDoc CSS and dead auth modal code
-7. **Fix generation script cleanup** - Add `--clean` flag (planned)
+7. ✅ **Fix generation script cleanup** - Added `--clean` (default) and `--dry-run` flags
 8. **Apply Cache Data tag split** - Enterprise spec update (planned)
 9. **Migrate remaining products** - Apply to all InfluxDB products (planned)
 
