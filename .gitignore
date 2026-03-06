@@ -29,6 +29,7 @@ test-results.xml
 /influxdb3cli-build-scripts/content
 tmp
 .tmp
+.test-cache
 
 # IDE files
 .vscode/*
