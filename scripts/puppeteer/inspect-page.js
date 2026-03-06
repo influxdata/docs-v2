@@ -67,7 +67,7 @@ async function inspectPage(page) {
     }
   });
   // Wait a bit for errors to accumulate
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   report.errors = errors;
 
   // 4. Links analysis

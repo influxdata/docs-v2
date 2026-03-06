@@ -10,6 +10,7 @@ You can query the system tables for information about your running server, datab
     - [View column information for a table](#view-column-information-for-a-table)
     - [Recently executed queries](#recently-executed-queries)
     - [Query plugin files](#query-plugin-files)
+    - [Query trigger logs](#query-trigger-logs)
 
 ### Use the HTTP query API 
 
@@ -189,4 +190,48 @@ curl "http://localhost:8181/api/v3/query_sql" \
     "q": "SELECT * FROM system.plugin_files WHERE file_name LIKE '"'%scheduler%'"'",
     "format": "jsonl"
   }'
+```
+
+#### Query trigger logs
+
+The `system.processing_engine_logs` table stores log entries from Processing Engine triggers.
+
+Logs are stored in **two locations**:
+
+- The trigger's database (primary)--query here for trigger-specific debugging
+- The `_internal` database--contains logs from all triggers across all databases
+
+**Columns:**
+
+- `event_time` (Timestamp): When the log entry was recorded
+- `trigger_name` (String): Name of the trigger that generated the log
+- `log_level` (String): Log level (INFO, WARN, ERROR)
+- `log_text` (String): Log message content
+
+**Query logs for a specific trigger:**
+
+```bash { placeholders="DATABASE|TRIGGER" }
+influxdb3 query \
+  --database DATABASE \
+  "SELECT event_time, log_level, log_text
+   FROM system.processing_engine_logs
+   WHERE trigger_name = 'TRIGGER'
+   ORDER BY event_time DESC
+   LIMIT 20"
+```
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE`{{% /code-placeholder-key %}}: The database where you created the trigger
+- {{% code-placeholder-key %}}`TRIGGER`{{% /code-placeholder-key %}}: The name of your trigger
+
+**Query all trigger logs (from _internal):**
+
+```bash
+influxdb3 query \
+  --database _internal \
+  "SELECT event_time, trigger_name, log_level, log_text
+   FROM system.processing_engine_logs
+   ORDER BY event_time DESC
+   LIMIT 50"
 ```

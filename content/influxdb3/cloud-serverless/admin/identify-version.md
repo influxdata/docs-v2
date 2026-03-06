@@ -4,7 +4,7 @@ description: Learn how to identify your InfluxDB Cloud Serverless instance throu
 menu:
   influxdb3_cloud_serverless:
     name: Identify version
-    parent: Administer InfluxDB
+    parent: Administer InfluxDB Cloud
 weight: 10
 source: /shared/identify-version.md
 related:

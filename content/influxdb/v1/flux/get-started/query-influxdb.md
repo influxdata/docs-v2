@@ -25,7 +25,7 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/flux/v0/stdlib/universe/from) function defines an InfluxDB data source.
+Flux's [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/) function defines an InfluxDB data source.
 It requires a [`bucket`](/influxdb/v1/flux/get-started/#buckets) parameter.
 For this example, use `telegraf/autogen`, a combination of the default database and retention policy provided by the TICK stack.
 

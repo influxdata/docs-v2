@@ -5,7 +5,7 @@
   border-radius: .6rem;
   font-weight: bold;
   vertical-align: top;
-  
+
   &.dvc {
     color: #2e7d2e;
     background-color: #e8f5e8;
@@ -13,5 +13,9 @@
   &.lvc {
     color: #1976d2;
     background-color: #e3f2fd;
+  }
+  &.experimental {
+    color: $badge-experimental-text;
+    background-color: $badge-experimental-bg;
   }
 }

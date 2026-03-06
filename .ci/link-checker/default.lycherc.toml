@@ -1,5 +1,5 @@
 # Lychee link checker configuration
-# Updated for link-checker v1.3.0 with severity-based classification
+# Updated for link-checker v1.3.1 with severity-based classification
 #
 # With severity levels, we no longer need to exclude sites that return:
 # - 403/401/429 (classified as "info" - shown but don't fail CI)

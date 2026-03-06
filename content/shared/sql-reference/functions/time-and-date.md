@@ -794,7 +794,7 @@ date_part(part, expression)
   - microsecond
   - nanosecond
   - dow _(day of the week)_
-  - day _(day of the year)_
+  - doy _(day of the year)_
 
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
@@ -860,7 +860,7 @@ extract(field FROM source)
   - microsecond
   - nanosecond
   - dow _(day of the week)_
-  - day _(day of the year)_
+  - doy _(day of the year)_
 
 - **source**: Source time expression to operate on.
   Can be a constant, column, or function.

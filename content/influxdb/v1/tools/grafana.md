@@ -10,6 +10,8 @@ menu:
     parent: Tools
 related:
   - /flux/v0/get-started/, Get started with Flux
+aliases:
+  - /influxdb/v1/visualize-data/grafana/
 alt_links:
   v2: /influxdb/v2/tools/grafana/
   core: /influxdb3/core/visualize-data/grafana/
@@ -24,7 +26,7 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your {{% product-name %}} instance.
 
 > [!Note]
-> {{< influxdb-version-detector >}}
+> {{< influxdb-version-detector context="grafana" >}}
 
 > [!Note]
 > #### Grafana 12.2+

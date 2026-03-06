@@ -5,5 +5,4 @@ nonword: true
 level: error
 tokens:
   - \b\d+(?:B|kB|MB|GB|TB)
-# Match time units, but not duration literals inside code blocks.
-  - \b`(\n)?\d+(ns|ms|s|min|h|d)`\b
+  - \b\d+(?:ns|ms|s|min|h|d)

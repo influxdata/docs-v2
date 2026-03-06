@@ -506,14 +506,20 @@
     margin-top: var(--spacing-md);
   }
 
-  // Grafana links styling
-  .grafana-link {
+  // Documentation and Ask AI links styling
+  .doc-link,
+  .ask-ai-open {
     color: $article-link;
     text-decoration: underline;
+    display: inline-block;
 
     &:hover {
       color: $article-link-hover;
     }
+  }
+
+  .ask-ai-open {
+    margin-left: 0.5rem;
   }
 
   // Manual command output

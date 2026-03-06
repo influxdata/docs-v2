@@ -122,6 +122,9 @@ interface ProductConfig {
     url_contains?: string[];
     ping_headers?: Record<string, string>;
   };
+  ai_source_group_ids?: string;
+  ai_source_group_ids__v1?: string;
+  [key: string]: unknown; // Allow additional properties
 }
 
 interface Products {
@@ -161,9 +164,9 @@ interface AnalyticsEventData {
 declare global {
   interface Window {
     gtag?: (
-      _event: string,
-      _action: string,
-      _parameters?: Record<string, unknown>
+      _command: 'event' | 'config' | 'set',
+      _targetId: string,
+      _config?: Record<string, unknown>
     ) => void;
   }
 }
@@ -181,6 +184,25 @@ class InfluxDBVersionDetector {
   private resultDiv: HTMLElement | null = null;
   private restartBtn: HTMLElement | null = null;
   private currentContext: 'questionnaire' | 'result' = 'questionnaire';
+  private pageContext: string | null = null; // Context from page (e.g., "grafana")
+
+  /** Example host URLs for each product type */
+  private static readonly HOST_EXAMPLES: Record<string, string> = {
+    influxdb3_core: 'http://localhost:8181',
+    influxdb3_enterprise: 'http://localhost:8181',
+    influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
+    influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
+    influxdb3_clustered: 'https://cluster-host.com',
+    influxdb_v1: 'http://localhost:8086',
+    influxdb_v2: 'http://localhost:8086',
+  };
+
+  /** Default host URL (InfluxDB v2 localhost) */
+  private static readonly DEFAULT_HOST =
+    InfluxDBVersionDetector.HOST_EXAMPLES.influxdb_v2;
+
+  /** Default host:port without protocol (for curl examples) */
+  private static readonly DEFAULT_HOST_PORT = 'localhost:8086';
 
   constructor(options: ComponentOptions) {
     this.container = options.component;
@@ -191,6 +213,9 @@ class InfluxDBVersionDetector {
     this.products = products;
     this.influxdbUrls = influxdbUrls;
 
+    // Check for context from modal trigger button
+    this.parsePageContext();
+
     // Check if component is in a modal
     const modal = this.container.closest('.modal-content');
     if (modal) {
@@ -199,6 +224,19 @@ class InfluxDBVersionDetector {
     } else {
       // If not in modal, initialize immediately
       this.init();
+    }
+  }
+
+  /**
+   * Parse page context from modal trigger button
+   */
+  private parsePageContext(): void {
+    // Look for the modal trigger button with data-context attribute
+    const trigger = document.querySelector(
+      '.influxdb-detector-trigger[data-context]'
+    );
+    if (trigger) {
+      this.pageContext = trigger.getAttribute('data-context');
     }
   }
 
@@ -627,17 +665,10 @@ class InfluxDBVersionDetector {
     }
 
     // Fallback based on product type
-    const hostExamples: Record<string, string> = {
-      influxdb3_core: 'http://localhost:8181',
-      influxdb3_enterprise: 'http://localhost:8181',
-      influxdb3_cloud_serverless: 'https://cloud2.influxdata.com',
-      influxdb3_cloud_dedicated: 'https://cluster-id.a.influxdb.io',
-      influxdb3_clustered: 'https://cluster-host.com',
-      influxdb_v1: 'http://localhost:8086',
-      influxdb_v2: 'http://localhost:8086',
-    };
-
-    return hostExamples[productDataKey] || 'http://localhost:8086';
+    return (
+      InfluxDBVersionDetector.HOST_EXAMPLES[productDataKey] ||
+      InfluxDBVersionDetector.DEFAULT_HOST
+    );
   }
 
   private usesDatabaseTerminology(productConfig: ProductConfig): boolean {
@@ -888,7 +919,7 @@ class InfluxDBVersionDetector {
             </div>
             <div class="input-group">
               <input type="url" id="url-input"
-                     placeholder="for example, https://us-east-1-1.aws.cloud2.influxdata.com or http://localhost:8086">
+                     placeholder="for example, https://us-east-1-1.aws.cloud2.influxdata.com or ${InfluxDBVersionDetector.DEFAULT_HOST}">
             </div>
             <button class="back-button" data-action="go-back">Back</button>
             <button class="submit-button"
@@ -930,7 +961,7 @@ class InfluxDBVersionDetector {
 docker exec &lt;container&gt; influxd version
 
 # Get ping headers:
-docker exec &lt;container&gt; curl -I localhost:8086/ping
+docker exec &lt;container&gt; curl -I ${InfluxDBVersionDetector.DEFAULT_HOST_PORT}/ping
 
 # Or check startup logs:
 docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
@@ -1207,7 +1238,7 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     const currentProduct = this.getCurrentProduct();
     const storedUrl = storedUrls[currentProduct] || storedUrls.custom;
 
-    if (storedUrl && storedUrl !== 'http://localhost:8086') {
+    if (storedUrl && storedUrl !== InfluxDBVersionDetector.DEFAULT_HOST) {
       urlInput.value = storedUrl;
       // Add indicator that URL was pre-filled (only if one doesn't already exist)
       const existingIndicator = urlInput.parentElement?.querySelector(
@@ -1491,29 +1522,75 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
         licenseGuidance.style.borderRadius = '4px';
 
         if (answer === 'free') {
+          const freeProducts = [
+            'InfluxDB 3 Core',
+            'InfluxDB OSS 2.x',
+            'InfluxDB OSS 1.x',
+          ];
+          let freeLinks = '';
+          if (this.pageContext === 'grafana') {
+            freeLinks = freeProducts
+              .map((product) => {
+                const link = this.getGrafanaLink(product);
+                return link
+                  ? `<li><a href="${link}" target="_blank" class="doc-link">Configure Grafana for ${product}</a></li>`
+                  : '';
+              })
+              .filter(Boolean)
+              .join('\n              ');
+          } else {
+            freeLinks = freeProducts
+              .map((product) => {
+                const link = this.getDocumentationUrl(product);
+                return link
+                  ? `<li><a href="${link}" target="_blank" class="doc-link">View ${product} documentation</a></li>`
+                  : '';
+              })
+              .filter(Boolean)
+              .join('\n              ');
+          }
+
           licenseGuidance.innerHTML = `
             <strong>Free/Open Source License:</strong>
             <p>This suggests you're using InfluxDB 3 Core or InfluxDB OSS.</p>
             <ul>
-              <li><a href="/influxdb3/core/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB 3 Core</a></li>
-              <li><a href="/influxdb/v2/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB OSS v2</a></li>
-              <li><a href="/influxdb/v1/tools/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB OSS v1</a></li>
+              ${freeLinks}
             </ul>
           `;
         } else if (answer === 'paid') {
+          const paidProducts = [
+            'InfluxDB 3 Enterprise',
+            'InfluxDB Cloud Dedicated',
+            'InfluxDB Cloud Serverless',
+          ];
+          let paidLinks = '';
+          if (this.pageContext === 'grafana') {
+            paidLinks = paidProducts
+              .map((product) => {
+                const link = this.getGrafanaLink(product);
+                return link
+                  ? `<li><a href="${link}" target="_blank" class="doc-link">Configure Grafana for ${product}</a></li>`
+                  : '';
+              })
+              .filter(Boolean)
+              .join('\n              ');
+          } else {
+            paidLinks = paidProducts
+              .map((product) => {
+                const link = this.getDocumentationUrl(product);
+                return link
+                  ? `<li><a href="${link}" target="_blank" class="doc-link">View ${product} documentation</a></li>`
+                  : '';
+              })
+              .filter(Boolean)
+              .join('\n              ');
+          }
+
           licenseGuidance.innerHTML = `
             <strong>Paid/Commercial License:</strong>
             <p>This suggests you're using InfluxDB 3 Enterprise or a paid cloud service.</p>
             <ul>
-              <li><a href="/influxdb3/enterprise/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB 3 Enterprise</a></li>
-              <li><a href="/influxdb3/cloud-dedicated/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB Cloud Dedicated</a></li>
-              <li><a href="/influxdb3/cloud-serverless/visualize-data/grafana/"
-                 target="_blank" class="grafana-link">Configure Grafana for InfluxDB Cloud Serverless</a></li>
+              ${paidLinks}
             </ul>
           `;
         }
@@ -1571,24 +1648,94 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
 
   /**
    * Gets the Grafana documentation link for a given product
+   * Builds on the documentation URL by appending the visualize-data/grafana path
    */
   private getGrafanaLink(productName: string): string | null {
-    const GRAFANA_LINKS: Record<string, string> = {
-      'InfluxDB 3 Core': '/influxdb3/core/visualize-data/grafana/',
-      'InfluxDB 3 Enterprise': '/influxdb3/enterprise/visualize-data/grafana/',
-      'InfluxDB Cloud Dedicated':
-        '/influxdb3/cloud-dedicated/visualize-data/grafana/',
-      'InfluxDB Cloud Serverless':
-        '/influxdb3/cloud-serverless/visualize-data/grafana/',
-      'InfluxDB OSS 1.x': '/influxdb/v1/tools/grafana/',
-      'InfluxDB OSS 2.x': '/influxdb/v2/visualize-data/grafana/',
-      'InfluxDB Enterprise': '/influxdb/enterprise/visualize-data/grafana/',
-      'InfluxDB Clustered': '/influxdb3/clustered/visualize-data/grafana/',
-      'InfluxDB Cloud (TSM)': '/influxdb/cloud/visualize-data/grafana/',
-      'InfluxDB Cloud v1': '/influxdb/cloud/visualize-data/grafana/',
+    const docUrl = this.getDocumentationUrl(productName);
+    if (!docUrl) return null;
+
+    return `${docUrl}visualize-data/grafana/`;
+  }
+
+  /**
+   * Gets the documentation URL for a given product
+   */
+  private getDocumentationUrl(productName: string): string | null {
+    const DOC_LINKS: Record<string, string> = {
+      'InfluxDB 3 Core': '/influxdb3/core/',
+      'InfluxDB 3 Enterprise': '/influxdb3/enterprise/',
+      'InfluxDB Cloud Dedicated': '/influxdb3/cloud-dedicated/',
+      'InfluxDB Cloud Serverless': '/influxdb3/cloud-serverless/',
+      'InfluxDB OSS 1.x': '/influxdb/v1/',
+      'InfluxDB OSS 2.x': '/influxdb/v2/',
+      'InfluxDB Enterprise': '/enterprise_influxdb/v1/',
+      'InfluxDB Clustered': '/influxdb3/clustered/',
+      'InfluxDB Cloud (TSM)': '/influxdb/cloud/',
+      'InfluxDB Cloud v1': '/enterprise_influxdb/v1/',
     };
 
-    return GRAFANA_LINKS[productName] || null;
+    return DOC_LINKS[productName] || null;
+  }
+
+  /**
+   * Gets the Ask AI context/product identifier for a given product
+   */
+  private getAskAIContext(productName: string): string | null {
+    const AI_CONTEXTS: Record<string, string> = {
+      'InfluxDB 3 Core': 'InfluxDB 3 Core',
+      'InfluxDB 3 Enterprise': 'InfluxDB 3 Enterprise',
+      'InfluxDB Cloud Dedicated': 'InfluxDB Cloud Dedicated',
+      'InfluxDB Cloud Serverless': 'InfluxDB Cloud Serverless',
+      'InfluxDB OSS 1.x': 'InfluxDB OSS v1',
+      'InfluxDB OSS 2.x': 'InfluxDB OSS v2',
+      'InfluxDB Enterprise': 'InfluxDB Enterprise v1',
+      'InfluxDB Clustered': 'InfluxDB Clustered',
+      'InfluxDB Cloud (TSM)': 'InfluxDB Cloud (TSM)',
+      'InfluxDB Cloud v1': 'InfluxDB Cloud v1',
+    };
+
+    return AI_CONTEXTS[productName] || null;
+  }
+
+  /**
+   * Gets the AI source group IDs for a given product
+   * Maps display names to product keys to look up source group IDs
+   */
+  private getAISourceGroupIds(productName: string): string | null {
+    // Map display names to product keys in products.yml
+    const PRODUCT_KEY_MAP: Record<string, string> = {
+      'InfluxDB 3 Core': 'influxdb3_core',
+      'InfluxDB 3 Enterprise': 'influxdb3_enterprise',
+      'InfluxDB Cloud Dedicated': 'influxdb3_cloud_dedicated',
+      'InfluxDB Cloud Serverless': 'influxdb3_cloud_serverless',
+      'InfluxDB OSS 1.x': 'influxdb',
+      'InfluxDB OSS 2.x': 'influxdb',
+      'InfluxDB Enterprise': 'enterprise_influxdb',
+      'InfluxDB Clustered': 'influxdb3_clustered',
+      'InfluxDB Cloud (TSM)': 'influxdb_cloud',
+      'InfluxDB Cloud v1': 'enterprise_influxdb',
+    };
+
+    const productKey = PRODUCT_KEY_MAP[productName];
+    if (!productKey || !this.products[productKey]) return null;
+
+    // Handle version-specific source group IDs first
+    // InfluxDB OSS has different source groups for v1 and v2
+    if (productName === 'InfluxDB OSS 1.x') {
+      const v1SourceGroupIds =
+        this.products[productKey].ai_source_group_ids__v1;
+      if (typeof v1SourceGroupIds === 'string') {
+        return v1SourceGroupIds;
+      }
+    }
+
+    // Get general source group IDs from products data
+    const sourceGroupIds = this.products[productKey].ai_source_group_ids;
+    if (typeof sourceGroupIds === 'string') {
+      return sourceGroupIds;
+    }
+
+    return null;
   }
 
   /**
@@ -1601,7 +1748,6 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
     showRanking?: boolean
   ): string {
     const displayName = this.getProductDisplayName(productName) || productName;
-    const grafanaLink = this.getGrafanaLink(displayName);
     const resultClass = isTopResult
       ? 'product-ranking top-result'
       : 'product-ranking';
@@ -1634,15 +1780,46 @@ docker logs &lt;container&gt; 2>&amp;1 | head -20</div>
       html += `<div class="product-details">${details.join(' • ')}</div>`;
     }
 
-    // Add Grafana link if available
-    if (grafanaLink) {
-      html += `
-        <div class="product-details" style="margin-top: 0.5rem;">
-          <a href="${grafanaLink}" target="_blank" class="grafana-link">
-            Configure Grafana for ${displayName}
-          </a>
-        </div>
-      `;
+    // Add context-aware links
+    if (this.pageContext === 'grafana') {
+      // Show Grafana-specific link
+      const grafanaLink = this.getGrafanaLink(displayName);
+      if (grafanaLink) {
+        html += `
+          <div class="product-details" style="margin-top: 0.5rem;">
+            <a href="${grafanaLink}" target="_blank" class="doc-link">
+              Configure Grafana for ${displayName} →
+            </a>
+          </div>
+        `;
+      }
+    } else {
+      // Show general documentation and Ask AI links
+      const docLink = this.getDocumentationUrl(displayName);
+      const aiContext = this.getAskAIContext(displayName);
+
+      if (docLink || aiContext) {
+        html += '<div class="product-details" style="margin-top: 0.5rem;">';
+
+        if (docLink) {
+          html += `
+            <a href="${docLink}" target="_blank" class="doc-link" style="margin-right: 1rem;">
+              View ${displayName} documentation →
+            </a>
+          `;
+        }
+
+        if (aiContext) {
+          const sourceGroupIds = this.getAISourceGroupIds(displayName);
+          html += `
+            <a href="#" class="ask-ai-open" data-query="Help me with ${aiContext}"${sourceGroupIds ? ` data-source-group-ids="${sourceGroupIds}"` : ''}>
+              Ask AI about ${displayName} →
+            </a>
+          `;
+        }
+
+        html += '</div>';
+      }
     }
 
     html += '</div>';
@@ -2213,10 +2390,10 @@ docker exec &lt;container&gt; curl -I localhost:8181/ping
       </details>
 
       <div class="expected-results">
-        <div class="results-title">Expected results:</div>
-        • <strong>X-Influxdb-Build: Enterprise</strong> → InfluxDB 3 Enterprise (definitive)<br>
-        • <strong>X-Influxdb-Build: Core</strong> → InfluxDB 3 Core (definitive)<br>
-        • <strong>401 Unauthorized</strong> → Use the license information below
+        <div class="results-title">Expected results from command:</div>
+        • Response header <strong>X-Influxdb-Build: Enterprise</strong> → InfluxDB 3 Enterprise (definitive)<br>
+        • Response header <strong>X-Influxdb-Build: Core</strong> → InfluxDB 3 Core (definitive)<br>
+        • Status code <strong>401 Unauthorized</strong> → Use the license information below
       </div>
 
       <div class="authorization-help">
@@ -2261,9 +2438,12 @@ curl -I ${url}/ping
       </div>
 
       <div class="expected-results">
-        <div class="results-title">Expected version patterns:</div>
-        • <strong>v1.x.x</strong> → ${this.getProductDisplayName('oss-v1')}<br>
-        • <strong>v2.x.x</strong> → ${this.getProductDisplayName('oss-v2')}<br>
+        <div class="results-title">Look for version pattern:</div>
+        • <strong>v1.x.x</strong> (for example, v1.8.10) → ${this.getProductDisplayName('oss-v1')}<br>
+        • <strong>v2.x.x</strong> (for example, v2.7.4) → ${this.getProductDisplayName('oss-v2')}<br>
+        <p style="font-size: 0.9em; margin-top: 0.5rem; opacity: 0.8;">
+          From <code>influxd version</code> command output or <code>X-Influxdb-Version</code> response header
+        </p>
       </div>
 
       <details style="margin: 1rem 0;">
@@ -2275,7 +2455,7 @@ curl -I ${url}/ping
 docker exec &lt;container&gt; influxd version
 
 # Get ping headers:
-docker exec &lt;container&gt; curl -I localhost:8086/ping
+docker exec &lt;container&gt; curl -I ${InfluxDBVersionDetector.DEFAULT_HOST_PORT}/ping
 
 # Or check startup logs:
 docker logs &lt;container&gt; 2>&1 | head -20

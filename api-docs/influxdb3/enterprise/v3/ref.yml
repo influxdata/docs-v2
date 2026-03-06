@@ -1121,8 +1121,29 @@ paths:
         Soft deletes a database.
         The database is scheduled for deletion and unavailable for querying.
         Use the `hard_delete_at` parameter to schedule a hard deletion.
+        Use the `data_only` parameter to delete data while preserving the database schema and resources.
       parameters:
         - $ref: '#/components/parameters/db'
+        - name: data_only
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Delete only data while preserving the database schema and all associated resources
+            (tokens, triggers, last value caches, distinct value caches, processing engine configurations).
+            When `false` (default), the entire database is deleted.
+        - name: remove_tables
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Used with `data_only=true` to remove table resources (caches) while preserving
+            database-level resources (tokens, triggers, processing engine configurations).
+            Has no effect when `data_only=false`.
         - name: hard_delete_at
           in: query
           required: false
@@ -1193,6 +1214,7 @@ paths:
         Soft deletes a table.
         The table is scheduled for deletion and unavailable for querying.
         Use the `hard_delete_at` parameter to schedule a hard deletion.
+        Use the `data_only` parameter to delete data while preserving the table schema and resources.
 
         #### Deleting a table cannot be undone
 
@@ -1205,6 +1227,16 @@ paths:
           required: true
           schema:
             type: string
+        - name: data_only
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: |
+            Delete only data while preserving the table schema and all associated resources
+            (last value caches, distinct value caches).
+            When `false` (default), the entire table is deleted.
         - name: hard_delete_at
           in: query
           required: false
@@ -1431,6 +1463,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_cron_trigger
                   trigger_specification: cron:0 0 6 * * 1-5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1444,6 +1477,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_trigger
                   trigger_specification: every:1h
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1456,6 +1490,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_30s_trigger
                   trigger_specification: every:30s
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1468,6 +1503,7 @@ paths:
                   plugin_filename: schedule.py
                   trigger_name: schedule_every_5m_trigger
                   trigger_specification: every:5m
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1480,6 +1516,7 @@ paths:
                   plugin_filename: all_tables.py
                   trigger_name: all_tables_trigger
                   trigger_specification: all_tables
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1492,6 +1529,7 @@ paths:
                   plugin_filename: table.py
                   trigger_name: table_trigger
                   trigger_specification: table:sensors
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1504,6 +1542,7 @@ paths:
                   plugin_filename: request.py
                   trigger_name: hello_world_trigger
                   trigger_specification: request:hello-world
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1516,6 +1555,7 @@ paths:
                   plugin_filename: weekly_report.py
                   trigger_name: friday_report_trigger
                   trigger_specification: cron:0 30 14 * * 5
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -1528,6 +1568,7 @@ paths:
                   plugin_filename: monthly_cleanup.py
                   trigger_name: monthly_cleanup_trigger
                   trigger_specification: cron:0 0 0 1 * *
+                  disabled: false
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
@@ -2547,6 +2588,7 @@ components:
         - trigger_name
         - trigger_settings
         - trigger_specification
+        - disabled
     TriggerSettings:
       type: object
       description: |

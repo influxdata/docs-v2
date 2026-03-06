@@ -125,7 +125,7 @@ curl -X POST "http://localhost:8181/api/v3/configure/database" \
   -d "{\"db\": \"${WORKTREE_NAME}_db\"}"
 
 # List databases to verify
-curl "http://localhost:8181/api/v3/configure/database" \
+curl "http://localhost:8181/api/v3/configure/database?format=json" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 ```
 
@@ -243,6 +243,7 @@ curl -i http://localhost:8181/ping -H "Authorization: Bearer $INFLUXDB3_ENTERPRI
 ```
 
 **Token File Format** (both Core and Enterprise):
+
 ```json
 {
   "token": "64-character-hexadecimal-token",

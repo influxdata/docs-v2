@@ -77,3 +77,4 @@ deploy/llm-markdown/lambda-edge/markdown-generator/config.json
 *.d.ts.map
 *.js.map
 .eslintcache
+.worktrees/

@@ -3,8 +3,9 @@
 {{/* Support deployments (such as CI tools) with subdirectory baseURL */}}
 {{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
 {{ $product := index $productPathData (add $pathOffset 0) }}
-{{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData (add $pathOffset 1) }}
+{{ $productKey := print $product "_" $currentVersion }}
+{{ $productData := index $.Site.Data.products $productKey }}
 
 <!-- Menu Key -->
 {{ .Scratch.Set "menuKey" "menu"}}
@@ -91,6 +92,12 @@
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/stdlib/">Flux standard library</a></li>
+  {{ end }}
+
+  <!-- Feature Board link for supported products -->
+  {{ $featureBoardWhitelist := slice "influxdb3_core" "influxdb3_enterprise" }}
+  {{ if in $featureBoardWhitelist (print $product "_" $currentVersion) }}
+    {{ partial "sidebar/feature-board.html" (dict "product" $product "version" $currentVersion "productName" $productData.name) }}
   {{ end }}
 
   <!-- Platform menu for 1.x docs -->

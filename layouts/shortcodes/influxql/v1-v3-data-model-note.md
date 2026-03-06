@@ -1,8 +1,6 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentProduct := index $productPathData 1 -}}
-{{- $productKey := print "influxdb3_" (replaceRE "-" "_" $currentProduct) }}
-{{- $productData := index .Site.Data.products $productKey -}}
+{{- $productData := partial "product/get-data.html" . -}}
 {{- $productName := $productData.name -}}
+
 > [!Note]
 >
 > #### InfluxDB v1 to InfluxDB 3 data model

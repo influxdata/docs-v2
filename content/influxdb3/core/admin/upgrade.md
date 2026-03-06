@@ -1,13 +1,15 @@
 ---
-title: Upgrade InfluxDB
+title: Upgrade InfluxDB 3 Core
 description: >
-  Learn how to upgrade your {{% product-name %}} instance.
+  Learn how to upgrade your {{% product-name %}} instance to the latest version.
 menu:
   influxdb3_core:
-    name: Upgrade InfluxDB
+    name: Upgrade Core
     parent: Administer InfluxDB
 weight: 205
 influxdb3/core/tags: [upgrade, administration, catalog]
+alt_links:
+  enterprise: /influxdb3/enterprise/admin/upgrade/
 related:
   - /influxdb3/core/admin/backup-restore/
   - /influxdb3/core/install/

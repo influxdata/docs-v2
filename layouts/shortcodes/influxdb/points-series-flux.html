@@ -1,5 +1,4 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentVersion := index $productPathData 1 -}}
+{{- $currentVersion := .Page.Params.version -}}
 {{- $isOSS := cond (in $currentVersion "cloud") false true -}}
 <div id="series-diagram-wrapper flux">
   <div class="series-diagram">

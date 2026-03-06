@@ -1,0 +1,20 @@
+{{- /*
+  Retrieve product data from cascade frontmatter.
+  Uses .Page.Params.product (set via cascade in each product section's _index.md)
+  to look up the product entry in data/products.yml.
+
+  Usage:
+    {{- $productData := partial "product/get-data.html" . -}}
+    {{- $productData.name -}}
+
+  Context: Pass the shortcode context (.) which provides .Page and .Site.
+*/ -}}
+{{- $productKey := .Page.Params.product -}}
+{{- $productData := dict -}}
+{{- if $productKey -}}
+  {{- $productData = index .Site.Data.products $productKey -}}
+  {{- if not $productData -}}
+    {{- errorf "No product data found for key '%s' on page: %s. Check data/products.yml." $productKey .Page.RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- return $productData -}}

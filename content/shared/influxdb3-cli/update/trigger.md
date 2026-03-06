@@ -32,6 +32,7 @@ influxdb3 update trigger [OPTIONS] \
 |        | `--error-behavior`   | Error handling behavior: `log`, `retry`, or `disable`                                                                                             |
 |        | `--token`            | Authentication token                                                                                                                             |
 |        | `--tls-ca`           | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                             |
+|        | `--tls-no-verify`    | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates)  |
 | `-h`   | `--help`             | Print help information                                                                                                                           |
 |        | `--help-all`         | Print detailed help information                                                                                                                  |
 
@@ -45,6 +46,7 @@ You can use the following environment variables instead of providing CLI options
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
 | `INFLUXDB3_TLS_CA`        | `--tls-ca`   |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Examples
 
