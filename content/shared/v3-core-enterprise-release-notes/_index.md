@@ -40,6 +40,8 @@
 
 - **`_internal` database default retention**: The `_internal` system database now defaults to a 7-day retention period (previously infinite). Only admin tokens can modify retention on the `_internal` database.
 
+- **Snapshot checkpointing for faster startup**: Use the new [`--checkpoint-interval`](/influxdb3/version/reference/config-options/#checkpoint-interval) serve option to periodically consolidate snapshots into monthly checkpoints. On startup, the server loads one to two checkpoints per calendar month instead of thousands of individual snapshots, reducing startup time for long-running servers.
+
 
 #### Bug fixes
 
