@@ -377,9 +377,27 @@ export default function ApiToc({ component }: ComponentOptions): void {
   const hasServerRenderedToc = nav.querySelectorAll('.api-toc-link').length > 0;
 
   if (hasServerRenderedToc) {
-    // Server-side TOC exists - just show it and set up navigation
+    // Server-side TOC exists - show it, set up navigation and scroll highlighting
     component.classList.remove('is-hidden');
     setupSmoothScroll(component);
+
+    // Extract entries from pre-rendered links for scroll highlighting
+    const preRenderedLinks =
+      nav.querySelectorAll<HTMLAnchorElement>('.api-toc-link');
+    const preRenderedEntries: TocEntry[] = [];
+    preRenderedLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href?.startsWith('#')) {
+        preRenderedEntries.push({
+          id: href.slice(1),
+          text: link.textContent?.trim() || '',
+          level: 2,
+        });
+      }
+    });
+    if (preRenderedEntries.length > 0) {
+      setupScrollHighlighting(component, preRenderedEntries);
+    }
     return;
   }
 
