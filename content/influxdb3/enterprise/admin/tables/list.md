@@ -24,7 +24,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/query/
-  - /influxdb3/enterprise/api/v3/#operation/GetQuerySql, Query API
+  - /influxdb3/enterprise/api/v3/#get-/api/v3/query_sql, Query API
 source: /shared/influxdb3-admin/tables/list.md
 ---
 

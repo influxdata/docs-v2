@@ -155,7 +155,7 @@ Your InfluxDB instance is now initialized.
 {{% tab-content %}}
 Send a request to the following HTTP API endpoint:
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/setup" method="post" api-ref="/influxdb/v2/api/#operation/PostAuthorizations" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/setup" method="post" api-ref="/influxdb/v2/api/#post-/api/v2/authorizations" >}}
 
 {{% warn %}}
 
@@ -195,7 +195,7 @@ We recommend using a password manager or a secret store to securely store
 sensitive tokens.
 {{% /note %}}
 
-For more options and details, see the [`POST /api/v2/setup` API endpoint documentation](/influxdb/v2/api/#operation/PostSetup).
+For more options and details, see the [`POST /api/v2/setup` API endpoint documentation](/influxdb/v2/api/#post-/api/v2/setup).
 
 {{% /tab-content%}}
 <!----------------------------------END API SETUP------------------------------>
@@ -268,7 +268,7 @@ For more options and details, see the [`POST /api/v2/setup` API endpoint documen
 
 Send a request to the InfluxDB API `/api/v2/authorizations` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/authorizations" method="post" api-ref="/influxdb/v2/api/#operation/PostAuthorizations" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/authorizations" method="post" api-ref="/influxdb/v2/api/#post-/api/v2/authorizations" >}}
 
 Include the following with your request:
 
@@ -287,7 +287,7 @@ Include the following with your request:
           - **orgID**: [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
-            [`/api/v2/resources` endpoint](/influxdb/v2/api/#operation/GetResources)._
+            [`/api/v2/resources` endpoint](/influxdb/v2/api/#get-/api/v2/resources)._
 
 The following example uses cURL and the InfluxDB API to generate an All Access token:
 
@@ -599,7 +599,7 @@ Replace the following:
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" api-ref="/influxdb/v2/api/#operation/PostBuckets">}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" api-ref="/influxdb/v2/api/#post-/api/v2/buckets">}}
 
 Include the following with your request:
 

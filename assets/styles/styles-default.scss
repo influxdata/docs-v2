@@ -32,7 +32,11 @@
         "layouts/v1-overrides",
         "layouts/notifications",
         "layouts/code-controls",
-        "layouts/v3-wayfinding";
+        "layouts/v3-wayfinding",
+        "layouts/api-layout",
+        "layouts/api-security-schemes",
+        "layouts/api-operations",
+        "layouts/api-code-samples";
 
 // Import Components
 @import "components/influxdb-version-detector",

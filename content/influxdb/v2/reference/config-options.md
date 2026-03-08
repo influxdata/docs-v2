@@ -54,7 +54,7 @@ influx server-config
 
 Use the `/api/v2/config` InfluxDB API endpoint to retrieve your runtime server configuration.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" api-ref="/influxdb/v2/api/#operation/GetConfig" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/config" api-ref="/influxdb/v2/api/#get-/api/v2/config" >}}
 
 ### Configuration precedence
 InfluxDB honors configuration settings using the following precedence:

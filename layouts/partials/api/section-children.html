@@ -1,0 +1,131 @@
+{{/*
+  API Section Children
+
+  Renders tag pages from article data as a children list.
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+*/}}
+{{ $currentPage := . }}
+
+{{/* Extract product and version from URL */}}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup */}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{/* Core and Enterprise use influxdb3_ prefix; cloud-* and clustered don't */}}
+  {{ if or (eq $version "core") (eq $version "enterprise") }}
+    {{ $dataKey = print "influxdb3_" $version }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
+{{ else if eq $product "influxdb" }}
+  {{/* Map URL versions to data directory names */}}
+  {{ if eq $version "v2" }}
+    {{ $dataKey = "oss-v2" }}
+  {{ else if eq $version "cloud" }}
+    {{ $dataKey = "cloud-v2" }}
+  {{ else if eq $version "v1" }}
+    {{ $dataKey = "oss-v1" }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
+{{ else if eq $product "enterprise_influxdb" }}
+  {{ $dataKey = print "enterprise-" $version }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $articles := slice }}
+{{ with site.Data.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+{{ $conceptualArticles := slice }}
+{{ $operationArticles := slice }}
+
+{{ range $articles }}
+  {{ if and (reflect.IsMap .) (isset . "fields") }}
+    {{ $fields := index . "fields" }}
+    {{ if reflect.IsMap $fields }}
+      {{ $isConceptual := false }}
+      {{ if isset $fields "isConceptual" }}
+        {{ $isConceptual = index $fields "isConceptual" }}
+      {{ end }}
+      {{ if $isConceptual }}
+        {{ $conceptualArticles = $conceptualArticles | append . }}
+      {{ else }}
+        {{ $operationArticles = $operationArticles | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+{{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+{{/* Combine: conceptual first, then operations */}}
+{{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+{{/* Also include static API pages (HTML files) not in article data */}}
+{{/* These are compatibility API pages like v1-compatibility, v2, management */}}
+{{ $staticApiPages := slice }}
+{{ range $currentPage.Pages }}
+  {{/* Skip pages that are in article data (have tag param) or are all-endpoints */}}
+  {{ if and (not (isset .Params "tag")) (not .Params.isAllEndpoints) }}
+    {{ $staticApiPages = $staticApiPages | append . }}
+  {{ end }}
+{{ end }}
+{{ $staticApiPages = sort $staticApiPages "Weight" }}
+
+<div class="children-links">
+  {{/* Render article-based pages */}}
+  {{ range $sortedArticles }}
+    {{ $path := index . "path" }}
+    {{ $fields := index . "fields" }}
+    {{ $tag := index $fields "tag" }}
+    {{ $description := index $fields "description" | default "" }}
+    {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+
+    <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
+    {{ with $description }}
+    {{/* Truncate to first paragraph (before double newline) or 200 chars */}}
+    {{/* Skip paragraphs that are just headings (start with #) */}}
+    {{ $paragraphs := split . "\n\n" }}
+    {{ $firstPara := "" }}
+    {{ range $paragraphs }}
+      {{ if and (not $firstPara) (not (hasPrefix . "#")) }}
+        {{ $firstPara = . }}
+      {{ end }}
+    {{ end }}
+    {{ if $firstPara }}
+    {{ $truncated := $firstPara | truncate 200 "..." }}
+    <p>{{ $truncated | markdownify }}</p>
+    {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Render static API pages (compatibility APIs) */}}
+  {{ range $staticApiPages }}
+    <h3 id="{{ .Title | urlize }}"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    {{ with .Description }}
+    {{ $truncated := . | truncate 200 "..." }}
+    <p>{{ $truncated | markdownify }}</p>
+    {{ end }}
+  {{ end }}
+</div>

@@ -119,7 +119,7 @@ but you can use any HTTP client._
 
 2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/DeleteDatabaseToken" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="delete" api-ref="/influxdb3/cloud-dedicated/api/management/#delete-/accounts/-accountId-/clusters/-clusterId-/tokens/-tokenId-" %}}
 
     In the URL, provide the following:
 

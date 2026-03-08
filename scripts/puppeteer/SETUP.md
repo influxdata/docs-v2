@@ -53,6 +53,7 @@ grep puppeteer package.json
 ```
 
 Should show:
+
 ```
 "puppeteer": "^23.11.1",
 ```
@@ -65,6 +66,7 @@ npx hugo server
 ```
 
 Should show:
+
 ```
 Web Server is available at http://localhost:1313/
 ```
@@ -77,6 +79,7 @@ yarn debug:screenshot / --output test-screenshot.png
 ```
 
 If successful, you'll see:
+
 ```
 📸 Screenshot Utility
 =====================
@@ -105,6 +108,7 @@ Should show a PNG file (typically 100-500KB).
 ### Issue: "Failed to launch browser"
 
 **Error message:**
+
 ```
 Failed to launch browser: Could not find Chrome
 ```
@@ -119,9 +123,10 @@ which google-chrome
 yarn debug:browser / --chrome "$(which google-chrome)"
 ```
 
-### Issue: "Failed to navigate to http://localhost:1313"
+### Issue: "Failed to navigate to <http://localhost:1313>"
 
 **Error message:**
+
 ```
 Failed to navigate to http://localhost:1313/: net::ERR_CONNECTION_REFUSED
 ```
@@ -132,9 +137,10 @@ Failed to navigate to http://localhost:1313/: net::ERR_CONNECTION_REFUSED
 npx hugo server
 ```
 
-### Issue: "PUPPETEER_SKIP_DOWNLOAD not working"
+### Issue: "PUPPETEER\_SKIP\_DOWNLOAD not working"
 
 **Error message:**
+
 ```
 ERROR: Failed to set up chrome-headless-shell
 ```
@@ -257,5 +263,5 @@ Once setup is verified:
 
 - **Main documentation**: [README.md](README.md)
 - **Helper functions**: [utils/puppeteer-helpers.js](utils/puppeteer-helpers.js)
-- **Puppeteer docs**: https://pptr.dev/
+- **Puppeteer docs**: <https://pptr.dev/>
 - **Report issues**: Create a GitHub issue in docs-v2

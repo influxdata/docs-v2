@@ -53,4 +53,4 @@ Compression reduces network bandwidth, but increases server-side load.
 {{% /note %}}
 
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/influxdb/cloud/api/#operation/PostWrite)._
+[InfluxDB API Write documentation](/influxdb/cloud/api/#post-/api/v2/write)._

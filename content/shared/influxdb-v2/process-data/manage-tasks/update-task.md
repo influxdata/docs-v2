@@ -61,9 +61,9 @@ influx task update -i 0343698431c35000 --status inactive
 ```
 
 ## Update a task with the InfluxDB API
-Use the [`/tasks/TASK_ID` InfluxDB API endpoint](/influxdb/version/api/#operation/PatchTasksID) to update properties of a task.
+Use the [`/tasks/TASK_ID` InfluxDB API endpoint](/influxdb/version/api/#patch-/api/v2/tasks/-taskID-) to update properties of a task.
 
-{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" api-ref="/influxdb/version/api/#operation/PatchTasksID" >}}
+{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" api-ref="/influxdb/version/api/#patch-/api/v2/tasks/-taskID-" >}}
 
 In your request, pass the task ID and an object that contains the updated key-value pairs.
 To activate or inactivate a task, set the `status` property.

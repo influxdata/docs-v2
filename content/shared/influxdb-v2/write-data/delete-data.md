@@ -1,6 +1,6 @@
 
 Use the [`influx` CLI](/influxdb/version/reference/cli/influx/) or the InfluxDB API
-[`/api/v2/delete`](/influxdb/version/api/#operation/PostDelete) endpoint to delete
+[`/api/v2/delete`](/influxdb/version/api/#post-/api/v2/delete) endpoint to delete
 data from an InfluxDB bucket.
 
 - [Delete data using the influx CLI](#delete-data-using-the-influx-cli)
@@ -95,10 +95,10 @@ influx delete --bucket example-bucket \
 {{% /show-in %}}
 
 ## Delete data using the API
-Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/version/api/#operation/PostDelete)
+Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/version/api/#post-/api/v2/delete)
 to delete points from InfluxDB.
 
-{{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" api-ref="/influxdb/version/api/#operation/PostDelete" >}}
+{{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" api-ref="/influxdb/version/api/#post-/api/v2/delete" >}}
 
 Include the following:
 
@@ -167,6 +167,6 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
 
 {{% /show-in %}}
 
-_For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/version/api/#operation/PostDelete)._
+_For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/version/api/#post-/api/v2/delete)._
 
 To delete a bucket see [Delete a bucket](/influxdb/version/admin/buckets/delete-bucket/).

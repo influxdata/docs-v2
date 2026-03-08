@@ -15,8 +15,8 @@ related:
   - /influxdb3/enterprise/reference/syntax/line-protocol/
   - /influxdb3/enterprise/get-started/write/
   - /influxdb3/enterprise/reference/client-libraries/v2/
-  - /influxdb3/enterprise/api/v3/#operation/PostV2Write, /api/v2/write (v2-compatible) endpoint
-  - /influxdb3/enterprise/api/v3/#operation/PostV1Write, /write (v1-compatible) endpoint
+  - /influxdb3/enterprise/api/v3/#post-/api/v2/write, /api/v2/write (v2-compatible) endpoint
+  - /influxdb3/enterprise/api/v3/#post-/write, /write (v1-compatible) endpoint
 source: /shared/influxdb3-write-guides/http-api/compatibility-apis.md
 ---
 

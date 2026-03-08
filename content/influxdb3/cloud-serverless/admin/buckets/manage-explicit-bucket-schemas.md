@@ -104,9 +104,9 @@ To view schema column definitions and metadata, specify the `--json` flag.
 
 ### View schema type and schemas using the InfluxDB HTTP API
 
-To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb3/cloud-serverless/api/#operation/getMeasurementSchemas):
+To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb3/cloud-serverless/api/#get-/api/v2/buckets/-bucketID-/schema/measurements):
 
-{{% api-endpoint method="get" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb3/cloud-serverless/api/#operation/getMeasurementSchemas" %}}
+{{% api-endpoint method="get" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb3/cloud-serverless/api/#get-/api/v2/buckets/-bucketID-/schema/measurements" %}}
 
 ## Update a bucket schema
 
@@ -145,11 +145,11 @@ You can't modify or delete columns in bucket schemas.
 
 1. [View the existing measurement schema](#view-schema-type-and-schemas-using-the-influxdb-http-api) and copy the `columns` list.
 
-2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb3/cloud-serverless/api/#operation/updateMeasurementSchema).
+2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb3/cloud-serverless/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-).
 
     In the request body, set the `columns` property to a list of old and new column definitions for the measurement schema--for example, the following request appends the new column `CO2` to `columns` retrieved in the previous step:
 
-    {{< api-endpoint method="patch" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb3/cloud-serverless/api/#operation/updateMeasurementSchema" >}}
+    {{< api-endpoint method="patch" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb3/cloud-serverless/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-" >}}
 
     ```js
     {

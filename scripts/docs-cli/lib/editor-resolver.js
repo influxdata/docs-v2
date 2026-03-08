@@ -15,9 +15,8 @@ import { platform } from 'os';
  */
 function commandExists(command) {
   try {
-    const cmd = platform() === 'win32'
-      ? `where ${command}`
-      : `command -v ${command}`;
+    const cmd =
+      platform() === 'win32' ? `where ${command}` : `command -v ${command}`;
     execSync(cmd, { stdio: 'ignore' });
     return true;
   } catch {
@@ -59,10 +58,10 @@ export function resolveEditor(options = {}) {
 
   throw new Error(
     'No suitable editor found. Set EDITOR environment variable or use --editor flag.\n' +
-    'Examples:\n' +
-    '  export EDITOR=vim\n' +
-    '  export EDITOR=nano\n' +
-    '  docs edit <url> --editor vim'
+      'Examples:\n' +
+      '  export EDITOR=vim\n' +
+      '  export EDITOR=nano\n' +
+      '  docs edit <url> --editor vim'
   );
 }
 

@@ -15,6 +15,8 @@
 #   STAGING_BUCKET              - S3 bucket name (e.g., new-docs-test-docsbucket-1ns6x5tp79507)
 #   AWS_REGION                  - AWS region (e.g., us-east-1)
 #   STAGING_CF_DISTRIBUTION_ID  - CloudFront distribution ID (optional, for cache invalidation)
+#   AWS_ACCESS_KEY_ID           - AWS access key ID
+#   AWS_SECRET_KEY              - AWS secret key
 #
 # Optional environment variables:
 #   STAGING_URL                 - Staging site URL (default: https://test2.docs.influxdata.com)

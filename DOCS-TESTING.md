@@ -11,13 +11,13 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 
 ## Test Types Overview
 
-| Test Type               | Purpose                             | Command                      |
-| ----------------------- | ----------------------------------- | ---------------------------- |
-| **Code blocks**         | Validate shell/Python code examples | `yarn test:codeblocks:all`   |
-| **Link validation**     | Check internal/external links       | `yarn test:links`            |
-| **Style linting**       | Enforce writing standards           | `.ci/vale/vale.sh`           |
-| **Markdown generation** | Generate LLM-friendly Markdown      | `yarn build:md`              |
-| **E2E tests**           | UI and functionality testing        | `yarn test:e2e`              |
+| Test Type               | Purpose                             | Command                    |
+| ----------------------- | ----------------------------------- | -------------------------- |
+| **Code blocks**         | Validate shell/Python code examples | `yarn test:codeblocks:all` |
+| **Link validation**     | Check internal/external links       | `yarn test:links`          |
+| **Style linting**       | Enforce writing standards           | `.ci/vale/vale.sh`         |
+| **Markdown generation** | Generate LLM-friendly Markdown      | `yarn build:md`            |
+| **E2E tests**           | UI and functionality testing        | `yarn test:e2e`            |
 
 ## Code Block Testing
 

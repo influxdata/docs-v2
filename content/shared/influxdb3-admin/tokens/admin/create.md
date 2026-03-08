@@ -48,7 +48,7 @@ influxdb3 create token --admin
 {{% tab-content %}}
 Use the following endpoint to create an operator token:
 
-{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/v3/#operation/PostCreateAdminToken" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/v3/#post-/api/v3/configure/token/admin" %}}
 
 ```bash
 curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \
@@ -86,7 +86,7 @@ The output contains the token string in plain text.
 {{% tab-content %}}
 Use the following endpoint to create a named admin token:
 
-{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/v3/#operation/PostCreateAdminToken" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin" api-ref="/influxdb3/version/api/v3/#post-/api/v3/configure/token/admin" %}}
 
 ```bash
 curl -X POST "http://{{< influxdb/host >}}/api/v3/configure/token/admin" \

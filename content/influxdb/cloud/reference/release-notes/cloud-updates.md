@@ -309,7 +309,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ### API updates
 
-- [List all buckets](/influxdb/cloud/api/#operation/GetBuckets) in the API now supports the `after` parameter as an alternative to `offset`.
+- [List all buckets](/influxdb/cloud/api/#get-/api/v2/buckets) in the API now supports the `after` parameter as an alternative to `offset`.
 - Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
 
 ### Task updates

@@ -21,7 +21,7 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 4. Enter the Flux script for your custom check, including the [`monitor.check`](/flux/v0/stdlib/influxdata/influxdb/monitor/check/) function.
 
 {{% note %}}
-Use the [`/api/v2/checks/{checkID}/query` API endpoint](/influxdb/version/api/#operation/DeleteDashboardsIDOwnersID)
+Use the [`/api/v2/checks/{checkID}/query` API endpoint](/influxdb/version/api/#delete-/api/v2/dashboards/-dashboardID-/owners/-userID-)
 to see the Flux code for a check built in the UI.
 This can be useful for constructing custom checks.
 {{% /note %}}

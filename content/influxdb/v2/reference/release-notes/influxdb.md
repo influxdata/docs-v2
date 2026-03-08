@@ -642,9 +642,9 @@ This release includes the following new features:
 
 #### API
 
-- Add new parameters to GET [`/users`](/influxdb/v2/api/#operation/GetUsers) API, including: `offset`, `limit`, and `after`.
-- Add the [`api/v2/backup/metadata`](/influxdb/v2/api/#operation/GetBackupMetadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2/api/#operation/GetRoutes) for restoring SQL metadata.
-- Deprecated [`POST .../secrets/delete`](/influxdb/v2/api/#operation/PostOrgsIDSecrets). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2/api/#operation/DeleteOrgsIDSecretsID).
+- Add new parameters to GET [`/users`](/influxdb/v2/api/#get-/api/v2/users) API, including: `offset`, `limit`, and `after`.
+- Add the [`api/v2/backup/metadata`](/influxdb/v2/api/#get-/api/v2/backup/metadata) endpoint for backing up both key-value and SQL metadata, and the [`api/v2/restore/sql`](/influxdb/v2/api/#get-/api/v2) for restoring SQL metadata.
+- Deprecated [`POST .../secrets/delete`](/influxdb/v2/api/#post-/api/v2/orgs/-orgID-/secrets/delete). To delete a secret, use [`DELETE .../secrets/{secretID}`](/influxdb/v2/api/#delete-/api/v2/orgs/-orgID-/secrets/-secretID-).
 
 #### CLI
 
@@ -730,7 +730,7 @@ For more information about each plugin, see [Telegraf plugins](/telegraf/v1/plug
 ### Bug fixes
 
 - Log API errors to server logs and tell clients to check the server logs for the error message.
-- Fix pagination for GET [`/buckets`](/influxdb/v2/api/#operation/GetBuckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
+- Fix pagination for GET [`/buckets`](/influxdb/v2/api/#get-/api/v2/buckets) API when displaying results. Previously, pagination was broken if a request included both an `org` filter AND the `after` request parameter. Also corrects `descending` parameter to sort when an `org` filter is used and saved.
 - Sync series segment to disk after writing.
 - Do not allow shard creation to create overlapping shards.
 - Don't drop shard group durations when upgrading InfluxDB.

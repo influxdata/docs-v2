@@ -11,14 +11,14 @@ The docs-v2 repository uses **two complementary spell-checking tools**:
 
 ## Tool Comparison
 
-| Feature | Vale | Codespell |
-|---------|------|-----------|
-| **Purpose** | Document spell checking | Code comment spell checking |
-| **Integration** | Pre-commit hooks (Docker) | CI/CD pipeline |
-| **False Positives** | Low (comprehensive filters) | Low (clear dictionary only) |
-| **Customization** | YAML rules | INI config + dictionary lists |
-| **Performance** | Moderate | Fast |
-| **True Positive Detection** | Document-level | Code-level |
+| Feature                     | Vale                        | Codespell                     |
+| --------------------------- | --------------------------- | ----------------------------- |
+| **Purpose**                 | Document spell checking     | Code comment spell checking   |
+| **Integration**             | Pre-commit hooks (Docker)   | CI/CD pipeline                |
+| **False Positives**         | Low (comprehensive filters) | Low (clear dictionary only)   |
+| **Customization**           | YAML rules                  | INI config + dictionary lists |
+| **Performance**             | Moderate                    | Fast                          |
+| **True Positive Detection** | Document-level              | Code-level                    |
 
 ## Vale Configuration
 
@@ -51,17 +51,20 @@ Unlike other documentation style checkers, this configuration **intentionally in
 
 ### Filter Patterns Explained
 
-#### 1. camelCase and snake_case Identifiers
+#### 1. camelCase and snake\_case Identifiers
+
 ```regex
 (?:_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*|[a-z_][a-z0-9]*_[a-z0-9_]*)
 ```
+
 **Why**: Prevents false positives on variable/method names while NOT matching normal prose
 
 **Breakdown**:
+
 - **camelCase**: `_*[a-z]+(?:[A-Z][a-z0-9]*)+(?:[A-Z][a-zA-Z0-9]*)*`
   - Requires at least one uppercase letter (distinguishes `myVariable` from `provide`)
   - Allows leading underscores for private variables (`_privateVar`, `__dunder__`)
-- **snake_case**: `[a-z_][a-z0-9]*_[a-z0-9_]*`
+- **snake\_case**: `[a-z_][a-z0-9]*_[a-z0-9_]*`
   - Requires at least one underscore
   - Distinguishes `my_variable` from normal words
 
@@ -69,49 +72,61 @@ Unlike other documentation style checkers, this configuration **intentionally in
 
 **Examples NOT Ignored** (caught by spell-checker): `provide`, `database`, `variable` (normal prose)
 
-#### 2. UPPER_CASE Constants
+#### 2. UPPER\_CASE Constants
+
 ```regex
 [A-Z_][A-Z0-9_]+
 ```
+
 **Why**: Prevents false positives on environment variables and constants
 **Examples Ignored**: `API_KEY`, `AWS_REGION`, `INFLUXDB_TOKEN`
 **Note**: Matches AWS, API (even single uppercase acronyms) - acceptable in docs
 
 #### 3. Version Numbers
+
 ```regex
 \d+\.\d+(?:\.\d+)*
 ```
+
 **Why**: Version numbers aren't words
 **Examples Ignored**: `1.0`, `2.3.1`, `0.101.0`, `1.2.3.4`, `v1.2.3`
 **Note**: Handles any number of version parts (2-part, 3-part, 4-part, etc.)
 
 #### 4. Hexadecimal Values
+
 ```regex
 0[xX][0-9a-fA-F]+
 ```
+
 **Why**: Hex values appear in code and aren't dictionary words
 **Examples Ignored**: `0xFF`, `0xDEADBEEF`, `0x1A`
 
 #### 5. URLs and Paths
+
 ```regex
 /[a-zA-Z0-9/_\-\.\{\}]+          # Paths: /api/v2/write
 https?://[^\s\)\]>"]+ # Full URLs: https://docs.example.com
 ```
+
 **Why**: URLs contain hyphens, slashes, and special chars
 **Examples Ignored**: `/api/v2/write`, `/kapacitor/v1/`, `https://docs.influxdata.com`
 
 #### 6. Shortcode Attributes
+
 ```regex
 (?:endpoint|method|url|href|src|path)="[^"]+"
 ```
+
 **Why**: Hugo shortcode attribute values often contain hyphens and special chars
 **Examples Ignored**: `endpoint="https://..."`, `method="POST"`
 **Future Enhancement**: Add more attributes as needed (name, value, data, etc.)
 
 #### 7. Code Punctuation
+
 ```regex
 [@#$%^&*()_+=\[\]{};:,.<>?/\\|-]+
 ```
+
 **Why**: Symbols and special characters aren't words
 **Examples Ignored**: `()`, `{}`, `[]`, `->`, `=>`, `|`, etc.
 
@@ -134,15 +149,15 @@ To add a word that should be ignored, edit the appropriate file.
 
 - `clear` - Unambiguous spelling errors only
   - Examples: "recieve" → "receive", "occured" → "occurred"
-  - False positive rate: ~1%
+  - False positive rate: \~1%
 
 - `rare` - Includes uncommon but valid English words
   - Would flag legitimate technical terms
-  - False positive rate: ~15-20%
+  - False positive rate: \~15-20%
 
 - `code` - Includes code-specific words
   - Too aggressive for documentation
-  - False positive rate: ~25-30%
+  - False positive rate: \~25-30%
 
 #### Skip Directories
 
@@ -167,6 +182,7 @@ ignore-words-list = aks,invokable
 - **`invokable`** - InfluxData product branding term (scriptable tasks/queries)
 
 **To add more**:
+
 1. Edit `.codespellrc`
 2. Add word to `ignore-words-list` (comma-separated)
 3. Add inline comment explaining why
@@ -178,6 +194,7 @@ ignore-words-list = aks,invokable
 Vale automatically runs on files you commit via Lefthook.
 
 **Manual check**:
+
 ```bash
 # Check all content
 docker compose run -T vale content/**/*.md
@@ -233,7 +250,8 @@ echo "recieve the data" | codespell
 **Problem**: Vale flags a word that should be valid
 
 **Solutions**:
-1. Check if it's a code identifier (camelCase, UPPER_CASE, hex, version)
+
+1. Check if it's a code identifier (camelCase, UPPER\_CASE, hex, version)
 2. Add to `InfluxDataDocs/Terms/ignore.txt` if it's a technical term
 3. Add filter pattern to `.ci/vale/styles/InfluxDataDocs/Spelling.yml` if it's a pattern
 
@@ -242,6 +260,7 @@ echo "recieve the data" | codespell
 **Problem**: Codespell flags a legitimate term
 
 **Solutions**:
+
 1. Add to `ignore-words-list` in `.codespellrc`
 2. Add skip directory if entire directory should be excluded
 3. Use `-i 3` (interactive mode) to review before accepting
@@ -251,6 +270,7 @@ echo "recieve the data" | codespell
 **Problem**: A real typo isn't caught
 
 **Solutions**:
+
 1. Verify it's actually a typo (not a branding term or intentional)
 2. Check if it's in excluded scope (tables, URLs, code identifiers)
 3. Report as GitHub issue for tool improvement

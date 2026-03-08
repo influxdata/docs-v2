@@ -107,7 +107,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1. If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="get" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/GetDatabaseTokens" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="get" api-ref="/influxdb3/cloud-dedicated/api/management/#get-/accounts/-accountId-/clusters/-clusterId-/tokens" %}}
 
    In the URL, provide the following credentials:
 
@@ -142,7 +142,7 @@ Replace the following in your request:
 
 To retrieve a specific database token by ID, send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="get" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/GetDatabaseToken" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens/TOKEN_ID" method="get" api-ref="/influxdb3/cloud-dedicated/api/management/#get-/accounts/-accountId-/clusters/-clusterId-/tokens/-tokenId-" %}}
 
    In the URL, provide the following:
 

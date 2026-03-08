@@ -161,7 +161,7 @@ The retention period value cannot be negative or contain whitespace.
 
 1. In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateClusterDatabase" %}}
+   {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/databases" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/databases" %}}
 
    In the URL, provide the following credentials:
 

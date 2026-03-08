@@ -27,6 +27,7 @@ PUPPETEER_SKIP_DOWNLOAD=true yarn install
 If you're using system Chrome instead of Puppeteer's bundled browser, set the path in your scripts:
 
 **Common Chrome paths:**
+
 - macOS: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`
 - Linux: `/usr/bin/google-chrome`
 - Windows: `C:\Program Files\Google\Chrome\Application\chrome.exe`
@@ -84,6 +85,7 @@ yarn debug:inspect <url-path> [options]
 ```
 
 **What it reports:**
+
 - Page metadata (title, description, language)
 - Performance metrics (load time, FCP, etc.)
 - Console errors and warnings
@@ -107,6 +109,7 @@ yarn debug:inspect /influxdb3/core/ --screenshot
 ```
 
 **Use cases:**
+
 - User reports a page isn't loading correctly
 - Need to check if a page has JavaScript errors
 - Want to verify shortcodes are rendering properly
@@ -121,6 +124,7 @@ yarn debug:screenshot <url-path> [options]
 ```
 
 **Options:**
+
 - `--output PATH` - Save to specific file
 - `--full-page` - Capture entire scrollable page
 - `--selector CSS` - Capture specific element
@@ -146,6 +150,7 @@ yarn debug:screenshot /influxdb3/core/ --output debug/home-page.png
 ```
 
 **Use cases:**
+
 - User reports visual issue ("the button is cut off")
 - Need to see how page looks at different viewport sizes
 - Want to capture a specific component for documentation
@@ -160,6 +165,7 @@ yarn debug:browser <url-path> [options]
 ```
 
 **Options:**
+
 - `--devtools` - Open Chrome DevTools automatically
 - `--slow-mo NUM` - Slow down actions by NUM milliseconds
 - `--viewport WxH` - Set viewport size
@@ -182,6 +188,7 @@ yarn debug:browser /influxdb3/core/ --viewport 375x667
 ```
 
 **Use cases:**
+
 - Need to manually click through a workflow
 - Want to use Chrome DevTools to debug JavaScript
 - Testing responsive design breakpoints
@@ -241,6 +248,7 @@ yarn debug:screenshot /path/to/page/ --full-page --output shortcode-issue.png
 ```
 
 **What to look for in the report:**
+
 - `shortcodeRemnants` section will show any `{{<` or `{{%` patterns
 - Screenshot will show visual rendering
 
@@ -266,6 +274,7 @@ yarn debug:browser /path/to/page/ --devtools
 ```
 
 **What to look for:**
+
 - `errors` section in inspection report
 - Red error messages in DevTools console
 - Stack traces showing which file/line caused the error
@@ -328,28 +337,33 @@ node scripts/puppeteer/test-responsive.js
 See `utils/puppeteer-helpers.js` for complete documentation. Key functions:
 
 ### Browser & Navigation
+
 - `launchBrowser(options)` - Launch browser instance
 - `navigateToPage(browser, urlPath, options)` - Navigate to page
 - `clickAndNavigate(page, selector)` - Click and wait for navigation
 
 ### Elements
+
 - `elementExists(page, selector)` - Check if element exists
 - `waitForElement(page, selector, timeout)` - Wait for element
 - `getElementText(page, selector)` - Get element text content
 - `getComputedStyles(page, selector, properties)` - Get CSS styles
 
 ### Screenshots & Visual
+
 - `takeScreenshot(page, path, options)` - Capture screenshot
 - `compareScreenshots(baseline, current, diff)` - Compare images
 - `testResponsive(page, viewports, testFn)` - Test at different sizes
 
 ### Analysis
+
 - `getPageMetrics(page)` - Get performance metrics
 - `getPageLinks(page)` - Get all links on page
 - `captureConsoleLogs(page)` - Capture console output
 - `debugPage(page, name)` - Save HTML + screenshot for debugging
 
 ### Testing
+
 - `testComponent(page, selector, testFn)` - Test component behavior
 
 ## Troubleshooting
@@ -375,11 +389,12 @@ See `utils/puppeteer-helpers.js` for complete documentation. Key functions:
    - Linux: `/usr/bin/google-chrome` or `/usr/bin/chromium`
    - Windows: `C:\Program Files\Google\Chrome\Application\chrome.exe`
 
-### Error: "Failed to navigate to http://localhost:1313"
+### Error: "Failed to navigate to <http://localhost:1313>"
 
 **Problem:** Hugo server is not running
 
 **Solution:**
+
 ```bash
 # In a separate terminal
 npx hugo server
@@ -413,6 +428,7 @@ npx hugo server
 **Problem:** Cannot download Puppeteer's bundled Chrome due to network restrictions
 
 **Solution:**
+
 ```bash
 # Install without browser binary
 PUPPETEER_SKIP_DOWNLOAD=true yarn install
@@ -431,6 +447,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:1313/
 ```
 
 If it returns `000` or connection refused, start Hugo:
+
 ```bash
 npx hugo server
 ```
@@ -438,6 +455,7 @@ npx hugo server
 ### 2. Use inspection before screenshots
 
 Inspection is faster and provides more context:
+
 ```bash
 # First, inspect to understand the issue
 yarn debug:inspect /path/
@@ -449,6 +467,7 @@ yarn debug:screenshot /path/ --selector .problem-component
 ### 3. Prefer headless for automated checks
 
 Headless mode is faster and doesn't require display:
+
 ```javascript
 const browser = await launchBrowser({ headless: true });
 ```
@@ -458,6 +477,7 @@ Only use non-headless (`headless: false`) when you need to visually debug.
 ### 4. Clean up resources
 
 Always close the browser when done:
+
 ```javascript
 try {
   const browser = await launchBrowser();
@@ -481,6 +501,7 @@ yarn debug:screenshot /influxdb3/core/ --output debug/influxdb3-core-home-issue-
 ### 6. Capture full context for bug reports
 
 When a user reports an issue, gather comprehensive context:
+
 ```bash
 # 1. Inspection report
 yarn debug:inspect /path/to/issue/ --output reports/issue-123-inspect.json --screenshot

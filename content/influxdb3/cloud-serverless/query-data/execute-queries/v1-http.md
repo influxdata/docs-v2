@@ -53,7 +53,7 @@ _Before you can use the v1 query API,
 
 To query using HTTP and InfluxQL, send a `GET` or `POST` request to the v1 `/query` endpoint.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/cloud-serverless/api/#get-/query" >}}
 
 ### Parameters
 

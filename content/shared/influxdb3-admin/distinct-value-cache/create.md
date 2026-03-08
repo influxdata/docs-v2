@@ -73,7 +73,7 @@ influxdb3 create distinct_cache \
 
 To use the HTTP API to create a Distinct Value Cache, send a `POST` request to the `/api/v3/configure/distinct_cache` endpoint.
 
-{{% api-endpoint method="POST" endpoint="/api/v3/configure/distinct_cache" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureDistinctCache" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/distinct_cache" api-ref="/influxdb3/version/api/v3/#post-/api/v3/configure/distinct_cache" %}}
 
 {{% code-placeholders "(DATABASE|TABLE|DVC)_NAME|AUTH_TOKEN|COLUMNS|MAX_(CARDINALITY|AGE)" %}}
 

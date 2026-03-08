@@ -15,6 +15,7 @@ PUPPETEER_SKIP_DOWNLOAD=true yarn install
 ## Common Commands
 
 ### Take Screenshot
+
 ```bash
 yarn debug:screenshot <path>                    # Basic screenshot
 yarn debug:screenshot <path> --full-page        # Full scrollable page
@@ -23,6 +24,7 @@ yarn debug:screenshot <path> --viewport 375x667 # Mobile size
 ```
 
 ### Inspect Page
+
 ```bash
 yarn debug:inspect <path>                       # Full analysis
 yarn debug:inspect <path> --output report.json  # Save report
@@ -30,6 +32,7 @@ yarn debug:inspect <path> --screenshot          # Include screenshot
 ```
 
 ### Open Browser
+
 ```bash
 yarn debug:browser <path>                       # Interactive mode
 yarn debug:browser <path> --devtools            # With DevTools
@@ -39,6 +42,7 @@ yarn debug:browser <path> --slow-mo 500         # Slow motion
 ## Quick Workflows
 
 ### User Reports Visual Issue
+
 ```bash
 yarn debug:screenshot /path/to/page/ --full-page
 yarn debug:inspect /path/to/page/
@@ -46,6 +50,7 @@ yarn debug:inspect /path/to/page/
 ```
 
 ### Testing Component Change
+
 ```bash
 # Before
 yarn debug:screenshot /example/ --output before.png
@@ -57,12 +62,14 @@ yarn debug:screenshot /example/ --output after.png
 ```
 
 ### Debugging JavaScript Error
+
 ```bash
 yarn debug:inspect /path/          # Check errors section
 yarn debug:browser /path/ --devtools  # Debug in browser
 ```
 
 ### Performance Check
+
 ```bash
 yarn debug:inspect /path/ --output perf.json
 # Check perf.json → performance.performance.loadComplete
@@ -70,6 +77,7 @@ yarn debug:inspect /path/ --output perf.json
 ```
 
 ### Automated Issue Detection
+
 ```bash
 node scripts/puppeteer/examples/detect-issues.js /path/
 ```
@@ -118,6 +126,7 @@ await browser.close();
 ## Troubleshooting
 
 ### Browser not found
+
 ```bash
 # Find Chrome
 which google-chrome
@@ -127,6 +136,7 @@ yarn debug:browser /path/ --chrome "$(which google-chrome)"
 ```
 
 ### Hugo not running
+
 ```bash
 # Check if running
 curl -s http://localhost:1313/
@@ -136,6 +146,7 @@ npx hugo server
 ```
 
 ### Network restrictions
+
 ```bash
 # Install without downloading Chrome
 PUPPETEER_SKIP_DOWNLOAD=true yarn install
@@ -144,45 +155,54 @@ PUPPETEER_SKIP_DOWNLOAD=true yarn install
 ## Helper Functions
 
 ### Browser & Navigation
+
 - `launchBrowser(options)` - Launch browser
 - `navigateToPage(browser, path, options)` - Navigate
 - `clickAndNavigate(page, selector)` - Click & wait
 
 ### Screenshots
+
 - `takeScreenshot(page, path, options)` - Capture screenshot
 - `compareScreenshots(baseline, current, diff)` - Compare images
 - `testResponsive(page, viewports, testFn)` - Multi-viewport
 
 ### Elements
+
 - `elementExists(page, selector)` - Check exists
 - `waitForElement(page, selector, timeout)` - Wait
 - `getElementText(page, selector)` - Get text
 
 ### Analysis
+
 - `getPageMetrics(page)` - Performance data
 - `getPageLinks(page)` - All links
 - `getComputedStyles(page, selector)` - CSS values
 
 ### Debugging
+
 - `debugPage(page, name)` - Save HTML + screenshot + logs
 - `captureConsoleLogs(page)` - Capture console
 
 ## What to Check
 
 ### Shortcode Remnants
+
 Look for: `{{<`, `{{%`, `{{.`
+
 ```bash
 yarn debug:inspect /path/
 # Check: report.shortcodeRemnants
 ```
 
 ### JavaScript Errors
+
 ```bash
 yarn debug:inspect /path/
 # Check: report.errors
 ```
 
 ### Performance
+
 ```bash
 yarn debug:inspect /path/
 # Check: report.performance.performance.loadComplete < 3000ms
@@ -190,6 +210,7 @@ yarn debug:inspect /path/
 ```
 
 ### Accessibility
+
 ```bash
 yarn debug:inspect /path/
 # Check: report.accessibility
@@ -200,6 +221,7 @@ yarn debug:inspect /path/
 ```
 
 ### Components
+
 ```bash
 yarn debug:inspect /path/
 # Check: report.components
@@ -214,6 +236,7 @@ All in `scripts/puppeteer/examples/`:
 - `detect-issues.js` - Automated issue detection
 
 Run with:
+
 ```bash
 node scripts/puppeteer/examples/detect-issues.js /path/
 ```
@@ -235,10 +258,11 @@ yarn debug:browser /path/ --devtools
 ```
 
 This gives you:
+
 1. JSON report with all page data
 2. Full page screenshot
 3. Interactive browser with DevTools
 
----
+***
 
 **Remember**: Always start Hugo server first! (`npx hugo server`)

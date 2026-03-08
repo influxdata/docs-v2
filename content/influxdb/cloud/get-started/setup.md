@@ -86,7 +86,7 @@ you need is in place.
 
 Send a request to the InfluxDB API `/api/v2/authorizations` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://cloud2.influxdata.com/api/v2/authorizations" method="post" api-ref="/influxdb/cloud/api/#operation/PostAuthorizations" >}}
+{{< api-endpoint endpoint="http://cloud2.influxdata.com/api/v2/authorizations" method="post" api-ref="/influxdb/cloud/api/#post-/api/v2/authorizations" >}}
 
 Include the following with your request:
 
@@ -105,7 +105,7 @@ Include the following with your request:
           - **orgID**: [InfluxDB organization ID](/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id)
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
-            [`/api/v2/resources` endpoint](/influxdb/cloud/api/#operation/GetResources)._
+            [`/api/v2/resources` endpoint](/influxdb/cloud/api/#get-/api/v2/resources)._
 
 The following example uses cURL and the InfluxDB API to generate an All-Access token:
 
@@ -371,7 +371,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://cloud2.influxdata.com/api/v2/buckets" method="post" api-ref="/influxdb/cloud/api/#operation/PostBuckets" >}}
+{{< api-endpoint endpoint="http://cloud2.influxdata.com/api/v2/buckets" method="post" api-ref="/influxdb/cloud/api/#post-/api/v2/buckets" >}}
 
 Include the following with your request:
 

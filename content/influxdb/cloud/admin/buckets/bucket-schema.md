@@ -122,7 +122,7 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
         ```
 #### Create a bucket schema using the InfluxDB HTTP API
 
-Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#operation/createMeasurementSchema)
+Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#post-/api/v2/buckets/-bucketID-/schema/measurements)
 and set the following properties in the request body:
 
 - `name`: the measurement name.
@@ -130,7 +130,7 @@ and set the following properties in the request body:
 
 For example, the following request defines the _explicit_ bucket measurement schema for `airSensors` measurements:
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud/api/#operation/createMeasurementSchema" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud/api/#post-/api/v2/buckets/-bucketID-/schema/measurements" >}}
 
 ```js
 {
@@ -215,9 +215,9 @@ To view schema column definitions and metadata, specify the `--json` flag.
 
 ### View schema type and schemas using the InfluxDB HTTP API
 
-To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#operation/getMeasurementSchemas):
+To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#get-/api/v2/buckets/-bucketID-/schema/measurements):
 
-{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud/api/#operation/getMeasurementSchemas" %}}
+{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud/api/#get-/api/v2/buckets/-bucketID-/schema/measurements" %}}
 
 ## Update a bucket schema
 
@@ -256,11 +256,11 @@ You can't modify or delete columns in bucket schemas.
 
 1. [View the existing measurement schema](#view-schema-type-and-schemas-using-the-influxdb-http-api) and copy the `columns` list.
 
-2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb/cloud/api/#operation/updateMeasurementSchema).
+2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-).
 
     In the request body, set the `columns` property to a list of old and new column definitions for the measurement schema--for example, the following request appends the new column `CO2` to `columns` retrieved in the previous step:
 
-    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb/cloud/api/#operation/updateMeasurementSchema" >}}
+    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-" >}}
 
     ```js
     {

@@ -86,13 +86,13 @@ influx auth find --json
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to update the description and status of a token.
 
-{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" api-ref="/influxdb/version/api/#operation/PatchAuthorizationsID" >}}
+{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" api-ref="/influxdb/version/api/#patch-/api/v2/authorizations/-authID-" >}}
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/version/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
+| API token with the [`write: authorizations`](/influxdb/version/api/#post-/api/v2/authorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
 | Authorization ID     | URL path parameter.                                      |
 | Description and/or Status | Pass as `description`, `status` in the request body.    |
 

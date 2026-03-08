@@ -15,10 +15,8 @@ function getVersioned(filename) {
 
 const info = () => getVersioned('info.yml');
 const servers = () => getVersioned('servers.yml');
-const tagGroups = () => getVersioned('tag-groups.yml');
 
 module.exports = {
   info,
   servers,
-  tagGroups,
 }

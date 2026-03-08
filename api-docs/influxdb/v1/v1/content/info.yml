@@ -1,0 +1,32 @@
+title: InfluxDB v1 HTTP API
+x-influxdata-short-title: InfluxDB v1 API
+x-influxdata-short-description: >-
+  The InfluxDB v1 HTTP API provides a programmatic interface for writing,
+  querying, and managing InfluxDB v1 databases.
+version: 1.8.10
+description: |
+  The InfluxDB v1 HTTP API provides a simple way to interact with the database.
+  It uses HTTP response codes, authentication with username and password credentials
+  or API tokens, and JSON-formatted response data.
+
+  ## InfluxDB 3 Compatibility
+
+  InfluxDB 3 supports the v1 `/write` and `/query` HTTP API endpoints.
+  If you're getting started with InfluxDB v1, we recommend using the
+  InfluxDB v1 client libraries and InfluxQL for future compatibility.
+
+  ## Authentication
+
+  InfluxDB v1 supports two authentication methods:
+
+  - **Basic Authentication**: Use HTTP Basic Auth with username and password
+  - **Query String Authentication**: Pass `u` (username) and `p` (password) as query parameters
+  - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
+
+  Authentication is optional unless [enabled in the configuration](/influxdb/v1/administration/authentication_and_authorization/).
+license:
+  name: MIT
+  url: https://opensource.org/licenses/MIT
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
