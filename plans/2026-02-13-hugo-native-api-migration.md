@@ -207,22 +207,22 @@ Added clean regeneration to prevent stale files from accumulating when tags are 
 
 ***
 
-### Task 8: Apply Cache Data tag split to InfluxDB 3 Enterprise
+### Task 8: Apply Cache Data tag split to InfluxDB 3 Enterprise ✅ COMPLETED
 
-**Priority:** Medium
+**Priority:** Medium | **Status:** Completed 2026-03-08
 
 Apply the same tag split done for Core.
 
-**Files to modify:**
+**Files modified:**
 
 - `api-docs/influxdb3/enterprise/v3/ref.yml`
 
 **Changes:**
 
-1. Replace "Cache data" tag with "Cache distinct values" and "Cache last value" tags
-2. Update operation tag references
-3. Update x-tagGroups references
-4. Regenerate: `sh api-docs/generate-api-docs.sh`
+1. ✅ Replaced single "Cache data" tag definition with separate "Cache distinct values" and "Cache last value" tags, each with their own `x-related` links
+2. ✅ Updated 4 operation tag references: distinct_cache POST/DELETE → "Cache distinct values", last_cache POST/DELETE → "Cache last value"
+3. ✅ Updated x-tagGroups to list both new tags instead of "Cache data"
+4. ✅ Fixed grammar ("an DVC" → "a DVC", consistent with Core)
 
 ***
 
@@ -232,14 +232,24 @@ Apply the same tag split done for Core.
 
 After the infrastructure is in place, migrate remaining products.
 
+**Decisions (2026-03-08):**
+
+- **Migrate v1 products:** InfluxDB OSS v1 and Enterprise v1 will be migrated to Hugo-native (not v2 products).
+- **Skip v2 products:** InfluxDB OSS v2 and Cloud v2 will NOT be migrated — the effort isn't justified for legacy products approaching EOL.
+- **docs-tooling dependency:** New tag structures (split tags, `x-related`, `x-traitTag`) need to be ported to the docs-tooling OpenAPI spec generation so that upstream spec regeneration preserves these customizations.
+
 **Products:**
 
 - [ ] cloud-dedicated (management API)
 - [ ] cloud-serverless
 - [ ] clustered (management API)
-- [ ] cloud-v2
-- [ ] oss-v2
 - [ ] oss-v1
+- [ ] enterprise-v1
+
+**Skipped (not migrating):**
+
+- ~~cloud-v2~~ — legacy, approaching EOL
+- ~~oss-v2~~ — legacy, approaching EOL
 
 **For each product:**
 
@@ -247,6 +257,21 @@ After the infrastructure is in place, migrate remaining products.
 2. Add `x-influxdata-related` links where appropriate
 3. Clean and regenerate
 4. Verify all tag pages render correctly
+
+***
+
+### Task 10: Port tag customizations to docs-tooling
+
+**Priority:** High (blocks sustainable regeneration)
+
+The tag splits, `x-related` links, and other customizations applied in Tasks 8-9 are made directly in the local spec files. These will be overwritten when specs are regenerated from `influxdata/openapi` via `getswagger.sh`. The customizations need to be ported upstream to docs-tooling so they're applied automatically during spec generation.
+
+**Scope:**
+
+1. Port `x-influxdata-related` link support to docs-tooling decorators
+2. Port tag split logic (e.g., "Cache data" → "Cache distinct values" + "Cache last value") to docs-tooling
+3. Port `x-traitTag` assignments to docs-tooling
+4. Ensure `getswagger.sh` regeneration preserves all Hugo-native customizations
 
 ***
 
