@@ -1,7 +1,8 @@
 /**
  * API documentation scanner for docs-v2 repository
  *
- * Parses OpenAPI spec files in api-docs/influxdb3/{core,enterprise}/v3/ref.yml
+ * Parses OpenAPI spec files in api-docs/influxdb3/{core,enterprise}/v3/
+ * (influxdb3-core-openapi.yaml and influxdb3-enterprise-openapi.yaml)
  * to find documented API endpoints and their parameters.
  *
  * @module api-doc-scanner
@@ -44,11 +45,11 @@ export class APIDocScanner {
     const paths = [];
 
     if (this.product === 'core' || this.product === 'both') {
-      paths.push(join(this.docsRepoPath, 'api-docs/influxdb3/core/v3/ref.yml'));
+      paths.push(join(this.docsRepoPath, 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml'));
     }
 
     if (this.product === 'enterprise' || this.product === 'both') {
-      paths.push(join(this.docsRepoPath, 'api-docs/influxdb3/enterprise/v3/ref.yml'));
+      paths.push(join(this.docsRepoPath, 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml'));
     }
 
     return paths;
