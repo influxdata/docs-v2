@@ -215,7 +215,7 @@ function updateClusteredV2 {
 }
 
 function updateCoreV3 {
-  outFile="influxdb3/core/v3/ref.yml"
+  outFile="influxdb3/core/v3/influxdb3-core-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -227,7 +227,7 @@ function updateCoreV3 {
 }
 
 function updateEnterpriseV3 {
-  outFile="influxdb3/enterprise/v3/ref.yml"
+  outFile="influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
