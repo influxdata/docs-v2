@@ -557,7 +557,7 @@ function generateTagPagesFromArticleData(
         menuGroup?: string;
         staticFilePath?: string;
         operations?: OperationMeta[];
-        related?: string[];
+        related?: (string | { title: string; href: string })[];
         weight?: number;
       };
     }>;
@@ -738,6 +738,27 @@ All {{% product-name %}} API endpoints, sorted by path.
       frontmatter.related = article.fields.related;
     }
 
+    // Add client library related link for InfluxDB 3 products
+    if (contentPath.includes('influxdb3/') && !isConceptual) {
+      // Extract product segment from contentPath (e.g., "core" from ".../influxdb3/core")
+      const influxdb3Match = contentPath.match(/influxdb3\/([^/]+)/);
+      if (influxdb3Match) {
+        const productSegment = influxdb3Match[1];
+        const clientLibLink = {
+          title: 'InfluxDB 3 API client libraries',
+          href: `/influxdb3/${productSegment}/reference/client-libraries/v3/`,
+        };
+        const existing =
+          (frontmatter.related as Array<{ title: string; href: string }>) || [];
+        const alreadyHas = existing.some(
+          (r) => typeof r === 'object' && r.href === clientLibLink.href
+        );
+        if (!alreadyHas) {
+          frontmatter.related = [...existing, clientLibLink];
+        }
+      }
+    }
+
     // Add alt_links for cross-product API navigation
     if (apiProductsMap.size > 0) {
       const altLinks: Record<string, string> = {};
@@ -781,7 +802,7 @@ interface ArticleData {
       menuGroup?: string;
       staticFilePath?: string;
       operations?: OperationMeta[];
-      related?: string[];
+      related?: (string | { title: string; href: string })[];
       source?: string;
     };
   }>;
@@ -827,12 +848,16 @@ function mergeArticleData(articlesFiles: string[], outputPath: string): void {
           ];
         }
 
-        // Merge related links
+        // Merge related links (dedup by href for both strings and objects)
         if (article.fields.related && article.fields.related.length > 0) {
           const existingRelated = existing.fields.related || [];
-          const newRelated = article.fields.related.filter(
-            (r) => !existingRelated.includes(r)
+          const existingHrefs = new Set(
+            existingRelated.map((r) => (typeof r === 'string' ? r : r.href))
           );
+          const newRelated = article.fields.related.filter((r) => {
+            const href = typeof r === 'string' ? r : r.href;
+            return !existingHrefs.has(href);
+          });
           existing.fields.related = [...existingRelated, ...newRelated];
         }
 

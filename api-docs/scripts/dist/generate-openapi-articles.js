@@ -7,16 +7,20 @@
  * for all InfluxDB products.
  *
  * This script:
- * 1. Runs getswagger.sh to fetch/bundle OpenAPI specs
- * 2. Copies specs to static directory for download
- * 3. Generates path group fragments (YAML and JSON)
- * 4. Creates article metadata (YAML and JSON)
- * 5. Generates Hugo content pages from article data
+ * 1. Cleans output directories (unless --no-clean)
+ * 2. Runs getswagger.sh to fetch/bundle OpenAPI specs
+ * 3. Copies specs to static directory for download
+ * 4. Generates path group fragments (YAML and JSON)
+ * 5. Creates article metadata (YAML and JSON)
+ * 6. Generates Hugo content pages from article data
  *
  * Usage:
- *   node generate-openapi-articles.js                    # Generate all products
- *   node generate-openapi-articles.js cloud-v2           # Generate single product
- *   node generate-openapi-articles.js cloud-v2 oss-v2    # Generate multiple products
+ *   node generate-openapi-articles.js                    # Clean and generate all products
+ *   node generate-openapi-articles.js cloud-v2           # Clean and generate single product
+ *   node generate-openapi-articles.js --no-clean         # Generate without cleaning
+ *   node generate-openapi-articles.js --dry-run          # Preview what would be cleaned
+ *   node generate-openapi-articles.js --skip-fetch       # Skip getswagger.sh fetch step
+ *   node generate-openapi-articles.js --validate-links   # Validate documentation links
  *
  * @module generate-openapi-articles
  */
@@ -586,6 +590,25 @@ All {{% product-name %}} API endpoints, sorted by path.
     ) {
       frontmatter.related = article.fields.related;
     }
+    // Add client library related link for InfluxDB 3 products
+    if (contentPath.includes('influxdb3/') && !isConceptual) {
+      // Extract product segment from contentPath (e.g., "core" from ".../influxdb3/core")
+      const influxdb3Match = contentPath.match(/influxdb3\/([^/]+)/);
+      if (influxdb3Match) {
+        const productSegment = influxdb3Match[1];
+        const clientLibLink = {
+          title: 'InfluxDB 3 API client libraries',
+          href: `/influxdb3/${productSegment}/reference/client-libraries/v3/`,
+        };
+        const existing = frontmatter.related || [];
+        const alreadyHas = existing.some(
+          (r) => typeof r === 'object' && r.href === clientLibLink.href
+        );
+        if (!alreadyHas) {
+          frontmatter.related = [...existing, clientLibLink];
+        }
+      }
+    }
     // Add alt_links for cross-product API navigation
     if (apiProductsMap.size > 0) {
       const altLinks = {};
@@ -641,12 +664,16 @@ function mergeArticleData(articlesFiles, outputPath) {
             ...article.fields.operations,
           ];
         }
-        // Merge related links
+        // Merge related links (dedup by href for both strings and objects)
         if (article.fields.related && article.fields.related.length > 0) {
           const existingRelated = existing.fields.related || [];
-          const newRelated = article.fields.related.filter(
-            (r) => !existingRelated.includes(r)
+          const existingHrefs = new Set(
+            existingRelated.map((r) => (typeof r === 'string' ? r : r.href))
           );
+          const newRelated = article.fields.related.filter((r) => {
+            const href = typeof r === 'string' ? r : r.href;
+            return !existingHrefs.has(href);
+          });
           existing.fields.related = [...existingRelated, ...newRelated];
         }
         // Keep the longest/most detailed description

@@ -93,6 +93,9 @@ operations:
     summary: Delete an authorization
     tags:
       - Authorizations (API tokens)
+related:
+  - title: InfluxDB 3 API client libraries
+    href: /influxdb3/cloud-serverless/reference/client-libraries/v3/
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

@@ -34,17 +34,12 @@
   {{ end }}
 {{ end }}
 
-{{/* Tag description and related links from spec */}}
+{{/* Tag description from spec */}}
 {{ $tagDescription := "" }}
-{{ $tagRelated := slice }}
 {{ $tagName := .Params.tag | default "" }}
 {{ range $spec.tags }}
   {{ if eq .name $tagName }}
     {{ $tagDescription = .description | default "" }}
-    {{/* Extract x-influxdata-related from the tag */}}
-    {{ with index . "x-influxdata-related" }}
-      {{ $tagRelated = . }}
-    {{ end }}
   {{ end }}
 {{ end }}
 
@@ -69,15 +64,5 @@
     {{ end }}
   </section>
 
-  {{/* Related Guides - displayed at bottom like standard page template */}}
-  {{ if gt (len $tagRelated) 0 }}
-  <section class="api-related-guides">
-    <h4 class="api-related-title">Related guides</h4>
-    <ul class="api-related-list">
-      {{ range $tagRelated }}
-      <li><a href="{{ .href }}">{{ .title }}</a></li>
-      {{ end }}
-    </ul>
-  </section>
-  {{ end }}
+  {{/* Related links rendered via frontmatter + article/related.html */}}
 </div>

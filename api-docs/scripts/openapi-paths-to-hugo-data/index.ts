@@ -12,6 +12,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
+ * Related link with title and href (from x-influxdata-related)
+ */
+interface RelatedLink {
+  title: string;
+  href: string;
+}
+
+/**
  * OpenAPI path item object
  */
 interface PathItem {
@@ -41,8 +49,10 @@ interface Operation {
   externalDocs?: ExternalDocs;
   /** Compatibility version for migration context (v1 or v2) */
   'x-compatibility-version'?: string;
-  /** Related documentation links (replaces inline "Related guides" sections) */
+  /** Related documentation links as plain URLs */
   'x-influxdatadocs-related'?: string[];
+  /** Related documentation links with title and href */
+  'x-related'?: RelatedLink[];
   [key: string]: unknown;
 }
 
@@ -218,8 +228,10 @@ interface Tag {
   externalDocs?: ExternalDocs;
   /** Indicates this is a conceptual/supplementary tag (no operations) */
   'x-traitTag'?: boolean;
-  /** Related documentation links (replaces inline "Related guides" sections) */
+  /** Related documentation links as plain URLs */
   'x-influxdatadocs-related'?: string[];
+  /** Related documentation links with title and href */
+  'x-related'?: RelatedLink[];
   [key: string]: unknown;
 }
 
@@ -239,8 +251,10 @@ interface OperationMeta {
     description: string;
     url: string;
   };
-  /** Related documentation links */
+  /** Related documentation links (plain URLs) */
   related?: string[];
+  /** Related documentation links with title and href */
+  relatedLinks?: RelatedLink[];
 }
 
 /**
@@ -265,8 +279,8 @@ interface Article {
     tags?: string[];
     source?: string;
     staticFilePath?: string;
-    /** Related documentation links extracted from x-relatedLinks */
-    related?: string[];
+    /** Related documentation links (plain URLs or {title, href} objects) */
+    related?: (string | RelatedLink)[];
     /** OpenAPI tags from operations (for Hugo frontmatter) */
     apiTags?: string[];
     /** Menu display name (actual endpoint path, different from Hugo path) */
@@ -471,6 +485,11 @@ function extractOperationsByTag(
           Array.isArray(operation['x-influxdatadocs-related'])
         ) {
           opMeta.related = operation['x-influxdatadocs-related'];
+        }
+
+        // Extract x-related (title/href objects) if present
+        if (operation['x-related'] && Array.isArray(operation['x-related'])) {
+          opMeta.relatedLinks = operation['x-related'] as RelatedLink[];
         }
 
         // Add operation to each of its tags
@@ -1115,36 +1134,51 @@ function createArticleDataForTag(
     article.fields.weight = 100;
   }
 
-  // Aggregate unique related URLs from multiple sources into article-level related
+  // Aggregate related links from multiple sources into article-level related
   // This populates Hugo frontmatter `related` field for "Related content" links
-  const relatedUrls = new Set<string>();
+  // Supports both plain URL strings and {title, href} objects
+  const relatedItems: (string | RelatedLink)[] = [];
+  const seenHrefs = new Set<string>();
 
-  // First check tag-level x-influxdatadocs-related
-  if (tagMeta?.['x-influxdatadocs-related']) {
-    (tagMeta['x-influxdatadocs-related'] as string[]).forEach((url) =>
-      relatedUrls.add(url)
-    );
-  }
-
-  // Then check tag-level externalDocs (legacy single link)
-  if (tagMeta?.externalDocs?.url) {
-    relatedUrls.add(tagMeta.externalDocs.url);
-  }
-
-  // Then aggregate from operations
-  operations.forEach((op) => {
-    // Check operation-level x-influxdatadocs-related (via opMeta.related)
-    if (op.related) {
-      op.related.forEach((url) => relatedUrls.add(url));
+  // Helper to add a link, deduplicating by href
+  const addRelated = (item: string | RelatedLink): void => {
+    const href = typeof item === 'string' ? item : item.href;
+    if (!seenHrefs.has(href)) {
+      seenHrefs.add(href);
+      relatedItems.push(item);
     }
-    // Check operation-level externalDocs (legacy single link)
+  };
+
+  // Tag-level x-related ({title, href} objects)
+  if (tagMeta?.['x-related']) {
+    (tagMeta['x-related'] as RelatedLink[]).forEach(addRelated);
+  }
+
+  // Tag-level x-influxdatadocs-related (plain URLs)
+  if (tagMeta?.['x-influxdatadocs-related']) {
+    (tagMeta['x-influxdatadocs-related'] as string[]).forEach(addRelated);
+  }
+
+  // Tag-level externalDocs (legacy single link)
+  if (tagMeta?.externalDocs?.url) {
+    addRelated(tagMeta.externalDocs.url);
+  }
+
+  // Operation-level related links
+  operations.forEach((op) => {
+    if (op.relatedLinks) {
+      op.relatedLinks.forEach(addRelated);
+    }
+    if (op.related) {
+      op.related.forEach(addRelated);
+    }
     if (op.externalDocs?.url) {
-      relatedUrls.add(op.externalDocs.url);
+      addRelated(op.externalDocs.url);
     }
   });
 
-  if (relatedUrls.size > 0) {
-    article.fields.related = Array.from(relatedUrls);
+  if (relatedItems.length > 0) {
+    article.fields.related = relatedItems;
   }
 
   return article;
@@ -1229,6 +1263,14 @@ function writeOpenapiTagArticleData(
                 Array.isArray(operation['x-influxdatadocs-related'])
               ) {
                 opMeta.related = operation['x-influxdatadocs-related'];
+              }
+
+              // Extract x-related (title/href objects)
+              if (
+                operation['x-related'] &&
+                Array.isArray(operation['x-related'])
+              ) {
+                opMeta.relatedLinks = operation['x-related'] as RelatedLink[];
               }
 
               operations.push(opMeta);

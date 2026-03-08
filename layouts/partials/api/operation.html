@@ -54,6 +54,14 @@
     {{ partial "api/request-body.html" (dict "requestBody" . "spec" $spec) }}
   {{ end }}
 
+  {{/* Code Sample Section */}}
+  {{ partial "api/code-sample.html" (dict
+    "opDef" $opDef
+    "operation" $operation
+    "spec" $spec
+    "context" .context
+  ) }}
+
   {{/* Responses Section */}}
   {{ with $opDef.responses }}
     {{ partial "api/responses.html" (dict "responses" . "spec" $spec) }}

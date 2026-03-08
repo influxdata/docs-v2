@@ -29,7 +29,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-influxdata-related:
+  x-related:
     - title: Migrate from InfluxDB v1 or v2
       href: /influxdb3/core/get-started/migrate-from-influxdb-v1-v2/
 servers:
@@ -68,7 +68,7 @@ tags:
       values to cache, the maximum number of distinct value combinations to cache, and
       the maximum age of cached values. A DVC is associated with a table, which can
       have multiple DVCs.
-    x-influxdata-related:
+    x-related:
       - title: Manage the Distinct Value Cache
         href: /influxdb3/core/admin/distinct-value-cache/
   - name: Cache last value
@@ -83,7 +83,7 @@ tags:
       what fields to cache, what tags to use to identify each series, and the
       number of values to cache for each unique series.
       An LVC is associated with a table, which can have multiple LVCs.
-    x-influxdata-related:
+    x-related:
       - title: Manage the Last Value Cache
         href: /influxdb3/core/admin/last-value-cache/
   - name: Migrate from InfluxDB v1 or v2
@@ -190,6 +190,11 @@ tags:
   - name: Auth token
     description: Manage tokens for authentication and authorization
   - name: Write data
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/core/write-data/http-api/
+      - title: Line protocol reference
+        href: /influxdb3/core/reference/syntax/line-protocol/
     description: |
       Write data to InfluxDB 3 Core using line protocol format.
 
@@ -331,7 +336,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Write data
-      x-influxdata-related:
+      x-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v2/write:
@@ -422,7 +427,7 @@ paths:
         - TokenAuthentication: []
       tags:
         - Write data
-      x-influxdata-related:
+      x-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/core/write-data/http-api/compatibility-apis/
   /api/v3/write_lp:
@@ -816,7 +821,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Query data
-      x-influxdata-related:
+      x-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
     post:
@@ -938,7 +943,7 @@ paths:
         - QuerystringAuthentication: []
       tags:
         - Query data
-      x-influxdata-related:
+      x-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/core/query-data/execute-queries/influxdb-v1-api/
   /health:

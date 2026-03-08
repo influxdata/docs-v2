@@ -29,7 +29,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-influxdata-related:
+  x-related:
     - title: Migrate from InfluxDB v1 or v2
       href: /influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/
 servers:
@@ -321,7 +321,7 @@ paths:
       tags:
         
         - Write data
-      x-influxdata-related:
+      x-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
   /api/v2/write:
@@ -414,7 +414,7 @@ paths:
       tags:
         
         - Write data
-      x-influxdata-related:
+      x-related:
         - title: Use compatibility APIs to write data
           href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
   /api/v3/write_lp:
@@ -838,7 +838,7 @@ paths:
       tags:
         - Query data
         
-      x-influxdata-related:
+      x-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
     post:
@@ -957,7 +957,7 @@ paths:
       tags:
         - Query data
         
-      x-influxdata-related:
+      x-related:
         - title: Use the InfluxDB v1 HTTP query API and InfluxQL to query data
           href: /influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/
   /health:

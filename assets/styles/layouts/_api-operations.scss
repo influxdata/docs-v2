@@ -8,17 +8,17 @@ $api-spacing-md: 1rem;
 $api-spacing-lg: 1.5rem;
 $api-spacing-xl: 2rem;
 
-// Method colors (matching existing theme)
+// Method colors
 $method-get: #00A3FF;
 $method-post: #34BB55;
 $method-put: #FFB94A;
-$method-delete: #F95F53;
+$method-delete: #D63031;
 $method-patch: #9b2aff;
 
-// Status code colors
+// Status code colors — intentionally distinct from method colors
 $status-success: #34BB55;
 $status-redirect: #FFB94A;
-$status-client-error: #F95F53;
+$status-client-error: #E17055;
 $status-server-error: #9b2aff;
 
 // ============================================
@@ -31,8 +31,8 @@ $status-server-error: #9b2aff;
 
 .api-operation {
   margin-bottom: $api-spacing-xl;
-  padding-top: $api-spacing-lg;
-  border-top: 1px solid $nav-border;
+  padding-top: $api-spacing-xl;
+  border-top: 2px solid $nav-border;
 
   &:first-child {
     border-top: none;
@@ -430,7 +430,10 @@ $status-server-error: #9b2aff;
 }
 
 .api-response-body {
-  padding-top: $api-spacing-sm;
+  margin-top: $api-spacing-sm;
+  margin-left: $api-spacing-lg;
+  padding: $api-spacing-sm 0 $api-spacing-sm $api-spacing-md;
+  border-left: 2px solid rgba($article-text, 0.1);
 }
 
 // ============================================

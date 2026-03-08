@@ -7,6 +7,7 @@
  * 1. API reference pages (link validation, content structure)
  * 2. 3-column layout with TOC (for InfluxDB 3 Core/Enterprise)
  * 3. Hugo-native tag page rendering
+ * 4. Related links from OpenAPI x-related → frontmatter → rendered HTML
  *
  * Run with:
  * node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/api-reference.cy.js" content/influxdb3/core/reference/api/_index.md
@@ -346,11 +347,11 @@ describe('All endpoints page', () => {
         );
       });
 
-      it('operation cards link to tag pages with method anchors', () => {
+      it('operation cards link to tag pages with operation anchors', () => {
         cy.get('.api-operation-card')
           .first()
           .should('have.attr', 'href')
-          .and('match', /\/api\/.*\/#(get|post|put|patch|delete)-/i);
+          .and('match', /\/api\/.*\/#operation\//);
       });
 
       it('is accessible from navigation', () => {
@@ -359,6 +360,170 @@ describe('All endpoints page', () => {
         // Then navigate to All endpoints
         cy.get('.sidebar a').contains('All endpoints').click();
         cy.url().should('include', '/all-endpoints/');
+      });
+    });
+  });
+});
+
+/**
+ * API Code Sample Tests
+ * Tests that inline curl examples render correctly on tag pages
+ */
+describe('API code samples', () => {
+  const tagPages = [
+    '/influxdb3/core/api/write-data/',
+    '/influxdb3/enterprise/api/write-data/',
+  ];
+
+  tagPages.forEach((page) => {
+    describe(`Code samples on ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('each operation has a code sample', () => {
+        cy.get('.api-operation').each(($op) => {
+          cy.wrap($op).find('.api-code-sample').should('have.length', 1);
+        });
+      });
+
+      it('code samples have header and code block', () => {
+        cy.get('.api-code-sample')
+          .first()
+          .within(() => {
+            cy.get('.api-code-sample-header').should(
+              'contain',
+              'Example request'
+            );
+            cy.get('.api-code-block code').should('exist');
+          });
+      });
+
+      it('code block contains a curl command', () => {
+        cy.get('.api-code-block code')
+          .first()
+          .invoke('text')
+          .should('match', /curl --request (GET|POST|PUT|PATCH|DELETE)/);
+      });
+
+      it('curl command includes Authorization header', () => {
+        cy.get('.api-code-block code')
+          .first()
+          .invoke('text')
+          .should('include', 'Authorization: Bearer INFLUX_TOKEN');
+      });
+
+      it('POST operations include request body in curl', () => {
+        cy.get('.api-operation[data-method="post"]')
+          .first()
+          .find('.api-code-block code')
+          .invoke('text')
+          .should('include', '--data-raw');
+      });
+
+      it('code samples have Ask AI links', () => {
+        cy.get('.api-code-sample .api-code-ask-ai')
+          .first()
+          .should('have.attr', 'data-query')
+          .and('not.be.empty');
+      });
+    });
+  });
+});
+
+/**
+ * API Client Library Related Link Tests
+ * Tests that InfluxDB 3 tag pages include client library related links
+ */
+describe('API client library related links', () => {
+  const influxdb3Pages = [
+    '/influxdb3/core/api/write-data/',
+    '/influxdb3/enterprise/api/write-data/',
+  ];
+
+  influxdb3Pages.forEach((page) => {
+    describe(`Client library link on ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('includes InfluxDB 3 API client libraries in related links', () => {
+        cy.get('.related ul li a')
+          .filter(':contains("InfluxDB 3 API client libraries")')
+          .should('have.length', 1)
+          .and('have.attr', 'href')
+          .and('match', /\/influxdb3\/\w+\/reference\/client-libraries\/v3\//);
+      });
+    });
+  });
+});
+
+/**
+ * API Related Links Tests
+ * Tests that x-related from OpenAPI specs renders as related links on tag pages
+ */
+describe('API related links', () => {
+  const pagesWithRelated = ['/influxdb3/core/api/write-data/'];
+
+  pagesWithRelated.forEach((page) => {
+    describe(`Related links on ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('displays a related section', () => {
+        cy.get('.related').should('exist');
+        cy.get('.related h4#related').should('contain', 'Related');
+      });
+
+      it('renders related links from x-related as anchor elements', () => {
+        cy.get('.related ul li a').should('have.length.at.least', 2);
+      });
+
+      it('related links have title text and valid href', () => {
+        cy.get('.related ul li a').each(($a) => {
+          // Each link has non-empty text
+          cy.wrap($a).invoke('text').should('not.be.empty');
+          // Each link has an href starting with /
+          cy.wrap($a).should('have.attr', 'href').and('match', /^\//);
+        });
+      });
+
+      it('related links resolve to valid pages', () => {
+        cy.get('.related ul li a').each(($a) => {
+          const href = $a.attr('href');
+          cy.request(href).its('status').should('eq', 200);
+        });
       });
     });
   });
