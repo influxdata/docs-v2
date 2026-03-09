@@ -44,7 +44,7 @@ jobs:
           node-version: 22
 
       - name: Install js-yaml
-        run: npm install --no-save js-yaml
+        run: npm install --no-save --ignore-scripts --no-package-lock --legacy-peer-deps js-yaml
 
       - name: Apply product labels
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
