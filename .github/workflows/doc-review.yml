@@ -125,7 +125,7 @@ jobs:
           echo "Waiting for preview at ${PREVIEW_URL}"
 
           while [ "$ELAPSED" -lt "$TIMEOUT" ]; do
-            STATUS=$(curl -s -L -w "%{http_code}" --head "$PREVIEW_URL" || echo "000")
+            STATUS=$(curl -s -o /dev/null -L -w "%{http_code}" "$PREVIEW_URL" || echo "000")
             if [ "$STATUS" = "200" ]; then
               echo "Preview is live"
               echo "available=true" >> "$GITHUB_OUTPUT"
