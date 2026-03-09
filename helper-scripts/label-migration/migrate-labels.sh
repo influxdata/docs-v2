@@ -91,49 +91,14 @@ flag_for_review() {
 }
 
 echo "Repository: $REPO"
-echo
-echo "=== Product label migrations ==="
-echo
 
-migrate_label "InfluxDB 3 Core and Enterprise" "product:v3-monolith"
-migrate_label "Processing engine"              "product:v3-monolith"
-migrate_label "InfluxDB Cloud Dedicated"       "product:v3-distributed"
-migrate_label "InfluxDB Cloud Serverless"      "product:v3-distributed"
-migrate_label "InfluxDB Clustered"             "product:v3-distributed"
-migrate_label "InfluxDB v2"                    "product:v2"
-migrate_label "InfluxDB Cloud"                 "product:v2"
-migrate_label "InfluxDB v1"                    "product:v1"
-migrate_label "Enterprise 1.x"                 "product:v1-enterprise"
-migrate_label "Telegraf"                       "product:telegraf"
-migrate_label "Chronograf 1.x"                 "product:chronograf"
-migrate_label "Kapacitor"                      "product:kapacitor"
-migrate_label "Flux"                           "product:flux"
-migrate_label "InfluxDB 3 Explorer"            "product:explorer"
-
-# InfluxDB v3 needs manual review — some may be distributed, not monolith
-flag_for_review "InfluxDB v3" \
-  "May be v3-monolith or v3-distributed. Review each issue individually."
-
-echo "=== Source tracking migrations ==="
-echo
-
-migrate_label "sync-plugin-docs" "source:sync"
-
-echo "=== Renamed labels ==="
-echo
-
-migrate_label "AI assistant tooling"      "ai:tooling"
-migrate_label "ci:testing-and-validation" "ci:testing"
-
-echo "=== Release label migrations ==="
-echo
-
-migrate_label "Pending Release"    "release:pending"
-migrate_label "release/influxdb3"  "release:pending"
+migrate_label "alerts"                                   "product:v2"
+migrate_label "InfluxDB v2"                              "product:v2"
+migrate_label "InfluxDB 3 Core and Enterprise"           "product:v3-monolith"
 
 echo "=== Done ==="
 echo
 echo "Next steps:"
-echo "  1. Review the 'InfluxDB v3' issues flagged above"
+echo "  1. Review any issues flagged above"
 echo "  2. Verify a sample of migrated issues in the GitHub UI"
 echo "  3. Once satisfied, run delete-labels.sh to remove old labels"
