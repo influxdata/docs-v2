@@ -42,7 +42,6 @@
 
 - **Snapshot checkpointing for faster startup**: Use the new [`--checkpoint-interval`](/influxdb3/version/reference/config-options/#checkpoint-interval) serve option to periodically consolidate snapshots into monthly checkpoints. On startup, the server loads one to two checkpoints per calendar month instead of thousands of individual snapshots, reducing startup time for long-running servers.
 
-
 #### Bug fixes
 
 - **Sparse write handling for LVC, DVC, and Processing Engine**: Fixed incorrect behavior when processing sparse writes (writes that include only some fields from a table with multiple field families).

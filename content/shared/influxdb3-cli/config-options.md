@@ -1239,7 +1239,7 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 Sets the interval for consolidating
 [snapshots](/influxdb3/version/admin/backup-restore/#file-structure) into
-monthly checkpoints to reduce startup time.
+monthly checkpoints for faster server startup.
 Snapshots accumulate in object storage over time and are not automatically deleted.
 
 Without checkpointing, the server loads individual snapshots on startup.
