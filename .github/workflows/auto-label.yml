@@ -3,11 +3,17 @@ name: Auto-label PRs
 on:
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to label'
+        required: true
+        type: number
 
 permissions: {}
 
 concurrency:
-  group: auto-label-${{ github.event.number }}
+  group: auto-label-${{ github.event.number || inputs.pr_number }}
   cancel-in-progress: true
 
 jobs:
@@ -16,10 +22,11 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    # Skip draft PRs and fork PRs
+    # Skip draft PRs and fork PRs (workflow_dispatch always runs)
     if: |
-      !github.event.pull_request.draft &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository)
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
@@ -50,6 +57,15 @@ jobs:
               `${process.cwd()}/.github/scripts/workflow-utils.js`
             );
 
+            const prNumber =
+              context.issue.number ||
+              Number('${{ inputs.pr_number }}');
+
+            if (!prNumber) {
+              core.setFailed('No PR number available');
+              return;
+            }
+
             // --- Build path-to-label mapping from products.yml ---
             const pathToLabel = await getProductLabelMap();
             core.info(
@@ -62,7 +78,7 @@ jobs:
               {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: context.issue.number,
+                pull_number: prNumber,
                 per_page: 100,
               }
             );
@@ -82,7 +98,7 @@ jobs:
             const { data: prData } = await github.rest.issues.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: prNumber,
             });
 
             const existingLabels = new Set(prData.labels.map(l => l.name));
@@ -99,7 +115,7 @@ jobs:
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: prNumber,
               labels: newLabels,
             });
 

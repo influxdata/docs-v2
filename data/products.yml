@@ -252,7 +252,7 @@ influxdb_cloud:
   altname: InfluxDB Cloud
   namespace: influxdb
   content_path: influxdb/cloud
-  label_group: v2
+  label_group: v2-cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1

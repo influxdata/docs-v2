@@ -8,11 +8,17 @@ on:
       - 'layouts/**'
       - 'assets/**'
       - 'data/**'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: number
 
 permissions: {}
 
 concurrency:
-  group: doc-review-${{ github.event.number }}
+  group: doc-review-${{ github.event.number || inputs.pr_number }}
   cancel-in-progress: true
 
 jobs:
@@ -23,10 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: read
     if: |
-      !github.event.pull_request.draft &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      !contains(github.event.pull_request.labels.*.name, 'skip-review')
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
     outputs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
@@ -47,10 +55,24 @@ jobs:
         with:
           node-version: 22
 
+      - name: Resolve base ref
+        id: base
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          if [ -n "${{ github.base_ref }}" ]; then
+            echo "ref=origin/${{ github.base_ref }}" >> "$GITHUB_OUTPUT"
+          else
+            BASE=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json baseRefName -q .baseRefName)
+            git fetch origin "$BASE"
+            echo "ref=origin/$BASE" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Detect changed pages
         id: detect
         env:
-          BASE_REF: origin/${{ github.base_ref }}
+          BASE_REF: ${{ steps.base.outputs.ref }}
         run: node .github/scripts/resolve-review-urls.js
 
   # -----------------------------------------------------------------
@@ -61,14 +83,15 @@ jobs:
     permissions:
       pull-requests: write
     if: |
-      !github.event.pull_request.draft &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      !contains(github.event.pull_request.labels.*.name, 'skip-review')
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
     steps:
       - name: Request Copilot review
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
           REPO: ${{ github.repository }}
         run: gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot-reviews"
 
@@ -92,7 +115,7 @@ jobs:
       - name: Wait for preview deployment
         id: wait
         env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         run: |
           PREVIEW_URL="https://influxdata.github.io/docs-v2/pr-preview/pr-${PR_NUMBER}/"
           TIMEOUT=600  # 10 minutes
@@ -121,6 +144,7 @@ jobs:
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         env:
           PREVIEW_URLS: ${{ needs.resolve-urls.outputs.urls }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
           script: |
             const fs = require('fs');
@@ -133,7 +157,7 @@ jobs:
               return;
             }
 
-            const prNumber = context.issue.number;
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
             const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
 
             // Build preview URL list
@@ -199,8 +223,11 @@ jobs:
       - name: Post timeout notice
         if: steps.wait.outputs.available == 'false'
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
           script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
             const marker = '<!-- doc-review-visual-timeout -->';
             const body = [
               marker,
@@ -216,7 +243,7 @@ jobs:
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: prNumber,
             });
             const existing = comments.find(c => c.body.includes(marker));
 
@@ -231,7 +258,7 @@ jobs:
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: context.issue.number,
+                issue_number: prNumber,
                 body,
               });
             }

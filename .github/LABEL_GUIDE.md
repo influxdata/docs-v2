@@ -27,6 +27,17 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 |----------|----------|
 | `AI assistant tooling` | `ai:tooling` |
 | `ci:testing-and-validation` | `ci:testing` |
+| `design` | `area:site-ui` |
+| `InfluxDB Cloud` | `product:v2-cloud` |
+| `user feedback` | `source:feedback` |
+| `ai:tooling` | `area:agents` |
+
+## Deleted Labels
+
+| Label | Replacement | Reason |
+|-------|-------------|--------|
+| `Pending PR` | `waiting:pr` | Consolidated into `waiting:` namespace |
+| `broke-link` | `area:links` | Consolidated into `area:` namespace |
 
 ## Common Workflows
 
