@@ -1,0 +1,31 @@
+title: InfluxDB Enterprise v1 HTTP API
+x-influxdata-short-title: InfluxDB Enterprise v1 API
+x-influxdata-short-description: >-
+  The InfluxDB Enterprise v1 HTTP API provides a programmatic interface for writing,
+  querying, and managing InfluxDB Enterprise v1 clusters.
+version: 1.11.6
+description: |
+  The InfluxDB Enterprise v1 HTTP API provides a simple way to interact with the database.
+  It uses HTTP response codes, authentication with username and password credentials
+  or API tokens, and JSON-formatted response data.
+
+  ## Cluster Features
+
+  InfluxDB Enterprise includes additional parameters for cluster operations:
+  - **Write Consistency**: Control write consistency across cluster nodes
+
+  ## Authentication
+
+  InfluxDB Enterprise v1 supports multiple authentication methods:
+
+  - **Basic Authentication**: Use HTTP Basic Auth with username and password
+  - **Query String Authentication**: Pass `u` (username) and `p` (password) as query parameters
+  - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
+
+  Authentication is optional unless [enabled in the configuration](/enterprise_influxdb/v1/administration/authentication_and_authorization/).
+license:
+  name: Proprietary
+  url: https://www.influxdata.com/legal/slsa/
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com

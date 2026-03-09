@@ -91,16 +91,13 @@ tags:
     x-traitTag: true
   - name: Compatibility endpoints
     description: |
-      InfluxDB v2 provides a v1-compatible API for backward compatibility with InfluxDB 1.x clients and integrations.
+      InfluxDB v2 provides v1-compatible API endpoints for backward compatibility with InfluxDB 1.x clients and integrations.
 
-      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x. The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
+      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x.
 
-      - [Write data (v1-compatible)](#tag/Write-data-(v1-compatible))
-      - [Query data using InfluxQL (v1-compatible)](#tag/Query-data-(v1-compatible))
-      - [Manage v1-compatible users and permissions](#tag/Authorizations-(v1-compatible))
+      The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
   - name: Config
   - name: Dashboards
-  - name: Data I/O endpoints
   - description: |
       The InfluxDB 1.x data model includes [databases](/influxdb/v2/reference/glossary/#database)
       and [retention policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
@@ -142,7 +139,7 @@ tags:
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers
@@ -200,14 +197,40 @@ tags:
   - name: Ping
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
-    name: Query
+    name: Query data
   - name: Query data (v1-compatible)
   - description: |
-      See the [**API Quick Start**](/influxdb/v2/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and querying data.
+      Authenticate, write, and query with the API:
 
-      [**InfluxDB API client libraries**](/influxdb/v2/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your application.
+      1. Create an API token to authorize API requests.
+         Use the InfluxDB UI or `POST /api/v2/authorizations`.
+
+      2. Check the status of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:8086/health"
+         ```
+
+      3. Write data to InfluxDB.
+
+         ```bash
+         curl -X POST "http://localhost:8086/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=ns" \
+           --header "Authorization: Token API_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ Room temp=71.5"
+         ```
+
+      4. Query data using Flux.
+
+         ```bash
+         curl -X POST "http://localhost:8086/api/v2/query?org=ORG_NAME" \
+           --header "Authorization: Token API_TOKEN" \
+           --header "Content-Type: application/vnd.flux" \
+           --data 'from(bucket: "BUCKET_NAME") |> range(start: -1h)'
+         ```
+
+      For more information, see the
+      [Get started](/influxdb/v2/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - name: Ready
@@ -321,7 +344,7 @@ tags:
   - name: Views
   - description: |
       Write time series data to [buckets](/influxdb/v2/reference/glossary/#bucket).
-    name: Write
+    name: Write data
   - name: Write data (v1-compatible)
 paths:
   /api/v2:
@@ -4490,7 +4513,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Delete data
       tags:
-        - Data I/O endpoints
         - Delete
       x-codeSamples:
         - label: cURL
@@ -6690,8 +6712,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
-        - Data I/O endpoints
-        - Query
+        - Query data
       x-codeSamples:
         - label: cURL
           lang: Shell
@@ -6836,7 +6857,7 @@ paths:
                 type: string
       summary: Analyze a Flux query
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: 'cURL: Analyze a Flux query'
           lang: Shell
@@ -7281,7 +7302,7 @@ paths:
           description: Internal server error.
       summary: Generate a query Abstract Syntax Tree (AST)
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: 'cURL: Analyze and generate AST for the query'
           lang: Shell
@@ -7945,7 +7966,7 @@ paths:
           description: Internal server error.
       summary: List Flux query suggestions
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: cURL
           lang: Shell
@@ -8017,7 +8038,7 @@ paths:
             The value passed for _`name`_ may have been misspelled.
       summary: Retrieve a query suggestion for a branching suggestion
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: cURL
           lang: Shell
@@ -9930,7 +9951,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: List tasks
       tags:
-        - Data I/O endpoints
         - Tasks
       x-codeSamples:
         - label: 'cURL: all tasks, basic output'
@@ -10001,7 +10021,6 @@ paths:
           description: Unexpected error
       summary: Create a task
       tags:
-        - Data I/O endpoints
         - Tasks
       x-codeSamples:
         - label: 'cURL: create a task'
@@ -10086,7 +10105,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve a task
       tags:
-        - Data I/O endpoints
         - Tasks
     patch:
       description: |
@@ -10680,7 +10698,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Start a task run, overriding the schedule
       tags:
-        - Data I/O endpoints
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
@@ -12809,8 +12826,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Write data
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
   /legacy/authorizations:
     get:
       operationId: GetLegacyAuthorizations
@@ -20173,6 +20189,36 @@ components:
       in: header
       name: Authorization
       type: apiKey
+    QuerystringAuthentication:
+      description: |
+        Use the query string authentication scheme with InfluxDB v1-compatible API operations.
+        Pass your InfluxDB username and API token as query parameters using `u` for username and `p` for password (API token).
+
+        ### Syntax
+
+        `?u=USERNAME&p=INFLUX_API_TOKEN`
+
+        ### Example
+
+        ```sh
+        curl --get "INFLUX_URL/query" \
+            --data-urlencode "u=USERNAME" \
+            --data-urlencode "p=INFLUX_API_TOKEN" \
+            --data-urlencode "q=SHOW DATABASES"
+        ```
+
+        Replace the following:
+
+        - *`INFLUX_URL`*: your InfluxDB URL
+        - *`USERNAME`*: your InfluxDB username
+        - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/v2/reference/glossary/#token)
+
+        > [!Warning]
+        > Query string authentication exposes your credentials in the URL and server logs.
+        > Use [Token authentication](#section/Authentication/TokenAuthentication) for production environments.
+      in: query
+      name: u
+      type: apiKey
 x-tagGroups:
   - name: Using the InfluxDB HTTP API
     tags:
@@ -20204,7 +20250,7 @@ x-tagGroups:
       - NotificationRules
       - Organizations
       - Ping
-      - Query
+      - Query data
       - Query data (v1-compatible)
       - Ready
       - RemoteConnections
@@ -20226,5 +20272,5 @@ x-tagGroups:
       - Users
       - Variables
       - Views
-      - Write
+      - Write data
       - Write data (v1-compatible)
