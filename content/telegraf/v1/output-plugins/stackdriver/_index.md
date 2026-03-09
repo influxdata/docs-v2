@@ -10,7 +10,7 @@ introduced: "v1.9.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/stackdriver/README.md, Google Cloud Monitoring Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/stackdriver/README.md, Google Cloud Monitoring Plugin Source
 ---
 
 # Google Cloud Monitoring Output Plugin
@@ -42,6 +42,14 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
+## Secret-store support
+
+This plugin supports secrets from secret-stores for the `token` option.
+See the [secret-store documentation](/telegraf/v1/configuration/#secret-store-secrets) for more details on how
+to use them.
+
+[SECRETSTORE]: ../../../docs/CONFIGURATION.md#secret-store-secrets
+
 ## Configuration
 
 ```toml @sample.conf
@@ -49,6 +57,9 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 [[outputs.stackdriver]]
   ## GCP Project
   project = "erudite-bloom-151019"
+
+  ## GCP access token for authorizing calls to Cloud Monitoring APIs
+  # token = "@{gcp_auth:token}"
 
   ## Quota Project
   ## Specifies the Google Cloud project that should be billed for metric ingestion.
