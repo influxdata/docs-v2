@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
 ---
 
 # S.M.A.R.T. Input Plugin
@@ -225,14 +225,25 @@ smartctl --scan -d nvme
     - serial_no
     - wwn
   - fields:
+    - available_spare (NVMe)
+    - available_spare_threshold (NVMe)
+    - critical_temperature_time (NVMe)
+    - critical_warning (NVMe)
+    - error_log_entries (NVMe)
     - exit_status
     - health_ok
+    - media_errors (NVMe)
     - media_wearout_indicator
     - percent_lifetime_remain
+    - percentage_used (NVMe)
+    - power_cycle_count
+    - power_on_hours
     - read_error_rate
-    - seek_error
+    - seek_error_rate
     - temp_c
     - udma_crc_errors
+    - unsafe_shutdowns (NVMe)
+    - warning_temperature_time (NVMe)
     - wear_leveling_count
 
 - smart_attribute:

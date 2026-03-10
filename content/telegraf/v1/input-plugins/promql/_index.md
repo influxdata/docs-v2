@@ -10,7 +10,7 @@ introduced: "v1.37.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/promql/README.md, PromQL Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/promql/README.md, PromQL Plugin Source
 ---
 
 # PromQL Input Plugin
@@ -65,6 +65,9 @@ more details on how to use them.
   # max_idle_conn = 0
   # max_idle_conn_per_host = 0
   # response_timeout = "0s"
+
+  ## Use the local address for connecting, assigned by the OS by default
+  # local_address = ""
 
   ## Optional proxy settings
   # use_system_proxy = false
