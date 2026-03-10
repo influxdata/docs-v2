@@ -31,7 +31,7 @@ Replace the current API reference documentation implementation (RapiDoc web comp
 
 ## Phase 2: Migration to Hugo-Native (in progress)
 
-**Plan**: @plans/2026-02-13-hugo-native-api-migration.md
+**Plan**: @docs/plans/2026-02-13-hugo-native-api-migration.md
 
 ### Task Order
 

@@ -2,343 +2,286 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Complete migration to Hugo-native API reference rendering for all InfluxDB products, replacing RapiDoc where appropriate and ensuring clean automated workflows.
+**Goal:** Complete migration to Hugo-native API reference rendering for all InfluxDB products, removing RapiDoc and simplifying the codebase.
 
-**Architecture:** The Hugo-native approach renders OpenAPI specs using Hugo templates instead of the RapiDoc web component. This provides faster page loads, better SEO, consistent styling, and easier customization. The generation script creates Hugo content pages with frontmatter referencing tag-specific OpenAPI spec files.
+**Architecture:** The Hugo-native approach renders OpenAPI specs using Hugo templates instead of RapiDoc web components. This provides faster page loads, better SEO, consistent styling, and easier customization. Users access operations only through tag pages (no individual operation URLs).
 
 **Tech Stack:** TypeScript (generation scripts), Hugo templates, SCSS, OpenAPI 3.0 specs
 
----
+***
 
 ## Overview
 
-### Hugo-Native vs RapiDoc
+### Design Principles
 
-| Aspect | RapiDoc | Hugo-Native |
-|--------|---------|-------------|
-| Rendering | Client-side JS web component | Server-side Hugo templates |
-| Page load | Slower (JS hydration) | Faster (static HTML) |
-| SEO | Limited (shadow DOM) | Full indexability |
-| Styling | CSS variables, limited control | Full SCSS integration |
-| Try It Out | Built-in | Requires custom implementation |
-| Maintenance | External dependency | Internal templates |
+- **Consistency:** Unified look and feel across all API reference pages
+- **Performance:** Fast page loads, full SEO indexability (no shadow DOM)
+- **Simplicity:** No web components, no client-side rendering
+- **Tag-based navigation:** Operations grouped by tag, accessed via tag pages only
 
-### Current Implementation Status
+### URL Structure
 
-| Product | RapiDoc | Hugo-Native | Notes |
-|---------|---------|-------------|-------|
-| influxdb3-core | ✅ Working | ✅ Implemented | Ready for testing |
-| influxdb3-enterprise | ✅ Working | ⏳ Pending | Needs Hugo-native migration |
-| cloud-dedicated | ✅ Working | ⏳ Pending | Uses management API |
-| cloud-serverless | ✅ Working | ⏳ Pending | Uses v2 API style |
-| clustered | ✅ Working | ⏳ Pending | Uses management API |
-| cloud-v2 | ✅ Working | ❓ TBD | Evaluate need |
-| oss-v2 | ✅ Working | ❓ TBD | Evaluate need |
-| oss-v1 | ✅ Working | ❓ TBD | Evaluate need |
+- **API index:** `/influxdb3/core/api/`
+- **Tag page:** `/influxdb3/core/api/cache-distinct-values/`
+- **All endpoints:** `/influxdb3/core/api/all-endpoints/`
 
-### Key Files
+**Note:** Individual operation pages (e.g., `/influxdb3/core/api/v1/write/`) are being removed. Operations are accessed only through tag pages.
 
-**Hugo-Native Templates:**
-- `layouts/partials/api/hugo-native/tag-renderer.html` - Main tag page renderer
-- `layouts/partials/api/hugo-native/operation.html` - Individual operation renderer
-- `layouts/partials/api/hugo-native/parameters.html` - Parameters section
-- `layouts/partials/api/hugo-native/parameter-row.html` - Single parameter row
-- `layouts/partials/api/hugo-native/request-body.html` - Request body section
-- `layouts/partials/api/hugo-native/schema.html` - JSON schema renderer
-- `layouts/partials/api/hugo-native/responses.html` - Response section
-
-**Styles:**
-- `assets/styles/layouts/_api-hugo-native.scss` - Hugo-native specific styles
-
-**Generation:**
-- `api-docs/scripts/generate-openapi-articles.ts` - Main generation script
-- `api-docs/scripts/openapi-paths-to-hugo-data/index.ts` - OpenAPI processing
-
-**Layouts:**
-- `layouts/api/list.html` - Tag page layout (supports both RapiDoc and Hugo-native)
-
-### OpenAPI Extension: x-influxdata-related
-
-The `x-influxdata-related` vendor extension defines related documentation links for tags:
-
-```yaml
-tags:
-  - name: Cache distinct values
-    description: |
-      The Distinct Value Cache (DVC) lets you cache distinct values...
-    x-influxdata-related:
-      - title: Manage the Distinct Value Cache
-        href: /influxdb3/core/admin/distinct-value-cache/
-```
-
-These links render at the bottom of the tag page, consistent with the `related:` frontmatter pattern used elsewhere.
-
----
-
-## Automated Workflow Issues
-
-During development, several issues were discovered that impact the automated workflow:
-
-### Issue 1: Generation Script Merges Instead of Replacing
-
-**Problem:** When regenerating pages after tag changes (rename, split, remove), the generation script adds new entries but doesn't remove old ones from:
-- `data/article_data/influxdb/influxdb3_*/`
-- `static/openapi/influxdb3-*/`
-- `content/influxdb3/*/api/` (gitignored directories)
-
-**Current Workaround:**
-```bash
-# Before regenerating, manually clean:
-rm -rf data/article_data/influxdb/influxdb3_core/
-rm -rf static/openapi/influxdb3-core/
-rm -rf content/influxdb3/core/api/
-```
-
-**Recommended Fix:** Update the generation script to:
-1. Accept a `--clean` flag that removes target directories before generating
-2. Track generated files and remove stale entries
-3. Use content checksums to detect unchanged files
-
-### Issue 2: Hugo Cache Holds Stale Data
-
-**Problem:** After significant structural changes (tag renames, splits), Hugo's resource cache may hold stale data, causing old navigation items to persist.
-
-**Current Workaround:**
-```bash
-rm -rf resources/_gen/
-```
-
-**Recommended Fix:** Add cache clearing to the generation script when structural changes are detected.
-
-### Issue 3: Gitignored Content Files Lose Configuration
-
-**Problem:** The `useHugoNative: true` flag must be set in generated `_index.md` files, but these files are gitignored. Configuration is lost between regenerations.
-
-**Current Workaround:** Manually edit generated files or modify the generation script config.
-
-**Recommended Fix:**
-- Add `useHugoNative` to the product configuration in `generate-openapi-articles.ts`
-- Or store rendering preferences in a non-gitignored config file
-
-### Issue 4: Old Tag Directories Persist
-
-**Problem:** When renaming or removing tags, old content directories remain (e.g., `content/influxdb3/core/api/cache-data/` after splitting to `cache-distinct-values/` and `cache-last-value/`).
-
-**Recommended Fix:** The generation script should track expected output directories and remove unexpected ones.
-
----
+***
 
 ## Migration Tasks
 
-### Task 1: Apply Cache Data Tag Split to InfluxDB 3 Enterprise
+### Task 1: Promote Hugo-native templates to default ✅ COMPLETED
 
-**Priority:** High
-**Estimated Effort:** 30 minutes
+**Priority:** High | **Status:** Completed 2026-02-13
 
-The same "Cache data" tag split applied to Core needs to be applied to Enterprise.
+Move Hugo-native templates from POC location to production location.
 
-**Files to Modify:**
+**Files moved:**
+
+- `layouts/partials/api/hugo-native/tag-renderer.html` → `layouts/partials/api/tag-renderer.html`
+- `layouts/partials/api/hugo-native/operation.html` → `layouts/partials/api/operation.html`
+- `layouts/partials/api/hugo-native/parameters.html` → `layouts/partials/api/parameters.html`
+- `layouts/partials/api/hugo-native/parameter-row.html` → `layouts/partials/api/parameter-row.html`
+- `layouts/partials/api/hugo-native/request-body.html` → `layouts/partials/api/request-body.html`
+- `layouts/partials/api/hugo-native/schema.html` → `layouts/partials/api/schema.html`
+- `layouts/partials/api/hugo-native/responses.html` → `layouts/partials/api/responses.html`
+
+**Completed steps:**
+
+1. ✅ Moved 7 files from `hugo-native/` subdirectory to parent directory
+2. ✅ Updated `layouts/api/list.html` to use new locations (removed `hugo-native/` prefix)
+3. ✅ Removed `$useHugoNative` conditional logic from `layouts/api/list.html`
+4. ✅ Deleted `layouts/partials/api/hugo-native/` directory
+
+**Verification:** Hugo build passes, pages render correctly at `/influxdb3/core/api/`
+
+***
+
+### Task 2: Remove RapiDoc templates and partials ✅ COMPLETED
+
+**Priority:** High | **Status:** Completed 2026-02-13
+
+Delete RapiDoc-specific templates now that Hugo-native is the default.
+
+**Files deleted:**
+
+- `layouts/partials/api/rapidoc.html`
+- `layouts/partials/api/rapidoc-tag.html`
+- `layouts/partials/api/rapidoc-mini.html`
+
+**Verification:** `grep -r "rapidoc" layouts/` returns no results
+
+***
+
+### Task 3: Remove RapiDoc JavaScript components ✅ COMPLETED
+
+**Priority:** High | **Status:** Completed 2026-02-13
+
+Delete RapiDoc-specific TypeScript components.
+
+**Files deleted:**
+
+- `assets/js/components/api-rapidoc.ts`
+- `assets/js/components/rapidoc-mini.ts`
+
+**Files updated:**
+
+- `assets/js/main.js` - Removed RapiDoc component imports and registrations
+
+**Verification:** `yarn build:ts` completes without errors
+
+***
+
+### Task 4: Remove operation page generation ✅ COMPLETED
+
+**Priority:** High | **Status:** Completed 2026-02-13
+
+Update generation scripts to remove dead code and RapiDoc references.
+
+**Files modified:**
+
+- `api-docs/scripts/generate-openapi-articles.ts` - Removed \~200 lines of dead `generatePathPages` function
+- `api-docs/scripts/openapi-paths-to-hugo-data/index.ts` - Updated comments to remove RapiDoc references
+
+**Changes:**
+
+1. ✅ Removed dead `generatePathPages` function (operation page generation was already disabled)
+2. ✅ Updated comments from "RapiDoc" to "Hugo-native templates"
+3. ✅ Updated "RapiDoc fragment links" to "OpenAPI fragment links"
+
+**Note:** The `useHugoNative` flag was not found in the codebase - operation page generation was already disabled with a comment noting operations are rendered inline on tag pages.
+
+***
+
+### Task 5: Update Cypress tests for Hugo-native ✅ COMPLETED
+
+**Priority:** High | **Status:** Completed 2026-02-13
+
+Simplified Cypress tests now that we use standard HTML instead of shadow DOM.
+
+**Files modified:**
+
+- `cypress/e2e/content/api-reference.cy.js` - Rewrote test file
+
+**Changes:**
+
+1. ✅ Removed entire "RapiDoc Mini component" describe block (\~160 lines of shadow DOM tests)
+2. ✅ Added "API tag pages" tests with Hugo-native selectors (`.api-operation`, `.api-method`, `.api-path`)
+3. ✅ Added "API section page structure" tests
+4. ✅ Added "All endpoints page" tests
+5. ✅ Updated "API reference layout" tests to use Hugo-native selectors
+
+**New test structure implemented:**
+
+- `API reference content` - Tests API index pages load with valid links
+- `API reference layout` - Tests 3-column layout (sidebar, content, TOC)
+- `API tag pages` - Tests operation rendering, method badges, TOC links
+- `API section page structure` - Tests tag listing on section pages
+- `All endpoints page` - Tests operation cards with links to tag pages
+
+***
+
+### Task 6: Clean up styles ✅ COMPLETED
+
+**Priority:** Medium | **Status:** Completed 2026-02-13
+
+Remove RapiDoc-specific styles, JavaScript, and references from the codebase.
+
+**Files modified:**
+
+- `assets/styles/layouts/_api-layout.scss` - Removed \~40 lines of `rapi-doc::part()` CSS selectors
+- `assets/styles/layouts/_api-overrides.scss` - Updated comment header
+- `assets/styles/layouts/_api-security-schemes.scss` - Removed \~290 lines of dead auth modal styles
+- `assets/js/main.js` - Removed dead `api-auth-input` import and registration
+- `assets/js/components/api-toc.ts` - Removed RapiDoc-specific code and updated comments
+
+**Files deleted:**
+
+- `static/css/rapidoc-custom.css` - Unused static CSS file
+
+**Changes:**
+
+1. ✅ Removed `rapi-doc` container styling and `::part()` selectors from `_api-layout.scss`
+2. ✅ Removed dead auth modal section from `_api-security-schemes.scss` (was for RapiDoc "Try it" integration)
+3. ✅ Removed `api-auth-input` dead import from `main.js` (component file was already deleted)
+4. ✅ Removed `setupRapiDocNavigation()` dead function and references from `api-toc.ts`
+5. ✅ Updated comments throughout to remove RapiDoc mentions
+6. ✅ Rebuilt `api-docs/scripts/dist/` to update compiled JavaScript
+
+**Architecture decision:** Kept operation styles separate from layout styles for cleaner separation of concerns:
+
+- `_api-layout.scss` handles page structure and navigation
+- `_api-operations.scss` handles operation/schema component rendering (renamed from `_api-hugo-native.scss`)
+
+***
+
+### Task 7: Fix Generation Script for Clean Regeneration ✅ COMPLETED
+
+**Priority:** Medium | **Status:** Completed 2026-02-17
+
+Added clean regeneration to prevent stale files from accumulating when tags are renamed or removed.
+
+**Files modified:**
+
+- `api-docs/scripts/generate-openapi-articles.ts` - Added cleanup functions and CLI flags
+
+**Implementation:**
+
+1. ✅ Added `--no-clean` flag to skip cleanup (default is to clean)
+2. ✅ Added `--dry-run` flag to preview what would be deleted
+3. ✅ Added `getCleanupPaths()` function to identify directories/files to clean
+4. ✅ Added `cleanProductOutputs()` function to delete directories and files
+5. ✅ Added `showDryRunPreview()` function for dry-run output
+6. ✅ Integrated cleanup into `processProduct()` (runs before generation)
+7. ✅ Updated script header documentation with new usage examples
+
+**Cleaned directories per product:**
+
+- `static/openapi/{staticDirName}/` - Tag specs
+- `static/openapi/{staticDirName}-*.yml` and `.json` - Root specs
+- `data/article_data/influxdb/{productKey}/` - Article data
+- `content/{pagesDir}/api/` - Content pages
+
+**Design:** See `plans/2026-02-17-api-clean-regeneration-design.md`
+
+***
+
+### Task 8: Apply Cache Data tag split to InfluxDB 3 Enterprise
+
+**Priority:** Medium
+
+Apply the same tag split done for Core.
+
+**Files to modify:**
+
 - `api-docs/influxdb3/enterprise/v3/ref.yml`
 
-**Step 1: Update Enterprise OpenAPI spec**
+**Changes:**
 
-Replace the single "Cache data" tag with two separate tags:
+1. Replace "Cache data" tag with "Cache distinct values" and "Cache last value" tags
+2. Update operation tag references
+3. Update x-tagGroups references
+4. Regenerate: `sh api-docs/generate-api-docs.sh`
 
-```yaml
-tags:
-  # ... other tags ...
-  - name: Cache distinct values
-    description: |
-      The Distinct Value Cache (DVC) lets you cache distinct
-      values of one or more columns in a table, improving the performance of
-      queries that return distinct tag and field values.
+***
 
-      The DVC is an in-memory cache that stores distinct values for specific columns
-      in a table. When you create a DVC, you can specify what columns' distinct
-      values to cache, the maximum number of distinct value combinations to cache, and
-      the maximum age of cached values. A DVC is associated with a table, which can
-      have multiple DVCs.
-    x-influxdata-related:
-      - title: Manage the Distinct Value Cache
-        href: /influxdb3/enterprise/admin/distinct-value-cache/
-  - name: Cache last value
-    description: |
-      The Last Value Cache (LVC) lets you cache the most recent
-      values for specific fields in a table, improving the performance of queries that
-      return the most recent value of a field for specific series or the last N values
-      of a field.
-
-      The LVC is an in-memory cache that stores the last N number of values for
-      specific fields of series in a table. When you create an LVC, you can specify
-      what fields to cache, what tags to use to identify each series, and the
-      number of values to cache for each unique series.
-      An LVC is associated with a table, which can have multiple LVCs.
-    x-influxdata-related:
-      - title: Manage the Last Value Cache
-        href: /influxdb3/enterprise/admin/last-value-cache/
-```
-
-**Step 2: Update operation tags**
-
-Change tag references in paths:
-
-- `/api/v3/configure/distinct_cache` POST → tags: `["Cache distinct values"]`
-- `/api/v3/configure/distinct_cache` DELETE → tags: `["Cache distinct values"]`
-- `/api/v3/configure/last_cache` POST → tags: `["Cache last value"]`
-- `/api/v3/configure/last_cache` DELETE → tags: `["Cache last value"]`
-
-**Step 3: Update x-tagGroups**
-
-Update any `x-tagGroups` references from "Cache data" to the two new tag names.
-
-**Step 4: Clean and regenerate**
-
-```bash
-rm -rf data/article_data/influxdb/influxdb3_enterprise/
-rm -rf static/openapi/influxdb3-enterprise/
-rm -rf content/influxdb3/enterprise/api/
-sh api-docs/generate-api-docs.sh
-```
-
-**Step 5: Verify in browser**
-
-```bash
-npx hugo server
-# Visit http://localhost:1313/influxdb3/enterprise/api/
-```
-
-**Step 6: Commit**
-
-```bash
-git add api-docs/influxdb3/enterprise/v3/ref.yml
-git commit -m "refactor(api): split Cache data tag into Cache distinct values and Cache last value for Enterprise"
-```
-
----
-
-### Task 2: Enable Hugo-Native for InfluxDB 3 Enterprise
-
-**Priority:** High
-**Estimated Effort:** 1 hour
-
-**Files to Modify:**
-- `api-docs/scripts/generate-openapi-articles.ts` (add `useHugoNative: true` to config)
-
-**Step 1: Update generation config**
-
-Add Hugo-native flag to Enterprise product configuration.
-
-**Step 2: Clean and regenerate**
-
-```bash
-rm -rf data/article_data/influxdb/influxdb3_enterprise/
-rm -rf static/openapi/influxdb3-enterprise/
-rm -rf content/influxdb3/enterprise/api/
-sh api-docs/generate-api-docs.sh
-```
-
-**Step 3: Verify rendering**
-
-- Check that pages render with Hugo-native templates (no RapiDoc shadow DOM)
-- Verify operation parameters, request bodies, and responses render correctly
-- Check "Related guides" links appear at page bottom
-
----
-
-### Task 3: Fix Generation Script for Clean Regeneration
-
-**Priority:** High
-**Estimated Effort:** 2-4 hours
-
-**Files to Modify:**
-- `api-docs/scripts/generate-openapi-articles.ts`
-- `api-docs/scripts/openapi-paths-to-hugo-data/index.ts`
-
-**Requirements:**
-1. Add `--clean` flag to remove target directories before generating
-2. Track expected output files and warn about/remove stale entries
-3. Clear Hugo resource cache when structural changes detected
-4. Add `useHugoNative` to product configuration (not generated content)
-
----
-
-### Task 4: Migrate Cloud Dedicated to Hugo-Native
+### Task 9: Migrate remaining products to Hugo-native
 
 **Priority:** Medium
-**Estimated Effort:** 2 hours
 
-**Files:**
-- `api-docs/influxdb3/cloud-dedicated/management/openapi.yml`
-- `api-docs/scripts/generate-openapi-articles.ts`
+After the infrastructure is in place, migrate remaining products.
 
-**Steps:**
-1. Review tag structure in Cloud Dedicated spec
+**Products:**
+
+- [ ] cloud-dedicated (management API)
+- [ ] cloud-serverless
+- [ ] clustered (management API)
+- [ ] cloud-v2
+- [ ] oss-v2
+- [ ] oss-v1
+
+**For each product:**
+
+1. Review tag structure in OpenAPI spec
 2. Add `x-influxdata-related` links where appropriate
-3. Update generation config with `useHugoNative: true`
-4. Clean and regenerate
-5. Test all tag pages render correctly
+3. Clean and regenerate
+4. Verify all tag pages render correctly
 
----
+***
 
-### Task 5: Migrate Cloud Serverless to Hugo-Native
+## Key Files Reference
 
-**Priority:** Medium
-**Estimated Effort:** 2 hours
+**Hugo-Native Templates (after migration):**
 
-**Files:**
-- `api-docs/influxdb3/cloud-serverless/v2/ref.yml`
-- `api-docs/scripts/generate-openapi-articles.ts`
+- `layouts/partials/api/tag-renderer.html` - Main tag page renderer
+- `layouts/partials/api/operation.html` - Individual operation renderer
+- `layouts/partials/api/parameters.html` - Parameters section
+- `layouts/partials/api/parameter-row.html` - Single parameter row
+- `layouts/partials/api/request-body.html` - Request body section
+- `layouts/partials/api/schema.html` - JSON schema renderer
+- `layouts/partials/api/responses.html` - Response section
 
-**Steps:**
-1. Review tag structure in Cloud Serverless spec
-2. Add `x-influxdata-related` links where appropriate
-3. Update generation config with `useHugoNative: true`
-4. Clean and regenerate
-5. Test all tag pages render correctly
+**Layouts:**
 
----
+- `layouts/api/list.html` - Tag page layout (Hugo-native only)
+- `layouts/api/section.html` - API section page layout
+- `layouts/api/all-endpoints.html` - All endpoints page layout
 
-### Task 6: Migrate Clustered to Hugo-Native
+**Styles:**
 
-**Priority:** Medium
-**Estimated Effort:** 2 hours
+- `assets/styles/layouts/_api-layout.scss` - Consolidated API styles
 
-**Files:**
-- `api-docs/influxdb3/clustered/management/openapi.yml`
-- `api-docs/scripts/generate-openapi-articles.ts`
+**Generation:**
 
-**Steps:**
-1. Review tag structure in Clustered spec
-2. Add `x-influxdata-related` links where appropriate
-3. Update generation config with `useHugoNative: true`
-4. Clean and regenerate
-5. Test all tag pages render correctly
+- `api-docs/scripts/generate-openapi-articles.ts` - Main generation script
+- `api-docs/scripts/openapi-paths-to-hugo-data/index.ts` - OpenAPI processing
 
----
-
-### Task 7: Evaluate v2/v1 Products for Hugo-Native
-
-**Priority:** Low
-**Estimated Effort:** 1 hour (evaluation)
-
-Evaluate whether InfluxDB v2 and v1 API references would benefit from Hugo-native rendering:
-
-**Considerations:**
-- v2/v1 APIs are more complex with more operations
-- RapiDoc "Try It Out" feature may be more valuable for these APIs
-- Migration effort vs. benefit analysis
-
-**Decision criteria:**
-- [ ] Page load performance comparison
-- [ ] SEO requirements
-- [ ] "Try It Out" usage analytics
-- [ ] Maintenance burden
-
----
+***
 
 ## Verification Checklist
 
-Before considering Hugo-native migration complete for each product:
+Before considering migration complete for each product:
 
 - [ ] All tag pages render without errors
 - [ ] Operation details (parameters, request body, responses) display correctly
@@ -348,29 +291,54 @@ Before considering Hugo-native migration complete for each product:
 - [ ] Mobile responsive layout works
 - [ ] No console errors in browser DevTools
 - [ ] "On this page" TOC links work correctly
-- [ ] Links validation passes
+- [ ] Cypress tests pass
+- [ ] No RapiDoc references remain in codebase
 
----
+## Files to Delete (Summary)
 
-## Rollback Plan
+**Already deleted (Tasks 1-3):**
 
-If issues are found with Hugo-native rendering:
+- ✅ `layouts/partials/api/rapidoc.html`
+- ✅ `layouts/partials/api/rapidoc-tag.html`
+- ✅ `layouts/partials/api/rapidoc-mini.html`
+- ✅ `layouts/partials/api/hugo-native/` (entire directory - 7 files moved to parent)
+- ✅ `assets/js/components/api-rapidoc.ts`
+- ✅ `assets/js/components/rapidoc-mini.ts`
 
-1. Remove `useHugoNative` flag from product config
-2. Regenerate content (RapiDoc will be used by default)
-3. Verify RapiDoc rendering works
+**Still to review (Task 6):**
 
-```bash
-# Example rollback
-rm -rf content/influxdb3/core/api/
-sh api-docs/generate-api-docs.sh
-```
+- `assets/styles/layouts/_api-overrides.scss` (if RapiDoc-only)
 
----
+***
 
-## Notes
+## Migration Findings
 
-- Hugo-native templates are in `layouts/partials/api/hugo-native/`
-- The `useHugoNative` flag controls which renderer is used in `layouts/api/list.html`
-- Both RapiDoc and Hugo-native can coexist - different products can use different renderers
-- The `x-influxdata-related` extension works with both renderers
+### Completed Work Summary (Tasks 1-5)
+
+**Infrastructure changes:**
+
+- Hugo-native templates are now the default (no feature flag required)
+- All RapiDoc code removed from layouts and JavaScript
+- Generation scripts cleaned up (\~200 lines of dead code removed)
+- Cypress tests simplified (no more shadow DOM piercing)
+
+**Key discoveries:**
+
+1. The `useHugoNative` flag did not exist in the codebase - operation page generation was already disabled
+2. The `generatePathPages` function was dead code that could be safely removed
+3. RapiDoc Mini tests were \~160 lines that are no longer needed
+4. Hugo build and TypeScript compilation both pass after all changes
+
+**Verification status:**
+
+- ✅ Hugo build: `npx hugo --quiet` passes
+- ✅ TypeScript: `yarn build:ts` passes
+- ⏳ Cypress tests: Need to run `yarn test:e2e` to verify new tests pass
+- ⏳ Visual review: Need to check pages render correctly in browser
+
+### Remaining Work (Tasks 6-9)
+
+1. **Task 6 (styles)**: Review and consolidate SCSS files
+2. **Task 7 (clean regeneration)**: Add `--clean` flag to generation scripts
+3. **Task 8 (Enterprise tags)**: Split Cache Data tag in Enterprise spec
+4. **Task 9 (product migration)**: Apply to remaining 6 products
