@@ -13,6 +13,16 @@
 >   - Specialized agents in `.claude/agents/`
 >   - Custom skills in `.claude/skills/`
 
+## Documentation MCP server
+
+This repo includes [`.mcp.json`](.mcp.json) with a hosted InfluxDB documentation search server.
+Use it to verify technical accuracy, check API syntax, and find related docs.
+
+- **`influxdb-docs`** — API key auth. Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var before launching Claude Code.
+- **`influxdb-docs-oauth`** — OAuth fallback. No setup needed.
+
+See [content-editing skill](.claude/skills/content-editing/SKILL.md#part-4-fact-checking-with-the-documentation-mcp-server) for usage details.
+
 ## Purpose and scope
 
 Claude should help document InfluxData products by creating clear, accurate technical content with proper code examples, frontmatter, and formatting.

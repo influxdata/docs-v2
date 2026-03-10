@@ -18,6 +18,84 @@
 | Test code blocks | `yarn test:codeblocks:all` | 15-45m — **NEVER CANCEL** |
 | Lint | `yarn lint` | ~1m |
 
+## Repository Structure
+
+```
+docs-v2/
+├── content/                 # Documentation content
+│   ├── influxdb3/          # InfluxDB 3 (core, enterprise, cloud-*)
+│   ├── influxdb/           # InfluxDB v2 and v1
+│   ├── enterprise_influxdb/ # InfluxDB Enterprise v1
+│   ├── telegraf/           # Telegraf docs
+│   ├── shared/             # Shared content across products
+│   └── example.md          # Shortcode testing playground
+├── layouts/                # Hugo templates and shortcodes
+├── assets/                 # JS, CSS, TypeScript
+├── api-docs/              # InfluxDB OpenAPI specifications, API reference documentation generation scripts
+├── data/                  # YAML/JSON data files
+├── public/                # Build output (gitignored, ~529MB)
+└── .github/
+    └── copilot-instructions.md  # Primary AI instructions
+```
+
+**Content Paths**: See [copilot-instructions.md](.github/copilot-instructions.md#content-organization)
+
+## Documentation MCP Server
+
+A hosted MCP server provides semantic search over all InfluxDB documentation.
+Use it to verify technical accuracy, check API syntax, and find related docs.
+
+See the [InfluxDB documentation MCP server guide](https://docs.influxdata.com/influxdb3/core/admin/mcp-server/) for setup instructions.
+
+## Common Workflows
+
+### Creating/Editing Content
+
+**Frontmatter** (page metadata):
+```yaml
+title: Page Title          # Required - becomes h1
+description: Brief desc    # Required - for SEO
+menu:
+  influxdb_2_0:
+    name: Nav Label       # Optional - nav display name
+    parent: Parent Node   # Optional - for nesting
+weight: 1                  # Required - sort order
+```
+
+**Shared Content** (avoid duplication):
+```yaml
+source: /shared/path/to/content.md
+```
+
+Shared content files (`/shared/path/to/content.md`):
+- Don't store frontmatter
+- Can use `{{% show-in %}}`, `{{% hide-in %}}`, and the `version` keyword (`/influxdb3/version/content.md`)
+
+**Common Shortcodes**:
+- Callouts: `> [!Note]`, `> [!Warning]`, `> [!Important]`, `> [!Tip]`
+- Tabs: `{{< tabs-wrapper >}}` + `{{% tabs %}}` + `{{% tab-content %}}`
+- Required: `{{< req >}}` or `{{< req type="key" >}}`
+- Code placeholders: `{ placeholders="<PLACEHOLDER>" }`
+
+**📖 Complete Reference**: [DOCS-SHORTCODES.md](DOCS-SHORTCODES.md) | [DOCS-FRONTMATTER.md](DOCS-FRONTMATTER.md)
+
+### Testing Changes
+
+**Always test before committing**:
+```bash
+# Verify server renders (check 200 status)
+curl -s -o /dev/null -w "%{http_code}" http://localhost:1313/influxdb3/core/
+
+# Test specific content
+yarn test:links content/influxdb3/core/**/*.md
+
+# Run style linting
+.ci/vale/vale.sh content/**/*.md
+```
+
+**📖 Complete Reference**: [DOCS-TESTING.md](DOCS-TESTING.md)
+
+
 ## Constraints
 
 - **NEVER cancel** Hugo builds (~75s) or test runs (15-45m) — the site has 5,359+ pages
