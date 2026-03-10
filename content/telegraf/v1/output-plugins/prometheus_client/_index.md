@@ -10,7 +10,7 @@ introduced: "v0.2.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/prometheus_client/README.md, Prometheus Plugin Source
 ---
 
 # Prometheus Output Plugin
@@ -83,6 +83,12 @@ to use them.
   ## Send string metrics as Prometheus labels.
   ## Unless set to false all string metrics will be sent as labels.
   # string_as_label = true
+
+  ## Control how metric names and label names are sanitized.
+  ## The default "legacy" keeps ASCII-only Prometheus name rules.
+  ## Set to "utf8" to allow UTF-8 metric and label names.
+  ## Valid options: "legacy", "utf8"
+  # name_sanitization = "legacy"
 
   ## If set, enable TLS with the given certificate.
   # tls_cert = "/etc/ssl/telegraf.crt"

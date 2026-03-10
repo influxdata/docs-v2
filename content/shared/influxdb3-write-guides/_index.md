@@ -1,5 +1,4 @@
-Use tools like the {{% show-in "cloud-dedicated,clustered" %}}`influxctl`{{% /show-in %}}{{% show-in "cloud-serverless" %}}`influx`{{% /show-in %}}{{% show-in "core,enterprise" %}}`influxdb3`{{% /show-in %}}
-CLI, Telegraf, and InfluxDB client libraries
+Use tools like the {{% show-in "cloud-dedicated,clustered" %}}`influxctl`{{% /show-in %}}{{% show-in "cloud-serverless" %}}`influx`{{% /show-in %}}{{% show-in "core,enterprise" %}}`influxdb3`{{% /show-in %}} CLI, Telegraf, and InfluxDB client libraries
 to write time series data to {{< product-name >}}.
 [line protocol](#line-protocol)
 is the text-based format used to write data to InfluxDB.
