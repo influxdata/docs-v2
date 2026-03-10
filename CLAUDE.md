@@ -6,7 +6,8 @@
 > 
 > **Full instruction resources**:
 > - [.github/copilot-instructions.md](.github/copilot-instructions.md) - For GitHub Copilot (technical setup, automation)
-> - [AGENTS.md](AGENTS.md) - For general AI assistants (content creation, workflows, style guidelines)
+> - [AGENTS.md](AGENTS.md) - Shared project guidelines (style, constraints, content structure)
+> - [.github/LABEL_GUIDE.md](.github/LABEL_GUIDE.md) - Label taxonomy and pipeline usage
 > - [.claude/](.claude/) - Claude MCP configuration directory with:
 >   - Custom commands in `.claude/commands/`
 >   - Specialized agents in `.claude/agents/`
