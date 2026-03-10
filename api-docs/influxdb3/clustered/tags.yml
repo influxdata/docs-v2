@@ -1,0 +1,69 @@
+tags:
+  API compatibility:
+    description: >
+      Overview of the InfluxDB v1 and v2 compatible write and query endpoints
+      available in InfluxDB 3 Clustered.
+    # x-traitTag: true — informational tag, no operations
+
+  Authentication:
+    description: >
+      Authenticate API requests to InfluxDB 3 Clustered using database tokens
+      with bearer, token, basic, or querystring authentication schemes.
+    # x-traitTag: true — informational tag, no operations
+
+  Common parameters:
+    description: >
+      Common query parameters used by InfluxDB 3 Clustered API endpoints,
+      including the required `database` or `db` parameter.
+    # x-traitTag: true — informational tag, no operations
+
+  Headers:
+    description: >
+      Standard HTTP request headers used by InfluxDB 3 Clustered API endpoints,
+      including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
+    # x-traitTag: true — informational tag, no operations
+
+  Ping:
+    description: >
+      Check the availability of an InfluxDB 3 Clustered instance.
+
+  Query data:
+    description: >
+      Query data stored in InfluxDB 3 Clustered using InfluxQL via the
+      v1-compatible `/query` endpoint. Use Flight+gRPC for SQL or InfluxQL
+      queries with Arrow format output.
+    x-related:
+      - title: Get started querying InfluxDB
+        href: /influxdb3/clustered/get-started/query/
+      - title: Execute queries
+        href: /influxdb3/clustered/query-data/execute-queries/
+
+  Quick start:
+    description: >
+      Get started authenticating, creating a database, and writing and querying
+      data with the InfluxDB 3 Clustered API.
+    # x-traitTag: true — informational tag, no operations
+
+  Response codes:
+    description: >
+      Standard HTTP status codes returned by InfluxDB 3 Clustered API endpoints
+      and their meanings.
+    # x-traitTag: true — informational tag, no operations
+
+  System information endpoints:
+    description: >
+      Endpoints for retrieving system-level information about the InfluxDB 3
+      Clustered instance.
+
+  Usage:
+    description: >
+      Retrieve usage metrics for an InfluxDB 3 Clustered instance.
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB 3 Clustered databases using the
+      v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write`
+      endpoint with line protocol.
+    x-related:
+      - title: Write data
+        href: /influxdb3/clustered/write-data/

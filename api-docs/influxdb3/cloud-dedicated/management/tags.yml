@@ -1,0 +1,30 @@
+tags:
+  Database tokens:
+    description: >
+      Create and manage database tokens that authorize read and write access to
+      InfluxDB 3 Cloud Dedicated databases.
+    x-related:
+      - title: Manage database tokens
+        href: /influxdb3/cloud-dedicated/admin/tokens/
+
+  Databases:
+    description: >
+      Create and manage databases in an InfluxDB 3 Cloud Dedicated cluster,
+      including setting retention periods and custom partition templates.
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/cloud-dedicated/admin/databases/
+
+  Quick start:
+    description: >
+      Get started creating a database, issuing tokens, and writing data with
+      the InfluxDB 3 Cloud Dedicated Management API.
+    # x-traitTag: true — informational tag, no operations
+
+  Tables:
+    description: >
+      Manage tables in an InfluxDB 3 Cloud Dedicated database, including
+      creating tables with custom column schemas.
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/cloud-dedicated/admin/tables/

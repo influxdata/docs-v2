@@ -1,0 +1,83 @@
+tags:
+  Authentication:
+    description: >
+      Authenticate API requests using bearer tokens, token scheme, basic
+      authentication, or querystring credentials.
+      See the Security Schemes section for details on each method.
+    # x-traitTag: true — informational tag, no operations
+
+  Cache data:
+    description: >
+      Manage in-memory caches for InfluxDB 3 Enterprise, including the Distinct
+      Value Cache (DVC) for distinct column values and the Last Value Cache
+      (LVC) for most-recent field values.
+    x-related:
+      - title: Manage the Distinct Value Cache
+        href: /influxdb3/enterprise/admin/distinct-value-cache/
+      - title: Manage the Last Value Cache
+        href: /influxdb3/enterprise/admin/last-value-cache/
+
+  Database:
+    description: >
+      Create, list, and delete databases in InfluxDB 3 Enterprise.
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/enterprise/admin/databases/
+
+  Headers and parameters:
+    description: >
+      Common HTTP request headers and query parameters used by InfluxDB 3
+      Enterprise API endpoints.
+    # x-traitTag: true — informational tag, no operations
+
+  Processing engine:
+    description: >
+      Manage Processing engine triggers, test plugins, and invoke On Request
+      plugins. The processing engine is an embedded Python VM that runs plugins
+      in response to database events.
+    x-related:
+      - title: Processing engine and Python plugins
+        href: /influxdb3/enterprise/processing-engine/
+
+  Query data:
+    description: >
+      Query data stored in InfluxDB 3 Enterprise using SQL or InfluxQL.
+    x-related:
+      - title: Query data
+        href: /influxdb3/enterprise/query-data/
+
+  Quick start:
+    description: >
+      Get started authenticating, writing, and querying data with the
+      InfluxDB 3 Enterprise API.
+    # x-traitTag: true — informational tag, no operations
+
+  Server information:
+    description: >
+      Retrieve server metrics, health status, and version information for
+      InfluxDB 3 Enterprise.
+
+  Table:
+    description: >
+      Manage table schemas in an InfluxDB 3 Enterprise database.
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/enterprise/admin/tables/
+
+  Token:
+    description: >
+      Create and manage tokens used for authenticating and authorizing access
+      to InfluxDB 3 Enterprise resources.
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/enterprise/admin/tokens/
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB 3 Enterprise in line protocol format
+      using the v1, v2, or v3 write endpoints.
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/enterprise/write-data/http-api/
+      - title: Line protocol reference
+        href: /influxdb3/enterprise/reference/syntax/line-protocol/

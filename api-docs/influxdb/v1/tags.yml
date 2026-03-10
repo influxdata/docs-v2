@@ -1,0 +1,32 @@
+tags:
+  System Information:
+    description: >
+      Check server status, health, and version information for an InfluxDB
+      v1 instance.
+
+  Query:
+    description: >
+      Query data using InfluxQL via the `/query` endpoint, supporting both read
+      queries (SELECT, SHOW) and management queries (CREATE, DROP, ALTER).
+
+  Write:
+    description: >
+      Write time series data to InfluxDB v1 in line protocol format using the
+      `/write` endpoint.
+
+  Debug:
+    description: >
+      Access debugging and profiling endpoints for troubleshooting and
+      performance analysis of an InfluxDB v1 instance.
+
+  v2 Compatibility:
+    description: >
+      InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client
+      libraries to work with InfluxDB 1.8+, using the Token authentication
+      scheme with v1 credentials.
+
+  Authentication:
+    description: >
+      Authenticate API requests to InfluxDB v1 using basic authentication,
+      query string credentials, or the v2-compatible token scheme.
+    # x-traitTag: true — informational tag, no operations

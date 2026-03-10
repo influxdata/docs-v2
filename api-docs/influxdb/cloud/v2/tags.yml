@@ -1,0 +1,247 @@
+tags:
+  Authentication:
+    description: >
+      Authenticate API requests to InfluxDB Cloud using API tokens with token,
+      basic, or querystring authentication schemes.
+    # x-traitTag: true — informational tag, no operations
+
+  Authorizations (API tokens):
+    description: >
+      Create and manage API token authorizations that grant read and write
+      permissions to InfluxDB Cloud organization resources.
+    x-related:
+      - title: Manage API tokens
+        href: /influxdb/cloud/security/tokens/
+
+  Bucket Schemas:
+    description: >
+      Manage explicit schemas for InfluxDB Cloud buckets to enforce column
+      names and data types for measurement data.
+
+  Buckets:
+    description: >
+      Create and manage named storage locations (buckets) in InfluxDB Cloud,
+      each with a configurable retention period.
+    x-related:
+      - title: Manage buckets
+        href: /influxdb/cloud/organizations/buckets/
+
+  Cells:
+    description: >
+      Manage cells within InfluxDB Cloud dashboards.
+
+  Checks:
+    description: >
+      Create and manage monitoring checks that query data on a schedule and
+      generate notification statuses in InfluxDB Cloud.
+
+  Common parameters:
+    description: >
+      Common query parameters used by InfluxDB Cloud API endpoints, including
+      `bucket`, `bucketID`, `org`, and `orgID`.
+    # x-traitTag: true — informational tag, no operations
+
+  Config:
+    description: >
+      Retrieve configuration information for an InfluxDB Cloud instance.
+
+  Dashboards:
+    description: >
+      Create and manage dashboards in InfluxDB Cloud.
+
+  DBRPs:
+    description: >
+      Manage database and retention policy (DBRP) mappings that route InfluxDB
+      v1-compatible requests to InfluxDB Cloud buckets.
+    x-related:
+      - title: Database and retention policy mapping
+        href: /influxdb/cloud/reference/api/influxdb-1x/dbrp/
+
+  Delete:
+    description: >
+      Delete time series data from an InfluxDB Cloud bucket by specifying a
+      time range and optional tag predicate.
+
+  Headers:
+    description: >
+      Standard HTTP request headers used by InfluxDB Cloud API endpoints,
+      including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
+    # x-traitTag: true — informational tag, no operations
+
+  Invokable Scripts:
+    description: >
+      Store, manage, and execute custom Flux scripts in InfluxDB Cloud.
+      Scripts accept runtime parameters and can be invoked via dedicated
+      endpoints.
+
+  Labels:
+    description: >
+      Create and manage labels for organizing InfluxDB Cloud resources such as
+      dashboards, tasks, and buckets.
+
+  Legacy Authorizations:
+    description: >
+      Manage legacy (v1-compatible) authorization credentials in InfluxDB Cloud.
+
+  Legacy Query:
+    description: >
+      Query data using InfluxQL via the v1-compatible `/query` endpoint in
+      InfluxDB Cloud.
+
+  Legacy Write:
+    description: >
+      Write data using the v1-compatible `/write` endpoint in InfluxDB Cloud.
+
+  Limits:
+    description: >
+      Retrieve rate limits and usage quotas for an InfluxDB Cloud organization.
+
+  NotificationEndpoints:
+    description: >
+      Create and manage notification endpoints that receive alert notifications
+      from InfluxDB Cloud monitoring checks.
+
+  NotificationRules:
+    description: >
+      Create and manage notification rules that define when and how InfluxDB
+      Cloud sends notifications to configured endpoints.
+
+  Organizations:
+    description: >
+      View and manage InfluxDB Cloud organizations, which are workspaces that
+      group users, buckets, and resources.
+    x-related:
+      - title: View and manage organizations
+        href: /influxdb/cloud/organizations/
+
+  Pagination:
+    description: >
+      Query parameters for paginating results from list operations in the
+      InfluxDB Cloud API.
+    # x-traitTag: true — informational tag, no operations
+
+  Ping:
+    description: >
+      Check the availability of the InfluxDB Cloud instance.
+
+  Query data:
+    description: >
+      Retrieve data, analyze queries, and get query suggestions using the
+      InfluxDB Cloud query API.
+    x-related:
+      - title: Query data
+        href: /influxdb/cloud/query-data/
+
+  Quick start:
+    description: >
+      Get started authenticating, writing, and querying data with the InfluxDB
+      Cloud API.
+    # x-traitTag: true — informational tag, no operations
+
+  Resources:
+    description: >
+      Retrieve a list of top-level resource types available in the InfluxDB
+      Cloud API.
+
+  Response codes:
+    description: >
+      Standard HTTP status codes returned by InfluxDB Cloud API endpoints and
+      their meanings.
+    # x-traitTag: true — informational tag, no operations
+
+  Routes:
+    description: >
+      Retrieve top-level routes for the InfluxDB Cloud API.
+
+  Rules:
+    description: >
+      Manage notification rules in InfluxDB Cloud.
+
+  Secrets:
+    description: >
+      Create and manage secrets (key-value pairs) for use in InfluxDB Cloud
+      Flux scripts and tasks.
+
+  Security and access endpoints:
+    description: >
+      Endpoints for managing authentication and access control in InfluxDB
+      Cloud.
+
+  Setup:
+    description: >
+      Configure an initial InfluxDB Cloud instance, including creating the
+      initial user, organization, and bucket.
+
+  Signin:
+    description: >
+      Create a user session by signing in with username and password
+      credentials.
+
+  Signout:
+    description: >
+      End a user session by signing out.
+
+  Supported operations:
+    description: >
+      Overview of the common CRUD operations supported by the InfluxDB Cloud
+      API.
+    # x-traitTag: true — informational tag, no operations
+
+  System information endpoints:
+    description: >
+      Endpoints for retrieving system-level information about the InfluxDB
+      Cloud instance.
+
+  Tasks:
+    description: >
+      Schedule and manage Flux tasks that process and transform data on a
+      recurring basis in InfluxDB Cloud.
+    x-related:
+      - title: Get started with tasks
+        href: /influxdb/cloud/process-data/get-started/
+
+  Telegraf Plugins:
+    description: >
+      Retrieve available Telegraf plugin configuration templates for use with
+      InfluxDB Cloud.
+
+  Telegrafs:
+    description: >
+      Create and manage Telegraf agent configurations that collect and write
+      data to InfluxDB Cloud.
+
+  Templates:
+    description: >
+      Export and apply InfluxDB templates, and manage template stacks for
+      InfluxDB Cloud.
+    x-related:
+      - title: InfluxDB templates
+        href: /influxdb/cloud/influxdb-templates/
+
+  Usage:
+    description: >
+      Retrieve usage metrics and cardinality data for an InfluxDB Cloud
+      organization.
+
+  Users:
+    description: >
+      View specific users that are members of your InfluxDB Cloud organization.
+    x-related:
+      - title: Manage users
+        href: /influxdb/cloud/organizations/users/
+
+  Variables:
+    description: >
+      Create and manage variables for use in InfluxDB Cloud dashboards.
+
+  Views:
+    description: >
+      Manage cell views within InfluxDB Cloud dashboards.
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB Cloud buckets in line protocol format
+      using the `/api/v2/write` endpoint.
+    x-related:
+      - title: Write data
+        href: /influxdb/cloud/write-data/
