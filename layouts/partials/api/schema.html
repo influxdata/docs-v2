@@ -110,7 +110,7 @@
   {{/* Show example at schema level */}}
   {{ if and $example (eq $level 0) }}
   <div class="api-schema-example">
-    <h5 class="api-schema-example-title">Example</h5>
+    <span class="api-schema-example-title">Example request body</span>
     <pre class="api-schema-example-code"><code class="language-json">{{ jsonify (dict "indent" "  ") $example }}</code></pre>
   </div>
   {{ end }}

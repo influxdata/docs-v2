@@ -9,11 +9,14 @@
 
 // Content wrapper becomes flex container when used with API content
 // Override overflow:hidden from _content-wrapper.scss to enable sticky positioning
+// Widen to compensate for the API TOC so article content matches regular pages
 .content-wrapper.api-content {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   overflow: visible; // Required for sticky TOC to work
+  width: calc(75% + 200px);
+  max-width: calc(100% - 2rem);
 }
 
 // Main API content area (center column)
@@ -727,6 +730,7 @@
 @include media(large) {
   .content-wrapper.api-content {
     flex-direction: column;
+    width: 75%; // Reset to default when TOC is hidden
   }
 
   .api-toc {
@@ -770,9 +774,12 @@
   }
 }
 
-// Match sidebar responsive widths
-@media (min-width: 801px) and (max-width: 1200px) {
+// Compressed layout: narrower TOC, drop border to reduce visual clutter
+// TOC is hidden at ≤1280px (large breakpoint), so this targets the
+// narrow window where the TOC is visible but space is tight.
+@media (min-width: 1281px) and (max-width: 1535px) {
   .api-toc {
     width: 180px;
+    border-left: none;
   }
 }

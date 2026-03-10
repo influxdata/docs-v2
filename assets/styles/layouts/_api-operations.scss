@@ -34,6 +34,11 @@ $status-server-error: #9b2aff;
   padding-top: $api-spacing-xl;
   border-top: 2px solid $nav-border;
 
+  // Keep inline code proportional to surrounding text
+  code {
+    font-size: inherit;
+  }
+
   &:first-child {
     border-top: none;
     padding-top: 0;
@@ -183,7 +188,6 @@ $status-server-error: #9b2aff;
 
 .api-param-description {
   margin-top: 0.25rem;
-  font-size: 0.9rem;
   color: $article-text;
   line-height: 1.5;
 
@@ -323,7 +327,6 @@ $status-server-error: #9b2aff;
 
 .api-schema-property-description {
   margin-top: 0.25rem;
-  font-size: 0.9rem;
   color: $article-text;
   line-height: 1.5;
 
@@ -358,22 +361,34 @@ $status-server-error: #9b2aff;
 // Schema Example Block
 .api-schema-example {
   margin-top: $api-spacing-md;
-  padding: $api-spacing-md;
-  background: $article-code-bg;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: $api-border-radius;
+  overflow: hidden;
+
+  .dark-theme & {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 .api-schema-example-title {
-  margin: 0 0 $api-spacing-sm;
+  display: block;
+  margin: 0;
+  padding: $api-spacing-sm $api-spacing-md;
   font-size: 0.85rem;
   font-weight: 600;
-  color: rgba($article-text, 0.6);
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .dark-theme & {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
-.api-schema-example-code {
+pre.api-schema-example-code {
   margin: 0;
-  padding: 0;
-  background: transparent;
+  padding: $api-spacing-sm $api-spacing-md;
+  background: $article-code-bg;
   overflow-x: auto;
 
   code {
@@ -425,7 +440,6 @@ $status-server-error: #9b2aff;
 }
 
 .api-response-description {
-  font-size: 0.9rem;
   color: $article-text;
 }
 
