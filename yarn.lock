@@ -246,48 +246,6 @@
   resolved "https://registry.yarnpkg.com/@exodus/bytes/-/bytes-1.14.1.tgz#9b5c29077162a35f1bd25613e0cd3c239f6e7ad8"
   integrity sha512-OhkBFWI6GcRMUroChZiopRiSp2iAMvEBK47NhJooDqz1RERO4QuZIZnjP63TXX8GAiLABkYmX+fuQsdJ1dd2QQ==
 
-"@github/copilot-darwin-arm64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-darwin-arm64/-/copilot-darwin-arm64-0.0.420.tgz#560ca002fa491c04fdb6f74f84fee87e52575c53"
-  integrity sha512-sj8Oxcf3oKDbeUotm2gtq5YU1lwCt3QIzbMZioFD/PMLOeqSX/wrecI+c0DDYXKofFhALb0+DxxnWgbEs0mnkQ==
-
-"@github/copilot-darwin-x64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-darwin-x64/-/copilot-darwin-x64-0.0.420.tgz#1d5cf40ac4e04bbd69fb0a79abf3743897c5f795"
-  integrity sha512-2acA93IqXz1uuz3TVUm0Y7BVrBr0MySh1kQa8LqMILhTsG0YHRMm8ybzTp2HA7Mi1tl5CjqMSk163kkS7OzfUA==
-
-"@github/copilot-linux-arm64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-linux-arm64/-/copilot-linux-arm64-0.0.420.tgz#e247517854927a14f5c076bfa99309160afec2d7"
-  integrity sha512-h/IvEryTOYm1HzR2GNq8s2aDtN4lvT4MxldfZuS42CtWJDOfVG2jLLsoHWU1T3QV8j1++PmDgE//HX0JLpLMww==
-
-"@github/copilot-linux-x64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-linux-x64/-/copilot-linux-x64-0.0.420.tgz#00d22974499f0fab6354fe4e22f6be59b800ab98"
-  integrity sha512-iL2NpZvXIDZ+3lw7sO2fo5T0nKmP5dZbU2gdYcv+SFBm/ONhCxIY5VRX4yN/9VkFaa9ePv5JzCnsl3vZINiDxg==
-
-"@github/copilot-win32-arm64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-win32-arm64/-/copilot-win32-arm64-0.0.420.tgz#733c45aced1e42c2877ae44012074abbcce3d55d"
-  integrity sha512-Njlc2j9vYSBAL+lC6FIEhQ3C+VxO3xavwKnw0ecVRiNLcGLyPrTdzPfPQOmEjC63gpVCqLabikoDGv8fuLPA2w==
-
-"@github/copilot-win32-x64@0.0.420":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot-win32-x64/-/copilot-win32-x64-0.0.420.tgz#d45f47f2f08d4bba87760b8afb21af19d1988780"
-  integrity sha512-rZlH35oNehAP2DvQbu4vQFVNeCh/1p3rUjafBYaEY0Nkhx7RmdrYBileL5U3PtRPPRsBPaq3Qp+pVIrGoCDLzQ==
-
-"@github/copilot@latest":
-  version "0.0.420"
-  resolved "https://registry.yarnpkg.com/@github/copilot/-/copilot-0.0.420.tgz#596349de076566a310836a7e06e6807b87ea6bfe"
-  integrity sha512-UpPuSjxUxQ+j02WjZEFffWf0scLb23LvuGHzMFtaSsweR+P/BdbtDUI5ZDIA6T0tVyyt6+X1/vgfsJiRqd6jig==
-  optionalDependencies:
-    "@github/copilot-darwin-arm64" "0.0.420"
-    "@github/copilot-darwin-x64" "0.0.420"
-    "@github/copilot-linux-arm64" "0.0.420"
-    "@github/copilot-linux-x64" "0.0.420"
-    "@github/copilot-win32-arm64" "0.0.420"
-    "@github/copilot-win32-x64" "0.0.420"
-
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
@@ -1481,13 +1439,6 @@ confbox@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/confbox/-/confbox-0.1.8.tgz#820d73d3b3c82d9bd910652c5d4d599ef8ff8b06"
   integrity sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==
-
-copilot@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/copilot/-/copilot-0.0.2.tgz#4712810c9182cd784820ed44627bedd32dd377f9"
-  integrity sha512-nedf34AaYj9JnFhRmiJEZemAno2WDXMypq6FW5aCVR0N+QdpQ6viukP1JpvJDChpaMEVvbUkMjmjMifJbO/AgQ==
-  dependencies:
-    "@github/copilot" latest
 
 core-util-is@1.0.2:
   version "1.0.2"
@@ -5386,10 +5337,10 @@ tar-stream@^3.1.5:
     fast-fifo "^1.2.0"
     streamx "^2.15.0"
 
-tar@7.5.7, tar@^7.5.9:
-  version "7.5.7"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.7.tgz#adf99774008ba1c89819f15dbd6019c630539405"
-  integrity sha512-fov56fJiRuThVFXD6o6/Q354S7pnWMJIVlDBYijsTNx6jKSE4pvrDTs6lUnmGvNyfJwFQQwWy3owKz1ucIhveQ==
+tar@7.5.11, tar@^7.5.9:
+  version "7.5.11"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.11.tgz#1250fae45d98806b36d703b30973fa8e0a6d8868"
+  integrity sha512-ChjMH33/KetonMTAtpYdgUFr0tbz69Fp2v7zWxQfYZX4g5ZN2nOBXm1R2xyA+lMIKrLKIoKAwFj93jE/avX9cQ==
   dependencies:
     "@isaacs/fs-minipass" "^4.0.0"
     chownr "^3.0.0"
