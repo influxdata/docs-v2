@@ -21,7 +21,7 @@ Core remains on v3.8.3.
 
 #### Bug fixes
 
-- **Stale compactor  blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting.  The fix now considers only currently running compactor nodes for conflict checks.
+- **Stale compactor  blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. The fix now considers only currently running compactor nodes for conflict checks.
 
 - **WAL Replay**: Fixed an issue where the `--wal-replay-concurrency-limit` flag was silently ignored in Enterprise combined-mode deployments, defaulting to serial replay (concurrency of 1). 
 
@@ -129,7 +129,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
   - All HTTP responses now include a `cluster-uuid` header containing the catalog UUID, enabling clients to identify specific cluster instances programmatically
   - HTTP API now supports multi-member gzip payloads enabling batch operations
 - **CLI Commands**:
-  - The new `influxdb3 show retention` command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, "7d", "24h")
+  - The new `influxdb3 show retention` command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, "7 d", "24 h")
 
 #### Bug fixes
 
@@ -449,7 +449,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 ## v3.1.0 {date="2025-05-29"}
 
-**Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
+**Core**: revision `482dd8aac580c04f37e8713a8fffae89ae8bc264`
 
 **Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
 
