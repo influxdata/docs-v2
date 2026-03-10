@@ -129,7 +129,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
   - All HTTP responses now include a `cluster-uuid` header containing the catalog UUID, enabling clients to identify specific cluster instances programmatically
   - HTTP API now supports multi-member gzip payloads enabling batch operations
 - **CLI Commands**:
-  - The new `influxdb3 show retention` command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, "7 d", "24 h")
+  - The new `influxdb3 show retention` command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, "7d", "24h")
 
 #### Bug fixes
 
