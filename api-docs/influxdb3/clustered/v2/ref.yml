@@ -2100,16 +2100,3 @@ components:
       in: header
       name: Authorization
       type: apiKey
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Headers
-      - Pagination
-      - Response codes
-  - name: All endpoints
-    tags:
-      - Ping
-      - Query data
-      - Write data

@@ -14763,32 +14763,3 @@ components:
       in: header
       name: Authorization
       type: apiKey
-x-tagGroups:
-  - name: Using the InfluxDB HTTP API
-    tags:
-      - Quick start
-      - Authentication
-      - Supported operations
-      - Headers
-      - Pagination
-      - Response codes
-  - name: All endpoints
-    tags:
-      - Authorizations (API tokens)
-      - Bucket Schemas
-      - Buckets
-      - Delete
-      - DBRPs
-      - Invokable Scripts
-      - Limits
-      - Organizations
-      - Query data
-      - Resources
-      - Routes
-      - Secrets
-      - Tasks
-      - Telegrafs
-      - Templates
-      - Usage
-      - Variables
-      - Write data

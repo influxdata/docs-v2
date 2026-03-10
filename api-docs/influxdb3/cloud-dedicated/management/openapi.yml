@@ -2200,12 +2200,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-x-tagGroups:
-  - name: Using the Management API
-    tags:
-      - Quick start
-  - name: All endpoints
-    tags:
-      - Database tokens
-      - Databases
-      - Tables
