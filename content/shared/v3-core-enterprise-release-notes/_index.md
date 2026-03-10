@@ -6,6 +6,27 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.4 {date="2026-03-10"}
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.8.3.
+
+### Enterprise
+
+#### Security
+
+- **R/W tokens can no longer delete databases**: Authorization enforcement was tightened so that the permission check evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.
+
+#### Bug fixes
+
+- **Stale compactor  blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting.  The fix now considers only currently running compactor nodes for conflict checks.
+
+- **WAL Replay**: Fixed an issue where the `--wal-replay-concurrency-limit` flag was silently ignored in Enterprise combined-mode deployments, defaulting to serial replay (concurrency of 1). 
+
+- Other bug fixes and performance improvements.
+
 ## v3.8.3 {date="2026-02-24"}
 
 ### Core
