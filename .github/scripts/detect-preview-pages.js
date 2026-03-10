@@ -5,12 +5,14 @@
  * Outputs (for GitHub Actions):
  * - pages-to-deploy: JSON array of URL paths to deploy
  * - has-layout-changes: 'true' if layout/asset/data changes detected
+ * - has-api-doc-changes: 'true' if api-docs/ or openapi/ changes detected
  * - needs-author-input: 'true' if author must select pages
  * - change-summary: Human-readable summary of changes
  */
 
 import { execSync } from 'child_process';
-import { appendFileSync, existsSync } from 'fs';
+import { appendFileSync, existsSync, readFileSync } from 'fs';
+import { load } from 'js-yaml';
 import { extractDocsUrls } from './parse-pr-urls.js';
 import {
   getChangedContentFiles,
@@ -79,6 +81,53 @@ function isOnlyDeletions() {
 }
 
 /**
+ * Detect API pages affected by changed api-docs files.
+ * Maps changed api-docs files to their corresponding content URL paths by reading
+ * each product version's .config.yml and extracting API keys.
+ * @param {string[]} apiDocFiles - Changed files in api-docs/
+ * @returns {string[]} Array of URL paths for affected API pages
+ */
+function detectApiPages(apiDocFiles) {
+  const pages = new Set();
+  const processedVersions = new Set();
+  // Matches the {product}/{version} path segment in api-docs/{product}/{version}/...
+  // e.g., api-docs/influxdb3/core/.config.yml -> captures 'influxdb3/core'
+  const PRODUCT_VERSION_PATTERN = /^api-docs\/([^/]+\/[^/]+)\//;
+
+  for (const file of apiDocFiles) {
+    const match = file.match(PRODUCT_VERSION_PATTERN);
+    if (!match) continue;
+
+    const productVersionDir = match[1]; // e.g., 'influxdb3/core' or 'influxdb/v2'
+
+    // Only process each product version once
+    if (processedVersions.has(productVersionDir)) continue;
+    processedVersions.add(productVersionDir);
+
+    const configPath = `api-docs/${productVersionDir}/.config.yml`;
+    if (!existsSync(configPath)) continue;
+
+    try {
+      const configContent = readFileSync(configPath, 'utf-8');
+      const config = load(configContent);
+
+      if (!config || !config.apis) continue;
+
+      for (const apiKey of Object.keys(config.apis)) {
+        // Extract apiName: e.g., 'v3@3' -> 'v3', 'v1-compatibility@2' -> 'v1-compatibility'
+        const apiName = apiKey.split('@')[0];
+        const urlPath = `/${productVersionDir}/api/${apiName}/`;
+        pages.add(urlPath);
+      }
+    } catch (err) {
+      console.log(`  ⚠️  Could not read or parse ${configPath}: ${err.message}`);
+    }
+  }
+
+  return Array.from(pages);
+}
+
+/**
  * Write output for GitHub Actions
  */
 function setOutput(name, value) {
@@ -96,6 +145,7 @@ function main() {
     console.log('📭 PR contains only deletions - skipping preview');
     setOutput('pages-to-deploy', '[]');
     setOutput('has-layout-changes', 'false');
+    setOutput('has-api-doc-changes', 'false');
     setOutput('needs-author-input', 'false');
     setOutput('change-summary', 'No pages to preview (content removed)');
     setOutput('skip-reason', 'deletions-only');
@@ -133,7 +183,17 @@ function main() {
     console.log(`   Found ${pagesToDeploy.length} affected pages\n`);
   }
 
-  // Strategy 2: Layout/asset changes - parse URLs from PR body
+  // Strategy 2: API doc changes - auto-detect affected API pages
+  if (changes.apiDocs.length > 0) {
+    console.log('📋 API doc changes detected, auto-detecting affected pages...');
+    const apiPages = detectApiPages(changes.apiDocs);
+    if (apiPages.length > 0) {
+      console.log(`   Found ${apiPages.length} affected API page(s): ${apiPages.join(', ')}`);
+      pagesToDeploy = [...new Set([...pagesToDeploy, ...apiPages])];
+    }
+  }
+
+  // Strategy 3: Layout/asset changes - parse URLs from PR body
   if (hasLayoutChanges) {
     console.log('🎨 Layout/asset changes detected, checking PR description for URLs...');
     const prUrls = extractDocsUrls(PR_BODY);
@@ -142,11 +202,12 @@ function main() {
       console.log(`   Found ${prUrls.length} URLs in PR description`);
       // Merge with content pages (deduplicate)
       pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
-    } else if (changes.content.length === 0) {
-      // No content changes AND no URLs specified - need author input
+    } else if (changes.content.length === 0 && pagesToDeploy.length === 0) {
+      // No content changes, no auto-detected pages, and no URLs specified - need author input
       console.log('   ⚠️  No URLs found in PR description - author input needed');
       setOutput('pages-to-deploy', '[]');
       setOutput('has-layout-changes', 'true');
+      setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
       setOutput('needs-author-input', 'true');
       setOutput('change-summary', 'Layout/asset changes detected - please specify pages to preview');
       return;
@@ -168,6 +229,7 @@ function main() {
 
   setOutput('pages-to-deploy', JSON.stringify(pagesToDeploy));
   setOutput('has-layout-changes', String(hasLayoutChanges));
+  setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
   setOutput('needs-author-input', 'false');
   setOutput('change-summary', summary);
 }
