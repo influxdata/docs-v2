@@ -139,6 +139,8 @@ jobs:
 
       - name: Deploy preview
         if: steps.detect.outputs.pages-to-deploy != '[]'
+        id: deploy-preview
+        continue-on-error: true
         uses: rossjrw/pr-preview-action@v1.4.8
         with:
           source-dir: ./preview-staging
@@ -146,8 +148,27 @@ jobs:
           umbrella-dir: pr-preview
           action: deploy
 
-      - name: Post success comment
+      - name: Validate preview deployment
         if: steps.detect.outputs.pages-to-deploy != '[]'
+        id: validate-deploy
+        run: |
+          DEPLOY_OUTCOME="${{ steps.deploy-preview.outcome }}"
+          DEPLOY_URL="${{ steps.deploy-preview.outputs.deployment-url }}"
+
+          if [ -z "$DEPLOY_URL" ]; then
+            echo "Deployment step did not produce a preview URL. Failing preview job."
+            exit 1
+          fi
+
+          if [ "$DEPLOY_OUTCOME" != "success" ]; then
+            echo "Deployment reported outcome: $DEPLOY_OUTCOME"
+            echo "Preview URL exists; treating as transient post-deploy comment error."
+          fi
+
+          echo "status=ok" >> "$GITHUB_OUTPUT"
+
+      - name: Post success comment
+        if: steps.detect.outputs.pages-to-deploy != '[]' && steps.validate-deploy.outputs.status == 'ok'
         uses: actions/github-script@v7
         with:
           script: |
