@@ -17,13 +17,13 @@ Core remains on v3.8.3.
 
 #### Security
 
-- **R/W tokens can no longer delete databases**: Authorization enforcement was tightened so that the permission check evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.
+-  **Read and write tokens can no longer delete databases**: Authorization now evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.
 
 #### Bug fixes
 
-- **Stale compactor  blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. The fix now considers only currently running compactor nodes for conflict checks.
+- **Stale compactor blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. Enterprise now only considers currently running compactor nodes for conflict checks.
 
-- **WAL Replay**: Fixed an issue where the `--wal-replay-concurrency-limit` flag was silently ignored in Enterprise combined-mode deployments, defaulting to serial replay (concurrency of 1). 
+- **WAL replay**: Fixed an issue where combined-mode deployments silently ignored the `--wal-replay-concurrency-limit` flag and always used serial replay (concurrency of 1). The flag is now respected.
 
 - Other bug fixes and performance improvements.
 
@@ -451,7 +451,7 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 **Core**: revision `482dd8aac580c04f37e8713a8fffae89ae8bc264`
 
-**Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
+**Enterprise**: revision `2cb23cf32b67f9f0d0803e31b356813a1a151b00`
 
 ### Core
 
