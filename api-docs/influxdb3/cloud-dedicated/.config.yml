@@ -6,6 +6,8 @@ extends:
 x-influxdata-product-name: InfluxDB 3 Cloud Dedicated
 
 apis:
+  management@0:
+    root: management/openapi.yml
   data@2:
     root: influxdb3-cloud-dedicated-openapi.yaml
     x-influxdata-docs-aliases:

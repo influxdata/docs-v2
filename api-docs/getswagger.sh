@@ -162,7 +162,9 @@ function updateCloudDedicatedManagement {
     cp "$tmp_dir/openapi.yaml" "$outFile"
     rm -rf "$tmp_dir"
   fi
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' management@0
+  # Skip Redocly postProcess — management specs are self-contained and
+  # Redocly bundle collapses $ref chains, producing unwanted diff.
+  # Content overlays (info.yml, servers.yml) are applied by post-process-specs.ts.
 }
 
 function updateCloudDedicatedV2 {
@@ -200,7 +202,7 @@ function updateClusteredManagement {
     cp "$tmp_dir/openapi.yaml" "$outFile"
     rm -rf "$tmp_dir"
   fi
-  postProcess $outFile 'influxdb3/clustered/.config.yml' management@0
+  # Skip Redocly postProcess — same rationale as updateCloudDedicatedManagement.
 }
 
 function updateClusteredV2 {

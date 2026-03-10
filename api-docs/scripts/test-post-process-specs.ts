@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Tests for apply-tag-config.ts
+ * Tests for post-process-specs.ts
  *
  * Standalone test script — no test runner required.
  *
  * Usage:
- *   node api-docs/scripts/dist/test-apply-tag-config.js
+ *   node api-docs/scripts/dist/test-post-process-specs.js
  *
  * Creates temporary fixtures in $TMPDIR, runs the compiled script against
  * them via child_process, and reports pass/fail for each case.
@@ -14,14 +14,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { execSync, spawnSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import * as yaml from 'js-yaml';
 
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
 
-const SCRIPT = path.resolve(__dirname, 'apply-tag-config.js');
+const SCRIPT = path.resolve(__dirname, 'post-process-specs.js');
 
 // ---------------------------------------------------------------------------
 // Fixture helpers
@@ -36,19 +36,18 @@ interface OpenApiTag {
 
 interface OpenApiSpec {
   openapi: string;
-  info: { title: string; version: string };
+  info: { title: string; version: string; [k: string]: unknown };
+  servers?: Array<{ url: string; [k: string]: unknown }>;
   tags?: OpenApiTag[];
   paths?: Record<string, Record<string, { tags?: string[]; [k: string]: unknown }>>;
   [key: string]: unknown;
 }
 
-/**
- * Build a minimal OpenAPI spec object.
- *
- * @param tags - Top-level tag definitions.
- * @param operationTags - Tag names to attach to a synthetic GET /test operation.
- */
-function makeSpec(tags: OpenApiTag[], operationTags: string[]): OpenApiSpec {
+function makeSpec(
+  tags: OpenApiTag[],
+  operationTags: string[],
+  overrides?: Partial<OpenApiSpec>,
+): OpenApiSpec {
   return {
     openapi: '3.0.0',
     info: { title: 'Test', version: '1.0.0' },
@@ -62,23 +61,18 @@ function makeSpec(tags: OpenApiTag[], operationTags: string[]): OpenApiSpec {
         },
       },
     },
+    ...overrides,
   };
 }
 
-/**
- * Create a temporary api-docs root with a single product configured.
- *
- * Returns the root path and a helper to write the tags.yml file.
- */
 function createTmpRoot(): { root: string; productDir: string; specDir: string; specPath: string } {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'apply-tag-test-'));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'post-process-test-'));
   const productDir = path.join(root, 'influxdb3', 'core');
   const specDir = path.join(productDir, 'v3');
   const specPath = path.join(specDir, 'openapi.yaml');
 
   fs.mkdirSync(specDir, { recursive: true });
 
-  // Write .config.yml — apis.data.root points to v3/openapi.yaml
   const config = {
     apis: {
       data: {
@@ -91,24 +85,14 @@ function createTmpRoot(): { root: string; productDir: string; specDir: string; s
   return { root, productDir, specDir, specPath };
 }
 
-/**
- * Write a YAML file from a plain object.
- */
 function writeYaml(filePath: string, data: unknown): void {
   fs.writeFileSync(filePath, yaml.dump(data, { lineWidth: -1 }), 'utf8');
 }
 
-/**
- * Read and parse a YAML file.
- */
 function readYaml<T>(filePath: string): T {
   return yaml.load(fs.readFileSync(filePath, 'utf8')) as T;
 }
 
-/**
- * Run the compiled script with the given root and optional product filter.
- * Returns { stdout, stderr, exitCode }.
- */
 function runScript(
   root: string,
   productFilter?: string
@@ -128,9 +112,6 @@ function runScript(
   };
 }
 
-/**
- * Remove a temporary directory created by createTmpRoot().
- */
 function cleanup(root: string): void {
   fs.rmSync(root, { recursive: true, force: true });
 }
@@ -164,10 +145,9 @@ function assert(name: string, condition: boolean, reason: string): void {
 }
 
 // ---------------------------------------------------------------------------
-// Test cases
+// Tag config tests
 // ---------------------------------------------------------------------------
 
-// 1. Tag description setting
 function testDescriptionSetting(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
@@ -193,7 +173,6 @@ function testDescriptionSetting(): void {
   }
 }
 
-// 2. Tag rename — tags[] and operation.tags[]
 function testTagRename(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
@@ -208,7 +187,6 @@ function testTagRename(): void {
     assert('2a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-
     const oldTag = spec.tags?.find((t) => t.name === 'Cache data');
     assert('2b. old tag name gone from tags[]', !oldTag, 'old tag still present in tags[]');
 
@@ -226,7 +204,6 @@ function testTagRename(): void {
   }
 }
 
-// 3. x-related links
 function testXRelated(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
@@ -257,11 +234,9 @@ function testXRelated(): void {
   }
 }
 
-// 4. Warning: stale config reference (tag in tags.yml not in spec operations)
 function testStaleConfigWarning(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    // Spec has 'Write data' in operations but tags.yml mentions 'Ghost tag'
     writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data']));
     writeYaml(path.join(specDir, 'tags.yml'), {
       tags: {
@@ -282,11 +257,9 @@ function testStaleConfigWarning(): void {
   }
 }
 
-// 5. Warning: uncovered spec tag (tag in spec operations but not in tags.yml)
 function testUncoveredTagWarning(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    // Spec has 'Write data' and 'Query data'; tags.yml only covers 'Write data'
     writeYaml(
       specPath,
       makeSpec([{ name: 'Write data' }, { name: 'Query data' }], ['Write data', 'Query data'])
@@ -309,12 +282,10 @@ function testUncoveredTagWarning(): void {
   }
 }
 
-// 6. No tags.yml — silent skip, exit 0
 function testNoTagsYmlSilentSkip(): void {
   const { root, specPath } = createTmpRoot();
   try {
     writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data']));
-    // Deliberately do NOT create tags.yml
 
     const { stderr, exitCode } = runScript(root, 'influxdb3/core');
     assert('6a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
@@ -328,7 +299,6 @@ function testNoTagsYmlSilentSkip(): void {
   }
 }
 
-// 7. Malformed YAML — exit 1
 function testMalformedYamlFails(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
@@ -347,10 +317,231 @@ function testMalformedYamlFails(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Content overlay tests
+// ---------------------------------------------------------------------------
+
+// 8. Info overlay — API-specific content/info.yml
+function testInfoOverlay(): void {
+  const { root, specDir, specPath } = createTmpRoot();
+  try {
+    writeYaml(specPath, makeSpec([], [], {
+      info: { title: 'Original Title', version: '0.0.0' },
+    }));
+
+    // Create API-specific content/info.yml
+    const contentDir = path.join(specDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    writeYaml(path.join(contentDir, 'info.yml'), {
+      title: 'Overridden Title',
+      version: '2.0.0',
+      'x-influxdata-short-title': 'Short',
+    });
+
+    const { exitCode } = runScript(root, 'influxdb3/core');
+    assert('8a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const spec = readYaml<OpenApiSpec>(specPath);
+    assert('8b. title overridden', spec.info.title === 'Overridden Title', `title: ${spec.info.title}`);
+    assert('8c. version overridden', spec.info.version === '2.0.0', `version: ${spec.info.version}`);
+    assert(
+      '8d. x-influxdata-short-title applied',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'Short',
+      `x-influxdata-short-title: ${(spec.info as Record<string, unknown>)['x-influxdata-short-title']}`
+    );
+  } finally {
+    cleanup(root);
+  }
+}
+
+// 9. Info overlay — product-level fallback
+function testInfoOverlayProductFallback(): void {
+  const { root, productDir, specPath } = createTmpRoot();
+  try {
+    writeYaml(specPath, makeSpec([], [], {
+      info: { title: 'Original', version: '1.0.0' },
+    }));
+
+    // Create product-level content/info.yml (NOT in specDir/content/)
+    const contentDir = path.join(productDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    writeYaml(path.join(contentDir, 'info.yml'), {
+      title: 'Product-Level Title',
+    });
+
+    const { exitCode } = runScript(root, 'influxdb3/core');
+    assert('9a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const spec = readYaml<OpenApiSpec>(specPath);
+    assert('9b. title from product-level', spec.info.title === 'Product-Level Title', `title: ${spec.info.title}`);
+    assert('9c. version preserved', spec.info.version === '1.0.0', `version: ${spec.info.version}`);
+  } finally {
+    cleanup(root);
+  }
+}
+
+// 10. Servers overlay
+function testServersOverlay(): void {
+  const { root, specDir, specPath } = createTmpRoot();
+  try {
+    writeYaml(specPath, makeSpec([], [], {
+      servers: [{ url: 'https://old.example.com' }],
+    }));
+
+    const contentDir = path.join(specDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    writeYaml(path.join(contentDir, 'servers.yml'), [
+      {
+        url: 'https://{baseurl}',
+        description: 'InfluxDB API',
+        variables: {
+          baseurl: {
+            enum: ['localhost:8181'],
+            default: 'localhost:8181',
+            description: 'InfluxDB URL',
+          },
+        },
+      },
+    ]);
+
+    const { exitCode } = runScript(root, 'influxdb3/core');
+    assert('10a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const spec = readYaml<OpenApiSpec>(specPath);
+    assert('10b. servers replaced', spec.servers?.length === 1, `server count: ${spec.servers?.length}`);
+    assert(
+      '10c. server URL correct',
+      spec.servers?.[0]?.url === 'https://{baseurl}',
+      `url: ${spec.servers?.[0]?.url}`
+    );
+    assert(
+      '10d. server variables present',
+      (spec.servers?.[0] as Record<string, unknown>)?.variables !== undefined,
+      'variables missing'
+    );
+  } finally {
+    cleanup(root);
+  }
+}
+
+// 11. Info overlay preserves fields not in overlay
+function testInfoOverlayPreservesFields(): void {
+  const { root, specDir, specPath } = createTmpRoot();
+  try {
+    writeYaml(specPath, makeSpec([], [], {
+      info: {
+        title: 'Original Title',
+        version: '3.0.0',
+        description: 'Original description.',
+        license: { name: 'MIT', url: 'https://opensource.org/licenses/MIT' },
+      },
+    }));
+
+    const contentDir = path.join(specDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    // Overlay only sets x-* fields, no title/version/description
+    writeYaml(path.join(contentDir, 'info.yml'), {
+      'x-influxdata-short-title': 'InfluxDB 3 API',
+    });
+
+    const { exitCode } = runScript(root, 'influxdb3/core');
+    assert('11a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const spec = readYaml<OpenApiSpec>(specPath);
+    assert('11b. title preserved', spec.info.title === 'Original Title', `title: ${spec.info.title}`);
+    assert('11c. version preserved', spec.info.version === '3.0.0', `version: ${spec.info.version}`);
+    assert('11d. description preserved', spec.info.description === 'Original description.', `desc: ${spec.info.description}`);
+    assert(
+      '11e. x-influxdata-short-title added',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'InfluxDB 3 API',
+      'x-influxdata-short-title missing'
+    );
+  } finally {
+    cleanup(root);
+  }
+}
+
+// 12. No content overlays — spec unchanged
+function testNoOverlaysNoWrite(): void {
+  const { root, specPath } = createTmpRoot();
+  try {
+    const original = makeSpec([{ name: 'Write data' }], ['Write data']);
+    writeYaml(specPath, original);
+    const mtime = fs.statSync(specPath).mtimeMs;
+
+    // Small delay to detect mtime changes
+    const start = Date.now();
+    while (Date.now() - start < 50) { /* busy wait */ }
+
+    const { exitCode, stderr } = runScript(root, 'influxdb3/core');
+    assert('12a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+    assert('12b. no write message', !stderr.includes('wrote'), `unexpected write: ${stderr}`);
+  } finally {
+    cleanup(root);
+  }
+}
+
+// 13. Combined: info + servers + tags applied together
+function testCombinedOverlaysAndTags(): void {
+  const { root, specDir, specPath } = createTmpRoot();
+  try {
+    writeYaml(specPath, makeSpec(
+      [{ name: 'Write data' }],
+      ['Write data'],
+      {
+        info: { title: 'Original', version: '1.0.0' },
+        servers: [{ url: 'https://old.example.com' }],
+      },
+    ));
+
+    const contentDir = path.join(specDir, 'content');
+    fs.mkdirSync(contentDir, { recursive: true });
+    writeYaml(path.join(contentDir, 'info.yml'), {
+      title: 'New Title',
+      'x-influxdata-short-title': 'Short',
+    });
+    writeYaml(path.join(contentDir, 'servers.yml'), [
+      { url: 'https://new.example.com', description: 'New Server' },
+    ]);
+    writeYaml(path.join(specDir, 'tags.yml'), {
+      tags: {
+        'Write data': {
+          description: 'Write line protocol data.',
+          'x-related': [{ title: 'Guide', href: '/guide/' }],
+        },
+      },
+    });
+
+    const { exitCode } = runScript(root, 'influxdb3/core');
+    assert('13a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const spec = readYaml<OpenApiSpec>(specPath);
+    assert('13b. info title updated', spec.info.title === 'New Title', `title: ${spec.info.title}`);
+    assert('13c. info version preserved', spec.info.version === '1.0.0', `version: ${spec.info.version}`);
+    assert(
+      '13d. x-influxdata-short-title set',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'Short',
+      'missing'
+    );
+    assert('13e. servers replaced', spec.servers?.[0]?.url === 'https://new.example.com', `url: ${spec.servers?.[0]?.url}`);
+
+    const tag = spec.tags?.find((t) => t.name === 'Write data');
+    assert('13f. tag description set', tag?.description === 'Write line protocol data.', `desc: ${tag?.description}`);
+    assert(
+      '13g. tag x-related set',
+      Array.isArray(tag?.['x-related']) && tag['x-related'].length === 1,
+      `x-related: ${JSON.stringify(tag?.['x-related'])}`
+    );
+  } finally {
+    cleanup(root);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Run all tests
 // ---------------------------------------------------------------------------
 
 const tests: Array<[string, () => void]> = [
+  // Tag config tests (carried forward)
   ['1. Tag description setting', testDescriptionSetting],
   ['2. Tag rename (tags[] and operation.tags[])', testTagRename],
   ['3. x-related links', testXRelated],
@@ -358,9 +549,16 @@ const tests: Array<[string, () => void]> = [
   ['5. Warning: uncovered spec tag', testUncoveredTagWarning],
   ['6. No tags.yml — silent skip', testNoTagsYmlSilentSkip],
   ['7. Malformed YAML — exit 1', testMalformedYamlFails],
+  // Content overlay tests (new)
+  ['8. Info overlay — API-specific', testInfoOverlay],
+  ['9. Info overlay — product-level fallback', testInfoOverlayProductFallback],
+  ['10. Servers overlay', testServersOverlay],
+  ['11. Info overlay preserves fields not in overlay', testInfoOverlayPreservesFields],
+  ['12. No overlays or tags — no write', testNoOverlaysNoWrite],
+  ['13. Combined: info + servers + tags', testCombinedOverlaysAndTags],
 ];
 
-console.log('\napply-tag-config tests\n');
+console.log('\npost-process-specs tests\n');
 
 for (const [name, fn] of tests) {
   console.log(name);
