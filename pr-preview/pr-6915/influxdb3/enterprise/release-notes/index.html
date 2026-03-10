@@ -2868,15 +2868,15 @@ Core remains on v3.8.3.</p>
 <h3 id="enterprise">Enterprise</h3>
 <h4 id="security">Security</h4>
 <ul>
-<li><strong>R/W tokens can no longer delete databases</strong>: Authorization enforcement was tightened so that the permission check evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.</li>
+<li><strong>Read and write tokens can no longer delete databases</strong>: Authorization now evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.</li>
 </ul>
 <h4 id="bug-fixes">Bug fixes</h4>
 <ul>
 <li>
-<p><strong>Stale compactor  blocking startup</strong>: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. The fix now considers only currently running compactor nodes for conflict checks.</p>
+<p><strong>Stale compactor blocking startup</strong>: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. Enterprise now only considers currently running compactor nodes for conflict checks.</p>
 </li>
 <li>
-<p><strong>WAL Replay</strong>: Fixed an issue where the <code>--wal-replay-concurrency-limit</code> flag was silently ignored in Enterprise combined-mode deployments, defaulting to serial replay (concurrency of 1).</p>
+<p><strong>WAL replay</strong>: Fixed an issue where combined-mode deployments silently ignored the <code>--wal-replay-concurrency-limit</code> flag and always used serial replay (concurrency of 1). The flag is now respected.</p>
 </li>
 <li>
 <p>Other bug fixes and performance improvements.</p>
@@ -3000,7 +3000,7 @@ Additional Enterprise-specific features and fixes:</p>
 </li>
 <li><strong>CLI Commands</strong>:
 <ul>
-<li>The new <code>influxdb3 show retention</code> command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, &ldquo;7 d&rdquo;, &ldquo;24 h&rdquo;)</li>
+<li>The new <code>influxdb3 show retention</code> command displays effective retention periods for each table, showing whether retention is set at the database-level or table-level with human-readable formatting (for example, &ldquo;7d&rdquo;, &ldquo;24h&rdquo;)</li>
 </ul>
 </li>
 </ul>
@@ -3398,7 +3398,7 @@ Use <code>--license-type</code> [home | trial | commercial] option to the <code>
 </ul>
 <h2 date="2025-05-29" id="v310">v3.1.0</h2>
 <p><strong>Core</strong>: revision <code>482dd8aac580c04f37e8713a8fffae89ae8bc264</code></p>
-<p><strong>Enterprise</strong>: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00</p>
+<p><strong>Enterprise</strong>: revision <code>2cb23cf32b67f9f0d0803e31b356813a1a151b00</code></p>
 <h3 id="core-13">Core</h3>
 <h4 id="token-and-security-updates">Token and Security Updates</h4>
 <ul>
