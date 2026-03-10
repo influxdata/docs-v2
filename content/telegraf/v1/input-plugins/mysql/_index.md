@@ -10,7 +10,7 @@ introduced: "v0.1.1"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/mysql/README.md, MySQL Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/mysql/README.md, MySQL Plugin Source
 ---
 
 # MySQL Input Plugin
@@ -262,7 +262,17 @@ measurement name.
 ## Metrics
 
 * Global statuses - all numeric and boolean values of `SHOW GLOBAL STATUSES`
+  * wsrep_evs_repl_latency - a complex field containing multiple values is split
+      into separate fields
+    * wsrep_evs_repl_latency_min(float, seconds)
+    * wsrep_evs_repl_latency_avg(float, seconds)
+    * wsrep_evs_repl_latency_max(float, seconds)
+    * wsrep_evs_repl_latency_stdev(float, seconds)
+    * wsrep_evs_repl_latency_sample_size(float, number)
 * Global variables - all numeric and boolean values of `SHOW GLOBAL VARIABLES`
+  * wsrep_provider_options - a complex field containing multiple values is split
+      into separate fields
+    * gcache_size(int, bytes)
 * Slave status - metrics from `SHOW SLAVE STATUS` the metrics are gathered when
 the single-source replication is on. If the multi-source replication is set,
 then everything works differently, this metric does not work with multi-source

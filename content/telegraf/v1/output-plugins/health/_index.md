@@ -10,7 +10,7 @@ introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/health/README.md, Health Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/health/README.md, Health Plugin Source
 ---
 
 # Health Output Plugin
@@ -59,6 +59,9 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## TLS server certificate and private key.
   # tls_cert = "/etc/telegraf/cert.pem"
   # tls_key = "/etc/telegraf/key.pem"
+
+  ## HTTP status code reported during startup i.e. before any write was called
+  # default_status = 200
 
   ## Maximum expected time between metrics being written
   ## Enforces an unhealthy state if there was no new metric seen for at least
