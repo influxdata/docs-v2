@@ -26,14 +26,9 @@
   }
 }
 
-.api-code-sample-body {
-  position: relative;
-}
-
 pre.api-code-block {
   margin: 0;
   padding: $api-spacing-md;
-  padding-bottom: $api-spacing-lg + 0.5rem;
   overflow-x: auto;
   background: #1e1e2e;
   color: #cdd6f4;
@@ -51,13 +46,23 @@ pre.api-code-block {
   }
 }
 
+.api-code-sample-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: $api-spacing-sm $api-spacing-md;
+  background: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  .dark-theme & {
+    background: rgba(255, 255, 255, 0.03);
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 .api-code-ask-ai {
-  position: absolute;
-  right: $api-spacing-md;
-  bottom: $api-spacing-sm;
-  font-size: 0.8rem;
-  color: #89b4fa;
+  font-size: 0.9rem;
   text-decoration: none;
+  color: $article-link;
   opacity: 0.7;
   transition: opacity 0.2s;
 
