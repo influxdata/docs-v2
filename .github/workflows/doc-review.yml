@@ -89,11 +89,27 @@ jobs:
        !contains(github.event.pull_request.labels.*.name, 'skip-review'))
     steps:
       - name: Request Copilot review
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         env:
-          GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
-          REPO: ${{ github.repository }}
-        run: gh pr edit "$PR_NUMBER" --repo "$REPO" --add-reviewer "copilot-reviews"
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                reviewers: ['copilot-pull-request-reviewer'],
+              });
+              core.info('Copilot code review requested successfully');
+            } catch (error) {
+              core.warning(`Could not request Copilot review: ${error.message}`);
+              core.warning(
+                'To enable automatic Copilot reviews, configure a repository ruleset: ' +
+                'Settings → Rules → Rulesets → "Automatically request Copilot code review"'
+              );
+            }
 
   # -----------------------------------------------------------------
   # Job 3: Copilot visual review (depends on Job 1 for URLs)
@@ -187,7 +203,7 @@ jobs:
               '',
               '---',
               '',
-              `@copilot please review the preview pages listed above using the template below:`,
+              `@github-copilot please review the preview pages listed above using the template below:`,
               '',
               template.trim(),
               '',
