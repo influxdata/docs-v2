@@ -57,11 +57,11 @@ yarn build:api-pages:product cloud-v2 oss-v2
 | ---------------------- | ------------------------- | ------------------------------------------------ | -------------------------------------------- |
 | `cloud-v2`             | InfluxDB Cloud (v2 API)   | `api-docs/cloud/v2/ref.yml`                      | `content/influxdb/cloud/api/v2`              |
 | `oss-v2`               | InfluxDB OSS v2           | `api-docs/v2/ref.yml`                            | `content/influxdb/v2/api/v2`                 |
-| `influxdb3-core`       | InfluxDB 3 Core           | `api-docs/influxdb3/core/v3/ref.yml`             | `content/influxdb3/core/reference/api`       |
-| `influxdb3-enterprise` | InfluxDB 3 Enterprise     | `api-docs/influxdb3/enterprise/v3/ref.yml`       | `content/influxdb3/enterprise/reference/api` |
-| `cloud-dedicated`      | InfluxDB Cloud Dedicated  | `api-docs/influxdb3/cloud-dedicated/v2/ref.yml`  | `content/influxdb/cloud-dedicated/api`       |
-| `cloud-serverless`     | InfluxDB Cloud Serverless | `api-docs/influxdb3/cloud-serverless/v2/ref.yml` | `content/influxdb/cloud-serverless/api`      |
-| `clustered`            | InfluxDB Clustered        | `api-docs/influxdb3/clustered/v2/ref.yml`        | `content/influxdb/clustered/api`             |
+| `influxdb3-core`       | InfluxDB 3 Core           | `api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml`                       | `content/influxdb3/core/reference/api`       |
+| `influxdb3-enterprise` | InfluxDB 3 Enterprise     | `api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml`           | `content/influxdb3/enterprise/reference/api` |
+| `cloud-dedicated`      | InfluxDB Cloud Dedicated  | `api-docs/influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml`    | `content/influxdb/cloud-dedicated/api`       |
+| `cloud-serverless`     | InfluxDB Cloud Serverless | `api-docs/influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml`  | `content/influxdb/cloud-serverless/api`      |
+| `clustered`            | InfluxDB Clustered        | `api-docs/influxdb3/clustered/influxdb3-clustered-openapi.yaml`                | `content/influxdb/clustered/api`             |
 
 ## Architecture
 

@@ -6,8 +6,8 @@ extends:
 x-influxdata-product-name: InfluxDB 3 Clustered
 
 apis:
-  v2@2:
-    root: v2/ref.yml
+  data@2:
+    root: influxdb3-clustered-openapi.yaml
     x-influxdata-docs-aliases:
       - /influxdb3/clustered/api/
       - /influxdb3/clustered/api/v1/

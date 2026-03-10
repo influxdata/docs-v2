@@ -7,4 +7,4 @@ x-influxdata-product-name: InfluxDB OSS v1
 
 apis:
   v1@1:
-    root: v1/ref.yml
+    root: influxdb-oss-v1-openapi.yaml

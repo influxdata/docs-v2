@@ -935,14 +935,14 @@ const productConfigs: ProductConfigMap = {
   // InfluxDB 3 products use tag-based generation for better UX
   // Keys use underscores to match Hugo data directory structure
   influxdb3_core: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/v3/ref.yml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/v3/influxdb3-core-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/core'),
     description: 'InfluxDB 3 Core',
     menuKey: 'influxdb3_core',
     useTagBasedGeneration: true,
   },
   influxdb3_enterprise: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/v3/ref.yml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/enterprise'),
     description: 'InfluxDB 3 Enterprise',
     menuKey: 'influxdb3_enterprise',
@@ -965,7 +965,7 @@ const productConfigs: ProductConfigMap = {
         displayName: 'Management API',
       },
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb3/cloud-dedicated/v2/ref.yml'),
+        path: path.join(API_DOCS_ROOT, 'influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml'),
         displayName: 'v2 Data API',
       },
     ],
@@ -976,7 +976,7 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'cloud-serverless': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/v2/ref.yml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
     description: 'InfluxDB Cloud Serverless',
     menuKey: 'influxdb3_cloud_serverless',
@@ -993,7 +993,7 @@ const productConfigs: ProductConfigMap = {
         displayName: 'Management API',
       },
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb3/clustered/v2/ref.yml'),
+        path: path.join(API_DOCS_ROOT, 'influxdb3/clustered/influxdb3-clustered-openapi.yaml'),
         displayName: 'v2 Data API',
       },
     ],
@@ -1007,7 +1007,7 @@ const productConfigs: ProductConfigMap = {
   // These have existing /tools/api/ pages with menu entries,
   // so we skip adding menu entries to the generated parent pages.
   'oss-v1': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb/v1/v1/ref.yml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb/v1/influxdb-oss-v1-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v1'),
     description: 'InfluxDB OSS v1',
     menuKey: 'influxdb_v1',
@@ -1015,7 +1015,7 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'enterprise-v1': {
-    specFile: path.join(API_DOCS_ROOT, 'enterprise_influxdb/v1/v1/ref.yml'),
+    specFile: path.join(API_DOCS_ROOT, 'enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/enterprise_influxdb/v1'),
     description: 'InfluxDB Enterprise v1',
     menuKey: 'enterprise_influxdb_v1',
@@ -1034,11 +1034,11 @@ const LINK_PATTERN = /\/influxdb\/version\//g;
  * Derive documentation root from spec file path.
  *
  * @example
- * 'api-docs/influxdb3/core/v3/ref.yml' → '/influxdb3/core'
- * 'api-docs/influxdb3/enterprise/v3/ref.yml' → '/influxdb3/enterprise'
+ * 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml' → '/influxdb3/core'
+ * 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml' → '/influxdb3/enterprise'
  * 'api-docs/influxdb/v2/v2/ref.yml' → '/influxdb/v2'
- * 'api-docs/influxdb/v1/v1/ref.yml' → '/influxdb/v1'
- * 'api-docs/enterprise_influxdb/v1/v1/ref.yml' → '/enterprise_influxdb/v1'
+ * 'api-docs/influxdb/v1/influxdb-oss-v1-openapi.yaml' → '/influxdb/v1'
+ * 'api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml' → '/enterprise_influxdb/v1'
  */
 function deriveProductPath(specPath: string): string {
   // Match: api-docs/(enterprise_influxdb|influxdb3|influxdb)/(product-or-version)/...

@@ -166,25 +166,25 @@ function updateCloudDedicatedManagement {
 }
 
 function updateCloudDedicatedV2 {
-  outFile="influxdb3/cloud-dedicated/v2/ref.yml"
+  outFile="influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' v2@2
+ postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' data@2
 }
 
 function updateCloudServerlessV2 {
-  outFile="influxdb3/cloud-serverless/v2/ref.yml"
+  outFile="influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
+  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' data@2
 }
 
 function updateClusteredManagement {
@@ -204,14 +204,14 @@ function updateClusteredManagement {
 }
 
 function updateClusteredV2 {
-  outFile="influxdb3/clustered/v2/ref.yml"
+  outFile="influxdb3/clustered/influxdb3-clustered-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
+ postProcess $outFile 'influxdb3/clustered/.config.yml' data@2
 }
 
 function updateCoreV3 {
@@ -274,13 +274,13 @@ function updateV1Compat {
 }
 
 function updateOSSV1 {
-  outFile="influxdb/v1/v1/ref.yml"
+  outFile="influxdb/v1/influxdb-oss-v1-openapi.yaml"
   echo "Processing $outFile with decorators"
   postProcess $outFile 'influxdb/v1/.config.yml' 'v1@1'
 }
 
 function updateEnterpriseV1 {
-  outFile="enterprise_influxdb/v1/v1/ref.yml"
+  outFile="enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml"
   echo "Processing $outFile with decorators"
   postProcess $outFile 'enterprise_influxdb/v1/.config.yml' 'v1@1'
 }
