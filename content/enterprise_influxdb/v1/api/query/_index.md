@@ -5,7 +5,8 @@ description: |-
   (SELECT, SHOW) and write queries (CREATE, DROP, ALTER, etc.).
 type: api
 layout: list
-staticFilePath: /openapi/influxdb-enterprise-v1/ref/tags/influxdb-enterprise-v1-ref-query.yaml
+staticFilePath: >-
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-query.yaml
 weight: 100
 tag: Query
 isConceptual: false
@@ -29,12 +30,4 @@ operations:
     summary: Query with Flux (v2 compatible)
     tags:
       - Query
-alt_links:
-  core: /influxdb3/core/api/
-  enterprise: /influxdb3/enterprise/api/
-  cloud-serverless: /influxdb3/cloud-serverless/api/
-  cloud-dedicated: /influxdb3/cloud-dedicated/api/
-  clustered: /influxdb3/clustered/api/
-  v2: /influxdb/v2/api/
-  cloud: /influxdb/cloud/api/
 ---

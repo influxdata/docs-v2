@@ -51,11 +51,21 @@ function generateHtml {
   local apiName=$(echo $api | sed 's/@.*//g;')
   # Extract the API version--for example, "v0" from "management@v0".
   local apiVersion=$(echo $api | sed 's/.*@//g;')
+  # Resolve info.yml: try spec directory first, fall back to product directory.
+  local specDir
+  specDir=$(dirname "$specPath")
+  local infoYml=""
+  if [ -f "$specDir/content/info.yml" ]; then
+    infoYml="$specDir/content/info.yml"
+  elif [ -f "$productVersion/content/info.yml" ]; then
+    infoYml="$productVersion/content/info.yml"
+  fi
+
   # Use the title and summary defined in the product API's info.yml file.
-  local title=$(yq '.title' $productVersion/$apiName/content/info.yml)
-  local menuTitle=$(yq '.x-influxdata-short-title' $productVersion/$apiName/content/info.yml)
+  local title=$(yq '.title' "$infoYml")
+  local menuTitle=$(yq '.x-influxdata-short-title' "$infoYml")
   # Get the shortened description to use for metadata.
-  local shortDescription=$(yq '.x-influxdata-short-description' $productVersion/$apiName/content/info.yml)
+  local shortDescription=$(yq '.x-influxdata-short-description' "$infoYml")
   # Get the aliases array from the configuration file.
   local aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
   # If aliases is null, set it to an empty YAML array. 
@@ -188,7 +198,13 @@ function build {
 
 build
 
-# Generate tag-based article data and content pages
+# Apply content overlays (info, servers) and tag configs to bundled specs
+echo "Post-processing specs..."
+cd ..
+node api-docs/scripts/dist/post-process-specs.js
+cd api-docs
+
+# Generate tag-based article data, content pages, and static spec downloads
 echo "Generating OpenAPI article data..."
 cd ..
 node api-docs/scripts/dist/generate-openapi-articles.js

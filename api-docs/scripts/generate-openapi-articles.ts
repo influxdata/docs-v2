@@ -917,7 +917,12 @@ const productConfigs: ProductConfigMap = {
   // These have existing /reference/api/ pages with menu entries,
   // so we skip adding menu entries to the generated parent pages.
   'cloud-v2': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb/cloud/v2/ref.yml'),
+    specFiles: [
+      {
+        path: path.join(API_DOCS_ROOT, 'influxdb/cloud/influxdb-cloud-v2-openapi.yaml'),
+        displayName: 'API',
+      },
+    ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/cloud'),
     description: 'InfluxDB Cloud (v2 API)',
     menuKey: 'influxdb_cloud',
@@ -925,7 +930,12 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'oss-v2': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb/v2/v2/ref.yml'),
+    specFiles: [
+      {
+        path: path.join(API_DOCS_ROOT, 'influxdb/v2/influxdb-oss-v2-openapi.yaml'),
+        displayName: 'API',
+      },
+    ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v2'),
     description: 'InfluxDB OSS v2',
     menuKey: 'influxdb_v2',
@@ -976,7 +986,12 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'cloud-serverless': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'),
+    specFiles: [
+      {
+        path: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'),
+        displayName: 'v2 Data API',
+      },
+    ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
     description: 'InfluxDB Cloud Serverless',
     menuKey: 'influxdb3_cloud_serverless',
@@ -1036,7 +1051,7 @@ const LINK_PATTERN = /\/influxdb\/version\//g;
  * @example
  * 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml' → '/influxdb3/core'
  * 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml' → '/influxdb3/enterprise'
- * 'api-docs/influxdb/v2/v2/ref.yml' → '/influxdb/v2'
+ * 'api-docs/influxdb/v2/influxdb-oss-v2-openapi.yaml' → '/influxdb/v2'
  * 'api-docs/influxdb/v1/influxdb-oss-v1-openapi.yaml' → '/influxdb/v1'
  * 'api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml' → '/enterprise_influxdb/v1'
  */
@@ -1202,10 +1217,19 @@ function processSpecFile(
     return null;
   }
 
-  // Generate filename from display name or use default
-  const specSlug = specConfig.displayName
-    ? slugifyDisplayName(specConfig.displayName)
-    : path.parse(specConfig.path).name;
+  // Generate filename from display name or use default.
+  // Strip staticDirName prefix from the spec filename to avoid doubled names
+  // (e.g., influxdb3-core + influxdb3-core-openapi → influxdb3-core-openapi).
+  let specSlug: string;
+  if (specConfig.displayName) {
+    specSlug = slugifyDisplayName(specConfig.displayName);
+  } else {
+    const rawName = path.parse(specConfig.path).name;
+    const prefix = `${staticDirName}-`;
+    specSlug = rawName.startsWith(prefix)
+      ? rawName.slice(prefix.length)
+      : rawName;
+  }
 
   const staticSpecPath = path.join(
     staticPath,

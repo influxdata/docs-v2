@@ -83,7 +83,10 @@ interface OpenApiSpec {
   info?: OpenApiInfo;
   servers?: OpenApiServer[];
   tags?: OpenApiTag[];
-  paths?: Record<string, Record<string, { tags?: string[]; [k: string]: unknown }>>;
+  paths?: Record<
+    string,
+    Record<string, { tags?: string[]; [k: string]: unknown }>
+  >;
   [key: string]: unknown;
 }
 
@@ -148,7 +151,7 @@ function log(msg: string): void {
 function resolveContentFile(
   filename: string,
   specDir: string,
-  productAbsDir: string,
+  productAbsDir: string
 ): string | null {
   // API-specific: {specDir}/content/{filename}
   const apiSpecific = path.join(specDir, 'content', filename);
@@ -171,7 +174,7 @@ function applyInfoOverlay(
   spec: OpenApiSpec,
   specDir: string,
   productAbsDir: string,
-  label: string,
+  label: string
 ): boolean {
   const infoPath = resolveContentFile('info.yml', specDir, productAbsDir);
   if (!infoPath) return false;
@@ -188,7 +191,9 @@ function applyInfoOverlay(
   }
 
   if (applied > 0) {
-    log(`${label}: applied ${applied} info field(s) from ${path.relative(productAbsDir, infoPath)}`);
+    log(
+      `${label}: applied ${applied} info field(s) from ${path.relative(productAbsDir, infoPath)}`
+    );
   }
   return applied > 0;
 }
@@ -202,7 +207,7 @@ function applyServersOverlay(
   spec: OpenApiSpec,
   specDir: string,
   productAbsDir: string,
-  label: string,
+  label: string
 ): boolean {
   const serversPath = resolveContentFile('servers.yml', specDir, productAbsDir);
   if (!serversPath) return false;
@@ -211,7 +216,9 @@ function applyServersOverlay(
   if (!servers || !Array.isArray(servers)) return false;
 
   spec.servers = servers;
-  log(`${label}: applied ${servers.length} server(s) from ${path.relative(productAbsDir, serversPath)}`);
+  log(
+    `${label}: applied ${servers.length} server(s) from ${path.relative(productAbsDir, serversPath)}`
+  );
   return true;
 }
 
@@ -226,7 +233,11 @@ function collectOperationTags(spec: OpenApiSpec): Set<string> {
   const found = new Set<string>();
   for (const pathItem of Object.values(spec.paths ?? {})) {
     for (const operation of Object.values(pathItem)) {
-      if (operation && typeof operation === 'object' && Array.isArray(operation.tags)) {
+      if (
+        operation &&
+        typeof operation === 'object' &&
+        Array.isArray(operation.tags)
+      ) {
         for (const t of operation.tags) found.add(t as string);
       }
     }
@@ -243,8 +254,14 @@ function renameTag(spec: OpenApiSpec, oldName: string, newName: string): void {
   }
   for (const pathItem of Object.values(spec.paths ?? {})) {
     for (const operation of Object.values(pathItem)) {
-      if (operation && typeof operation === 'object' && Array.isArray(operation.tags)) {
-        operation.tags = operation.tags.map((t: string) => (t === oldName ? newName : t));
+      if (
+        operation &&
+        typeof operation === 'object' &&
+        Array.isArray(operation.tags)
+      ) {
+        operation.tags = operation.tags.map((t: string) =>
+          t === oldName ? newName : t
+        );
       }
     }
   }
@@ -258,7 +275,7 @@ function renameTag(spec: OpenApiSpec, oldName: string, newName: string): void {
 function applyTagConfig(
   spec: OpenApiSpec,
   tagConfigPath: string,
-  label: string,
+  label: string
 ): boolean {
   const tagsCfg = loadYaml<TagsYml>(tagConfigPath);
   if (!tagsCfg || !tagsCfg.tags) {
@@ -303,7 +320,8 @@ function applyTagConfig(
       spec.tags!.push(tagObj);
     }
 
-    if (cfg.description !== undefined) tagObj.description = cfg.description.trim();
+    if (cfg.description !== undefined)
+      tagObj.description = cfg.description.trim();
     if (cfg['x-related'] !== undefined) tagObj['x-related'] = cfg['x-related'];
   }
 
@@ -349,8 +367,10 @@ function processProduct(apiDocsRoot: string, productDir: string): void {
 
     // Apply all transforms
     let modified = false;
-    modified = applyInfoOverlay(spec, specDir, productAbsDir, label) || modified;
-    modified = applyServersOverlay(spec, specDir, productAbsDir, label) || modified;
+    modified =
+      applyInfoOverlay(spec, specDir, productAbsDir, label) || modified;
+    modified =
+      applyServersOverlay(spec, specDir, productAbsDir, label) || modified;
 
     const tagConfigPath = path.join(specDir, 'tags.yml');
     if (fs.existsSync(tagConfigPath)) {

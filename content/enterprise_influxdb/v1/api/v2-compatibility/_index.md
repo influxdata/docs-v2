@@ -11,7 +11,7 @@ description: |-
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/ref/tags/influxdb-enterprise-v1-ref-v2-compatibility.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-v2-compatibility.yaml
 weight: 100
 tag: v2 Compatibility
 isConceptual: false
@@ -59,12 +59,4 @@ operations:
     summary: Delete data (v2 compatible)
     tags:
       - v2 Compatibility
-alt_links:
-  core: /influxdb3/core/api/
-  enterprise: /influxdb3/enterprise/api/
-  cloud-serverless: /influxdb3/cloud-serverless/api/
-  cloud-dedicated: /influxdb3/cloud-dedicated/api/
-  clustered: /influxdb3/clustered/api/
-  v2: /influxdb/v2/api/
-  cloud: /influxdb/cloud/api/
 ---

@@ -3,7 +3,7 @@
 # Use this script to retrieve the following InfluxData API specifications:
 # - the latest, fully resolved openapi (OAS, OpenAPI Specification) contract files from the influxdata/openapi repo
 #
-# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, v1-compatibility, all).
+# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -62,7 +62,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|oss-v1|enterprise-v1|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|oss-v1|enterprise-v1|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -139,7 +139,7 @@ function postProcess() {
 }
 
  function updateCloudV2 {
-  outFile="influxdb/cloud/v2/ref.yml"
+  outFile="influxdb/cloud/influxdb-cloud-v2-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -241,7 +241,7 @@ function updateEnterpriseV3 {
 }
 
 function updateOSSV2 {
-  outFile="influxdb/v2/v2/ref.yml"
+  outFile="influxdb/v2/influxdb-oss-v2-openapi.yaml"
   if [[ -z "$baseUrlOSS" ]];
   then
     echo "Using existing $outFile"
@@ -249,30 +249,6 @@ function updateOSSV2 {
     curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
   fi
   postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
-}
-
-function updateV1Compat {
-  outFile="influxdb/cloud/v1-compatibility/swaggerV1Compat.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp influxdb/cloud/v1-compatibility/swaggerV1Compat.yml $outFile
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/clustered/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/clustered/.config.yml' 'v1-compatibility'
 }
 
 function updateOSSV1 {
@@ -323,9 +299,6 @@ then
 elif [ "$product" = "v2" ];
 then
   updateOSSV2
-elif [ "$product" = "v1-compat" ];
-then
-  updateV1Compat
 elif [ "$product" = "oss-v1" ];
 then
   updateOSSV1
@@ -344,8 +317,7 @@ then
   updateOSSV2
   updateOSSV1
   updateEnterpriseV1
-  updateV1Compat
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, oss-v1, enterprise-v1, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, oss-v1, enterprise-v1, or all."
   showHelp
 fi

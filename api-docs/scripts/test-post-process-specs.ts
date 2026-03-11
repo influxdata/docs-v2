@@ -39,14 +39,17 @@ interface OpenApiSpec {
   info: { title: string; version: string; [k: string]: unknown };
   servers?: Array<{ url: string; [k: string]: unknown }>;
   tags?: OpenApiTag[];
-  paths?: Record<string, Record<string, { tags?: string[]; [k: string]: unknown }>>;
+  paths?: Record<
+    string,
+    Record<string, { tags?: string[]; [k: string]: unknown }>
+  >;
   [key: string]: unknown;
 }
 
 function makeSpec(
   tags: OpenApiTag[],
   operationTags: string[],
-  overrides?: Partial<OpenApiSpec>,
+  overrides?: Partial<OpenApiSpec>
 ): OpenApiSpec {
   return {
     openapi: '3.0.0',
@@ -65,7 +68,12 @@ function makeSpec(
   };
 }
 
-function createTmpRoot(): { root: string; productDir: string; specDir: string; specPath: string } {
+function createTmpRoot(): {
+  root: string;
+  productDir: string;
+  specDir: string;
+  specPath: string;
+} {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'post-process-test-'));
   const productDir = path.join(root, 'influxdb3', 'core');
   const specDir = path.join(productDir, 'v3');
@@ -188,15 +196,25 @@ function testTagRename(): void {
 
     const spec = readYaml<OpenApiSpec>(specPath);
     const oldTag = spec.tags?.find((t) => t.name === 'Cache data');
-    assert('2b. old tag name gone from tags[]', !oldTag, 'old tag still present in tags[]');
+    assert(
+      '2b. old tag name gone from tags[]',
+      !oldTag,
+      'old tag still present in tags[]'
+    );
 
     const newTag = spec.tags?.find((t) => t.name === 'Cache distinct values');
-    assert('2c. new tag name in tags[]', !!newTag, 'renamed tag not found in tags[]');
+    assert(
+      '2c. new tag name in tags[]',
+      !!newTag,
+      'renamed tag not found in tags[]'
+    );
 
-    const opTags = (spec.paths?.['/test']?.['get'] as { tags?: string[] })?.tags ?? [];
+    const opTags =
+      (spec.paths?.['/test']?.['get'] as { tags?: string[] })?.tags ?? [];
     assert(
       '2d. operation.tags[] updated',
-      opTags.includes('Cache distinct values') && !opTags.includes('Cache data'),
+      opTags.includes('Cache distinct values') &&
+        !opTags.includes('Cache data'),
       `operation tags: ${JSON.stringify(opTags)}`
     );
   } finally {
@@ -212,7 +230,9 @@ function testXRelated(): void {
       tags: {
         'Write data': {
           description: 'Write data.',
-          'x-related': [{ title: 'Write data guide', href: '/influxdb3/core/write-data/' }],
+          'x-related': [
+            { title: 'Write data guide', href: '/influxdb3/core/write-data/' },
+          ],
         },
       },
     });
@@ -222,11 +242,18 @@ function testXRelated(): void {
 
     const spec = readYaml<OpenApiSpec>(specPath);
     const tag = spec.tags?.find((t) => t.name === 'Write data');
-    const related = tag?.['x-related'] as Array<{ title: string; href: string }> | undefined;
-    assert('3b. x-related present', Array.isArray(related) && related.length === 1, `x-related: ${JSON.stringify(related)}`);
+    const related = tag?.['x-related'] as
+      | Array<{ title: string; href: string }>
+      | undefined;
+    assert(
+      '3b. x-related present',
+      Array.isArray(related) && related.length === 1,
+      `x-related: ${JSON.stringify(related)}`
+    );
     assert(
       '3c. x-related entry correct',
-      related?.[0]?.title === 'Write data guide' && related?.[0]?.href === '/influxdb3/core/write-data/',
+      related?.[0]?.title === 'Write data guide' &&
+        related?.[0]?.href === '/influxdb3/core/write-data/',
       `entry: ${JSON.stringify(related?.[0])}`
     );
   } finally {
@@ -246,7 +273,11 @@ function testStaleConfigWarning(): void {
     });
 
     const { stderr, exitCode } = runScript(root, 'influxdb3/core');
-    assert('4a. exits 0 (warnings are not errors)', exitCode === 0, `exit code was ${exitCode}`);
+    assert(
+      '4a. exits 0 (warnings are not errors)',
+      exitCode === 0,
+      `exit code was ${exitCode}`
+    );
     assert(
       '4b. stale config warning emitted',
       stderr.includes("config tag 'Ghost tag' not found in spec operations"),
@@ -262,7 +293,10 @@ function testUncoveredTagWarning(): void {
   try {
     writeYaml(
       specPath,
-      makeSpec([{ name: 'Write data' }, { name: 'Query data' }], ['Write data', 'Query data'])
+      makeSpec(
+        [{ name: 'Write data' }, { name: 'Query data' }],
+        ['Write data', 'Query data']
+      )
     );
     writeYaml(path.join(specDir, 'tags.yml'), {
       tags: {
@@ -271,7 +305,11 @@ function testUncoveredTagWarning(): void {
     });
 
     const { stderr, exitCode } = runScript(root, 'influxdb3/core');
-    assert('5a. exits 0 (warnings are not errors)', exitCode === 0, `exit code was ${exitCode}`);
+    assert(
+      '5a. exits 0 (warnings are not errors)',
+      exitCode === 0,
+      `exit code was ${exitCode}`
+    );
     assert(
       '5b. uncovered tag warning emitted',
       stderr.includes("spec tag 'Query data' has no config entry in tags.yml"),
@@ -310,7 +348,11 @@ function testMalformedYamlFails(): void {
     );
 
     const { exitCode } = runScript(root, 'influxdb3/core');
-    assert('7a. exits 1 on malformed YAML', exitCode === 1, `exit code was ${exitCode}`);
+    assert(
+      '7a. exits 1 on malformed YAML',
+      exitCode === 1,
+      `exit code was ${exitCode}`
+    );
   } finally {
     cleanup(root);
   }
@@ -324,9 +366,12 @@ function testMalformedYamlFails(): void {
 function testInfoOverlay(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    writeYaml(specPath, makeSpec([], [], {
-      info: { title: 'Original Title', version: '0.0.0' },
-    }));
+    writeYaml(
+      specPath,
+      makeSpec([], [], {
+        info: { title: 'Original Title', version: '0.0.0' },
+      })
+    );
 
     // Create API-specific content/info.yml
     const contentDir = path.join(specDir, 'content');
@@ -341,11 +386,20 @@ function testInfoOverlay(): void {
     assert('8a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-    assert('8b. title overridden', spec.info.title === 'Overridden Title', `title: ${spec.info.title}`);
-    assert('8c. version overridden', spec.info.version === '2.0.0', `version: ${spec.info.version}`);
+    assert(
+      '8b. title overridden',
+      spec.info.title === 'Overridden Title',
+      `title: ${spec.info.title}`
+    );
+    assert(
+      '8c. version overridden',
+      spec.info.version === '2.0.0',
+      `version: ${spec.info.version}`
+    );
     assert(
       '8d. x-influxdata-short-title applied',
-      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'Short',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] ===
+        'Short',
       `x-influxdata-short-title: ${(spec.info as Record<string, unknown>)['x-influxdata-short-title']}`
     );
   } finally {
@@ -357,9 +411,12 @@ function testInfoOverlay(): void {
 function testInfoOverlayProductFallback(): void {
   const { root, productDir, specPath } = createTmpRoot();
   try {
-    writeYaml(specPath, makeSpec([], [], {
-      info: { title: 'Original', version: '1.0.0' },
-    }));
+    writeYaml(
+      specPath,
+      makeSpec([], [], {
+        info: { title: 'Original', version: '1.0.0' },
+      })
+    );
 
     // Create product-level content/info.yml (NOT in specDir/content/)
     const contentDir = path.join(productDir, 'content');
@@ -372,8 +429,16 @@ function testInfoOverlayProductFallback(): void {
     assert('9a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-    assert('9b. title from product-level', spec.info.title === 'Product-Level Title', `title: ${spec.info.title}`);
-    assert('9c. version preserved', spec.info.version === '1.0.0', `version: ${spec.info.version}`);
+    assert(
+      '9b. title from product-level',
+      spec.info.title === 'Product-Level Title',
+      `title: ${spec.info.title}`
+    );
+    assert(
+      '9c. version preserved',
+      spec.info.version === '1.0.0',
+      `version: ${spec.info.version}`
+    );
   } finally {
     cleanup(root);
   }
@@ -383,9 +448,12 @@ function testInfoOverlayProductFallback(): void {
 function testServersOverlay(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    writeYaml(specPath, makeSpec([], [], {
-      servers: [{ url: 'https://old.example.com' }],
-    }));
+    writeYaml(
+      specPath,
+      makeSpec([], [], {
+        servers: [{ url: 'https://old.example.com' }],
+      })
+    );
 
     const contentDir = path.join(specDir, 'content');
     fs.mkdirSync(contentDir, { recursive: true });
@@ -407,7 +475,11 @@ function testServersOverlay(): void {
     assert('10a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-    assert('10b. servers replaced', spec.servers?.length === 1, `server count: ${spec.servers?.length}`);
+    assert(
+      '10b. servers replaced',
+      spec.servers?.length === 1,
+      `server count: ${spec.servers?.length}`
+    );
     assert(
       '10c. server URL correct',
       spec.servers?.[0]?.url === 'https://{baseurl}',
@@ -427,14 +499,17 @@ function testServersOverlay(): void {
 function testInfoOverlayPreservesFields(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    writeYaml(specPath, makeSpec([], [], {
-      info: {
-        title: 'Original Title',
-        version: '3.0.0',
-        description: 'Original description.',
-        license: { name: 'MIT', url: 'https://opensource.org/licenses/MIT' },
-      },
-    }));
+    writeYaml(
+      specPath,
+      makeSpec([], [], {
+        info: {
+          title: 'Original Title',
+          version: '3.0.0',
+          description: 'Original description.',
+          license: { name: 'MIT', url: 'https://opensource.org/licenses/MIT' },
+        },
+      })
+    );
 
     const contentDir = path.join(specDir, 'content');
     fs.mkdirSync(contentDir, { recursive: true });
@@ -447,12 +522,25 @@ function testInfoOverlayPreservesFields(): void {
     assert('11a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-    assert('11b. title preserved', spec.info.title === 'Original Title', `title: ${spec.info.title}`);
-    assert('11c. version preserved', spec.info.version === '3.0.0', `version: ${spec.info.version}`);
-    assert('11d. description preserved', spec.info.description === 'Original description.', `desc: ${spec.info.description}`);
+    assert(
+      '11b. title preserved',
+      spec.info.title === 'Original Title',
+      `title: ${spec.info.title}`
+    );
+    assert(
+      '11c. version preserved',
+      spec.info.version === '3.0.0',
+      `version: ${spec.info.version}`
+    );
+    assert(
+      '11d. description preserved',
+      spec.info.description === 'Original description.',
+      `desc: ${spec.info.description}`
+    );
     assert(
       '11e. x-influxdata-short-title added',
-      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'InfluxDB 3 API',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] ===
+        'InfluxDB 3 API',
       'x-influxdata-short-title missing'
     );
   } finally {
@@ -470,11 +558,17 @@ function testNoOverlaysNoWrite(): void {
 
     // Small delay to detect mtime changes
     const start = Date.now();
-    while (Date.now() - start < 50) { /* busy wait */ }
+    while (Date.now() - start < 50) {
+      /* busy wait */
+    }
 
     const { exitCode, stderr } = runScript(root, 'influxdb3/core');
     assert('12a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
-    assert('12b. no write message', !stderr.includes('wrote'), `unexpected write: ${stderr}`);
+    assert(
+      '12b. no write message',
+      !stderr.includes('wrote'),
+      `unexpected write: ${stderr}`
+    );
   } finally {
     cleanup(root);
   }
@@ -484,14 +578,13 @@ function testNoOverlaysNoWrite(): void {
 function testCombinedOverlaysAndTags(): void {
   const { root, specDir, specPath } = createTmpRoot();
   try {
-    writeYaml(specPath, makeSpec(
-      [{ name: 'Write data' }],
-      ['Write data'],
-      {
+    writeYaml(
+      specPath,
+      makeSpec([{ name: 'Write data' }], ['Write data'], {
         info: { title: 'Original', version: '1.0.0' },
         servers: [{ url: 'https://old.example.com' }],
-      },
-    ));
+      })
+    );
 
     const contentDir = path.join(specDir, 'content');
     fs.mkdirSync(contentDir, { recursive: true });
@@ -515,17 +608,34 @@ function testCombinedOverlaysAndTags(): void {
     assert('13a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
     const spec = readYaml<OpenApiSpec>(specPath);
-    assert('13b. info title updated', spec.info.title === 'New Title', `title: ${spec.info.title}`);
-    assert('13c. info version preserved', spec.info.version === '1.0.0', `version: ${spec.info.version}`);
+    assert(
+      '13b. info title updated',
+      spec.info.title === 'New Title',
+      `title: ${spec.info.title}`
+    );
+    assert(
+      '13c. info version preserved',
+      spec.info.version === '1.0.0',
+      `version: ${spec.info.version}`
+    );
     assert(
       '13d. x-influxdata-short-title set',
-      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] === 'Short',
+      (spec.info as Record<string, unknown>)['x-influxdata-short-title'] ===
+        'Short',
       'missing'
     );
-    assert('13e. servers replaced', spec.servers?.[0]?.url === 'https://new.example.com', `url: ${spec.servers?.[0]?.url}`);
+    assert(
+      '13e. servers replaced',
+      spec.servers?.[0]?.url === 'https://new.example.com',
+      `url: ${spec.servers?.[0]?.url}`
+    );
 
     const tag = spec.tags?.find((t) => t.name === 'Write data');
-    assert('13f. tag description set', tag?.description === 'Write line protocol data.', `desc: ${tag?.description}`);
+    assert(
+      '13f. tag description set',
+      tag?.description === 'Write line protocol data.',
+      `desc: ${tag?.description}`
+    );
     assert(
       '13g. tag x-related set',
       Array.isArray(tag?.['x-related']) && tag['x-related'].length === 1,
@@ -553,7 +663,10 @@ const tests: Array<[string, () => void]> = [
   ['8. Info overlay — API-specific', testInfoOverlay],
   ['9. Info overlay — product-level fallback', testInfoOverlayProductFallback],
   ['10. Servers overlay', testServersOverlay],
-  ['11. Info overlay preserves fields not in overlay', testInfoOverlayPreservesFields],
+  [
+    '11. Info overlay preserves fields not in overlay',
+    testInfoOverlayPreservesFields,
+  ],
   ['12. No overlays or tags — no write', testNoOverlaysNoWrite],
   ['13. Combined: info + servers + tags', testCombinedOverlaysAndTags],
 ];

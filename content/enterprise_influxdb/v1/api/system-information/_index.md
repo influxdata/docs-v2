@@ -4,7 +4,7 @@ description: Endpoints for checking server status, health, and version informati
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/ref/tags/influxdb-enterprise-v1-ref-system-information.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-system-information.yaml
 weight: 100
 tag: System Information
 isConceptual: false
@@ -28,12 +28,4 @@ operations:
     summary: Check server health
     tags:
       - System Information
-alt_links:
-  core: /influxdb3/core/api/
-  enterprise: /influxdb3/enterprise/api/
-  cloud-serverless: /influxdb3/cloud-serverless/api/
-  cloud-dedicated: /influxdb3/cloud-dedicated/api/
-  clustered: /influxdb3/clustered/api/
-  v2: /influxdb/v2/api/
-  cloud: /influxdb/cloud/api/
 ---
