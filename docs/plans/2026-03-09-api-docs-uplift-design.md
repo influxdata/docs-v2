@@ -1,10 +1,10 @@
 # API Docs Uplift — Branch Extraction and Tag Cleanup
 
-**Status:** Implementation in progress — pending commit, push, and PR.
+**Status:** Implementation complete — pushed to `origin/api-docs-uplift`, pending PR.
 
 ## Goal
 
-Extract all `api-docs/` changes from `feat-api-uplift` into a standalone PR (`api-docs-uplift`) that ships independently to master. Clean up tag structures, add descriptions and `x-related` links, remove dead `x-tagGroups` infrastructure, relabel v2-compat spec directories, introduce a unified spec post-processor, and migrate inline spec links to `tags.yml`.
+Extract all `api-docs/` changes from `feat-api-uplift` into a standalone PR (`api-docs-uplift`) that ships independently to master. Clean up tag structures, add descriptions and `x-related` links, remove dead `x-tagGroups` infrastructure, flatten all version subdirectories to a uniform layout, remove redundant v1-compatibility specs, introduce a unified spec post-processor, and migrate inline spec links to `tags.yml`.
 
 ***
 
@@ -26,6 +26,9 @@ Extract all `api-docs/` changes from `feat-api-uplift` into a standalone PR (`ap
 12. ✅ Fix `generate-api-docs.sh` info.yml resolution for flattened directories
 13. ✅ Wire `post-process-specs.ts` into `generate-api-docs.sh` pipeline
 14. ✅ Fix doubled `static/openapi/` download filenames
+15. ✅ Unify v2 APIs: flatten `influxdb/cloud/v2/` and `influxdb/v2/v2/` to product root
+16. ✅ Remove all v1-compatibility specs and directories (5 products)
+17. ✅ Flatten v3 directories for Core and Enterprise
 
 **Out of scope (deferred):**
 
@@ -60,65 +63,72 @@ feat-api-uplift ─── merge master ─── merge #6907│
 7. ✅ Flatten version subdirectories for v2-compat and v1 — commit `abc789013`
 8. ✅ Fix docs-tooling spec passthrough for Core/Enterprise — commit `58b706deb`
 9. ✅ Replace tag-only processor with unified post-process-specs — commit `c7f9353d0`
-10. 🔲 Migrate management spec links, fix build pipeline, fix download names — pending commit
-11. 🔲 Push to `origin/api-docs-uplift`
-12. 🔲 Open PR, merge to master
-13. 🔲 Rebase `feat-api-uplift` onto updated master
+10. ✅ Migrate management spec links, unify v2 APIs, remove v1-compat specs, fix build pipeline, fix download names — commit `24c1e60f2`
+11. ✅ Merge `origin/master` into `api-docs-uplift` — commit `160b308af`
+12. ✅ Flatten v3 directories for Core and Enterprise — pending commit
+13. ✅ Push to `origin/api-docs-uplift`
+14. 🔲 Open PR, merge to master
+15. 🔲 Rebase `feat-api-uplift` onto updated master
 
 ***
 
-## Directory Relabeling
+## Directory Flattening
 
-Drop redundant version subdirectories and use self-documenting filenames. Applies to v2-compat influxdb3 products and v1 products.
+Drop all redundant version subdirectories. Every product now stores its spec, `tags.yml`, and `content/` at the product root with a self-documenting filename. This applies to all product categories.
 
-### v2-compat influxdb3 products
-
-These products store specs under a `v2/` subdirectory. They have a single data API — the version directory is misleading and implies parity with the full InfluxDB v2 API.
-
-#### Before
+### Final layout (all products)
 
 ```
-api-docs/influxdb3/cloud-dedicated/v2/ref.yml
-api-docs/influxdb3/cloud-serverless/v2/ref.yml
-api-docs/influxdb3/clustered/v2/ref.yml
-```
-
-#### After
-
-```
+api-docs/influxdb3/core/influxdb3-core-openapi.yaml
+api-docs/influxdb3/enterprise/influxdb3-enterprise-openapi.yaml
 api-docs/influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml
+api-docs/influxdb3/cloud-dedicated/management/openapi.yml
 api-docs/influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml
 api-docs/influxdb3/clustered/influxdb3-clustered-openapi.yaml
-```
-
-### v1 products
-
-Same redundancy: `influxdb/v1/v1/ref.yml` — the inner `v1/` adds nothing. The v1 API surface is small (~14 endpoints) and the v2-compat endpoints are a natural subset already tagged `v2 Compatibility`. Single spec, flattened directory.
-
-#### Before
-
-```
-api-docs/influxdb/v1/v1/ref.yml
-api-docs/enterprise_influxdb/v1/v1/ref.yml
-```
-
-#### After
-
-```
+api-docs/influxdb3/clustered/management/openapi.yml
+api-docs/influxdb/cloud/influxdb-cloud-v2-openapi.yaml
+api-docs/influxdb/v2/influxdb-oss-v2-openapi.yaml
 api-docs/influxdb/v1/influxdb-oss-v1-openapi.yaml
 api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml
 ```
 
-### Files to update per product
+### Directories removed
+
+| Old path | Reason |
+| --- | --- |
+| `influxdb3/core/v3/` | Single API — `v3/` nesting is redundant |
+| `influxdb3/enterprise/v3/` | Same |
+| `influxdb3/cloud-dedicated/v2/` | Single data API — `v2/` implies parity with full v2 API |
+| `influxdb3/cloud-serverless/v2/` | Same |
+| `influxdb3/clustered/v2/` | Same |
+| `influxdb/cloud/v2/` | Single API — flattened to product root |
+| `influxdb/v2/v2/` | Same (`v2/v2/` was doubly nested) |
+| `influxdb/v1/v1/` | Same (`v1/v1/`) |
+| `enterprise_influxdb/v1/v1/` | Same |
+
+### v1-compatibility removal
+
+All 5 `v1-compatibility/` directories were deleted. The v1-compatible endpoints (query, write, auth) are already included in the main spec for each product, tagged as "v1 Compatibility" or similar. Separate specs were redundant.
+
+| Deleted directory | Product |
+| --- | --- |
+| `influxdb/cloud/v1-compatibility/` | Cloud v2 |
+| `influxdb/v2/v1-compatibility/` | OSS v2 |
+| `influxdb3/cloud-dedicated/v1-compatibility/` | Cloud Dedicated |
+| `influxdb3/cloud-serverless/v1-compatibility/` | Cloud Serverless |
+| `influxdb3/clustered/v1-compatibility/` | Clustered |
+
+Old v1-compatibility URLs are preserved as Hugo aliases in each product's `.config.yml`.
+
+### Files updated per product
 
 | File | Change |
 | --- | --- |
-| `{product}/.config.yml` | Update `apis` key and `root:` path |
-| `{product}/` | Move spec + content + tags.yml, delete empty version subdirectory |
-| `api-docs/getswagger.sh` | Update `outFile` path in fetch functions |
-| `api-docs/generate-api-docs.sh` | Fix info.yml resolution for flattened paths |
+| `{product}/.config.yml` | Update `root:` path, remove v1-compat API entries, add alias redirects |
+| `api-docs/getswagger.sh` | Update `outFile` paths, remove `updateV1Compat` function |
+| `api-docs/scripts/generate-openapi-articles.ts` | Update spec paths |
 
-Management API specs (`management/openapi.yml`) already use this pattern and need no changes.
+Management API specs (`management/openapi.yml`) already used this pattern and needed no changes.
 
 ***
 
@@ -204,7 +214,7 @@ tags:
 ### Discovery convention
 
 ```
-api-docs/influxdb3/core/v3/
+api-docs/influxdb3/core/
 ├── influxdb3-core-openapi.yaml   # spec file
 ├── tags.yml                       # tag config
 └── content/
@@ -325,16 +335,16 @@ fi
 
 ## Products to Adapt
 
-### v3 native (tags already done, extract to `tags.yml`)
+### v3 native (tags done)
 
-| Product | Spec | Work |
+| Product | Spec | Status |
 | --- | --- | --- |
-| Core | `influxdb3/core/v3/influxdb3-core-openapi.yaml` | Extract existing tags to `tags.yml` |
-| Enterprise | `influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml` | Extract existing tags to `tags.yml` |
+| Core | `influxdb3/core/influxdb3-core-openapi.yaml` | ✅ Tags, descriptions, `x-related` in `tags.yml` |
+| Enterprise | `influxdb3/enterprise/influxdb3-enterprise-openapi.yaml` | ✅ Tags, descriptions, `x-related` in `tags.yml` |
 
-### v2-compat (need tag review + descriptions + `x-related`)
+### v2-compat
 
-| Product | Spec (after relabel) | Work |
+| Product | Spec | Status |
 | --- | --- | --- |
 | Cloud Dedicated (data) | `influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml` | Review tags, add descriptions, add `x-related` |
 | Cloud Dedicated (mgmt) | `influxdb3/cloud-dedicated/management/openapi.yml` | ✅ Tags, descriptions, `x-related`, inline link migration |
@@ -344,14 +354,14 @@ fi
 
 ### v2 full
 
-| Product | Spec | Work |
+| Product | Spec | Status |
 | --- | --- | --- |
-| Cloud v2 | `influxdb/cloud/v2/ref.yml` | Review tags, add descriptions |
-| OSS v2 | `influxdb/v2/v2/ref.yml` | Review tags, add descriptions |
+| Cloud v2 | `influxdb/cloud/influxdb-cloud-v2-openapi.yaml` | Review tags, add descriptions |
+| OSS v2 | `influxdb/v2/influxdb-oss-v2-openapi.yaml` | Review tags, add descriptions |
 
 ### v1
 
-| Product | Spec | Work |
+| Product | Spec | Status |
 | --- | --- | --- |
 | OSS v1 | `influxdb/v1/influxdb-oss-v1-openapi.yaml` | Review tags, add descriptions |
 | Enterprise v1 | `enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml` | Review tags, add descriptions |
@@ -366,15 +376,15 @@ fi
 | --- | --- |
 | `api-docs/scripts/post-process-specs.ts` | Unified spec post-processor (info, servers, tags) |
 | `api-docs/scripts/test-post-process-specs.ts` | 13 tests, 41 assertions |
-| `api-docs/influxdb3/core/v3/tags.yml` | Core tag config |
-| `api-docs/influxdb3/enterprise/v3/tags.yml` | Enterprise tag config |
+| `api-docs/influxdb3/core/tags.yml` | Core tag config |
+| `api-docs/influxdb3/enterprise/tags.yml` | Enterprise tag config |
 | `api-docs/influxdb3/cloud-dedicated/tags.yml` | Cloud Dedicated data API tag config |
 | `api-docs/influxdb3/cloud-dedicated/management/tags.yml` | Cloud Dedicated management tag config |
 | `api-docs/influxdb3/cloud-serverless/tags.yml` | Cloud Serverless tag config |
 | `api-docs/influxdb3/clustered/tags.yml` | Clustered data API tag config |
 | `api-docs/influxdb3/clustered/management/tags.yml` | Clustered management tag config |
-| `api-docs/influxdb/cloud/v2/tags.yml` | Cloud v2 tag config |
-| `api-docs/influxdb/v2/v2/tags.yml` | OSS v2 tag config |
+| `api-docs/influxdb/cloud/tags.yml` | Cloud v2 tag config |
+| `api-docs/influxdb/v2/tags.yml` | OSS v2 tag config |
 | `api-docs/influxdb/v1/tags.yml` | OSS v1 tag config |
 | `api-docs/enterprise_influxdb/v1/tags.yml` | Enterprise v1 tag config |
 
@@ -383,7 +393,11 @@ fi
 | File | Change |
 | --- | --- |
 | `api-docs/generate-api-docs.sh` | Fix info.yml resolution; wire post-process-specs.ts into pipeline |
-| `api-docs/getswagger.sh` | Update `outFile` paths; skip Redocly for management specs |
+| `api-docs/getswagger.sh` | Update `outFile` paths; skip Redocly for management specs; remove `updateV1Compat` |
+| `api-docs/influxdb/cloud/.config.yml` | Flatten `root:` path, remove v1-compat API entry, add alias redirects |
+| `api-docs/influxdb/v2/.config.yml` | Flatten `root:` path |
+| `api-docs/influxdb3/core/.config.yml` | Flatten `root:` path |
+| `api-docs/influxdb3/enterprise/.config.yml` | Flatten `root:` path |
 | `api-docs/openapi/plugins/docs-plugin.cjs` | Remove `set-tag-groups` decorator |
 | `api-docs/influxdb3/cloud-dedicated/.config.yml` | Update API key, spec root path, restore `management@0` |
 | `api-docs/influxdb3/cloud-serverless/.config.yml` | Update API key and spec root path |
@@ -402,11 +416,16 @@ fi
 | `api-docs/scripts/test-apply-tag-config.ts` | Replaced by `test-post-process-specs.ts` |
 | `api-docs/openapi/plugins/decorators/tags/set-tag-groups.cjs` | Dead — `x-tagGroups` removed |
 | 10 `content/tag-groups.yml` files | Dead configs |
-| `api-docs/influxdb3/cloud-dedicated/v2/` | Replaced by relabeled spec at product root |
-| `api-docs/influxdb3/cloud-serverless/v2/` | Replaced by relabeled spec at product root |
-| `api-docs/influxdb3/clustered/v2/` | Replaced by relabeled spec at product root |
-| `api-docs/influxdb/v1/v1/` | Replaced by relabeled spec at product root |
-| `api-docs/enterprise_influxdb/v1/v1/` | Replaced by relabeled spec at product root |
+| `api-docs/influxdb3/core/v3/` | Flattened to product root |
+| `api-docs/influxdb3/enterprise/v3/` | Flattened to product root |
+| `api-docs/influxdb3/cloud-dedicated/v2/` | Flattened to product root |
+| `api-docs/influxdb3/cloud-serverless/v2/` | Flattened to product root |
+| `api-docs/influxdb3/clustered/v2/` | Flattened to product root |
+| `api-docs/influxdb/cloud/v2/` | Flattened to product root |
+| `api-docs/influxdb/v2/v2/` | Flattened to product root |
+| `api-docs/influxdb/v1/v1/` | Flattened to product root |
+| `api-docs/enterprise_influxdb/v1/v1/` | Flattened to product root |
+| 5 `v1-compatibility/` directories | Redundant — endpoints already in main spec |
 
 ***
 
@@ -417,11 +436,12 @@ fi
 3. Spot-check generated tag pages for each product — tag names, descriptions, and `x-related` links render
 4. Verify `x-tagGroups` is absent from all specs: `grep -r 'x-tagGroups' api-docs/ --include='*.yml' --include='*.yaml'`
 5. Verify no stale `tag-groups.yml` files: `find api-docs/ -name 'tag-groups.yml'`
-6. Verify relabeled specs: `ls api-docs/influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml`
-7. Verify v1 relabeled specs: `ls api-docs/influxdb/v1/influxdb-oss-v1-openapi.yaml api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml`
-8. Verify no markdown links in management specs: `grep -c '\[.*\](/' api-docs/influxdb3/*/management/openapi.yml`
-9. Verify download filenames in `static/openapi/` — no doubled product names
-10. Verify post-process-specs tests: `node api-docs/scripts/dist/test-post-process-specs.js`
+6. Verify no version subdirectories: `find api-docs -maxdepth 4 -name 'v2' -o -name 'v3' | grep -v node_modules`
+7. Verify all specs at product root: `ls api-docs/influxdb3/core/influxdb3-core-openapi.yaml api-docs/influxdb3/enterprise/influxdb3-enterprise-openapi.yaml api-docs/influxdb/cloud/influxdb-cloud-v2-openapi.yaml api-docs/influxdb/v2/influxdb-oss-v2-openapi.yaml`
+8. Verify no v1-compat directories: `find api-docs -name 'v1-compatibility' -type d`
+9. Verify no markdown links in management specs: `grep -c '\[.*\](/' api-docs/influxdb3/*/management/openapi.yml`
+10. Verify download filenames in `static/openapi/` — no doubled product names
+11. Verify post-process-specs tests: `node api-docs/scripts/dist/test-post-process-specs.js`
 
 ***
 
@@ -476,13 +496,28 @@ Removed `title`, `version`, `description`, `license`, `contact` from Core and En
 - Restored `management@0` API entries in `cloud-dedicated/.config.yml` and `clustered/.config.yml`.
 - 13 tests, 41 assertions, all passing.
 
-### Pending commit — Migrate management links, fix build pipeline, fix download names
+### Commit 7: `24c1e60f2` — Unify v2 APIs, remove v1-compat specs, migrate mgmt links
 
-- Migrated all inline markdown links from management spec descriptions to `tags.yml` `x-related` fields (Cloud Dedicated + Clustered).
-- Fixed `generate-api-docs.sh` info.yml resolution: uses spec directory first, product directory fallback (matches `post-process-specs.ts` convention).
+- Flattened Cloud v2 (`influxdb/cloud/v2/ref.yml` → `influxdb/cloud/influxdb-cloud-v2-openapi.yaml`) and OSS v2 (`influxdb/v2/v2/ref.yml` → `influxdb/v2/influxdb-oss-v2-openapi.yaml`) to product root.
+- Deleted all 5 `v1-compatibility/` directories (10 files) — endpoints already in main specs.
+- Old v1-compat URLs preserved as Hugo aliases in `.config.yml`.
+- Removed `updateV1Compat` function and `v1-compat` subcommand from `getswagger.sh`.
+- Migrated inline markdown links from management spec descriptions to `tags.yml` `x-related` fields (Cloud Dedicated + Clustered).
+- Fixed `generate-api-docs.sh` info.yml resolution: spec directory first, product directory fallback.
 - Wired `post-process-specs.ts` into `generate-api-docs.sh` pipeline between Redocly bundling and article generation.
-- Fixed doubled `static/openapi/` download filenames by stripping `staticDirName` prefix from spec filenames.
+- Fixed doubled `static/openapi/` download filenames by stripping `staticDirName` prefix.
 - Converted single-spec products (`cloud-v2`, `oss-v2`, `cloud-serverless`) to `specFiles` with `displayName` for clean download names.
+
+### Commit 8: `160b308af` — Merge origin/master
+
+Merged latest `origin/master` to pick up Telegraf plugin updates, label infrastructure, doc review workflows, and other changes.
+
+### Pending commit — Flatten v3 directories for Core and Enterprise
+
+- Moved `influxdb3/core/v3/` contents to `influxdb3/core/` (spec, tags.yml, content/).
+- Moved `influxdb3/enterprise/v3/` contents to `influxdb3/enterprise/` (spec, tags.yml, content/).
+- Updated `.config.yml` root paths, `getswagger.sh` outFile paths, `generate-openapi-articles.ts` spec paths.
+- No version subdirectories remain anywhere in `api-docs/`.
 
 ***
 

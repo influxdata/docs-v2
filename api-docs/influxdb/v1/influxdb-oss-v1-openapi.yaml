@@ -28,6 +28,8 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
+  x-influxdata-short-title: InfluxDB v1 API
+  x-influxdata-short-description: The InfluxDB v1 HTTP API provides a programmatic interface for writing, querying, and managing InfluxDB v1 databases.
 servers:
   - url: http://localhost:8086
     description: Local InfluxDB instance
@@ -36,47 +38,18 @@ security:
   - QueryAuth: []
 tags:
   - name: System Information
-    description: |
-      Endpoints for checking server status, health, and version information.
+    description: Check server status, health, and version information for an InfluxDB v1 instance.
   - name: Query
-    description: |
-      Query data using InfluxQL. The `/query` endpoint supports both read queries
-      (SELECT, SHOW) and write queries (CREATE, DROP, ALTER, etc.).
+    description: Query data using InfluxQL via the `/query` endpoint, supporting both read queries (SELECT, SHOW) and management queries (CREATE, DROP, ALTER).
   - name: Write
-    description: |
-      Write time series data using InfluxDB line protocol.
+    description: Write time series data to InfluxDB v1 in line protocol format using the `/write` endpoint.
   - name: Debug
-    description: |
-      Debugging and profiling endpoints for troubleshooting and performance analysis.
+    description: Access debugging and profiling endpoints for troubleshooting and performance analysis of an InfluxDB v1 instance.
   - name: v2 Compatibility
-    description: |
-      InfluxDB 2.x API compatibility endpoints. These endpoints allow you to use
-      InfluxDB 2.x client libraries with InfluxDB 1.8+.
-
-      Use the `Token` scheme with v1.x credentials:
-      ```
-      Authorization: Token username:password
-      ```
+    description: InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client libraries to work with InfluxDB 1.8+, using the Token authentication scheme with v1 credentials.
   - name: Authentication
     x-traitTag: true
-    description: |
-      InfluxDB v1 supports multiple authentication methods:
-
-      ### Basic Authentication
-      ```bash
-      curl -u username:password http://localhost:8086/query?q=SHOW+DATABASES
-      ```
-
-      ### Query String Authentication
-      ```bash
-      curl "http://localhost:8086/query?u=username&p=password&q=SHOW+DATABASES"
-      ```
-
-      ### Token Authentication (v2-compatible)
-      For v2-compatible endpoints, use the Token scheme:
-      ```bash
-      curl -H "Authorization: Token username:password" http://localhost:8086/api/v2/query
-      ```
+    description: Authenticate API requests to InfluxDB v1 using basic authentication, query string credentials, or the v2-compatible token scheme.
 paths:
   /ping:
     get:

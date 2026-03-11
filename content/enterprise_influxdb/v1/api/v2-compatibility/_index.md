@@ -1,17 +1,13 @@
 ---
 title: v2 Compatibility
-description: |-
-  InfluxDB 2.x API compatibility endpoints. These endpoints allow you to use
-  InfluxDB 2.x client libraries with InfluxDB Enterprise 1.8+.
-
-  Use the `Token` scheme with v1.x credentials:
-  ```
-  Authorization: Token username:password
-  ```
+description: >-
+  InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client libraries
+  to work with InfluxDB Enterprise 1.8+, using the Token authentication scheme
+  with v1 credentials.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-v2-compatibility.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-openapi-v2-compatibility.yaml
 weight: 100
 tag: v2 Compatibility
 isConceptual: false

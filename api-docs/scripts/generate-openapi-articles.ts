@@ -2,29 +2,25 @@
 /**
  * Generate OpenAPI Articles Script
  *
- * Generates Hugo data files and content pages from OpenAPI specifications
- * for all InfluxDB products.
+ * Processes OpenAPI specs for Hugo-native API documentation. This script
+ * expects specs to already be fetched (via getswagger.sh) and post-processed
+ * (via post-process-specs.ts) before it runs.
  *
- * This script:
- * 1. Cleans output directories (unless --no-clean)
- * 2. Runs getswagger.sh to fetch/bundle OpenAPI specs
- * 3. Copies specs to static directory for download
- * 4. Generates path group fragments (YAML and JSON)
- * 5. Creates article metadata (YAML and JSON)
- * 6. Generates Hugo content pages from article data
+ * Modes:
+ * - Default: copy specs to static/ + generate Hugo article pages
+ * - --static-only: copy specs to static/ only (no article generation)
  *
  * Usage:
- *   node generate-openapi-articles.js                    # Clean and generate all products
- *   node generate-openapi-articles.js cloud-v2           # Clean and generate single product
+ *   node generate-openapi-articles.js                    # Full generation (static + articles)
+ *   node generate-openapi-articles.js cloud-v2           # Single product
+ *   node generate-openapi-articles.js --static-only      # Copy specs to static/ only
  *   node generate-openapi-articles.js --no-clean         # Generate without cleaning
  *   node generate-openapi-articles.js --dry-run          # Preview what would be cleaned
- *   node generate-openapi-articles.js --skip-fetch       # Skip getswagger.sh fetch step
  *   node generate-openapi-articles.js --validate-links   # Validate documentation links
  *
  * @module generate-openapi-articles
  */
 
-import { execSync } from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -90,7 +86,7 @@ const API_DOCS_ROOT = 'api-docs';
 
 // CLI flags
 const validateLinks = process.argv.includes('--validate-links');
-const skipFetch = process.argv.includes('--skip-fetch');
+const staticOnly = process.argv.includes('--static-only');
 const noClean = process.argv.includes('--no-clean');
 const dryRun = process.argv.includes('--dry-run');
 
@@ -142,22 +138,6 @@ const apiProductsMap = loadApiProducts();
  * @param description - Human-readable description of the command
  * @throws Exits process with code 1 on error
  */
-function execCommand(command: string, description?: string): void {
-  try {
-    if (description) {
-      console.log(`\n${description}...`);
-    }
-    console.log(`Executing: ${command}\n`);
-    execSync(command, { stdio: 'inherit' });
-  } catch (error) {
-    console.error(`\n❌ Error executing command: ${command}`);
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-    process.exit(1);
-  }
-}
-
 /**
  * Generate a clean static directory name from a product key.
  * Handles the influxdb3_* products to avoid redundant 'influxdb-influxdb3' prefixes.
@@ -945,14 +925,14 @@ const productConfigs: ProductConfigMap = {
   // InfluxDB 3 products use tag-based generation for better UX
   // Keys use underscores to match Hugo data directory structure
   influxdb3_core: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/v3/influxdb3-core-openapi.yaml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/influxdb3-core-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/core'),
     description: 'InfluxDB 3 Core',
     menuKey: 'influxdb3_core',
     useTagBasedGeneration: true,
   },
   influxdb3_enterprise: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml'),
+    specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/influxdb3-enterprise-openapi.yaml'),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/enterprise'),
     description: 'InfluxDB 3 Enterprise',
     menuKey: 'influxdb3_enterprise',
@@ -1049,8 +1029,8 @@ const LINK_PATTERN = /\/influxdb\/version\//g;
  * Derive documentation root from spec file path.
  *
  * @example
- * 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml' → '/influxdb3/core'
- * 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml' → '/influxdb3/enterprise'
+ * 'api-docs/influxdb3/core/influxdb3-core-openapi.yaml' → '/influxdb3/core'
+ * 'api-docs/influxdb3/enterprise/influxdb3-enterprise-openapi.yaml' → '/influxdb3/enterprise'
  * 'api-docs/influxdb/v2/influxdb-oss-v2-openapi.yaml' → '/influxdb/v2'
  * 'api-docs/influxdb/v1/influxdb-oss-v1-openapi.yaml' → '/influxdb/v1'
  * 'api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml' → '/enterprise_influxdb/v1'
@@ -1316,21 +1296,6 @@ function processProduct(productKey: string, config: ProductConfig): void {
   }
 
   try {
-    // Step 1: Execute the getswagger.sh script to fetch/bundle the spec
-    if (skipFetch) {
-      console.log(`⏭️  Skipping getswagger.sh (--skip-fetch flag set)`);
-    } else {
-      const getswaggerScript = path.join(API_DOCS_ROOT, 'getswagger.sh');
-      if (fs.existsSync(getswaggerScript)) {
-        execCommand(
-          `cd ${API_DOCS_ROOT} && ./getswagger.sh ${productKey} -B`,
-          `Fetching OpenAPI spec for ${productKey}`
-        );
-      } else {
-        console.log(`⚠️  getswagger.sh not found, skipping fetch step`);
-      }
-    }
-
     // Determine spec files to process
     const specFiles: SpecFileConfig[] = config.specFiles
       ? config.specFiles
@@ -1374,8 +1339,8 @@ function processProduct(productKey: string, config: ProductConfig): void {
       if (result) {
         processedSpecs.push(result);
 
-        // Generate tag-based article data for this spec
-        if (config.useTagBasedGeneration) {
+        // Generate tag-based article data for this spec (skip in --static-only mode)
+        if (!staticOnly && config.useTagBasedGeneration) {
           const specSlug = specConfig.displayName
             ? slugifyDisplayName(specConfig.displayName)
             : path.parse(specConfig.path).name;
@@ -1409,58 +1374,61 @@ function processProduct(productKey: string, config: ProductConfig): void {
       }
     }
 
-    // Step 5: Merge article data from all specs (for multi-spec products)
-    if (processedSpecs.length > 1) {
-      console.log(
-        `\n📋 Merging article data from ${processedSpecs.length} specs...`
-      );
-      const articlesFiles = processedSpecs.map((s) =>
-        path.join(s.articlesPath, 'articles.yml')
-      );
-      mergeArticleData(
-        articlesFiles,
-        path.join(mergedArticlesPath, 'articles.yml')
-      );
-    } else if (processedSpecs.length === 1) {
-      // Single spec - copy articles to final location if needed
-      const sourceArticles = path.join(
-        processedSpecs[0].articlesPath,
-        'articles.yml'
-      );
-      const targetArticles = path.join(mergedArticlesPath, 'articles.yml');
-
-      // Only copy if source and target are different
-      if (sourceArticles !== targetArticles && fs.existsSync(sourceArticles)) {
-        if (!fs.existsSync(mergedArticlesPath)) {
-          fs.mkdirSync(mergedArticlesPath, { recursive: true });
-        }
-        fs.copyFileSync(sourceArticles, targetArticles);
-        fs.copyFileSync(
-          sourceArticles.replace('.yml', '.json'),
-          targetArticles.replace('.yml', '.json')
+    // Article generation (skip in --static-only mode)
+    if (!staticOnly) {
+      // Merge article data from all specs (for multi-spec products)
+      if (processedSpecs.length > 1) {
+        console.log(
+          `\n📋 Merging article data from ${processedSpecs.length} specs...`
         );
-        console.log(`✓ Copied article data to ${mergedArticlesPath}`);
-      }
-    }
+        const articlesFiles = processedSpecs.map((s) =>
+          path.join(s.articlesPath, 'articles.yml')
+        );
+        mergeArticleData(
+          articlesFiles,
+          path.join(mergedArticlesPath, 'articles.yml')
+        );
+      } else if (processedSpecs.length === 1) {
+        // Single spec - copy articles to final location if needed
+        const sourceArticles = path.join(
+          processedSpecs[0].articlesPath,
+          'articles.yml'
+        );
+        const targetArticles = path.join(mergedArticlesPath, 'articles.yml');
 
-    // Step 6: Generate Hugo content pages from (merged) article data
-    if (config.useTagBasedGeneration) {
-      generateTagPagesFromArticleData({
-        articlesPath: mergedArticlesPath,
-        contentPath: config.pagesDir,
-        menuKey: config.menuKey,
-        menuParent: 'InfluxDB HTTP API',
-        skipParentMenu: config.skipParentMenu,
-        pathSpecFiles: allPathSpecFiles,
-      });
-    } else {
-      generatePagesFromArticleData({
-        articlesPath: mergedArticlesPath,
-        contentPath: config.pagesDir,
-        menuKey: config.menuKey,
-        menuParent: 'InfluxDB HTTP API',
-        skipParentMenu: config.skipParentMenu,
-      });
+        // Only copy if source and target are different
+        if (sourceArticles !== targetArticles && fs.existsSync(sourceArticles)) {
+          if (!fs.existsSync(mergedArticlesPath)) {
+            fs.mkdirSync(mergedArticlesPath, { recursive: true });
+          }
+          fs.copyFileSync(sourceArticles, targetArticles);
+          fs.copyFileSync(
+            sourceArticles.replace('.yml', '.json'),
+            targetArticles.replace('.yml', '.json')
+          );
+          console.log(`✓ Copied article data to ${mergedArticlesPath}`);
+        }
+      }
+
+      // Generate Hugo content pages from (merged) article data
+      if (config.useTagBasedGeneration) {
+        generateTagPagesFromArticleData({
+          articlesPath: mergedArticlesPath,
+          contentPath: config.pagesDir,
+          menuKey: config.menuKey,
+          menuParent: 'InfluxDB HTTP API',
+          skipParentMenu: config.skipParentMenu,
+          pathSpecFiles: allPathSpecFiles,
+        });
+      } else {
+        generatePagesFromArticleData({
+          articlesPath: mergedArticlesPath,
+          contentPath: config.pagesDir,
+          menuKey: config.menuKey,
+          menuParent: 'InfluxDB HTTP API',
+          skipParentMenu: config.skipParentMenu,
+        });
+      }
     }
 
     console.log(

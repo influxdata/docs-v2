@@ -1,12 +1,12 @@
 ---
 title: Debug
 description: >-
-  Debugging and profiling endpoints for troubleshooting and performance
-  analysis.
+  Access debugging and profiling endpoints for troubleshooting and performance
+  analysis of an InfluxDB Enterprise v1 instance.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-debug.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-openapi-debug.yaml
 weight: 100
 tag: Debug
 isConceptual: false

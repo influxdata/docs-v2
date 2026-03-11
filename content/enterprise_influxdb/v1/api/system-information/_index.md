@@ -1,10 +1,12 @@
 ---
 title: System Information
-description: Endpoints for checking server status, health, and version information.
+description: >-
+  Check server status, health, and version information for an InfluxDB
+  Enterprise v1 instance.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-system-information.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-openapi-system-information.yaml
 weight: 100
 tag: System Information
 isConceptual: false

@@ -7,7 +7,7 @@ x-influxdata-product-name: InfluxDB 3 Core
 
 apis:
   v3@3:
-    root: v3/influxdb3-core-openapi.yaml
+    root: influxdb3-core-openapi.yaml
     x-influxdata-docs-aliases:
       - /influxdb3/core/api/
       - /influxdb3/core/api/v1/

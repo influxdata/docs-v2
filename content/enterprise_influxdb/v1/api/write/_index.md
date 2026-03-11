@@ -1,17 +1,13 @@
 ---
 title: Write
 description: >-
-  Write time series data using InfluxDB line protocol.
-
-
-  **Enterprise Feature**: Use the `consistency` parameter to control write
-  consistency
-
-  across cluster nodes.
+  Write time series data to InfluxDB Enterprise v1 in line protocol format using
+  the `/write` endpoint. Use the `consistency` parameter to control write
+  consistency across cluster nodes.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-write.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-openapi-write.yaml
 weight: 100
 tag: Write
 isConceptual: false

@@ -1,12 +1,12 @@
 ---
 title: Query
-description: |-
-  Query data using InfluxQL. The `/query` endpoint supports both read queries
-  (SELECT, SHOW) and write queries (CREATE, DROP, ALTER, etc.).
+description: >-
+  Query data using InfluxQL via the `/query` endpoint, supporting both read
+  queries (SELECT, SHOW) and management queries (CREATE, DROP, ALTER).
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-influxdb-enterprise-v1-openapi-query.yaml
+  /openapi/influxdb-enterprise-v1/influxdb-enterprise-v1-openapi/tags/influxdb-enterprise-v1-openapi-query.yaml
 weight: 100
 tag: Query
 isConceptual: false

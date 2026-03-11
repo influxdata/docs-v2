@@ -16,336 +16,153 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
+  x-influxdata-short-title: v2 API
 servers:
   - url: /
 security:
   - TokenAuthentication: []
 tags:
-  - description: |
-      Use one of the following schemes to authenticate to the InfluxDB API:
-
-      - [Token authentication](#section/Authentication/TokenAuthentication)
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
-      <!-- ReDoc-Inject: <security-definitions> -->
+  - description: Authenticate API requests to InfluxDB OSS v2 using API tokens with token, basic, or querystring authentication schemes.
     name: Authentication
     x-traitTag: true
-  - description: |
-      Create and manage authorizations (API tokens).
-
-      An _authorization_ contains a list of `read` and `write`
-      permissions for organization resources and provides an API token for authentication.
-      An authorization belongs to an organization and only contains permissions for that organization.
-
-      We recommend creating a generic user to create and manage tokens for writing data.
-
-      ### User sessions with authorizations
-
-      Optionally, when creating an authorization, you can scope it to a specific user.
-      If a user signs in with username and password, creating a _user session_,
-      the session carries the permissions granted by all the user's authorizations.
-      For more information, see [how to assign a token to a specific user](/influxdb/v2/security/tokens/create-token/).
-      To create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).
-
-      ### Related endpoints
-
-      - [Signin](#tag/Signin)
-      - [Signout](#tag/Signout)
-
-      ### Related guides
-
-      - [Authorize API requests](/influxdb/v2/api-guide/api_intro/#authentication)
-      - [Manage API tokens](/influxdb/v2/security/tokens/)
-      - [Assign a token to a specific user](/influxdb/v2/security/tokens/create-token/)
+  - description: Create and manage API token authorizations that grant read and write permissions to InfluxDB OSS v2 organization resources.
     name: Authorizations (API tokens)
+    x-related:
+      - title: Manage API tokens
+        href: /influxdb/v2/security/tokens/
   - name: Authorizations (v1-compatible)
+    description: Manage v1-compatible legacy authorization credentials in InfluxDB OSS v2.
   - name: Backup
-  - description: |
-      Store your data in InfluxDB [buckets](/influxdb/v2/reference/glossary/#bucket).
-      A bucket is a named location where time series data is stored. All buckets
-      have a [retention period](/influxdb/v2/reference/glossary/#retention-period),
-      a duration of time that each data point persists. InfluxDB drops all
-      points with timestamps older than the bucket’s retention period.
-      A bucket belongs to an organization.
-
-      ### Related guides
-
-      - [Manage buckets](/influxdb/v2/organizations/buckets/)
+    description: Back up InfluxDB OSS v2 data, including time series data and metadata, for use in restore operations.
+  - description: Create and manage named storage locations (buckets) in InfluxDB OSS v2, each with a configurable retention period.
     name: Buckets
+    x-related:
+      - title: Manage buckets
+        href: /influxdb/v2/organizations/buckets/
   - name: Cells
+    description: Manage cells within InfluxDB OSS v2 dashboards.
   - name: Checks
-  - description: |
-      To specify resources, some InfluxDB API endpoints require parameters or
-      properties in the request--for example,
-      writing to a `bucket` resource in an `org` (_organization_ resource).
-
-      ### Common parameters
-
-      | Query parameter          | Value type            | Description                                |
-      |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/v2/organizations/buckets/view-buckets/). |
-      | `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/v2/organizations/buckets/view-buckets/). |
-      | `org`                    | string                | The organization name or ID ([find your organization](/influxdb/v2/organizations/view-orgs/). |
-      | `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/v2/organizations/view-orgs/). |
+    description: Create and manage monitoring checks that query data on a schedule and generate notification statuses in InfluxDB OSS v2.
+  - description: Common query parameters used by InfluxDB OSS v2 API endpoints, including `bucket`, `bucketID`, `org`, and `orgID`.
     name: Common parameters
     x-traitTag: true
   - name: Compatibility endpoints
-    description: |
-      InfluxDB v2 provides v1-compatible API endpoints for backward compatibility with InfluxDB 1.x clients and integrations.
-
-      Use these endpoints with InfluxDB 1.x client libraries and third-party integrations such as Grafana, Telegraf, and other tools designed for InfluxDB 1.x.
-
-      The compatibility layer maps InfluxDB 1.x concepts (databases, retention policies) to InfluxDB v2 resources (buckets, organizations) through database retention policy (DBRP) mappings.
+    description: InfluxDB v1-compatible API endpoints for backward compatibility with InfluxDB 1.x clients, tools, and integrations such as Grafana and Telegraf.
   - name: Config
+    description: Retrieve configuration information for an InfluxDB OSS v2 instance.
   - name: Dashboards
-  - description: |
-      The InfluxDB 1.x data model includes [databases](/influxdb/v2/reference/glossary/#database)
-      and [retention policies](/influxdb/v2/reference/glossary/#retention-policy-rp).
-      InfluxDB 2.x replaces databases and retention policies with buckets.
-      To support InfluxDB 1.x query and write patterns in InfluxDB 2.x,
-      databases and retention policies are mapped to buckets using the
-      database and retention policy (DBRP) mapping service.
-      The DBRP mapping service uses the database and retention policy
-      specified in v1 compatibility API requests to route operations to a bucket.
-
-      ### Related guides
-
-      - [Database and retention policy mapping](/influxdb/v2/reference/api/influxdb-1x/dbrp/)
+    description: Create and manage dashboards in InfluxDB OSS v2.
+  - description: Manage database and retention policy (DBRP) mappings that route InfluxDB v1-compatible requests to InfluxDB OSS v2 buckets.
     name: DBRPs
-  - description: |
-      Generate profiling and trace reports.
-
-      Use routes under `/debug/pprof` to analyze the Go runtime of InfluxDB.
-      These endpoints generate [Go runtime profiles](https://pkg.go.dev/runtime/pprof)
-      and **trace** reports.
-      **Profiles** are collections of stack traces that show call sequences
-      leading to instances of a particular event, such as allocation.
-
-      For more information about **pprof profile** and **trace** reports,
-      see the following resources:
-
-      - [Google pprof tool](https://github.com/google/pprof)
-      - [Golang diagnostics](https://go.dev/doc/diagnostics)
+    x-related:
+      - title: Database and retention policy mapping
+        href: /influxdb/v2/reference/api/influxdb-1x/dbrp/
+  - description: Generate Go runtime profiling and trace reports for troubleshooting and performance analysis of an InfluxDB OSS v2 instance.
     name: Debug
-  - description: |
-      Delete data from an InfluxDB bucket.
+  - description: Delete time series data from an InfluxDB OSS v2 bucket by specifying a time range and optional tag predicate.
     name: Delete
-  - description: |
-      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
-      The following table shows common headers used by many InfluxDB API endpoints.
-      Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
-      the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.
-
-      | Header                   | Value type            | Description                                |
-      |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
-      | `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |
-      | `Content-Type`           | string                | The format of the data in the request body. |
+  - description: Standard HTTP request headers used by InfluxDB OSS v2 API endpoints, including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
     name: Headers
     x-traitTag: true
   - name: Health
+    description: Check the health and readiness of an InfluxDB OSS v2 instance.
   - name: Labels
+    description: Create and manage labels for organizing InfluxDB OSS v2 resources such as dashboards, tasks, and buckets.
   - name: Metrics
+    description: Retrieve internal metrics for an InfluxDB OSS v2 instance in Prometheus exposition format.
   - name: NotificationEndpoints
+    description: Create and manage notification endpoints that receive alert notifications from InfluxDB OSS v2 monitoring checks.
   - name: NotificationRules
-  - description: |
-      Create and manage your [organizations](/influxdb/v2/reference/glossary/#organization).
-      An organization is a workspace for a group of users. Organizations can be
-      used to separate different environments, projects, teams or users within
-      InfluxDB.
-
-      Use the `/api/v2/orgs` endpoints to create, view, and manage organizations.
+    description: Create and manage notification rules that define when and how InfluxDB OSS v2 sends notifications to configured endpoints.
+  - description: Create and manage InfluxDB OSS v2 organizations, which are workspaces that group users, buckets, and resources.
     name: Organizations
-  - description: |
-      Some InfluxDB API [list operations](#tag/SupportedOperations) may support the following query parameters for paginating results:
-
-      | Query parameter          | Value type            | Description                                |
-      |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |
-      | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |
-      | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |
-
-      ### Limitations
-
-      - For specific endpoint parameters and examples, see the endpoint definition.
-      - If you specify an `offset` parameter value greater than the total number of records,
-        then InfluxDB returns an empty list in the response
-        (given `offset` skips the specified number of records).
-
-        The following example passes `offset=50` to skip the first 50 results,
-        but the user only has 10 buckets:
-
-        ```sh
-        curl --request GET "INFLUX_URL/api/v2/buckets?limit=1&offset=50" \
-             --header "Authorization: Token INFLUX_API_TOKEN"
-        ```
-
-        The response contains the following:
-
-        ```json
-        {
-          "links": {
-              "prev": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=49\u0026orgID=ORG_ID",
-              "self": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=50\u0026orgID=ORG_ID"
-          },
-          "buckets": []
-        }
-        ```
+    x-related:
+      - title: Manage organizations
+        href: /influxdb/v2/organizations/
+  - description: Query parameters for paginating results from list operations in the InfluxDB OSS v2 API.
     name: Pagination
     x-traitTag: true
   - name: Ping
-  - description: |
-      Retrieve data, analyze queries, and get query suggestions.
+    description: Check the availability of an InfluxDB OSS v2 instance.
+  - description: Retrieve data, analyze queries, and get query suggestions using the InfluxDB OSS v2 query API.
     name: Query data
+    x-related:
+      - title: Query data
+        href: /influxdb/v2/query-data/
   - name: Query data (v1-compatible)
-  - description: |
-      Authenticate, write, and query with the API:
-
-      1. Create an API token to authorize API requests.
-         Use the InfluxDB UI or `POST /api/v2/authorizations`.
-
-      2. Check the status of the InfluxDB server.
-
-         ```bash
-         curl "http://localhost:8086/health"
-         ```
-
-      3. Write data to InfluxDB.
-
-         ```bash
-         curl -X POST "http://localhost:8086/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=ns" \
-           --header "Authorization: Token API_TOKEN" \
-           --data-raw "home,room=Kitchen temp=72.0
-         home,room=Living\ Room temp=71.5"
-         ```
-
-      4. Query data using Flux.
-
-         ```bash
-         curl -X POST "http://localhost:8086/api/v2/query?org=ORG_NAME" \
-           --header "Authorization: Token API_TOKEN" \
-           --header "Content-Type: application/vnd.flux" \
-           --data 'from(bucket: "BUCKET_NAME") |> range(start: -1h)'
-         ```
-
-      For more information, see the
-      [Get started](/influxdb/v2/get-started/) guide.
+    description: Query data in InfluxDB OSS v2 using InfluxQL via the v1-compatible `/query` endpoint.
+  - description: Get started authenticating, writing, and querying data with the InfluxDB OSS v2 API.
     name: Quick start
     x-traitTag: true
   - name: Ready
+    description: Check whether an InfluxDB OSS v2 instance is ready to accept requests.
   - name: RemoteConnections
+    description: Create and manage remote InfluxDB connections for replicating data from an InfluxDB OSS v2 instance to a remote InfluxDB instance.
   - name: Replications
+    description: Create and manage replication streams that copy data from an InfluxDB OSS v2 bucket to a remote InfluxDB instance.
   - name: Resources
-  - description: |
-      InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.
-      The response body may include additional details.
-      For details about a specific operation's response,
-      see **Responses** and **Response Samples** for that operation.
-
-      API operations may return the following HTTP status codes:
-
-      | &nbsp;Code&nbsp; | Status                   | Description      |
-      |:-----------:|:------------------------ |:--------------------- |
-      | `200`       | Success                  |                       |
-      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. |
-      | `400`       | Bad request              | May indicate one of the following:<ul><li>the request body is malformed</li><li>`Authorization` header is missing or malformed</li><li>the API token doesn't have permission for the operation.</li></ul> |
-      | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/security/tokens/)</li></ul> |
-      | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
-      | `413`       | Request entity too large | Request payload exceeds the size limit. |
-      | `422`       | Unprocessable entity     | Request data is invalid. The request was well-formed, but couldn't complete due to semantic errors--for example, some or all points in a write request were rejected due to a schema or retention policy violation. The response body provides details about the problem. For more information about rejected points, see how to [Troubleshoot issues writing data](/influxdb/v2/write-data/troubleshoot/)|
-      | `429`       | Too many requests        | API token is temporarily over the request quota. The `Retry-After` header describes when to try the request again. |
-      | `500`       | Internal server error    |                       |
-      | `503`       | Service unavailable      | Server is temporarily unavailable to process the request. The `Retry-After` header describes when to try the request again. |
+    description: Retrieve a list of top-level resource types available in the InfluxDB OSS v2 API.
+  - description: Standard HTTP status codes returned by InfluxDB OSS v2 API endpoints and their meanings.
     name: Response codes
     x-traitTag: true
   - name: Restore
+    description: Restore InfluxDB OSS v2 data from a backup, including time series data and metadata.
   - name: Routes
+    description: Retrieve top-level routes for the InfluxDB OSS v2 API.
   - name: Rules
+    description: Manage notification rules in InfluxDB OSS v2.
   - name: Scraper Targets
+    description: Create and manage Prometheus scraper targets that collect metrics and write them to InfluxDB OSS v2 buckets.
   - name: Secrets
+    description: Create and manage secrets (key-value pairs) for use in InfluxDB OSS v2 Flux scripts and tasks.
   - name: Security and access endpoints
+    description: Endpoints for managing authentication and access control in InfluxDB OSS v2.
   - name: Setup
+    description: Configure a new InfluxDB OSS v2 instance, including creating the initial user, organization, bucket, and API token.
+    x-related:
+      - title: Set up InfluxDB
+        href: /influxdb/v2/get-started/
   - name: Signin
+    description: Create a user session by signing in with username and password credentials.
   - name: Signout
+    description: End a user session by signing out.
   - name: Sources
-  - description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+    description: Manage data sources configured in InfluxDB OSS v2.
+  - description: Overview of the common CRUD operations supported by the InfluxDB OSS v2 API.
     name: Supported operations
     x-traitTag: true
   - name: System information endpoints
-  - description: |
-      Process and analyze your data with [tasks](/influxdb/v2/reference/glossary/#task)
-      in the InfluxDB task engine.
-      Use the `/api/v2/tasks` endpoints to schedule and manage tasks, retry task runs, and retrieve run logs.
-
-      To configure a task, provide the script and the schedule to run the task.
-      For examples, see how to create a task with the [`POST /api/v2/tasks` endpoint](#operation/PostTasks).
-
-      <span id="tasks-schemaref-task" />
-
-      ### Properties
-
-      A `task` object contains information about an InfluxDB task resource.
-
-      The following table defines the properties that appear in a `task` object:
-
-      <SchemaDefinition schemaRef="#/components/schemas/Task" />
-
-      ### Related guides
-
-      - [Get started with tasks](/influxdb/v2/process-data/get-started/)
-      - [Common data processing tasks](/influxdb/v2/process-data/common-tasks/)
+    description: Endpoints for retrieving system-level information about the InfluxDB OSS v2 instance.
+  - description: Schedule and manage Flux tasks that process and transform data on a recurring basis in InfluxDB OSS v2.
     name: Tasks
+    x-related:
+      - title: Get started with tasks
+        href: /influxdb/v2/process-data/get-started/
   - name: Telegraf Plugins
+    description: Retrieve available Telegraf plugin configuration templates for use with InfluxDB OSS v2.
   - name: Telegrafs
-  - description: |
-      Export and apply InfluxDB **templates**.
-      Manage **stacks** of templated InfluxDB resources.
-
-      InfluxDB templates are prepackaged configurations for
-      everything from dashboards and Telegraf to notifications and alerts.
-      Use InfluxDB templates to quickly configure a fresh instance of InfluxDB,
-      back up your dashboard configuration, or share your configuration with the
-      InfluxData community.
-
-      Use the `/api/v2/templates` endpoints to export templates and apply templates.
-
-      **InfluxDB stacks** are stateful InfluxDB templates that let you
-      add, update, and remove installed template resources over time, avoid duplicating
-      resources when applying the same or similar templates more than once, and
-      apply changes to distributed instances of InfluxDB OSS or InfluxDB Cloud.
-
-      Use the `/api/v2/stacks` endpoints to manage installed template resources.
-
-      ### Related guides
-
-      - [InfluxDB stacks](/influxdb/v2/influxdb-templates/stacks/)
-      - [InfluxDB templates](/influxdb/v2/influxdb-templates/)
+    description: Create and manage Telegraf agent configurations that collect and write data to InfluxDB OSS v2.
+  - description: Export and apply InfluxDB templates, and manage template stacks for InfluxDB OSS v2.
     name: Templates
-  - description: |
-      Manage users for your organization.
-      Users are those with access to InfluxDB.
-      To grant a user permission to access data, add them as a member of an
-      organization and provide them with an API token.
-
-      ### User sessions with authorizations
-
-      Optionally, you can scope an authorization (and its API token) to a user.
-      If a user signs in with username and password, creating a _user session_,
-      the session carries the permissions granted by all the user's authorizations.
-      To create a user session, use the [`POST /api/v2/signin` endpoint](#operation/PostSignin).
-
-      ### Related guides
-
-      - [Manage users](/influxdb/v2/influxdb/v2/users/)
-      - [Create a token scoped to a user](/influxdb/v2/latest/security/tokens/create-token/#create-a-token-scoped-to-a-user)
+    x-related:
+      - title: InfluxDB templates
+        href: /influxdb/v2/influxdb-templates/
+  - description: Create and manage users that have access to InfluxDB OSS v2 organizations and resources.
     name: Users
+    x-related:
+      - title: Manage users
+        href: /influxdb/v2/users/
   - name: Variables
+    description: Create and manage variables for use in InfluxDB OSS v2 dashboards.
   - name: Views
-  - description: |
-      Write time series data to [buckets](/influxdb/v2/reference/glossary/#bucket).
+    description: Manage cell views within InfluxDB OSS v2 dashboards.
+  - description: Write time series data to InfluxDB OSS v2 buckets in line protocol format using the `/api/v2/write` endpoint.
     name: Write data
+    x-related:
+      - title: Write data
+        href: /influxdb/v2/write-data/
   - name: Write data (v1-compatible)
+    description: Write data to InfluxDB OSS v2 using the v1-compatible `/write` endpoint with line protocol.
 paths:
   /api/v2:
     get:
@@ -13309,7 +13126,7 @@ paths:
           content:
             application/json:
               schema:
-               $ref: '#/components/schemas/Error' 
+                $ref: '#/components/schemas/Error'
           description: The request was well-formed, but some points were rejected due to semantic errors--for example, schema conflicts or retention policy violations. Error message contains details for one or more rejected points.
         '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.

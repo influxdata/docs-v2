@@ -30,6 +30,12 @@ info:
   x-related:
     - title: Migrate from InfluxDB v1 or v2
       href: /influxdb3/core/get-started/migrate-from-influxdb-v1-v2/
+  x-influxdata-short-title: InfluxDB 3 API
+  x-influxdata-version-matrix:
+    v1: Compatibility layer for InfluxDB 1.x clients (supported)
+    v2: Compatibility layer for InfluxDB 2.x clients (supported)
+    v3: Native API for InfluxDB 3.x (current)
+  x-influxdata-short-description: The InfluxDB 3 HTTP API provides a programmatic interface for interactions with InfluxDB, including writing, querying, and processing data, and managing an InfluxDB 3 instance.
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Core API URL
@@ -43,176 +49,61 @@ security:
   - BearerAuthentication: []
 tags:
   - name: Authentication
-    description: |
-      Depending on your workflow, use one of the following schemes to authenticate to the InfluxDB 3 API:
-
-      | Authentication scheme | Works with |
-      |:----------------------|:-----------|
-      | Bearer authentication | All endpoints |
-      | Token authentication  | v1 and v2 compatibility endpoints (`/write`, `/query`, `/api/v2/write`) |
-      | Basic authentication  | v1 compatibility endpoints (`/write`, `/query`) |
-      | Querystring authentication | v1 compatibility endpoints (`/write`, `/query`) |
-
-      See the **Security Schemes** section below for details on each authentication method.
+    description: Authenticate API requests using bearer tokens, token scheme, basic authentication, or querystring credentials. See the Security Schemes section for details on each method.
     x-traitTag: true
   - name: Cache distinct values
-    description: |
-      The Distinct Value Cache (DVC) lets you cache distinct
-      values of one or more columns in a table, improving the performance of
-      queries that return distinct tag and field values.
-
-      The DVC is an in-memory cache that stores distinct values for specific columns
-      in a table. When you create a DVC, you can specify what columns' distinct
-      values to cache, the maximum number of distinct value combinations to cache, and
-      the maximum age of cached values. A DVC is associated with a table, which can
-      have multiple DVCs.
+    description: Manage the Distinct Value Cache (DVC), an in-memory cache that stores distinct values for specific columns in a table to improve query performance for distinct tag and field value lookups.
     x-related:
       - title: Manage the Distinct Value Cache
         href: /influxdb3/core/admin/distinct-value-cache/
   - name: Cache last value
-    description: |
-      The Last Value Cache (LVC) lets you cache the most recent
-      values for specific fields in a table, improving the performance of queries that
-      return the most recent value of a field for specific series or the last N values
-      of a field.
-
-      The LVC is an in-memory cache that stores the last N number of values for
-      specific fields of series in a table. When you create an LVC, you can specify
-      what fields to cache, what tags to use to identify each series, and the
-      number of values to cache for each unique series.
-      An LVC is associated with a table, which can have multiple LVCs.
+    description: Manage the Last Value Cache (LVC), an in-memory cache that stores the most recent N values for specific fields in a table to improve query performance for last-value lookups.
     x-related:
       - title: Manage the Last Value Cache
         href: /influxdb3/core/admin/last-value-cache/
   - name: Migrate from InfluxDB v1 or v2
     x-traitTag: true
-    description: |
-      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3 Core.
-
-      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
-      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
-
-      ### Migration guides
-
-      - [Migrate from InfluxDB v1](/influxdb3/core/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
-      - [Migrate from InfluxDB v2](/influxdb3/core/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
-      - [Use compatibility APIs to write data](/influxdb3/core/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
-      - [Use the v1 HTTP query API](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
+    description: Reference information for migrating existing InfluxDB v1 or v2 workloads to InfluxDB 3 Core using compatibility endpoints.
   - name: Database
-    description: Manage databases
-  - description: |
-      Most InfluxDB API endpoints require parameters in the request--for example, specifying the database to use.
-
-      ### Common parameters
-
-      The following table shows common parameters used by many InfluxDB API endpoints.
-      Many endpoints may require other parameters in the query string or in the
-      request body that perform functions specific to those endpoints.
-
-      | Query parameter          | Value type            | Description                                |
-      |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `db`                 | string                | The database name |
-
-      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
-      The following table shows common headers used by many InfluxDB API endpoints.
-      Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
-      the write endpoints accept the `Content-Encoding` header to indicate that line protocol is compressed in the request body.
-
-      | Header                   | Value type            | Description                                |
-      |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
-      | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
-      | `Content-Type`           | string                | The format of the data in the request body. |
+    description: Create, list, and delete databases in InfluxDB 3 Core.
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/core/admin/databases/
+  - description: Common HTTP request headers and query parameters used by InfluxDB 3 Core API endpoints.
     name: Headers and parameters
     x-traitTag: true
   - name: Processing engine
-    description: |
-      Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
-
-      InfluxDB 3 Core provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
-      Use Processing engine plugins and triggers to run code and perform tasks for different database events.
-
-      To get started with the processing engine, see the [Processing engine and Python plugins](/influxdb3/core/processing-engine/) guide.
+    description: Manage Processing engine triggers, test plugins, and invoke On Request plugins. The processing engine is an embedded Python VM that runs plugins in response to database events.
+    x-related:
+      - title: Processing engine and Python plugins
+        href: /influxdb3/core/processing-engine/
   - name: Query data
-    description: Query data using SQL or InfluxQL
+    description: Query data stored in InfluxDB 3 Core using SQL or InfluxQL.
+    x-related:
+      - title: Query data
+        href: /influxdb3/core/query-data/
   - name: Quick start
-    description: |
-      Authenticate, write, and query with the API:
-
-      1. Create an admin token to authorize API requests.
-
-         ```bash
-         curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
-         ```
-      2. Check the status of the InfluxDB server.
-
-         ```bash
-         curl "http://localhost:8181/health" \
-            --header "Authorization: Bearer ADMIN_TOKEN"
-         ```
-
-      3. Write data to InfluxDB.
-
-         ```bash
-         curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
-           --header "Authorization: Bearer ADMIN_TOKEN" \
-           --data-raw "home,room=Kitchen temp=72.0
-          home,room=Living\ room temp=71.5"
-         ```
-
-         If all data is written, the response is `204 No Content`.
-
-      4. Query data from InfluxDB.
-
-         ```bash
-         curl -G "http://localhost:8181/api/v3/query_sql" \
-           --header "Authorization: Bearer ADMIN_TOKEN" \
-           --data-urlencode "db=sensors" \
-           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
-           --data-urlencode "format=jsonl"
-         ```
-
-         Output:
-
-         ```jsonl
-         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
-         ```
-
-      For more information about using InfluxDB 3 Core, see the [Get started](/influxdb3/core/get-started/) guide.
+    description: Get started authenticating, writing, and querying data with the InfluxDB 3 Core API.
     x-traitTag: true
   - name: Server information
-    description: Retrieve server metrics, status, and version information
+    description: Retrieve server metrics, health status, and version information for InfluxDB 3 Core.
   - name: Table
-    description: Manage table schemas and data
+    description: Manage table schemas in an InfluxDB 3 Core database.
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/core/admin/tables/
   - name: Auth token
-    description: Manage tokens for authentication and authorization
+    description: Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Core resources.
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/core/admin/tokens/
   - name: Write data
     x-related:
       - title: Write data using HTTP APIs
         href: /influxdb3/core/write-data/http-api/
       - title: Line protocol reference
         href: /influxdb3/core/reference/syntax/line-protocol/
-    description: |
-      Write data to InfluxDB 3 Core using line protocol format.
-
-      #### Timestamp precision across write APIs
-
-      InfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.
-      The following table compares timestamp precision support across v1, v2, and v3 write APIs:
-
-      | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
-      |-----------|---------------|----------------------|-------------------------|
-      | **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
-      | **Seconds** | ✅ `s` | ✅ `s` | ✅ `second` |
-      | **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `millisecond` |
-      | **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `microsecond` |
-      | **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `nanosecond` |
-      | **Minutes** | ✅ `m` | ❌ No | ❌ No |
-      | **Hours** | ✅ `h` | ❌ No | ❌ No |
-      | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
-
-      All timestamps are stored internally as nanoseconds.
+    description: Write time series data to InfluxDB 3 Core in line protocol format using the v1, v2, or v3 write endpoints.
 paths:
   /write:
     post:
@@ -1001,7 +892,7 @@ paths:
               description: The InfluxDB version number (for example, `3.8.0`).
               schema:
                 type: string
-                example: '3.8.0'
+                example: 3.8.0
             x-influxdb-build:
               description: The InfluxDB build type (`Core` or `Enterprise`).
               schema:
@@ -1015,15 +906,15 @@ paths:
                   version:
                     type: string
                     description: The InfluxDB version number.
-                    example: '3.8.0'
+                    example: 3.8.0
                   revision:
                     type: string
                     description: The git revision hash for the build.
-                    example: '5276213d5b'
+                    example: 5276213d5b
                   process_id:
                     type: string
                     description: A unique identifier for the server process.
-                    example: 'b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7'
+                    example: b756d9e0-cecd-4f72-b6d0-19e2d4f8cbb7
         '404':
           description: |
             Not Found. Returned for HEAD requests.
@@ -1747,7 +1638,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
       security:
         - BearerAuthentication: []
-        - {} # No auth required for initial token creation
+        - {}
       tags:
         - Auth token
   /api/v3/configure/token/admin/regenerate:
