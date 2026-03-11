@@ -35,6 +35,8 @@
   {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
 {{ else if (eq $currentVersion nil) }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
+{{ else if (eq $product "telegraf") }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (cond (eq $currentVersion "v1") "Telegraf" "Telegraf Controller")) }}
 {{ else if eq $product "influxdb" }}
   {{ if eq $currentVersion "v3" }}
     {{ .Scratch.Set "searchPlaceholder"  "Search InfluxDB OSS v3" }}
