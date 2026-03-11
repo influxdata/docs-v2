@@ -48,7 +48,7 @@ to {{% product-name %}}.
 Each token is scoped to the user who created it.
 The token's effective permissions are restricted to the creating user's role---a
 token cannot exceed the permissions of its owner.
-If a user's role changes to a role with less permissions , all of that user's
+If a user's role changes to a role with less permissions, all of that user's
 existing tokens are automatically updated with restricted permissions or revoked
 to match the new role.
 
