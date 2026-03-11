@@ -40,6 +40,24 @@ telegraf \
 Telegraf retrieves and validates the configuration from {{% product-name %}}
 and then starts the `telegraf` process using the loaded configuration.
 
+### Retrieve a configuration with authorization enabled
+
+If {{% product-name %}} is configured to require authentication on the **Configs**
+API, define the `INFLUX_TOKEN` environment variable to authorize Telegraf
+to retrieve a configuration:
+
+<!--pytest.mark.skip-->
+```bash { placeholders="YOUR_TC_API_TOKEN" }
+INLFLUX_TOKEN=YOUR_TC_API_TOKEN
+
+telegraf \
+  --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml
+```
+
+Replace {{% code-placeholder-key %}}`YOUR_TC_API_TOKEN`{{% /code-placeholder-key %}}
+with your {{% product-name %}} API token. This token must have **read**
+permissions on the **Configs** API.
+
 ## Set dynamic values
 
 Telegraf and {{% product-name %}} let you
