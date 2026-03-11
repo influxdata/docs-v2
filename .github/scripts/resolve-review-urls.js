@@ -42,13 +42,18 @@ try {
   ).trim();
   if (homePageChanged) {
     homePageUrls = ['/'];
-    console.log('Home page template (layouts/index.html) changed - adding / to review URLs');
+    console.log(
+      'Home page template (layouts/index.html) changed - adding / to review URLs'
+    );
   }
 } catch {
   // Ignore errors - fall back to content-only URLs
 }
 
-const urls = [...new Set([...homePageUrls, ...contentUrls])].slice(0, MAX_PAGES);
+const urls = [...new Set([...homePageUrls, ...contentUrls])].slice(
+  0,
+  MAX_PAGES
+);
 
 appendFileSync(GITHUB_OUTPUT, `urls=${JSON.stringify(urls)}\n`);
 appendFileSync(GITHUB_OUTPUT, `url-count=${urls.length}\n`);
