@@ -33,7 +33,7 @@ environment variable:
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="YOUR_TC_API_TOKEN" }
-INLFLUX_TOKEN=YOUR_TC_API_TOKEN
+INFLUX_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
   --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml
