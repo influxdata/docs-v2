@@ -299,15 +299,42 @@ echo "systemd" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
 
 ### Creating a Product-Specific Override
 
+> [!Important]
+> Product-specific `.vale.ini` files must include the same disabled rules as the
+> root `.vale.ini`. Rules disabled in the root config are **not** inherited by
+> product-specific configs. Omitting them re-enables the rules for those products.
+> For example, omitting `Google.Units = NO` causes duration literals like `7d`,
+> `24h` to be flagged as errors in product-specific linting runs.
+
 ```bash
 # 1. Create product-specific .vale.ini
 cat > content/influxdb3/cloud-dedicated/.vale.ini << 'EOF'
 StylesPath = ../../../.ci/vale/styles
-MinAlertLevel = error
+MinAlertLevel = warning
 Vocab = InfluxDataDocs
+
+Packages = Google, write-good, Hugo
 
 [*.md]
 BasedOnStyles = Vale, InfluxDataDocs, Google, write-good
+
+# These rules must be disabled in every product .vale.ini, same as the root .vale.ini.
+Google.Acronyms = NO
+Google.DateFormat = NO
+Google.Ellipses = NO
+Google.Headings = NO
+Google.WordList = NO
+# Disable Google.Units in favor of InfluxDataDocs.Units which only checks byte
+# units (GB, TB, etc). Duration literals (30d, 24h, 1h) are valid InfluxDB syntax.
+Google.Units = NO
+Vale.Spelling = NO
+Vale.Terms = NO
+write-good.TooWordy = NO
+
+TokenIgnores = /[a-zA-Z0-9/_\-\.]+, \
+  https?://[^\s\)\]>"]+, \
+  `[^`]+`
+
 # Product-specific overrides
 InfluxDataDocs.Branding = YES
 EOF
