@@ -167,7 +167,7 @@ echo "Step 2: Generating Redoc HTML"
 echo "========================================"
 
 # Iterate product directories that contain a .config.yml.
-for configPath in $(find . -name '.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*'); do
+for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*'); do
   productDir=$(dirname "$configPath")
   # Strip leading ./
   productDir="${productDir#./}"
