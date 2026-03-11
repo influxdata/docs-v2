@@ -1,27 +1,27 @@
 tags:
   API compatibility:
+    x-traitTag: true
     description: >
       Overview of the InfluxDB v1 and v2 compatible write and query endpoints
       available in InfluxDB 3 Clustered.
-    # x-traitTag: true — informational tag, no operations
 
   Authentication:
+    x-traitTag: true
     description: >
       Authenticate API requests to InfluxDB 3 Clustered using database tokens
       with bearer, token, basic, or querystring authentication schemes.
-    # x-traitTag: true — informational tag, no operations
 
   Common parameters:
+    x-traitTag: true
     description: >
       Common query parameters used by InfluxDB 3 Clustered API endpoints,
       including the required `database` or `db` parameter.
-    # x-traitTag: true — informational tag, no operations
 
   Headers:
+    x-traitTag: true
     description: >
       Standard HTTP request headers used by InfluxDB 3 Clustered API endpoints,
       including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
-    # x-traitTag: true — informational tag, no operations
 
   Ping:
     description: >
@@ -39,23 +39,25 @@ tags:
         href: /influxdb3/clustered/query-data/execute-queries/
 
   Quick start:
+    x-traitTag: true
     description: >
       Get started authenticating, creating a database, and writing and querying
       data with the InfluxDB 3 Clustered API.
-    # x-traitTag: true — informational tag, no operations
 
   Response codes:
+    x-traitTag: true
     description: >
       Standard HTTP status codes returned by InfluxDB 3 Clustered API endpoints
       and their meanings.
-    # x-traitTag: true — informational tag, no operations
 
   System information endpoints:
+    x-traitTag: true
     description: >
       Endpoints for retrieving system-level information about the InfluxDB 3
       Clustered instance.
 
   Usage:
+    x-traitTag: true
     description: >
       Retrieve usage metrics for an InfluxDB 3 Clustered instance.
 

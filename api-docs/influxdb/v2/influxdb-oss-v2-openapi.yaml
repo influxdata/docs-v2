@@ -48,6 +48,7 @@ tags:
     x-traitTag: true
   - name: Compatibility endpoints
     description: InfluxDB v1-compatible API endpoints for backward compatibility with InfluxDB 1.x clients, tools, and integrations such as Grafana and Telegraf.
+    x-traitTag: true
   - name: Config
     description: Retrieve configuration information for an InfluxDB OSS v2 instance.
   - name: Dashboards

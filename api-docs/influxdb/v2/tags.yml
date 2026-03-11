@@ -1,9 +1,9 @@
 tags:
   Authentication:
+    x-traitTag: true
     description: >
       Authenticate API requests to InfluxDB OSS v2 using API tokens with
       token, basic, or querystring authentication schemes.
-    # x-traitTag: true — informational tag, no operations
 
   Authorizations (API tokens):
     description: >
@@ -40,12 +40,13 @@ tags:
       generate notification statuses in InfluxDB OSS v2.
 
   Common parameters:
+    x-traitTag: true
     description: >
       Common query parameters used by InfluxDB OSS v2 API endpoints, including
       `bucket`, `bucketID`, `org`, and `orgID`.
-    # x-traitTag: true — informational tag, no operations
 
   Compatibility endpoints:
+    x-traitTag: true
     description: >
       InfluxDB v1-compatible API endpoints for backward compatibility with
       InfluxDB 1.x clients, tools, and integrations such as Grafana and
@@ -78,10 +79,10 @@ tags:
       time range and optional tag predicate.
 
   Headers:
+    x-traitTag: true
     description: >
       Standard HTTP request headers used by InfluxDB OSS v2 API endpoints,
       including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
-    # x-traitTag: true — informational tag, no operations
 
   Health:
     description: >
@@ -116,10 +117,10 @@ tags:
         href: /influxdb/v2/organizations/
 
   Pagination:
+    x-traitTag: true
     description: >
       Query parameters for paginating results from list operations in the
       InfluxDB OSS v2 API.
-    # x-traitTag: true — informational tag, no operations
 
   Ping:
     description: >
@@ -139,10 +140,10 @@ tags:
       `/query` endpoint.
 
   Quick start:
+    x-traitTag: true
     description: >
       Get started authenticating, writing, and querying data with the InfluxDB
       OSS v2 API.
-    # x-traitTag: true — informational tag, no operations
 
   Ready:
     description: >
@@ -164,10 +165,10 @@ tags:
       OSS v2 API.
 
   Response codes:
+    x-traitTag: true
     description: >
       Standard HTTP status codes returned by InfluxDB OSS v2 API endpoints and
       their meanings.
-    # x-traitTag: true — informational tag, no operations
 
   Restore:
     description: >
@@ -219,10 +220,10 @@ tags:
       Manage data sources configured in InfluxDB OSS v2.
 
   Supported operations:
+    x-traitTag: true
     description: >
       Overview of the common CRUD operations supported by the InfluxDB OSS v2
       API.
-    # x-traitTag: true — informational tag, no operations
 
   System information endpoints:
     description: >

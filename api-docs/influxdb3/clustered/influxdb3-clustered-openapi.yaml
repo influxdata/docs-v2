@@ -65,8 +65,10 @@ tags:
     x-traitTag: true
   - name: System information endpoints
     description: Endpoints for retrieving system-level information about the InfluxDB 3 Clustered instance.
+    x-traitTag: true
   - name: Usage
     description: Retrieve usage metrics for an InfluxDB 3 Clustered instance.
+    x-traitTag: true
   - description: Write time series data to InfluxDB 3 Clustered databases using the v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write` endpoint with line protocol.
     name: Write data
     x-related:

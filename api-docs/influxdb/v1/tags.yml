@@ -26,7 +26,7 @@ tags:
       scheme with v1 credentials.
 
   Authentication:
+    x-traitTag: true
     description: >
       Authenticate API requests to InfluxDB v1 using basic authentication,
       query string credentials, or the v2-compatible token scheme.
-    # x-traitTag: true — informational tag, no operations

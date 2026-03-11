@@ -1,10 +1,10 @@
 tags:
   Authentication:
+    x-traitTag: true
     description: >
       Authenticate API requests using bearer tokens, token scheme, basic
       authentication, or querystring credentials.
       See the Security Schemes section for details on each method.
-    # x-traitTag: true — informational tag, no operations
 
   Cache distinct values:
     description: >
@@ -25,10 +25,10 @@ tags:
         href: /influxdb3/core/admin/last-value-cache/
 
   Migrate from InfluxDB v1 or v2:
+    x-traitTag: true
     description: >
       Reference information for migrating existing InfluxDB v1 or v2 workloads
       to InfluxDB 3 Core using compatibility endpoints.
-    # x-traitTag: true — informational tag, no operations
 
   Database:
     description: >
@@ -38,10 +38,10 @@ tags:
         href: /influxdb3/core/admin/databases/
 
   Headers and parameters:
+    x-traitTag: true
     description: >
       Common HTTP request headers and query parameters used by InfluxDB 3 Core
       API endpoints.
-    # x-traitTag: true — informational tag, no operations
 
   Processing engine:
     description: >
@@ -60,10 +60,10 @@ tags:
         href: /influxdb3/core/query-data/
 
   Quick start:
+    x-traitTag: true
     description: >
       Get started authenticating, writing, and querying data with the
       InfluxDB 3 Core API.
-    # x-traitTag: true — informational tag, no operations
 
   Server information:
     description: >

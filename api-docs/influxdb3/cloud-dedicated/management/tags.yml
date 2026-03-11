@@ -24,6 +24,7 @@ tags:
         href: /influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/
 
   Quick start:
+    x-traitTag: true
     description: >
       Get started creating a database, issuing tokens, and writing data with
       the InfluxDB 3 Cloud Dedicated Management API.
@@ -32,7 +33,6 @@ tags:
         href: /influxdb3/cloud-dedicated/get-started/
       - title: Set up your cluster
         href: /influxdb3/cloud-dedicated/get-started/setup/
-    # x-traitTag: true — informational tag, no operations
 
   Tables:
     description: >

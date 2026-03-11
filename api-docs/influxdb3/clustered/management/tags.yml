@@ -22,13 +22,13 @@ tags:
         href: /influxdb3/clustered/admin/custom-partitions/
 
   Quick start:
+    x-traitTag: true
     description: >
       Get started creating a database, issuing tokens, and writing data with
       the InfluxDB 3 Clustered Management API.
     x-related:
       - title: Get started with Clustered
         href: /influxdb3/clustered/get-started/
-    # x-traitTag: true — informational tag, no operations
 
   Tables:
     description: >

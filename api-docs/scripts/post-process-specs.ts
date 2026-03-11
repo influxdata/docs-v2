@@ -34,6 +34,7 @@ interface RelatedLink {
 interface TagConfig {
   rename?: string;
   description?: string;
+  'x-traitTag'?: boolean;
   'x-related'?: RelatedLink[];
 }
 
@@ -322,6 +323,8 @@ function applyTagConfig(
 
     if (cfg.description !== undefined)
       tagObj.description = cfg.description.trim();
+    if (cfg['x-traitTag'] !== undefined)
+      tagObj['x-traitTag'] = cfg['x-traitTag'];
     if (cfg['x-related'] !== undefined) tagObj['x-related'] = cfg['x-related'];
   }
 
