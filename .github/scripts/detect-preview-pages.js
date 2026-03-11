@@ -136,14 +136,21 @@ function main() {
   // Strategy 2: Layout/asset changes - parse URLs from PR body
   if (hasLayoutChanges) {
     console.log('🎨 Layout/asset changes detected, checking PR description for URLs...');
+
+    // Auto-detect home page when the root template changes
+    if (changes.layouts.includes('layouts/index.html')) {
+      pagesToDeploy = [...new Set([...pagesToDeploy, '/'])];
+      console.log('   🏠 Home page template (layouts/index.html) changed - auto-adding / to preview pages');
+    }
+
     const prUrls = extractDocsUrls(PR_BODY);
 
     if (prUrls.length > 0) {
       console.log(`   Found ${prUrls.length} URLs in PR description`);
       // Merge with content pages (deduplicate)
       pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
-    } else if (changes.content.length === 0) {
-      // No content changes AND no URLs specified - need author input
+    } else if (pagesToDeploy.length === 0) {
+      // No content changes, no auto-detected pages, and no URLs specified - need author input
       console.log('   ⚠️  No URLs found in PR description - author input needed');
       setOutput('pages-to-deploy', '[]');
       setOutput('has-layout-changes', 'true');
