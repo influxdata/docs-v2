@@ -1277,8 +1277,8 @@ function processProduct(productKey: string, config: ProductConfig): void {
   console.log(`Processing ${config.description || productKey}`);
   console.log('='.repeat(80));
 
-  // Clean output directories before regeneration (unless --no-clean or --dry-run)
-  if (!noClean && !dryRun) {
+  // Clean output directories before regeneration (unless --no-clean, --dry-run, or --static-only)
+  if (!noClean && !dryRun && !staticOnly) {
     cleanProductOutputs(productKey, config);
   }
 
