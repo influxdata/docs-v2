@@ -754,12 +754,10 @@ GRANT READ ON "mydb" TO "jdoe"
 
 Stop a currently-running query.
 
-```sql
-KILL QUERY <qid> [ON "<host>"]
-```
+#### Syntax
 
-```
-kill_query_statement = "KILL QUERY" query_id [ "ON" host ] .
+```text
+KILL QUERY <query_id> [ON "<host>"]
 ```
 
 Replace the following:
