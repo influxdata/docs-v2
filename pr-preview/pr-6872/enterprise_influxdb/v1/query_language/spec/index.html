@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:06:14 -0500 -0500">
+<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2897,7 +2897,7 @@ Since InfluxQL does not support joins, the cost of a InfluxQL query is typically
 </span></span></span><span class="line"><span class="cl"><span class="nb">NUMBER</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">BLOCKS</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">SIZE</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">BLOCKS</span><span class="p">:</span><span class="w"> </span><span class="mi">931</span></span></span></code></pre></div>
 <h3 id="explain-analyze">EXPLAIN ANALYZE</h3>
-<p>Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including <a href="#execution-time">execution time</a> and <a href="#planning-time">planning time</a>, and the <a href="#iterator-type">iterator type</a> and <a href="#cursor-type">cursor type</a>.</p>
+<p>Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including <a href="#execution_time">execution time</a> and <a href="#planning_time">planning time</a>, and the <a href="#iterator-type">iterator type</a> and <a href="#cursor-type">cursor type</a>.</p>
 <p>For example, executing the following statement:</p>
 
 
@@ -2960,7 +2960,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <li><code>create_iterator</code> node represents work done by the local influxd instance──a complex composition of nested iterators combined and merged to produce the final query output.</li>
 <li>(InfluxDB Enterprise only) <code>remote_iterator</code> node represents work done on remote machines.</li>
 </ul>
-<p>For more information about iterators, see <a href="#understanding-iterators">Understanding iterators</a>.</p>
+<p>For more information about iterators, see <a href="/influxdb/v1/query_language/spec/#understanding-iterators">Understanding iterators</a>.</p>
 <h4 id="cursor-type">cursor type</h4>
 <p>EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the same data structures and equal CPU and I/O costs, each cursor type is constructed for a different reason and separated in the final output. Consider the following cursor types when tuning a statement:</p>
 <ul>
@@ -2968,7 +2968,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <li>cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, <code>SELECT foo FROM m</code> or <code>SELECT foo+bar FROM m</code>, where <code>foo</code> and <code>bar</code> are fields.</li>
 <li>cursor_cond: Condition cursor created for fields referenced in a WHERE clause.</li>
 </ul>
-<p>For more information about cursors, see <a href="#understanding-cursors">Understanding cursors</a>.</p>
+<p>For more information about cursors, see <a href="/influxdb/v1/query_language/spec/#understanding-cursors">Understanding cursors</a>.</p>
 <h4 id="block-types">block types</h4>
 <p>EXPLAIN ANALYZE separates storage block types, and reports the total number of blocks decoded and their size (in bytes) on disk. The following block types are supported:</p>
 <p>| <code>float</code>    | 64-bit IEEE-754 floating-point number |
@@ -3003,8 +3003,8 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">KILL QUERY &lt;query_id&gt; [ON &#34;&lt;host&gt;&#34;]</span></span></code></pre></div>
 <p>Replace the following:</p>
 <ul>
-<li><code>query_id</code>: your query ID (<code>qid</code>) from <a href="/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
-<li><code>host</code>: your TCP host (for example, <code>myhost:8088</code>) from <a href="/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
+<li><code>query_id</code>: your query ID (<code>qid</code>) from <a href="/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
+<li><code>host</code>: your TCP host (for example, <code>myhost:8088</code>) from <a href="/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
 </ul>
 <p>To kill queries on a cluster, specify both the query ID and the TCP host.</p>
 <h4 id="examples-10">Examples</h4>

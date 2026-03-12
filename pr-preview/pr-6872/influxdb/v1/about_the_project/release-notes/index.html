@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:34:18 -0500 -0500">
+<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2214,7 +2214,7 @@ To ensure Flux logging is enabled, set both <code>flux-enabled</code> and <code>
 <ul>
 <li>Use latest version of InfluxQL package.</li>
 <li>Add <code>-lponly</code> flag to <a href="/influxdb/v2/reference/cli/influx/export/"><code>influx export</code></a> sub-command.</li>
-<li>Add the ability to <a href="/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok">track number of values</a> written via the <a href="/influxdb/v1/tools/api/#debug-vars-http-endpoint">/debug/vars HTTP endpoint</a>.</li>
+<li>Add the ability to <a href="/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok">track number of values</a> written via the <a href="/influxdb/v1/tools/api/#debugvars-http-endpoint"><code>/debug/vars</code> HTTP endpoint</a>.</li>
 <li>Update UUID library from <a href="https://github.com/satori/go.uuid">github.com/satori/go.uuid</a> to <a href="https://github.com/gofrs/uuid">github.com/gofrs/uuid</a>.</li>
 </ul>
 <h3 id="bug-fixes-9">Bug fixes</h3>
@@ -2524,7 +2524,7 @@ happen when a subquery was the one reading the value. Max series limit was not p
 <ul>
 <li>Enable Flux using the new configuration setting
 <a href="/influxdb/v1/administration/config/#flux-enabled"><code>[http] flux-enabled = true</code></a>.</li>
-<li>Use the new <a href="/influxdb/v1/tools/shell/#type"><code>influx -type=flux</code></a> option to enable the Flux REPL shell for creating Flux queries.</li>
+<li>Use the new <a href="/influxdb/v1/tools/influx-cli/"><code>influx -type=flux</code></a> option to enable the Flux REPL shell for creating Flux queries.</li>
 <li>Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.</li>
 </ul>
 <h4 id="time-series-index-tsi-query-performance-and-throughputs-improvements">Time Series Index (TSI) query performance and throughputs improvements</h4>

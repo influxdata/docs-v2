@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:06:14 -0500 -0500">
+<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2414,7 +2414,7 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 <pre tabindex="0"><code>&gt; CREATE DATABASE &#34;NOAA_water_database&#34; WITH DURATION 3d REPLICATION 1 SHARD DURATION 1h NAME &#34;liquid&#34;
 &gt;</code></pre>
 <p>The query creates a database called <code>NOAA_water_database</code>.
-It also creates a default retention policy for <code>NOAA_water_database</code> with a <code>DURATION</code> of three days, a <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor">replication factor</a> of one, a <a href="/enterprise_influxdb/v1/concepts/glossary/#shard-group">shard group</a> duration of one hour, and with the name <code>liquid</code>.</p>
+It also creates a default retention policy for <code>NOAA_water_database</code> with a <code>DURATION</code> of three days, a <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a> of one, a <a href="/enterprise_influxdb/v1/concepts/glossary/#shard-group">shard group</a> duration of one hour, and with the name <code>liquid</code>.</p>
 <h3 id="delete-a-database-with-drop-database">Delete a database with DROP DATABASE</h3>
 <p>The <code>DROP DATABASE</code> query deletes all of the data, measurements, series, continuous queries, and retention policies from the specified database.
 The query takes the following form:</p>
