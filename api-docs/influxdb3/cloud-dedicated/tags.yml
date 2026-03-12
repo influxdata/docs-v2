@@ -7,9 +7,14 @@ tags:
 
   Authentication:
     x-traitTag: true
-    description: >
-      Authenticate API requests to InfluxDB 3 Cloud Dedicated using database
-      tokens with bearer, token, basic, or querystring authentication schemes.
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Cloud Dedicated API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
 
   Common parameters:
     x-traitTag: true

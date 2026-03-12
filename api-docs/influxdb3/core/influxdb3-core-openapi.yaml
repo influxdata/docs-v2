@@ -49,7 +49,14 @@ security:
   - BearerAuthentication: []
 tags:
   - name: Authentication
-    description: Authenticate API requests using bearer tokens, token scheme, basic authentication, or querystring credentials. See the Security Schemes section for details on each method.
+    description: |-
+      Use one of the following schemes to authenticate to the InfluxDB 3 Core API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
   - name: Cache distinct values
     description: Manage the Distinct Value Cache (DVC), an in-memory cache that stores distinct values for specific columns in a table to improve query performance for distinct tag and field value lookups.

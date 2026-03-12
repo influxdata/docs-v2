@@ -49,7 +49,13 @@ tags:
     description: InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client libraries to work with InfluxDB 1.8+, using the Token authentication scheme with v1 credentials.
   - name: Authentication
     x-traitTag: true
-    description: Authenticate API requests to InfluxDB v1 using basic authentication, query string credentials, or the v2-compatible token scheme.
+    description: |-
+      Use one of the following schemes to authenticate to the InfluxDB v1 API:
+
+      - [Basic authentication](#section/Authentication/BasicAuth)
+      - [Query string authentication](#section/Authentication/QueryAuth)
+      - [Token authentication](#section/Authentication/TokenAuth)
+      <!-- ReDoc-Inject: <security-definitions> -->
 paths:
   /ping:
     get:

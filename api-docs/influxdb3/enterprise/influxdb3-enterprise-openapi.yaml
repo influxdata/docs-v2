@@ -52,7 +52,14 @@ security:
   - QuerystringAuthentication: []
 tags:
   - name: Authentication
-    description: Authenticate API requests using bearer tokens, token scheme, basic authentication, or querystring credentials. See the Security Schemes section for details on each method.
+    description: |-
+      Use one of the following schemes to authenticate to the InfluxDB 3 Enterprise API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
   - name: Cache data
     description: Manage in-memory caches for InfluxDB 3 Enterprise, including the Distinct Value Cache (DVC) for distinct column values and the Last Value Cache (LVC) for most-recent field values.

@@ -22,7 +22,13 @@ servers:
 security:
   - TokenAuthentication: []
 tags:
-  - description: Authenticate API requests to InfluxDB OSS v2 using API tokens with token, basic, or querystring authentication schemes.
+  - description: |-
+      Use one of the following schemes to authenticate to the InfluxDB OSS v2 API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
     x-traitTag: true
   - description: Create and manage API token authorizations that grant read and write permissions to InfluxDB OSS v2 organization resources.

@@ -27,6 +27,10 @@ tags:
 
   Authentication:
     x-traitTag: true
-    description: >
-      Authenticate API requests to InfluxDB v1 using basic authentication,
-      query string credentials, or the v2-compatible token scheme.
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB v1 API:
+
+      - [Basic authentication](#section/Authentication/BasicAuth)
+      - [Query string authentication](#section/Authentication/QueryAuth)
+      - [Token authentication](#section/Authentication/TokenAuth)
+      <!-- ReDoc-Inject: <security-definitions> -->

@@ -7,9 +7,12 @@ tags:
 
   Authentication:
     x-traitTag: true
-    description: >
-      Authenticate API requests to InfluxDB 3 Cloud Serverless using API tokens
-      with token, basic, or querystring authentication schemes.
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Cloud Serverless API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
 
   Authorizations (API tokens):
     description: >

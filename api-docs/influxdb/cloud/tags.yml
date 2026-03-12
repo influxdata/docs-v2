@@ -1,9 +1,13 @@
 tags:
   Authentication:
     x-traitTag: true
-    description: >
-      Authenticate API requests to InfluxDB Cloud using API tokens with token,
-      basic, or querystring authentication schemes.
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB Cloud API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
 
   Authorizations (API tokens):
     description: >

@@ -1,10 +1,14 @@
 tags:
   Authentication:
     x-traitTag: true
-    description: >
-      Authenticate API requests using bearer tokens, token scheme, basic
-      authentication, or querystring credentials.
-      See the Security Schemes section for details on each method.
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Core API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
 
   Cache distinct values:
     description: >
