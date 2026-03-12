@@ -25,10 +25,12 @@ administrator.
 
 ## Transfer the owner role
 
-1. Navigate to the **Users** page or the target user's detail page.
-2. Select the **Transfer Ownership** option.
-3. Choose the target **Administrator** from the list (if not already selected).
-4. Confirm the transfer when prompted.
+1.  Navigate to the **Users** page or the target user's detail page.
+2.  Choose the target **Administrator** from the list (if not already selected).
+3.  Select the **Make Owner** option. If on the user detail page, select the
+    **Manage** tab to reveal the **Make Owner** option.
+4.  Confirm the username of the user you want to transfer ownership to and click
+    **Transfer Ownership**.
 
 <!-- TODO: Add screenshot of transfer ownership confirmation dialog -->
 <!-- {{< img-hd src="/img/telegraf/controller/transfer-ownership.png" alt="Telegraf Controller transfer ownership confirmation" />}} -->
