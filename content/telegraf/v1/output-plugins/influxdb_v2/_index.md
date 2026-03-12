@@ -10,7 +10,7 @@ introduced: "v1.8.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/influxdb_v2/README.md, InfluxDB v2.x Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/influxdb_v2/README.md, InfluxDB v2.x Plugin Source
 ---
 
 # InfluxDB v2.x Output Plugin
@@ -42,7 +42,7 @@ more details on how to use them.
 ## Configuration
 
 ```toml @sample.conf
-# Configuration for sending metrics to InfluxDB 2.0
+# Configuration for sending metrics to InfluxDB 2.x
 [[outputs.influxdb_v2]]
   ## The URLs of the InfluxDB cluster nodes.
   ##
