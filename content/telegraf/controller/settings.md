@@ -119,7 +119,7 @@ and invite completion.
 | **High**   |     12     |    Yes     |    Yes     |   Yes   |         Yes         |
 
 {{% caption %}}
-\* Passwords require at least one of the defined character type
+\* Passwords require at least one of the defined character types
 {{% /caption %}}
 
 To change the password complexity level:
