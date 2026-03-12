@@ -1279,6 +1279,15 @@ unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .
 ```
 
+## Comments
+
+Use comments with InfluxQL statements to describe your queries.
+
+- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+  This comment type cannot span several lines.
+- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+  Multi-line comments do not support nested multi-line comments.
+
 ## Other
 
 ```
@@ -1360,15 +1369,6 @@ user_name        = identifier .
 
 var_ref          = measurement .
 ```
-
-### Comments
-
-Use comments with InfluxQL statements to describe your queries.
-
-- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
-  This comment type cannot span several lines.
-- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
-  Multi-line comments do not support nested multi-line comments.
 
 ## Query Engine Internals
 
