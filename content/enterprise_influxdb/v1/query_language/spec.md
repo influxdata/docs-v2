@@ -637,7 +637,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -707,7 +707,7 @@ EXPLAIN ANALYZE supports the following iterator types:
 - `create_iterator` node represents work done by the local influxd instance──a complex composition of nested iterators combined and merged to produce the final query output.
 - (InfluxDB Enterprise only) `remote_iterator` node represents work done on remote machines.
 
-For more information about iterators, see [Understanding iterators](#understanding-iterators).
+For more information about iterators, see [Understanding iterators](/influxdb/v1/query_language/spec/#understanding-iterators).
 
 #### cursor type
 
@@ -717,7 +717,7 @@ EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the sa
 - cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, `SELECT foo FROM m` or `SELECT foo+bar FROM m`, where `foo` and `bar` are fields.
 - cursor_cond: Condition cursor created for fields referenced in a WHERE clause.
 
-For more information about cursors, see [Understanding cursors](#understanding-cursors).
+For more information about cursors, see [Understanding cursors](/influxdb/v1/query_language/spec/#understanding-cursors).
 
 #### block types
 
@@ -762,8 +762,8 @@ KILL QUERY <query_id> [ON "<host>"]
 
 Replace the following:
 
-- `query_id`: your query ID (`qid`) from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
-- `host`: your TCP host (for example, `myhost:8088`) from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+- `query_id`: your query ID (`qid`) from [`SHOW QUERIES`](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+- `host`: your TCP host (for example, `myhost:8088`) from [`SHOW QUERIES`](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
 
 To kill queries on a cluster, specify both the query ID and the TCP host.
 

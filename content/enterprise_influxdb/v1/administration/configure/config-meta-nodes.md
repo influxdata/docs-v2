@@ -349,7 +349,7 @@ The shared secret used by the internal API for JWT authentication for
 inter-node communication within the cluster.
 Set this to a long pass phrase.
 This value must be the same value as the
-[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1/administration/config-data-nodes#meta-internal-shared-secret) in the data node configuration file.
+[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-internal-shared-secret) in the data node configuration file.
 To use this option, set [`auth-enabled`](#auth-enabled) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`

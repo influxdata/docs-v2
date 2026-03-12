@@ -101,8 +101,8 @@ alt_links:
 - Add a warning if the TLS certificate is expired.
 - Add authentication to the Raft portal and add the following related _data_
   node configuration options:
-  - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-portal-auth-required)
-  - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#raft-dialer-auth-required)
+  - [`[meta].raft-portal-auth-required`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#raft-portal-auth-required)
+  - [`[meta].raft-dialer-auth-required`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#raft-dialer-auth-required)
 - Improve error handling.
 - InfluxQL updates:
   - Delete series by retention policy.
@@ -465,7 +465,7 @@ alt_links:
 - Add [/api/v2/delete](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) support.
 - Add  wildcard support for retention policies in `SHOW MEASUREMENTS`.
 - Log slow queries even when query logging is not enabled.
-- Add  `--start` and `--end` [backup options](/enterprise_influxdb/v1/administration/backup-and-restore/#backup-options) to specify the time to include in backup.
+- Add  `--start` and `--end` [backup flags](/enterprise_influxdb/v1/administration/backup-and-restore/#backup-flags) to specify the time to include in backup.
 - Add Raft Status output to `inflxud-ctl show`.
 
 #### Flux updates
@@ -589,7 +589,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 - **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
 
-- **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#cluster-tracing--false) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
+- **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#cluster-tracing) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
 
 ### Maintenance updates
 
@@ -855,14 +855,14 @@ For details on changes incorporated from the InfluxDB OSS release, see
 
 #### Hinted handoff improvements
 
-- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [`allow-out-of-order-writes`](/enterprise_influxdb/v1/administration/config-data-nodes#allow-out-of-order-writes--false) for more detail.
-- Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [max-pending-writes](/enterprise_influxdb/v1/administration/config-data-nodes#max-pending-writes-1024) for more detail.
+- Allow out-of-order writes. This change adds a configuration option `allow-out-of-order-writes` to the `[cluster]` section of the data node configuration file. This setting defaults to `false` to match the existing behavior. There are some important operational considerations to review before turning this on. But, the result is enabling this option reduces the time required to drain the hinted handoff queue and increase throughput during recovery. See [`allow-out-of-order-writes`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#allow-out-of-order-writes) for more detail.
+- Make the number of pending writes configurable. This change adds a configuration option in the `[hinted-handoff]` section called `max-pending-writes`, which defaults to `1024`. See [`max-writes-pending`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-writes-pending) for more detail.
 - Update the hinted handoff queue to ensure various entries to segment files occur atomically. Prior to this change, entries were written to disk in three separate writes (len, data, offset). If the process stopped in the middle of any of those writes, the hinted handoff segment file was left in an invalid state.
 - In certain scenarios, the hinted-handoff queue would fail to drain. Upon node startup, the queue segment files are now verified and truncated if any are corrupted. Some additional logging has been added when a node starts writing to the hinted handoff queue as well.
 
 #### `influxd-ctl` CLI improvements
 
-- Add a verbose flag to [`influxd-ctl show-shards`](/enterprise_influxdb/v1/administration/cluster-commands/#show-shards). This option provides more information about each shard owner, including the state (hot/cold), last modified date and time, and size on disk.
+- Add a verbose flag to [`influxd-ctl show-shards`](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/). This option provides more information about each shard owner, including the state (hot/cold), last modified date and time, and size on disk.
 
 ### Bug fixes
 
@@ -890,7 +890,7 @@ For details on changes incorporated from the InfluxDB OSS release, see
   > To restore a meta data backup, use the `restore -full` command and specify
   > your backup manifest: `influxd-ctl restore -full </backup-directory/backup.manifest>`.
 
-For more information, see [Perform a metastore only backup](/enterprise_influxdb/v1/administration/backup-and-restore/#perform-a-metastore-only-backup).
+For more information, see [Perform a metadata only backup](/enterprise_influxdb/v1/administration/backup-and-restore/#perform-a-metadata-only-backup).
 
 #### **Incremental and full backups**
 
@@ -958,7 +958,7 @@ For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB
 - Added logging when data nodes connect to meta service.
 
 ### Features
-- The Flux Technical Preview has advanced to version [0.36.2](/flux/v0.36/).
+- The Flux Technical Preview has advanced to version 0.36.2.
 
 ---
 
@@ -1217,7 +1217,7 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/relea
 > This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
 > notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
-For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1/about_the_project/whats_new/).
+For highlights of the InfluxDB 1.5 release, see [InfluxDB 1.5 release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Breaking changes
 
@@ -1455,7 +1455,7 @@ The following configuration changes may need to changed before [upgrading](/ente
 
 We've removed the data node's `shard-writer-timeout` configuration option from the `[cluster]` section.
 As of version 1.2.2, the system sets `shard-writer-timeout` internally.
-The configuration option can be removed from the [data node configuration file](/enterprise_influxdb/v1/administration/configuration/#data-node-configuration).
+The configuration option can be removed from the [data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/).
 
 #### retention-autocreate
 
@@ -1473,8 +1473,8 @@ This change only affects users who have disabled the `retention-autocreate` opti
 ##### Backup and Restore
 <br>
 
-- Prevent the `shard not found` error by making [backups](/enterprise_influxdb/v1/administration/backup-and-restore/#backup) skip empty shards
-- Prevent the `shard not found` error by making [restore](/enterprise_influxdb/v1/administration/backup-and-restore/#restore) handle empty shards
+- Prevent the `shard not found` error by making [backups](/enterprise_influxdb/v1/tools/influxd-ctl/backup/) skip empty shards
+- Prevent the `shard not found` error by making [restore](/enterprise_influxdb/v1/tools/influxd-ctl/restore/) handle empty shards
 - Ensure that restores from an incremental backup correctly handle file paths
 - Allow incremental backups with restrictions (for example, they use the `-db` or `rp` flags) to be stores in the same directory
 - Support restores on meta nodes that are not the raft leader
@@ -1494,8 +1494,8 @@ This change only affects users who have disabled the `retention-autocreate` opti
 - Serialize access to the meta client and meta store to prevent raft log buildup
 - Remove sysvinit package dependency for RPM packages
 - Make the default retention policy creation an atomic process instead of a two-step process
-- Prevent `influxd-ctl`'s [`join` argument](/enterprise_influxdb/v1/features/cluster-commands/#join) from completing a join when the command also specifies the help flag (`-h`)
-- Fix the `influxd-ctl`'s [force removal](/enterprise_influxdb/v1/features/cluster-commands/#remove-meta) of meta nodes
+- Prevent `influxd-ctl`'s [`join` argument](/enterprise_influxdb/v1/tools/influxd-ctl/join/) from completing a join when the command also specifies the help flag (`-h`)
+- Fix the `influxd-ctl`'s [force removal](/enterprise_influxdb/v1/tools/influxd-ctl/remove-meta/) of meta nodes
 - Update the meta node and data node sample configuration files
 
 ---
@@ -1517,7 +1517,7 @@ Please see the OSS [release notes](https://github.com/influxdata/influxdb/blob/1
 
 ### Upgrading
 
-* The `retention-autocreate` configuration option has moved from the meta node configuration file to the [data node configuration file](/enterprise_influxdb/v1/administration/configuration/#retention-autocreate-true).
+* The `retention-autocreate` configuration option has moved from the meta node configuration file to the [data node configuration file](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#retention-autocreate).
 To disable the auto-creation of retention policies, set `retention-autocreate` to `false` in your data node configuration files.
 * The previously deprecated `influxd-ctl force-leave` command has been removed. The replacement command to remove a meta node which is never coming back online is [`influxd-ctl remove-meta -force`](/enterprise_influxdb/v1/features/cluster-commands/).
 
@@ -1526,7 +1526,7 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 - Improve the meta store: any meta store changes are done via a compare and swap
 - Add support for [incremental backups](/enterprise_influxdb/v1/administration/backup-and-restore/)
 - Automatically remove any deleted shard groups from the data store
-- Uncomment the section headers in the default [configuration file](/enterprise_influxdb/v1/administration/configuration/)
+- Uncomment the section headers in the default [configuration file](/enterprise_influxdb/v1/administration/configure/)
 - Add InfluxQL support for [subqueries](/influxdb/v1/query_language/data_exploration/#subqueries)
 
 #### Cluster-specific Bugfixes
@@ -1534,13 +1534,13 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 - Update dependencies with Godeps
 - Fix a data race in meta client
 - Ensure that the system removes the relevant [user permissions and roles](/enterprise_influxdb/v1/features/users/) when a database is dropped
-- Fix a couple typos in demo [configuration file](/enterprise_influxdb/v1/administration/configuration/)
+- Fix a couple typos in demo [configuration file](/enterprise_influxdb/v1/administration/configure/)
 - Make optional the version protobuf field for the meta store
 - Remove the override of GOMAXPROCS
 - Remove an unused configuration option (`dir`) from the backend
 - Fix a panic around processing remote writes
 - Return an error if a remote write has a field conflict
-- Drop points in the hinted handoff that (1) have field conflict errors (2) have [`max-values-per-tag`](/influxdb/v1/administration/config/#max-values-per-tag-100000) errors
+- Drop points in the hinted handoff that (1) have field conflict errors (2) have [`max-values-per-tag`](/influxdb/v1/administration/config/#max-values-per-tag) errors
 - Remove the deprecated `influxd-ctl force-leave` command
 - Fix issue where CQs would stop running if the first meta node in the cluster stops
 - Fix logging in the meta httpd handler service
@@ -1630,8 +1630,8 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 - Return an error if getting latest snapshot takes longer than 30 seconds
 - Remove any expired shards from the `/show-shards` output
-- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configuration/#pprof-enabled-true) and enable it by default on meta nodes
-- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configuration/#pprof-enabled-true-1) on data nodes
+- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#pprof-enabled) and enable it by default on meta nodes
+- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled) on data nodes
 - Use the data reference instead of `Clone()` during read-only operations for performance purposes
 - Prevent the system from double-collecting cluster statistics
 - Ensure that the Meta API redirects to the cluster leader when it gets the `ErrNotLeader` error
@@ -1647,7 +1647,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 #### Cluster-specific bug fixes
 
-- Respect the [Hinted Handoff settings](/enterprise_influxdb/v1/administration/configuration/#hinted-handoff) in the configuration file
+- Respect the [Hinted Handoff settings](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#hinted-handoff) in the configuration file
 - Fix expanding regular expressions when all shards do not exist on node that's handling the request
 
 ---

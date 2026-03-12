@@ -385,7 +385,7 @@ reporting an earlier error.
 
 - Use latest version of InfluxQL package.
 - Add `-lponly` flag to [`influx export`](/influxdb/v2/reference/cli/influx/export/) sub-command.
-- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1/tools/api/#debug-vars-http-endpoint).
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/tools/api/#debugvars-http-endpoint).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 
 ### Bug fixes
@@ -682,7 +682,7 @@ Support for the Flux language and queries has been added in this release. To beg
 
 - Enable Flux using the new configuration setting
   [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled).
-- Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/) option to enable the Flux REPL shell for creating Flux queries.
 - Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
 #### Time Series Index (TSI) query performance and throughputs improvements

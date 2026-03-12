@@ -102,7 +102,7 @@ The query creates a database called `NOAA_water_database`.
 ```
 
 The query creates a database called `NOAA_water_database`.
-It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`.
+It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf) of one, a [shard group](/enterprise_influxdb/v1/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`.
 
 ### Delete a database with DROP DATABASE
 
