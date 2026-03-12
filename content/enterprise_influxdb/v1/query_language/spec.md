@@ -176,7 +176,7 @@ Duration literals specify a length of time.
 An integer literal followed immediately (with no spaces) by a duration unit listed below is interpreted as a duration literal.
 Durations can be specified with mixed units.
 
-#### Durations
+##### Duration units
 
 | Units  | Meaning                                 |
 | ------ | --------------------------------------- |
@@ -754,24 +754,25 @@ GRANT READ ON "mydb" TO "jdoe"
 
 Stop a currently-running query.
 
-```sql
-KILL QUERY <qid> ON "<host>"
-```
+#### Syntax
 
-To kill queries on a cluster, specify the query ID (`qid`) and the TCP host (for example, `myhost:8088`) from the `SHOW QUERIES` output.
-
-```
-kill_query_statement = "KILL QUERY" query_id ON "myhost:8088".
+```text
+KILL QUERY <query_id> [ON "<host>"]
 ```
 
 Replace the following:
 
 - `query_id`: your query ID (`qid`) from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
--  `myhost:8088`: your TCP host from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+- `host`: your TCP host (for example, `myhost:8088`) from [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+
+To kill queries on a cluster, specify both the query ID and the TCP host.
 
 #### Examples
 
 ```sql
+-- kill query with qid of 36 on the local host
+KILL QUERY 36
+
 -- kill query on InfluxDB Enterprise cluster
 KILL QUERY 53 ON "myhost:8088"
 ```
