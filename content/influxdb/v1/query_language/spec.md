@@ -26,6 +26,7 @@ and providing features specific to storing and analyzing time series data.
 - [Statements](#statements)
 - [Clauses](#clauses)
 - [Expressions](#expressions)
+- [Comments](#comments)
 - [Other](#other)
 - [Query engine internals](#query-engine-internals)
 
