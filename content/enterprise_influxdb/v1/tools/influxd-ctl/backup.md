@@ -89,7 +89,7 @@ Running backups with different compression settings on ~5.3 GB of data:
 | none              |     10s     |   ~5.3 GB    | ~5x faster, ~77% more space   |
 
 We do not recommend changing the values for `-gzipBlockCount` and `-gzipBlockSize`.
-These are set to sensible defaults per the [pgzip library](https://github.com/klauspost/pgzip).
+These are set to sensible defaults (block size is `1048576` bytes (`1024*1024`)) per the [pgzip library](https://github.com/klauspost/pgzip).
 
 ## Examples
 
@@ -138,5 +138,5 @@ influxd-ctl backup -shard 00 /path/to/backup-dir
 The following example uses the fastest possible compression speeds for backup:
 
 ```sh
-influxd-ctl backup -strategy full -gzipBlockSize 10048576 -gzipBlockCount 28 -gzipCompressionLevel none .
+influxd-ctl backup -strategy full -gzipBlockSize 10485760 -gzipBlockCount 28 -gzipCompressionLevel none .
 ```

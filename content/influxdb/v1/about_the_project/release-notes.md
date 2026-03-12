@@ -14,6 +14,51 @@ alt_links:
 ---
 
 
+## v1.12.3 {date="2026-01-12"}
+
+### Features
+
+- Add [`https-insecure-certificate` configuration option](/influxdb/v1/administration/config/#https-insecure-certificate)
+  to skip file permission checking for TLS certificate and private key files.
+- Add [`advanced-expiration` TLS configuration option](/influxdb/v1/administration/config/#advanced-expiration)
+  to configure how far in advance to log warnings about TLS certificate expiration.
+- Add TLS certificate reloading on `SIGHUP`.
+- Add `config` and `cq` (continuous query) diagnostics to the `/debug/vars` endpoint.
+- Improve dropped point logging.
+- Show user when displaying or logging queries.
+- Add `time_format` parameter for the HTTP API.
+- Use dynamic logging levels (`zap.AtomicLevel`).
+- Report user query bytes.
+- InfluxQL updates:
+  - Fix `FUTURE LIMIT` and `PAST LIMIT`
+    [clause order](/influxdb/v1/query_language/manage-database/#future-limit)
+    in retention policy statements.
+
+### Bug fixes
+
+- Add locking in `ClearBadShardList`.
+- Stop noisy logging about phantom shards that do not belong to a node.
+- Resolve `RLock()` leakage in `Store.DeleteSeries()`.
+- Fix condition check for optimization of array cursor (tsm1).
+- Run `init.sh` `buildtsi` as `influxdb` user.
+- Reduce unnecessary purger operations and logging.
+- Sort files for adjacency testing.
+- Fix operator in host detection (systemd).
+- Use correct path in open WAL error message.
+- Handle nested low-level files in compaction.
+- Correct error logic for writing empty index files.
+- Reduce lock contention and races in purger.
+- Fix bug with authorizer leakage in `SHOW QUERIES`.
+- Rename compact throughput logging keys.
+- Fix `https-insecure-certificate` not handled properly in httpd.
+- Prevent level regression when compacting mixed-level TSM files.
+
+### Other
+
+- Update Go to 1.24.13.
+
+---
+
 ## v1.12.2 {date="2025-09-15"}
 
 ### Features

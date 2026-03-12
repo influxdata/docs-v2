@@ -964,8 +964,15 @@ specified, the `httpd` service will try to load the private key from the
 `https-certificate` file. If a separate `https-private-key` file is specified, 
 the `httpd` service will load the private key from the `https-private-key` file.
 
-**Default**: `""`  
+**Default**: `""`
 **Environment variable**: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-certificate
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+**Default**: `false`
+**Environment variable**: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
 #### shared-secret
 
@@ -1638,5 +1645,12 @@ include: `tls1.0`, `tls1.1`, `tls1.2`, and `tls1.3`. If not specified,
 In this example, `tls1.3` specifies the maximum version as TLS 1.3, which is 
 consistent with the behavior of previous InfluxDB releases.
 
-**Default**: `tls1.3`  
+**Default**: `tls1.3`
 **Environment variable**: `INFLUXDB_TLS_MAX_VERSION`
+
+#### advanced-expiration
+
+Sets how far in advance to log warnings about TLS certificate expiration.
+
+**Default**: `5d`
+**Environment variable**: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
