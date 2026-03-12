@@ -7,6 +7,9 @@ menu:
   telegraf_controller:
     name: Manage users
 weight: 7
+cascade:
+  related:
+    - /telegraf/controller/reference/authorization/
 ---
 
 Users are accounts that can log into the {{% product-name %}} web interface and
