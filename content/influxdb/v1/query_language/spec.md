@@ -64,7 +64,7 @@ newline             = /* the Unicode code point U+000A */ .
 unicode_char        = /* an arbitrary Unicode code point except newline */ .
 ```
 
-### Letters and digits
+## Letters and digits
 
 Letters are the set of ASCII characters plus the underscore character _ (U+005F) is considered a letter.
 
@@ -76,7 +76,7 @@ ascii_letter        = "A" … "Z" | "a" … "z" .
 digit               = "0" … "9" .
 ```
 
-### Identifiers
+## Identifiers
 
 Identifiers are tokens which refer to [database](/influxdb/v1/concepts/glossary/#database) names, [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp) names, [user](/influxdb/v1/concepts/glossary/#user) names, [measurement](/influxdb/v1/concepts/glossary/#measurement) names, [tag keys](/influxdb/v1/concepts/glossary/#tag-key), and [field keys](/influxdb/v1/concepts/glossary/#field-key).
 
@@ -104,7 +104,7 @@ _cpu_stats
 "1_Crazy-1337.identifier>NAME👍"
 ```
 
-### Keywords
+## Keywords
 
 ```
 ALL           ALTER         ANY           AS            ASC           BEGIN
@@ -140,9 +140,9 @@ In those cases, `time` does not require double quotes in queries.
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
 For more information, see [Frequently Asked Questions](/influxdb/v1/troubleshooting/frequently-asked-questions/#time).
 
-### Literals
+## Literals
 
-#### Integers
+### Integers
 
 InfluxQL supports decimal integer literals.
 Hexadecimal and octal literals are not currently supported.
@@ -151,7 +151,7 @@ Hexadecimal and octal literals are not currently supported.
 int_lit             = ( "1" … "9" ) { digit } .
 ```
 
-#### Floats
+### Floats
 
 InfluxQL supports floating-point literals.
 Exponents are not currently supported.
@@ -160,7 +160,7 @@ Exponents are not currently supported.
 float_lit           = int_lit "." int_lit .
 ```
 
-#### Strings
+### Strings
 
 String literals must be surrounded by single quotes.
 Strings may contain `'` characters as long as they are escaped (i.e., `\'`).
@@ -169,13 +169,13 @@ Strings may contain `'` characters as long as they are escaped (i.e., `\'`).
 string_lit          = `'` { unicode_char } `'` .
 ```
 
-#### Durations
+### Durations
 
 Duration literals specify a length of time.
 An integer literal followed immediately (with no spaces) by a duration unit listed below is interpreted as a duration literal.
 Durations can be specified with mixed units.
 
-#### Durations
+#### Duration units
 
 | Units  | Meaning                                 |
 | ------ | --------------------------------------- |
@@ -194,7 +194,7 @@ duration_lit        = int_lit duration_unit .
 duration_unit       = "ns" | "u" | "µ" | "ms" | "s" | "m" | "h" | "d" | "w" .
 ```
 
-#### Dates & Times
+### Dates & Times
 
 The date and time literal format is not specified in EBNF like the rest of this document.
 It is specified using Go's date / time parsing format, which is a reference date written in the format required by InfluxQL.
@@ -206,13 +206,13 @@ InfluxQL reference date time: January 2nd, 2006 at 3:04:05 PM
 time_lit            = "2006-01-02 15:04:05.999999" | "2006-01-02" .
 ```
 
-#### Booleans
+### Booleans
 
 ```
 bool_lit            = TRUE | FALSE .
 ```
 
-#### Regular Expressions
+### Regular Expressions
 
 ```
 regex_lit           = "/" { unicode_char } "/" .
@@ -1279,15 +1279,6 @@ unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .
 ```
 
-## Comments
-
-Use comments with InfluxQL statements to describe your queries.
-
-* A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
-  This comment type cannot span several lines.
-* A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
-  Multi-line comments do not support nested multi-line comments.
-
 ## Other
 
 ```
@@ -1369,6 +1360,15 @@ user_name        = identifier .
 
 var_ref          = measurement .
 ```
+
+### Comments
+
+Use comments with InfluxQL statements to describe your queries.
+
+- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+  This comment type cannot span several lines.
+- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+  Multi-line comments do not support nested multi-line comments.
 
 ## Query Engine Internals
 
