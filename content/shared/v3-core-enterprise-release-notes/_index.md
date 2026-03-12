@@ -6,6 +6,119 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.8.4 {date="2026-03-10"}
+
+### Core
+
+No adjustments in this release.
+Core remains on v3.8.3.
+
+### Enterprise
+
+#### Security
+
+-  **Read and write tokens can no longer delete databases**: Authorization now evaluates both the HTTP method and the request path. Previously, tokens with read or write access to a database could also issue delete requests.
+
+#### Bug fixes
+
+- **Stale compactor blocking startup**: Fixed an issue where stopped (stale) compactor entries in the catalog prevented new compactor nodes from starting. Enterprise now only considers currently running compactor nodes for conflict checks.
+
+- **WAL replay**: Fixed an issue where combined-mode deployments silently ignored the `--wal-replay-concurrency-limit` flag and always used serial replay (concurrency of 1). The flag is now respected.
+
+- Other bug fixes and performance improvements.
+
+## v3.8.3 {date="2026-02-24"}
+
+### Core
+
+#### Bug fixes
+
+- **WAL Buffer**: Fix an edge case that could potentially cause the WAL buffer to overflow
+
+
+## v3.8.2 {date="2026-02-23"}
+
+### Core
+
+#### Features
+
+- **TLS: Skip certificate verification in CLI subcommands**: Use the new `--tls-no-verify` flag with any CLI subcommand to skip TLS certificate verification when connecting to a server. Useful for testing environments with self-signed certificates.
+
+- **Environment variable prefix standardization**: InfluxDB 3 specific environment variables use the `INFLUXDB3_` prefix for consistency. Legacy variable names continue to work (deprecated) for backward compatibility.
+
+  > [!IMPORTANT]
+  > `INFLUXDB3_LOG_FILTER` is currently ignored. To set the log filter, use `LOG_FILTER` or the `--log-filter` flag.
+
+- **Parquet output format for `show` subcommands**: You can now save query results from the `show` subcommand directly to a Parquet file.
+
+- **SQL: `tag_values()` table function**: Query distinct tag values using the new `tag_values()` SQL table function.
+
+- **InfluxQL: `SHOW TAG VALUES` improvements**: In Enterprise deployments with auto-DVC enabled, `SHOW TAG VALUES` queries now use the Distinct Value Cache (DVC) automatically for improved performance. The `WHERE` clause is also now supported in `SHOW TAG VALUES` queries backed by the DVC, including compound predicates using `AND` and `OR`.
+
+- **InfluxQL: `SHOW RETENTION POLICIES` returns duration**: The `duration` column in `SHOW RETENTION POLICIES` results now returns the configured retention period in InfluxDB v1-compatible format (for example, `168h0m0s`) instead of returning an empty value.
+
+- **Ceph S3 backend support**: Use `--aws-s3-custom-backend ceph` with `influxdb3 serve` to connect to Ceph S3-compatible object storage. This enables ETag quote stripping required for conditional PUT operations with Ceph.
+
+- **`_internal` database default retention**: The `_internal` system database now defaults to a 7-day retention period (previously infinite). Only admin tokens can modify retention on the `_internal` database.
+
+- **Snapshot checkpointing for faster startup**: Use the new [`--checkpoint-interval`](/influxdb3/version/reference/config-options/#checkpoint-interval) serve option to periodically consolidate snapshots into monthly checkpoints. On startup, the server loads one to two checkpoints per calendar month instead of thousands of individual snapshots, reducing startup time for long-running servers.
+
+#### Bug fixes
+
+- **Sparse write handling for LVC, DVC, and Processing Engine**: Fixed incorrect behavior when processing sparse writes (writes that include only some fields from a table with multiple field families).
+
+- **`influxdb3-launcher`: SSL certificate path on RHEL systems**: Fixed an issue where the `SSL_CERT_FILE` environment variable was not correctly set on affected RHEL-based
+  systems when using the `influxdb3-launcher` script.
+- Additional bug fixes and performance improvements.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Data-only deletion for databases and tables**: Delete only the stored data from a database or table while preserving catalog entries, schema, and associated resources (tokens, triggers, caches, and processing engine configurations).
+
+#### Bug fixes
+
+- **Compaction stability**: Several fixes to compaction scheduling and processing to improve stability and correctness in multi-node clusters.
+
+- **TableIndexCache initialization**: Fixed a concurrency bug that could cause incorrect behavior during `TableIndexCache` initialization.
+
+- **Snapshot checkpointing**: Fixed an issue where snapshot checkpoint cleanup was not running as a background task.
+
+## v3.8.0 {date="2025-12-18"}
+
+### Core
+
+#### Features
+
+- **Linux Service Management**: Run InfluxDB 3 as a managed system service on Linux ([#27026](https://github.com/influxdata/influxdb/pull/27026)):
+  - Use `influxdb3-launcher` script to initialize the service
+  - Deploy with systemd on modern Linux distributions
+  - Deploy with SysV init on legacy systems
+  - Customize service behavior with configuration files
+
+#### Bug fixes
+
+- **CLI**: View only active databases and tables when running `SHOW RETENTION`
+- **Database operations**: Receive an error when attempting to delete tables from an already-deleted database
+- **Retention Policy**: Receive an error when attempting to modify retention settings on deleted databases
+
+#### Security
+
+- **Processing Engine**: Run processing engine plugins with Python 3.13.11, which includes security and bug fixes ([#27014](https://github.com/influxdata/influxdb/pull/27014))
+
+### Enterprise
+
+All Core updates are included in Enterprise. Additional Enterprise-specific features and fixes:
+
+#### Bug fixes
+
+- **Table Limits**: Delete tables without affecting your table limit quota
+- **Retention Policy**: Receive an error when attempting to modify retention settings on deleted tables
+
 ## v3.7.0 {date="2025-11-19"}
 
 ### Core
@@ -172,8 +285,12 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - Validate tag and field names when creating tables ([#26641](https://github.com/influxdata/influxdb/pull/26641))
 - Using GROUP BY twice on the same column no longer causes incorrect data ([#26732](https://github.com/influxdata/influxdb/pull/26732))
 
-#### Security & Misc
+#### Operational and security improvements
 
+- Introduce a new `v2` catalog path structure:
+
+  - `catalog/v2/logs/` directory for log files (instead of `catalogs/`)
+  - `catalog/v2/snapshot` file for checkpoint/snapshot files (instead of `_catalog_checkpoint`)
 - Reduce verbosity of the TableIndexCache log. ([#26709](https://github.com/influxdata/influxdb/pull/26709))
 - WAL replay concurrency limit defaults to number of CPU cores, preventing possible OOMs. ([#26715](https://github.com/influxdata/influxdb/pull/26715))
 - Remove unsafe signal\_handler code. ([#26685](https://github.com/influxdata/influxdb/pull/26685))
@@ -231,7 +348,6 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 - **License management**:
   - Improve licensing suggestions for Core users
   - Update license information handling
-- **Storage engine**: Add experimental PachaTree storage engine with core implementation and server integration
 - **Database management**:
   - Enhance `TableIndexCache` with advanced features beyond Core's basic cleanup: persistent snapshots, object store integration, merge operations for distributed environments, and recovery capabilities for multi-node clusters
   - Add `TableIndexSnapshot`, `TableIndex`, and `TableIndices` types for distributed table index management
@@ -333,9 +449,9 @@ All Core updates are included in Enterprise. Additional Enterprise-specific feat
 
 ## v3.1.0 {date="2025-05-29"}
 
-**Core**: revision 482dd8aac580c04f37e8713a8fffae89ae8bc264
+**Core**: revision `482dd8aac580c04f37e8713a8fffae89ae8bc264`
 
-**Enterprise**: revision 2cb23cf32b67f9f0d0803e31b356813a1a151b00
+**Enterprise**: revision `2cb23cf32b67f9f0d0803e31b356813a1a151b00`
 
 ### Core
 

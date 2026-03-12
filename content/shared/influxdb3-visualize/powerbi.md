@@ -7,7 +7,7 @@ This guide includes Windows (64‑bit) installation steps for the Arrow Flight S
 >
 > {{% cite %}}-- [Microsoft Power BI documentation](https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview){{% /cite %}}
 
-> \[!Important]
+> [!Important]
 > These instructions are for Power BI Desktop only; it uses a custom connector.
 
 1. [Prerequisites](#prerequisites)
@@ -125,7 +125,7 @@ After installing the connector and restarting Power BI Desktop:
 
 10. Preview your data and click **Load**
 
-> \[!Important]
+> [!Important]
 >
 > #### Limit query size for optimal performance
 >

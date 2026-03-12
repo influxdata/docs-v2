@@ -26,7 +26,7 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | ----------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `<node_id>/`                              | Root directory for all node state                                                             |
 | `<node_id>/_catalog_checkpoint`           | Catalog state checkpoint file                                                                 |
-| `<node_id>/catalogs/`                     | Catalog log files tracking catalog state changes                                              |
+| `<node_id>/catalog/`                      | Catalog log files tracking catalog state changes                                              |
 | `<node_id>/wal/`                          | [Write-ahead log files](/influxdb3/version/reference/internals/durability/#write-ahead-log-wal-persistence) containing written data                                                 |
 | `<node_id>/snapshots/`                    | Snapshot files summarizing persisted [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage)                                            |
 | `<node_id>/dbs/<db>/<table>/<date>/`      | [Parquet files](/influxdb3/version/reference/internals/durability/#parquet-storage) organized by [database](/influxdb3/version/admin/databases/), [table](/influxdb3/version/admin/tables/), and time |
@@ -39,7 +39,7 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cluster files**                         |                                                                                                                                                                                                       |
 | `<cluster_id>/_catalog_checkpoint`        | Catalog state checkpoint file                                                                                                                                                                         |
-| `<cluster_id>/catalogs/`                  | Catalog log files tracking catalog state changes                                                                                                                                                      |
+| `<cluster_id>/catalog/`                   | Catalog log files tracking catalog state changes                                                                                                                                                      |
 | `<cluster_id>/commercial_license`         | Commercial [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/trial_or_home_license`      | Trial or home [license](/influxdb3/version/admin/license/) file (if applicable)                                                                                                                       |
 | `<cluster_id>/enterprise`                 | Enterprise configuration file                                                                                                                                                                         |
@@ -65,7 +65,7 @@ InfluxDB 3 supports the following object storage backends for data persistence:
 1. Snapshots directory
 2. Database (dbs) directory
 3. WAL directory
-4. Catalogs directory
+4. Catalog directory
 5. Catalog checkpoint file
 
 {{< tabs-wrapper >}}
@@ -88,7 +88,7 @@ mkdir -p "$BACKUP_DIR"
 cp -r $DATA_DIR/${NODE_ID}/snapshots "$BACKUP_DIR/"
 cp -r $DATA_DIR/${NODE_ID}/dbs "$BACKUP_DIR/"
 cp -r $DATA_DIR/${NODE_ID}/wal "$BACKUP_DIR/"
-cp -r $DATA_DIR/${NODE_ID}/catalogs "$BACKUP_DIR/"
+cp -r $DATA_DIR/${NODE_ID}/catalog "$BACKUP_DIR/"
 cp $DATA_DIR/${NODE_ID}/_catalog_checkpoint "$BACKUP_DIR/"
 
 echo "Backup completed to $BACKUP_DIR"
@@ -121,8 +121,8 @@ aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/dbs \
 aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/wal \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/wal/
 
-aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/catalogs \
-  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/catalogs/
+aws s3 sync s3://${SOURCE_BUCKET}/${NODE_ID}/catalog \
+  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/catalog/
 
 aws s3 cp s3://${SOURCE_BUCKET}/${NODE_ID}/_catalog_checkpoint \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${NODE_ID}/
@@ -192,8 +192,8 @@ done
 
 # 3. Backup cluster catalog
 echo "Backing up cluster catalog..."
-aws s3 sync s3://${SOURCE_BUCKET}/${CLUSTER_ID}/catalogs \
-  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalogs/
+aws s3 sync s3://${SOURCE_BUCKET}/${CLUSTER_ID}/catalog \
+  s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalog/
 
 aws s3 cp s3://${SOURCE_BUCKET}/${CLUSTER_ID}/_catalog_checkpoint \
   s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/
@@ -252,7 +252,7 @@ done
 # 3. Backup cluster catalog
 echo "Backing up cluster catalog..."
 mkdir -p "$BACKUP_DIR/${CLUSTER_ID}"
-cp -r $DATA_DIR/${CLUSTER_ID}/catalogs "$BACKUP_DIR/${CLUSTER_ID}/"
+cp -r $DATA_DIR/${CLUSTER_ID}/catalog "$BACKUP_DIR/${CLUSTER_ID}/"
 cp $DATA_DIR/${CLUSTER_ID}/_catalog_checkpoint "$BACKUP_DIR/${CLUSTER_ID}/"
 cp $DATA_DIR/${CLUSTER_ID}/enterprise "$BACKUP_DIR/${CLUSTER_ID}/"
 
@@ -284,7 +284,7 @@ Replace the following:
 
 **Recommended restore order:**
 1. Catalog checkpoint file
-2. Catalogs directory
+2. Catalog directory
 3. WAL directory
 4. Database (dbs) directory
 5. Snapshots directory
@@ -306,7 +306,7 @@ rm -rf ${DATA_DIR}/${NODE_ID}/*
 # 3. Restore in reverse order of backup
 mkdir -p ${DATA_DIR}/${NODE_ID}
 cp ${BACKUP_DIR}/_catalog_checkpoint ${DATA_DIR}/${NODE_ID}/
-cp -r ${BACKUP_DIR}/catalogs ${DATA_DIR}/${NODE_ID}/
+cp -r ${BACKUP_DIR}/catalog ${DATA_DIR}/${NODE_ID}/
 cp -r ${BACKUP_DIR}/wal ${DATA_DIR}/${NODE_ID}/
 cp -r ${BACKUP_DIR}/dbs ${DATA_DIR}/${NODE_ID}/
 cp -r ${BACKUP_DIR}/snapshots ${DATA_DIR}/${NODE_ID}/
@@ -379,8 +379,8 @@ TARGET_BUCKET="TARGET_BUCKET"
 aws s3 cp s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/_catalog_checkpoint \
   s3://${TARGET_BUCKET}/${CLUSTER_ID}/
 
-aws s3 sync s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalogs \
-  s3://${TARGET_BUCKET}/${CLUSTER_ID}/catalogs/
+aws s3 sync s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/catalog \
+  s3://${TARGET_BUCKET}/${CLUSTER_ID}/catalog/
 
 aws s3 cp s3://${BACKUP_BUCKET}/${BACKUP_PREFIX}/${CLUSTER_ID}/enterprise \
   s3://${TARGET_BUCKET}/${CLUSTER_ID}/
@@ -435,7 +435,7 @@ rm -rf ${DATA_DIR}/${CLUSTER_ID}/*
 # 3. Restore cluster catalog and license
 mkdir -p ${DATA_DIR}/${CLUSTER_ID}
 cp ${BACKUP_DIR}/${CLUSTER_ID}/_catalog_checkpoint ${DATA_DIR}/${CLUSTER_ID}/
-cp -r ${BACKUP_DIR}/${CLUSTER_ID}/catalogs ${DATA_DIR}/${CLUSTER_ID}/
+cp -r ${BACKUP_DIR}/${CLUSTER_ID}/catalog ${DATA_DIR}/${CLUSTER_ID}/
 cp ${BACKUP_DIR}/${CLUSTER_ID}/enterprise ${DATA_DIR}/${CLUSTER_ID}/
 
 # Restore license files if they exist

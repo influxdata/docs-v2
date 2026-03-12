@@ -1,7 +1,7 @@
 ---
 title: Sign up for InfluxDB Cloud
 description: >
-  InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
+  InfluxDB Cloud (TSM) is a fully managed and hosted version of InfluxDB 2.x, the time series
   platform purpose-built to collect, store, process and visualize metrics and events.
 menu:
   influxdb_cloud:
@@ -12,7 +12,7 @@ aliases:
   - /influxdb/v2/cloud/get-started/
 ---
 
-InfluxDB Cloud is a fully managed and hosted version of InfluxDB, designed to collect, store, process, and visualize metrics and events.
+InfluxDB Cloud (TSM) is a fully managed and hosted version of InfluxDB 2.x, designed to collect, store, process, and visualize metrics and events.
 
   > [!Note]
   > #### New InfluxDB Cloud signups use InfluxDB 3

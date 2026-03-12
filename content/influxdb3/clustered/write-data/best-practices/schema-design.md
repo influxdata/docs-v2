@@ -83,6 +83,10 @@ In time series data, the primary key for a row of data is typically a combinatio
 In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb3/clustered/reference/glossary/#tag-key) and [tag values](/influxdb3/clustered/reference/glossary/#tag-value) on the point.
 A row's primary key tag set does not include tags with null values.
 
+> [!Important]
+> Overwriting points with the same primary key (timestamp and tag set) is not reliable for maintaining a last-value view.
+> For recommended patterns, see [Duplicate points](/influxdb3/clustered/reference/syntax/line-protocol/#duplicate-points) in the line protocol reference.
+
 ### Tags versus fields
 
 When designing your schema for InfluxDB, a common question is, "what should be a

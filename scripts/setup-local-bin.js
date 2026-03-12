@@ -15,7 +15,7 @@ const rootDir = join(__dirname, '..');
 
 const binDir = join(rootDir, 'node_modules', '.bin');
 const binLink = join(binDir, 'docs');
-const targetScript = join(rootDir, 'scripts', 'docs-cli.js');
+const targetScript = join(rootDir, 'scripts', 'docs-cli', 'docs-cli.js');
 
 try {
   // Ensure node_modules/.bin directory exists

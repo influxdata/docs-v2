@@ -16,55 +16,51 @@ helper-scripts/
 ## Product Categories
 
 ### InfluxDB 3 Monolith
+
 - **Products**: InfluxDB 3 Core, InfluxDB 3 Enterprise
 - **Deployment**: Single binary deployment
 - **Scripts Location**: `influxdb3-monolith/`
 
 ### InfluxDB 3 Distributed
+
 - **Products**: InfluxDB 3 Clustered, InfluxDB 3 Cloud Dedicated
 - **Deployment**: Distributed/Kubernetes deployment
 - **Scripts Location**: `influxdb3-distributed/`
 
 ### Cloud Serverless
+
 - **Product**: InfluxDB Cloud Serverless
 - **Deployment**: Fully managed cloud service
 - **Scripts Location**: `cloud-serverless/`
 
 ## Common Scripts
 
-### `common/generate-release-notes.js`
-JavaScript ESM script that generates release notes by analyzing git commits across multiple repositories. Supports flexible configuration for different InfluxDB products and output formats.
+### Release Notes Generation
+
+Release notes are generated using the unified docs CLI. See `scripts/docs-cli/README.md` for full documentation.
 
 **Usage:**
+
 ```bash
-node common/generate-release-notes.js [options] <from_version> <to_version> [repo_paths...]
-```
+# Using product keys (resolves paths from config)
+npx docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
 
-**Options:**
-- `--config <file>` - Load configuration from JSON file
-- `--format <type>` - Output format: 'integrated' or 'separated'
-- `--no-fetch` - Skip fetching latest commits from remote
-- `--pull` - Pull latest changes (use with caution)
-- `--no-pr-links` - Omit PR links from commit messages
-
-**Examples:**
-```bash
-# Using configuration file (recommended)
-node common/generate-release-notes.js --config common/config/influxdb3-core-enterprise.json v3.1.0 v3.2.0
-
-# Traditional command-line arguments
-node common/generate-release-notes.js v3.1.0 v3.2.0 ~/repos/influxdb ~/repos/influxdb_pro
+# Using direct repository paths
+npx docs release-notes v3.1.0 v3.2.0 --repos ~/repos/influxdb,~/repos/enterprise
 ```
 
 ### `common/update-product-version.sh`
+
 Updates product version numbers in `data/products.yml` and related documentation files.
 
 **Usage:**
+
 ```bash
 ./common/update-product-version.sh --product <product> --version <version>
 ```
 
 **Example:**
+
 ```bash
 ./common/update-product-version.sh --product core --version 3.2.1
 ```
@@ -76,6 +72,7 @@ Updates product version numbers in `data/products.yml` and related documentation
 See [`influxdb3-monolith/README.md`](influxdb3-monolith/README.md) for detailed documentation.
 
 **Key Scripts:**
+
 - `audit-cli-documentation.sh` - Audits CLI commands against existing documentation
 - `setup-auth-tokens.sh` - Sets up authentication tokens for local containers
 
@@ -84,6 +81,7 @@ See [`influxdb3-monolith/README.md`](influxdb3-monolith/README.md) for detailed 
 See [`influxdb3-distributed/README.md`](influxdb3-distributed/README.md) for detailed documentation.
 
 **Key Scripts:**
+
 - `clustered-release-artifacts.sh` - Downloads release artifacts for Clustered releases
 
 ## Output Directory
@@ -103,7 +101,7 @@ output/
 These scripts are integrated with GitHub Actions workflows:
 
 - **Workflow**: `.github/workflows/prepare-release.yml`
-- **Uses**: `generate-release-notes.js`, `update-product-version.sh`
+- **Uses**: `docs release-notes` (unified CLI), `update-product-version.sh`
 
 ## Quick Start
 
@@ -120,11 +118,11 @@ These scripts are integrated with GitHub Actions workflows:
 
 3. **Run a script**
    ```bash
-   # Generate release notes
-   node common/generate-release-notes.js --config common/config/influxdb3-core-enterprise.json v3.1.0 v3.2.0
-   
+   # Generate release notes (using unified CLI)
+   npx docs release-notes v3.1.0 v3.2.0 --products influxdb3_core,influxdb3_enterprise
+
    # Audit CLI documentation
-   node influxdb3-monolith/audit-cli-documentation.js core local
+   npx docs audit main --products influxdb3_core
    ```
 
 ## Contributing

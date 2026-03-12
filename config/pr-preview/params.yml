@@ -1,0 +1,8 @@
+# PR Preview environment parameters
+# Used when building with: npx hugo -e pr-preview
+
+# Number of path segments to skip when parsing RelPermalink for product detection
+# For baseURL like https://influxdata.github.io/docs-v2/pr-preview/pr-6657/
+# The path has 3 extra segments: docs-v2, pr-preview, pr-XXXX
+# Workaround to correctly detect products in preview builds for Hugo templates relying on relPermalink to set active product
+prPreviewPathOffset: 3

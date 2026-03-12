@@ -61,6 +61,33 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20251218-1946608 {date="2025-12-18"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20251218-1946608
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20251218-1946608/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20251218-1946608/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+- The garbage collector has been fixed to support customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoint` (for example, `"https://$BUCKET.$REGION.amazonaws.com"`) and an additional prefix in `spec.package.spec.objectStore.bucket`; if you previously disabled `INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` and `INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES` to work around the bug, you can remove those overrides now.
+- Add support for both 'postgres' and 'postgresql' URI schemes in catalog DSN parsing.
+- Add support to the Management API for:
+  - Renaming databases
+  - Undeleting databases
+  - Renaming tables
+  - Deleting tables
+  - Undeleting tables
+- Dependency updates and miscellaneous security fixes.
+
 ## 20250925-1878107 {date="2025-09-25"}
 
 ### Quickstart
@@ -810,7 +837,7 @@ InfluxDB Clustered.
 
 #### Deployment
 
-- Ingesters now have a `terminationGracePeriodSeconds` value of `600` to provid
+- Ingesters now have a `terminationGracePeriodSeconds` value of `600` to provide
   enough time to persist all buffered data.
 
 #### Database engine
@@ -1507,7 +1534,7 @@ Support for custom certificates has been implemented since version
 [20230912-619813](#20230912-619813).
 Unfortunately, due to a bug, our Object store client didn't use the custom certificates.
 This release fixes that so you can use the existing configuration for custom
-certificates to also specify the certificate and certficate authority used by
+certificates to also specify the certificate and certificate authority used by
 your object store.
 
 #### Resource limits
@@ -1610,7 +1637,7 @@ Otherwise, no changes are necessary.
 #### Database engine
 
 - Catalog cache convergence improvements.
-- Retry after out of memeory (OOM) errors.
+- Retry after out of memory (OOM) errors.
 
 ---
 
@@ -1655,7 +1682,7 @@ spec:
 #### Updated Azure AD documentation
 
 The `Appendix` / `Configuring Identity Provider` / `Azure` section of the
-"Geting started" documentation has been updated:
+"Getting started" documentation has been updated:
 
 ```diff
 - https://login.microsoftonline.com/{AZURE_TENANT_ID}/.well-known/openid-configuration

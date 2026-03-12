@@ -1,12 +1,12 @@
 ---
-title: Upgrade from InfluxDB 1.x to 2.7
+title: Upgrade from InfluxDB 1.x to {{< current-version >}}
 description: >
-  Explore different methods for upgrading from InfluxDB 1.x to InfluxDB 2.7 and
+  Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {{< current-version >}} and
   choose the best one for your use case.
 menu:
   influxdb_v2:
     parent: Upgrade InfluxDB
-    name: InfluxDB 1.x to 2.7
+    name: InfluxDB 1.x to 2.8
 weight: 11
 aliases:
   - /influxdb/v2/upgrade/v1-to-v2/

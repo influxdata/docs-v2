@@ -38,6 +38,13 @@ other settings as when it was deleted.
 
 ## Undelete a table using the influxctl CLI
 
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb3/clustered/reference/cli/influxctl/#download-and-install-influxctl).
+2.  Use the [`influxctl table undelete` command](/influxdb3/clustered/reference/cli/influxctl/table/undelete/)
+    to restore a deleted table. Provide the following:
+
+    - The name of the database associated with the deleted table
+    - The ID of the deleted table to restore
+
 ```bash { placeholders="DATABASE_NAME|TABLE_ID" }
 influxctl table undelete DATABASE_NAME TABLE_ID
 ```

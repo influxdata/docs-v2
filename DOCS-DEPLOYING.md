@@ -221,6 +221,34 @@ The Cypress tests validate:
 
 See [DOCS-TESTING.md](DOCS-TESTING.md) for comprehensive testing documentation.
 
+### PR Preview
+
+Generates previews for docs-v2 pull requests for manual validation in GitHub using the PR Preview Action.
+
+#### Workflow Files
+
+| File                                           | Purpose                               |
+| ---------------------------------------------- | ------------------------------------- |
+| `.github/scripts/parse-pr-urls.js`             | Extract docs URLs from PR description |
+| `.github/scripts/detect-preview-pages.js`      | Determine which pages to preview      |
+| `.github/scripts/prepare-preview-files.js`     | Stage files for selective deployment  |
+| `.github/scripts/preview-comment.js`           | Manage sticky PR comments             |
+| `.github/workflows/pr-preview.yml`             | Main preview workflow                 |
+| `.github/workflows/cleanup-stale-previews.yml` | Weekly orphan cleanup                 |
+| `.github/PREVIEW_SETUP.md`                     | Setup documentation                   |
+
+#### Key Design Decisions
+
+1. **Selective deployment** - Only changed pages deployed (not full 529MB site)
+2. **Reuse existing infrastructure** - Uses `content-utils.js` for change detection
+3. **GitHub Pages** - Deploys to `gh-pages` branch under `pr-preview/pr-{number}/`
+4. **Security hardening** - XSS protection, path traversal prevention, input validation
+5. **50-page limit** - Prevents storage bloat on large PRs
+
+#### Related links
+
+- **Deploy PR Preview action:** <https://github.com/rossjrw/pr-preview-action>
+
 ## Troubleshooting
 
 ### s3deploy Not Found

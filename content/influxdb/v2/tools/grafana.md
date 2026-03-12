@@ -10,6 +10,7 @@ weight: 120
 influxdb/v2/tags: [grafana]
 aliases:
   - /influxdb/v2/visualize-data/other-tools/grafana/
+  - /influxdb/v2/visualize-data/grafana/
 related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/v2/query-data/get-started/

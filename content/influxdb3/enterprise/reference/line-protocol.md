@@ -12,10 +12,8 @@ influxdb3/enterprise/tags: [write, line protocol, syntax]
 related:
   - /influxdb3/enterprise/write-data/
 aliases:
-  - /influxdb3/enterprise/reference/syntax/line-protocol
+  - /influxdb3/enterprise/reference/syntax/line-protocol/
 source: /shared/v3-line-protocol.md
 ---
 
-<!--
-The content of this file is at content/shared/v3-line-protocol.md
--->
+<!--// SOURCE content/shared/v3-line-protocol.md -->

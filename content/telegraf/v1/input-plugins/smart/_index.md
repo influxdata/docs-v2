@@ -10,7 +10,7 @@ introduced: "v1.5.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/smart/README.md, S.M.A.R.T. Plugin Source
 ---
 
 # S.M.A.R.T. Input Plugin
@@ -34,10 +34,9 @@ using the [`nvme-cli`](https://github.com/linux-nvme/nvme-cli) package.
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -226,14 +225,25 @@ smartctl --scan -d nvme
     - serial_no
     - wwn
   - fields:
+    - available_spare (NVMe)
+    - available_spare_threshold (NVMe)
+    - critical_temperature_time (NVMe)
+    - critical_warning (NVMe)
+    - error_log_entries (NVMe)
     - exit_status
     - health_ok
+    - media_errors (NVMe)
     - media_wearout_indicator
     - percent_lifetime_remain
+    - percentage_used (NVMe)
+    - power_cycle_count
+    - power_on_hours
     - read_error_rate
-    - seek_error
+    - seek_error_rate
     - temp_c
     - udma_crc_errors
+    - unsafe_shutdowns (NVMe)
+    - warning_temperature_time (NVMe)
     - wear_leveling_count
 
 - smart_attribute:

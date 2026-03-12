@@ -10,7 +10,7 @@ introduced: "v1.0.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/outputs/redistimeseries/README.md, Redis Time Series Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/redistimeseries/README.md, Redis Time Series Plugin Source
 ---
 
 # Redis Time Series Output Plugin
@@ -25,10 +25,9 @@ This plugin writes metrics to a [Redis time-series](https://redis.io/timeseries)
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -56,6 +55,13 @@ to use them.
 
   ## Timeout for operations such as ping or sending metrics
   # timeout = "10s"
+
+  ## Set a time-to-live (TTL) on each Redis key
+  ## If set, Redis will expire the key after the specified duration
+  ## The TTL is refreshed on every write, so the key only expires
+  ## if no new data arrives within the configured period
+  ## Disabled by default (no expiry)
+  # expire = ""
 
   ## Enable attempt to convert string fields to numeric values
   ## If "false" or in case the string value cannot be converted the string

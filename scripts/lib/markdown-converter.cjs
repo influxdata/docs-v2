@@ -45,9 +45,18 @@ const URL_PATTERN_MAP = {
 
 const PRODUCT_NAME_MAP = {
   influxdb3_core: { name: 'InfluxDB 3 Core', version: 'core' },
-  influxdb3_enterprise: { name: 'InfluxDB 3 Enterprise', version: 'enterprise' },
-  influxdb3_cloud_dedicated: { name: 'InfluxDB Cloud Dedicated', version: 'cloud-dedicated' },
-  influxdb3_cloud_serverless: { name: 'InfluxDB Cloud Serverless', version: 'cloud-serverless' },
+  influxdb3_enterprise: {
+    name: 'InfluxDB 3 Enterprise',
+    version: 'enterprise',
+  },
+  influxdb3_cloud_dedicated: {
+    name: 'InfluxDB Cloud Dedicated',
+    version: 'cloud-dedicated',
+  },
+  influxdb3_cloud_serverless: {
+    name: 'InfluxDB Cloud Serverless',
+    version: 'cloud-serverless',
+  },
   influxdb3_clustered: { name: 'InfluxDB Clustered', version: 'clustered' },
   influxdb3_explorer: { name: 'InfluxDB 3 Explorer', version: 'explorer' },
   influxdb_cloud: { name: 'InfluxDB Cloud (TSM)', version: 'cloud' },
@@ -81,12 +90,18 @@ function detectBaseUrl() {
   }
 
   // Check if Hugo dev server is running on localhost
-  if (process.env.HUGO_ENV === 'development' || process.env.NODE_ENV === 'development') {
+  if (
+    process.env.HUGO_ENV === 'development' ||
+    process.env.NODE_ENV === 'development'
+  ) {
     return 'http://localhost:1313';
   }
 
   // Check for staging environment
-  if (process.env.HUGO_ENV === 'staging' || process.env.DEPLOY_ENV === 'staging') {
+  if (
+    process.env.HUGO_ENV === 'staging' ||
+    process.env.DEPLOY_ENV === 'staging'
+  ) {
     return process.env.STAGING_URL || 'https://test2.docs.influxdata.com';
   }
 
@@ -277,6 +292,79 @@ function createTurndownService() {
     },
   });
 
+  // Handle tabbed content - associate tab names with their content
+  // This rule handles both .tabs-wrapper and .code-tabs-wrapper containers
+  turndownService.addRule('tabbedContent', {
+    filter: function (node) {
+      return (
+        node.nodeName === 'DIV' &&
+        node.classList &&
+        (node.classList.contains('tabs-wrapper') ||
+          node.classList.contains('code-tabs-wrapper'))
+      );
+    },
+    replacement: function (_content, node, options) {
+      const isCodeTabs = node.classList.contains('code-tabs-wrapper');
+      const tabsSelector = isCodeTabs ? '.code-tabs' : '.tabs';
+      const contentSelector = isCodeTabs ? '.code-tab-content' : '.tab-content';
+
+      // Extract tab names from anchor elements
+      const tabsContainer = node.querySelector(tabsSelector);
+      const tabLinks = tabsContainer
+        ? Array.from(tabsContainer.querySelectorAll('a'))
+        : [];
+      const tabNames = tabLinks.map((link) => link.textContent.trim());
+
+      // Extract tab content sections
+      // Note: :scope selector is not supported in Turndown's DOM parser,
+      // so we use a simple selector and filter by parent
+      const allContentSections = Array.from(
+        node.querySelectorAll(contentSelector)
+      );
+      // Filter to only direct children of the tabs-wrapper
+      const contentSections = allContentSections.filter(
+        (section) => section.parentNode === node
+      );
+
+      // If no tabs or content found, fall back to default conversion
+      if (tabNames.length === 0 || contentSections.length === 0) {
+        return _content;
+      }
+
+      // Build markdown with explicit tab-content association
+      // Use bold labels instead of headings to avoid breaking heading hierarchy
+      const parts = [];
+
+      // Add a comment indicating this is tabbed content
+      parts.push(
+        '\n<!-- Tabbed content: Select one of the following options -->\n'
+      );
+
+      // Process each tab and its content
+      const maxTabs = Math.max(tabNames.length, contentSections.length);
+      for (let i = 0; i < maxTabs; i++) {
+        const tabName = tabNames[i] || `Tab ${i + 1}`;
+        const contentSection = contentSections[i];
+
+        // Add tab label with bold formatting (not a heading to preserve hierarchy)
+        parts.push(`\n**${tabName}:**\n`);
+
+        if (contentSection) {
+          // Recursively convert the content inside the tab
+          const innerHtml = contentSection.innerHTML;
+          const innerContent = turndownService.turndown(innerHtml);
+          parts.push(innerContent.trim());
+        }
+
+        parts.push('\n');
+      }
+
+      parts.push('\n<!-- End tabbed content -->\n');
+
+      return parts.join('\n');
+    },
+  });
+
   // Remove navigation, footer, and other non-content elements
   turndownService.remove([
     'nav',
@@ -398,9 +486,9 @@ function generateFrontmatter(metadata, urlPath, baseUrl = '') {
   // Sanitize description (remove newlines, truncate to reasonable length)
   let description = metadata.description || '';
   description = description
-    .replace(/\s+/g, ' ')  // Replace all whitespace (including newlines) with single space
+    .replace(/\s+/g, ' ') // Replace all whitespace (including newlines) with single space
     .trim()
-    .substring(0, 500);     // Truncate to 500 characters max
+    .substring(0, 500); // Truncate to 500 characters max
 
   // Add token estimate (rough: 4 chars per token)
   const contentLength = metadata.content?.length || 0;
@@ -414,7 +502,7 @@ function generateFrontmatter(metadata, urlPath, baseUrl = '') {
     title: metadata.title,
     description: description,
     url: fullUrl,
-    estimated_tokens: estimatedTokens
+    estimated_tokens: estimatedTokens,
   };
 
   if (product) {
@@ -425,10 +513,16 @@ function generateFrontmatter(metadata, urlPath, baseUrl = '') {
   }
 
   // Serialize to YAML (handles special characters properly)
-  return '---\n' + yaml.dump(frontmatterObj, {
-    lineWidth: -1, // Disable line wrapping
-    noRefs: true   // Disable anchors/aliases
-  }).trim() + '\n---';
+  return (
+    '---\n' +
+    yaml
+      .dump(frontmatterObj, {
+        lineWidth: -1, // Disable line wrapping
+        noRefs: true, // Disable anchors/aliases
+      })
+      .trim() +
+    '\n---'
+  );
 }
 
 /**
@@ -439,15 +533,20 @@ function generateFrontmatter(metadata, urlPath, baseUrl = '') {
  * @param {string} baseUrl - Base URL for full URL construction
  * @returns {string} YAML frontmatter as string
  */
-function generateSectionFrontmatter(metadata, urlPath, childPages, baseUrl = '') {
+function generateSectionFrontmatter(
+  metadata,
+  urlPath,
+  childPages,
+  baseUrl = ''
+) {
   const product = detectProduct(urlPath);
 
   // Sanitize description (remove newlines, truncate to reasonable length)
   let description = metadata.description || '';
   description = description
-    .replace(/\s+/g, ' ')  // Replace all whitespace (including newlines) with single space
+    .replace(/\s+/g, ' ') // Replace all whitespace (including newlines) with single space
     .trim()
-    .substring(0, 500);     // Truncate to 500 characters max
+    .substring(0, 500); // Truncate to 500 characters max
 
   // Add token estimate (rough: 4 chars per token)
   const contentLength = metadata.content?.length || 0;
@@ -469,7 +568,7 @@ function generateSectionFrontmatter(metadata, urlPath, childPages, baseUrl = '')
     url: fullUrl,
     type: 'section',
     pages: childPages.length,
-    estimated_tokens: estimatedTokens
+    estimated_tokens: estimatedTokens,
   };
 
   if (product) {
@@ -481,17 +580,23 @@ function generateSectionFrontmatter(metadata, urlPath, childPages, baseUrl = '')
 
   // List child pages with full URLs
   if (childPages.length > 0) {
-    frontmatterObj.child_pages = childPages.map(child => ({
+    frontmatterObj.child_pages = childPages.map((child) => ({
       url: normalizedBaseUrl ? `${normalizedBaseUrl}${child.url}` : child.url,
-      title: child.title
+      title: child.title,
     }));
   }
 
   // Serialize to YAML (handles special characters properly)
-  return '---\n' + yaml.dump(frontmatterObj, {
-    lineWidth: -1, // Disable line wrapping
-    noRefs: true   // Disable anchors/aliases
-  }).trim() + '\n---';
+  return (
+    '---\n' +
+    yaml
+      .dump(frontmatterObj, {
+        lineWidth: -1, // Disable line wrapping
+        noRefs: true, // Disable anchors/aliases
+      })
+      .trim() +
+    '\n---'
+  );
 }
 
 /**
@@ -506,7 +611,9 @@ async function convertToMarkdown(htmlContent, urlPath) {
   // Detect base URL for the environment
   const baseUrl = detectBaseUrl();
   if (DEBUG) {
-    console.log(`[DEBUG] Base URL detected: ${baseUrl} (NODE_ENV=${process.env.NODE_ENV}, HUGO_ENV=${process.env.HUGO_ENV}, BASE_URL=${process.env.BASE_URL})`);
+    console.log(
+      `[DEBUG] Base URL detected: ${baseUrl} (NODE_ENV=${process.env.NODE_ENV}, HUGO_ENV=${process.env.HUGO_ENV}, BASE_URL=${process.env.BASE_URL})`
+    );
   }
 
   // Use Rust converter if available (10× faster)
@@ -514,7 +621,10 @@ async function convertToMarkdown(htmlContent, urlPath) {
     try {
       return rustConverter.convertToMarkdown(htmlContent, urlPath, baseUrl);
     } catch (err) {
-      console.warn(`Rust conversion failed for ${urlPath}, falling back to JavaScript:`, err.message);
+      console.warn(
+        `Rust conversion failed for ${urlPath}, falling back to JavaScript:`,
+        err.message
+      );
       // Fall through to JavaScript implementation
     }
   }
@@ -563,9 +673,17 @@ async function convertSectionToMarkdown(
   // Use Rust converter if available (10× faster)
   if (USE_RUST && rustConverter) {
     try {
-      return rustConverter.convertSectionToMarkdown(sectionHtml, sectionUrlPath, childHtmls, baseUrl);
+      return rustConverter.convertSectionToMarkdown(
+        sectionHtml,
+        sectionUrlPath,
+        childHtmls,
+        baseUrl
+      );
     } catch (err) {
-      console.warn(`Rust section conversion failed for ${sectionUrlPath}, falling back to JavaScript:`, err.message);
+      console.warn(
+        `Rust section conversion failed for ${sectionUrlPath}, falling back to JavaScript:`,
+        err.message
+      );
       // Fall through to JavaScript implementation
     }
   }

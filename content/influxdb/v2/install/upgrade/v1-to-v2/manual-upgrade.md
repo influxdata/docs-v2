@@ -1,13 +1,13 @@
 ---
-title: Manually upgrade from InfluxDB 1.x to 2.7
-list_title: Manually upgrade from 1.x to 2.7
+title: Manually upgrade from InfluxDB 1.x to {{< current-version >}}
+list_title: Manually upgrade from 1.x to {{< current-version >}}
 description: >
-  To manually upgrade from InfluxDB 1.x to InfluxDB 2.7, migrate data, create
+  To manually upgrade from InfluxDB 1.x to InfluxDB {{< current-version >}}, migrate data, create
   v1-compatible authorizations, and create database and retention policy
   (DBRP) mappings.
 menu:
   influxdb_v2:
-    parent: InfluxDB 1.x to 2.7
+    parent: InfluxDB 1.x to 2.8
     name: Manually upgrade
 weight: 11
 aliases:

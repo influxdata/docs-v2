@@ -10,7 +10,7 @@ introduced: "v1.6.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/http/README.md, HTTP Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/http/README.md, HTTP Plugin Source
 ---
 
 # HTTP Input Plugin
@@ -26,10 +26,9 @@ one of the supported [data formats](/telegraf/v1/data_formats/input).
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -75,17 +74,23 @@ to use them.
   # username = "username"
   # password = "pa$$word"
 
-  ## OAuth2 Client Credentials. The options 'client_id', 'client_secret', and 'token_url' are required to use OAuth2.
-  # client_id = "clientid"
-  # client_secret = "secret"
-  # token_url = "https://indentityprovider/oauth2/v1/token"
-  # scopes = ["urn:opc:idm:__myscopes__"]
+  ## Amount of time allowed to complete the HTTP request
+  # timeout = "5s"
 
-  ## HTTP Proxy support
+  ## HTTP connection settings
+  # idle_conn_timeout = "0s"
+  # max_idle_conn = 0
+  # max_idle_conn_per_host = 0
+  # response_timeout = "0s"
+
+  ## Use the local address for connecting, assigned by the OS by default
+  # local_address = ""
+
+  ## Optional proxy settings
   # use_system_proxy = false
   # http_proxy_url = ""
 
-  ## Optional TLS Config
+  ## Optional TLS settings
   ## Set to true/false to enforce TLS being enabled/disabled. If not set,
   ## enable TLS only if any of the other options are specified.
   # tls_enable =
@@ -111,6 +116,13 @@ to use them.
   ## Use TLS but skip chain & host verification
   # insecure_skip_verify = false
 
+  ## OAuth2 Client Credentials. The options 'client_id', 'client_secret', and 'token_url' are required to use OAuth2.
+  # client_id = "clientid"
+  # client_secret = "secret"
+  # token_url = "https://indentityprovider/oauth2/v1/token"
+  # audience = ""
+  # scopes = ["urn:opc:idm:__myscopes__"]
+
   ## Optional Cookie authentication
   # cookie_auth_url = "https://localhost/authMe"
   # cookie_auth_method = "POST"
@@ -119,10 +131,7 @@ to use them.
   # cookie_auth_headers = { Content-Type = "application/json", X-MY-HEADER = "hello" }
   # cookie_auth_body = '{"username": "user", "password": "pa$$word", "authenticate": "me"}'
   ## cookie_auth_renewal not set or set to "0" will auth once and never renew the cookie
-  # cookie_auth_renewal = "5m"
-
-  ## Amount of time allowed to complete the HTTP request
-  # timeout = "5s"
+  # cookie_auth_renewal = "0s"
 
   ## List of success status codes
   # success_status_codes = [200]

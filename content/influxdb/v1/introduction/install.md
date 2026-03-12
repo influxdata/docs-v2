@@ -1,6 +1,6 @@
 ---
-title: Install InfluxDB OSS
-description: Install, start, and configure InfluxDB OSS.
+title: Install InfluxDB OSS v1
+description: Install, start, and configure InfluxDB OSS v{{< current-version >}}.
 menu:
   influxdb_v1:
     name: Install InfluxDB
@@ -12,7 +12,7 @@ alt_links:
   v2: /influxdb/v2/install/
 ---
 
-This page provides directions for installing, starting, and configuring InfluxDB open source (OSS).
+Install, start, and configure InfluxDB open source (OSS) v{{< current-version >}}.
 
 ## InfluxDB OSS installation requirements
 
@@ -144,7 +144,7 @@ sudo systemctl start influxdb
 
 {{% tab-content %}}
 
-There are RPM packages provided by openSUSE Build Service for SUSE Linux users:
+For SUSE Linux users, openSUSE Build Service provides RPM packages:
 
 ```bash
 # add go repository
@@ -280,24 +280,61 @@ internal defaults.
 Note that the local configuration file does not need to include every
 configuration setting.
 
-There are two ways to launch InfluxDB with your configuration file:
+Use one of the following methods to launch InfluxDB OSS v1 with your configuration file:
 
-* Point the process to the correct configuration file by using the `-config`
-option:
+- **CLI flag**: Pass the `-config` flag with the path to your configuration file:
 
     ```bash
     influxd -config /etc/influxdb/influxdb.conf
     ```
-* Set the environment variable `INFLUXDB_CONFIG_PATH` to the path of your
-configuration file and start the process.
-For example:
+- **Environment variable**: Set the `INFLUXDB_CONFIG_PATH` environment variable to the path of your
+configuration file and start the process--for example:
 
-    ```
-    echo $INFLUXDB_CONFIG_PATH
-    /etc/influxdb/influxdb.conf
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux/macOS (bash/zsh)](#)
+[Linux/macOS (persistent)](#)
+[Windows (PowerShell)](#)
+[Windows (CMD)](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+# Set the environment variable for the current session
+export INFLUXDB_CONFIG_PATH=/etc/influxdb/influxdb.conf
 
-    influxd
-    ```
+# Start InfluxDB
+influxd
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```bash
+# Add to ~/.bashrc or ~/.zshrc for persistence
+echo 'export INFLUXDB_CONFIG_PATH=/etc/influxdb/influxdb.conf' >> ~/.bashrc
+source ~/.bashrc
+
+# Start InfluxDB
+influxd
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```powershell
+# Set the environment variable for the current session
+$env:INFLUXDB_CONFIG_PATH = "C:\Program Files\InfluxDB\influxdb.conf"
+
+# Start InfluxDB
+influxd
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```cmd
+REM Set the environment variable for the current session
+set INFLUXDB_CONFIG_PATH=C:\Program Files\InfluxDB\influxdb.conf
+
+REM Start InfluxDB
+influxd
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 InfluxDB first checks for the `-config` option and then for the environment
 variable.
@@ -314,9 +351,8 @@ See the [Configuration](/influxdb/v1/administration/config/) documentation for m
 
 Make sure the directories in which data and the [write ahead log](/influxdb/v1/concepts/glossary#wal-write-ahead-log) (WAL) are stored are writable for the user running the `influxd` service.
 
-{{% note %}}
-**Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
-{{% /note %}}
+> [!Important]
+> If the data and WAL directories are not writable, the `influxd` service will not start.
 
 The user running the `influxd` process should have the following permissions for
 directories in the [InfluxDB file system](/influxdb/v1//concepts/file-system-layout/):

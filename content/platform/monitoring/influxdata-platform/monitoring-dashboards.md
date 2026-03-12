@@ -32,7 +32,7 @@ Telegraf input plugins. To view prebuilt dashboards:
 ## Import monitoring dashboards
 Use the dashboards below to visualize and monitor key TICK stack metrics.
 Download the dashboard file and import it into Chronograf.
-For detailed instructions, see [Importing a dashboard](/chronograf/v1/administration/import-export-dashboards/#importing-a-dashboard).
+For detailed instructions, see [Import a dashboard](/chronograf/v1/administration/import-export-dashboards/#import-a-dashboard).
 
 - [Monitor InfluxDB OSS](#monitor-influxdb-oss)
 - [Monitor InfluxDB Enterprise](#monitor-influxdb-enterprise)
@@ -44,7 +44,7 @@ Use the InfluxDB OSS Monitor dashboard to monitor InfluxDB OSS in Chronograf.
 <a class="btn download" href="/downloads/influxdb-oss-monitor-dashboard.json" download target="\_blank">Download InfluxDB OSS Monitor dashboard</a>
 
 The InfluxDB OSS Monitor dashboard uses data from the `_internal` database
-_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-internal-database-in-production-clusters))_
+_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
 or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
 This dashboard contains the following cells:  
 
@@ -63,7 +63,7 @@ Use the InfluxDB Enterprise Monitor dashboard to monitor InfluxDB Enterprise in 
 <a class="btn download" href="/downloads/influxdb-enterprise-monitor-dashboard.json" download target="\_blank">Download InfluxDB Enterprise Monitor dashboard</a>
 
 The InfluxDB Enterprise Monitor dashboard uses data from the `_internal` database
-_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-internal-database-in-production-clusters))_
+_([not recommended for production](/platform/monitoring/influxdata-platform/internal-vs-external/#disable-the-_internal-database-in-production-clusters))_
 or collected by the [Telegraf `influxdb` input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb).
 This dashboard contains the following cells:
 

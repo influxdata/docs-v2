@@ -84,7 +84,15 @@ export default [
       'import/no-unresolved': 'off', // Hugo handles module resolution differently
 
       // Code formatting
-      'max-len': ['warn', { code: 80, ignoreUrls: true, ignoreStrings: true }],
+      'max-len': [
+        'warn',
+        {
+          code: 80,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreComments: true,
+        },
+      ],
       quotes: ['error', 'single', { avoidEscape: true }],
 
       // Hugo template string linting (custom rule)
@@ -162,7 +170,14 @@ export default [
     },
     rules: {
       // TypeScript-specific rules
-      '@typescript-eslint/no-unused-vars': 'warn',
+      'no-unused-vars': 'off', // Disable base rule for TS files
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
     },

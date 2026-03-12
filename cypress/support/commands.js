@@ -24,5 +24,5 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// Import custom commands for InfluxDB Version Detector
-import './influxdb-version-detector-commands.js';
+// Custom commands for InfluxDB Version Detector have been removed
+// Tests now use direct Cypress commands for better clarity and maintainability

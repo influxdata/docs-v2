@@ -3,11 +3,12 @@ title: Use Power BI to visualize data
 description: >
   Use Microsoft Power BI Desktop with the InfluxDB 3 custom connector to query and
   visualize data from {{% product-name %}}.
+list_title: Power BI
+weight: 201
 menu:
   influxdb3_cloud_serverless:
-    name: Power BI
+    name: Use Power BI
     parent: Visualize data
-weight: 104
 influxdb3/cloud-serverless/tags: [visualization, powerbi, sql]
 metadata: [SQL]
 aliases:

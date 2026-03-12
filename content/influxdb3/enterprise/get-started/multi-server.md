@@ -140,7 +140,7 @@ with your `influxdb3 serve` command:
 - `--bucket`: Your Azure Blob Storage container name
 - `--azure-storage-account`: Your Azure Blob Storage account name  
   _(can also be defined using the `AZURE_STORAGE_ACCOUNT` environment variable)_
-- `--aws-secret-access-key`: Your Azure Blob Storage access key  
+- `--azure-storage-access-key`: Your Azure Blob Storage access key  
   _(can also be defined using the `AZURE_STORAGE_ACCESS_KEY` environment variable)_
 
 {{% code-placeholders "AZURE_(CONTAINER_NAME|STORAGE_ACCOUNT|STORAGE_ACCESS_KEY)" %}}
@@ -226,6 +226,12 @@ influxdb3 serve \
   # ...
   --mode query,process
 ```
+
+> [!Important]
+> When using `process` mode, you must also specify `--plugin-dir` to configure
+> the Python plugin environment. Without this flag, starting a node with `process`
+> mode will fail with an error. See the [plugin-dir configuration option](/influxdb3/enterprise/reference/config-options/#plugin-dir)
+> for more information.
 
 ## Cluster configuration examples
 

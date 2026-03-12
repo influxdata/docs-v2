@@ -280,7 +280,7 @@ influxdb3 serve \
 - `INFLUXDB3_OBJECT_STORE`: `s3`
 - `INFLUXDB3_BUCKET`: `influxdb3`
 - `AWS_ENDPOINT`: Your MinIO URL ({{% code-placeholder-key %}}`http://localhost:9000`{{% /code-placeholder-key %}} if running locally)
-- `AWS_ACCESSKEY_ID`: Your MinIO username ({{% code-placeholder-key %}}`MINIO_USERNAME`{{% /code-placeholder-key %}})
+- `AWS_ACCESS_KEY_ID`: Your MinIO username ({{% code-placeholder-key %}}`MINIO_USERNAME`{{% /code-placeholder-key %}})
 - `AWS_SECRET_ACCESS_KEY`: Your MinIO password ({{% code-placeholder-key %}}`MINIO_PASSWORD`{{% /code-placeholder-key %}})
 - `AWS_ALLOW_HTTP`: _(Optional)_ Set to `true` if _not_ using HTTPS to connect to
   your MinIO server or cluster (default is `false`)

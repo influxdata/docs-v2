@@ -26,12 +26,17 @@ async function loadMappingConfig(configPath = 'docs_mapping.yaml') {
 }
 
 /**
- * Remove the emoji metadata line from content.
+ * Remove the emoji metadata lines from content.
+ * Handles both single-line and multi-line formats:
+ * - Single: ⚡ scheduled 🔧 InfluxDB 3
+ * - Multi:  ⚡ scheduled\n🏷️ tags 🔧 InfluxDB 3
  */
 function removeEmojiMetadata(content) {
-  // Remove the emoji line (it's already in the plugin's JSON metadata)
-  const pattern = /^⚡.*?🔧.*?$\n*/gm;
-  return content.replace(pattern, '');
+  // Remove multi-line emoji metadata (⚡ on first line, 🔧 on second line)
+  content = content.replace(/^⚡[^\n]*\n🏷️[^\n]*🔧[^\n]*\n*/gm, '');
+  // Remove single-line emoji metadata (⚡ and 🔧 on same line)
+  content = content.replace(/^⚡.*?🔧.*?$\n*/gm, '');
+  return content;
 }
 
 /**
@@ -126,8 +131,8 @@ function addProductShortcodes(content) {
     [/InfluxDB 3 Core\/Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core and InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
     [/InfluxDB 3 Core, InfluxDB 3 Enterprise/g, '{{% product-name %}}'],
-    // Be careful not to replace in URLs or code blocks
-    [/(?<!\/)InfluxDB 3(?![/_])/g, '{{% product-name %}}'],
+    // Be careful not to replace in URLs, code blocks, or product names like "InfluxDB 3 Explorer"
+    [/(?<!\/)InfluxDB 3(?! Explorer)(?![/_])/g, '{{% product-name %}}'],
   ];
 
   for (const [pattern, replacement] of replacements) {
@@ -206,6 +211,25 @@ For other InfluxDB versions, see the [Support and feedback](#bug-reports-and-fee
 }
 
 /**
+ * Extract style attributes from HTML comments and apply to headings.
+ * Converts: `#### Heading <!-- {.class} -->` to `#### Heading {.class}`
+ *
+ * Supported class formats:
+ * - {.green}, {.orange} - Color styling
+ * - {.recommended}, {.not-recommended} - Semantic styling
+ * - Any other {.classname} format
+ *
+ * This allows source READMEs to render cleanly on GitHub (which ignores
+ * HTML comments) while still supporting Hugo style classes in docs-v2.
+ */
+function extractStyleAttributes(content) {
+  // Match headings with HTML comment style attributes
+  // Pattern: (#+) (heading text) <!-- ({.classname}) -->
+  const pattern = /^(#{1,6})\s+(.+?)\s*<!--\s*(\{[^}]+\})\s*-->\s*$/gm;
+  return content.replace(pattern, '$1 $2 $3');
+}
+
+/**
  * Ensure code blocks are properly formatted.
  */
 function fixCodeBlockFormatting(content) {
@@ -277,6 +301,7 @@ function transformContent(content, pluginName, config) {
   content = convertTomlReadmeLinks(content);
   content = addProductShortcodes(content);
   content = enhanceOpeningParagraph(content);
+  content = extractStyleAttributes(content);
   content = fixCodeBlockFormatting(content);
 
   // Add schema requirements if applicable

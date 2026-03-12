@@ -1,6 +1,6 @@
 ---
-title: Get started with InfluxDB OSS
-description: Get started with InfluxDB OSS. Learn how to create databases, write data, and query your time series data.
+title: Get started with InfluxDB OSS v1
+description: Get started with InfluxDB OSS v{{< current-version >}}. Learn how to create databases, write data, and query your time series data.
 aliases:
   - /influxdb/v1/introduction/getting_started/
   - /influxdb/v1/introduction/getting-started/
@@ -13,7 +13,7 @@ alt_links:
   v2: /influxdb/v2/get-started/
 ---
 
-With InfluxDB open source (OSS) [installed](/influxdb/v1/introduction/installation), you're ready to start working with time series data.
+With InfluxDB [installed](/influxdb/v1/introduction/installation), you're ready to start working with time series data.
 This guide uses the `influx` [command line interface](/influxdb/v1/tools/shell/) (CLI), which is included with InfluxDB
 and provides direct access to the database.
 The CLI communicates with InfluxDB through the HTTP API on port `8086`.

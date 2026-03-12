@@ -1,3 +1,24 @@
+## 2.12.0 {date="2025-12-09"}
+
+### Features
+
+- Add 'influxdata-archive-keyring' as a suggested package to simplify future repository key rotations for the end user
+- Add a new `--perf-debug` flag to the [`query` command](/influxdb3/version/reference/cli/influxctl/query/) that outputs performance statistics and gRPC response trailers instead of query results
+
+### Dependency updates
+- Update Go to 1.25.5.
+- Update `github.com/containerd/containerd` from 1.7.27 to 1.7.29
+- Update `github.com/go-git/go-git/v5` from 5.16.3 to 5.16.4
+- Update `github.com/jedib0t/go-pretty/v6` from 6.6.8 to 6.7.5
+- Update `github.com/ovechkin-dm/mockio/v2` from 2.0.3 to 2.0.4
+- Update `go.uber.org/zap` from 1.27.0 to 1.27.1
+- Update `golang.org/x/crypto` from 0.43.0 to 0.45.0
+- Update `golang.org/x/mod` from 0.29.0 to 0.30.0
+- Update `golang.org/x/oauth2` from 0.32.0 to 0.33.0
+- Update `google.golang.org/grpc` from 1.76.0 to 1.77.0
+
+---
+
 ## 2.11.0 {date="2025-10-17"}
 
 ### Features

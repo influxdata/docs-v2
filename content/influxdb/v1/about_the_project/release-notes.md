@@ -1,6 +1,6 @@
 ---
 title: InfluxDB v1 release notes
-description: Important changes and and what's new in each version of InfluxDB OSS.
+description: Important features, fixes, and updates in each version of InfluxDB OSS v1.
 menu:
   influxdb_v1:
     name: Release notes
@@ -76,7 +76,7 @@ of InfluxDB v1 workloads to InfluxDB 3.
 > 
 > The last public release of InfluxDB v1 was v1.8.10. Upgrading from v1.8.10 to
 > v1.11.7 is a large jump and should be done with care. Consider doing
-> one or more of the the following before upgrading:
+> one or more of the following before upgrading:
 > 
 > - [Back up your data](/influxdb/v1/administration/backup_and_restore/)
 > - Create a clone of your current InfluxDB using InfluxDB 1.11 with identical
@@ -98,7 +98,7 @@ of InfluxDB v1 workloads to InfluxDB 3.
   - Optimize `SHOW FIELD KEY CARDINALITY`.
   - `SHOW TAG VALUES` returns results from one specific retention policy.
   - Support `WITH KEY` clause in with `SHOW TAG KEYS`.
-  - Support Hyper Log Log operators: `count_hll`, `sum_hll`, `merge_hll`.
+  - Support Hyper Log operators: `count_hll`, `sum_hll`, `merge_hll`.
   - Use `count_hll` for `SHOW SERIES CARDINALITY` queries.
 - **Logging improvements:**
   - Log slow queries even without query logging enabled.

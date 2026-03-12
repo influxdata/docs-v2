@@ -259,29 +259,6 @@ For detailed configuration information, see [`meta.ensure-fips`](/enterprise_inf
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
-#### raft-portal-auth-required {metadata="v1.12.0+"}
-
-Default is `false`.
-
-Require Raft clients to authenticate with server using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
-This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
-are configured with the correct `meta-internal-shared-secret`.
-
-Environment variable: `INFLUXDB_META_RAFT_PORTAL_AUTH_REQUIRED`
-
-#### raft-dialer-auth-required {metadata="v1.12.0+"}
-
-Default is `false`.
-
-Require Raft servers to authenticate Raft clients using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
-This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
-`raft-portal-auth-required=true`, and are configured with the correct
-`meta-internal-shared-secret`.
-
-Environment variable: `INFLUXDB_META_RAFT_DIALER_AUTH_REQUIRED`
-
 -----
 
 ## Data settings
@@ -646,6 +623,14 @@ Default is `""`.
 Use a separate private key location.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking on `https-certificate` and  `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
 
 #### https-insecure-tls
 
@@ -1151,6 +1136,23 @@ This endpoint is used for troubleshooting and monitoring.
 
 Environment variable: `INFLUXDB_HTTP_PPROF_ENABLED`
 
+#### pprof-auth-enabled
+
+Default is `false`.
+
+Enables authentication on `/debug` endpoints. If enabled, users need admin 
+permissions to access the following endpoints:
+
+- `/debug/pprof`
+- `/debug/requests`
+- `/debug/vars`
+
+This setting has no effect if either 
+[`auth-enabled`](#auth-enabled) or 
+[`pprof-enabled`](#pprof-enabled) are set to `false`.
+
+Environment variable: `INFLUXDB_HTTP_PPROF_AUTH_ENABLED`
+
 #### https-enabled
 
 Default is `false`.
@@ -1176,6 +1178,14 @@ Default is `""`.
 The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-certificate
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when true.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
 #### shared-secret
 
@@ -1697,6 +1707,14 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In the preceding example, `max-version = "tls1.3"` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
+
+#### advanced-expiration
+
+Default is `5d`.
+
+Sets how far in advanced warnings about TLS certificate expiration are logged.
+
+Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
 
 ## Flux query management settings
 

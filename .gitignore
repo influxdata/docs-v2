@@ -43,6 +43,7 @@ tmp
 # User context files for AI assistant tools
 .context/*
 !.context/README.md
+.task.md
 
 # External repos
 .ext/*
@@ -60,3 +61,4 @@ deploy/llm-markdown/lambda-edge/markdown-generator/config.json
 *.d.ts.map
 *.js.map
 .eslintcache
+.worktrees/

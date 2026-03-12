@@ -4,11 +4,11 @@ list_title: Grafana
 description: >
   Install and run [Grafana](https://grafana.com/) to query and visualize data
   from {{< product-name >}}.
-weight: 101
 menu:
   influxdb3_enterprise:
-    name: Grafana
+    name: Use Grafana
     parent: Visualize data
+weight: 101
 influxdb3/enterprise/tags: [query, visualization]
 alt_links:
   core: /influxdb3/core/visualize-data/grafana/

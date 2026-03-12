@@ -59,7 +59,7 @@ export INFLUXDB3_ENTERPRISE_CLUSTER_ID=cluster0
 {{% /show-in %}}export INFLUXDB3_NODE_IDENTIFIER_PREFIX=my-node
 export INFLUXDB3_OBJECT_STORE=file
 export INFLUXDB3_DB_DIR=~/.influxdb3
-export LOG_FILTER=info
+export INFLUXDB3_LOG_FILTER=info
 
 influxdb3 serve
 ```
@@ -138,6 +138,9 @@ For detailed information about thread allocation, see the [Resource Limits](#res
   {{% /show-in %}}
 - [object-store](#object-store)
 - [query-file-limit](#query-file-limit)
+  {{% show-in "enterprise" %}}
+- [use-pacha-tree](#use-pacha-tree)
+  {{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
@@ -273,6 +276,26 @@ This option supports the following values:
 | `--object-store`       | `INFLUXDB3_OBJECT_STORE` |
 
 ***
+
+{{% show-in "enterprise" %}}
+
+#### use-pacha-tree <span class="badge experimental">Experimental</span> {#use-pacha-tree}
+
+Enables the PachaTree storage engine.
+
+> [!Caution]
+> PachaTree is an experimental feature not for production use.
+> It might not be compatible with other features and configuration options.
+
+**Default:** `false`
+
+| influxdb3 serve option | Environment variable           |
+| :--------------------- | :----------------------------- |
+| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE`     |
+
+***
+
+{{% /show-in %}}
 
 {{% show-in "enterprise" %}}
 
@@ -766,9 +789,9 @@ this value.
 
 **Default:** `16`
 
-| influxdb3 serve option            | Environment variable            |
+| influxdb3 serve option            | Environment variables            |
 | :-------------------------------- | :------------------------------ |
-| `--object-store-connection-limit` | `OBJECT_STORE_CONNECTION_LIMIT` |
+| `--object-store-connection-limit` | `INFLUXDB3_OBJECT_STORE_CONNECTION_LIMIT` (preferred)<br>`OBJECT_STORE_CONNECTION_LIMIT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -776,9 +799,9 @@ this value.
 
 Forces HTTP/2 connections to network-based object stores.
 
-| influxdb3 serve option      | Environment variable      |
+| influxdb3 serve option      | Environment variables      |
 | :-------------------------- | :------------------------ |
-| `--object-store-http2-only` | `OBJECT_STORE_HTTP2_ONLY` |
+| `--object-store-http2-only` | `INFLUXDB3_OBJECT_STORE_HTTP2_ONLY` (preferred)<br>`OBJECT_STORE_HTTP2_ONLY` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -786,9 +809,9 @@ Forces HTTP/2 connections to network-based object stores.
 
 Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--object-store-http2-max-frame-size` | `OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` |
+| `--object-store-http2-max-frame-size` | `INFLUXDB3_OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (preferred)<br>`OBJECT_STORE_HTTP2_MAX_FRAME_SIZE` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -796,9 +819,9 @@ Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
 Defines the maximum number of times to retry a request.
 
-| influxdb3 serve option       | Environment variable       |
+| influxdb3 serve option       | Environment variables       |
 | :--------------------------- | :------------------------- |
-| `--object-store-max-retries` | `OBJECT_STORE_MAX_RETRIES` |
+| `--object-store-max-retries` | `INFLUXDB3_OBJECT_STORE_MAX_RETRIES` (preferred)<br>`OBJECT_STORE_MAX_RETRIES` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -807,9 +830,9 @@ Defines the maximum number of times to retry a request.
 Specifies the maximum length of time from the initial request after which no
 further retries are be attempted.
 
-| influxdb3 serve option         | Environment variable         |
+| influxdb3 serve option         | Environment variables         |
 | :----------------------------- | :--------------------------- |
-| `--object-store-retry-timeout` | `OBJECT_STORE_RETRY_TIMEOUT` |
+| `--object-store-retry-timeout` | `INFLUXDB3_OBJECT_STORE_RETRY_TIMEOUT` (preferred)<br>`OBJECT_STORE_RETRY_TIMEOUT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -817,9 +840,9 @@ further retries are be attempted.
 
 Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 
-| influxdb3 serve option          | Environment variable          |
+| influxdb3 serve option          | Environment variables          |
 | :------------------------------ | :---------------------------- |
-| `--object-store-cache-endpoint` | `OBJECT_STORE_CACHE_ENDPOINT` |
+| `--object-store-cache-endpoint` | `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT` (preferred)<br>`OBJECT_STORE_CACHE_ENDPOINT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -832,11 +855,95 @@ Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 
 #### log-filter
 
-Sets the filter directive for logs.
+Sets the filter directive for logs. Use this option to control the verbosity of
+server logs globally or for specific components.
 
-| influxdb3 serve option | Environment variable |
+##### Log levels
+
+The following log levels are available (from least to most verbose):
+
+| Level   | Description                                                                                           |
+| :------ | :---------------------------------------------------------------------------------------------------- |
+| `error` | Only errors                                                           |
+| `warn`  | Warnings and errors                                                                                   |
+| `info`  | Informational messages, warnings, and errors _(default)_                                              |
+| `debug` | Debug information for troubleshooting, plus all above levels                                          |
+| `trace` | Very detailed tracing information, plus all above levels (produces high log volume)                   |
+
+##### Basic usage
+
+To set the log level globally, pass one of the log levels:
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter debug
+```
+
+##### Targeted filtering
+
+Globally enabling `debug` or `trace` produces a high volume of log output.
+For more targeted debugging, you can set different log levels for specific
+components using the format `<global_level>,<component>=<level>`.
+
+###### Debug write buffer operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_write_buffer=debug
+```
+
+###### Trace WAL operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_wal=trace
+```
+
+###### Multiple targeted filters
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_write_buffer=debug,influxdb3_wal=debug
+```
+
+{{% show-in "enterprise" %}}
+
+###### Debug Enterprise storage engine operations
+
+<!--pytest.mark.skip-->
+
+```sh
+influxdb3 serve --log-filter info,influxdb3_enterprise=debug
+```
+
+{{% /show-in %}}
+
+##### Common component names
+
+The following are common component names you can use for targeted filtering:
+
+| Component                             | Description                                              |
+| :------------------------------------ | :------------------------------------------------------- |
+| `influxdb3_write_buffer`              | Write buffer operations                                  |
+| `influxdb3_wal`                       | Write-ahead log operations                               |
+| `influxdb3_catalog`                   | Catalog and schema operations                            |
+| `influxdb3_cache`                     | Caching operations                                       |
+{{% show-in "enterprise" %}}`influxdb3_enterprise`                  | Enterprise-specific features                             |
+{{% /show-in %}}
+
+> [!Note]
+> Targeted filtering requires knowledge of the codebase component names.
+> The component names correspond to Rust package names in the InfluxDB 3 source
+> code. Use `debug` or `trace` sparingly on specific components to avoid
+> excessive log output.
+
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-filter`         | `LOG_FILTER`         |
+| `--log-filter`         | `INFLUXDB3_LOG_FILTER` (preferred)<br>`LOG_FILTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -851,9 +958,9 @@ This option supports the following values:
 
 **Default:** `stdout`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-destination`    | `LOG_DESTINATION`    |
+| `--log-destination`    | `INFLUXDB3_LOG_DESTINATION` (preferred)<br>`LOG_DESTINATION` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -867,9 +974,9 @@ This option supports the following values:
 
 **Default:** `full`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--log-format`         | `LOG_FORMAT`         |
+| `--log-format`         | `INFLUXDB3_LOG_FORMAT` (preferred)<br>`LOG_FORMAT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -903,9 +1010,9 @@ Sets the type of tracing exporter.
 
 **Default:** `none`
 
-| influxdb3 serve option | Environment variable |
+| influxdb3 serve option | Environment variables |
 | :--------------------- | :------------------- |
-| `--traces-exporter`    | `TRACES_EXPORTER`    |
+| `--traces-exporter`    | `INFLUXDB3_TRACES_EXPORTER` (preferred)<br>`TRACES_EXPORTER` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -915,9 +1022,9 @@ Specifies the Jaeger agent network hostname for tracing.
 
 **Default:** `0.0.0.0`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-host` | `TRACES_EXPORTER_JAEGER_AGENT_HOST` |
+| `--traces-exporter-jaeger-agent-host` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_HOST` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_HOST` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -927,9 +1034,9 @@ Defines the Jaeger agent network port for tracing.
 
 **Default:** `6831`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-exporter-jaeger-agent-port` | `TRACES_EXPORTER_JAEGER_AGENT_PORT` |
+| `--traces-exporter-jaeger-agent-port` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_AGENT_PORT` (preferred)<br>`TRACES_EXPORTER_JAEGER_AGENT_PORT` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -939,9 +1046,9 @@ Sets the Jaeger service name for tracing.
 
 **Default:** `iox-conductor`
 
-| influxdb3 serve option                  | Environment variable                  |
+| influxdb3 serve option                  | Environment variables                  |
 | :-------------------------------------- | :------------------------------------ |
-| `--traces-exporter-jaeger-service-name` | `TRACES_EXPORTER_JAEGER_SERVICE_NAME` |
+| `--traces-exporter-jaeger-service-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_SERVICE_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_SERVICE_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -951,9 +1058,9 @@ Specifies the header name used for passing trace context.
 
 **Default:** `uber-trace-id`
 
-| influxdb3 serve option                               | Environment variable                               |
+| influxdb3 serve option                               | Environment variables                               |
 | :--------------------------------------------------- | :------------------------------------------------- |
-| `--traces-exporter-jaeger-trace-context-header-name` | `TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` |
+| `--traces-exporter-jaeger-trace-context-header-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_TRACE_CONTEXT_HEADER_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -963,9 +1070,9 @@ Specifies the header name used for force sampling in tracing.
 
 **Default:** `jaeger-debug-id`
 
-| influxdb3 serve option       | Environment variable                |
+| influxdb3 serve option       | Environment variables                |
 | :--------------------------- | :---------------------------------- |
-| `--traces-jaeger-debug-name` | `TRACES_EXPORTER_JAEGER_DEBUG_NAME` |
+| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -973,9 +1080,9 @@ Specifies the header name used for force sampling in tracing.
 
 Defines a set of `key=value` pairs to annotate tracing spans with.
 
-| influxdb3 serve option | Environment variable          |
+| influxdb3 serve option | Environment variables          |
 | :--------------------- | :---------------------------- |
-| `--traces-jaeger-tags` | `TRACES_EXPORTER_JAEGER_TAGS` |
+| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -985,9 +1092,9 @@ Specifies the maximum number of messages sent to a Jaeger service per second.
 
 **Default:** `1000`
 
-| influxdb3 serve option                | Environment variable                |
+| influxdb3 serve option                | Environment variables                |
 | :------------------------------------ | :---------------------------------- |
-| `--traces-jaeger-max-msgs-per-second` | `TRACES_JAEGER_MAX_MSGS_PER_SECOND` |
+| `--traces-jaeger-max-msgs-per-second` | `INFLUXDB3_TRACES_JAEGER_MAX_MSGS_PER_SECOND` (preferred)<br>`TRACES_JAEGER_MAX_MSGS_PER_SECOND` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1120,12 +1227,53 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 ### Write-Ahead Log (WAL)
 
+- [checkpoint-interval](#checkpoint-interval)
 - [wal-flush-interval](#wal-flush-interval)
 - [wal-snapshot-size](#wal-snapshot-size)
 - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
 - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
+
+#### checkpoint-interval {#checkpoint-interval metadata="v3.8.2+"}
+
+Sets the interval for consolidating
+[snapshots](/influxdb3/version/admin/backup-restore/#file-structure) into
+monthly checkpoints for faster server startup.
+Snapshots accumulate in object storage over time and are not automatically deleted.
+
+Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+([`gen1-lookback-duration`](#gen1-lookback-duration), default 1 month)
+divided by [`gen1-duration`](#gen1-duration) (default 10 minutes),
+with a minimum of 100.
+With default settings, that can be up to ~4,320 snapshots.
+
+With checkpointing enabled, the server periodically consolidates snapshot
+metadata into checkpoints in object storage.
+On startup, the server loads one to two checkpoints per calendar month,
+then loads only snapshots created since the last checkpoint.
+Enabling checkpointing does not delete old snapshots.
+
+Up to 10 checkpoints load concurrently during startup.
+The server retains two checkpoints per calendar month and handles month rollovers automatically.
+
+Accepts a [duration](/influxdb3/version/reference/glossary/#duration) value--for example: `1h`, `30m`, `10m`.
+
+**Default:** _Not set (disabled)_
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--checkpoint-interval` | `INFLUXDB3_CHECKPOINT_INTERVAL` |
+
+##### Example
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve --checkpoint-interval 1h
+```
+
+***
 
 #### wal-flush-interval
 
@@ -1564,6 +1712,64 @@ Specifies the local directory that contains Python plugins and their test files.
 | :--------------------- | :--------------------- |
 | `--plugin-dir`         | `INFLUXDB3_PLUGIN_DIR` |
 
+##### Default behavior by deployment type
+
+| Deployment | Default state | Configuration |
+|:-----------|:--------------|:--------------|
+| Docker images | **Enabled** | `INFLUXDB3_PLUGIN_DIR=/plugins` |
+| DEB/RPM packages | **Enabled** | `plugin-dir="/var/lib/influxdb3/plugins"` |
+| Binary/source | Disabled | No `plugin-dir` configured |
+
+##### Disable the Processing Engine
+
+To disable the Processing Engine, ensure `plugin-dir` is not configured.
+
+> [!Warning]
+> Setting `plugin-dir=""` or `INFLUXDB3_PLUGIN_DIR=""` (empty string) does **not** disable the Processing Engine.
+> You must comment out, remove, or unset the configuration — not set it to empty.
+
+{{% show-in "enterprise" %}}
+**Docker:** Use `INFLUXDB3_UNSET_VARS` to unset default environment variables that are preconfigured in the container image.
+
+`INFLUXDB3_UNSET_VARS` accepts a comma-separated list of environment variable names to unset in the container entrypoint before {{< product-name >}} starts.
+This lets you disable or override image defaults (for example, `INFLUXDB3_PLUGIN_DIR`, logging, or other configuration variables) without modifying the container image itself.
+
+To disable the default plugin directory, unset `INFLUXDB3_PLUGIN_DIR`:
+```bash
+docker run -e INFLUXDB3_UNSET_VARS="INFLUXDB3_PLUGIN_DIR" influxdb:3-enterprise
+```
+{{% /show-in %}}
+
+{{% show-in "core" %}}
+**Docker:** Use a custom entrypoint:
+
+```bash
+docker run --entrypoint /bin/sh influxdb:3-core -c 'unset INFLUXDB3_PLUGIN_DIR && exec influxdb3 serve --object-store memory'
+```
+{{% /show-in %}}
+
+**systemd (DEB/RPM):** Comment out or remove `plugin-dir` in the configuration file:
+
+```bash
+sudo nano /etc/influxdb3/influxdb3-{{< product-key >}}.conf
+```
+
+```toml
+# plugin-dir="/var/lib/influxdb3/plugins"
+```
+
+Then restart the service:
+
+```bash
+sudo systemctl restart influxdb3-{{< product-key >}}
+```
+
+When the Processing Engine is disabled:
+
+- The Python environment and PyO3 bindings are not initialized
+- Plugin-related operations return a "No plugin directory configured" error
+- The server runs with reduced resource usage
+
 ***
 
 #### plugin-repo
@@ -1892,10 +2098,10 @@ Sets the default duration for hard deletion of data.
 
 ### Telemetry
 
-- [telemetry-disable-upload](#telemetry-disable-upload)
+- [disable-telemetry-upload](#disable-telemetry-upload)
 - [telemetry-endpoint](#telemetry-endpoint)
 
-#### telemetry-disable-upload
+#### disable-telemetry-upload
 
 Disables the upload of telemetry data to InfluxData.
 
@@ -1903,7 +2109,7 @@ Disables the upload of telemetry data to InfluxData.
 
 | influxdb3 serve option       | Environment variable                 |
 | :--------------------------- | :----------------------------------- |
-| `--telemetry-disable-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
+| `--disable-telemetry-upload` | `INFLUXDB3_TELEMETRY_DISABLE_UPLOAD` |
 
 ***
 

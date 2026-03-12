@@ -78,6 +78,7 @@ function handleAskAILinks() {
       if (!link) return;
 
       const query = link.getAttribute('data-query');
+      const sourceGroupIds = link.getAttribute('data-source-group-ids');
 
       // Initialize Kapa if not already done
       if (!state.kapaInitialized) {
@@ -88,20 +89,30 @@ function handleAskAILinks() {
           // Give Kapa a moment to initialize
           setTimeout(() => {
             if (window.Kapa?.open) {
-              window.Kapa.open({
+              const openOptions = {
                 mode: 'ai',
                 query: query,
-              });
+              };
+              // Add source group IDs if provided
+              if (sourceGroupIds) {
+                openOptions.sourceGroupIdsInclude = sourceGroupIds;
+              }
+              window.Kapa.open(openOptions);
             }
           }, 100);
         }
       } else {
         // Kapa is already initialized - open with query if provided
         if (query && window.Kapa?.open) {
-          window.Kapa.open({
+          const openOptions = {
             mode: 'ai',
             query: query,
-          });
+          };
+          // Add source group IDs if provided
+          if (sourceGroupIds) {
+            openOptions.sourceGroupIdsInclude = sourceGroupIds;
+          }
+          window.Kapa.open(openOptions);
         }
       }
     },

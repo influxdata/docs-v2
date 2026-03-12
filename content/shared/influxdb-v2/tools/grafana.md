@@ -2,7 +2,7 @@ Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/produ
 to visualize data from your **InfluxDB {{< current-version >}}** instance.
 
 > [!Note]
-> {{< influxdb-version-detector >}}
+> {{< influxdb-version-detector context="grafana" >}}
 
 > [!Note]
 > #### Grafana 12.2+

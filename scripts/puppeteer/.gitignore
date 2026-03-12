@@ -1,0 +1,17 @@
+# Debug output
+debug-output/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# Test outputs
+test-screenshot.png
+screenshot-*.png
+format-selector-*.png
+issues-detected-*.png
+inspect-*.png
+reports/
+
+# Node modules (if someone runs npm install here)
+node_modules/

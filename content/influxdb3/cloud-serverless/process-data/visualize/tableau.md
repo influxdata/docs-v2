@@ -3,6 +3,7 @@ title: Use Tableau to query data with SQL
 seotitle: Use Tableau to query data stored in InfluxDB Cloud Serverless
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query data stored in InfluxDB.
+list_title: Tableau
 weight: 201
 menu:
   influxdb3_cloud_serverless:

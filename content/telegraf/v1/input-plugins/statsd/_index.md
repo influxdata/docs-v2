@@ -10,7 +10,7 @@ introduced: "v0.2.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/statsd/README.md, StatsD Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/statsd/README.md, StatsD Plugin Source
 ---
 
 # StatsD Input Plugin
@@ -36,10 +36,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -89,7 +88,7 @@ See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details
   metric_separator = "_"
 
   ## Parses extensions to statsd in the datadog statsd format
-  ## currently supports metrics and datadog tags.
+  ## currently supports metrics, datadog tags, events, and service checks.
   ## http://docs.datadoghq.com/guides/dogstatsd/
   datadog_extensions = false
 
@@ -269,6 +268,39 @@ metric type:
     given time interval, a Distribution metric sends all the raw data during a
     time interval.
 
+### Datadog Service Checks
+
+When `datadog_extensions` is enabled, the plugin also supports
+[Datadog service checks](https://docs.datadoghq.com/developers/service_checks/dogstatsd_service_checks_submission/) in the format:
+
+```text
+_sc|<name>|<status>|d:<timestamp>|h:<hostname>|#<tag_key_1>:<tag_value_1>|m:<message>
+```
+
+- `<name>` - service check name (required)
+- `<status>` - 0=OK, 1=Warning, 2=Critical, 3=Unknown (required)
+- `d:<timestamp>` - optional Unix timestamp
+- `h:<hostname>` - optional hostname override
+- `#<tags>` - optional tags (same format as metrics)
+- `m:<message>` - optional message
+
+Example:
+
+```shell
+echo "_sc|my.service.check|0|#env:prod|m:Service is healthy" | nc -u -w1 127.0.0.1 8125
+```
+
+Service checks produce a metric with measurement name `statsd_service_check`:
+
+- **Tags:**
+  - `check_name`: The service check name
+  - `source`: Hostname (from `h:` field or default)
+  - Plus any custom tags from the `#` section
+- **Fields:**
+  - `status` (int): Status code (0-3)
+  - `status_text` (string): "ok", "warning", "critical", or "unknown"
+  - `message` (string): Optional message from `m:` field
+
 ## Plugin arguments
 
 - **protocol** string: Protocol used in listener - tcp or udp options
@@ -294,7 +326,7 @@ measurements and tags.
                                           [dogstatsd format](http://docs.datadoghq.com/guides/dogstatsd/)
 - **datadog_extensions** boolean:         Enable parsing of DataDog's extensions
                                           to [dogstatsd format](http://docs.datadoghq.com/guides/dogstatsd/)
-                                          and more
+                                          including events and service checks
 - **datadog_distributions** boolean:      Enable parsing of the Distribution metric
                                           in [DataDog's distribution format](https://docs.datadoghq.com/developers/metrics/types/?tab=distribution#definition)
 - **datadog_keep_container_tag** boolean: Keep or drop the container id as tag.
@@ -306,6 +338,7 @@ measurements and tags.
 
 [dogstatsd_format]: http://docs.datadoghq.com/guides/dogstatsd/
 [dogstatsd_distri_format]: https://docs.datadoghq.com/developers/metrics/types/?tab=distribution#definition
+[dogstatsd_service_checks]: https://docs.datadoghq.com/developers/service_checks/dogstatsd_service_checks_submission/
 
 ## Statsd bucket -> InfluxDB line-protocol Templates
 

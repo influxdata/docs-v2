@@ -18,6 +18,7 @@ influxdb3 show plugins [OPTIONS]
 |        | `--format`       | Output format (`pretty` _(default)_, `json`, `jsonl`, `csv`, or `parquet`)               |
 |        | `--output`       | Path where to save output when using the `parquet` format                                |
 |        | `--tls-ca`       | Path to a custom TLS certificate authority (for testing or self-signed certificates)     |
+|        | `--tls-no-verify` | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`         | Print help information                                                                   |
 |        | `--help-all`     | Print detailed help information                                                          |
 
@@ -29,6 +30,7 @@ You can use the following environment variables to set command options:
 | :-------------------- | :-------- |
 | `INFLUXDB3_HOST_URL`  | `--host`  |
 | `INFLUXDB3_AUTH_TOKEN`| `--token` |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Output
 

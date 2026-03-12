@@ -1,7 +1,7 @@
 ---
 title: Install and run InfluxDB using Docker
 description: >
-  Install and run InfluxDB OSS v1.x using Docker. Configure and operate InfluxDB in a Docker container.
+  Install and run InfluxDB OSS v{{< current-version >}} using Docker. Configure and operate InfluxDB in a Docker container.
 menu:
   influxdb_v1:
     name: Use Docker 
@@ -20,7 +20,7 @@ alt_links:
   v2: /influxdb/v2/install/use-docker-compose/
 ---
 
-Install and run InfluxDB OSS v1.x using Docker containers.
+Install and run InfluxDB OSS v{{< current-version >}} using Docker containers.
 This guide covers Docker installation, configuration, and initialization options.
 
 - [Install and run InfluxDB](#install-and-run-influxdb)

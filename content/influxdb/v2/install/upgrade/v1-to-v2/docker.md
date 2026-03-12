@@ -1,12 +1,12 @@
 ---
-title: Upgrade from InfluxDB 1.x to 2.7 with Docker
-list_title: Upgrade from 1.x to 2.7 with Docker
+title: Upgrade from InfluxDB 1.x to {{< current-version >}} with Docker
+list_title: Upgrade from 1.x to {{< current-version >}} with Docker
 description: >
   Use the automated upgrade process built into the InfluxDB 2.x Docker image to
   update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 menu:
   influxdb_v2:
-    parent: InfluxDB 1.x to 2.7
+    parent: InfluxDB 1.x to 2.8
     name: Upgrade with Docker
 weight: 101
 aliases:

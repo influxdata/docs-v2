@@ -1,11 +1,11 @@
 ---
-title: Automatically upgrade from InfluxDB 1.x to 2.7
-list_title: Automatically upgrade from 1.x to 2.7
+title: Automatically upgrade from InfluxDB 1.x to {{< current-version >}}
+list_title: Automatically upgrade from 1.x to {{< current-version >}}
 description: >
-  Use the `influx upgrade` tool to automatically upgrade from InfluxDB 1.x to InfluxDB 2.7.
+  Use the `influx upgrade` tool to automatically upgrade from InfluxDB 1.x to InfluxDB {{< current-version >}}.
 menu:
   influxdb_v2:
-    parent: InfluxDB 1.x to 2.7
+    parent: InfluxDB 1.x to 2.8
     name: Automatically upgrade
 weight: 10
 aliases:

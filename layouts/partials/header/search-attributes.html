@@ -7,7 +7,7 @@
 {{ $searchTag := print $product "-" $version }}
 
 {{ if not .IsHome }}
-  {{ if or (eq $version (replaceRE `\.[0-9x]+$` "" (index $.Site.Data.products $product).latest)) (or (eq $product "platform") (eq $product "resources")) (in (slice "cloud" "core" "enterprise" "cloud-serverless" "cloud-dedicated" "clustered") $version ) }}
+  {{ if or (eq $version (replaceRE `\.[0-9x]+$` "" (index $.Site.Data.products $product).latest)) (or (eq $product "platform") (eq $product "resources")) (in (slice "cloud" "core" "enterprise" "cloud-serverless" "cloud-dedicated" "clustered" "explorer" "controller") $version ) }}
     <meta name="docsearch:latest" content="true">
   {{ end }}
   {{ if and (ne $product "platform") (ne $product "resources") (ne $version "") }}

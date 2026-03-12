@@ -617,7 +617,7 @@ chmod 0750 ~/.influxdbv2
 > 
 > _You'll install the `influx CLI` in a [later step](#download-install-and-configure-the-influx-cli)._
 
-<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}-windows.zip" download >InfluxDB v2 (Windows)</a>
+<a class="btn download" href="https://download.influxdata.com/influxdb/releases/v{{< latest-patch >}}/influxdb2-{{< latest-patch >}}-windows_amd64.zip" download >InfluxDB v2 (Windows)</a>
 
 Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the
 files if desired.
@@ -625,8 +625,8 @@ files if desired.
 <!--pytest.mark.skip-->
 
 ```powershell
-Expand-Archive .\influxdb2-{{< latest-patch >}}-windows.zip -DestinationPath 'C:\Program Files\InfluxData\'
-mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}' 'C:\Program Files\InfluxData\influxdb'
+Expand-Archive .\influxdb2-{{< latest-patch >}}-windows_amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
+mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
 ```
 
 {{< expand-wrapper >}}

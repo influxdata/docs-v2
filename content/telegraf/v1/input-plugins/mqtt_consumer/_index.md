@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.36.4/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
 ---
 
 # MQTT Consumer Input Plugin
@@ -38,10 +38,9 @@ normal plugins:
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
-In addition to the plugin-specific configuration settings, plugins support
-additional global and plugin configuration settings. These settings are used to
-modify metrics, tags, and field or create aliases and configure ordering, etc.
-See the [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
+Plugins support additional global and plugin configuration settings for tasks
+such as modifying metrics, tags, and fields, creating aliases, and configuring
+plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for more details.
 
 [CONFIGURATION.md]: ../../../docs/CONFIGURATION.md#plugins
 
@@ -105,6 +104,12 @@ to use them.
 
   ## Connection timeout for initial connection in seconds
   # connection_timeout = "30s"
+
+  ## Maximum interval between reconnection attempts after a connection loss.
+  ## The MQTT library uses exponential backoff starting at 1 second up to this
+  ## ceiling. The library default is 10 minutes, which can cause long delays
+  ## before message flow resumes after a network outage.
+  # max_reconnect_interval = "30s"
 
   ## Interval and ping timeout for keep-alive messages
   ## The sum of those options defines when a connection loss is detected.

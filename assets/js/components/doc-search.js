@@ -45,8 +45,8 @@ export default function DocSearch({ component }) {
     }
     const multiVersion = ['influxdb'];
 
-    // Use object-based lookups instead of conditionals for version and product names
-    // These can be replaced with data from productData in the future
+    // Use object-based lookups instead of conditionals for version and product
+    // names. These can be replaced with data from productData in the future.
 
     // Version display name mappings
     const versionDisplayNames = {
@@ -57,6 +57,7 @@ export default function DocSearch({ component }) {
       'cloud-dedicated': 'Cloud Dedicated',
       clustered: 'Clustered',
       explorer: 'Explorer',
+      controller: 'Controller',
     };
 
     // Product display name mappings
@@ -67,6 +68,7 @@ export default function DocSearch({ component }) {
       enterprise_influxdb: 'InfluxDB Enterprise',
       flux: 'Flux',
       telegraf: 'Telegraf',
+      controller: 'Telegraf Controller',
       chronograf: 'Chronograf',
       kapacitor: 'Kapacitor',
       platform: 'InfluxData Platform',
@@ -105,10 +107,10 @@ export default function DocSearch({ component }) {
           hit.version = version;
           hit.hierarchy.lvl0 =
             hit.hierarchy.lvl0 +
-            ` <span class=\"search-product-version\">${product} ${version}</span>`;
+            ` <span class="search-product-version">${product} ${version}</span>`;
           hit._highlightResult.hierarchy.lvl0.value =
             hit._highlightResult.hierarchy.lvl0.value +
-            ` <span class=\"search-product-version\">${product} ${version}</span>`;
+            ` <span class="search-product-version">${product} ${version}</span>`;
         });
         return hits;
       },
@@ -119,9 +121,9 @@ export default function DocSearch({ component }) {
       autocompleteOptions: {
         templates: {
           header:
-            '<div class="search-all-content"><a href="https:\/\/support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a>',
+            '<div class="search-all-content"><a href="https://support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a>',
           empty:
-            '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https:\/\/support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>',
+            '<div class="search-no-results"><p>Not finding what you\'re looking for?</p> <a href="https://support.influxdata.com" target="_blank">Search all InfluxData content <span class="icon-arrow-up-right"></span></a></div>',
         },
       },
     });

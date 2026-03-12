@@ -8,6 +8,11 @@ menu:
     parent: Administration
 related:
   - /influxdb/v2/tools/chronograf/
+  - /influxdb3/core/visualize-data/chronograf/
+  - /influxdb3/enterprise/visualize-data/chronograf/
+  - /influxdb3/cloud-dedicated/process-data/visualize/chronograf/
+  - /influxdb3/cloud-serverless/process-data/visualize/chronograf/
+  - /influxdb3/clustered/process-data/visualize/chronograf/
 ---
 
 Connections to InfluxDB and Kapacitor can be configured through the Chronograf user interface (UI) or with JSON configuration files:
@@ -37,7 +42,8 @@ To create an InfluxDB connection in the Chronograf UI:
     {{< tabs-wrapper >}}
     {{% tabs %}}
 [InfluxDB 1.x](#)
-[InfluxDB Cloud or OSS 2.x ](#)
+[InfluxDB Cloud or OSS 2.x](#)
+[InfluxDB 3](#)
     {{% /tabs %}}
     {{% tab-content %}}
 <img src="/img/chronograf/1-8-influxdb-v1-connection-config.png" style="width:100%; max-width:798px;"/>
@@ -78,6 +84,40 @@ For more information about connecting Chronograf to an InfluxDB Cloud or OSS 2.x
 
 - [Use Chronograf with InfluxDB Cloud](/influxdb/cloud/tools/chronograf/)
 - [Use Chronograf with InfluxDB OSS 2.x](/influxdb/v2/tools/chronograf/)
+{{% /note %}}
+    {{% /tab-content %}}
+    {{% tab-content %}}
+To connect Chronograf to an InfluxDB 3 product, start Chronograf with the `--influxdb-v3-support-enabled` flag or set the `INFLUXDB_V3_SUPPORT_ENABLED=true` environment variable:
+
+```sh
+chronograf --influxdb-v3-support-enabled
+```
+
+Once enabled, select your InfluxDB 3 product from the **Server Type** dropdown:
+
+<img src="/img/chronograf/v1-influxdb3/server-type-dropdown.png" style="width:100%; max-width:798px;" alt="Chronograf Server Type dropdown showing InfluxDB 3 options"/>
+
+<img src="/img/chronograf/v1-influxdb3/cloud-dedicated-with-mgmt.png" style="width:100%; max-width:798px;" alt="Chronograf InfluxDB Cloud Dedicated connection configuration"/>
+
+- **Connection URL**: URL of your InfluxDB 3 instance or cluster
+- **Connection Name**: Unique name for this connection
+- **Database Token**: InfluxDB database token with read permissions
+- **Telegraf Database Name**: Database Chronograf uses to populate parts of the application (default is `telegraf`)
+- **Default Database** _(optional)_: Limit Chronograf queries to a specific database
+- **Unsafe SSL**: Enable to skip SSL certificate verification for self-signed certificates
+- **Cluster ID** _(Cloud Dedicated)_: Found in your `influxctl` configuration
+- **Account ID** _(Cloud Dedicated)_: Found in your `influxctl` configuration
+- **Management Token** _(Cloud Dedicated, Clustered)_: Token for administrative operations
+- **Tags CSV Directory Path** _(Cloud Dedicated)_: Path to CSV files defining tags for query builder
+
+{{% note %}}
+For detailed product-specific instructions, see:
+
+- [Use Chronograf with InfluxDB 3 Core](/influxdb3/core/visualize-data/chronograf/)
+- [Use Chronograf with InfluxDB 3 Enterprise](/influxdb3/enterprise/visualize-data/chronograf/)
+- [Use Chronograf with InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/process-data/visualize/chronograf/)
+- [Use Chronograf with InfluxDB Cloud Serverless](/influxdb3/cloud-serverless/process-data/visualize/chronograf/)
+- [Use Chronograf with InfluxDB Clustered](/influxdb3/clustered/process-data/visualize/chronograf/)
 {{% /note %}}
     {{% /tab-content %}}
     {{< /tabs-wrapper >}}
@@ -128,7 +168,7 @@ A `.src` file contains the details for a single InfluxDB connection.
 
 {{% note %}}
 **Only InfluxDB 1.x connections are configurable in a `.src` file.**
-Configure InfluxDB 2.x and Cloud connections with [CLI flags](/chronograf/v1/administration/config-options/#influxdb-connection-options)
+Configure InfluxDB 2.x, Cloud, and InfluxDB 3 connections with [CLI flags](/chronograf/v1/administration/config-options/#influxdb-connection-options)
 or in the [Chronograf UI](#manage-influxdb-connections-using-the-chronograf-ui).
 {{% /note %}}
 

@@ -8,15 +8,15 @@ secrets:
   influxdb2-admin-password:
     file: ~/.env.influxdb2-admin-password
   influxdb2-admin-token:
-    file: ~/.env.influxdb2-admin-token 
-  influxdb3-core-admin-token:
-    file: ~/.env.influxdb3-core-admin-token
+    file: ~/.env.influxdb2-admin-token
+  influxdb3-core-token:
+    file: test/.influxdb3/core/.token
   influxdb3-enterprise-admin-token:
-    file: ~/.env.influxdb3-enterprise-admin-token
+    file: ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
 services:
   local-dev:
     build:
-      context: . 
+      context: .
       dockerfile_inline: |
         FROM hugomods/hugo:exts-0.123.8
         RUN apk add --no-cache curl openssl
@@ -75,7 +75,7 @@ services:
         source: ./content/influxdb/cloud/.env.test
         target: /app/.env.test
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -89,7 +89,7 @@ services:
       - type: volume
         source: test-content
         target: /app/content
-      - type: bind 
+      - type: bind
         source: ./test/shared/influxdb-templates
         target: /root/influxdb-templates
     working_dir: /app
@@ -133,7 +133,7 @@ services:
         source: ./content/influxdb3/cloud-dedicated/config.toml
         target: /root/.config/influxctl/config.toml
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -183,7 +183,7 @@ services:
         source: ./content/influxdb3/cloud-serverless/.env.test
         target: /app/.env.test
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -238,7 +238,7 @@ services:
         source: ./content/influxdb3/clustered/config.toml
         target: /root/.config/influxctl/config.toml
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -263,7 +263,7 @@ services:
       - /bin/bash
       - /src/test/scripts/run-tests.sh
       - pytest
-    command:  
+    command:
       # In the command, pass file paths to test.
       # The container preprocesses the files for testing and runs the tests.
       - content/influxdb3/core/**/*.md
@@ -289,7 +289,7 @@ services:
         source: ./content/influxdb3/core/.env.test
         target: /app/.env.test
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -304,13 +304,41 @@ services:
         source: test-content
         target: /app/content
     working_dir: /app
+  # ============================================================================
+  # InfluxDB 3 Core - PER-WORKTREE INSTANCE
+  # ============================================================================
+  # Data is stored in the worktree's test/ directory for isolation.
+  # Token is auto-generated on first start and saved to test/.influxdb3/core/.token
+  #
+  # USAGE:
+  #   docker compose up -d influxdb3-core
+  #
+  # AUTHENTICATION:
+  #   Uses Docker Compose secrets for secure token management
+  #   Token file: test/.influxdb3/core/.token (mounted as secret)
+  #   Secret location in container: /run/secrets/influxdb3-core-token
+  #
+  # FIRST-TIME SETUP:
+  #   Run: ./test/scripts/init-influxdb3.sh core
+  #   This creates directories, generates token, and starts the service
+  #
+  # MANUAL SETUP (if not using init script):
+  #   1. Create directories: mkdir -p test/.influxdb3/core/data test/.influxdb3/core/plugins test/.influxdb3/plugins
+  #   2. Generate token: openssl rand -hex 32 > test/.influxdb3/core/.token
+  #   3. Set permissions: chmod 600 test/.influxdb3/core/.token
+  #   4. Start: docker compose up -d influxdb3-core
+  #
+  # CI/CD USAGE:
+  #   Token file can be created from environment variable or secret manager
+  #   Example: echo "$INFLUXDB3_TOKEN" > test/.influxdb3/core/.token
+  # ============================================================================
   influxdb3-core:
     container_name: influxdb3-core
     image: influxdb:3-core
     pull_policy: always
-    # Set variables (except your auth token) for Core in the .env.3core file.
     env_file:
-      - .env.3core
+      - path: .env.3core
+        required: false
     ports:
       - 8282:8181
     command:
@@ -320,30 +348,100 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
-      - --log-filter=debug
-      - --verbose
+      - --admin-token-file=/run/secrets/influxdb3-core-token
+      - --log-filter=info
     volumes:
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/core/data
         target: /var/lib/influxdb3/data
-      - type: bind 
-        source: test/.influxdb3/plugins/influxdata
+      - type: bind
+        source: test/.influxdb3/plugins
         target: /var/lib/influxdb3/plugins
-      - type: bind 
+      - type: bind
         source: test/.influxdb3/core/plugins
         target: /var/lib/influxdb3/plugins/custom
-    environment:
-      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-core-admin-token
-      - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
     secrets:
-      - influxdb3-core-admin-token
+      - influxdb3-core-token
+    environment:
+      - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
+  # ============================================================================
+  # InfluxDB 3 Core - NO AUTH (for endpoint testing)
+  # ============================================================================
+  # Use this service to test /ping and /health endpoints without authentication.
+  # Auth is disabled only for health and ping endpoints.
+  #
+  # USAGE:
+  #   docker compose up -d influxdb3-core-noauth
+  #   curl -i http://localhost:8283/ping   # Returns version headers + JSON
+  #   curl -i http://localhost:8283/health # Returns "OK"
+  #
+  # NOTE: HEAD requests to /ping return 404 - use GET instead.
+  # ============================================================================
+  influxdb3-core-noauth:
+    container_name: influxdb3-core-noauth
+    image: influxdb:3-core
+    pull_policy: always
+    ports:
+      - 8283:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --disable-authz=health,ping
+      - --log-filter=info
+    volumes:
+      - type: bind
+        source: test/.influxdb3/core-noauth/data
+        target: /var/lib/influxdb3/data
+    profiles:
+      - noauth
+  # ============================================================================
+  # InfluxDB 3 Enterprise - SHARED INSTANCE
+  # ============================================================================
+  # This service uses a shared data directory outside the worktree to:
+  # - Preserve license across worktrees (trial license in data dir)
+  # - Allow single Enterprise instance for all docs testing
+  # - Avoid conflicts with users' personal ~/.influxdb3/ installs
+  #
+  # USAGE:
+  #   docker compose --profile shared up -d influxdb3-enterprise
+  #
+  # AUTHENTICATION:
+  #   Uses Docker Compose secrets for secure token management
+  #   Token file: ~/influxdata-docs/.influxdb3/enterprise/admin-token.json (mounted as secret)
+  #   Secret location in container: /run/secrets/influxdb3-enterprise-admin-token
+  #   Format: JSON file with {"token": "...", "description": "..."}
+  #
+  # FIRST-TIME SETUP:
+  #   1. Create license email file: echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=you@example.com" > ~/influxdata-docs/.influxdb3/enterprise/.env
+  #   2. Run: ./test/scripts/init-influxdb3.sh enterprise
+  #      This creates directories, generates admin-token.json, and starts the service
+  #
+  # MANUAL SETUP (if not using init script):
+  #   1. Create directories: mkdir -p ~/influxdata-docs/.influxdb3/enterprise/data ~/influxdata-docs/.influxdb3/plugins
+  #   2. Generate admin token and create JSON file:
+  #      TOKEN=$(openssl rand -hex 32)
+  #      echo "{\"token\": \"${TOKEN}\", \"description\": \"Admin token\"}" > ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+  #      chmod 600 ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+  #   3. Start: docker compose --profile shared up -d influxdb3-enterprise
+  #
+  # CI/CD USAGE:
+  #   Token file can be created from environment variable or secret manager
+  #   Example: echo "{\"token\": \"$ADMIN_TOKEN\"}" > ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+  #
+  # Note: License is persisted in data dir after first activation (30-day trial, renewable)
+  #
+  # The 'shared' profile prevents accidental startup from `docker compose up`.
+  # ============================================================================
   influxdb3-enterprise:
     container_name: influxdb3-enterprise
     image: influxdb:3-enterprise
     pull_policy: always
-    # Set license email and other variables (except your auth token) for Enterprise in the .env.3ent file.
+    # License email for first-time activation (from shared .env file)
     env_file:
-      - .env.3ent
+      - ~/influxdata-docs/.influxdb3/enterprise/.env
     ports:
       - 8181:8181
     command:
@@ -354,23 +452,23 @@ services:
       - --object-store=file
       - --data-dir=/var/lib/influxdb3/data
       - --plugin-dir=/var/lib/influxdb3/plugins
-      - --log-filter=debug
-      - --verbose
+      - --admin-token-file=/run/secrets/influxdb3-enterprise-admin-token
+      - --license-type=trial
+      - --log-filter=info
     environment:
-      - INFLUXDB3_AUTH_TOKEN=/run/secrets/influxdb3-enterprise-admin-token
       - INFLUXDB3_PLUGIN_DIR=/var/lib/influxdb3/plugins
     volumes:
+      # Shared data directory - persists license and data across worktrees
       - type: bind
-        source: test/.influxdb3/enterprise/data
+        source: ~/influxdata-docs/.influxdb3/enterprise/data
         target: /var/lib/influxdb3/data
       - type: bind
-        source: test/.influxdb3/plugins/influxdata
+        source: ~/influxdata-docs/.influxdb3/plugins
         target: /var/lib/influxdb3/plugins
-      - type: bind
-        source: test/.influxdb3/enterprise/plugins
-        target: /var/lib/influxdb3/plugins/custom
     secrets:
       - influxdb3-enterprise-admin-token
+    profiles:
+      - shared
   influxdb3-explorer:
     container_name: influxdb3-explorer
     image: influxdata/influxdb3-ui:latest
@@ -417,7 +515,7 @@ services:
         source: ./content/telegraf/.env.test
         target: /app/.env.test
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -467,7 +565,7 @@ services:
         source: ./content/influxdb/v2/.env.test
         target: /app/.env.test
         read_only: true
-      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory. 
+      # In your code samples, use `/app/data/<FILE.lp>` or `data/<FILE.lp>` to access sample data files from the `static/downloads` directory.
       - type: bind
         source: ./static/downloads
         target: /app/data
@@ -493,12 +591,12 @@ services:
       DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb2-admin-password
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb2-admin-token
       DOCKER_INFLUXDB_INIT_ORG: docs
-      DOCKER_INFLUXDB_INIT_BUCKET: get-started 
+      DOCKER_INFLUXDB_INIT_BUCKET: get-started
       INFLUX_ORG: docs
       INFLUX_BUCKET: get-started
     profiles:
       - v2
-      - local 
+      - local
     secrets:
       - influxdb2-admin-username
       - influxdb2-admin-password

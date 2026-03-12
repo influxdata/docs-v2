@@ -17,6 +17,8 @@ Use [Docker](https://docker.com) to install and run **InfluxDB 3 Explorer**.
   - [Persist data across restarts](#persist-data-across-restarts)
   - [Pre-configure InfluxDB connections](#pre-configure-influxdb-connections)
   - [Enable TLS/SSL (HTTPS)](#enable-tlsssl-https)
+    - [TLS and certificate verification options](#tls-and-certificate-verification-options)
+    - [Use self-signed certificates](#use-self-signed-certificates)
   - [Choose operational mode](#choose-operational-mode)
 - [Advanced configuration](#advanced-configuration)
   - [Environment variables](#environment-variables)
@@ -347,6 +349,104 @@ To enable TLS/SSL for secure connections:
 > [!Note]
 > The nginx web server automatically detects and uses certificate files in the mounted path.
 
+#### TLS and certificate verification options
+
+Use the following environment variables to configure TLS and certificate verification:
+
+- `NODE_EXTRA_CA_CERTS` - Path to custom CA certificate file inside container (recommended).
+  
+  This option adds an intermediate or custom CA certificate to the Node.js trusted certificate store
+  and is required when InfluxDB uses certificates signed by an internal or private CA.
+  
+  - **Format**: PEM format certificate file
+  - **Example**: `-e NODE_EXTRA_CA_CERTS=/ca-certs/ca-bundle.crt`
+  
+  > [!Note]
+  > This is the native Node.js environment variable for custom CAs.
+  
+- `CA_CERT_PATH` - Alternative to `NODE_EXTRA_CA_CERTS` (convenience alias)
+   - **Example**: `-e CA_CERT_PATH=/ca-certs/ca-bundle.crt`
+  
+   > [!Note]
+   > Use either `NODE_EXTRA_CA_CERTS` or `CA_CERT_PATH`; not both. `CA_CERT_PATH` aliases `NODE_EXTRA_CA_CERTS`.
+
+#### Use self-signed certificates
+
+To configure Explorer to trust self-signed or custom CA certificates when connecting to InfluxDB:
+
+1. **Create a directory for CA certificates:**
+
+   ```bash
+   mkdir -p ./ca-certs
+   ```
+
+2. **Copy your CA certificate to the directory:**
+
+   ```bash
+   cp /path/to/your-ca.pem ./ca-certs/
+   ```
+
+3. **Mount the CA certificate directory and set the `NODE_EXTRA_CA_CERTS` environment variable:**
+
+{{< expand-wrapper >}}
+{{% expand "View example Docker configuration for self-signed certificates" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Docker](#)
+[Docker Compose](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+{{< code-callout "NODE_EXTRA_CA_CERTS" >}}
+```bash
+docker run --detach \
+  --name influxdb3-explorer \
+  --restart unless-stopped \
+  --publish 8888:443 \
+  --volume $(pwd)/db:/db:rw \
+  --volume $(pwd)/config:/app-root/config:ro \
+  --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+  --volume $(pwd)/ca-certs:/ca-certs:ro \
+  --env SESSION_SECRET_KEY=your-secure-secret-key-here \
+  --env NODE_EXTRA_CA_CERTS=/ca-certs/your-ca.pem \
+  influxdata/influxdb3-ui:{{% latest-patch %}} \
+  --mode=admin
+```
+{{< /code-callout >}}
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+{{< code-callout "NODE_EXTRA_CA_CERTS" >}}
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  explorer:
+    image: influxdata/influxdb3-ui:{{% latest-patch %}}
+    container_name: influxdb3-explorer
+    pull_policy: always
+    command: ["--mode=admin"]
+    ports:
+      - "8888:443"
+    volumes:
+      - ./db:/db:rw
+      - ./config:/app-root/config:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./ca-certs:/ca-certs:ro
+    environment:
+      SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:-your-secure-secret-key-here}
+      NODE_EXTRA_CA_CERTS: /ca-certs/your-ca.pem
+    restart: unless-stopped
+```
+{{< /code-callout >}}
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### Choose operational mode
 
 {{% product-name %}} supports two operational modes:
@@ -410,6 +510,8 @@ services:
 | `DATABASE_URL` | `/db/sqlite.db` | Path to SQLite database inside container |
 | `SSL_CERT_PATH` | `/etc/nginx/ssl/cert.pem` | Path to SSL certificate file |
 | `SSL_KEY_PATH` | `/etc/nginx/ssl/key.pem` | Path to SSL private key file |
+| `NODE_EXTRA_CA_CERTS` | _(none)_ | Path to custom CA certificate file (PEM format) for trusting self-signed or internal CA certificates |
+| `CA_CERT_PATH` | _(none)_ | Alias for `NODE_EXTRA_CA_CERTS` |
 
 > [!Important]
 > Always set `SESSION_SECRET_KEY` in production to persist user sessions across container restarts.
@@ -426,6 +528,7 @@ services:
 | `/db` | SQLite database storage | 700 | No (but recommended) |
 | `/app-root/config` | Connection configuration | 755 | No |
 | `/etc/nginx/ssl` | TLS/SSL certificates | 755 | Only for HTTPS |
+| `/ca-certs` | Custom CA certificates | 755 | Only for self-signed certificates |
 
 ### Port reference
 
@@ -527,7 +630,7 @@ docker-compose up -d
 {{% code-tab-content %}}
 ```bash
 docker run --rm \
-  --name influxdb3-explorer-dev \
+  --name influxdb3-explorer \
   --publish 8888:80 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
@@ -541,9 +644,10 @@ version: '3.8'
 services:
   explorer:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
-    container_name: influxdb3-explorer-dev
+    container_name: influxdb3-explorer
     ports:
       - "8888:80"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+

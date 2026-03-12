@@ -931,6 +931,411 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/tables/{tableName}:
+    delete:
+      operationId: DeleteClusterDatabaseTable
+      summary: Delete a database table
+      tags:
+        - Tables
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: clusterId
+          in: path
+          description: The ID of the cluster that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: databaseName
+          in: path
+          description: The name of the database that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseName'
+        - name: tableName
+          in: path
+          description: The name of the database table to delete
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseTableName'
+      responses:
+        '204':
+          description: The cluster database table was successfully deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/tables/{tableName}/rename:
+    put:
+      operationId: RenameClusterDatabaseTable
+      summary: Rename a database table
+      tags:
+        - Tables
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: clusterId
+          in: path
+          description: The ID of the cluster that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: databaseName
+          in: path
+          description: The name of the database that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseName'
+        - name: tableName
+          in: path
+          description: The name of the database table to rename
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseTableName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/ClusterDatabaseTableName'
+              required:
+                - name
+            examples:
+              allFields:
+                summary: All Fields
+                value:
+                  name: RenamedTableName
+      responses:
+        '200':
+          description: The cluster database table was successfully renamed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  clusterId:
+                    description: The ID of the cluster that the database table belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  databaseName:
+                    description: The name of the database that the table belongs to
+                    $ref: '#/components/schemas/ClusterDatabaseName'
+                  id:
+                    description: The ID of the table
+                    type: integer
+                    format: int64
+                  name:
+                    description: The name of the table
+                    $ref: '#/components/schemas/ClusterDatabaseTableName'
+                  partitionTemplate:
+                    $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
+                required:
+                  - accountId
+                  - clusterId
+                  - databaseName
+                  - id
+                  - name
+              example:
+                accountId: 11111111-1111-4111-8111-111111111111
+                clusterId: 33333333-3333-4333-8333-333333333333
+                databaseName: DatabaseName
+                id: 12345
+                name: RenamedDatabaseTable
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/tables/{tableId}/undelete:
+    put:
+      operationId: UndeleteClusterDatabaseTable
+      summary: Undelete a database table
+      description: |
+        Restores a previously deleted database table.
+
+        This operation can only be performed on tables that have been soft-deleted and are still within the recovery window.
+      tags:
+        - Tables
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: clusterId
+          in: path
+          description: The ID of the cluster that the database table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: databaseName
+          in: path
+          description: The name of the database that the table belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseName'
+        - name: tableId
+          in: path
+          description: The ID of the table to undelete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The cluster database table was successfully undeleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database table belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  clusterId:
+                    description: The ID of the cluster that the database table belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  databaseName:
+                    description: The name of the database that the table belongs to
+                    $ref: '#/components/schemas/ClusterDatabaseName'
+                  id:
+                    description: The ID of the table
+                    type: integer
+                    format: int64
+                  name:
+                    description: The name of the table
+                    $ref: '#/components/schemas/ClusterDatabaseTableName'
+                  partitionTemplate:
+                    $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
+                required:
+                  - accountId
+                  - clusterId
+                  - databaseName
+                  - id
+                  - name
+              example:
+                accountId: 11111111-1111-4111-8111-111111111111
+                clusterId: 33333333-3333-4333-8333-333333333333
+                databaseName: DatabaseOne
+                id: 12345
+                name: TableOne
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseId}/undelete:
+    put:
+      operationId: UndeleteClusterDatabase
+      summary: Undelete a database
+      description: |
+        Restores a previously deleted database.
+
+        This operation can only be performed on databases that have been soft-deleted and are still within the recovery window.
+      tags:
+        - Databases
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: clusterId
+          in: path
+          description: The ID of the cluster that the database belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: databaseId
+          in: path
+          description: The ID of the database to undelete
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseId'
+      responses:
+        '200':
+          description: The cluster database was successfully undeleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  clusterId:
+                    description: The ID of the cluster that the database belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  id:
+                    description: The ID of the database
+                    $ref: '#/components/schemas/ClusterDatabaseId'
+                  name:
+                    $ref: '#/components/schemas/ClusterDatabaseName'
+                  maxTables:
+                    $ref: '#/components/schemas/ClusterDatabaseMaxTables'
+                  maxColumnsPerTable:
+                    $ref: '#/components/schemas/ClusterDatabaseMaxColumnsPerTable'
+                  retentionPeriod:
+                    $ref: '#/components/schemas/ClusterDatabaseRetentionPeriod'
+                  partitionTemplate:
+                    $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
+                required:
+                  - accountId
+                  - clusterId
+                  - id
+                  - name
+                  - maxTables
+                  - maxColumnsPerTable
+              example:
+                accountId: 11111111-1111-4111-8111-111111111111
+                clusterId: 33333333-3333-4333-8333-333333333333
+                id: 12345
+                name: DatabaseOne
+                maxTables: 500
+                maxColumnsPerTable: 200
+                retentionPeriod: 300000000000
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /accounts/{accountId}/clusters/{clusterId}/databases/{databaseName}/rename:
+    put:
+      operationId: RenameClusterDatabase
+      summary: Rename a database
+      description: |
+        Renames an existing database.
+
+        This operation can only be performed on databases that are currently active.
+      tags:
+        - Databases
+      parameters:
+        - name: accountId
+          in: path
+          description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: clusterId
+          in: path
+          description: The ID of the cluster that the database belongs to
+          required: true
+          schema:
+            $ref: '#/components/schemas/UuidV4'
+        - name: databaseName
+          in: path
+          description: The name of the database to rename
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClusterDatabaseName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  $ref: '#/components/schemas/ClusterDatabaseName'
+              required:
+                - name
+            examples:
+              allFields:
+                summary: All Fields
+                value:
+                  name: RenamedDatabaseName
+      responses:
+        '200':
+          description: The cluster database was successfully renamed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    description: The ID of the [account](/influxdb3/cloud-dedicated/get-started/setup/#request-an-influxdb-cloud-dedicated-cluster) that the database belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  clusterId:
+                    description: The ID of the cluster that the database belongs to
+                    $ref: '#/components/schemas/UuidV4'
+                  id:
+                    description: The ID of the database
+                    $ref: '#/components/schemas/ClusterDatabaseId'
+                  name:
+                    $ref: '#/components/schemas/ClusterDatabaseName'
+                  maxTables:
+                    $ref: '#/components/schemas/ClusterDatabaseMaxTables'
+                  maxColumnsPerTable:
+                    $ref: '#/components/schemas/ClusterDatabaseMaxColumnsPerTable'
+                  retentionPeriod:
+                    $ref: '#/components/schemas/ClusterDatabaseRetentionPeriod'
+                  partitionTemplate:
+                    $ref: '#/components/schemas/ClusterDatabasePartitionTemplate'
+                required:
+                  - accountId
+                  - clusterId
+                  - id
+                  - name
+                  - maxTables
+                  - maxColumnsPerTable
+              example:
+                accountId: 11111111-1111-4111-8111-111111111111
+                clusterId: 33333333-3333-4333-8333-333333333333
+                id: 12345
+                name: RenamedDatabaseName
+                maxTables: 500
+                maxColumnsPerTable: 200
+                retentionPeriod: 300000000000
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /accounts/{accountId}/clusters/{clusterId}/tokens:
     get:
       operationId: GetDatabaseTokens
@@ -1651,6 +2056,11 @@ components:
         - DatabaseTwo
       maxLength: 64
       minLength: 1
+    ClusterDatabaseId:
+      description: The ID of the cluster database
+      type: integer
+      format: int64
+      minimum: 1
     ClusterDatabaseRetentionPeriod:
       description: |
         The retention period of the [cluster database](/influxdb3/cloud-dedicated/admin/databases/) in nanoseconds, if applicable

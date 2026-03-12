@@ -25,6 +25,9 @@
 - _Provide other relevant URLs (project issues, community threads, etc.)_
 ` }}
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
+{{ if and (eq $product "influxdb3") (eq $version "enterprise") }}
+  {{ $pageGithubIssueLink = "https://support.influxdata.com/s/" }}
+{{ end }}
 
 <hr/>
 <div class="helpful">
