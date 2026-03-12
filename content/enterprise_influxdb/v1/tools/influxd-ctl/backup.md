@@ -62,7 +62,7 @@ influxd-ctl backup [flags] <backup-dir>
 | `-gzipCompressionLevel` | Level of compression to use (`default`, `full`, `speedy`, `none`)   |
 | `-cpuprofile`           | Write backup execution to a cpu profile (`true` or `false`)         |
 | `-gzipBlockCount`       | Change the blocks processed concurrently during backup compression  |
-| `-gzipBlockSize`        | Change the size of compressed blocked during backup compression     |
+| `-gzipBlockSize`        | Change the size of compressed blocks during backup compression      |
 
 {{% caption %}}
 _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)._
@@ -70,7 +70,7 @@ _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl
 
 ## Backup compression
 
-You can adjust`-gzipCompression` to allow for faster backups with the tradeoff that data is less compressed. 
+You can adjust `-gzipCompressionLevel` to allow for faster backups with the tradeoff that data is less compressed.
 
 | Value   | Description                        | Use Case                                    |
 | :------ | :--------------------------------- | :------------------------------------------ |
@@ -79,7 +79,7 @@ You can adjust`-gzipCompression` to allow for faster backups with the tradeoff t
 | speedy  | Prioritizes speed over compression | Faster backups with moderate space increase |
 | none    | No compression                     | Maximum speed when storage isn't a concern  |
 
-Running backups with different compression settings on ~5.3 GB of data
+Running backups with different compression settings on ~5.3 GB of data:
 
 | Compression Level | Backup Time | Size on Disk | Notes                         |
 | :---------------- | :---------: | :----------: | :---------------------------- |
@@ -88,7 +88,7 @@ Running backups with different compression settings on ~5.3 GB of data
 | speedy            |     23s     |   ~3.3 GB    | ~2.2x faster, ~10% more space |
 | none              |     10s     |   ~5.3 GB    | ~5x faster, ~77% more space   |
 
-We do not recommended changing the values for `-gzipBlockCount` and `-gzipBlockSize`.
+We do not recommend changing the values for `-gzipBlockCount` and `-gzipBlockSize`.
 These are set to sensible defaults per the [pgzip library](https://github.com/klauspost/pgzip).
 
 ## Examples
@@ -98,6 +98,7 @@ These are set to sensible defaults per the [pgzip library](https://github.com/kl
 - [Estimate the size of a backup](#estimate-the-size-of-a-backup)
 - [Backup data from a specific time range](#backup-data-from-a-specific-time-range)
 - [Backup a specific shard](#backup-a-specific-shard)
+- [Backup data with configured compression](#backup-data-with-configured-compression)
 
 ### Perform an incremental backup
 

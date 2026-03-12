@@ -174,7 +174,7 @@ Environment variable: `INFLUXDB_META_HTTPS_PRIVATE_KEY`
 
 Default is `false`.
 
-Skips file permission checking for `https-certificate` and `https-private-key` when true.
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
 
 Environment variable: `INFLUXDB_META_HTTPS_INSECURE_CERTIFICATE`
 

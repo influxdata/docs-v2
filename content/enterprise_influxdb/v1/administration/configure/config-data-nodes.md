@@ -628,7 +628,7 @@ Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
 
 Default is `false`.
 
-Skips file permission checking on `https-certificate` and  `https-private-key` when `true`.
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
 
@@ -1183,7 +1183,7 @@ Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 
 Default is `false`.
 
-Skips file permission checking for `https-certificate` and `https-private-key` when true.
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
@@ -1712,7 +1712,7 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
 Default is `5d`.
 
-Sets how far in advanced warnings about TLS certificate expiration are logged.
+Sets how far in advance to log warnings about TLS certificate expiration.
 
 Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
 
