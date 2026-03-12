@@ -136,9 +136,9 @@ paths:
       description: |
         Check the health of your InfluxDB instance.
         Returns health status as JSON with a `pass` or `fail` status.
+      x-compatibility-version: v2
       tags:
         - System Information
-        - v2 Compatibility
       responses:
         '200':
           description: Server is healthy
@@ -583,8 +583,8 @@ paths:
         - `Accept: application/csv`
         - `Content-type: application/vnd.flux`
         - `Authorization: Token username:password` (if authentication is enabled)
+      x-compatibility-version: v2
       tags:
-        - v2 Compatibility
         - Query
       security:
         - TokenAuth: []
@@ -625,8 +625,8 @@ paths:
         - `database/` or `database` - default retention policy
 
         The `org` parameter is ignored in InfluxDB 1.x.
+      x-compatibility-version: v2
       tags:
-        - v2 Compatibility
         - Write
       security:
         - TokenAuth: []
@@ -685,6 +685,7 @@ paths:
       description: |
         List all databases as buckets. Provides forward compatibility with
         InfluxDB 2.x client libraries.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -708,6 +709,7 @@ paths:
       description: |
         Create a new database as a bucket. Provides forward compatibility with
         InfluxDB 2.x client libraries.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -738,6 +740,7 @@ paths:
       description: |
         Delete a database/retention policy combination.
         The bucketID format is `database/retention-policy`.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -780,6 +783,7 @@ paths:
 
         See [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate/)
         for detailed syntax and [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:

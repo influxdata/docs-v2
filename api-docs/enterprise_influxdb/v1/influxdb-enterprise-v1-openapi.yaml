@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: InfluxDB Enterprise v1 HTTP API
-  version: 1.11.6
+  version: 1.12.2
   description: |
     The InfluxDB Enterprise v1 HTTP API provides a simple way to interact with the database.
     It uses HTTP response codes, authentication with username and password credentials
@@ -132,9 +132,9 @@ paths:
       description: |
         Check the health of your InfluxDB Enterprise instance.
         Returns health status as JSON with a `pass` or `fail` status.
+      x-compatibility-version: v2
       tags:
         - System Information
-        - v2 Compatibility
       responses:
         '200':
           description: Server is healthy
@@ -146,7 +146,7 @@ paths:
                 name: influxdb
                 message: ready for queries and writes
                 status: pass
-                version: 1.11.6
+                version: 1.12.2
         '503':
           description: Server is unhealthy
           content:
@@ -157,7 +157,7 @@ paths:
                 name: influxdb
                 message: service unavailable
                 status: fail
-                version: 1.11.6
+                version: 1.12.2
   /query:
     get:
       operationId: GetQuery
@@ -595,8 +595,8 @@ paths:
         - `Accept: application/csv`
         - `Content-type: application/vnd.flux`
         - `Authorization: Token username:password` (if authentication is enabled)
+      x-compatibility-version: v2
       tags:
-        - v2 Compatibility
         - Query
       security:
         - TokenAuth: []
@@ -637,8 +637,8 @@ paths:
         - `database/` or `database` - default retention policy
 
         The `org` parameter is ignored in InfluxDB Enterprise 1.x.
+      x-compatibility-version: v2
       tags:
-        - v2 Compatibility
         - Write
       security:
         - TokenAuth: []
@@ -697,6 +697,7 @@ paths:
       description: |
         List all databases as buckets. Provides forward compatibility with
         InfluxDB 2.x client libraries.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -720,6 +721,7 @@ paths:
       description: |
         Create a new database as a bucket. Provides forward compatibility with
         InfluxDB 2.x client libraries.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -750,6 +752,7 @@ paths:
       description: |
         Delete a database/retention policy combination.
         The bucketID format is `database/retention-policy`.
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -792,6 +795,7 @@ paths:
 
         See [delete predicate syntax](/influxdb/v2/reference/syntax/delete-predicate/)
         for detailed syntax and [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
+      x-compatibility-version: v2
       tags:
         - v2 Compatibility
       security:
@@ -847,6 +851,88 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /shard-status:
+    get:
+      operationId: GetShardStatus
+      summary: Get shard status
+      description: |
+        **Enterprise only.** Retrieve information about all shards on the data
+        node, including shard ID, size, hot status, and anti-entropy state.
+      tags:
+        - System Information
+      responses:
+        '200':
+          description: Shard status for all databases
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  databases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Database name
+                        retention_policies:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                description: Retention policy name
+                              replication_factor:
+                                type: integer
+                                description: Replication factor
+                              shards:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      description: Shard ID
+                                    size:
+                                      type: integer
+                                      description: Size on disk in bytes
+                                    is_hot:
+                                      type: boolean
+                                      description: Whether the shard's time range includes `now`
+                                    state:
+                                      type: string
+                                      description: Anti-entropy status
+                                      enum:
+                                        - healthy
+                                        - restore pending
+                                        - restoring
+                                        - repairing
+                                        - error processing
+              example:
+                databases:
+                  - name: _internal
+                    retention_policies:
+                      - name: monitor
+                        replication_factor: 1
+                        shards:
+                          - id: 2
+                            size: 594491
+                            is_hot: true
+                  - name: mydb
+                    retention_policies:
+                      - name: autogen
+                        replication_factor: 1
+                        shards:
+                          - id: 3
+                            is_hot: false
+                          - id: 6
+                            size: 1921
+                            is_hot: false
+                          - id: 11
+                            is_hot: true
+                            state: healthy
 components:
   securitySchemes:
     BasicAuth:
@@ -972,7 +1058,7 @@ components:
             - fail
         version:
           type: string
-          example: 1.11.6
+          example: 1.12.2
     QueryResponse:
       type: object
       properties:
