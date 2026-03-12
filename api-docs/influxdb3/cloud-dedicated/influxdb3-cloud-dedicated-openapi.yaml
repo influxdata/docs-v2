@@ -1,13 +1,15 @@
 openapi: 3.0.0
 info:
-  title: InfluxDB v2 HTTP API for InfluxDB 3 Cloud Dedicated
+  title: InfluxDB Cloud Dedicated Data HTTP API
   description: |
-    The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing and managing data stored in an InfluxDB 3 Cloud Dedicated database.
+    The InfluxDB Cloud Dedicated Data HTTP API provides a programmatic interface for writing and querying data stored in an InfluxDB Cloud Dedicated database.
 
-    Use the InfluxDB v2 HTTP API `/api/v2` endpoints to manage retention policy mappings and write data to an InfluxDB 3 instance.
+    The Data API includes:
 
-    This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+    - InfluxDB v1- and v2-compatible endpoints for writing data
+    - InfluxDB v1-compatible endpoint for querying data using InfluxQL
+
+    This reference guide describes the supported data representations, HTTP methods, routes, and authentication schemes of the Data HTTP API.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -17,7 +19,7 @@ info:
     url: https://www.influxdata.com
     email: support@influxdata.com
   x-influxdata-short-title: v2 API
-  x-influxdata-short-description: The InfluxDB v2 HTTP API provides a v2-compatible programmatic interface for writing and managing data stored in an InfluxDB 3 Cloud Dedicated database.
+  x-influxdata-short-description: The InfluxDB Cloud Dedicated Data HTTP API provides a programmatic interface for writing and querying data stored in an InfluxDB 3 Cloud Dedicated database.
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Cloud Dedicated API URL

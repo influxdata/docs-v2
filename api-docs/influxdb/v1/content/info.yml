@@ -12,18 +12,11 @@ description: |
   ## InfluxDB 3 Compatibility
 
   InfluxDB 3 supports the v1 `/write` and `/query` HTTP API endpoints.
-  If you're getting started with InfluxDB v1, we recommend using the
-  InfluxDB v1 client libraries and InfluxQL for future compatibility.
 
-  ## Authentication
+  For more information, see the following:
 
-  InfluxDB v1 supports two authentication methods:
-
-  - **Basic Authentication**: Use HTTP Basic Auth with username and password
-  - **Query String Authentication**: Pass `u` (username) and `p` (password) as query parameters
-  - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
-
-  Authentication is optional unless [enabled in the configuration](/influxdb/v1/administration/authentication_and_authorization/).
+  - [Use compatibility APIs to write data in InfluxDB 3](/influxdb3/core/write-data/http-api/compatibility-apis/)
+  - [Get started using using InfluxQL in InfluxDB 3](/influxdb3/core/get-started/query/#influxql)
 license:
   name: MIT
   url: https://opensource.org/licenses/MIT

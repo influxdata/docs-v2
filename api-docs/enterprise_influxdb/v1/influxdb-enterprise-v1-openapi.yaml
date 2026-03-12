@@ -6,21 +6,6 @@ info:
     The InfluxDB Enterprise v1 HTTP API provides a simple way to interact with the database.
     It uses HTTP response codes, authentication with username and password credentials
     or API tokens, and JSON-formatted response data.
-
-    ## Cluster Features
-
-    InfluxDB Enterprise includes additional parameters for cluster operations:
-    - **Write Consistency**: Control write consistency across cluster nodes
-
-    ## Authentication
-
-    InfluxDB Enterprise v1 supports multiple authentication methods:
-
-    - **Basic Authentication**: Use HTTP Basic Auth with username and password
-    - **Query String Authentication**: Pass `u` (username) and `p` (password) as query parameters
-    - **Token Authentication** (v2-compatible): Use `Authorization: Token username:password` header
-
-    Authentication is optional unless [enabled in the configuration](/enterprise_influxdb/v1/administration/authentication_and_authorization/).
   contact:
     name: InfluxData
     url: https://www.influxdata.com
@@ -41,20 +26,31 @@ tags:
   - name: Query
     description: Query data using InfluxQL via the `/query` endpoint, supporting both read queries (SELECT, SHOW) and management queries (CREATE, DROP, ALTER).
   - name: Write
-    description: Write time series data to InfluxDB Enterprise v1 in line protocol format using the `/write` endpoint. Use the `consistency` parameter to control write consistency across cluster nodes.
+    description: |-
+      Write time series data to InfluxDB Enterprise v1 in line protocol format using the `/write` endpoint.
   - name: Debug
     description: Access debugging and profiling endpoints for troubleshooting and performance analysis of an InfluxDB Enterprise v1 instance.
-  - name: v2 Compatibility
-    description: InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client libraries to work with InfluxDB Enterprise 1.8+, using the Token authentication scheme with v1 credentials.
+  - name: Buckets (v2 compatible)
+    description: Manage databases as buckets using InfluxDB v2-compatible endpoints. Provides forward compatibility with InfluxDB 2.x client libraries and InfluxDB Enterprise 1.8+.
+  - name: Delete (v2 compatible)
+    description: Delete data using InfluxDB v2-compatible predicate expressions. Provides forward compatibility with InfluxDB 2.x client libraries and InfluxDB Enterprise 1.8+.
   - name: Authentication
     x-traitTag: true
     description: |-
+      Authentication is **disabled by default** in InfluxDB Enterprise v1.
+      When disabled, the database accepts any request without checking
+      credentials—supplied credentials are silently ignored.
+      When enabled, every HTTP request must include valid credentials.
+
       Use one of the following schemes to authenticate to the InfluxDB Enterprise v1 API:
 
       - [Basic authentication](#section/Authentication/BasicAuth)
       - [Query string authentication](#section/Authentication/QueryAuth)
       - [Token authentication](#section/Authentication/TokenAuth)
       <!-- ReDoc-Inject: <security-definitions> -->
+    x-related:
+      - title: Configure authentication
+        href: /enterprise_influxdb/v1/administration/configure/security/authentication/
 paths:
   /ping:
     get:
@@ -699,7 +695,7 @@ paths:
         InfluxDB 2.x client libraries.
       x-compatibility-version: v2
       tags:
-        - v2 Compatibility
+        - Buckets (v2 compatible)
       security:
         - TokenAuth: []
       responses:
@@ -723,7 +719,7 @@ paths:
         InfluxDB 2.x client libraries.
       x-compatibility-version: v2
       tags:
-        - v2 Compatibility
+        - Buckets (v2 compatible)
       security:
         - TokenAuth: []
       requestBody:
@@ -754,7 +750,7 @@ paths:
         The bucketID format is `database/retention-policy`.
       x-compatibility-version: v2
       tags:
-        - v2 Compatibility
+        - Buckets (v2 compatible)
       security:
         - TokenAuth: []
       parameters:
@@ -797,7 +793,7 @@ paths:
         for detailed syntax and [limitations](/influxdb/v2/reference/syntax/delete-predicate/#limitations).
       x-compatibility-version: v2
       tags:
-        - v2 Compatibility
+        - Delete (v2 compatible)
       security:
         - TokenAuth: []
       parameters:

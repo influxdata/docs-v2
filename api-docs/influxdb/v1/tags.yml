@@ -19,18 +19,32 @@ tags:
       Access debugging and profiling endpoints for troubleshooting and
       performance analysis of an InfluxDB v1 instance.
 
-  v2 Compatibility:
+  Buckets (v2 compatible):
     description: >
-      InfluxDB v2-compatible API endpoints that allow InfluxDB 2.x client
-      libraries to work with InfluxDB 1.8+, using the Token authentication
-      scheme with v1 credentials.
+      Manage databases as buckets using InfluxDB v2-compatible endpoints.
+      Provides forward compatibility with InfluxDB 2.x client libraries
+      and InfluxDB 1.8+.
+
+  Delete (v2 compatible):
+    description: >
+      Delete data using InfluxDB v2-compatible predicate expressions.
+      Provides forward compatibility with InfluxDB 2.x client libraries
+      and InfluxDB 1.8+.
 
   Authentication:
     x-traitTag: true
     description: |
+      Authentication is **disabled by default** in InfluxDB v1.
+      When disabled, the database accepts any request without checking
+      credentials—supplied credentials are silently ignored.
+      When enabled, every HTTP request must include valid credentials.
+
       Use one of the following schemes to authenticate to the InfluxDB v1 API:
 
       - [Basic authentication](#section/Authentication/BasicAuth)
       - [Query string authentication](#section/Authentication/QueryAuth)
       - [Token authentication](#section/Authentication/TokenAuth)
       <!-- ReDoc-Inject: <security-definitions> -->
+    x-related:
+      - title: Manage authentication and authorization
+        href: /influxdb/v1/administration/authentication_and_authorization/
