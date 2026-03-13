@@ -933,7 +933,7 @@ effect if [`auth-enabled`](#auth-enabled) is set to `false`.
 
 User-supplied [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers). 
 Configure this section to return 
-[security headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers#Security) 
+[security headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers#security) 
 such as `X-Frame-Options` or `Content Security Policy` where needed.
 
 Example:
