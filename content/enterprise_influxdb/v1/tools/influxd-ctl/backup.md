@@ -68,7 +68,7 @@ influxd-ctl backup [flags] <backup-dir>
 _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)._
 {{% /caption %}}
 
-## Backup compression
+## Backup compression {metadata="v1.12.3+"}
 
 You can adjust `-gzipCompressionLevel` to allow for faster backups with the tradeoff that data is less compressed.
 
