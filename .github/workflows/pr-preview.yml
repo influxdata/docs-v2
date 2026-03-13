@@ -115,6 +115,10 @@ jobs:
           echo "No pages to deploy - skipping preview"
           echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
 
+      - name: Build API documentation scripts
+        if: steps.detect.outputs.has-api-doc-changes == 'true' && steps.detect.outputs.pages-to-deploy != '[]'
+        run: npx tsc --project api-docs/scripts/tsconfig.json
+
       - name: Build API docs
         if: steps.detect.outputs.has-api-doc-changes == 'true' && steps.detect.outputs.pages-to-deploy != '[]'
         run: yarn run build:api-docs
