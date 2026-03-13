@@ -1149,7 +1149,7 @@ SHOW TAG KEY EXACT CARDINALITY
 ### SHOW TAG KEYS
 
 ```
-show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [with_tag_clause] [ from_clause ] [ where_clause ]
+show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [with_key_clause] [ from_clause ] [ where_clause ]
                      [ limit_clause ] [ offset_clause ] .
 ```
 
@@ -1205,9 +1205,9 @@ Estimates or counts exactly the cardinality of tag key values for the specified 
 > Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
 
 ```
-show_tag_values_cardinality_stmt = "SHOW TAG VALUES CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_tag_clause
+show_tag_values_cardinality_stmt = "SHOW TAG VALUES CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_key_clause
 
-show_tag_values_exact_cardinality_stmt = "SHOW TAG VALUES EXACT CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_tag_clause
+show_tag_values_exact_cardinality_stmt = "SHOW TAG VALUES EXACT CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_key_clause
 ```
 
 #### Examples
