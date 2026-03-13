@@ -24,6 +24,10 @@ pre-commit:
         fi
         exit $errors
       fail_text: "Deprecated markdown patterns found. See messages above for details."
+    check-support-links:
+      tags: lint
+      glob: "content/**/*.md"
+      run: .ci/scripts/check-support-links.sh {staged_files}
     eslint-debug-check:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}

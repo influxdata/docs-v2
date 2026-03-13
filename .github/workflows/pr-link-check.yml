@@ -71,6 +71,12 @@ jobs:
           echo "No content changes detected in this PR - skipping link check"
           echo "✅ **No content changes detected** - link check skipped" >> $GITHUB_STEP_SUMMARY
 
+      - name: Validate support links
+        if: steps.detect.outputs.has-changes == 'true'
+        run: |
+          echo "${{ steps.detect.outputs.changed-content }}" | tr ' ' '\n' | \
+            xargs -r .ci/scripts/check-support-links.sh
+
       - name: Setup Node.js
         if: steps.detect.outputs.has-changes == 'true'
         uses: actions/setup-node@v4
