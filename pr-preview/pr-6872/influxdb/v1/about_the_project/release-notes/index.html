@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
+<meta name="last-modified" content="2026-03-12 19:02:38 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -1828,16 +1828,12 @@ to configure how far in advance to log warnings about TLS certificate expiration
 <li>Add <code>time_format</code> parameter for the HTTP API.</li>
 <li>Use dynamic logging levels (<code>zap.AtomicLevel</code>).</li>
 <li>Report user query bytes.</li>
-<li>InfluxQL updates:
+</ul>
+<h3 id="bug-fixes">Bug fixes</h3>
 <ul>
 <li>Fix <code>FUTURE LIMIT</code> and <code>PAST LIMIT</code>
 <a href="/influxdb/v1/query_language/manage-database/#future-limit">clause order</a>
 in retention policy statements.</li>
-</ul>
-</li>
-</ul>
-<h3 id="bug-fixes">Bug fixes</h3>
-<ul>
 <li>Add locking in <code>ClearBadShardList</code>.</li>
 <li>Stop noisy logging about phantom shards that do not belong to a node.</li>
 <li>Resolve <code>RLock()</code> leakage in <code>Store.DeleteSeries()</code>.</li>
