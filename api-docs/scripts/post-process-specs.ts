@@ -97,6 +97,9 @@ interface OpenApiSpec {
 
 const LOG_PREFIX = '[post-process]';
 
+/** Build output directory for resolved specs. Source specs are never mutated. */
+const BUILD_DIR = '_build';
+
 /** Product directories that contain a .config.yml with `apis:` entries. */
 const PRODUCT_DIRS = [
   'influxdb3/core',
@@ -338,7 +341,11 @@ function applyTagConfig(
 
 /**
  * Process a single product directory: read `.config.yml`, find spec files,
- * apply content overlays and tag configs.
+ * apply content overlays and tag configs, write resolved specs to _build/.
+ *
+ * Source specs in api-docs/ are never mutated. Resolved output goes to
+ * api-docs/_build/{productDir}/{specFile} for downstream consumers
+ * (Redoc HTML, generate-openapi-articles.ts).
  */
 function processProduct(apiDocsRoot: string, productDir: string): void {
   const productAbsDir = path.join(apiDocsRoot, productDir);
@@ -369,22 +376,22 @@ function processProduct(apiDocsRoot: string, productDir: string): void {
     }
 
     // Apply all transforms
-    let modified = false;
-    modified =
-      applyInfoOverlay(spec, specDir, productAbsDir, label) || modified;
-    modified =
-      applyServersOverlay(spec, specDir, productAbsDir, label) || modified;
+    applyInfoOverlay(spec, specDir, productAbsDir, label);
+    applyServersOverlay(spec, specDir, productAbsDir, label);
 
     const tagConfigPath = path.join(specDir, 'tags.yml');
     if (fs.existsSync(tagConfigPath)) {
-      modified = applyTagConfig(spec, tagConfigPath, label) || modified;
+      applyTagConfig(spec, tagConfigPath, label);
     }
 
-    // Write only if something changed
-    if (modified) {
-      writeYaml(specAbsPath, spec);
-      log(`${label}: wrote ${path.basename(specAbsPath)}`);
+    // Write resolved spec to _build/, mirroring the source path structure
+    const outPath = path.join(apiDocsRoot, BUILD_DIR, productDir, specRelPath);
+    const outDir = path.dirname(outPath);
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
     }
+    writeYaml(outPath, spec);
+    log(`${label}: wrote ${path.relative(apiDocsRoot, outPath)}`);
   }
 }
 

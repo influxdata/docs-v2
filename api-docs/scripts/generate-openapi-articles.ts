@@ -82,7 +82,9 @@ type ProductConfigMap = Record<string, ProductConfig>;
 
 // Calculate the relative paths
 const DOCS_ROOT = '.';
-const API_DOCS_ROOT = 'api-docs';
+// Read resolved specs from _build/ (written by post-process-specs.ts).
+// Source specs in api-docs/ are never read directly by this script.
+const API_DOCS_ROOT = 'api-docs/_build';
 
 // CLI flags
 const validateLinks = process.argv.includes('--validate-links');
@@ -1036,9 +1038,9 @@ const LINK_PATTERN = /\/influxdb\/version\//g;
  * 'api-docs/enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml' → '/enterprise_influxdb/v1'
  */
 function deriveProductPath(specPath: string): string {
-  // Match: api-docs/(enterprise_influxdb|influxdb3|influxdb)/(product-or-version)/...
+  // Match: api-docs/[_build/](enterprise_influxdb|influxdb3|influxdb)/(product-or-version)/...
   const match = specPath.match(
-    /api-docs\/(enterprise_influxdb|influxdb3?)\/([\w-]+)\//
+    /api-docs\/(?:_build\/)?(enterprise_influxdb|influxdb3?)\/([\w-]+)\//
   );
   if (!match) {
     throw new Error(`Cannot derive product path from: ${specPath}`);

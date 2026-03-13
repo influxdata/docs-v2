@@ -3,9 +3,11 @@
 # Generate API reference documentation for all InfluxDB products.
 #
 # Pipeline:
-#   1. post-process-specs.ts  — apply info/servers overlays + tag configs
-#   2. generateRedocHtml      — generate Redoc HTML pages with Hugo frontmatter
-#   3. generate-openapi-articles.js --static-only — copy specs to static/openapi/
+#   1. post-process-specs.ts  — apply info/servers overlays + tag configs,
+#      write resolved specs to _build/ (source specs are never mutated)
+#   2. generateRedocHtml      — generate Redoc HTML from _build/ specs
+#   3. generate-openapi-articles.js --static-only — copy _build/ specs to
+#      static/openapi/ for download
 #
 # Specs must already be fetched and bundled (via getswagger.sh) before running.
 #
@@ -49,8 +51,9 @@ done
 # ---------------------------------------------------------------------------
 # Step 1: Post-process specs (info/servers overlays + tag configs)
 # ---------------------------------------------------------------------------
-# Runs from the repo root because post-process-specs reads api-docs/.config.yml
-# paths relative to the api-docs/ directory.
+# Writes resolved specs to api-docs/_build/. Source specs are never mutated.
+# Runs from the repo root because post-process-specs reads .config.yml paths
+# relative to the api-docs/ directory.
 
 echo ""
 echo "========================================"
@@ -65,6 +68,7 @@ cd api-docs
 # ---------------------------------------------------------------------------
 # Iterates each product's .config.yml, generates Redoc HTML wrapped in Hugo
 # frontmatter, and writes to content/{product}/api/_index.html.
+# Reads resolved specs from _build/ (written by Step 1).
 
 function generateRedocHtml {
   local specPath="$1"
@@ -79,14 +83,17 @@ function generateRedocHtml {
   local apiName
   apiName=$(echo "$api" | sed 's/@.*//g;')
 
-  # Resolve info.yml: try spec directory first, fall back to product directory.
+  # Resolve info.yml from source (not _build/) for Hugo frontmatter metadata.
   local specDir
   specDir=$(dirname "$specPath")
+  # Map _build/ path back to source for content file resolution.
+  local sourceSpecDir="${specDir#_build/}"
+  local sourceProductDir="${productDir}"
   local infoYml=""
-  if [ -f "$specDir/content/info.yml" ]; then
-    infoYml="$specDir/content/info.yml"
-  elif [ -f "$productDir/content/info.yml" ]; then
-    infoYml="$productDir/content/info.yml"
+  if [ -f "$sourceSpecDir/content/info.yml" ]; then
+    infoYml="$sourceSpecDir/content/info.yml"
+  elif [ -f "$sourceProductDir/content/info.yml" ]; then
+    infoYml="$sourceProductDir/content/info.yml"
   fi
 
   local title
@@ -167,7 +174,7 @@ echo "Step 2: Generating Redoc HTML"
 echo "========================================"
 
 # Iterate product directories that contain a .config.yml.
-for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*'); do
+for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*' -not -path './_build/*'); do
   productDir=$(dirname "$configPath")
   # Strip leading ./
   productDir="${productDir#./}"
@@ -186,17 +193,20 @@ for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -
     echo "======Building $productDir $api======"
 
     specRootPath=$(yq e ".apis | .$api | .root" "$configPath")
-    specPath="$productDir/$specRootPath"
+    # Read resolved spec from _build/ (written by Step 1)
+    specPath="_build/$productDir/$specRootPath"
 
     if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
-      echo "OpenAPI spec $specPath doesn't exist. Skipping."
+      echo "Resolved spec $specPath doesn't exist. Run Step 1 first. Skipping."
       continue
     fi
 
     # If -c flag set, only regenerate specs that differ from master.
+    # Check the source spec (not _build/) for git diff.
     update=0
     if [[ $generate_changed == 0 ]]; then
-      diff_result=$(git diff --name-status master -- "${specPath}" 2>/dev/null || true)
+      sourceSpecPath="$productDir/$specRootPath"
+      diff_result=$(git diff --name-status master -- "${sourceSpecPath}" 2>/dev/null || true)
       if [[ -z "$diff_result" ]]; then
         update=1
       fi
