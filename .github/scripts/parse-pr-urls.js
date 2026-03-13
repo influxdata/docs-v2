@@ -63,6 +63,9 @@ function isValidUrlPath(path) {
   // Must start with /
   if (!path.startsWith('/')) return false;
 
+  // Allow root path (docs home page at /)
+  if (path === '/') return true;
+
   // Must start with known product prefix (loaded from products.yml)
   const validPrefixes = PRODUCT_NAMESPACES.map((ns) => `/${ns}/`);
 
@@ -101,7 +104,8 @@ export function extractDocsUrls(text) {
 
   // Pattern 1: Full production URLs
   // https://docs.influxdata.com/influxdb3/core/get-started/
-  const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']+)/g;
+  // https://docs.influxdata.com/ (home page)
+  const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']*)/g;
   let match;
   while ((match = prodUrlPattern.exec(text)) !== null) {
     const path = normalizeUrlPath(match[1]);
@@ -112,7 +116,8 @@ export function extractDocsUrls(text) {
 
   // Pattern 2: Localhost dev URLs
   // http://localhost:1313/influxdb3/core/
-  const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']+)/g;
+  // http://localhost:1313/ (home page)
+  const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']*)/g;
   while ((match = localUrlPattern.exec(text)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {

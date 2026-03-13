@@ -10,6 +10,7 @@
  */
 
 import { appendFileSync } from 'fs';
+import { execSync } from 'child_process';
 import {
   getChangedContentFiles,
   mapContentToPublic,
@@ -27,10 +28,32 @@ if (!/^origin\/[a-zA-Z0-9._/-]+$/.test(BASE_REF)) {
 const changed = getChangedContentFiles(BASE_REF);
 const htmlPaths = mapContentToPublic(changed, 'public');
 
-const urls = Array.from(htmlPaths)
+const contentUrls = Array.from(htmlPaths)
   .sort()
   .map((p) => '/' + p.replace(/^public\//, '').replace(/\/index\.html$/, '/'))
   .slice(0, MAX_PAGES);
+
+// Check if the home page template changed (layouts/index.html → /)
+let homePageUrls = [];
+try {
+  const homePageChanged = execSync(
+    `git diff --name-only ${BASE_REF}...HEAD -- layouts/index.html`,
+    { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
+  ).trim();
+  if (homePageChanged) {
+    homePageUrls = ['/'];
+    console.log(
+      'Home page template (layouts/index.html) changed - adding / to review URLs'
+    );
+  }
+} catch {
+  // Ignore errors - fall back to content-only URLs
+}
+
+const urls = [...new Set([...homePageUrls, ...contentUrls])].slice(
+  0,
+  MAX_PAGES
+);
 
 appendFileSync(GITHUB_OUTPUT, `urls=${JSON.stringify(urls)}\n`);
 appendFileSync(GITHUB_OUTPUT, `url-count=${urls.length}\n`);
