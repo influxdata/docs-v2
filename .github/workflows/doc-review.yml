@@ -38,6 +38,8 @@ jobs:
     outputs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
+      skipped: ${{ steps.detect.outputs.skipped }}
+      skip-reason: ${{ steps.detect.outputs.skip-reason }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
@@ -176,11 +178,6 @@ jobs:
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
             const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
 
-            // Build preview URL list
-            const urlList = urls
-              .map(u => `- [${u}](${previewBase}${u})`)
-              .join('\n');
-
             // Read the Copilot visual review template
             const template = fs.readFileSync(
               '.github/prompts/copilot-visual-review.md',
@@ -188,26 +185,30 @@ jobs:
             );
 
             const marker = '<!-- doc-review-visual -->';
+            const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
             const body = [
               marker,
-              '## Preview Pages for Review',
+              '## 🔍 Visual Review — Doc Review Bot',
               '',
-              `${urls.length} page(s) changed in this PR:`,
+              `| Status | Details |`,
+              `|--------|---------|`,
+              `| **Pages** | ${urls.length} page(s) to review |`,
+              `| **Preview** | See PR Preview comment above for full URL list |`,
+              `| **Requested** | ${timestamp} |`,
               '',
-              '<details>',
-              '<summary>Preview URLs</summary>',
-              '',
-              urlList,
-              '',
-              '</details>',
+              '> **Note:** Preview URLs are listed in the **PR Preview** comment to avoid duplication.',
+              '> Click the preview link there to view the deployed pages.',
               '',
               '---',
               '',
-              `@github-copilot please review the preview pages listed above using the template below:`,
+              `@github-copilot please review the ${urls.length} preview pages for this PR using the checklist below:`,
               '',
               template.trim(),
               '',
-              urlList,
+              '### Pages to Review',
+              '',
+              ...urls.slice(0, 10).map(u => `- \`${u}\` → [preview](${previewBase}${u})`),
+              ...(urls.length > 10 ? [`- ... and ${urls.length - 10} more (see PR Preview comment)`] : []),
             ].join('\n');
 
             // Update existing comment or create new one
@@ -245,15 +246,28 @@ jobs:
           script: |
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
             const marker = '<!-- doc-review-visual-timeout -->';
+            const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
             const body = [
               marker,
-              '## Visual Review Skipped',
+              '## 🔍 Visual Review — Doc Review Bot',
               '',
-              'The PR preview deployment did not become available within 10 minutes.',
-              'Visual review was skipped. The Copilot code review (Job 2) still ran.',
+              `| Status | Details |`,
+              `|--------|---------|`,
+              `| **Result** | ⏱️ TIMED OUT |`,
+              `| **Reason** | Preview deployment not available within 10 minutes |`,
+              `| **Checked** | ${timestamp} |`,
               '',
-              'To trigger visual review manually, re-run this workflow after the',
-              'preview is deployed.',
+              '### What This Means',
+              '',
+              '- Visual review was **skipped** because the preview was not deployed in time',
+              '- Copilot code review (diff-based) still ran independently',
+              '- Human reviewers should check the preview manually when available',
+              '',
+              '### Next Steps',
+              '',
+              'To trigger visual review:',
+              '1. Wait for the PR Preview to deploy (check the PR Preview comment)',
+              '2. Re-run this workflow from the Actions tab',
             ].join('\n');
 
             const { data: comments } = await github.rest.issues.listComments({
@@ -278,3 +292,73 @@ jobs:
                 body,
               });
             }
+
+  # -----------------------------------------------------------------
+  # Job 4: Report when visual review is skipped (no URLs to review)
+  # -----------------------------------------------------------------
+  report-skipped:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: resolve-urls
+    if: |
+      needs.resolve-urls.result == 'success' &&
+      fromJson(needs.resolve-urls.outputs.url-count) == 0
+    steps:
+      - name: Post skipped notice
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          SKIP_REASON: ${{ needs.resolve-urls.outputs.skip-reason }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const skipReason = process.env.SKIP_REASON || 'No previewable content changes detected';
+            const marker = '<!-- doc-review-visual-skipped -->';
+            const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+            const body = [
+              marker,
+              '## 🔍 Visual Review — Doc Review Bot',
+              '',
+              `| Status | Details |`,
+              `|--------|---------|`,
+              `| **Result** | ⏭️ SKIPPED |`,
+              `| **Reason** | ${skipReason} |`,
+              `| **Checked** | ${timestamp} |`,
+              '',
+              '### What This Means',
+              '',
+              '- No preview pages were identified for visual review',
+              '- This is expected for PRs that only change non-content files',
+              '- Copilot code review (diff-based) still runs independently',
+              '',
+              '### If You Expected Visual Review',
+              '',
+              'Check that your PR includes changes to files in `content/` that map to',
+              'published documentation pages.',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
+
+            core.info(`Posted visual review skipped notice: ${skipReason}`);
