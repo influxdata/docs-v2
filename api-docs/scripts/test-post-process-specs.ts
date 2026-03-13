@@ -73,11 +73,20 @@ function createTmpRoot(): {
   productDir: string;
   specDir: string;
   specPath: string;
+  buildSpecPath: string;
 } {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'post-process-test-'));
   const productDir = path.join(root, 'influxdb3', 'core');
   const specDir = path.join(productDir, 'v3');
   const specPath = path.join(specDir, 'openapi.yaml');
+  const buildSpecPath = path.join(
+    root,
+    '_build',
+    'influxdb3',
+    'core',
+    'v3',
+    'openapi.yaml'
+  );
 
   fs.mkdirSync(specDir, { recursive: true });
 
@@ -90,7 +99,7 @@ function createTmpRoot(): {
   };
   fs.writeFileSync(path.join(productDir, '.config.yml'), yaml.dump(config));
 
-  return { root, productDir, specDir, specPath };
+  return { root, productDir, specDir, specPath, buildSpecPath };
 }
 
 function writeYaml(filePath: string, data: unknown): void {
@@ -157,7 +166,7 @@ function assert(name: string, condition: boolean, reason: string): void {
 // ---------------------------------------------------------------------------
 
 function testDescriptionSetting(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data']));
     writeYaml(path.join(specDir, 'tags.yml'), {
@@ -169,7 +178,7 @@ function testDescriptionSetting(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('1a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     const tag = spec.tags?.find((t) => t.name === 'Write data');
     assert(
       '1b. description applied to tag',
@@ -182,7 +191,7 @@ function testDescriptionSetting(): void {
 }
 
 function testTagRename(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(specPath, makeSpec([{ name: 'Cache data' }], ['Cache data']));
     writeYaml(path.join(specDir, 'tags.yml'), {
@@ -194,7 +203,7 @@ function testTagRename(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('2a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     const oldTag = spec.tags?.find((t) => t.name === 'Cache data');
     assert(
       '2b. old tag name gone from tags[]',
@@ -223,7 +232,7 @@ function testTagRename(): void {
 }
 
 function testXRelated(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(specPath, makeSpec([{ name: 'Write data' }], ['Write data']));
     writeYaml(path.join(specDir, 'tags.yml'), {
@@ -240,7 +249,7 @@ function testXRelated(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('3a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     const tag = spec.tags?.find((t) => t.name === 'Write data');
     const related = tag?.['x-related'] as
       | Array<{ title: string; href: string }>
@@ -364,7 +373,7 @@ function testMalformedYamlFails(): void {
 
 // 8. Info overlay — API-specific content/info.yml
 function testInfoOverlay(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(
       specPath,
@@ -385,7 +394,7 @@ function testInfoOverlay(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('8a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
       '8b. title overridden',
       spec.info.title === 'Overridden Title',
@@ -409,7 +418,7 @@ function testInfoOverlay(): void {
 
 // 9. Info overlay — product-level fallback
 function testInfoOverlayProductFallback(): void {
-  const { root, productDir, specPath } = createTmpRoot();
+  const { root, productDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(
       specPath,
@@ -428,7 +437,7 @@ function testInfoOverlayProductFallback(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('9a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
       '9b. title from product-level',
       spec.info.title === 'Product-Level Title',
@@ -446,7 +455,7 @@ function testInfoOverlayProductFallback(): void {
 
 // 10. Servers overlay
 function testServersOverlay(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(
       specPath,
@@ -474,7 +483,7 @@ function testServersOverlay(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('10a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
       '10b. servers replaced',
       spec.servers?.length === 1,
@@ -497,7 +506,7 @@ function testServersOverlay(): void {
 
 // 11. Info overlay preserves fields not in overlay
 function testInfoOverlayPreservesFields(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(
       specPath,
@@ -521,7 +530,7 @@ function testInfoOverlayPreservesFields(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('11a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
       '11b. title preserved',
       spec.info.title === 'Original Title',
@@ -550,7 +559,7 @@ function testInfoOverlayPreservesFields(): void {
 
 // 12. No content overlays — spec unchanged
 function testNoOverlaysNoWrite(): void {
-  const { root, specPath } = createTmpRoot();
+  const { root, specPath, buildSpecPath } = createTmpRoot();
   try {
     const original = makeSpec([{ name: 'Write data' }], ['Write data']);
     writeYaml(specPath, original);
@@ -562,12 +571,19 @@ function testNoOverlaysNoWrite(): void {
       /* busy wait */
     }
 
-    const { exitCode, stderr } = runScript(root, 'influxdb3/core');
+    const { exitCode } = runScript(root, 'influxdb3/core');
     assert('12a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
+
+    const built = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
-      '12b. no write message',
-      !stderr.includes('wrote'),
-      `unexpected write: ${stderr}`
+      '12b. build output matches input when no overlays/tags',
+      JSON.stringify(built) === JSON.stringify(original),
+      'build output differed from source'
+    );
+    assert(
+      '12c. source file untouched',
+      fs.statSync(specPath).mtimeMs === mtime,
+      'source spec modified'
     );
   } finally {
     cleanup(root);
@@ -576,7 +592,7 @@ function testNoOverlaysNoWrite(): void {
 
 // 13. Combined: info + servers + tags applied together
 function testCombinedOverlaysAndTags(): void {
-  const { root, specDir, specPath } = createTmpRoot();
+  const { root, specDir, specPath, buildSpecPath } = createTmpRoot();
   try {
     writeYaml(
       specPath,
@@ -607,7 +623,7 @@ function testCombinedOverlaysAndTags(): void {
     const { exitCode } = runScript(root, 'influxdb3/core');
     assert('13a. exits 0', exitCode === 0, `exit code was ${exitCode}`);
 
-    const spec = readYaml<OpenApiSpec>(specPath);
+    const spec = readYaml<OpenApiSpec>(buildSpecPath);
     assert(
       '13b. info title updated',
       spec.info.title === 'New Title',
@@ -667,7 +683,7 @@ const tests: Array<[string, () => void]> = [
     '11. Info overlay preserves fields not in overlay',
     testInfoOverlayPreservesFields,
   ],
-  ['12. No overlays or tags — no write', testNoOverlaysNoWrite],
+  ['12. No overlays or tags — build mirrors source', testNoOverlaysNoWrite],
   ['13. Combined: info + servers + tags', testCombinedOverlaysAndTags],
 ];
 
