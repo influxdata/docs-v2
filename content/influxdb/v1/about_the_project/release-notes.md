@@ -29,13 +29,12 @@ alt_links:
 - Add `time_format` parameter for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
 - Report user query bytes.
-- InfluxQL updates:
-  - Fix `FUTURE LIMIT` and `PAST LIMIT`
-    [clause order](/influxdb/v1/query_language/manage-database/#future-limit)
-    in retention policy statements.
 
 ### Bug fixes
 
+- Fix `FUTURE LIMIT` and `PAST LIMIT`
+  [clause order](/influxdb/v1/query_language/manage-database/#future-limit)
+  in retention policy statements.
 - Add locking in `ClearBadShardList`.
 - Stop noisy logging about phantom shards that do not belong to a node.
 - Resolve `RLock()` leakage in `Store.DeleteSeries()`.
