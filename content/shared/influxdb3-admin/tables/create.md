@@ -1,5 +1,5 @@
 Use the [`influxdb3 create table` command](/influxdb3/version/reference/cli/influxdb3/create/table/)
-or the [HTTP API](/influxdb3/version/api/v3/) to create a table in a specified database in {{< product-name >}}.
+or the [HTTP API](/influxdb3/version/reference/api/) to create a table in a specified database in {{< product-name >}}.
 
 With {{< product-name >}}, tables and measurements are synonymous.
 Typically, tables are created automatically on write using the table name

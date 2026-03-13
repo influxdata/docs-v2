@@ -9,7 +9,7 @@ menu:
 weight: 400
 related:
   - /influxdb3/core/admin/databases/create/
-  - /influxdb3/core/api/v3/#operation/PostConfigureDatabase, Create database API
+  - /influxdb3/core/reference/api/#operation/PostConfigureDatabase, Create database API
   - /influxdb3/core/reference/internals/data-retention/
 source: /shared/influxdb3-cli/create/database.md
 ---

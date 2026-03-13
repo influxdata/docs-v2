@@ -1,5 +1,5 @@
 Use the [`influxdb3 query` command](/influxdb3/version/reference/cli/influxdb3/query/)
-or the [HTTP API](/influxdb3/version/api/v3/) to list tables in a specified database in {{< product-name >}}.
+or the [HTTP API](/influxdb3/version/reference/api/) to list tables in a specified database in {{< product-name >}}.
 
 With {{< product-name >}}, tables and measurements are synonymous.
 This guide shows how to retrieve a list of all tables (measurements) in a database.

@@ -30,7 +30,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/create/table/
-  - /influxdb3/enterprise/api/v3/#operation/PostConfigureTable, Create table API
+  - /influxdb3/enterprise/reference/api/#operation/PostConfigureTable, Create table API
   - /influxdb3/enterprise/reference/naming-restrictions/
   - /influxdb3/enterprise/reference/internals/data-retention/
 source: /shared/influxdb3-admin/tables/create.md

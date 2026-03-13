@@ -18,7 +18,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/core/reference/cli/influxdb3/delete/database/
-  - /influxdb3/core/api/v3/#operation/DeleteConfigureDatabase, Delete database API
+  - /influxdb3/core/reference/api/#operation/DeleteConfigureDatabase, Delete database API
   - /influxdb3/explorer/manage-databases/
 source: /shared/influxdb3-admin/databases/delete.md
 ---

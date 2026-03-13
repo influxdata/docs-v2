@@ -17,7 +17,7 @@ To regenerate an operator token, you need the current token string.
 > Make sure to update any applications or scripts that use the operator token.
 
 To regenerate the operator token, use the [`influxdb3 serve create token` command](/influxdb3/version/reference/cli/influxdb3/create/token/) (CLI) or the
-[`/api/v3/configure/token/admin/regenerate` endpoint](/influxdb3/version/api/v3/configure/token/admin/regenerate) (HTTP API):
+[`/api/v3/configure/token/admin/regenerate` endpoint](/influxdb3/version/reference/api/configure/token/admin/regenerate) (HTTP API):
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -48,7 +48,7 @@ The output contains the new token string and InfluxDB deactivates the previous t
 <!----------------------------BEGIN HTTP API----------------------------------->
 Use the following HTTP API endpoint:
 
-{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin/regenerate" api-ref="/influxdb3/version/api/v3/configure/token/admin/regenerate" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/token/admin/regenerate" api-ref="/influxdb3/version/reference/api/configure/token/admin/regenerate" %}}
 
 In your request, send an `Authorization` header with your current operator token string 
 --for example:

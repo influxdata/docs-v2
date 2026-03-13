@@ -1,6 +1,6 @@
 
 Use the [`influxdb3 show databases` command](/influxdb3/version/reference/cli/influxdb3/show/databases/),
-the [`/api/v3/configure/database`](/influxdb3/version/api/v3/) HTTP API endpoint, or [InfluxDB 3 Explorer](/influxdb3/explorer/) to list databases in {{< product-name >}}.
+the [`/api/v3/configure/database`](/influxdb3/version/reference/api/) HTTP API endpoint, or [InfluxDB 3 Explorer](/influxdb3/explorer/) to list databases in {{< product-name >}}.
 
 - [List databases using the influxdb3 CLI](#list-databases-using-the-influxdb3-cli)
 - [List databases using the HTTP API](#list-databases-using-the-http-api)

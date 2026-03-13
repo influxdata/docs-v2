@@ -2,7 +2,7 @@
 title: Create a resource token
 description: >
   Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
-  or the [HTTP API](/influxdb3/enterprise/api/v3/)
+  or the [HTTP API](/influxdb3/enterprise/reference/api/)
   to create fine-grained permissions tokens that grant access to resources such as databases and system information.
   Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
   System tokens allow for reading system information and metrics for your server.
@@ -43,7 +43,7 @@ alt_links:
 ---
 
 Use the [`influxdb3 create token --permission` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/permission/)
-or the [`/api/v3/configure/token` HTTP API endpoint](/influxdb3/enterprise/api/v3/#operation/PostCreateResourceToken)
+or the [`/api/v3/configure/token` HTTP API endpoint](/influxdb3/enterprise/reference/api/#operation/PostCreateResourceToken)
 to create fine-grained permissions tokens that grant access to resources such as databases and system information.
 Database tokens allow for reading and writing data in your {{< product-name omit="Clustered" >}} instance.
 System tokens allow for reading system information and metrics for your server.

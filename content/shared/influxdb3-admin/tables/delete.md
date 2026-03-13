@@ -1,5 +1,5 @@
 Use the [`influxdb3 delete table` command](/influxdb3/version/reference/cli/influxdb3/delete/table/)
-or the [HTTP API](/influxdb3/version/api/v3/) to delete a table from a specified database in {{< product-name >}}.
+or the [HTTP API](/influxdb3/version/reference/api/) to delete a table from a specified database in {{< product-name >}}.
 
 With {{< product-name >}}, tables and measurements are synonymous.
 By default, {{< product-name >}} performs a soft delete, which schedules the table for deletion and makes it unavailable for querying.
