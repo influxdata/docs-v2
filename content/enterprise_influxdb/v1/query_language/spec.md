@@ -339,7 +339,8 @@ for_stmt                     = "FOR" duration_lit
 #### Examples
 
 ```sql
--- selects from DEFAULT retention policy and writes into 6_months retention policy
+-- selects from DEFAULT retention policy and writes into 6_months retention
+-- policy
 CREATE CONTINUOUS QUERY "10m_event_count"
 ON "db_name"
 BEGIN
@@ -349,7 +350,8 @@ BEGIN
   GROUP (10m)
 END;
 
--- this selects from the output of one continuous query in one retention policy and outputs to another series in another retention policy
+-- this selects from the output of one continuous query in one retention policy
+-- and outputs to another series in another retention policy
 CREATE CONTINUOUS QUERY "1h_event_count"
 ON "db_name"
 BEGIN
@@ -359,7 +361,8 @@ BEGIN
   GROUP BY time(1h)
 END;
 
--- this customizes the resample interval so the interval is queried every 10s and intervals are resampled until 2m after their start time
+-- this customizes the resample interval so the interval is queried every 10s
+-- and intervals are resampled until 2m after their start time
 -- when resample is used, at least one of "EVERY" or "FOR" must be used
 CREATE CONTINUOUS QUERY "cpu_mean"
 ON "db_name"
@@ -399,16 +402,26 @@ create_database_stmt = "CREATE DATABASE" db_name
 CREATE DATABASE "foo"
 
 -- Create a database called bar with a new DEFAULT retention policy and specify
--- the duration, replication, shard group duration, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "myrp"
+-- the duration, replication, shard group duration, and name of that retention
+-- policy
+CREATE DATABASE "bar"
+  WITH DURATION 1d
+  REPLICATION 1
+  SHARD DURATION 30m
+  NAME "myrp"
 
 -- Create a database called mydb with a new DEFAULT retention policy and specify
 -- the name of that retention policy
 CREATE DATABASE "mydb" WITH NAME "myrp"
 
 -- Create a database called bar with a new retention policy named "myrp", and
--- specify the duration, future and past limits, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d FUTURE LIMIT 6h PAST LIMIT 6h NAME "myrp"
+-- specify the duration, future and past limits, and name of that retention
+-- policy
+CREATE DATABASE "bar"
+  WITH DURATION 1d
+  FUTURE LIMIT 6h
+  PAST LIMIT 6h
+  NAME "myrp"
 ```
 
 ### CREATE RETENTION POLICY
@@ -433,16 +446,27 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
 
 ```sql
 -- Create a retention policy.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2
+CREATE RETENTION POLICY "10m.events" ON "somedb"
+  DURATION 60m
+  REPLICATION 2
 
 -- Create a retention policy and set it as the DEFAULT.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFAULT
+CREATE RETENTION POLICY "10m.events" ON "somedb"
+  DURATION 60m
+  REPLICATION 2
+  DEFAULT
 
 -- Create a retention policy and specify the shard group duration.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
+CREATE RETENTION POLICY "10m.events" ON "somedb"
+  DURATION 60m
+  REPLICATION 2
+  SHARD DURATION 30m
 
 -- Create a retention policy and specify future and past limits.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h FUTURE LIMIT 6h PAST LIMIT 6h
+CREATE RETENTION POLICY "10m.events" ON "somedb"
+  DURATION 12h
+  FUTURE LIMIT 6h
+  PAST LIMIT 6h
 ```
 
 ### CREATE SUBSCRIPTION
@@ -456,11 +480,18 @@ create_subscription_stmt = "CREATE SUBSCRIPTION" subscription_name "ON" db_name 
 #### Examples
 
 ```sql
--- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that send data to 'example.com:9090' via UDP.
-CREATE SUBSCRIPTION "sub0" ON "mydb"."autogen" DESTINATIONS ALL 'udp://example.com:9090'
+-- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that
+-- send data to 'example.com:9090' via UDP.
+CREATE SUBSCRIPTION "sub0"
+  ON "mydb"."autogen"
+  DESTINATIONS ALL 'udp://example.com:9090'
 
--- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that round robins the data to 'h1.example.com:9090' and 'h2.example.com:9090'.
-CREATE SUBSCRIPTION "sub0" ON "mydb"."autogen" DESTINATIONS ANY 'udp://h1.example.com:9090', 'udp://h2.example.com:9090'
+-- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that
+-- round robins the data to 'h1.example.com:9090' and 'h2.example.com:9090'.
+CREATE SUBSCRIPTION "sub0"
+  ON "mydb"."autogen"
+  DESTINATIONS ANY 'udp://h1.example.com:9090',
+  'udp://h2.example.com:9090'
 ```
 
 ### CREATE USER
@@ -478,7 +509,8 @@ CREATE USER "jdoe" WITH PASSWORD '1337password'
 
 -- Create an admin user.
 -- Note: Unlike the GRANT statement, the "PRIVILEGES" keyword is required here.
-CREATE USER "jdoe" WITH PASSWORD '1337password' WITH ALL PRIVILEGES
+CREATE USER "jdoe" WITH PASSWORD '1337password'
+  WITH ALL PRIVILEGES
 ```
 
 > **Note:** The password string must be wrapped in single quotes.
