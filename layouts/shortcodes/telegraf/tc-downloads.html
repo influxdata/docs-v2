@@ -1,0 +1,17 @@
+{{/*
+  tc-downloads shortcode
+  Renders a gated download experience for Telegraf Controller.
+  - Shows a "Download" button that opens a contact form modal.
+  - After form submission (or email link with ?ref=tc), JS renders
+    download links from the JSON data attribute.
+  - Data sourced from data/tc_downloads.yml.
+*/}}
+<div id="tc-downloads-area">
+  <a class="btn" id="tc-download-btn"
+     onclick="window.influxdatadocs.toggleModal('#tc-downloads')">
+    Download Telegraf Controller
+  </a>
+  <div id="tc-downloads-links" style="display: none;"
+       data-downloads="{{ .Site.Data.tc_downloads | jsonify | base64Encode }}">
+  </div>
+</div>

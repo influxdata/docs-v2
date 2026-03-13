@@ -19,6 +19,7 @@ import * as pageContext from './page-context.js';
 import * as pageFeedback from './page-feedback.js';
 import * as tabbedContent from './tabbed-content.js';
 import * as v3Wayfinding from './v3-wayfinding.js';
+import * as tcDownloads from './tc-downloads.js';
 
 /** Import component modules
  *  The component pattern organizes JavaScript, CSS, and HTML for a specific UI element or interaction:
@@ -162,6 +163,7 @@ function initModules() {
   pageFeedback.initialize();
   tabbedContent.initialize();
   v3Wayfinding.initialize();
+  tcDownloads.initialize();
 }
 
 /**

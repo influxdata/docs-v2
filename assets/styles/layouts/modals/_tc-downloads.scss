@@ -1,0 +1,226 @@
+////////////////////// Styles for the TC downloads modal ////////////////////////
+
+#tc-downloads {
+
+  // ─── Reset Marketo's inline styles and defaults ────────────────────────────
+  .mktoForm {
+    width: 100% !important;
+    font-family: $proxima !important;
+    font-size: 1rem !important;
+    color: $article-text !important;
+    padding: 0 !important;
+  }
+
+  // Hide Marketo's offset/gutter spacers
+  .mktoOffset,
+  .mktoGutter {
+    display: none !important;
+  }
+
+  // ─── Form layout: 2-column grid for first 4 fields ───────────────────────
+  .mktoForm {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.75rem;
+  }
+
+  // Visible field rows (First Name, Last Name, Company, Job Title)
+  // occupy one grid cell each — pairs share a row automatically
+  .mktoFormRow {
+    margin-bottom: .5rem;
+  }
+
+  // Hidden field rows collapse — they don't disrupt the grid
+  .mktoFormRow:has(input[type='hidden']) {
+    display: none;
+  }
+
+  // Email, Privacy, and Submit span full width
+  .mktoFormRow:has(.mktoEmailField),
+  .mktoFormRow:has(.mktoCheckboxList),
+  .mktoButtonRow {
+    grid-column: 1 / -1;
+  }
+
+  .mktoFieldDescriptor,
+  .mktoFieldWrap {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  // ─── Labels ───────────────────────────────────────────────────────────────
+  .mktoLabel {
+    display: flex !important;
+    align-items: baseline;
+    width: 100% !important;
+    font-family: $proxima !important;
+    font-weight: $medium !important;
+    font-size: .9rem !important;
+    color: $article-bold !important;
+    padding: .5rem 0 .1rem !important;
+  }
+
+  .mktoAsterix {
+    order: 1;
+    color: #e85b5b !important;
+    float: none !important;
+    padding-left: .15rem;
+  }
+
+  // ─── Text inputs ──────────────────────────────────────────────────────────
+  .mktoField.mktoTextField,
+  .mktoField.mktoEmailField {
+    width: 100% !important;
+    font-family: $proxima !important;
+    font-weight: $medium !important;
+    font-size: 1rem !important;
+    background: rgba($article-text, .06) !important;
+    border-radius: $radius !important;
+    border: 1px solid rgba($article-text, .06) !important;
+    padding: .5em !important;
+    color: $article-text !important;
+    transition-property: border;
+    transition-duration: .2s;
+    box-shadow: none !important;
+
+    &:focus {
+      outline: none !important;
+      border-color: $sidebar-search-highlight !important;
+    }
+
+    &::placeholder {
+      color: rgba($sidebar-search-text, .45) !important;
+      font-weight: normal !important;
+      font-style: italic !important;
+    }
+  }
+
+  // ─── Checkbox / privacy consent ───────────────────────────────────────────
+  .mktoFormRow:has(.mktoCheckboxList) .mktoAsterix {
+    display: none !important;
+  }
+
+  .mktoCheckboxList {
+    width: 100% !important;
+
+    label {
+      font-family: $proxima !important;
+      font-size: .85rem !important;
+      line-height: 1.4 !important;
+      color: rgba($article-text, .7) !important;
+
+      &::after {
+        content: '*';
+        color: #e85b5b;
+        font-weight: $medium;
+        font-size: .95rem;
+        font-style: normal;
+      }
+
+      a {
+        color: $article-link !important;
+        font-weight: $medium;
+        text-decoration: none;
+        transition: color .2s;
+
+        &:hover {
+          color: $article-link-hover !important;
+        }
+      }
+    }
+
+    input[type='checkbox'] {
+      margin: .2rem .65rem 0 0;
+    }
+  }
+
+  // ─── Submit button ────────────────────────────────────────────────────────
+  .mktoButtonRow {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mktoButtonWrap {
+    margin-left: 0 !important;
+  }
+
+  .mktoButton {
+    @include gradient($article-btn-gradient);
+    border: none !important;
+    border-radius: $radius !important;
+    padding: .65rem 1.5rem !important;
+    font-family: $proxima !important;
+    font-weight: $medium !important;
+    font-size: 1rem !important;
+    color: $g20-white !important;
+    cursor: pointer;
+    transition: opacity .2s;
+
+    &:hover {
+      @include gradient($article-btn-gradient-hover);
+    }
+  }
+
+  // ─── Validation errors ────────────────────────────────────────────────────
+  // Marketo positions errors absolutely — make them flow inline instead
+  .mktoFieldWrap {
+    position: relative;
+  }
+
+  .mktoError {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    pointer-events: none;
+
+    .mktoErrorArrow {
+      display: none !important;
+    }
+
+    .mktoErrorMsg {
+      font-family: $proxima !important;
+      font-size: .8rem !important;
+      max-width: 100% !important;
+      background: none !important;
+      border: none !important;
+      color: #e85b5b !important;
+      padding: .15rem 0 0 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+  }
+
+  // ─── Custom error message ─────────────────────────────────────────────────
+  .tc-form-error {
+    margin: .75rem 0;
+    padding: .5rem .75rem;
+    background: rgba(#e85b5b, .1);
+    border: 1px solid rgba(#e85b5b, .3);
+    border-radius: $radius;
+    color: #e85b5b;
+    font-size: .9rem;
+  }
+
+  // ─── Clear floats ─────────────────────────────────────────────────────────
+  .mktoClear {
+    clear: both;
+  }
+}
+
+//////////////////////////////// MEDIA QUERIES /////////////////////////////////
+
+@include media(small) {
+  #tc-downloads {
+    .mktoForm {
+      grid-template-columns: 1fr;
+    }
+
+    .mktoFormRow:has(.mktoEmailField),
+    .mktoFormRow:has(.mktoCheckboxList),
+    .mktoButtonRow {
+      grid-column: auto;
+    }
+  }
+}
