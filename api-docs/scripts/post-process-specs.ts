@@ -361,7 +361,7 @@ function processProduct(apiDocsRoot: string, productDir: string): void {
     const specRelPath = apiEntry.root;
     const specAbsPath = path.join(productAbsDir, specRelPath);
     const specDir = path.join(productAbsDir, path.dirname(specRelPath));
-    const label = `${productDir}/${apiKey}`;
+    const label = path.join(productDir, specRelPath);
 
     if (!fs.existsSync(specAbsPath)) {
       log(`${label}: spec not found at ${specAbsPath} — skipping`);
