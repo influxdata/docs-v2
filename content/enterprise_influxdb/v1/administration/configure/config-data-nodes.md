@@ -624,7 +624,7 @@ Use a separate private key location.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
 
-#### https-insecure-certificate
+#### https-insecure-certificate {metadata="v1.12.3+"}
 
 Default is `false`.
 
@@ -1179,7 +1179,7 @@ The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 
-#### https-insecure-certificate
+#### https-insecure-certificate {metadata="v1.12.3+"}
 
 Default is `false`.
 
@@ -1708,7 +1708,7 @@ In the preceding example, `max-version = "tls1.3"` specifies the maximum version
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
-#### advanced-expiration
+#### advanced-expiration {metadata="v1.12.3+"}
 
 Default is `5d`.
 
