@@ -238,7 +238,7 @@ InfluxQL supports using regular expressions when specifying:
 > non-string field values in the
 > `WHERE` clause,
 > [databases](/enterprise_influxdb/v1/concepts/glossary/#database), and
-> [retention polices](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
+> [retention policies](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 ## Queries
 

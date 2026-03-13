@@ -238,7 +238,7 @@ InfluxQL supports using regular expressions when specifying:
 > non-string field values in the
 > `WHERE` clause,
 > [databases](/influxdb/v1/concepts/glossary/#database), and
-> [retention polices](/influxdb/v1/concepts/glossary/#retention-policy-rp).
+> [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 ## Queries
 
@@ -755,7 +755,7 @@ GRANT READ ON "mydb" TO "jdoe"
 Stop a currently-running query.
 
 ```sql
-KILL QUERY <qid>
+KILL QUERY <query_id>
 ```
 
 ```
