@@ -1,0 +1,280 @@
+name: Vale Style Check
+
+on:
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'README.md'
+      - 'DOCS-*.md'
+      - '**/AGENTS.md'
+      - '**/CLAUDE.md'
+      - '.github/**/*.md'
+      - '.claude/**/*.md'
+    types: [opened, synchronize, reopened]
+
+jobs:
+  vale-check:
+    name: Vale style check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Detect changed files
+        id: detect
+        run: |
+          echo "🔍 Detecting changed files in PR #${{ github.event.number }}"
+
+          # Get changed files via GitHub API
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+            | jq -r '.[].filename' > all_changed_files.txt
+
+          # Filter for markdown files in scope
+          grep -E '^(content/.*\.md|README\.md|DOCS-.*\.md|.*/AGENTS\.md|.*/CLAUDE\.md|\.github/.*\.md|\.claude/.*\.md)$' \
+            all_changed_files.txt > files_to_check.txt || true
+
+          if [[ -s files_to_check.txt ]]; then
+            FILE_COUNT=$(wc -l < files_to_check.txt | tr -d ' ')
+            echo "✅ Found $FILE_COUNT file(s) to check"
+            echo "has-files=true" >> $GITHUB_OUTPUT
+            cat files_to_check.txt
+          else
+            echo "❌ No matching files to check"
+            echo "has-files=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip if no files to check
+        if: steps.detect.outputs.has-files == 'false'
+        run: |
+          echo "No markdown files in scope - skipping Vale check"
+          echo "✅ **No files to check** - Vale check skipped" >> $GITHUB_STEP_SUMMARY
+
+      - name: Resolve shared content
+        if: steps.detect.outputs.has-files == 'true'
+        run: |
+          chmod +x .github/scripts/resolve-shared-content.sh
+          .github/scripts/resolve-shared-content.sh files_to_check.txt > resolved_files.txt
+
+          echo "📁 Resolved files:"
+          cat resolved_files.txt
+
+          RESOLVED_COUNT=$(wc -l < resolved_files.txt | tr -d ' ')
+          echo "resolved-count=$RESOLVED_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Run Vale
+        if: steps.detect.outputs.has-files == 'true'
+        id: vale
+        run: |
+          chmod +x .github/scripts/vale-check.sh
+
+          set +e  # Don't exit on error
+          .github/scripts/vale-check.sh --files resolved_files.txt > vale_results.json 2>vale_stderr.txt
+          EXIT_CODE=$?
+          set -e
+
+          # Log stderr for debugging
+          if [[ -s vale_stderr.txt ]]; then
+            echo "Vale output:"
+            cat vale_stderr.txt
+          fi
+
+          # Parse results
+          if [[ -s vale_results.json ]]; then
+            ERRORS=$(jq -r '.errors // 0' vale_results.json)
+            WARNINGS=$(jq -r '.warnings // 0' vale_results.json)
+            SUGGESTIONS=$(jq -r '.suggestions // 0' vale_results.json)
+
+            echo "error-count=$ERRORS" >> $GITHUB_OUTPUT
+            echo "warning-count=$WARNINGS" >> $GITHUB_OUTPUT
+            echo "suggestion-count=$SUGGESTIONS" >> $GITHUB_OUTPUT
+
+            if [[ $ERRORS -gt 0 ]]; then
+              echo "check-result=failed" >> $GITHUB_OUTPUT
+            else
+              echo "check-result=passed" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "check-result=error" >> $GITHUB_OUTPUT
+            echo "error-count=0" >> $GITHUB_OUTPUT
+            echo "warning-count=0" >> $GITHUB_OUTPUT
+            echo "suggestion-count=0" >> $GITHUB_OUTPUT
+          fi
+
+          exit $EXIT_CODE
+
+      - name: Generate annotations
+        if: always() && steps.detect.outputs.has-files == 'true' && steps.vale.outputs.check-result != ''
+        run: |
+          if [[ ! -s vale_results.json ]]; then
+            echo "No results to process"
+            exit 0
+          fi
+
+          # Process each file's alerts
+          jq -r '.files | to_entries[] | .key as $file | .value[] | "\($file)|\(.Line)|\(.Severity)|\(.Check)|\(.Message)"' \
+            vale_results.json 2>/dev/null | while IFS='|' read -r file line severity check message; do
+
+            case "$severity" in
+              error)
+                echo "::error file=${file},line=${line},title=${check}::${message}"
+                ;;
+              warning)
+                echo "::warning file=${file},line=${line},title=${check}::${message}"
+                ;;
+              suggestion)
+                echo "::notice file=${file},line=${line},title=${check}::${message}"
+                ;;
+            esac
+          done
+
+      - name: Post PR comment
+        if: always() && steps.detect.outputs.has-files == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read results
+            let results = { files: {}, errors: 0, warnings: 0, suggestions: 0 };
+            try {
+              results = JSON.parse(fs.readFileSync('vale_results.json', 'utf8'));
+            } catch (e) {
+              console.log('Could not read results:', e.message);
+            }
+
+            const errors = results.errors || 0;
+            const warnings = results.warnings || 0;
+            const suggestions = results.suggestions || 0;
+            const checkResult = '${{ steps.vale.outputs.check-result }}';
+
+            // Build comment body
+            let body = '## Vale Style Check Results\n\n';
+            body += '| Metric | Count |\n';
+            body += '|--------|-------|\n';
+            body += `| Errors | ${errors} |\n`;
+            body += `| Warnings | ${warnings} |\n`;
+            body += `| Suggestions | ${suggestions} |\n\n`;
+
+            // List errors (blocking)
+            if (errors > 0) {
+              body += '### Errors (blocking)\n\n';
+              body += '| File | Line | Rule | Message |\n';
+              body += '|------|------|------|--------|\n';
+
+              for (const [file, alerts] of Object.entries(results.files || {})) {
+                for (const alert of alerts) {
+                  if (alert.Severity === 'error') {
+                    const msg = alert.Message.replace(/\|/g, '\\|').substring(0, 100);
+                    body += `| \`${file}\` | ${alert.Line} | ${alert.Check} | ${msg} |\n`;
+                  }
+                }
+              }
+              body += '\n';
+            }
+
+            // Collapsible warnings
+            if (warnings > 0) {
+              body += '<details>\n';
+              body += `<summary>Warnings (${warnings})</summary>\n\n`;
+              body += '| File | Line | Rule | Message |\n';
+              body += '|------|------|------|--------|\n';
+
+              let count = 0;
+              for (const [file, alerts] of Object.entries(results.files || {})) {
+                for (const alert of alerts) {
+                  if (alert.Severity === 'warning' && count < 20) {
+                    const msg = alert.Message.replace(/\|/g, '\\|').substring(0, 100);
+                    body += `| \`${file}\` | ${alert.Line} | ${alert.Check} | ${msg} |\n`;
+                    count++;
+                  }
+                }
+              }
+              if (warnings > 20) {
+                body += `\n_Showing first 20 of ${warnings} warnings._\n`;
+              }
+              body += '\n</details>\n\n';
+            }
+
+            // Status line
+            body += '---\n';
+            if (checkResult === 'failed') {
+              body += `❌ **Check failed** — fix ${errors} error(s) before merging.\n`;
+            } else if (checkResult === 'passed') {
+              body += '✅ **Check passed**\n';
+            } else {
+              body += '⚠️ **Check could not complete**\n';
+            }
+
+            // Find and update existing comment or create new
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('## Vale Style Check Results')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
+      - name: Write step summary
+        if: always() && steps.detect.outputs.has-files == 'true'
+        run: |
+          ERRORS="${{ steps.vale.outputs.error-count }}"
+          WARNINGS="${{ steps.vale.outputs.warning-count }}"
+          SUGGESTIONS="${{ steps.vale.outputs.suggestion-count }}"
+          RESULT="${{ steps.vale.outputs.check-result }}"
+
+          echo "## Vale Style Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Errors | ${ERRORS:-0} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Warnings | ${WARNINGS:-0} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Suggestions | ${SUGGESTIONS:-0} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "$RESULT" == "failed" ]]; then
+            echo "❌ **Check failed** — fix ${ERRORS} error(s) before merging." >> $GITHUB_STEP_SUMMARY
+          elif [[ "$RESULT" == "passed" ]]; then
+            echo "✅ **Check passed**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Check could not complete**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload results
+        if: always() && steps.detect.outputs.has-files == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: vale-results
+          path: |
+            vale_results.json
+            resolved_files.txt
+            files_to_check.txt
+          retention-days: 30
+
+      - name: Fail on errors
+        if: steps.vale.outputs.check-result == 'failed'
+        run: |
+          echo "Vale found ${{ steps.vale.outputs.error-count }} error(s)"
+          exit 1
