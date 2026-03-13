@@ -76,15 +76,7 @@ $env:TELEGRAF_CONTROLLER_EULA="accept"
 
 1.  **Download the {{% product-name %}} executable.**
 
-    > [!Note]
-    > #### Contact InfluxData for download
-    >
-    > If you are currently participating in the {{% product-name %}} private alpha,
-    > send your operating system and architecture to InfluxData and we will
-    > provide you with the appropriate {{% product-name %}} executable.
-    >
-    > If you are not currently in the private alpha and would like to be, 
-    > [request early access](https://www.influxdata.com/products/telegraf-enterprise).
+    {{< telegraf/tc-downloads >}}
 
 2.  **Install {{% product-name %}}**.
 
