@@ -44,12 +44,14 @@ export function generatePreviewComment(options) {
 
   const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
 
-  let body = `${COMMENT_MARKER}\n## PR Preview\n\n`;
+  // Agent persona header for clear identification
+  let body = `${COMMENT_MARKER}\n## 📦 PR Preview — Preview Bot\n\n`;
 
   switch (status) {
     case 'success':
       body += `| Status | Details |\n`;
       body += `|--------|----------|\n`;
+      body += `| **Result** | ✅ DEPLOYED |\n`;
       body += `| **Preview** | [View preview](${previewUrl}) |\n`;
       body += `| **Pages** | ${pages.length} page(s) deployed |\n`;
       if (buildTime) {
@@ -74,30 +76,42 @@ export function generatePreviewComment(options) {
 
     case 'pending':
       if (needsInput) {
+        body += `| Status | Details |\n`;
+        body += `|--------|----------|\n`;
+        body += `| **Result** | ⏳ NEEDS INPUT |\n`;
+        body += `| **Checked** | ${timestamp} |\n\n`;
         body += `### Preview pages needed\n\n`;
         body += `This PR changes layout/asset files but doesn't specify which pages to preview.\n\n`;
         body += `**To generate a preview**, add documentation URLs to your PR description, for example:\n`;
         body += `\`\`\`\nPlease review:\n- https://docs.influxdata.com/influxdb3/core/get-started/\n- /telegraf/v1/plugins/\n\`\`\`\n\n`;
-        body += `Then re-run the workflow or push a new commit.\n\n`;
-        body += `---\n<sub>Last checked: ${timestamp}</sub>`;
+        body += `Then re-run the workflow or push a new commit.`;
       } else {
-        body += `⏳ **Preview building...**\n\n`;
-        body += `---\n<sub>Started: ${timestamp}</sub>`;
+        body += `| Status | Details |\n`;
+        body += `|--------|----------|\n`;
+        body += `| **Result** | ⏳ BUILDING |\n`;
+        body += `| **Started** | ${timestamp} |\n\n`;
+        body += `Preview is building...`;
       }
       break;
 
     case 'failed':
-      body += `### Preview failed\n\n`;
-      body += `The preview build encountered an error:\n\n`;
+      body += `| Status | Details |\n`;
+      body += `|--------|----------|\n`;
+      body += `| **Result** | ❌ FAILED |\n`;
+      body += `| **Failed** | ${timestamp} |\n\n`;
+      body += `### Build Error\n\n`;
       body += `\`\`\`\n${sanitizeForCodeBlock(errorMessage)}\n\`\`\`\n\n`;
-      body += `[View workflow logs](https://github.com/influxdata/docs-v2/actions)\n\n`;
-      body += `---\n<sub>Failed: ${timestamp}</sub>`;
+      body += `[View workflow logs](https://github.com/influxdata/docs-v2/actions)`;
       break;
 
     case 'skipped':
-      body += `### Preview skipped\n\n`;
-      body += `${sanitizeForCodeBlock(skipReason || 'No previewable changes detected.', 500)}\n\n`;
-      body += `---\n<sub>Checked: ${timestamp}</sub>`;
+      // Skip reasons are controlled strings from the workflow, plain text sanitization is sufficient
+      const safeSkipReason = (skipReason || 'No previewable changes detected.').substring(0, 200);
+      body += `| Status | Details |\n`;
+      body += `|--------|----------|\n`;
+      body += `| **Result** | ⏭️ SKIPPED |\n`;
+      body += `| **Reason** | ${safeSkipReason} |\n`;
+      body += `| **Checked** | ${timestamp} |`;
       break;
   }
 
