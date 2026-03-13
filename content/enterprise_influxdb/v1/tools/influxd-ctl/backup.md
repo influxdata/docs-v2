@@ -54,7 +54,7 @@ influxd-ctl backup [flags] <backup-dir>
 | `-end`                  | End date for backup _(RFC3339 timestamp)_                           |
 | `-estimate`             | Estimate the size of the requested backup                           |
 | `-from`                 | Data node TCP address to prefer when backing up                     |
-| `-full`                 | Perform an full backup _(deprecated in favour of `-strategy full`)_ |
+| `-full`                 | Perform a full backup _(deprecated in favor of `-strategy full`)_  |
 | `-rp`                   | Retention policy to backup                                          |
 | `-shard`                | Shard ID to backup                                                  |
 | `-start`                | Start date for backup _(RFC3339 timestamp)_                         |
