@@ -901,7 +901,10 @@ const productConfigs: ProductConfigMap = {
   'cloud-v2': {
     specFiles: [
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb/cloud/influxdb-cloud-v2-openapi.yaml'),
+        path: path.join(
+          API_DOCS_ROOT,
+          'influxdb/cloud/influxdb-cloud-v2-openapi.yaml'
+        ),
         displayName: 'API',
       },
     ],
@@ -914,7 +917,10 @@ const productConfigs: ProductConfigMap = {
   'oss-v2': {
     specFiles: [
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb/v2/influxdb-oss-v2-openapi.yaml'),
+        path: path.join(
+          API_DOCS_ROOT,
+          'influxdb/v2/influxdb-oss-v2-openapi.yaml'
+        ),
         displayName: 'API',
       },
     ],
@@ -927,14 +933,20 @@ const productConfigs: ProductConfigMap = {
   // InfluxDB 3 products use tag-based generation for better UX
   // Keys use underscores to match Hugo data directory structure
   influxdb3_core: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/core/influxdb3-core-openapi.yaml'),
+    specFile: path.join(
+      API_DOCS_ROOT,
+      'influxdb3/core/influxdb3-core-openapi.yaml'
+    ),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/core'),
     description: 'InfluxDB 3 Core',
     menuKey: 'influxdb3_core',
     useTagBasedGeneration: true,
   },
   influxdb3_enterprise: {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb3/enterprise/influxdb3-enterprise-openapi.yaml'),
+    specFile: path.join(
+      API_DOCS_ROOT,
+      'influxdb3/enterprise/influxdb3-enterprise-openapi.yaml'
+    ),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/enterprise'),
     description: 'InfluxDB 3 Enterprise',
     menuKey: 'influxdb3_enterprise',
@@ -957,7 +969,10 @@ const productConfigs: ProductConfigMap = {
         displayName: 'Management API',
       },
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml'),
+        path: path.join(
+          API_DOCS_ROOT,
+          'influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml'
+        ),
         displayName: 'v2 Data API',
       },
     ],
@@ -970,7 +985,10 @@ const productConfigs: ProductConfigMap = {
   'cloud-serverless': {
     specFiles: [
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'),
+        path: path.join(
+          API_DOCS_ROOT,
+          'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'
+        ),
         displayName: 'v2 Data API',
       },
     ],
@@ -990,7 +1008,10 @@ const productConfigs: ProductConfigMap = {
         displayName: 'Management API',
       },
       {
-        path: path.join(API_DOCS_ROOT, 'influxdb3/clustered/influxdb3-clustered-openapi.yaml'),
+        path: path.join(
+          API_DOCS_ROOT,
+          'influxdb3/clustered/influxdb3-clustered-openapi.yaml'
+        ),
         displayName: 'v2 Data API',
       },
     ],
@@ -1004,7 +1025,10 @@ const productConfigs: ProductConfigMap = {
   // These have existing /tools/api/ pages with menu entries,
   // so we skip adding menu entries to the generated parent pages.
   'oss-v1': {
-    specFile: path.join(API_DOCS_ROOT, 'influxdb/v1/influxdb-oss-v1-openapi.yaml'),
+    specFile: path.join(
+      API_DOCS_ROOT,
+      'influxdb/v1/influxdb-oss-v1-openapi.yaml'
+    ),
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v1'),
     description: 'InfluxDB OSS v1',
     menuKey: 'influxdb_v1',
@@ -1012,7 +1036,10 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   'enterprise-v1': {
-    specFile: path.join(API_DOCS_ROOT, 'enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml'),
+    specFile: path.join(
+      API_DOCS_ROOT,
+      'enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml'
+    ),
     pagesDir: path.join(DOCS_ROOT, 'content/enterprise_influxdb/v1'),
     description: 'InfluxDB Enterprise v1',
     menuKey: 'enterprise_influxdb_v1',
@@ -1399,7 +1426,10 @@ function processProduct(productKey: string, config: ProductConfig): void {
         const targetArticles = path.join(mergedArticlesPath, 'articles.yml');
 
         // Only copy if source and target are different
-        if (sourceArticles !== targetArticles && fs.existsSync(sourceArticles)) {
+        if (
+          sourceArticles !== targetArticles &&
+          fs.existsSync(sourceArticles)
+        ) {
           if (!fs.existsSync(mergedArticlesPath)) {
             fs.mkdirSync(mergedArticlesPath, { recursive: true });
           }
