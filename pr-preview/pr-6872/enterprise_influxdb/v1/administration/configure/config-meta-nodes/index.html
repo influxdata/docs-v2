@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
+<meta name="last-modified" content="2026-03-13 10:36:29 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2684,7 +2684,7 @@ For example, <code>password-hash = &quot;bcrypt&quot;</code> would not be allowe
 <h4 metadata="v1.12.0+" id="raft-portal-auth-required">raft-portal-auth-required</h4>
 <p>Default is <code>false</code>.</p>
 <p>Require Raft clients to authenticate with server using the
-<a href="#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
+<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
 are configured with the correct <code>meta-internal-shared-secret</code>.</p>
 <p>For maximum security, <code>raft-dialer-auth-required</code> should be configured along with <code>raft-dialer-auth-required</code>.</p>
@@ -2692,7 +2692,7 @@ are configured with the correct <code>meta-internal-shared-secret</code>.</p>
 <h4 metadata="v1.12.0+" id="raft-dialer-auth-required">raft-dialer-auth-required</h4>
 <p>Default is <code>false</code>.</p>
 <p>Require Raft servers to authenticate Raft clients using the
-<a href="#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
+<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
 <code>raft-portal-auth-required=true</code>, and are configured with the correct
 <code>meta-internal-shared-secret</code>. For existing clusters, it is recommended to enable <code>raft-portal-auth-required</code> and restart
