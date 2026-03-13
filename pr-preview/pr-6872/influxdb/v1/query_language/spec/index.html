@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-12 18:50:40 -0500 -0500">
+<meta name="last-modified" content="2026-03-13 09:50:26 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2024,7 +2024,7 @@ The reference date time is:</p>
 non-string field values in the
 <code>WHERE</code> clause,
 <a href="/influxdb/v1/concepts/glossary/#database">databases</a>, and
-<a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention polices</a>.</p>
+<a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policies</a>.</p>
 </div>
 <h2 id="queries">Queries</h2>
 <p>A query is composed of one or more statements separated by a semicolon.</p>
@@ -2470,7 +2470,7 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <p>Stop a currently-running query.</p>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">query_id</span><span class="o">&gt;</span></span></span></code></pre></div>
 
 
 <pre tabindex="0"><code>kill_query_statement = &#34;KILL QUERY&#34; query_id .</code></pre>
