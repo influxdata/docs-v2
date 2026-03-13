@@ -71,7 +71,6 @@ if (urls.length === 0) {
   console.log(`Visual review skipped: ${skipReason}`);
 } else {
   appendFileSync(GITHUB_OUTPUT, `skipped=false\n`);
-  appendFileSync(GITHUB_OUTPUT, `skip-reason=\n`);
 }
 
 console.log(`Detected ${urls.length} preview URLs`);

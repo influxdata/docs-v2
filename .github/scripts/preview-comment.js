@@ -105,10 +105,12 @@ export function generatePreviewComment(options) {
       break;
 
     case 'skipped':
+      // Skip reasons are controlled strings from the workflow, plain text sanitization is sufficient
+      const safeSkipReason = (skipReason || 'No previewable changes detected.').substring(0, 200);
       body += `| Status | Details |\n`;
       body += `|--------|----------|\n`;
       body += `| **Result** | ⏭️ SKIPPED |\n`;
-      body += `| **Reason** | ${sanitizeForCodeBlock(skipReason || 'No previewable changes detected.', 200)} |\n`;
+      body += `| **Reason** | ${safeSkipReason} |\n`;
       body += `| **Checked** | ${timestamp} |`;
       break;
   }

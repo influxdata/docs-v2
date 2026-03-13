@@ -207,7 +207,10 @@ jobs:
               '',
               '### Pages to Review',
               '',
-              ...urls.slice(0, 10).map(u => `- \`${u}\` → [preview](${previewBase}${u})`),
+              ...urls.slice(0, 10).map(u => {
+                const pageUrl = `${previewBase}${u}`;
+                return `- \`${u}\` → [preview](${pageUrl})`;
+              }),
               ...(urls.length > 10 ? [`- ... and ${urls.length - 10} more (see PR Preview comment)`] : []),
             ].join('\n');
 
@@ -301,9 +304,8 @@ jobs:
     permissions:
       pull-requests: write
     needs: resolve-urls
-    if: |
-      needs.resolve-urls.result == 'success' &&
-      fromJson(needs.resolve-urls.outputs.url-count) == 0
+    # GitHub Actions outputs are always strings; 'true' string comparison is intentional
+    if: needs.resolve-urls.result == 'success' && needs.resolve-urls.outputs.skipped == 'true'
     steps:
       - name: Post skipped notice
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
