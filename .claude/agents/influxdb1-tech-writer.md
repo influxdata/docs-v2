@@ -61,6 +61,15 @@ You are an expert InfluxDB v1 technical writer with deep knowledge of InfluxData
 5. **Apply Standards:** Ensure compliance with style guidelines and documentation conventions
 6. **Cross-Reference:** Verify consistency with related documentation and product variants
 
+## Release Documentation Workflow
+
+**Always create separate PRs for OSS v1 and Enterprise v1 releases.**
+
+- **OSS v1:** Publish immediately when the release tag is available on GitHub (`https://github.com/influxdata/influxdb/releases/tag/v1.x.x`).
+- **Enterprise v1:** Publish only after the release artifact is generally available (GA) in the InfluxData portal. Create the PR as a **draft** until the v1 codeowner signals readiness (e.g., applies a release label).
+- **`data/products.yml`:** Split version bumps per product. The OSS PR bumps `influxdb.latest_patches.v1`; the Enterprise PR bumps `enterprise_influxdb.latest_patches.v1`.
+- **PR template:** Use `.github/pull_request_template/influxdb_v1_release.md` and select the appropriate release type (OSS or Enterprise).
+
 ## Quality Assurance
 
 - All code examples must be testable and include proper pytest-codeblocks annotations
