@@ -37,10 +37,10 @@ if (!/^origin\/[a-zA-Z0-9._\/-]+$/.test(BASE_REF)) {
  */
 function getAllChangedFiles() {
   try {
-    const output = execSync(
-      `git diff --name-only ${BASE_REF}...HEAD`,
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
-    );
+    const output = execSync(`git diff --name-only ${BASE_REF}...HEAD`, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
     return output.trim().split('\n').filter(Boolean);
   } catch (err) {
     console.error(`Error detecting changes: ${err.message}`);
@@ -55,11 +55,13 @@ function getAllChangedFiles() {
  */
 function categorizeChanges(files) {
   return {
-    content: files.filter(f => f.startsWith('content/') && f.endsWith('.md')),
-    layouts: files.filter(f => f.startsWith('layouts/')),
-    assets: files.filter(f => f.startsWith('assets/')),
-    data: files.filter(f => f.startsWith('data/')),
-    apiDocs: files.filter(f => f.startsWith('api-docs/') || f.startsWith('openapi/')),
+    content: files.filter((f) => f.startsWith('content/') && f.endsWith('.md')),
+    layouts: files.filter((f) => f.startsWith('layouts/')),
+    assets: files.filter((f) => f.startsWith('assets/')),
+    data: files.filter((f) => f.startsWith('data/')),
+    apiDocs: files.filter(
+      (f) => f.startsWith('api-docs/') || f.startsWith('openapi/')
+    ),
   };
 }
 
@@ -177,7 +179,7 @@ function main() {
     const htmlPaths = mapContentToPublic(expandedContent, 'public');
 
     // Convert HTML paths to URL paths
-    pagesToDeploy = Array.from(htmlPaths).map(htmlPath => {
+    pagesToDeploy = Array.from(htmlPaths).map((htmlPath) => {
       return '/' + htmlPath.replace('public/', '').replace('/index.html', '/');
     });
     console.log(`   Found ${pagesToDeploy.length} affected pages\n`);
@@ -195,35 +197,60 @@ function main() {
 
   // Strategy 3: Layout/asset changes - parse URLs from PR body
   if (hasLayoutChanges) {
-    console.log('🎨 Layout/asset changes detected, checking PR description for URLs...');
+    console.log(
+      '🎨 Layout/asset changes detected, checking PR description for URLs...'
+    );
+
+    // Auto-detect home page when the root template changes
+    if (changes.layouts.includes('layouts/index.html')) {
+      pagesToDeploy = [...new Set([...pagesToDeploy, '/'])];
+      console.log(
+        '   🏠 Home page template (layouts/index.html) changed - auto-adding / to preview pages'
+      );
+    }
+
     const prUrls = extractDocsUrls(PR_BODY);
 
     if (prUrls.length > 0) {
       console.log(`   Found ${prUrls.length} URLs in PR description`);
       // Merge with content pages (deduplicate)
       pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
+<<<<<<< api-docs-uplift
     } else if (changes.content.length === 0 && pagesToDeploy.length === 0) {
       // No content changes, no auto-detected pages, and no URLs specified - need author input
       console.log('   ⚠️  No URLs found in PR description - author input needed');
+=======
+    } else if (pagesToDeploy.length === 0) {
+      // No content changes, no auto-detected pages, and no URLs specified - need author input
+      console.log(
+        '   ⚠️  No URLs found in PR description - author input needed'
+      );
+>>>>>>> master
       setOutput('pages-to-deploy', '[]');
       setOutput('has-layout-changes', 'true');
       setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
       setOutput('needs-author-input', 'true');
-      setOutput('change-summary', 'Layout/asset changes detected - please specify pages to preview');
+      setOutput(
+        'change-summary',
+        'Layout/asset changes detected - please specify pages to preview'
+      );
       return;
     }
   }
 
   // Apply page limit
   if (pagesToDeploy.length > MAX_PAGES) {
-    console.log(`⚠️  Limiting preview to ${MAX_PAGES} pages (found ${pagesToDeploy.length})`);
+    console.log(
+      `⚠️  Limiting preview to ${MAX_PAGES} pages (found ${pagesToDeploy.length})`
+    );
     pagesToDeploy = pagesToDeploy.slice(0, MAX_PAGES);
   }
 
   // Generate summary
-  const summary = pagesToDeploy.length > 0
-    ? `${pagesToDeploy.length} page(s) will be previewed`
-    : 'No pages to preview';
+  const summary =
+    pagesToDeploy.length > 0
+      ? `${pagesToDeploy.length} page(s) will be previewed`
+      : 'No pages to preview';
 
   console.log(`\n✅ ${summary}`);
 
