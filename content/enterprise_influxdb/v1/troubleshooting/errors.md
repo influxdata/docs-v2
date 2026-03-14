@@ -100,7 +100,7 @@ In Query 1, the field key `duration` is an InfluxQL Keyword.
 Double quote `duration` to avoid the error:
 
 ```sql
-> SELECT "duration" FROM runs
+SELECT "duration" FROM runs
 ```
 
 *Query 2:*
@@ -114,7 +114,7 @@ In Query 2, the retention policy name `limit` is an InfluxQL Keyword.
 Double quote `limit` to avoid the error:
 
 ```sql
-> CREATE RETENTION POLICY "limit" ON telegraf DURATION 1d REPLICATION 1
+CREATE RETENTION POLICY "limit" ON telegraf DURATION 1d REPLICATION 1
 ```
 
 While using double quotes is an acceptable workaround, we recommend that you avoid using InfluxQL keywords as identifiers for simplicity's sake.
@@ -141,7 +141,7 @@ The `CREATE USER` statement requires single quotation marks around the password
 string:
 
 ```sql
-> CREATE USER penelope WITH PASSWORD 'timeseries4dayz'
+CREATE USER penelope WITH PASSWORD 'timeseries4dayz'
 ```
 
 Note that you should not include the single quotes when authenticating requests.
@@ -257,7 +257,7 @@ Replace the timestamp with a UNIX timestamp to avoid the error and successfully
 write the point to InfluxDB:
 
 ```sql
-> INSERT pineapple,fresh=true value=1 1439938800000000000
+INSERT pineapple,fresh=true value=1 1439938800000000000
 ```
 
 ### InfluxDB line protocol syntax
@@ -283,7 +283,7 @@ InfluxDB assumes that the `value=9` field is the timestamp and returns an error.
 Use a comma instead of a space between the measurement and tag to avoid the error:
 
 ```sql
-> INSERT hens,location=2 value=9
+INSERT hens,location=2 value=9
 ```
 
 *Write 2*
@@ -300,7 +300,7 @@ InfluxDB assumes that the `happy=3` field is the timestamp and returns an error.
 Use a comma instead of a space between the two fields to avoid the error:
 
 ```sql
-> INSERT cows,name=daisy milk_prod=3,happy=3
+INSERT cows,name=daisy milk_prod=3,happy=3
 ```
 
 **Resources:**

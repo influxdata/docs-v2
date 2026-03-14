@@ -28,9 +28,9 @@ For example, simple addition:
 Assign an expression to a variable using the assignment operator, `=`.
 
 ```js
-> s = "this is a string"
-> i = 1 // an integer
-> f = 2.0 // a floating point number
+s = "this is a string"
+i = 1 // an integer
+f = 2.0 // a floating point number
 ```
 
 Type the name of a variable to print its value:
@@ -48,7 +48,7 @@ this is a string
 Flux also supports records. Each value in a record can be a different data type.
 
 ```js
-> o = {name:"Jim", age: 42, "favorite color": "red"}
+o = {name:"Jim", age: 42, "favorite color": "red"}
 ```
 
 Use **dot notation** to access a properties of a record:

@@ -382,8 +382,8 @@ The following query returns no data because it specifies a single tag key (`loca
 the `SELECT` clause:
 
 ```sql
-> SELECT "location" FROM "h2o_feet"
->
+SELECT "location" FROM "h2o_feet"
+
 ```
 
 To return any data associated with the `location` tag key, the query's `SELECT`
@@ -599,7 +599,7 @@ separating logic with parentheses.
 #### Select data that have specific timestamps
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE time > now() - 7d
+SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
 The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v1/concepts/glossary/#timestamp)
@@ -1594,8 +1594,8 @@ the query's time range.
 Note that `fill(800)` has no effect on the query results.
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2015-09-18T22:00:00Z' AND time <= '2015-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
->
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2015-09-18T22:00:00Z' AND time <= '2015-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
+
 ```
 
 ##### Queries with `fill(previous)` when the previous result falls outside the query's time range
@@ -2646,7 +2646,7 @@ The whitespace between `-` or `+` and the [duration literal](/influxdb/v1/query_
 #### Specify a time range with relative time
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
+SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
 ```
 
 The query returns data with timestamps that occur within the past hour.
@@ -2693,7 +2693,7 @@ a `GROUP BY time()` clause must provide an alternative upper bound in the
 Use the [CLI](/influxdb/v1/tools/shell/) to write a point to the `NOAA_water_database` that occurs after `now()`:
 
 ```sql
-> INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
+INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
 ```
 
 Run a `GROUP BY time()` query that covers data with timestamps between
@@ -2729,8 +2729,8 @@ the lower bound to `now()` such that the query's time range is between
 `now()` and `now()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
->
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
+
 ```
 
 ### Configuring the returned timestamps
@@ -2838,8 +2838,8 @@ includes an `m` and `water_level` is greater than three.
 #### Use a regular expression to specify a tag with no value in the WHERE clause
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "location" !~ /./
->
+SELECT * FROM "h2o_feet" WHERE "location" !~ /./
+
 ```
 
 The query selects all data from the `h2o_feet` measurement where the `location`
@@ -2996,8 +2996,8 @@ The query returns the integer form of `water_level`'s float [field values](/infl
 #### Cast float field values to strings (this functionality is not supported)
 
 ```sql
-> SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
->
+SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
+
 ```
 
 The query returns no data as casting a float field value to a string is not

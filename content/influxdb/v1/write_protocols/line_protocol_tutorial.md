@@ -278,9 +278,9 @@ But, writing an integer to a field that previously accepted floats succeeds if
 InfluxDB stores the integer in a new shard:
 
 ```sql
-> INSERT weather,location=us-midwest temperature=82 1465839830100400200
-> INSERT weather,location=us-midwest temperature=81i 1467154750000000000
->
+INSERT weather,location=us-midwest temperature=82 1465839830100400200
+INSERT weather,location=us-midwest temperature=81i 1467154750000000000
+
 ```
 
 See
