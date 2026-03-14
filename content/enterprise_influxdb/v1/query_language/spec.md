@@ -302,6 +302,8 @@ alter_retention_policy_stmt  = "ALTER RETENTION POLICY" policy_name on_clause
                                retention_policy_option
                                [ retention_policy_option ]
                                [ retention_policy_option ]
+                               [ retention_policy_option ]
+                               [ retention_policy_option ]
                                [ retention_policy_option ] .
 ```
 
@@ -314,6 +316,9 @@ ALTER RETENTION POLICY "1h.cpu" ON "mydb" DEFAULT
 -- Change duration and replication factor.
 -- REPLICATION (replication factor) not valid for OSS instances.
 ALTER RETENTION POLICY "policy1" ON "somedb" DURATION 1h REPLICATION 4
+
+-- Change future and past limits.
+ALTER RETENTION POLICY "policy1" ON "somedb" FUTURE LIMIT 6h PAST LIMIT 6h
 ```
 
 ### CREATE CONTINUOUS QUERY
@@ -1336,6 +1341,8 @@ retention_policy = identifier .
 retention_policy_option      = retention_policy_duration |
                                retention_policy_replication |
                                retention_policy_shard_group_duration |
+                               retention_future_limit |
+                               retention_past_limit |
                                "DEFAULT" .
 
 retention_policy_duration    = "DURATION" duration_lit .

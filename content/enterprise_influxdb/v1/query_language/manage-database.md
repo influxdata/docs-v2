@@ -317,10 +317,6 @@ For example, if a write request tries to write data to a retention policy with a
 `FUTURE LIMIT 6h` and there are points in the request with future timestamps
 greater than 6 hours from now, those points are rejected.
 
-> [!Important]
-> `FUTURE LIMIT` cannot be changed after it is set.
-> This will be fixed in a future release.
-
 ##### `PAST LIMIT` {metadata="v1.12.0+"}
 
 The `PAST LIMIT` clause defines a time boundary before and relative to _now_
@@ -331,10 +327,6 @@ request returns a partial write error.
 For example, if a write request tries to write data to a retention policy with a
 `PAST LIMIT 6h` and there are points in the request with timestamps older than
 6 hours, those points are rejected.
-
-> [!Important]
-> `PAST LIMIT` cannot be changed after it is set.
-> This will be fixed in a future release.
 
 ##### `DEFAULT`
 
@@ -371,13 +363,16 @@ See [Create a database with CREATE DATABASE](/enterprise_influxdb/v1/query_langu
 
 ### Modify retention policies with ALTER RETENTION POLICY
 
-The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, or `DEFAULT`:
+The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, `FUTURE LIMIT`, `PAST LIMIT`, or `DEFAULT`:
 ```sql
-ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [DEFAULT]
+ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [FUTURE LIMIT <duration>] [PAST LIMIT <duration>] [DEFAULT]
 ```
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
 {{% /warn %}}
+
+For information about the `FUTURE LIMIT` and `PAST LIMIT` clauses, see
+[CREATE RETENTION POLICY](#create-retention-policies-with-create-retention-policy).
 
 First, create the retention policy `what_is_time` with a `DURATION` of two days:
 ```sql
