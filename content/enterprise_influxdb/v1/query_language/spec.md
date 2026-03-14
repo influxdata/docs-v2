@@ -389,6 +389,10 @@ create_database_stmt = "CREATE DATABASE" db_name
 > [!Note]
 > When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
 
+> [!Caution]
+> **Prior to InfluxDB Enterprise v1.12.3**, when using both `FUTURE LIMIT` and `PAST LIMIT` clauses,
+> `PAST LIMIT` must appear before `FUTURE LIMIT`.
+
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
 
@@ -425,6 +429,10 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
 
 > [!Note]
 > When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
+
+> [!Caution]
+> **Prior to InfluxDB Enterprise v1.12.3**, when using both `FUTURE LIMIT` and `PAST LIMIT` clauses,
+> `PAST LIMIT` must appear before `FUTURE LIMIT`.
 
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
