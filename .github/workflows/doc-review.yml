@@ -112,7 +112,42 @@ jobs:
             }
 
   # -----------------------------------------------------------------
-  # Job 3: Copilot visual review (depends on Job 1 for URLs)
+  # Job 3: Clean up stale visual review comment when no pages changed
+  # -----------------------------------------------------------------
+  cleanup-stale-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: resolve-urls
+    if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) == 0
+    steps:
+      - name: Delete stale visual review comment
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const markers = ['<!-- doc-review-visual -->', '<!-- doc-review-visual-timeout -->'];
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            for (const marker of markers) {
+              const stale = comments.find(c => c.body.includes(marker));
+              if (stale) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: stale.id,
+                });
+                core.info(`Deleted stale comment (${marker})`);
+              }
+            }
+
+  # -----------------------------------------------------------------
+  # Job 4: Copilot visual review (depends on Job 1 for URLs)
   # -----------------------------------------------------------------
   copilot-visual-review:
     runs-on: ubuntu-latest
