@@ -1,6 +1,6 @@
 ---
 title: Influx Query Language (InfluxQL) reference
-description: InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
+description: List of resources for Influx Query Language (InfluxQL).
 menu:
   influxdb_v1:
     name: InfluxQL reference
@@ -8,32 +8,38 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v2/query_language/spec/
-related:
-  - /influxdb/v1/query_language/explore-data/
-  - /influxdb/v1/query_language/explore-schema/
-  - /influxdb/v1/query_language/manage-database/
 ---
 
-InfluxQL is a SQL-like query language for interacting with InfluxDB
-and providing features specific to storing and analyzing time series data.
+## Introduction
 
-- [Notation](#notation)
-- [Query representation](#query-representation)
-- [Identifiers](#identifiers)
-- [Keywords](#keywords)
-- [Literals](#literals)
-- [Queries](#queries)
-- [Statements](#statements)
-- [Clauses](#clauses)
-- [Expressions](#expressions)
-- [Comments](#comments)
-- [Other](#other)
-- [Query engine internals](#query-engine-internals)
+Find Influx Query Language (InfluxQL) definitions and details, including:
+
+- [Notation](/influxdb/v1/query_language/spec/#notation)
+- [Query representation](/influxdb/v1/query_language/spec/#query-representation)
+- [Identifiers](/influxdb/v1/query_language/spec/#identifiers)
+- [Keywords](/influxdb/v1/query_language/spec/#keywords)
+- [Literals](/influxdb/v1/query_language/spec/#literals)
+- [Queries](/influxdb/v1/query_language/spec/#queries)
+- [Statements](/influxdb/v1/query_language/spec/#statements)
+- [Clauses](/influxdb/v1/query_language/spec/#clauses)
+- [Expressions](/influxdb/v1/query_language/spec/#expressions)
+- [Other](/influxdb/v1/query_language/spec/#other)
+- [Query engine internals](/influxdb/v1/query_language/spec/#query-engine-internals)
+
+To learn more about InfluxQL, browse the following topics:
+
+- [Explore your data with InfluxQL](/influxdb/v1/query_language/explore-data/)
+- [Explore your schema with InfluxQL](/influxdb/v1/query_language/explore-schema/)
+- [Database management](/influxdb/v1/query_language/manage-database/)
+- [Authentication and authorization](/influxdb/v1/administration/authentication_and_authorization/).
+
+InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
 
 ## Notation
 
 The syntax is specified using Extended Backus-Naur Form ("EBNF").
-EBNF is the same notation used in the [Go programming language specification](https://golang.org/ref/spec).
+EBNF is the same notation used in the [Go](http://golang.org) programming language specification, which can be found [here](https://golang.org/ref/spec).
+Not so coincidentally, InfluxDB is written in Go.
 
 ```
 Production  = production_name "=" [ Expression ] "." .
@@ -85,7 +91,7 @@ The rules:
 
 - double quoted identifiers can contain any unicode character other than a new line
 - double quoted identifiers can contain escaped `"` characters (i.e., `\"`)
-- double quoted identifiers can contain InfluxQL [keywords](#keywords)
+- double quoted identifiers can contain InfluxQL [keywords](/influxdb/v1/query_language/spec/#keywords)
 - unquoted identifiers must start with an upper or lowercase ASCII character or "_"
 - unquoted identifiers may contain only ASCII letters, decimal digits, and "_"
 
@@ -123,7 +129,7 @@ SUBSCRIPTIONS TAG           TO            USER          USERS         VALUES
 WHERE         WITH          WRITE
 ```
 
-If you use an InfluxQL keyword as an
+If you use an InfluxQL keywords as an
 [identifier](/influxdb/v1/concepts/glossary/#identifier) you will need to
 double quote that identifier in every query.
 
@@ -139,7 +145,7 @@ In those cases, `time` does not require double quotes in queries.
 `time` cannot be a [field key](/influxdb/v1/concepts/glossary/#field-key) or
 [tag key](/influxdb/v1/concepts/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
-For more information, see [Frequently Asked Questions](/influxdb/v1/troubleshooting/frequently-asked-questions/#time).
+See [Frequently Asked Questions](/influxdb/v1/troubleshooting/frequently-asked-questions/#time) for more information.
 
 ## Literals
 
@@ -223,22 +229,19 @@ regex_lit           = "/" { unicode_char } "/" .
 `=~` matches against
 `!~` doesn't match against
 
-
-InfluxQL supports using regular expressions when specifying:
-
-- [field keys](/influxdb/v1/concepts/glossary/#field-key) and [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-- [measurements](/influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-- [tag values](/influxdb/v1/concepts/glossary/#tag-value) and string [field values](/influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1/query_language/explore-data/#the-where-clause).
-- [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1/query_language/explore-data/#group-by-tags)
-
 > [!Note]
-> #### Regular expressions and non-string field values
+> InfluxQL supports using regular expressions when specifying:
 >
-> Currently, InfluxQL does not support using regular expressions to match
-> non-string field values in the
-> `WHERE` clause,
-> [databases](/influxdb/v1/concepts/glossary/#database), and
-> [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
+> * [field keys](/influxdb/v1/concepts/glossary/#field-key) and [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+> * [measurements](/influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+> * [tag values](/influxdb/v1/concepts/glossary/#tag-value) and string [field values](/influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/influxdb/v1/query_language/explore-data/#the-where-clause).
+> * [tag keys](/influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v1/query_language/explore-data/#group-by-tags)
+>
+>Currently, InfluxQL does not support using regular expressions to match
+>non-string field values in the
+>`WHERE` clause,
+>[databases](/influxdb/v1/concepts/glossary/#database), and
+>[retention polices](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 ## Queries
 
@@ -303,8 +306,6 @@ alter_retention_policy_stmt  = "ALTER RETENTION POLICY" policy_name on_clause
                                retention_policy_option
                                [ retention_policy_option ]
                                [ retention_policy_option ]
-                               [ retention_policy_option ]
-                               [ retention_policy_option ]
                                [ retention_policy_option ] .
 ```
 
@@ -317,9 +318,6 @@ ALTER RETENTION POLICY "1h.cpu" ON "mydb" DEFAULT
 -- Change duration and replication factor.
 -- REPLICATION (replication factor) not valid for OSS instances.
 ALTER RETENTION POLICY "policy1" ON "somedb" DURATION 1h REPLICATION 4
-
--- Change future and past limits.
-ALTER RETENTION POLICY "policy1" ON "somedb" FUTURE LIMIT 6h PAST LIMIT 6h
 ```
 
 ### CREATE CONTINUOUS QUERY
@@ -380,14 +378,11 @@ create_database_stmt = "CREATE DATABASE" db_name
                            [ retention_policy_duration ]
                            [ retention_policy_replication ]
                            [ retention_policy_shard_group_duration ]
-                           [ retention_future_limit ]
                            [ retention_past_limit ]
+                           [ retention_future_limit ]
                            [ retention_policy_name ]
                        ] .
 ```
-
-> [!Note]
-> When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
 
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
@@ -407,8 +402,8 @@ CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "my
 CREATE DATABASE "mydb" WITH NAME "myrp"
 
 -- Create a database called bar with a new retention policy named "myrp", and
--- specify the duration, future and past limits, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d FUTURE LIMIT 6h PAST LIMIT 6h NAME "myrp"
+-- specify the duration, past and future limits, and name of that retention policy
+CREATE DATABASE "bar" WITH DURATION 1d PAST LIMIT 6h FUTURE LIMIT 6h NAME "myrp"
 ```
 
 ### CREATE RETENTION POLICY
@@ -418,13 +413,10 @@ create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
                                retention_policy_duration
                                retention_policy_replication
                                [ retention_policy_shard_group_duration ]
-                               [ retention_future_limit ]
                                [ retention_past_limit ]
+                               [ retention_future_limit ]
                                [ "DEFAULT" ] .
 ```
-
-> [!Note]
-> When using both `FUTURE LIMIT` and `PAST LIMIT` clauses, `FUTURE LIMIT` must appear before `PAST LIMIT`.
 
 > [!Warning]
 > Replication factors do not serve a purpose with single node instances.
@@ -441,8 +433,8 @@ CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFA
 -- Create a retention policy and specify the shard group duration.
 CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
 
--- Create a retention policy and specify future and past limits.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h FUTURE LIMIT 6h PAST LIMIT 6h
+-- Create a retention policy and specify past and future limits.
+CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 12h PAST LIMIT 6h FUTURE LIMIT 6h
 ```
 
 ### CREATE SUBSCRIPTION
@@ -637,7 +629,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -733,8 +725,7 @@ For more information about storage blocks, see [TSM files](/influxdb/v1/concepts
 
 ### GRANT
 
-> [!Note]
-> Users can be granted privileges on databases that do not yet exist.
+> **NOTE:** Users can be granted privileges on databases that do not yet exist.
 
 ```
 grant_stmt = "GRANT" privilege [ on_clause ] to_clause .
@@ -752,23 +743,31 @@ GRANT READ ON "mydb" TO "jdoe"
 
 ### KILL QUERY
 
-Stop a currently-running query.
-
-```sql
-KILL QUERY <query_id>
-```
+Stop currently-running query.
 
 ```
 kill_query_statement = "KILL QUERY" query_id .
 ```
 
-Replace `query_id` with your query ID from [`SHOW QUERIES`](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries), output as `qid`.
+Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
+
+> ***InfluxDB Enterprise clusters:*** To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, `myhost:8088`),
+> available in the `SHOW QUERIES` output.
+>
+> ```sql
+KILL QUERY <qid> ON "<host>"
+```
 
 #### Examples
 
 ```sql
 -- kill query with qid of 36 on the local host
 KILL QUERY 36
+```
+
+```sql
+-- kill query on InfluxDB Enterprise cluster
+KILL QUERY 53 ON "myhost:8088"
 ```
 
 ### REVOKE
@@ -913,7 +912,7 @@ show_grants_stmt = "SHOW GRANTS FOR" user_name .
 SHOW GRANTS FOR "jdoe"
 ```
 
-### SHOW MEASUREMENT CARDINALITY
+#### SHOW MEASUREMENT CARDINALITY
 
 Estimates or counts exactly the cardinality of the measurement set for the current database unless a database is specified using the `ON <database>` option.
 
@@ -1000,11 +999,10 @@ Estimates or counts exactly the cardinality of the series for the current databa
 
 [Series cardinality](/influxdb/v1/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
-- [Hardware Sizing Guidelines](/influxdb/v1/guides/hardware_sizing/)
+- [When do I need more RAM?](/influxdb/v1/guides/hardware_sizing/#when-do-i-need-more-ram) in [Hardware Sizing Guidelines](/influxdb/v1/guides/hardware_sizing/)
 - [Don't have too many series](/influxdb/v1/concepts/schema_and_data_layout/#avoid-too-many-series)
 
-> [!Note]
-> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is not supported in the `WHERE` clause.
 
@@ -1071,17 +1069,25 @@ id  database   retention_policy shard_group start_time           end_time       
 
 Returns detailed statistics on available components of an InfluxDB node and available (enabled) components.
 
-Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted,
-but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
-
-The `SHOW STATS` command does not list index memory usage --
-use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
-
 For more information on using the `SHOW STATS` command, see [Using the SHOW STATS command to monitor InfluxDB](/platform/monitoring/tools/show-stats/).
 
 ```
 show_stats_stmt = "SHOW STATS [ FOR '<component>' | 'indexes' ]"
 ```
+
+#### `SHOW STATS`
+
+- The `SHOW STATS` command does not list index memory usage -- use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
+- Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted, but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
+
+#### `SHOW STATS FOR <component>`
+
+- For the specified component (\<component\>), the command returns available statistics.
+- For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system, using the [Go runtime](https://golang.org/pkg/runtime/) package.
+
+#### `SHOW STATS FOR 'indexes'`
+
+- Returns an estimate of memory use of all indexes. Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
 
 #### Example
 
@@ -1092,23 +1098,13 @@ name: runtime
 Alloc   Frees   HeapAlloc       HeapIdle        HeapInUse       HeapObjects     HeapReleased    HeapSys         Lookups Mallocs NumGC   NumGoroutine    PauseTotalNs    Sys             TotalAlloc
 4136056 6684537 4136056         34586624        5816320         49412           0               40402944        110     6733949 83      44              36083006        46692600        439945704
 
+
 name: graphite
 tags: proto=tcp
 batches_tx      bytes_rx        connections_active      connections_handled     points_rx       points_tx
 ----------      --------        ------------------      -------------------     ---------       ---------
 159             3999750         0                       1                       158110          158110
 ```
-
-### SHOW STATS FOR <component>
-
-For the specified component (\<component\>), the command returns available statistics.
-For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system,
-using the [Go runtime](https://golang.org/pkg/runtime/) package.
-
-### SHOW STATS FOR 'indexes'
-
-Returns an estimate of memory use of all indexes.
-Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
 
 ### SHOW SUBSCRIPTIONS
 
@@ -1122,12 +1118,11 @@ show_subscriptions_stmt = "SHOW SUBSCRIPTIONS" .
 SHOW SUBSCRIPTIONS
 ```
 
-### SHOW TAG KEY CARDINALITY
+#### SHOW TAG KEY CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key set on the current database unless a database is specified using the `ON <database>` option.
 
-> [!Note]
-> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is only supported when TSI (Time Series Index) is enabled and `time` is not supported in the `WHERE` clause.
 
@@ -1195,12 +1190,11 @@ SHOW TAG VALUES WITH KEY !~ /.*c.*/
 SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'redis'
 ```
 
-### SHOW TAG VALUES CARDINALITY
+#### SHOW TAG VALUES CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the `ON <database>` option.
 
-> [!Note]
-> `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
 
@@ -1280,15 +1274,6 @@ unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .
 ```
 
-## Comments
-
-Use comments with InfluxQL statements to describe your queries.
-
-- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
-  This comment type cannot span several lines.
-- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
-  Multi-line comments do not support nested multi-line comments.
-
 ## Other
 
 ```
@@ -1336,8 +1321,6 @@ retention_policy = identifier .
 retention_policy_option      = retention_policy_duration |
                                retention_policy_replication |
                                retention_policy_shard_group_duration |
-                               retention_future_limit |
-                               retention_past_limit |
                                "DEFAULT" .
 
 retention_policy_duration    = "DURATION" duration_lit .
@@ -1345,10 +1328,6 @@ retention_policy_duration    = "DURATION" duration_lit .
 retention_policy_replication = "REPLICATION" int_lit .
 
 retention_policy_shard_group_duration = "SHARD DURATION" duration_lit .
-
-retention_future_limit       = "FUTURE LIMIT" duration_lit .
-
-retention_past_limit         = "PAST LIMIT" duration_lit .
 
 retention_policy_name = "NAME" identifier .
 
@@ -1370,6 +1349,15 @@ user_name        = identifier .
 
 var_ref          = measurement .
 ```
+
+### Comments
+
+Use comments with InfluxQL statements to describe your queries.
+
+- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+  This comment type cannot span several lines.
+- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+  Multi-line comments do not support nested multi-line comments.
 
 ## Query Engine Internals
 
@@ -1470,7 +1458,7 @@ iterator.
 
 ### Built-in iterators
 
-{{% product-name %}} provides many helper iterators for building queries:
+There are many helper iterators that let us build queries:
 
 - Merge Iterator - This iterator combines one or more iterators into a single
   new iterator of the same type. This iterator guarantees that all points
