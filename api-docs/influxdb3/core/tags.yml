@@ -1,0 +1,100 @@
+tags:
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Core API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+
+  Cache distinct values:
+    description: >
+      Manage the Distinct Value Cache (DVC), an in-memory cache that stores
+      distinct values for specific columns in a table to improve query
+      performance for distinct tag and field value lookups.
+    x-related:
+      - title: Manage the Distinct Value Cache
+        href: /influxdb3/core/admin/distinct-value-cache/
+
+  Cache last value:
+    description: >
+      Manage the Last Value Cache (LVC), an in-memory cache that stores the
+      most recent N values for specific fields in a table to improve query
+      performance for last-value lookups.
+    x-related:
+      - title: Manage the Last Value Cache
+        href: /influxdb3/core/admin/last-value-cache/
+
+  Migrate from InfluxDB v1 or v2:
+    x-traitTag: true
+    description: >
+      Reference information for migrating existing InfluxDB v1 or v2 workloads
+      to InfluxDB 3 Core using compatibility endpoints.
+
+  Database:
+    description: >
+      Create, list, and delete databases in InfluxDB 3 Core.
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/core/admin/databases/
+
+  Headers and parameters:
+    x-traitTag: true
+    description: >
+      Common HTTP request headers and query parameters used by InfluxDB 3 Core
+      API endpoints.
+
+  Processing engine:
+    description: >
+      Manage Processing engine triggers, test plugins, and invoke On Request
+      plugins. The processing engine is an embedded Python VM that runs plugins
+      in response to database events.
+    x-related:
+      - title: Processing engine and Python plugins
+        href: /influxdb3/core/processing-engine/
+
+  Query data:
+    description: >
+      Query data stored in InfluxDB 3 Core using SQL or InfluxQL.
+    x-related:
+      - title: Query data
+        href: /influxdb3/core/query-data/
+
+  Quick start:
+    x-traitTag: true
+    description: >
+      Get started authenticating, writing, and querying data with the
+      InfluxDB 3 Core API.
+
+  Server information:
+    description: >
+      Retrieve server metrics, health status, and version information for
+      InfluxDB 3 Core.
+
+  Table:
+    description: >
+      Manage table schemas in an InfluxDB 3 Core database.
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/core/admin/tables/
+
+  Auth token:
+    description: >
+      Create and manage tokens used for authenticating and authorizing access
+      to InfluxDB 3 Core resources.
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/core/admin/tokens/
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB 3 Core in line protocol format using
+      the v1, v2, or v3 write endpoints.
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/core/write-data/http-api/
+      - title: Line protocol reference
+        href: /influxdb3/core/reference/syntax/line-protocol/

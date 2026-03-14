@@ -1,15 +1,28 @@
 #!/bin/bash
 
+# Generate API reference documentation for all InfluxDB products.
+#
+# Pipeline:
+#   1. post-process-specs.ts  — apply info/servers overlays + tag configs,
+#      write resolved specs to _build/ (source specs are never mutated)
+#   2. generateRedocHtml      — generate Redoc HTML from _build/ specs
+#   3. generate-openapi-articles.js --static-only — copy _build/ specs to
+#      static/openapi/ for download
+#
+# Specs must already be fetched and bundled (via getswagger.sh) before running.
+#
+# Usage:
+#   sh generate-api-docs.sh       # Generate all products
+#   sh generate-api-docs.sh -c    # Only regenerate specs that differ from master
+
 set -e
 
 function showHelp {
-  echo "Usage: generate.sh <options>"
-  echo "Commands:"
-  echo "-c) Regenerate changed files. To save time in development, only regenerates files that differ from the master branch."
-  echo "-h) Show this help message."
+  echo "Usage: generate-api-docs.sh <options>"
+  echo "Options:"
+  echo "  -c  Regenerate only changed files (diff against master)"
+  echo "  -h  Show this help message"
 }
-
-# Get arguments
 
 generate_changed=1
 
@@ -32,158 +45,195 @@ while getopts "hc" opt; do
       showHelp
       exit 22
       ;;
-    esac
+  esac
 done
 
-function generateHtml {
+# ---------------------------------------------------------------------------
+# Step 1: Post-process specs (info/servers overlays + tag configs)
+# ---------------------------------------------------------------------------
+# Writes resolved specs to api-docs/_build/. Source specs are never mutated.
+# Runs from the repo root because post-process-specs reads .config.yml paths
+# relative to the api-docs/ directory.
+
+echo ""
+echo "========================================"
+echo "Step 1: Post-processing specs"
+echo "========================================"
+cd ..
+node api-docs/scripts/dist/post-process-specs.js
+cd api-docs
+
+# ---------------------------------------------------------------------------
+# Step 2: Generate Redoc HTML
+# ---------------------------------------------------------------------------
+# Iterates each product's .config.yml, generates Redoc HTML wrapped in Hugo
+# frontmatter, and writes to content/{product}/api/_index.html.
+# Reads resolved specs from _build/ (written by Step 1).
+
+function generateRedocHtml {
   local specPath="$1"
-  local productVersion="$2"
+  local productDir="$2"
   local productName="$3"
   local api="$4"
   local configPath="$5"
 
-  # Use the product name to define the menu for the Hugo template
-  local menu="$(echo $productVersion | sed 's/\./_/g;s/-/_/g;s/\//_/g;')"
-  # Short version name (for old aliases)
-  # Everything after the last slash
-  local versionDir=$(echo $productVersion | sed 's/.*\///g;')
-  # Extract the API name--for example, "management" from "management@v2".
-  local apiName=$(echo $api | sed 's/@.*//g;')
-  # Extract the API version--for example, "v0" from "management@v0".
-  local apiVersion=$(echo $api | sed 's/.*@//g;')
-  # Use the title and summary defined in the product API's info.yml file.
-  local title=$(yq '.title' $productVersion/$apiName/content/info.yml)
-  local menuTitle=$(yq '.x-influxdata-short-title' $productVersion/$apiName/content/info.yml)
-  # Get the shortened description to use for metadata.
-  local shortDescription=$(yq '.x-influxdata-short-description' $productVersion/$apiName/content/info.yml)
-  # Get the aliases array from the configuration file.
-  local aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
-  # If aliases is null, set it to an empty YAML array. 
+  local menu
+  menu="$(echo "$productDir" | sed 's/\./_/g;s/-/_/g;s/\//_/g;')"
+
+  local apiName
+  apiName=$(echo "$api" | sed 's/@.*//g;')
+
+  # Resolve info.yml from source (not _build/) for Hugo frontmatter metadata.
+  local specDir
+  specDir=$(dirname "$specPath")
+  # Map _build/ path back to source for content file resolution.
+  local sourceSpecDir="${specDir#_build/}"
+  local sourceProductDir="${productDir}"
+  local infoYml=""
+  if [ -f "$sourceSpecDir/content/info.yml" ]; then
+    infoYml="$sourceSpecDir/content/info.yml"
+  elif [ -f "$sourceProductDir/content/info.yml" ]; then
+    infoYml="$sourceProductDir/content/info.yml"
+  fi
+
+  local title
+  title=$(yq '.title' "$infoYml")
+  local menuTitle
+  menuTitle=$(yq '.x-influxdata-short-title' "$infoYml")
+  local shortDescription
+  shortDescription=$(yq '.x-influxdata-short-description' "$infoYml")
+
+  local aliases
+  aliases=$(yq e ".apis | .$api | .x-influxdata-docs-aliases" "$configPath")
   if [[ "$aliases" == "null" ]]; then
     aliases='[]'
   fi
+
   local weight=102
-  if [[ $apiName == "v1-compatibility" ]]; then
-    weight=304
-  fi
-  # Define the file name for the Redoc HTML output.
+
   local specbundle=redoc-static_index.html
-  # Define the temporary file for the Hugo template and Redoc HTML.
-  local tmpfile="${productVersion}-${api}_index.tmp"
+  local tmpfile="${productDir}-${api}_index.tmp"
 
   echo "Bundling $specPath"
 
-  # Use npx to install and run the specified version of redoc-cli.
-  # npm_config_yes=true npx overrides the prompt
-  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
   npx --version && \
-  npm_config_yes=true npx redoc-cli@0.12.3 bundle $specPath \
-  --config $configPath \
-  -t template.hbs \
-  --title="$title" \
-  --options.sortPropsAlphabetically \
-  --options.menuToggle \
-  --options.hideHostname \
-  --options.noAutoAuth \
-  --options.hideDownloadButton \
-  --output=$specbundle \
-  --templateOptions.description="$shortDescription" \
-  --templateOptions.product="$productVersion" \
-  --templateOptions.productName="$productName"
+  npm_config_yes=true npx redoc-cli@0.12.3 bundle "$specPath" \
+    --config "$configPath" \
+    -t template.hbs \
+    --title="$title" \
+    --options.sortPropsAlphabetically \
+    --options.menuToggle \
+    --options.hideHostname \
+    --options.noAutoAuth \
+    --options.hideDownloadButton \
+    --output=$specbundle \
+    --templateOptions.description="$shortDescription" \
+    --templateOptions.product="$productDir" \
+    --templateOptions.productName="$productName"
 
-  local frontmatter=$(yq eval -n \
-      ".title = \"$title\" |
-       .description = \"$shortDescription\" |
-       .layout = \"api\" |
-       .weight = $weight |
-       .menu.[\"$menu\"].parent = \"InfluxDB HTTP API\" |
-       .menu.[\"$menu\"].name = \"$menuTitle\" |
-       .menu.[\"$menu\"].identifier = \"api-reference-$apiName\" |
-      .aliases = \"$aliases\"")
+  local frontmatter
+  frontmatter=$(yq eval -n \
+    ".title = \"$title\" |
+     .description = \"$shortDescription\" |
+     .layout = \"api\" |
+     .weight = $weight |
+     .menu.[\"$menu\"].parent = \"InfluxDB HTTP API\" |
+     .menu.[\"$menu\"].name = \"$menuTitle\" |
+     .menu.[\"$menu\"].identifier = \"api-reference-$apiName\" |
+     .aliases = \"$aliases\"")
 
   frontmatter="---
 $frontmatter
 ---
 "
 
-  # Create the Hugo template file with the frontmatter and Redoc HTML
-  echo "$frontmatter" >> $tmpfile
-  V_LEN_INIT=$(wc -c $tmpfile | awk '{print $1}')
-  cat $specbundle >> $tmpfile
-  V_LEN=$(wc -c $tmpfile | awk '{print $1}')
+  echo "$frontmatter" >> "$tmpfile"
+  V_LEN_INIT=$(wc -c "$tmpfile" | awk '{print $1}')
+  cat $specbundle >> "$tmpfile"
+  V_LEN=$(wc -c "$tmpfile" | awk '{print $1}')
 
-  if ! [[ $V_LEN -gt $V_LEN_INIT  ]]
-  then
+  if ! [[ $V_LEN -gt $V_LEN_INIT ]]; then
     echo "Error: bundle was not appended to $tmpfile"
-    exit $?
+    exit 1
   fi
 
   rm -f $specbundle
-  # Create the directory and move the file.
-  if [ ! -z "$apiName" ]; then
-    mkdir -p ../content/$productVersion/api/$apiName
-    mv $tmpfile ../content/$productVersion/api/$apiName/_index.html
+
+  if [ -n "$apiName" ]; then
+    mkdir -p "../content/$productDir/api/$apiName"
+    mv "$tmpfile" "../content/$productDir/api/$apiName/_index.html"
   else
-    mkdir -p ../content/$productVersion/api
-    mv $tmpfile ../content/$productVersion/api/_index.html
+    mkdir -p "../content/$productDir/api"
+    mv "$tmpfile" "../content/$productDir/api/_index.html"
   fi
 }
 
-# Use a combination of directory names and configuration files to build the API documentation.
-# Each directory represents a product, and each product directory contains a configuration file that defines APIs and their spec file locations.
-function build {
-  local versions
-  versions="$(ls -d -- */* | grep -v 'node_modules' | grep -v 'openapi')"
-  for version in $versions; do
-    # Trim the trailing slash off the directory name
-    local version="${version%/}"
-    # Get the version API configuration file.
-    local configPath="$version/.config.yml"
-    if [ ! -f "$configPath" ]; then
-     # Skip to the next version if the configuration file doesn't exist.
-      continue  
+echo ""
+echo "========================================"
+echo "Step 2: Generating Redoc HTML"
+echo "========================================"
+
+# Iterate product directories that contain a .config.yml.
+for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*' -not -path './_build/*'); do
+  productDir=$(dirname "$configPath")
+  # Strip leading ./
+  productDir="${productDir#./}"
+  configPath="${configPath#./}"
+
+  echo "Using config $productDir $configPath"
+
+  local_product_name=$(yq e '.x-influxdata-product-name' "$configPath")
+  if [[ -z "$local_product_name" ]]; then
+    local_product_name=InfluxDB
+  fi
+
+  apis=$(yq e '.apis | keys | .[]' "$configPath")
+
+  while IFS= read -r api; do
+    echo "======Building $productDir $api======"
+
+    specRootPath=$(yq e ".apis | .$api | .root" "$configPath")
+    # Read resolved spec from _build/ (written by Step 1)
+    specPath="_build/$productDir/$specRootPath"
+
+    if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
+      echo "Resolved spec $specPath doesn't exist. Run Step 1 first. Skipping."
+      continue
     fi
-    echo "Using config $version $configPath"
-    # Get the product name from the configuration.
-    local versionName
-    versionName=$(yq e '.x-influxdata-product-name' "$configPath")
-    if [[ -z "$versionName" ]]; then
-      versionName=InfluxDB
+
+    # If -c flag set, only regenerate specs that differ from master.
+    # Check the source spec (not _build/) for git diff.
+    update=0
+    if [[ $generate_changed == 0 ]]; then
+      sourceSpecPath="$productDir/$specRootPath"
+      diff_result=$(git diff --name-status master -- "${sourceSpecPath}" 2>/dev/null || true)
+      if [[ -z "$diff_result" ]]; then
+        update=1
+      fi
     fi
-    # Get an array of API names (keys) from the configuration file
-    local apis
-    apis=$(yq e '.apis | keys | .[]' "$configPath")
-    # Read each element of the apis array
-    while IFS= read -r api; do
-      echo "======Building $version $api======"
-      # Get the spec file path from the configuration.
-      local specRootPath
-      specRootPath=$(yq e ".apis | .$api | .root" "$configPath")
-      # Check that the YAML spec file exists.
-      local specPath
-      specPath="$version/$specRootPath"
-      if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
-        echo "OpenAPI spec $specPath doesn't exist."
-      fi
 
+    if [[ $update -eq 0 ]]; then
+      echo "Regenerating $productDir $api"
+      generateRedocHtml "$specPath" "$productDir" "$local_product_name" "$api" "$configPath"
+    fi
 
-      # If the spec file differs from master, regenerate the HTML.
-      local update=0
-      if [[ $generate_changed == 0 ]]; then
-        local diff
-        diff=$(git diff --name-status master -- "${specPath}")
-        if [[ -z "$diff" ]]; then
-          update=1
-        fi
-      fi
+    echo -e "========Finished $productDir $api========\n\n"
+  done <<< "$apis"
+done
 
-      if [[ $update -eq 0 ]]; then
-        echo "Regenerating $version $api"
-        generateHtml "$specPath" "$version" "$versionName" "$api" "$configPath"
-      fi
-      echo -e "========Finished $version $api========\n\n"
-    done <<< "$apis"
-  done
-}
+# ---------------------------------------------------------------------------
+# Step 3: Copy specs to static/openapi/ for download
+# ---------------------------------------------------------------------------
 
-build
+echo ""
+echo "========================================"
+echo "Step 3: Copying specs to static/openapi/"
+echo "========================================"
+cd ..
+node api-docs/scripts/dist/generate-openapi-articles.js --static-only
+cd api-docs
+
+echo ""
+echo "========================================"
+echo "Done"
+echo "========================================"

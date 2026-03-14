@@ -1,0 +1,290 @@
+tags:
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB OSS v2 API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+
+  Authorizations (API tokens):
+    description: >
+      Create and manage API token authorizations that grant read and write
+      permissions to InfluxDB OSS v2 organization resources.
+    x-related:
+      - title: Manage API tokens
+        href: /influxdb/v2/security/tokens/
+
+  Authorizations (v1-compatible):
+    description: >
+      Manage v1-compatible legacy authorization credentials in InfluxDB OSS v2.
+
+  Backup:
+    description: >
+      Back up InfluxDB OSS v2 data, including time series data and metadata,
+      for use in restore operations.
+
+  Buckets:
+    description: >
+      Create and manage named storage locations (buckets) in InfluxDB OSS v2,
+      each with a configurable retention period.
+    x-related:
+      - title: Manage buckets
+        href: /influxdb/v2/organizations/buckets/
+
+  Cells:
+    description: >
+      Manage cells within InfluxDB OSS v2 dashboards.
+
+  Checks:
+    description: >
+      Create and manage monitoring checks that query data on a schedule and
+      generate notification statuses in InfluxDB OSS v2.
+
+  Common parameters:
+    x-traitTag: true
+    description: >
+      Common query parameters used by InfluxDB OSS v2 API endpoints, including
+      `bucket`, `bucketID`, `org`, and `orgID`.
+
+  Compatibility endpoints:
+    x-traitTag: true
+    description: >
+      InfluxDB v1-compatible API endpoints for backward compatibility with
+      InfluxDB 1.x clients, tools, and integrations such as Grafana and
+      Telegraf.
+
+  Config:
+    description: >
+      Retrieve configuration information for an InfluxDB OSS v2 instance.
+
+  Dashboards:
+    description: >
+      Create and manage dashboards in InfluxDB OSS v2.
+
+  DBRPs:
+    description: >
+      Manage database and retention policy (DBRP) mappings that route InfluxDB
+      v1-compatible requests to InfluxDB OSS v2 buckets.
+    x-related:
+      - title: Database and retention policy mapping
+        href: /influxdb/v2/reference/api/influxdb-1x/dbrp/
+
+  Debug:
+    description: >
+      Generate Go runtime profiling and trace reports for troubleshooting and
+      performance analysis of an InfluxDB OSS v2 instance.
+
+  Delete:
+    description: >
+      Delete time series data from an InfluxDB OSS v2 bucket by specifying a
+      time range and optional tag predicate.
+
+  Headers:
+    x-traitTag: true
+    description: >
+      Standard HTTP request headers used by InfluxDB OSS v2 API endpoints,
+      including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
+
+  Health:
+    description: >
+      Check the health and readiness of an InfluxDB OSS v2 instance.
+
+  Labels:
+    description: >
+      Create and manage labels for organizing InfluxDB OSS v2 resources such as
+      dashboards, tasks, and buckets.
+
+  Metrics:
+    description: >
+      Retrieve internal metrics for an InfluxDB OSS v2 instance in Prometheus
+      exposition format.
+
+  NotificationEndpoints:
+    description: >
+      Create and manage notification endpoints that receive alert notifications
+      from InfluxDB OSS v2 monitoring checks.
+
+  NotificationRules:
+    description: >
+      Create and manage notification rules that define when and how InfluxDB
+      OSS v2 sends notifications to configured endpoints.
+
+  Organizations:
+    description: >
+      Create and manage InfluxDB OSS v2 organizations, which are workspaces
+      that group users, buckets, and resources.
+    x-related:
+      - title: Manage organizations
+        href: /influxdb/v2/organizations/
+
+  Pagination:
+    x-traitTag: true
+    description: >
+      Query parameters for paginating results from list operations in the
+      InfluxDB OSS v2 API.
+
+  Ping:
+    description: >
+      Check the availability of an InfluxDB OSS v2 instance.
+
+  Query data:
+    description: >
+      Retrieve data, analyze queries, and get query suggestions using the
+      InfluxDB OSS v2 query API.
+    x-related:
+      - title: Query data
+        href: /influxdb/v2/query-data/
+
+  Query data (v1-compatible):
+    description: >
+      Query data in InfluxDB OSS v2 using InfluxQL via the v1-compatible
+      `/query` endpoint.
+
+  Quick start:
+    x-traitTag: true
+    description: >
+      Get started authenticating, writing, and querying data with the InfluxDB
+      OSS v2 API.
+
+  Ready:
+    description: >
+      Check whether an InfluxDB OSS v2 instance is ready to accept requests.
+
+  RemoteConnections:
+    description: >
+      Create and manage remote InfluxDB connections for replicating data from
+      an InfluxDB OSS v2 instance to a remote InfluxDB instance.
+
+  Replications:
+    description: >
+      Create and manage replication streams that copy data from an InfluxDB
+      OSS v2 bucket to a remote InfluxDB instance.
+
+  Resources:
+    description: >
+      Retrieve a list of top-level resource types available in the InfluxDB
+      OSS v2 API.
+
+  Response codes:
+    x-traitTag: true
+    description: >
+      Standard HTTP status codes returned by InfluxDB OSS v2 API endpoints and
+      their meanings.
+
+  Restore:
+    description: >
+      Restore InfluxDB OSS v2 data from a backup, including time series data
+      and metadata.
+
+  Routes:
+    description: >
+      Retrieve top-level routes for the InfluxDB OSS v2 API.
+
+  Rules:
+    description: >
+      Manage notification rules in InfluxDB OSS v2.
+
+  Scraper Targets:
+    description: >
+      Create and manage Prometheus scraper targets that collect metrics and
+      write them to InfluxDB OSS v2 buckets.
+
+  Secrets:
+    description: >
+      Create and manage secrets (key-value pairs) for use in InfluxDB OSS v2
+      Flux scripts and tasks.
+
+  Security and access endpoints:
+    description: >
+      Endpoints for managing authentication and access control in InfluxDB
+      OSS v2.
+
+  Setup:
+    description: >
+      Configure a new InfluxDB OSS v2 instance, including creating the initial
+      user, organization, bucket, and API token.
+    x-related:
+      - title: Set up InfluxDB
+        href: /influxdb/v2/get-started/
+
+  Signin:
+    description: >
+      Create a user session by signing in with username and password
+      credentials.
+
+  Signout:
+    description: >
+      End a user session by signing out.
+
+  Sources:
+    description: >
+      Manage data sources configured in InfluxDB OSS v2.
+
+  Supported operations:
+    x-traitTag: true
+    description: >
+      Overview of the common CRUD operations supported by the InfluxDB OSS v2
+      API.
+
+  System information endpoints:
+    description: >
+      Endpoints for retrieving system-level information about the InfluxDB
+      OSS v2 instance.
+
+  Tasks:
+    description: >
+      Schedule and manage Flux tasks that process and transform data on a
+      recurring basis in InfluxDB OSS v2.
+    x-related:
+      - title: Get started with tasks
+        href: /influxdb/v2/process-data/get-started/
+
+  Telegraf Plugins:
+    description: >
+      Retrieve available Telegraf plugin configuration templates for use with
+      InfluxDB OSS v2.
+
+  Telegrafs:
+    description: >
+      Create and manage Telegraf agent configurations that collect and write
+      data to InfluxDB OSS v2.
+
+  Templates:
+    description: >
+      Export and apply InfluxDB templates, and manage template stacks for
+      InfluxDB OSS v2.
+    x-related:
+      - title: InfluxDB templates
+        href: /influxdb/v2/influxdb-templates/
+
+  Users:
+    description: >
+      Create and manage users that have access to InfluxDB OSS v2 organizations
+      and resources.
+    x-related:
+      - title: Manage users
+        href: /influxdb/v2/users/
+
+  Variables:
+    description: >
+      Create and manage variables for use in InfluxDB OSS v2 dashboards.
+
+  Views:
+    description: >
+      Manage cell views within InfluxDB OSS v2 dashboards.
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB OSS v2 buckets in line protocol format
+      using the `/api/v2/write` endpoint.
+    x-related:
+      - title: Write data
+        href: /influxdb/v2/write-data/
+
+  Write data (v1-compatible):
+    description: >
+      Write data to InfluxDB OSS v2 using the v1-compatible `/write` endpoint
+      with line protocol.

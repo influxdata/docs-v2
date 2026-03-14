@@ -48,6 +48,7 @@
    ```
 
 3. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 4. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for an InfluxDB OSS release
@@ -106,8 +107,8 @@
    # Copy the old version directory to a directory for the new version:
    cp -r v2.2 v2.3
    ```
-   
-8. In your editor, update custom content files in NEW_VERSION/content.
+
+8. In your editor, update custom content files in NEW\_VERSION/content.
 
 9. Enter the following commands into your terminal to fetch and process the contracts:
 
@@ -117,6 +118,7 @@
    ```
 
 10. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 11. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for OSS spec changes between releases
@@ -142,6 +144,8 @@ Follow these steps to update OSS API docs between version releases--for example,
    git cherry-pick [COMMIT_SHAs]
    git push -f origin docs-release/influxdb-oss
 
+   ```
+
 4. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
    ```sh
@@ -165,6 +169,7 @@ Follow these steps to update OSS API docs between version releases--for example,
    ```
 
 7. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+
 8. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Generate InfluxDB API docs
@@ -197,7 +202,7 @@ The script uses `npx` to download and execute the Redocly CLI.
 
    If `npx` returns errors, [download](https://nodejs.org/en/) and run a recent version of the Node.js installer for your OS.
 
-2. To generate API docs for _all_ InfluxDB versions in `./openapi`, enter the following command into your terminal:
+2. To generate API docs for *all* InfluxDB versions in `./openapi`, enter the following command into your terminal:
 
    ```sh
    sh generate-api-docs.sh
@@ -239,9 +244,9 @@ We regenerate API reference docs from `influxdata/openapi`
 
 ### InfluxDB OSS v2 version
 
- Given that
- `influxdata/openapi` **master** may contain OSS spec changes not implemented
- in the current OSS release, we (Docs team) maintain a release branch, `influxdata/openapi`
+Given that
+`influxdata/openapi` **master** may contain OSS spec changes not implemented
+in the current OSS release, we (Docs team) maintain a release branch, `influxdata/openapi`
 **docs-release/influxdb-oss**, used to generate OSS reference docs.
 
 ### How to find the API spec used by an InfluxDB OSS version
@@ -249,7 +254,7 @@ We regenerate API reference docs from `influxdata/openapi`
 `influxdata/openapi` does not version the InfluxData API.
 To find the `influxdata/openapi` commit SHA used in a specific version of InfluxDB OSS,
 see `/scripts/fetch-swagger.sh` in `influxdata/influxdb`--for example,
-for the `influxdata/openapi` commit used in OSS v2.2.0, see https://github.com/influxdata/influxdb/blob/v2.2.0/scripts/fetch-swagger.sh#L13=.
+for the `influxdata/openapi` commit used in OSS v2.2.0, see <https://github.com/influxdata/influxdb/blob/v2.2.0/scripts/fetch-swagger.sh#L13=>.
 For convenience, we tag `influxdata/influxdb` (OSS) release points in `influxdata/openapi` as
 `influxdb-oss-v[OSS_VERSION]`. See <https://github.com/influxdata/openapi/tags>.
 
@@ -281,26 +286,201 @@ To add new YAML files for other nodes in the contracts, follow these steps:
 
 `@redocly/cli` also provides some [built-in decorators](https://redocly.com/docs/cli/decorators/)
 that you can configure in `.redocly` without having to write JavaScript.
+
 ### How to add tag content or describe a group of paths
 
-In API reference docs, we use OpenAPI `tags` elements for navigation,
-the `x-traitTag` vendor extension for providing custom content, and the `x-tagGroups` vendor extension
-for grouping tags in navigation.
+Each product has a `tags.yml` file colocated with its spec that configures tag
+names, descriptions, vendor extensions, and related links.
+The `post-process-specs.ts` script applies these configs to the bundled spec
+before article generation.
 
-| Example                                                                                                | OpenAPI field                                         |                                            |
-|:-------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------------------------------------|
-| [Add supplementary documentation](https://docs.influxdata.com/influxdb/cloud/api/#tag/Quick-start)     | `tags: [ { name: 'Quick start', x-traitTag: true } ]` | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags.yml) |
-| Group tags in navigation                                                                               | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]`   | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-docs/cloud-iox/content/tag-groups.yml)) |
+#### Tag config format (`tags.yml`)
 
-#### Add and update x-tagGroups
+```yaml
+tags:
+  # Operation-backed tag — groups API endpoints
+  Write data:
+    description: >
+      Write time series data to InfluxDB 3 Core in line protocol format using
+      the v1, v2, or v3 write endpoints.
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/core/write-data/http-api/
+      - title: Line protocol reference
+        href: /influxdb3/core/reference/syntax/line-protocol/
 
-Custom `x-tagGroups` configured in
-`PLATFORM/content/tag-groups.yml` override `x-tagGroups` defined in `influxdata/openapi`.
-If you assign a list of tags to the `All endpoints` tag group,
-the decorator applies your list and removes Operations that don't contain
-those tags.
-If you assign an empty array(`[]`) to the `All endpoints` x-tagGroup in `PLATFORM/content/tag-groups.yml`,
-the decorator replaces the empty array with the list of tags from all Operations in the spec.
+  # Trait tag — supplementary documentation, no operations
+  Quick start:
+    x-traitTag: true
+    description: >
+      Get started authenticating, writing, and querying data with the
+      InfluxDB 3 Core API.
+
+  # Rename a tag from the upstream spec
+  Cache data:
+    rename: Cache distinct values
+    description: >
+      Query cached distinct values.
+```
+
+#### Field reference
+
+| Field         | Type    | Description                                                                                                                                                                                            |
+| ------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `description` | string  | Tag description rendered in the API reference. Use `>` (folded scalar) for prose, `\|` (literal scalar) for multiline markdown with links or HTML.                                                     |
+| `x-traitTag`  | boolean | When `true`, marks the tag as supplementary documentation — it appears in the sidebar but has no associated operations. Use for tags like Authentication, Quick start, Headers, and API compatibility. |
+| `x-related`   | list    | Related documentation links rendered below the tag description. Each item has `title` (link text) and `href` (URL path or full URL).                                                                   |
+| `rename`      | string  | Renames the tag in both `tags[]` and all `operation.tags[]` references. Use when the upstream tag name is too generic or doesn't match docs conventions.                                               |
+
+#### Tag categories
+
+**Operation-backed tags** group API endpoints. Every operation in the spec
+has a `tags[]` array; each unique tag name becomes a navigation section.
+These tags need a `description` and usually `x-related` links.
+
+**Trait tags** (`x-traitTag: true`) are supplementary documentation sections
+with no operations. They appear in the sidebar as standalone content pages.
+Common trait tags: Authentication, Quick start, Headers, API compatibility,
+Common parameters, Response codes, Pagination.
+
+#### One tag per operation
+
+Assign exactly **one tag** per operation. Most API documentation UIs don't
+handle multi-tagged operations well — the operation appears in multiple
+navigation sections, which is confusing.
+
+Use `x-compatibility-version` instead of a second tag to mark compatibility
+endpoints. The build pipeline extracts this vendor extension and renders
+version badges in the UI.
+
+```yaml
+# Correct — single tag + compatibility marker
+/api/v2/write:
+  post:
+    summary: Write data (v2 compatible)
+    x-compatibility-version: v2
+    tags:
+      - Write
+
+# Wrong — dual-tagged, appears under both Write and v2 Compatibility
+/api/v2/write:
+  post:
+    summary: Write data (v2 compatible)
+    tags:
+      - v2 Compatibility
+      - Write
+```
+
+For operations that belong purely to a compatibility layer (e.g.,
+`/api/v2/buckets` in a v1 product — no equivalent in the native API),
+use the compatibility tag as the single tag:
+
+```yaml
+/api/v2/buckets:
+  get:
+    summary: List buckets (v2 compatible)
+    x-compatibility-version: v2
+    tags:
+      - v2 Compatibility
+```
+
+**`x-compatibility-version` values:** `v1`, `v2`, or `v3`. The build pipeline
+(`openapi-paths-to-hugo-data/index.ts`) extracts this into `compatVersion`
+in the article frontmatter, which templates use to render version badges.
+
+**Authentication tags** are a special case — they use `|` (literal scalar)
+for the description because they contain a markdown list and
+`<!-- ReDoc-Inject: <security-definitions> -->`, which renders the API's
+security scheme definitions inline. Security scheme anchor names vary by
+product:
+
+| Product family                                          | Scheme anchors                                                                                    |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| v3 (Core, Enterprise, Dedicated, Serverless, Clustered) | `TokenAuthentication`, `BearerAuthentication`, `BasicAuthentication`, `QuerystringAuthentication` |
+| v2 (Cloud, OSS v2)                                      | `TokenAuthentication`, `BasicAuthentication`, `QuerystringAuthentication`                         |
+| v1 (OSS v1, Enterprise v1)                              | `BasicAuth`, `QueryAuth`, `TokenAuth`                                                             |
+
+#### Writing tag descriptions
+
+- Start with a verb phrase describing what the endpoints do
+  (e.g., "Create and manage...", "Write time series data...", "Query data...")
+- Include the full product name on first reference
+  (e.g., "InfluxDB 3 Core", "InfluxDB Cloud", "InfluxDB Enterprise v1")
+- Keep descriptions to 2-3 lines (folded scalar `>` handles wrapping)
+- Don't include documentation links in descriptions — use `x-related` instead
+- For management API tags, don't repeat links that are in the main product's
+  data API tags
+
+#### Content overlay discovery
+
+The post-processor looks for content files in two locations, in order:
+
+1. **Spec directory**: `{specDir}/content/{file}` (e.g., `influxdb3/core/content/info.yml`)
+2. **Product directory fallback**: `{productDir}/content/{file}` (e.g., `influxdb3/core/content/info.yml`)
+
+For products with multiple APIs (e.g., Cloud Dedicated has both data and
+management APIs), the spec-specific directory takes precedence.
+
+| Overlay       | Behavior                                                                                 |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| `info.yml`    | Merges each field into `spec.info`, preserving fields not in the overlay                 |
+| `servers.yml` | Replaces `spec.servers` entirely                                                         |
+| `tags.yml`    | Colocated with spec (not in `content/`). Renames tags, sets descriptions and `x-related` |
+
+#### Reviewing tags across products
+
+When editing tags, check consistency across related products:
+
+- **Core and Enterprise** share the same spec structure — their tags should
+  use parallel descriptions (swap product name only)
+- **Cloud Dedicated and Clustered** share management API tags — keep
+  descriptions and `x-related` links parallel
+- **Cloud v2 and OSS v2** share most tags — Cloud omits a few OSS-only tags
+  (Backup, Restore, Scraper Targets) and adds Cloud-only tags (Limits, Usage,
+  Invokable Scripts)
+- **OSS v1 and Enterprise v1** are similar — Enterprise adds the `consistency`
+  parameter note in Write and cluster-specific language
+
+## Documentation links in OpenAPI specs
+
+Use the `/influxdb/version/` placeholder when including InfluxDB links in OpenAPI spec description and summary fields.
+The build process automatically transforms these placeholders to product-specific paths based on the spec file location.
+
+### Writing links
+
+```yaml
+# In api-docs/influxdb3/core/openapi/ref.yml
+info:
+  description: |
+    See [authentication](/influxdb/version/api/authentication/) for details.
+    Related: [tokens](/influxdb/version/admin/tokens/)
+```
+
+After build, these become:
+
+- `/influxdb3/core/api/authentication/`
+- `/influxdb3/core/admin/tokens/`
+
+### How it works
+
+The product path is derived from the spec file location:
+
+- `api-docs/influxdb3/core/...` → `/influxdb3/core`
+- `api-docs/influxdb3/enterprise/...` → `/influxdb3/enterprise`
+- `api-docs/influxdb/v2/...` → `/influxdb/v2`
+
+Only `description` and `summary` fields are transformed.
+Explicit cross-product links (e.g., `/telegraf/v1/plugins/`) remain unchanged.
+
+### Link validation
+
+Run with the `--validate-links` flag to check for broken links:
+
+```bash
+yarn build:api-docs --validate-links
+```
+
+This validates that transformed links point to existing Hugo content files and warns about any broken links.
 
 ## How to test your spec or API reference changes
 

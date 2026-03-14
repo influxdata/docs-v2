@@ -112,13 +112,49 @@ jobs:
             }
 
   # -----------------------------------------------------------------
-  # Job 3: Copilot visual review (depends on Job 1 for URLs)
+  # Job 3: Clean up stale visual review comment when no pages changed
+  # -----------------------------------------------------------------
+  cleanup-stale-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: resolve-urls
+    if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) == 0
+    steps:
+      - name: Delete stale visual review comment
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const markers = ['<!-- doc-review-visual -->', '<!-- doc-review-visual-timeout -->'];
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            for (const marker of markers) {
+              const stale = comments.find(c => c.body.includes(marker));
+              if (stale) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: stale.id,
+                });
+                core.info(`Deleted stale comment (${marker})`);
+              }
+            }
+
+  # -----------------------------------------------------------------
+  # Job 4: Copilot visual review (depends on Job 1 for URLs)
   # -----------------------------------------------------------------
   copilot-visual-review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+      statuses: read
     needs: resolve-urls
     if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) > 0
     steps:
@@ -130,30 +166,48 @@ jobs:
 
       - name: Wait for preview deployment
         id: wait
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
-        run: |
-          PREVIEW_URL="https://influxdata.github.io/docs-v2/pr-preview/pr-${PR_NUMBER}/"
-          TIMEOUT=600  # 10 minutes
-          INTERVAL=15
-          ELAPSED=0
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        with:
+          script: |
+            const TIMEOUT_MS = 180_000;  // 3 minutes
+            const INTERVAL_MS = 15_000;  // 15 seconds
+            const CONTEXT = 'preview/deploy';
+            const sha = context.sha;
+            const start = Date.now();
 
-          echo "Waiting for preview at ${PREVIEW_URL}"
+            while (Date.now() - start < TIMEOUT_MS) {
+              const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: sha,
+              });
 
-          while [ "$ELAPSED" -lt "$TIMEOUT" ]; do
-            STATUS=$(curl -s -o /dev/null -L -w "%{http_code}" "$PREVIEW_URL" || echo "000")
-            if [ "$STATUS" = "200" ]; then
-              echo "Preview is live"
-              echo "available=true" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            echo "Status: ${STATUS} (${ELAPSED}s / ${TIMEOUT}s)"
-            sleep "$INTERVAL"
-            ELAPSED=$((ELAPSED + INTERVAL))
-          done
+              const status = statuses.find(s => s.context === CONTEXT);
 
-          echo "Preview deployment timed out after ${TIMEOUT}s"
-          echo "available=false" >> "$GITHUB_OUTPUT"
+              if (status) {
+                if (status.state === 'success') {
+                  core.info(`Preview deployed: ${status.target_url}`);
+                  core.setOutput('available', 'true');
+                  core.setOutput('preview-url', status.target_url);
+                  return;
+                }
+                if (status.state === 'failure' || status.state === 'error') {
+                  core.info(`Preview failed: ${status.description}`);
+                  core.setOutput('available', 'false');
+                  core.setOutput('reason', status.description);
+                  return;
+                }
+                core.info(`Preview building... (${Math.round((Date.now() - start) / 1000)}s)`);
+              } else {
+                core.info(`No preview status yet (${Math.round((Date.now() - start) / 1000)}s)`);
+              }
+
+              await new Promise(r => setTimeout(r, INTERVAL_MS));
+            }
+
+            core.info('Preview status check timed out');
+            core.setOutput('available', 'false');
+            core.setOutput('reason', 'Timed out waiting for preview status');
 
       - name: Post visual review request
         if: steps.wait.outputs.available == 'true'
@@ -244,12 +298,14 @@ jobs:
         with:
           script: |
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const reason = '${{ steps.wait.outputs.reason }}' || 'Unknown';
             const marker = '<!-- doc-review-visual-timeout -->';
             const body = [
               marker,
               '## Visual Review Skipped',
               '',
-              'The PR preview deployment did not become available within 10 minutes.',
+              `Reason: ${reason}`,
+              '',
               'Visual review was skipped. The Copilot code review (Job 2) still ran.',
               '',
               'To trigger visual review manually, re-run this workflow after the',

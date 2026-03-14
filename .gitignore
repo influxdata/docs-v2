@@ -14,6 +14,7 @@ package-lock.json
 /content/influxdb*/**/api/**/*.html
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
+/api-docs/_build/
 /helper-scripts/output/*
 /telegraf-build
 !telegraf-build/templates

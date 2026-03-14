@@ -6,11 +6,9 @@ extends:
 x-influxdata-product-name: InfluxDB 3 Serverless
 
 apis:
-  v2@2:
-    root: v2/ref.yml
+  data@2:
+    root: influxdb3-cloud-serverless-openapi.yaml
     x-influxdata-docs-aliases:
       - /influxdb3/cloud-serverless/api/
-  v1-compatibility@2:
-    root: v1-compatibility/swaggerV1Compat.yml
-    x-influxdata-docs-aliases:
       - /influxdb3/cloud-serverless/api/v1/
+      - /influxdb3/cloud-serverless/api/v1-compatibility/

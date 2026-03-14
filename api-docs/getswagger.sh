@@ -3,7 +3,7 @@
 # Use this script to retrieve the following InfluxData API specifications:
 # - the latest, fully resolved openapi (OAS, OpenAPI Specification) contract files from the influxdata/openapi repo
 #
-# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, v1-compatibility, all).
+# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -62,7 +62,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|oss-v1|enterprise-v1|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -139,7 +139,7 @@ function postProcess() {
 }
 
  function updateCloudV2 {
-  outFile="influxdb/cloud/v2/ref.yml"
+  outFile="influxdb/cloud/influxdb-cloud-v2-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -162,29 +162,31 @@ function updateCloudDedicatedManagement {
     cp "$tmp_dir/openapi.yaml" "$outFile"
     rm -rf "$tmp_dir"
   fi
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' management@0
+  # Skip Redocly postProcess — management specs are self-contained and
+  # Redocly bundle collapses $ref chains, producing unwanted diff.
+  # Content overlays (info.yml, servers.yml) are applied by post-process-specs.ts.
 }
 
 function updateCloudDedicatedV2 {
-  outFile="influxdb3/cloud-dedicated/v2/ref.yml"
+  outFile="influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' v2@2
+ postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' data@2
 }
 
 function updateCloudServerlessV2 {
-  outFile="influxdb3/cloud-serverless/v2/ref.yml"
+  outFile="influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
+  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' data@2
 }
 
 function updateClusteredManagement {
@@ -200,22 +202,22 @@ function updateClusteredManagement {
     cp "$tmp_dir/openapi.yaml" "$outFile"
     rm -rf "$tmp_dir"
   fi
-  postProcess $outFile 'influxdb3/clustered/.config.yml' management@0
+  # Skip Redocly postProcess — same rationale as updateCloudDedicatedManagement.
 }
 
 function updateClusteredV2 {
-  outFile="influxdb3/clustered/v2/ref.yml"
+  outFile="influxdb3/clustered/influxdb3-clustered-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
   else
     curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   fi
- postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
+ postProcess $outFile 'influxdb3/clustered/.config.yml' data@2
 }
 
 function updateCoreV3 {
-  outFile="influxdb3/core/v3/ref.yml"
+  outFile="influxdb3/core/influxdb3-core-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -227,7 +229,7 @@ function updateCoreV3 {
 }
 
 function updateEnterpriseV3 {
-  outFile="influxdb3/enterprise/v3/ref.yml"
+  outFile="influxdb3/enterprise/influxdb3-enterprise-openapi.yaml"
   if [[ -z "$baseUrl" ]];
   then
     echo "Using existing $outFile"
@@ -239,7 +241,7 @@ function updateEnterpriseV3 {
 }
 
 function updateOSSV2 {
-  outFile="influxdb/v2/v2/ref.yml"
+  outFile="influxdb/v2/influxdb-oss-v2-openapi.yaml"
   if [[ -z "$baseUrlOSS" ]];
   then
     echo "Using existing $outFile"
@@ -249,28 +251,16 @@ function updateOSSV2 {
   postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
 }
 
-function updateV1Compat {
-  outFile="influxdb/cloud/v1-compatibility/swaggerV1Compat.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' 'v1-compatibility'
+function updateOSSV1 {
+  outFile="influxdb/v1/influxdb-oss-v1-openapi.yaml"
+  echo "Processing $outFile with decorators"
+  postProcess $outFile 'influxdb/v1/.config.yml' 'v1@1'
+}
 
-  outFile="influxdb/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp influxdb/cloud/v1-compatibility/swaggerV1Compat.yml $outFile
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/clustered/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/clustered/.config.yml' 'v1-compatibility'
+function updateEnterpriseV1 {
+  outFile="enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml"
+  echo "Processing $outFile with decorators"
+  postProcess $outFile 'enterprise_influxdb/v1/.config.yml' 'v1@1'
 }
 
 UPDATE_OPTIONS="--fail"
@@ -309,9 +299,12 @@ then
 elif [ "$product" = "v2" ];
 then
   updateOSSV2
-elif [ "$product" = "v1-compat" ];
+elif [ "$product" = "oss-v1" ];
 then
-  updateV1Compat
+  updateOSSV1
+elif [ "$product" = "enterprise-v1" ];
+then
+  updateEnterpriseV1
 elif [ "$product" = "all" ];
 then
   updateCloudV2
@@ -322,8 +315,9 @@ then
   updateCoreV3
   updateEnterpriseV3
   updateOSSV2
-  updateV1Compat
+  updateOSSV1
+  updateEnterpriseV1
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, oss-v1, enterprise-v1, or all."
   showHelp
 fi

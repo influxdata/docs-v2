@@ -1,0 +1,77 @@
+tags:
+  API compatibility:
+    x-traitTag: true
+    description: >
+      Overview of the InfluxDB v1 and v2 compatible write and query endpoints
+      available in InfluxDB 3 Cloud Dedicated.
+
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Cloud Dedicated API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+
+  Common parameters:
+    x-traitTag: true
+    description: >
+      Common query parameters used by InfluxDB 3 Cloud Dedicated API endpoints,
+      including the required `database` or `db` parameter.
+
+  Headers:
+    x-traitTag: true
+    description: >
+      Standard HTTP request headers used by InfluxDB 3 Cloud Dedicated API
+      endpoints, including `Accept`, `Authorization`, `Content-Length`, and
+      `Content-Type`.
+
+  Ping:
+    description: >
+      Check the availability of the InfluxDB 3 Cloud Dedicated instance.
+
+  Query data:
+    description: >
+      Query data stored in InfluxDB 3 Cloud Dedicated using InfluxQL via the
+      v1-compatible `/query` endpoint. Use Flight+gRPC for SQL or InfluxQL
+      queries with Arrow format output.
+    x-related:
+      - title: Get started querying InfluxDB
+        href: /influxdb3/cloud-dedicated/get-started/query/
+      - title: Execute queries
+        href: /influxdb3/cloud-dedicated/query-data/execute-queries/
+
+  Quick start:
+    x-traitTag: true
+    description: >
+      Get started authenticating, creating a database, and writing and querying
+      data with the InfluxDB 3 Cloud Dedicated API.
+
+  Response codes:
+    x-traitTag: true
+    description: >
+      Standard HTTP status codes returned by InfluxDB 3 Cloud Dedicated API
+      endpoints and their meanings.
+
+  System information endpoints:
+    x-traitTag: true
+    description: >
+      Endpoints for retrieving system-level information about the InfluxDB 3
+      Cloud Dedicated instance.
+
+  Usage:
+    x-traitTag: true
+    description: >
+      Retrieve usage metrics for an InfluxDB 3 Cloud Dedicated instance.
+
+  Write data:
+    description: >
+      Write time series data to InfluxDB 3 Cloud Dedicated databases using the
+      v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write`
+      endpoint with line protocol.
+    x-related:
+      - title: Write data
+        href: /influxdb3/cloud-dedicated/write-data/
