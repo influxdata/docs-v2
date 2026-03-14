@@ -70,7 +70,7 @@ the CQ has no `FOR` clause.
 #### 1. Create the database
 
 ```sql
-> CREATE DATABASE "food_data"
+CREATE DATABASE "food_data"
 ```
 
 #### 2. Create a two-hour `DEFAULT` retention policy
@@ -85,7 +85,7 @@ Use the
 statement to create a `DEFAULT` RP:
 
 ```sql
-> CREATE RETENTION POLICY "two_hours" ON "food_data" DURATION 2h REPLICATION 1 DEFAULT
+CREATE RETENTION POLICY "two_hours" ON "food_data" DURATION 2h REPLICATION 1 DEFAULT
 ```
 
 That query creates an RP called `two_hours` that exists in the database
@@ -116,7 +116,7 @@ Use the
 statement to create a non-`DEFAULT` retention policy:
 
 ```sql
-> CREATE RETENTION POLICY "a_year" ON "food_data" DURATION 52w REPLICATION 1
+CREATE RETENTION POLICY "a_year" ON "food_data" DURATION 52w REPLICATION 1
 ```
 
 That query creates a retention policy (RP) called `a_year` that exists in the database

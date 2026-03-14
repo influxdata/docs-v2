@@ -63,8 +63,8 @@ digits, or underscores and do not begin with a digit.
 Throughout this guide, we'll use the database name `mydb`:
 
 ```sql
-> CREATE DATABASE mydb
->
+CREATE DATABASE mydb
+
 ```
 
 > **Note:** After hitting enter, a new prompt appears and nothing else is displayed.
@@ -141,8 +141,8 @@ temperature,machine=unit42,type=assembly external=25,internal=37 143406746700000
 To insert a single time series data point into InfluxDB using the CLI, enter `INSERT` followed by a point:
 
 ```sql
-> INSERT cpu,host=serverA,region=us_west value=0.64
->
+INSERT cpu,host=serverA,region=us_west value=0.64
+
 ```
 
 A point with the measurement name of `cpu` and tags `host` and `region` has now been written to the database, with the measured `value` of `0.64`.
@@ -166,8 +166,8 @@ That means your timestamp will be different.
 Let's try storing another type of data, with two fields in the same measurement:
 
 ```sql
-> INSERT temperature,machine=unit42,type=assembly external=25,internal=37
->
+INSERT temperature,machine=unit42,type=assembly external=25,internal=37
+
 ```
 
 To return all fields and tags with a query, you can use the `*` operator:

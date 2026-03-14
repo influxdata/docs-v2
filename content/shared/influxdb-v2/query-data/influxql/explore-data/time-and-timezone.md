@@ -385,7 +385,7 @@ a `GROUP BY time()` clause must provide an alternative upper bound in the
 Use the [CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/) to write a point to the `noaa` database that occurs after `now()`:
 
 ```sql
-> INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
+INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
 ```
 
 Run a `GROUP BY time()` query that covers data with timestamps between

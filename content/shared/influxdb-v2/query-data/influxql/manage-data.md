@@ -44,8 +44,8 @@ INSERT INTO mydb example-m,tag1=value1 field1=1i 1640995200000000000
 The following example uses the [InfluxQL shell](/influxdb/version/tools/influxql-shell).
 
 ```sql
-> USE mydb
-> INSERT example-m,tag1=value1 field1=1i 1640995200000000000
+USE mydb
+INSERT example-m,tag1=value1 field1=1i 1640995200000000000
 ```
 
 ## Delete series with DELETE

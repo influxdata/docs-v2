@@ -331,7 +331,7 @@ Executes the specified `SELECT` statement and returns data about the query perfo
 For example, if you execute the following statement:
 
 ```sql
-> explain analyze select mean(usage_steal) from cpu where time >= '2018-02-22T00:00:00Z' and time < '2018-02-22T12:00:00Z'
+explain analyze select mean(usage_steal) from cpu where time >= '2018-02-22T00:00:00Z' and time < '2018-02-22T12:00:00Z'
 ```
 
 The output is similar to the following:
