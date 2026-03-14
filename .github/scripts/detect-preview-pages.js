@@ -221,17 +221,11 @@ function main() {
       console.log(`   Found ${prUrls.length} URLs in PR description`);
       // Merge with content pages (deduplicate)
       pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
-<<<<<<< api-docs-uplift
-    } else if (changes.content.length === 0 && pagesToDeploy.length === 0) {
-      // No content changes, no auto-detected pages, and no URLs specified - need author input
-      console.log('   ⚠️  No URLs found in PR description - author input needed');
-=======
     } else if (pagesToDeploy.length === 0) {
       // No content changes, no auto-detected pages, and no URLs specified - need author input
       console.log(
         '   ⚠️  No URLs found in PR description - author input needed'
       );
->>>>>>> master
       setOutput('pages-to-deploy', '[]');
       setOutput('has-layout-changes', 'true');
       setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
