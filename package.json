@@ -73,6 +73,7 @@
     "docs:audit": "node scripts/docs-cli/docs-cli.js audit",
     "docs:release-notes": "node scripts/docs-cli/docs-cli.js release-notes",
     "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
+    "build:api-docs:scripts": "tsc --project api-docs/scripts/tsconfig.json",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",

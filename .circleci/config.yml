@@ -28,7 +28,7 @@ jobs:
           command: cd api-docs && yarn install
       - run:
           name: Build API documentation scripts
-          command: npx tsc --project api-docs/scripts/tsconfig.json
+          command: yarn build:api-docs:scripts
       - run:
           name: Generate API documentation
           command: cd api-docs && bash generate-api-docs.sh

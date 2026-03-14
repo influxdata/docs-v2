@@ -122,7 +122,9 @@ function detectApiPages(apiDocFiles) {
         pages.add(urlPath);
       }
     } catch (err) {
-      console.log(`  ⚠️  Could not read or parse ${configPath}: ${err.message}`);
+      console.log(
+        `  ⚠️  Could not read or parse ${configPath}: ${err.message}`
+      );
     }
   }
 
@@ -187,10 +189,14 @@ function main() {
 
   // Strategy 2: API doc changes - auto-detect affected API pages
   if (changes.apiDocs.length > 0) {
-    console.log('📋 API doc changes detected, auto-detecting affected pages...');
+    console.log(
+      '📋 API doc changes detected, auto-detecting affected pages...'
+    );
     const apiPages = detectApiPages(changes.apiDocs);
     if (apiPages.length > 0) {
-      console.log(`   Found ${apiPages.length} affected API page(s): ${apiPages.join(', ')}`);
+      console.log(
+        `   Found ${apiPages.length} affected API page(s): ${apiPages.join(', ')}`
+      );
       pagesToDeploy = [...new Set([...pagesToDeploy, ...apiPages])];
     }
   }
