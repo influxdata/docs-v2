@@ -1332,6 +1332,8 @@ retention_policy = identifier .
 retention_policy_option      = retention_policy_duration |
                                retention_policy_replication |
                                retention_policy_shard_group_duration |
+                               retention_future_limit |
+                               retention_past_limit |
                                "DEFAULT" .
 
 retention_policy_duration    = "DURATION" duration_lit .
@@ -1339,6 +1341,10 @@ retention_policy_duration    = "DURATION" duration_lit .
 retention_policy_replication = "REPLICATION" int_lit .
 
 retention_policy_shard_group_duration = "SHARD DURATION" duration_lit .
+
+retention_future_limit       = "FUTURE LIMIT" duration_lit .
+
+retention_past_limit         = "PAST LIMIT" duration_lit .
 
 retention_policy_name = "NAME" identifier .
 
