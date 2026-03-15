@@ -5,50 +5,28 @@
   Links point to tag pages with hash anchors (e.g., /api/cache-data/#operation/PostConfigureDistinctCache)
   Excludes conceptual/trait tag operations.
 
-  Uses data from:
-  - data/article_data/influxdb/{product}/articles.yml
+  Uses frontmatter params:
+  - articleDataKey: product data key (e.g., 'influxdb3-core')
+  - articleSection: section slug (e.g., 'api' or 'management-api')
 */}}
 {{ $currentPage := . }}
 
-{{/* Extract product and version from URL */}}
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $version := index $productPathData 1 }}
+{{/* Read data key and section from frontmatter */}}
+{{ $dataKey := .Params.articleDataKey | default "" }}
+{{ $section := .Params.articleSection | default "" }}
 
-{{/* Build data key for article data lookup */}}
-{{ $dataKey := "" }}
-{{ if eq $product "influxdb3" }}
-  {{/* Core and Enterprise use influxdb3_ prefix; cloud-* and clustered don't */}}
-  {{ if or (eq $version "core") (eq $version "enterprise") }}
-    {{ $dataKey = print "influxdb3_" $version }}
-  {{ else }}
-    {{ $dataKey = $version }}
-  {{ end }}
-{{ else if eq $product "influxdb" }}
-  {{/* Map URL versions to data directory names */}}
-  {{ if eq $version "v2" }}
-    {{ $dataKey = "oss-v2" }}
-  {{ else if eq $version "cloud" }}
-    {{ $dataKey = "cloud-v2" }}
-  {{ else if eq $version "v1" }}
-    {{ $dataKey = "oss-v1" }}
-  {{ else }}
-    {{ $dataKey = $version }}
-  {{ end }}
-{{ else if eq $product "enterprise_influxdb" }}
-  {{ $dataKey = print "enterprise-" $version }}
-{{ else }}
-  {{ $dataKey = $product }}
-{{ end }}
-
-{{/* Get article data for this product */}}
+{{/* Get article data using frontmatter-driven lookup */}}
 {{ $articles := slice }}
-{{ with site.Data.article_data }}
-  {{ with index . "influxdb" }}
-    {{ with index . $dataKey }}
-      {{ with index . "articles" }}
-        {{ with .articles }}
-          {{ $articles = . }}
+{{ if and $dataKey $section }}
+  {{ with site.Data.article_data }}
+    {{ with index . "influxdb" }}
+      {{ with index . $dataKey }}
+        {{ with index . $section }}
+          {{ with index . "articles" }}
+            {{ with .articles }}
+              {{ $articles = . }}
+            {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -144,7 +122,10 @@
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
         {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
+        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
+        {{ $tagSlug := path.Base $articlePath }}
+        {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
@@ -165,7 +146,10 @@
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
         {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
+        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
+        {{ $tagSlug := path.Base $articlePath }}
+        {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
@@ -187,7 +171,10 @@
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
         {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
+        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
+        {{ $tagSlug := path.Base $articlePath }}
+        {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>
@@ -215,7 +202,10 @@
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
         {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{ $tagPageUrl := printf "/%s/%s/%s/" $product $version $articlePath }}
+        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
+        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
+        {{ $tagSlug := path.Base $articlePath }}
+        {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
       <a href="{{ $tagPageUrl }}{{ $hashAnchor | safeURL }}" class="api-operation-card">
         <span class="api-method api-method--{{ lower $op.method }}">{{ upper $op.method }}</span>

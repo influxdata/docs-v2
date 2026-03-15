@@ -19,36 +19,15 @@ const fakeGoogleTagManager = {
 };
 
 describe('API reference content', () => {
+  // API section index pages (generated from article data)
   const subjects = [
-    '/influxdb/cloud/api/',
-    '/influxdb/cloud/api/v1/',
-    '/influxdb/cloud/api/v1-compatibility/',
-    '/influxdb/cloud/api/v2/',
-
-    '/influxdb/v2/api/',
-    '/influxdb/v2/api/v1/',
-    '/influxdb/v2/api/v1-compatibility/',
-    '/influxdb/v2/api/v2/',
-
-    '/influxdb3/cloud-dedicated/api/',
-    '/influxdb3/cloud-dedicated/api/management/',
-    '/influxdb3/cloud-dedicated/api/v1/',
-    '/influxdb3/cloud-dedicated/api/v1-compatibility/',
-    '/influxdb3/cloud-dedicated/api/v2/',
-
-    '/influxdb3/cloud-serverless/api/',
-    '/influxdb3/cloud-serverless/api/v1/',
-    '/influxdb3/cloud-serverless/api/v1-compatibility/',
-    '/influxdb3/cloud-serverless/api/v2/',
-
-    '/influxdb3/clustered/api/',
-    // TODO '/influxdb3/clustered/api/management/',
-    '/influxdb3/clustered/api/v1/',
-    '/influxdb3/clustered/api/v1-compatibility/',
-    '/influxdb3/clustered/api/v2/',
-
     '/influxdb3/core/api/',
     '/influxdb3/enterprise/api/',
+    '/influxdb3/cloud-dedicated/api/',
+    '/influxdb3/cloud-serverless/api/',
+    '/influxdb3/clustered/api/',
+    '/influxdb/cloud/api/',
+    '/influxdb/v2/api/',
   ];
 
   subjects.forEach((subject) => {
@@ -360,6 +339,51 @@ describe('All endpoints page', () => {
         // Then navigate to All endpoints
         cy.get('.sidebar a').contains('All endpoints').click();
         cy.url().should('include', '/all-endpoints/');
+      });
+    });
+  });
+});
+
+/**
+ * API Download Button Tests
+ * Tests that each tag page has a download button linking to the correct spec
+ */
+describe('API spec download buttons', () => {
+  const downloadTests = [
+    {
+      page: '/influxdb3/core/api/write-data/',
+      specPath: '/openapi/influxdb3-core.yml',
+    },
+    {
+      page: '/influxdb3/enterprise/api/write-data/',
+      specPath: '/openapi/influxdb3-enterprise.yml',
+    },
+  ];
+
+  downloadTests.forEach(({ page, specPath }) => {
+    describe(`Download button on ${page}`, () => {
+      beforeEach(() => {
+        cy.intercept('GET', '**', (req) => {
+          req.continue((res) => {
+            if (res.headers['content-type']?.includes('text/html')) {
+              res.body = res.body.replace(
+                /data-user-analytics-fingerprint-enabled="true"/,
+                'data-user-analytics-fingerprint-enabled="false"'
+              );
+            }
+          });
+        });
+        cy.visit(page);
+      });
+
+      it('has a download button', () => {
+        cy.get('.api-spec-download').should('exist');
+      });
+
+      it(`download button links to ${specPath}`, () => {
+        cy.get('.api-spec-download')
+          .should('have.attr', 'href', specPath)
+          .and('have.attr', 'download');
       });
     });
   });

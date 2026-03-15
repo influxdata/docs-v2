@@ -1,17 +1,9 @@
-{{/* API Documentation Layout Handles two cases: 1. Section index (no 'tag'
-param) - shows list of tag pages from article data 2. Tag pages (has 'tag'
-param) - shows all operations for the tag using Hugo-native templates.
-For conceptual pages (isConceptual: true), shows content without operations. */}}
-
-{{/* Extract product and version from URL path for download buttons */}}
-{{/* Example: /influxdb3/clustered/api/ → ["", "influxdb3", "clustered", "api", ""] */}}
-{{ $pathParts := split .RelPermalink "/" }}
-{{ $product := "" }}
-{{ $version := "" }}
-{{ if ge (len $pathParts) 3 }}
-  {{ $product = index $pathParts 1 }}
-  {{ $version = index $pathParts 2 }}
-{{ end }}
+{{/* API Documentation Layout
+  Two modes:
+  1. Section index (no 'tag' param) - lists tag pages from article data
+  2. Tag page (has 'tag' param) - shows operations via Hugo-native templates
+  Conceptual pages (isConceptual: true) show content without operations.
+*/}}
 
 <!-- USING_API_LIST_HTML_TEMPLATE -->
 {{ partial "header.html" . }} {{ partial "topnav.html" . }}
@@ -24,91 +16,40 @@ For conceptual pages (isConceptual: true), shows content without operations. */}
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
           <h1 class="article--title">{{ .Title }}</h1>
-          {{/* Only show description in header for section index pages, not tag
-          pages */}} {{/* Tag pages show their full description in the Overview
-          section below */}} {{ if not (isset .Params "tag") }} {{ with
-          .Description }}
-          <p class="article--description">{{ . }}</p>
-          {{ end }} {{ end }}
+          {{/* Only show description in header for section index pages */}}
+          {{ if not (isset .Params "tag") }}
+            {{ with .Description }}
+            <p class="article--description">{{ . }}</p>
+            {{ end }}
+          {{ end }}
         </header>
 
-        {{/* Check if this is a section index (no tag param) or a tag page */}}
-        {{ $hasTag := isset .Params "tag" }} {{ if not $hasTag }} {{/* SECTION
-        INDEX - Show intro content then tag-based children */}}
-
-        {{/* Dual download buttons for Clustered and Cloud Dedicated */}}
-        {{ if or (eq $version "clustered") (eq $version "cloud-dedicated") }}
-        <div class="api-spec-actions api-spec-actions--dual">
-          <a href="/openapi/influxdb-{{ $version }}-v2-data-api.yml" class="btn api-spec-download" download>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
-              <path d="M1 14h14v2H1v-2z"/>
-            </svg>
-            Download Data API Spec
-          </a>
-          <a href="/openapi/influxdb-{{ $version }}-management-api.yml" class="btn api-spec-download" download>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
-              <path d="M1 14h14v2H1v-2z"/>
-            </svg>
-            Download Management API Spec
-          </a>
-        </div>
-        {{ end }}
+        {{ $hasTag := isset .Params "tag" }}
+        {{ if not $hasTag }}
+        {{/* SECTION INDEX - Show intro content then tag-based children */}}
 
         {{ with .Content }}
         <section class="api-section-content">{{ . }}</section>
-        {{ end }} {{/* Always show tag pages from article data */}} {{ partial
-        "api/section-children.html" . }} {{ else }} {{/* TAG PAGE - Show
-        operations or conceptual content */}} {{ $isConceptual :=
-        .Params.isConceptual | default false }} {{ if $isConceptual }} {{/*
-        Conceptual Page - Show content directly */}}
+        {{ end }}
+        {{ partial "api/section-children.html" . }}
+
+        {{ else }}
+        {{/* TAG PAGE - Show operations or conceptual content */}}
+        {{ $isConceptual := .Params.isConceptual | default false }}
+        {{ if $isConceptual }}
         <section class="api-conceptual-content">
-          {{ with .Content }} {{ . }} {{ else }} {{ with .Params.tagDescription
-          }} {{ . | markdownify }} {{ end }} {{ end }}
+          {{ with .Content }} {{ . }} {{ else }}
+            {{ with .Params.tagDescription }}{{ . | markdownify }}{{ end }}
+          {{ end }}
         </section>
 
-        {{ else }} {{/* Operational Page - Show all operations */}}
-
-        {{/* Download OpenAPI spec button - context-aware for Clustered/Cloud Dedicated */}}
-        {{ with .Params.staticFilePath }}
-        {{/* Extract product name from path like /openapi/influxdb-oss-v2/tags/... */}}
-        {{ $productName := replaceRE `^/openapi/([^/]+)/.*$` "$1" . }}
-
-        {{/* Check if this is a dual-API product (Clustered or Cloud Dedicated) */}}
-        {{ $isDualApi := or (strings.Contains $productName "clustered") (strings.Contains $productName "cloud-dedicated") }}
-
-        {{ if $isDualApi }}
-        {{/* Determine API type from path */}}
-        {{ $isManagementApi := strings.Contains . "management-api" }}
-        {{ if $isManagementApi }}
-        {{ $specPath := printf "/openapi/%s-management-api.yml" $productName }}
-        <div class="api-spec-actions">
-          <a href="{{ $specPath }}" class="btn api-spec-download" download>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
-              <path d="M1 14h14v2H1v-2z"/>
-            </svg>
-            Download Management API Spec
-          </a>
-        </div>
         {{ else }}
-        {{ $specPath := printf "/openapi/%s-v2-data-api.yml" $productName }}
+        {{/* Operational Page - Show all operations */}}
+
+        {{/* Download OpenAPI spec button — uses specDownloadPath from frontmatter */}}
+        {{ with .Params.specDownloadPath }}
         <div class="api-spec-actions">
-          <a href="{{ $specPath }}" class="btn api-spec-download" download>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-              <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
-              <path d="M1 14h14v2H1v-2z"/>
-            </svg>
-            Download Data API Spec
-          </a>
-        </div>
-        {{ end }}
-        {{ else }}
-        {{/* Single-spec products - existing behavior */}}
-        {{ $completeSpecPath := printf "/openapi/%s.yml" $productName }}
-        <div class="api-spec-actions">
-          <a href="{{ $completeSpecPath }}" class="btn api-spec-download" download>
+          <a href="{{ . }}" class="btn api-spec-download" download>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
               <path d="M1 14h14v2H1v-2z"/>
@@ -116,7 +57,6 @@ For conceptual pages (isConceptual: true), shows content without operations. */}
             Download OpenAPI Spec
           </a>
         </div>
-        {{ end }}
         {{ end }}
 
         {{/* Hugo page content if any (for custom intro content) */}}
@@ -257,23 +197,4 @@ For conceptual pages (isConceptual: true), shows content without operations. */}
     }
   }
 
-  /* Dual download buttons container for Clustered/Cloud Dedicated */
-  .api-spec-actions--dual {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 1rem 0;
-  }
-
-  /* Responsive - stack buttons on smaller screens */
-  @media (max-width: 600px) {
-    .api-spec-actions--dual {
-      flex-direction: column;
-    }
-
-    .api-spec-actions--dual .api-spec-download {
-      width: 100%;
-      justify-content: center;
-    }
-  }
 </style>
