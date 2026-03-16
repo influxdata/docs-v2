@@ -1130,7 +1130,7 @@ paths:
 
         - Before adding a label to a bucket, you must create the label if you
           haven't already. To create a label with the InfluxDB API, send a `POST`
-          request to the `/api/v2/labels` endpoint).
+          request to the `/api/v2/labels` endpoint.
 
         #### Related guides
 
@@ -1467,7 +1467,7 @@ paths:
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations`) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations` to assign resource permissions; doesn't use `owner` and `member` roles.
 
 
         #### Limitations
@@ -1484,7 +1484,7 @@ paths:
 
         #### Related endpoints
 
-        - Authorizations)
+        - Authorizations (API tokens)
       operationId: GetBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -1542,7 +1542,7 @@ paths:
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations`) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations` to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -1557,7 +1557,7 @@ paths:
 
         #### Related endpoints
 
-        - Authorizations)
+        - Authorizations (API tokens)
 
         #### Related guides
 
@@ -1640,7 +1640,7 @@ paths:
 
         Use this endpoint to remove a user's `owner` role for a bucket.
 
-        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations`) to assign resource permissions; doesn't use `owner` and `member` roles.
+        InfluxDB 3 Cloud Serverless uses `/api/v2/authorizations` to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -1656,7 +1656,7 @@ paths:
 
         #### Related endpoints
 
-        - Authorizations)
+        - Authorizations (API tokens)
 
         #### Related guides
 
@@ -3045,7 +3045,7 @@ paths:
         Lists all users that belong to an organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: GetOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3118,7 +3118,7 @@ paths:
         Add a user to an organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: PostOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3195,7 +3195,7 @@ paths:
         Removes a member from an organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: DeleteOrgsIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3237,7 +3237,7 @@ paths:
         Lists all owners of an organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: GetOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3287,7 +3287,7 @@ paths:
         Adds an owner to an organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: PostOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -3357,7 +3357,7 @@ paths:
         the organization.
 
         InfluxDB 3 Cloud Serverless doesn't use `owner` and `member` roles.
-        Use `/api/v2/authorizations`) to manage resource permissions.
+        Use `/api/v2/authorizations` to manage resource permissions.
       operationId: DeleteOrgsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -5562,7 +5562,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
 
   # Lists all users that have the `member` role for the specified [task](/influxdb3/cloud-serverless/reference/glossary/#task).
   # operationId: GetTasksIDMembers
@@ -5596,7 +5596,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
 
   # Adds a user to members of a task and returns the member.
   # operationId: PostTasksIDMembers
@@ -5636,7 +5636,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
 
   # Removes a member from a [task](/influxdb3/cloud-serverless/reference/glossary/#task).
   # operationId: DeleteTasksIDMembersID
@@ -5671,7 +5671,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
 
   # Retrieves all users that have owner permission for a task.
   # operationId: GetTasksIDOwners
@@ -5723,7 +5723,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
 
   # Assigns a task `owner` role to a user.
 
@@ -5796,7 +5796,7 @@ paths:
   # deprecated: true
   # description: |
   # **Deprecated**: Tasks don't use `owner` and `member` roles.
-  # Use `/api/v2/authorizations`) to assign user permissions.
+  # Use `/api/v2/authorizations` to assign user permissions.
   # operationId: DeleteTasksIDOwnersID
   # parameters:
   # - $ref: '#/components/parameters/TraceSpan'
