@@ -222,15 +222,17 @@ for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -
 done
 
 # ---------------------------------------------------------------------------
-# Step 3: Copy specs to static/openapi/ for download
+# Step 3: Generate Hugo-native article data and content pages
 # ---------------------------------------------------------------------------
+# Discovers products from .config.yml, processes specs from _build/,
+# generates tag-based article data and Hugo content pages.
 
 echo ""
 echo "========================================"
-echo "Step 3: Copying specs to static/openapi/"
+echo "Step 3: Generating article data and pages"
 echo "========================================"
 cd ..
-node api-docs/scripts/dist/generate-openapi-articles.js --static-only
+node api-docs/scripts/dist/generate-openapi-articles.js --skip-fetch
 cd api-docs
 
 echo ""

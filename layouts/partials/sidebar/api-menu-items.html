@@ -1,0 +1,102 @@
+{{/*
+  API Reference Menu Items for Hugo Navigation
+
+  Generates <li class="nav-item"> elements matching Hugo's menu structure.
+  Used by nested-menu.html when rendering "InfluxDB HTTP API" menu item.
+
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Parameters:
+  - page: Current page context
+  - url: URL of the API parent page (e.g., /influxdb3/core/api/)
+  - siteData: site.Data reference
+
+  Uses frontmatter params from generated pages:
+  - articleDataKey: product data key (e.g., 'influxdb3-core')
+  - articleSection: section slug (e.g., 'api' or 'management-api')
+
+  Data path: data/article_data/influxdb/{articleDataKey}/{articleSection}/articles.yml
+*/}}
+
+{{ $currentPage := .page }}
+{{ $apiUrl := .url }}
+{{ $siteData := .siteData }}
+
+{{/* Look up the API section page to get frontmatter params */}}
+{{ $apiPage := site.GetPage $apiUrl }}
+{{ $dataKey := "" }}
+{{ $section := "" }}
+{{ with $apiPage }}
+  {{ $dataKey = .Params.articleDataKey | default "" }}
+  {{ $section = .Params.articleSection | default "" }}
+{{ end }}
+
+{{/* Get article data using frontmatter-driven lookup */}}
+{{ $articles := slice }}
+{{ if and $dataKey $section }}
+  {{ with $siteData.article_data }}
+    {{ with index . "influxdb" }}
+      {{ with index . $dataKey }}
+        {{ with index . $section }}
+          {{ with index . "articles" }}
+            {{ with .articles }}
+              {{ $articles = . }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $articles) 0 }}
+  {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+  {{ $conceptualArticles := slice }}
+  {{ $operationArticles := slice }}
+
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if reflect.IsMap $fields }}
+        {{ $isConceptual := false }}
+        {{ if isset $fields "isConceptual" }}
+          {{ $isConceptual = index $fields "isConceptual" }}
+        {{ end }}
+        {{ if $isConceptual }}
+          {{ $conceptualArticles = $conceptualArticles | append . }}
+        {{ else }}
+          {{ $operationArticles = $operationArticles | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+  {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+  {{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+  {{/* Combine: conceptual first, then operations */}}
+  {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+  {{/* Render each tag as a nav item */}}
+  {{ range $sortedArticles }}
+    {{ $articlePath := index . "path" }}
+    {{ $fields := index . "fields" }}
+    {{ $tag := index $fields "tag" }}
+    {{/* Build URL relative to the API section page */}}
+    {{ $tagSlug := path.Base $articlePath }}
+    {{ $tagPageUrl := printf "%s%s/" $apiUrl $tagSlug | relURL }}
+    {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $apiUrl $tagSlug) }}
+
+    <li class="nav-item{{ if $isActive }} active{{ end }}">
+      <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
+    </li>
+  {{ end }}
+
+  {{/* ALL ENDPOINTS - Link to all-endpoints page */}}
+  {{ $allEndpointsUrl := printf "%sall-endpoints/" $apiUrl | relURL }}
+  {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $apiUrl) }}
+  <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+    <a href="{{ $allEndpointsUrl }}">All endpoints</a>
+  </li>
+{{ end }}
