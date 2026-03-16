@@ -11,6 +11,7 @@ function initialize() {
   <ul class="code-control-options">
     <li class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></li>
     <li class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</li>
+    <li class='ask-ai-code'><span class='cf-icon Chat'></span> Ask AI</li>
   </ul>
 </div>
 `;
@@ -234,6 +235,31 @@ function initialize() {
 
     return info;
   }
+
+  ////////////////////////////////// ASK AI ////////////////////////////////////
+
+  // Build a query from the code block and open Kapa via the ask-ai-open contract
+  $('.ask-ai-code').click(function () {
+    var codeElement = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')[0];
+    if (!codeElement) return;
+
+    var code = codeElement.innerText.trim();
+    // Use the data-ask-ai-query attribute if the template provided one,
+    // otherwise build a generic query from the code content
+    var query =
+      $(codeElement).attr('data-ask-ai-query') ||
+      'Explain this code:\n```\n' + code.substring(0, 500) + '\n```';
+
+    // Delegate to the global ask-ai-open handler by synthesizing a click
+    var $trigger = $('<a>', {
+      class: 'ask-ai-open',
+      'data-query': query,
+      href: '#',
+    });
+    $trigger.appendTo('body').trigger('click').remove();
+  });
 
   /////////////////////////////// FULL WINDOW CODE ///////////////////////////////
 
