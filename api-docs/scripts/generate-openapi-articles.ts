@@ -69,8 +69,8 @@ interface ProductConfig {
   description?: string;
   /** Hugo menu identifier for this product (e.g., 'influxdb3_core') */
   menuKey?: string;
-  /** Skip adding menu entry to generated parent page (use when existing reference page has menu entry) */
-  skipParentMenu?: boolean;
+  /** Parent menu item for the API section (e.g., 'Reference', 'Tools'). Omit to skip menu entry. */
+  menuParentName?: string;
   /** Use tag-based generation instead of path-based (default: false) */
   useTagBasedGeneration?: boolean;
 }
@@ -304,8 +304,8 @@ interface GeneratePagesOptions {
   menuParent?: string;
   /** Product description for the parent page */
   productDescription?: string;
-  /** Skip adding menu entry to generated parent page */
-  skipParentMenu?: boolean;
+  /** Parent menu item name in sidebar (e.g., 'Reference', 'Tools'). Omit to skip menu entry. */
+  menuParentName?: string;
 }
 
 /**
@@ -323,7 +323,7 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
     menuKey,
     menuParent,
     productDescription,
-    skipParentMenu,
+    menuParentName,
   } = options;
   const yaml = require('js-yaml');
   const articlesFile = path.join(articlesPath, 'articles.yml');
@@ -379,12 +379,12 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
         type: 'api',
       };
 
-      // Add menu entry for parent page (unless skipParentMenu is true)
-      if (menuKey && !skipParentMenu) {
+      // Add menu entry for parent page (menuParentName controls sidebar placement)
+      if (menuKey && menuParentName) {
         parentFrontmatter.menu = {
           [menuKey]: {
             name: menuParent || 'InfluxDB HTTP API',
-            parent: 'Reference',
+            parent: menuParentName,
           },
         };
       }
@@ -488,8 +488,8 @@ interface GenerateTagPagesOptions {
   menuParent?: string;
   /** Product description for the parent page */
   productDescription?: string;
-  /** Skip adding menu entry to generated parent page */
-  skipParentMenu?: boolean;
+  /** Parent menu item name in sidebar (e.g., 'Reference', 'Tools'). Omit to skip menu entry. */
+  menuParentName?: string;
   /** Map of API path to path-specific spec file (for single-operation rendering) */
   pathSpecFiles?: Map<string, string>;
   /** Static directory name for download path derivation (e.g., 'influxdb3-core') */
@@ -514,7 +514,7 @@ function generateTagPagesFromArticleData(
     menuKey,
     menuParent,
     productDescription,
-    skipParentMenu,
+    menuParentName,
     pathSpecFiles,
   } = options;
   const yaml = require('js-yaml');
@@ -594,12 +594,12 @@ function generateTagPagesFromArticleData(
       specDownloadPath,
     };
 
-    // Add menu entry for parent page (unless skipParentMenu is true)
-    if (menuKey && !skipParentMenu) {
+    // Add menu entry for parent page (menuParentName controls sidebar placement)
+    if (menuKey && menuParentName) {
       parentFrontmatter.menu = {
         [menuKey]: {
           name: menuParent || 'InfluxDB HTTP API',
-          parent: 'Reference',
+          parent: menuParentName,
         },
       };
     }
@@ -933,7 +933,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/cloud'),
     description: 'InfluxDB Cloud (v2 API)',
     menuKey: 'influxdb_cloud',
-    skipParentMenu: true,
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   'oss-v2': {
@@ -949,7 +949,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v2'),
     description: 'InfluxDB OSS v2',
     menuKey: 'influxdb_v2',
-    skipParentMenu: true,
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   // InfluxDB 3 products use tag-based generation for better UX
@@ -962,6 +962,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/core'),
     description: 'InfluxDB 3 Core',
     menuKey: 'influxdb3_core',
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   influxdb3_enterprise: {
@@ -972,6 +973,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/enterprise'),
     description: 'InfluxDB 3 Enterprise',
     menuKey: 'influxdb3_enterprise',
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   // Cloud Dedicated and Clustered use multiple specs:
@@ -1001,7 +1003,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-dedicated'),
     description: 'InfluxDB Cloud Dedicated',
     menuKey: 'influxdb3_cloud_dedicated',
-    skipParentMenu: true,
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   'cloud-serverless': {
@@ -1017,7 +1019,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
     description: 'InfluxDB Cloud Serverless',
     menuKey: 'influxdb3_cloud_serverless',
-    skipParentMenu: true,
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   clustered: {
@@ -1040,7 +1042,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/clustered'),
     description: 'InfluxDB Clustered',
     menuKey: 'influxdb3_clustered',
-    skipParentMenu: true,
+    menuParentName: 'Reference',
     useTagBasedGeneration: true,
   },
   // InfluxDB v1 products - use tag-based generation
@@ -1054,7 +1056,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb/v1'),
     description: 'InfluxDB OSS v1',
     menuKey: 'influxdb_v1',
-    skipParentMenu: true,
+    menuParentName: 'Tools',
     useTagBasedGeneration: true,
   },
   'enterprise-v1': {
@@ -1065,7 +1067,7 @@ const productConfigs: ProductConfigMap = {
     pagesDir: path.join(DOCS_ROOT, 'content/enterprise_influxdb/v1'),
     description: 'InfluxDB Enterprise v1',
     menuKey: 'enterprise_influxdb_v1',
-    skipParentMenu: true,
+    menuParentName: 'Tools',
     useTagBasedGeneration: true,
   },
 };
@@ -1557,7 +1559,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
           contentPath: config.pagesDir,
           menuKey: config.menuKey,
           menuParent: 'InfluxDB HTTP API',
-          skipParentMenu: config.skipParentMenu,
+          menuParentName: config.menuParentName,
           pathSpecFiles: allPathSpecFiles,
           staticDirName,
         });
@@ -1567,7 +1569,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
           contentPath: config.pagesDir,
           menuKey: config.menuKey,
           menuParent: 'InfluxDB HTTP API',
-          skipParentMenu: config.skipParentMenu,
+          menuParentName: config.menuParentName,
         });
       }
     }
