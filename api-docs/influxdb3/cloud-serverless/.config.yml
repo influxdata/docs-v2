@@ -3,7 +3,7 @@ plugins:
 extends:
   - recommended
   - docs/all
-x-influxdata-product-name: InfluxDB 3 Serverless
+x-influxdata-product-name: InfluxDB Cloud Serverless
 
 apis:
   data@2:

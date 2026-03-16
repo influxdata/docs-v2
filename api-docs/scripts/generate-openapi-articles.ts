@@ -1054,6 +1054,9 @@ const MARKDOWN_FIELDS = new Set(['description', 'summary']);
 /** Link placeholder pattern */
 const LINK_PATTERN = /\/influxdb\/version\//g;
 
+/** Base URL for absolutifying links in downloadable specs */
+const DOCS_BASE_URL = 'https://docs.influxdata.com';
+
 /**
  * Derive documentation root from spec file path.
  *
@@ -1112,6 +1115,62 @@ function transformDocLinks(
       } else {
         result[key] = value;
       }
+    }
+    return result;
+  }
+
+  return transformObject(spec);
+}
+
+/**
+ * Prepend base URL to relative doc links for downloadable specs.
+ * Transforms markdown link targets (`](/path)`) and `x-related` href values.
+ * Skips external URLs, anchors, and protocol-relative URLs.
+ *
+ * @param spec - Parsed OpenAPI spec object with relative links
+ * @param baseUrl - Base URL to prepend (e.g., 'https://docs.influxdata.com')
+ * @returns Spec with absolute links (new object, original unchanged)
+ */
+function absolutifyLinks(
+  spec: Record<string, unknown>,
+  baseUrl: string
+): Record<string, unknown> {
+  // Match `](/path` but not `](//` (protocol-relative)
+  const INTERNAL_LINK_RE = /(]\()(\/(?!\/))/g;
+
+  function transformValue(
+    value: unknown,
+    key?: string,
+    parent?: Record<string, unknown>
+  ): unknown {
+    if (typeof value === 'string') {
+      if (key && MARKDOWN_FIELDS.has(key)) {
+        return value.replace(INTERNAL_LINK_RE, `$1${baseUrl}$2`);
+      }
+      if (
+        key === 'href' &&
+        parent?.title &&
+        value.startsWith('/')
+      ) {
+        return `${baseUrl}${value}`;
+      }
+      return value;
+    }
+    if (Array.isArray(value)) {
+      return value.map((item) => transformValue(item));
+    }
+    if (value !== null && typeof value === 'object') {
+      return transformObject(value as Record<string, unknown>);
+    }
+    return value;
+  }
+
+  function transformObject(
+    obj: Record<string, unknown>
+  ): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(obj)) {
+      result[k] = transformValue(v, k, obj);
     }
     return result;
   }
@@ -1274,13 +1333,16 @@ function processSpecFile(
       }
     }
 
-    // Write transformed spec to static folder
-    fs.writeFileSync(staticSpecPath, yaml.dump(transformedSpec));
-    console.log(`✓ Wrote transformed spec to ${staticSpecPath}`);
+    // Absolutify links for downloadable specs (relative paths → full URLs)
+    const downloadSpec = absolutifyLinks(transformedSpec, DOCS_BASE_URL);
+
+    // Write downloadable spec to static folder
+    fs.writeFileSync(staticSpecPath, yaml.dump(downloadSpec));
+    console.log(`✓ Wrote downloadable spec to ${staticSpecPath}`);
 
     fs.writeFileSync(
       staticJsonSpecPath,
-      JSON.stringify(transformedSpec, null, 2)
+      JSON.stringify(downloadSpec, null, 2)
     );
     console.log(`✓ Generated JSON spec at ${staticJsonSpecPath}`);
 
