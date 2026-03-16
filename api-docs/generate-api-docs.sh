@@ -59,9 +59,7 @@ echo ""
 echo "========================================"
 echo "Step 1: Post-processing specs"
 echo "========================================"
-cd ..
-node api-docs/scripts/dist/post-process-specs.js
-cd api-docs
+(cd .. && node api-docs/scripts/dist/post-process-specs.js)
 
 # ---------------------------------------------------------------------------
 # Step 2: Generate Redoc HTML
@@ -81,7 +79,7 @@ function generateRedocHtml {
   menu="$(echo "$productDir" | sed 's/\./_/g;s/-/_/g;s/\//_/g;')"
 
   local apiName
-  apiName=$(echo "$api" | sed 's/@.*//g;')
+  apiName="${api%%@*}"
 
   # Resolve info.yml from source (not _build/) for Hugo frontmatter metadata.
   local specDir
@@ -116,7 +114,6 @@ function generateRedocHtml {
 
   echo "Bundling $specPath"
 
-  npx --version && \
   npm_config_yes=true npx redoc-cli@0.12.3 bundle "$specPath" \
     --config "$configPath" \
     -t template.hbs \
@@ -126,7 +123,7 @@ function generateRedocHtml {
     --options.hideHostname \
     --options.noAutoAuth \
     --options.hideDownloadButton \
-    --output=$specbundle \
+    --output="$specbundle" \
     --templateOptions.description="$shortDescription" \
     --templateOptions.product="$productDir" \
     --templateOptions.productName="$productName"
@@ -149,7 +146,7 @@ $frontmatter
 
   echo "$frontmatter" >> "$tmpfile"
   V_LEN_INIT=$(wc -c "$tmpfile" | awk '{print $1}')
-  cat $specbundle >> "$tmpfile"
+  cat "$specbundle" >> "$tmpfile"
   V_LEN=$(wc -c "$tmpfile" | awk '{print $1}')
 
   if ! [[ $V_LEN -gt $V_LEN_INIT ]]; then
@@ -157,7 +154,7 @@ $frontmatter
     exit 1
   fi
 
-  rm -f $specbundle
+  rm -f "$specbundle"
 
   if [ -n "$apiName" ]; then
     mkdir -p "../content/$productDir/api/$apiName"
@@ -174,7 +171,7 @@ echo "Step 2: Generating Redoc HTML"
 echo "========================================"
 
 # Iterate product directories that contain a .config.yml.
-for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*' -not -path './_build/*'); do
+while IFS= read -r configPath; do
   productDir=$(dirname "$configPath")
   # Strip leading ./
   productDir="${productDir#./}"
@@ -196,30 +193,30 @@ for configPath in $(find . -name '.config.yml' -not -path './.config.yml' -not -
     # Read resolved spec from _build/ (written by Step 1)
     specPath="_build/$productDir/$specRootPath"
 
-    if [ -d "$specPath" ] || [ ! -f "$specPath" ]; then
+    if [ ! -f "$specPath" ]; then
       echo "Resolved spec $specPath doesn't exist. Run Step 1 first. Skipping."
       continue
     fi
 
     # If -c flag set, only regenerate specs that differ from master.
     # Check the source spec (not _build/) for git diff.
-    update=0
+    skip=0
     if [[ $generate_changed == 0 ]]; then
       sourceSpecPath="$productDir/$specRootPath"
       diff_result=$(git diff --name-status master -- "${sourceSpecPath}" 2>/dev/null || true)
       if [[ -z "$diff_result" ]]; then
-        update=1
+        skip=1
       fi
     fi
 
-    if [[ $update -eq 0 ]]; then
+    if [[ $skip -eq 0 ]]; then
       echo "Regenerating $productDir $api"
       generateRedocHtml "$specPath" "$productDir" "$local_product_name" "$api" "$configPath"
     fi
 
     echo -e "========Finished $productDir $api========\n\n"
   done <<< "$apis"
-done
+done < <(find . -name '.config.yml' -not -path './.config.yml' -not -path '*/node_modules/*' -not -path '*/openapi/*' -not -path './_build/*')
 
 # ---------------------------------------------------------------------------
 # Step 3: Generate Hugo-native article data and content pages
@@ -231,9 +228,7 @@ echo ""
 echo "========================================"
 echo "Step 3: Generating article data and pages"
 echo "========================================"
-cd ..
-node api-docs/scripts/dist/generate-openapi-articles.js --skip-fetch
-cd api-docs
+(cd .. && node api-docs/scripts/dist/generate-openapi-articles.js --skip-fetch)
 
 echo ""
 echo "========================================"
