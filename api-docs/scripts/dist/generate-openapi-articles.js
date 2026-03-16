@@ -380,6 +380,16 @@ function generateTagPagesFromArticleData(options) {
     if (!fs.existsSync(apiParentDir)) {
         fs.mkdirSync(apiParentDir, { recursive: true });
     }
+    // Derive articleDataKey from staticDirName or articlesPath
+    const articleDataKey = options.staticDirName || path.basename(articlesPath);
+    // Derive articleSection from contentPath — the section is the last segment of the API URL
+    // e.g., "content/influxdb3/core" → generates pages in "api/", so section = "api"
+    // For management APIs: generates pages in "management-api/", so section = "management-api"
+    const articleSection = apiParentDir.includes('management-api')
+        ? 'management-api'
+        : 'api';
+    // Derive specDownloadPath: /openapi/{staticDirName}.yml
+    const specDownloadPath = `/openapi/${articleDataKey}.yml`;
     if (!fs.existsSync(parentIndexFile)) {
         // Build description - use product description or generate from product name
         const apiDescription = productDescription ||
@@ -389,6 +399,9 @@ function generateTagPagesFromArticleData(options) {
             description: apiDescription,
             weight: 104,
             type: 'api',
+            articleDataKey,
+            articleSection,
+            specDownloadPath,
         };
         // Add menu entry for parent page (unless skipParentMenu is true)
         if (menuKey && !skipParentMenu) {
@@ -476,7 +489,11 @@ All {{% product-name %}} API endpoints, sorted by path.
             type: 'api',
             layout: isConceptual ? 'single' : 'list',
             staticFilePath: article.fields.staticFilePath,
+            specDownloadPath,
             weight,
+            // Sidebar data lookup fields
+            articleDataKey,
+            articleSection,
             // Tag-based fields
             tag: article.fields.tag,
             isConceptual,
@@ -842,15 +859,11 @@ function absolutifyLinks(spec, baseUrl) {
             if (key && MARKDOWN_FIELDS.has(key)) {
                 return value.replace(INTERNAL_LINK_RE, `$1${baseUrl}$2`);
             }
-            if (key === 'href' &&
-                parent?.title &&
-                value.startsWith('/')) {
+            if (key === 'href' && parent?.title && value.startsWith('/')) {
                 return `${baseUrl}${value}`;
             }
             // externalDocs.url — standard OpenAPI field
-            if (key === 'url' &&
-                parent?.description &&
-                value.startsWith('/')) {
+            if (key === 'url' && parent?.description && value.startsWith('/')) {
                 return `${baseUrl}${value}`;
             }
             return value;
@@ -988,8 +1001,11 @@ function processSpecFile(specConfig, staticPath, staticDirName, productKey) {
                 linkErrors.forEach((err) => console.warn(`   ${err}`));
             }
         }
-        // Write Hugo spec (relative links) for article generation and templates
-        const hugoSpecPath = staticSpecPath.replace(/\.yml$/, '-hugo.yml');
+        // Write Hugo spec (relative links) to _build/ for article generation.
+        // Tag specs and frontmatter staticFilePath derive names from this path,
+        // so it must match the final staticSpecPath basename.
+        const hugoSpecPath = path.join(API_DOCS_ROOT, '_build', path.relative(path.join(DOCS_ROOT, 'static'), staticSpecPath));
+        fs.mkdirSync(path.dirname(hugoSpecPath), { recursive: true });
         fs.writeFileSync(hugoSpecPath, yaml.dump(transformedSpec));
         // Absolutify links for downloadable specs (relative paths → full URLs)
         const downloadSpec = absolutifyLinks(transformedSpec, DOCS_BASE_URL);
@@ -1111,6 +1127,7 @@ function processProduct(productKey, config) {
                     menuParent: 'InfluxDB HTTP API',
                     skipParentMenu: config.skipParentMenu,
                     pathSpecFiles: allPathSpecFiles,
+                    staticDirName,
                 });
             }
             else {

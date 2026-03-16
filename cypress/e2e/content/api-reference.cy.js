@@ -68,8 +68,8 @@ describe('API reference content', () => {
         );
       });
       it('has a sidebar link to the product home', function () {
-        // The sidebar contains a link to the product root page
-        cy.get('.sidebar a')
+        // The nav tree contains a link to the product root page
+        cy.get('#nav-tree a')
           .first()
           .should('have.attr', 'href')
           .and('match', /^\/[^/]+\/[^/]+\/$/);
