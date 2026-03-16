@@ -1,8 +1,10 @@
 tags:
   Database tokens:
-    description: >
-      Create and manage database tokens that authorize read and write access to
-      InfluxDB 3 Cloud Dedicated databases.
+    description: |
+      Create and manage database tokens that authorize read and write access to InfluxDB 3 Cloud Dedicated databases.
+    externalDocs:
+      description: Manage database tokens
+      url: /influxdb3/cloud-dedicated/admin/tokens/database/
     x-related:
       - title: Manage database tokens
         href: /influxdb3/cloud-dedicated/admin/tokens/database/
@@ -10,11 +12,12 @@ tags:
         href: /influxdb3/cloud-dedicated/admin/tokens/database/delete/
       - title: Authenticate Telegraf using tokens in your OS secret store
         href: https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os
-
   Databases:
-    description: >
-      Create and manage databases in an InfluxDB 3 Cloud Dedicated cluster,
-      including setting retention periods and custom partition templates.
+    description: |
+      Create and manage databases in an InfluxDB 3 Cloud Dedicated cluster, including setting retention periods and custom partition templates.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/cloud-dedicated/admin/databases/
     x-related:
       - title: Manage databases
         href: /influxdb3/cloud-dedicated/admin/databases/
@@ -22,22 +25,24 @@ tags:
         href: /influxdb3/cloud-dedicated/admin/custom-partitions/
       - title: Partition templates
         href: /influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/
-
   Quick start:
     x-traitTag: true
-    description: >
-      Get started creating a database, issuing tokens, and writing data with
-      the InfluxDB 3 Cloud Dedicated Management API.
+    description: |
+      Get started creating a database, issuing tokens, and writing data with the InfluxDB 3 Cloud Dedicated Management API.
+    externalDocs:
+      description: Get started with Cloud Dedicated
+      url: /influxdb3/cloud-dedicated/get-started/
     x-related:
       - title: Get started with Cloud Dedicated
         href: /influxdb3/cloud-dedicated/get-started/
       - title: Set up your cluster
         href: /influxdb3/cloud-dedicated/get-started/setup/
-
   Tables:
-    description: >
-      Manage tables in an InfluxDB 3 Cloud Dedicated database, including
-      creating tables with custom column schemas.
+    description: |
+      Manage tables in an InfluxDB 3 Cloud Dedicated database, including creating tables with custom column schemas.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/cloud-dedicated/admin/tables/
     x-related:
       - title: Manage tables
         href: /influxdb3/cloud-dedicated/admin/tables/

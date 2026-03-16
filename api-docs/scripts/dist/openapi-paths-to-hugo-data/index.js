@@ -731,9 +731,12 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
     if (tagMeta?.['x-influxdatadocs-related']) {
         tagMeta['x-influxdatadocs-related'].forEach(addRelated);
     }
-    // Tag-level externalDocs (legacy single link)
+    // Tag-level externalDocs (standard OpenAPI field — single link)
     if (tagMeta?.externalDocs?.url) {
-        addRelated(tagMeta.externalDocs.url);
+        addRelated({
+            title: tagMeta.externalDocs.description || tagMeta.externalDocs.url,
+            href: tagMeta.externalDocs.url,
+        });
     }
     // Operation-level related links
     operations.forEach((op) => {
@@ -744,7 +747,10 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
             op.related.forEach(addRelated);
         }
         if (op.externalDocs?.url) {
-            addRelated(op.externalDocs.url);
+            addRelated({
+                title: op.externalDocs.description || op.externalDocs.url,
+                href: op.externalDocs.url,
+            });
         }
     });
     if (relatedItems.length > 0) {

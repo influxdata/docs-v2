@@ -1054,6 +1054,9 @@ const MARKDOWN_FIELDS = new Set(['description', 'summary']);
 /** Link placeholder pattern */
 const LINK_PATTERN = /\/influxdb\/version\//g;
 
+/** Absolute docs site URLs → relative paths for Hugo rendering */
+const DOCS_HOST_PATTERN = /https?:\/\/docs\.influxdata\.com(\/[^\s)'"]*)/g;
+
 /** Base URL for absolutifying links in downloadable specs */
 const DOCS_BASE_URL = 'https://docs.influxdata.com';
 
@@ -1080,7 +1083,13 @@ function deriveProductPath(specPath: string): string {
 
 /**
  * Transform documentation links in OpenAPI spec markdown fields.
- * Replaces `/influxdb/version/` with the actual product path.
+ *
+ * 1. Replaces `/influxdb/version/` placeholder with the actual product path.
+ * 2. Strips `https://docs.influxdata.com` host from absolute internal URLs,
+ *    converting them to relative paths for Hugo rendering.
+ *
+ * Only processes `description` and `summary` fields (MARKDOWN_FIELDS).
+ * Non-markdown fields like `servers[].url` are preserved as-is.
  *
  * @param spec - Parsed OpenAPI spec object
  * @param productPath - Target path (e.g., '/influxdb3/core')
@@ -1090,9 +1099,15 @@ function transformDocLinks(
   spec: Record<string, unknown>,
   productPath: string
 ): Record<string, unknown> {
+  function transformString(value: string): string {
+    return value
+      .replace(LINK_PATTERN, `${productPath}/`)
+      .replace(DOCS_HOST_PATTERN, '$1');
+  }
+
   function transformValue(value: unknown): unknown {
     if (typeof value === 'string') {
-      return value.replace(LINK_PATTERN, `${productPath}/`);
+      return transformString(value);
     }
     if (Array.isArray(value)) {
       return value.map(transformValue);
@@ -1109,7 +1124,7 @@ function transformDocLinks(
     const result: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(obj)) {
       if (MARKDOWN_FIELDS.has(key) && typeof value === 'string') {
-        result[key] = value.replace(LINK_PATTERN, `${productPath}/`);
+        result[key] = transformString(value);
       } else if (value !== null && typeof value === 'object') {
         result[key] = transformValue(value);
       } else {
@@ -1150,6 +1165,14 @@ function absolutifyLinks(
       if (
         key === 'href' &&
         parent?.title &&
+        value.startsWith('/')
+      ) {
+        return `${baseUrl}${value}`;
+      }
+      // externalDocs.url — standard OpenAPI field
+      if (
+        key === 'url' &&
+        parent?.description &&
         value.startsWith('/')
       ) {
         return `${baseUrl}${value}`;
@@ -1276,6 +1299,7 @@ function processSpecFile(
 ): {
   staticSpecPath: string;
   staticJsonSpecPath: string;
+  hugoSpecPath: string;
   articlesPath: string;
 } | null {
   const yaml = require('js-yaml');
@@ -1333,6 +1357,10 @@ function processSpecFile(
       }
     }
 
+    // Write Hugo spec (relative links) for article generation and templates
+    const hugoSpecPath = staticSpecPath.replace(/\.yml$/, '-hugo.yml');
+    fs.writeFileSync(hugoSpecPath, yaml.dump(transformedSpec));
+
     // Absolutify links for downloadable specs (relative paths → full URLs)
     const downloadSpec = absolutifyLinks(transformedSpec, DOCS_BASE_URL);
 
@@ -1346,7 +1374,7 @@ function processSpecFile(
     );
     console.log(`✓ Generated JSON spec at ${staticJsonSpecPath}`);
 
-    return { staticSpecPath, staticJsonSpecPath, articlesPath };
+    return { staticSpecPath, staticJsonSpecPath, hugoSpecPath, articlesPath };
   } catch (specError) {
     console.warn(`⚠️  Could not process spec: ${specError}`);
     return null;
@@ -1444,16 +1472,16 @@ function processProduct(productKey: string, config: ProductConfig): void {
             `\n📋 Generating tag-based data for ${specConfig.displayName || specSlug}...`
           );
           openapiPathsToHugo.generateHugoDataByTag({
-            specFile: result.staticSpecPath,
+            specFile: result.hugoSpecPath,
             dataOutPath: staticTagsPath,
             articleOutPath: result.articlesPath,
             includePaths: true,
           });
 
-          // Generate path-specific specs
+          // Generate path-specific specs (use Hugo spec with relative links)
           const specPathsPath = path.join(staticPathsPath, specSlug);
           const pathSpecFiles = openapiPathsToHugo.generatePathSpecificSpecs(
-            result.staticSpecPath,
+            result.hugoSpecPath,
             specPathsPath
           );
 

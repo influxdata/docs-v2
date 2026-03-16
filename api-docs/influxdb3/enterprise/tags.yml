@@ -9,7 +9,6 @@ tags:
       - [Basic authentication](#section/Authentication/BasicAuthentication)
       - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
       <!-- ReDoc-Inject: <security-definitions> -->
-
   Cache data:
     description: |
       Manage the in-memory cache.
@@ -38,19 +37,23 @@ tags:
       what fields to cache, what tags to use to identify each series, and the
       number of values to cache for each unique series.
       An LVC is associated with a table, which can have multiple LVCs.
+    externalDocs:
+      description: Manage the Distinct Value Cache
+      url: /influxdb3/enterprise/admin/distinct-value-cache/
     x-related:
       - title: Manage the Distinct Value Cache
         href: /influxdb3/enterprise/admin/distinct-value-cache/
       - title: Manage the Last Value Cache
         href: /influxdb3/enterprise/admin/last-value-cache/
-
   Database:
-    description: >
+    description: |
       Create, list, and delete databases in InfluxDB 3 Enterprise.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/enterprise/admin/databases/
     x-related:
       - title: Manage databases
         href: /influxdb3/enterprise/admin/databases/
-
   Headers and parameters:
     x-traitTag: true
     description: |
@@ -77,24 +80,27 @@ tags:
       | `Authorization`          | string                | The authorization scheme and credential. |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
       | `Content-Type`           | string                | The format of the data in the request body. |
-
   Processing engine:
     description: |
       Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
 
       InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
       Use Processing engine plugins and triggers to run code and perform tasks for different database events.
+    externalDocs:
+      description: Processing engine and Python plugins
+      url: /influxdb3/enterprise/processing-engine/
     x-related:
       - title: Processing engine and Python plugins
         href: /influxdb3/enterprise/processing-engine/
-
   Query data:
-    description: >
+    description: |
       Query data stored in InfluxDB 3 Enterprise using SQL or InfluxQL.
+    externalDocs:
+      description: Query data
+      url: /influxdb3/enterprise/query-data/
     x-related:
       - title: Query data
         href: /influxdb3/enterprise/query-data/
-
   Quick start:
     x-traitTag: true
     description: |
@@ -140,27 +146,27 @@ tags:
          ```
 
       For more information, see the [Get started](/influxdb3/enterprise/get-started/) guide.
-
   Server information:
-    description: >
-      Retrieve server metrics, health status, and version information for
-      InfluxDB 3 Enterprise.
-
+    description: |
+      Retrieve server metrics, health status, and version information for InfluxDB 3 Enterprise.
   Table:
-    description: >
+    description: |
       Manage table schemas in an InfluxDB 3 Enterprise database.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/enterprise/admin/tables/
     x-related:
       - title: Manage tables
         href: /influxdb3/enterprise/admin/tables/
-
   Token:
-    description: >
-      Create and manage tokens used for authenticating and authorizing access
-      to InfluxDB 3 Enterprise resources.
+    description: |
+      Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Enterprise resources.
+    externalDocs:
+      description: Manage tokens
+      url: /influxdb3/enterprise/admin/tokens/
     x-related:
       - title: Manage tokens
         href: /influxdb3/enterprise/admin/tokens/
-
   Write data:
     description: |
       Write data to InfluxDB 3 Enterprise using line protocol format.
@@ -182,6 +188,9 @@ tags:
       | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
 
       All timestamps are stored internally as nanoseconds.
+    externalDocs:
+      description: Write data using HTTP APIs
+      url: /influxdb3/enterprise/write-data/http-api/
     x-related:
       - title: Write data using HTTP APIs
         href: /influxdb3/enterprise/write-data/http-api/

@@ -1,8 +1,10 @@
 tags:
   Database tokens:
-    description: >
-      Create and manage database tokens that authorize read and write access to
-      InfluxDB 3 Clustered databases.
+    description: |
+      Create and manage database tokens that authorize read and write access to InfluxDB 3 Clustered databases.
+    externalDocs:
+      description: Manage database tokens
+      url: /influxdb3/clustered/admin/tokens/database/
     x-related:
       - title: Manage database tokens
         href: /influxdb3/clustered/admin/tokens/database/
@@ -10,30 +12,33 @@ tags:
         href: /influxdb3/clustered/admin/tokens/database/delete/
       - title: Authenticate Telegraf using tokens in your OS secret store
         href: https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os
-
   Databases:
-    description: >
-      Create and manage databases in an InfluxDB 3 Clustered cluster, including
-      setting retention periods and custom partition templates.
+    description: |
+      Create and manage databases in an InfluxDB 3 Clustered cluster, including setting retention periods and custom partition templates.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/clustered/admin/databases/
     x-related:
       - title: Manage databases
         href: /influxdb3/clustered/admin/databases/
       - title: Custom partitions
         href: /influxdb3/clustered/admin/custom-partitions/
-
   Quick start:
     x-traitTag: true
-    description: >
-      Get started creating a database, issuing tokens, and writing data with
-      the InfluxDB 3 Clustered Management API.
+    description: |
+      Get started creating a database, issuing tokens, and writing data with the InfluxDB 3 Clustered Management API.
+    externalDocs:
+      description: Get started with Clustered
+      url: /influxdb3/clustered/get-started/
     x-related:
       - title: Get started with Clustered
         href: /influxdb3/clustered/get-started/
-
   Tables:
-    description: >
-      Manage tables in an InfluxDB 3 Clustered database, including creating
-      tables with custom column schemas.
+    description: |
+      Manage tables in an InfluxDB 3 Clustered database, including creating tables with custom column schemas.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/clustered/admin/tables/
     x-related:
       - title: Manage tables
         href: /influxdb3/clustered/admin/tables/
