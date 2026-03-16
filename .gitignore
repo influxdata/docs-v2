@@ -11,7 +11,8 @@ package-lock.json
 .hugo_build.lock
 
 # Content generation
-/content/influxdb*/**/api/**/*.html
+/content/**/api/**/*.html
+/static/openapi/
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
 /api-docs/_build/
