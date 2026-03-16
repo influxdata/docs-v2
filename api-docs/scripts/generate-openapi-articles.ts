@@ -429,8 +429,12 @@ function getCleanupPaths(
   // (e.g., 'influxdb-cloud' should not match 'influxdb-cloud-dedicated-*.yml')
   const longerPrefixes = allStaticDirNames.filter(
     (n) =>
+<<<<<<< HEAD
       n !== product.staticDirName &&
       n.startsWith(product.staticDirName + '-')
+=======
+      n !== product.staticDirName && n.startsWith(product.staticDirName + '-')
+>>>>>>> 1a2ab2e09 (refactor(api): replace hardcoded product configs with auto-discovery)
   );
 
   if (fs.existsSync(staticPath)) {
@@ -916,12 +920,16 @@ function processApiSection(
 
   // Path spec files for per-operation rendering
   const pathSpecsDir = isDualApi
+<<<<<<< HEAD
     ? path.join(
         staticBasePath,
         product.staticDirName,
         api.sectionSlug,
         'paths'
       )
+=======
+    ? path.join(staticBasePath, product.staticDirName, api.sectionSlug, 'paths')
+>>>>>>> 1a2ab2e09 (refactor(api): replace hardcoded product configs with auto-discovery)
     : path.join(staticBasePath, product.staticDirName, 'paths');
 
   // --- 2. Read and transform spec ---
@@ -1035,9 +1043,13 @@ function processProduct(
     processApiSection(product, api, staticBasePath);
   }
 
+<<<<<<< HEAD
   console.log(
     `\n✅ Successfully processed ${product.productName}\n`
   );
+=======
+  console.log(`\n✅ Successfully processed ${product.productName}\n`);
+>>>>>>> 1a2ab2e09 (refactor(api): replace hardcoded product configs with auto-discovery)
 }
 
 // ---------------------------------------------------------------------------
