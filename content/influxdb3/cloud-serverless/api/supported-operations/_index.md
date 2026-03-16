@@ -1,8 +1,23 @@
 ---
 title: Supported operations
 description: >-
-  Overview of the common CRUD operations supported by the InfluxDB 3 Cloud
-  Serverless API.
+  The InfluxDB 3 Cloud Serverless API supports create, read, update, and delete
+
+  operations on resources. Most endpoints follow standard HTTP method
+  conventions:
+
+
+  | Operation | HTTP Method | Description |
+
+  |:----------|:------------|:------------|
+
+  | **Write** | `POST` | Send data or create a resource. |
+
+  | **Read** | `GET` | Retrieve a resource or list resources. |
+
+  | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
+
+  | **Delete** | `DELETE` | Remove a resource. |
 type: api
 layout: single
 staticFilePath: >-
@@ -15,8 +30,23 @@ specDownloadPath: /openapi/influxdb3-cloud-serverless.yml
 articleDataKey: influxdb3-cloud-serverless
 articleSection: api
 tagDescription: >-
-  Overview of the common CRUD operations supported by the InfluxDB 3 Cloud
-  Serverless API.
+  The InfluxDB 3 Cloud Serverless API supports create, read, update, and delete
+
+  operations on resources. Most endpoints follow standard HTTP method
+  conventions:
+
+
+  | Operation | HTTP Method | Description |
+
+  |:----------|:------------|:------------|
+
+  | **Write** | `POST` | Send data or create a resource. |
+
+  | **Read** | `GET` | Retrieve a resource or list resources. |
+
+  | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
+
+  | **Delete** | `DELETE` | Remove a resource. |
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

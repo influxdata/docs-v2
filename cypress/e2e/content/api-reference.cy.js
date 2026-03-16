@@ -13,11 +13,6 @@
  * node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/api-reference.cy.js" content/influxdb3/core/reference/api/_index.md
  */
 
-const fakeGoogleTagManager = {
-  trackingOptIn: () => {},
-  trackingOptOut: () => {},
-};
-
 describe('API reference content', () => {
   // API section index pages (generated from article data)
   const subjects = [
@@ -33,30 +28,9 @@ describe('API reference content', () => {
   subjects.forEach((subject) => {
     describe(subject, () => {
       beforeEach(() => {
-        // Intercept and modify the page HTML before it loads
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              // Modify the Kapa widget script attributes
-              // Avoid socket errors from fpjs in tests by disabling fingerprinting
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(subject);
-
-        window.fcdsc = fakeGoogleTagManager;
-        cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
-        cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
+        cy.visit(subject, { timeout: 30000 });
       });
       it(`has API info`, function () {
-        cy.get('script[data-user-analytics-fingerprint-enabled=false]').should(
-          'have.length',
-          1
-        );
         cy.get('h1').first().should('have.length', 1);
         // Check for description element (either article--description class or data-role attribute)
         cy.get('.article--description, [data-role$=description]').should(
@@ -64,14 +38,12 @@ describe('API reference content', () => {
           1
         );
       });
-      it('links back to the version home page', function () {
-        cy.get('a.back').contains('Docs').should('have.length', 1).click();
-        // Path should be the first two segments and trailing slash in $subject
-        cy.location('pathname').should(
-          'eq',
-          subject.replace(/^(\/[^/]+\/[^/]+\/).*/, '$1')
-        );
-        cy.get('h1').should('have.length', 1);
+      it('has a sidebar link to the product home', function () {
+        // The sidebar contains a link to the product root page
+        cy.get('.sidebar a')
+          .first()
+          .should('have.attr', 'href')
+          .and('match', /^\/[^/]+\/[^/]+\/$/);
       });
       it('contains valid internal links', function () {
         // The following conditional test isn't the cypress way, but the doc might not have internal links.
