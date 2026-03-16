@@ -3,7 +3,7 @@ x-influxdata-short-title: InfluxDB v1 API
 x-influxdata-short-description: >-
   The InfluxDB v1 HTTP API provides a programmatic interface for writing,
   querying, and managing InfluxDB v1 databases.
-version: 1.8.10
+version: 1.12.3
 description: |
   The InfluxDB v1 HTTP API provides a simple way to interact with the database.
   It uses HTTP response codes, authentication with username and password credentials
