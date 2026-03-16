@@ -11,8 +11,6 @@ package-lock.json
 .hugo_build.lock
 
 # Content generation
-/content/influxdb*/**/api/**/*.html
-/content/influxdb*/**/api/**/*.md
 !api-docs/**/.config.yml
 /api-docs/redoc-static.html*
 /api-docs/_build/
@@ -22,7 +20,7 @@ package-lock.json
 /content/influxdb3/*/api/**
 /content/influxdb3/*/reference/api/**
 /content/enterprise_influxdb/*/api/**
-/static/openapi
+/static/openapi/
 /data/article_data
 
 # Exception: hand-crafted API conceptual pages (not generated)
