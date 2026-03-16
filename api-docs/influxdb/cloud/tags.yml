@@ -187,9 +187,16 @@ tags:
 
   Supported operations:
     x-traitTag: true
-    description: >
-      Overview of the common CRUD operations supported by the InfluxDB Cloud
-      API.
+    description: |
+      The InfluxDB Cloud API supports create, read, update, and delete operations
+      on resources. Most endpoints follow standard HTTP method conventions:
+
+      | Operation | HTTP Method | Description |
+      |:----------|:------------|:------------|
+      | **Write** | `POST` | Send data or create a resource. |
+      | **Read** | `GET` | Retrieve a resource or list resources. |
+      | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
+      | **Delete** | `DELETE` | Remove a resource. |
 
   System information endpoints:
     description: >
