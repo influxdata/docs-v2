@@ -9,9 +9,38 @@
  * 3. Hugo-native tag page rendering
  * 4. Related links from OpenAPI x-related → frontmatter → rendered HTML
  *
+ * Prerequisites:
+ * - Hugo server running (started automatically by the test runner)
+ * - API docs generated (auto-generated if missing)
+ *
  * Run with:
  * node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/api-reference.cy.js" content/influxdb3/core/reference/api/_index.md
  */
+
+// Sentinel file: if this exists, API docs have been generated.
+const SENTINEL = 'content/influxdb3/core/api/write-data/_index.md';
+
+before(() => {
+  cy.task('readFile', SENTINEL).then((content) => {
+    if (content) return; // Already generated
+
+    cy.log('**API content not found — generating from OpenAPI specs…**');
+
+    // Step 1: post-process specs (apply tag configs + overlays → _build/)
+    cy.exec('node api-docs/scripts/dist/post-process-specs.js', {
+      timeout: 30000,
+    });
+
+    // Step 2: generate Hugo content pages + article data
+    cy.exec(
+      'node api-docs/scripts/dist/generate-openapi-articles.js --skip-fetch',
+      { timeout: 120000 }
+    );
+
+    // Wait for Hugo to rebuild after new files appear
+    cy.request({ url: '/influxdb3/core/api/write-data/', retryOnStatusCodeFailure: true, timeout: 60000 });
+  });
+});
 
 describe('API reference content', () => {
   // API section index pages (generated from article data)
