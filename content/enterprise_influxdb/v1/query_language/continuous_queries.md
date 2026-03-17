@@ -840,7 +840,6 @@ Drop the `idle_hands` CQ from the `telegraf` database:
 
 ```sql
 DROP CONTINUOUS QUERY "idle_hands" ON "telegraf"
-
 ```
 
 ### Altering continuous queries
