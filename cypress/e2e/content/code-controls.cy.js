@@ -19,13 +19,13 @@
  * - [x] Controls contain toggle, copy, Ask AI, and fullscreen items
  * - [x] Menu is hidden by default (toggle visible)
  * - [x] Ask AI is in the middle (2nd) position
+ * - [x] Controls use accessible markup (buttons, ARIA roles)
  *
  * Toggle Behavior:
  * ----------------
  * - [x] Clicking toggle opens menu (adds .open class)
- * - [x] Clicking outside after opening with toggle closes menu
  * - [x] Clicking outside closes menu
- * - [x] Only one menu open at a time
+ * - [x] Copy button keeps menu open (stopPropagation)
  *
  * Copy to Clipboard:
  * ------------------
@@ -83,15 +83,35 @@ describe('Code Controls', function () {
       cy.get('.article--content .codeblock')
         .first()
         .within(() => {
-          cy.get('.code-control-options li')
+          cy.get('.code-control-options button[role="menuitem"]')
             .eq(0)
             .should('have.class', 'copy-code');
-          cy.get('.code-control-options li')
+          cy.get('.code-control-options button[role="menuitem"]')
             .eq(1)
             .should('have.class', 'ask-ai-code');
-          cy.get('.code-control-options li')
+          cy.get('.code-control-options button[role="menuitem"]')
             .eq(2)
             .should('have.class', 'fullscreen-toggle');
+        });
+    });
+
+    it('should use accessible markup for controls', function () {
+      cy.get('.article--content .codeblock')
+        .first()
+        .within(() => {
+          // Toggle is a button with aria attributes
+          cy.get('.code-controls-toggle')
+            .should('have.attr', 'aria-label', 'Code block options')
+            .and('have.attr', 'aria-expanded', 'false');
+
+          // Menu has role="menu"
+          cy.get('.code-control-options').should('have.attr', 'role', 'menu');
+
+          // Menu items are buttons with role="menuitem"
+          cy.get('.code-control-options button[role="menuitem"]').should(
+            'have.length',
+            3
+          );
         });
     });
 
@@ -121,19 +141,6 @@ describe('Code Controls', function () {
         .should('be.visible');
     });
 
-    it('should close menu when clicking outside after opening with toggle', function () {
-      cy.get('.article--content .code-controls-toggle').first().click();
-      cy.get('.article--content .code-controls')
-        .first()
-        .should('have.class', 'open');
-
-      // Click outside to close (document click handler removes .open)
-      cy.get('.article--content h2').first().click({ force: true });
-      cy.get('.article--content .code-controls')
-        .first()
-        .should('not.have.class', 'open');
-    });
-
     it('should close menu when clicking outside', function () {
       cy.get('.article--content .code-controls-toggle').first().click();
       cy.get('.article--content .code-controls')
@@ -147,32 +154,17 @@ describe('Code Controls', function () {
         .should('not.have.class', 'open');
     });
 
-    it('should close other menus when a new toggle is clicked', function () {
-      // Need at least two code blocks
-      cy.get('.article--content .codeblock').should('have.length.at.least', 2);
-
-      // Open first menu
-      cy.get('.article--content .code-controls-toggle').eq(0).click();
+    it('should keep menu open when copy is clicked', function () {
+      cy.get('.article--content .code-controls-toggle').first().click();
       cy.get('.article--content .code-controls')
-        .eq(0)
+        .first()
         .should('have.class', 'open');
 
-      // Click outside to close first (since toggle is hidden when open)
-      cy.get('.article--content h2').first().click({ force: true });
+      // Click copy — menu should stay open (stopPropagation)
+      cy.get('.article--content .copy-code').first().click();
       cy.get('.article--content .code-controls')
-        .eq(0)
-        .should('not.have.class', 'open');
-
-      // Open second menu
-      cy.get('.article--content .code-controls-toggle').eq(1).click();
-      cy.get('.article--content .code-controls')
-        .eq(1)
+        .first()
         .should('have.class', 'open');
-
-      // First should remain closed
-      cy.get('.article--content .code-controls')
-        .eq(0)
-        .should('not.have.class', 'open');
     });
   });
 

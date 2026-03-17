@@ -7,11 +7,11 @@ function initialize() {
 
   var appendHTML = `
 <div class="code-controls">
-  <span class="code-controls-toggle"><span class='cf-icon More'></span></span>
-  <ul class="code-control-options">
-    <li class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></li>
-    <li class='ask-ai-code'><span class='cf-icon Chat'></span> Ask AI</li>
-    <li class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</li>
+  <button class="code-controls-toggle" aria-label="Code block options" aria-expanded="false"><span class='cf-icon More'></span></button>
+  <ul class="code-control-options" role="menu">
+    <li role="none"><button role="menuitem" class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></button></li>
+    <li role="none"><button role="menuitem" class='ask-ai-code'><span class='cf-icon Chat'></span> Ask AI</button></li>
+    <li role="none"><button role="menuitem" class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</button></li>
   </ul>
 </div>
 `;
@@ -28,12 +28,17 @@ function initialize() {
 
   // Click outside of the code-controls to close them
   $(document).click(function () {
-    $('.code-controls').removeClass('open');
+    $('.code-controls.open').each(function () {
+      $(this).removeClass('open');
+      $(this).find('.code-controls-toggle').attr('aria-expanded', 'false');
+    });
   });
 
   // Click the code controls toggle to open code controls
   $('.code-controls-toggle').click(function () {
-    $(this).parent('.code-controls').toggleClass('open');
+    var $controls = $(this).parent('.code-controls');
+    var isOpen = $controls.toggleClass('open').hasClass('open');
+    $(this).attr('aria-expanded', String(isOpen));
   });
 
   // Stop event propagation for clicks inside of the code-controls div
