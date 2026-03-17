@@ -53,32 +53,15 @@ pre.api-code-block {
 }
 
 .api-code-ask-ai {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3em;
-  padding: 0.2em 0.6em;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
   text-decoration: none;
+  color: $article-link;
+  opacity: 0.7;
+  transition: opacity 0.2s;
   white-space: nowrap;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  color: $article-bold;
-  background: rgba(0, 0, 0, 0.04);
-  transition: background 0.15s, border-color 0.15s;
-
-  .dark-theme & {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
-  }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.25);
-
-    .dark-theme & {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
+    opacity: 1;
   }
 }
