@@ -10,7 +10,7 @@ introduced: "v0.1.8"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/ping/README.md, Ping Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/inputs/ping/README.md, Ping Plugin Source
 ---
 
 # Ping Input Plugin
@@ -60,11 +60,12 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   # ping_interval = 1.0
 
   ## If set, the time to wait for a ping response in seconds.  Operates like
-  ## the "-W" option of the ping command.
+  ## the "-W" option of the ping command (for "exec" method only)
   # timeout = 1.0
 
-  ## If set, the total ping deadline, in seconds.  Operates like the -w option
-  ## of the ping command.
+  ## If set, the total ping deadline, in seconds. Operates like the "-w"
+  ## option of the ping command.  Use this option to control timeout behavior
+  ## when using the "native" method.
   # deadline = 10
 
   ## Interface or source address to send ping from.  Operates like the -I or -S
@@ -114,6 +115,9 @@ For the `native` method a corresponding ICMP packet is sent and the results are
 reported in native Go by the Telegraf process, eliminating the need to execute
 the system `ping` command. Therefore, this method doesn't have external
 dependencies.
+
+With `method = "native"`, the `timeout` option is ignored. Use `deadline` to
+control the total runtime instead.
 
 ### File Limit
 
