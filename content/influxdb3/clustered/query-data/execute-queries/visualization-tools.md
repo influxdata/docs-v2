@@ -27,7 +27,7 @@ Use visualization tools to query data stored in {{% product-name %}} with SQL.
 The following visualization tools support querying InfluxDB with SQL:
 
 - [Grafana](/influxdb3/clustered/process-data/visualize/grafana/)
-- [Power BI](/influxdb3/clustered/process-data/visualize/powerbi/)
+- [Power BI](/influxdb3/clustered/visualize-data/powerbi/)
 - [Superset](/influxdb3/clustered/process-data/visualize/superset/)
 - [Tableau](/influxdb3/clustered/process-data/visualize/tableau/)
 
