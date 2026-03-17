@@ -46,9 +46,7 @@
 
       &:hover {background-color: rgba($article-text, .07)}
 
-      &.copy-code, &.fullscreen-toggle {        
-        .cf-icon {margin-right: .35rem;}
-      }
+      .cf-icon {margin-right: .35rem;}
 
       &.copy-code {
         .message {

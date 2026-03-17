@@ -83,9 +83,15 @@ describe('Code Controls', function () {
       cy.get('.article--content .codeblock')
         .first()
         .within(() => {
-          cy.get('.code-control-options li').eq(0).should('have.class', 'copy-code');
-          cy.get('.code-control-options li').eq(1).should('have.class', 'ask-ai-code');
-          cy.get('.code-control-options li').eq(2).should('have.class', 'fullscreen-toggle');
+          cy.get('.code-control-options li')
+            .eq(0)
+            .should('have.class', 'copy-code');
+          cy.get('.code-control-options li')
+            .eq(1)
+            .should('have.class', 'ask-ai-code');
+          cy.get('.code-control-options li')
+            .eq(2)
+            .should('have.class', 'fullscreen-toggle');
         });
     });
 
@@ -143,10 +149,7 @@ describe('Code Controls', function () {
 
     it('should close other menus when a new toggle is clicked', function () {
       // Need at least two code blocks
-      cy.get('.article--content .codeblock').should(
-        'have.length.at.least',
-        2
-      );
+      cy.get('.article--content .codeblock').should('have.length.at.least', 2);
 
       // Open first menu
       cy.get('.article--content .code-controls-toggle').eq(0).click();
@@ -239,7 +242,10 @@ describe('Code Controls', function () {
           cy.get('.fullscreen-code').should('be.visible');
 
           // Modal should contain the code content
-          cy.get('.fullscreen-code pre code').should('contain', codeText.trim());
+          cy.get('.fullscreen-code pre code').should(
+            'contain',
+            codeText.trim()
+          );
         });
     });
 
