@@ -362,8 +362,7 @@ assets/
 │   ├── components/
 │   │   ├── api-nav.ts             # API navigation behavior
 │   │   ├── api-toc.ts             # Table of contents
-│   │   ├── api-tabs.ts            # Tab switching (if needed beyond CSS)
-│   │   └── api-rapidoc.ts         # RapiDoc integration
+│   │   └── api-tabs.ts            # Tab switching (if needed beyond CSS)
 │   └── utils/
 │       └── dom-helpers.ts         # Shared DOM utilities
 └── styles/

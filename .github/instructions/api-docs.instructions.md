@@ -47,7 +47,7 @@ generate-openapi-articles.ts → generate Hugo pages + copy specs to static/open
 ## Tools
 
 - **@redocly/cli**: Lints, bundles, and resolves `$ref`s in multi-file specs
-- **post-process-specs.ts**: Applies content overlays and tag configs (replaces some Redocly decorators)
-- **Redoc**: Generates HTML from processed OpenAPI specs
+- **post-process-specs.ts**: Applies content overlays and tag configs
+- **generate-openapi-articles.ts**: Generates Hugo content pages and static spec downloads
 
 For complete documentation workflow, see [api-docs/README.md](../../api-docs/README.md).

@@ -9,50 +9,47 @@ status: in-progress
 
 ## Overview
 
-Replace the current API reference documentation implementation (RapiDoc web components) with Hugo-native templates.
+Render API reference documentation using Hugo-native templates. OpenAPI specs are processed server-side into static HTML — no client-side rendering.
 
-## Phase 1: Core Infrastructure (completed)
+## Build Pipeline
 
-### Build process
+```
+getswagger.sh           → fetch and bundle specs with @redocly/cli
+post-process-specs.ts   → apply info/servers overlays + tag configs → _build/
+generate-openapi-articles.ts → generate Hugo content pages + static spec downloads
+```
 
-- `yarn build:api` parses OpenAPI specs into Hugo data
-- Generates Hugo pages with frontmatter for Algolia search integration
-- Static JSON chunks for faster page loads
+## Completed
 
-### OpenAPI tag cleanup
+### Infrastructure
 
-- Removed unused tags from OpenAPI specs
-- Updated tags to be consistent and descriptive
+- Hugo templates in `layouts/partials/api/` render operations, parameters, schemas, and responses
+- Tag-based navigation: operations grouped by tag, no individual operation URLs
+- `generate-api-docs.sh` orchestrates the pipeline
+- `post-process-specs.ts` applies overlays and tag configs (source specs are never mutated)
+- `generate-openapi-articles.ts` creates Hugo content pages and static spec downloads
+- Generation script supports `--clean` (default), `--dry-run`, and `--skip-fetch` flags
 
-### Hugo-native POC
+### Content
 
-- Implemented Hugo-native templates in `layouts/partials/api/hugo-native/`
-- Tested with InfluxDB 3 Core product
+- All 11 product APIs render via Hugo-native templates
+- Tags cleaned up with descriptions, `x-related` links, and `externalDocs`
+- Inline curl code samples and Ask AI links per operation
+- Theme-aware code blocks, font normalization, layout width, TOC border
+- Flattened version directories, unified v2 APIs
+- Cypress tests updated for static HTML selectors
 
-## Phase 2: Migration to Hugo-Native (in progress)
+## In Progress
 
-**Plan**: @docs/plans/2026-02-13-hugo-native-api-migration.md
-
-### Task Order
-
-1. ✅ **Promote Hugo-native templates** - Move from POC to production
-2. ✅ **Remove RapiDoc templates** - Delete templates and partials
-3. ✅ **Remove RapiDoc JavaScript** - Delete components
-4. ✅ **Remove operation pages** - Delete individual operation page generation
-5. ✅ **Update Cypress tests** - Simplify tests for static HTML
-6. ✅ **Clean up styles** - Remove RapiDoc CSS and dead auth modal code
-7. ✅ **Fix generation script cleanup** - Added `--clean` (default) and `--dry-run` flags
-8. ✅ **Add inline code samples** - curl examples and Ask AI links per operation
-9. ✅ **Refine API styling** - Theme-aware code blocks, font normalization, layout width, TOC border
-10. **Apply Cache Data tag split** - Enterprise spec update (planned)
-11. **Migrate remaining products** - Apply to all InfluxDB products (planned)
+- Fix menu entries and sidebar for all API reference pages
+- Align sidebar data and test selectors with new spec paths
 
 ## Related Files
 
 - Branch: `feat-api-uplift`
-- Plan: `plans/2026-02-13-hugo-native-api-migration.md`
+- Plan: `docs/plans/2026-02-13-hugo-native-api-migration.md`
 
 ## Notes
 
 - Use Chrome devtools and Cypress to debug
-- No individual operation pages - operations accessed only via tag pages
+- No individual operation pages — operations accessed only via tag pages

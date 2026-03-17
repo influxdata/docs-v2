@@ -196,8 +196,7 @@ assets/js/
 ├── components/
 │   ├── api-nav.ts             # API navigation behavior
 │   ├── api-toc.ts             # Table of contents
-│   ├── api-tabs.ts            # Tab switching
-│   └── api-rapidoc.ts         # RapiDoc integration
+│   └── api-tabs.ts            # Tab switching
 └── utils/
     ├── dom-helpers.ts         # Shared DOM utilities
     └── debug-helpers.js       # Debugging utilities

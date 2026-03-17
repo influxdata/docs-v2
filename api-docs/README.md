@@ -25,7 +25,7 @@
    gsd
    ```
 
-`gsd` generates the local contracts in `~/github/openapi`, validates them with OATS, bundles and lints them with `@redocly/cli`, and then generates the HTML with `@redocly/cli`.
+`gsd` generates the local contracts in `~/github/openapi`, validates them with OATS, bundles and lints them with `@redocly/cli`, and then generates Hugo-native API reference pages.
 
 ## Update API docs for InfluxDB Cloud
 
@@ -174,24 +174,22 @@ Follow these steps to update OSS API docs between version releases--for example,
 
 ## Generate InfluxDB API docs
 
-InfluxData uses [Redoc](https://github.com/Redocly/redoc/),
-[redoc-cli](https://github.com/Redocly/redoc/blob/master/cli/README.md),
-and Redocly's [OpenApi CLI](https://redoc.ly/docs/cli/) to generate
-API documentation from the [InfluxDB OpenAPI (aka Swagger) contracts](https://github.com/influxdata/openapi).
+InfluxData uses Redocly's [OpenAPI CLI](https://redoc.ly/docs/cli/) to bundle and lint specs,
+and Hugo-native templates to render API reference pages from the
+[InfluxDB OpenAPI (aka Swagger) contracts](https://github.com/influxdata/openapi).
 
-To minimize the size of the `docs-v2` repository, the generated API documentation HTML is gitignored, therefore
-not committed to the docs repo.
+To minimize the size of the `docs-v2` repository, generated API content pages are gitignored
+and not committed to the docs repo.
 The InfluxDB docs deployment process uses OpenAPI specification files in the `api-docs` directory
-to generate version-specific (Cloud, OSS v2.1, OSS v2.0, etc.) API documentation.
+to generate product-specific API documentation.
 
 ### Generate API docs locally
 
 Because the API documentation HTML is gitignored, you must manually generate it
 to view the API docs locally.
 
-The `./generate.sh` script uses the Redoc CLI to generate Redocly HTML, Javascript,
-and CSS for each version of the InfluxDB spec.
-The script uses `npx` to download and execute the Redocly CLI.
+The `./generate-api-docs.sh` script orchestrates the API docs pipeline:
+post-process specs (apply overlays and tag configs) and generate Hugo article data and content pages.
 
 1. Verify that you have a working `npx` (it's included with Node.js).
    In your terminal, run:
@@ -217,23 +215,25 @@ The script uses `npx` to download and execute the Redocly CLI.
 
 ## How we version OpenAPI contracts
 
-The `api-docs` directory structure versions OpenAPI files using the following pattern:
+The `api-docs` directory structure organizes OpenAPI files by product:
 
 ```md
 api-docs/
-  |-- cloud/
-  │     └── ref.yml
-  │     └── swaggerV1Compat.yml
-  ├── v2.0/
-  │     └── ref.yml
-  │     └── swaggerV1Compat.yml
-  ├── v2.1/
-  │     └── ref.yml
-  │     └── swaggerV1Compat.yml
-  ├── v2.2/
-  │     └── ref.yml
-  │     └── swaggerV1Compat.yml
-  └── etc...
+  ├── influxdb3/
+  │     ├── core/
+  │     │     ├── influxdb3-core-openapi.yaml
+  │     │     ├── tags.yml
+  │     │     └── .config.yml
+  │     ├── enterprise/
+  │     ├── cloud-dedicated/
+  │     ├── cloud-serverless/
+  │     └── clustered/
+  ├── influxdb/
+  │     ├── cloud/
+  │     ├── v2/
+  │     └── v1/
+  └── enterprise_influxdb/
+        └── v1/
 ```
 
 ### InfluxDB Cloud version
@@ -495,7 +495,7 @@ To fetch contracts from your own `openapi` repo, pass the
 sh getswagger.sh oss -b file:///Users/me/github/openapi
 ```
 
-After you fetch them, run the linter or generate HTML to test your changes before you commit them to `influxdata/openapi`.
+After you fetch them, run the linter or generate API pages to test your changes before you commit them to `influxdata/openapi`.
 By default, `getswagger.sh` doesn't run the linter when bundling
 the specs.
 Manually run the [linter rules](https://redoc.ly/docs/cli/resources/built-in-rules/) to get a report of errors and warnings.

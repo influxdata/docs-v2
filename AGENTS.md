@@ -168,7 +168,7 @@ Hello, world!
 
 - **Location**: `/api-docs/` directory
 - **Format**: OpenAPI 3.0 YAML
-- **Generation**: Uses Redoc + custom processing
+- **Generation**: Hugo-native templates + custom OpenAPI processing
 - **📖 Workflow**: [api-docs/README.md](api-docs/README.md)
 
 ### JavaScript/TypeScript
