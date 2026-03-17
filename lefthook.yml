@@ -148,7 +148,16 @@ pre-push:
   commands:
     packages-audit:
       tags: frontend security
-      run: yarn audit
+      run: |
+        default_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@') || default_branch="master"
+        current_branch=$(git branch --show-current)
+        yarn audit; status=$?
+        if [ $status -ne 0 ] && [ "$current_branch" != "$default_branch" ]; then
+          echo "⚠️  yarn audit found vulnerabilities (warning only — non-default branch '$current_branch')"
+          echo "   Create an issue: https://github.com/influxdata/docs-v2/issues/new?title=yarn+audit+vulnerabilities&labels=security"
+          exit 0
+        fi
+        exit $status
 
     e2e-shortcode-examples:
       tags: [frontend, test]
