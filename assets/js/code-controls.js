@@ -10,8 +10,8 @@ function initialize() {
   <span class="code-controls-toggle"><span class='cf-icon More'></span></span>
   <ul class="code-control-options">
     <li class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></li>
-    <li class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</li>
     <li class='ask-ai-code'><span class='cf-icon Chat'></span> Ask AI</li>
+    <li class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</li>
   </ul>
 </div>
 `;
@@ -252,13 +252,16 @@ function initialize() {
       $(codeElement).attr('data-ask-ai-query') ||
       'Explain this code:\n```\n' + code.substring(0, 500) + '\n```';
 
-    // Delegate to the global ask-ai-open handler by synthesizing a click
-    var $trigger = $('<a>', {
-      class: 'ask-ai-open',
-      'data-query': query,
-      href: '#',
-    });
-    $trigger.appendTo('body').trigger('click').remove();
+    // Delegate to the global ask-ai-open handler by synthesizing a click.
+    // Use native .click() instead of jQuery .trigger() so the event
+    // reaches the native document.addEventListener in ask-ai-trigger.js.
+    // No href — prevents scroll-to-top when the native click fires.
+    var triggerEl = document.createElement('a');
+    triggerEl.className = 'ask-ai-open';
+    triggerEl.dataset.query = query;
+    document.body.appendChild(triggerEl);
+    triggerEl.click();
+    triggerEl.remove();
   });
 
   /////////////////////////////// FULL WINDOW CODE ///////////////////////////////
