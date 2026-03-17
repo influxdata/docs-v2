@@ -1,24 +1,121 @@
 ---
 title: Set agent statuses
 description: >
-  Understand how {{% product-name %}} receives and displays agent statuses from
-  the heartbeat output plugin.
+  Configure agent status evaluation using CEL expressions in the Telegraf
+  heartbeat output plugin and view statuses in {{% product-name %}}.
 menu:
   telegraf_controller:
     name: Set agent statuses
     parent: Manage agents
 weight: 104
+related:
+  - /telegraf/controller/reference/cel/
+  - /telegraf/controller/agents/reporting-rules/
+  - /telegraf/v1/output-plugins/heartbeat/
 ---
 
-Agent statuses come from the Telegraf heartbeat output plugin and are sent with
-each heartbeat request.
-The plugin reports an `ok` status.
+Agent statuses reflect the health of a Telegraf instance based on runtime data.
+The Telegraf [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/)
+evaluates [Common Expression Language (CEL)](/telegraf/controller/reference/cel/)
+expressions against agent metrics, error counts, and plugin statistics to
+determine the status sent with each heartbeat.
 
-> [!Note]
-> A future Telegraf release will let you configure logic that sets the status value.
-{{% product-name %}} also applies reporting rules to detect stale agents.
-If an agent does not send a heartbeat within the rule's threshold, Controller
-marks the agent as **Not Reporting** until it resumes sending heartbeats.
+## Status values
+
+{{% product-name %}} displays the following agent statuses:
+
+| Status | Source | Description |
+|:-------|:-------|:------------|
+| **Ok** | Heartbeat plugin | The agent is healthy. Set when the `ok` CEL expression evaluates to `true`. |
+| **Warn** | Heartbeat plugin | The agent has a potential issue. Set when the `warn` CEL expression evaluates to `true`. |
+| **Fail** | Heartbeat plugin | The agent has a critical problem. Set when the `fail` CEL expression evaluates to `true`. |
+| **Undefined** | Heartbeat plugin | No expression matched and the `default` is set to `undefined`, or the `initial` status is `undefined`. |
+| **Not Reporting** | {{% product-name "short" %}} | The agent has not sent a heartbeat within the [reporting rule](/telegraf/controller/agents/reporting-rules/) threshold. {{% product-name "short" %}} applies this status automatically. |
+
+## How status evaluation works
+
+You define CEL expressions for `ok`, `warn`, and `fail` in the
+`[outputs.heartbeat.status]` section of your heartbeat plugin configuration.
+Telegraf evaluates expressions in a configurable order and assigns the status
+of the first expression that evaluates to `true`.
+
+For full details on evaluation flow, configuration options, and available
+variables and functions, see the
+[CEL expressions reference](/telegraf/controller/reference/cel/).
+
+## Configure agent statuses
+
+To configure status evaluation, add `"status"` to the `include` list in your
+heartbeat plugin configuration and define CEL expressions in the
+`[outputs.heartbeat.status]` section.
+
+### Example: Basic health check
+
+Report `ok` when metrics are flowing.
+If no metrics arrive, fall back to the `fail` status.
+
+{{% telegraf/dynamic-values %}}
+```toml
+[[outputs.heartbeat]]
+  url = "http://telegraf_controller.example.com/agents/heartbeat"
+  instance_id = "&{agent_id}"
+  token = "${INFLUX_TOKEN}"
+  interval = "1m"
+  include = ["hostname", "statistics", "status"]
+
+  [outputs.heartbeat.status]
+    ok = "metrics > 0"
+    default = "fail"
+```
+{{% /telegraf/dynamic-values %}}
+
+### Example: Error-based status
+
+Warn when errors are logged, fail when the error count is high.
+
+{{% telegraf/dynamic-values %}}
+```toml
+[[outputs.heartbeat]]
+  url = "http://telegraf_controller.example.com/agents/heartbeat"
+  instance_id = "&{agent_id}"
+  token = "${INFLUX_TOKEN}"
+  interval = "1m"
+  include = ["hostname", "statistics", "status"]
+
+  [outputs.heartbeat.status]
+    ok = "log_errors == 0 && log_warnings == 0"
+    warn = "log_errors > 0"
+    fail = "log_errors > 10"
+    order = ["fail", "warn", "ok"]
+    default = "ok"
+```
+{{% /telegraf/dynamic-values %}}
+
+### Example: Composite condition
+
+Combine error count and buffer pressure signals.
+
+{{% telegraf/dynamic-values %}}
+```toml
+[[outputs.heartbeat]]
+  url = "http://telegraf_controller.example.com/agents/heartbeat"
+  instance_id = "&{agent_id}"
+  token = "${INFLUX_TOKEN}"
+  interval = "1m"
+  include = ["hostname", "statistics", "status"]
+
+  [outputs.heartbeat.status]
+    ok = "metrics > 0 && log_errors == 0"
+    warn = "log_errors > 0 || (has(outputs.influxdb_v2) && outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.8))"
+    fail = "log_errors > 5 && has(outputs.influxdb_v2) && outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.9)"
+    order = ["fail", "warn", "ok"]
+    default = "ok"
+```
+{{% /telegraf/dynamic-values %}}
+
+For more examples including buffer health, plugin-specific checks, and
+time-based expressions, see
+[CEL expression examples](/telegraf/controller/reference/cel/examples/).
 
 ## View an agent's status
 
@@ -28,3 +125,13 @@ marks the agent as **Not Reporting** until it resumes sending heartbeats.
     select **View Details**.
 4.  The details page shows the reported status, reporting rule assignment, and
     the time of the last heartbeat.
+
+## Learn more
+
+- [CEL expressions reference](/telegraf/controller/reference/cel/)---Full
+  reference for CEL evaluation flow, configuration, variables, functions, and
+  examples.
+- [Heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/)---Plugin
+  configuration reference.
+- [Define reporting rules](/telegraf/controller/agents/reporting-rules/)---Configure
+  thresholds for the **Not Reporting** status.
