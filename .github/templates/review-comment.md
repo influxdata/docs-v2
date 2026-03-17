@@ -56,6 +56,10 @@ Post a single review comment on the PR with this structure:
 
 ### Issues Found
 
+Only include severity sections that contain at least one issue; omit empty
+sections. If no issues exist at any severity, replace the entire "Issues Found"
+block with `No issues found. All pages pass visual review.`
+
 #### BLOCKING
 
 - **file:line** — Description of the issue
