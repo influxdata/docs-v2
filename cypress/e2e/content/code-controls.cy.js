@@ -23,7 +23,7 @@
  * Toggle Behavior:
  * ----------------
  * - [x] Clicking toggle opens menu (adds .open class)
- * - [x] Clicking toggle again closes menu
+ * - [x] Clicking outside after opening with toggle closes menu
  * - [x] Clicking outside closes menu
  * - [x] Only one menu open at a time
  *
@@ -121,7 +121,7 @@ describe('Code Controls', function () {
         .should('be.visible');
     });
 
-    it('should close menu when toggle is clicked again', function () {
+    it('should close menu when clicking outside after opening with toggle', function () {
       cy.get('.article--content .code-controls-toggle').first().click();
       cy.get('.article--content .code-controls')
         .first()
