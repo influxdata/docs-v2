@@ -238,7 +238,7 @@ DROP SHARD <shard_id_number>
 ```
 
 Delete the shard with the id `1`:
-```
+```sql
 DROP SHARD 1
 
 ```
@@ -345,7 +345,7 @@ This setting is optional.
 
 ##### Create a retention policy
 
-```
+```sql
 CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
 
 ```
