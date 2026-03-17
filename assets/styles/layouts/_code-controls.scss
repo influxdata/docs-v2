@@ -16,10 +16,12 @@
     opacity: .5;
     transition: opacity .2s;
     border-radius: $radius;
+    border: none;
+    background: none;
     line-height: 0;
-    cursor: pointer; 
+    cursor: pointer;
 
-    &:hover {
+    &:hover, &:focus-visible {
       opacity: 1;
       background-color: rgba($article-text, .1);
       backdrop-filter: blur(15px);
@@ -35,20 +37,25 @@
     backdrop-filter: blur(15px);
     display: none;
 
-    li {
+    button {
+      display: block;
+      width: 100%;
+      text-align: left;
       margin: 0;
       padding: .4rem .5rem .6rem;
+      border: none;
+      background: none;
       border-radius: $radius;
       color: $article-bold;
       font-size: .87rem;
       line-height: 0;
-      cursor: pointer; 
+      cursor: pointer;
 
-      &:hover {background-color: rgba($article-text, .07)}
-
-      &.copy-code, &.fullscreen-toggle {        
-        .cf-icon {margin-right: .35rem;}
+      &:hover, &:focus-visible {
+        background-color: rgba($article-text, .07);
       }
+
+      .cf-icon {margin-right: .35rem;}
 
       &.copy-code {
         .message {
@@ -69,6 +76,8 @@
         }
       }
     }
+
+    li {margin: 0;}
   }
 
   &.open {

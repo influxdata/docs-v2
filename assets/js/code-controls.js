@@ -7,10 +7,11 @@ function initialize() {
 
   var appendHTML = `
 <div class="code-controls">
-  <span class="code-controls-toggle"><span class='cf-icon More'></span></span>
-  <ul class="code-control-options">
-    <li class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></li>
-    <li class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</li>
+  <button class="code-controls-toggle" aria-label="Code block options" aria-expanded="false"><span class='cf-icon More'></span></button>
+  <ul class="code-control-options" role="menu">
+    <li role="none"><button role="menuitem" class='copy-code'><span class='cf-icon Duplicate_New'></span> <span class="message">Copy</span></button></li>
+    <li role="none"><button role="menuitem" class='ask-ai-code'><span class='cf-icon Chat'></span> Ask AI</button></li>
+    <li role="none"><button role="menuitem" class='fullscreen-toggle'><span class='cf-icon ExpandB'></span> Fill window</button></li>
   </ul>
 </div>
 `;
@@ -27,12 +28,17 @@ function initialize() {
 
   // Click outside of the code-controls to close them
   $(document).click(function () {
-    $('.code-controls').removeClass('open');
+    $('.code-controls.open').each(function () {
+      $(this).removeClass('open');
+      $(this).find('.code-controls-toggle').attr('aria-expanded', 'false');
+    });
   });
 
   // Click the code controls toggle to open code controls
   $('.code-controls-toggle').click(function () {
-    $(this).parent('.code-controls').toggleClass('open');
+    var $controls = $(this).parent('.code-controls');
+    var isOpen = $controls.toggleClass('open').hasClass('open');
+    $(this).attr('aria-expanded', String(isOpen));
   });
 
   // Stop event propagation for clicks inside of the code-controls div
@@ -234,6 +240,34 @@ function initialize() {
 
     return info;
   }
+
+  ////////////////////////////////// ASK AI ////////////////////////////////////
+
+  // Build a query from the code block and open Kapa via the ask-ai-open contract
+  $('.ask-ai-code').click(function () {
+    var codeElement = $(this)
+      .closest('.code-controls')
+      .prevAll('pre:has(code)')[0];
+    if (!codeElement) return;
+
+    var code = codeElement.innerText.trim();
+    // Use the data-ask-ai-query attribute if the template provided one,
+    // otherwise build a generic query from the code content
+    var query =
+      $(codeElement).attr('data-ask-ai-query') ||
+      'Explain this code:\n```\n' + code.substring(0, 500) + '\n```';
+
+    // Delegate to the global ask-ai-open handler by synthesizing a click.
+    // Use native .click() instead of jQuery .trigger() so the event
+    // reaches the native document.addEventListener in ask-ai-trigger.js.
+    // No href — prevents scroll-to-top when the native click fires.
+    var triggerEl = document.createElement('a');
+    triggerEl.className = 'ask-ai-open';
+    triggerEl.dataset.query = query;
+    document.body.appendChild(triggerEl);
+    triggerEl.click();
+    triggerEl.remove();
+  });
 
   /////////////////////////////// FULL WINDOW CODE ///////////////////////////////
 

@@ -364,7 +364,7 @@ The documentation MCP server is hosted at `https://influxdb-docs.mcp.kapa.ai`—
 Already configured in [`.mcp.json`](/.mcp.json). Two server entries are available:
 
 - **`influxdb-docs`** (API key) — Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var. 60 req/min.
-- **`influxdb-docs-oauth`** (OAuth) — No setup. Authenticates via Google on first use. 40 req/hr, 200 req/day.
+- **`influxdb-docs-oauth`** (OAuth) — No setup. Authenticates via Google or GitHub on first use. 40 req/hr, 200 req/day.
 
 ### Available Tool
 
@@ -534,7 +534,7 @@ touch content/influxdb3/enterprise/path/to/file.md
 **Troubleshooting steps:**
 
 - **API key auth** (`influxdb-docs`): Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set. Rate limit: 60 req/min.
-- **OAuth auth** (`influxdb-docs-oauth`): Sign in with Google on first use. Rate limits: 40 req/hr, 200 req/day.
+- **OAuth auth** (`influxdb-docs-oauth`): Sign in with Google or GitHub on first use. Rate limits: 40 req/hr, 200 req/day.
 - Verify your network allows connections to `*.kapa.ai`
 - Check if you've exceeded rate limits (wait and retry)
 

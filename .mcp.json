@@ -11,7 +11,7 @@
       }
     },
     "influxdb-docs-oauth": {
-      "comment": "Hosted InfluxDB documentation search (OAuth). No API key needed--authenticates via Google OAuth on first use. Rate limits: 40 req/hr, 200 req/day.",
+      "comment": "Hosted InfluxDB documentation search (OAuth). No API key needed--authenticates via Google or GitHub OAuth on first use. Rate limits: 40 req/hr, 200 req/day.",
       "type": "sse",
       "url": "https://influxdb-docs.mcp.kapa.ai"
     },
