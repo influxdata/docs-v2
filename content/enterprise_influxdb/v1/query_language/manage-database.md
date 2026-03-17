@@ -407,7 +407,7 @@ DROP RETENTION POLICY <retention_policy_name> ON <database_name>
 ```
 
 Delete the retention policy `what_is_time` in the `NOAA_water_database` database:
-```bash
+```sql
 DROP RETENTION POLICY "what_is_time" ON "NOAA_water_database"
 
 ```

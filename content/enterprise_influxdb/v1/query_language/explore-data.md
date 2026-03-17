@@ -381,7 +381,6 @@ the `SELECT` clause:
 
 ```sql
 SELECT "location" FROM "h2o_feet"
-
 ```
 
 To return any data associated with the `location` tag key, the query's `SELECT`
