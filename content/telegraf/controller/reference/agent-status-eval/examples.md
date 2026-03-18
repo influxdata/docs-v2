@@ -1,17 +1,16 @@
 ---
 title: CEL expression examples
 description: >
-  Real-world examples of CEL expressions for evaluating Telegraf agent status
-  in {{% product-name %}}.
+  Real-world examples of CEL expressions for evaluating Telegraf agent status.
 menu:
   telegraf_controller:
     name: Examples
-    parent: CEL expressions
+    parent: Agent status evaluation
 weight: 203
 related:
   - /telegraf/controller/agents/status/
-  - /telegraf/controller/reference/cel/variables/
-  - /telegraf/controller/reference/cel/functions/
+  - /telegraf/controller/reference/agent-status-eval/variables/
+  - /telegraf/controller/reference/agent-status-eval/functions/
 ---
 
 Each example includes a scenario description, the CEL expression, a full
@@ -19,8 +18,8 @@ heartbeat plugin configuration block, and an explanation.
 
 For the full list of available variables and functions, see:
 
-- [CEL variables](/telegraf/controller/reference/cel/variables/)
-- [CEL functions and operators](/telegraf/controller/reference/cel/functions/)
+- [CEL variables](/telegraf/controller/reference/agent-status-eval/variables/)
+- [CEL functions and operators](/telegraf/controller/reference/agent-status-eval/functions/)
 
 ## Basic health check
 
@@ -30,7 +29,7 @@ the agent is healthy as long as metrics are flowing.
 
 **Expression:**
 
-```cel
+```js
 ok = "metrics > 0"
 ```
 
@@ -41,7 +40,7 @@ ok = "metrics > 0"
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0"
@@ -60,7 +59,7 @@ high.
 
 **Expressions:**
 
-```cel
+```js
 warn = "log_errors > 0"
 fail = "log_errors > 10"
 ```
@@ -72,7 +71,7 @@ fail = "log_errors > 10"
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "log_errors == 0 && log_warnings == 0"
@@ -94,7 +93,7 @@ indicating potential data backpressure.
 
 **Expression:**
 
-```cel
+```js
 warn = "outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.8)"
 fail = "outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.95)"
 ```
@@ -106,7 +105,7 @@ fail = "outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.95)"
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0"
@@ -129,7 +128,7 @@ safe access patterns to avoid errors when the plugin is not configured.
 
 **Expression:**
 
-```cel
+```js
 warn = "has(inputs.cpu) && inputs.cpu.exists(i, i.errors > 0)"
 fail = "has(inputs.cpu) && inputs.cpu.exists(i, i.startup_errors > 0)"
 ```
@@ -141,7 +140,7 @@ fail = "has(inputs.cpu) && inputs.cpu.exists(i, i.startup_errors > 0)"
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0"
@@ -164,7 +163,7 @@ count combined with output buffer pressure.
 
 **Expression:**
 
-```cel
+```js
 fail = "log_errors > 5 && has(outputs.influxdb_v2) && outputs.influxdb_v2.exists(o, o.buffer_fullness > 0.9)"
 ```
 
@@ -175,7 +174,7 @@ fail = "log_errors > 5 && has(outputs.influxdb_v2) && outputs.influxdb_v2.exists
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0 && log_errors == 0"
@@ -198,7 +197,7 @@ threshold, indicating potential connectivity or performance issues.
 
 **Expression:**
 
-```cel
+```js
 warn = "now() - last_update > duration('10m')"
 fail = "now() - last_update > duration('30m')"
 ```
@@ -210,7 +209,7 @@ fail = "now() - last_update > duration('30m')"
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0"
@@ -239,7 +238,7 @@ before checking for healthy status.
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "agent-123"
   interval = "1m"
-  include = ["hostname", "statistics", "status"]
+  include = ["hostname", "statistics", "configs", "logs", "status"]
 
   [outputs.heartbeat.status]
     ok = "metrics > 0 && log_errors == 0"

@@ -1,11 +1,11 @@
 ---
-title: CEL expressions
+title: Agent status evaluation
 description: >
   Reference documentation for Common Expression Language (CEL) expressions used
-  to evaluate Telegraf agent status in {{% product-name %}}.
+  to evaluate Telegraf agent status.
 menu:
   telegraf_controller:
-    name: CEL expressions
+    name: Agent status evaluation
     parent: Reference
 weight: 107
 related:
@@ -13,21 +13,20 @@ related:
   - /telegraf/v1/output-plugins/heartbeat/
 ---
 
-[Common Expression Language (CEL)](https://cel.dev) is a lightweight expression
+The Telegraf [heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/)
+uses CEL expressions to evaluate agent status based on runtime data such as
+metric counts, error rates, and plugin statistics.
+[CEL (Common Expression Language)](https://cel.dev) is a lightweight expression
 language designed for evaluating simple conditions.
-{{% product-name %}} uses CEL expressions in the Telegraf
-[heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) to evaluate
-agent status based on runtime data such as metric counts, error rates, and
-plugin statistics.
 
 ## How status evaluation works
 
 You define CEL expressions for three status levels in the
 `[outputs.heartbeat.status]` section of your Telegraf configuration:
 
-- **`ok`** — The agent is healthy.
-- **`warn`** — The agent has a potential issue.
-- **`fail`** — The agent has a critical problem.
+- **ok** — The agent is healthy.
+- **warn** — The agent has a potential issue.
+- **fail** — The agent has a critical problem.
 
 Each expression is a CEL program that returns a boolean value.
 Telegraf evaluates expressions in a configurable order (default:

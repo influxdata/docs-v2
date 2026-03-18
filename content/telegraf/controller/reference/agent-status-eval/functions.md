@@ -2,11 +2,11 @@
 title: CEL functions and operators
 description: >
   Reference for functions and operators available in CEL expressions used to
-  evaluate Telegraf agent status in {{% product-name %}}.
+  evaluate Telegraf agent status.
 menu:
   telegraf_controller:
     name: Functions
-    parent: CEL expressions
+    parent: Agent status evaluation
 weight: 202
 ---
 
@@ -20,12 +20,12 @@ the following function libraries.
 Returns the current time.
 Use with `last_update` to calculate durations or detect stale data.
 
-```cel
+```js
 // True if more than 10 minutes since last heartbeat
 now() - last_update > duration('10m')
 ```
 
-```cel
+```js
 // True if more than 5 minutes since last heartbeat
 now() - last_update > duration('5m')
 ```
@@ -45,7 +45,7 @@ are available for numeric calculations.
 
 ### Example
 
-```cel
+```js
 // Warn if either errors or warnings exceed a threshold
 math.greatest(log_errors, log_warnings) > 5
 ```
@@ -59,7 +59,7 @@ These are useful when checking plugin `alias` or `id` fields.
 
 ### Example
 
-```cel
+```js
 // Check if any input plugin has an alias containing "critical"
 inputs.cpu.exists(i, has(i.alias) && i.alias.contains("critical"))
 ```
@@ -105,7 +105,7 @@ CEL supports standard operators for building expressions.
 
 ### Ternary operator
 
-```cel
+```js
 // Conditional expression
 log_errors > 10 ? true : false
 ```
