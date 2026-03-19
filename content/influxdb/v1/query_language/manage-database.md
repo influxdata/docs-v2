@@ -87,8 +87,8 @@ If you attempt to create a database that already exists, InfluxDB does nothing a
 ##### Create a database
 
 ```
-> CREATE DATABASE "NOAA_water_database"
->
+CREATE DATABASE "NOAA_water_database"
+
 ```
 
 The query creates a database called `NOAA_water_database`.
@@ -97,8 +97,8 @@ The query creates a database called `NOAA_water_database`.
 ##### Create a database with a specific retention policy
 
 ```
-> CREATE DATABASE "NOAA_water_database" WITH DURATION 3d REPLICATION 1 SHARD DURATION 1h NAME "liquid"
->
+CREATE DATABASE "NOAA_water_database" WITH DURATION 3d REPLICATION 1 SHARD DURATION 1h NAME "liquid"
+
 ```
 
 The query creates a database called `NOAA_water_database`.
@@ -114,8 +114,8 @@ DROP DATABASE <database_name>
 
 Drop the database NOAA_water_database:
 ```bash
-> DROP DATABASE "NOAA_water_database"
->
+DROP DATABASE "NOAA_water_database"
+
 ```
 
 A successful `DROP DATABASE` query returns an empty result.
@@ -135,19 +135,19 @@ DROP SERIES FROM <measurement_name[,measurement_name]> WHERE <tag_key>='<tag_val
 Drop all series from a single measurement:
 
 ```sql
-> DROP SERIES FROM "h2o_feet"
+DROP SERIES FROM "h2o_feet"
 ```
 
 Drop series with a specific tag pair from a single measurement:
 
 ```sql
-> DROP SERIES FROM "h2o_feet" WHERE "location" = 'santa_monica'
+DROP SERIES FROM "h2o_feet" WHERE "location" = 'santa_monica'
 ```
 
 Drop all points in the series that have a specific tag pair from all measurements in the database:
 
 ```sql
-> DROP SERIES WHERE "location" = 'santa_monica'
+DROP SERIES WHERE "location" = 'santa_monica'
 ```
 
 A successful `DROP SERIES` query returns an empty result.
@@ -168,25 +168,25 @@ DELETE FROM <measurement_name> WHERE [<tag_key>='<tag_value>'] | [<time interval
 Delete all data associated with the measurement `h2o_feet`:
 
 ```sql
-> DELETE FROM "h2o_feet"
+DELETE FROM "h2o_feet"
 ```
 
 Delete all data associated with the measurement `h2o_quality` and where the tag `randtag` equals `3`:
 
 ```sql
-> DELETE FROM "h2o_quality" WHERE "randtag" = '3'
+DELETE FROM "h2o_quality" WHERE "randtag" = '3'
 ```
 
 Delete all data in the database that occur before January 01, 2020:
 
 ```sql
-> DELETE WHERE time < '2020-01-01'
+DELETE WHERE time < '2020-01-01'
 ```
 
 Delete all data associated with the measurement `h2o_feet` in retention policy `one_day`:
 
 ```sql
-> DELETE FROM "one_day"."h2o_feet"
+DELETE FROM "one_day"."h2o_feet"
 ```
 
 A successful `DELETE` query returns an empty result.
@@ -217,7 +217,7 @@ DROP MEASUREMENT <measurement_name>
 
 Delete the measurement `h2o_feet`:
 ```sql
-> DROP MEASUREMENT "h2o_feet"
+DROP MEASUREMENT "h2o_feet"
 ```
 
 > **Note:** `DROP MEASUREMENT` drops all data and series in the measurement.
@@ -240,8 +240,8 @@ DROP SHARD <shard_id_number>
 
 Delete the shard with the id `1`:
 ```
-> DROP SHARD 1
->
+DROP SHARD 1
+
 ```
 
 A successful `DROP SHARD` query returns an empty result.
@@ -339,8 +339,8 @@ This setting is optional.
 ##### Create a retention policy
 
 ```
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
->
+CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
+
 ```
 The query creates a retention policy called `one_day_only` for the database
 `NOAA_water_database` with a one day duration and a replication factor of one.
@@ -348,8 +348,8 @@ The query creates a retention policy called `one_day_only` for the database
 ##### Create a DEFAULT retention policy
 
 ```sql
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 23h60m REPLICATION 1 DEFAULT
->
+CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 23h60m REPLICATION 1 DEFAULT
+
 ```
 
 The query creates the same retention policy as the one in the example above, but
@@ -377,14 +377,14 @@ For information about the `FUTURE LIMIT` and `PAST LIMIT` clauses, see
 
 First, create the retention policy `what_is_time` with a `DURATION` of two days:
 ```sql
-> CREATE RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 2d REPLICATION 1
->
+CREATE RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 2d REPLICATION 1
+
 ```
 
 Modify `what_is_time` to have a three week `DURATION`, a two hour shard group duration, and make it the `DEFAULT` retention policy for `NOAA_water_database`.
 ```sql
-> ALTER RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 3w SHARD DURATION 2h DEFAULT
->
+ALTER RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 3w SHARD DURATION 2h DEFAULT
+
 ```
 In the last example, `what_is_time` retains its original replication factor of 1.
 
@@ -404,8 +404,8 @@ DROP RETENTION POLICY <retention_policy_name> ON <database_name>
 
 Delete the retention policy `what_is_time` in the `NOAA_water_database` database:
 ```bash
-> DROP RETENTION POLICY "what_is_time" ON "NOAA_water_database"
->
+DROP RETENTION POLICY "what_is_time" ON "NOAA_water_database"
+
 ```
 
 A successful `DROP RETENTION POLICY` query returns an empty result.

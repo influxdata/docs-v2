@@ -15,7 +15,7 @@ aliases:
   - /influxdb3/cloud-dedicated/admin/clusters/list/
 ---
 
-Use the Admin UI or the [`influxctl cluster list` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/list/)
+Use the Admin UI or the [`influxctl cluster list` CLI command](/influxdb3/cloud-dedicated/reference/cli/influxctl/cluster/list/)
 to view information about all {{< product-name omit=" Clustered" >}} clusters associated with your account ID.
 
 {{< tabs-wrapper >}}
