@@ -583,8 +583,7 @@ mode, the web interface displays a setup page where you can create one.
 2. Fill in the **Username**, **Email**, and **Password** fields.
 3. Click **Create Account**.
 
-<!-- TODO: Add screenshot of owner account setup page -->
-<!-- {{< img-hd src="/img/telegraf/controller/setup-owner-account.png" alt="Owner account setup page" />}} -->
+{{< img-hd src="/img/telegraf/controller-setup-owner-account.png" alt="Owner account setup page" />}}
 
 For more information about user roles and permissions, see
 [Authorization](/telegraf/controller/reference/authorization/).

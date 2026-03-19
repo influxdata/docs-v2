@@ -33,8 +33,7 @@ immediately active.
    values range from 1 to 720 hours (30 days).
 7. Click **Create Invite**.
 
-<!-- TODO: Add screenshot of invite user form -->
-<!-- {{< img-hd src="/img/telegraf/controller/invite-user.png" alt="Telegraf Controller invite user form" />}} -->
+{{< img-hd src="/img/telegraf/controller-invite-user.png" alt="Telegraf Controller invite user form" />}}
 
 > [!Note]
 > You cannot invite a user with the **Owner** role. To make someone the owner,

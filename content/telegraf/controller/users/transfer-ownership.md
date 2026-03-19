@@ -32,8 +32,7 @@ administrator.
 4.  Confirm the username of the user you want to transfer ownership to and click
     **Transfer Ownership**.
 
-<!-- TODO: Add screenshot of transfer ownership confirmation dialog -->
-<!-- {{< img-hd src="/img/telegraf/controller/transfer-ownership.png" alt="Telegraf Controller transfer ownership confirmation" />}} -->
+{{< img-hd src="/img/telegraf/controller-transfer-ownership.png" alt="Telegraf Controller transfer ownership confirmation" />}}
 
 ## What happens during transfer
 

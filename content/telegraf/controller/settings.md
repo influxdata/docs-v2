@@ -15,8 +15,7 @@ password requirements for {{% product-name %}}.
 Navigate to the **Settings** page from the left navigation menu to view and
 modify these settings.
 
-<!-- TODO: Add screenshot of settings page -->
-<!-- {{< img-hd src="/img/telegraf/controller/settings.png" alt="Telegraf Controller settings page" />}} -->
+{{< img-hd src="/img/telegraf/controller-settings.png" alt="Telegraf Controller settings page" />}}
 
 ## Require authentication per endpoint
 

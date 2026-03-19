@@ -31,8 +31,7 @@ Tokens let you grant scoped access to external tools, scripts, and services with
     See [Custom permissions](#custom-permissions) for details.
 6.  Click **Create**.
 
-<!-- TODO: Add screenshot of token creation form -->
-<!-- {{< img-hd src="/img/telegraf/controller/create-token.png" alt="Telegraf Controller create token form" />}} -->
+{{< img-hd src="/img/telegraf/controller-create-token.png" alt="Telegraf Controller create token form" />}}
 
 > [!Important]
 > #### Copy and store your token

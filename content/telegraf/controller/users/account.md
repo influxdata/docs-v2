@@ -12,8 +12,7 @@ weight: 101
 Any authenticated user can update their own account details from the account page.
 Use the account page to change your username, email address, or password at any time.
 
-<!-- TODO: Add screenshot of account page -->
-<!-- {{< img-hd src="/img/telegraf/controller/account-page.png" alt="Telegraf Controller account page" />}} -->
+{{< img-hd src="/img/telegraf/controller-account-page.png" alt="Telegraf Controller account page" />}}
 
 ## Update your username
 
