@@ -886,6 +886,20 @@ paths:
                   trigger_settings:
                     run_async: false
                     error_behavior: Log
+              github_plugin:
+                summary: Trigger using a plugin from GitHub
+                description: |
+                  Load a plugin directly from the influxdb3_plugins repository using the `gh:` prefix.
+                  The server fetches the plugin file when the trigger is created or started.
+                value:
+                  db: mydb
+                  plugin_filename: "gh:influxdata/system_metrics/system_metrics.py"
+                  trigger_name: system_metrics_trigger
+                  trigger_specification: "every:1m"
+                  disabled: false
+                  trigger_settings:
+                    run_async: false
+                    error_behavior: Log
       responses:
         "200":
           description: Success. Processing engine trigger created.
@@ -2764,7 +2778,12 @@ components:
           description: |
             The path and filename of the plugin to execute--for example,
             `schedule.py` or `endpoints/report.py`.
-            The path can be absolute or relative to the `--plugins-dir` directory configured when starting InfluxDB 3.
+            The path can be absolute or relative to the `--plugin-dir` directory configured when starting InfluxDB 3.
+
+            To load a plugin directly from a remote repository, use the `gh:` prefix--for example,
+            `gh:influxdata/system_metrics/system_metrics.py`. By default, `gh:` paths resolve to
+            the [influxdata/influxdb3_plugins](https://github.com/influxdata/influxdb3_plugins) repository.
+            Configure a custom repository with the `--plugin-repo` server option.
 
             The plugin file must implement the trigger interface associated with the trigger's specification.
         trigger_name:
