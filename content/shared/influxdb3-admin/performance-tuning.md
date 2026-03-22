@@ -12,6 +12,7 @@ based on your workload characteristics.
 {{% /show-in %}}
 - [Memory tuning](#memory-tuning)
 - [Advanced tuning options](#advanced-tuning-options)
+- [Startup optimization](#startup-optimization)
 - [Monitoring and validation](#monitoring-and-validation)
 - [Common performance issues](#common-performance-issues-1)
 
@@ -576,6 +577,53 @@ Performance tuning for cloud object stores:
 For all available configuration options, see:
 - [CLI serve command reference](/influxdb3/version/reference/cli/influxdb3/serve/)
 - [Configuration options](/influxdb3/version/reference/config-options/)
+
+## Startup optimization
+
+Server startup time scales with the number of
+[snapshots](/influxdb3/version/admin/backup-restore/#file-structure)
+stored in the object store.
+Snapshots accumulate over time and are not automatically deleted.
+
+Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+([`gen1-lookback-duration`](/influxdb3/version/reference/config-options/#gen1-lookback-duration),
+default 1 month) divided by
+[`gen1-duration`](/influxdb3/version/reference/config-options/#gen1-duration)
+(default 10 minutes), with a minimum of 100.
+With default settings, a long-running server can accumulate up to ~4,320
+snapshots, causing slow restarts.
+
+Two configuration options reduce startup time:
+
+- [`--checkpoint-interval`](/influxdb3/version/reference/config-options/#checkpoint-interval)--
+  periodically consolidates snapshot metadata into monthly checkpoints.
+  On startup, the server loads one to two checkpoints per calendar month,
+  then loads only snapshots created since the last checkpoint.
+- [`--gen1-lookback-duration`](/influxdb3/version/reference/config-options/#gen1-lookback-duration)--
+  limits how far back the server loads gen1 file index metadata on startup.
+  Files outside this window still exist in object storage but are not indexed.
+
+> [!Note]
+> Enabling checkpointing does not delete old snapshots.
+> They remain in object storage but are no longer needed for startup.
+
+### Recommended checkpoint intervals
+
+| Scenario | Recommended interval |
+| :------- | :------------------- |
+| Production servers | `1h` |
+| Development / testing | `10m` |
+
+### Enable checkpoint creation
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve --checkpoint-interval 1h
+```
+
+For all checkpoint configuration options, see
+[checkpoint-interval](/influxdb3/version/reference/config-options/#checkpoint-interval).
 
 ## Monitoring and validation
 

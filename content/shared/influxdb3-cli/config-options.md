@@ -1227,12 +1227,53 @@ percentage (portion of available memory) or absolute value in MB--for example: `
 
 ### Write-Ahead Log (WAL)
 
+- [checkpoint-interval](#checkpoint-interval)
 - [wal-flush-interval](#wal-flush-interval)
 - [wal-snapshot-size](#wal-snapshot-size)
 - [wal-max-write-buffer-size](#wal-max-write-buffer-size)
 - [snapshotted-wal-files-to-keep](#snapshotted-wal-files-to-keep)
 - [wal-replay-fail-on-error](#wal-replay-fail-on-error)
 - [wal-replay-concurrency-limit](#wal-replay-concurrency-limit)
+
+#### checkpoint-interval {#checkpoint-interval metadata="v3.8.2+"}
+
+Sets the interval for consolidating
+[snapshots](/influxdb3/version/admin/backup-restore/#file-structure) into
+monthly checkpoints for faster server startup.
+Snapshots accumulate in object storage over time and are not automatically deleted.
+
+Without checkpointing, the server loads individual snapshots on startup.
+The number of snapshots is determined by the lookback window
+([`gen1-lookback-duration`](#gen1-lookback-duration), default 1 month)
+divided by [`gen1-duration`](#gen1-duration) (default 10 minutes),
+with a minimum of 100.
+With default settings, that can be up to ~4,320 snapshots.
+
+With checkpointing enabled, the server periodically consolidates snapshot
+metadata into checkpoints in object storage.
+On startup, the server loads one to two checkpoints per calendar month,
+then loads only snapshots created since the last checkpoint.
+Enabling checkpointing does not delete old snapshots.
+
+Up to 10 checkpoints load concurrently during startup.
+The server retains two checkpoints per calendar month and handles month rollovers automatically.
+
+Accepts a [duration](/influxdb3/version/reference/glossary/#duration) value--for example: `1h`, `30m`, `10m`.
+
+**Default:** _Not set (disabled)_
+
+| influxdb3 serve option  | Environment variable            |
+| :---------------------- | :------------------------------ |
+| `--checkpoint-interval` | `INFLUXDB3_CHECKPOINT_INTERVAL` |
+
+##### Example
+
+<!-- pytest.mark.skip -->
+```bash
+influxdb3 serve --checkpoint-interval 1h
+```
+
+***
 
 #### wal-flush-interval
 
