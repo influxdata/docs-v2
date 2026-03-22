@@ -81,11 +81,10 @@ PR opened/updated (content paths)
 └──────────┬───────────────┘  │  for auto-loaded review rules   │
            │                   └──────────────┬─────────────────┘
            ▼                                  │
-┌─ Job 3: Copilot Visual Review ────────┐     │
+┌─ Job 3: Visual Review check run ──────┐     │
 │  Wait for preview deployment          │     │
-│  Post preview URLs + review prompt    │     │
-│  @copilot analyzes rendered HTML      │     │
-│  Checks: layout, shortcodes, 404s    │     │
+│  Create GitHub Check Run              │     │
+│  Output: preview URLs + checklist    │     │
 └──────────────┬───────────────────────┘     │
                │                              │
                ▼                              ▼
@@ -336,64 +335,52 @@ files. It checks for:
 - `review:*` labels are applied manually by humans after reviewing the
   Copilot feedback — the workflow does not manage labels
 
-### 2.4 — Job 3: Copilot Visual Review (rendered HTML)
+### 2.4 — Job 3: Visual Review check run (rendered HTML)
 
-**Purpose:** Have Copilot analyze the rendered preview pages to catch visual
-and structural issues invisible in the Markdown source.
+**Purpose:** Surface visual-review status in the Checks tab and provide
+reviewers with the preview URLs and checklist to verify the rendered pages.
+
+**Background:** The original design posted a PR comment mentioning
+`@github-copilot` and expected Copilot Vision to respond. This never
+worked — comment mentions alone do not invoke any Copilot agent or API,
+and the job produced no entry in the Checks tab. The redesign replaces
+the comment approach with a GitHub Check Run created via `checks.create`.
 
 **Dependencies:** Depends on Job 1 (needs URL list). Must wait for the
 `pr-preview.yml` deployment to be live.
 
-**Why Copilot for visual review:**
-- Copilot can analyze rendered HTML content at public preview URLs — no
-  screenshot capture or image upload required.
-- Visual review is a good fit for Copilot because the rendered pages are
-  self-contained artifacts (no need to cross-reference repo files).
-- Copilot code review (Job 2) handles the diff; visual review catches what
-  the diff review cannot.
-
 **Implementation:**
 
-1. **Wait for preview deployment:**
+1. **Create an in-progress check run** as soon as the job starts:
+   - Uses `github.rest.checks.create` with `status: 'in_progress'`
+   - Appears immediately in the Checks tab as "Visual Review"
+   - Requires `checks: write` permission
+
+2. **Wait for preview deployment:**
    - Poll `https://influxdata.github.io/docs-v2/pr-preview/pr-{N}/` with
-     `curl --head` until it returns 200
+     `curl` until it returns 200
    - Timeout: 10 minutes (preview build takes ~75s + deploy time)
    - Poll interval: 15 seconds
-   - If timeout, skip visual review; Copilot code review (Job 2) still runs
 
-2. **Post preview URLs and trigger Copilot review:**
-   - Use `actions/github-script@v7` to post a PR comment listing the preview
-     URLs from Job 1, formatted as clickable links
-   - Post a follow-up comment tagging `@copilot` with instructions to review
-     the rendered pages at the preview URLs. The comment should instruct
-     Copilot to check each page for:
-     - Raw shortcode syntax visible on the page (`{{<` or `{{%`)
-     - Placeholder text that should have been replaced
-     - Broken layouts: overlapping text, missing images, collapsed sections
-     - Code blocks rendered incorrectly (raw HTML/Markdown fences visible)
-     - Navigation/sidebar entries correct
-     - Visible 404 or error state
-     - Product name inconsistencies in the rendered page header/breadcrumbs
-   - The review instruction template is stored in
-     `.github/prompts/copilot-visual-review.md` for maintainability
-   - Preview URL count capped at 50 pages (matching `MAX_PAGES` in
-     `detect-preview-pages.js`)
-
-3. **Comment upsert pattern:**
-   - Visual review comments use a marker-based upsert pattern — the workflow
-     updates an existing comment if one with the marker exists, otherwise
-     creates a new one. This prevents duplicate comments on `synchronize`
-     events.
+3. **Complete the check run** based on the outcome:
+   - **Preview available:** `conclusion: 'neutral'` — the check run output
+     contains the full page list and the visual review checklist from
+     `.github/prompts/copilot-visual-review.md`. Human reviewers access it
+     via the Checks tab "Details" link.
+   - **Timeout:** `conclusion: 'neutral'` — the check run output explains
+     the timeout and how to re-trigger the review.
+   - **No URLs:** Job 4 (`report-skipped`) creates a `conclusion: 'skipped'`
+     check run instead.
 
 ### 2.6 — Workflow failure handling
 
-- If preview deployment times out: skip Copilot visual review (Job 3),
-  Copilot code review (Job 2) still runs independently. Post a comment
-  explaining visual review was skipped.
-- If Copilot does not respond to the `@copilot` mention: the preview URLs
-  remain in the comment for human review.
-- Never block PR merge on workflow failures — the workflow adds comments
-  but does not set required status checks or manage labels.
+- If preview deployment times out: Job 3 completes the check run with
+  `conclusion: 'neutral'` and a timeout message. Copilot code review
+  (Job 2) still runs independently.
+- If there are no previewable URLs: Job 4 creates a check run with
+  `conclusion: 'skipped'` explaining why.
+- Never block PR merge on workflow failures — the workflow creates check
+  runs but does not set required status checks or manage labels.
 
 ---
 
@@ -420,8 +407,9 @@ CLAUDE.md                                  ← lightweight pointer (already exis
 - **Copilot code review (CI):** GitHub's native reviewer. Auto-loads
   instruction files from `.github/instructions/` based on changed file
   patterns. No custom prompt or API key needed.
-- **Copilot visual review (CI):** Triggered by `@copilot` mention in a PR
-  comment with preview URLs and a review template.
+- **Visual review (CI):** A GitHub Check Run created by the
+  `copilot-visual-review` job. Surfaces the review status in the Checks
+  tab and includes the preview URLs and checklist in the check run output.
 - **Claude local review:** Uses `.claude/agents/doc-review-agent.md` for
   local Claude Code sessions. Not used in CI.
 - Shared rules (style guide, frontmatter, shortcodes) stay in the existing
@@ -507,14 +495,14 @@ Shared definitions for severity levels, comment structure, and result → label
 mapping. Used by `doc-review-agent.md` (local review sessions) and the
 Copilot visual review template.
 
-#### Copilot visual review template
+#### Visual review check run
 
-The `@copilot` visual review comment is constructed inline in the
-`doc-review.yml` workflow using the review template from
-`.github/templates/review-comment.md`. Contains:
+Job 3 creates a GitHub Check Run via `github.rest.checks.create` and
+completes it with the preview URLs and the visual review checklist from
+`.github/prompts/copilot-visual-review.md`. Contains:
 
 - The visual review checklist (raw shortcodes, broken layouts, 404s, etc.)
-- Instructions for analyzing the rendered pages at the preview URLs
+- Clickable links to the preview pages
 - Output format guidance (what to flag, severity levels)
 
 ---
@@ -546,19 +534,19 @@ These are explicitly **not** part of this plan. Documented here for context.
 
 ## Decisions (Resolved)
 
-### Q1: How should Copilot review rendered pages? — RESOLVED
+### Q1: How should rendered-page visual review be surfaced? — RESOLVED
 
-**Decision:** Copilot reviews rendered HTML at public preview URLs — no
-screenshots needed. Job 3 posts preview URLs in a PR comment, then tags
-`@copilot` with a review prompt. See section 2.5 for implementation details.
+**Decision:** Job 3 creates a GitHub Check Run via `github.rest.checks.create`
+instead of posting a PR comment mentioning `@github-copilot`. A comment
+mention alone never invokes Copilot Vision, and it produces no entry in
+the Checks tab. The check run:
+- Appears in the Checks tab as "Visual Review" with a meaningful conclusion
+- Contains the preview URLs and the visual review checklist in its output
+- Shows `neutral` when the preview is live (awaiting human review), or
+  `skipped` when there are no previewable URLs
 
-This approach works because:
-- Preview pages are publicly accessible at `influxdata.github.io/docs-v2/pr-preview/pr-{N}/`
-- Copilot can analyze HTML content at public URLs
-- No screenshot capture, image upload, or artifact management required
-
-Screenshot capture is deferred to Future Phases (v2) for design/layout PRs
-where visual regression testing matters.
+Screenshot capture and automated visual-diff tooling are deferred to
+Future Phases (v2) for design/layout PRs where visual regression matters.
 
 ### Q2: Should the review workflow be a required status check? — RESOLVED
 
@@ -701,4 +689,4 @@ Triggered via `workflow_dispatch` with `pr_number=6890` on branch
 - Added `workflow_dispatch` with `pr_number` input for on-demand re-runs
 
 **Remaining:** Visual review (Job 3) needs a content-changing PR to fully exercise
-the preview URL polling and Copilot `@copilot` mention flow.
+the preview URL polling and check run creation flow.

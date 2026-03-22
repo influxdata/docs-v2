@@ -53,7 +53,7 @@ Human approval uses GitHub's native PR review system (CODEOWNERS), not labels.
 2. Doc review workflow triggers (unless `skip-review` is present)
 3. Copilot code review runs on the diff (uses
    [`.github/instructions/`](instructions/) files from the base branch)
-4. Copilot visual review checks rendered preview pages
+4. Visual Review check run reports rendered-page status in the Checks tab
 5. Human reviewer uses GitHub's PR review for final approval
 
 Review labels (`review:*`) are applied manually after review, not by CI.
