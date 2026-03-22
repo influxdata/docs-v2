@@ -117,7 +117,10 @@ function getInfluxDBUrls() {
     initializeStorageItem('urls', JSON.stringify(DEFAULT_STORAGE_URLS));
   }
 
-  return JSON.parse(localStorage.getItem(urlStorageKey));
+  const storedUrls = JSON.parse(localStorage.getItem(urlStorageKey));
+  // Backfill any new default keys missing from stored data (e.g., when new
+  // products like core/enterprise are added after a user's first visit).
+  return { ...DEFAULT_STORAGE_URLS, ...storedUrls };
 }
 
 // Get the current or previous URL for a specific product or a custom url
@@ -131,8 +134,8 @@ function getInfluxDBUrl(product) {
   const urlsString = localStorage.getItem(urlStorageKey);
   const urlsObj = JSON.parse(urlsString);
 
-  // Return the URL of the specified product
-  return urlsObj[product];
+  // Return the URL of the specified product, falling back to the default
+  return urlsObj[product] ?? DEFAULT_STORAGE_URLS[product];
 }
 
 /*
