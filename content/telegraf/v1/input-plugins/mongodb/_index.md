@@ -114,7 +114,7 @@ With MongoDB 3.4 and higher, the `clusterMonitor` role can be used.  In
 version 3.2 you may also need these additional permissions:
 
 ```shell
-> db.grantRolesToUser("user", [{role: "read", actions: "find", db: "local"}])
+db.grantRolesToUser("user", [{role: "read", actions: "find", db: "local"}])
 ```
 
 If the user is missing required privileges you may see an error in the

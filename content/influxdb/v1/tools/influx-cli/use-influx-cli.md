@@ -427,8 +427,8 @@ Use `insert into <retention policy> <line protocol>` to write data to a specific
 Write data to a single field in the measurement `treasures` with the tag `captain_id = pirate_king`.
 `influx` automatically writes the point to the database's `DEFAULT` retention policy.
 ```
-> INSERT treasures,captain_id=pirate_king value=2
->
+INSERT treasures,captain_id=pirate_king value=2
+
 ```
 
 Write the same point to the already-existing retention policy `oneday`:
