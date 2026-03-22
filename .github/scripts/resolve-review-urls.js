@@ -7,6 +7,8 @@
  * Outputs (for GitHub Actions):
  * - urls: JSON array of URL paths
  * - url-count: Number of URLs
+ * - skipped: Boolean indicating if review was skipped
+ * - skip-reason: Reason for skipping (if applicable)
  */
 
 import { appendFileSync } from 'fs';
@@ -57,5 +59,18 @@ const urls = [...new Set([...homePageUrls, ...contentUrls])].slice(
 
 appendFileSync(GITHUB_OUTPUT, `urls=${JSON.stringify(urls)}\n`);
 appendFileSync(GITHUB_OUTPUT, `url-count=${urls.length}\n`);
+
+// Output skip status for downstream jobs
+if (urls.length === 0) {
+  appendFileSync(GITHUB_OUTPUT, `skipped=true\n`);
+  const skipReason =
+    changed.length === 0
+      ? 'No content files changed in this PR'
+      : 'Changed files do not map to previewable URLs';
+  appendFileSync(GITHUB_OUTPUT, `skip-reason=${skipReason}\n`);
+  console.log(`Visual review skipped: ${skipReason}`);
+} else {
+  appendFileSync(GITHUB_OUTPUT, `skipped=false\n`);
+}
 
 console.log(`Detected ${urls.length} preview URLs`);

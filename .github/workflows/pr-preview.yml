@@ -58,11 +58,12 @@ jobs:
             const existing = comments.find(c => c.body.includes(marker));
 
             if (!existing) {
+              const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `${marker}\n## 📝 PR Preview Not Available\n\nPR previews are not available for pull requests from forks due to GitHub Actions security restrictions.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
+                body: `${marker}\n## 📦 PR Preview — Preview Bot\n\n| Status | Details |\n|--------|----------|\n| **Result** | ⏭️ NOT AVAILABLE |\n| **Reason** | Fork PR (security restriction) |\n| **Checked** | ${timestamp} |\n\n### Local Preview\n\nPR previews are not available for pull requests from forks due to GitHub Actions security restrictions.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
               });
             }
 
