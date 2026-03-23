@@ -1,24 +1,24 @@
-version: "0.0.5-beta"
+version: "0.0.4-alpha"
 platforms:
   - name: Linux
     builds:
-      - arch: x86_64
-        filename: telegraf-controller-1.0.0_linux_x86_64.tar.gz
-        url: https://dl.influxdata.com/telegraf-controller/releases/telegraf-controller-1.0.0_linux_x86_64.tar.gz
+      - arch: x64
+        os: linux
+        sha256: "placeholder"
+      - arch: arm64
+        os: linux
         sha256: "placeholder"
   - name: macOS
     builds:
-      - arch: arm64
-        filename: telegraf-controller-1.0.0_darwin_arm64.tar.gz
-        url: https://dl.influxdata.com/telegraf-controller/releases/telegraf-controller-1.0.0_darwin_arm64.tar.gz
+      - arch: x64
+        os: macos
         sha256: "placeholder"
-      - arch: x86_64
-        filename: telegraf-controller-1.0.0_darwin_x86_64.tar.gz
-        url: https://dl.influxdata.com/telegraf-controller/releases/telegraf-controller-1.0.0_darwin_x86_64.tar.gz
+      - arch: arm64
+        os: macos
         sha256: "placeholder"
   - name: Windows
     builds:
-      - arch: x86_64
-        filename: telegraf-controller-1.0.0_windows_x86_64.zip
-        url: https://dl.influxdata.com/telegraf-controller/releases/telegraf-controller-1.0.0_windows_x86_64.zip
+      - arch: x64
+        os: win
+        ext: .exe
         sha256: "placeholder"
