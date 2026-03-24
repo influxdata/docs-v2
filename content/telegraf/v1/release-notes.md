@@ -48,7 +48,7 @@ menu:
 >
 > Telegraf v1.38.0 introduced a panic in the
 > [Heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) that
-> prevents Telegraf from starting with the plugin is enabled. Telegraf v1.38.2
+> prevents Telegraf from starting when the plugin is enabled. Telegraf v1.38.2
 > will include a fix, but in the meantime, to use the Heartbeat output plugin,
 > revert back to Telegraf v1.37.x _(recommended)_, use a Telegraf nightly build,
 > or build Telegraf from source.
@@ -7655,7 +7655,7 @@ plugins, not just statsd.
 On most systems, the logs will be directed to the systemd journal and can be
 accessed by `journalctl -u telegraf.service`. Consult the systemd journal
 documentation for configuring journald. The [`logfile` config option](https://github.com/influxdata/telegraf/blob/release-1.8/etc/telegraf.conf#L70)
-available in 1.1, lets users to easily configure Telegraf to
+available in 1.1 lets users configure Telegraf to
 continue sending logs to `/var/log/telegraf/telegraf.log`.
 
 ### Features
