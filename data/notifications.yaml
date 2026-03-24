@@ -60,8 +60,8 @@
 
     <a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a>
   message: |
-    The upcoming Telegraf Enterprise offering for organizations running Telegraf
-    at scale and is comprised of two key components:
+    The upcoming Telegraf Enterprise offering is for organizations running
+    Telegraf at scale and is comprised of two key components:
 
     - **Telegraf Controller**: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.
     - **Telegraf Enterprise Support**: Official support for Telegraf Controller and Telegraf plugins.
