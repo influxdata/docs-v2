@@ -48,7 +48,7 @@ to retrieve a configuration:
 
 <!--pytest.mark.skip-->
 ```bash { placeholders="YOUR_TC_API_TOKEN" }
-INLFLUX_TOKEN=YOUR_TC_API_TOKEN
+export INFLUX_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
   --config "http://telegraf_controller.example.com/api/configs/xxxxxx/toml
@@ -153,21 +153,50 @@ parameters, environment variables, auto-update functionality, and Telegraf
 
     {{< img-hd src="/img/telegraf/controller-command-builder.png" alt="Build Telegraf commands with Telegraf Controller" />}}
 
-4.  Define dynamic values and select options for your command:
+4.  _Optional_: To download a configuration and run it from your local filesystem
+    rather than having Telegraf retrieve it directly from {{% product-name %}},
+    enable the **Use local configuration file** option.
+    See more information [below](#download-a-configuration-to-your-local-filesystem).
+
+5.  Define dynamic values and select options for your command:
 
     - Set environment variable values
     - Set parameter values
     - Enable automatic configuration updates and specify the check interval
     - Add label selectors to run certain plugins based on configuration labels
 
-5.  Click **Copy Commands** to copy the contents of the codeblock to your clipboard.
+6.  Click **Copy Commands** to copy the contents of the codeblock to your clipboard.
     The tool provides commands for Linux, macOS, and Windows (PowerShell).
 
     > [!Warning]
+    > #### Some browsers restrict copying to clipboard
+    > 
     > Your browser may not allow the **Copy Commands** button to copy to your
     > clipboard under the following conditions:
     >
     > - You're using an IP or domain name other than `0.0.0.0` or `localhost` and
     > - You're using HTTP, not HTTPS
 
-<!-- TODO: Provide information about downloading configs when the functionality is added -->
+### Download a configuration to your local filesystem
+
+With the **Use local configuration file** option enabled in the command builder,
+{{% product-name %}} lets you configure the directory path and file name to use
+for the configuration.
+
+1.  Define dynamic values and select options for your command:
+
+    - Set file details
+    - Set environment variable values
+    - Set parameter values
+    - Enable automatic configuration updates and specify the check strategy
+    - Add label selectors to run certain plugins based on configuration labels
+
+2.  Click **Download Config** to download the configuration to your local machine.
+    The downloaded TOML files uses the file name specified in the
+    **File Details** tab and includes all the specified parameter replacements.
+
+3.  Click **Copy Commands** to copy the contents of the codeblock to your clipboard.
+    The tool provides commands for Linux, macOS, and Windows (PowerShell).
+    See [information about copying to your clipboard](#some-browsers-restrict-copying-to-clipboard).
+
+{{< img-hd src="/img/telegraf/controller-command-builder-dl.png" alt="Telegraf Controller command builder" />}}
