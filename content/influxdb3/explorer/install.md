@@ -36,11 +36,11 @@ Get {{% product-name %}} running in minutes:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8080:8080 \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
 
-2. **Access the Explorer UI at <http://localhost:8888>**
+2. **Access the Explorer UI at <http://localhost:8080>**
 
 3. **[Configure your InfluxDB connection in the UI](/influxdb3/explorer/get-started)**
 
@@ -71,7 +71,7 @@ Install [Docker](https://docs.docker.com/engine/) or [Docker Desktop](https://do
 ```bash
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8080:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -86,7 +86,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:80"
+      - "8080:8080"
     volumes:
       - ./config:/app-root/config:ro
     restart: unless-stopped
@@ -115,7 +115,7 @@ For production deployments with persistence, admin mode, and automatic image upd
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:80 \
+  --publish 8080:8080 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
@@ -137,11 +137,11 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:80"
+      - "8080:8080"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./ssl:/ssl:ro
     environment:
       SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:-changeme123456789012345678901234}
     restart: unless-stopped
@@ -187,7 +187,7 @@ docker-compose up -d
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8080:8080 \
      --volume $(pwd)/db:/db:rw \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -196,13 +196,13 @@ docker-compose up -d
    {{% code-tab-content %}}
    ```yaml
    version: '3.8'
-   
+
    services:
      explorer:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:80"
+         - "8080:8080"
        volumes:
          - ./db:/db:rw
        restart: unless-stopped
@@ -269,7 +269,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8080:8080 \
      --volume $(pwd)/config:/app-root/config:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -278,13 +278,13 @@ Instead of configuring connections through the UI, you can pre-define connection
    {{% code-tab-content %}}
    ```yaml
    version: '3.8'
-   
+
    services:
      explorer:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:80"
+         - "8080:8080"
        volumes:
          - ./config:/app-root/config:ro
        restart: unless-stopped
@@ -294,7 +294,7 @@ Instead of configuring connections through the UI, you can pre-define connection
 
 ### Enable TLS/SSL (HTTPS)
 
-To enable TLS/SSL for secure connections:
+Provide TLS certificates to enable HTTPS on port 8080:
 
 1. **Create SSL directory and add certificate files:**
 
@@ -309,7 +309,7 @@ To enable TLS/SSL for secure connections:
    - Certificate: `server.crt` or `fullchain.pem`
    - Private key: `server.key`
 
-2. **Run the container with SSL enabled:**
+2. **Run the container with TLS certificates mounted:**
 
    {{< code-tabs-wrapper >}}
    {{% code-tabs %}}
@@ -321,8 +321,8 @@ To enable TLS/SSL for secure connections:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:443 \
-     --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+     --publish 8080:8080 \
+     --volume $(pwd)/ssl:/ssl:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
    {{% /code-tab-content %}}
@@ -330,24 +330,21 @@ To enable TLS/SSL for secure connections:
    {{% code-tab-content %}}
    ```yaml
    version: '3.8'
-   
+
    services:
      explorer:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:443"
+         - "8080:8080"
        volumes:
-         - ./ssl:/etc/nginx/ssl:ro
+         - ./ssl:/ssl:ro
        restart: unless-stopped
    ```
    {{% /code-tab-content %}}
    {{< /code-tabs-wrapper >}}
 
-3. **Access the Explorer UI at <https://localhost:8888>**
-
-> [!Note]
-> The nginx web server automatically detects and uses certificate files in the mounted path.
+3. **Access the Explorer UI at <https://localhost:8080>**
 
 #### TLS and certificate verification options
 
@@ -403,10 +400,10 @@ To configure Explorer to trust self-signed or custom CA certificates when connec
 docker run --detach \
   --name influxdb3-explorer \
   --restart unless-stopped \
-  --publish 8888:443 \
+  --publish 8080:8080 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
-  --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+  --volume $(pwd)/ssl:/ssl:ro \
   --volume $(pwd)/ca-certs:/ca-certs:ro \
   --env SESSION_SECRET_KEY=your-secure-secret-key-here \
   --env NODE_EXTRA_CA_CERTS=/ca-certs/your-ca.pem \
@@ -429,11 +426,11 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:443"
+      - "8080:8080"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./ssl:/ssl:ro
       - ./ca-certs:/ca-certs:ro
     environment:
       SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:-your-secure-secret-key-here}
@@ -467,14 +464,14 @@ Set the mode using the `--mode` parameter:
 # Query mode (default)
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8080:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=query
 
 # Admin mode
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8080:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
@@ -492,7 +489,7 @@ services:
     # For admin mode, add:
     command: ["--mode=admin"]
     ports:
-      - "8888:80"
+      - "8080:8080"
     restart: unless-stopped
 ```
 {{% /code-tab-content %}}
@@ -508,8 +505,8 @@ services:
 |----------|---------|-------------|
 | `SESSION_SECRET_KEY` | _(random)_ | Secret key for session management. **Set this in production to persist sessions across restarts.** |
 | `DATABASE_URL` | `/db/sqlite.db` | Path to SQLite database inside container |
-| `SSL_CERT_PATH` | `/etc/nginx/ssl/cert.pem` | Path to SSL certificate file |
-| `SSL_KEY_PATH` | `/etc/nginx/ssl/key.pem` | Path to SSL private key file |
+| `SSL_CERT_PATH` | `/ssl/cert.pem` | Path to SSL certificate file |
+| `SSL_KEY_PATH` | `/ssl/key.pem` | Path to SSL private key file |
 | `NODE_EXTRA_CA_CERTS` | _(none)_ | Path to custom CA certificate file (PEM format) for trusting self-signed or internal CA certificates |
 | `CA_CERT_PATH` | _(none)_ | Alias for `NODE_EXTRA_CA_CERTS` |
 
@@ -527,15 +524,14 @@ services:
 |----------------|---------|-------------|----------|
 | `/db` | SQLite database storage | 700 | No (but recommended) |
 | `/app-root/config` | Connection configuration | 755 | No |
-| `/etc/nginx/ssl` | TLS/SSL certificates | 755 | Only for HTTPS |
+| `/ssl` | TLS/SSL certificates | 755 | Only for HTTPS |
 | `/ca-certs` | Custom CA certificates | 755 | Only for self-signed certificates |
 
 ### Port reference
 
 | Container Port | Protocol | Purpose | Common Host Mapping |
 |----------------|----------|---------|---------------------|
-| 80 | HTTP | Web UI (unencrypted) | 8888 |
-| 443 | HTTPS | Web UI (encrypted) | 8888 |
+| 8080 | HTTP/HTTPS | Web UI (HTTPS if TLS certificates provided) | 8080 |
 
 ---
 
@@ -572,10 +568,10 @@ EOF
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:443 \
+  --publish 8080:8080 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
-  --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
+  --volume $(pwd)/ssl:/ssl:ro \
   --env SESSION_SECRET_KEY=$SESSION_SECRET \
   --restart unless-stopped \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
@@ -595,11 +591,11 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:443"
+      - "8080:8080"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./ssl:/ssl:ro
     environment:
       SESSION_SECRET_KEY: ${SESSION_SECRET_KEY}
     restart: unless-stopped
@@ -631,7 +627,7 @@ docker-compose up -d
 ```bash
 docker run --rm \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8080:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -646,7 +642,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:80"
+      - "8080:8080"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
