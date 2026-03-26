@@ -1,0 +1,30 @@
+User-agent: *
+
+Disallow: /docs-v2/pr-preview/pr-6990/chronograf/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/enterprise_influxdb/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/flux/v0/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb/cloud/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb/v2/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/cloud-dedicated/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/cloud-serverless/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/clustered/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/core/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/enterprise/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/influxdb3/explorer/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/kapacitor/v1/__tests__/shortcodes/
+
+Disallow: /docs-v2/pr-preview/pr-6990/telegraf/v1/__tests__/shortcodes/
+Sitemap: https://influxdata.github.io/docs-v2/pr-preview/pr-6990/sitemap.xml

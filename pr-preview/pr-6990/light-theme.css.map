@@ -1,0 +1,15 @@
+{
+	"version": 3,
+	"file": "light-theme.css",
+	"sourceRoot": "/home/runner/work/docs-v2/docs-v2",
+	"sources": [
+		"assets/styles/sidebar-closed.scss",
+		"assets/styles/tools/media-queries.scss"
+	],
+	"sourcesContent": [
+		"// Sets CSS overides for when the sidebar is closed\n\n.sidebar {\n  width: 0;\n  overflow: hidden;\n  padding: 0;\n  transition: all .4s;\n\n  .search-and-nav-toggle,\n  #nav-tree,\n  .sidebar-toggle {\n    white-space: nowrap;\n    opacity: 0;\n    transition: all .1s;\n  }\n}\n\n.content-wrapper {\n  width: 100%;\n  .sidebar-toggle{\n    display: block;\n  }\n}\n\n.topnav {\n  .search-btn {\n    opacity: 1;\n    width: 30px;\n    transition: width .2s, opacity .2s .2s;\n  }\n  .selector-dropdowns {\n    right: 7.5rem;\n  }\n}\n\n////////////////////////////////////////////////////////////////////////////////\n///////////////////////////////// MEDIA QUERIES ////////////////////////////////\n////////////////////////////////////////////////////////////////////////////////\n\n@import \"tools/media-queries\";\n\n@include media(medium) {\n  .sidebar {\n    width: 100%;\n    overflow: auto;\n    padding: 0 1rem;\n  }\n  .search-and-nav-toggle, #nav-tree {\n    opacity: 1 !important;\n    white-space: normal;\n  }\n  .topnav {\n    .search-btn {\n      opacity: 0;\n    }\n    .selector-dropdowns {\n      right: 3.5rem;\n    }\n  }\n  .content-wrapper .sidebar-toggle {\n    display: none;\n  }\n}\n",
+		"$small-max: 600px;\n$medium-min: ($small-max + 1);\n$medium-max: 800px;\n$large-min: ($medium-max + 1);\n$large-max: 1280px;\n$xlarge-min: 1290px;\n\n@mixin media($size) {\n  @if $size == small {\n    @media (max-width: $small-max) { @content ; }\n  }\n  @else if $size == medium {\n    @media (max-width: $medium-max) { @content ; }\n  }\n  @else if $size == large_min {\n    @media (min-width: $large-min) { @content ; }\n  }\n  @else if $size == large {\n    @media (max-width: $large-max) { @content ; }\n  }\n  @else if $size == xlarge {\n    @media (min-width: $xlarge-min) { @content ; }\n  }\n}\n"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,QAAQ,AAAC,CACP,KAAK,CAAE,CAAC,CACR,QAAQ,CAAE,MAAM,CAChB,OAAO,CAAE,CAAC,CACV,UAAU,CAAE,OAAO,CASpB,AAbD,AAME,QANM,CAMN,sBAAsB,CANxB,QAAQ,CAON,SAAS,CAPX,QAAQ,CAQN,eAAe,AAAC,CACd,WAAW,CAAE,MAAM,CACnB,OAAO,CAAE,CAAC,CACV,UAAU,CAAE,OAAO,CACpB,AAGH,AAAA,gBAAgB,AAAC,CACf,KAAK,CAAE,IAAI,CAIZ,AALD,AAEE,gBAFc,CAEd,eAAe,AAAA,CACb,OAAO,CAAE,KAAK,CACf,AAGH,AACE,OADK,CACL,WAAW,AAAC,CACV,OAAO,CAAE,CAAC,CACV,KAAK,CAAE,IAAI,CACX,UAAU,CAAE,0BAA0B,CACvC,AALH,AAME,OANK,CAML,mBAAmB,AAAC,CAClB,KAAK,CAAE,MAAM,CACd,ACpBC,MAAM,mBD8BR,CAAA,AAAA,QAAQ,AAAC,CACP,KAAK,CAAE,IAAI,CACX,QAAQ,CAAE,IAAI,CACd,OAAO,CAAE,MAAM,CAChB,AACD,AAAA,sBAAsB,CAAE,SAAS,AAAC,CAChC,OAAO,CAAE,YAAY,CACrB,WAAW,CAAE,MAAM,CACpB,AACD,AACE,OADK,CACL,WAAW,AAAC,CACV,OAAO,CAAE,CAAC,CACX,AAHH,AAIE,OAJK,CAIL,mBAAmB,AAAC,CAClB,KAAK,CAAE,MAAM,CACd,AAEH,AAAA,gBAAgB,CAAC,eAAe,AAAC,CAC/B,OAAO,CAAE,IAAI,CACd,CAfA"
+}

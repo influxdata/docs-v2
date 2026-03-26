@@ -1,0 +1,13 @@
+{
+	"version": 3,
+	"file": "dark-theme.css",
+	"sourceRoot": "/home/runner/work/docs-v2/docs-v2",
+	"sources": [
+		"assets/styles/sidebar-open.scss"
+	],
+	"sourcesContent": [
+		"// Default state of having the sidebar open.\n\n.sidebar {\n  transition: all .2s;\n  .search-and-nav-toggle,\n  #nav-tree {\n    opacity: 1;\n    transition: all .3s;\n    transition-delay: .1s;\n  }\n}\n\n.search-btn {\n  opacity: 0;\n  width: 0;\n  overflow: visible;\n  transition: opacity .2s, width .2s .2s !important;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,QAAQ,AAAC,CACP,UAAU,CAAE,OAAO,CAOpB,AARD,AAEE,QAFM,CAEN,sBAAsB,CAFxB,QAAQ,CAGN,SAAS,AAAC,CACR,OAAO,CAAE,CAAC,CACV,UAAU,CAAE,OAAO,CACnB,gBAAgB,CAAE,GAAG,CACtB,AAGH,AAAA,WAAW,AAAC,CACV,OAAO,CAAE,CAAC,CACV,KAAK,CAAE,CAAC,CACR,QAAQ,CAAE,OAAO,CACjB,UAAU,CAAE,qCAAqC,CAClD"
+}
