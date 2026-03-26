@@ -5,9 +5,9 @@ platforms:
       - arch: x64
         os: linux
         sha256: "854592b5e1f1922774074036650ed94fc278d9a666b20d35c98e75defb56d2cf"
-      # - arch: arm64
-      #   os: linux
-      #   sha256: "placeholder"
+      - arch: arm64
+        os: linux
+        sha256: "15ea90cc93bc345ce77e4b7eb15efa36522efb7026433f25098280fb6577ca91"
   - name: macOS
     builds:
       - arch: x64
