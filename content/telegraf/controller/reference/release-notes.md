@@ -11,6 +11,9 @@ weight: 101
 
 ## v0.0.5-beta {date="2026-03-26"}
 
+<!-- Link only be on the latest version, update and move with new versions. -->
+[Download Telegraf Controller v0.0.5-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
 ### Important changes
 
 This release introduces user and account management, API token authentication,
