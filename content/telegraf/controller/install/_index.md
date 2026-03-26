@@ -18,6 +18,7 @@ configurations, monitoring agents, and organizing plugins.
 - [Download and install {{% product-name %}}](#download-and-install-telegraf-controller)
 - [Set up your database](#set-up-your-database)
 - [Configure {{% product-name %}}](#configure-telegraf-controller)
+- [Set up the owner account](#set-up-the-owner-account)
 - [Access {{% product-name %}}](#access-telegraf-controller)
 
 ## System Requirements
@@ -75,15 +76,7 @@ $env:TELEGRAF_CONTROLLER_EULA="accept"
 
 1.  **Download the {{% product-name %}} executable.**
 
-    > [!Note]
-    > #### Contact InfluxData for download
-    >
-    > If you are currently participating in the {{% product-name %}} private alpha,
-    > send your operating system and architecture to InfluxData and we will
-    > provide you with the appropriate {{% product-name %}} executable.
-    >
-    > If you are not currently in the private alpha and would like to be, 
-    > [request early access](https://www.influxdata.com/products/telegraf-enterprise).
+    {{< telegraf/tc-downloads >}}
 
 2.  **Install {{% product-name %}}**.
 
@@ -507,6 +500,93 @@ $env:TELEGRAF_CONTROLLER_EULA=accept
 <!------------------------- END ENVIRONMENT VARIABLES ------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+## Set up the owner account
+
+The first time you access {{% product-name %}}, you need to create an owner account.
+The owner has full administrative access to the application, including the
+ability to manage users, configurations, and agents.
+
+You can create the owner account using one of four methods:
+
+- [Interactive CLI setup](#interactive-cli-setup) when starting the application
+- [Environment variables](#environment-variable-setup) set before starting the application
+- [Command line flags](#command-line-flag-setup) passed when starting the application
+- [Web interface setup](#web-interface-setup) after starting the application
+
+### Interactive CLI setup
+
+When you start {{% product-name %}} in interactive mode (default) and no owner
+account exists, {{% product-name %}} prompts you to provide owner username,
+email address, and password.
+
+### Environment variable setup
+
+You can configure the owner account by setting environment variables before
+starting {{% product-name %}}.
+This method is useful for automated deployments and containerized environments.
+
+| Environment variable | Description         |
+| :------------------- | :------------------ |
+| `OWNER_EMAIL`        | Owner email address |
+| `OWNER_USERNAME`     | Owner username      |
+| `OWNER_PASSWORD`     | Owner password      |
+
+Set all three environment variables and then start the application:
+
+```bash
+export OWNER_EMAIL="admin@example.com"
+export OWNER_USERNAME="admin"
+export OWNER_PASSWORD="secure-password-here"
+
+./telegraf-controller
+```
+
+> [!Note]
+> If an owner account already exists, {{% product-name %}} ignores these
+> environment variables.
+
+> [!Important]
+> If an administrator account already exists with the specified username,
+> that account is promoted to owner.
+
+### Command line flag setup
+
+You can also pass owner account details as command line flags when starting
+{{% product-name %}}.
+
+| Flag                     | Description            |
+|:-------------------------|:-----------------------|
+| `--owner-email=EMAIL`    | Owner email address    |
+| `--owner-username=NAME`  | Owner username         |
+| `--owner-password=PASS`  | Owner password         |
+
+Pass all three flags when starting the application:
+
+```bash
+./telegraf-controller \
+  --owner-email="admin@example.com" \
+  --owner-username="admin" \
+  --owner-password="secure-password-here"
+```
+
+> [!Tip]
+> Command line flags take precedence over environment variables.
+> If you set both, {{% product-name %}} uses the values from the command line flags.
+
+### Web interface setup
+
+If no owner account exists when you start {{% product-name %}} in non-interactive
+mode, the web interface displays a setup page where you can create one.
+
+1. Navigate to the [{{% product-name %}} URL](#access-telegraf-controller) in your browser.
+2. Fill in the **Username**, **Email**, and **Password** fields.
+3. Click **Create Account**.
+
+{{< img-hd src="/img/telegraf/controller-setup-owner-account.png" alt="Owner account setup page" />}}
+
+For more information about user roles and permissions, see
+[Authorization](/telegraf/controller/reference/authorization/).
 
 ## Access {{% product-name %}}
 

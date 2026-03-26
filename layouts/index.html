@@ -128,12 +128,29 @@
       <div class="bg-overlay"></div>
       <div class="product-info">
         <h2>Collect data with Telegraf</h2>
-        <p>The data collection agent that supports a large catalog of data sources and targets.</p>      
       </div>
-      <ul class="product-links">
-        <li><a href="/telegraf/v1/get-started/">Get started with Telegraf</a></li>
-        <li><a href="/telegraf/v1/plugins/">View Telegraf plugins</a></li>
-      </ul>
+      <div class="products">
+        <div class="product">
+          <div class="product-info">
+            <h3><a href="/telegraf/v1/">Telegraf <span class="version">{{ $telegrafVersion }}</span></a></h3>
+            <p>The open source data collection agent with support for a large catalog of data sources and targets.</p>
+          </div>
+          <ul class="product-links">
+            <li><a href="/telegraf/v1/get-started/">Get started with Telegraf</a></li>
+            <li><a href="/telegraf/v1/plugins/">View Telegraf plugins</a></li>
+          </ul>
+        </div>
+        <div class="product">
+          <div class="product-info">
+            <h3 state="beta"><a href="/telegraf/controller/">Telegraf Controller</a></h3>
+            <p>Centralized Telegraf configuration management and agent observability with an intuitive UI.</p>
+          </div>
+          <ul class="product-links">
+            <li><a href="/telegraf/controller/install/">Download and Install</a></li>
+            <li><a href="/telegraf/controller/">View documentation</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   
     <div id="influxdbv2" class="product-group">
@@ -201,16 +218,6 @@
     <div id="other" class="product-group">
       <h2>Other Products</h2>
       <div class="products">
-        <div class="product">
-          <div class="product-info">
-            <h3><a href="/telegraf/v1/">Telegraf <span class="version">{{ $telegrafVersion }}</span></a></h3>
-            <p>The collection agent that gathers time series data from many different sources.</p>
-          </div>
-          <ul class="product-links">
-            <li><a href="/telegraf/v1/get-started/">Get started with Telegraf {{ $telegrafVersion }}</a></li>
-            <li><a href="/telegraf/v1/plugins/">View Telegraf plugins</a></li>
-          </ul>
-        </div>
         <div class="product">
           <div class="product-info">
             <h3><a href="/chronograf/v1/">Chronograf <span class="version">{{ $chronografVersion }}</span></a></h3>

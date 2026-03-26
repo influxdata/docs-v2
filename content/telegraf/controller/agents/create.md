@@ -41,7 +41,9 @@ The following heartbeat plugin configuration options are available:
 - **url**: _({{% req %}})_ URL of heartbeat endpoint.
 - **instance_id**: _({{% req %}})_ Unique identifier for the Telegraf instance
   or agent (also known as the agent ID).
-- **token**: Authorization token for the heartbeat endpoint
+- **token**: _({{% req text="Required with auth enabled" %}})_
+  {{% product-name %}} API token for the heartbeat endpoint.
+  The token must have **write** permissions on the **Heartbeat** API.
 - **interval**: Interval for sending heartbeat messages. Default is `1m` (every minute).
 - **include**: Information to include in the heartbeat message.
   Available options are:
@@ -56,18 +58,31 @@ The following heartbeat plugin configuration options are available:
 ### Example heartbeat output plugin
 
 The following is an example heartbeat output plugin configuration that uses
-an `agent_id` [configuration parameter](#) to specify the `instance_id`.
+an `agent_id` [configuration parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+to specify the `instance_id`.
 
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
+  token = "${INFLUX_TOKEN}"
   interval = "1m"
   include = ["hostname", "statistics", "configs"]
 
   [outputs.heartbeat.headers]
     User-Agent = "telegraf"
 ```
+
+> [!Important]
+> #### Authorize heartbeats using an API token
+>
+> If {{% product-name %}} requires authorization on the **Heartbeat** API,
+> include the `token` option in your heartbeat plugin configuration.
+> Provide a {{% product-name %}} token with **write** permissions on the
+> **Heartbeat** API.
+>
+> We recommend defining the `INFLUX_TOKEN` environment variable when starting
+> Telegraf and using that to define the token in your heartbeat plugin.
 
 ## Verify a new agent
 
