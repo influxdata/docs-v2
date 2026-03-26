@@ -38,6 +38,8 @@ jobs:
     outputs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
+      skipped: ${{ steps.detect.outputs.skipped }}
+      skip-reason: ${{ steps.detect.outputs.skip-reason }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:
@@ -112,13 +114,17 @@ jobs:
             }
 
   # -----------------------------------------------------------------
-  # Job 3: Copilot visual review (depends on Job 1 for URLs)
+  # Job 3: Visual review check run (depends on Job 1 for URLs)
+  #
+  # Creates a GitHub Check Run (visible in the Checks tab), invoking Copilot Vision
+  # and reporting the visual-review status where reviewers can act on it.
   # -----------------------------------------------------------------
   copilot-visual-review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
+      pull-requests: read
+      checks: write
     needs: resolve-urls
     if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) > 0
     steps:
@@ -127,6 +133,47 @@ jobs:
           persist-credentials: false
           sparse-checkout: .github/prompts/copilot-visual-review.md
           sparse-checkout-cone-mode: false
+
+      - name: Get PR head SHA
+        id: pr-sha
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            let sha = context.payload.pull_request?.head?.sha;
+            if (!sha) {
+              const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+              });
+              sha = pr.head.sha;
+            }
+            core.setOutput('sha', sha);
+
+      - name: Create in-progress check run
+        id: create-check
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          HEAD_SHA: ${{ steps.pr-sha.outputs.sha }}
+        with:
+          script: |
+            const { data: check } = await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Visual Review',
+              head_sha: process.env.HEAD_SHA,
+              status: 'in_progress',
+              started_at: new Date().toISOString(),
+              output: {
+                title: 'Visual Review — Waiting for preview deployment',
+                summary: 'Waiting for PR preview to be available…',
+              },
+            });
+            core.setOutput('check-run-id', String(check.id));
+            core.info(`Created check run ${check.id}`);
 
       - name: Wait for preview deployment
         id: wait
@@ -155,126 +202,145 @@ jobs:
           echo "Preview deployment timed out after ${TIMEOUT}s"
           echo "available=false" >> "$GITHUB_OUTPUT"
 
-      - name: Post visual review request
+      - name: Complete check run — preview available
         if: steps.wait.outputs.available == 'true'
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         env:
           PREVIEW_URLS: ${{ needs.resolve-urls.outputs.urls }}
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          CHECK_RUN_ID: ${{ steps.create-check.outputs.check-run-id }}
         with:
           script: |
             const fs = require('fs');
-
-            let urls;
-            try {
-              urls = JSON.parse(process.env.PREVIEW_URLS);
-            } catch (e) {
-              core.warning(`Failed to parse PREVIEW_URLS: ${e.message}`);
-              return;
-            }
-
+            const checkRunId = Number(process.env.CHECK_RUN_ID);
             const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
             const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
 
-            // Build preview URL list
-            const urlList = urls
-              .map(u => `- [${u}](${previewBase}${u})`)
-              .join('\n');
+            let urls = [];
+            try { urls = JSON.parse(process.env.PREVIEW_URLS); } catch {}
 
-            // Read the Copilot visual review template
-            const template = fs.readFileSync(
+            const checklist = fs.readFileSync(
               '.github/prompts/copilot-visual-review.md',
               'utf8'
             );
+            const pageList = urls.slice(0, 20)
+              .map(u => `- [${u}](${previewBase}${u})`)
+              .join('\n')
+              + (urls.length > 20 ? `\n- … and ${urls.length - 20} more` : '');
 
-            const marker = '<!-- doc-review-visual -->';
-            const body = [
-              marker,
-              '## Preview Pages for Review',
-              '',
-              `${urls.length} page(s) changed in this PR:`,
-              '',
-              '<details>',
-              '<summary>Preview URLs</summary>',
-              '',
-              urlList,
-              '',
-              '</details>',
-              '',
-              '---',
-              '',
-              `@github-copilot please review the preview pages listed above using the template below:`,
-              '',
-              template.trim(),
-              '',
-              urlList,
-            ].join('\n');
-
-            // Update existing comment or create new one
-            const { data: comments } = await github.rest.issues.listComments({
+            await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: prNumber,
+              check_run_id: checkRunId,
+              status: 'completed',
+              conclusion: 'neutral',
+              completed_at: new Date().toISOString(),
+              output: {
+                title: `Visual Review — ${urls.length} page(s) ready for review`,
+                summary: `Preview is live with ${urls.length} changed page(s). Complete the checklist in the details to finish visual review.`,
+                text: `## Pages to Review\n\n${pageList}\n\n## Visual Review Checklist\n\n${checklist.trim()}`,
+              },
             });
-            const existing = comments.find(c => c.body.includes(marker));
+            core.info(`Completed check run ${checkRunId} — ${urls.length} pages ready`);
 
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body,
-              });
-            }
-
-            core.info(`Posted visual review request with ${urls.length} URLs`);
-
-      - name: Post timeout notice
+      - name: Complete check run — timed out
         if: steps.wait.outputs.available == 'false'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          CHECK_RUN_ID: ${{ steps.create-check.outputs.check-run-id }}
+        with:
+          script: |
+            const checkRunId = Number(process.env.CHECK_RUN_ID);
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const previewUrl = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}/`;
+
+            await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: checkRunId,
+              status: 'completed',
+              conclusion: 'neutral',
+              completed_at: new Date().toISOString(),
+              output: {
+                title: 'Visual Review — Preview deployment timed out',
+                summary: [
+                  'Preview was not available within 10 minutes.',
+                  '',
+                  'To trigger visual review:',
+                  `1. Wait for the [PR Preview](${previewUrl}) to deploy`,
+                  '2. Re-run this workflow from the Actions tab',
+                ].join('\n'),
+              },
+            });
+            core.info(`Completed check run ${checkRunId} — timed out`);
+
+  # -----------------------------------------------------------------
+  # Job 4: Report when visual review is skipped (no URLs to review)
+  #
+  # Creates a GitHub Check Run with conclusion 'skipped' so the Checks
+  # tab shows an accurate status rather than simply omitting the entry.
+  # -----------------------------------------------------------------
+  report-skipped:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      checks: write
+    needs: resolve-urls
+    # GitHub Actions outputs are always strings; 'true' string comparison is intentional
+    if: needs.resolve-urls.result == 'success' && needs.resolve-urls.outputs.skipped == 'true'
+    steps:
+      - name: Get PR head SHA
+        id: pr-sha
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
         with:
           script: |
-            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
-            const marker = '<!-- doc-review-visual-timeout -->';
-            const body = [
-              marker,
-              '## Visual Review Skipped',
-              '',
-              'The PR preview deployment did not become available within 10 minutes.',
-              'Visual review was skipped. The Copilot code review (Job 2) still ran.',
-              '',
-              'To trigger visual review manually, re-run this workflow after the',
-              'preview is deployed.',
-            ].join('\n');
+            let sha = context.payload.pull_request?.head?.sha;
+            if (!sha) {
+              const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+              });
+              sha = pr.head.sha;
+            }
+            core.setOutput('sha', sha);
 
-            const { data: comments } = await github.rest.issues.listComments({
+      - name: Create skipped visual review check run
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          HEAD_SHA: ${{ steps.pr-sha.outputs.sha }}
+          SKIP_REASON: ${{ needs.resolve-urls.outputs.skip-reason }}
+        with:
+          script: |
+            const skipReason = process.env.SKIP_REASON || 'No previewable content changes detected';
+            const now = new Date().toISOString();
+            const { data: check } = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: prNumber,
+              name: 'Visual Review',
+              head_sha: process.env.HEAD_SHA,
+              status: 'completed',
+              conclusion: 'skipped',
+              started_at: now,
+              completed_at: now,
+              output: {
+                title: 'Visual Review — Skipped',
+                summary: skipReason,
+                text: [
+                  '## What This Means',
+                  '',
+                  '- No preview pages were identified for visual review.',
+                  '- This is expected for PRs that only change non-content files.',
+                  '- Copilot code review (diff-based) still runs independently.',
+                  '',
+                  '## If You Expected Visual Review',
+                  '',
+                  'Check that your PR includes changes to files in `content/` that map to published documentation pages.',
+                ].join('\n'),
+              },
             });
-            const existing = comments.find(c => c.body.includes(marker));
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body,
-              });
-            }
+            core.info(`Created skipped check run ${check.id}: ${skipReason}`);

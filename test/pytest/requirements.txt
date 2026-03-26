@@ -9,8 +9,8 @@ pytest-custom-exit-code>=0.3.0
 requests>=2.26.0
 toml
 # Code sample dependencies
-influxdb3-python @ git+https://github.com/InfluxCommunity/influxdb3-python@v0.5.0
-influxdb3-python-cli @ git+https://github.com/InfluxCommunity/influxdb3-python-cli@main
+influxdb3-python @ git+https://github.com/InfluxCommunity/influxdb3-python@v0.18.0
+influxdb3-python-cli @ git+https://github.com/InfluxCommunity/influxdb3-python-cli@v0.3.2
 pandas
 polars
 ## Tabulate for printing pandas DataFrames.
