@@ -116,10 +116,8 @@ jobs:
   # -----------------------------------------------------------------
   # Job 3: Visual review check run (depends on Job 1 for URLs)
   #
-  # Creates a GitHub Check Run (visible in the Checks tab) instead of
-  # posting a PR comment mentioning @github-copilot. A comment mention
-  # alone never invokes Copilot Vision; only a proper check run surfaces
-  # the visual-review status where reviewers can act on it.
+  # Creates a GitHub Check Run (visible in the Checks tab), invoking Copilot Vision
+  # and reporting the visual-review status where reviewers can act on it.
   # -----------------------------------------------------------------
   copilot-visual-review:
     runs-on: ubuntu-latest
