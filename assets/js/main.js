@@ -45,6 +45,7 @@ import ReleaseToc from './release-toc.js';
 import { SearchButton } from './search-button.js';
 import SidebarSearch from './components/sidebar-search.js';
 import { SidebarToggle } from './sidebar-toggle.js';
+import TcDynamicValues from './components/tc-dynamic-values.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
 
@@ -76,6 +77,7 @@ const componentRegistry = {
   'search-button': SearchButton,
   'sidebar-search': SidebarSearch,
   'sidebar-toggle': SidebarToggle,
+  'tc-dynamic-values': TcDynamicValues,
   theme: Theme,
   'theme-switch': ThemeSwitch,
 };

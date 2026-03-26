@@ -50,8 +50,7 @@ Use the `INFLUX_TOKEN` environment variable to define the `token` option in your
 heartbeat plugin configuration.
 Telegraf uses the environment variable value defined when starting Telegraf.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -59,7 +58,6 @@ Telegraf uses the environment variable value defined when starting Telegraf.
   include = ["hostname", "statistics", "configs"]
   token = "${INFLUX_TOKEN}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 When authentication is required for the heartbeat endpoint, agents must include
 a valid token with each heartbeat request.

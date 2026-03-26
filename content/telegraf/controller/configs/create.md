@@ -65,8 +65,7 @@ configuration with a [Telegraf heartbeat output plugin](/telegraf/v1/output-plug
 This plugin reports agent information back to the {{% product-name %}} heartbeat
 API and lets you monitor the health of your deployed Telegraf agents.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
 url = "http://localhost:8000/agents/heartbeat"
 instance_id = "&{agent_id}"
@@ -74,7 +73,6 @@ interval = "1m"
 include = ["hostname", "statistics", "configs"]
 token = "${INFLUX_TOKEN}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 To monitor agents with {{% product-name %}}, include a heartbeat plugin in
 your Telegraf configurations.

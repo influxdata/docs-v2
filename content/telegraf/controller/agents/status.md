@@ -74,8 +74,7 @@ heartbeat plugin configuration and define CEL expressions in the
 Report `ok` when metrics are flowing.
 If no metrics arrive, fall back to the `fail` status.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -87,14 +86,12 @@ If no metrics arrive, fall back to the `fail` status.
     ok = "metrics > 0"
     default = "fail"
 ```
-{{% /telegraf/dynamic-values %}}
 
 ### Example: Error-based status
 
 Warn when errors are logged, fail when the error count is high.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -109,14 +106,12 @@ Warn when errors are logged, fail when the error count is high.
     order = ["fail", "warn", "ok"]
     default = "ok"
 ```
-{{% /telegraf/dynamic-values %}}
 
 ### Example: Composite condition
 
 Combine error count and buffer pressure signals.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -131,7 +126,6 @@ Combine error count and buffer pressure signals.
     order = ["fail", "warn", "ok"]
     default = "ok"
 ```
-{{% /telegraf/dynamic-values %}}
 
 For more examples including buffer health, plugin-specific checks, and
 time-based expressions, see
