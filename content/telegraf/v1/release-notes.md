@@ -11,9 +11,65 @@ menu:
     weight: 60
 ---
 
+## v1.38.1 {date="2026-03-16"}
+
+### Bugfixes
+
+- [#18491](https://github.com/influxdata/telegraf/pull/18491) `inputs.diskio` Sanitize newline characters in serial tag
+- [#18453](https://github.com/influxdata/telegraf/pull/18453) `inputs.docker` Emit status metrics for non-running containers
+- [#18513](https://github.com/influxdata/telegraf/pull/18513) `inputs.exec` Log stderr messages
+- [#18469](https://github.com/influxdata/telegraf/pull/18469) `inputs.mem` Use vm.Cached as vm.Buffers on OpenBSD
+- [#18455](https://github.com/influxdata/telegraf/pull/18455) `inputs.ping` Warn on using timeout parameter for native method
+- [#18471](https://github.com/influxdata/telegraf/pull/18471) `internal` Extract go version even more robustly
+- [#18509](https://github.com/influxdata/telegraf/pull/18509) `outputs.influxdb_v3` Remove duplicate timeout setting
+
+### Dependency Updates
+
+- [#18486](https://github.com/influxdata/telegraf/pull/18486) `deps` Bump github.com/SAP/go-hdb from 1.15.1 to 1.15.2
+- [#18477](https://github.com/influxdata/telegraf/pull/18477) `deps` Bump github.com/alitto/pond/v2 from 2.6.2 to 2.7.0
+- [#18488](https://github.com/influxdata/telegraf/pull/18488) `deps` Bump github.com/apache/arrow-go/v18 from 18.5.1 to 18.5.2
+- [#18487](https://github.com/influxdata/telegraf/pull/18487) `deps` Bump github.com/emiago/sipgo from 1.2.0 to 1.2.1
+- [#18475](https://github.com/influxdata/telegraf/pull/18475) `deps` Bump github.com/gophercloud/gophercloud/v2 from 2.10.0 to 2.11.0
+- [#18481](https://github.com/influxdata/telegraf/pull/18481) `deps` Bump github.com/nats-io/nats-server/v2 from 2.12.4 to 2.12.5
+- [#18075](https://github.com/influxdata/telegraf/pull/18075) `deps` Bump go.opentelemetry.io/collector/pdata from 1.46.0 to 1.53.0
+- [#18483](https://github.com/influxdata/telegraf/pull/18483) `deps` Bump go.opentelemetry.io/proto/otlp from 1.9.0 to 1.10.0
+- [#18485](https://github.com/influxdata/telegraf/pull/18485) `deps` Bump go.opentelemetry.io/proto/otlp/collector/profiles/v1development from 0.2.0 to 0.3.0
+- [#18478](https://github.com/influxdata/telegraf/pull/18478) `deps` Bump golang.org/x/oauth2 from 0.35.0 to 0.36.0
+- [#18484](https://github.com/influxdata/telegraf/pull/18484) `deps` Bump golang.org/x/sync from 0.19.0 to 0.20.0
+- [#18480](https://github.com/influxdata/telegraf/pull/18480) `deps` Bump google.golang.org/api from 0.269.0 to 0.270.0
+- [#18490](https://github.com/influxdata/telegraf/pull/18490) `deps` Bump google.golang.org/grpc from 1.79.1 to 1.79.2
+- [#18474](https://github.com/influxdata/telegraf/pull/18474) `deps` Bump the aws-sdk-go-v2 group with 11 updates
+- [#18473](https://github.com/influxdata/telegraf/pull/18473) `deps` Bump tj-actions/changed-files from 47.0.4 to 47.0.5
+
 ## v1.38.0 {date="2026-03-09"}
 
+> [!Warning]
+> #### Panic in the Heartbeat output plugin
+>
+> Telegraf v1.38.0 introduced a panic in the
+> [Heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) that
+> prevents Telegraf from starting when the plugin is enabled. Telegraf v1.38.2
+> will include a fix, but in the meantime, to use the Heartbeat output plugin,
+> revert back to Telegraf v1.37.x _(recommended)_, use a Telegraf nightly build,
+> or build Telegraf from source.
+
 ### Important Changes
+
+> [!Important]
+> #### Changes to Linux memory usage tracking
+>
+> Starting in Telegraf v1.36.0, the `used_percent` field reported by the `mem`
+> input plugin on Linux increased by roughly 6-20% for the same memory state.
+> This was caused by an upstream change in the
+> [gopsutil](https://github.com/shirou/gopsutil) dependency (v4.25.8), which
+> changed the `Used` memory calculation from `Total - Free - Buffers - Cached`
+> to `Total - Available` (using the kernel's `MemAvailable` from
+> `/proc/meminfo`). The new formula is more accurate as the old one assumed all
+> cached and buffered memory was immediately reclaimable, which is not always the
+> case. Dashboards or alerts based on `used_percent` thresholds may need
+> adjustment. The raw fields (`free`, `buffered`, `cached`, `available`,
+> `total`) are unaffected and can be used to compute either definition in
+> queries.
 
 - PR [#17961](https://github.com/influxdata/telegraf/pull/17961) makes the
  **strict environment variable handling the default**! In case you need the old
@@ -1399,7 +1455,7 @@ The `telegraf config migrate` command might be able to help with the migration.
 - [#16469](https://github.com/influxdata/telegraf/pull/16469) `deps` Bump google.golang.org/api from 0.214.0 to 0.219.0
 - [#16396](https://github.com/influxdata/telegraf/pull/16396) `deps` Bump k8s.io/api from 0.31.3 to 0.32.1
 - [#16482](https://github.com/influxdata/telegraf/pull/16482) `deps` Update Apache arrow from 0.0-20240716144821-cf5d7c7ec3cf to 18.1.0
-- [#16423](https://github.com/influxdata/telegraf/pull/16423) `deps` Update ClickHouse SQL driver from 1.5.4 to to 2.30.1
+- [#16423](https://github.com/influxdata/telegraf/pull/16423) `deps` Update ClickHouse SQL driver from 1.5.4 to 2.30.1
 
 ## v1.33.1 {date="2025-01-10"}
 
@@ -2397,7 +2453,7 @@ can help with migrating to newer plugins.
 
 #### Inputs
 
-- [LDAP](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ldap) (`inputs.inputs.ldap`)
+- [LDAP](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ldap) (`inputs.ldap`)
 
 #### Outputs
 
@@ -4482,7 +4538,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Cloudwatch (`cloudwatch`): Fix metrics collection.
 - CPU (`cpu`): Update `shirou/gopsutil` from v2 to v3.
 - Directory Monitor (`directory_monitor`):
-  - Fix to when when data format is CSV and `csv_skip_rows>0` and `csv_header_row_count>=1`.
+  - Fix to when data format is CSV and `csv_skip_rows>0` and `csv_header_row_count>=1`.
   - Adds the ability to create and name a tag containing the filename.
 - ElasticSearch (`elasticsearch_query`): Add debug query output.
 - HTTP Listener v2: (`http_listener_v2`): Fix panic on close to check that Telegraf is closing.
@@ -4924,7 +4980,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 ### Output plugin updates
 
-- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/elasticsearch/README.md): Add ability to to enable gzip compression.
+- [Elasticsearch Output](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/elasticsearch/README.md): Add ability to enable gzip compression.
 
 
 
@@ -6686,7 +6742,7 @@ for details about the mapping.
 - Improve cloudwatch output performance.
 - Add x509_cert input plugin.
 - Add IPSIpAddress syntax to ipaddr conversion in snmp plugin.
-- Add Filecount filecount input plugin.
+- Add Filecount input plugin.
 - Add support for configuring an AWS `endpoint_url`.
 - Send all messages before waiting for results in Kafka output plugin.
 - Add support for lz4 compression to Kafka output plugin.
@@ -6799,8 +6855,8 @@ for details about the mapping.
 ### Release notes
 
 - The Cassandra (`cassandra`) input plugin has been deprecated in favor of the Jolokia2 (`jolokia2`)
-  input plugin which is much more configurable and more performant.  There is
-  an [example configuration](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/jolokia2/examples) to help you
+  input plugin which is much more configurable and more performant.  The
+  [example configuration](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/jolokia2/examples) will help you
   get started.
 
 - For plugins supporting TLS, you can now specify the certificate and keys
@@ -7598,9 +7654,9 @@ plugins, not just statsd.
 - On systemd Telegraf will no longer redirect it's stdout to /var/log/telegraf/telegraf.log.
 On most systems, the logs will be directed to the systemd journal and can be
 accessed by `journalctl -u telegraf.service`. Consult the systemd journal
-documentation for configuring journald. There is also a [`logfile` config option](https://github.com/influxdata/telegraf/blob/release-1.8/etc/telegraf.conf#L70)
-available in 1.1, which will allow users to easily configure telegraf to
-continue sending logs to /var/log/telegraf/telegraf.log.
+documentation for configuring journald. The [`logfile` config option](https://github.com/influxdata/telegraf/blob/release-1.8/etc/telegraf.conf#L70)
+available in 1.1 lets users configure Telegraf to
+continue sending logs to `/var/log/telegraf/telegraf.log`.
 
 ### Features
 
@@ -7680,8 +7736,8 @@ continue sending logs to /var/log/telegraf/telegraf.log.
 ### Release Notes
 
 **Breaking Change** The SNMP plugin is being deprecated in it's current form.
-There is a [new SNMP plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/snmp)
-which fixes many of the issues and confusions
+The [new SNMP plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/snmp)
+fixes many of the issues and confusions
 of its predecessor. For users wanting to continue to use the deprecated SNMP
 plugin, you will need to change your config file from `[[inputs.snmp]]` to
 `[[inputs.snmp_legacy]]`. The configuration of the new SNMP plugin is _not_

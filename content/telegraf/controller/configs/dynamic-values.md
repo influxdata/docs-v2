@@ -46,8 +46,7 @@ requesting the configuration from {{% product-name %}}.
 
 ### Use parameters in Telegraf configurations
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.influxdb_v2]]
   # Parameter with a default value
   urls = ["&{db_host:https://localhost:8181}"]
@@ -56,7 +55,6 @@ requesting the configuration from {{% product-name %}}.
   # Required parameter without a default value
   instance_id = "&{agent_id}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 The example above uses two parameters:
 
@@ -117,15 +115,13 @@ For more information about Telegraf environment variable syntax, see
 
 ### Use environment variables in Telegraf configurations
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[inputs.http]]
   urls = ["${API_ENDPOINT:-http://localhost:8080}/metrics"]
 
   [inputs.http.headers]
     Authorization = "Bearer ${AUTH_TOKEN}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 The example above uses two environment variables:
 
@@ -150,8 +146,7 @@ telegraf \
 Use secrets for credentials or tokens you do not want to store in plain text.
 Secrets require a secret store and its corresponding `secretstores` plugin.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 # Configure a secret store plugin
 [[secretstores.vault]]
   id = "my_vault"
@@ -164,7 +159,6 @@ Secrets require a secret store and its corresponding `secretstores` plugin.
   host = "my_influxdb.com:8181"
   token = "@{my_vault:influx_token}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 For more information about Telegraf secrets and secret stores, see
 [Telegraf configuration options—Secret stores](/telegraf/v1/configuration/#secret-stores).

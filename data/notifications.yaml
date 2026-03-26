@@ -40,6 +40,42 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
+- id: telegraf-enterprise-beta
+  level: note
+  scope:
+    - /
+  exclude:
+    - /platform/
+    - /resources/
+    - /kapacitor/
+    - /chronograf/
+    - /enterprise_influxdb/
+    - /influxdb3/
+    - /influxdb/
+    - /flux/
+  title: Telegraf Enterprise now in public beta
+  slug: |   
+    Get early access to the **Telegraf Controller** and provide feedback to help
+    shape the future of **Telegraf Enterprise**.
+
+    <a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a>
+  message: |
+    The upcoming Telegraf Enterprise offering is for organizations running
+    Telegraf at scale and is comprised of two key components:
+
+    - **Telegraf Controller**: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.
+    - **Telegraf Enterprise Support**: Official support for Telegraf Controller and Telegraf plugins.
+
+    <a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+    to get early access to the Telegraf Controller and provide feedback to help
+    shape the future of Telegraf Enterprise.
+
+    For more information:
+
+    - [See the announcement blog post](https://www.influxdata.com/blog/telegraf-enterprise-beta)
+    - [Telegraf Controller Documentation](/telegraf/controller/)
+    - [Download and install Telegraf Controller](/telegraf/controller/install/)
+
 - id: influxdb3.8-explorer-1.6
   level: note
   scope:
