@@ -122,7 +122,7 @@ function expandAccordions() {
 
   // Expand accordions on load based on URL anchor
   function openAccordionByHash() {
-    var anchor = window.location.hash;
+    var anchor = window.location.hash.split('?')[0];
 
     function expandElement() {
       if ($(anchor).parents('.expand').length > 0) {

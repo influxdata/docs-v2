@@ -18,21 +18,63 @@
 {{ if in $productPathWhitelist (print $product "/" $version )}}
 <div class="block special-state">
   <div class="state-content">
-    <h4 id="telegraf-controller-private-alpha">{{ $displayName }} is in Private Alpha</h4>
+    <h4 id="telegraf-controller-public-beta">{{ $displayName }} is in Public Beta</h4>
     <p>
-      {{ $displayName }} is in private alpha. If you are interested in being a
-      part of the private alpha program, please sign up:
-    </p>
-    <p><a href="https://www.influxdata.com/products/telegraf-enterprise" class="btn">Sign Up for the Alpha</a></p>
-    <p>
-      While in alpha, {{ $displayName }} is <strong>not meant for production use</strong>.
+      {{ $displayName }} is in public beta and will be part of the future Telegraf Enterprise offering.
+      While in beta, {{ $displayName }} is <strong>not meant for production use</strong>.
       The {{ $displayName}} documentation is a work in progress, and we are actively
       working to improve it. If you have any questions or suggestions, please
       <a href="https://github.com/influxdata/docs-v2/issues/new?labels=Telegraf%20Controller">submit an issue</a>.
       We welcome any and all contributions.
     </p>
     <div class="expand-wrapper">
-      <div class="expand" id="feedback-channels">
+      <div class="expand" id="beta-expecations">
+        <p class="expand-label">
+          <span class="expand-toggle"></span><span>Beta expectations</span>
+        </p>
+        <div class="expand-content" style="display: none;" >
+          <ul>
+            <li>
+              <strong>No configuration or agent limits</strong> <br/>
+              While in beta, {{ $displayName }} doesn't place any limits on the
+              number of configurations you can store or the number of Telegraf
+              agents you can track. However, upon being generally available,
+              the free distribution of {{ $displayName }} will have limits
+              introduced, with the option to increase limits through a
+              Telegraf Enterprise license.
+            </li>
+            <li>
+              <strong>Potential breaking changes</strong> <br/>
+              While in beta, we will do our best to no longer make breaking
+              changes to {{ $displayName }}, however, they may be necessary.
+              The majority of changes we make will be additive and non-breaking,
+              and include any necessary migrations. When we do need to make
+              breaking changes, we will do our best to communicate them clearly
+              and in advance to minimize disruption.
+            </li>
+            <li>
+              <strong>Flexible release schedule</strong> <br/>
+              While in beta, we will continue to create new releases of
+              {{ $displayName }}, but likely at irregular intervals. We will provide
+              <a href="/telegraf/controller/reference/release-notes/">Telegraf Controller release notes</a>
+              to make it easy to track updates.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="expand" id="beta-provide-feedback">
+        <p class="expand-label">
+          <span class="expand-toggle"></span><span>Provide beta feedback</span>
+        </p>
+        <div class="expand-content" style="display: none;" >
+          <ul>
+            <li>Use the <strong>Feedback</strong> feature in the Telegraf Controller UI.</li>
+            <li><a href="https://influxdata.com/slack" target="_blank">Join the InfluxDB Community Slack</a> and post feedback in the <strong>#telegraf-enterprise-alpha</strong> channel.</li>
+            <li>Post feedback in the <a href="https://community.influxdata.com" target="_blank">InfluxData Community</a>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="expand" id="public-channels">
         <p class="expand-label">
           <span class="expand-toggle"></span><span>Join our public channels</span>
         </p>
