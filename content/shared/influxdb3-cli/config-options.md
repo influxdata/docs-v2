@@ -291,7 +291,7 @@ Enables the PachaTree storage engine.
 
 | influxdb3 serve option | Environment variable           |
 | :--------------------- | :----------------------------- |
-| `--use-pacha-tree`     | `INFLUXDB3_USE_PACHA_TREE`     |
+| `--use-pacha-tree`     | `INFLUXDB3_ENTERPRISE_USE_PACHA_TREE`     |
 
 ***
 
