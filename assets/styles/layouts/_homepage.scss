@@ -278,8 +278,8 @@
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    // align-items: center;
     justify-content: space-between;
 
     .bg-overlay {
@@ -302,9 +302,6 @@
     }
 
     ul.product-links {
-      padding-left: 0;
-      margin: 0 3rem 0 2rem;
-      list-style: none;
 
       li:not(:last-child) {margin-bottom: .35rem;}
 
