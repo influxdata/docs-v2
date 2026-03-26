@@ -61,8 +61,7 @@ The following is an example heartbeat output plugin configuration that uses
 an `agent_id` [configuration parameter](/telegraf/controller/configs/dynamic-values/#parameters)
 to specify the `instance_id`.
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   url = "http://telegraf_controller.example.com/agents/heartbeat"
   instance_id = "&{agent_id}"
@@ -73,7 +72,6 @@ to specify the `instance_id`.
   [outputs.heartbeat.headers]
     User-Agent = "telegraf"
 ```
-{{% /telegraf/dynamic-values %}}
 
 > [!Important]
 > #### Authorize heartbeats using an API token

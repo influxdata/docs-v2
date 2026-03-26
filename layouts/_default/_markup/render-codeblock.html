@@ -5,5 +5,9 @@
   {{ $withPlaceholders := replaceRE .Attributes.placeholders $elReplace $highlightedCode }}
   {{ $withPlaceholders | safeHTML }}
 {{ else }}
-{{ $result.Wrapped }}
+  {{- $wrapped := string $result.Wrapped -}}
+  {{- if in $wrapped "tc-dynamic-values" -}}
+    {{- $wrapped = replace $wrapped "tc-dynamic-values" "tc-dynamic-values\" data-component=\"tc-dynamic-values" -}}
+  {{- end -}}
+  {{ $wrapped | safeHTML }}
 {{ end }}

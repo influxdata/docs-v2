@@ -76,13 +76,11 @@ values—for example:
 
 ##### Configuration TOML with a parameter
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
   instance_id = "&{agent_id}"
   # ...
 ```
-{{% /telegraf/dynamic-values %}}
 
 ##### Set the parameter value in the configuration URL
 
@@ -106,15 +104,13 @@ starting Telegraf—for example:
 
 ##### Configuration TOML with an environment variable
 
-{{% telegraf/dynamic-values %}}
-```toml
+```toml { .tc-dynamic-values }
 [[inputs.http]]
   urls = ["http://localhost:8080/metrics"]
 
   [inputs.http.headers]
     Authorization = "Bearer ${AUTH_TOKEN}"
 ```
-{{% /telegraf/dynamic-values %}}
 
 ##### Set the environment variable before starting Telegraf
 
