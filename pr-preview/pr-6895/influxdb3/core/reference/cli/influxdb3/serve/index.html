@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6895/light-theme.8521d35b9508ffdc0467d05efffa7de624f9c50a90c24e53d7d413fa2610972c.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6895/light-theme.bd9eb8e986048ec2ab172c75de9662858b949c77c74ab2ac5661016f160053be.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6895/dark-theme.29c42cc9e01d0a9f87447d1ddde13836200d7525f27012563f2aed1baae53885.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6895/dark-theme.7848f1471d74a77b1ce8305b8eee411db9d35bdb5baf287610f5890c819ba1f6.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6895/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -466,7 +466,7 @@
   
   
   
-  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">alpha</span></a>
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
 </li>
       </ul>
     </div>
@@ -2653,8 +2653,8 @@
 <h2 id="usage">Usage</h2>
 <!--pytest.mark.skip-->
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 serve <span class="o">[</span>OPTIONS<span class="o">]</span></span></span></code></pre></div>
+
 <h2 id="required-parameters">Required Parameters</h2>
 <ul>
 <li><strong>node-id</strong>: A unique identifier for your server instance. Must be unique for any hosts sharing the same object store.</li>
@@ -2674,8 +2674,8 @@
   <h4 id="global-configuration-options">Global configuration options</h4>
 <p>Some configuration options (like <a href="/influxdb3/core/reference/config-options/#num-io-threads"><code>--num-io-threads</code></a>) are <strong>global</strong> and must be specified <strong>before</strong> the <code>serve</code> command:</p>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 --num-io-threads<span class="o">=</span><span class="m">8</span> serve --node-id<span class="o">=</span>node0 --object-store<span class="o">=</span>file --verbose</span></span></code></pre></div>
+
 <p>See <a href="/influxdb3/core/reference/config-options/#global-configuration-options">Global configuration options</a> for the complete list.</p>
 </div>
 <h2 id="options">Options</h2>
@@ -3152,11 +3152,10 @@ For more information, see
 </ul>
 <p>The system displays warning messages showing the auto-generated identifiers:</p>
 
-
 <pre tabindex="0"><code>Using auto-generated node id: mylaptop-node. For production deployments, explicitly set --node-id</code></pre>
+
 <h3 id="quick-start-examples">Quick-start examples</h3>
 <!--pytest.mark.skip-->
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Zero-config startup</span>
 </span></span><span class="line"><span class="cl">influxdb3
@@ -3166,6 +3165,7 @@ For more information, see
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Use environment variables to override defaults</span>
 </span></span><span class="line"><span class="cl"><span class="nv">INFLUXDB3_NODE_IDENTIFIER_PREFIX</span><span class="o">=</span>my-node influxdb3</span></span></code></pre></div>
+
 
 <div class="block important">
   
@@ -3759,6 +3759,7 @@ Check that your authentication credentials are correct and have sufficient permi
 
       
       
+      
     </div>
   </div>
 </div>
@@ -3809,30 +3810,36 @@ Check that your authentication credentials are correct and have sufficient permi
   
   <div id="docs-notifications">
   
-    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         
-        <h3>New in InfluxDB 3.8</h3>
+        <h3>Telegraf Enterprise now in public beta</h3>
       </div>
       
       <div class="notification-slug">
-        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
-<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
 
       </div>
       
       
       <div class="notification-content">
-        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
-1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
-operational maturity and making InfluxDB easier to deploy, manage, and run
-reliably in production.</p>
-<p>For more information, check out:</p>
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
 <ul>
-<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
-<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
-<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
 </ul>
 
       </div>
@@ -3860,7 +3867,6 @@ InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
 your Docker deployments. For example, if using Docker to run InfluxDB v2,
 replace the <code>latest</code> version tag with a specific version tag in your Docker
 pull command&ndash;for example:</p>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
       </div>
