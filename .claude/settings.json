@@ -59,6 +59,41 @@
       "Read(/tmp)"
     ]
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if any file path in this tool call contains '/docs-v2/' but NOT '/docs-v2/.claude/worktrees/'. If so, REJECT — the path bypasses the current worktree and reads from the main clone. Instruct to use a worktree-relative path instead. The current working directory IS the repo root.",
+            "statusMessage": "Checking worktree path safety"
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If this WebFetch or WebSearch is being used to search for or read content that exists in this repository (documentation pages, markdown files, frontmatter, shortcodes, Hugo templates), REJECT — use Grep, Glob, or Read for local content. Only allow WebFetch/WebSearch for truly external resources: GitHub issues/PRs, external APIs, third-party documentation, or URLs the user explicitly provided.",
+            "statusMessage": "Checking local-first search"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Grep|Glob",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If this search targeted content/influxdb3/core/ or content/influxdb3/enterprise/ but did NOT also search content/shared/influxdb3-*/, note that most InfluxDB 3 prose lives in shared content files. Suggest a follow-up search in content/shared/ if results look incomplete or only contain frontmatter stubs."
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "github@claude-plugins-official": true
   }

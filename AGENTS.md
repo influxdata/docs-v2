@@ -96,12 +96,33 @@ yarn test:links content/influxdb3/core/**/*.md
 **📖 Complete Reference**: [DOCS-TESTING.md](DOCS-TESTING.md)
 
 
+## Worktree Awareness
+
+This repository uses git worktrees. When running in a worktree, the working
+directory IS the repo root — use it for all file paths. Never hardcode or resolve
+paths to the main clone (`/Users/*/docs-v2/` without `.claude/worktrees/`).
+
+Scripts that need `PROJECT_ROOT` derive it from `SCRIPT_DIR` (see
+`test/scripts/init-influxdb3.sh`). Agents should use their current working
+directory, not the main clone path.
+
+## Search Patterns
+
+When searching for InfluxDB 3 content, search these paths in parallel (not
+sequentially):
+- `content/shared/influxdb3-*/` — actual content (most content lives here)
+- `content/influxdb3/core/` — Core frontmatter stubs with `source:` references
+- `content/influxdb3/enterprise/` — Enterprise frontmatter stubs
+
+Use Grep and Glob for all local content searches. Run independent searches in
+parallel — one call per directory — rather than one at a time.
+
 ## Constraints
 
 - **NEVER cancel** Hugo builds (~75s) or test runs (15-45m) — the site has 5,359+ pages
 - Set timeouts: Hugo 180s+, tests 30m+
 - Use `python` not `py` for code block language identifiers (pytest won't collect `py` blocks)
-- Shared content files (`content/shared/`) have no frontmatter — the consuming page provides it
+- Shared content files (`content/shared/`) have no frontmatter — the consuming page provides it via `source:` reference. For InfluxDB 3, the shared directories (`content/shared/influxdb3-*/`) contain the actual prose; product directories contain thin stubs
 - Product names and versions come from `data/products.yml` (single source of truth)
 - Commit format: `type(scope): description` — see [DOCS-CONTRIBUTING.md](DOCS-CONTRIBUTING.md#commit-guidelines)
 - Network-restricted environments: Cypress (`CYPRESS_INSTALL_BINARY=0`), Docker builds, and Alpine packages may fail
