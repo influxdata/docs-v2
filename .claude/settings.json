@@ -36,6 +36,19 @@
       "Bash(awk:*)",
       "Bash(touch:*)",
       "Bash(docker:*)",
+      "Bash(git:*)",
+      "Bash(fzf:*)",
+      "Bash(sleep:*)",
+      "Bash(date:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(diff:*)",
+      "Bash(tr:*)",
+      "Bash(cut:*)",
+      "Bash(sed:*)",
+      "Bash(tee:*)",
+      "Bash(xargs:*)",
       "Edit",
       "Read",
       "Write",
@@ -65,8 +78,9 @@
         "matcher": "Read|Glob|Grep",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "Check if any file path in this tool call contains '/docs-v2/' but NOT '/docs-v2/.claude/worktrees/'. If so, REJECT — the path bypasses the current worktree and reads from the main clone. Instruct to use a worktree-relative path instead. The current working directory IS the repo root.",
+            "type": "command",
+            "command": "bash .claude/hooks/check-worktree-paths.sh",
+            "timeout": 5,
             "statusMessage": "Checking worktree path safety"
           }
         ]
