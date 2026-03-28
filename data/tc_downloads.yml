@@ -1,0 +1,24 @@
+version: "0.0.5-beta"
+platforms:
+  - name: Linux
+    builds:
+      - arch: x64
+        os: linux
+        sha256: "854592b5e1f1922774074036650ed94fc278d9a666b20d35c98e75defb56d2cf"
+      - arch: arm64
+        os: linux
+        sha256: "15ea90cc93bc345ce77e4b7eb15efa36522efb7026433f25098280fb6577ca91"
+  - name: macOS
+    builds:
+      - arch: x64
+        os: macos
+        sha256: "3ac978da3619f396b78fe51db32cbcc6365af41b6e53ad28eec393eccf3a53a2"
+      - arch: arm64
+        os: macos
+        sha256: "5c64a3dd3b211cbb0fa3b1e833ca0cb88bbf32209802533b138018a939892562"
+  - name: Windows
+    builds:
+      - arch: x64
+        os: win
+        ext: .exe
+        sha256: "b98d5034d8cbeb84efeed754688906500c528a54b70fdb33a338a60f13316f94"

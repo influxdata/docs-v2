@@ -382,7 +382,7 @@ The documentation MCP server is a hosted service—you don't need to install or 
 Add the server URL to your AI assistant's MCP configuration.
 
 > [!Note]
-> On first use, you'll be prompted to sign in with Google.
+> On first use, you'll be prompted to sign in with a Google or GitHub account.
 > This authentication is used only for rate limiting—no personal data is collected.
 
 **MCP server URL:**
@@ -528,23 +528,26 @@ The InfluxDB documentation search tools will be available in your OpenCode sessi
 
 ### Authentication and rate limits
 
-When you connect to the documentation MCP server for the first time, a Google sign-in
-window opens to complete an OAuth/OpenID Connect login.
+When you connect to the documentation MCP server for the first time, a sign-in
+window opens where you can choose to authenticate with a **Google** or **GitHub** account.
 
-The hosted MCP server:
+The hosted MCP server uses your account only to generate a stable, opaque user ID
+for rate limiting—no personal data is collected:
 
-- Requests only the `openid` scope from Google
-- Receives an ID token (JWT) containing a stable, opaque user ID
-- Does not request `email` or `profile` scopes—your name, email address, and other
-  personal data are not collected
+- **Google**: Requests only the `openid` scope. Does not request `email` or `profile`
+  scopes—your name, email address, and other personal data are not collected.
+- **GitHub**: Requests no OAuth scopes. With no scopes requested, GitHub grants
+  read-only access to public profile information only. The server does not access
+  repositories, organizations, email addresses, or other GitHub data.
 
-The anonymous Google ID enforces per-user rate limits to prevent abuse:
+The anonymous user ID enforces per-user rate limits to prevent abuse:
 
 - **40 requests** per user per hour
 - **200 requests** per user per day
 
 > [!Tip]
-> On Google's consent screen, this appears as "Associate you with your personal info on Google."
+> If you sign in with Google, the consent screen may display
+> "Associate you with your personal info on Google."
 > This is Google's generic wording for the `openid` scope—it means the app can recognize
 > that the same Google account is signing in again.
 > It does not grant access to your email, name, contacts, or other data.

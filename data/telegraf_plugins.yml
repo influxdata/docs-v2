@@ -1740,11 +1740,7 @@ input:
     description: |
       This plugin gathers packets and bytes counters for rules within Linux's
       [nftables](https://wiki.nftables.org/wiki-nftables/index.php/Main_Page)
-      firewall.
-
-      > [!IMPORTANT]
-      > Rules are identified by the associated comment so those **comments have
-      > to be unique**! Rules without comment are ignored.
+      firewall, as well as set element counts.
     introduced: v1.37.0
     os_support: [linux]
     tags: [network, system]
@@ -2367,6 +2363,18 @@ input:
       > [filter](/telegraf/v1/configuration/#metric-filtering) the produced
       > metrics or configure your database to avoid cardinality issues!
     introduced: v1.14.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [network]
+  - name: SIP
+    id: sip
+    description: |
+      This plugin gathers metrics about the health and availability of [SIP
+      (Session Initiation
+      Protocol)](https://datatracker.ietf.org/doc/html/rfc3261) servers such as
+      PBX systems, SIP proxies, registrars, and VoIP service providers. It
+      sends SIP requests (typically OPTIONS) and measures response times and
+      status codes.
+    introduced: v1.38.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [network]
   - name: Slab
@@ -3303,6 +3311,15 @@ output:
     introduced: v1.8.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [datastore]
+  - name: InfluxDB v3.x
+    id: influxdb_v3
+    description: |
+      This plugin writes metrics to a [InfluxDB
+      v3.x](https://docs.influxdata.com) Core or Enterprise instance via the
+      HTTP API.
+    introduced: v1.38.0
+    os_support: [freebsd, linux, macos, solaris, windows]
+    tags: [datastore]
   - name: Inlong
     id: inlong
     description: |
@@ -3494,7 +3511,7 @@ output:
     id: opentelemetry
     description: |
       This plugin writes metrics to [OpenTelemetry](https://opentelemetry.io)
-      servers and agents via gRPC.
+      servers and agents via gRPC or HTTP.
     introduced: v1.20.0
     os_support: [freebsd, linux, macos, solaris, windows]
     tags: [logging, messaging]

@@ -19,6 +19,7 @@ import * as pageContext from './page-context.js';
 import * as pageFeedback from './page-feedback.js';
 import * as tabbedContent from './tabbed-content.js';
 import * as v3Wayfinding from './v3-wayfinding.js';
+import * as tcDownloads from './tc-downloads.js';
 
 /** Import component modules
  *  The component pattern organizes JavaScript, CSS, and HTML for a specific UI element or interaction:
@@ -44,6 +45,7 @@ import ReleaseToc from './release-toc.js';
 import { SearchButton } from './search-button.js';
 import SidebarSearch from './components/sidebar-search.js';
 import { SidebarToggle } from './sidebar-toggle.js';
+import TcDynamicValues from './components/tc-dynamic-values.js';
 import Theme from './theme.js';
 import ThemeSwitch from './theme-switch.js';
 
@@ -75,6 +77,7 @@ const componentRegistry = {
   'search-button': SearchButton,
   'sidebar-search': SidebarSearch,
   'sidebar-toggle': SidebarToggle,
+  'tc-dynamic-values': TcDynamicValues,
   theme: Theme,
   'theme-switch': ThemeSwitch,
 };
@@ -162,6 +165,7 @@ function initModules() {
   pageFeedback.initialize();
   tabbedContent.initialize();
   v3Wayfinding.initialize();
+  tcDownloads.initialize();
 }
 
 /**

@@ -205,6 +205,18 @@ jq . test/.influxdb3/core/.token  # Should parse without errors
 docker exec influxdb3-core cat /run/secrets/influxdb3-core-token
 ```
 
+### When Enterprise Is Unavailable
+
+If Enterprise won't start (license expired, port conflict, Docker issue):
+
+1. **Fix the root cause first** — check container logs, verify the license email
+   is valid (not a placeholder), and re-run the init script.
+2. **Use Core for non-Enterprise features** — Core requires no license and can
+   verify most shared InfluxDB 3 behavior (queries, writes, databases, tables).
+3. **Flag Enterprise-only gaps** — if the feature under test is Enterprise-only
+   (clustering, RBAC, table/database retention, read replicas), state explicitly
+   that runtime verification was not possible and why. Do not guess at behavior.
+
 ### Port Already in Use
 
 **Symptom:** "port is already allocated"

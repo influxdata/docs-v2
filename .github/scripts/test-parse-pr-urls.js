@@ -145,7 +145,11 @@ test('Special characters: backticks are delimiters', () => {
   // This prevents command substitution injection
   const text = '/influxdb3/`whoami`/';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/'], 'Should truncate at backtick delimiter');
+  assertEquals(
+    result,
+    ['/influxdb3/'],
+    'Should truncate at backtick delimiter'
+  );
 });
 
 test('Special characters: single quotes truncate at extraction', () => {
@@ -257,31 +261,51 @@ test('Normalization: removes query string', () => {
 test('Normalization: strips wildcard from path', () => {
   const text = '/influxdb3/enterprise/*';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/enterprise/'], 'Should strip wildcard character');
+  assertEquals(
+    result,
+    ['/influxdb3/enterprise/'],
+    'Should strip wildcard character'
+  );
 });
 
 test('Normalization: strips wildcard in middle of path', () => {
   const text = '/influxdb3/*/admin/';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/admin/'], 'Should strip wildcard from middle of path');
+  assertEquals(
+    result,
+    ['/influxdb3/admin/'],
+    'Should strip wildcard from middle of path'
+  );
 });
 
 test('Normalization: strips multiple wildcards', () => {
   const text = '/influxdb3/*/admin/*';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/admin/'], 'Should strip all wildcard characters');
+  assertEquals(
+    result,
+    ['/influxdb3/admin/'],
+    'Should strip all wildcard characters'
+  );
 });
 
 test('Wildcard in markdown-style notation', () => {
   const text = '**InfluxDB 3 Enterprise pages** (`/influxdb3/enterprise/*`)';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/enterprise/'], 'Should extract and normalize path with wildcard in backticks');
+  assertEquals(
+    result,
+    ['/influxdb3/enterprise/'],
+    'Should extract and normalize path with wildcard in backticks'
+  );
 });
 
 test('Wildcard in parentheses', () => {
   const text = 'Affects pages under (/influxdb3/enterprise/*)';
   const result = extractDocsUrls(text);
-  assertEquals(result, ['/influxdb3/enterprise/'], 'Should extract and normalize path with wildcard in parentheses');
+  assertEquals(
+    result,
+    ['/influxdb3/enterprise/'],
+    'Should extract and normalize path with wildcard in parentheses'
+  );
 });
 
 // Test deduplication
@@ -358,6 +382,31 @@ test('BASE_REF: rejects backtick injection', () => {
 test('BASE_REF: rejects without origin/ prefix', () => {
   const isValid = BASE_REF_REGEX.test('master');
   assertEquals(isValid, false, 'Should require origin/ prefix');
+});
+
+// Home page URL support
+test('Home page: production URL https://docs.influxdata.com/', () => {
+  const text = 'Preview: https://docs.influxdata.com/';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/'], 'Should extract root path for docs home page');
+});
+
+test('Home page: localhost URL http://localhost:1313/', () => {
+  const text = 'Testing at http://localhost:1313/';
+  const result = extractDocsUrls(text);
+  assertEquals(result, ['/'], 'Should extract root path from localhost URL');
+});
+
+test('Home page: relative root path / in text', () => {
+  // Relative '/' alone is not extractable by the relative pattern (requires product prefix),
+  // but full URLs with / path are supported
+  const text = 'https://docs.influxdata.com/ and /influxdb3/core/';
+  const result = extractDocsUrls(text);
+  assertEquals(
+    result.sort(),
+    ['/', '/influxdb3/core/'].sort(),
+    'Should extract both root path and product path'
+  );
 });
 
 // Print summary
