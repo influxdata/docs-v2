@@ -1,7 +1,7 @@
 name: Sync Plugin Documentation
 description: Request synchronization of plugin documentation from influxdb3_plugins repository
 title: "Sync plugin docs: [PLUGIN_NAMES]"
-labels: ["source:sync", "documentation", "automation"]
+labels: ["sync-plugin-docs", "documentation", "automation"]
 assignees: []
 body:
   - type: markdown

@@ -120,7 +120,7 @@ influx bucket create \
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-{{< api-endpoint method="post" endpoint="https://localhost:8086/api/v2/buckets" api-ref="/influxdb/v2/api/#operation/PostBuckets" >}}
+{{< api-endpoint method="post" endpoint="https://localhost:8086/api/v2/buckets" api-ref="/influxdb/v2/api/#post-/api/v2/buckets" >}}
 
 Include the following in your request:
 
@@ -149,7 +149,7 @@ instance _(see [InfluxDB URLs](/influxdb/v2/reference/urls/))_.
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets documentation](/influxdb/v2/api/#operation/PostBuckets)._
+[InfluxDB API Buckets documentation](/influxdb/v2/api/#post-/api/v2/buckets)._
 
 {{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>

@@ -200,7 +200,7 @@ The UI will confirm that the data has been written successfully.
 To write data to InfluxDB using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/write" method="post" api-ref="/influxdb/version/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/write" method="post" api-ref="/influxdb/version/api/#post-/api/v2/write" >}}
 
 Include the following with your request:
 

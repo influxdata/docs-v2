@@ -1,0 +1,134 @@
+{{/*
+  API Reference Menu Items for Hugo Navigation
+
+  Generates <li class="nav-item"> elements matching Hugo's menu structure.
+  Used by nested-menu.html when rendering "InfluxDB HTTP API" menu item.
+
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Parameters:
+  - page: Current page context
+  - url: URL of the API parent page (e.g., /influxdb3/core/api/)
+
+  Uses data from:
+  - data/article_data/influxdb/{product}/articles.yml
+
+  Note: Operations are no longer shown as children - they're rendered inline
+  on tag pages with hash-based navigation for deep linking.
+*/}}
+
+{{ $currentPage := .page }}
+{{ $apiUrl := .url }}
+
+{{/* Extract product and version from API URL */}}
+{{ $productPathData := findRE "[^/]+.*?" $apiUrl }}
+{{ $product := index $productPathData 0 }}
+{{ $version := index $productPathData 1 }}
+
+{{/* Build data key for article data lookup
+    Data directories use productConfig keys from generate-openapi-articles.ts:
+    - influxdb3_core, influxdb3_enterprise (use influxdb3_ prefix)
+    - clustered, cloud-dedicated, cloud-serverless (no prefix)
+    - oss-v2, cloud-v2 (use -v2 suffix)
+*/}}
+{{ $dataKey := "" }}
+{{ if eq $product "influxdb3" }}
+  {{/* InfluxDB 3 Core and Enterprise use influxdb3_ prefix */}}
+  {{ if or (eq $version "core") (eq $version "enterprise") }}
+    {{ $dataKey = print "influxdb3_" $version }}
+  {{ else }}
+    {{/* Clustered, cloud-dedicated, cloud-serverless use version directly */}}
+    {{ $dataKey = $version }}
+  {{ end }}
+{{ else if eq $product "influxdb" }}
+  {{/* InfluxDB v2 and Cloud use -v2 suffix */}}
+  {{ if eq $version "v2" }}
+    {{ $dataKey = "oss-v2" }}
+  {{ else if eq $version "cloud" }}
+    {{ $dataKey = "cloud-v2" }}
+  {{ else }}
+    {{ $dataKey = $version }}
+  {{ end }}
+{{ else }}
+  {{ $dataKey = $product }}
+{{ end }}
+
+{{/* Get article data for this product */}}
+{{ $siteData := .siteData }}
+{{ $articles := slice }}
+{{ with $siteData.article_data }}
+  {{ with index . "influxdb" }}
+    {{ with index . $dataKey }}
+      {{ with index . "articles" }}
+        {{ with .articles }}
+          {{ $articles = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Check if articles use tag-based structure */}}
+{{ $isTagBased := false }}
+{{ if gt (len $articles) 0 }}
+  {{ $firstArticle := index $articles 0 }}
+  {{ if reflect.IsMap $firstArticle }}
+    {{ with index $firstArticle "fields" }}
+      {{ if reflect.IsMap . }}
+        {{ if isset . "tag" }}
+          {{ $isTagBased = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if and (gt (len $articles) 0) $isTagBased }}
+  {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+  {{ $conceptualArticles := slice }}
+  {{ $operationArticles := slice }}
+
+  {{ range $articles }}
+    {{ if and (reflect.IsMap .) (isset . "fields") }}
+      {{ $fields := index . "fields" }}
+      {{ if reflect.IsMap $fields }}
+        {{ $isConceptual := false }}
+        {{ if isset $fields "isConceptual" }}
+          {{ $isConceptual = index $fields "isConceptual" }}
+        {{ end }}
+        {{ if $isConceptual }}
+          {{ $conceptualArticles = $conceptualArticles | append . }}
+        {{ else }}
+          {{ $operationArticles = $operationArticles | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+  {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+  {{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+  {{/* Combine: conceptual first, then operations */}}
+  {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+  {{/* Render each tag as a nav item (no operation children - they're inline on tag pages) */}}
+  {{ range $sortedArticles }}
+    {{ $path := index . "path" }}
+    {{ $fields := index . "fields" }}
+    {{ $tag := index $fields "tag" }}
+    {{ $tagPageUrl := print "/" $product "/" $version "/" $path "/" | relURL }}
+    {{ $isActive := eq $currentPage.RelPermalink (print "/" $product "/" $version "/" $path "/") }}
+
+    <li class="nav-item{{ if $isActive }} active{{ end }}">
+      <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
+    </li>
+  {{ end }}
+
+  {{/* ALL ENDPOINTS - Link to all-endpoints page (no operation children) */}}
+  {{ $allEndpointsUrl := printf "/%s/%s/api/all-endpoints/" $product $version | relURL }}
+  {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "/%s/%s/api/all-endpoints/" $product $version) }}
+  <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+    <a href="{{ $allEndpointsUrl }}">All endpoints</a>
+  </li>
+{{ end }}

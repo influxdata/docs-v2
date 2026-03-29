@@ -27,7 +27,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/core/reference/cli/influxdb3/create/database/
-  - /influxdb3/core/api/v3/#operation/PostConfigureDatabase, Create database API
+  - /influxdb3/core/api/v3/#post-/api/v3/configure/database, Create database API
   - /influxdb3/core/reference/naming-restrictions/
   - /influxdb3/core/reference/internals/data-retention/
   - /influxdb3/explorer/manage-databases/

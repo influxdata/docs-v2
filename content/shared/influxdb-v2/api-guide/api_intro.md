@@ -89,7 +89,7 @@ function listBuckets() {
 Before writing data you'll need to create a bucket in your InfluxDB instance.
 To use the API to create a bucket, send a request to the following endpoint:
 
-{{% api-endpoint method="POST" endpoint="/api/v2/buckets" api-ref="/influxdb/version/api/v2/#operation/PostBuckets" %}}
+{{% api-endpoint method="POST" endpoint="/api/v2/buckets" api-ref="/influxdb/version/api/v2/#post-/api/v2/buckets" %}}
 
 {{% code-placeholders "API_TOKEN|ORG_ID|BUCKET_NAME|RETENTION_PERIOD_SECONDS" %}}
 

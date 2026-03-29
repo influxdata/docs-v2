@@ -113,7 +113,7 @@ To create a remote connection to replicate data to,
 send a `POST` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB OSS  `/api/v2/remotes` endpoint:
 
 {{< keep-url >}}
-{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/version/api/#operation/PostRemoteConnection" >}}
+{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/version/api/#post-/api/v2/remotes" >}}
 
 Include the following parameters in your request:
 
@@ -167,7 +167,7 @@ To retrieve existing connections, use the `/api/v2/remotes`
 endpoint with the `GET` request method:
 
 {{< keep-url >}}
-{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="GET" api-ref="/influxdb/version/api/#operation/GetRemoteConnections" >}}
+{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="GET" api-ref="/influxdb/version/api/#get-/api/v2/remotes" >}}
 
 Include the following parameters in your request:
 
@@ -189,7 +189,7 @@ Send a `POST` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB
 `/api/v2/replications` endpoint to create a replication stream.
 
 {{< keep-url >}}
-{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/version/api/#operation/PostRemoteConnection" >}}
+{{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/version/api/#post-/api/v2/remotes" >}}
 
 Include the following parameters in your request:
 
@@ -250,7 +250,7 @@ information such as the current queue size, max queue size, and latest status
 code for each replication stream, send a `GET` request to your {{% show-in "v2" %}}local{{% /show-in %}} InfluxDB  OSS `/api/v2/replications` endpoint:
 
 {{< keep-url >}}
-{{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" api-ref="/influxdb/version/api/#operation/GetReplications" >}}
+{{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" api-ref="/influxdb/version/api/#get-/api/v2/replications" >}}
 
 Include the following parameters in your request:
 

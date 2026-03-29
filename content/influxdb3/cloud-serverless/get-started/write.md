@@ -407,11 +407,11 @@ API endpoint.
 To write data to InfluxDB using the
 [InfluxDB v1 HTTP API](/influxdb3/cloud-serverless/reference/api/), send a request
 to the
-[InfluxDB API `/write` endpoint](/influxdb3/cloud-serverless/api/#operation/PostLegacyWrite)
+[InfluxDB API `/write` endpoint](/influxdb3/cloud-serverless/api/#post-/write)
 using the `POST` request method.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post"
-api-ref="/influxdb3/cloud-serverless/api/#operation/PostLegacyWrite"%}}
+api-ref="/influxdb3/cloud-serverless/api/#post-/write"%}}
 
 Include the following with your request:
 
@@ -518,7 +518,7 @@ To write data to InfluxDB using the
 to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write"
-method="post" api-ref="/influxdb3/cloud-serverless/api/#operation/PostWrite" >}}
+method="post" api-ref="/influxdb3/cloud-serverless/api/#post-/api/v2/write" >}}
 
 Include the following with your request:
 
