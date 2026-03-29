@@ -40,6 +40,7 @@ jobs:
 
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -72,6 +73,38 @@ jobs:
             echo "files=$FILES_TO_REMOVE" >> $GITHUB_OUTPUT
           fi
 
+      - name: Preserve plan details on PR
+        if: steps.check.outputs.has_files == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+
+          # Post full PLAN.md contents as a PR comment before removing
+          if [ -f "PLAN.md" ]; then
+            PLAN_BODY="## Development Plan (preserved by cleanup workflow)
+
+          Full plan details from \`PLAN.md\`, preserved before automated cleanup:
+
+          ---
+
+          $(cat PLAN.md)"
+            gh pr comment "$PR_NUMBER" --body "$PLAN_BODY"
+            echo "Posted PLAN.md contents to PR #$PR_NUMBER"
+          fi
+
+          if [ -f "HANDOVER.md" ]; then
+            HANDOVER_BODY="## Handover Notes (preserved by cleanup workflow)
+
+          Full contents from \`HANDOVER.md\`, preserved before automated cleanup:
+
+          ---
+
+          $(cat HANDOVER.md)"
+            gh pr comment "$PR_NUMBER" --body "$HANDOVER_BODY"
+            echo "Posted HANDOVER.md contents to PR #$PR_NUMBER"
+          fi
+
       - name: Remove ephemeral files
         if: steps.check.outputs.has_files == 'true'
         run: |
@@ -95,6 +128,7 @@ jobs:
           Automated cleanup of development planning documents.
           These files are used during development but shouldn't
           persist on the main branch.
+          Plan details preserved as PR comment.
 
           Files removed:${{ steps.check.outputs.files }}"
 
