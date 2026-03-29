@@ -9,24 +9,24 @@ This skill manages ephemeral planning documents that track objectives, tasks, an
 ## Usage
 
 ```
-/plan                    # Display current PLAN.md
-/plan create [issue-url] # Create new PLAN.md from template
-/plan update             # Update task status interactively
-/plan status             # Show task completion summary
+/task-plan                    # Display current PLAN.md
+/task-plan create [issue-url] # Create new PLAN.md from template
+/task-plan update             # Update task status interactively
+/task-plan status             # Show task completion summary
 ```
 
 ## Subcommands
 
-### /plan (default: read)
+### /task-plan (default: read)
 
 Display the current PLAN.md contents. If no PLAN.md exists, suggest creating one.
 
 **Steps:**
 1. Check if PLAN.md exists in current directory
 2. If exists: display contents with syntax highlighting
-3. If not exists: inform user and suggest `/plan create`
+3. If not exists: inform user and suggest `/task-plan create`
 
-### /plan create [issue-url]
+### /task-plan create [issue-url]
 
 Create a new PLAN.md from template. Optionally fetch issue/PR details from GitHub.
 
@@ -69,7 +69,7 @@ Create a new PLAN.md from template. Optionally fetch issue/PR details from GitHu
 <!-- Research, decisions, blockers -->
 ```
 
-### /plan update
+### /task-plan update
 
 Interactively update the PLAN.md - mark tasks complete, add notes, update objective.
 
@@ -84,7 +84,7 @@ Interactively update the PLAN.md - mark tasks complete, add notes, update object
 4. Write updated PLAN.md
 5. Show diff of changes
 
-### /plan status
+### /task-plan status
 
 Show a summary of task completion status.
 
@@ -112,7 +112,7 @@ Show a summary of task completion status.
 
 ### Example 1: Create plan for GitHub issue
 ```
-User: /plan create https://github.com/influxdata/docs-v2/issues/6763
+User: /task-plan create https://github.com/influxdata/docs-v2/issues/6763
 
 Agent: Created PLAN.md for issue #6763: "InfluxDB 3.9 Release Documentation"
 
@@ -137,7 +137,7 @@ Agent: Created PLAN.md for issue #6763: "InfluxDB 3.9 Release Documentation"
 
 ### Example 2: Check status
 ```
-User: /plan status
+User: /task-plan status
 
 Agent:
 ## Plan Status
@@ -155,7 +155,7 @@ Agent:
 
 ### Example 3: Update tasks
 ```
-User: /plan update
+User: /task-plan update
 
 Agent: Current tasks in PLAN.md:
 1. [ ] Review issue requirements
