@@ -29,38 +29,41 @@ security:
   - TokenAuthentication: []
 tags:
   - description: |
+      Use InfluxDB v1 and v2 compatible endpoints to write and query data.
+
       ### Write data
 
       InfluxDB 3 Cloud Serverless provides the following HTTP API endpoints for writing data:
 
-      - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite)
-        for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
-      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+      - `/api/v2/write` endpoint (recommended) for new write workloads or for
+        bringing existing InfluxDB v2 write workloads to InfluxDB Cloud Serverless.
+      - `/write` endpoint for bringing existing InfluxDB v1 write workloads to
+        InfluxDB Cloud Serverless.
 
-      Both endpoints accept the same line protocol format and process data in the same way.
+      Both endpoints accept line protocol format and process data the same way.
 
       ### Query data
 
       InfluxDB 3 Cloud Serverless provides the following protocols for executing a query:
 
-      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb3/cloud-serverless/get-started/query/).
-      - HTTP API [`/query` request](/influxdb3/cloud-serverless/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
-        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+      - Flight+gRPC request (recommended) that contains an SQL or InfluxQL query.
+      - HTTP API `/query` request that contains an InfluxQL query.
+        Use this protocol for existing InfluxDB v1 query workloads.
 
       ### InfluxDB v2 compatibility
 
-      The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with the [`Token` authentication scheme](#section/Authentication/TokenAuthentication) and existing InfluxDB 2.x tools and code for [writing data](/influxdb3/cloud-serverless/write-data/).
-
-      See how to [use the InfluxDB v2 HTTP API with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
+      The `/api/v2/write` endpoint works with Token authentication and existing
+      InfluxDB 2.x tools and code.
 
       ### InfluxDB v1 compatibility
 
-      The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
-
-      See how to [use the InfluxDB v1 HTTP API with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
+      The `/write` and `/query` endpoints work with InfluxDB 1.x username/password
+      authentication and existing InfluxDB 1.x tools and code.
     name: API compatibility
     x-traitTag: true
   - description: |
+      Authenticate API requests using tokens, basic auth, or query strings.
+
       Use one of the following schemes to authenticate to the InfluxDB API:
 
       - [Token authentication](#section/Authentication/TokenAuthentication)
@@ -116,6 +119,8 @@ tags:
   - name: Cells
   - name: Checks
   - description: |
+      Parameters for specifying resources in API requests.
+
       To specify resources, some InfluxDB API endpoints require parameters or
       properties in the request--for example,
       writing to a `bucket` resource in an `org` (_organization_ resource).
@@ -132,7 +137,6 @@ tags:
     x-traitTag: true
   - name: Config
   - name: Dashboards
-  - name: Data I/O endpoints
   - description: |
       The InfluxDB 1.x data model includes [databases](/influxdb3/cloud-serverless/reference/glossary/#database)
       and [retention policies](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
@@ -159,7 +163,7 @@ tags:
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
-      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Authorization`          | string                | The [authorization scheme and credential](/influxdb/version/api/authentication/). |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers
@@ -245,13 +249,38 @@ tags:
 
       - [Get started querying InfluxDB](/influxdb3/cloud-serverless/get-started/query/)
       - [Execute queries](/influxdb3/cloud-serverless/query-data/execute-queries/)
-    name: Query
+    name: Query data
   - description: |
-      See the [**Get started**](/influxdb3/cloud-serverless/get-started/) tutorial
-      to get up and running authenticating with tokens, writing to buckets, and querying data.
+      Authenticate, write, and query with the API:
 
-      [**InfluxDB API client libraries and Flight clients**](/influxdb3/cloud-serverless/reference/client-libraries/)
-      are available to integrate InfluxDB with your application.
+      1. Create a database token to authorize API requests in the InfluxDB Cloud
+         Serverless UI.
+
+      2. Write data to InfluxDB Cloud Serverless.
+
+         ```bash
+         curl -X POST "https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+           --header "Authorization: Token DATABASE_TOKEN" \
+           --header "Content-Type: text/plain; charset=utf-8" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. Query data from InfluxDB Cloud Serverless using SQL or InfluxQL.
+         For best performance, use a Flight client to query data.
+         The HTTP API `/query` endpoint supports InfluxQL queries.
+
+         ```bash
+         curl -G "https://cloud2.influxdata.com/query" \
+           --header "Authorization: Token DATABASE_TOKEN" \
+           --data-urlencode "db=DATABASE_NAME" \
+           --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h"
+         ```
+
+      For more information about using InfluxDB Cloud Serverless, see the
+      [Get started](/influxdb3/cloud-serverless/get-started/) guide.
     name: Quick start
     x-traitTag: true
   - name: Resources
@@ -357,7 +386,7 @@ tags:
   - name: Views
   - description: |
       Write time series data to [buckets](/influxdb3/cloud-serverless/reference/glossary/#bucket) using InfluxDB v1 or v2 endpoints.
-    name: Write
+    name: Write data
 paths:
   /api/v2:
     get:
@@ -3885,7 +3914,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
-        - Query
+        - Query data
   /api/v2/query/analyze:
     post:
       deprecated: true
@@ -3989,7 +4018,7 @@ paths:
                 type: string
       summary: Analyze a Flux query
       tags:
-        - Query
+        - Query data
   /api/v2/query/ast:
     post:
       deprecated: true
@@ -4052,7 +4081,7 @@ paths:
           description: Internal server error.
       summary: Generate a query Abstract Syntax Tree (AST)
       tags:
-        - Query
+        - Query data
   /api/v2/query/suggestions:
     get:
       deprecated: true
@@ -4095,7 +4124,7 @@ paths:
           description: Internal server error.
       summary: List Flux query suggestions
       tags:
-        - Query
+        - Query data
       x-codeSamples:
         - label: cURL
           lang: Shell
@@ -4142,7 +4171,7 @@ paths:
             The value passed for _`name`_ may have been misspelled.
       summary: Retrieve a query suggestion for a branching suggestion
       tags:
-        - Query
+        - Query data
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -7448,7 +7477,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
         - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
@@ -7678,10 +7707,9 @@ paths:
                 type: integer
         default:
           $ref: '#/components/responses/GeneralServerError'
-      summary: Write data
+      summary: Write data using the InfluxDB v2 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
   /legacy/authorizations:
     servers:
       - url: /private
@@ -7847,8 +7875,7 @@ paths:
           description: Error processing query
       summary: Query using the InfluxDB v1 HTTP API
       tags:
-        - Data I/O endpoints
-        - Query
+        - Query data
   /write:
     post:
       operationId: PostLegacyWrite
@@ -7876,7 +7903,7 @@ paths:
 
         #### Write endpoints
 
-        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB 3 Cloud Serverless.
+        The [`/write`](#operation/PostLegacyWrite) and [`/api/v2/write`](#operation/PostWrite) endpoints are functionally equivalent for writing data to InfluxDB Cloud Serverless.
 
         - Use the [`/write` endpoint](#operation/PostLegacyWrite) for [InfluxDB v1 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v1/).
         - Use [`/api/v2/write` endpoint](#operation/PostWrite) for [InfluxDB v2 parameter compatibility](/influxdb3/cloud-serverless/guides/api-compatibility/v2/).
@@ -8011,8 +8038,7 @@ paths:
           description: Internal server error
       summary: Write data using the InfluxDB v1 HTTP API
       tags:
-        - Data I/O endpoints
-        - Write
+        - Write data
 components:
   examples:
     AuthorizationPostRequest:
@@ -14756,7 +14782,7 @@ x-tagGroups:
       - Invokable Scripts
       - Limits
       - Organizations
-      - Query
+      - Query data
       - Resources
       - Routes
       - Secrets
@@ -14765,4 +14791,4 @@ x-tagGroups:
       - Templates
       - Usage
       - Variables
-      - Write
+      - Write data

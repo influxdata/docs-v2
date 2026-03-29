@@ -62,7 +62,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|oss-v1|enterprise-v1|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -273,6 +273,18 @@ function updateV1Compat {
   postProcess $outFile 'influxdb3/clustered/.config.yml' 'v1-compatibility'
 }
 
+function updateOSSV1 {
+  outFile="influxdb/v1/v1/ref.yml"
+  echo "Processing $outFile with decorators"
+  postProcess $outFile 'influxdb/v1/.config.yml' 'v1@1'
+}
+
+function updateEnterpriseV1 {
+  outFile="enterprise_influxdb/v1/v1/ref.yml"
+  echo "Processing $outFile with decorators"
+  postProcess $outFile 'enterprise_influxdb/v1/.config.yml' 'v1@1'
+}
+
 UPDATE_OPTIONS="--fail"
 
 if [ ! -z ${verbose} ];
@@ -312,6 +324,12 @@ then
 elif [ "$product" = "v1-compat" ];
 then
   updateV1Compat
+elif [ "$product" = "oss-v1" ];
+then
+  updateOSSV1
+elif [ "$product" = "enterprise-v1" ];
+then
+  updateEnterpriseV1
 elif [ "$product" = "all" ];
 then
   updateCloudV2
@@ -322,8 +340,10 @@ then
   updateCoreV3
   updateEnterpriseV3
   updateOSSV2
+  updateOSSV1
+  updateEnterpriseV1
   updateV1Compat
 else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
+  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, oss-v1, enterprise-v1, v1-compat, or all."
   showHelp
 fi

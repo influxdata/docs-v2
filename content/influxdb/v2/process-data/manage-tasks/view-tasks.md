@@ -38,7 +38,7 @@ See the [`influx task list` documentation](/influxdb/v2/reference/cli/influx/tas
 for information about other available flags.
 
 ## View tasks with the InfluxDB API
-Use the [`/tasks` InfluxDB API endpoint](/influxdb/v2/api/#operation/GetTasks)
+Use the [`/tasks` InfluxDB API endpoint](/influxdb/v2/api/#get-/api/v2/tasks)
 to return a list of tasks.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks" api-ref="/influxdb/v2/api/#operation/GetTasks" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks" api-ref="/influxdb/v2/api/#get-/api/v2/tasks" >}}

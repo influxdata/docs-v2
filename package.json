@@ -13,7 +13,7 @@
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2",
-    "tar": "7.5.11",
+    "tar": "7.5.7",
     "lodash-es": "^4.17.23"
   },
   "devDependencies": {
@@ -115,5 +115,7 @@
   },
   "keywords": [],
   "author": "",
-  "optionalDependencies": {}
+  "optionalDependencies": {
+    "copilot": "^0.0.2"
+  }
 }

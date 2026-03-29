@@ -353,6 +353,24 @@ The **only** acceptable inline scripts are minimal initialization that MUST run 
 
 Everything else belongs in `assets/js/`.
 
+### File Organization for Components
+
+```
+assets/
+├── js/
+│   ├── main.js                    # Entry point, component registry
+│   ├── components/
+│   │   ├── api-nav.ts             # API navigation behavior
+│   │   ├── api-toc.ts             # Table of contents
+│   │   ├── api-tabs.ts            # Tab switching (if needed beyond CSS)
+│   │   └── api-rapidoc.ts         # RapiDoc integration
+│   └── utils/
+│       └── dom-helpers.ts         # Shared DOM utilities
+└── styles/
+    └── layouts/
+        └── _api-layout.scss       # API-specific styles
+```
+
 ### TypeScript Component Checklist
 
 When creating a new interactive feature:

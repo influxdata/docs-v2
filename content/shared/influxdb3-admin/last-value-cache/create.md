@@ -84,7 +84,7 @@ influxdb3 create last_cache \
 
 To use the HTTP API to create a Last Value Cache, send a `POST` request to the `/api/v3/configure/last_cache` endpoint.
 
-{{% api-endpoint method="POST" endpoint="/api/v3/configure/last_cache" api-ref="/influxdb3/version/api/v3/#operation/PostConfigureLastCache" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/configure/last_cache" api-ref="/influxdb3/version/api/v3/#post-/api/v3/configure/last_cache" %}}
 
 {{% code-placeholders "(DATABASE|TABLE|LVC)_NAME|AUTH_TOKEN|(KEY|VALUE)_COLUMNS|COUNT|TTL" %}}
 

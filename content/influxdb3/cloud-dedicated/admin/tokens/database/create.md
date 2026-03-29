@@ -142,7 +142,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 1.  If you haven't already, follow the instructions to [install cURL](https://everything.curl.dev/install/index.html) for your system.
 2.  In your terminal, use cURL to send a request to the following {{% product-name %}} endpoint:
 
-    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken" %}}
+    {{% api-endpoint endpoint="https://console.influxdata.com/api/v0/accounts/ACCOUNT_ID/clusters/CLUSTER_ID/tokens" method="post" api-ref="/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/tokens" %}}
 
     In the URL, provide the following credentials:
 
@@ -157,7 +157,7 @@ _This example uses [cURL](https://curl.se/) to send a Management HTTP API reques
 
     In the request body, provide the following parameters:
 
-    - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) (read or write) objects:
+    - `permissions`: an array of token [permissions](/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/tokens) (read or write) objects:
       - `"action"`: Specify `read` or `write` permission to the database.
       - `"resource"`: Specify the database name.
     - `description`: Provide a description of the token.
@@ -230,7 +230,7 @@ If a new database token doesn't immediately work (you receive a `401 Unauthorize
 
 The `influxctl token create` command supports the `--format json` option.
 By default, the command outputs the token string.
-For [token details](/influxdb3/cloud-dedicated/api/management/#operation/CreateDatabaseToken) and easier programmatic access to the command output, include `--format json`
+For [token details](/influxdb3/cloud-dedicated/api/management/#post-/accounts/-accountId-/clusters/-clusterId-/tokens) and easier programmatic access to the command output, include `--format json`
 with your command to format the output as JSON.
 
 The Management API outputs JSON format in the response body.

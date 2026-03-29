@@ -2,7 +2,7 @@
 title: Create an admin token
 description: >
   Use the [`influxdb3 create token --admin` command](/influxdb3/enterprise/reference/cli/influxdb3/create/token/)
-  or the HTTP API [`/api/v3/configure/token/admin`](/influxdb3/enterprise/api/v3/#operation/PostCreateAdminToken)
+  or the HTTP API [`/api/v3/configure/token/admin`](/influxdb3/enterprise/api/v3/#post-/api/v3/configure/token/admin)
   endpoint to create an operator or named [admin token](/influxdb3/enterprise/admin/tokens/admin/) for your {{< product-name omit="Clustered" >}} instance.
   An admin token grants access to all actions on the server.
 menu:

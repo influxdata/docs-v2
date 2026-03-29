@@ -10,7 +10,7 @@ introduced: "v1.21.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/mongodb/README.md, MongoDB Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/mongodb/README.md, MongoDB Plugin Source
 ---
 
 # MongoDB Output Plugin
@@ -49,47 +49,43 @@ to use them.
 ```toml @sample.conf
 # A plugin that can transmit logs to mongodb
 [[outputs.mongodb]]
-  ## Connection string
-  ## example: dsn = "mongodb://mongod1:27017,mongod2:27017,mongod3:27017/admin&replicaSet=myReplSet&w=1"
+  # connection string examples for mongodb
   dsn = "mongodb://localhost:27017"
+  # dsn = "mongodb://mongod1:27017,mongod2:27017,mongod3:27017/admin&replicaSet=myReplSet&w=1"
 
-  ## Overrides serverSelectionTimeoutMS in DSN if set
+  # overrides serverSelectionTimeoutMS in dsn if set
   # timeout = "30s"
 
-  ## Authentication method, available options are NONE, PLAIN, SCRAM, X509
+  # default authentication, optional
   # authentication = "NONE"
 
-  # ## for SCRAM-SHA-256 authentication
-  # # authentication = "SCRAM"
-  # # username = "root"
-  # # password = "***"
+  # for SCRAM-SHA-256 authentication
+  # authentication = "SCRAM"
+  # username = "root"
+  # password = "***"
 
-  # ## for PLAIN authentication (e.g., LDAP)
-  # ## IMPORTANT: PLAIN authentication sends credentials in plaintext during the
-  # ## authentication handshake. Always use TLS to encrypt credentials in transit.
-  # # authentication = "PLAIN"
-  # # username = "myuser"
-  # # password = "***"
+  ## for PLAIN authentication (e.g., LDAP)
+  ## IMPORTANT: PLAIN authentication sends credentials in plaintext during the
+  ## authentication handshake. Always use TLS to encrypt credentials in transit.
+  # authentication = "PLAIN"
+  # username = "myuser"
+  # password = "***"
 
-  # ## X509 based certificate authentication
-  # # authentication = "X509"
-  # # tls_ca = "ca.pem"
-  # # tls_key = "client.pem"
-  # # # tls_key_pwd = "changeme" # required for encrypted tls_key
-  # # insecure_skip_verify = false
+  # for x509 certificate authentication
+  # authentication = "X509"
+  # tls_ca = "ca.pem"
+  # tls_key = "client.pem"
+  # # tls_key_pwd = "changeme" # required for encrypted tls_key
+  # insecure_skip_verify = false
 
-  ## Database to store measurements and time series collections
+  # database to store measurements and time series collections
   # database = "telegraf"
 
-  ## Granularity can be seconds, minutes, or hours.
-  ## Configuring this value will be based on your input collection frequency
-  ## see https://docs.mongodb.com/manual/core/timeseries-collections/#create-a-time-series-collection
+  # granularity can be seconds, minutes, or hours.
+  # configuring this value will be based on your input collection frequency.
+  # see https://docs.mongodb.com/manual/core/timeseries-collections/#create-a-time-series-collection
   # granularity = "seconds"
 
-  ## TTL to automatically expire documents from the measurement collections.
+  # optionally set a TTL to automatically expire documents from the measurement collections.
   # ttl = "360h"
-
-  ## If true, write multiple metrics for the same collection in a batched
-  ## fashion. Otherwise, write each metric individually.
-  # write_batch = false
 ```

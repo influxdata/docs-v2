@@ -70,7 +70,7 @@ function generateHtml {
   local specbundle=redoc-static_index.html
   # Define the temporary file for the Hugo template and Redoc HTML.
   local tmpfile="${productVersion}-${api}_index.tmp"
-
+  
   echo "Bundling $specPath"
 
   # Use npx to install and run the specified version of redoc-cli.
@@ -83,9 +83,9 @@ function generateHtml {
   --title="$title" \
   --options.sortPropsAlphabetically \
   --options.menuToggle \
+  --options.hideDownloadButton \
   --options.hideHostname \
   --options.noAutoAuth \
-  --options.hideDownloadButton \
   --output=$specbundle \
   --templateOptions.description="$shortDescription" \
   --templateOptions.product="$productVersion" \
@@ -187,3 +187,9 @@ function build {
 }
 
 build
+
+# Generate tag-based article data and content pages
+echo "Generating OpenAPI article data..."
+cd ..
+node api-docs/scripts/dist/generate-openapi-articles.js
+cd api-docs

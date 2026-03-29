@@ -197,7 +197,7 @@ AND room = 'Kitchen'
 
 {{% product-name %}} provides the `/api/v3/query_sql` HTTP API endpoint for executing SQL queries with parameters.
 
-{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#operation/PostExecuteQuerySQL" %}}
+{{% api-endpoint method="POST" endpoint="/api/v3/query_sql" api-ref="/influxdb3/version/api/v3/#post-/api/v3/query_sql" %}}
 
 Send a JSON object that contains `db` (database), `q` (query), and `params` (parameter name-value pairs) properties in the request body.
 
