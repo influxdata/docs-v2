@@ -121,6 +121,10 @@ function initializeChat({
     modalHeaderBorderBottom: 'none',
     modalTitleColor: '#fff',
     modalTitleFontSize: '1.25rem',
+    // MCP server integration - enables "Use MCP" dropdown in widget header
+    // See: https://docs.kapa.ai/integrations/website-widget/configuration#mcp-install-menu
+    mcpEnabled: 'true',
+    mcpServerUrl: 'https://influxdb-docs.mcp.kapa.ai',
   };
 
   const scriptUrl = 'https://widget.kapa.ai/kapa-widget.bundle.js';

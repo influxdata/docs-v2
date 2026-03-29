@@ -1,5 +1,6 @@
-{{ $section := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
-{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
+{{- $productData := partial "product/get-data.html" . -}}
+{{ $section := $productData.namespace }}
+{{ $currentVersion := .Page.Params.version }}
 {{ $filters := .Get "filters" | default "" }}
 {{ $filterArr := split $filters ", "}}
 {{ $tagTaxonomy := print $section "/" $currentVersion "/tags" }}

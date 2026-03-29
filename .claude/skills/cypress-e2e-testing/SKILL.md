@@ -276,6 +276,52 @@ describe('Component Name', () => {
 });
 ```
 
+### Using Real Configuration Data
+
+Import real configuration data (from `data/*.yml`) via `cy.task('getData')` instead of hardcoding expected values. This keeps tests in sync with the source of truth.
+
+```javascript
+describe('Product shortcodes', function () {
+  let products;
+
+  before(function () {
+    // Load products.yml via the getData task defined in cypress.config.js
+    cy.task('getData', 'products').then((data) => {
+      products = data;
+    });
+  });
+
+  it('renders the correct product name', function () {
+    cy.visit('/influxdb3/core/_test/shortcodes/');
+    // Assert against YAML data, not a hardcoded string
+    cy.get('[data-testid="product-name"]').should(
+      'contain.text',
+      products.influxdb3_core.name
+    );
+  });
+
+  it('renders current-version from YAML', function () {
+    cy.visit('/influxdb/v2/_test/shortcodes/');
+    // Derive expected value the same way the Hugo shortcode does
+    const patch = products.influxdb.latest_patches?.v2;
+    const expected = patch ? patch.replace(/\.\d+$/, '') : '';
+    cy.get('[data-testid="current-version"] .current-version').should(
+      'have.text',
+      expected
+    );
+  });
+});
+```
+
+**Key principles:**
+
+- Load YAML data in `before()` — available to all tests in the suite
+- Derive expected values from the data, mirroring shortcode logic
+- Only hardcode what you must: content paths and test page URLs
+- Derive boolean flags from data fields (e.g., `product.distributed_architecture`, `product.limits`)
+
+See `cypress/e2e/content/shortcodes.cy.js` and `cypress/e2e/content/latest-patch-shortcode.cy.js` for full examples.
+
 ### Testing Links
 
 ```javascript

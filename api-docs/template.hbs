@@ -86,7 +86,10 @@
       askAI.setAttribute('data-modal-title-color', '#fff');
       askAI.setAttribute('data-modal-title-font-size', '1.25rem');
       askAI.setAttribute('data-modal-lock-scroll', 'false');
-      
+      // MCP server integration - enables "Use MCP" dropdown in widget header
+      askAI.setAttribute('data-mcp-enabled', 'true');
+      askAI.setAttribute('data-mcp-server-url', 'https://influxdb-docs.mcp.kapa.ai');
+
       // Add the script to the document head
       document.head.appendChild(askAI);
       });

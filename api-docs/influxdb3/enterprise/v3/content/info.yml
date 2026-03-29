@@ -21,10 +21,7 @@ description: |
   - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
   - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
-  <!-- TODO: verify where to host the spec that users can download.
-  This documentation is generated from the
-  [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/).
-  -->
+  [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
 license:
   name: MIT
   url: 'https://opensource.org/licenses/MIT'

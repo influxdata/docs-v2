@@ -9,6 +9,12 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.8.3 {date="2026-03-03"}
+
+### Dependency updates
+
+- Upgrade Go to 1.25.7.
+
 ## v1.8.2 {date="2025-09-29"}
 
 ### Features
@@ -852,7 +858,7 @@ No changes to Kapacitor, only upgrading to GoLang 1.7.4 for security patches.
 
 ### Release Notes
 
-New K8sAutoscale node that allows you to auotmatically scale Kubernetes deployments driven by any metrics Kapacitor consumes.
+New K8sAutoscale node that allows you to automatically scale Kubernetes deployments driven by any metrics Kapacitor consumes.
 For example, to scale a deployment `myapp` based off requests per second:
 
 ```

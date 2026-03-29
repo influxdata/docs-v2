@@ -33,6 +33,34 @@
   {{- $sectionDownloadUrl = printf "%s-download.zip" .RelPermalink -}}
 {{- end -}}
 
+{{/* Determine product-specific MCP docs URL based on current page path */}}
+{{- $mcpDocsUrl := "" -}}
+{{- $path := .RelPermalink -}}
+{{- if hasPrefix $path "/influxdb3/core/" -}}
+  {{- $mcpDocsUrl = "/influxdb3/core/admin/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb3/enterprise/" -}}
+  {{- $mcpDocsUrl = "/influxdb3/enterprise/admin/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb3/cloud-dedicated/" -}}
+  {{- $mcpDocsUrl = "/influxdb3/cloud-dedicated/admin/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb3/cloud-serverless/" -}}
+  {{- $mcpDocsUrl = "/influxdb3/cloud-serverless/reference/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb3/clustered/" -}}
+  {{- $mcpDocsUrl = "/influxdb3/clustered/reference/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb/cloud/" -}}
+  {{- $mcpDocsUrl = "/influxdb/cloud/reference/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb/v2/" -}}
+  {{- $mcpDocsUrl = "/influxdb/v2/reference/mcp-server/" -}}
+{{- else if hasPrefix $path "/influxdb/v1/" -}}
+  {{- $mcpDocsUrl = "/influxdb/v1/tools/mcp-server/" -}}
+{{- else if hasPrefix $path "/enterprise_influxdb/v1/" -}}
+  {{- $mcpDocsUrl = "/enterprise_influxdb/v1/tools/mcp-server/" -}}
+{{- else if hasPrefix $path "/telegraf/" -}}
+  {{- $mcpDocsUrl = "/telegraf/v1/mcp-server/" -}}
+{{- else -}}
+  {{/* Default to Core docs for other products (Flux, Kapacitor, Chronograf) */}}
+  {{- $mcpDocsUrl = "/influxdb3/core/admin/mcp-server/" -}}
+{{- end -}}
+
 {{/* Only show format selector on documentation pages, not on special pages */}}
 {{- if not (in .RelPermalink "/search") -}}
 
@@ -44,9 +72,8 @@
   {{- if $sectionDownloadUrl }}
   data-section-download-url="{{ $sectionDownloadUrl }}"
   {{- end }}
-  {{- /* Future MCP server URLs - commented out for now */ -}}
-  {{- /* data-mcp-cursor-url="/docs/mcp/cursor-setup/" */ -}}
-  {{- /* data-mcp-vscode-url="/docs/mcp/vscode-setup/" */ -}}
+  {{- /* Documentation MCP server URL - link to product-specific setup docs */ -}}
+  data-mcp-docs-url="{{ $mcpDocsUrl }}"
 >
   {{/* Button triggers dropdown */}}
   <button

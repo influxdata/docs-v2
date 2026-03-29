@@ -61,11 +61,13 @@ during query execution and returned in query results.
 
 The following numeric types are supported:
 
-| SQL data type   | Arrow data type | Description                  |
-| :-------------- | :-------------- | :--------------------------- |
-| BIGINT          | INT64           | 64-bit signed integer        |
-| BIGINT UNSIGNED | UINT64          | 64-bit unsigned integer      |
-| DOUBLE          | FLOAT64         | 64-bit floating-point number |
+| SQL data type   | Arrow data type | Description                                |
+| :-------------- | :-------------- | :----------------------------------------- |
+| BIGINT          | INT64           | 64-bit signed integer                      |
+| BIGINT UNSIGNED | UINT64          | 64-bit unsigned integer                    |
+| DOUBLE          | FLOAT64         | 64-bit floating-point number (~15 digits)  |
+| FLOAT           | FLOAT32         | 32-bit floating-point number (~7 digits)   |
+| REAL            | FLOAT32         | 32-bit floating-point number (alias for FLOAT) |
 
 ### Integers
 
@@ -101,16 +103,39 @@ Unsigned integer literals are comprised of an integer cast to the `BIGINT UNSIGN
 
 ### Floats
 
-InfluxDB SQL supports the 64-bit double floating point values.
-Floats can be a decimal point, decimal integer, or decimal fraction.
+InfluxDB SQL supports both 32-bit (single precision) and 64-bit (double precision) floating-point values.
+
+| Type   | Precision | Significant Digits | Use Case |
+| :----- | :-------- | :----------------- | :------- |
+| FLOAT  | 32-bit    | ~7 digits          | Memory-efficient storage when full precision isn't needed |
+| DOUBLE | 64-bit    | ~15-16 digits      | Default for most numeric operations |
+
+> [!Note]
+> InfluxDB stores float field values as 64-bit (FLOAT64) internally.
+> Casting to FLOAT (32-bit) may lose precision for values with more than ~7 significant digits.
+> Unlike PostgreSQL where FLOAT defaults to double precision, InfluxDB SQL treats FLOAT as single precision (32-bit).
 
 ##### Example float literals
+
+Float literals are stored as 64-bit double precision:
 
 ```sql
 23.8
 -446.89
 5.00
 0.033
+```
+
+##### Example float casting
+
+```sql
+-- Cast to 32-bit float (may lose precision)
+SELECT 3.141592653589793::FLOAT;
+-- Returns: 3.1415927 (truncated to ~7 digits)
+
+-- Cast to 64-bit double (preserves precision)
+SELECT 3.141592653589793::DOUBLE;
+-- Returns: 3.141592653589793
 ```
 
 ## Date and time data types

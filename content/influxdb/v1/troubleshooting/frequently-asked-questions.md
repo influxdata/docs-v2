@@ -451,7 +451,7 @@ SELECT MEAN("dogs" - "cats") from "pet_daycare"
 Instead, use a subquery to get the same result:
 
 ```sql
-> SELECT MEAN("difference") FROM (SELECT "dogs" - "cat" AS "difference" FROM "pet_daycare")
+SELECT MEAN("difference") FROM (SELECT "dogs" - "cat" AS "difference" FROM "pet_daycare")
 ```
 
 See the
@@ -740,9 +740,9 @@ In the following example, the first query covers data with timestamps between
 The second query covers data with timestamps between `2015-09-18T21:30:00Z` and 180 weeks from `now()`.
 
 ```sql
-> SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
+SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
 
-> SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' AND time <= now() + 180w GROUP BY time(12m) fill(none)
+SELECT MEAN("boards") FROM "hillvalley" WHERE time >= '2015-09-18T21:30:00Z' AND time <= now() + 180w GROUP BY time(12m) fill(none)
 ```
 
 Note that the `WHERE` clause must provide an alternative **upper** bound to
@@ -751,8 +751,8 @@ the lower bound to `now()` such that the query's time range is between
 `now()` and `now()`:
 
 ```sql
-> SELECT MEAN("boards") FROM "hillvalley" WHERE time >= now() GROUP BY time(12m) fill(none)
->
+SELECT MEAN("boards") FROM "hillvalley" WHERE time >= now() GROUP BY time(12m) fill(none)
+
 ```
 
 For for more on time syntax in queries, see [Data Exploration](/influxdb/v1/query_language/explore-data/#time-syntax).
@@ -843,8 +843,8 @@ time			               count
 We [create](/influxdb/v1/query_language/manage-database/#create-retention-policies-with-create-retention-policy) a new `DEFAULT` RP (`two_hour`) and perform the same query:
 
 ```sql
-> SELECT count(flounders) FROM fleeting
->
+SELECT count(flounders) FROM fleeting
+
 ```
 
 To query the old data, we must specify the old `DEFAULT` RP by fully qualifying `fleeting`:
@@ -866,8 +866,8 @@ with time intervals.
 Example:
 
 ```sql
-> SELECT * FROM "absolutismus" WHERE time = '2016-07-31T20:07:00Z' OR time = '2016-07-31T23:07:17Z'
->
+SELECT * FROM "absolutismus" WHERE time = '2016-07-31T20:07:00Z' OR time = '2016-07-31T23:07:17Z'
+
 ```
 
 {{% warn %}} [GitHub Issue #7530](https://github.com/influxdata/influxdb/issues/7530)

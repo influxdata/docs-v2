@@ -1,8 +1,12 @@
 #!/bin/bash
+# shellcheck disable=SC2016  # Intentional: single-quoted sed writes literal $VAR into files
 
 # This script is used to run tests for the InfluxDB documentation.
-# The script is designed to be run in a Docker container. It is used to substitute placeholder values in test files.
-TEST_CONTENT="/app/content"
+# It substitutes placeholder values in test files before running pytest.
+# Supports both container (default) and host-runner execution.
+REPO_ROOT="${REPO_ROOT:-/src}"
+WORK_DIR="${WORK_DIR:-/app}"
+TEST_CONTENT="${WORK_DIR}/content"
 # Pattern to match a 10-digit Unix timestamp
 TIMESTAMP_PATTERN='[0-9]{10}'
 
@@ -10,7 +14,7 @@ NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 YESTERDAY=$(date -u -d 'yesterday 00:00' '+%Y-%m-%dT%H:%M:%SZ')
 
 function substitute_placeholders {
-  for file in `find "$TEST_CONTENT" -type f \( -iname '*.md' \)`; do
+  while IFS= read -r file; do
     if [ -f "$file" ]; then
       # echo "PRETEST: substituting values in $file"
 
@@ -35,17 +39,17 @@ function substitute_placeholders {
           yesterday_timestamp=$(date -u -d "$yesterday_datetime" +%s)
 
           # Replace the extracted timestamp with `yesterday_timestamp`
-          sed -i "s|$specific_timestamp|$yesterday_timestamp|g;" $file
+          sed -i "s|$specific_timestamp|$yesterday_timestamp|g;" "$file"
         fi
       done
 
       ## Adjust time bounds in queries to be the current time and yesterday.
       sed -i "s|'2022-01-01T20:00:00Z'|'$NOW'|g;
       s|'2022-01-01T08:00:00Z'|'$YESTERDAY'|g; 
-      " $file
+      " "$file"
 
       # Non-language-specific replacements.
-      sed -i 's|https:\/\/{{< influxdb/host >}}|$INFLUX_HOST|g;' $file
+      sed -i 's|https:\/\/{{< influxdb/host >}}|$INFLUX_HOST|g;' "$file"
 
       # Python-specific replacements.
       # Use f-strings to identify placeholders in Python while also keeping valid syntax if
@@ -61,13 +65,13 @@ function substitute_placeholders {
       s|f"{{< influxdb/host >}}"|os.getenv("INFLUX_HOSTNAME")|g;
       s/f"MANAGEMENT_TOKEN"/os.getenv("INFLUX_MANAGEMENT_TOKEN")/g;
       s|f"RETENTION_POLICY_NAME\|RETENTION_POLICY"|"autogen"|g;
-      ' $file
+      ' "$file"
 
       # Shell-specific replacements.
       ## In JSON Heredoc
       sed -i 's|"orgID": "ORG_ID"|"orgID": "$INFLUX_ORG"|g;
       s|"name": "BUCKET_NAME"|"name": "$INFLUX_DATABASE"|g;
-      ' $file
+      ' "$file"
 
       # Replace remaining placeholders with variables.
       # If the placeholder is inside of a Python os.getenv() function, don't replace it.
@@ -99,7 +103,7 @@ function substitute_placeholders {
       s|@path/to/line-protocol.txt|data/home-sensor-data.lp|g;
       s|/path/to/custom/assets-dir|/app/custom-assets|g;
       s|/path/to/templates/|/root/influxdb/templates/|g;
-      ' $file
+      ' "$file"
 
       # v2-specific replacements.
       sed -i 's|https:\/\/us-west-2-1.aws.cloud2.influxdata.com|$INFLUX_HOST|g;
@@ -107,26 +111,26 @@ function substitute_placeholders {
       s|{{< latest-patch cli=true >}}|${influxdb_latest_cli_v2}|g;
       s|influxdb2-{{% latest-patch %}}|influxdb2-${influxdb_latest_patches_v2}|g;
       s|{{% latest-patch cli=true %}}|${influxdb_latest_cli_v2}|g;
-      ' $file
+      ' "$file"
 
       # Telegraf-specific replacements
       sed -i 's|telegraf-{{< latest-patch >}}|telegraf-${telegraf_latest_patches_v1}|g;
       s|telegraf-{{% latest-patch %}}|telegraf-${telegraf_latest_patches_v1}|g;
       s/--input-filter <INPUT_PLUGIN_NAME>\[:<INPUT_PLUGIN_NAME>\]/--input-filter cpu:influxdb/g;
       s/--output-filter <OUTPUT_PLUGIN_NAME>\[:<OUTPUT_PLUGIN_NAME>\]/--output-filter influxdb_v2:file/g;
-      ' $file
+      ' "$file"
 
       # Skip package manager commands.
       sed -i 's|sudo dpkg.*$||g;
       s|sudo yum.*$||g;
-      ' $file
+      ' "$file"
 
       # Environment-specific replacements.
       # You can't use sudo with Docker.
       sed -i 's|sudo ||g;
-      ' $file
+      ' "$file"
     fi
-  done
+  done < <(find "$TEST_CONTENT" -type f -iname '*.md')
 }
 
 prepare_tests() {
@@ -134,11 +138,11 @@ prepare_tests() {
   SRC_FILES="$*"
 
   # Copy the test files to the target directory while preserving the directory structure.
-  cd /src
+  cd "$REPO_ROOT" || exit
   for FILE in $SRC_FILES; do
-    rsync -az --relative "$FILE" /app/
+    rsync -az --relative "$FILE" "${WORK_DIR}/"
   done
-  cd /app
+  cd "$WORK_DIR" || exit
   substitute_placeholders
 }
 

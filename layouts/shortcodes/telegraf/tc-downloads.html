@@ -1,0 +1,37 @@
+{{/*
+  tc-downloads shortcode
+  Renders a gated download experience for Telegraf Controller.
+  - Shows a "Download" button that opens a contact form modal.
+  - After form submission (or email link with ?ref=tc), JS renders
+    download links from the JSON data attribute.
+  - Data sourced from data/tc_downloads.yml (metadata only — URLs are
+    constructed here at build time).
+*/}}
+{{- $data := .Site.Data.tc_downloads -}}
+{{- $baseURL := "https://telegraf-controller-artifacts.s3.us-east-1.amazonaws.com" -}}
+{{- $version := $data.version -}}
+
+{{/* Build enriched platform data with constructed URLs */}}
+{{- $platforms := slice -}}
+{{- range $data.platforms -}}
+  {{- $builds := slice -}}
+  {{- range .builds -}}
+    {{- $ext := .ext | default "" -}}
+    {{- $filename := printf "telegraf_controller-%s-%s%s" .os .arch $ext -}}
+    {{- $url := printf "%s/v%s/%s" $baseURL $version $filename -}}
+    {{- $build := dict "arch" .arch "os" .os "sha256" .sha256 "filename" $filename "url" $url -}}
+    {{- $builds = $builds | append $build -}}
+  {{- end -}}
+  {{- $platforms = $platforms | append (dict "name" .name "builds" $builds) -}}
+{{- end -}}
+
+{{- $enriched := dict "version" $version "platforms" $platforms -}}
+<div id="tc-downloads-area">
+  <a class="btn" id="tc-download-btn"
+     onclick="window.influxdatadocs.toggleModal('#tc-downloads')">
+    Download Telegraf Controller
+  </a>
+  <div id="tc-downloads-links" style="display: none;"
+       data-downloads="{{ $enriched | jsonify | base64Encode }}">
+  </div>
+</div>

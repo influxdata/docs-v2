@@ -1,3 +1,1 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentProduct := index $productPathData 1 -}}
-{{ $currentProduct }}
+{{- .Page.Params.version -}}

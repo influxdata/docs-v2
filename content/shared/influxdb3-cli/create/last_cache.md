@@ -32,6 +32,7 @@ influxdb3 create last_cache [OPTIONS] \
 |        | `--count`         | Number of entries per unique key column combination to store in the cache                                                                                             |
 |        | `--ttl`           | Cache entries' time-to-live (TTL) in [Humantime form](https://docs.rs/humantime/latest/humantime/fn.parse_duration.html)--for example: `10s`, `1min 30sec`, `3 hours` |
 |        | `--tls-ca`        | Path to a custom TLS certificate authority (for testing or self-signed certificates)                                                                                  |
+|        | `--tls-no-verify` | Disable TLS certificate verification. **Not recommended in production.** Useful for testing with self-signed certificates                                             |
 | `-h`   | `--help`          | Print help information                                                                                                                                                |
 |        | `--help-all`      | Print detailed help information                                                                                                                                       |
 
@@ -44,6 +45,7 @@ You can use the following environment variables as substitutes for CLI options:
 | `INFLUXDB3_HOST_URL`      | `--host`     |
 | `INFLUXDB3_DATABASE_NAME` | `--database` |
 | `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Prerequisites
 

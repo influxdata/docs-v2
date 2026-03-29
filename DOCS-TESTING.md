@@ -15,7 +15,7 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 | ----------------------- | ----------------------------------- | ---------------------------- |
 | **Code blocks**         | Validate shell/Python code examples | `yarn test:codeblocks:all`   |
 | **Link validation**     | Check internal/external links       | `yarn test:links`            |
-| **Style linting**       | Enforce writing standards           | `docker compose run -T vale` |
+| **Style linting**       | Enforce writing standards           | `.ci/vale/vale.sh`           |
 | **Markdown generation** | Generate LLM-friendly Markdown      | `yarn build:md`              |
 | **E2E tests**           | UI and functionality testing        | `yarn test:e2e`              |
 
@@ -586,17 +586,25 @@ jobs:
 
 Style linting uses [Vale](https://vale.sh/) to enforce documentation writing standards, branding guidelines, and vocabulary consistency.
 
+### Setup
+
+1. **Install Vale locally (recommended):** `brew install vale` (or see [Vale installation guide](https://vale.sh/docs/install/))
+2. **Or use Docker:** The `.ci/vale/vale.sh` wrapper falls back to a pinned Docker image if `vale` isn't installed locally.
+
 ### Basic Usage
 
 ```bash
-# Basic linting with Docker
-docker compose run -T vale --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
+# Lint specific files
+.ci/vale/vale.sh content/influxdb3/core/**/*.md
+
+# With product config and alert level
+.ci/vale/vale.sh --config=content/influxdb/cloud-dedicated/.vale.ini --minAlertLevel=error content/influxdb/cloud-dedicated/write-data/**/*.md
 ```
 
-### VS Code Integration
+### VS Code IDE Integration
 
-1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension
-2. Set the `Vale:Vale CLI:Path` setting to `${workspaceFolder}/node_modules/.bin/vale`
+1. Install the [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) extension.
+2. Set `Vale:Vale CLI:Path` to `vale` (or the full path to the binary).
 
 ### Alert Levels
 
@@ -613,6 +621,28 @@ Vale can raise different alert levels:
 - **Product-specific**: Configure per-product styles like `content/influxdb/cloud-dedicated/.vale.ini`
 
 For more configuration details, see [Vale configuration](https://vale.sh/docs/topics/config).
+
+### CI Integration
+
+Vale runs automatically on pull requests that modify markdown files. The workflow:
+
+1. Detects changed markdown files (content, README, instruction files)
+2. Resolves shared content to consuming product pages
+3. Maps files to appropriate Vale configs (matching local Lefthook behavior)
+4. Runs Vale via Docker (`jdkato/vale:latest`)
+5. Reports results as inline annotations and a PR summary comment
+
+**Alert levels:**
+- **Errors** block merging
+- **Warnings** and **suggestions** are informational only
+
+**Files checked:**
+- `content/**/*.md`
+- `README.md`, `DOCS-*.md`
+- `**/AGENTS.md`, `**/CLAUDE.md`
+- `.github/**/*.md`, `.claude/**/*.md`
+
+The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
 
 ## Pre-commit Hooks
 

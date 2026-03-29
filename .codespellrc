@@ -1,0 +1,11 @@
+[codespell]
+# Use only 'clear' dictionary to minimize false positives on documentation
+# 'rare', 'code' are too aggressive for reference documentation
+builtin = clear
+
+# Skip directories with generated or configuration content
+skip = public,node_modules,dist,.git,.vale,api-docs
+
+# Use external ignore file for product branding terms and technical acronyms
+# (See .codespellignore for the complete list)
+ignore-words = .codespellignore

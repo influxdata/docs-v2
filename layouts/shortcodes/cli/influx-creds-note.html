@@ -1,15 +1,15 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $product := index $productPathData 0 -}}
-{{- $version := index $productPathData 1 -}}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $namespace := $productData.namespace -}}
+{{- $version := .Page.Params.version -}}
 <div class="note block">
   <h4 id="authentication-credentials">Authentication credentials</h4>
   <p>
     The examples below assume your InfluxDB <strong>host</strong>, <strong>organization</strong>, and <strong>token</strong> are
-    provided by either the <a href="/{{ $product }}/{{ $version }}/reference/cli/influx/#provide-required-authentication-credentials">active <code>influx</code> CLI configuration</a> or by environment variables (<code>INFLUX_HOST</code>, <code>INFLUX_ORG</code>, and <code>INFLUX_TOKEN</code>).
+    provided by either the <a href="/{{ $namespace }}/{{ $version }}/reference/cli/influx/#provide-required-authentication-credentials">active <code>influx</code> CLI configuration</a> or by environment variables (<code>INFLUX_HOST</code>, <code>INFLUX_ORG</code>, and <code>INFLUX_TOKEN</code>).
     If you do not have a CLI configuration set up or the environment variables set, include these required credentials for each command with the following flags:
   </p>
   <ul>
-    <li><code>--host</code>: <a href="/{{ $product }}/{{ $version }}/reference/urls/">InfluxDB host</a></li>
+    <li><code>--host</code>: <a href="/{{ $namespace }}/{{ $version }}/reference/urls/">InfluxDB host</a></li>
     <li><code>-o, --org</code> or <code>--org-id</code>: InfluxDB organization name or ID</li>
     <li><code>-t, --token</code>: InfluxDB API token</li>
   </ul>
