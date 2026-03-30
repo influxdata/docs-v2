@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/processors/lookup/README.md, Lookup Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/processors/lookup/README.md, Lookup Plugin Source
 ---
 
 # Lookup Processor Plugin
@@ -120,7 +120,7 @@ This setting specifies comma-separated-value files with the following format
 
 ```csv
 # Optional comments
-ignored,tag-name1,...,tag-valueN
+ignored,tag-name1,...,tag-nameN
 keyA,tag-value1,...,,,,
 keyB,tag-value1,,,,...,
 ...
