@@ -1,0 +1,25 @@
+{{/*
+  OpenAPI Spec Download Button
+
+  Renders a download button for the product's OpenAPI spec.
+  Uses specDownloadPath from frontmatter, falling back to parent section.
+  Derives button label from product name in data/products.yml.
+*/}}
+{{- $specPath := .Params.specDownloadPath -}}
+{{- if not $specPath -}}{{- with .Parent -}}{{- $specPath = .Params.specDownloadPath -}}{{- end -}}{{- end -}}
+{{- if $specPath -}}
+  {{- $productName := "" -}}
+  {{- with .Params.product -}}
+    {{- with index site.Data.products . -}}
+      {{- $productName = .name -}}
+    {{- end -}}
+  {{- end -}}
+  <a href="{{ $specPath }}" class="btn api-spec-download" download
+    aria-label="Download {{ with $productName }}{{ . }} {{ end }}API spec">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+      <path d="M1 14h14v2H1v-2z"/>
+    </svg>
+    Download {{ with $productName }}{{ . }} {{ end }}API Spec
+  </a>
+{{- end -}}

@@ -25,7 +25,7 @@ jobs:
     # Only run on issues with sync-plugin-docs label or manual dispatch
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'sync-plugin-docs'))
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'source:sync'))
 
     steps:
       - name: Parse issue inputs
@@ -170,7 +170,7 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: parseInt(issueNumber),
                 state: 'closed',
-                labels: ['sync-plugin-docs', 'validation-failed']
+                labels: ['source:sync', 'validation-failed']
               });
             }
 
@@ -418,7 +418,7 @@ jobs:
               repo: context.repo.repo,
               issue_number: ${{ steps.inputs.outputs.issue_number }},
               state: 'closed',
-              labels: ['sync-plugin-docs', 'completed']
+              labels: ['source:sync', 'completed']
             });
 
       - name: Report failure

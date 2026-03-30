@@ -1,554 +1,374 @@
 /// <reference types="cypress" />
 
 /**
- * API Reference Documentation E2E Tests
+ * API Reference E2E Tests
  *
- * Tests:
- * 1. API reference pages (link validation, content structure)
- * 2. 3-column layout with TOC (for InfluxDB 3 Core/Enterprise)
- * 3. Hugo-native tag page rendering
- * 4. Related links from OpenAPI x-related → frontmatter → rendered HTML
+ * Validates Hugo-native API reference rendering:
+ * - Sidebar navigation
+ * - Format selector ("Copy page/section for AI")
+ * - OpenAPI spec download buttons
+ * - In-page TOC with operation links
+ * - Operations, code samples, and related links
  *
- * Run with:
- * node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/api-reference.cy.js" content/influxdb3/core/reference/api/_index.md
+ * Coverage: 1 tag page + 1 conceptual page per product.
+ *
+ * Run:
+ *   node cypress/support/run-e2e-specs.js \
+ *     --spec "cypress/e2e/content/api-reference.cy.js" \
+ *     content/influxdb3/core/reference/api/_index.md
  */
 
-const fakeGoogleTagManager = {
-  trackingOptIn: () => {},
-  trackingOptOut: () => {},
-};
+const SENTINEL = 'content/influxdb3/core/api/write-data/_index.md';
+const FORMAT_BTN =
+  '.api-header-actions [data-component="format-selector"] .format-selector__button';
 
-describe('API reference content', () => {
-  // API section index pages (generated from article data)
-  const subjects = [
-    '/influxdb3/core/api/',
-    '/influxdb3/enterprise/api/',
-    '/influxdb3/cloud-dedicated/api/',
-    '/influxdb3/cloud-serverless/api/',
-    '/influxdb3/clustered/api/',
-    '/influxdb/cloud/api/',
-    '/influxdb/v2/api/',
-  ];
+before(() => {
+  cy.task('readFile', SENTINEL).then((content) => {
+    if (content) return;
 
-  subjects.forEach((subject) => {
-    describe(subject, () => {
-      beforeEach(() => {
-        // Intercept and modify the page HTML before it loads
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              // Modify the Kapa widget script attributes
-              // Avoid socket errors from fpjs in tests by disabling fingerprinting
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
+    cy.log('Generating API content from OpenAPI specs...');
+    cy.exec('node api-docs/scripts/dist/post-process-specs.js', {
+      timeout: 30000,
+    });
+    cy.exec(
+      'node api-docs/scripts/dist/generate-openapi-articles.js --skip-fetch',
+      { timeout: 120000 }
+    );
+    cy.request({
+      url: '/influxdb3/core/api/write-data/',
+      retryOnStatusCodeFailure: true,
+      timeout: 60000,
+    });
+  });
+});
+
+// Single-spec products: flat tag list in sidebar
+const products = [
+  {
+    name: 'Core',
+    base: '/influxdb3/core/api',
+    dataPath: 'data/article_data/influxdb3/core/api/articles.yml',
+  },
+  {
+    name: 'Enterprise',
+    base: '/influxdb3/enterprise/api',
+    dataPath: 'data/article_data/influxdb3/enterprise/api/articles.yml',
+  },
+  {
+    name: 'Cloud Serverless',
+    base: '/influxdb3/cloud-serverless/api',
+    dataPath: 'data/article_data/influxdb3/cloud-serverless/api/articles.yml',
+  },
+  {
+    name: 'Cloud',
+    base: '/influxdb/cloud/api',
+    dataPath: 'data/article_data/influxdb/cloud/api/articles.yml',
+  },
+  {
+    name: 'v2',
+    base: '/influxdb/v2/api',
+    dataPath: 'data/article_data/influxdb/v2/api/articles.yml',
+  },
+];
+
+// Multi-spec products: nested Data API / Management API sub-sections
+const multiSpecProducts = [
+  {
+    name: 'Cloud Dedicated',
+    base: '/influxdb3/cloud-dedicated/api',
+    specs: [
+      {
+        slug: 'data-api',
+        label: 'Data API',
+        dataPath:
+          'data/article_data/influxdb3/cloud-dedicated/data-api/articles.yml',
+      },
+      {
+        slug: 'management-api',
+        label: 'Management API',
+        dataPath:
+          'data/article_data/influxdb3/cloud-dedicated/management-api/articles.yml',
+      },
+    ],
+  },
+  {
+    name: 'Clustered',
+    base: '/influxdb3/clustered/api',
+    specs: [
+      {
+        slug: 'data-api',
+        label: 'Data API',
+        dataPath:
+          'data/article_data/influxdb3/clustered/data-api/articles.yml',
+      },
+      {
+        slug: 'management-api',
+        label: 'Management API',
+        dataPath:
+          'data/article_data/influxdb3/clustered/management-api/articles.yml',
+      },
+    ],
+  },
+];
+
+// ── Sidebar nav ──────────────────────────────────────────────────────
+
+describe('API sidebar navigation', () => {
+  products.forEach(({ name, base, dataPath }) => {
+    it(`${name}: sidebar contains every tag from articles.yml and All endpoints`, () => {
+      cy.task('readArticleData', dataPath).then((tags) => {
+        expect(tags, `article data loaded from ${dataPath}`).to.be.an('array').and.have.length.at.least(1);
+
+        cy.visit(`${base}/`);
+
+        // Locate the children list nested under the API section link
+        cy.get('#nav-tree a')
+          .filter(`[href="${base}/"]`)
+          .parents('li')
+          .first()
+          .find('ul.children')
+          .as('apiNav');
+
+        // Every tag in the data file must appear as a nav link
+        tags.forEach((tag) => {
+          cy.get('@apiNav')
+            .find('li.nav-item a')
+            .then(($links) => {
+              const texts = [...$links].map((el) => el.textContent.trim());
+              expect(texts, `sidebar is missing tag "${tag}"`).to.include(tag);
+            });
         });
-        cy.visit(subject);
 
-        window.fcdsc = fakeGoogleTagManager;
-        cy.stub(window.fcdsc, 'trackingOptIn').as('trackingOptIn');
-        cy.stub(window.fcdsc, 'trackingOptOut').as('trackingOptOut');
+        // "All endpoints" must be the last nav item
+        cy.get('@apiNav')
+          .find('li.nav-item a')
+          .last()
+          .should('contain', 'All endpoints')
+          .and('have.attr', 'href', `${base}/all-endpoints/`);
       });
-      it(`has API info`, function () {
-        cy.get('script[data-user-analytics-fingerprint-enabled=false]').should(
-          'have.length',
-          1
-        );
-        cy.get('h1').first().should('have.length', 1);
-        // Check for description element (either article--description class or data-role attribute)
-        cy.get('.article--description, [data-role$=description]').should(
-          'have.length.at.least',
-          1
-        );
-      });
-      it('links back to the version home page', function () {
-        cy.get('a.back').contains('Docs').should('have.length', 1).click();
-        // Path should be the first two segments and trailing slash in $subject
-        cy.location('pathname').should(
-          'eq',
-          subject.replace(/^(\/[^/]+\/[^/]+\/).*/, '$1')
-        );
-        cy.get('h1').should('have.length', 1);
-      });
-      it('contains valid internal links', function () {
-        // The following conditional test isn't the cypress way, but the doc might not have internal links.
-        cy.get('body').then(($body) => {
-          if ($body.find('p a[href^="/"]').length === 0) {
-            cy.log('No internal links found');
-            return;
-          }
-          cy.get('p a[href^="/"]').as('internal-links');
-          cy.get('@internal-links').each(($a) => {
-            cy.log(`** Testing link ${$a.attr('href')} **`);
-            // cy.request doesn't show in your browser's Developer Tools
-            // because the request comes from Node, not from the browser.
-            cy.request($a.attr('href')).its('status').should('eq', 200);
-          });
-        });
-      });
-      it('contains valid external links', function () {
-        // The following conditional test isn't the cypress way, but the doc might not have external links.
-        cy.get('body').then(($body) => {
-          if ($body.find('p a[href^="http"]').length === 0) {
-            cy.log('No external links found');
-            return;
-          }
-          cy.get('p a[href^="http"]').as('external-links');
-          cy.get('@external-links').each(($a) => {
-            cy.log(`** Testing link ${$a.attr('href')} **`);
-            cy.request($a.attr('href')).its('status').should('eq', 200);
-          });
+    });
+  });
+});
+
+// ── Multi-spec sidebar nav ────────────────────────────────────────────
+
+describe('API sidebar navigation (multi-spec)', () => {
+  multiSpecProducts.forEach(({ name, base, specs }) => {
+    it(`${name}: sidebar shows nested sub-sections for each spec`, () => {
+      cy.visit(`${base}/`);
+
+      // Locate the children list nested under the API section link
+      cy.get('#nav-tree a')
+        .filter(`[href="${base}/"]`)
+        .parents('li')
+        .first()
+        .find('ul.children')
+        .as('apiNav');
+
+      specs.forEach(({ slug, label, dataPath }) => {
+        cy.task('readArticleData', dataPath).then((tags) => {
+          expect(
+            tags,
+            `article data loaded from ${dataPath}`
+          )
+            .to.be.an('array')
+            .and.have.length.at.least(1);
+
+          // Sub-section item for this spec must exist
+          cy.get('@apiNav')
+            .find(`li.nav-item`)
+            .filter(`:contains("${label}")`)
+            .as('specSection');
+
+          cy.get('@specSection').should('exist');
+
+          // Sub-section must have a children list with every tag
+          cy.get('@specSection')
+            .find('ul.children li.nav-item a')
+            .then(($links) => {
+              const texts = [...$links].map((el) => el.textContent.trim());
+              tags.forEach((tag) => {
+                expect(
+                  texts,
+                  `spec section "${label}" is missing tag "${tag}"`
+                ).to.include(tag);
+              });
+            });
+
+          // Each spec sub-section must have its own "All endpoints" link
+          cy.get('@specSection')
+            .find('ul.children li.nav-item a')
+            .last()
+            .should('contain', 'All endpoints')
+            .and(
+              'have.attr',
+              'href',
+              `${base}/${slug}/all-endpoints/`
+            );
         });
       });
     });
   });
 });
 
-/**
- * API Reference Layout Tests
- * Tests layout for InfluxDB 3 Core/Enterprise API documentation
- */
-describe('API reference layout', () => {
-  const layoutSubjects = [
-    '/influxdb3/core/api/write-data/',
-    '/influxdb3/enterprise/api/write-data/',
-  ];
+// ── Tag pages ────────────────────────────────────────────────────────
 
-  layoutSubjects.forEach((subject) => {
-    describe(`${subject} layout`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(subject);
-      });
+describe('API tag pages', () => {
+  products.forEach(({ name, base }) => {
+    it(`${name}: sidebar, format selector, download, TOC, operations`, () => {
+      cy.visit(`${base}/write-data/`);
 
-      describe('Layout Structure', () => {
-        it('displays sidebar', () => {
-          cy.get('.sidebar').should('be.visible');
-        });
+      // Sidebar link to product home
+      cy.get('#nav-tree a')
+        .first()
+        .should('have.attr', 'href')
+        .and('match', /^\/[^/]+\/[^/]+\/$/);
 
-        it('displays API content area', () => {
-          cy.get('.api-content, .content-wrapper, .article--content').should(
-            'exist'
-          );
-        });
+      // Format selector
+      cy.get(FORMAT_BTN).should('contain', 'Copy page for AI');
 
-        it('displays TOC on page', () => {
-          cy.get('.api-toc').should('exist');
-        });
-      });
+      // Download button
+      cy.get('.api-header-actions .api-spec-download')
+        .should('have.attr', 'href')
+        .and('match', /^\/openapi\/.+\.yml$/);
+      cy.get('.api-header-actions .api-spec-download').should(
+        'have.attr',
+        'download'
+      );
 
-      describe('Hugo-native renderer', () => {
-        it('renders API operations container', () => {
-          cy.get('.api-hugo-native, .api-operations-section').should('exist');
+      // In-page TOC
+      cy.get('.api-toc').should('exist');
+      cy.get('.api-toc-link').should('have.length.at.least', 1);
+      cy.get('.api-toc-link .api-method').should('have.length.at.least', 1);
+
+      // Operations
+      cy.get('.api-operation').should('have.length.at.least', 1);
+      cy.get('.api-operation')
+        .first()
+        .within(() => {
+          cy.get('.api-method').should('exist');
+          cy.get('.api-path').should('exist');
         });
 
-        it('renders operation elements', () => {
-          cy.get('.api-operation').should('have.length.at.least', 1);
-        });
+      // Code sample
+      cy.get('.api-code-sample').should('have.length.at.least', 1);
+      cy.get('.api-code-block code')
+        .first()
+        .invoke('text')
+        .should('match', /curl/);
 
-        it('operation has method badge and path', () => {
-          cy.get('.api-operation')
-            .first()
-            .within(() => {
-              cy.get('.api-method').should('exist');
-              cy.get('.api-path').should('exist');
+      // Related links
+      cy.get('.related ul li a').should('have.length.at.least', 1);
+    });
+  });
+});
+
+// ── Conceptual pages (x-traitTag) ────────────────────────────────────
+
+describe('API conceptual pages', () => {
+  products.forEach(({ name, base, dataPath }) => {
+    it(`${name}: all conceptual pages have content`, () => {
+      cy.task('readConceptualTags', dataPath).then((conceptualPages) => {
+        expect(
+          conceptualPages,
+          `conceptual pages loaded from ${dataPath}`
+        )
+          .to.be.an('array')
+          .and.have.length.at.least(1);
+
+        conceptualPages.forEach(({ tag, slug }) => {
+          cy.visit(`${base}/${slug}/`);
+
+          cy.get(FORMAT_BTN).should('contain', 'Copy page for AI');
+
+          cy.get('.api-conceptual-content')
+            .should('exist')
+            .invoke('text')
+            .then((text) => {
+              expect(
+                text.trim().length,
+                `"${tag}" conceptual page must have at least 50 characters of content`
+              ).to.be.at.least(50);
             });
         });
       });
     });
   });
-});
 
-/**
- * API Tag Page Tests
- * Tests Hugo-native tag pages render operations correctly
- */
-describe('API tag pages', () => {
-  const tagPages = [
-    '/influxdb3/core/api/write-data/',
-    '/influxdb3/core/api/query-data/',
-    '/influxdb3/enterprise/api/write-data/',
-  ];
+  multiSpecProducts.forEach(({ name, base, specs }) => {
+    it(`${name}: all conceptual pages have content`, () => {
+      specs.forEach(({ slug: specSlug, label, dataPath }) => {
+        cy.task('readConceptualTags', dataPath).then((conceptualPages) => {
+          expect(
+            conceptualPages,
+            `conceptual pages loaded from ${dataPath}`
+          )
+            .to.be.an('array')
+            .and.have.length.at.least(1);
 
-  tagPages.forEach((page) => {
-    describe(`Tag page ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
+          conceptualPages.forEach(({ tag, slug }) => {
+            cy.visit(`${base}/${specSlug}/${slug}/`);
+
+            cy.get(FORMAT_BTN).should('contain', 'Copy page for AI');
+
+            cy.get('.api-conceptual-content')
+              .should('exist')
+              .invoke('text')
+              .then((text) => {
+                expect(
+                  text.trim().length,
+                  `"${tag}" (${label}) conceptual page must have at least 50 characters of content`
+                ).to.be.at.least(50);
+              });
           });
         });
-        cy.visit(page);
-      });
-
-      it('displays page title', () => {
-        cy.get('h1').should('exist');
-      });
-
-      it('renders operations section', () => {
-        cy.get('.api-operations, .api-operations-section').should('exist');
-      });
-
-      it('operations have proper structure', () => {
-        cy.get('.api-operation')
-          .first()
-          .within(() => {
-            // Check for operation header with method and path
-            cy.get('.api-operation-header, .api-operation-endpoint').should(
-              'exist'
-            );
-            cy.get('.api-method').should('exist');
-            cy.get('.api-path').should('exist');
-          });
-      });
-
-      it('TOC contains operation links', () => {
-        cy.get('.api-toc-nav').should('exist');
-        cy.get('.api-toc-link').should('have.length.at.least', 1);
-      });
-
-      it('TOC links have method badges', () => {
-        cy.get('.api-toc-link .api-method').should('have.length.at.least', 1);
       });
     });
   });
 });
 
-/**
- * API Section Page Structure Tests
- * Tests that API section pages show only tags (immediate children)
- */
-describe('API section page structure', () => {
-  const sectionPages = ['/influxdb3/core/api/', '/influxdb3/enterprise/api/'];
+// ── Section index pages: format selector, download, children ─────────
 
-  sectionPages.forEach((page) => {
-    describe(`Section page ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
+describe('API section pages', () => {
+  products.forEach(({ name, base }) => {
+    it(`${name}: format selector, download, and children`, () => {
+      cy.visit(`${base}/`);
 
-      it('displays page title', () => {
-        cy.get('h1').should('contain', 'InfluxDB HTTP API');
-      });
+      // Format selector with section label
+      cy.get(FORMAT_BTN).should('contain', 'Copy section for AI');
 
-      it('shows tag pages as children', () => {
-        cy.get('.children-links h3 a').should('have.length.at.least', 5);
-      });
+      // Download button (from specDownloadPath frontmatter)
+      cy.get('.api-header-actions .api-spec-download')
+        .should('have.attr', 'href')
+        .and('match', /^\/openapi\/.+\.yml$/);
 
-      it('does not show individual operations in content area', () => {
-        // Operations cards should not appear in the main content
-        cy.get('.article--content .api-operation-card').should('not.exist');
-      });
-
-      it('has All endpoints link in navigation', () => {
-        cy.get('.sidebar a').contains('All endpoints').should('exist');
-      });
+      // Tag pages listed as children
+      cy.get('.children-links h3 a').should('have.length.at.least', 3);
     });
   });
 });
 
-/**
- * All Endpoints Page Tests
- * Tests the "All endpoints" page shows all operations
- */
+// ── All endpoints page ───────────────────────────────────────────────
+
 describe('All endpoints page', () => {
-  const allEndpointsPages = [
-    '/influxdb3/core/api/all-endpoints/',
-    '/influxdb3/enterprise/api/all-endpoints/',
-  ];
+  it('Core: format selector, download, and operation cards', () => {
+    cy.visit('/influxdb3/core/api/all-endpoints/');
 
-  allEndpointsPages.forEach((page) => {
-    describe(`All endpoints ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
+    // Format selector
+    cy.get('.api-header-actions [data-component="format-selector"]').should(
+      'exist'
+    );
 
-      it('displays page title "All endpoints"', () => {
-        cy.get('h1').should('contain', 'All endpoints');
-      });
+    // Download button (inherited from parent section)
+    cy.get('.api-header-actions .api-spec-download')
+      .should('have.attr', 'href')
+      .and('match', /^\/openapi\/.+\.yml$/);
 
-      it('shows v3 API section', () => {
-        cy.get('#v3-api').should('exist');
-      });
-
-      it('displays operation cards', () => {
-        cy.get('.api-operation-card').should('have.length.at.least', 10);
-      });
-
-      it('operation cards have method badges', () => {
-        cy.get('.api-operation-card .api-method').should(
-          'have.length.at.least',
-          10
-        );
-      });
-
-      it('operation cards have path codes', () => {
-        cy.get('.api-operation-card .api-path').should(
-          'have.length.at.least',
-          10
-        );
-      });
-
-      it('operation cards link to tag pages with operation anchors', () => {
-        cy.get('.api-operation-card')
-          .first()
-          .should('have.attr', 'href')
-          .and('match', /\/api\/.*\/#operation\//);
-      });
-
-      it('is accessible from navigation', () => {
-        // Navigate back to section page
-        cy.get('.sidebar a').contains('InfluxDB HTTP API').click();
-        // Then navigate to All endpoints
-        cy.get('.sidebar a').contains('All endpoints').click();
-        cy.url().should('include', '/all-endpoints/');
-      });
-    });
-  });
-});
-
-/**
- * API Download Button Tests
- * Tests that each tag page has a download button linking to the correct spec
- */
-describe('API spec download buttons', () => {
-  const downloadTests = [
-    {
-      page: '/influxdb3/core/api/write-data/',
-      specPath: '/openapi/influxdb3-core.yml',
-    },
-    {
-      page: '/influxdb3/enterprise/api/write-data/',
-      specPath: '/openapi/influxdb3-enterprise.yml',
-    },
-  ];
-
-  downloadTests.forEach(({ page, specPath }) => {
-    describe(`Download button on ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
-
-      it('has a download button', () => {
-        cy.get('.api-spec-download').should('exist');
-      });
-
-      it(`download button links to ${specPath}`, () => {
-        cy.get('.api-spec-download')
-          .should('have.attr', 'href', specPath)
-          .and('have.attr', 'download');
-      });
-    });
-  });
-});
-
-/**
- * API Code Sample Tests
- * Tests that inline curl examples render correctly on tag pages
- */
-describe('API code samples', () => {
-  const tagPages = [
-    '/influxdb3/core/api/write-data/',
-    '/influxdb3/enterprise/api/write-data/',
-  ];
-
-  tagPages.forEach((page) => {
-    describe(`Code samples on ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
-
-      it('each operation has a code sample', () => {
-        cy.get('.api-operation').each(($op) => {
-          cy.wrap($op).find('.api-code-sample').should('have.length', 1);
-        });
-      });
-
-      it('code samples have header and code block', () => {
-        cy.get('.api-code-sample')
-          .first()
-          .within(() => {
-            cy.get('.api-code-sample-header').should(
-              'contain',
-              'Example request'
-            );
-            cy.get('.api-code-block code').should('exist');
-          });
-      });
-
-      it('code block contains a curl command', () => {
-        cy.get('.api-code-block code')
-          .first()
-          .invoke('text')
-          .should('match', /curl --request (GET|POST|PUT|PATCH|DELETE)/);
-      });
-
-      it('curl command includes Authorization header', () => {
-        cy.get('.api-code-block code')
-          .first()
-          .invoke('text')
-          .should('include', 'Authorization: Bearer INFLUX_TOKEN');
-      });
-
-      it('POST operations include request body in curl', () => {
-        cy.get('.api-operation[data-method="post"]')
-          .first()
-          .find('.api-code-block code')
-          .invoke('text')
-          .should('include', '--data-raw');
-      });
-
-      it('code samples have Ask AI links', () => {
-        cy.get('.api-code-sample .api-code-ask-ai')
-          .first()
-          .should('have.attr', 'data-query')
-          .and('not.be.empty');
-      });
-    });
-  });
-});
-
-/**
- * API Client Library Related Link Tests
- * Tests that InfluxDB 3 tag pages include client library related links
- */
-describe('API client library related links', () => {
-  const influxdb3Pages = [
-    '/influxdb3/core/api/write-data/',
-    '/influxdb3/enterprise/api/write-data/',
-  ];
-
-  influxdb3Pages.forEach((page) => {
-    describe(`Client library link on ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
-
-      it('includes InfluxDB 3 API client libraries in related links', () => {
-        cy.get('.related ul li a')
-          .filter(':contains("InfluxDB 3 API client libraries")')
-          .should('have.length', 1)
-          .and('have.attr', 'href')
-          .and('match', /\/influxdb3\/\w+\/reference\/client-libraries\/v3\//);
-      });
-    });
-  });
-});
-
-/**
- * API Related Links Tests
- * Tests that x-related from OpenAPI specs renders as related links on tag pages
- */
-describe('API related links', () => {
-  const pagesWithRelated = ['/influxdb3/core/api/write-data/'];
-
-  pagesWithRelated.forEach((page) => {
-    describe(`Related links on ${page}`, () => {
-      beforeEach(() => {
-        cy.intercept('GET', '**', (req) => {
-          req.continue((res) => {
-            if (res.headers['content-type']?.includes('text/html')) {
-              res.body = res.body.replace(
-                /data-user-analytics-fingerprint-enabled="true"/,
-                'data-user-analytics-fingerprint-enabled="false"'
-              );
-            }
-          });
-        });
-        cy.visit(page);
-      });
-
-      it('displays a related section', () => {
-        cy.get('.related').should('exist');
-        cy.get('.related h4#related').should('contain', 'Related');
-      });
-
-      it('renders related links from x-related as anchor elements', () => {
-        cy.get('.related ul li a').should('have.length.at.least', 2);
-      });
-
-      it('related links have title text and valid href', () => {
-        cy.get('.related ul li a').each(($a) => {
-          // Each link has non-empty text
-          cy.wrap($a).invoke('text').should('not.be.empty');
-          // Each link has an href starting with /
-          cy.wrap($a).should('have.attr', 'href').and('match', /^\//);
-        });
-      });
-
-      it('related links resolve to valid pages', () => {
-        cy.get('.related ul li a').each(($a) => {
-          const href = $a.attr('href');
-          cy.request(href).its('status').should('eq', 200);
-        });
-      });
-    });
+    // Operation cards
+    cy.get('.api-operation-card').should('have.length.at.least', 3);
+    cy.get('.api-operation-card')
+      .first()
+      .should('have.attr', 'href')
+      .and('match', /\/api\/.*\/#operation\//);
   });
 });

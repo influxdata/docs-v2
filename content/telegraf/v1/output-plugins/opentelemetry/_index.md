@@ -10,13 +10,13 @@ introduced: "v1.20.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/outputs/opentelemetry/README.md, OpenTelemetry Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/outputs/opentelemetry/README.md, OpenTelemetry Plugin Source
 ---
 
 # OpenTelemetry Output Plugin
 
 This plugin writes metrics to [OpenTelemetry](https://opentelemetry.io) servers and agents
-via gRPC.
+via gRPC or HTTP.
 
 **Introduced in:** Telegraf v1.20.0
 **Tags:** logging, messaging
@@ -38,8 +38,12 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
 # Send OpenTelemetry metrics over gRPC
 [[outputs.opentelemetry]]
   ## Override the default (localhost:4317) OpenTelemetry gRPC service
-  ## address:port
+  ## When the protocol is grpc, address:port
+  ## When the protocol is http, http(s)://address:port/path
   # service_address = "localhost:4317"
+  ## Override the default (protobuf) encodingType when Protocol is http
+  ## protobuf, json
+  # encoding_type = "protobuf"
 
   ## Override the default (5s) request timeout
   # timeout = "5s"

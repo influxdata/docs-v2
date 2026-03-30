@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
 ---
 
 # MQTT Consumer Input Plugin
@@ -104,6 +104,12 @@ to use them.
 
   ## Connection timeout for initial connection in seconds
   # connection_timeout = "30s"
+
+  ## Maximum interval between reconnection attempts after a connection loss.
+  ## The MQTT library uses exponential backoff starting at 1 second up to this
+  ## ceiling. The library default is 10 minutes, which can cause long delays
+  ## before message flow resumes after a network outage.
+  # max_reconnect_interval = "30s"
 
   ## Interval and ping timeout for keep-alive messages
   ## The sum of those options defines when a connection loss is detected.

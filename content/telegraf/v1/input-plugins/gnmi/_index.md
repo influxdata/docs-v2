@@ -10,7 +10,7 @@ introduced: "v1.15.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.3/plugins/inputs/gnmi/README.md, gNMI (gRPC Network Management Interface) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.0/plugins/inputs/gnmi/README.md, gNMI (gRPC Network Management Interface) Plugin Source
 ---
 
 # gNMI (gRPC Network Management Interface) Input Plugin
@@ -101,6 +101,9 @@ details on how to use them.
 
   ## Only receive updates for the state, also suppresses receiving the initial state
   # updates_only = false
+
+  ## Emit a metric for "delete" messages
+  # emit_delete_metrics = false
 
   ## Enforces the namespace of the first element as origin for aliases and
   ## response paths, required for backward compatibility.

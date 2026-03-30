@@ -5,7 +5,7 @@
   Used for /api/all-endpoints/ pages.
 
   Uses data from:
-  - data/article_data/influxdb/{product}/articles.yml
+  - data/article_data/{product path}/api/articles.yml
 */}}
 
 {{ partial "header.html" . }}
@@ -19,10 +19,12 @@
       <article class="article article--content api-reference" role="main">
         <header class="article--header">
           <h1 class="article--title">{{ .Title }}</h1>
-          {{ with .Description }}
-          <p class="article--description">{{ . }}</p>
-          {{ end }}
         </header>
+
+        <div class="api-header-actions">
+          {{ partial "article/format-selector.html" . }}
+          {{ partial "api/spec-download-button.html" . }}
+        </div>
 
         {{ with .Content }}
         <section class="api-section-content">

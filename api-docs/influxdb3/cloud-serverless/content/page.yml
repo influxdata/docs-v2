@@ -1,0 +1,14 @@
+# Parent page content for the API section landing page.
+# These values override the defaults in generate-openapi-articles.ts.
+description: >-
+  Use the InfluxDB HTTP API to write data, query data,
+  and manage databases (buckets), organizations, and tokens.
+body_extra: |
+  > [!Note]
+  > #### InfluxDB Cloud (TSM) endpoints
+  >
+  > {{% product-name %}} may expose InfluxDB Cloud (TSM) API endpoints.
+  > These endpoints are not supported or recommended for use with
+  > {{% product-name %}}.
+  > For TSM endpoint documentation, see the
+  > [InfluxDB Cloud API reference](/influxdb/cloud/api/).

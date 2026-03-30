@@ -15,6 +15,7 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
+  x-influxdata-short-title: Management API
 servers:
   - url: https://{baseurl}/api/v0
     description: InfluxDB 3 Clustered Management API URL
@@ -29,48 +30,34 @@ security:
     bearerAuthJwt: []
 tags:
   - name: Database tokens
-    description: Manage database read/write tokens for a cluster
+    description: Create and manage database tokens that authorize read and write access to InfluxDB 3 Clustered databases.
+    x-related:
+      - title: Manage database tokens
+        href: /influxdb3/clustered/admin/tokens/database/
+      - title: Delete a database token
+        href: /influxdb3/clustered/admin/tokens/database/delete/
+      - title: Authenticate Telegraf using tokens in your OS secret store
+        href: https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os
   - name: Databases
-    description: Manage databases for a cluster
+    description: Create and manage databases in an InfluxDB 3 Clustered cluster, including setting retention periods and custom partition templates.
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/clustered/admin/databases/
+      - title: Custom partitions
+        href: /influxdb3/clustered/admin/custom-partitions/
   - name: Quick start
     x-traitTag: true
-    description: |
-      Authenticate, write, and query with the API:
-
-      1. Create a management token using `influxctl token create`.
-
-      2. Create a database using the Management API.
-
-         ```bash
-         curl -X POST "https://CLUSTER_HOST/api/v0/databases" \
-           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
-           --header "Content-Type: application/json" \
-           --data '{"name": "sensors"}'
-         ```
-
-      3. Create a database token for read/write access.
-
-         ```bash
-         curl -X POST "https://CLUSTER_HOST/api/v0/tokens" \
-           --header "Authorization: Bearer MANAGEMENT_TOKEN" \
-           --header "Content-Type: application/json" \
-           --data '{"description": "my token", "permissions": [{"action": "write", "resource": "sensors"}]}'
-         ```
-
-      4. Write data to InfluxDB Clustered.
-
-         ```bash
-         curl -X POST "https://CLUSTER_HOST/api/v2/write?bucket=sensors&precision=ns" \
-           --header "Authorization: Token DATABASE_TOKEN" \
-           --data-raw "home,room=Kitchen temp=72.0"
-         ```
-
-      5. Query data using SQL or InfluxQL with a Flight client or the HTTP API.
-
-      For more information, see the
-      [Get started](/influxdb3/clustered/get-started/) guide.
+    description: Get started creating a database, issuing tokens, and writing data with the InfluxDB 3 Clustered Management API.
+    x-related:
+      - title: Get started with Clustered
+        href: /influxdb3/clustered/get-started/
   - name: Tables
-    description: Manage tables in a database
+    description: Manage tables in an InfluxDB 3 Clustered database, including creating tables with custom column schemas.
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/clustered/admin/tables/
+      - title: Custom partitions
+        href: /influxdb3/clustered/admin/custom-partitions/
 paths:
   /databases:
     get:
@@ -952,7 +939,7 @@ paths:
       tags:
         - Database tokens
       description: |
-        Create a [database token](/influxdb3/clustered/admin/tokens/database/) for a cluster.
+        Create a database token for a cluster.
 
         The token returned on the `accessToken` property in the response can be used to authenticate query and write requests to the cluster.
 
@@ -965,9 +952,9 @@ paths:
         #### Store secure tokens in a secret store
 
         We recommend storing database tokens in a **secure secret store**.
-        For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
+        For example, see how to authenticate Telegraf using tokens in your OS secret store.
 
-        If you lose a token, [delete the token from InfluxDB](/influxdb3/clustered/admin/tokens/database/delete/) and create a new one.
+        If you lose a token, delete the token from InfluxDB and create a new one.
       requestBody:
         required: true
         content:
@@ -1116,7 +1103,7 @@ paths:
       parameters:
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to get
+          description: The ID of the database token to get
           required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
@@ -1208,7 +1195,7 @@ paths:
       parameters:
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to update
+          description: The ID of the database token to update
           required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
@@ -1380,7 +1367,7 @@ paths:
       parameters:
         - name: tokenId
           in: path
-          description: The ID of the [database token](/influxdb3/clustered/admin/tokens/database/) to delete
+          description: The ID of the database token to delete
           required: true
           schema:
             $ref: '#/components/schemas/UuidV4'
@@ -1466,7 +1453,7 @@ components:
       minimum: 1
     ClusterDatabaseRetentionPeriod:
       description: |
-        The retention period of the [cluster database](/influxdb3/clustered/admin/databases/) in nanoseconds, if applicable
+        The retention period of the cluster database in nanoseconds, if applicable
 
         If the retention period is not set or is set to 0, the database will have infinite retention
       type: integer
@@ -1496,7 +1483,7 @@ components:
       minimum: 1
     ClusterDatabasePartitionTemplate:
       description: |
-        A template for [partitioning](/influxdb3/clustered/admin/custom-partitions/) a cluster database.
+        A template for partitioning a cluster database.
 
         Each template part is evaluated in sequence, concatinating the final
         partition key from the output of each part, delimited by the partition
@@ -1540,7 +1527,7 @@ components:
           * `time=2023-01-01, a=<long string>`                   -> `2023|<long string>#|!|!`
           * `time=2023-01-01, c=<long string>`                   -> `2023|!|!|<bucket ID for untruncated long string>`
 
-        When using the default [partitioning](/influxdb3/clustered/admin/custom-partitions/) template (YYYY-MM-DD) there is no
+        When using the default partitioning template (YYYY-MM-DD) there is no
         encoding necessary, as the derived partition key contains a single part, and
         no reserved characters. [`TemplatePart::Bucket`] parts by definition will
         always be within the part length limit and contain no restricted characters
@@ -1642,7 +1629,7 @@ components:
             tagName: c
             numberOfBuckets: 10
     ClusterDatabaseTableName:
-      description: The name of the [cluster database](/influxdb3/clustered/admin/databases/) table
+      description: The name of the cluster database table
       type: string
       examples:
         - TableOne
@@ -1655,15 +1642,15 @@ components:
         - Limited Access Token
         - Full Access Token
     DatabaseTokenResourceAllDatabases:
-      description: A resource value for a [database token](/influxdb3/clustered/admin/tokens/database/) permission that refers to all databases
+      description: A resource value for a database token permission that refers to all databases
       type: string
       enum:
         - '*'
     DatabaseTokenPermissionAction:
-      description: The action the [database token](/influxdb3/clustered/admin/tokens/database/) permission allows
+      description: The action the database token permission allows
       type: string
     DatabaseTokenPermissionResource:
-      description: The resource the [database token](/influxdb3/clustered/admin/tokens/database/) permission applies to
+      description: The resource the database token permission applies to
       anyOf:
         - $ref: '#/components/schemas/ClusterDatabaseName'
         - $ref: '#/components/schemas/DatabaseTokenResourceAllDatabases'
@@ -1687,7 +1674,7 @@ components:
         - action: write
           resource: '*'
     DatabaseTokenPermissions:
-      description: The list of permissions the [database token](/influxdb3/clustered/admin/tokens/database/) allows
+      description: The list of permissions the database token allows
       type: array
       items:
         $ref: '#/components/schemas/DatabaseTokenPermission'
@@ -1700,7 +1687,7 @@ components:
             resource: '*'
     DatabaseTokenCreatedAt:
       description: |
-        The date and time that the [database token](/influxdb3/clustered/admin/tokens/database/) was created
+        The date and time that the database token was created
 
         Uses RFC3339 format
       $ref: '#/components/schemas/DateTimeRfc3339'
@@ -1825,12 +1812,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-x-tagGroups:
-  - name: Using the Management API
-    tags:
-      - Quick start
-  - name: All endpoints
-    tags:
-      - Database tokens
-      - Databases
-      - Tables

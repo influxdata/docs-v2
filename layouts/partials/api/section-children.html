@@ -4,33 +4,37 @@
   Renders tag pages from article data as a children list.
   Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
 
-  Uses frontmatter params from generated pages:
-  - articleDataKey: product data key (e.g., 'influxdb3-core')
-  - articleSection: section slug (e.g., 'api' or 'management-api')
-
-  Data path: data/article_data/influxdb/{articleDataKey}/{articleSection}/articles.yml
+  Data path derived from page URL: data/article_data/{url segments}/articles.yml
+  Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
 */}}
 {{ $currentPage := . }}
 
-{{/* Read data key and section from frontmatter */}}
-{{ $dataKey := .Params.articleDataKey | default "" }}
-{{ $section := .Params.articleSection | default "" }}
+{{/* Derive data lookup path from the page URL.
+     Supports both 3-segment (/influxdb3/core/api/) and 4-segment
+     (/influxdb3/cloud-dedicated/api/data-api/) URLs. */}}
+{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
+{{ $segments := split $urlPath "/" }}
 
-{{/* Get article data using frontmatter-driven lookup */}}
+{{/* Get article data.
+     URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)
+     Data: article_data/influxdb3/cloud-dedicated/data-api/  (segments 0, 1, 3 — skip "api")
+     URL: /influxdb3/core/api/ (3 segments)
+     Data: article_data/influxdb3/core/api/                  (segments 0, 1, 2) */}}
 {{ $articles := slice }}
-{{ if and $dataKey $section }}
-  {{ with site.Data.article_data }}
-    {{ with index . "influxdb" }}
-      {{ with index . $dataKey }}
-        {{ with index . $section }}
-          {{ with index . "articles" }}
-            {{ with .articles }}
-              {{ $articles = . }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
+{{ if ge (len $segments) 4 }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $seg3 := index $segments 3 }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg3 "articles" "articles" }}
+    {{ $articles = . }}
+  {{ end }}
+{{ end }}
+{{ if and (eq (len $articles) 0) (ge (len $segments) 3) }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $seg2 := index $segments 2 }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg2 "articles" "articles" }}
+    {{ $articles = . }}
   {{ end }}
 {{ end }}
 

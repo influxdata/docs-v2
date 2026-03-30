@@ -1,0 +1,336 @@
+name: Doc Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'assets/**'
+      - 'data/**'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: number
+
+permissions: {}
+
+concurrency:
+  group: doc-review-${{ github.event.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  # -----------------------------------------------------------------
+  # Job 1: Resolve preview URLs from changed content files
+  # -----------------------------------------------------------------
+  resolve-urls:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+    outputs:
+      urls: ${{ steps.detect.outputs.urls }}
+      url-count: ${{ steps.detect.outputs.url-count }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout: |
+            content
+            data/products.yml
+            scripts/lib/content-utils.js
+            .github/scripts/resolve-review-urls.js
+            package.json
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4.4.0
+        with:
+          node-version: 22
+
+      - name: Resolve base ref
+        id: base
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          if [ -n "${{ github.base_ref }}" ]; then
+            echo "ref=origin/${{ github.base_ref }}" >> "$GITHUB_OUTPUT"
+          else
+            BASE=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json baseRefName -q .baseRefName)
+            git fetch origin "$BASE"
+            echo "ref=origin/$BASE" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Detect changed pages
+        id: detect
+        env:
+          BASE_REF: ${{ steps.base.outputs.ref }}
+        run: node .github/scripts/resolve-review-urls.js
+
+  # -----------------------------------------------------------------
+  # Job 2: Copilot code review (runs in parallel with Job 1)
+  # -----------------------------------------------------------------
+  copilot-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+    steps:
+      - name: Request Copilot review
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                reviewers: ['copilot-pull-request-reviewer'],
+              });
+              core.info('Copilot code review requested successfully');
+            } catch (error) {
+              core.warning(`Could not request Copilot review: ${error.message}`);
+              core.warning(
+                'To enable automatic Copilot reviews, configure a repository ruleset: ' +
+                'Settings → Rules → Rulesets → "Automatically request Copilot code review"'
+              );
+            }
+
+  # -----------------------------------------------------------------
+  # Job 3: Clean up stale visual review comment when no pages changed
+  # -----------------------------------------------------------------
+  cleanup-stale-review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: resolve-urls
+    if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) == 0
+    steps:
+      - name: Delete stale visual review comment
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const markers = ['<!-- doc-review-visual -->', '<!-- doc-review-visual-timeout -->'];
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            for (const marker of markers) {
+              const stale = comments.find(c => c.body.includes(marker));
+              if (stale) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: stale.id,
+                });
+                core.info(`Deleted stale comment (${marker})`);
+              }
+            }
+
+  # -----------------------------------------------------------------
+  # Job 4: Copilot visual review (depends on Job 1 for URLs)
+  # -----------------------------------------------------------------
+  copilot-visual-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      statuses: read
+    needs: resolve-urls
+    if: needs.resolve-urls.result == 'success' && fromJson(needs.resolve-urls.outputs.url-count) > 0
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/prompts/copilot-visual-review.md
+          sparse-checkout-cone-mode: false
+
+      - name: Wait for preview deployment
+        id: wait
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        with:
+          script: |
+            const TIMEOUT_MS = 180_000;  // 3 minutes
+            const INTERVAL_MS = 15_000;  // 15 seconds
+            const CONTEXT = 'preview/deploy';
+            const sha = context.sha;
+            const start = Date.now();
+
+            while (Date.now() - start < TIMEOUT_MS) {
+              const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: sha,
+              });
+
+              const status = statuses.find(s => s.context === CONTEXT);
+
+              if (status) {
+                if (status.state === 'success') {
+                  core.info(`Preview deployed: ${status.target_url}`);
+                  core.setOutput('available', 'true');
+                  core.setOutput('preview-url', status.target_url);
+                  return;
+                }
+                if (status.state === 'failure' || status.state === 'error') {
+                  core.info(`Preview failed: ${status.description}`);
+                  core.setOutput('available', 'false');
+                  core.setOutput('reason', status.description);
+                  return;
+                }
+                core.info(`Preview building... (${Math.round((Date.now() - start) / 1000)}s)`);
+              } else {
+                core.info(`No preview status yet (${Math.round((Date.now() - start) / 1000)}s)`);
+              }
+
+              await new Promise(r => setTimeout(r, INTERVAL_MS));
+            }
+
+            core.info('Preview status check timed out');
+            core.setOutput('available', 'false');
+            core.setOutput('reason', 'Timed out waiting for preview status');
+
+      - name: Post visual review request
+        if: steps.wait.outputs.available == 'true'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PREVIEW_URLS: ${{ needs.resolve-urls.outputs.urls }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const fs = require('fs');
+
+            let urls;
+            try {
+              urls = JSON.parse(process.env.PREVIEW_URLS);
+            } catch (e) {
+              core.warning(`Failed to parse PREVIEW_URLS: ${e.message}`);
+              return;
+            }
+
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const previewBase = `https://influxdata.github.io/docs-v2/pr-preview/pr-${prNumber}`;
+
+            // Build preview URL list
+            const urlList = urls
+              .map(u => `- [${u}](${previewBase}${u})`)
+              .join('\n');
+
+            // Read the Copilot visual review template
+            const template = fs.readFileSync(
+              '.github/prompts/copilot-visual-review.md',
+              'utf8'
+            );
+
+            const marker = '<!-- doc-review-visual -->';
+            const body = [
+              marker,
+              '## Preview Pages for Review',
+              '',
+              `${urls.length} page(s) changed in this PR:`,
+              '',
+              '<details>',
+              '<summary>Preview URLs</summary>',
+              '',
+              urlList,
+              '',
+              '</details>',
+              '',
+              '---',
+              '',
+              `@github-copilot please review the preview pages listed above using the template below:`,
+              '',
+              template.trim(),
+              '',
+              urlList,
+            ].join('\n');
+
+            // Update existing comment or create new one
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
+
+            core.info(`Posted visual review request with ${urls.length} URLs`);
+
+      - name: Post timeout notice
+        if: steps.wait.outputs.available == 'false'
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const prNumber = context.issue.number || Number(process.env.PR_NUMBER);
+            const reason = '${{ steps.wait.outputs.reason }}' || 'Unknown';
+            const marker = '<!-- doc-review-visual-timeout -->';
+            const body = [
+              marker,
+              '## Visual Review Skipped',
+              '',
+              `Reason: ${reason}`,
+              '',
+              'Visual review was skipped. The Copilot code review (Job 2) still ran.',
+              '',
+              'To trigger visual review manually, re-run this workflow after the',
+              'preview is deployed.',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }

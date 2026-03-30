@@ -5,12 +5,14 @@
  * Outputs (for GitHub Actions):
  * - pages-to-deploy: JSON array of URL paths to deploy
  * - has-layout-changes: 'true' if layout/asset/data changes detected
+ * - has-api-doc-changes: 'true' if api-docs/ or openapi/ changes detected
  * - needs-author-input: 'true' if author must select pages
  * - change-summary: Human-readable summary of changes
  */
 
 import { execSync } from 'child_process';
-import { appendFileSync, existsSync } from 'fs';
+import { appendFileSync, existsSync, readFileSync } from 'fs';
+import { load } from 'js-yaml';
 import { extractDocsUrls } from './parse-pr-urls.js';
 import {
   getChangedContentFiles,
@@ -35,10 +37,10 @@ if (!/^origin\/[a-zA-Z0-9._\/-]+$/.test(BASE_REF)) {
  */
 function getAllChangedFiles() {
   try {
-    const output = execSync(
-      `git diff --name-only ${BASE_REF}...HEAD`,
-      { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
-    );
+    const output = execSync(`git diff --name-only ${BASE_REF}...HEAD`, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
     return output.trim().split('\n').filter(Boolean);
   } catch (err) {
     console.error(`Error detecting changes: ${err.message}`);
@@ -53,11 +55,13 @@ function getAllChangedFiles() {
  */
 function categorizeChanges(files) {
   return {
-    content: files.filter(f => f.startsWith('content/') && f.endsWith('.md')),
-    layouts: files.filter(f => f.startsWith('layouts/')),
-    assets: files.filter(f => f.startsWith('assets/')),
-    data: files.filter(f => f.startsWith('data/')),
-    apiDocs: files.filter(f => f.startsWith('api-docs/') || f.startsWith('openapi/')),
+    content: files.filter((f) => f.startsWith('content/') && f.endsWith('.md')),
+    layouts: files.filter((f) => f.startsWith('layouts/')),
+    assets: files.filter((f) => f.startsWith('assets/')),
+    data: files.filter((f) => f.startsWith('data/')),
+    apiDocs: files.filter(
+      (f) => f.startsWith('api-docs/') || f.startsWith('openapi/')
+    ),
   };
 }
 
@@ -79,6 +83,55 @@ function isOnlyDeletions() {
 }
 
 /**
+ * Detect API pages affected by changed api-docs files.
+ * Maps changed api-docs files to their corresponding content URL paths by reading
+ * each product version's .config.yml and extracting API keys.
+ * @param {string[]} apiDocFiles - Changed files in api-docs/
+ * @returns {string[]} Array of URL paths for affected API pages
+ */
+function detectApiPages(apiDocFiles) {
+  const pages = new Set();
+  const processedVersions = new Set();
+  // Matches the {product}/{version} path segment in api-docs/{product}/{version}/...
+  // e.g., api-docs/influxdb3/core/.config.yml -> captures 'influxdb3/core'
+  const PRODUCT_VERSION_PATTERN = /^api-docs\/([^/]+\/[^/]+)\//;
+
+  for (const file of apiDocFiles) {
+    const match = file.match(PRODUCT_VERSION_PATTERN);
+    if (!match) continue;
+
+    const productVersionDir = match[1]; // e.g., 'influxdb3/core' or 'influxdb/v2'
+
+    // Only process each product version once
+    if (processedVersions.has(productVersionDir)) continue;
+    processedVersions.add(productVersionDir);
+
+    const configPath = `api-docs/${productVersionDir}/.config.yml`;
+    if (!existsSync(configPath)) continue;
+
+    try {
+      const configContent = readFileSync(configPath, 'utf-8');
+      const config = load(configContent);
+
+      if (!config || !config.apis) continue;
+
+      for (const apiKey of Object.keys(config.apis)) {
+        // Extract apiName: e.g., 'v3@3' -> 'v3', 'v1-compatibility@2' -> 'v1-compatibility'
+        const apiName = apiKey.split('@')[0];
+        const urlPath = `/${productVersionDir}/api/${apiName}/`;
+        pages.add(urlPath);
+      }
+    } catch (err) {
+      console.log(
+        `  ⚠️  Could not read or parse ${configPath}: ${err.message}`
+      );
+    }
+  }
+
+  return Array.from(pages);
+}
+
+/**
  * Write output for GitHub Actions
  */
 function setOutput(name, value) {
@@ -96,6 +149,7 @@ function main() {
     console.log('📭 PR contains only deletions - skipping preview');
     setOutput('pages-to-deploy', '[]');
     setOutput('has-layout-changes', 'false');
+    setOutput('has-api-doc-changes', 'false');
     setOutput('needs-author-input', 'false');
     setOutput('change-summary', 'No pages to preview (content removed)');
     setOutput('skip-reason', 'deletions-only');
@@ -127,47 +181,82 @@ function main() {
     const htmlPaths = mapContentToPublic(expandedContent, 'public');
 
     // Convert HTML paths to URL paths
-    pagesToDeploy = Array.from(htmlPaths).map(htmlPath => {
+    pagesToDeploy = Array.from(htmlPaths).map((htmlPath) => {
       return '/' + htmlPath.replace('public/', '').replace('/index.html', '/');
     });
     console.log(`   Found ${pagesToDeploy.length} affected pages\n`);
   }
 
-  // Strategy 2: Layout/asset changes - parse URLs from PR body
+  // Strategy 2: API doc changes - auto-detect affected API pages
+  if (changes.apiDocs.length > 0) {
+    console.log(
+      '📋 API doc changes detected, auto-detecting affected pages...'
+    );
+    const apiPages = detectApiPages(changes.apiDocs);
+    if (apiPages.length > 0) {
+      console.log(
+        `   Found ${apiPages.length} affected API page(s): ${apiPages.join(', ')}`
+      );
+      pagesToDeploy = [...new Set([...pagesToDeploy, ...apiPages])];
+    }
+  }
+
+  // Strategy 3: Layout/asset changes - parse URLs from PR body
   if (hasLayoutChanges) {
-    console.log('🎨 Layout/asset changes detected, checking PR description for URLs...');
+    console.log(
+      '🎨 Layout/asset changes detected, checking PR description for URLs...'
+    );
+
+    // Auto-detect home page when the root template changes
+    if (changes.layouts.includes('layouts/index.html')) {
+      pagesToDeploy = [...new Set([...pagesToDeploy, '/'])];
+      console.log(
+        '   🏠 Home page template (layouts/index.html) changed - auto-adding / to preview pages'
+      );
+    }
+
     const prUrls = extractDocsUrls(PR_BODY);
 
     if (prUrls.length > 0) {
       console.log(`   Found ${prUrls.length} URLs in PR description`);
       // Merge with content pages (deduplicate)
       pagesToDeploy = [...new Set([...pagesToDeploy, ...prUrls])];
-    } else if (changes.content.length === 0) {
-      // No content changes AND no URLs specified - need author input
-      console.log('   ⚠️  No URLs found in PR description - author input needed');
+    } else if (pagesToDeploy.length === 0) {
+      // No content changes, no auto-detected pages, and no URLs specified - need author input
+      console.log(
+        '   ⚠️  No URLs found in PR description - author input needed'
+      );
       setOutput('pages-to-deploy', '[]');
       setOutput('has-layout-changes', 'true');
+      setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
       setOutput('needs-author-input', 'true');
-      setOutput('change-summary', 'Layout/asset changes detected - please specify pages to preview');
+      setOutput(
+        'change-summary',
+        'Layout/asset changes detected - please specify pages to preview'
+      );
       return;
     }
   }
 
   // Apply page limit
   if (pagesToDeploy.length > MAX_PAGES) {
-    console.log(`⚠️  Limiting preview to ${MAX_PAGES} pages (found ${pagesToDeploy.length})`);
+    console.log(
+      `⚠️  Limiting preview to ${MAX_PAGES} pages (found ${pagesToDeploy.length})`
+    );
     pagesToDeploy = pagesToDeploy.slice(0, MAX_PAGES);
   }
 
   // Generate summary
-  const summary = pagesToDeploy.length > 0
-    ? `${pagesToDeploy.length} page(s) will be previewed`
-    : 'No pages to preview';
+  const summary =
+    pagesToDeploy.length > 0
+      ? `${pagesToDeploy.length} page(s) will be previewed`
+      : 'No pages to preview';
 
   console.log(`\n✅ ${summary}`);
 
   setOutput('pages-to-deploy', JSON.stringify(pagesToDeploy));
   setOutput('has-layout-changes', String(hasLayoutChanges));
+  setOutput('has-api-doc-changes', String(changes.apiDocs.length > 0));
   setOutput('needs-author-input', 'false');
   setOutput('change-summary', summary);
 }
