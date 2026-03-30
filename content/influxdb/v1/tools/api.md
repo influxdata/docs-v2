@@ -422,11 +422,13 @@ For information about InfluxDB HTTP server metrics, see the [`httpd` measurement
 
 #### Running configuration {metadata="v1.12.3+"}
 
-The `/debug/vars` response includes a `config` key that contains the running TSDB storage configuration.
+The `/debug/vars` response includes a `config` key that contains the running [TSDB storage configuration](/influxdb/v1/administration/config/#data-settings).
 Use this to inspect active server settings without direct access to configuration files.
 
-- `toml.Size` values are serialized as integers (bytes).
-- `toml.Duration` values are serialized as human-readable duration strings.
+Values in the JSON output use the following representations:
+
+- Size values (such as `cache-max-memory-size`) appear as integers in bytes.
+- Duration values (such as `cache-snapshot-write-cold-duration`) appear as human-readable strings (for example, `"10m0s"`).
 
 The output is similar to the following:
 
