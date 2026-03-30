@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-30 17:29:26 -0500 -0500">
+<meta name="last-modified" content="2026-03-30 17:47:56 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2297,11 +2297,12 @@ For information about InfluxDB HTTP server metrics, see the <a href="/platform/m
 
 </blockquote>
 <h4 metadata="v1.12.3+" id="running-configuration">Running configuration</h4>
-<p>The <code>/debug/vars</code> response includes a <code>config</code> key that contains the running TSDB storage configuration.
+<p>The <code>/debug/vars</code> response includes a <code>config</code> key that contains the running <a href="/influxdb/v1/administration/config/#data-settings">TSDB storage configuration</a>.
 Use this to inspect active server settings without direct access to configuration files.</p>
+<p>Values in the JSON output use the following representations:</p>
 <ul>
-<li><code>toml.Size</code> values are serialized as integers (bytes).</li>
-<li><code>toml.Duration</code> values are serialized as human-readable duration strings.</li>
+<li>Size values (such as <code>cache-max-memory-size</code>) appear as integers in bytes.</li>
+<li>Duration values (such as <code>cache-snapshot-write-cold-duration</code>) appear as human-readable strings (for example, <code>&quot;10m0s&quot;</code>).</li>
 </ul>
 <p>The output is similar to the following:</p>
 
