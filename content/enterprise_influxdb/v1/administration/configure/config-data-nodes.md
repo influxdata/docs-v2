@@ -1274,6 +1274,15 @@ Default is `"info"`.
 
 Determines which level of logs will be emitted.
 
+To change the log level without restarting the data node, edit the `level` value in the configuration file and send `SIGHUP` to the process:
+
+```bash
+kill -SIGHUP <influxd_pid>
+```
+
+On receipt of `SIGHUP`, the data node reloads the configuration and applies the new log level.
+`SIGHUP` also reloads TLS certificates, entitlements, and the anti-entropy service configuration. _v1.12.3+_
+
 Environment variable: `INFLUXDB_LOGGING_LEVEL`
 
 #### suppress-logo
