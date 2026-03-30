@@ -420,6 +420,37 @@ For information about InfluxDB HTTP server metrics, see the [`httpd` measurement
 
 >**Note:** The [InfluxDB input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb) is available to collect metrics (using the `/debug/vars` endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the [InfluxDB input plugin README](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme).
 
+#### Running configuration {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `config` key that contains the running TSDB storage configuration.
+Use this to inspect active server settings without direct access to configuration files.
+
+- `toml.Size` values are serialized as integers (bytes).
+- `toml.Duration` values are serialized as human-readable duration strings.
+
+The output is similar to the following:
+
+```json
+{
+  "config": {
+    "cache-max-memory-size": 1073741824,
+    "cache-snapshot-memory-size": 26214400,
+    "cache-snapshot-write-cold-duration": "10m0s",
+    "compact-full-write-cold-duration": "4h0m0s",
+    "compact-throughput": 50331648,
+    "compact-throughput-burst": 50331648,
+    "dir": "/var/lib/influxdb/data",
+    "max-concurrent-compactions": 0,
+    "max-index-log-file-size": 1048576,
+    "max-series-per-database": 1000000,
+    "max-values-per-tag": 100000,
+    "series-id-set-cache-size": 100,
+    "wal-dir": "/var/lib/influxdb/wal",
+    "wal-fsync-delay": "0s"
+  }
+}
+```
+
 ### `/ping` HTTP endpoint
 
 The ping endpoint accepts both `GET` and `HEAD` HTTP requests.

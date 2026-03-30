@@ -23,7 +23,7 @@ alt_links:
 - Add [`advanced-expiration` TLS configuration option](/influxdb/v1/administration/config/#advanced-expiration)
   to configure how far in advance to log warnings about TLS certificate expiration.
 - Add TLS certificate reloading on `SIGHUP`.
-- Add `config` and `cq` (continuous query) diagnostics to the `/debug/vars` endpoint.
+- Add [`config`](/influxdb/v1/tools/api/#running-configuration) and `cq` (continuous query) diagnostics to the `/debug/vars` endpoint.
 - Improve dropped point logging.
 - Show user when displaying or logging queries.
 - Add `time_format` parameter for the HTTP API.
