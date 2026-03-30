@@ -1,20 +1,16 @@
 ---
 title: Organizations
-description: |-
-  Manage your [organization](/influxdb3/cloud-serverless/reference/glossary/).
-  An organization is a workspace for a group of users. Organizations can be
-  used to separate different environments, projects, teams or users within
-  InfluxDB.
-
-  Use the `/api/v2/orgs` endpoints to view and manage organizations.
+description: >-
+  View and manage InfluxDB 3 Cloud Serverless organizations, which are
+  workspaces that group users, buckets, and resources.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-organizations.yaml
+  /openapi/influxdb-cloud-serverless/api/tags/influxdb-cloud-serverless-api-organizations.yaml
+specDownloadPath: /openapi/influxdb-cloud-serverless-api.yml
 weight: 100
 tag: Organizations
 isConceptual: false
-menuGroup: Other
 operations:
   - operationId: GetOrgs
     method: GET
@@ -83,14 +79,8 @@ operations:
     tags:
       - Organizations
 related:
+  - title: View and manage organizations
+    href: /influxdb3/cloud-serverless/admin/
   - title: InfluxDB 3 API client libraries
     href: /influxdb3/cloud-serverless/reference/client-libraries/v3/
-alt_links:
-  core: /influxdb3/core/api/
-  enterprise: /influxdb3/enterprise/api/
-  cloud-serverless: /influxdb3/cloud-serverless/api/
-  cloud-dedicated: /influxdb3/cloud-dedicated/api/
-  clustered: /influxdb3/clustered/api/
-  v2: /influxdb/v2/api/
-  cloud: /influxdb/cloud/api/
 ---

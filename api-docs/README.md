@@ -174,7 +174,7 @@ Follow these steps to update OSS API docs between version releases--for example,
 
 ## Generate InfluxDB API docs
 
-InfluxData uses Redocly's [OpenAPI CLI](https://redoc.ly/docs/cli/) to bundle and lint specs,
+InfluxData uses [@redocly/cli](https://redocly.com/docs/cli/) to bundle and lint specs,
 and Hugo-native templates to render API reference pages from the
 [InfluxDB OpenAPI (aka Swagger) contracts](https://github.com/influxdata/openapi).
 
@@ -261,31 +261,30 @@ For convenience, we tag `influxdata/influxdb` (OSS) release points in `influxdat
 ## How to use custom OpenAPI spec processing
 
 Generally, you should manage API content in `influxdata/openapi`.
-In some cases, however, you may want custom processing (e.g. collecting all Tags)
-or additional content (e.g. describing the reference documentation)
-specifically for the docs.
+For docs-specific customizations, use the overlay and tag config files
+in each product's `api-docs/` directory.
 
-When you run `getswagger.sh`, it executes `@redocly/openapi-cli` and the plugins listed in `.redocly.yaml`.
-[`./openapi/plugins`](./openapi/plugins) use
-[`./openapi/plugins/decorators`](./openapi/plugins/decorators) to apply custom
-processing to OpenAPI specs.
+### Content overlays
 
-`.yml` files in [`./PLATFORM/content`](./openapi/content) define custom content for OpenAPI nodes published in the reference docs.
-To update the content for those nodes, you only need to update the YAML files.
-For example, to customize the Info section for the Cloud API reference, edit `./cloud/content/info.yml`.
+Each product directory can contain overlay files that the `post-process-specs.ts`
+script applies to the bundled spec before article generation:
 
-To add new YAML files for other nodes in the contracts, follow these steps:
+| Overlay          | Location                             | Behavior                                                                                 |
+| ---------------- | ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `content/info.yml`    | `{product}/content/info.yml`   | Merges each field into `spec.info`, preserving fields not in the overlay                 |
+| `content/servers.yml` | `{product}/content/servers.yml`| Replaces `spec.servers` entirely                                                         |
+| `content/page.yml`    | `{product}/content/page.yml`   | Sets the API landing page `description` and optional `body_extra` (e.g., callout blocks) |
+| `tags.yml`            | Colocated with spec            | Renames tags, sets descriptions and `x-related`, drops unsupported tags                  |
 
-1. Create your new content file with valid OAS content structure and Markdown.
-2. Configure the new content YAML file in [`./openapi/content/content.js`](./openapi/content/content.js).
-3. Write or update a decorator module for the node and configure the decorator in
-   [`./openapi/plugins/docs-plugin.js`](`./openapi/plugins/docs-plugin.js).
-   See the [complete list of OAS v3.0 nodes](https://github.com/Redocly/openapi-cli/blob/master/packages/core/src/types/oas3.ts#L529).
+For example, to customize the Info section for the Cloud Serverless API reference, edit
+`influxdb3/cloud-serverless/content/info.yml`.
 
-`@redocly/cli` requires that modules use CommonJS `require` syntax for imports.
+### Redocly bundling and linting
 
-`@redocly/cli` also provides some [built-in decorators](https://redocly.com/docs/cli/decorators/)
-that you can configure in `.redocly` without having to write JavaScript.
+`getswagger.sh` uses `@redocly/cli` to bundle and lint specs.
+The `.redocly.yaml` configuration file sets options for the
+[`lint`](https://redocly.com/docs/cli/commands/lint/) and
+[`bundle`](https://redocly.com/docs/cli/commands/bundle/) commands.
 
 ### How to add tag content or describe a group of paths
 
@@ -498,13 +497,13 @@ sh getswagger.sh oss -b file:///Users/me/github/openapi
 After you fetch them, run the linter or generate API pages to test your changes before you commit them to `influxdata/openapi`.
 By default, `getswagger.sh` doesn't run the linter when bundling
 the specs.
-Manually run the [linter rules](https://redoc.ly/docs/cli/resources/built-in-rules/) to get a report of errors and warnings.
+Manually run the [linter rules](https://redocly.com/docs/cli/resources/built-in-rules/) to get a report of errors and warnings.
 
 ```sh
-npx @redocly/openapi-cli lint v2.1/ref.yml
+npx @redocly/cli lint influxdb3/core/influxdb3-core-openapi.yaml
 ```
 
 ### Configure OpenAPI CLI linting and bundling
 
-The `.redoc.yaml` configuration file sets options for the `@redocly/openapi-cli` [`lint`](https://redoc.ly/docs/cli/commands/lint/) and [`bundle`](https://redoc.ly/docs/cli/commands/bundle/) commands.
-`./openapi/plugins` contains custom InfluxData Docs plugins composed of *rules* (for validating and linting) and *decorators* (for customizing). For more configuration options, see `@redocly/openapi-cli` [configuration file documentation](https://redoc.ly/docs/cli/configuration/configuration-file/).
+The `.redocly.yaml` configuration file sets options for the `@redocly/cli` [`lint`](https://redocly.com/docs/cli/commands/lint/) and [`bundle`](https://redocly.com/docs/cli/commands/bundle/) commands.
+For more configuration options, see `@redocly/cli` [configuration file documentation](https://redocly.com/docs/cli/configuration/).

@@ -2,127 +2,98 @@
 branch: feat-api-uplift
 repo: docs-v2
 created: 2025-12-02T15:28:32Z
-updated: 2026-03-26
-status: in-progress
+updated: 2026-03-29
+status: release-ready
 ---
 
 # feat-api-uplift
 
-## Overview
+## Summary
 
-Render API reference documentation using Hugo-native templates. OpenAPI specs are processed server-side into static HTML — no client-side rendering.
+Replace Redoc-based API reference rendering with Hugo-native templates. All 9 InfluxDB product APIs now render server-side from OpenAPI specs — no client-side JavaScript rendering, no Redoc dependency. The build pipeline processes specs through post-processing (overlays, tag configs) and generates Hugo content pages with tag-based navigation, inline curl samples, spec downloads, and an "Ask AI" integration.
+
+Key changes from the previous Redoc-based system:
+- Operations grouped by tag (not individual pages) with `#operation/{id}` deep links
+- Declarative tag config via `tags.yml` (rename, reassign, drop) — source specs never mutated
+- Data paths mirror content paths — templates derive lookups from page URLs
+- Multi-spec products (Cloud Dedicated, Clustered) get nested Data API / Management API sidebar sections
+- Cloud Serverless TSM-era endpoints dropped with a callout pointing to the Cloud (TSM) reference
+- Data-driven Cypress tests validate sidebar nav against article data files
 
 ## Build Pipeline
 
 ```
-getswagger.sh            → fetch and bundle specs with @redocly/cli
+getswagger.sh            → fetch specs from influxdata/openapi, bundle with @redocly/cli (resolve $refs)
 post-process-specs.ts    → apply info/servers overlays + tag configs (rename, reassign, drop) → _build/
 generate-openapi-articles.ts → generate Hugo content pages + copy specs to static/openapi/
 ```
 
+@redocly/cli is used only for bundling and linting — not rendering. All rendering is Hugo-native.
+
 ## Product Status
 
-| Product               | URL                                | Status                                               |
-| --------------------- | ---------------------------------- | ---------------------------------------------------- |
-| InfluxDB 3 Core       | `/influxdb3/core/api/`             | Complete                                             |
-| InfluxDB 3 Enterprise | `/influxdb3/enterprise/api/`       | Complete — tags aligned with Core                    |
-| Cloud Dedicated       | `/influxdb3/cloud-dedicated/api/`  | Complete — nested Data API / Management API sections |
-| Clustered             | `/influxdb3/clustered/api/`        | Complete — nested Data API / Management API sections |
-| Cloud Serverless      | `/influxdb3/cloud-serverless/api/` | In progress — TSM cleanup, specDownloadPath fix      |
-| InfluxDB Cloud (v2)   | `/influxdb/cloud/api/`             | Needs specDownloadPath fix                           |
-| InfluxDB OSS v2       | `/influxdb/v2/api/`                | Complete                                             |
-| InfluxDB OSS v1       | `/influxdb/v1/api/`                | Needs specDownloadPath fix                           |
-| Enterprise v1         | `/enterprise_influxdb/v1/api/`     | Needs specDownloadPath fix                           |
+| Product               | URL                                | Status   |
+| --------------------- | ---------------------------------- | -------- |
+| InfluxDB 3 Core       | `/influxdb3/core/api/`             | Complete |
+| InfluxDB 3 Enterprise | `/influxdb3/enterprise/api/`       | Complete |
+| Cloud Dedicated       | `/influxdb3/cloud-dedicated/api/`  | Complete |
+| Clustered             | `/influxdb3/clustered/api/`        | Complete |
+| Cloud Serverless      | `/influxdb3/cloud-serverless/api/` | Complete |
+| InfluxDB Cloud (v2)   | `/influxdb/cloud/api/`             | Complete |
+| InfluxDB OSS v2       | `/influxdb/v2/api/`                | Complete |
+| InfluxDB OSS v1       | `/influxdb/v1/api/`                | Complete |
+| Enterprise v1         | `/enterprise_influxdb/v1/api/`     | Complete |
 
-## Completed
+## What shipped
 
 ### Infrastructure
 
-- Hugo templates in `layouts/api/` and `layouts/partials/api/` render operations, parameters, schemas, and responses
-- Tag-based navigation: operations grouped by tag, no individual operation URLs
-- `generate-api-docs.sh` orchestrates the pipeline
-- `post-process-specs.ts` applies overlays and tag configs; source specs never mutated
-  - `rename` renames tags across spec and all operations
-  - `reassign` splits one tag into multiple by API path prefix (Enterprise cache tags)
-  - `drop` removes tags and their exclusively-owned operations (Cloud Serverless TSM cleanup — pending)
-- `generate-openapi-articles.ts` creates Hugo content pages and copies specs to `static/openapi/`
-  - Supports `subSection` for multi-spec products (Data API / Management API)
-- Data paths mirror content paths: `data/article_data/{family}/{product}/api/articles.yml`
-- Templates derive sidebar data lookup from page URL (3-segment and 4-segment) — no frontmatter indirection needed
-- Multi-spec sidebar: nested sub-sections for Cloud Dedicated and Clustered
-- Data-driven Cypress tests: `readArticleData` task reads articles.yml for sidebar tag assertions
+- Hugo templates in `layouts/api/` render operations, parameters, schemas, responses, and code samples
+- `post-process-specs.ts` tag config features:
+  - `rename` — rename tags across spec and all operations
+  - `reassign` — split one tag into multiple by API path prefix
+  - `drop` — remove tags and exclusively-owned operations from the spec
+- `generate-openapi-articles.ts` content generation:
+  - Tag-based pages with frontmatter from article data
+  - `subSection` support for multi-spec products
+  - `page.yml` overlay for per-product landing page content
+  - Explicit `specDownloadPath` passed from call site (fixes single-spec products with `displayName`)
+- Data paths mirror content paths (`data/article_data/{family}/{product}/api/`)
+- Templates derive sidebar data lookup from page URL segments (3-segment and 4-segment)
+- Response descriptions render markdown via `markdownify`
+- HEAD method badge color (`#00897B` teal)
 
-### Content — Core and Enterprise
+### Per-product
 
-- 13 aligned tags: Quick start, Authentication, Headers and parameters, Migrate from InfluxDB v1 or v2, Auth token, Cache distinct values, Cache last value, Database, Processing engine, Query data, Server information, Table, Write data
-- Enterprise tags aligned via `rename` (Token → Auth token) and `reassign` (Cache data → split)
-
-### Content — Cloud Dedicated and Clustered
-
-- Nested sections: Data API and Management API under `/api/`
-- Per-spec download buttons and all-endpoints pages
-- `.api-spec-section` sidebar styling
-
-### Content — v2 and v1 products
-
-- All 4 products (Cloud v2, OSS v2, OSS v1, Enterprise v1) render via Hugo-native templates
-- Tags with descriptions and related links
-
-## In Progress
-
-### Cloud Serverless TSM cleanup (agent: code-architect)
-
-- Add `drop: true` feature to `post-process-specs.ts`
-- Mark \~25 TSM-era tags for removal in `cloud-serverless/tags.yml`
-- Fix specDownloadPath bug for single-spec products with `displayName`
-- Update section landing page description for Cloud Serverless terminology
-
-### Cloud Dedicated / Clustered UI review (agent: ui-testing)
-
-- Running Cypress tests for multi-spec sidebar
-- Visual review of nested Data API / Management API sections
-- Verifying single-spec products unaffected
-
-## Remaining Work
-
-### specDownloadPath fix (4 products)
-
-Root cause: `generateTagPagesFromArticleData()` derives `specDownloadPath` as `/openapi/${staticDirName}.yml` but actual filename is `{staticDirName}-{specSlug}.yml` when `displayName` is set.
-
-- [ ] Fix by passing explicit `specDownloadPath` from call site where `staticSpecPath` is known
-- [ ] Affects: Cloud Serverless, Cloud v2, OSS v1, Enterprise v1
-
-### Cloud Serverless
-
-- [ ] Implement `drop: true` in `post-process-specs.ts`
-- [ ] Update `cloud-serverless/tags.yml` — mark TSM tags for removal
-- [ ] Update section landing page — correct terminology, add Warning callout
-- [ ] Regenerate and verify sidebar shows only supported tags
-
-### Code cleanup
-
-- [ ] Remove dead code from `layouts/_default/api.html` (dual download buttons, inline styles)
-- [ ] Audit stale spec files in `static/openapi/`
+- **Core + Enterprise**: 13 aligned tags. Enterprise uses `rename` (Token → Auth token), `reassign` (Cache data → distinct/last value), and adds Migrate trait tag.
+- **Cloud Dedicated + Clustered**: Nested Data API / Management API sidebar sections with per-spec downloads and all-endpoints pages. Enriched traitTag descriptions (quick starts, parameter tables, status codes).
+- **Cloud Serverless**: 29 TSM-era tags dropped via `drop: true`. Note callout on landing page directs to Cloud (TSM) reference. Bucket Schemas dropped. Terminology corrected to "databases (buckets), organizations, and tokens."
+- **Cloud v2 + OSS v2**: Tag-based rendering with full operation details.
+- **OSS v1 + Enterprise v1**: Tag-based rendering from v1 OpenAPI specs.
 
 ### Testing
 
-- [ ] Run full Cypress suite after all fixes
-- [ ] Verify spec download links for all 9 products
+- 25 Cypress e2e tests (all passing):
+  - Data-driven sidebar nav (reads tags from `articles.yml`)
+  - Data-driven conceptual page content (50+ char threshold)
+  - Multi-spec sidebar structure (Cloud Dedicated, Clustered)
+  - Tag pages, section pages, all-endpoints pages
+- `readArticleData` and `readConceptualTags` Cypress tasks
+- Hugo test server uses `--disableFastRender` to avoid Hugo 0.157.0 rebuild panic
+
+## Post-release issues
+
+- [#7008](https://github.com/influxdata/docs-v2/issues/7008) — Extract `#### Related Guides` from operation descriptions into structured `x-related` fields (~190 instances across 5 specs)
+- [#7009](https://github.com/influxdata/docs-v2/issues/7009) — Consolidate legacy hand-written v1/Enterprise v1 API pages with the new spec-based reference
 
 ## Related Files
 
 - Branch: `feat-api-uplift`
-- Design: `docs/plans/2026-03-17-api-rendering-fixes-design.md`
+- PR: [#6622](https://github.com/influxdata/docs-v2/pull/6622), [#7006](https://github.com/influxdata/docs-v2/pull/7006)
 - Scripts: `api-docs/scripts/generate-openapi-articles.ts`, `api-docs/scripts/post-process-specs.ts`
 - Templates: `layouts/api/`, `layouts/partials/api/`, `layouts/partials/sidebar/`
-- Tests: `cypress/e2e/content/api-reference.cy.js`
+- Tests: `cypress/e2e/content/api-reference.cy.js`, `cypress/support/hugo-server.js`
 - Tag configs: `api-docs/{product}/tags.yml`
-- Static specs: `static/openapi/`
+- Page overlays: `api-docs/{product}/content/page.yml`
 - Article data: `data/article_data/`
-
-## Notes
-
-- No individual operation pages — operations accessed via tag pages with `#operation/{id}` hash anchors
-- `specDownloadPath` is set on section `_index.md` and inherited by child tag pages via `.Parent`
-- Multi-spec products set `specDownloadPath` per sub-section, not on top-level `api/_index.md`
-- Use Chrome devtools and Cypress to debug rendering issues
+- Static specs: `static/openapi/`

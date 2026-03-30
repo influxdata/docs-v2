@@ -14,6 +14,7 @@ $method-post: #34BB55;
 $method-put: #FFB94A;
 $method-delete: #D63031;
 $method-patch: #9b2aff;
+$method-head: #00897B;
 
 // Status code colors — intentionally distinct from method colors
 $status-success: #34BB55;
@@ -89,6 +90,7 @@ $status-server-error: #9b2aff;
   &--put { background-color: $method-put; }
   &--delete { background-color: $method-delete; }
   &--patch { background-color: $method-patch; }
+  &--head { background-color: $method-head; }
 }
 
 .api-path {

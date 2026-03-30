@@ -26,7 +26,7 @@
 
 // Right-side TOC (third column)
 .api-toc {
-  width: 200px;
+  width: 260px;
   flex-shrink: 0;
   position: sticky;
   top: 80px; // Account for fixed header height
@@ -809,7 +809,7 @@
 // Large screens: Wider TOC
 @include media(xlarge) {
   .api-toc {
-    width: 240px;
+    width: 300px;
   }
 }
 
@@ -818,7 +818,7 @@
 // narrow window where the TOC is visible but space is tight.
 @media (min-width: 1281px) and (max-width: 1535px) {
   .api-toc {
-    width: 180px;
+    width: 220px;
     border-left: none;
   }
 }

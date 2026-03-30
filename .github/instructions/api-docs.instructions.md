@@ -39,7 +39,7 @@ tag categories, and cross-product consistency guidelines.
 ## Build pipeline
 
 ```
-getswagger.sh          → fetch and bundle specs with Redocly
+getswagger.sh          → fetch and bundle specs with @redocly/cli
 post-process-specs.ts  → apply info/servers overlays + tag configs
 generate-openapi-articles.ts → generate Hugo pages + copy specs to static/openapi/
 ```

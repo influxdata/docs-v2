@@ -1,32 +1,16 @@
 ---
 title: Buckets
 description: >-
-  Store your data in InfluxDB
-  [buckets](/influxdb3/cloud-serverless/reference/glossary/).
-
-  A bucket is a named location where time series data is stored. All buckets
-
-  have a [retention period](/influxdb3/cloud-serverless/reference/glossary/),
-
-  a duration of time that each data point persists. InfluxDB drops all
-
-  points with timestamps older than the bucket’s retention period.
-
-  A bucket belongs to an organization.
-
-
-  ### Related guides
-
-
-  - [Manage buckets](/influxdb3/cloud-serverless/admin/buckets/)
+  Create and manage named storage locations (buckets) in InfluxDB 3 Cloud
+  Serverless, each with a configurable retention period.
 type: api
 layout: list
 staticFilePath: >-
-  /openapi/influxdb-cloud-serverless/ref/tags/influxdb-cloud-serverless-ref-buckets.yaml
+  /openapi/influxdb-cloud-serverless/api/tags/influxdb-cloud-serverless-api-buckets.yaml
+specDownloadPath: /openapi/influxdb-cloud-serverless-api.yml
 weight: 100
 tag: Buckets
 isConceptual: false
-menuGroup: Other
 operations:
   - operationId: GetBuckets
     method: GET
@@ -113,14 +97,8 @@ operations:
     tags:
       - Buckets
 related:
+  - title: Manage buckets
+    href: /influxdb3/cloud-serverless/admin/buckets/
   - title: InfluxDB 3 API client libraries
     href: /influxdb3/cloud-serverless/reference/client-libraries/v3/
-alt_links:
-  core: /influxdb3/core/api/
-  enterprise: /influxdb3/enterprise/api/
-  cloud-serverless: /influxdb3/cloud-serverless/api/
-  cloud-dedicated: /influxdb3/cloud-dedicated/api/
-  clustered: /influxdb3/clustered/api/
-  v2: /influxdb/v2/api/
-  cloud: /influxdb/cloud/api/
 ---
