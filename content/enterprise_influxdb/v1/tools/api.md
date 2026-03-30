@@ -605,7 +605,7 @@ The response body data is similar to the following:
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]}]}
 ```
 
-##### Query data with a `SELECT` statement and return RFC3339 timestamps {metadata="v1.12.3+"}
+##### Query data with a `SELECT` statement and the `time_format` parameter {metadata="v1.12.3+"}
 
 - `time_format=rfc3339`: Return timestamps as RFC3339Nano-formatted strings.
 
