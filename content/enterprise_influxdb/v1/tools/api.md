@@ -605,15 +605,17 @@ The response body data is similar to the following:
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]}]}
 ```
 
-##### Query data with a `SELECT` statement and return RFC3339 timestamps
+##### Query data with a `SELECT` statement and return RFC3339 timestamps {metadata="v1.12.3+"}
+
+- `time_format=rfc3339`: Return timestamps as RFC3339Nano-formatted strings.
 
 ```bash
 curl -G 'http://localhost:8086/query?db=mydb&time_format=rfc3339' --data-urlencode 'q=SELECT * FROM "mymeas"'
 ```
 
-The response body data is similar to the following:
+The output is similar to the following:
 
-```bash
+```json
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
