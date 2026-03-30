@@ -28,7 +28,7 @@ alt_links:
 - Show user when displaying or logging queries.
 - Add `time_format` parameter for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
-- Report user query bytes.
+- [Report user query bytes](/influxdb/v1/administration/config/#user-query-bytes-enabled).
 
 ### Bug fixes
 
