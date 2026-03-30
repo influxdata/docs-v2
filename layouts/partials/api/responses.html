@@ -48,7 +48,7 @@
       <div class="api-response api-response--{{ $statusCategory }}">
         <div class="api-response-header">
           <span class="api-response-status api-response-status--{{ $statusCategory }}">{{ $statusCode }}</span>
-          <span class="api-response-description">{{ $description }}</span>
+          <span class="api-response-description">{{ $description | markdownify }}</span>
         </div>
 
         {{/* Response body schema if present */}}

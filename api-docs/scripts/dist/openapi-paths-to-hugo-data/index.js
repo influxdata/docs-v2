@@ -105,40 +105,6 @@ function slugifyTag(tagName) {
         .replace(/^-|-$/g, '');
 }
 /**
- * Menu group mappings for tag-based navigation
- * Maps OpenAPI tags to sidebar groups
- */
-const TAG_MENU_GROUPS = {
-    // Concepts group
-    'Quick start': 'Concepts',
-    Authentication: 'Concepts',
-    'Headers and parameters': 'Concepts',
-    'Response codes': 'Concepts',
-    // Data Operations group
-    'Write data': 'Data Operations',
-    'Query data': 'Data Operations',
-    'Cache data': 'Data Operations',
-    // Administration group
-    Database: 'Administration',
-    Table: 'Administration',
-    Token: 'Administration',
-    // Processing Engine group
-    'Processing engine': 'Processing Engine',
-    // Server group
-    'Server information': 'Server',
-    // Compatibility group
-    'Compatibility endpoints': 'Compatibility',
-};
-/**
- * Get menu group for a tag
- *
- * @param tagName - Tag name
- * @returns Menu group name or 'Other' if not mapped
- */
-function getMenuGroupForTag(tagName) {
-    return TAG_MENU_GROUPS[tagName] || 'Other';
-}
-/**
  * HTTP methods to check for operations
  */
 const HTTP_METHODS = [
@@ -682,7 +648,6 @@ function createArticleDataForTag(openapi, operations, tagMeta) {
                 `API reference for ${tagName}`),
             tag: tagName,
             isConceptual,
-            menuGroup: getMenuGroupForTag(tagName),
             operations: operations.map((op) => ({
                 operationId: op.operationId,
                 method: op.method,

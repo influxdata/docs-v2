@@ -67,6 +67,10 @@ interface ProductConfig {
   pagesDir: string;
   /** Optional description of the product */
   description?: string;
+  /** Description for the API parent page (overrides default "manage databases, tables, and tokens") */
+  productDescription?: string;
+  /** Extra markdown appended after the intro text on the parent page */
+  bodyExtra?: string;
   /** Hugo menu identifier for this product (e.g., 'influxdb3_core') */
   menuKey?: string;
   /** Parent menu item for the API section (e.g., 'Reference', 'Tools'). Omit to skip menu entry. */
@@ -141,6 +145,18 @@ const apiProductsMap = loadApiProducts();
  * @throws Exits process with code 1 on error
  */
 /**
+ * Derive the content-relative path from a product's pagesDir.
+ * This mirrors the content directory structure for data file output,
+ * so data paths match content paths (e.g., influxdb3/core, influxdb/v2).
+ *
+ * @param pagesDir - Product content directory (e.g., './content/influxdb3/core')
+ * @returns Relative path (e.g., 'influxdb3/core')
+ */
+function getContentRelPath(pagesDir: string): string {
+  return path.relative(path.join(DOCS_ROOT, 'content'), pagesDir);
+}
+
+/**
  * Generate a clean static directory name from a product key.
  * Handles the influxdb3_* products to avoid redundant 'influxdb-influxdb3' prefixes.
  *
@@ -179,10 +195,12 @@ function getCleanupPaths(
     directories.push(tagSpecsDir);
   }
 
-  // Article data directory: data/article_data/influxdb/{productKey}/
+  // Article data directory mirrors content path: data/article_data/{contentRelPath}/
+  const contentRelPath = getContentRelPath(config.pagesDir);
   const articleDataDir = path.join(
     DOCS_ROOT,
-    `data/article_data/influxdb/${productKey}`
+    'data/article_data',
+    contentRelPath
   );
   if (fs.existsSync(articleDataDir)) {
     directories.push(articleDataDir);
@@ -398,8 +416,6 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
 ${yaml.dump(parentFrontmatter)}---
 
 ${introText}
-
-{{< children >}}
 `;
 
       fs.writeFileSync(parentIndexFile, parentContent);
@@ -488,12 +504,28 @@ interface GenerateTagPagesOptions {
   menuParent?: string;
   /** Product description for the parent page */
   productDescription?: string;
+  /** Extra markdown appended after the intro text on the parent page */
+  bodyExtra?: string;
   /** Parent menu item name in sidebar (e.g., 'Reference', 'Tools'). Omit to skip menu entry. */
   menuParentName?: string;
   /** Map of API path to path-specific spec file (for single-operation rendering) */
   pathSpecFiles?: Map<string, string>;
   /** Static directory name for download path derivation (e.g., 'influxdb3-core') */
   staticDirName?: string;
+  /** Product key matching the data directory name (e.g., 'cloud-dedicated', 'influxdb3_core') */
+  productKey?: string;
+  /**
+   * Sub-section slug for multi-spec products (e.g., 'data-api', 'management-api').
+   * When set, pages are generated under api/{subSection}/ instead of api/.
+   * The top-level api/_index.md is NOT written by this call (caller handles it).
+   */
+  subSection?: string;
+  /**
+   * Explicit spec download path (e.g., '/openapi/influxdb-cloud-serverless-api.yml').
+   * When provided, overrides the path derived from staticDirName and articlesPath.
+   * Use this for single-spec products whose spec filename differs from staticDirName.
+   */
+  specDownloadPath?: string;
 }
 
 /**
@@ -514,8 +546,11 @@ function generateTagPagesFromArticleData(
     menuKey,
     menuParent,
     productDescription,
+    bodyExtra,
     menuParentName,
     pathSpecFiles,
+    subSection,
+    specDownloadPath: explicitSpecDownloadPath,
   } = options;
   const yaml = require('js-yaml');
   const articlesFile = path.join(articlesPath, 'articles.yml');
@@ -538,7 +573,6 @@ function generateTagPagesFromArticleData(
         isConceptual?: boolean;
         showSecuritySchemes?: boolean;
         tagDescription?: string;
-        menuGroup?: string;
         staticFilePath?: string;
         operations?: OperationMeta[];
         related?: (string | { title: string; href: string })[];
@@ -557,40 +591,61 @@ function generateTagPagesFromArticleData(
     fs.mkdirSync(contentPath, { recursive: true });
   }
 
-  // Generate parent _index.md for the API section
+  // Determine which directory holds the tag pages:
+  // - single-spec: api/
+  // - multi-spec sub-section: api/{subSection}/
   const apiParentDir = path.join(contentPath, 'api');
+  const tagPagesDir = subSection
+    ? path.join(apiParentDir, subSection)
+    : apiParentDir;
   const parentIndexFile = path.join(apiParentDir, '_index.md');
 
   if (!fs.existsSync(apiParentDir)) {
     fs.mkdirSync(apiParentDir, { recursive: true });
   }
+  if (subSection && !fs.existsSync(tagPagesDir)) {
+    fs.mkdirSync(tagPagesDir, { recursive: true });
+  }
 
-  // Derive articleDataKey from staticDirName or articlesPath
-  const articleDataKey = options.staticDirName || path.basename(articlesPath);
+  // specDownloadPath:
+  // - explicit: caller passes the exact path (fixes single-spec products with displayName)
+  // - single-spec: derived from staticDirName (e.g., /openapi/influxdb3-core.yml)
+  // - multi-spec sub-section: derived from per-spec slug
+  //   (e.g., /openapi/influxdb-cloud-dedicated-management-api.yml)
+  const specSlugFromPath = path.basename(articlesPath); // e.g., "data-api" or "management-api"
+  const specDownloadPath = explicitSpecDownloadPath
+    ?? (subSection
+      ? `/openapi/${options.staticDirName || path.dirname(articlesPath)}-${specSlugFromPath}.yml`
+      : `/openapi/${options.staticDirName || path.basename(articlesPath)}.yml`);
 
-  // Derive articleSection from contentPath — the section is the last segment of the API URL
-  // e.g., "content/influxdb3/core" → generates pages in "api/", so section = "api"
-  // For management APIs: generates pages in "management-api/", so section = "management-api"
-  const articleSection = apiParentDir.includes('management-api')
-    ? 'management-api'
-    : 'api';
+  // Write api/_index.md only for single-spec products (multi-spec caller writes it)
+  if (!subSection && !fs.existsSync(parentIndexFile)) {
+    // Load page.yml overlay if it exists (for custom description and body content)
+    const contentRelPath = getContentRelPath(contentPath);
+    const pageOverlayPaths = [
+      path.join('api-docs', contentRelPath, 'content', 'page.yml'),
+      path.join('api-docs', contentRelPath, 'page.yml'),
+    ];
+    let pageOverlay: { description?: string; body_extra?: string } = {};
+    for (const p of pageOverlayPaths) {
+      if (fs.existsSync(p)) {
+        pageOverlay = yaml.load(fs.readFileSync(p, 'utf8')) as typeof pageOverlay;
+        break;
+      }
+    }
 
-  // Derive specDownloadPath: /openapi/{staticDirName}.yml
-  const specDownloadPath = `/openapi/${articleDataKey}.yml`;
-
-  if (!fs.existsSync(parentIndexFile)) {
-    // Build description - use product description or generate from product name
+    // Build description - page.yml > options > default
     const apiDescription =
+      pageOverlay.description ||
       productDescription ||
       `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+    const effectiveBodyExtra = pageOverlay.body_extra || bodyExtra || '';
 
     const parentFrontmatter: Record<string, unknown> = {
       title: menuParent || 'InfluxDB HTTP API',
       description: apiDescription,
       weight: 104,
       type: 'api',
-      articleDataKey,
-      articleSection,
       specDownloadPath,
     };
 
@@ -618,20 +673,55 @@ function generateTagPagesFromArticleData(
       'InfluxDB',
       '{{% product-name %}}'
     );
+    const extraContent = effectiveBodyExtra ? `\n${effectiveBodyExtra}\n` : '';
     const parentContent = `---
 ${yaml.dump(parentFrontmatter)}---
 
 ${introText}
-
-{{< children >}}
-`;
+${extraContent}`;
 
     fs.writeFileSync(parentIndexFile, parentContent);
     console.log(`✓ Generated parent index at ${parentIndexFile}`);
   }
 
-  // Generate "All endpoints" page
-  const allEndpointsDir = path.join(apiParentDir, 'all-endpoints');
+  // For sub-sections, write a sub-section _index.md
+  if (subSection) {
+    const subSectionIndexFile = path.join(tagPagesDir, '_index.md');
+    // Convert slug to title (data-api → Data API, management-api → Management API)
+    const UPPERCASE_WORDS = new Set(['api']);
+    const subSectionTitle = subSection
+      .split('-')
+      .map((w) =>
+        UPPERCASE_WORDS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)
+      )
+      .join(' ');
+
+    const subSectionFrontmatter: Record<string, unknown> = {
+      title: subSectionTitle,
+      description: `${subSectionTitle} reference for ${productDescription || 'InfluxDB'}.`,
+      weight: subSection === 'data-api' ? 10 : 20,
+      type: 'api',
+      specDownloadPath,
+    };
+
+    // Add alt_links for cross-product API navigation
+    if (apiProductsMap.size > 0) {
+      const altLinks: Record<string, string> = {};
+      apiProductsMap.forEach((apiPath, productName) => {
+        altLinks[productName] = apiPath;
+      });
+      subSectionFrontmatter.alt_links = altLinks;
+    }
+
+    const subSectionContent = `---
+${yaml.dump(subSectionFrontmatter)}---
+`;
+    fs.writeFileSync(subSectionIndexFile, subSectionContent);
+    console.log(`✓ Generated sub-section index at ${subSectionIndexFile}`);
+  }
+
+  // Generate "All endpoints" page (under tagPagesDir, not apiParentDir)
+  const allEndpointsDir = path.join(tagPagesDir, 'all-endpoints');
   const allEndpointsFile = path.join(allEndpointsDir, '_index.md');
 
   if (!fs.existsSync(allEndpointsDir)) {
@@ -647,8 +737,9 @@ ${introText}
     isAllEndpoints: true,
   };
 
-  // Add menu entry for all-endpoints page
-  if (menuKey) {
+  // Add menu entry for all-endpoints page (single-spec only; sub-sections
+  // don't add menu entries — sidebar drives navigation via article data)
+  if (menuKey && !subSection) {
     allEndpointsFrontmatter.menu = {
       [menuKey]: {
         name: 'All endpoints',
@@ -675,9 +766,14 @@ All {{% product-name %}} API endpoints, sorted by path.
   fs.writeFileSync(allEndpointsFile, allEndpointsContent);
   console.log(`✓ Generated all-endpoints page at ${allEndpointsFile}`);
 
-  // Generate a page for each article (tag)
+  // Generate a page for each article (tag).
+  // For sub-section mode, article.path is "api/<tag-slug>"; we rewrite it to
+  // "api/<subSection>/<tag-slug>" so pages land in the right directory.
   for (const article of data.articles) {
-    const pagePath = path.join(contentPath, article.path);
+    const articleRelPath = subSection
+      ? article.path.replace(/^api\//, `api/${subSection}/`)
+      : article.path;
+    const pagePath = path.join(contentPath, articleRelPath);
     const pageFile = path.join(pagePath, '_index.md');
 
     // Create directory if needed
@@ -700,13 +796,8 @@ All {{% product-name %}} API endpoints, sorted by path.
       staticFilePath: article.fields.staticFilePath,
       specDownloadPath,
       weight,
-      // Sidebar data lookup fields
-      articleDataKey,
-      articleSection,
-      // Tag-based fields
       tag: article.fields.tag,
       isConceptual,
-      menuGroup: article.fields.menuGroup,
     };
 
     // Add operations for TOC generation (only for non-conceptual pages)
@@ -803,7 +894,6 @@ interface ArticleData {
       isConceptual?: boolean;
       showSecuritySchemes?: boolean;
       tagDescription?: string;
-      menuGroup?: string;
       staticFilePath?: string;
       operations?: OperationMeta[];
       related?: (string | { title: string; href: string })[];
@@ -953,7 +1043,6 @@ const productConfigs: ProductConfigMap = {
     useTagBasedGeneration: true,
   },
   // InfluxDB 3 products use tag-based generation for better UX
-  // Keys use underscores to match Hugo data directory structure
   influxdb3_core: {
     specFile: path.join(
       API_DOCS_ROOT,
@@ -997,7 +1086,7 @@ const productConfigs: ProductConfigMap = {
           API_DOCS_ROOT,
           'influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml'
         ),
-        displayName: 'v2 Data API',
+        displayName: 'Data API',
       },
     ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-dedicated'),
@@ -1013,7 +1102,7 @@ const productConfigs: ProductConfigMap = {
           API_DOCS_ROOT,
           'influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml'
         ),
-        displayName: 'v2 Data API',
+        displayName: 'API',
       },
     ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/cloud-serverless'),
@@ -1036,7 +1125,7 @@ const productConfigs: ProductConfigMap = {
           API_DOCS_ROOT,
           'influxdb3/clustered/influxdb3-clustered-openapi.yaml'
         ),
-        displayName: 'v2 Data API',
+        displayName: 'Data API',
       },
     ],
     pagesDir: path.join(DOCS_ROOT, 'content/influxdb3/clustered'),
@@ -1304,14 +1393,14 @@ function slugifyDisplayName(displayName: string): string {
  * @param specConfig - Spec file configuration
  * @param staticPath - Static directory path
  * @param staticDirName - Product directory name
- * @param productKey - Product identifier
+ * @param contentRelPath - Content-relative path (e.g., 'influxdb3/core')
  * @returns Object with paths to generated files, or null if processing failed
  */
 function processSpecFile(
   specConfig: SpecFileConfig,
   staticPath: string,
   staticDirName: string,
-  productKey: string
+  contentRelPath: string
 ): {
   staticSpecPath: string;
   staticJsonSpecPath: string;
@@ -1349,7 +1438,9 @@ function processSpecFile(
   );
   const articlesPath = path.join(
     DOCS_ROOT,
-    `data/article_data/influxdb/${productKey}/${specSlug}`
+    'data/article_data',
+    contentRelPath,
+    specSlug
   );
 
   try {
@@ -1424,9 +1515,14 @@ function processProduct(productKey: string, config: ProductConfig): void {
   const staticPath = path.join(DOCS_ROOT, 'static/openapi');
   const staticDirName = getStaticDirName(productKey);
   const staticPathsPath = path.join(staticPath, `${staticDirName}/paths`);
+  const contentRelPath = getContentRelPath(config.pagesDir);
+  // Merged articles go into the 'api' subdirectory to match the URL path segment.
+  // Per-spec data (e.g., management-api/) stays in its own subdirectory.
   const mergedArticlesPath = path.join(
     DOCS_ROOT,
-    `data/article_data/influxdb/${productKey}`
+    'data/article_data',
+    contentRelPath,
+    'api'
   );
 
   // Ensure static directory exists
@@ -1472,7 +1568,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
         specConfig,
         staticPath,
         staticDirName,
-        productKey
+        contentRelPath
       );
 
       if (result) {
@@ -1515,18 +1611,71 @@ function processProduct(productKey: string, config: ProductConfig): void {
 
     // Article generation (skip in --static-only mode)
     if (!staticOnly) {
-      // Merge article data from all specs (for multi-spec products)
-      if (processedSpecs.length > 1) {
+      if (processedSpecs.length > 1 && config.useTagBasedGeneration) {
+        // Multi-spec products: generate nested sub-sections (data-api/, management-api/)
+        // instead of merging into a flat api/ list.
         console.log(
-          `\n📋 Merging article data from ${processedSpecs.length} specs...`
+          `\n📋 Generating sub-section pages for ${processedSpecs.length} specs...`
         );
-        const articlesFiles = processedSpecs.map((s) =>
-          path.join(s.articlesPath, 'articles.yml')
-        );
-        mergeArticleData(
-          articlesFiles,
-          path.join(mergedArticlesPath, 'articles.yml')
-        );
+
+        // Write the top-level api/_index.md (no specDownloadPath — each sub-section has its own)
+        const apiDescription =
+          config.description ||
+          `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+        const apiParentDir = path.join(config.pagesDir, 'api');
+        const parentIndexFile = path.join(apiParentDir, '_index.md');
+        if (!fs.existsSync(apiParentDir)) {
+          fs.mkdirSync(apiParentDir, { recursive: true });
+        }
+        if (!fs.existsSync(parentIndexFile)) {
+          const yaml = require('js-yaml');
+          const parentFrontmatter: Record<string, unknown> = {
+            title: 'InfluxDB HTTP API',
+            description: apiDescription,
+            weight: 104,
+            type: 'api',
+          };
+          if (config.menuKey && config.menuParentName) {
+            parentFrontmatter.menu = {
+              [config.menuKey]: {
+                name: 'InfluxDB HTTP API',
+                parent: config.menuParentName,
+              },
+            };
+          }
+          if (apiProductsMap.size > 0) {
+            const altLinks: Record<string, string> = {};
+            apiProductsMap.forEach((apiPath, productName) => {
+              altLinks[productName] = apiPath;
+            });
+            parentFrontmatter.alt_links = altLinks;
+          }
+          const introText = apiDescription.replace(
+            'InfluxDB',
+            '{{% product-name %}}'
+          );
+          const parentContent = `---\n${yaml.dump(parentFrontmatter)}---\n\n${introText}\n`;
+          fs.writeFileSync(parentIndexFile, parentContent);
+          console.log(`✓ Generated multi-spec parent index at ${parentIndexFile}`);
+        }
+
+        // Generate per-spec sub-section pages
+        for (const spec of processedSpecs) {
+          const subSection = path.basename(spec.articlesPath); // e.g., "data-api"
+          console.log(`\n📄 Generating sub-section pages for: ${subSection}`);
+          generateTagPagesFromArticleData({
+            articlesPath: spec.articlesPath,
+            contentPath: config.pagesDir,
+            menuKey: config.menuKey,
+            menuParent: 'InfluxDB HTTP API',
+            menuParentName: config.menuParentName,
+            pathSpecFiles: allPathSpecFiles,
+            staticDirName,
+            productKey,
+            subSection,
+            productDescription: config.description,
+          });
+        }
       } else if (processedSpecs.length === 1) {
         // Single spec - copy articles to final location if needed
         const sourceArticles = path.join(
@@ -1550,20 +1699,40 @@ function processProduct(productKey: string, config: ProductConfig): void {
           );
           console.log(`✓ Copied article data to ${mergedArticlesPath}`);
         }
-      }
 
-      // Generate Hugo content pages from (merged) article data
-      if (config.useTagBasedGeneration) {
-        generateTagPagesFromArticleData({
-          articlesPath: mergedArticlesPath,
-          contentPath: config.pagesDir,
-          menuKey: config.menuKey,
-          menuParent: 'InfluxDB HTTP API',
-          menuParentName: config.menuParentName,
-          pathSpecFiles: allPathSpecFiles,
-          staticDirName,
-        });
-      } else {
+        // Generate Hugo content pages from article data
+        if (config.useTagBasedGeneration) {
+          generateTagPagesFromArticleData({
+            articlesPath: mergedArticlesPath,
+            contentPath: config.pagesDir,
+            menuKey: config.menuKey,
+            menuParent: 'InfluxDB HTTP API',
+            productDescription: config.productDescription,
+            bodyExtra: config.bodyExtra,
+            menuParentName: config.menuParentName,
+            pathSpecFiles: allPathSpecFiles,
+            staticDirName,
+            productKey,
+            specDownloadPath: `/openapi/${path.basename(processedSpecs[0].staticSpecPath)}`,
+          });
+        } else {
+          generatePagesFromArticleData({
+            articlesPath: mergedArticlesPath,
+            contentPath: config.pagesDir,
+            menuKey: config.menuKey,
+            menuParent: 'InfluxDB HTTP API',
+            menuParentName: config.menuParentName,
+          });
+        }
+      } else if (!config.useTagBasedGeneration && processedSpecs.length > 0) {
+        // Multi-spec without tag-based generation (unusual — fall back to merge)
+        const articlesFiles = processedSpecs.map((s) =>
+          path.join(s.articlesPath, 'articles.yml')
+        );
+        mergeArticleData(
+          articlesFiles,
+          path.join(mergedArticlesPath, 'articles.yml')
+        );
         generatePagesFromArticleData({
           articlesPath: mergedArticlesPath,
           contentPath: config.pagesDir,

@@ -9,24 +9,41 @@ tags:
       - [Basic authentication](#section/Authentication/BasicAuthentication)
       - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
       <!-- ReDoc-Inject: <security-definitions> -->
-  Cache data:
+  Token:
+    rename: Auth token
     description: |
-      Manage the in-memory cache.
-
-      #### Distinct Value Cache
-
+      Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Enterprise resources.
+    externalDocs:
+      description: Manage tokens
+      url: /influxdb3/enterprise/admin/tokens/
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/enterprise/admin/tokens/
+  Cache data:
+    reassign:
+      - paths: ["/api/v3/configure/distinct_cache"]
+        tag: Cache distinct values
+      - paths: ["/api/v3/configure/last_cache"]
+        tag: Cache last value
+  Cache distinct values:
+    description: |
       The Distinct Value Cache (DVC) lets you cache distinct
       values of one or more columns in a table, improving the performance of
       queries that return distinct tag and field values.
 
       The DVC is an in-memory cache that stores distinct values for specific columns
-      in a table. When you create an DVC, you can specify what columns' distinct
+      in a table. When you create a DVC, you can specify what columns' distinct
       values to cache, the maximum number of distinct value combinations to cache, and
       the maximum age of cached values. A DVC is associated with a table, which can
       have multiple DVCs.
-
-      #### Last value cache
-
+    externalDocs:
+      description: Manage the Distinct Value Cache
+      url: /influxdb3/enterprise/admin/distinct-value-cache/
+    x-related:
+      - title: Manage the Distinct Value Cache
+        href: /influxdb3/enterprise/admin/distinct-value-cache/
+  Cache last value:
+    description: |
       The Last Value Cache (LVC) lets you cache the most recent
       values for specific fields in a table, improving the performance of queries that
       return the most recent value of a field for specific series or the last N values
@@ -38,13 +55,25 @@ tags:
       number of values to cache for each unique series.
       An LVC is associated with a table, which can have multiple LVCs.
     externalDocs:
-      description: Manage the Distinct Value Cache
-      url: /influxdb3/enterprise/admin/distinct-value-cache/
+      description: Manage the Last Value Cache
+      url: /influxdb3/enterprise/admin/last-value-cache/
     x-related:
-      - title: Manage the Distinct Value Cache
-        href: /influxdb3/enterprise/admin/distinct-value-cache/
       - title: Manage the Last Value Cache
         href: /influxdb3/enterprise/admin/last-value-cache/
+  Migrate from InfluxDB v1 or v2:
+    x-traitTag: true
+    description: |
+      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3 Enterprise.
+
+      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
+      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
+
+      ### Migration guides
+
+      - [Migrate from InfluxDB v1](/influxdb3/enterprise/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
+      - [Migrate from InfluxDB v2](/influxdb3/enterprise/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
+      - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
+      - [Use the v1 HTTP query API](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
   Database:
     description: |
       Create, list, and delete databases in InfluxDB 3 Enterprise.
@@ -158,15 +187,6 @@ tags:
     x-related:
       - title: Manage tables
         href: /influxdb3/enterprise/admin/tables/
-  Token:
-    description: |
-      Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Enterprise resources.
-    externalDocs:
-      description: Manage tokens
-      url: /influxdb3/enterprise/admin/tokens/
-    x-related:
-      - title: Manage tokens
-        href: /influxdb3/enterprise/admin/tokens/
   Write data:
     description: |
       Write data to InfluxDB 3 Enterprise using line protocol format.

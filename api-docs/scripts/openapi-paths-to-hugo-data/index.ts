@@ -293,8 +293,6 @@ interface Article {
     showSecuritySchemes?: boolean;
     /** Tag description from OpenAPI spec */
     tagDescription?: string;
-    /** Sidebar navigation group */
-    menuGroup?: string;
     /** Operations metadata for TOC generation */
     operations?: OperationMeta[];
     /** Page weight for ordering in navigation */
@@ -391,42 +389,6 @@ function slugifyTag(tagName: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
-}
-
-/**
- * Menu group mappings for tag-based navigation
- * Maps OpenAPI tags to sidebar groups
- */
-const TAG_MENU_GROUPS: Record<string, string> = {
-  // Concepts group
-  'Quick start': 'Concepts',
-  Authentication: 'Concepts',
-  'Headers and parameters': 'Concepts',
-  'Response codes': 'Concepts',
-  // Data Operations group
-  'Write data': 'Data Operations',
-  'Query data': 'Data Operations',
-  'Cache data': 'Data Operations',
-  // Administration group
-  Database: 'Administration',
-  Table: 'Administration',
-  Token: 'Administration',
-  // Processing Engine group
-  'Processing engine': 'Processing Engine',
-  // Server group
-  'Server information': 'Server',
-  // Compatibility group
-  'Compatibility endpoints': 'Compatibility',
-};
-
-/**
- * Get menu group for a tag
- *
- * @param tagName - Tag name
- * @returns Menu group name or 'Other' if not mapped
- */
-function getMenuGroupForTag(tagName: string): string {
-  return TAG_MENU_GROUPS[tagName] || 'Other';
 }
 
 /**
@@ -1101,7 +1063,6 @@ function createArticleDataForTag(
       ),
       tag: tagName,
       isConceptual,
-      menuGroup: getMenuGroupForTag(tagName),
       operations: operations.map((op) => ({
         operationId: op.operationId,
         method: op.method,

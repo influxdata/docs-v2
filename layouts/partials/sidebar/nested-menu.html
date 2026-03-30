@@ -11,7 +11,7 @@
   {{ $navClass := cond (gt $depth 1) "item" "category" }}
   {{ range $menuContext }}
     {{/* Check if this is the InfluxDB HTTP API menu item for InfluxDB 3 products */}}
-    {{ $isApiParent := and (eq .Name "InfluxDB HTTP API") (or (hasPrefix .URL "/influxdb3/") (hasPrefix .URL "/influxdb/")) }}
+    {{ $isApiParent := and (or (eq .Name "InfluxDB HTTP API") (eq .Name "InfluxDB Management API")) (or (hasPrefix .URL "/influxdb3/") (hasPrefix .URL "/influxdb/") (hasPrefix .URL "/enterprise_influxdb/")) }}
 
     <li class="nav-{{ $navClass }} {{ if eq $currentPage.RelPermalink .URL }}active{{end}}">
       {{ if $isApiParent }}

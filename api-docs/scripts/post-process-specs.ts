@@ -31,11 +31,22 @@ interface RelatedLink {
   href: string;
 }
 
+interface TagReassignment {
+  /** API path prefixes to match (e.g., "/api/v3/configure/distinct_cache") */
+  paths: string[];
+  /** New tag name to assign to matching operations */
+  tag: string;
+}
+
 interface TagConfig {
   rename?: string;
   description?: string;
   'x-traitTag'?: boolean;
   'x-related'?: RelatedLink[];
+  /** Split a tag into multiple tags based on API path patterns */
+  reassign?: TagReassignment[];
+  /** Remove this tag and all operations exclusively tagged with it */
+  drop?: boolean;
 }
 
 interface TagsYml {
@@ -272,6 +283,116 @@ function renameTag(spec: OpenApiSpec, oldName: string, newName: string): void {
 }
 
 /**
+ * Reassign operations from one tag to others based on API path patterns.
+ * For each reassignment rule, operations whose path starts with any of the
+ * specified prefixes have the source tag replaced with the target tag.
+ * Operations that don't match any rule keep the original tag.
+ */
+function reassignTag(
+  spec: OpenApiSpec,
+  sourceTag: string,
+  rules: TagReassignment[],
+  label: string
+): void {
+  const newTagNames = new Set(rules.map((r) => r.tag));
+
+  for (const [apiPath, pathItem] of Object.entries(spec.paths ?? {})) {
+    for (const operation of Object.values(pathItem)) {
+      if (
+        !operation ||
+        typeof operation !== 'object' ||
+        !Array.isArray(operation.tags) ||
+        !operation.tags.includes(sourceTag)
+      ) {
+        continue;
+      }
+
+      const rule = rules.find((r) =>
+        r.paths.some((prefix) => apiPath.startsWith(prefix))
+      );
+      if (rule) {
+        operation.tags = operation.tags.map((t: string) =>
+          t === sourceTag ? rule.tag : t
+        );
+      }
+    }
+  }
+
+  // Update spec.tags[]: remove the source tag if no operations reference it,
+  // and ensure new tags exist in the array.
+  const remainingOps = collectOperationTags(spec);
+  if (!remainingOps.has(sourceTag)) {
+    spec.tags = (spec.tags ?? []).filter(
+      (t: { name: string }) => t.name !== sourceTag
+    );
+  }
+  for (const name of newTagNames) {
+    if (!(spec.tags ?? []).some((t: { name: string }) => t.name === name)) {
+      spec.tags = spec.tags ?? [];
+      spec.tags.push({ name });
+    }
+  }
+  log(
+    `${label}: reassigned '${sourceTag}' → ${[...newTagNames].map((n) => `'${n}'`).join(', ')}`
+  );
+}
+
+/**
+ * Drop a tag from the spec: remove it from `spec.tags[]`, strip it from every
+ * operation's `tags[]` array, delete operations that have no remaining tags,
+ * and delete path items that have no remaining HTTP method operations.
+ */
+function dropTag(spec: OpenApiSpec, tagName: string, label: string): void {
+  // Remove from spec.tags[]
+  spec.tags = (spec.tags ?? []).filter((t) => t.name !== tagName);
+
+  const HTTP_METHODS = new Set([
+    'get',
+    'put',
+    'post',
+    'delete',
+    'options',
+    'head',
+    'patch',
+    'trace',
+  ]);
+
+  let droppedOps = 0;
+
+  for (const [apiPath, pathItem] of Object.entries(spec.paths ?? {})) {
+    for (const method of Object.keys(pathItem)) {
+      if (!HTTP_METHODS.has(method)) continue;
+
+      const operation = pathItem[method];
+      if (!operation || typeof operation !== 'object' || !Array.isArray(operation.tags)) {
+        continue;
+      }
+
+      if (!operation.tags.includes(tagName)) continue;
+
+      // Remove the dropped tag from this operation's tags array
+      operation.tags = operation.tags.filter((t: string) => t !== tagName);
+
+      // If no tags remain, delete the operation from the path item
+      if (operation.tags.length === 0) {
+        delete pathItem[method];
+        droppedOps++;
+      }
+    }
+
+    // Remove path item if it has no remaining HTTP method operations
+    const remainingMethods = Object.keys(pathItem).filter((k) =>
+      HTTP_METHODS.has(k)
+    );
+    if (remainingMethods.length === 0) {
+      delete (spec.paths ?? {})[apiPath];
+    }
+  }
+
+  log(`${label}: dropped tag '${tagName}' (${droppedOps} operations removed)`);
+}
+
+/**
  * Apply tag config from a `tags.yml` file to the spec.
  *
  * @returns true if any tags were patched.
@@ -289,13 +410,37 @@ function applyTagConfig(
 
   if (!Array.isArray(spec.tags)) spec.tags = [];
 
-  const operationTags = collectOperationTags(spec);
   const configKeys = Object.keys(tagsCfg.tags);
+  const droppedTagNames = new Set(
+    configKeys.filter((k) => tagsCfg.tags[k]?.drop === true)
+  );
 
-  // Warn: config references a tag not in the spec
+  // Apply drops first (before renames/reassignments so source names match the spec)
+  for (const tagKey of droppedTagNames) {
+    dropTag(spec, tagKey, label);
+  }
+
+  // Re-collect operation tags after drops
+  const operationTags = collectOperationTags(spec);
+
+  // Warn: config references a tag not in the spec (skip trait tags, reassignment targets, and dropped tags)
   for (const cfgKey of configKeys) {
-    const effectiveName = tagsCfg.tags[cfgKey]?.rename ?? cfgKey;
-    if (!operationTags.has(cfgKey) && !operationTags.has(effectiveName)) {
+    if (droppedTagNames.has(cfgKey)) continue;
+
+    const cfg = tagsCfg.tags[cfgKey];
+    const effectiveName = cfg?.rename ?? cfgKey;
+    const isTraitTag = cfg?.['x-traitTag'] === true;
+    const isReassignTarget = configKeys.some((k) =>
+      tagsCfg.tags[k]?.reassign?.some(
+        (r: TagReassignment) => r.tag === cfgKey
+      )
+    );
+    if (
+      !isTraitTag &&
+      !isReassignTarget &&
+      !operationTags.has(cfgKey) &&
+      !operationTags.has(effectiveName)
+    ) {
       log(`WARN ${label}: config tag '${cfgKey}' not found in spec operations`);
     }
   }
@@ -310,8 +455,18 @@ function applyTagConfig(
     }
   });
 
-  // Apply transformations
+  // Apply reassignments (before renames, so source tag names match the spec)
   for (const [tagKey, cfg] of Object.entries(tagsCfg.tags)) {
+    if (droppedTagNames.has(tagKey)) continue;
+    if (cfg.reassign) {
+      reassignTag(spec, tagKey, cfg.reassign, label);
+    }
+  }
+
+  // Apply remaining transformations (skip dropped tags)
+  for (const [tagKey, cfg] of Object.entries(tagsCfg.tags)) {
+    if (droppedTagNames.has(tagKey)) continue;
+
     if (cfg.rename) {
       log(`${label}: renaming tag '${tagKey}' → '${cfg.rename}'`);
       renameTag(spec, tagKey, cfg.rename);
@@ -331,7 +486,10 @@ function applyTagConfig(
     if (cfg['x-related'] !== undefined) tagObj['x-related'] = cfg['x-related'];
   }
 
-  log(`${label}: patched ${configKeys.length} tag(s)`);
+  const nonDroppedCount = configKeys.length - droppedTagNames.size;
+  log(
+    `${label}: patched ${nonDroppedCount} tag(s), dropped ${droppedTagNames.size} tag(s)`
+  );
   return true;
 }
 

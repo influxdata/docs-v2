@@ -74,8 +74,7 @@ tags:
       - title: Manage API tokens
         href: /influxdb3/cloud-serverless/security/tokens/
   Bucket Schemas:
-    description: |
-      Manage explicit schemas for InfluxDB 3 Cloud Serverless buckets to enforce column names and data types.
+    drop: true
   Buckets:
     description: |
       Create and manage named storage locations (buckets) in InfluxDB 3 Cloud Serverless, each with a configurable retention period.
@@ -86,60 +85,38 @@ tags:
       - title: Manage buckets
         href: /influxdb3/cloud-serverless/admin/buckets/
   Cells:
-    x-traitTag: true
-    description: |
-      Manage cells within dashboards. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Checks:
-    x-traitTag: true
-    description: |
-      Create and manage monitoring checks that query data and generate notification statuses. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Common parameters:
     x-traitTag: true
     description: |
       Common query parameters used by InfluxDB 3 Cloud Serverless API endpoints, including `bucket`, `bucketID`, `org`, and `orgID`.
   Config:
-    x-traitTag: true
-    description: |
-      Retrieve configuration information for an InfluxDB instance. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Dashboards:
-    x-traitTag: true
-    description: |
-      Create and manage dashboards. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   DBRPs:
-    x-traitTag: true
-    description: |
-      Manage database and retention policy (DBRP) mappings. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Delete:
-    x-traitTag: true
-    description: |
-      Delete time series data from a bucket by specifying a time range and optional predicate. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Headers:
     x-traitTag: true
     description: |
       Standard HTTP request headers used by InfluxDB 3 Cloud Serverless API endpoints, including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
   Invokable Scripts:
-    x-traitTag: true
-    description: |
-      Store, manage, and execute custom Flux scripts. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Labels:
-    x-traitTag: true
-    description: |
-      Create and manage labels for organizing resources. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Legacy Authorizations:
-    x-traitTag: true
-    description: |
-      Manage legacy (v1-compatible) authorization credentials. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Limits:
     description: |
       Retrieve rate limits and usage quotas for an InfluxDB 3 Cloud Serverless organization.
   NotificationEndpoints:
-    x-traitTag: true
-    description: |
-      Create and manage notification endpoints that receive alert notifications. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   NotificationRules:
-    x-traitTag: true
-    description: |
-      Create and manage notification rules that define when and how notifications are sent to endpoints. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Organizations:
     description: |
       View and manage InfluxDB 3 Cloud Serverless organizations, which are workspaces that group users, buckets, and resources.
@@ -154,9 +131,7 @@ tags:
     description: |
       Query parameters for paginating results from list operations in the InfluxDB 3 Cloud Serverless API.
   Ping:
-    x-traitTag: true
-    description: |
-      Check the availability of an InfluxDB instance. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Query data:
     description: |
       Query data stored in InfluxDB 3 Cloud Serverless using InfluxQL via the v1-compatible `/query` endpoint, or using SQL and InfluxQL via Flight+gRPC clients.
@@ -173,41 +148,25 @@ tags:
     description: |
       Get started writing and querying data with the InfluxDB 3 Cloud Serverless API.
   Resources:
-    x-traitTag: true
-    description: |
-      Retrieve a list of top-level resource types available in the API. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Response codes:
     x-traitTag: true
     description: |
       Standard HTTP status codes returned by InfluxDB 3 Cloud Serverless API endpoints and their meanings.
   Routes:
-    x-traitTag: true
-    description: |
-      Retrieve top-level routes for the InfluxDB API. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Rules:
-    x-traitTag: true
-    description: |
-      Manage notification rules. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Secrets:
-    x-traitTag: true
-    description: |
-      Create and manage secrets (key-value pairs) for use in Flux scripts and tasks. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Security and access endpoints:
-    x-traitTag: true
-    description: |
-      Endpoints for managing authentication and access control. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Setup:
-    x-traitTag: true
-    description: |
-      Configure an initial InfluxDB instance, including creating the initial user, organization, and bucket. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Signin:
-    x-traitTag: true
-    description: |
-      Create a user session by signing in with username and password credentials. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Signout:
-    x-traitTag: true
-    description: |
-      End a user session by signing out. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Supported operations:
     x-traitTag: true
     description: |
@@ -221,40 +180,24 @@ tags:
       | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
       | **Delete** | `DELETE` | Remove a resource. |
   System information endpoints:
-    x-traitTag: true
-    description: |
-      Endpoints for retrieving system-level information about an InfluxDB instance. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Tasks:
-    x-traitTag: true
-    description: |
-      Schedule and manage Flux tasks that process and transform data on a recurring basis. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Telegraf Plugins:
-    x-traitTag: true
-    description: |
-      Retrieve available Telegraf plugin configuration templates. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Telegrafs:
-    x-traitTag: true
-    description: |
-      Create and manage Telegraf agent configurations that collect and write data to InfluxDB. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Templates:
-    x-traitTag: true
-    description: |
-      Export and apply InfluxDB templates, and manage template stacks. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Usage:
     description: |
       Retrieve usage metrics and cardinality data for an InfluxDB 3 Cloud Serverless organization.
   Users:
-    x-traitTag: true
-    description: |
-      View specific users that are members of your organization. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Variables:
-    x-traitTag: true
-    description: |
-      Create and manage variables for use in dashboards. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Views:
-    x-traitTag: true
-    description: |
-      Manage cell views within dashboards. This is an InfluxDB Cloud (TSM) endpoint that may be accessible but is not supported or recommended for use with InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+    drop: true
   Write data:
     description: |
       Write time series data to InfluxDB 3 Cloud Serverless buckets using the v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write` endpoint with line protocol.

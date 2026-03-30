@@ -5,31 +5,38 @@
   Links point to tag pages with hash anchors (e.g., /api/cache-data/#operation/PostConfigureDistinctCache)
   Excludes conceptual/trait tag operations.
 
-  Uses frontmatter params:
-  - articleDataKey: product data key (e.g., 'influxdb3-core')
-  - articleSection: section slug (e.g., 'api' or 'management-api')
+  Data path derived from parent page URL: data/article_data/{url segments}/articles.yml
+  Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
 */}}
 {{ $currentPage := . }}
 
-{{/* Read data key and section from frontmatter */}}
-{{ $dataKey := .Params.articleDataKey | default "" }}
-{{ $section := .Params.articleSection | default "" }}
+{{/* Derive data lookup path from the parent section URL.
+     Supports both 3-segment (/influxdb3/core/api/) and 4-segment
+     (/influxdb3/cloud-dedicated/api/data-api/) parent URLs. */}}
+{{ $sectionUrl := .Parent.RelPermalink }}
+{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" $sectionUrl) }}
+{{ $segments := split $urlPath "/" }}
 
-{{/* Get article data using frontmatter-driven lookup */}}
+{{/* Get article data.
+     URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)
+     Data: article_data/influxdb3/cloud-dedicated/data-api/  (segments 0, 1, 3 — skip "api")
+     URL: /influxdb3/core/api/ (3 segments)
+     Data: article_data/influxdb3/core/api/                  (segments 0, 1, 2) */}}
 {{ $articles := slice }}
-{{ if and $dataKey $section }}
-  {{ with site.Data.article_data }}
-    {{ with index . "influxdb" }}
-      {{ with index . $dataKey }}
-        {{ with index . $section }}
-          {{ with index . "articles" }}
-            {{ with .articles }}
-              {{ $articles = . }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
+{{ if ge (len $segments) 4 }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $seg3 := index $segments 3 }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg3 "articles" "articles" }}
+    {{ $articles = . }}
+  {{ end }}
+{{ end }}
+{{ if and (eq (len $articles) 0) (ge (len $segments) 3) }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $seg2 := index $segments 2 }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg2 "articles" "articles" }}
+    {{ $articles = . }}
   {{ end }}
 {{ end }}
 
@@ -121,9 +128,6 @@
       {{ range $sortV3 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
-        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
         {{ $tagSlug := path.Base $articlePath }}
         {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
@@ -145,9 +149,6 @@
       {{ range $sortV2 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
-        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
         {{ $tagSlug := path.Base $articlePath }}
         {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
@@ -170,9 +171,6 @@
       {{ range $sortV1 }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
-        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
         {{ $tagSlug := path.Base $articlePath }}
         {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}
@@ -201,9 +199,6 @@
       {{ range $sortOther }}
         {{ $op := .data.op }}
         {{ $articlePath := .data.articlePath }}
-        {{/* Build tag page URL with hash anchor: operation/{operationId} */}}
-        {{/* Build tag page URL relative to the section (parent of all-endpoints) */}}
-        {{ $sectionUrl := $currentPage.Parent.RelPermalink }}
         {{ $tagSlug := path.Base $articlePath }}
         {{ $tagPageUrl := printf "%s%s/" $sectionUrl $tagSlug }}
         {{ $hashAnchor := printf "#operation/%s" $op.operationId }}

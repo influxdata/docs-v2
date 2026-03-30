@@ -9,20 +9,18 @@
 
 // Content wrapper becomes flex container when used with API content
 // Override overflow:hidden from _content-wrapper.scss to enable sticky positioning
-// Widen to compensate for the API TOC so article content matches regular pages
 .content-wrapper.api-content {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   overflow: visible; // Required for sticky TOC to work
-  width: calc(75% + 200px);
-  max-width: calc(100% - 2rem);
 }
 
 // Main API content area (center column)
 .api-main {
   flex: 1;
   min-width: 0; // Prevent flex item from overflowing
+  max-width: 900px; // Cap content width so TOC stays adjacent, not at far right
   padding-right: 1rem;
 }
 
@@ -132,6 +130,32 @@
       font-size: 0.75rem;
       word-break: break-all;
       color: inherit;
+    }
+  }
+
+  // Hugo-rendered operation links (direct in nav, no list wrapper)
+  &-nav > .api-toc-link--operation {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: rgba($b-pool, 0.08);
+    }
+
+    .api-method--small {
+      font-size: 0.65rem;
+      padding: 0.125rem 0.375rem;
+      flex-shrink: 0;
+    }
+
+    .api-toc-summary {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.8rem;
     }
   }
 }
@@ -491,6 +515,22 @@
   width: 100%;
 }
 
+// Action bar below heading: format selector left, download button right
+.api-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .format-selector {
+    margin-left: 0;
+  }
+
+  .api-spec-download {
+    margin-left: auto;
+  }
+}
+
 // Download OpenAPI spec button
 .api-spec-actions {
   flex-shrink: 0;
@@ -730,7 +770,6 @@
 @include media(large) {
   .content-wrapper.api-content {
     flex-direction: column;
-    width: 75%; // Reset to default when TOC is hidden
   }
 
   .api-toc {
@@ -783,3 +822,4 @@
     border-left: none;
   }
 }
+

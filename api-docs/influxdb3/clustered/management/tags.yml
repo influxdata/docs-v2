@@ -26,7 +26,56 @@ tags:
   Quick start:
     x-traitTag: true
     description: |
-      Get started creating a database, issuing tokens, and writing data with the InfluxDB 3 Clustered Management API.
+      Use the InfluxDB 3 Clustered Management API to create databases, issue
+      database tokens, and configure your cluster programmatically.
+
+      **Prerequisites**: A management token. Generate one with `influxctl`:
+
+      ```bash
+      influxctl management create --format=json
+      ```
+
+      Set an environment variable for the examples below:
+
+      ```bash
+      export MANAGEMENT_TOKEN="MANAGEMENT_TOKEN"
+      ```
+
+      1. List databases in your cluster.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/databases" \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}"
+         ```
+
+      2. Create a database.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/databases" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{"name": "sensors"}'
+         ```
+
+      3. Create a database token with read and write access.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/tokens" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{
+             "description": "Read/write token for sensors",
+             "permissions": [
+               {"action": "read", "resource": "sensors"},
+               {"action": "write", "resource": "sensors"}
+             ]
+           }'
+         ```
+
+      Use the database token returned in step 3 to authenticate writes and queries
+      to the [Data API](#operation/PostWrite).
     externalDocs:
       description: Get started with Clustered
       url: /influxdb3/clustered/get-started/

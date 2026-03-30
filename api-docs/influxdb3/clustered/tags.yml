@@ -51,11 +51,38 @@ tags:
   Common parameters:
     x-traitTag: true
     description: |
-      Common query parameters used by InfluxDB 3 Clustered API endpoints, including the required `database` or `db` parameter.
+      Most InfluxDB API endpoints require parameters in the request — for example,
+      specifying the database to write to or query from.
+
+      ### Common parameters
+
+      The following table shows common parameters used by many InfluxDB 3 Clustered
+      API endpoints.
+      Some endpoints require additional parameters in the query string or request body.
+
+      | Query parameter | Value type | Description                                       |
+      |:--------------- |:---------- |:--------------------------------------------------|
+      | `db`            | string     | The database name (v1 and v3 endpoints)           |
+      | `bucket`        | string     | The database name (v2 `/api/v2/write` endpoint)   |
+      | `org`           | string     | Ignored; included for v2 client compatibility     |
+      | `precision`     | string     | Timestamp precision for writes (`ns`, `us`, `ms`, `s`) |
+      | `epoch`         | string     | Timestamp precision for query responses (`ns`, `u`, `ms`, `s`, `m`, `h`) |
   Headers:
     x-traitTag: true
     description: |
-      Standard HTTP request headers used by InfluxDB 3 Clustered API endpoints, including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB 3 Clustered
+      API endpoints.
+      Some endpoints use additional headers specific to their function — for example,
+      write endpoints accept `Content-Encoding` to indicate that line protocol
+      is compressed in the request body.
+
+      | Header           | Value type | Description                                        |
+      |:---------------- |:---------- |:---------------------------------------------------|
+      | `Accept`         | string     | The content type that the client can understand.   |
+      | `Authorization`  | string     | The authorization scheme and credential.           |
+      | `Content-Length` | integer    | The size of the entity-body, in bytes.             |
+      | `Content-Type`   | string     | The format of the data in the request body.        |
   Ping:
     description: |
       Check the availability of an InfluxDB 3 Clustered instance.
@@ -73,19 +100,82 @@ tags:
   Quick start:
     x-traitTag: true
     description: |
-      Get started authenticating, creating a database, and writing and querying data with the InfluxDB 3 Clustered API.
+      Authenticate, write, and query with the InfluxDB 3 Clustered API.
+
+      **Prerequisites**: A database token with write permission for the target database.
+      Use the Management API or `influxctl` to create tokens before writing data.
+
+      1. Check that the instance is available.
+
+         ```bash
+         curl "https://cluster-host.example.com/ping"
+         ```
+
+         A `204 No Content` response indicates the querier is available.
+
+      2. Write data to InfluxDB.
+
+         ```bash
+         curl "https://cluster-host.example.com/api/v2/write?bucket=sensors&precision=ns" \
+           --header "Authorization: Bearer DATABASE_TOKEN" \
+           --header "Content-Type: text/plain; charset=utf-8" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. Query data from InfluxDB using InfluxQL.
+
+         ```bash
+         curl "https://cluster-host.example.com/query" \
+           --get \
+           --header "Authorization: Bearer DATABASE_TOKEN" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "epoch=ns"
+         ```
+
+      For SQL queries and Arrow-format output, use the Flight+gRPC protocol.
+      For more information, see the [get started](/influxdb3/clustered/get-started/) guide.
   Response codes:
     x-traitTag: true
     description: |
-      Standard HTTP status codes returned by InfluxDB 3 Clustered API endpoints and their meanings.
+      InfluxDB 3 Clustered API endpoints return standard HTTP status codes.
+
+      | Status code              | Description                                                                                 |
+      |:------------------------ |:------------------------------------------------------------------------------------------- |
+      | `200 OK`                 | Request succeeded. Response body contains the requested data.                               |
+      | `204 No Content`         | Request succeeded. No response body (common for successful writes).                         |
+      | `400 Bad Request`        | Malformed request — check syntax, query, or line protocol for errors.                       |
+      | `401 Unauthorized`       | Missing or invalid token. Verify the `Authorization` header and token permissions.          |
+      | `403 Forbidden`          | Valid token but insufficient permissions for the requested operation.                       |
+      | `404 Not Found`          | The requested resource does not exist — check the database name and endpoint path.          |
+      | `422 Unprocessable Entity`| The request body is syntactically valid but semantically incorrect.                        |
+      | `429 Too Many Requests`  | Request rate exceeds cluster limits. Retry with exponential backoff.                        |
+      | `500 Internal Server Error`| Server error. If the error persists, contact InfluxData support.                          |
   System information endpoints:
     x-traitTag: true
     description: |
-      Endpoints for retrieving system-level information about the InfluxDB 3 Clustered instance.
+      InfluxDB 3 Clustered provides system endpoints for checking instance
+      availability and retrieving version information.
+
+      | Endpoint       | Method        | Description                                        |
+      |:-------------- |:------------- |:---------------------------------------------------|
+      | `/ping`        | `GET`, `HEAD` | Returns `204` if the querier is available. Response headers include `X-Influxdb-Version` and `X-Influxdb-Build`. Does not require authentication. Checks querier health only; does not check ingesters. |
+
+      To verify ingester availability before writing data, send a request to one
+      of the [write endpoints](#operation/PostWrite).
   Usage:
     x-traitTag: true
     description: |
-      Retrieve usage metrics for an InfluxDB 3 Clustered instance.
+      InfluxDB 3 Clustered tracks storage usage for your cluster.
+      The Usage endpoints let you retrieve stored data size metrics
+      to monitor capacity consumption.
+
+      Usage data is available at the cluster and database level.
+      Queries return storage size in bytes for the data stored in your cluster
+      at the time of the request.
   Write data:
     description: |
       Write time series data to InfluxDB 3 Clustered databases using the v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write` endpoint with line protocol.
