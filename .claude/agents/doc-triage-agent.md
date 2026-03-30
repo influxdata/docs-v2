@@ -61,6 +61,26 @@ Apply during triage only if:
 - The content change could affect shared content used by many products
 - The issue requires domain expertise the agent doesn't have
 
+## Search & Analysis Rules
+
+**Local-first**: Use Grep, Glob, and Read for all content inventory and analysis.
+Never use WebFetch, WebSearch, or external tools for tasks that involve searching
+this repository's files.
+
+**Worktree-aware**: Always use file paths relative to your current working
+directory. Never resolve paths to the main clone
+(`docs-v2/` without `.claude/worktrees/`). The working directory IS the repo root.
+
+**Shared content**: Most InfluxDB 3 content lives in `content/shared/influxdb3-*/`
+and is referenced by both Core and Enterprise pages via `source:` frontmatter.
+When investigating InfluxDB 3 content, always search these directories:
+- `content/shared/influxdb3-*/` (actual content)
+- `content/influxdb3/core/` (frontmatter stubs)
+- `content/influxdb3/enterprise/` (frontmatter stubs)
+
+**Parallel search**: When searching across multiple product directories, run
+Grep/Glob calls in parallel (one per directory) rather than sequentially.
+
 ## Triage Workflow
 
 1. Read the issue/PR title and body

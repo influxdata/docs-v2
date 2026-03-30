@@ -122,29 +122,21 @@ function expandAccordions() {
 
   // Expand accordions on load based on URL anchor
   function openAccordionByHash() {
-    var hash = window.location.hash;
-    if (!hash || hash.length <= 1) return;
-
-    // Use native DOM method to handle special characters in IDs (like /)
-    var id = hash.substring(1); // Remove leading #
-    var anchorElement = document.getElementById(id);
-    if (!anchorElement) return;
-
-    var $anchor = $(anchorElement);
+    var anchor = window.location.hash.split('?')[0];
 
     function expandElement() {
-      if ($anchor.parents('.expand').length > 0) {
-        return $anchor.closest('.expand').children('.expand-label');
-      } else if ($anchor.hasClass('expand')) {
-        return $anchor.children('.expand-label');
+      if ($(anchor).parents('.expand').length > 0) {
+        return $(anchor).closest('.expand').children('.expand-label');
+      } else if ($(anchor).hasClass('expand')) {
+        return $(anchor).children('.expand-label');
       }
-      return null;
     }
 
-    var $expandLabel = expandElement();
-    if ($expandLabel != null) {
-      if (!$expandLabel.children('.expand-toggle').hasClass('open')) {
-        $expandLabel.children('.expand-toggle').trigger('click');
+    if (expandElement() != null) {
+      if (expandElement().children('.expand-toggle').hasClass('open')) {
+        // Do nothing?
+      } else {
+        expandElement().children('.expand-toggle').trigger('click');
       }
     }
   }

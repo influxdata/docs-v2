@@ -7,6 +7,8 @@ menu:
     parent: influxdb3
     name: influxdb3 serve
 weight: 300
+aliases:
+  - /influxdb3/enterprise/reference/clis/influxdb3/serve/
 related:
   - /influxdb3/enterprise/reference/config-options/
 ---

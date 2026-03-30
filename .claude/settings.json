@@ -36,6 +36,19 @@
       "Bash(awk:*)",
       "Bash(touch:*)",
       "Bash(docker:*)",
+      "Bash(git:*)",
+      "Bash(fzf:*)",
+      "Bash(sleep:*)",
+      "Bash(date:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(diff:*)",
+      "Bash(tr:*)",
+      "Bash(cut:*)",
+      "Bash(sed:*)",
+      "Bash(tee:*)",
+      "Bash(xargs:*)",
       "Edit",
       "Read",
       "Write",
@@ -57,6 +70,67 @@
       "Bash(git push:*)",
       "Bash(rm:*)",
       "Read(/tmp)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/check-worktree-paths.sh",
+            "timeout": 5,
+            "statusMessage": "Checking worktree path safety"
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If this WebFetch or WebSearch is being used to search for or read content that exists in this repository (documentation pages, markdown files, frontmatter, shortcodes, Hugo templates), REJECT — use Grep, Glob, or Read for local content. Only allow WebFetch/WebSearch for truly external resources: GitHub issues/PRs, external APIs, third-party documentation, or URLs the user explicitly provided.",
+            "statusMessage": "Checking local-first search"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Grep|Glob",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If this search targeted content/influxdb3/core/ or content/influxdb3/enterprise/ but did NOT also search content/shared/influxdb3-*/, note that most InfluxDB 3 prose lives in shared content files. Suggest a follow-up search in content/shared/ if results look incomplete or only contain frontmatter stubs."
+          }
+        ]
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile 2>&1 | tail -3",
+            "timeout": 120,
+            "statusMessage": "Installing dependencies in new worktree"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -d node_modules ] && CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile 2>&1 | tail -3 || true",
+            "timeout": 120,
+            "async": true,
+            "statusMessage": "Checking dependencies"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {

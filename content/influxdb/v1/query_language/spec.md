@@ -642,7 +642,7 @@ Executes the specified SELECT statement and returns data on the query performanc
 For example, executing the following statement:
 
 ```sql
-> explain analyze select mean(usage_steal) from cpu where time >= '2018-02-22T00:00:00Z' and time < '2018-02-22T12:00:00Z'
+explain analyze select mean(usage_steal) from cpu where time >= '2018-02-22T00:00:00Z' and time < '2018-02-22T12:00:00Z'
 ```
 
 May produce an output similar to the following:
