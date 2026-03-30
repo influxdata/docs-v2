@@ -25,7 +25,7 @@ alt_links:
 - Add TLS certificate reloading on `SIGHUP`.
 - Add `config` and `cq` (continuous query) diagnostics to the `/debug/vars` endpoint.
 - Improve dropped point logging.
-- Show user when displaying or logging queries.
+- [Show user when displaying or logging queries](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries).
 - Add `time_format` parameter for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
 - Report user query bytes.
