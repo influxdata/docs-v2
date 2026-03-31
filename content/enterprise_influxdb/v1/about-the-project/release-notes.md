@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Enterprise v1 release notes
 description: >
-  Important changes and what's new in each version InfluxDB Enterprise v1.
+  Changes and updates to InfluxDB Enterprise v1.
 menu:
   enterprise_influxdb_v1_ref:
     name: Release notes
@@ -14,6 +14,38 @@ alt_links:
 <span id="v1.12.x"></span>
 
 ## v1.12.3 {date="2026-03-31"}
+
+InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
+and I/O usage, particularly in high-cardinality and large-scale environments.
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.3
+>
+> If you’re using any previous version of InfluxDB Enterprise v1, we strongly
+> recommend [upgrading to 1.12.3](/enterprise_influxdb/v1/administration/upgrading/).
+
+Highlights include:
+
+- **Faster retention enforcement:** TSI series deletion now uses batched `fsync`,
+  delivering **10x–100x speed improvements** for high-cardinality datasets.  
+- **Reduced CPU usage during compaction:** Improvements to compaction planning
+  (including filename generation and level caching) can reduce CPU usage by
+  **up to 30%**.  
+- **Significantly faster backups:** New configurable compression enables
+  **up to 5x faster backup performance**.  
+- **Lower I/O during compaction:** Cold shard compactions now use
+  **up to 3x less disk I/O**, and unnecessary work for purging replaced files
+  has been eliminated.
+
+These improvements combine to make InfluxDB Enterprise v1 clusters more
+efficient, more predictable under load, and more cost-effective to operate.
+
+Other updates include:
+
+- Stability and reliability improvements
+- Enhanced security and TLS management
+- Improved operational visibility
+- Improved cluster management tools
 
 > [!Important]
 > #### Upgrade meta nodes first
