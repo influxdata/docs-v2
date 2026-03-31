@@ -49,7 +49,7 @@
 <title>Influx Query Language (InfluxQL) reference | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.">
+    <meta name="description" content="Reference for Influx Query Language (InfluxQL).">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/light-theme.7187ec916dec36c0eb985870c16336abb1a45751b9de0d282adca6eaf02abe14.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/light-theme.bd9eb8e986048ec2ab172c75de9662858b949c77c74ab2ac5661016f160053be.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.b3a8ef60ebd199a0faa15cafe8348d73875cf6152e056e32f98e114b8b5c2ace.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.7848f1471d74a77b1ce8305b8eee411db9d35bdb5baf287610f5890c819ba1f6.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-14 15:40:43 -0500 -0500">
+<meta name="last-modified" content="2026-03-18 16:09:00 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -466,7 +466,7 @@
   
   
   
-  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">alpha</span></a>
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
 </li>
       </ul>
     </div>
@@ -2339,30 +2339,40 @@
 
 
 
-  <p>InfluxQL is a SQL-like query language for interacting with InfluxDB
+  <h2 id="introduction">Introduction</h2>
+<p>InfluxQL is a SQL-like query language for interacting with InfluxDB
 and providing features specific to storing and analyzing time series data.</p>
+<p>Find Influx Query Language (InfluxQL) definitions and details, including:</p>
 <ul>
-<li><a href="#notation">Notation</a></li>
-<li><a href="#query-representation">Query representation</a>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#notation">Notation</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#query-representation">Query representation</a>
 <ul>
-<li><a href="#characters">Characters</a></li>
-<li><a href="#letters-and-digits">Letters and digits</a></li>
-<li><a href="#identifiers">Identifiers</a></li>
-<li><a href="#keywords">Keywords</a></li>
-<li><a href="#literals">Literals</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#characters">Characters</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#letters-and-digits">Letters and digits</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#identifiers">Identifiers</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#keywords">Keywords</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#literals">Literals</a></li>
 </ul>
 </li>
-<li><a href="#queries">Queries</a></li>
-<li><a href="#statements">Statements</a></li>
-<li><a href="#clauses">Clauses</a></li>
-<li><a href="#expressions">Expressions</a></li>
-<li><a href="#comments">Comments</a></li>
-<li><a href="#other">Other</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#queries">Queries</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#statements">Statements</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#clauses">Clauses</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#expressions">Expressions</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#comments">Comments</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#other">Other</a></li>
+</ul>
+<p>To learn more about InfluxQL, browse the following topics:</p>
+<ul>
+<li><a href="/enterprise_influxdb/v1/query_language/explore-data/">Explore your data with InfluxQL</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/explore-schema/">Explore your schema with InfluxQL</a></li>
+<li><a href="/enterprise_influxdb/v1/query_language/manage-database/">Database management</a></li>
+<li><a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/">Authentication and authorization</a>.</li>
+<li><a href="/enterprise_influxdb/v1/query_language/spec/#query-engine-internals">Query engine internals</a></li>
 </ul>
 <h2 id="notation">Notation</h2>
 <p>The syntax is specified using Extended Backus-Naur Form (&ldquo;EBNF&rdquo;).
-EBNF is the same notation used in the <a href="https://golang.org/ref/spec">Go programming language specification</a>.</p>
-
+EBNF is the same notation used in the <a href="http://golang.org">Go</a> programming language specification,
+which can be found <a href="https://golang.org/ref/spec">here</a>.</p>
 
 <pre tabindex="0"><code>Production  = production_name &#34;=&#34; [ Expression ] &#34;.&#34; .
 Expression  = Alternative { &#34;|&#34; Alternative } .
@@ -2371,53 +2381,53 @@ Term        = production_name | token [ &#34;…&#34; token ] | Group | Option |
 Group       = &#34;(&#34; Expression &#34;)&#34; .
 Option      = &#34;[&#34; Expression &#34;]&#34; .
 Repetition  = &#34;{&#34; Expression &#34;}&#34; .</code></pre>
-<p>Notation operators in order of increasing precedence:</p>
 
+<p>Notation operators in order of increasing precedence:</p>
 
 <pre tabindex="0"><code>|   alternation
 ()  grouping
 []  option (0 or 1 times)
 {}  repetition (0 to n times)</code></pre>
+
 <h2 id="query-representation">Query representation</h2>
 <h3 id="characters">Characters</h3>
 <p>InfluxQL is Unicode text encoded in <a href="http://en.wikipedia.org/wiki/UTF-8">UTF-8</a>.</p>
 
-
 <pre tabindex="0"><code>newline             = /* the Unicode code point U+000A */ .
 unicode_char        = /* an arbitrary Unicode code point except newline */ .</code></pre>
+
 <h3 id="letters-and-digits">Letters and digits</h3>
 <p>Letters are the set of ASCII characters plus the underscore character _ (U+005F) is considered a letter.</p>
 <p>Only decimal digits are supported.</p>
 
-
 <pre tabindex="0"><code>letter              = ascii_letter | &#34;_&#34; .
 ascii_letter        = &#34;A&#34; … &#34;Z&#34; | &#34;a&#34; … &#34;z&#34; .
 digit               = &#34;0&#34; … &#34;9&#34; .</code></pre>
+
 <h3 id="identifiers">Identifiers</h3>
 <p>Identifiers are tokens which refer to <a href="/enterprise_influxdb/v1/concepts/glossary/#database">database</a> names, <a href="/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a> names, <a href="/enterprise_influxdb/v1/concepts/glossary/#user">user</a> names, <a href="/enterprise_influxdb/v1/concepts/glossary/#measurement">measurement</a> names, <a href="/enterprise_influxdb/v1/concepts/glossary/#tag-key">tag keys</a>, and <a href="/enterprise_influxdb/v1/concepts/glossary/#field-key">field keys</a>.</p>
 <p>The rules:</p>
 <ul>
 <li>double quoted identifiers can contain any unicode character other than a new line</li>
 <li>double quoted identifiers can contain escaped <code>&quot;</code> characters (i.e., <code>\&quot;</code>)</li>
-<li>double quoted identifiers can contain InfluxQL <a href="#keywords">keywords</a></li>
+<li>double quoted identifiers can contain InfluxQL <a href="/enterprise_influxdb/v1/query_language/spec/#keywords">keywords</a></li>
 <li>unquoted identifiers must start with an upper or lowercase ASCII character or &ldquo;_&rdquo;</li>
 <li>unquoted identifiers may contain only ASCII letters, decimal digits, and &ldquo;_&rdquo;</li>
 </ul>
 
-
 <pre tabindex="0"><code>identifier          = unquoted_identifier | quoted_identifier .
 unquoted_identifier = ( letter ) { letter | digit } .
 quoted_identifier   = `&#34;` unicode_char { unicode_char } `&#34;` .</code></pre>
-<h4 id="examples">Examples</h4>
 
+<h4 id="examples">Examples</h4>
 
 <pre tabindex="0"><code>cpu
 _cpu_stats
 &#34;1h&#34;
 &#34;anything really&#34;
 &#34;1_Crazy-1337.identifier&gt;NAME👍&#34;</code></pre>
-<h3 id="keywords">Keywords</h3>
 
+<h3 id="keywords">Keywords</h3>
 
 <pre tabindex="0"><code>ALL           ALTER         ANY           AS            ASC           BEGIN
 BY            CREATE        CONTINUOUS    DATABASE      DATABASES     DEFAULT
@@ -2432,7 +2442,8 @@ RESAMPLE      RETENTION     REVOKE        SELECT        SERIES        SET
 SHARD         SHARDS        SLIMIT        SOFFSET       STATS         SUBSCRIPTION
 SUBSCRIPTIONS TAG           TO            USER          USERS         VALUES
 WHERE         WITH          WRITE</code></pre>
-<p>If you use an InfluxQL keyword as an
+
+<p>If you use an InfluxQL keywords as an
 <a href="/enterprise_influxdb/v1/concepts/glossary/#identifier">identifier</a> you will need to
 double quote that identifier in every query.</p>
 <p>The keyword <code>time</code> is a special case.
@@ -2447,26 +2458,26 @@ In those cases, <code>time</code> does not require double quotes in queries.
 <code>time</code> cannot be a <a href="/enterprise_influxdb/v1/concepts/glossary/#field-key">field key</a> or
 <a href="/enterprise_influxdb/v1/concepts/glossary/#tag-key">tag key</a>;
 InfluxDB rejects writes with <code>time</code> as a field key or tag key and returns an error.
-For more information, see <a href="/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#time">Frequently Asked Questions</a>.</p>
+See <a href="/enterprise_influxdb/v1/troubleshooting/frequently-asked-questions/#time">Frequently Asked Questions</a> for more information.</p>
 <h3 id="literals">Literals</h3>
 <h4 id="integers">Integers</h4>
 <p>InfluxQL supports decimal integer literals.
 Hexadecimal and octal literals are not currently supported.</p>
 
-
 <pre tabindex="0"><code>int_lit             = ( &#34;1&#34; … &#34;9&#34; ) { digit } .</code></pre>
+
 <h4 id="floats">Floats</h4>
 <p>InfluxQL supports floating-point literals.
 Exponents are not currently supported.</p>
 
-
 <pre tabindex="0"><code>float_lit           = int_lit &#34;.&#34; int_lit .</code></pre>
+
 <h4 id="strings">Strings</h4>
 <p>String literals must be surrounded by single quotes.
 Strings may contain <code>'</code> characters as long as they are escaped (i.e., <code>\'</code>).</p>
 
-
 <pre tabindex="0"><code>string_lit          = `&#39;` { unicode_char } `&#39;` .</code></pre>
+
 <h4 id="durations">Durations</h4>
 <p>Duration literals specify a length of time.
 An integer literal followed immediately (with no spaces) by a duration unit listed below is interpreted as a duration literal.
@@ -2515,25 +2526,25 @@ Durations can be specified with mixed units.</p>
   </tbody>
 </table>
 
-
 <pre tabindex="0"><code>duration_lit        = int_lit duration_unit .
 duration_unit       = &#34;ns&#34; | &#34;u&#34; | &#34;µ&#34; | &#34;ms&#34; | &#34;s&#34; | &#34;m&#34; | &#34;h&#34; | &#34;d&#34; | &#34;w&#34; .</code></pre>
+
 <h4 id="dates--times">Dates &amp; Times</h4>
 <p>The date and time literal format is not specified in EBNF like the rest of this document.
 It is specified using Go&rsquo;s date / time parsing format, which is a reference date written in the format required by InfluxQL.
 The reference date time is:</p>
 <p>InfluxQL reference date time: January 2nd, 2006 at 3:04:05 PM</p>
 
-
 <pre tabindex="0"><code>time_lit            = &#34;2006-01-02 15:04:05.999999&#34; | &#34;2006-01-02&#34; .</code></pre>
+
 <h4 id="booleans">Booleans</h4>
 
-
 <pre tabindex="0"><code>bool_lit            = TRUE | FALSE .</code></pre>
+
 <h4 id="regular-expressions">Regular Expressions</h4>
 
-
 <pre tabindex="0"><code>regex_lit           = &#34;/&#34; { unicode_char } &#34;/&#34; .</code></pre>
+
 <p><strong>Comparators:</strong>
 <code>=~</code> matches against
 <code>!~</code> doesn&rsquo;t match against</p>
@@ -2553,11 +2564,10 @@ The reference date time is:</p>
 non-string field values in the
 <code>WHERE</code> clause,
 <a href="/enterprise_influxdb/v1/concepts/glossary/#database">databases</a>, and
-<a href="/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp">retention policies</a>.</p>
+<a href="/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp">retention polices</a>.</p>
 </div>
 <h2 id="queries">Queries</h2>
 <p>A query is composed of one or more statements separated by a semicolon.</p>
-
 
 <pre tabindex="0"><code>query               = statement { &#34;;&#34; statement } .
 
@@ -2606,31 +2616,26 @@ statement           = alter_retention_policy_stmt |
                       show_tag_values_stmt |
                       show_tag_values_cardinality_stmt |
                       show_users_stmt .</code></pre>
+
 <h2 id="statements">Statements</h2>
 <h3 id="alter-retention-policy">ALTER RETENTION POLICY</h3>
-
 
 <pre tabindex="0"><code>alter_retention_policy_stmt  = &#34;ALTER RETENTION POLICY&#34; policy_name on_clause
                                retention_policy_option
                                [ retention_policy_option ]
                                [ retention_policy_option ]
-                               [ retention_policy_option ]
-                               [ retention_policy_option ]
                                [ retention_policy_option ] .</code></pre>
-<h4 id="examples-1">Examples</h4>
 
+<h4 id="examples-1">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Set default retention policy for mydb to 1h.cpu.
 </span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;1h.cpu&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- Change duration and replication factor.
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- REPLICATION (replication factor) not valid for OSS instances.
-</span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;policy1&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">1</span><span class="n">h</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">-- Change future and past limits.
-</span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;policy1&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span></span></span></code></pre></div>
-<h3 id="create-continuous-query">CREATE CONTINUOUS QUERY</h3>
+</span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;policy1&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">1</span><span class="n">h</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">4</span></span></span></code></pre></div>
 
+<h3 id="create-continuous-query">CREATE CONTINUOUS QUERY</h3>
 
 <pre tabindex="0"><code>create_continuous_query_stmt = &#34;CREATE CONTINUOUS QUERY&#34; query_name on_clause
                                [ &#34;RESAMPLE&#34; resample_opts ]
@@ -2641,8 +2646,8 @@ query_name                   = identifier .
 resample_opts                = (every_stmt for_stmt | every_stmt | for_stmt) .
 every_stmt                   = &#34;EVERY&#34; duration_lit
 for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
-<h4 id="examples-2">Examples</h4>
 
+<h4 id="examples-2">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- selects from DEFAULT retention policy and writes into 6_months retention policy
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;10m_event_count&#34;</span><span class="w">
@@ -2675,24 +2680,19 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">END</span><span class="p">;</span></span></span></code></pre></div>
-<h3 id="create-database">CREATE DATABASE</h3>
 
+<h3 id="create-database">CREATE DATABASE</h3>
 
 <pre tabindex="0"><code>create_database_stmt = &#34;CREATE DATABASE&#34; db_name
                        [ WITH
                            [ retention_policy_duration ]
                            [ retention_policy_replication ]
-                           [ retention_policy_shard_group_duration ]
-                           [ retention_future_limit ]
                            [ retention_past_limit ]
+                           [ retention_future_limit ]
+                           [ retention_policy_shard_group_duration ]
                            [ retention_policy_name ]
                        ] .</code></pre>
 
-<div class="block note">
-  
-  
-  <p>When using both <code>FUTURE LIMIT</code> and <code>PAST LIMIT</code> clauses, <code>FUTURE LIMIT</code> must appear before <code>PAST LIMIT</code>.</p>
-</div>
 
 <div class="block warning">
   
@@ -2700,7 +2700,6 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
   <p>Replication factors do not serve a purpose with single node instances.</p>
 </div>
 <h4 id="examples-3">Examples</h4>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Create a database called foo
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;foo&#34;</span><span class="w">
@@ -2714,24 +2713,19 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="s2">&#34;myrp&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- Create a database called bar with a new retention policy named &#34;myrp&#34;, and
-</span></span></span><span class="line"><span class="cl"><span class="c1">-- specify the duration, future and past limits, and name of that retention policy
-</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;bar&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">1</span><span class="n">d</span><span class="w"> </span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="s2">&#34;myrp&#34;</span></span></span></code></pre></div>
-<h3 id="create-retention-policy">CREATE RETENTION POLICY</h3>
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- specify the duration, past and future limits, and name of that retention policy
+</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;bar&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">1</span><span class="n">d</span><span class="w"> </span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="s2">&#34;myrp&#34;</span></span></span></code></pre></div>
 
+<h3 id="create-retention-policy">CREATE RETENTION POLICY</h3>
 
 <pre tabindex="0"><code>create_retention_policy_stmt = &#34;CREATE RETENTION POLICY&#34; policy_name on_clause
                                retention_policy_duration
                                retention_policy_replication
                                [ retention_policy_shard_group_duration ]
-                               [ retention_future_limit ]
                                [ retention_past_limit ]
+                               [ retention_future_limit ]
                                [ &#34;DEFAULT&#34; ] .</code></pre>
 
-<div class="block note">
-  
-  
-  <p>When using both <code>FUTURE LIMIT</code> and <code>PAST LIMIT</code> clauses, <code>FUTURE LIMIT</code> must appear before <code>PAST LIMIT</code>.</p>
-</div>
 
 <div class="block warning">
   
@@ -2739,7 +2733,6 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
   <p>Replication factors do not serve a purpose with single node instances.</p>
 </div>
 <h4 id="examples-4">Examples</h4>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Create a retention policy.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;10m.events&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">60</span><span class="n">m</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">2</span><span class="w">
@@ -2750,28 +2743,28 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- Create a retention policy and specify the shard group duration.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;10m.events&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">60</span><span class="n">m</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">SHARD</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">30</span><span class="n">m</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">-- Create a retention policy and specify future and past limits.
-</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;10m.events&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">12</span><span class="n">h</span><span class="w"> </span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span></span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- Create a retention policy and specify past and future limits.
+</span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;10m.events&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;somedb&#34;</span><span class="w"> </span><span class="n">DURATION</span><span class="w"> </span><span class="mi">12</span><span class="n">h</span><span class="w"> </span><span class="n">PAST</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span><span class="w"> </span><span class="n">FUTURE</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="n">h</span></span></span></code></pre></div>
+
 <h3 id="create-subscription">CREATE SUBSCRIPTION</h3>
 <p>Subscriptions tell InfluxDB to send all the data it receives to <a href="/kapacitor/v1/introduction/">Kapacitor</a>.</p>
 
-
 <pre tabindex="0"><code>create_subscription_stmt = &#34;CREATE SUBSCRIPTION&#34; subscription_name &#34;ON&#34; db_name &#34;.&#34; retention_policy &#34;DESTINATIONS&#34; (&#34;ANY&#34;|&#34;ALL&#34;) host { &#34;,&#34; host} .</code></pre>
-<h4 id="examples-5">Examples</h4>
 
+<h4 id="examples-5">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Create a SUBSCRIPTION on database &#39;mydb&#39; and retention policy &#39;autogen&#39; that send data to &#39;example.com:9090&#39; via UDP.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">SUBSCRIPTION</span><span class="w"> </span><span class="s2">&#34;sub0&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="w"> </span><span class="n">DESTINATIONS</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="s1">&#39;udp://example.com:9090&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- Create a SUBSCRIPTION on database &#39;mydb&#39; and retention policy &#39;autogen&#39; that round robins the data to &#39;h1.example.com:9090&#39; and &#39;h2.example.com:9090&#39;.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="n">SUBSCRIPTION</span><span class="w"> </span><span class="s2">&#34;sub0&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="w"> </span><span class="n">DESTINATIONS</span><span class="w"> </span><span class="k">ANY</span><span class="w"> </span><span class="s1">&#39;udp://h1.example.com:9090&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;udp://h2.example.com:9090&#39;</span></span></span></code></pre></div>
-<h3 id="create-user">CREATE USER</h3>
 
+<h3 id="create-user">CREATE USER</h3>
 
 <pre tabindex="0"><code>create_user_stmt = &#34;CREATE USER&#34; user_name &#34;WITH PASSWORD&#34; password
                    [ &#34;WITH ALL PRIVILEGES&#34; ] .</code></pre>
-<h4 id="examples-6">Examples</h4>
 
+<h4 id="examples-6">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Create a normal database user.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;1337password&#39;</span><span class="w">
@@ -2780,58 +2773,59 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- Note: Unlike the GRANT statement, the &#34;PRIVILEGES&#34; keyword is required here.
 </span></span></span><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;1337password&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span></span></span></code></pre></div>
 
+
 <blockquote>
 <p><strong>Note:</strong> The password string must be wrapped in single quotes.</p>
 
 </blockquote>
 <h3 id="delete">DELETE</h3>
 
-
 <pre tabindex="0"><code>delete_stmt = &#34;DELETE&#34; ( from_clause | where_clause | from_clause where_clause ) .</code></pre>
-<h4 id="examples-7">Examples</h4>
 
+<h4 id="examples-7">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2000-01-01T00:00:00Z&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2000-01-01T00:00:00Z&#39;</span></span></span></code></pre></div>
+
 <h3 id="drop-continuous-query">DROP CONTINUOUS QUERY</h3>
 
-
 <pre tabindex="0"><code>drop_continuous_query_stmt = &#34;DROP CONTINUOUS QUERY&#34; query_name on_clause .</code></pre>
+
 <h4 id="example">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="s2">&#34;myquery&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span></span></span></code></pre></div>
+
 <h3 id="drop-database">DROP DATABASE</h3>
 
-
 <pre tabindex="0"><code>drop_database_stmt = &#34;DROP DATABASE&#34; db_name .</code></pre>
+
 <h4 id="example-1">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span></span></span></code></pre></div>
+
 <h3 id="drop-measurement">DROP MEASUREMENT</h3>
 
-
 <pre tabindex="0"><code>drop_measurement_stmt = &#34;DROP MEASUREMENT&#34; measurement .</code></pre>
-<h4 id="examples-8">Examples</h4>
 
+<h4 id="examples-8">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- drop the cpu measurement
 </span></span></span><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span></span></span></code></pre></div>
+
 <h3 id="drop-retention-policy">DROP RETENTION POLICY</h3>
 
-
 <pre tabindex="0"><code>drop_retention_policy_stmt = &#34;DROP RETENTION POLICY&#34; policy_name on_clause .</code></pre>
-<h4 id="example-2">Example</h4>
 
+<h4 id="example-2">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- drop the retention policy named 1h.cpu from mydb
 </span></span></span><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICY</span><span class="w"> </span><span class="s2">&#34;1h.cpu&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span></span></span></code></pre></div>
+
 <h3 id="drop-series">DROP SERIES</h3>
 
-
 <pre tabindex="0"><code>drop_series_stmt = &#34;DROP SERIES&#34; ( from_clause | where_clause | from_clause where_clause ) .</code></pre>
+
 
 <blockquote>
 <p><em><strong>Note:</strong></em> Filtering by time is not supported in the <code>WHERE</code> clause.</p>
@@ -2839,32 +2833,32 @@ for_stmt                     = &#34;FOR&#34; duration_lit</code></pre>
 </blockquote>
 <h4 id="example-3">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;telegraf&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="p">.</span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cpu8&#39;</span></span></span></code></pre></div>
+
 <h3 id="drop-shard">DROP SHARD</h3>
 
-
 <pre tabindex="0"><code>drop_shard_stmt = &#34;DROP SHARD&#34; ( shard_id ) .</code></pre>
+
 <h4 id="example-4">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">SHARD</span><span class="w"> </span><span class="mi">1</span></span></span></code></pre></div>
+
 <h3 id="drop-subscription">DROP SUBSCRIPTION</h3>
 
-
 <pre tabindex="0"><code>drop_subscription_stmt = &#34;DROP SUBSCRIPTION&#34; subscription_name &#34;ON&#34; db_name &#34;.&#34; retention_policy .</code></pre>
+
 <h4 id="example-5">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="n">SUBSCRIPTION</span><span class="w"> </span><span class="s2">&#34;sub0&#34;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span></span></span></code></pre></div>
+
 <h3 id="drop-user">DROP USER</h3>
 
-
 <pre tabindex="0"><code>drop_user_stmt = &#34;DROP USER&#34; user_name .</code></pre>
+
 <h4 id="example-6">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span></span></span></code></pre></div>
+
 <h3 id="explain">EXPLAIN</h3>
 <p>Parses and plans the query, and then prints a summary of estimated costs.</p>
 <p>Many SQL engines use the <code>EXPLAIN</code> statement to show join order, join algorithms, and predicate and expression pushdown.
@@ -2881,10 +2875,9 @@ Since InfluxQL does not support joins, the cost of a InfluxQL query is typically
 <li>size of blocks</li>
 </ul>
 
-
 <pre tabindex="0"><code>explain_stmt = &#34;EXPLAIN&#34; select_stmt .</code></pre>
-<h4 id="example-7">Example</h4>
 
+<h4 id="example-7">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">pointReq</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="s2">&#34;_internal&#34;</span><span class="p">.</span><span class="s2">&#34;monitor&#34;</span><span class="p">.</span><span class="s2">&#34;write&#34;</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">hostname</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="n">PLAN</span><span class="w">
@@ -2896,14 +2889,14 @@ Since InfluxQL does not support joins, the cost of a InfluxQL query is typically
 </span></span></span><span class="line"><span class="cl"><span class="nb">NUMBER</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">FILES</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nb">NUMBER</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">BLOCKS</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="k">SIZE</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">BLOCKS</span><span class="p">:</span><span class="w"> </span><span class="mi">931</span></span></span></code></pre></div>
+
 <h3 id="explain-analyze">EXPLAIN ANALYZE</h3>
-<p>Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including <a href="#execution_time">execution time</a> and <a href="#planning_time">planning time</a>, and the <a href="#iterator-type">iterator type</a> and <a href="#cursor-type">cursor type</a>.</p>
+<p>Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including <a href="#execution-time">execution time</a> and <a href="#planning-time">planning time</a>, and the <a href="#iterator-type">iterator type</a> and <a href="#cursor-type">cursor type</a>.</p>
 <p>For example, executing the following statement:</p>
 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">analyze</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">usage_steal</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2018-02-22T00:00:00Z&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2018-02-22T12:00:00Z&#39;</span></span></span></code></pre></div>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">explain</span><span class="w"> </span><span class="k">analyze</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">usage_steal</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2018-02-22T00:00:00Z&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2018-02-22T12:00:00Z&#39;</span></span></span></code></pre></div>
 <p>May produce an output similar to the following:</p>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">EXPLAIN</span><span class="w"> </span><span class="k">ANALYZE</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">---------------
@@ -2937,13 +2930,14 @@ Since InfluxQL does not support joins, the cost of a InfluxQL query is typically
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="err">├──</span><span class="w"> </span><span class="n">boolean_blocks_size_bytes</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="err">└──</span><span class="w"> </span><span class="n">planning_time</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">.</span><span class="mi">805277</span><span class="n">ms</span><span class="o">```</span></span></span></code></pre></div>
 
+
 <blockquote>
 <p>Note: EXPLAIN ANALYZE ignores query output, so the cost of serialization to JSON or CSV is not accounted for.</p>
 
 </blockquote>
-<h4 id="execution_time">execution_time</h4>
+<h5 id="execution_time">execution_time</h5>
 <p>Shows the amount of time the query took to execute, including reading the time series data, performing operations as data flows through iterators, and draining processed data from iterators. Execution time doesn&rsquo;t include the time taken to serialize the output into JSON or other formats.</p>
-<h4 id="planning_time">planning_time</h4>
+<h5 id="planning_time">planning_time</h5>
 <p>Shows the amount of time the query took to plan.
 Planning a query in InfluxDB requires a number of steps. Depending on the complexity of the query, planning can require more work and consume more CPU and memory resources than the executing the query. For example, the number of series keys required to execute a query affects how quickly the query is planned and the required memory.</p>
 <p>First, InfluxDB determines the effective time range of the query and selects the shards to access (in InfluxDB Enterprise, shards may be on remote nodes).
@@ -2954,22 +2948,22 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <li>Enumerate each tag set and create a cursor and iterator for each series key.</li>
 <li>Merge iterators and return the merged result to the query executor.</li>
 </ol>
-<h4 id="iterator-type">iterator type</h4>
+<h5 id="iterator-type">iterator type</h5>
 <p>EXPLAIN ANALYZE supports the following iterator types:</p>
 <ul>
 <li><code>create_iterator</code> node represents work done by the local influxd instance──a complex composition of nested iterators combined and merged to produce the final query output.</li>
 <li>(InfluxDB Enterprise only) <code>remote_iterator</code> node represents work done on remote machines.</li>
 </ul>
-<p>For more information about iterators, see <a href="/influxdb/v1/query_language/spec/#understanding-iterators">Understanding iterators</a>.</p>
-<h4 id="cursor-type">cursor type</h4>
+<p>For more information about iterators, see <a href="#understanding-iterators">Understanding iterators</a>.</p>
+<h5 id="cursor-type">cursor type</h5>
 <p>EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the same data structures and equal CPU and I/O costs, each cursor type is constructed for a different reason and separated in the final output. Consider the following cursor types when tuning a statement:</p>
 <ul>
 <li>cursor_ref:	Reference cursor created for SELECT projections that include a function, such as <code>last()</code> or <code>mean()</code>.</li>
 <li>cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, <code>SELECT foo FROM m</code> or <code>SELECT foo+bar FROM m</code>, where <code>foo</code> and <code>bar</code> are fields.</li>
 <li>cursor_cond: Condition cursor created for fields referenced in a WHERE clause.</li>
 </ul>
-<p>For more information about cursors, see <a href="/influxdb/v1/query_language/spec/#understanding-cursors">Understanding cursors</a>.</p>
-<h4 id="block-types">block types</h4>
+<p>For more information about cursors, see <a href="#understanding-cursors">Understanding cursors</a>.</p>
+<h5 id="block-types">block types</h5>
 <p>EXPLAIN ANALYZE separates storage block types, and reports the total number of blocks decoded and their size (in bytes) on disk. The following block types are supported:</p>
 <p>| <code>float</code>    | 64-bit IEEE-754 floating-point number |
 | <code>integer</code>  | 64-bit signed integer                 |
@@ -2979,69 +2973,76 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 <p>For more information about storage blocks, see <a href="/enterprise_influxdb/v1/concepts/storage_engine/#tsm-files">TSM files</a>.</p>
 <h3 id="grant">GRANT</h3>
 
-<div class="block note">
-  
-  
-  <p>Users can be granted privileges on databases that do not yet exist.</p>
-</div>
+<blockquote>
+<p><strong>NOTE:</strong> Users can be granted privileges on databases that do not yet exist.</p>
 
+</blockquote>
 
 <pre tabindex="0"><code>grant_stmt = &#34;GRANT&#34; privilege [ on_clause ] to_clause .</code></pre>
-<h4 id="examples-9">Examples</h4>
 
+<h4 id="examples-9">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- grant admin privileges
 </span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- grant read access to a database
 </span></span></span><span class="line"><span class="cl"><span class="k">GRANT</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span></span></span></code></pre></div>
+
 <h3 id="kill-query">KILL QUERY</h3>
-<p>Stop a currently-running query.</p>
-<h4 id="syntax">Syntax</h4>
+<p>Stop currently-running query.</p>
+
+<pre tabindex="0"><code>kill_query_statement = &#34;KILL QUERY&#34; query_id .</code></pre>
+
+<p>Where <code>query_id</code> is the query ID, displayed in the <a href="/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a> output as <code>qid</code>.</p>
+
+<blockquote>
+<p><em><strong>InfluxDB Enterprise clusters:</strong></em> To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, <code>myhost:8088</code>),
+available in the <code>SHOW QUERIES</code> output.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"></code></pre></div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">KILL QUERY &lt;query_id&gt; [ON &#34;&lt;host&gt;&#34;]</span></span></code></pre></div>
-<p>Replace the following:</p>
-<ul>
-<li><code>query_id</code>: your query ID (<code>qid</code>) from <a href="/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
-<li><code>host</code>: your TCP host (for example, <code>myhost:8088</code>) from <a href="/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a></li>
-</ul>
-<p>To kill queries on a cluster, specify both the query ID and the TCP host.</p>
-<h4 id="examples-10">Examples</h4>
+</blockquote>
+<p>KILL QUERY <qid> ON &ldquo;<host>&rdquo;</p>
+
+<pre tabindex="0"><code>
+#### Examples
+
+```sql
+-- kill query with qid of 36 on the local host
+KILL QUERY 36</code></pre>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query with qid of 36 on the local host
-</span></span></span><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">36</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
 </span></span></span><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;myhost:8088&#34;</span></span></span></code></pre></div>
+
 <h3 id="revoke">REVOKE</h3>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">revoke_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;REVOKE&#34;</span><span class="w"> </span><span class="n">privilege</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">on_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="s2">&#34;FROM&#34;</span><span class="w"> </span><span class="n">user_name</span><span class="w"> </span><span class="p">.</span></span></span></code></pre></div>
-<h4 id="examples-11">Examples</h4>
 
+<h4 id="examples-10">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- revoke admin privileges from jdoe
 </span></span></span><span class="line"><span class="cl"><span class="k">REVOKE</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- revoke read privileges from jdoe on mydb
 </span></span></span><span class="line"><span class="cl"><span class="k">REVOKE</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span></span></span></code></pre></div>
-<h3 id="select">SELECT</h3>
 
+<h3 id="select">SELECT</h3>
 
 <pre tabindex="0"><code>select_stmt = &#34;SELECT&#34; fields from_clause [ into_clause ] [ where_clause ]
               [ group_by_clause ] [ order_by_clause ] [ limit_clause ]
               [ offset_clause ] [ slimit_clause ] [ soffset_clause ] [ timezone_clause ] .</code></pre>
-<h4 id="examples-12">Examples</h4>
+
+<h4 id="examples-11">Examples</h4>
 <p>Select from all measurements beginning with cpu into the same measurement name in the cpu_1h retention policy</p>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;value&#34;</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;cpu_1h&#34;</span><span class="p">.:</span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">/</span><span class="n">cpu</span><span class="p">.</span><span class="o">*/</span></span></span></code></pre></div>
+
 <p>Select from measurements grouped by the day with a timezone</p>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="s2">&#34;value&#34;</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="mi">1</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">tz</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">)</span></span></span></code></pre></div>
+
 <h3 id="show-cardinality">SHOW CARDINALITY</h3>
 <p>Refers to the group of commands used to estimate or count exactly the cardinality of measurements, series, tag keys, tag key values, and field keys.</p>
 <p>The SHOW CARDINALITY commands are available in two variations: estimated and exact. Estimated values are calculated using sketches and are a safe default for all cardinality sizes. Exact values are counts directly from TSM (Time-Structured Merge Tree) data, but are expensive to run for high cardinality data.  Unless required, use the estimated variety.</p>
@@ -3056,28 +3057,28 @@ Next, for each shard and each measurement, InfluxDB performs the following steps
 </ul>
 <h3 id="show-continuous-queries">SHOW CONTINUOUS QUERIES</h3>
 
-
 <pre tabindex="0"><code>show_continuous_queries_stmt = &#34;SHOW CONTINUOUS QUERIES&#34; .</code></pre>
-<h4 id="example-8">Example</h4>
 
+<h4 id="example-8">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all continuous queries
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">CONTINUOUS</span><span class="w"> </span><span class="n">QUERIES</span></span></span></code></pre></div>
+
 <h3 id="show-databases">SHOW DATABASES</h3>
 
-
 <pre tabindex="0"><code>show_databases_stmt = &#34;SHOW DATABASES&#34; .</code></pre>
-<h4 id="example-9">Example</h4>
 
+<h4 id="example-9">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all databases
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span></span></span></code></pre></div>
+
 <h3 id="show-diagnostics">SHOW DIAGNOSTICS</h3>
 <p>Displays node information, such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.</p>
 <p>For more information on using the <code>SHOW DIAGNOSTICS</code> command, see <a href="/platform/monitoring/influxdata-platform/tools/show-diagnostics/">Using the SHOW DIAGNOSTICS command for monitoring InfluxDB</a>.</p>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">show_diagnostics_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;SHOW DIAGNOSTICS&#34;</span></span></span></code></pre></div>
+
 <h3 id="show-field-key-cardinality">SHOW FIELD KEY CARDINALITY</h3>
 <p>Estimates or counts exactly the cardinality of the field key set for the current database unless a database is specified using the <code>ON &lt;database&gt;</code> option.</p>
 
@@ -3088,38 +3089,38 @@ Filtering by <code>time</code> is only supported when Time Series Index (TSI) is
 
 </blockquote>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">show_field_key_cardinality_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;SHOW FIELD KEY CARDINALITY&#34;</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">on_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">from_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">where_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">group_by_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">limit_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">offset_clause</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="n">show_field_key_exact_cardinality_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;SHOW FIELD KEY EXACT CARDINALITY&#34;</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">on_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">from_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">where_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">group_by_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">limit_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">offset_clause</span><span class="w"> </span><span class="p">]</span></span></span></code></pre></div>
-<h4 id="examples-13">Examples</h4>
 
+<h4 id="examples-12">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show estimated cardinality of the field key set of current database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FIELD</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show exact cardinality on field key set of specified database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FIELD</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mydb</span></span></span></code></pre></div>
+
 <h3 id="show-field-keys">SHOW FIELD KEYS</h3>
 
-
 <pre tabindex="0"><code>show_field_keys_stmt = &#34;SHOW FIELD KEYS&#34; [on_clause] [ from_clause ] .</code></pre>
-<h4 id="examples-14">Examples</h4>
 
+<h4 id="examples-13">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show field keys and field value data types from all measurements
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FIELD</span><span class="w"> </span><span class="n">KEYS</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show field keys and field value data types from specified measurement
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">FIELD</span><span class="w"> </span><span class="n">KEYS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span></span></span></code></pre></div>
+
 <h3 id="show-grants">SHOW GRANTS</h3>
 
-
 <pre tabindex="0"><code>show_grants_stmt = &#34;SHOW GRANTS FOR&#34; user_name .</code></pre>
-<h4 id="example-10">Example</h4>
 
+<h4 id="example-10">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show grants for jdoe
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s2">&#34;jdoe&#34;</span></span></span></code></pre></div>
+
 <h3 id="show-measurement-cardinality">SHOW MEASUREMENT CARDINALITY</h3>
 <p>Estimates or counts exactly the cardinality of the measurement set for the current database unless a database is specified using the <code>ON &lt;database&gt;</code> option.</p>
 
@@ -3130,23 +3131,22 @@ Filtering by <code>time</code> is only supported when TSI (Time Series Index) is
 
 </blockquote>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">show_measurement_cardinality_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;SHOW MEASUREMENT CARDINALITY&#34;</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">on_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">from_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">where_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">group_by_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">limit_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">offset_clause</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="n">show_measurement_exact_cardinality_stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;SHOW MEASUREMENT EXACT CARDINALITY&#34;</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">on_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">from_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">where_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">group_by_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">limit_clause</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">offset_clause</span><span class="w"> </span><span class="p">]</span></span></span></code></pre></div>
-<h4 id="example-11">Example</h4>
 
+<h4 id="example-11">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show estimated cardinality of measurement set on current database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show exact cardinality of measurement set on specified database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mydb</span></span></span></code></pre></div>
+
 <h3 id="show-measurements">SHOW MEASUREMENTS</h3>
 
-
 <pre tabindex="0"><code>show_measurements_stmt = &#34;SHOW MEASUREMENTS&#34; [on_clause] [ with_measurement_clause ] [ where_clause ] [ limit_clause ] [ offset_clause ] .</code></pre>
-<h4 id="examples-15">Examples</h4>
 
+<h4 id="examples-14">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all measurements
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">MEASUREMENTS</span><span class="w">
@@ -3156,33 +3156,34 @@ Filtering by <code>time</code> is only supported when TSI (Time Series Index) is
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show measurements that start with &#39;h2o&#39;
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">MEASUREMENTS</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">MEASUREMENT</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="o">/</span><span class="n">h2o</span><span class="p">.</span><span class="o">*/</span></span></span></code></pre></div>
+
 <h3 id="show-queries">SHOW QUERIES</h3>
 
-
 <pre tabindex="0"><code>show_queries_stmt = &#34;SHOW QUERIES&#34; .</code></pre>
-<h4 id="example-12">Example</h4>
 
+<h4 id="example-12">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all currently-running queries
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">QUERIES</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">--</span></span></span></code></pre></div>
+
 <h3 id="show-retention-policies">SHOW RETENTION POLICIES</h3>
 
-
 <pre tabindex="0"><code>show_retention_policies_stmt = &#34;SHOW RETENTION POLICIES&#34; [on_clause] .</code></pre>
-<h4 id="example-13">Example</h4>
 
+<h4 id="example-13">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all retention policies on a database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICIES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;mydb&#34;</span></span></span></code></pre></div>
+
 <h3 id="show-series">SHOW SERIES</h3>
 
-
 <pre tabindex="0"><code>show_series_stmt = &#34;SHOW SERIES&#34; [on_clause] [ from_clause ] [ where_clause ] [ limit_clause ] [ offset_clause ] .</code></pre>
+
 <h4 id="example-14">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;telegraf&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="p">.</span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cpu8&#39;</span></span></span></code></pre></div>
+
 <h3 id="show-series-cardinality">SHOW SERIES CARDINALITY</h3>
 <p>Estimates or counts exactly the cardinality of the series for the current database unless a database is specified using the <code>ON &lt;database&gt;</code> option.</p>
 <p><a href="/enterprise_influxdb/v1/concepts/glossary/#series-cardinality">Series cardinality</a> is the major factor that affects RAM requirements. For more information, see:</p>
@@ -3191,20 +3192,18 @@ Filtering by <code>time</code> is only supported when TSI (Time Series Index) is
 <li><a href="/enterprise_influxdb/v1/concepts/schema_and_data_layout/#avoid-too-many-series">Don&rsquo;t have too many series</a></li>
 </ul>
 
-<div class="block note">
-  
-  
-  <p><code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
+<blockquote>
+<p><strong>Note:</strong> <code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by <code>time</code> is not supported in the <code>WHERE</code> clause.</p>
-</div>
 
+</blockquote>
 
 <pre tabindex="0"><code>show_series_cardinality_stmt = &#34;SHOW SERIES CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
 
 show_series_exact_cardinality_stmt = &#34;SHOW SERIES EXACT CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]</code></pre>
-<h4 id="examples-16">Examples</h4>
 
+<h4 id="examples-15">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show estimated cardinality of the series on current database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w">
@@ -3214,20 +3213,20 @@ show_series_exact_cardinality_stmt = &#34;SHOW SERIES EXACT CARDINALITY&#34; [ o
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show series cardinality of the series on specified database
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SERIES</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mydb</span></span></span></code></pre></div>
+
 <h3 id="show-shard-groups">SHOW SHARD GROUPS</h3>
 
-
 <pre tabindex="0"><code>show_shard_groups_stmt = &#34;SHOW SHARD GROUPS&#34; .</code></pre>
+
 <h4 id="example-15">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SHARD</span><span class="w"> </span><span class="n">GROUPS</span></span></span></code></pre></div>
+
 <h3 id="show-shards">SHOW SHARDS</h3>
 
-
 <pre tabindex="0"><code>show_shards_stmt = &#34;SHOW SHARDS&#34; .</code></pre>
-<h4 id="example-16">Example</h4>
 
+<h4 id="example-16">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SHARDS</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -3241,6 +3240,7 @@ show_series_exact_cardinality_stmt = &#34;SHOW SERIES EXACT CARDINALITY&#34; [ o
 </span></span></span><span class="line"><span class="cl"><span class="mi">26</span><span class="w">  </span><span class="n">telegraf</span><span class="w">   </span><span class="n">autogen</span><span class="w">          </span><span class="mi">10</span><span class="w">          </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">02</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="mi">27</span><span class="w">  </span><span class="n">telegraf</span><span class="w">   </span><span class="n">autogen</span><span class="w">          </span><span class="mi">10</span><span class="w">          </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">02</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="mi">31</span><span class="w">  </span><span class="n">telegraf</span><span class="w">   </span><span class="n">autogen</span><span class="w">          </span><span class="mi">12</span><span class="w">          </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">16</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">16</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="n">Z</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span></span></span></code></pre></div>
+
 <p><code>SHOW SHARDS</code> outputs the following data:</p>
 <ul>
 <li><code>id</code> column: Shard IDs that belong to the specified <code>database</code> and <code>retention policy</code>.</li>
@@ -3255,10 +3255,9 @@ but <code>SHOW STATS</code> is triggered every 10 seconds to populate the <code>
 use the <a href="#show-stats-for-indexes"><code>SHOW STATS FOR 'indexes'</code></a> command.</p>
 <p>For more information on using the <code>SHOW STATS</code> command, see <a href="/platform/monitoring/tools/show-stats/">Using the SHOW STATS command to monitor InfluxDB</a>.</p>
 
-
 <pre tabindex="0"><code>show_stats_stmt = &#34;SHOW STATS [ FOR &#39;&lt;component&gt;&#39; | &#39;indexes&#39; ]&#34;</code></pre>
-<h4 id="example-17">Example</h4>
 
+<h4 id="example-17">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">stats</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">runtime</span><span class="w">
@@ -3271,50 +3270,49 @@ use the <a href="#show-stats-for-indexes"><code>SHOW STATS FOR 'indexes'</code><
 </span></span></span><span class="line"><span class="cl"><span class="n">batches_tx</span><span class="w">      </span><span class="n">bytes_rx</span><span class="w">        </span><span class="n">connections_active</span><span class="w">      </span><span class="n">connections_handled</span><span class="w">     </span><span class="n">points_rx</span><span class="w">       </span><span class="n">points_tx</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">----------      --------        ------------------      -------------------     ---------       ---------
 </span></span></span><span class="line"><span class="cl"><span class="mi">159</span><span class="w">             </span><span class="mi">3999750</span><span class="w">         </span><span class="mi">0</span><span class="w">                       </span><span class="mi">1</span><span class="w">                       </span><span class="mi">158110</span><span class="w">          </span><span class="mi">158110</span></span></span></code></pre></div>
-<h3 id="show-stats-for">SHOW STATS FOR <component></h3>
+
+<h3 id="show-stats-for-component"><code>SHOW STATS FOR &lt;component&gt;</code></h3>
 <p>For the specified component (&lt;component&gt;), the command returns available statistics.
 For the <code>runtime</code> component, the command returns an overview of memory usage by the InfluxDB system,
 using the <a href="https://golang.org/pkg/runtime/">Go runtime</a> package.</p>
-<h3 id="show-stats-for-indexes">SHOW STATS FOR &lsquo;indexes&rsquo;</h3>
+<h3 id="show-stats-for-indexes"><code>SHOW STATS FOR 'indexes'</code></h3>
 <p>Returns an estimate of memory use of all indexes.
 Index memory use is not reported with <code>SHOW STATS</code> because it is a potentially expensive operation.</p>
 <h3 id="show-subscriptions">SHOW SUBSCRIPTIONS</h3>
 
-
 <pre tabindex="0"><code>show_subscriptions_stmt = &#34;SHOW SUBSCRIPTIONS&#34; .</code></pre>
+
 <h4 id="example-18">Example</h4>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">SUBSCRIPTIONS</span></span></span></code></pre></div>
+
 <h3 id="show-tag-key-cardinality">SHOW TAG KEY CARDINALITY</h3>
 <p>Estimates or counts exactly the cardinality of tag key set on the current database unless a database is specified using the <code>ON &lt;database&gt;</code> option.</p>
 
-<div class="block note">
-  
-  
-  <p><code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
+<blockquote>
+<p><strong>Note:</strong> <code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by <code>time</code> is only supported when TSI (Time Series Index) is enabled and <code>time</code> is not supported in the <code>WHERE</code> clause.</p>
-</div>
 
+</blockquote>
 
 <pre tabindex="0"><code>show_tag_key_cardinality_stmt = &#34;SHOW TAG KEY CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
 
 show_tag_key_exact_cardinality_stmt = &#34;SHOW TAG KEY EXACT CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]</code></pre>
-<h4 id="examples-17">Examples</h4>
 
+<h4 id="examples-16">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show estimated tag key cardinality
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show exact tag key cardinality
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span></span></span></code></pre></div>
+
 <h3 id="show-tag-keys">SHOW TAG KEYS</h3>
 
-
-<pre tabindex="0"><code>show_tag_keys_stmt = &#34;SHOW TAG KEYS&#34; [on_clause] [with_key_clause] [ from_clause ] [ where_clause ]
+<pre tabindex="0"><code>show_tag_keys_stmt = &#34;SHOW TAG KEYS&#34; [on_clause] [ from_clause ] [ where_clause ]
                      [ limit_clause ] [ offset_clause ] .</code></pre>
-<h4 id="examples-18">Examples</h4>
 
+<h4 id="examples-17">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all tag keys
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="n">KEYS</span><span class="w">
@@ -3326,17 +3324,14 @@ show_tag_key_exact_cardinality_stmt = &#34;SHOW TAG KEY EXACT CARDINALITY&#34; [
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="n">KEYS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;region&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;uswest&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show all tag keys where the host key = &#39;serverA&#39;
-</span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="n">KEYS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;serverA&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">-- show specific tag keys
-</span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="n">KEYS</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s2">&#34;region&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="p">)</span></span></span></code></pre></div>
-<h3 id="show-tag-values">SHOW TAG VALUES</h3>
+</span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="n">KEYS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;serverA&#39;</span></span></span></code></pre></div>
 
+<h3 id="show-tag-values">SHOW TAG VALUES</h3>
 
 <pre tabindex="0"><code>show_tag_values_stmt = &#34;SHOW TAG VALUES&#34; [on_clause] [ from_clause ] with_tag_clause [ where_clause ]
                        [ limit_clause ] [ offset_clause ] .</code></pre>
-<h4 id="examples-19">Examples</h4>
 
+<h4 id="examples-18">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all tag values across all measurements for the region tag
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;region&#34;</span><span class="w">
@@ -3349,23 +3344,22 @@ show_tag_key_exact_cardinality_stmt = &#34;SHOW TAG KEY EXACT CARDINALITY&#34; [
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show tag values from the cpu measurement for region &amp; host tag keys where service = &#39;redis&#39;
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;cpu&#34;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s2">&#34;region&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="p">)</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="s2">&#34;service&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;redis&#39;</span></span></span></code></pre></div>
+
 <h3 id="show-tag-values-cardinality">SHOW TAG VALUES CARDINALITY</h3>
 <p>Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the <code>ON &lt;database&gt;</code> option.</p>
 
-<div class="block note">
-  
-  
-  <p><code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
+<blockquote>
+<p><strong>Note:</strong> <code>ON &lt;database&gt;</code>, <code>FROM &lt;sources&gt;</code>, <code>WITH KEY = &lt;key&gt;</code>, <code>WHERE &lt;condition&gt;</code>, <code>GROUP BY &lt;dimensions&gt;</code>, and <code>LIMIT/OFFSET</code> clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by <code>time</code> is only supported when TSI (Time Series Index) is enabled.</p>
-</div>
 
+</blockquote>
 
 <pre tabindex="0"><code>show_tag_values_cardinality_stmt = &#34;SHOW TAG VALUES CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_key_clause
 
 show_tag_values_exact_cardinality_stmt = &#34;SHOW TAG VALUES EXACT CARDINALITY&#34; [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_key_clause</code></pre>
-<h4 id="examples-20">Examples</h4>
 
+<h4 id="examples-19">Examples</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show estimated tag key values cardinality for a specified tag key
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;myTagKey&#34;</span><span class="w">
@@ -3375,17 +3369,17 @@ show_tag_values_exact_cardinality_stmt = &#34;SHOW TAG VALUES EXACT CARDINALITY&
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;myTagKey&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- show exact tag key values cardinality for a specified tag key
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="n">EXACT</span><span class="w"> </span><span class="k">CARDINALITY</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;myTagKey&#34;</span></span></span></code></pre></div>
+
 <h3 id="show-users">SHOW USERS</h3>
 
-
 <pre tabindex="0"><code>show_users_stmt = &#34;SHOW USERS&#34; .</code></pre>
-<h4 id="example-19">Example</h4>
 
+<h4 id="example-19">Example</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- show all users
 </span></span></span><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">USERS</span></span></span></code></pre></div>
-<h2 id="clauses">Clauses</h2>
 
+<h2 id="clauses">Clauses</h2>
 
 <pre tabindex="0"><code>from_clause     = &#34;FROM&#34; measurements .
 
@@ -3414,8 +3408,8 @@ where_clause    = &#34;WHERE&#34; expr .
 with_measurement_clause = &#34;WITH MEASUREMENT&#34; ( &#34;=&#34; measurement | &#34;=~&#34; regex_lit ) .
 
 with_tag_clause = &#34;WITH KEY&#34; ( &#34;=&#34; tag_key | &#34;!=&#34; tag_key | &#34;=~&#34; regex_lit | &#34;IN (&#34; tag_keys &#34;)&#34;  ) .</code></pre>
-<h2 id="expressions">Expressions</h2>
 
+<h2 id="expressions">Expressions</h2>
 
 <pre tabindex="0"><code>binary_op        = &#34;+&#34; | &#34;-&#34; | &#34;*&#34; | &#34;/&#34; | &#34;%&#34; | &#34;&amp;&#34; | &#34;|&#34; | &#34;^&#34; | &#34;AND&#34; |
                    &#34;OR&#34; | &#34;=&#34; | &#34;!=&#34; | &#34;&lt;&gt;&#34; | &#34;&lt;&#34; | &#34;&lt;=&#34; | &#34;&gt;&#34; | &#34;&gt;=&#34; .
@@ -3424,6 +3418,7 @@ expr             = unary_expr { binary_op unary_expr } .
 
 unary_expr       = &#34;(&#34; expr &#34;)&#34; | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .</code></pre>
+
 <h2 id="comments">Comments</h2>
 <p>Use comments with InfluxQL statements to describe your queries.</p>
 <ul>
@@ -3433,7 +3428,6 @@ This comment type cannot span several lines.</li>
 Multi-line comments do not support nested multi-line comments.</li>
 </ul>
 <h2 id="other">Other</h2>
-
 
 <pre tabindex="0"><code>alias            = &#34;AS&#34; identifier .
 
@@ -3479,8 +3473,6 @@ retention_policy = identifier .
 retention_policy_option      = retention_policy_duration |
                                retention_policy_replication |
                                retention_policy_shard_group_duration |
-                               retention_future_limit |
-                               retention_past_limit |
                                &#34;DEFAULT&#34; .
 
 retention_policy_duration    = &#34;DURATION&#34; duration_lit .
@@ -3488,10 +3480,6 @@ retention_policy_duration    = &#34;DURATION&#34; duration_lit .
 retention_policy_replication = &#34;REPLICATION&#34; int_lit .
 
 retention_policy_shard_group_duration = &#34;SHARD DURATION&#34; duration_lit .
-
-retention_future_limit       = &#34;FUTURE LIMIT&#34; duration_lit .
-
-retention_past_limit         = &#34;PAST LIMIT&#34; duration_lit .
 
 retention_policy_name = &#34;NAME&#34; identifier .
 
@@ -3515,85 +3503,11 @@ var_ref          = measurement .</code></pre>
 
 
 
-    
 
     
+
     
-
-  <div class="related">
-    <h4 id="related">Related</h4>
-    <ul>
     
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/internals/" >InfluxQL internals reference</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/explore-data/" >Explore data using InfluxQL</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/explore-schema/" >Explore your schema using InfluxQL</a></li>
-        
-      
-    
-      
-      
-
-      
-      
-
-      
-      
-
-      
-      
-        
-        
-          <li><a href="/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/manage-database/" >Manage your database using InfluxQL</a></li>
-        
-      
-    
-    </ul>
-  </div>
 
 
     
@@ -4105,6 +4019,7 @@ var_ref          = measurement .</code></pre>
 
       
       
+      
     </div>
   </div>
 </div>
@@ -4155,30 +4070,36 @@ var_ref          = measurement .</code></pre>
   
   <div id="docs-notifications">
   
-    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         
-        <h3>New in InfluxDB 3.8</h3>
+        <h3>Telegraf Enterprise now in public beta</h3>
       </div>
       
       <div class="notification-slug">
-        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
-<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
 
       </div>
       
       
       <div class="notification-content">
-        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
-1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
-operational maturity and making InfluxDB easier to deploy, manage, and run
-reliably in production.</p>
-<p>For more information, check out:</p>
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
 <ul>
-<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
-<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
-<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
 </ul>
 
       </div>
@@ -4206,7 +4127,6 @@ InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
 your Docker deployments. For example, if using Docker to run InfluxDB v2,
 replace the <code>latest</code> version tag with a specific version tag in your Docker
 pull command&ndash;for example:</p>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
       </div>

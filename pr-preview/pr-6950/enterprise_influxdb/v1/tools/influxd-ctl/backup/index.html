@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/light-theme.7187ec916dec36c0eb985870c16336abb1a45751b9de0d282adca6eaf02abe14.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/light-theme.bd9eb8e986048ec2ab172c75de9662858b949c77c74ab2ac5661016f160053be.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.b3a8ef60ebd199a0faa15cafe8348d73875cf6152e056e32f98e114b8b5c2ace.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.7848f1471d74a77b1ce8305b8eee411db9d35bdb5baf287610f5890c819ba1f6.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6950/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-14 15:25:52 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 14:52:47 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -466,7 +466,7 @@
   
   
   
-  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">alpha</span></a>
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
 </li>
       </ul>
     </div>
@@ -2360,8 +2360,8 @@ the system automatically performs a full backup.</li>
 </ul>
 <h2 id="usage">Usage</h2>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup <span class="o">[</span>flags<span class="o">]</span> &lt;backup-dir&gt;</span></span></code></pre></div>
+
 <h2 id="arguments">Arguments</h2>
 <ul>
 <li><strong>backup-dir</strong>: Directory to store backup files in</li>
@@ -2376,6 +2376,14 @@ the system automatically performs a full backup.</li>
   </thead>
   <tbody>
       <tr>
+          <td style="text-align: left"><code>-bufsize</code></td>
+          <td style="text-align: left">Buffer size (in bytes) for writing gzip files. Default is <code>1048576</code> (1 MB). <em>v1.12.3+</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>-cpuprofile</code></td>
+          <td style="text-align: left">Write CPU profile to the specified file path. For debugging backup performance. <em>v1.12.3+</em></td>
+      </tr>
+      <tr>
           <td style="text-align: left"><code>-db</code></td>
           <td style="text-align: left">Database to backup</td>
       </tr>
@@ -2389,7 +2397,7 @@ the system automatically performs a full backup.</li>
       </tr>
       <tr>
           <td style="text-align: left"><code>-from</code></td>
-          <td style="text-align: left">Data node TCP address to prefer when backing up</td>
+          <td style="text-align: left">Data node TCP address to prefer when backing up. In v1.12.3+, the node must exist in the cluster or the command returns an error. When the preferred node doesn&rsquo;t own a shard, the command falls back to other owners sorted by most recent write. See <a href="#node-selection">Node selection</a>.</td>
       </tr>
       <tr>
           <td style="text-align: left"><code>-full</code></td>
@@ -2404,6 +2412,10 @@ the system automatically performs a full backup.</li>
           <td style="text-align: left">Shard ID to backup</td>
       </tr>
       <tr>
+          <td style="text-align: left"><code>-staleness-threshold</code></td>
+          <td style="text-align: left">For incremental backups, skip shards modified within this duration of the existing backup. Default is <code>10m</code> (matches <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-snapshot-write-cold-duration"><code>cache-snapshot-write-cold-duration</code></a>). <em>v1.12.3+</em></td>
+      </tr>
+      <tr>
           <td style="text-align: left"><code>-start</code></td>
           <td style="text-align: left">Start date for backup <em>(RFC3339 timestamp)</em></td>
       </tr>
@@ -2411,99 +2423,23 @@ the system automatically performs a full backup.</li>
           <td style="text-align: left"><code>-strategy</code></td>
           <td style="text-align: left">Backup strategy to use (<code>only-meta</code>, <code>full</code>, or <code>incremental</code>)</td>
       </tr>
-      <tr>
-          <td style="text-align: left"><code>-gzipCompressionLevel</code></td>
-          <td style="text-align: left">Level of compression to use (<code>default</code>, <code>full</code>, <code>speedy</code>, <code>none</code>)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>-cpuprofile</code></td>
-          <td style="text-align: left">Write backup execution to a cpu profile (<code>true</code> or <code>false</code>)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>-gzipBlockCount</code></td>
-          <td style="text-align: left">Change the blocks processed concurrently during backup compression</td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><code>-gzipBlockSize</code></td>
-          <td style="text-align: left">Change the size of compressed blocks during backup compression</td>
-      </tr>
   </tbody>
 </table>
 
 <div class="caption"><p><em>Also see <a href="/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags"><code>influxd-ctl</code> global flags</a>.</em></p>
 </div>
-<h2 metadata="v1.12.3+" id="backup-compression">Backup compression</h2>
-<p>You can adjust <code>-gzipCompressionLevel</code> to allow for faster backups with the tradeoff that data is less compressed.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Value</th>
-          <th style="text-align: left">Description</th>
-          <th style="text-align: left">Use Case</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">default</td>
-          <td style="text-align: left">Standard gzip compression</td>
-          <td style="text-align: left">General purpose, balanced</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">full</td>
-          <td style="text-align: left">Best compression ratio</td>
-          <td style="text-align: left">Minimize storage when time isn&rsquo;t critical</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">speedy</td>
-          <td style="text-align: left">Prioritizes speed over compression</td>
-          <td style="text-align: left">Faster backups with moderate space increase</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">none</td>
-          <td style="text-align: left">No compression</td>
-          <td style="text-align: left">Maximum speed when storage isn&rsquo;t a concern</td>
-      </tr>
-  </tbody>
-</table>
-<p>Running backups with different compression settings on ~5.3 GB of data:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Compression Level</th>
-          <th style="text-align: center">Backup Time</th>
-          <th style="text-align: center">Size on Disk</th>
-          <th style="text-align: left">Notes</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">default</td>
-          <td style="text-align: center">51s</td>
-          <td style="text-align: center">~3.0 GB</td>
-          <td style="text-align: left">~50% compression ratio</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">full</td>
-          <td style="text-align: center">95s</td>
-          <td style="text-align: center">~2.7 GB</td>
-          <td style="text-align: left">~2x slower, ~10% less space</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">speedy</td>
-          <td style="text-align: center">23s</td>
-          <td style="text-align: center">~3.3 GB</td>
-          <td style="text-align: left">~2.2x faster, ~10% more space</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">none</td>
-          <td style="text-align: center">10s</td>
-          <td style="text-align: center">~5.3 GB</td>
-          <td style="text-align: left">~5x faster, ~77% more space</td>
-      </tr>
-  </tbody>
-</table>
-<p>We do not recommend changing the values for <code>-gzipBlockCount</code> and <code>-gzipBlockSize</code>.
-These are set to sensible defaults (block size is <code>1048576</code> bytes (<code>1024*1024</code>)) per the <a href="https://github.com/klauspost/pgzip">pgzip library</a>.</p>
+<h2 metadata="v1.12.3+" id="backup-behavior">Backup behavior</h2>
+<h3 id="node-selection">Node selection</h3>
+<p>When backing up a shard, the command selects the best data node to read from:</p>
+<ol>
+<li>Shard copies with zero bytes are skipped.</li>
+<li>Copies are sorted by most recent write time — the most recently written copy is tried first.</li>
+<li>If you specify <code>-from</code>, that node is preferred. If the preferred node doesn&rsquo;t own the shard, the command falls back to other owners.</li>
+<li>If the <code>-from</code> node doesn&rsquo;t exist in the cluster, the command fails with: <code>data node &quot;&lt;addr&gt;&quot; does not exist</code>.</li>
+</ol>
+<h3 id="staleness-threshold">Staleness threshold</h3>
+<p>During incremental backups, the <code>-staleness-threshold</code> flag controls when a shard is considered current and can be skipped.
+A shard is skipped when the existing backup timestamp plus the staleness threshold is after the shard&rsquo;s last modification time.</p>
 <h2 id="examples">Examples</h2>
 <ul>
 <li><a href="#perform-an-incremental-backup">Perform an incremental backup</a></li>
@@ -2511,36 +2447,30 @@ These are set to sensible defaults (block size is <code>1048576</code> bytes (<c
 <li><a href="#estimate-the-size-of-a-backup">Estimate the size of a backup</a></li>
 <li><a href="#backup-data-from-a-specific-time-range">Backup data from a specific time range</a></li>
 <li><a href="#backup-a-specific-shard">Backup a specific shard</a></li>
-<li><a href="#backup-data-with-configured-compression">Backup data with configured compression</a></li>
 </ul>
 <h3 id="perform-an-incremental-backup">Perform an incremental backup</h3>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup /path/to/backup-dir</span></span></code></pre></div>
+
 <h3 id="perform-a-full-backup">Perform a full backup</h3>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -strategy full /path/to/backup-dir</span></span></code></pre></div>
+
 <h3 id="estimate-the-size-of-a-backup">Estimate the size of a backup</h3>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -estimate</span></span></code></pre></div>
-<h3 id="backup-data-from-a-specific-time-range">Backup data from a specific time range</h3>
 
+<h3 id="backup-data-from-a-specific-time-range">Backup data from a specific time range</h3>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup <span class="se">\
 </span></span></span><span class="line"><span class="cl">  -start 2023-01-01T00:00:00Z <span class="se">\
 </span></span></span><span class="line"><span class="cl">  -end 2023-06-01T00:00:00Z <span class="se">\
 </span></span></span><span class="line"><span class="cl">  /path/to/backup-dir</span></span></code></pre></div>
+
 <h3 id="backup-a-specific-shard">Backup a specific shard</h3>
 
-
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -shard <span class="m">00</span> /path/to/backup-dir</span></span></code></pre></div>
-<h3 id="backup-data-with-configured-compression">Backup data with configured compression</h3>
-<p>The following example uses the fastest possible compression speeds for backup:</p>
 
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd-ctl backup -strategy full -gzipBlockSize <span class="m">10485760</span> -gzipBlockCount <span class="m">28</span> -gzipCompressionLevel none .</span></span></code></pre></div>
 
 
 
@@ -3100,6 +3030,7 @@ These are set to sensible defaults (block size is <code>1048576</code> bytes (<c
 
       
       
+      
     </div>
   </div>
 </div>
@@ -3150,30 +3081,36 @@ These are set to sensible defaults (block size is <code>1048576</code> bytes (<c
   
   <div id="docs-notifications">
   
-    <div class="notification note min" id="influxdb3.8-explorer-1.6" data-scope='/' data-exclude=''>
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
       <div class="notification-title">
         
-        <h3>New in InfluxDB 3.8</h3>
+        <h3>Telegraf Enterprise now in public beta</h3>
       </div>
       
       <div class="notification-slug">
-        <p>Key enhancements in InfluxDB 3.8 and the InfluxDB 3 Explorer 1.6.</p>
-<p><a class="btn" href="https://www.influxdata.com/blog/influxdb-3-8/">See the Blog Post</a></p>
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
 
       </div>
       
       
       <div class="notification-content">
-        <p>InfluxDB 3.8 is now available for both Core and Enterprise, alongside the
-1.6 release of the InfluxDB 3 Explorer UI. This release is focused on
-operational maturity and making InfluxDB easier to deploy, manage, and run
-reliably in production.</p>
-<p>For more information, check out:</p>
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
 <ul>
-<li><a href="https://www.influxdata.com/blog/influxdb-3-8/">See the announcement blog post</a></li>
-<li><a href="/influxdb3/core/release-notes/">InfluxDB 3 Core release notes</a></li>
-<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
 </ul>
 
       </div>
@@ -3201,7 +3138,6 @@ InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
 your Docker deployments. For example, if using Docker to run InfluxDB v2,
 replace the <code>latest</code> version tag with a specific version tag in your Docker
 pull command&ndash;for example:</p>
-
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
       </div>
