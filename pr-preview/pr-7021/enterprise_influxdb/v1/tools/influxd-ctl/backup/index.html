@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-30 23:18:06 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 14:46:47 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2439,11 +2439,7 @@ the system automatically performs a full backup.</li>
 </ol>
 <h3 id="staleness-threshold">Staleness threshold</h3>
 <p>During incremental backups, the <code>-staleness-threshold</code> flag controls when a shard is considered current and can be skipped.
-A shard is skipped when:</p>
-<ul>
-<li>The existing backup timestamp plus the staleness threshold is after the shard&rsquo;s last modification time, AND</li>
-<li>The existing backup is at least as large as the current shard.</li>
-</ul>
+A shard is skipped when the existing backup timestamp plus the staleness threshold is after the shard&rsquo;s last modification time.</p>
 <h2 id="examples">Examples</h2>
 <ul>
 <li><a href="#perform-an-incremental-backup">Perform an incremental backup</a></li>
