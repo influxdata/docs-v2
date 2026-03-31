@@ -17,16 +17,92 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # -----------------------------------------------------------------
+  # Check if this re-run would create skipped check runs that
+  # overwrite existing successful status.
+  # -----------------------------------------------------------------
+  check-existing-success:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
+      pull-requests: read
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Check if re-run would overwrite successful status
+        id: check
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        with:
+          script: |
+            const headSha = context.sha;
+            const runId = context.runId;
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
+
+            core.info(`Run info: SHA=${headSha}, runId=${runId}, attempt=${runAttempt}`);
+
+            // First attempts always proceed
+            if (runAttempt === 1) {
+              core.info('First attempt - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // Check if jobs would actually run or would skip
+            const pr = context.payload.pull_request;
+            const isDraft = pr?.draft === true;
+            const isFork = pr?.head?.repo?.full_name !== pr?.base?.repo?.full_name;
+            const isWorkflowDispatch = context.eventName === 'workflow_dispatch';
+
+            const jobsWouldRun = isWorkflowDispatch || (!isDraft && !isFork);
+
+            if (jobsWouldRun) {
+              core.info('Re-run would execute jobs - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // Jobs would be skipped. Check if successful runs already exist.
+            core.info('Re-run would skip jobs - checking for existing successful runs');
+
+            try {
+              const { data: checkRuns } = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: headSha,
+                per_page: 100,
+              });
+
+              const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
+                const isOurJob = cr.name === 'auto-label' || cr.name === 'check-existing-success';
+                const isSuccessful = cr.conclusion === 'success';
+                const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${runId}/`);
+                return isOurJob && isSuccessful && fromDifferentRun;
+              });
+
+              if (successfulOtherRuns.length > 0) {
+                core.info(`Found ${successfulOtherRuns.length} successful runs - aborting to preserve status`);
+                core.setOutput('should-run', 'false');
+                return;
+              }
+            } catch (error) {
+              core.warning(`Could not check existing runs: ${error.message}`);
+            }
+
+            core.info('No existing successful runs - proceeding');
+            core.setOutput('should-run', 'true');
+
   auto-label:
+    needs: check-existing-success
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     # Skip draft PRs and fork PRs (workflow_dispatch always runs)
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (!github.event.pull_request.draft &&
-       github.event.pull_request.head.repo.full_name == github.repository)
+      needs.check-existing-success.outputs.should-run == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (!github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository))
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
         with:

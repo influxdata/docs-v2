@@ -10,7 +10,7 @@ introduced: "v0.2.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/inputs/kafka_consumer/README.md, Apache Kafka Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/kafka_consumer/README.md, Apache Kafka Consumer Plugin Source
 ---
 
 # Apache Kafka Consumer Input Plugin
@@ -38,6 +38,14 @@ normal plugins:
 1. The global or plugin specific `interval` setting may not apply
 2. The CLI options of `--test`, `--test-wait`, and `--once` may not produce
    output for this plugin
+
+## Tracking metric support <!-- @/docs/includes/plugin_tracking_metrics.md -->
+
+This plugin supports [tracking metrics](../../../docs/METRICS.md#tracking-metrics), which allows the plugin
+to be notified when metrics have been delivered to all outputs, enabling proper
+acknowledgment back to the source.
+
+[METRICS.md]: ../../../docs/METRICS.md#tracking-metrics
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
