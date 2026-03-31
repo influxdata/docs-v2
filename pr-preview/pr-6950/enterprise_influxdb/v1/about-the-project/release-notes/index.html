@@ -49,7 +49,7 @@
 <title>InfluxDB Enterprise v1 release notes | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Important changes and what&rsquo;s new in each version InfluxDB Enterprise v1.">
+    <meta name="description" content="Changes and updates to InfluxDB Enterprise v1.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 16:35:01 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 16:36:51 -0600 -0600">
     
 <script type="text/javascript">
 (function() {
@@ -2341,6 +2341,38 @@
 
   <p><span id="v1.12.x"></span></p>
 <h2 date="2026-03-31" id="v1123">v1.12.3</h2>
+<p>InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
+and I/O usage, particularly in high-cardinality and large-scale environments.</p>
+
+<div class="block important">
+  
+  
+  <h4 id="we-strongly-recommend-upgrading-to-v1123">We strongly recommend upgrading to v1.12.3</h4>
+<p>If you’re using any previous version of InfluxDB Enterprise v1, we strongly
+recommend <a href="/enterprise_influxdb/v1/administration/upgrading/">upgrading to 1.12.3</a>.</p>
+</div>
+<p>Highlights include:</p>
+<ul>
+<li><strong>Faster retention enforcement:</strong> TSI series deletion now uses batched <code>fsync</code>,
+delivering <strong>10x–100x speed improvements</strong> for high-cardinality datasets.</li>
+<li><strong>Reduced CPU usage during compaction:</strong> Improvements to compaction planning
+(including filename generation and level caching) can reduce CPU usage by
+<strong>up to 30%</strong>.</li>
+<li><strong>Significantly faster backups:</strong> New configurable compression enables
+<strong>up to 5x faster backup performance</strong>.</li>
+<li><strong>Lower I/O during compaction:</strong> Cold shard compactions now use
+<strong>up to 3x less disk I/O</strong>, and unnecessary work for purging replaced files
+has been eliminated.</li>
+</ul>
+<p>These improvements combine to make InfluxDB Enterprise v1 clusters more
+efficient, more predictable under load, and more cost-effective to operate.</p>
+<p>Other updates include:</p>
+<ul>
+<li>Stability and reliability improvements</li>
+<li>Enhanced security and TLS management</li>
+<li>Improved operational visibility</li>
+<li>Improved cluster management tools</li>
+</ul>
 
 <div class="block important">
   
