@@ -598,6 +598,26 @@ The time in which a query connection must return its response after which the sy
 
 Environment variable: `INFLUXDB_CLUSTER_SHARD_READER_TIMEOUT`
 
+#### rpc-resettable-read-timeout {metadata="v1.12.3+"}
+
+Default is `"15m"`.
+
+Read inactivity timeout for incoming RPC connections between data nodes.
+The timeout resets on each successful read operation, so it detects stalled connections rather than slow queries.
+Set to `"0"` to disable.
+
+Environment variable: `INFLUXDB_CLUSTER_RPC_RESETTABLE_READ_TIMEOUT`
+
+#### rpc-resettable-write-timeout {metadata="v1.12.3+"}
+
+Default is `"15m"`.
+
+Write inactivity timeout for incoming RPC connections between data nodes.
+The timeout resets on each successful write operation, so it detects stalled connections rather than slow writes.
+Set to `"0"` to disable.
+
+Environment variable: `INFLUXDB_CLUSTER_RPC_RESETTABLE_WRITE_TIMEOUT`
+
 #### https-enabled
 
 Default is `false`.
