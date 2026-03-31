@@ -23,18 +23,92 @@ concurrency:
 
 jobs:
   # -----------------------------------------------------------------
+  # Job 0: Check if a successful run already exists for this commit
+  #
+  # Prevents re-runs from overwriting successful PR check status.
+  # When a workflow re-run creates "skipped" check runs, they have
+  # later timestamps and can overwrite earlier successful statuses
+  # in the GitHub PR Checks UI.
+  # -----------------------------------------------------------------
+  check-existing-success:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Check for existing successful check runs
+        id: check
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        with:
+          script: |
+            // Get the head SHA for this workflow run
+            const headSha = context.sha;
+            const runId = context.runId;
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
+
+            core.info(`Checking for existing successful runs (SHA: ${headSha}, run: ${runId}, attempt: ${runAttempt})`);
+
+            // If this is a first attempt (not a re-run), always proceed
+            if (runAttempt === 1) {
+              core.info('First attempt - proceeding with workflow');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // This is a re-run (attempt > 1). Check if another workflow run
+            // for this commit has already created successful check runs.
+            try {
+              const { data: checkRuns } = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: headSha,
+                per_page: 100,
+              });
+
+              // Look for successful check runs from other Doc Review workflow runs
+              // that are NOT from this workflow run ID
+              const docReviewJobs = ['resolve-urls', 'copilot-review', 'copilot-visual-review', 'report-skipped'];
+              const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
+                const isOurJob = docReviewJobs.includes(cr.name);
+                const isSuccessful = cr.conclusion === 'success';
+                // Check run URLs contain the run ID
+                const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${runId}/`);
+                return isOurJob && isSuccessful && fromDifferentRun;
+              });
+
+              if (successfulOtherRuns.length > 0) {
+                core.info(`Found ${successfulOtherRuns.length} successful check runs from other workflow runs:`);
+                successfulOtherRuns.forEach(cr => {
+                  core.info(`  - ${cr.name}: ${cr.conclusion} (${cr.html_url})`);
+                });
+                core.info('Aborting re-run to preserve successful status in PR Checks UI');
+                core.setOutput('should-run', 'false');
+                return;
+              }
+            } catch (error) {
+              core.warning(`Could not check for existing runs: ${error.message}`);
+              // On error, proceed with the workflow to avoid blocking
+            }
+
+            core.info('No existing successful runs found - proceeding with workflow');
+            core.setOutput('should-run', 'true');
+
+  # -----------------------------------------------------------------
   # Job 1: Resolve preview URLs from changed content files
   # -----------------------------------------------------------------
   resolve-urls:
+    needs: check-existing-success
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (!github.event.pull_request.draft &&
-       github.event.pull_request.head.repo.full_name == github.repository &&
-       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+      needs.check-existing-success.outputs.should-run == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (!github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !contains(github.event.pull_request.labels.*.name, 'skip-review')))
     outputs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
@@ -81,14 +155,16 @@ jobs:
   # Job 2: Copilot code review (runs in parallel with Job 1)
   # -----------------------------------------------------------------
   copilot-review:
+    needs: check-existing-success
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (!github.event.pull_request.draft &&
-       github.event.pull_request.head.repo.full_name == github.repository &&
-       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+      needs.check-existing-success.outputs.should-run == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (!github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !contains(github.event.pull_request.labels.*.name, 'skip-review')))
     steps:
       - name: Request Copilot review
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0

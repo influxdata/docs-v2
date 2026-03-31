@@ -23,17 +23,52 @@ jobs:
   # Skip draft PRs entirely
   check-draft:
     runs-on: ubuntu-latest
+    permissions:
+      checks: read
     outputs:
       should-run: ${{ steps.check.outputs.should-run }}
     steps:
       - id: check
-        run: |
-          if [[ "${{ github.event.pull_request.draft }}" == "true" ]]; then
-            echo "should-run=false" >> $GITHUB_OUTPUT
-            echo "Skipping draft PR"
-          else
-            echo "should-run=true" >> $GITHUB_OUTPUT
-          fi
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Check for draft PR
+            if (context.payload.pull_request?.draft) {
+              core.info('Skipping draft PR');
+              core.setOutput('should-run', 'false');
+              return;
+            }
+
+            // Check for re-run with existing successful runs
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
+            if (runAttempt > 1) {
+              try {
+                const { data: checkRuns } = await github.rest.checks.listForRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: context.sha,
+                  per_page: 100,
+                });
+
+                const previewJobs = ['check-draft', 'preview', 'cleanup', 'fork-notice'];
+                const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
+                  const isOurJob = previewJobs.includes(cr.name);
+                  const isSuccessful = cr.conclusion === 'success';
+                  const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${context.runId}/`);
+                  return isOurJob && isSuccessful && fromDifferentRun;
+                });
+
+                if (successfulOtherRuns.length > 0) {
+                  core.info(`Found ${successfulOtherRuns.length} successful check runs - aborting re-run`);
+                  core.setOutput('should-run', 'false');
+                  return;
+                }
+              } catch (error) {
+                core.warning(`Could not check for existing runs: ${error.message}`);
+              }
+            }
+
+            core.setOutput('should-run', 'true');
 
   # Notify fork PRs that preview is not available
   fork-notice:
