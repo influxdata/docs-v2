@@ -73,7 +73,7 @@ jobs:
               });
 
               const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
-                const isOurJob = cr.name === 'auto-label';
+                const isOurJob = cr.name === 'auto-label' || cr.name === 'check-existing-success';
                 const isSuccessful = cr.conclusion === 'success';
                 const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${runId}/`);
                 return isOurJob && isSuccessful && fromDifferentRun;

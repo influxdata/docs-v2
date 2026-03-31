@@ -90,7 +90,7 @@ jobs:
                 per_page: 100,
               });
 
-              const docReviewJobs = ['resolve-urls', 'copilot-review', 'copilot-visual-review', 'report-skipped'];
+              const docReviewJobs = ['check-existing-success', 'resolve-urls', 'copilot-review', 'copilot-visual-review', 'report-skipped'];
               const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
                 const isOurJob = docReviewJobs.includes(cr.name);
                 const isSuccessful = cr.conclusion === 'success';
