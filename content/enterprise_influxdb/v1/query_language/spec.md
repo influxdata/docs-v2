@@ -232,12 +232,15 @@ regex_lit           = "/" { unicode_char } "/" .
 `=~` matches against
 `!~` doesn't match against
 
-> **Note:** InfluxQL supports using regular expressions when specifying:
->
-* [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
-* [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause).
-* [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/enterprise_influxdb/v1/query_language/explore-data/#group-by-tags)
+InfluxQL supports using regular expressions when specifying:
+
+- [field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`SELECT` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+- [measurements](/enterprise_influxdb/v1/concepts/glossary/#measurement) in the [`FROM` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)
+- [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) in the [`WHERE` clause](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause).
+- [tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) in the [`GROUP BY` clause](/enterprise_influxdb/v1/query_language/explore-data/#group-by-tags)
+
+> [!Note]
+> #### Regular expressions and non-string field values
 >
 >Currently, InfluxQL does not support using regular expressions to match
 >non-string field values in the

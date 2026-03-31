@@ -10,7 +10,7 @@ introduced: "v1.25.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/inputs/opcua_listener/README.md, OPC UA Client Listener Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/opcua_listener/README.md, OPC UA Client Listener Plugin Source
 ---
 
 # OPC UA Client Listener Input Plugin
@@ -309,7 +309,10 @@ to use them.
   #   # identifier_type = ""
   #   ## Specifies OPCUA Event sources to filter on
   #   # source_names = ["SourceName1", "SourceName2"]
-  #   ## Fields to capture from event notifications
+  #   ## Fields to capture from event notifications.
+  #   ## Fields support namespace-qualified names using "ns:name" format
+  #   ## (e.g. "2:TEXT01") and nested browse paths using "/" as separator
+  #   ## (e.g. "AckedState/Id" or "2:AckedState/0:Id").
   #   fields = ["Severity", "Message", "Time"]
   #
   #   ## Type or level of events to capture from the monitored nodes.

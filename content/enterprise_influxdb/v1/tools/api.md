@@ -592,7 +592,8 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1/query_language/ma
 | p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.** | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
 | pretty=true | Optional | Enables pretty-printed JSON output. While this is useful for debugging it is not recommended for production use as it consumes unnecessary network bandwidth. |
 | q=\<query> | Required | InfluxQL string to execute.  See also [Request Body](/enterprise_influxdb/v1/tools/api/#request-body). |
-| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
+| time_format=[epoch \| rfc3339] | Optional | Sets the timestamp format in query responses. `epoch` _(default)_ returns epoch timestamps (use with the `epoch` parameter to set precision). `rfc3339` returns timestamps as RFC3339Nano-formatted strings (for example, `2017-03-01T00:16:18.000000000Z`). Returns `400` if set to an invalid value. _Available in InfluxDB Enterprise v1.12.3+._ |
+| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
 That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-row-limit)
@@ -654,6 +655,20 @@ The response body data is similar to the following:
 
 ```bash
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]}]}
+```
+
+##### Query data with a `SELECT` statement and the `time_format` parameter {metadata="v1.12.3+"}
+
+- `time_format=rfc3339`: Return timestamps as RFC3339Nano-formatted strings.
+
+```bash
+curl -G 'http://localhost:8086/query?db=mydb&time_format=rfc3339' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
+
+The output is similar to the following:
+
+```json
+{"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
 ##### Create a database using HTTP authentication

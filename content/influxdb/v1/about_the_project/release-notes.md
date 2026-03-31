@@ -26,7 +26,7 @@ alt_links:
 - Add [`config`](/influxdb/v1/tools/api/#running-configuration) and [`cq` (continuous query) statistics](/influxdb/v1/tools/api/#continuous-query-statistics) to the `/debug/vars` endpoint.
 - Improve dropped point logging.
 - Show user when displaying or logging queries.
-- Add `time_format` parameter for the HTTP API.
+- Add [`time_format` parameter](/influxdb/v1/tools/api/#query-data-with-a-select-statement-and-the-time_format-parameter) for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
 - Report user query bytes.
 
