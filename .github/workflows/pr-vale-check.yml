@@ -66,11 +66,19 @@ jobs:
           RESOLVED_COUNT=$(wc -l < resolved_files.txt | tr -d ' ')
           echo "resolved-count=$RESOLVED_COUNT" >> $GITHUB_OUTPUT
 
+      - name: Install Vale
+        if: steps.detect.outputs.has-files == 'true'
+        run: |
+          VALE_VERSION=$(sed -n 's/^VALE_VERSION="\(.*\)"/\1/p' .ci/vale/vale.sh)
+          curl -sfL "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz" \
+            | sudo tar xz -C /usr/local/bin vale
+          vale --version
+
       - name: Run Vale
         if: steps.detect.outputs.has-files == 'true'
         id: vale
         run: |
-          chmod +x .github/scripts/vale-check.sh
+          chmod +x .github/scripts/vale-check.sh .ci/vale/vale.sh
 
           set +e  # Don't exit on error
           .github/scripts/vale-check.sh --files resolved_files.txt > vale_results.json 2>vale_stderr.txt
