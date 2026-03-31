@@ -56,7 +56,7 @@ influxd-ctl backup [flags] <backup-dir>
 | `-end`      | End date for backup _(RFC3339 timestamp)_                           |
 | `-estimate` | Estimate the size of the requested backup                           |
 | `-from`     | Data node TCP address to prefer when backing up. In v1.12.3+, the node must exist in the cluster or the command returns an error. When the preferred node doesn't own a shard, the command falls back to other owners sorted by most recent write. See [Node selection](#node-selection). |
-| `-full`     | Perform an full backup _(deprecated in favour of `-strategy full`)_ |
+| `-full`     | Perform a full backup _(deprecated in favor of `-strategy full`)_ |
 | `-rp`       | Retention policy to backup                                          |
 | `-shard`    | Shard ID to backup                                                  |
 | `-staleness-threshold` | For incremental backups, skip shards modified within this duration of the existing backup. Default is `10m` (matches [`cache-snapshot-write-cold-duration`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-snapshot-write-cold-duration)). _v1.12.3+_ |
