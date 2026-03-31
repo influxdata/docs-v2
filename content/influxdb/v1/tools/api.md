@@ -64,8 +64,8 @@ InfluxDB v1 supports the following v2-compatible APIs:
 
 | Endpoint                                       | Description                                                                                                                           |
 | :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| [/api/v2/query](#api-v2-query-http-endpoint)   | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                                                     |
-| [/api/v2/write](#api-v2-write-http-endpoint)   | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_                              |
+| [/api/v2/query](#apiv2query-http-endpoint)   | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                                                     |
+| [/api/v2/write](#apiv2write-http-endpoint)   | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_                              |
 | [/api/v2/buckets](#apiv2buckets-http-endpoint) | Allows some client code using buckets to run against 1.x and 2.x without modification                                                 |
 | [/api/v2/delete](#apiv2delete-http-endpoint)   | Supports deletion by tag value, timestamp, and measurement using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_ |
 | [/health](#health-http-endpoint)               | Check the health of your InfluxDB instance                                                                                            |
@@ -284,9 +284,9 @@ The following InfluxDB 1.x API endpoints are available:
 
 | Endpoint                                         | Description                                                                    |
 |:----------                                       |:----------                                                                     |
-| [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
-| [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
-| [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
+| [/debug/pprof ](#debugpprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
+| [/debug/requests](#debugrequests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
+| [/debug/vars](#debugvars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
 | [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
 | [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
 | [/write](#write-http-endpoint)                   | Write data to a database                                                       |
@@ -419,6 +419,55 @@ Server statistics and information are displayed in JSON format.
 For information about InfluxDB HTTP server metrics, see the [`httpd` measurement](/platform/monitoring/influxdata-platform/tools/measurements-internal/#httpd).
 
 >**Note:** The [InfluxDB input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb) is available to collect metrics (using the `/debug/vars` endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the [InfluxDB input plugin README](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme).
+
+#### Running configuration {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `config` key that contains the running [TSDB storage configuration](/influxdb/v1/administration/config/#data-settings).
+Use this to inspect active server settings without direct access to configuration files.
+
+Values in the JSON output use the following representations:
+
+- Size values (such as `cache-max-memory-size`) appear as integers in bytes.
+- Duration values (such as `cache-snapshot-write-cold-duration`) appear as human-readable strings (for example, `"10m0s"`).
+
+The output is similar to the following:
+
+```json
+{
+  "config": {
+    "cache-max-memory-size": 1073741824,
+    "cache-snapshot-memory-size": 26214400,
+    "cache-snapshot-write-cold-duration": "10m0s",
+    "compact-full-write-cold-duration": "4h0m0s",
+    "compact-throughput": 50331648,
+    "compact-throughput-burst": 50331648,
+    "dir": "/var/lib/influxdb/data",
+    "max-concurrent-compactions": 0,
+    "max-index-log-file-size": 1048576,
+    "max-series-per-database": 1000000,
+    "max-values-per-tag": 100000,
+    "series-id-set-cache-size": 100,
+    "wal-dir": "/var/lib/influxdb/wal",
+    "wal-fsync-delay": "0s"
+  }
+}
+```
+
+#### Continuous query statistics {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `cq` key with continuous query execution counters:
+
+```json
+{
+  "cq": {
+    "queryOk": 2,
+    "queryFail": 0
+  }
+}
+```
+
+- `queryOk`: Number of CQ executions that completed successfully.
+- `queryFail`: Number of CQ executions that failed.
 
 ### `/ping` HTTP endpoint
 
