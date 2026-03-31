@@ -1145,6 +1145,17 @@ This setting has no effect if either
 
 Environment variable: `INFLUXDB_HTTP_PPROF_AUTH_ENABLED`
 
+#### user-query-bytes-enabled {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Enables per-user query response byte tracking.
+When enabled, InfluxDB records the number of bytes returned by queries for each user in the `userquerybytes` measurement, available through `SHOW STATS FOR 'userquerybytes'`, the `_internal` database, and the `/debug/vars` endpoint.
+
+Unauthenticated queries are attributed to `(anonymous)`.
+
+Environment variable: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
+
 #### https-enabled
 
 Default is `false`.

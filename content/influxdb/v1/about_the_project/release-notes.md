@@ -28,7 +28,7 @@ alt_links:
 - [Show user when displaying or logging queries](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries).
 - Add [`time_format` parameter](/influxdb/v1/tools/api/#query-data-with-a-select-statement-and-the-time_format-parameter) for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
-- Report user query bytes.
+- [Report user query bytes](/influxdb/v1/administration/config/#user-query-bytes-enabled).
 
 ### Bug fixes
 
