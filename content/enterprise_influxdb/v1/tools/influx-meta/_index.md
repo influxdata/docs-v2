@@ -3,12 +3,20 @@ title: influx-meta CLI
 description: >
   Use the `influx-meta` CLI to export and edit metadata in a live InfluxDB
   Enterprise v1 cluster.
+draft: true
+cascade:
+  draft: true
 menu:
   enterprise_influxdb_v1:
     weight: 12
     parent: Tools
     name: influx-meta
 ---
+
+<!-- DRAFT — DO NOT PUBLISH.
+     influx-meta is an internal InfluxData engineering/support tool, not shipped
+     in the InfluxDB Enterprise release. Keep draft: true on this page.
+     See https://github.com/influxdata/docs-v2/issues/6842 for context. -->
 
 The `influx-meta` CLI lets you export and edit metadata in a live InfluxDB
 Enterprise cluster.

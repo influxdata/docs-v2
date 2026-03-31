@@ -10,6 +10,11 @@ weight: 201
 metadata: v1.12.0+
 ---
 
+<!-- DRAFT — DO NOT PUBLISH.
+     influx-meta is an internal InfluxData engineering/support tool, not shipped
+     in the InfluxDB Enterprise release. Keep draft: true on this page.
+     See https://github.com/influxdata/docs-v2/issues/6842 for context. -->
+
 The `influx-meta convert` command converts metadata snapshots between binary
 and JSON formats.
 

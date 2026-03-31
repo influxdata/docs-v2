@@ -12,6 +12,11 @@ related:
   - /enterprise_influxdb/v1/tools/influxd-ctl/show-shards/
 ---
 
+<!-- DRAFT — DO NOT PUBLISH.
+     influx-meta is an internal InfluxData engineering/support tool, not shipped
+     in the InfluxDB Enterprise release. Keep draft: true on this page.
+     See https://github.com/influxdata/docs-v2/issues/6842 for context. -->
+
 The `influx-meta cleanup-shards` command removes orphaned shards and empty
 shard groups from the metadata of a live InfluxDB Enterprise cluster.
 
