@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-30 17:47:56 -0500 -0500">
+<meta name="last-modified" content="2026-03-30 23:04:20 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2838,6 +2838,20 @@ Use this to inspect active server settings without direct access to configuratio
   
   <p>InfluxDB Enterprise data nodes also expose <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster-settings">cluster configuration</a> fields through their own diagnostics, including <code>dial-timeout</code>, <code>shard-reader-timeout</code>, and <code>rpc-resettable-*-timeout</code> settings.</p>
 </div>
+<h4 metadata="v1.12.3+" id="continuous-query-statistics">Continuous query statistics</h4>
+<p>The <code>/debug/vars</code> response includes a <code>cq</code> key with continuous query execution counters:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cq&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryOk&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryFail&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<ul>
+<li><code>queryOk</code>: Number of CQ executions that completed successfully.</li>
+<li><code>queryFail</code>: Number of CQ executions that failed.</li>
+</ul>
 <h3 id="ping-http-endpoint"><code>/ping</code> HTTP endpoint</h3>
 <p>The ping endpoint accepts both <code>GET</code> and <code>HEAD</code> HTTP requests.
 Use this endpoint to check the status of your InfluxDB instance and your version
