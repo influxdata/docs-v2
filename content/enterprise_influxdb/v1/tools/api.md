@@ -433,6 +433,22 @@ The output is similar to the following:
 > [!Note]
 > InfluxDB Enterprise data nodes also expose [cluster configuration](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster-settings) fields through their own diagnostics, including `dial-timeout`, `shard-reader-timeout`, and `rpc-resettable-*-timeout` settings.
 
+#### Continuous query statistics {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `cq` key with continuous query execution counters:
+
+```json
+{
+  "cq": {
+    "queryOk": 2,
+    "queryFail": 0
+  }
+}
+```
+
+- `queryOk`: Number of CQ executions that completed successfully.
+- `queryFail`: Number of CQ executions that failed.
+
 ### `/ping` HTTP endpoint
 
 The ping endpoint accepts both `GET` and `HEAD` HTTP requests.
