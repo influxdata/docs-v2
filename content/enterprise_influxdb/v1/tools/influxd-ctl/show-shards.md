@@ -53,6 +53,7 @@ that are either in metadata but not on disk or on disk but not in metadata.
 
 | Flag | Description                       |
 | :--- | :-------------------------------- |
+| `-e` | Include expired shards in the output. By default, expired shards are filtered out. _v1.12.3+_ |
 | `-v` | Return detailed shard information |
 | `-m` | Return inconsistent shards |
 
