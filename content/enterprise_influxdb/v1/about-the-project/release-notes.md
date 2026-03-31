@@ -27,7 +27,7 @@ and I/O usage, particularly in high-cardinality and large-scale environments.
 Highlights include:
 
 - **Faster retention enforcement:** TSI series deletion now uses batched `fsync`,
-  delivering **10x–100x speed improvements** for high-cardinality datasets.  
+  delivering **up to 100x speed improvements** for high-cardinality datasets.  
 - **Reduced CPU usage during compaction:** Improvements to compaction planning
   (including filename generation and level caching) can reduce CPU usage by
   **up to 30%**.  
