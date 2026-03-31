@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-30 23:04:20 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 12:59:50 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2343,9 +2343,9 @@
 It uses HTTP response codes, authentication with username and password credentials or API tokens, and JSON-formatted response data.</p>
 <p>The following sections assume your InfluxDB instance is running on <code>localhost</code>
 port <code>8086</code> and HTTPS is not enabled.
-Those settings <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoints-settings">are configurable</a>.</p>
+Those settings <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoint-settings">are configurable</a>.</p>
 <ul>
-<li><a href="#influxdb-20-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</a></li>
+<li><a href="#influxdb-2x-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</a></li>
 <li><a href="#influxdb-1x-http-endpoints">InfluxDB  1.x HTTP endpoints</a></li>
 </ul>
 <h2 id="influxdb-2x-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</h2>
@@ -2394,13 +2394,13 @@ They allow you to easily move from InfluxDB 1.x to InfluxDB OSS 2.x or InfluxDB 
 </table>
 <h3 id="apiv2query-http-endpoint"><code>/api/v2/query/</code> HTTP endpoint</h3>
 <p>The <code>/api/v2/query</code> endpoint accepts <code>POST</code> HTTP requests.
-Use this endpoint to query data using <a href="/enterprise_influxdb/v1/flux/">Flux</a> and <a href="/influxdb/v2.x/api-guide/client-libraries/">InfluxDB 2.x client libraries</a>.
+Use this endpoint to query data using <a href="/enterprise_influxdb/v1/flux/">Flux</a> and <a href="/influxdb/v2/api-guide/client-libraries/">InfluxDB 2.x client libraries</a>.
 Flux is the primary language for working with data in InfluxDB 2.x.</p>
 <p><strong>Include the following HTTP headers:</strong></p>
 <ul>
 <li><code>Accept: application/csv</code></li>
 <li><code>Content-type: application/vnd.flux</code></li>
-<li>If <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization">authentication is enabled</a>,
+<li>If <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/">authentication is enabled</a>,
 provide your InfluxDB username and password:<br>
 <code>Authorization: Token USERNAME:PASSWORD</code></li>
 </ul>
@@ -2997,7 +2997,7 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
       </tr>
       <tr>
           <td style="text-align: left">p=&lt;password&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.**</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.**</td>
           <td style="text-align: left">Sets the password for authentication if you&rsquo;ve enabled authentication. Use with the query string parameter <code>u</code>.</td>
       </tr>
       <tr>
@@ -3012,7 +3012,7 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
       </tr>
       <tr>
           <td style="text-align: left">u=&lt;username&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the username for authentication if you&rsquo;ve enabled authentication. The user must have read access to the database. Use with the query string parameter <code>p</code>.</td>
       </tr>
   </tbody>
@@ -3021,7 +3021,7 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
 That behavior is configurable; see the <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-row-limit"><code>max-row-limit</code></a>
 configuration option for more information.</p>
 <p>** The InfluxDB API also supports basic authentication.
-Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>
+Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>
 and aren&rsquo;t using the query string parameters <code>u</code> and <code>p</code>.
 See below for an <a href="#create-a-database-using-basic-authentication">example</a> of basic authentication.</p>
 <h4 id="examples-2">Examples</h4>
@@ -3345,7 +3345,7 @@ Use this endpoint to write data to a pre-existing database.</p>
       </tr>
       <tr>
           <td style="text-align: left">p=&lt;password&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the password for authentication if you&rsquo;ve enabled authentication. Use with the query string parameter <code>u</code>.</td>
       </tr>
       <tr>
@@ -3360,13 +3360,13 @@ Use this endpoint to write data to a pre-existing database.</p>
       </tr>
       <tr>
           <td style="text-align: left">u=&lt;username&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the username for authentication if you&rsquo;ve enabled authentication. The user must have write access to the database. Use with the query string parameter <code>p</code>.</td>
       </tr>
   </tbody>
 </table>
 <p>* The InfluxDB API also supports basic authentication.
-Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>
+Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>
 and aren&rsquo;t using the query string parameters <code>u</code> and <code>p</code>.
 See below for an <a href="#write-a-point-to-the-database-mydb-using-basic-authentication">example</a> of basic authentication.</p>
 <p>** We recommend using the least precise precision possible as this can result
