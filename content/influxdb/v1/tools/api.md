@@ -64,8 +64,8 @@ InfluxDB v1 supports the following v2-compatible APIs:
 
 | Endpoint                                       | Description                                                                                                                           |
 | :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| [/api/v2/query](#api-v2-query-http-endpoint)   | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                                                     |
-| [/api/v2/write](#api-v2-write-http-endpoint)   | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_                              |
+| [/api/v2/query](#apiv2query-http-endpoint)   | Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and [Flux](/flux/latest/)                                                     |
+| [/api/v2/write](#apiv2write-http-endpoint)   | Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_                              |
 | [/api/v2/buckets](#apiv2buckets-http-endpoint) | Allows some client code using buckets to run against 1.x and 2.x without modification                                                 |
 | [/api/v2/delete](#apiv2delete-http-endpoint)   | Supports deletion by tag value, timestamp, and measurement using the InfluxDB v2 API _(compatible with InfluxDB v2 client libraries)_ |
 | [/health](#health-http-endpoint)               | Check the health of your InfluxDB instance                                                                                            |
@@ -284,9 +284,9 @@ The following InfluxDB 1.x API endpoints are available:
 
 | Endpoint                                         | Description                                                                    |
 |:----------                                       |:----------                                                                     |
-| [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
-| [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
-| [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
+| [/debug/pprof ](#debugpprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
+| [/debug/requests](#debugrequests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
+| [/debug/vars](#debugvars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
 | [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
 | [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
 | [/write](#write-http-endpoint)                   | Write data to a database                                                       |
