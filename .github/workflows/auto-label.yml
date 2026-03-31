@@ -18,18 +18,18 @@ concurrency:
 
 jobs:
   # -----------------------------------------------------------------
-  # Check if a successful run already exists for this commit
-  #
-  # Prevents re-runs from overwriting successful PR check status.
+  # Check if this re-run would create skipped check runs that
+  # overwrite existing successful status.
   # -----------------------------------------------------------------
   check-existing-success:
     runs-on: ubuntu-latest
     permissions:
       checks: read
+      pull-requests: read
     outputs:
       should-run: ${{ steps.check.outputs.should-run }}
     steps:
-      - name: Check for existing successful check runs
+      - name: Check if re-run would overwrite successful status
         id: check
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
         with:
@@ -38,17 +38,32 @@ jobs:
             const runId = context.runId;
             const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
 
-            core.info(`Checking for existing successful runs (SHA: ${headSha}, run: ${runId}, attempt: ${runAttempt})`);
+            core.info(`Run info: SHA=${headSha}, runId=${runId}, attempt=${runAttempt}`);
 
-            // If this is a first attempt (not a re-run), always proceed
+            // First attempts always proceed
             if (runAttempt === 1) {
-              core.info('First attempt - proceeding with workflow');
+              core.info('First attempt - proceeding');
               core.setOutput('should-run', 'true');
               return;
             }
 
-            // This is a re-run (attempt > 1). Check if another workflow run
-            // for this commit has already created successful check runs.
+            // Check if jobs would actually run or would skip
+            const pr = context.payload.pull_request;
+            const isDraft = pr?.draft === true;
+            const isFork = pr?.head?.repo?.full_name !== pr?.base?.repo?.full_name;
+            const isWorkflowDispatch = context.eventName === 'workflow_dispatch';
+
+            const jobsWouldRun = isWorkflowDispatch || (!isDraft && !isFork);
+
+            if (jobsWouldRun) {
+              core.info('Re-run would execute jobs - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // Jobs would be skipped. Check if successful runs already exist.
+            core.info('Re-run would skip jobs - checking for existing successful runs');
+
             try {
               const { data: checkRuns } = await github.rest.checks.listForRef({
                 owner: context.repo.owner,
@@ -57,7 +72,6 @@ jobs:
                 per_page: 100,
               });
 
-              // Look for successful 'auto-label' check runs from other workflow runs
               const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
                 const isOurJob = cr.name === 'auto-label';
                 const isSuccessful = cr.conclusion === 'success';
@@ -66,15 +80,15 @@ jobs:
               });
 
               if (successfulOtherRuns.length > 0) {
-                core.info(`Found ${successfulOtherRuns.length} successful check runs - aborting re-run`);
+                core.info(`Found ${successfulOtherRuns.length} successful runs - aborting to preserve status`);
                 core.setOutput('should-run', 'false');
                 return;
               }
             } catch (error) {
-              core.warning(`Could not check for existing runs: ${error.message}`);
+              core.warning(`Could not check existing runs: ${error.message}`);
             }
 
-            core.info('No existing successful runs found - proceeding with workflow');
+            core.info('No existing successful runs - proceeding');
             core.setOutput('should-run', 'true');
 
   auto-label:
