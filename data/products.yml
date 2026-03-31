@@ -349,7 +349,7 @@ enterprise_influxdb:
   versions: [v1]
   latest: v1.12
   latest_patches:
-    v1: 1.12.2
+    v1: 1.12.3
   detector_config:
     query_languages:
       InfluxQL:
