@@ -289,7 +289,7 @@ telegraf:
   versions: [v1]
   latest: v1.38
   latest_patches:
-    v1: 1.38.0
+    v1: 1.38.2
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -303,7 +303,7 @@ telegraf_controller:
   menu_category: other
   versions: [v1]
   latest: 0.0
-  latest_patch: 0.0.0
+  latest_patch: 0.0.5-beta
 
 chronograf:
   name: Chronograf
@@ -349,7 +349,7 @@ enterprise_influxdb:
   versions: [v1]
   latest: v1.12
   latest_patches:
-    v1: 1.12.3
+    v1: 1.12.2
   detector_config:
     query_languages:
       InfluxQL:

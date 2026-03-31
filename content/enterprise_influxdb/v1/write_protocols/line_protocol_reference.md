@@ -75,7 +75,7 @@ To learn how field value type discrepancies can affect `SELECT *` queries, see
 #### Write the field value `-1.234456e+78` as a float to InfluxDB
 
 ```sql
-> INSERT mymeas value=-1.234456e+78
+INSERT mymeas value=-1.234456e+78
 ```
 
 InfluxDB supports field values specified in scientific notation.
@@ -83,25 +83,25 @@ InfluxDB supports field values specified in scientific notation.
 #### Write a field value `1.0` as a float to InfluxDB
 
 ```sql
-> INSERT mymeas value=1.0
+INSERT mymeas value=1.0
 ```
 
 #### Write the field value `1` as a float to InfluxDB
 
 ```sql
-> INSERT mymeas value=1
+INSERT mymeas value=1
 ```
 
 #### Write the field value `1` as an integer to InfluxDB
 
 ```sql
-> INSERT mymeas value=1i
+INSERT mymeas value=1i
 ```
 
 #### Write the field value `stringing along` as a string to InfluxDB
 
 ```sql
-> INSERT mymeas value="stringing along"
+INSERT mymeas value="stringing along"
 ```
 
 Always double quote string field values. More on quoting [below](#quoting).
@@ -109,14 +109,14 @@ Always double quote string field values. More on quoting [below](#quoting).
 #### Write the field value `true` as a Boolean to InfluxDB
 
 ```sql
-> INSERT mymeas value=true
+INSERT mymeas value=true
 ```
 
 Do not quote Boolean field values.
 The following statement writes `true` as a string field value to InfluxDB:
 
 ```sql
-> INSERT mymeas value="true"
+INSERT mymeas value="true"
 ```
 
 #### Attempt to write a string to a field that previously accepted floats
@@ -132,9 +132,9 @@ ERR: {"error":"field type conflict: input field \"value\" on measurement \"mymea
 If the timestamps on the float and string are not stored in the same shard:
 
 ```sql
-> INSERT mymeas value=3 1465934559000000000
-> INSERT mymeas value="stringing along" 1466625759000000000
->
+INSERT mymeas value=3 1465934559000000000
+INSERT mymeas value="stringing along" 1466625759000000000
+
 ```
 
 ## Quoting, special characters, and additional naming guidelines
@@ -231,7 +231,7 @@ You do not need to escape other special characters.
 ##### Write a point with special characters
 
 ```sql
-> INSERT "measurement\ with\ quo⚡️es\ and\ emoji",tag\ key\ with\ sp🚀ces=tag\,value\,with"commas" field_k\ey="string field value, only \" need be esc🍭ped"
+INSERT "measurement\ with\ quo⚡️es\ and\ emoji",tag\ key\ with\ sp🚀ces=tag\,value\,with"commas" field_k\ey="string field value, only \" need be esc🍭ped"
 ```
 
 The system writes a point where the measurement is `"measurement with quo⚡️es and emoji"`, the tag key is `tag key with sp🚀ces`, the

@@ -151,8 +151,8 @@ If using an admin user for visualization or Chronograf administrative functions,
 
 <!--pytest.mark.skip-->
 ```bash
-> CREATE USER <username> WITH PASSWORD '<password>'
-> GRANT READ ON <database> TO "<username>"
+CREATE USER <username> WITH PASSWORD '<password>'
+GRANT READ ON <database> TO "<username>"
 ```
 
 InfluxDB {{< current-version >}} only grants admin privileges to the primary user
