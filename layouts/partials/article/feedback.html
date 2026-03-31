@@ -2,7 +2,7 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
-{{ $productNamespace := cond (eq $product "influxdb3") "influxdb" $product }}
+{{ $productNamespace := cond (or (eq $product "influxdb3") (eq $product "enterprise_influxdb")) "influxdb" $product }}
 {{ $productName := (index .Site.Data.products $productKey).name }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
