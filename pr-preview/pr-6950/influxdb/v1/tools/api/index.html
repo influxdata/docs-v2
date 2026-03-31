@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 14:53:51 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 14:58:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -1864,11 +1864,11 @@ are built for the InfluxDB v2 API, but also work with <strong>InfluxDB 1.8+</str
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><a href="#api-v2-query-http-endpoint">/api/v2/query</a></td>
+          <td style="text-align: left"><a href="#apiv2query-http-endpoint">/api/v2/query</a></td>
           <td style="text-align: left">Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and <a href="/flux/latest/">Flux</a></td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#api-v2-write-http-endpoint">/api/v2/write</a></td>
+          <td style="text-align: left"><a href="#apiv2write-http-endpoint">/api/v2/write</a></td>
           <td style="text-align: left">Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API <em>(compatible with InfluxDB v2 client libraries)</em></td>
       </tr>
       <tr>
@@ -2135,15 +2135,15 @@ Use this endpoint to check the health of your InfluxDB instance.</p>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><a href="#debug-pprof-http-endpoint">/debug/pprof </a></td>
+          <td style="text-align: left"><a href="#debugpprof-http-endpoint">/debug/pprof </a></td>
           <td style="text-align: left">Generate profiles for troubleshooting</td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#debug-requests-http-endpoint">/debug/requests</a></td>
+          <td style="text-align: left"><a href="#debugrequests-http-endpoint">/debug/requests</a></td>
           <td style="text-align: left">Track HTTP client requests to the <code>/write</code> and <code>/query</code> endpoints</td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#debug-vars-http-endpoint">/debug/vars</a></td>
+          <td style="text-align: left"><a href="#debugvars-http-endpoint">/debug/vars</a></td>
           <td style="text-align: left">Collect internal InfluxDB statistics</td>
       </tr>
       <tr>
@@ -2296,6 +2296,49 @@ For information about InfluxDB HTTP server metrics, see the <a href="/platform/m
 <p><strong>Note:</strong> The <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb">InfluxDB input plugin</a> is available to collect metrics (using the <code>/debug/vars</code> endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme">InfluxDB input plugin README</a>.</p>
 
 </blockquote>
+<h4 metadata="v1.12.3+" id="running-configuration">Running configuration</h4>
+<p>The <code>/debug/vars</code> response includes a <code>config</code> key that contains the running <a href="/influxdb/v1/administration/config/#data-settings">TSDB storage configuration</a>.
+Use this to inspect active server settings without direct access to configuration files.</p>
+<p>Values in the JSON output use the following representations:</p>
+<ul>
+<li>Size values (such as <code>cache-max-memory-size</code>) appear as integers in bytes.</li>
+<li>Duration values (such as <code>cache-snapshot-write-cold-duration</code>) appear as human-readable strings (for example, <code>&quot;10m0s&quot;</code>).</li>
+</ul>
+<p>The output is similar to the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-max-memory-size&#34;</span><span class="p">:</span> <span class="mi">1073741824</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-memory-size&#34;</span><span class="p">:</span> <span class="mi">26214400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;10m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-full-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;4h0m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput-burst&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/data&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-concurrent-compactions&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-index-log-file-size&#34;</span><span class="p">:</span> <span class="mi">1048576</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-series-per-database&#34;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-values-per-tag&#34;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;series-id-set-cache-size&#34;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/wal&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-fsync-delay&#34;</span><span class="p">:</span> <span class="s2">&#34;0s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<h4 metadata="v1.12.3+" id="continuous-query-statistics">Continuous query statistics</h4>
+<p>The <code>/debug/vars</code> response includes a <code>cq</code> key with continuous query execution counters:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cq&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryOk&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryFail&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<ul>
+<li><code>queryOk</code>: Number of CQ executions that completed successfully.</li>
+<li><code>queryFail</code>: Number of CQ executions that failed.</li>
+</ul>
 <h3 id="ping-http-endpoint"><code>/ping</code> HTTP endpoint</h3>
 <p>The ping endpoint accepts both <code>GET</code> and <code>HEAD</code> HTTP requests.
 Use this endpoint to check the status of your InfluxDB instance and your version
