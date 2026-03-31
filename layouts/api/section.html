@@ -25,6 +25,7 @@ For tag pages (with 'tag' param), Hugo uses list.html instead.
         <section class="api-section-content">{{ . }}</section>
         {{ end }} {{/* Always show tag pages from article data */}} {{ partial
         "api/section-children.html" . }} {{ partial "article/related.html" . }}
+        {{ partial "article/feedback.html" . }}
       </article>
     </div>
 

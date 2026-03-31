@@ -515,7 +515,7 @@ function processProduct(apiDocsRoot: string, productDir: string): void {
     return;
   }
 
-  for (const [apiKey, apiEntry] of Object.entries(config.apis)) {
+  for (const [_apiKey, apiEntry] of Object.entries(config.apis)) {
     const specRelPath = apiEntry.root;
     const specAbsPath = path.join(productAbsDir, specRelPath);
     const specDir = path.join(productAbsDir, path.dirname(specRelPath));

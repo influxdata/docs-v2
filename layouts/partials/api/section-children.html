@@ -89,13 +89,25 @@
 
     <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
     {{ with $description }}
-    {{/* Truncate to first paragraph (before double newline) or 200 chars */}}
-    {{/* Skip paragraphs that are just headings (start with #) */}}
-    {{ $paragraphs := split . "\n\n" }}
+    {{/* Extract first sentence/paragraph for the children listing.
+         Split on double newlines first. If the description has no double
+         newlines, split on single newlines and take the first non-heading,
+         non-list line. Truncate to 200 chars. */}}
     {{ $firstPara := "" }}
+    {{ $paragraphs := split . "\n\n" }}
     {{ range $paragraphs }}
-      {{ if and (not $firstPara) (not (hasPrefix . "#")) }}
+      {{ if and (not $firstPara) (not (hasPrefix (strings.TrimLeft " " .) "#")) (not (hasPrefix (strings.TrimLeft " " .) "-")) }}
         {{ $firstPara = . }}
+      {{ end }}
+    {{ end }}
+    {{/* If no double-newline split worked, try single newlines */}}
+    {{ if not $firstPara }}
+      {{ $lines := split . "\n" }}
+      {{ range $lines }}
+        {{ $trimmed := strings.TrimLeft " " . }}
+        {{ if and (not $firstPara) (ne $trimmed "") (not (hasPrefix $trimmed "#")) (not (hasPrefix $trimmed "-")) }}
+          {{ $firstPara = . }}
+        {{ end }}
       {{ end }}
     {{ end }}
     {{ if $firstPara }}

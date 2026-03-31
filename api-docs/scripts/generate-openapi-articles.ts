@@ -124,7 +124,7 @@ function loadApiProducts(): Map<string, string> {
 
   const apiProducts = new Map<string, string>();
 
-  for (const [key, product] of Object.entries(products)) {
+  for (const [_key, product] of Object.entries(products)) {
     if (product.api_path && product.alt_link_key) {
       // Use alt_link_key as the key (matches Hugo template expectations)
       apiProducts.set(product.alt_link_key, product.api_path);
@@ -388,7 +388,7 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
       // Build description - use product description or generate from product name
       const apiDescription =
         productDescription ||
-        `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+        'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
 
       const parentFrontmatter: Record<string, unknown> = {
         title: menuParent || 'InfluxDB HTTP API',
@@ -548,7 +548,7 @@ function generateTagPagesFromArticleData(
     productDescription,
     bodyExtra,
     menuParentName,
-    pathSpecFiles,
+    pathSpecFiles: _pathSpecFiles,
     subSection,
     specDownloadPath: explicitSpecDownloadPath,
   } = options;
@@ -638,7 +638,7 @@ function generateTagPagesFromArticleData(
     const apiDescription =
       pageOverlay.description ||
       productDescription ||
-      `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+      'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
     const effectiveBodyExtra = pageOverlay.body_extra || bodyExtra || '';
 
     const parentFrontmatter: Record<string, unknown> = {
@@ -730,7 +730,7 @@ ${yaml.dump(subSectionFrontmatter)}---
 
   const allEndpointsFrontmatter: Record<string, unknown> = {
     title: 'All endpoints',
-    description: `View all API endpoints sorted by path.`,
+    description: 'View all API endpoints sorted by path.',
     type: 'api',
     layout: 'all-endpoints',
     weight: 999,
@@ -1621,7 +1621,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
         // Write the top-level api/_index.md (no specDownloadPath — each sub-section has its own)
         const apiDescription =
           config.description ||
-          `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+          'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
         const apiParentDir = path.join(config.pagesDir, 'api');
         const parentIndexFile = path.join(apiParentDir, '_index.md');
         if (!fs.existsSync(apiParentDir)) {

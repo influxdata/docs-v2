@@ -92,7 +92,7 @@ function loadApiProducts() {
     const productsContent = fs.readFileSync(productsFile, 'utf8');
     const products = yaml.load(productsContent);
     const apiProducts = new Map();
-    for (const [key, product] of Object.entries(products)) {
+    for (const [_key, product] of Object.entries(products)) {
         if (product.api_path && product.alt_link_key) {
             // Use alt_link_key as the key (matches Hugo template expectations)
             apiProducts.set(product.alt_link_key, product.api_path);
@@ -278,7 +278,7 @@ function generatePagesFromArticleData(options) {
         if (!fs.existsSync(parentIndexFile)) {
             // Build description - use product description or generate from product name
             const apiDescription = productDescription ||
-                `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+                'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
             const parentFrontmatter = {
                 title: menuParent || 'InfluxDB HTTP API',
                 description: apiDescription,
@@ -366,7 +366,7 @@ ${yaml.dump(frontmatter)}---
  * @param options - Generation options
  */
 function generateTagPagesFromArticleData(options) {
-    const { articlesPath, contentPath, menuKey, menuParent, productDescription, bodyExtra, menuParentName, pathSpecFiles, subSection, specDownloadPath: explicitSpecDownloadPath, } = options;
+    const { articlesPath, contentPath, menuKey, menuParent, productDescription, bodyExtra, menuParentName, pathSpecFiles: _pathSpecFiles, subSection, specDownloadPath: explicitSpecDownloadPath, } = options;
     const yaml = require('js-yaml');
     const articlesFile = path.join(articlesPath, 'articles.yml');
     if (!fs.existsSync(articlesFile)) {
@@ -426,7 +426,7 @@ function generateTagPagesFromArticleData(options) {
         // Build description - page.yml > options > default
         const apiDescription = pageOverlay.description ||
             productDescription ||
-            `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+            'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
         const effectiveBodyExtra = pageOverlay.body_extra || bodyExtra || '';
         const parentFrontmatter = {
             title: menuParent || 'InfluxDB HTTP API',
@@ -501,7 +501,7 @@ ${yaml.dump(subSectionFrontmatter)}---
     }
     const allEndpointsFrontmatter = {
         title: 'All endpoints',
-        description: `View all API endpoints sorted by path.`,
+        description: 'View all API endpoints sorted by path.',
         type: 'api',
         layout: 'all-endpoints',
         weight: 999,
@@ -1169,7 +1169,7 @@ function processProduct(productKey, config) {
                 console.log(`\n📋 Generating sub-section pages for ${processedSpecs.length} specs...`);
                 // Write the top-level api/_index.md (no specDownloadPath — each sub-section has its own)
                 const apiDescription = config.description ||
-                    `Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.`;
+                    'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
                 const apiParentDir = path.join(config.pagesDir, 'api');
                 const parentIndexFile = path.join(apiParentDir, '_index.md');
                 if (!fs.existsSync(apiParentDir)) {
