@@ -81,10 +81,7 @@ When backing up a shard, the command selects the best data node to read from:
 ### Staleness threshold
 
 During incremental backups, the `-staleness-threshold` flag controls when a shard is considered current and can be skipped.
-A shard is skipped when:
-
-- The existing backup timestamp plus the staleness threshold is after the shard's last modification time, AND
-- The existing backup is at least as large as the current shard.
+A shard is skipped when the existing backup timestamp plus the staleness threshold is after the shard's last modification time.
 
 ## Examples
 
