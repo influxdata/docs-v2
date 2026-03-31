@@ -60,7 +60,6 @@ exceptions:
   - ASC
   - AVG
   - BIT
-  - BY
   - CASE
   - CAST
   - COS
@@ -93,11 +92,12 @@ exceptions:
   - MAX
   - MIN
   - MONTH
+  - NAME
   - NAMES
   - NOT
   - NOW
-  - NULL
-  - ON
+  - "NULL"
+  - "ON"
   - ONLY
   - OPEN
   - ORDER
@@ -121,7 +121,7 @@ exceptions:
   - TIME
   - TOP
   - TRIM
-  - TRUE
+  - "TRUE"
   - UNION
   - UPPER
   - USAGE
