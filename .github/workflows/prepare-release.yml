@@ -29,14 +29,14 @@ jobs:
   prepare-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Create release branch
         run: |
           git checkout -b docs-release-v${{ inputs.version }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -88,7 +88,7 @@ jobs:
             --version ${{ inputs.version }}
 
       - name: Create release checklist issue
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const checklist = require('./.github/scripts/release-checklist.js');
