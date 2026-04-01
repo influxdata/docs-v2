@@ -207,7 +207,7 @@ SELECT * FROM system.upgrade_parquet
 
 ## Export to Parquet
 
-Export compacted data as Parquet files for use with external tools like pandas
+You can export compacted data as Parquet files for use with external tools like pandas
 or DuckDB.
 
 > [!Note]
