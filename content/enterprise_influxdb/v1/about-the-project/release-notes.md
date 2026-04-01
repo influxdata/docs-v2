@@ -1676,7 +1676,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 - Return an error if getting latest snapshot takes longer than 30 seconds
 - Remove any expired shards from the `/show-shards` output
 - Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled) and enable it by default on meta nodes
-- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled-1) on data nodes
+- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled) on data nodes
 - Use the data reference instead of `Clone()` during read-only operations for performance purposes
 - Prevent the system from double-collecting cluster statistics
 - Ensure that the Meta API redirects to the cluster leader when it gets the `ErrNotLeader` error

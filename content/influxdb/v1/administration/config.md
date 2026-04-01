@@ -1603,7 +1603,7 @@ InfluxData recommends configuring your InfluxDB server's TLS settings for
 that backward compatibility is not required. Our recommended TLS configuration
 settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's
 "modern compatibility" TLS server configuration described in
-[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS#Modern_compatibility).
+[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 InfluxData's recommended TLS settings for "modern compatibility" are specified
 in the following configuration settings example:
