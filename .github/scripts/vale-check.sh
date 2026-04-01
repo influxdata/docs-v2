@@ -15,6 +15,9 @@
 
 set -euo pipefail
 
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+VALE_WRAPPER="${REPO_ROOT}/.ci/vale/vale.sh"
+
 # Parse arguments
 FILES=()
 while [[ $# -gt 0 ]]; do
@@ -51,6 +54,8 @@ get_vale_config() {
   case "$file" in
     content/influxdb3/cloud-dedicated/*)  echo "content/influxdb3/cloud-dedicated/.vale.ini" ;;
     content/influxdb3/cloud-serverless/*) echo "content/influxdb3/cloud-serverless/.vale.ini" ;;
+    content/influxdb3/clustered/*)        echo "content/influxdb3/clustered/.vale.ini" ;;
+    content/influxdb3/core/*)             echo "content/influxdb3/core/.vale.ini" ;;
     content/influxdb/v2/*)                echo "content/influxdb/v2/.vale.ini" ;;
     content/*)                            echo ".vale.ini" ;;
     *)                                    echo ".vale-instructions.ini" ;;
@@ -75,11 +80,9 @@ for config in "${!CONFIG_GROUPS[@]}"; do
 
   echo "Running Vale with config: $config (${#file_array[@]} files)" >&2
 
-  # Run Vale via Docker
-  RESULT=$(docker run --rm \
-    -v "$(pwd)":/workdir \
-    -w /workdir \
-    jdkato/vale:latest \
+  # Run Vale via the repo wrapper (.ci/vale/vale.sh),
+  # which uses a local binary if available or falls back to Docker.
+  RESULT=$("$VALE_WRAPPER" \
     --config="$config" \
     --output=JSON \
     --minAlertLevel=suggestion \

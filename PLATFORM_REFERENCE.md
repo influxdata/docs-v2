@@ -52,7 +52,7 @@ InfluxDB 3 Explorer:
   - Documentation: https://docs.influxdata.com/influxdb3/explorer/
 
 Telegraf:
-  - Documentation: https://docs.influxdata.com/telegraf/v1.37/
+  - Documentation: https://docs.influxdata.com/telegraf/v1.38/
 
 Chronograf:
   - Documentation: https://docs.influxdata.com/chronograf/v1.11/
