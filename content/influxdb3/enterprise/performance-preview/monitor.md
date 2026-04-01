@@ -11,8 +11,8 @@ menu:
 weight: 203
 influxdb3/enterprise/tags: [storage, monitoring, beta, preview, system tables]
 related:
-  - /influxdb3/enterprise/admin/pachatree/
-  - /influxdb3/enterprise/admin/pachatree/configure/
+  - /influxdb3/enterprise/performance-preview/
+  - /influxdb3/enterprise/performance-preview/configure/
   - /influxdb3/enterprise/admin/query-system-data/
 ---
 
@@ -104,7 +104,7 @@ ORDER BY generation;
 
 ## Parquet upgrade status
 
-If you [upgraded from Parquet](/influxdb3/enterprise/admin/pachatree/#upgrade-from-parquet),
+If you [upgraded from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet),
 use these system tables to monitor migration progress.
 
 ### system.upgrade_parquet_node

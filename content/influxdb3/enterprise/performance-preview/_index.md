@@ -12,8 +12,8 @@ weight: 12
 influxdb3/enterprise/tags: [storage, performance, beta, preview]
 related:
   - /influxdb3/enterprise/get-started/setup/
-  - /influxdb3/enterprise/admin/pachatree/configure/
-  - /influxdb3/enterprise/admin/pachatree/monitor/
+  - /influxdb3/enterprise/performance-preview/configure/
+  - /influxdb3/enterprise/performance-preview/monitor/
   - /influxdb3/enterprise/admin/performance-tuning/
 ---
 
@@ -85,9 +85,9 @@ influxdb3 serve ...
 
 The `--use-pacha-tree` flag exposes additional configuration options prefixed
 with `--pt-`.
-See [Configure the preview](/influxdb3/enterprise/admin/pachatree/configure/)
+See [Configure the preview](/influxdb3/enterprise/performance-preview/configure/)
 for tuning options, or
-[Monitor the preview](/influxdb3/enterprise/admin/pachatree/monitor/)
+[Monitor the preview](/influxdb3/enterprise/performance-preview/monitor/)
 for system tables and telemetry.
 
 > [!Warning]

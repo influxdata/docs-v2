@@ -45,7 +45,7 @@
   scope:
     - /influxdb3/enterprise/
   exclude:
-    - /influxdb3/enterprise/admin/pachatree/
+    - /influxdb3/enterprise/performance-preview/
   title: 'InfluxDB 3.9: Performance upgrade preview'
   slug: |
     InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
@@ -66,7 +66,7 @@
 
     For more information, see:
 
-    - [Performance upgrade preview](/influxdb3/enterprise/admin/pachatree/)
+    - [Performance upgrade preview](/influxdb3/enterprise/performance-preview/)
     - [InfluxDB 3 Enterprise release notes](/influxdb3/enterprise/release-notes/)
     - [InfluxData Blog post](https://www.influxdata.com/blog/influxdb-3-9/)
 
