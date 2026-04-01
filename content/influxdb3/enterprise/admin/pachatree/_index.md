@@ -18,9 +18,9 @@ related:
 ---
 
 > [!Warning]
-> #### Private preview beta
+> #### Performance preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a private beta. These features are subject to breaking changes
+> and Commercial users as a beta. These features are subject to breaking changes
 > and **should not be used for production workloads**.
 >
 > To share feedback on this preview, see [Support and feedback options](#bug-reports-and-feedback).
@@ -29,7 +29,7 @@ related:
 
 ## What is the performance upgrade preview?
 
-{{% product-name %}} includes a private preview of major upgrades to the
+{{% product-name %}} includes a preview of major upgrades to the
 storage layer that improve how data is written, stored, compressed, compacted,
 and queried.
 These upgrades touch every layer of the storage path -- from a new on-disk file
@@ -56,8 +56,6 @@ Key improvements include:
   and dynamic schema evolution without expensive rewrites.
 - **Column families** -- Group related fields for efficient compression and I/O,
   so queries only read the data they need.
-- **Automatic distinct value caches** -- Transparent caching of distinct values
-  for reduced latency on metadata queries.
 - **Bulk data export** -- Export compacted data as Parquet files for use with
   external tools.
 - **Automatic Parquet upgrade** -- Seamlessly migrate existing data with
@@ -90,6 +88,18 @@ See [Configure the preview](/influxdb3/enterprise/admin/pachatree/configure/)
 for tuning options, or
 [Monitor the preview](/influxdb3/enterprise/admin/pachatree/monitor/)
 for system tables and telemetry.
+
+> [!Warning]
+> #### Existing clusters with Parquet data
+>
+> On clusters with existing Parquet data, enabling `--use-pacha-tree`
+> **automatically converts Parquet files to `.pt` format** on startup, which
+> consumes additional CPU and memory while the migration runs.
+> Queries continue to work normally during this period.
+> See [Upgrade from Parquet](#upgrade-from-parquet) for details.
+>
+> For the beta, we recommend enabling the preview with a fresh cluster in a
+> staging or test environment first.
 
 ## What's changed
 
@@ -156,30 +166,6 @@ Old files are cleaned up after a cooldown period, ensuring query replicas have
 time to see new checkpoints before old data is removed.
 Failures are automatically retried, and the system is designed to be
 self-healing for transient issues.
-
-### Automatic distinct value caches
-
-When enabled with `--enable-auto-dvc`, the storage layer automatically caches
-distinct tag values to dramatically improve the performance of metadata queries.
-This benefits `SHOW TAG VALUES` queries in InfluxQL and introduces a new
-`tag_values()` SQL function:
-
-```sql
--- InfluxQL (automatically uses cache)
-SHOW TAG VALUES FROM cpu WITH KEY = "host"
-
--- SQL (auto-creates cache if needed)
-SELECT * FROM tag_values('cpu')
-```
-
-Enable Auto-DVC at startup:
-
-```bash
-influxdb3 serve \
-  # ...
-  --use-pacha-tree \
-  --enable-auto-dvc
-```
 
 ## Upgrade from Parquet
 

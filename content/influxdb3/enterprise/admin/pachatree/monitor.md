@@ -17,9 +17,9 @@ related:
 ---
 
 > [!Warning]
-> #### Private preview beta
+> #### Performance preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a private beta. These features are subject to breaking changes
+> and Commercial users as a beta. These features are subject to breaking changes
 > and **should not be used for production workloads**.
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to

@@ -18,9 +18,9 @@ related:
 ---
 
 > [!Warning]
-> #### Private preview beta
+> #### Performance preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a private beta. These features are subject to breaking changes
+> and Commercial users as a beta. These features are subject to breaking changes
 > and **should not be used for production workloads**.
 
 This page provides a complete reference for all configuration options available
@@ -53,7 +53,7 @@ that balances resource usage and throughput.
 | `--pt-engine-path-prefix` | Optional path prefix for all engine data (WAL, Gen0, etc.). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
 | `--pt-max-columns` | Maximum total columns across the entire instance. Must be at least 2. | ~6.5M |
 | `--pt-enable-retention` | Enable retention enforcement. | `true` |
-| `--pt-disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results from both engines. Set this flag to query only from the new engine. | `false` |
+| `--pt-disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
 | `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. See [Auto-DVC](/influxdb3/enterprise/admin/pachatree/#automatic-distinct-value-caches). | Disabled |
 | `--pt-upgrade-poll-interval` | Polling interval for Parquet-to-PachaTree upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/admin/pachatree/#upgrade-from-parquet). | `5s` |
 
@@ -71,9 +71,8 @@ influxdb3 serve \
 ### Hybrid query mode
 
 When you enable the preview on an instance with existing Parquet data,
-hybrid query mode merges results from both the legacy Parquet engine and the new
-engine.
-Disable hybrid mode to query only the new engine:
+hybrid query mode merges results across both Parquet and `.pt` files.
+Disable hybrid mode to query only `.pt` data:
 
 ```bash
 influxdb3 serve \
