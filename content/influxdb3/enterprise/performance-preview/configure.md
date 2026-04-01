@@ -25,7 +25,7 @@ related:
 
 This page provides a complete reference for all configuration options available
 with the performance upgrade preview.
-All options require the `--use-pacha-tree` flag.
+All `--pt-*` performance upgrade options require the `--use-pacha-tree` flag.
 
 If an option is omitted, the preview either derives a value from the existing
 `influxdb3 serve` configuration or falls back to an engine-specific default
