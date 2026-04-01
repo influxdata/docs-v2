@@ -94,7 +94,7 @@ See [step 2.2](#22-remove-the-non-leader-meta-node) of the
 ### Replace responsive and unresponsive data nodes in a cluster
 
 The process of replacing both responsive and unresponsive data nodes is the same.
-Follow the instructions for [replacing data nodes](#replace-a-data-node-in-an-influxdb-enterprise-cluster).
+Follow the instructions for [replacing data nodes](#replace-data-nodes-in-an-influxdb-enterprise-cluster).
 
 ### Reconnect a data node with a failed disk
 
@@ -269,14 +269,14 @@ enterprise-meta-04:8091	{{< latest-patch >}}-c{{< latest-patch >}} # <-- The new
 #### 2.5. Remove and replace all other non-leader meta nodes
 
 **If replacing only one meta node, no further action is required.**
-If replacing others, repeat steps [2.1-2.4](#2-1-provision-a-new-meta-node) for all non-leader meta nodes one at a time.
+If replacing others, repeat steps [2.1-2.4](#21-provision-a-new-meta-node) for all non-leader meta nodes one at a time.
 
 ### 3. Replace the leader node
 
 As non-leader meta nodes are removed and replaced, the leader node oversees the replication of data to each of the new meta nodes.
 Leave the leader up and running until at least two of the new meta nodes are up, running and healthy.
 
-#### 3.1 - Kill the meta process on the leader node
+#### 3.1. Kill the meta process on the leader node
 
 Log into the leader meta node and kill the meta process.
 
@@ -296,9 +296,9 @@ Confirm the new leader by running:
 curl localhost:8091/status | jq
 ```
 
-#### 3.2 - Remove and replace the old leader node
+#### 3.2. Remove and replace the old leader node
 
-Remove the old leader node and replace it by following steps [2.1-2.4](#2-1-provision-a-new-meta-node).
+Remove the old leader node and replace it by following steps [2.1-2.4](#21-provision-a-new-meta-node).
 The minimum number of meta nodes you should have in your cluster is 3.
 
 ## Replace data nodes in an InfluxDB Enterprise cluster
@@ -369,7 +369,7 @@ ID  Database   Retention Policy  Desired Replicas  Shard Group  Start           
 6   foo        autogen           2                 4            2018-03-19T00:00:00Z  2018-03-26T00:00:00Z                        [{5 enterprise-data-02:8088} {4 enterprise-data-03:8088}]
 ```
 
-Within the duration defined by [`anti-entropy.check-interval`](/enterprise_influxdb/v1/administration/config-data-nodes#check-interval-10m),
+Within the duration defined by [`anti-entropy.check-interval`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#check-interval),
 the AE service begins copying shards from other shard owners to the new node.
 The time it takes for copying to complete is determined by the number of shards
 copied and how much data is stored in each.

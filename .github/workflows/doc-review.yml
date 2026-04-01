@@ -23,18 +23,109 @@ concurrency:
 
 jobs:
   # -----------------------------------------------------------------
+  # Job 0: Check if this re-run would create skipped check runs that
+  # overwrite existing successful status.
+  #
+  # Only aborts re-runs where jobs would be SKIPPED. If a re-run would
+  # actually execute jobs (potentially with failures), it proceeds
+  # because that's useful information.
+  # -----------------------------------------------------------------
+  check-existing-success:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
+      pull-requests: read
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Check if re-run would overwrite successful status
+        id: check
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        with:
+          script: |
+            const headSha = context.sha;
+            const runId = context.runId;
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
+
+            core.info(`Run info: SHA=${headSha}, runId=${runId}, attempt=${runAttempt}`);
+
+            // First attempts always proceed
+            if (runAttempt === 1) {
+              core.info('First attempt - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // This is a re-run. Check if jobs would actually run or would skip.
+            // We need to evaluate the same conditions that jobs use.
+            const pr = context.payload.pull_request;
+            const isDraft = pr?.draft === true;
+            const isFork = pr?.head?.repo?.full_name !== pr?.base?.repo?.full_name;
+            const hasSkipLabel = pr?.labels?.some(l => l.name === 'skip-review') || false;
+            const isWorkflowDispatch = context.eventName === 'workflow_dispatch';
+
+            core.info(`PR state: draft=${isDraft}, fork=${isFork}, skip-review=${hasSkipLabel}, workflow_dispatch=${isWorkflowDispatch}`);
+
+            // Check if job conditions would pass (meaning jobs would actually run)
+            const jobsWouldRun = isWorkflowDispatch || (!isDraft && !isFork && !hasSkipLabel);
+
+            if (jobsWouldRun) {
+              // Jobs would actually execute - let the re-run proceed
+              // Any failures would be important information
+              core.info('Re-run would execute jobs - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // Jobs would be skipped. Check if successful runs already exist.
+            core.info('Re-run would skip jobs - checking for existing successful runs');
+
+            try {
+              const { data: checkRuns } = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: headSha,
+                per_page: 100,
+              });
+
+              const docReviewJobs = ['check-existing-success', 'resolve-urls', 'copilot-review', 'copilot-visual-review', 'report-skipped'];
+              const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
+                const isOurJob = docReviewJobs.includes(cr.name);
+                const isSuccessful = cr.conclusion === 'success';
+                const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${runId}/`);
+                return isOurJob && isSuccessful && fromDifferentRun;
+              });
+
+              if (successfulOtherRuns.length > 0) {
+                core.info(`Found ${successfulOtherRuns.length} successful runs - aborting to preserve status`);
+                successfulOtherRuns.forEach(cr => core.info(`  - ${cr.name}: ${cr.html_url}`));
+                core.setOutput('should-run', 'false');
+                return;
+              }
+            } catch (error) {
+              core.warning(`Could not check existing runs: ${error.message}`);
+            }
+
+            core.info('No existing successful runs - proceeding');
+            core.setOutput('should-run', 'true');
+
+  # -----------------------------------------------------------------
   # Job 1: Resolve preview URLs from changed content files
   # -----------------------------------------------------------------
   resolve-urls:
+    needs: check-existing-success
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (!github.event.pull_request.draft &&
-       github.event.pull_request.head.repo.full_name == github.repository &&
-       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+      needs.check-existing-success.outputs.should-run == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (!github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !contains(github.event.pull_request.labels.*.name, 'skip-review')))
     outputs:
       urls: ${{ steps.detect.outputs.urls }}
       url-count: ${{ steps.detect.outputs.url-count }}
@@ -81,14 +172,16 @@ jobs:
   # Job 2: Copilot code review (runs in parallel with Job 1)
   # -----------------------------------------------------------------
   copilot-review:
+    needs: check-existing-success
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (!github.event.pull_request.draft &&
-       github.event.pull_request.head.repo.full_name == github.repository &&
-       !contains(github.event.pull_request.labels.*.name, 'skip-review'))
+      needs.check-existing-success.outputs.should-run == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (!github.event.pull_request.draft &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        !contains(github.event.pull_request.labels.*.name, 'skip-review')))
     steps:
       - name: Request Copilot review
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0

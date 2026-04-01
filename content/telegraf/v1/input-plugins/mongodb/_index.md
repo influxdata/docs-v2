@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/inputs/mongodb/README.md, MongoDB Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/mongodb/README.md, MongoDB Plugin Source
 ---
 
 # MongoDB Input Plugin
@@ -114,7 +114,7 @@ With MongoDB 3.4 and higher, the `clusterMonitor` role can be used.  In
 version 3.2 you may also need these additional permissions:
 
 ```shell
-db.grantRolesToUser("user", [{role: "read", actions: "find", db: "local"}])
+> db.grantRolesToUser("user", [{role: "read", actions: "find", db: "local"}])
 ```
 
 If the user is missing required privileges you may see an error in the

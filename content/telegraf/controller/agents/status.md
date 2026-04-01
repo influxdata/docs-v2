@@ -20,25 +20,11 @@ evaluates [Common Expression Language (CEL)](/telegraf/controller/reference/agen
 expressions against agent metrics, error counts, and plugin statistics to
 determine the status sent with each heartbeat.
 
-
-<!-- TODO: Update version to 1.38.2 after it's released -->
 > [!Note]
-> #### Requires Telegraf v1.38.0+
+> #### Requires Telegraf v1.38.2+
 >
 > Agent status evaluation in the Heartbeat output plugins requires Telegraf
-> v1.38.0+.
-
-> [!Warning]
-> #### Heartbeat output plugin panic in Telegraf v1.38.0
->
-> Telegraf v1.38.0 introduced a panic in the Heartbeat output plugin that
-> prevents Telegraf from starting when the plugin is enabled. Telegraf v1.38.2
-> will include a fix, but in the meantime, to use the Heartbeat output plugin,
-> do one of the following:
->
-> - Revert back to Telegraf v1.37.x _(Recommended)_
-> - Use a Telegraf nightly build
-> - Build Telegraf from source
+> v1.38.2+.
 
 ## Status values
 
