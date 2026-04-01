@@ -44,7 +44,7 @@ Customers running high-cardinality, wide-schema, and query-intensive workloads
 need better single-series query performance, more predictable resource usage,
 and the schema flexibility that made InfluxDB v1 and v2 popular.
 These upgrades address those gaps while maintaining full compatibility with
-InfluxDB's data model and query languages.
+InfluxDB 3's data model and query languages.
 
 Key improvements include:
 
