@@ -1,12 +1,10 @@
 ---
 draft: true
 title: Hardware sizing guidelines
-description: >
+Description: >
   Review configuration and hardware guidelines for InfluxDB OSS (open source) and InfluxDB Enterprise v1.
-menu:
-  enterprise_influxdb_v1_ref:
-    name: Hardware sizing guidelines
-    weight: 40
+menu: enterprise_influxdb_1_10_ref
+weight: 40
 aliases:
   - /enterprise_influxdb/v1/guides/hardware_sizing/
 ---
