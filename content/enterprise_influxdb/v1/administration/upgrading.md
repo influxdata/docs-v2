@@ -41,13 +41,13 @@ Complete the following steps to upgrade meta nodes:
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Install the meta node package
@@ -55,13 +55,13 @@ wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patc
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-sudo yum localinstall influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}-1.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Update the meta node configuration file
@@ -167,13 +167,13 @@ from other data nodes in the cluster.
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}-1.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Install the data node package
@@ -188,7 +188,7 @@ next procedure, [Update the data node configuration file](#update-the-data-node-
 ##### Ubuntu & Debian (64-bit)
 
 ```bash
-sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}-1_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat & CentOS (64-bit)
@@ -207,9 +207,9 @@ Migrate any custom settings from your previous data node configuration file.
 
     | Section | Setting                                                   |
     | --------| ----------------------------------------------------------|
-    | `[data]` |  <ul><li>To use Time Series Index (TSI) disk-based indexing, add [`index-version = "tsi1"`](/enterprise_influxdb/v1/administration/config-data-nodes#index-version-inmem) <li>To use TSM in-memory index, add [`index-version = "inmem"`](/enterprise_influxdb/v1/administration/config-data-nodes#index-version-inmem) <li>Add [`wal-fsync-delay = "0s"`](/enterprise_influxdb/v1/administration/config-data-nodes#wal-fsync-delay-0s) <li>Add [`max-concurrent-compactions = 0`](/enterprise_influxdb/v1/administration/config-data-nodes#max-concurrent-compactions-0)<li>Set[`cache-max-memory-size`](/enterprise_influxdb/v1/administration/config-data-nodes#cache-max-memory-size-1g) to `1073741824` |
-    | `[cluster]`| <ul><li>Add [`pool-max-idle-streams = 100`](/enterprise_influxdb/v1/administration/config-data-nodes#pool-max-idle-streams-100) <li>Add[`pool-max-idle-time = "1m0s"`](/enterprise_influxdb/v1/administration/config-data-nodes#pool-max-idle-time-60s) <li>Remove `max-remote-write-connections`
-    |[`[anti-entropy]`](/enterprise_influxdb/v1/administration/config-data-nodes#anti-entropy)| <ul><li>Add `enabled = true` <li>Add `check-interval = "30s"` <li>Add `max-fetch = 10`|
+    | `[data]` |  <ul><li>To use Time Series Index (TSI) disk-based indexing, add [`index-version = "tsi1"`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#index-version) <li>To use TSM in-memory index, add [`index-version = "inmem"`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#index-version) <li>Add [`wal-fsync-delay = "0s"`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#wal-fsync-delay) <li>Add [`max-concurrent-compactions = 0`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-concurrent-compactions)<li>Set[`cache-max-memory-size`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-max-memory-size) to `1073741824` |
+    | `[cluster]`| <ul><li>Add [`pool-max-idle-streams = 100`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pool-max-idle-streams) <li>Add[`pool-max-idle-time = "1m0s"`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pool-max-idle-time) <li>Remove `max-remote-write-connections`
+    |[`[anti-entropy]`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#anti-entropy)| <ul><li>Add `enabled = true` <li>Add `check-interval = "30s"` <li>Add `max-fetch = 10`|
     |`[admin]`| Remove entire section.|
 
     For more information about TSI, see [TSI overview](/enterprise_influxdb/v1/concepts/time-series-index/) and [TSI details](/enterprise_influxdb/v1/concepts/tsi-details/).

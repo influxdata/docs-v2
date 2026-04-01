@@ -1,8 +1,16 @@
 # Cleanup Ephemeral Planning Documents
 #
 # This workflow automatically removes PLAN.md and other ephemeral planning
-# documents when a PR is merged. This serves as a safety net in case the
+# documents from the main branch. It serves as a safety net in case the
 # /finish skill wasn't used before merging.
+#
+# Triggers:
+# 1. pull_request_target (closed+merged) - catches files merged via PR
+# 2. push to main branches - catches files pushed directly or via squash
+#    merge (path-filtered to only run when ephemeral files are present)
+#
+# Strategy: Creates a cleanup PR instead of pushing directly to the
+# protected main branch, since branch protection rules block direct pushes.
 #
 # Ephemeral documents are temporary files used during development that
 # shouldn't persist on the main branch:
@@ -12,16 +20,14 @@
 # These files are tracked on feature branches but should be deleted before
 # merge. If they slip through, this action cleans them up.
 #
+# The "Preserve plan details" step only runs for PR merges (not direct
+# pushes) since there's no source PR to comment on for direct pushes.
+#
 # Security Note: Uses pull_request_target to ensure write permissions for
 # PRs from forks. This is safe because:
 # 1. The workflow only checks out the base branch (not PR code)
 # 2. File paths are validated (hardcoded list of allowed files)
 # 3. No PR-controlled code is executed
-#
-# To use in your repo:
-# 1. Copy this file to .github/workflows/cleanup-ephemeral-docs.yml
-# 2. Update the 'branches' list to match your main branch (master or main)
-# 3. Commit and push
 
 name: Cleanup ephemeral docs
 
@@ -31,11 +37,20 @@ on:
     branches:
       - master
       - main
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'PLAN.md'
+      - 'HANDOVER.md'
 
 jobs:
   cleanup:
-    # Only run when PR is actually merged (not just closed)
-    if: github.event.pull_request.merged == true
+    # Run when PR is merged OR when ephemeral files are pushed directly
+    if: >-
+      (github.event_name == 'push') ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
 
     permissions:
@@ -46,21 +61,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.event.pull_request.base.ref || github.ref }}
           fetch-depth: 0
 
       - name: Check for ephemeral files
         id: check
         run: |
           FILES_TO_REMOVE=""
+          FILE_LIST=""
 
           if [ -f "PLAN.md" ]; then
             FILES_TO_REMOVE="$FILES_TO_REMOVE PLAN.md"
+            FILE_LIST="${FILE_LIST:+$FILE_LIST, }PLAN.md"
             echo "Found: PLAN.md"
           fi
 
           if [ -f "HANDOVER.md" ]; then
             FILES_TO_REMOVE="$FILES_TO_REMOVE HANDOVER.md"
+            FILE_LIST="${FILE_LIST:+$FILE_LIST, }HANDOVER.md"
             echo "Found: HANDOVER.md"
           fi
 
@@ -71,67 +89,84 @@ jobs:
             echo "Files to remove:$FILES_TO_REMOVE"
             echo "has_files=true" >> $GITHUB_OUTPUT
             echo "files=$FILES_TO_REMOVE" >> $GITHUB_OUTPUT
+            echo "file_list=$FILE_LIST" >> $GITHUB_OUTPUT
           fi
 
-      - name: Preserve plan details on PR
-        if: steps.check.outputs.has_files == 'true'
+      - name: Preserve plan details on source PR
+        if: >-
+          steps.check.outputs.has_files == 'true' &&
+          github.event_name == 'pull_request_target'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
 
-          # Post full PLAN.md contents as a PR comment before removing
           if [ -f "PLAN.md" ]; then
-            PLAN_BODY="## Development Plan (preserved by cleanup workflow)
+            gh pr comment "$PR_NUMBER" --body "$(cat <<'EOFCOMMENT'
+          ## Development Plan (preserved by cleanup workflow)
 
-          Full plan details from \`PLAN.md\`, preserved before automated cleanup:
+          Full plan details from `PLAN.md`, preserved before automated cleanup:
 
           ---
 
-          $(cat PLAN.md)"
-            gh pr comment "$PR_NUMBER" --body "$PLAN_BODY"
+          EOFCOMMENT
+          cat PLAN.md)"
             echo "Posted PLAN.md contents to PR #$PR_NUMBER"
           fi
 
           if [ -f "HANDOVER.md" ]; then
-            HANDOVER_BODY="## Handover Notes (preserved by cleanup workflow)
+            gh pr comment "$PR_NUMBER" --body "$(cat <<'EOFCOMMENT'
+          ## Handover Notes (preserved by cleanup workflow)
 
-          Full contents from \`HANDOVER.md\`, preserved before automated cleanup:
+          Full contents from `HANDOVER.md`, preserved before automated cleanup:
 
           ---
 
-          $(cat HANDOVER.md)"
-            gh pr comment "$PR_NUMBER" --body "$HANDOVER_BODY"
+          EOFCOMMENT
+          cat HANDOVER.md)"
             echo "Posted HANDOVER.md contents to PR #$PR_NUMBER"
           fi
 
-      - name: Remove ephemeral files
+      - name: Create cleanup PR
         if: steps.check.outputs.has_files == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref || github.ref_name }}"
+          CLEANUP_BRANCH="chore/cleanup-ephemeral-docs-$(date +%Y%m%d-%H%M%S)"
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Pull latest changes to avoid non-fast-forward errors
-          # If rebase fails due to conflicts, fall back to regular merge
-          if ! git pull --rebase origin ${{ github.event.pull_request.base.ref }}; then
-            echo "Rebase failed, falling back to merge"
-            git rebase --abort
-            git pull --no-rebase --no-edit origin ${{ github.event.pull_request.base.ref }}
-          fi
+          # Create cleanup branch from current HEAD
+          git checkout -b "$CLEANUP_BRANCH"
 
-          # Remove files
+          # Remove ephemeral files
           git rm -f ${{ steps.check.outputs.files }}
 
-          # Commit with skip-ci to avoid triggering other workflows
           git commit -m "chore: remove ephemeral planning docs [skip ci]
 
           Automated cleanup of development planning documents.
           These files are used during development but shouldn't
           persist on the main branch.
-          Plan details preserved as PR comment.
 
-          Files removed:${{ steps.check.outputs.files }}"
+          Files removed: ${{ steps.check.outputs.file_list }}"
 
-          git push
+          git push -u origin "$CLEANUP_BRANCH"
 
-          echo "✓ Removed ephemeral files and pushed cleanup commit"
+          # Create PR and auto-merge
+          PR_URL=$(gh pr create \
+            --base "$TARGET_BRANCH" \
+            --head "$CLEANUP_BRANCH" \
+            --title "chore: remove ephemeral planning docs" \
+            --body "Automated cleanup of development planning documents (${{ steps.check.outputs.file_list }}).
+
+          These files are used during development but shouldn't persist on the main branch.
+          Created by the cleanup-ephemeral-docs workflow.")
+
+          echo "Created cleanup PR: $PR_URL"
+
+          # Enable auto-merge so it merges once checks pass
+          gh pr merge "$PR_URL" --auto --squash --delete-branch || echo "Auto-merge not available, PR requires manual merge"
+
+          echo "Cleanup PR created and auto-merge enabled"

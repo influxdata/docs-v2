@@ -929,11 +929,21 @@ effect if [`auth-enabled`](#auth-enabled) is set to `false`.
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_HTTP_PROM_READ_AUTH_ENABLED`
 
+#### user-query-bytes-enabled {metadata="v1.12.3+"}
+
+Enables per-user query response byte tracking.
+When enabled, InfluxDB records the number of bytes returned by queries for each user in the `userquerybytes` measurement, available through `SHOW STATS FOR 'userquerybytes'`, the `_internal` database, and the `/debug/vars` endpoint.
+
+Unauthenticated queries are attributed to `(anonymous)`.
+
+**Default**: `false`
+**Environment variable**: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
+
 #### http-headers
 
-User-supplied [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers). 
-Configure this section to return 
-[security headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers#security) 
+User-supplied [HTTP response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
+Configure this section to return
+[security headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers#security)
 such as `X-Frame-Options` or `Content Security Policy` where needed.
 
 Example:
@@ -1593,7 +1603,7 @@ InfluxData recommends configuring your InfluxDB server's TLS settings for
 that backward compatibility is not required. Our recommended TLS configuration
 settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's
 "modern compatibility" TLS server configuration described in
-[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS#Modern_compatibility).
+[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 InfluxData's recommended TLS settings for "modern compatibility" are specified
 in the following configuration settings example:
