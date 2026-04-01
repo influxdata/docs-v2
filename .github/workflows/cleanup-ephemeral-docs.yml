@@ -11,6 +11,11 @@
 #
 # Strategy: Creates a cleanup PR instead of pushing directly to the
 # protected main branch, since branch protection rules block direct pushes.
+# The GITHUB_TOKEN cannot bypass required reviews or status checks, so
+# auto-merge is attempted but the PR may need manual merge.
+#
+# To prevent duplicate PRs, the workflow checks for an existing open
+# cleanup PR before creating a new one.
 #
 # Ephemeral documents are temporary files used during development that
 # shouldn't persist on the main branch:
@@ -127,8 +132,32 @@ jobs:
             echo "Posted HANDOVER.md contents to PR #$PR_NUMBER"
           fi
 
-      - name: Create cleanup PR
+      - name: Check for existing cleanup PR
         if: steps.check.outputs.has_files == 'true'
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --author "github-actions[bot]" \
+            --search "chore: remove ephemeral planning docs" \
+            --state open \
+            --json number,url \
+            --jq '.[0].url // empty')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Existing cleanup PR found: $EXISTING_PR"
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "url=$EXISTING_PR" >> $GITHUB_OUTPUT
+          else
+            echo "No existing cleanup PR"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create cleanup PR
+        if: >-
+          steps.check.outputs.has_files == 'true' &&
+          steps.existing.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -166,7 +195,15 @@ jobs:
 
           echo "Created cleanup PR: $PR_URL"
 
-          # Enable auto-merge so it merges once checks pass
-          gh pr merge "$PR_URL" --auto --squash --delete-branch || echo "Auto-merge not available, PR requires manual merge"
+          # Try auto-merge (may fail if required reviews/checks block it)
+          gh pr merge "$PR_URL" --auto --squash --delete-branch \
+            && echo "Auto-merge enabled" \
+            || echo "Auto-merge unavailable - PR requires manual review and merge"
 
-          echo "Cleanup PR created and auto-merge enabled"
+      - name: Skip duplicate PR
+        if: >-
+          steps.check.outputs.has_files == 'true' &&
+          steps.existing.outputs.exists == 'true'
+        run: |
+          echo "Cleanup PR already exists: ${{ steps.existing.outputs.url }}"
+          echo "Skipping duplicate PR creation"
