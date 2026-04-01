@@ -74,7 +74,8 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --use-pacha-tree
 ```
-
+ {{< /code-callout >}}
+ 
 You can also enable the preview with an environment variable:
 
 ```bash
