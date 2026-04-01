@@ -629,7 +629,7 @@ Vale runs automatically on pull requests that modify markdown files. The workflo
 1. Detects changed markdown files (content, README, instruction files)
 2. Resolves shared content to consuming product pages
 3. Maps files to appropriate Vale configs (matching local Lefthook behavior)
-4. Runs Vale via Docker (`jdkato/vale:latest`)
+4. Runs Vale via `.ci/vale/vale.sh` (local binary or Docker fallback)
 5. Reports results as inline annotations and a PR summary comment
 
 **Alert levels:**
