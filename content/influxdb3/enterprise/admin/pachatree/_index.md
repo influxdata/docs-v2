@@ -63,7 +63,7 @@ Key improvements include:
 
 ## Enable the preview
 
-Add the `--use-pacha-tree` flag to your
+Include the `--use-pacha-tree` flag in your
 [`influxdb3 serve` startup command](/influxdb3/enterprise/get-started/setup/):
 
 ```bash
