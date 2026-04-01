@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 20:20:26 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2415,7 +2415,7 @@ See <a href="#22-remove-the-non-leader-meta-node">step 2.2</a> of the
 <a href="#replace-meta-nodes-in-an-influxdb-enterprise-cluster">replace meta nodes</a> process.</p>
 <h3 id="replace-responsive-and-unresponsive-data-nodes-in-a-cluster">Replace responsive and unresponsive data nodes in a cluster</h3>
 <p>The process of replacing both responsive and unresponsive data nodes is the same.
-Follow the instructions for <a href="#replace-a-data-node-in-an-influxdb-enterprise-cluster">replacing data nodes</a>.</p>
+Follow the instructions for <a href="#replace-data-nodes-in-an-influxdb-enterprise-cluster">replacing data nodes</a>.</p>
 <h3 id="reconnect-a-data-node-with-a-failed-disk">Reconnect a data node with a failed disk</h3>
 <p>A disk drive failing is never a good thing, but it does happen, and when it does,
 all shards on that node are lost.</p>
@@ -2568,11 +2568,11 @@ The added meta node has the hostname <code>cluster-meta-node-04</code> and runs 
 
 <h4 id="25-remove-and-replace-all-other-non-leader-meta-nodes">2.5. Remove and replace all other non-leader meta nodes</h4>
 <p><strong>If replacing only one meta node, no further action is required.</strong>
-If replacing others, repeat steps <a href="#2-1-provision-a-new-meta-node">2.1-2.4</a> for all non-leader meta nodes one at a time.</p>
+If replacing others, repeat steps <a href="#21-provision-a-new-meta-node">2.1-2.4</a> for all non-leader meta nodes one at a time.</p>
 <h3 id="3-replace-the-leader-node">3. Replace the leader node</h3>
 <p>As non-leader meta nodes are removed and replaced, the leader node oversees the replication of data to each of the new meta nodes.
 Leave the leader up and running until at least two of the new meta nodes are up, running and healthy.</p>
-<h4 id="31---kill-the-meta-process-on-the-leader-node">3.1 - Kill the meta process on the leader node</h4>
+<h4 id="31-kill-the-meta-process-on-the-leader-node">3.1. Kill the meta process on the leader node</h4>
 <p>Log into the leader meta node and kill the meta process.</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># List the running processes and get the</span>
@@ -2587,8 +2587,8 @@ Confirm the new leader by running:</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl localhost:8091/status <span class="p">|</span> jq</span></span></code></pre></div>
 
-<h4 id="32---remove-and-replace-the-old-leader-node">3.2 - Remove and replace the old leader node</h4>
-<p>Remove the old leader node and replace it by following steps <a href="#2-1-provision-a-new-meta-node">2.1-2.4</a>.
+<h4 id="32-remove-and-replace-the-old-leader-node">3.2. Remove and replace the old leader node</h4>
+<p>Remove the old leader node and replace it by following steps <a href="#21-provision-a-new-meta-node">2.1-2.4</a>.
 The minimum number of meta nodes you should have in your cluster is 3.</p>
 <h2 id="replace-data-nodes-in-an-influxdb-enterprise-cluster">Replace data nodes in an InfluxDB Enterprise cluster</h2>
 <p><a href="/enterprise_influxdb/v1/concepts/clustering/#data-nodes">Data nodes</a> house all raw time series data and metadata.

@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 20:20:26 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2391,14 +2391,14 @@ For example, you can backup from  and restore on 1.12.3.</p>
 <ul>
 <li><a href="#exporting-data">Exporting data</a></li>
 <li><a href="#importing-data">Importing data</a></li>
-<li><a href="#example">Example</a></li>
+<li><a href="#example-export-and-import-for-disaster-recovery">Example</a></li>
 </ul>
 </li>
 </ul>
 <h3 id="backup-utility">Backup utility</h3>
 <p>A backup creates a copy of the <a href="/enterprise_influxdb/v1/concepts/glossary/#metastore">metastore</a> and <a href="/enterprise_influxdb/v1/concepts/glossary/#shard">shard</a> data at that point in time and stores the copy in the specified directory.</p>
 <p>To back up <strong>only the cluster metastore</strong>, use the <code>-strategy only-meta</code> backup option.
-For more information, see how to <a href="#perform-a-metastore-only-backup">perform a metastore only backup</a>.</p>
+For more information, see how to <a href="#perform-a-metadata-only-backup">perform a metadata only backup</a>.</p>
 <p>All backups include a manifest, a JSON file describing what was collected during the backup.
 The filenames reflect the UTC timestamp of when the backup was created, for example:</p>
 <ul>
@@ -2774,7 +2774,7 @@ The unintended data, however, include only the metastore information, not the sh
 <h5 id="restore-a-backup-created-prior-to-version-120">Restore a backup created prior to version 1.2.0</h5>
 <p>InfluxDB Enterprise introduced incremental backups in version 1.2.0.
 To restore a backup created prior to version 1.2.0, be sure to follow the syntax
-for <a href="#restore-from-a-full-backup">restoring from a full backup</a>.</p>
+for <a href="#restore-from-a--full-backup">restoring from a <code>-full</code> backup</a>.</p>
 <h2 id="exporting-and-importing-data">Exporting and importing data</h2>
 <p>For most InfluxDB Enterprise applications, the <a href="#backup-and-restore-utilities">backup and restore utilities</a> provide the tools you need for your backup and restore strategy. However, in some cases, the standard backup and restore utilities might not adequately handle the volumes of data in your application.</p>
 <p>As an alternative to the standard backup and restore utilities, use the InfluxDB <code>influx_inspect export</code> and <code>influx -import</code> commands to create backup and restore procedures for your disaster recovery and backup strategy. These commands can be executed manually or included in shell scripts that run the export and import operations at scheduled intervals (example below).</p>
