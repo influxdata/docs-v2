@@ -315,7 +315,7 @@ FROM system.pt_ingest_wal;
    --pt-snapshot-size 125MB
    ```
 
-3. For distributed deployments, add dedicated compactor nodes:
+3. For distributed deployments, add a dedicated compactor node:
    ```bash
    influxdb3 serve \
      # ...
