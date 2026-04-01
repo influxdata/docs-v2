@@ -48,7 +48,7 @@ with the `-portable` flag:
    
     > **Note:**  InfluxDB Enterprise uses the **influxd-ctl utility** to back up and restore data. For more information, 
 see [influxd-ctl](/enterprise_influxdb/v1/tools/influxd-ctl) 
-and [`restore`](/enterprise_influxdb/v1/administration/backup-and-restore/#restore).
+and [`restore`](/enterprise_influxdb/v1/administration/backup-and-restore/#restore-utility).
 
 5. To avoid data loss, dual write to both OSS and Enterprise while completing the remaining steps.
    This keeps the OSS and cluster active for testing and acceptance work. For more information, see [Write data with the InfluxDB API](/enterprise_influxdb/v1/guides/write_data/).
@@ -314,7 +314,7 @@ It may take a few minutes before the existing data is available.
 ## Rebalance the cluster
 
 1. Use the [`ALTER RETENTION POLICY`](/enterprise_influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)
-   statement to increase the [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor)
+   statement to increase the [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf)
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1/guides/rebalance/)
    to meet the desired replication factor for existing shards.

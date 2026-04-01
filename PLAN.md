@@ -497,6 +497,59 @@ time                bind  hostname    user userQueryRespBytes
 
 ***
 
+## PR #6950 link check fixes
+
+PR link check found 28 broken fragment links. Investigation and fixes in progress.
+
+### Fixed (in this branch)
+
+| Broken link | Fix | File |
+|---|---|---|
+| `config-data-nodes/#https-insecure-certificate` | Added `#### https-insecure-certificate` heading to `[cluster]` section | `config-data-nodes.md` |
+| `config-data-nodes/#https-insecure-certificate-1` | Added `#### https-insecure-certificate` heading to `[http]` section (Hugo generates `-1` suffix) | `config-data-nodes.md` |
+| `config-data-nodes/#advanced-expiration` | Added `#### advanced-expiration` heading to `[tls]` section | `config-data-nodes.md` |
+| `backup/#backup-compression` | Added `-gzipBlockCount`, `-gzipBlockSize`, `-gzipCompressionLevel` to flags table; changed release notes link to `backup/#flags` | `backup.md`, `release-notes.md` |
+
+### Also fixed (pre-existing broken links, all resolved)
+
+#### ~~Old path `/administration/configuration/` (should be `/configure/config-data-nodes/`)~~ FIXED
+
+Source: `release-notes.md` (old release entries) — paths updated to `/configure/config-data-nodes/`.
+
+#### ~~Old path `/administration/config-data-nodes` (missing `/configure/`)~~ FIXED
+
+All occurrences in `upgrading.md`, `replacing-nodes.md`, `config-meta-nodes.md` updated to `/configure/config-data-nodes/` with correct fragments.
+
+#### ~~Old path `/administration/config-meta-nodes` + default value suffix~~ FIXED
+
+`influxd-ctl/_index.md` updated to `configure/config-meta-nodes/#auth-enabled`.
+
+#### ~~Fragment includes default value~~ FIXED
+
+- `release-notes.md`: `#termination-query-log` → `#termination-query-log--false`; `#max-values-per-tag-100000` → `#max-values-per-tag`
+
+#### ~~Self-reference `#meta-internal-shared-secret` in config-meta-nodes.md~~ FIXED
+
+Changed to `#internal-shared-secret` (2 occurrences).
+
+#### ~~Missing/wrong headings in spec.md~~ FIXED
+
+- Removed ToC entry for non-existent `#query-engine-internals`
+- `#execution-time` → `#execution_time`; `#planning-time` → `#planning_time`
+- `#understanding-iterators` / `#understanding-cursors` → replaced with links to existing `#iterator-type` / `#cursor-type` sections
+
+#### ~~Redirected/wrong paths~~ FIXED
+
+- `authentication_and_authorization/#set-up-authentication` → `configure/security/authentication/#enable-authentication` (in `tools/api.md`, `query_language/_index.md`)
+- `query_management/#list-currently-running-queries-with-show-queries` → added `influxql_query_management/` to path (in `spec.md`)
+- `influxql_query_management.md`: fixed `coordinator` link text → `[cluster]`, path → `configure/config-data-nodes/#cluster`
+
+#### ~~Glossary and misc~~ FIXED
+
+- `glossary/#replication-factor` → `#replication-factor-rf` in 10 enterprise files (OSS refs left as-is — correct there)
+- `backup-and-restore/#restore` → `#restore-utility` in `migration.md`
+- Mozilla wiki `#Modern_compatibility` fragment removed from external link in `config-data-nodes.md`
+
 ## Notes
 
 - The OSS and Enterprise `api.md` files are independent (no shared `source` frontmatter) — each needs separate edits.

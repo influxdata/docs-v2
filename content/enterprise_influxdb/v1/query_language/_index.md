@@ -75,7 +75,7 @@ covers the use of mathematical operators in InfluxQL.
 #### Authentication and authorization
 
 [Authentication and authorization](/enterprise_influxdb/v1/administration/authentication_and_authorization/) covers how to
-[set up authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication)
+[set up authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication)
 and how to
 [authenticate requests](/enterprise_influxdb/v1/administration/authentication_and_authorization/#authenticate-requests) in InfluxDB.
 This page also describes the different

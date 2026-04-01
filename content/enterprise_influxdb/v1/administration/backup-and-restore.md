@@ -263,7 +263,7 @@ Backed up to backup_dir in 51.388233ms, transferred 481 bytes
 ##### Restore a backup
 
 Restore a backup to an existing cluster or a new cluster.
-By default, a restore writes to databases using the backed-up data's [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor).
+By default, a restore writes to databases using the backed-up data's [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf).
 An alternate replication factor can be specified with the `-newrf` flag when restoring a single database.
 Restore supports both `-full` backups and incremental backups; the syntax for
 a restore differs depending on the backup type.

@@ -96,7 +96,7 @@ influxd-ctl -timeout 30s show-shards
 {{% expand "Troubleshoot `influxd-ctl` authentication" %}}
 
 If authentication is enabled in the cluster's
-[meta node configuration files](/enterprise_influxdb/v1/administration/config-meta-nodes/#auth-enabled-false)
+[meta node configuration files](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#auth-enabled)
 and [data node configuration files](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-auth-enabled)
 and the `influxd-ctl` command does not include authentication details, the system returns:
 

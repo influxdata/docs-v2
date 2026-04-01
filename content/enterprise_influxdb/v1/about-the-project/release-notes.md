@@ -63,9 +63,9 @@ Other updates include:
   sections.
 - Add [`advanced-expiration` TLS configuration option](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#advanced-expiration)
   to configure how far in advance to log warnings about TLS certificate expiration.
-- Add [backup compression options](/enterprise_influxdb/v1/tools/influxd-ctl/backup/#backup-compression)
+- Add backup compression options
   (`-gzipCompressionLevel`, `-gzipBlockCount`, `-gzipBlockSize`) to
-  [`influxd-ctl backup`](/enterprise_influxdb/v1/tools/influxd-ctl/backup/).
+  [`influxd-ctl backup`](/enterprise_influxdb/v1/tools/influxd-ctl/backup/#flags).
 - Improve [`influxd-ctl backup`](/enterprise_influxdb/v1/tools/influxd-ctl/backup/):
   the `-from` flag now validates that the specified node exists in the cluster,
   smarter node selection skips zero-byte copies and prefers nodes with most recent writes.
@@ -632,7 +632,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 #### Logging enhancements
 
-- **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#termination-query-log) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
+- **Log active queries when a process is terminated**: Add the [`termination-query-log`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#termination-query-log--false) configuration option. When set to `true` all running queries are printed to the log when a data node process receives a `SIGTERM` (for example, a Kubernetes process exceeds the container memory limit or the process is terminated).
 
 - **Log details of HTTP calls to meta nodes**. When [`cluster-tracing`](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#cluster-tracing) is enabled, all API calls to meta nodes are now logged with details providing an audit trail including IP address of caller, specific API being invoked, action being invoked, and more.
 
@@ -1585,7 +1585,7 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 - Remove an unused configuration option (`dir`) from the backend
 - Fix a panic around processing remote writes
 - Return an error if a remote write has a field conflict
-- Drop points in the hinted handoff that (1) have field conflict errors (2) have [`max-values-per-tag`](/influxdb/v1/administration/config/#max-values-per-tag-100000) errors
+- Drop points in the hinted handoff that (1) have field conflict errors (2) have [`max-values-per-tag`](/influxdb/v1/administration/config/#max-values-per-tag) errors
 - Remove the deprecated `influxd-ctl force-leave` command
 - Fix issue where CQs would stop running if the first meta node in the cluster stops
 - Fix logging in the meta httpd handler service
@@ -1675,8 +1675,8 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 - Return an error if getting latest snapshot takes longer than 30 seconds
 - Remove any expired shards from the `/show-shards` output
-- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configuration/#pprof-enabled-true) and enable it by default on meta nodes
-- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configuration/#pprof-enabled-true-1) on data nodes
+- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled) and enable it by default on meta nodes
+- Respect the [`pprof-enabled` configuration setting](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pprof-enabled-1) on data nodes
 - Use the data reference instead of `Clone()` during read-only operations for performance purposes
 - Prevent the system from double-collecting cluster statistics
 - Ensure that the Meta API redirects to the cluster leader when it gets the `ErrNotLeader` error
@@ -1692,7 +1692,7 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 
 #### Cluster-specific bug fixes
 
-- Respect the [Hinted Handoff settings](/enterprise_influxdb/v1/administration/configuration/#hinted-handoff) in the configuration file
+- Respect the [Hinted Handoff settings](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#hinted-handoff) in the configuration file
 - Fix expanding regular expressions when all shards do not exist on node that's handling the request
 
 ---

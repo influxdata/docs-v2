@@ -37,8 +37,6 @@ To learn more about InfluxQL, browse the following topics:
 * [Explore your schema with InfluxQL](/enterprise_influxdb/v1/query_language/explore-schema/)
 * [Database management](/enterprise_influxdb/v1/query_language/manage-database/)
 * [Authentication and authorization](/enterprise_influxdb/v1/administration/authentication_and_authorization/).
-* [Query engine internals](/enterprise_influxdb/v1/query_language/spec/#query-engine-internals)
-
 ## Notation
 
 The syntax is specified using Extended Backus-Naur Form ("EBNF").
@@ -634,7 +632,7 @@ SIZE OF BLOCKS: 931
 
 ### EXPLAIN ANALYZE
 
-Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution-time) and [planning time](#planning-time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
+Executes the specified SELECT statement and returns data on the query performance and storage during runtime, visualized as a tree. Use this statement to analyze query performance and storage, including [execution time](#execution_time) and [planning time](#planning_time), and the [iterator type](#iterator-type) and [cursor type](#cursor-type).
 
 For example, executing the following statement:
 
@@ -704,7 +702,7 @@ EXPLAIN ANALYZE supports the following iterator types:
 - `create_iterator` node represents work done by the local influxd instance──a complex composition of nested iterators combined and merged to produce the final query output.
 - (InfluxDB Enterprise only) `remote_iterator` node represents work done on remote machines.
 
-For more information about iterators, see [Understanding iterators](#understanding-iterators).
+For more information about iterators, see the [iterator type](#iterator-type) section above.
 
 ##### cursor type
 
@@ -714,7 +712,7 @@ EXPLAIN ANALYZE distinguishes 3 cursor types. While the cursor types have the sa
 - cursor_aux:	Auxiliary cursor created for simple expression projections (not selectors or an aggregation). For example, `SELECT foo FROM m` or `SELECT foo+bar FROM m`, where `foo` and `bar` are fields.
 - cursor_cond: Condition cursor created for fields referenced in a WHERE clause.
 
-For more information about cursors, see [Understanding cursors](#understanding-cursors).
+For more information about cursors, see the [cursor type](#cursor-type) section above.
 
 ##### block types
 
@@ -754,7 +752,7 @@ Stop currently-running query.
 kill_query_statement = "KILL QUERY" query_id .
 ```
 
-Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
+Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
 
 > ***InfluxDB Enterprise clusters:*** To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, `myhost:8088`),
 > available in the `SHOW QUERIES` output.

@@ -653,6 +653,14 @@ This is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_TLS`
 
+#### https-insecure-certificate {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
+
 #### cluster-tracing
 
 Default is `false`.
@@ -1202,6 +1210,14 @@ The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
+
 #### shared-secret
 
 Default is `""`.
@@ -1687,7 +1703,7 @@ Use the `SHOW DIAGNOSTICS` command to see the version of Go used to build Influx
 ### Recommended server configuration for "modern compatibility"
 
 InfluxData recommends configuring your InfluxDB server's TLS settings for "modern compatibility" that provides a higher level of security and assumes that backward compatibility is not required.
-Our recommended TLS configuration settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's "modern compatibility" TLS server configuration described in [Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS#Modern_compatibility).
+Our recommended TLS configuration settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's "modern compatibility" TLS server configuration described in [Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 InfluxData's recommended TLS settings for "modern compatibility" are specified in the following configuration settings example.
 
@@ -1731,6 +1747,14 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In the preceding example, `max-version = "tls1.3"` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
+
+#### advanced-expiration {metadata="v1.12.3+"}
+
+Sets how far in advance to log warnings about TLS certificate expiration.
+
+Default is `"5d"`.
+
+Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
 
 ## Flux query management settings
 
