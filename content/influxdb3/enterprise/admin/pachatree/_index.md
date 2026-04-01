@@ -32,7 +32,7 @@ related:
 {{% product-name %}} includes a preview of major upgrades to the
 storage layer that improve how data is written, stored, compressed, compacted,
 and queried.
-These upgrades touch every layer of the storage path -- from a new on-disk file
+These upgrades touch every layer of the storage path--from a new on-disk file
 format to how fields are organized into column families and how compaction
 manages resources.
 
