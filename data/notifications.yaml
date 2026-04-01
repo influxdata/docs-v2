@@ -40,7 +40,7 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
-- id: influxdb3.9-performance-preview
+- id: influxdb3-9-performance-preview
   level: note
   scope:
     - /influxdb3/enterprise/
