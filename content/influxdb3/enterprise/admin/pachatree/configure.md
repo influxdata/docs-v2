@@ -50,7 +50,7 @@ that balances resource usage and throughput.
 | Option | Description | Default |
 |:-------|:------------|:--------|
 | `--use-pacha-tree` | Enable the performance upgrade preview. Required for any other `--pt-` option to have effect. | Disabled |
-| `--pt-engine-path-prefix` | Optional path prefix for all engine data (WAL, Gen0, etc.). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
+| `--pt-engine-path-prefix` | Optional path prefix for all engine data (WAL and compaction generations). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
 | `--pt-max-columns` | Maximum total columns across the entire instance. Must be at least 2. | ~6.5M |
 | `--pt-enable-retention` | Enable retention enforcement. | `true` |
 | `--pt-disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
