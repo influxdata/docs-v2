@@ -36,10 +36,10 @@ jobs:
       generated: ${{ steps.generate.outputs.generated }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -97,7 +97,7 @@ jobs:
           echo "generated=true" >> $GITHUB_OUTPUT
 
       - name: Upload release notes
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
           path: helper-scripts/output/release-notes/
@@ -111,10 +111,10 @@ jobs:
   #     generated: ${{ steps.generate.outputs.generated }}
 
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v6
 
   #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
+  #       uses: actions/setup-node@v6
   #       with:
   #         node-version: '18'
   #         cache: 'yarn'
@@ -155,7 +155,7 @@ jobs:
   #         echo "generated=true" >> $GITHUB_OUTPUT
 
   #     - name: Upload release notes
-  #       uses: actions/upload-artifact@v4
+  #       uses: actions/upload-artifact@v7
   #       with:
   #         name: release-notes-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
   #         path: helper-scripts/output/release-notes/
@@ -168,10 +168,10 @@ jobs:
     if: needs.generate-release-notes-core-enterprise.outputs.generated == 'true' && contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -199,7 +199,7 @@ jobs:
           node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js $PRODUCT $VERSION
 
       - name: Upload CLI audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cli-audit-release-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
           path: helper-scripts/output/cli-audit/
@@ -212,10 +212,10 @@ jobs:
   #   if: needs.generate-release-notes-distributed.outputs.generated == 'true' && contains(fromJSON('["clustered", "cloud-dedicated", "cloud-serverless"]'), github.event.inputs.product)
 
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v6
 
   #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
+  #       uses: actions/setup-node@v6
   #       with:
   #         node-version: '18'
   #         cache: 'yarn'
@@ -258,7 +258,7 @@ jobs:
   #         EOF
 
   #     - name: Upload distributed audit reports
-  #       uses: actions/upload-artifact@v4
+  #       uses: actions/upload-artifact@v7
   #       with:
   #         name: distributed-audit-release-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
   #         path: helper-scripts/output/distributed-audit/
@@ -271,10 +271,10 @@ jobs:
     if: github.event.inputs.dry_run != 'true' && always() && (needs.generate-release-notes-core-enterprise.result == 'success')
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: artifacts/
 
@@ -338,7 +338,7 @@ jobs:
           fi
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.BRANCH }}
@@ -375,15 +375,15 @@ jobs:
     if: github.event.inputs.dry_run != 'true' && always() && (needs.audit-cli-documentation.result == 'success')
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download audit reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: audit-reports/
 
       - name: Create issue from audit
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');

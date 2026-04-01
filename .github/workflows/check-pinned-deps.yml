@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check for update
         id: check
@@ -80,7 +80,7 @@ jobs:
 
       - name: Create pull request
         if: steps.check.outputs.up-to-date == 'false'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore(deps): update ${{ matrix.dep.name }} to v${{ steps.check.outputs.latest }}"
           branch: "chore/update-${{ matrix.dep.name }}-${{ steps.check.outputs.latest }}"

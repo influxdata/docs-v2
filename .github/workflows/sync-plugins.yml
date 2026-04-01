@@ -31,7 +31,7 @@ jobs:
       - name: Parse issue inputs
         id: parse-inputs
         if: github.event_name == 'issues'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const issue = context.payload.issue;
@@ -63,7 +63,7 @@ jobs:
 
       - name: Update issue status
         if: steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.createComment({
@@ -74,13 +74,13 @@ jobs:
             });
 
       - name: Checkout docs-v2
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: docs-v2
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout influxdb3_plugins (sparse)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: influxdata/influxdb3_plugins
           token: ${{ secrets.PLUGINS_CONTENT_READ_TOKEN }}
@@ -91,7 +91,7 @@ jobs:
           ref: ${{ steps.inputs.outputs.source_commit }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'yarn'
@@ -103,7 +103,7 @@ jobs:
           CYPRESS_INSTALL_BINARY=0 yarn install
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
 
@@ -137,7 +137,7 @@ jobs:
 
       - name: Report validation failure
         if: steps.validate.outputs.validation_passed == 'false'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -352,7 +352,7 @@ jobs:
       - name: Create Pull Request
         if: steps.validate.outputs.validation_passed == 'true'
         id: create-pr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           path: docs-v2
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -396,7 +396,7 @@ jobs:
 
       - name: Update issue with success
         if: steps.validate.outputs.validation_passed == 'true' && steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.createComment({
@@ -423,7 +423,7 @@ jobs:
 
       - name: Report failure
         if: failure() && steps.inputs.outputs.issue_number != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.createComment({
