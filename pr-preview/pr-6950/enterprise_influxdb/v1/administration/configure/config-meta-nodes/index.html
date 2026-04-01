@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-14 15:40:43 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2567,7 +2567,7 @@ If you use this setting, set <a href="#auth-enabled"><code>auth-enabled</code></
 inter-node communication within the cluster.
 Set this to a long pass phrase.
 This value must be the same value as the
-<a href="/enterprise_influxdb/v1/administration/config-data-nodes#meta-internal-shared-secret"><code>[meta] meta-internal-shared-secret</code></a> in the data node configuration file.
+<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-internal-shared-secret"><code>[meta] meta-internal-shared-secret</code></a> in the data node configuration file.
 To use this option, set <a href="#auth-enabled"><code>auth-enabled</code></a> to <code>true</code>.</p>
 <p>Environment variable: <code>INFLUXDB_META_INTERNAL_SHARED_SECRET</code></p>
 <h4 id="password-hash">password-hash</h4>
@@ -2684,7 +2684,7 @@ For example, <code>password-hash = &quot;bcrypt&quot;</code> would not be allowe
 <h4 metadata="v1.12.0+" id="raft-portal-auth-required">raft-portal-auth-required</h4>
 <p>Default is <code>false</code>.</p>
 <p>Require Raft clients to authenticate with server using the
-<a href="#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
+<a href="#internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
 are configured with the correct <code>meta-internal-shared-secret</code>.</p>
 <p>For maximum security, <code>raft-dialer-auth-required</code> should be configured along with <code>raft-dialer-auth-required</code>.</p>
@@ -2692,7 +2692,7 @@ are configured with the correct <code>meta-internal-shared-secret</code>.</p>
 <h4 metadata="v1.12.0+" id="raft-dialer-auth-required">raft-dialer-auth-required</h4>
 <p>Default is <code>false</code>.</p>
 <p>Require Raft servers to authenticate Raft clients using the
-<a href="#meta-internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
+<a href="#internal-shared-secret"><code>meta-internal-shared-secret</code></a>.
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
 <code>raft-portal-auth-required=true</code>, and are configured with the correct
 <code>meta-internal-shared-secret</code>. For existing clusters, it is recommended to enable <code>raft-portal-auth-required</code> and restart
@@ -2700,7 +2700,7 @@ meta nodes first, then enable <code>raft-dialer-auth-required</code> in another 
 This will eliminate downtime from Raft authentication mismatches.</p>
 <p>Environment variable: <code>INFLUXDB_META_RAFT_DIALER_AUTH_REQUIRED</code></p>
 <h3 id="tls-settings">TLS settings</h3>
-<p>For more information, see <a href="/enterprise_influxdb/v1/administration/config-data-nodes#tls-settings">TLS settings for data nodes</a>.</p>
+<p>For more information, see <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#tls-settings">TLS settings for data nodes</a>.</p>
 <h4 id="recommended-modern-compatibility-cipher-settings">Recommended &ldquo;modern compatibility&rdquo; cipher settings</h4>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">ciphers</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">&#34;TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305&#34;</span><span class="p">,</span>

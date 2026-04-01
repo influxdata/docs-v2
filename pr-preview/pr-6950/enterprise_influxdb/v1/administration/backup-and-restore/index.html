@@ -46,10 +46,10 @@
 
 
 
-<title>InfluxQL query management | &lt;nil&gt; Documentation</title>
+<title>Back up and restore | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Show, kill, and manage queries in InfluxQL.">
+    <meta name="description" content="Back up and restore InfluxDB Enterprise v1 clusters to prevent data loss.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/backup-and-restore/" />
 
     
 <style>
@@ -861,17 +861,17 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/'>Administration</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
   
   
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/backup-and-restore/'>Back up and restore</a>
       
@@ -1909,10 +1909,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/'>Troubleshoot</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1944,17 +1944,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/'>Query management</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/'>InfluxQL query management</a>
       
@@ -2232,7 +2232,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>InfluxQL query management</h1>
+      <h1>Back up and restore</h1>
       
 
 
@@ -2339,159 +2339,507 @@
 
 
 
-  <p>Manage your InfluxQL queries using the following:</p>
+  <p>Use the InfluxDB Enterprise <code>backup</code>, <code>restore</code>, <code>export</code> and <code>import</code> utilities
+to prevent unexpected data loss and preserve the ability to restore data if it
+ever is lost.</p>
+<p>You can use these tools in your back up and restore procedures to:</p>
 <ul>
-<li><a href="#list-currently-running-queries-with-show-queries">SHOW QUERIES</a> to identify currently-running queries</li>
-<li><a href="#stop-currently-running-queries-with-kill-query">KILL QUERIES</a> to stop queries overloading your system</li>
-<li><a href="#configuration-settings-for-query-management">Configuration settings</a> to prevent and halt the execution of inefficient queries</li>
+<li>Provide disaster recovery due to unexpected events</li>
+<li>Migrate data to new environments or servers</li>
+<li>Restore clusters to a consistent state</li>
+<li>Export and import data for debugging</li>
+</ul>
+<p>Depending on the volume of data to be protected and your application requirements, InfluxDB Enterprise offers two methods, described below, for managing backups and restoring data:</p>
+<ul>
+<li><a href="#backup-and-restore-utilities">Backup and restore utilities</a>: Use for most applications</li>
+<li><a href="#exporting-and-importing-data">Exporting and importing data</a>: Use for very large datasets and to debug data</li>
 </ul>
 
-<div class="note block">
-  <p>The commands and configurations provided on this page are for <strong>Influx Query Language (InfluxQL) only</strong>.
-For Flux query management settings, see <a href="/enterprise_influxdb/v1/troubleshooting/query_management/flux_query_management">Flux query management</a>.</p>
-
+<div class="block note">
+  
+  
+  <h4 id="back-up-and-restore-between-influxdb-enterprise-and-oss">Back up and restore between InfluxDB Enterprise and OSS</h4>
+<p>Use the <code>backup</code> and <code>restore</code> utilities in
+<a href="#backup-and-restore-utilities">InfluxDB Enterprise</a> and
+<a href="/influxdb/v1/administration/backup-and-restore/">InfluxDB OSS (version 1.5 and later)</a> to:</p>
+<ul>
+<li>Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.</li>
+<li>Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.</li>
+</ul>
 </div>
+<h2 id="backup-and-restore-utilities">Backup and restore utilities</h2>
+<p>Use InfluxDB Enterprise back up and restore utilities to:</p>
+<ul>
+<li>Back up and restore multiple databases at a time.</li>
+<li>Back up specific time ranges.</li>
+<li>Create backup files compatible with InfluxDB OSS.</li>
+</ul>
+<p>InfluxDB Enterprise supports backing up and restoring data in a cluster,
+a single database and retention policy, and single shards.
+Most InfluxDB Enterprise applications can use the backup and restore utilities.</p>
+<p>Use the <code>backup</code> and <code>restore</code> utilities to back up and restore between <code>influxd</code>
+instances with the same versions or with only minor version differences.
+For example, you can backup from  and restore on 1.12.3.</p>
+<ul>
+<li><a href="#backup-utility">Backup utility</a>
+<ul>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#restore-utility">Restore utility</a></li>
+<li><a href="#exporting-and-importing-data">Exporting and importing data</a>
+<ul>
+<li><a href="#exporting-data">Exporting data</a></li>
+<li><a href="#importing-data">Importing data</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="backup-utility">Backup utility</h3>
+<p>A backup creates a copy of the <a href="/enterprise_influxdb/v1/concepts/glossary/#metastore">metastore</a> and <a href="/enterprise_influxdb/v1/concepts/glossary/#shard">shard</a> data at that point in time and stores the copy in the specified directory.</p>
+<p>To back up <strong>only the cluster metastore</strong>, use the <code>-strategy only-meta</code> backup option.
+For more information, see how to <a href="#perform-a-metastore-only-backup">perform a metastore only backup</a>.</p>
+<p>All backups include a manifest, a JSON file describing what was collected during the backup.
+The filenames reflect the UTC timestamp of when the backup was created, for example:</p>
+<ul>
+<li>Metastore backup: <code>20060102T150405Z.meta</code> (includes usernames and passwords)</li>
+<li>Shard data backup: <code>20060102T150405Z.&lt;shard_id&gt;.tar.gz</code></li>
+<li>Manifest: <code>20060102T150405Z.manifest</code></li>
+</ul>
+<p>Backups can be full, metastore only, or incremental, and they are incremental by default:</p>
+<ul>
+<li><strong>Full backup</strong>: Creates a copy of the metastore and shard data.</li>
+<li><strong>Incremental backup</strong>: Creates a copy of the metastore and shard data that have changed since the last backup (the most recent backup file in the specified directory).
+If no backups exist in the directory, then the system automatically performs a full backup.</li>
+<li><strong>Metastore only backup</strong>: Creates a copy of the metastore data only.</li>
+</ul>
+<p>Restoring different types of backups requires different syntax.
+To prevent issues with <a href="#restore-utility">restore</a>, keep full backups, metastore only backups, and incremental backups in separate directories.</p>
 
-<h2 id="list-currently-running-queries-with-show-queries">List currently-running queries with <code>SHOW QUERIES</code></h2>
-<p><code>SHOW QUERIES</code> lists the query id, node id, TCP host, query text, relevant database, duration,
-status, and user of all currently-running queries on your InfluxDB Enterprise cluster.</p>
+<div class="block note">
+  
+  
+  <h4 id="backup-and-restore-performance">Backup and restore performance</h4>
+<p>The backup utility copies all data through the meta node that is used to execute the backup.
+As a result, backup and restore performance is typically limited by the network IO of the meta node.
+Increasing the resources available to this meta node (such as resizing the EC2 instance) can significantly improve backup and restore performance.</p>
+</div>
 <h4 id="syntax">Syntax</h4>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">QUERIES</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl <span class="o">[</span>global-options<span class="o">]</span> backup <span class="o">[</span>backup-options<span class="o">]</span> &lt;path-to-backup-directory&gt;</span></span></code></pre></div>
 
-<h4 id="example">Example</h4>
-
-<pre tabindex="0"><code>&gt; SHOW QUERIES
-qid   node_id   tcp_host       query                              database   duration   status    user
----   -------   --------       -----                              --------   --------   ------    ----
-37    26        data1:8088     SHOW QUERIES                                  100368u    running   admin
-36    33        data3:8088     SELECT mean(myfield) FROM mymeas   mydb       3s         running   jdoe</code></pre>
-
-<h5 id="explanation-of-the-output">Explanation of the output</h5>
+<p>If successful, the <code>influxd-ctl backup</code> command exits with <code>0</code> status;
+otherwise, error (<code>1</code>) status and a message that you can use for troubleshooting.</p>
+<h5 id="global-flags">Global flags</h5>
+<p>See the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags"><code>influxd-ctl</code> documentation</a>
+for a complete list of the global <code>influxd-ctl</code> flags.</p>
+<h5 id="backup-flags">Backup flags</h5>
 <ul>
-<li>
-<p><code>qid</code>: Query ID. Use this ID with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
+<li><code>-db &lt;string&gt;</code>: name of the single database to back up</li>
+<li><code>-from &lt;TCP-address&gt;</code>: the data node TCP address to prefer when backing up</li>
+<li><code>-strategy</code>: select the backup strategy to apply during backup
+<ul>
+<li><code>incremental</code>: <em><strong>(Default)</strong></em> backup data that is new or changed since the previous backup.</li>
+<li><code>full</code> perform a full backup. Same as <code>-full</code></li>
+<li><code>only-meta</code> perform a backup for meta data only: users, roles,
+databases, continuous queries, retention policies. Shards are not exported.</li>
+</ul>
 </li>
-<li>
-<p><code>node_id</code>: The data node ID where the query is running.</p>
-</li>
-<li>
-<p><code>tcp_host</code>: The TCP host address of the data node. Use this value with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY ... ON</code></a> to kill queries on a specific node.</p>
-</li>
-<li>
-<p><code>query</code>: The query text.</p>
-</li>
-<li>
-<p><code>database</code>: The database targeted by the query.</p>
-</li>
-<li>
-<p><code>duration</code>: The length of time that the query has been running.
-See <a href="/enterprise_influxdb/v1/query_language/spec/#durations">Query Language Reference</a>
-for an explanation of time units in InfluxDB databases.</p>
+<li><code>-full</code>: perform a full backup. Deprecated in favour of <code>-strategy=full</code></li>
+<li><code>-rp &lt;string&gt;</code>: the name of the single retention policy to back up (must specify <code>-db</code> with <code>-rp</code>)</li>
+<li><code>-shard &lt;string&gt;</code>: shard ID to back up (if <code>-rp</code> or <code>-db</code> flags are provided,
+the specified database or retention policy must match those in the shard)</li>
+<li><code>-start &lt;timestamp&gt;</code>: Include all points starting with specified timestamp (RFC3339 format). Not compatible with <code>-since</code> or <code>-strategy full</code>.</li>
+<li><code>-end &lt;timestamp&gt;</code>: Exclude all points after timestamp (RFC3339 format). Not compatible with <code>-since</code> or <code>-strategy full</code>.</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<h4 id="back-up-a-database-and-all-retention-policies">Back up a database and all retention policies</h4>
+<p>The following example stores incremental backups of the database
+and all retention policies in the <code>./myfirstdb-allrp-backup</code> directory:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup</span></span></code></pre></div>
+
+<h4 id="back-up-a-database-with-a-specific-retention-policy">Back up a database with a specific retention policy</h4>
+<p>The following example stores incremental backups in separate directories for the
+specified database and retention policy combinations.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl backup -db myfirstdb -rp oneday ./myfirstdb-oneday-backup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">influxd-ctl backup -db myfirstdb -rp autogen ./myfirstdb-autogen-backup</span></span></code></pre></div>
+
+<p>The output contains the status and backup file paths&ndash;for example:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">backing up <span class="nv">db</span><span class="o">=</span>myfirstdb <span class="nv">rp</span><span class="o">=</span>oneday <span class="nv">shard</span><span class="o">=</span><span class="m">8</span> to &lt;USER_HOME&gt;/myfirstdb-oneday-backup/myfirstdb.oneday.00008.00
+</span></span><span class="line"><span class="cl">backing up <span class="nv">db</span><span class="o">=</span>myfirstdb <span class="nv">rp</span><span class="o">=</span>autogen <span class="nv">shard</span><span class="o">=</span><span class="m">10</span> to &lt;USER_HOME&gt;/myfirstdb-autogen-backup/myfirstdb.autogen.00010.00</span></span></code></pre></div>
+
+<h4 id="back-up-data-from-a-specific-time-range">Back up data from a specific time range</h4>
+<p>To back up data in a specific time range, use the <code>-start</code> and <code>-end</code> options:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00Z -end 2022-01-31T011:59:00Z</span></span></code></pre></div>
+
+<h4 id="perform-an-incremental-backup">Perform an incremental backup</h4>
+<p>The incremental backup strategy (default, <code>-strategy=incremental</code>) checks for existing backup files in the specified directory.</p>
+<ul>
+<li>If a backup exists, <code>influxd-ctl</code> performs an incremental backup, saving only the data that has changed since the most recent backup file.</li>
+<li>If no backup exists, it creates a full backup of all data in InfluxDB.</li>
+</ul>
+<p>The following example shows how to run an incremental backup stored in the current directory:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl backup .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl backup .
+</span></span><span class="line"><span class="cl">Backing up meta data... Done. <span class="m">421</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node 7ba671c7644b:8088, db telegraf, rp autogen, shard 4... Done. Backed up in 903.539567ms, <span class="m">307712</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node bf5a5f73bad8:8088, db _internal, rp monitor, shard 1... Done. Backed up in 138.694402ms, <span class="m">53760</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node 9bf0fa0c302a:8088, db _internal, rp monitor, shard 2... Done. Backed up in 101.791148ms, <span class="m">40448</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node 7ba671c7644b:8088, db _internal, rp monitor, shard 3... Done. Backed up in 144.477159ms, <span class="m">39424</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backed up to . in 1.293710883s, transferred <span class="m">441765</span> bytes
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl">20160803T222310Z.manifest  20160803T222310Z.s1.tar.gz  20160803T222310Z.s3.tar.gz
+</span></span><span class="line"><span class="cl">20160803T222310Z.meta      20160803T222310Z.s2.tar.gz  20160803T222310Z.s4.tar.gz</span></span></code></pre></div>
+
+<h4 id="perform-a-full-backup">Perform a full backup</h4>
+<p>The following example shows how to run a full backup stored in a specific directory.
+The directory must already exist.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl backup -full &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl backup -full backup_dir
+</span></span><span class="line"><span class="cl">Backing up meta data... Done. <span class="m">481</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node &lt;hostname&gt;:8088, db _internal, rp monitor, shard 1... Done. Backed up in 33.207375ms, <span class="m">238080</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node &lt;hostname&gt;:8088, db telegraf, rp autogen, shard 2... Done. Backed up in 15.184391ms, <span class="m">95232</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backed up to backup_dir in 51.388233ms, transferred <span class="m">333793</span> bytes
+</span></span><span class="line"><span class="cl">$ ls backup_dir
+</span></span><span class="line"><span class="cl">20170130T184058Z.manifest
+</span></span><span class="line"><span class="cl">20170130T184058Z.meta
+</span></span><span class="line"><span class="cl">20170130T184058Z.s1.tar.gz
+</span></span><span class="line"><span class="cl">20170130T184058Z.s2.tar.gz</span></span></code></pre></div>
+
+<h4 id="perform-an-incremental-backup-on-a-single-database">Perform an incremental backup on a single database</h4>
+<p>Use the <code>-bind</code> option to specify a remote <a href="/enterprise_influxdb/v1/concepts/glossary/#meta-node">meta node</a> to connect to.</p>
+<p>The following example shows how to connect to a remote meta server and back up
+a specific database into a given directory in the local system.
+The directory must already exist.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl -bind &lt;metahost&gt;:8091 backup -db &lt;db-name&gt; &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl -bind 2a1b7a338184:8091 backup -db telegraf ./telegrafbackup
+</span></span><span class="line"><span class="cl">Backing up meta data... Done. <span class="m">318</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backing up node 7ba671c7644b:8088, db telegraf, rp autogen, shard 4... Done. Backed up in 997.168449ms, <span class="m">399872</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backed up to ./telegrafbackup in 1.002358077s, transferred <span class="m">400190</span> bytes
+</span></span><span class="line"><span class="cl">$ ls ./telegrafbackup
+</span></span><span class="line"><span class="cl">20160803T222811Z.manifest  20160803T222811Z.meta  20160803T222811Z.s4.tar.gz</span></span></code></pre></div>
+
+<h4 id="perform-a-metadata-only-backup">Perform a metadata only backup</h4>
+<p>The following example shows how to create and store a metadata-only backup
+in a specific directory.
+The directory must already exist.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl backup -strategy only-meta &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl backup -strategy only-meta backup_dir
+</span></span><span class="line"><span class="cl">Backing up meta data... Done. <span class="m">481</span> bytes transferred
+</span></span><span class="line"><span class="cl">Backed up to backup_dir in 51.388233ms, transferred <span class="m">481</span> bytes
+</span></span><span class="line"><span class="cl">~# ls backup_dir
+</span></span><span class="line"><span class="cl">20170130T184058Z.manifest
+</span></span><span class="line"><span class="cl">20170130T184058Z.meta</span></span></code></pre></div>
+
+<h3 id="restore-utility">Restore utility</h3>
+
+<div class="block note">
+  
+  
+  <h4 id="disable-anti-entropy-ae-before-restoring-a-backup">Disable anti-entropy (AE) before restoring a backup</h4>
+<p>Before restoring a backup, stop the anti-entropy (AE) service (if enabled) on <strong>each data node in the cluster, one at a time</strong>.</p>
+<ol>
+<li>Stop the <code>influxd</code> service.</li>
+<li>Set <code>[anti-entropy].enabled</code> to <code>false</code> in the influx configuration file (by default, influx.conf).</li>
+<li>Restart the <code>influxd</code> service and wait for the data node to receive read and write requests and for the <a href="/enterprise_influxdb/v1/concepts/clustering/#hinted-handoff">hinted handoff queue</a> to drain.</li>
+<li>Once AE is disabled on all data nodes and each node returns to a healthy state, you&rsquo;re ready to restore the backup. For details on how to restore your backup, see examples below.</li>
+<li>After restoring the backup, restart AE services on each data node.</li>
+</ol>
+</div>
+<h5 id="restore-a-backup">Restore a backup</h5>
+<p>Restore a backup to an existing cluster or a new cluster.
+By default, a restore writes to databases using the backed-up data&rsquo;s <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a>.
+An alternate replication factor can be specified with the <code>-newrf</code> flag when restoring a single database.
+Restore supports both <code>-full</code> backups and incremental backups; the syntax for
+a restore differs depending on the backup type.</p>
+<h5 id="restores-from-an-existing-cluster-to-a-new-cluster">Restores from an existing cluster to a new cluster</h5>
+<p>Restores from an existing cluster to a new cluster restore the existing cluster&rsquo;s
+<a href="/enterprise_influxdb/v1/concepts/glossary/#user">users</a>, roles,
+<a href="/enterprise_influxdb/v1/concepts/glossary/#database">databases</a>, and
+<a href="/enterprise_influxdb/v1/concepts/glossary/#continuous-query-cq">continuous queries</a> to
+the new cluster.</p>
+<p>They do not restore Kapacitor <a href="/enterprise_influxdb/v1/concepts/glossary/#subscription">subscriptions</a>.
+In addition, restores to a new cluster drop any data in the new cluster&rsquo;s
+<code>_internal</code> database and begin writing to that database anew.
+The restore does not write the existing cluster&rsquo;s <code>_internal</code> database to
+the new cluster.</p>
+<h4 id="syntax-to-restore-from-incremental-and-metadata-backups">Syntax to restore from incremental and metadata backups</h4>
+<p>Use the syntax below to restore an incremental or metadata backup to a new cluster or an existing cluster.
+<strong>The existing cluster must contain no data in the affected databases.</strong>
+Performing a restore from an incremental backup requires the path to the incremental backup&rsquo;s directory.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl <span class="o">[</span>global-options<span class="o">]</span> restore <span class="o">[</span>restore-options<span class="o">]</span> &lt;path-to-backup-directory&gt;</span></span></code></pre></div>
+
 
 <div class="note block">
-  <p><code>SHOW QUERIES</code> may output a killed query and continue to increment its duration
-until the query record is cleared from memory.</p>
+  <p>The existing cluster can have data in the <code>_internal</code> database (the database InfluxDB creates if
+<a href="/platform/monitoring/influxdata-platform/tools/measurements-internal">internal monitoring</a> is enabled).
+The system automatically drops the <code>_internal</code> database when it performs a complete restore.</p>
 
 </div>
 
-</li>
-<li>
-<p><code>status</code>: The current status of the query.</p>
-</li>
-<li>
-<p><code>user</code>: The user who initiated the query. Empty if authentication is not enabled. <em>v1.12.3+</em></p>
-</li>
+<h5 id="global-flags-1">Global flags</h5>
+<p>See the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags"><code>influxd-ctl</code> documentation</a>
+for a complete list of the global <code>influxd-ctl</code> flags.</p>
+<h5 id="restore-flags">Restore flags</h5>
+<p>See the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/restore/"><code>influxd-ctl</code> documentation</a>
+for a complete list of <code>influxd-ctl restore</code> flags.</p>
+<ul>
+<li><code>-db &lt;string&gt;</code>: the name of the single database to restore</li>
+<li><code>-list</code>: shows the contents of the backup</li>
+<li><code>-newdb &lt;string&gt;</code>: the name of the new database to restore to (must specify with <code>-db</code>)</li>
+<li><code>-newrf &lt;int&gt;</code>: the new replication factor to restore to (this is capped to the number of data nodes in the cluster)</li>
+<li><code>-newrp &lt;string&gt;</code>: the name of the new retention policy to restore to (must specify with <code>-rp</code>)</li>
+<li><code>-rp &lt;string&gt;</code>: the name of the single retention policy to restore</li>
+<li><code>-shard &lt;unit&gt;</code>: the shard ID to restore</li>
 </ul>
-<h2 id="stop-currently-running-queries-with-kill-query">Stop currently-running queries with <code>KILL QUERY</code></h2>
-<p><code>KILL QUERY</code> tells InfluxDB to stop running the relevant query.</p>
-<h4 id="syntax-1">Syntax</h4>
-<p>Where <code>qid</code> is the query ID, displayed in the
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a> output:</p>
+<h4 id="syntax-to-restore-from-a-full-or-manifest-only-backup">Syntax to restore from a full or manifest only backup</h4>
+<p>Use the syntax below to restore a full or manifest only backup to a new cluster or an existing cluster.
+Note that the existing cluster must contain no data in the affected databases.*
+Performing a restore requires the <code>-full</code> flag and the path to the backup&rsquo;s manifest file.</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl <span class="o">[</span>global-options<span class="o">]</span> restore <span class="o">[</span>options<span class="o">]</span> -full &lt;path-to-manifest-file&gt;</span></span></code></pre></div>
 
-<p><em><strong>InfluxDB Enterprise clusters:</strong></em> To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, <code>myhost:8088</code>),
-available in the <code>SHOW QUERIES</code> output.</p>
+<p>* The existing cluster can have data in the <code>_internal</code> database, the database
+that the system creates by default.
+The system automatically drops the <code>_internal</code> database when it performs a
+complete restore.</p>
+<h5 id="global-flags-2">Global flags</h5>
+<p>See the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags"><code>influxd-ctl</code> documentation</a>
+for a complete list of the global <code>influxd-ctl</code> flags.</p>
+<h5 id="restore-flags-1">Restore flags</h5>
+<p>See the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/restore/"><code>influxd-ctl</code> documentation</a>
+for a complete list of <code>influxd-ctl restore</code> flags.</p>
+<ul>
+<li><code>-db &lt;string&gt;</code>: the name of the single database to restore</li>
+<li><code>-list</code>: shows the contents of the backup</li>
+<li><code>-newdb &lt;string&gt;</code>: the name of the new database to restore to (must specify with <code>-db</code>)</li>
+<li><code>-newrf &lt;int&gt;</code>: the new replication factor to restore to (this is capped to the number of data nodes in the cluster)</li>
+<li><code>-newrp &lt;string&gt;</code>: the name of the new retention policy to restore to (must specify with <code>-rp</code>)</li>
+<li><code>-rp &lt;string&gt;</code>: the name of the single retention policy to restore</li>
+<li><code>-shard &lt;unit&gt;</code>: the shard ID to restore</li>
+</ul>
+<h4 id="examples-1">Examples</h4>
+<h5 id="restore-from-an-incremental-backup">Restore from an incremental backup</h5>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;&lt;host&gt;&#34;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl restore &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl restore my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20170130T231333Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 21.373019ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restoring db telegraf, rp autogen, shard <span class="m">2</span> to shard 2...
+</span></span><span class="line"><span class="cl">Copying data to &lt;hostname&gt;:8088... Copying data to &lt;hostname&gt;:8088... Done. Restored shard <span class="m">2</span> into shard <span class="m">2</span> in 61.046571ms, <span class="m">588800</span> bytes transferred
+</span></span><span class="line"><span class="cl">Restored from my-incremental-backup/ in 83.892591ms, transferred <span class="m">588800</span> bytes</span></span></code></pre></div>
 
-<p>A successful <code>KILL QUERY</code> query returns no results.</p>
-<h4 id="examples">Examples</h4>
+<h5 id="restore-from-a-metadata-backup">Restore from a metadata backup</h5>
+<p>In this example, the <code>restore</code> command restores a <a href="#perform-a-metadata-only-backup">metadata backup</a>
+stored in the <code>metadata-backup/</code> directory.</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query with qid of 36 on the local host
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">36</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl restore &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl restore metadata-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: metadata-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20200101T000000Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 21.373019ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restored from my-incremental-backup/ in 19.2311ms, transferred <span class="m">588</span> bytes</span></span></code></pre></div>
+
+<h5 id="restore-from-a--full-backup">Restore from a <code>-full</code> backup</h5>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl restore -full &lt;path-to-manifest-file&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl restore -full my-full-backup/20170131T020341Z.manifest
+</span></span><span class="line"><span class="cl">Using manifest: my-full-backup/20170131T020341Z.manifest
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 9.585639ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restoring db telegraf, rp autogen, shard <span class="m">2</span> to shard 2...
+</span></span><span class="line"><span class="cl">Copying data to &lt;hostname&gt;:8088... Copying data to &lt;hostname&gt;:8088... Done. Restored shard <span class="m">2</span> into shard <span class="m">2</span> in 48.095082ms, <span class="m">569344</span> bytes transferred
+</span></span><span class="line"><span class="cl">Restored from my-full-backup in 58.58301ms, transferred <span class="m">569344</span> bytes</span></span></code></pre></div>
+
+<h5 id="restore-from-an-incremental-backup-for-a-single-database-and-give-the-database-a-new-name">Restore from an incremental backup for a single database and give the database a new name</h5>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl restore -db &lt;src&gt; -newdb &lt;dest&gt; &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl restore -db telegraf -newdb restored_telegraf my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20170130T231333Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 8.119655ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restoring db telegraf, rp autogen, shard <span class="m">2</span> to shard 4...
+</span></span><span class="line"><span class="cl">Copying data to &lt;hostname&gt;:8088... Copying data to &lt;hostname&gt;:8088... Done. Restored shard <span class="m">2</span> into shard <span class="m">4</span> in 57.89687ms, <span class="m">588800</span> bytes transferred
+</span></span><span class="line"><span class="cl">Restored from my-incremental-backup/ in 66.715524ms, transferred <span class="m">588800</span> bytes</span></span></code></pre></div>
+
+<h5 id="restore-from-an-incremental-backup-for-a-database-and-merge-that-database-into-an-existing-database">Restore from an incremental backup for a database and merge that database into an existing database</h5>
+<p>Your <code>telegraf</code> database was mistakenly dropped, but you have a recent backup so you&rsquo;ve only lost a small amount of data.</p>
+<p>If Telegraf is still running, it will recreate the <code>telegraf</code> database shortly after the database is dropped.
+You might try to directly restore your <code>telegraf</code> backup just to find that you can&rsquo;t restore:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ influxd-ctl restore -db telegraf my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20170130T231333Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Error.
+</span></span><span class="line"><span class="cl">restore: operation exited with error: problem setting snapshot: database already exists</span></span></code></pre></div>
+
+<p>To work around this, you can restore your telegraf backup into a new database by specifying the <code>-db</code> flag for the source and the <code>-newdb</code> flag for the new destination:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ influxd-ctl restore -db telegraf -newdb restored_telegraf my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20170130T231333Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 19.915242ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restoring db telegraf, rp autogen, shard <span class="m">2</span> to shard 7...
+</span></span><span class="line"><span class="cl">Copying data to &lt;hostname&gt;:8088... Copying data to &lt;hostname&gt;:8088... Done. Restored shard <span class="m">2</span> into shard <span class="m">7</span> in 36.417682ms, <span class="m">588800</span> bytes transferred
+</span></span><span class="line"><span class="cl">Restored from my-incremental-backup/ in 56.623615ms, transferred <span class="m">588800</span> bytes</span></span></code></pre></div>
+
+<p>Then, in the <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx/"><code>influx</code> client</a>, use an <a href="/enterprise_influxdb/v1/query_language/explore-data/#the-into-clause"><code>INTO</code> query</a> to copy the data from the new database into the existing <code>telegraf</code> database:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ influx
+</span></span><span class="line"><span class="cl">&gt; USE restored_telegraf
+</span></span><span class="line"><span class="cl">Using database restored_telegraf
+</span></span><span class="line"><span class="cl">&gt; SELECT * INTO telegraf..:MEASUREMENT FROM /.*/ GROUP BY *
+</span></span><span class="line"><span class="cl">name: result
+</span></span><span class="line"><span class="cl">------------
+</span></span><span class="line"><span class="cl"><span class="nb">time</span>                  written
+</span></span><span class="line"><span class="cl">1970-01-01T00:00:00Z  <span class="m">471</span></span></span></code></pre></div>
+
+<h5 id="restore-overwrite-metadata-from-a-full-or-incremental-backup-to-fix-damaged-metadata">Restore (overwrite) metadata from a full or incremental backup to fix damaged metadata</h5>
+<ol>
+<li>
+<p>Identify a backup with uncorrupted metadata from which to restore.</p>
+</li>
+<li>
+<p>Restore from backup with <code>-meta-only-overwrite-force</code>.</p>
+
+<div class="warn block">
+  <p>Only use the <code>-meta-only-overwrite-force</code> flag to restore from backups of the target cluster.
+If you use this flag with metadata from a different cluster, you will lose data.
+(since metadata includes shard assignments to data nodes).</p>
+
+</div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;myhost:8088&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl restore -meta-only-overwrite-force &lt;path-to-backup-directory&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">$ influxd-ctl restore -meta-only-overwrite-force my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using backup directory: my-incremental-backup/
+</span></span><span class="line"><span class="cl">Using meta backup: 20200101T000000Z.meta
+</span></span><span class="line"><span class="cl">Restoring meta data... Done. Restored in 21.373019ms, <span class="m">1</span> shards mapped
+</span></span><span class="line"><span class="cl">Restored from my-incremental-backup/ in 19.2311ms, transferred <span class="m">588</span> bytes</span></span></code></pre></div>
 
-<h2 id="configuration-settings-for-query-management">Configuration settings for query management</h2>
-<p>The following configuration settings are in the
-<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster">[cluster]</a> section of the
-configuration file.</p>
-<h3 id="max-concurrent-queries"><code>max-concurrent-queries</code></h3>
-<p>The maximum number of running queries allowed on your instance.
-The default setting (<code>0</code>) allows for an unlimited number of queries.</p>
-<p>If you exceed <code>max-concurrent-queries</code>, InfluxDB does not execute the query and
-outputs the following error:</p>
+</li>
+</ol>
+<h4 id="common-issues-with-restore">Common issues with restore</h4>
+<h5 id="restore-writes-information-not-part-of-the-original-backup">Restore writes information not part of the original backup</h5>
+<p>If a <a href="#syntax-to-restore-from-incremental-and-metadata-backups">restore from an incremental backup</a>
+does not limit the restore to the same database, retention policy, and shard specified by the backup command,
+the restore may appear to restore information that was not part of the original backup.
+Backups consist of a shard data backup and a metastore backup.
+The <strong>shard data backup</strong> contains the actual time series data: the measurements, tags, fields, and so on.
+The <strong>metastore backup</strong> contains user information, database names, retention policy names, shard metadata, continuous queries, and subscriptions.</p>
+<p>When the system creates a backup, the backup includes:</p>
+<ul>
+<li>the relevant shard data determined by the specified backup options</li>
+<li>all of the metastore information in the cluster regardless of the specified backup options</li>
+</ul>
+<p>Because a backup always includes the complete metastore information, a restore that doesn&rsquo;t include the same options specified by the backup command may appear to restore data that were not targeted by the original backup.
+The unintended data, however, include only the metastore information, not the shard data associated with that metastore information.</p>
+<h5 id="restore-a-backup-created-prior-to-version-120">Restore a backup created prior to version 1.2.0</h5>
+<p>InfluxDB Enterprise introduced incremental backups in version 1.2.0.
+To restore a backup created prior to version 1.2.0, be sure to follow the syntax
+for <a href="#restore-from-a-full-backup">restoring from a full backup</a>.</p>
+<h2 id="exporting-and-importing-data">Exporting and importing data</h2>
+<p>For most InfluxDB Enterprise applications, the <a href="#backup-and-restore-utilities">backup and restore utilities</a> provide the tools you need for your backup and restore strategy. However, in some cases, the standard backup and restore utilities might not adequately handle the volumes of data in your application.</p>
+<p>As an alternative to the standard backup and restore utilities, use the InfluxDB <code>influx_inspect export</code> and <code>influx -import</code> commands to create backup and restore procedures for your disaster recovery and backup strategy. These commands can be executed manually or included in shell scripts that run the export and import operations at scheduled intervals (example below).</p>
+<ul>
+<li><a href="#exporting-data">Exporting data</a></li>
+<li><a href="#importing-data">Importing data</a></li>
+<li><a href="#example-export-and-import-for-disaster-recovery">Example: export and import for disaster recovery</a></li>
+</ul>
+<h3 id="exporting-data">Exporting data</h3>
+<p>Use the <a href="/enterprise_influxdb/v1/tools/influx_inspect#export"><code>influx_inspect export</code> command</a> to export data in line protocol format from your InfluxDB Enterprise cluster.
+Options include the following:</p>
+<ul>
+<li><code>-database</code>: Export all or specific databases</li>
+<li><code>-start</code> and <code>-end</code>: Filter with starting and ending timestamps</li>
+<li><code>-compress</code>: Use GNU zip (gzip) compression for smaller files and faster exports</li>
+</ul>
+<p>The following example shows how to export data filtered to one day and compressed
+for optimal speed and file size:</p>
 
-<pre tabindex="0"><code>ERR: max concurrent queries reached</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influx_inspect <span class="nb">export</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -database DATABASE_NAME <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -compress <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2019-05-19T00:00:00.000Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -end 2019-05-19T23:59:59.999Z</span></span></code></pre></div>
 
-<h3 id="query-timeout"><code>query-timeout</code></h3>
-<p>The maximum time for which a query can run on your instance before InfluxDB
-kills the query.
-The default setting (<code>&quot;0&quot;</code>) allows queries to run with no time restrictions.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>If your query exceeds the query timeout, InfluxDB kills the query and outputs
-the following error:</p>
+<p>The exported file contains the following:</p>
 
-<pre tabindex="0"><code>ERR: query timeout reached</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># DDL</span>
+</span></span><span class="line"><span class="cl">CREATE DATABASE &lt;DATABASE_NAME&gt; WITH NAME &lt;RETENTION_POLICY&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># DML</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTEXT-DATABASE:&lt;DATABASE_NAME&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTEXT-RETENTION-POLICY:&lt;RETENTION_POLICY&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;LINE_PROTOCOL_DATA&gt;</span></span></code></pre></div>
 
-<h3 id="log-queries-after"><code>log-queries-after</code></h3>
-<p>The maximum time a query can run after which InfluxDB logs the query with a
-<code>Detected slow query</code> message.
-The default setting (<code>&quot;0&quot;</code>) will never tell InfluxDB to log the query.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>Example log output with <code>log-queries-after</code> set to <code>&quot;1s&quot;</code>:</p>
+<ul>
+<li><code>DDL</code>: an InfluxQL <code>CREATE</code> statement to create the target database when <a href="#importing-data">importing the data</a></li>
+<li><code>DML</code>: Context metadata that specifies the target database and retention policy
+for <a href="#importing-data">importing the data</a></li>
+<li>the line protocol data</li>
+</ul>
+<p>For details on optional settings and usage, see <a href="/enterprise_influxdb/v1/tools/influx_inspect#export"><code>influx_inspect export</code> command</a>.</p>
+<h3 id="importing-data">Importing data</h3>
+<p>To import line protocol data from a file, use the <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx-cli/#influx-arguments"><code>influx -import</code> CLI command</a>.</p>
+<p>In your import file, include the following sections:</p>
+<ul>
+<li><em>Optional</em>: <strong>DDL (Data Definition Language)</strong>: Contains the <a href="/enterprise_influxdb/v1/query_language/manage-database/">InfluxQL commands</a> for creating the relevant <a href="/enterprise_influxdb/v1/concepts/glossary/#database">database</a> and managing the <a href="/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
+If your database and retention policy already exist, your file can skip this section.</li>
+<li><strong>DML (Data Manipulation Language)</strong>: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in <a href="/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol">line protocol</a>.</li>
+</ul>
+<p>In the following example, the compressed data file (in GNU zip format) is imported into the database
+specified in the file&rsquo;s <code>DML</code> metadata.</p>
 
-<pre tabindex="0"><code>[query] 2016/04/28 14:11:31 Detected slow query: SELECT mean(usage_idle) FROM cpu WHERE time &gt;= 0 GROUP BY time(20s) (qid: 3, database: telegraf, threshold: 1s)</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influx -import -path -compressed</span></span></code></pre></div>
 
-<p><code>qid</code> is the id number of the query.
-Use this value with
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-<p>The default location for the log output file is <code>/var/log/influxdb/influxdb.log</code>. However on systems that use systemd (most modern Linux distributions) those logs are output to <code>journalctl</code>. You should be able to view the InfluxDB logs using the following command: <code>journalctl -u influxdb</code></p>
-<h3 id="max-select-point"><code>max-select-point</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#point">points</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of points.</p>
-<p>If your query exceeds <code>max-select-point</code>, InfluxDB kills the query and outputs
-the following error:</p>
-
-<pre tabindex="0"><code>ERR: max number of points reached</code></pre>
-
-<h3 id="max-select-series"><code>max-select-series</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of series.</p>
-<p>If your query exceeds <code>max-select-series</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
-
-<pre tabindex="0"><code>ERR: max select series count exceeded: &lt;query_series_count&gt; series</code></pre>
-
-<h3 id="max-select-buckets"><code>max-select-buckets</code></h3>
-<p>The maximum number of <code>GROUP BY time()</code> buckets that a query can process.
-The default setting (<code>0</code>) allows a query to process an unlimited number of
-buckets.</p>
-<p>If your query exceeds <code>max-select-buckets</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
-
-<pre tabindex="0"><code>ERR: max select bucket count exceeded: &lt;query_bucket_count&gt; buckets</code></pre>
-
+<p>For details on using the <code>influx -import</code> command, see <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx-cli/#import-data-from-a-file">Import data from a file</a>.</p>
+<h3 id="example-export-and-import-for-disaster-recovery">Example: export and import for disaster recovery</h3>
+<p>For an example of using the exporting and importing data approach for disaster recovery, see the presentation from Influxdays 2019 on <a href="https://www.youtube.com/watch?v=LyQDhSdnm4A">&ldquo;Architecting for Disaster Recovery.&rdquo;</a>. In this presentation, Capital One discusses the following:</p>
+<ul>
+<li>Exporting data every 15 minutes from an active InfluxDB Enterprise cluster to an AWS S3 bucket.</li>
+<li>Replicating the export file in the S3 bucket using the AWS S3 copy command.</li>
+<li>Importing data every 15 minutes from the AWS S3 bucket to an InfluxDB Enterprise cluster available for disaster recovery.</li>
+<li>Advantages of the export-import approach over the standard backup and restore utilities for large volumes of data.</li>
+<li>Managing users and scheduled exports and imports with a custom administration tool.</li>
+</ul>
 
 
 
@@ -2566,8 +2914,8 @@ and outputs the following error:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/administration/backup-and-restore.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/backup-and-restore/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

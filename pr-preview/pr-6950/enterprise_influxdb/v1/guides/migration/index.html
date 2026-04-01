@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 16:02:07 -0600 -0600">
+<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2380,7 +2380,7 @@ For more information, see <a href="/influxdb/v1/tools/influxd/backup/">influxd b
 <blockquote>
 <p><strong>Note:</strong>  InfluxDB Enterprise uses the <strong>influxd-ctl utility</strong> to back up and restore data. For more information,
 see <a href="/enterprise_influxdb/v1/tools/influxd-ctl">influxd-ctl</a>
-and <a href="/enterprise_influxdb/v1/administration/backup-and-restore/#restore"><code>restore</code></a>.</p>
+and <a href="/enterprise_influxdb/v1/administration/backup-and-restore/#restore-utility"><code>restore</code></a>.</p>
 
 </blockquote>
 </li>
@@ -2741,7 +2741,7 @@ It may take a few minutes before the existing data is available.
 <h2 id="rebalance-the-cluster">Rebalance the cluster</h2>
 <ol>
 <li>Use the <a href="/enterprise_influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy"><code>ALTER RETENTION POLICY</code></a>
-statement to increase the <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor">replication factor</a>
+statement to increase the <a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a>
 on all existing retention polices to the number of data nodes in your cluster.</li>
 <li><a href="/enterprise_influxdb/v1/guides/rebalance/">Rebalance your cluster manually</a>
 to meet the desired replication factor for existing shards.</li>

@@ -46,10 +46,10 @@
 
 
 
-<title>InfluxQL query management | &lt;nil&gt; Documentation</title>
+<title>Rebalance InfluxDB Enterprise v1 clusters | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Show, kill, and manage queries in InfluxQL.">
+    <meta name="description" content="Manually rebalance an InfluxDB Enterprise v1 cluster.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/rebalance/" />
 
     
 <style>
@@ -861,10 +861,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/'>Administration</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -986,10 +986,10 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/'>Manage</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -997,10 +997,10 @@
   
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/'>Manage clusters</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -1019,7 +1019,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/rebalance/'>Rebalance clusters</a>
       
@@ -1909,10 +1909,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/'>Troubleshoot</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1944,17 +1944,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/'>Query management</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/'>InfluxQL query management</a>
       
@@ -2232,7 +2232,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>InfluxQL query management</h1>
+      <h1>Rebalance InfluxDB Enterprise v1 clusters</h1>
       
 
 
@@ -2339,159 +2339,359 @@
 
 
 
-  <p>Manage your InfluxQL queries using the following:</p>
+  <h2 id="introduction">Introduction</h2>
+<p>This guide describes how to manually rebalance an InfluxDB Enterprise cluster.
+Rebalancing a cluster involves two primary goals:</p>
 <ul>
-<li><a href="#list-currently-running-queries-with-show-queries">SHOW QUERIES</a> to identify currently-running queries</li>
-<li><a href="#stop-currently-running-queries-with-kill-query">KILL QUERIES</a> to stop queries overloading your system</li>
-<li><a href="#configuration-settings-for-query-management">Configuration settings</a> to prevent and halt the execution of inefficient queries</li>
+<li>Evenly distribute
+<a href="/enterprise_influxdb/v1/concepts/glossary/#shard">shards</a> across all data nodes in the
+cluster</li>
+<li>Ensure that every
+shard is on <em>n</em> number of nodes, where <em>n</em> is determined by the retention policy&rsquo;s
+<a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a></li>
 </ul>
+<p>Rebalancing a cluster is essential for cluster health.
+Perform a rebalance if you add a new data node to your cluster.
+The proper rebalance path depends on the purpose of the new data node.
+If you added a data node to expand the disk size of the cluster or increase
+write throughput, follow the steps in
+<a href="#rebalance-procedure-1-rebalance-a-cluster-to-create-space">Rebalance Procedure 1</a>.
+If you added a data node to increase data availability for queries and query
+throughput, follow the steps in
+<a href="#rebalance-procedure-2-rebalance-a-cluster-to-increase-availability">Rebalance Procedure 2</a>.</p>
+<h3 id="requirements">Requirements</h3>
+<p>The following sections assume that you already added a new data node to the
+cluster, and they use the
+<a href="/enterprise_influxdb/v1/tools/influxd-ctl/"><code>influxd-ctl</code> tool</a> available on
+all meta nodes.</p>
 
-<div class="note block">
-  <p>The commands and configurations provided on this page are for <strong>Influx Query Language (InfluxQL) only</strong>.
-For Flux query management settings, see <a href="/enterprise_influxdb/v1/troubleshooting/query_management/flux_query_management">Flux query management</a>.</p>
-
+<div class="block warning">
+  
+  
+  <h4 id="stop-writing-data-before-rebalancing">Stop writing data before rebalancing</h4>
+<p>Before you begin, stop writing historical data to InfluxDB.
+Historical data have timestamps that occur at anytime in the past.
+Performing a rebalance while writing historical data can lead to data loss.</p>
 </div>
 
-<h2 id="list-currently-running-queries-with-show-queries">List currently-running queries with <code>SHOW QUERIES</code></h2>
-<p><code>SHOW QUERIES</code> lists the query id, node id, TCP host, query text, relevant database, duration,
-status, and user of all currently-running queries on your InfluxDB Enterprise cluster.</p>
-<h4 id="syntax">Syntax</h4>
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">QUERIES</span></span></span></code></pre></div>
-
-<h4 id="example">Example</h4>
-
-<pre tabindex="0"><code>&gt; SHOW QUERIES
-qid   node_id   tcp_host       query                              database   duration   status    user
----   -------   --------       -----                              --------   --------   ------    ----
-37    26        data1:8088     SHOW QUERIES                                  100368u    running   admin
-36    33        data3:8088     SELECT mean(myfield) FROM mymeas   mydb       3s         running   jdoe</code></pre>
-
-<h5 id="explanation-of-the-output">Explanation of the output</h5>
-<ul>
-<li>
-<p><code>qid</code>: Query ID. Use this ID with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-</li>
-<li>
-<p><code>node_id</code>: The data node ID where the query is running.</p>
-</li>
-<li>
-<p><code>tcp_host</code>: The TCP host address of the data node. Use this value with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY ... ON</code></a> to kill queries on a specific node.</p>
-</li>
-<li>
-<p><code>query</code>: The query text.</p>
-</li>
-<li>
-<p><code>database</code>: The database targeted by the query.</p>
-</li>
-<li>
-<p><code>duration</code>: The length of time that the query has been running.
-See <a href="/enterprise_influxdb/v1/query_language/spec/#durations">Query Language Reference</a>
-for an explanation of time units in InfluxDB databases.</p>
-
-<div class="note block">
-  <p><code>SHOW QUERIES</code> may output a killed query and continue to increment its duration
-until the query record is cleared from memory.</p>
-
+<div class="block caution">
+  
+  
+  <h4 id="risks-of-rebalancing-with-future-data">Risks of rebalancing with future data</h4>
+<p>Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+can lead to overlapping shards and data duplication.
+For more information, see <a href="/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data"><code>truncate-shards</code> and future data</a>
+or <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
 </div>
+<h2 id="rebalance-procedure-1-rebalance-a-cluster-to-create-space">Rebalance Procedure 1: Rebalance a cluster to create space</h2>
+<p>For demonstration purposes, the next steps assume that you added a third
+data node to a previously two-data-node cluster that has a
+<a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a> of
+two.
+This rebalance procedure is applicable for different cluster sizes and
+replication factors, but some of the specific, user-provided values will depend
+on that cluster size.</p>
+<p>Rebalance Procedure 1 focuses on how to rebalance a cluster after adding a
+data node to expand the total disk capacity of the cluster.
+In the next steps, you will safely move shards from one of the two original data
+nodes to the new data node.</p>
+<h3 id="step-1-truncate-hot-shards">Step 1: Truncate hot shards</h3>
+<p>Hot shards are shards that currently receive writes.
+Performing any action on a hot shard can lead to data inconsistency within the
+cluster which requires manual intervention from the user.</p>
 
-</li>
-<li>
-<p><code>status</code>: The current status of the query.</p>
-</li>
-<li>
-<p><code>user</code>: The user who initiated the query. Empty if authentication is not enabled. <em>v1.12.3+</em></p>
-</li>
-</ul>
-<h2 id="stop-currently-running-queries-with-kill-query">Stop currently-running queries with <code>KILL QUERY</code></h2>
-<p><code>KILL QUERY</code> tells InfluxDB to stop running the relevant query.</p>
-<h4 id="syntax-1">Syntax</h4>
-<p>Where <code>qid</code> is the query ID, displayed in the
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a> output:</p>
+<div class="block caution">
+  
+  
+  <h4 id="risks-of-rebalancing-with-future-data-1">Risks of rebalancing with future data</h4>
+<p>Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+can lead to overlapping shards and data duplication.
+For more information, see <a href="/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data"><code>truncate-shards</code> and future data</a>
+or <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
+</div>
+<p>To prevent data inconsistency, truncate shards before moving any shards
+across data nodes.
+The following command truncates all hot shards and creates new shards to write data to:</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span></span></span></code></pre></div>
+<pre tabindex="0"><code>influxd-ctl truncate-shards</code></pre>
 
-<p><em><strong>InfluxDB Enterprise clusters:</strong></em> To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, <code>myhost:8088</code>),
-available in the <code>SHOW QUERIES</code> output.</p>
+<p>The expected output of this command is:</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;&lt;host&gt;&#34;</span></span></span></code></pre></div>
+<pre tabindex="0"><code>Truncated shards.</code></pre>
 
-<p>A successful <code>KILL QUERY</code> query returns no results.</p>
-<h4 id="examples">Examples</h4>
+<p>New shards are automatically distributed across all data nodes, and InfluxDB writes new points to them.
+Previous writes are stored in cold shards.</p>
+<p>After truncating shards, you can redistribute cold shards without data inconsistency.
+Hot and new shards are evenly distributed and require no further intervention.</p>
+<h3 id="step-2-identify-cold-shards">Step 2: Identify Cold Shards</h3>
+<p>In this step, you identify the cold shards that you will copy to the new data node
+and remove from one of the original two data nodes.</p>
+<p>The following command lists every shard in our cluster:</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query with qid of 36 on the local host
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">36</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<pre tabindex="0"><code>influxd-ctl show-shards</code></pre>
 
+<p>The output is similar to the following:</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;myhost:8088&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<pre tabindex="0"><code>Shards
+==========
+ID   Database    Retention Policy   Desired Replicas   [...]   End                               Owners
+21   telegraf    autogen            2                  [...]   2017-01-26T18:00:00Z              [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088}]
+22   telegraf    autogen            2                  [...]   2017-01-26T18:05:36.418734949Z*   [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088}]
+24   telegraf    autogen            2                  [...]   2017-01-26T19:00:00Z              [{5 enterprise-data-02:8088} {6 enterprise-data-03:8088}]</code></pre>
 
-<h2 id="configuration-settings-for-query-management">Configuration settings for query management</h2>
-<p>The following configuration settings are in the
-<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster">[cluster]</a> section of the
-configuration file.</p>
-<h3 id="max-concurrent-queries"><code>max-concurrent-queries</code></h3>
-<p>The maximum number of running queries allowed on your instance.
-The default setting (<code>0</code>) allows for an unlimited number of queries.</p>
-<p>If you exceed <code>max-concurrent-queries</code>, InfluxDB does not execute the query and
-outputs the following error:</p>
+<p>The sample output includes three shards.
+The first two shards are cold shards.
+The timestamp in the <code>End</code> column occurs in the past (assume that the current
+time is just after <code>2017-01-26T18:05:36.418734949Z</code>), and the shards&rsquo; owners
+are the two original data nodes: <code>enterprise-data-01:8088</code> and
+<code>enterprise-data-02:8088</code>.
+The second shard is the truncated shard; truncated shards have an asterix (<code>*</code>)
+on the timestamp in the <code>End</code> column.</p>
+<p>The third shard is the newly-created hot shard; the timestamp in the <code>End</code>
+column is in the future (again, assume that the current time is just after
+<code>2017-01-26T18:05:36.418734949Z</code>), and the shard&rsquo;s owners include one of the
+original data nodes (<code>enterprise-data-02:8088</code>) and the new data node
+(<code>enterprise-data-03:8088</code>).
+That hot shard and any subsequent shards require no attention during
+the rebalance process.</p>
+<p>Identify the cold shards that you&rsquo;d like to move from one of the original two
+data nodes to the new data node.
+Take note of the cold shard&rsquo;s <code>ID</code> (for example: <code>22</code>) and the TCP address of
+one of its owners in the <code>Owners</code> column (for example:
+<code>enterprise-data-01:8088</code>).</p>
 
-<pre tabindex="0"><code>ERR: max concurrent queries reached</code></pre>
+<div class="block note">
+  
+  
+  <p>To determine the size of shards in
+your cluster, enter the following command:</p>
 
-<h3 id="query-timeout"><code>query-timeout</code></h3>
-<p>The maximum time for which a query can run on your instance before InfluxDB
-kills the query.
-The default setting (<code>&quot;0&quot;</code>) allows queries to run with no time restrictions.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>If your query exceeds the query timeout, InfluxDB kills the query and outputs
-the following error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find /var/lib/influxdb/data/ -mindepth <span class="m">3</span> -type d -exec du -h <span class="o">{}</span> <span class="se">\;</span></span></span></code></pre></div>
+</div>
+<p>In general, we recommend moving larger shards to the new data node to increase the
+available disk space on the original data nodes.</p>
+<p><em>Moving shards will impact network traffic.</em></p>
+<h3 id="step-3-copy-cold-shards">Step 3: Copy Cold Shards</h3>
+<p>Next, copy the relevant cold shards to the new data node with the syntax below.
+Repeat this command for every cold shard that you&rsquo;d like to move to the
+new data node.</p>
 
-<pre tabindex="0"><code>ERR: query timeout reached</code></pre>
+<pre tabindex="0"><code>influxd-ctl copy-shard &lt;source_TCP_address&gt; &lt;destination_TCP_address&gt; &lt;shard_ID&gt;</code></pre>
 
-<h3 id="log-queries-after"><code>log-queries-after</code></h3>
-<p>The maximum time a query can run after which InfluxDB logs the query with a
-<code>Detected slow query</code> message.
-The default setting (<code>&quot;0&quot;</code>) will never tell InfluxDB to log the query.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>Example log output with <code>log-queries-after</code> set to <code>&quot;1s&quot;</code>:</p>
+<p>Where <code>source_TCP_address</code> is the address that you noted in step 2,
+<code>destination_TCP_address</code> is the TCP address of the new data node, and <code>shard_ID</code>
+is the ID of the shard that you noted in step 2.</p>
+<p>The expected output of the command is:</p>
 
-<pre tabindex="0"><code>[query] 2016/04/28 14:11:31 Detected slow query: SELECT mean(usage_idle) FROM cpu WHERE time &gt;= 0 GROUP BY time(20s) (qid: 3, database: telegraf, threshold: 1s)</code></pre>
+<pre tabindex="0"><code>Copied shard &lt;shard_ID&gt; from &lt;source_TCP_address&gt; to &lt;destination_TCP_address&gt;</code></pre>
 
-<p><code>qid</code> is the id number of the query.
-Use this value with
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-<p>The default location for the log output file is <code>/var/log/influxdb/influxdb.log</code>. However on systems that use systemd (most modern Linux distributions) those logs are output to <code>journalctl</code>. You should be able to view the InfluxDB logs using the following command: <code>journalctl -u influxdb</code></p>
-<h3 id="max-select-point"><code>max-select-point</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#point">points</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of points.</p>
-<p>If your query exceeds <code>max-select-point</code>, InfluxDB kills the query and outputs
-the following error:</p>
+<h3 id="step-4-confirm-the-copied-shards">Step 4: Confirm the Copied Shards</h3>
+<p>Confirm that the TCP address of the new data node appears in the <code>Owners</code> column
+for every copied shard:</p>
 
-<pre tabindex="0"><code>ERR: max number of points reached</code></pre>
+<pre tabindex="0"><code>influxd-ctl show-shards</code></pre>
 
-<h3 id="max-select-series"><code>max-select-series</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of series.</p>
-<p>If your query exceeds <code>max-select-series</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
+<p>The expected output shows that the copied shard now has three owners:</p>
 
-<pre tabindex="0"><code>ERR: max select series count exceeded: &lt;query_series_count&gt; series</code></pre>
+<pre tabindex="0"><code>Shards
+==========
+ID   Database    Retention Policy   Desired Replicas   [...]   End                               Owners
+22   telegraf    autogen            2                  [...]   2017-01-26T18:05:36.418734949Z*   [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088} {6 enterprise-data-03:8088}]</code></pre>
 
-<h3 id="max-select-buckets"><code>max-select-buckets</code></h3>
-<p>The maximum number of <code>GROUP BY time()</code> buckets that a query can process.
-The default setting (<code>0</code>) allows a query to process an unlimited number of
-buckets.</p>
-<p>If your query exceeds <code>max-select-buckets</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
+<p>In addition, verify that the copied shards appear in the new data node&rsquo;s shard
+directory and match the shards in the source data node&rsquo;s shard directory.
+Shards are located in
+<code>/var/lib/influxdb/data/&lt;database&gt;/&lt;retention_policy&gt;/&lt;shard_ID&gt;</code>.</p>
+<p>Here&rsquo;s an example of the correct output for shard <code>22</code>:</p>
 
-<pre tabindex="0"><code>ERR: max select bucket count exceeded: &lt;query_bucket_count&gt; buckets</code></pre>
+<pre tabindex="0"><code># On the source data node (enterprise-data-01)
 
+~# ls /var/lib/influxdb/data/telegraf/autogen/22
+000000001-000000001.tsm # 👍
+
+# On the new data node (enterprise-data-03)
+
+~# ls /var/lib/influxdb/data/telegraf/autogen/22
+000000001-000000001.tsm # 👍</code></pre>
+
+<p>It is essential that every copied shard appears on the new data node both
+in the <code>influxd-ctl show-shards</code> output and in the shard directory.
+If a shard does not pass both of the tests above, please repeat step 3.</p>
+<h3 id="step-5-remove-unnecessary-cold-shards">Step 5: Remove Unnecessary Cold Shards</h3>
+<p>Next, remove the copied shard from the original data node with the command below.
+Repeat this command for every cold shard that you&rsquo;d like to remove from one of
+the original data nodes.
+<strong>Removing a shard is an irrecoverable, destructive action; please be
+cautious with this command.</strong></p>
+
+<pre tabindex="0"><code>influxd-ctl remove-shard &lt;source_TCP_address&gt; &lt;shard_ID&gt;</code></pre>
+
+<p>Where <code>source_TCP_address</code> is the TCP address of the original data node and
+<code>shard_ID</code> is the ID of the shard that you noted in step 2.</p>
+<p>The expected output of the command is:</p>
+
+<pre tabindex="0"><code>Removed shard &lt;shard_ID&gt; from &lt;source_TCP_address&gt;</code></pre>
+
+<h3 id="step-6-confirm-the-rebalance">Step 6: Confirm the Rebalance</h3>
+<p>For every relevant shard, confirm that the TCP address of the new data node and
+only one of the original data nodes appears in the <code>Owners</code> column:</p>
+
+<pre tabindex="0"><code>influxd-ctl show-shards</code></pre>
+
+<p>The expected output shows that the copied shard now has only two owners:</p>
+
+<pre tabindex="0"><code>Shards
+==========
+ID   Database    Retention Policy   Desired Replicas   [...]   End                               Owners
+22   telegraf    autogen            2                  [...]   2017-01-26T18:05:36.418734949Z*   [{5 enterprise-data-02:8088} {6 enterprise-data-03:8088}]</code></pre>
+
+<p>That&rsquo;s it.
+You&rsquo;ve successfully rebalanced your cluster; you expanded the available disk
+size on the original data nodes and increased the cluster&rsquo;s write throughput.</p>
+<h2 id="rebalance-procedure-2-rebalance-a-cluster-to-increase-availability">Rebalance Procedure 2: Rebalance a cluster to increase availability</h2>
+<p>For demonstration purposes, the next steps assume that you added a third
+data node to a previously two-data-node cluster that has a
+<a href="/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf">replication factor</a> of
+two.
+This rebalance procedure is applicable for different cluster sizes and
+replication factors, but some of the specific, user-provided values will depend
+on that cluster size.</p>
+<p>Rebalance Procedure 2 focuses on how to rebalance a cluster to improve availability
+and query throughput.
+In the next steps, you will increase the retention policy&rsquo;s replication factor and
+safely copy shards from one of the two original data nodes to the new data node.</p>
+<h3 id="step-1-update-the-retention-policy">Step 1: Update the Retention Policy</h3>
+<p><a href="/enterprise_influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy">Update</a>
+every retention policy to have a replication factor of three.
+This step ensures that the system automatically distributes all newly-created
+shards across the three data nodes in the cluster.</p>
+<p>The following query increases the replication factor to three.
+Run the query on any data node for each retention policy and database.
+Here, we use InfluxDB&rsquo;s <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx/">CLI</a> to execute the query:</p>
+
+<pre tabindex="0"><code>ALTER RETENTION POLICY &#34;&lt;retention_policy_name&gt;&#34; ON &#34;&lt;database_name&gt;&#34; REPLICATION 3</code></pre>
+
+<p>A successful <code>ALTER RETENTION POLICY</code> query returns no results.
+Use the
+<a href="/enterprise_influxdb/v1/query_language/explore-schema/#show-retention-policies"><code>SHOW RETENTION POLICIES</code> query</a>
+to verify the new replication factor.</p>
+<p>Example:</p>
+
+<pre tabindex="0"><code>&gt; SHOW RETENTION POLICIES ON &#34;telegraf&#34;
+
+name     duration  shardGroupDuration  replicaN  default
+----     --------  ------------------  --------  -------
+autogen  0s        1h0m0s              3 #👍     true</code></pre>
+
+<h3 id="step-2-truncate-hot-shards">Step 2: Truncate hot shards</h3>
+<p>Hot shards are shards that currently receive writes.
+Performing any action on a hot shard can lead to data inconsistency within the
+cluster which requires manual intervention from the user.</p>
+
+<div class="block caution">
+  
+  
+  <h4 id="risks-of-rebalancing-with-future-data-2">Risks of rebalancing with future data</h4>
+<p>Truncating shards that contain data with future timestamps (such as forecast or prediction data)
+can lead to overlapping shards and data duplication.
+For more information, see <a href="/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/#understand-the-risks-with-future-data"><code>truncate-shards</code> and future data</a>
+or <a href="https://support.influxdata.com">contact InfluxData support</a>.</p>
+</div>
+<p>To prevent data inconsistency, truncate shards before copying any shards
+to the new data node.
+The following command truncates all hot shards and creates new shards to write data to:</p>
+
+<pre tabindex="0"><code>influxd-ctl truncate-shards</code></pre>
+
+<p>The expected output of this command is:</p>
+
+<pre tabindex="0"><code>Truncated shards.</code></pre>
+
+<p>New shards are automatically distributed across all data nodes, and InfluxDB writes new points to them.
+Previous writes are stored in cold shards.</p>
+<p>After truncating shards, you can redistribute cold shards without data inconsistency.
+Hot and new shards are evenly distributed and require no further intervention.</p>
+<h3 id="step-3-identify-cold-shards">Step 3: Identify Cold Shards</h3>
+<p>In this step, you identify the cold shards that you will copy to the new data node.</p>
+<p>The following command lists every shard in your cluster:</p>
+
+<pre tabindex="0"><code>influxd-ctl show-shards</code></pre>
+
+<p>The expected output is similar to the items in the codeblock below:</p>
+
+<pre tabindex="0"><code>Shards
+==========
+ID   Database    Retention Policy   Desired Replicas   [...]   End                               Owners
+21   telegraf    autogen            3                  [...]   2017-01-26T18:00:00Z              [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088}]
+22   telegraf    autogen            3                  [...]   2017-01-26T18:05:36.418734949Z*   [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088}]
+24   telegraf    autogen            3                  [...]   2017-01-26T19:00:00Z              [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088} {6 enterprise-data-03:8088}]</code></pre>
+
+<p>The sample output includes three shards.
+The first two shards are cold shards.
+The timestamp in the <code>End</code> column occurs in the past (assume that the current
+time is just after <code>2017-01-26T18:05:36.418734949Z</code>), and the shards&rsquo; owners
+are the two original data nodes: <code>enterprise-data-01:8088</code> and
+<code>enterprise-data-02:8088</code>.
+The second shard is the truncated shard; truncated shards have an asterix (<code>*</code>)
+on the timestamp in the <code>End</code> column.</p>
+<p>The third shard is the newly-created hot shard; the timestamp in the <code>End</code>
+column is in the future (again, assume that the current time is just after
+<code>2017-01-26T18:05:36.418734949Z</code>), and the shard&rsquo;s owners include all three
+data nodes: <code>enterprise-data-01:8088</code>, <code>enterprise-data-02:8088</code>, and
+<code>enterprise-data-03:8088</code>.
+That hot shard and any subsequent shards require no attention during
+the rebalance process.</p>
+<p>Identify the cold shards that you&rsquo;d like to copy from one of the original two
+data nodes to the new data node.
+Take note of the cold shard&rsquo;s <code>ID</code> (for example: <code>22</code>) and the TCP address of
+one of its owners in the <code>Owners</code> column (for example:
+<code>enterprise-data-01:8088</code>).</p>
+<h3 id="step-4-copy-cold-shards">Step 4: Copy Cold Shards</h3>
+<p>Next, copy the relevant cold shards to the new data node with the syntax below.
+Repeat this command for every cold shard that you&rsquo;d like to move to the
+new data node.</p>
+
+<pre tabindex="0"><code>influxd-ctl copy-shard &lt;source_TCP_address&gt; &lt;destination_TCP_address&gt; &lt;shard_ID&gt;</code></pre>
+
+<p>Where <code>source_TCP_address</code> is the address that you noted in step 3,
+<code>destination_TCP_address</code> is the TCP address of the new data node, and <code>shard_ID</code>
+is the ID of the shard that you noted in step 3.</p>
+<p>The expected output of the command is:</p>
+
+<pre tabindex="0"><code>Copied shard &lt;shard_ID&gt; from &lt;source_TCP_address&gt; to &lt;destination_TCP_address&gt;</code></pre>
+
+<h3 id="step-5-confirm-the-rebalance">Step 5: Confirm the Rebalance</h3>
+<p>Confirm that the TCP address of the new data node appears in the <code>Owners</code> column
+for every copied shard:</p>
+
+<pre tabindex="0"><code>influxd-ctl show-shards</code></pre>
+
+<p>The expected output shows that the copied shard now has three owners:</p>
+
+<pre tabindex="0"><code>Shards
+==========
+ID   Database    Retention Policy   Desired Replicas   [...]   End                               Owners
+22   telegraf    autogen            3                  [...]   2017-01-26T18:05:36.418734949Z*   [{4 enterprise-data-01:8088} {5 enterprise-data-02:8088} {6 enterprise-data-03:8088}]</code></pre>
+
+<p>In addition, verify that the copied shards appear in the new data node&rsquo;s shard
+directory and match the shards in the source data node&rsquo;s shard directory.
+Shards are located in
+<code>/var/lib/influxdb/data/&lt;database&gt;/&lt;retention_policy&gt;/&lt;shard_ID&gt;</code>.</p>
+<p>Here&rsquo;s an example of the correct output for shard <code>22</code>:</p>
+
+<pre tabindex="0"><code># On the source data node (enterprise-data-01)
+
+~# ls /var/lib/influxdb/data/telegraf/autogen/22
+000000001-000000001.tsm # 👍
+
+# On the new data node (enterprise-data-03)
+
+~# ls /var/lib/influxdb/data/telegraf/autogen/22
+000000001-000000001.tsm # 👍</code></pre>
+
+<p>That&rsquo;s it.
+You&rsquo;ve successfully rebalanced your cluster and increased data availability for
+queries and query throughput.</p>
 
 
 
@@ -2566,8 +2766,8 @@ and outputs the following error:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/administration/manage/clusters/rebalance.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/rebalance/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

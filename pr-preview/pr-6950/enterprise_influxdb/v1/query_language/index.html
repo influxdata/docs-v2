@@ -46,10 +46,10 @@
 
 
 
-<title>InfluxQL query management | &lt;nil&gt; Documentation</title>
+<title>Influx Query Language (InfluxQL) | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Show, kill, and manage queries in InfluxQL.">
+    <meta name="description" content="Influx Query Language (InfluxQL) is Influx DB&rsquo;s SQL-like query language.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/" />
 
     
 <style>
@@ -1156,11 +1156,11 @@
       
     </li>
   
-    <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+    <li class="nav-category active">
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/'>Influx Query Language (InfluxQL)</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -1909,10 +1909,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/'>Troubleshoot</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1944,17 +1944,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/'>Query management</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/'>InfluxQL query management</a>
       
@@ -2232,7 +2232,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>InfluxQL query management</h1>
+      <h1>Influx Query Language (InfluxQL)</h1>
       
 
 
@@ -2244,15 +2244,16 @@
       <div
   class="format-selector"
   data-component="format-selector"
-  data-child-count="0"
-  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+  data-child-count="9"
+  data-estimated-tokens="4500"
+  data-section-download-url="/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/-download.zip"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
 >
   
   <button
     class="format-selector__button"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-label="Copy page for AI - Access documentation in different formats"
+    aria-label="Copy section for AI - Access documentation in different formats"
   >
     <span class="format-selector__button-icon">
       
@@ -2262,7 +2263,7 @@
       </svg>
     </span>
     <span class="format-selector__button-text" data-button-text>
-      Copy page for AI
+      Copy section for AI
     </span>
     <span class="format-selector__button-arrow">
       
@@ -2339,159 +2340,66 @@
 
 
 
-  <p>Manage your InfluxQL queries using the following:</p>
-<ul>
-<li><a href="#list-currently-running-queries-with-show-queries">SHOW QUERIES</a> to identify currently-running queries</li>
-<li><a href="#stop-currently-running-queries-with-kill-query">KILL QUERIES</a> to stop queries overloading your system</li>
-<li><a href="#configuration-settings-for-query-management">Configuration settings</a> to prevent and halt the execution of inefficient queries</li>
-</ul>
-
-<div class="note block">
-  <p>The commands and configurations provided on this page are for <strong>Influx Query Language (InfluxQL) only</strong>.
-For Flux query management settings, see <a href="/enterprise_influxdb/v1/troubleshooting/query_management/flux_query_management">Flux query management</a>.</p>
-
-</div>
-
-<h2 id="list-currently-running-queries-with-show-queries">List currently-running queries with <code>SHOW QUERIES</code></h2>
-<p><code>SHOW QUERIES</code> lists the query id, node id, TCP host, query text, relevant database, duration,
-status, and user of all currently-running queries on your InfluxDB Enterprise cluster.</p>
-<h4 id="syntax">Syntax</h4>
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">QUERIES</span></span></span></code></pre></div>
-
-<h4 id="example">Example</h4>
-
-<pre tabindex="0"><code>&gt; SHOW QUERIES
-qid   node_id   tcp_host       query                              database   duration   status    user
----   -------   --------       -----                              --------   --------   ------    ----
-37    26        data1:8088     SHOW QUERIES                                  100368u    running   admin
-36    33        data3:8088     SELECT mean(myfield) FROM mymeas   mydb       3s         running   jdoe</code></pre>
-
-<h5 id="explanation-of-the-output">Explanation of the output</h5>
-<ul>
-<li>
-<p><code>qid</code>: Query ID. Use this ID with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-</li>
-<li>
-<p><code>node_id</code>: The data node ID where the query is running.</p>
-</li>
-<li>
-<p><code>tcp_host</code>: The TCP host address of the data node. Use this value with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY ... ON</code></a> to kill queries on a specific node.</p>
-</li>
-<li>
-<p><code>query</code>: The query text.</p>
-</li>
-<li>
-<p><code>database</code>: The database targeted by the query.</p>
-</li>
-<li>
-<p><code>duration</code>: The length of time that the query has been running.
-See <a href="/enterprise_influxdb/v1/query_language/spec/#durations">Query Language Reference</a>
-for an explanation of time units in InfluxDB databases.</p>
-
-<div class="note block">
-  <p><code>SHOW QUERIES</code> may output a killed query and continue to increment its duration
-until the query record is cleared from memory.</p>
-
-</div>
-
-</li>
-<li>
-<p><code>status</code>: The current status of the query.</p>
-</li>
-<li>
-<p><code>user</code>: The user who initiated the query. Empty if authentication is not enabled. <em>v1.12.3+</em></p>
-</li>
-</ul>
-<h2 id="stop-currently-running-queries-with-kill-query">Stop currently-running queries with <code>KILL QUERY</code></h2>
-<p><code>KILL QUERY</code> tells InfluxDB to stop running the relevant query.</p>
-<h4 id="syntax-1">Syntax</h4>
-<p>Where <code>qid</code> is the query ID, displayed in the
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a> output:</p>
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span></span></span></code></pre></div>
-
-<p><em><strong>InfluxDB Enterprise clusters:</strong></em> To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, <code>myhost:8088</code>),
-available in the <code>SHOW QUERIES</code> output.</p>
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;&lt;host&gt;&#34;</span></span></span></code></pre></div>
-
-<p>A successful <code>KILL QUERY</code> query returns no results.</p>
-<h4 id="examples">Examples</h4>
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query with qid of 36 on the local host
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">36</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
-
-
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;myhost:8088&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
-
-<h2 id="configuration-settings-for-query-management">Configuration settings for query management</h2>
-<p>The following configuration settings are in the
-<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster">[cluster]</a> section of the
-configuration file.</p>
-<h3 id="max-concurrent-queries"><code>max-concurrent-queries</code></h3>
-<p>The maximum number of running queries allowed on your instance.
-The default setting (<code>0</code>) allows for an unlimited number of queries.</p>
-<p>If you exceed <code>max-concurrent-queries</code>, InfluxDB does not execute the query and
-outputs the following error:</p>
-
-<pre tabindex="0"><code>ERR: max concurrent queries reached</code></pre>
-
-<h3 id="query-timeout"><code>query-timeout</code></h3>
-<p>The maximum time for which a query can run on your instance before InfluxDB
-kills the query.
-The default setting (<code>&quot;0&quot;</code>) allows queries to run with no time restrictions.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>If your query exceeds the query timeout, InfluxDB kills the query and outputs
-the following error:</p>
-
-<pre tabindex="0"><code>ERR: query timeout reached</code></pre>
-
-<h3 id="log-queries-after"><code>log-queries-after</code></h3>
-<p>The maximum time a query can run after which InfluxDB logs the query with a
-<code>Detected slow query</code> message.
-The default setting (<code>&quot;0&quot;</code>) will never tell InfluxDB to log the query.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>Example log output with <code>log-queries-after</code> set to <code>&quot;1s&quot;</code>:</p>
-
-<pre tabindex="0"><code>[query] 2016/04/28 14:11:31 Detected slow query: SELECT mean(usage_idle) FROM cpu WHERE time &gt;= 0 GROUP BY time(20s) (qid: 3, database: telegraf, threshold: 1s)</code></pre>
-
-<p><code>qid</code> is the id number of the query.
-Use this value with
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-<p>The default location for the log output file is <code>/var/log/influxdb/influxdb.log</code>. However on systems that use systemd (most modern Linux distributions) those logs are output to <code>journalctl</code>. You should be able to view the InfluxDB logs using the following command: <code>journalctl -u influxdb</code></p>
-<h3 id="max-select-point"><code>max-select-point</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#point">points</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of points.</p>
-<p>If your query exceeds <code>max-select-point</code>, InfluxDB kills the query and outputs
-the following error:</p>
-
-<pre tabindex="0"><code>ERR: max number of points reached</code></pre>
-
-<h3 id="max-select-series"><code>max-select-series</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of series.</p>
-<p>If your query exceeds <code>max-select-series</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
-
-<pre tabindex="0"><code>ERR: max select series count exceeded: &lt;query_series_count&gt; series</code></pre>
-
-<h3 id="max-select-buckets"><code>max-select-buckets</code></h3>
-<p>The maximum number of <code>GROUP BY time()</code> buckets that a query can process.
-The default setting (<code>0</code>) allows a query to process an unlimited number of
-buckets.</p>
-<p>If your query exceeds <code>max-select-buckets</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
-
-<pre tabindex="0"><code>ERR: max select bucket count exceeded: &lt;query_bucket_count&gt; buckets</code></pre>
-
+  <p>This section introduces InfluxQL, the InfluxDB SQL-like query language for
+working with data in InfluxDB databases.</p>
+<h2 id="influxql-tutorial">InfluxQL tutorial</h2>
+<p>The first seven documents in this section provide a tutorial-style introduction
+to InfluxQL.
+Feel free to download the dataset provided in
+<a href="/enterprise_influxdb/v1/query_language/data_download/">Sample Data</a> and follow along
+with the documentation.</p>
+<h4 id="data-exploration">Data exploration</h4>
+<p><a href="/enterprise_influxdb/v1/query_language/explore-data/">Data exploration</a> covers the
+query language basics for InfluxQL, including the
+<a href="/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement"><code>SELECT</code> statement</a>,
+<a href="/enterprise_influxdb/v1/query_language/explore-data/#the-group-by-clause"><code>GROUP BY</code> clauses</a>,
+<a href="/enterprise_influxdb/v1/query_language/explore-data/#the-into-clause"><code>INTO</code> clauses</a>, and more.
+See Data Exploration to learn about
+<a href="/enterprise_influxdb/v1/query_language/explore-data/#time-syntax">time syntax</a> and
+<a href="/enterprise_influxdb/v1/query_language/explore-data/#regular-expressions">regular expressions</a> in
+queries.</p>
+<h4 id="schema-exploration">Schema exploration</h4>
+<p><a href="/enterprise_influxdb/v1/query_language/explore-schema/">Schema exploration</a> covers
+queries that are useful for viewing and exploring your
+<a href="/enterprise_influxdb/v1/concepts/glossary/#schema">schema</a>.
+See Schema Exploration for syntax explanations and examples of InfluxQL&rsquo;s <code>SHOW</code>
+queries.</p>
+<h4 id="database-management">Database management</h4>
+<p><a href="/enterprise_influxdb/v1/query_language/manage-database/">Database management</a> covers InfluxQL for managing
+<a href="/enterprise_influxdb/v1/concepts/glossary/#database">databases</a> and
+<a href="/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp">retention policies</a> in
+InfluxDB.
+See Database Management for creating and dropping databases and retention
+policies as well as deleting and dropping data.</p>
+<h4 id="influxql-functions">InfluxQL functions</h4>
+<p>Covers all <a href="/enterprise_influxdb/v1/query_language/functions/">InfluxQL functions</a>.</p>
+<h4 id="influxql-continuous-queries">InfluxQL Continuous Queries</h4>
+<p><a href="/enterprise_influxdb/v1/query_language/continuous_queries/">InfluxQL Continuous Queries</a> covers the
+<a href="/enterprise_influxdb/v1/query_language/continuous_queries/#basic-syntax">basic syntax</a>
+,
+<a href="/enterprise_influxdb/v1/query_language/continuous_queries/#advanced-syntax">advanced syntax</a>
+,
+and
+<a href="/enterprise_influxdb/v1/query_language/continuous_queries/#continuous-query-use-cases">common use cases</a>
+for
+<a href="/enterprise_influxdb/v1/concepts/glossary/#continuous-query-cq">Continuous Queries</a>.
+This page also describes how to
+<a href="/enterprise_influxdb/v1/query_language/continuous_queries/#listing-continuous-queries"><code>SHOW</code></a> and
+<a href="/enterprise_influxdb/v1/query_language/continuous_queries/#deleting-continuous-queries"><code>DROP</code></a>
+Continuous Queries.</p>
+<h4 id="influxql-mathematical-operators">InfluxQL mathematical operators</h4>
+<p><a href="/enterprise_influxdb/v1/query_language/math_operators/">InfluxQL mathematical operators</a>
+covers the use of mathematical operators in InfluxQL.</p>
+<h4 id="authentication-and-authorization">Authentication and authorization</h4>
+<p><a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/">Authentication and authorization</a> covers how to
+<a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">set up authentication</a>
+and how to
+<a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#authenticate-requests">authenticate requests</a> in InfluxDB.
+This page also describes the different
+<a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#user-types-and-privileges">user types</a> and the InfluxQL for
+<a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#user-management-commands">managing database users</a>.</p>
+<h2 id="influxql-reference">InfluxQL reference</h2>
+<p>The <a href="/enterprise_influxdb/v1/query_language/spec/">reference documentation for InfluxQL</a>.</p>
 
 
 
@@ -2566,8 +2474,8 @@ and outputs the following error:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/query_language/_index.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/query_language/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

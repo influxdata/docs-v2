@@ -46,10 +46,10 @@
 
 
 
-<title>InfluxQL query management | &lt;nil&gt; Documentation</title>
+<title>Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Show, kill, and manage queries in InfluxQL.">
+    <meta name="description" content="Replace meta and data nodes in an InfluxDB Enterprise v1 cluster.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6950/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/" />
 
     
 <style>
@@ -861,10 +861,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/'>Administration</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -986,10 +986,10 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/'>Manage</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -997,10 +997,10 @@
   
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle "></a>
+      <a href="#" class="children-toggle open"></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/'>Manage clusters</a>
       
-        <ul class="children ">
+        <ul class="children open">
         
   
   
@@ -1013,7 +1013,7 @@
       
     </li>
   
-    <li class="nav-item ">
+    <li class="nav-item active">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/'>Replace nodes</a>
       
@@ -1909,10 +1909,10 @@
     </li>
   
     <li class="nav-category ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/'>Troubleshoot</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
@@ -1944,17 +1944,17 @@
     </li>
   
     <li class="nav-item ">
-      <a href="#" class="children-toggle open"></a>
+      <a href="#" class="children-toggle "></a>
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/'>Query management</a>
       
-        <ul class="children open">
+        <ul class="children ">
         
   
   
   
   
   
-    <li class="nav-item active">
+    <li class="nav-item ">
       
       <a href='/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/'>InfluxQL query management</a>
       
@@ -2232,7 +2232,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>InfluxQL query management</h1>
+      <h1>Replace InfluxDB Enterprise v1 cluster meta nodes and data nodes</h1>
       
 
 
@@ -2339,159 +2339,403 @@
 
 
 
-  <p>Manage your InfluxQL queries using the following:</p>
+  <p>You may need to replace a node in your InfluxDB Enterprise cluster, for example, to update hardware. This guide describes how to replace both meta nodes and data nodes in a cluster:</p>
 <ul>
-<li><a href="#list-currently-running-queries-with-show-queries">SHOW QUERIES</a> to identify currently-running queries</li>
-<li><a href="#stop-currently-running-queries-with-kill-query">KILL QUERIES</a> to stop queries overloading your system</li>
-<li><a href="#configuration-settings-for-query-management">Configuration settings</a> to prevent and halt the execution of inefficient queries</li>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#scenarios">Scenarios</a>
+<ul>
+<li><a href="#replace-a-node-in-a-cluster-with-security-enable">Replace a node in a cluster with security enable</a></li>
+<li><a href="#replace-a-meta-node-in-a-functional-cluster">Replace a meta node in a functional cluster</a></li>
+<li><a href="#replace-an-unresponsive-meta-node">Replace an unresponsive meta node</a></li>
+<li><a href="#replace-responsive-and-unresponsive-data-nodes-in-a-cluster">Replace responsive and unresponsive data nodes in a cluster</a></li>
+<li><a href="#reconnect-a-data-node-with-a-failed-disk">Reconnect a data node with a failed disk</a></li>
 </ul>
+</li>
+<li><a href="#replace-meta-nodes-in-an-influxdb-enterprise-cluster">Replace meta nodes in an InfluxDB Enterprise cluster</a></li>
+<li><a href="#replace-data-nodes-in-an-influxdb-enterprise-cluster">Replace data nodes in an InfluxDB Enterprise cluster</a></li>
+<li><a href="#troubleshoot">Troubleshoot</a>
+<ul>
+<li><a href="#cluster-commands-result-in-timeout-without-error">Cluster commands result in timeout without error</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="concepts">Concepts</h2>
+<p><strong>Meta nodes</strong> manage and monitor both the uptime of nodes in the cluster and
+distribution of <a href="/influxdb/v2/reference/glossary/#shard">shards</a> among nodes in
+the cluster. Meta nodes hold information about which data nodes own which shards;
+information that the <a href="/enterprise_influxdb/v1/administration/configure/anti-entropy/">anti-entropy</a>
+(AE) process depends on.</p>
+<p><strong>Data nodes</strong> hold raw time-series data and metadata. Data shards are both distributed and replicated across data nodes in the cluster. The AE process runs on data nodes and references the shard information stored in the meta nodes to ensure each data node has the shards they need.</p>
+<p><code>influxd-ctl</code> is a CLI included in each meta node and is used to manage your InfluxDB Enterprise cluster.</p>
+<h2 id="scenarios">Scenarios</h2>
+<h3 id="replace-a-node-in-a-cluster-with-security-enable">Replace a node in a cluster with security enable</h3>
+<p>Many InfluxDB Enterprise clusters are configured with security enabled, forcing
+secure TLS encryption between all nodes in the cluster.
+Both <code>influxd-ctl</code> and <code>curl</code>, the command line tools used when replacing nodes,
+have options that facilitate the use of TLS.</p>
+<h4 id="influxd-ctl--bind-tls"><code>influxd-ctl -bind-tls</code></h4>
+<p>To manage your cluster over TLS, pass the <code>-bind-tls</code> flag with any <code>influxd-ctl</code> command.</p>
 
 <div class="note block">
-  <p>The commands and configurations provided on this page are for <strong>Influx Query Language (InfluxQL) only</strong>.
-For Flux query management settings, see <a href="/enterprise_influxdb/v1/troubleshooting/query_management/flux_query_management">Flux query management</a>.</p>
+  <p>If using a self-signed certificate, pass the <code>-k</code> flag to skip certificate verification.</p>
 
 </div>
 
-<h2 id="list-currently-running-queries-with-show-queries">List currently-running queries with <code>SHOW QUERIES</code></h2>
-<p><code>SHOW QUERIES</code> lists the query id, node id, TCP host, query text, relevant database, duration,
-status, and user of all currently-running queries on your InfluxDB Enterprise cluster.</p>
-<h4 id="syntax">Syntax</h4>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">QUERIES</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl -bind-tls <span class="o">[</span>-k<span class="o">]</span> &lt;command&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl -bind-tls remove-meta enterprise-meta-02:8091</span></span></code></pre></div>
 
-<h4 id="example">Example</h4>
-
-<pre tabindex="0"><code>&gt; SHOW QUERIES
-qid   node_id   tcp_host       query                              database   duration   status    user
----   -------   --------       -----                              --------   --------   ------    ----
-37    26        data1:8088     SHOW QUERIES                                  100368u    running   admin
-36    33        data3:8088     SELECT mean(myfield) FROM mymeas   mydb       3s         running   jdoe</code></pre>
-
-<h5 id="explanation-of-the-output">Explanation of the output</h5>
-<ul>
-<li>
-<p><code>qid</code>: Query ID. Use this ID with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-</li>
-<li>
-<p><code>node_id</code>: The data node ID where the query is running.</p>
-</li>
-<li>
-<p><code>tcp_host</code>: The TCP host address of the data node. Use this value with <a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY ... ON</code></a> to kill queries on a specific node.</p>
-</li>
-<li>
-<p><code>query</code>: The query text.</p>
-</li>
-<li>
-<p><code>database</code>: The database targeted by the query.</p>
-</li>
-<li>
-<p><code>duration</code>: The length of time that the query has been running.
-See <a href="/enterprise_influxdb/v1/query_language/spec/#durations">Query Language Reference</a>
-for an explanation of time units in InfluxDB databases.</p>
+<h4 id="curl--k"><code>curl -k</code></h4>
+<p><code>curl</code> natively supports TLS/SSL connections, but if using a self-signed certificate,
+pass the <code>-k</code>/<code>--insecure</code> flag to allow for &ldquo;insecure&rdquo; SSL connections.</p>
 
 <div class="note block">
-  <p><code>SHOW QUERIES</code> may output a killed query and continue to increment its duration
-until the query record is cleared from memory.</p>
+  <p>Self-signed certificates are considered &ldquo;insecure&rdquo; due to their lack of a valid
+chain of authority. However, data is still encrypted when using self-signed certificates.</p>
 
 </div>
 
-</li>
-<li>
-<p><code>status</code>: The current status of the query.</p>
-</li>
-<li>
-<p><code>user</code>: The user who initiated the query. Empty if authentication is not enabled. <em>v1.12.3+</em></p>
-</li>
-</ul>
-<h2 id="stop-currently-running-queries-with-kill-query">Stop currently-running queries with <code>KILL QUERY</code></h2>
-<p><code>KILL QUERY</code> tells InfluxDB to stop running the relevant query.</p>
-<h4 id="syntax-1">Syntax</h4>
-<p>Where <code>qid</code> is the query ID, displayed in the
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries"><code>SHOW QUERIES</code></a> output:</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">curl <span class="o">[</span>-k, --insecure<span class="o">]</span> &lt;url&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">curl -k https://localhost:8091/status</span></span></code></pre></div>
 
-<p><em><strong>InfluxDB Enterprise clusters:</strong></em> To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, <code>myhost:8088</code>),
-available in the <code>SHOW QUERIES</code> output.</p>
+<h3 id="replace-a-meta-node-in-a-functional-cluster">Replace a meta node in a functional cluster</h3>
+<p>If all meta nodes in the cluster are fully functional, complete the following
+steps to <a href="#replace-meta-nodes-in-an-influxdb-enterprise-cluster">replace meta nodes</a>.</p>
+<h3 id="replace-an-unresponsive-meta-node">Replace an unresponsive meta node</h3>
+<p>If replacing a meta node that is either unreachable or unrecoverable, you must
+forcefully remove the node from the meta cluster.
+See <a href="#22-remove-the-non-leader-meta-node">step 2.2</a> of the
+<a href="#replace-meta-nodes-in-an-influxdb-enterprise-cluster">replace meta nodes</a> process.</p>
+<h3 id="replace-responsive-and-unresponsive-data-nodes-in-a-cluster">Replace responsive and unresponsive data nodes in a cluster</h3>
+<p>The process of replacing both responsive and unresponsive data nodes is the same.
+Follow the instructions for <a href="#replace-a-data-node-in-an-influxdb-enterprise-cluster">replacing data nodes</a>.</p>
+<h3 id="reconnect-a-data-node-with-a-failed-disk">Reconnect a data node with a failed disk</h3>
+<p>A disk drive failing is never a good thing, but it does happen, and when it does,
+all shards on that node are lost.</p>
+<p>Often in this scenario, rather than replacing the entire host, you just need to replace the disk.
+Host information remains the same, but once started again, the <code>influxd</code> process doesn&rsquo;t know
+to communicate with the meta nodes so the AE process can&rsquo;t start the shard-sync process.</p>
+<p>To resolve this, sign in to a meta node and use the <a href="/enterprise_influxdb/v1/tools/influxd-ctl/update-data/"><code>influxd-ctl update-data</code></a> command
+to <a href="#2-replace-the-old-data-node-with-the-new-data-node">update the failed data node to itself</a>.</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">&lt;</span><span class="n">qid</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;&lt;host&gt;&#34;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl update-data &lt;data-node-tcp-bind-address&gt; &lt;data-node-tcp-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl update-data enterprise-data-01:8088 enterprise-data-01:8088</span></span></code></pre></div>
 
-<p>A successful <code>KILL QUERY</code> query returns no results.</p>
-<h4 id="examples">Examples</h4>
+<p>This connects the <code>influxd</code> process running on the newly replaced disk to the cluster.
+The AE process detects the missing shards and begins to sync data from other
+shards in the same shard group.</p>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query with qid of 36 on the local host
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">36</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="note block">
+  <p>If the AE process is disabled, use <a href="/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard/"><code>influxd-ctl copy-shard</code></a>
+to manually copy shards from existing data nodes to the new data node.</p>
+
+</div>
+
+<h2 id="replace-meta-nodes-in-an-influxdb-enterprise-cluster">Replace meta nodes in an InfluxDB Enterprise cluster</h2>
+<p><a href="/enterprise_influxdb/v1/concepts/clustering/#meta-nodes">Meta nodes</a> together
+form a <a href="https://raft.github.io/">Raft</a> cluster in which nodes elect a leader through consensus vote.
+The leader oversees the management of the meta cluster, so it is important to
+replace non-leader nodes before the leader node.
+The process for replacing meta nodes is as follows:</p>
+<ol>
+<li><a href="#1-identify-the-leader-node">Identify the leader node</a></li>
+<li><a href="#2-replace-all-non-leader-nodes">Replace all non-leader nodes</a><br>
+2.1.  <a href="#21-provision-a-new-meta-node">Provision a new meta node</a><br>
+2.2.  <a href="#22-remove-the-non-leader-meta-node">Remove the non-leader meta node</a><br>
+2.3.  <a href="#23-add-the-new-meta-node">Add the new meta node</a><br>
+2.4.  <a href="#24-confirm-the-meta-node-was-added">Confirm the meta node was added</a><br>
+2.5.  <a href="#25-remove-and-replace-all-other-non-leader-meta-nodes">Remove and replace all other non-leader meta nodes</a></li>
+<li><a href="#3-replace-the-leader-node">Replace the leader node</a><br>
+3.1.  <a href="#31-kill-the-meta-process-on-the-leader-node">Kill the meta process on the leader node</a><br>
+3.2.  <a href="#32-remove-and-replace-the-old-leader-node">Remove and replace the old leader node</a></li>
+</ol>
+<h3 id="1-identify-the-leader-node">1. Identify the leader node</h3>
+<p>Log into any of your meta nodes and run the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s localhost:8091/status <span class="p">|</span> jq</span></span></code></pre></div>
 
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- kill query on InfluxDB Enterprise cluster
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">KILL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s2">&#34;myhost:8088&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span></span></span></code></pre></div>
+<div class="note block">
+  <p>Piping the command into <code>jq</code> is optional, but does make the JSON output easier to read.</p>
 
-<h2 id="configuration-settings-for-query-management">Configuration settings for query management</h2>
-<p>The following configuration settings are in the
-<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster">[cluster]</a> section of the
-configuration file.</p>
-<h3 id="max-concurrent-queries"><code>max-concurrent-queries</code></h3>
-<p>The maximum number of running queries allowed on your instance.
-The default setting (<code>0</code>) allows for an unlimited number of queries.</p>
-<p>If you exceed <code>max-concurrent-queries</code>, InfluxDB does not execute the query and
-outputs the following error:</p>
+</div>
 
-<pre tabindex="0"><code>ERR: max concurrent queries reached</code></pre>
+<p>The output will include information about the current meta node, the leader of the meta cluster, and a list of &ldquo;peers&rdquo; in the meta cluster.</p>
 
-<h3 id="query-timeout"><code>query-timeout</code></h3>
-<p>The maximum time for which a query can run on your instance before InfluxDB
-kills the query.
-The default setting (<code>&quot;0&quot;</code>) allows queries to run with no time restrictions.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>If your query exceeds the query timeout, InfluxDB kills the query and outputs
-the following error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;nodeType&#34;</span><span class="p">:</span> <span class="s2">&#34;meta&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;leader&#34;</span><span class="p">:</span> <span class="s2">&#34;enterprise-meta-01:8089&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;httpAddr&#34;</span><span class="p">:</span> <span class="s2">&#34;enterprise-meta-01:8091&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;raftAddr&#34;</span><span class="p">:</span> <span class="s2">&#34;enterprise-meta-01:8089&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;enterprise-meta-01:8089&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;enterprise-meta-02:8089&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;enterprise-meta-03:8089&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
 
-<pre tabindex="0"><code>ERR: query timeout reached</code></pre>
+<p>Identify the <code>leader</code> of the cluster. When replacing nodes in a cluster, non-leader nodes should be replaced <em>before</em> the leader node.</p>
+<h3 id="2-replace-all-non-leader-nodes">2. Replace all non-leader nodes</h3>
+<h4 id="21-provision-a-new-meta-node">2.1. Provision a new meta node</h4>
+<p><a href="/enterprise_influxdb/v1/installation/meta_node_installation/">Provision and start a new meta node</a>,
+but <strong>do not</strong> add it to the cluster yet.
+For this guide, the new meta node&rsquo;s hostname will be <code>enterprise-meta-04</code>.</p>
+<h4 id="22-remove-the-non-leader-meta-node">2.2. Remove the non-leader meta node</h4>
+<p>Now remove the non-leader node you are replacing by using the <code>influxd-ctl remove-meta</code> command and the TCP address of the meta node (ex. <code>enterprise-meta-02:8091</code>):</p>
 
-<h3 id="log-queries-after"><code>log-queries-after</code></h3>
-<p>The maximum time a query can run after which InfluxDB logs the query with a
-<code>Detected slow query</code> message.
-The default setting (<code>&quot;0&quot;</code>) will never tell InfluxDB to log the query.
-This setting is a <a href="/enterprise_influxdb/v1/query_language/spec/#durations">duration literal</a>.</p>
-<p>Example log output with <code>log-queries-after</code> set to <code>&quot;1s&quot;</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl remove-meta &lt;meta-node-tcp-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl remove-meta enterprise-meta-02:8091</span></span></code></pre></div>
 
-<pre tabindex="0"><code>[query] 2016/04/28 14:11:31 Detected slow query: SELECT mean(usage_idle) FROM cpu WHERE time &gt;= 0 GROUP BY time(20s) (qid: 3, database: telegraf, threshold: 1s)</code></pre>
 
-<p><code>qid</code> is the id number of the query.
-Use this value with
-<a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query"><code>KILL QUERY</code></a>.</p>
-<p>The default location for the log output file is <code>/var/log/influxdb/influxdb.log</code>. However on systems that use systemd (most modern Linux distributions) those logs are output to <code>journalctl</code>. You should be able to view the InfluxDB logs using the following command: <code>journalctl -u influxdb</code></p>
-<h3 id="max-select-point"><code>max-select-point</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#point">points</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of points.</p>
-<p>If your query exceeds <code>max-select-point</code>, InfluxDB kills the query and outputs
-the following error:</p>
+<div class="note block">
+  <p>Only use <code>remove-meta</code> if you want to permanently remove a meta node from a cluster.</p>
 
-<pre tabindex="0"><code>ERR: max number of points reached</code></pre>
+</div>
 
-<h3 id="max-select-series"><code>max-select-series</code></h3>
-<p>The maximum number of <a href="/enterprise_influxdb/v1/concepts/glossary/#series">series</a> that a
-<code>SELECT</code> statement can process.
-The default setting (<code>0</code>) allows the <code>SELECT</code> statement to process an unlimited
-number of series.</p>
-<p>If your query exceeds <code>max-select-series</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
 
-<pre tabindex="0"><code>ERR: max select series count exceeded: &lt;query_series_count&gt; series</code></pre>
+<div class="note block">
+  <p><strong>For unresponsive or unrecoverable meta nodes:</strong></p>
+<p>If the meta process is not running on the node you are trying to remove or the
+node is neither reachable nor recoverable, use the <code>-force</code> flag.
+When forcefully removing a meta node, you must also pass the <code>-tcpAddr</code> flag with
+the TCP and HTTP bind addresses of the node you are removing.</p>
 
-<h3 id="max-select-buckets"><code>max-select-buckets</code></h3>
-<p>The maximum number of <code>GROUP BY time()</code> buckets that a query can process.
-The default setting (<code>0</code>) allows a query to process an unlimited number of
-buckets.</p>
-<p>If your query exceeds <code>max-select-buckets</code>, InfluxDB does not execute the query
-and outputs the following error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl remove-meta -force -tcpAddr &lt;meta-node-tcp-bind-address&gt; &lt;meta-node-http-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl remove-meta -force -tcpAddr enterprise-meta-02:8089 enterprise-meta-02:8091</span></span></code></pre></div>
 
-<pre tabindex="0"><code>ERR: max select bucket count exceeded: &lt;query_bucket_count&gt; buckets</code></pre>
 
+</div>
+
+<h4 id="23-add-the-new-meta-node">2.3. Add the new meta node</h4>
+<p>Once the non-leader meta node has been removed, on <strong>one of the existing meta nodes</strong>,
+run <code>influxd-ctl add-meta</code> to replace the node removed with the new meta node:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl add-meta &lt;meta-node-tcp-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl add-meta enterprise-meta-04:8091</span></span></code></pre></div>
+
+<p>You can also add a meta node remotely through another meta node:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl -bind &lt;remote-meta-node-bind-address&gt; add-meta &lt;meta-node-tcp-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl -bind enterprise-meta-node-01:8091 add-meta enterprise-meta-node-04:8091</span></span></code></pre></div>
+
+
+<blockquote>
+<p>This command contacts the meta node running at <code>cluster-meta-node-01:8091</code> and adds a meta node to that meta node’s cluster.
+The added meta node has the hostname <code>cluster-meta-node-04</code> and runs on port <code>8091</code>.</p>
+
+</blockquote>
+<h4 id="24-confirm-the-meta-node-was-added">2.4. Confirm the meta node was added</h4>
+<p>Confirm the new meta-node has been added by running:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl show</span></span></code></pre></div>
+
+<p>The new meta node should appear in the output:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Data <span class="nv">Nodes</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span>
+</span></span><span class="line"><span class="cl">ID	TCP Address	Version
+</span></span><span class="line"><span class="cl">4	enterprise-data-01:8088	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">5	enterprise-data-02:8088	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Meta <span class="nv">Nodes</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span>
+</span></span><span class="line"><span class="cl">TCP Address	Version
+</span></span><span class="line"><span class="cl">enterprise-meta-01:8091	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">enterprise-meta-03:8091	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">enterprise-meta-04:8091	1.12.3-c1.12.3 <span class="c1"># &lt;-- The newly added meta node</span></span></span></code></pre></div>
+
+<h4 id="25-remove-and-replace-all-other-non-leader-meta-nodes">2.5. Remove and replace all other non-leader meta nodes</h4>
+<p><strong>If replacing only one meta node, no further action is required.</strong>
+If replacing others, repeat steps <a href="#2-1-provision-a-new-meta-node">2.1-2.4</a> for all non-leader meta nodes one at a time.</p>
+<h3 id="3-replace-the-leader-node">3. Replace the leader node</h3>
+<p>As non-leader meta nodes are removed and replaced, the leader node oversees the replication of data to each of the new meta nodes.
+Leave the leader up and running until at least two of the new meta nodes are up, running and healthy.</p>
+<h4 id="31---kill-the-meta-process-on-the-leader-node">3.1 - Kill the meta process on the leader node</h4>
+<p>Log into the leader meta node and kill the meta process.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># List the running processes and get the</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PID of the &#39;influx-meta&#39; process</span>
+</span></span><span class="line"><span class="cl">ps aux
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Kill the &#39;influx-meta&#39; process</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> &lt;PID&gt;</span></span></code></pre></div>
+
+<p>Once killed, the meta cluster will elect a new leader using the <a href="https://raft.github.io/">raft consensus algorithm</a>.
+Confirm the new leader by running:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl localhost:8091/status <span class="p">|</span> jq</span></span></code></pre></div>
+
+<h4 id="32---remove-and-replace-the-old-leader-node">3.2 - Remove and replace the old leader node</h4>
+<p>Remove the old leader node and replace it by following steps <a href="#2-1-provision-a-new-meta-node">2.1-2.4</a>.
+The minimum number of meta nodes you should have in your cluster is 3.</p>
+<h2 id="replace-data-nodes-in-an-influxdb-enterprise-cluster">Replace data nodes in an InfluxDB Enterprise cluster</h2>
+<p><a href="/enterprise_influxdb/v1/concepts/clustering/#data-nodes">Data nodes</a> house all raw time series data and metadata.
+The process of replacing data nodes is as follows:</p>
+<ol>
+<li><a href="#1-provision-a-new-data-node">Provision a new data node</a></li>
+<li><a href="#2-replace-the-old-data-node-with-the-new-data-node">Replace the old data node with the new data node</a></li>
+<li><a href="#3-confirm-the-data-node-was-added">Confirm the data node was added</a></li>
+<li><a href="#4-check-the-copy-shard-status">Check the copy-shard-status</a></li>
+</ol>
+<h3 id="1-provision-a-new-data-node">1. Provision a new data node</h3>
+<p><a href="/enterprise_influxdb/v1/installation/data_node_installation/">Provision and start a new data node</a>, but <strong>do not</strong> add it to your cluster yet.</p>
+<h3 id="2-replace-the-old-data-node-with-the-new-data-node">2. Replace the old data node with the new data node</h3>
+<p>Log into any of your cluster&rsquo;s meta nodes and use <code>influxd-ctl update-data</code> to replace the old data node with the new data node:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">influxd-ctl update-data &lt;old-node-tcp-bind-address&gt; &lt;new-node-tcp-bind-address&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">influxd-ctl update-data enterprise-data-01:8088 enterprise-data-03:8088</span></span></code></pre></div>
+
+<h3 id="3-confirm-the-data-node-was-added">3. Confirm the data node was added</h3>
+<p>Confirm the new data node has been added by running:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl show</span></span></code></pre></div>
+
+<p>The new data node should appear in the output:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Data <span class="nv">Nodes</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span>
+</span></span><span class="line"><span class="cl">ID	TCP Address	Version
+</span></span><span class="line"><span class="cl">4	enterprise-data-03:8088	1.12.3-c1.12.3 <span class="c1"># &lt;-- The newly added data node</span>
+</span></span><span class="line"><span class="cl">5	enterprise-data-02:8088	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Meta <span class="nv">Nodes</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span>
+</span></span><span class="line"><span class="cl">TCP Address	Version
+</span></span><span class="line"><span class="cl">enterprise-meta-01:8091	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">enterprise-meta-02:8091	1.12.3-c1.12.3
+</span></span><span class="line"><span class="cl">enterprise-meta-03:8091	1.12.3-c1.12.3</span></span></code></pre></div>
+
+<p>Inspect your cluster&rsquo;s shard distribution with <code>influxd-ctl show-shards</code>.
+Shards will immediately reflect the new address of the node.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl show-shards
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">Shards</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========</span>
+</span></span><span class="line"><span class="cl">ID  Database   Retention Policy  Desired Replicas  Shard Group  Start                 End                   Expires               Owners
+</span></span><span class="line"><span class="cl"><span class="m">3</span>   telegraf   autogen           <span class="m">2</span>                 <span class="m">2</span>            2018-03-19T00:00:00Z  2018-03-26T00:00:00Z                        <span class="o">[{</span><span class="m">5</span> enterprise-data-02:8088<span class="o">}</span> <span class="o">{</span><span class="m">4</span> enterprise-data-03:8088<span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span>   _internal  monitor           <span class="m">2</span>                 <span class="m">1</span>            2018-03-22T00:00:00Z  2018-03-23T00:00:00Z  2018-03-30T00:00:00Z  <span class="o">[{</span><span class="m">5</span> enterprise-data-02:8088<span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>   _internal  monitor           <span class="m">2</span>                 <span class="m">1</span>            2018-03-22T00:00:00Z  2018-03-23T00:00:00Z  2018-03-30T00:00:00Z  <span class="o">[{</span><span class="m">4</span> enterprise-data-03:8088<span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>   _internal  monitor           <span class="m">2</span>                 <span class="m">3</span>            2018-03-23T00:00:00Z  2018-03-24T00:00:00Z  2018-03-01T00:00:00Z  <span class="o">[{</span><span class="m">5</span> enterprise-data-02:8088<span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>   _internal  monitor           <span class="m">2</span>                 <span class="m">3</span>            2018-03-23T00:00:00Z  2018-03-24T00:00:00Z  2018-03-01T00:00:00Z  <span class="o">[{</span><span class="m">4</span> enterprise-data-03:8088<span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="m">6</span>   foo        autogen           <span class="m">2</span>                 <span class="m">4</span>            2018-03-19T00:00:00Z  2018-03-26T00:00:00Z                        <span class="o">[{</span><span class="m">5</span> enterprise-data-02:8088<span class="o">}</span> <span class="o">{</span><span class="m">4</span> enterprise-data-03:8088<span class="o">}]</span></span></span></code></pre></div>
+
+<p>Within the duration defined by <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#check-interval"><code>anti-entropy.check-interval</code></a>,
+the AE service begins copying shards from other shard owners to the new node.
+The time it takes for copying to complete is determined by the number of shards
+copied and how much data is stored in each.</p>
+
+<div class="note block">
+  <p><strong>Tip:</strong> If unexpected shard issues occur (for example, when AE is disabled or
+causing unexpected results), use <a href="/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard/"><code>influxd-ctl copy-shard</code></a>
+to manually replace shards on a node.</p>
+
+</div>
+
+<h3 id="4-check-the-copy-shard-status">4. Check the <code>copy-shard-status</code></h3>
+<p>Check on the status of the copy-shard process with:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxd-ctl copy-shard-status</span></span></code></pre></div>
+
+<p>The output will show all currently running copy-shard processes.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Source                   Dest                     Database  Policy   ShardID  TotalSize  CurrentSize  StartedAt
+</span></span><span class="line"><span class="cl">enterprise-data-02:8088  enterprise-data-03:8088  telegraf  autogen  <span class="m">3</span>        <span class="m">119624324</span>  <span class="m">119624324</span>    2018-04-17 23:45:09.470696179 +0000 UTC</span></span></code></pre></div>
+
+
+<div class="note block">
+  <p><strong>Important:</strong> If replacing other data nodes in the cluster, make sure shards
+are completely copied from nodes in the same shard group before replacing the other nodes.
+View the <a href="/enterprise_influxdb/v1/administration/configure/anti-entropy/">Anti-entropy documentation</a>
+for important information regarding anti-entropy and your database&rsquo;s replication factor.</p>
+
+</div>
+
+<h2 id="troubleshoot">Troubleshoot</h2>
+<h3 id="cluster-commands-result-in-timeout-without-error">Cluster commands result in timeout without error</h3>
+<p>In some cases, commands used to add or remove nodes from your cluster
+timeout, but don&rsquo;t return an error.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">add-data: operation timed out with error:</span></span></code></pre></div>
+
+<h4 id="check-your-influxdb-user-permissions">Check your InfluxDB user permissions</h4>
+<p>In order to add or remove nodes to or from a cluster, your user must have <code>AddRemoveNode</code> permissions.
+Attempting to manage cluster nodes without the appropriate permissions results
+in a timeout with no accompanying error.</p>
+<p>To check user permissions, log in to one of your meta nodes and <code>curl</code> the <code>/user</code> API endpoint:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl localhost:8091/user</span></span></code></pre></div>
+
+<p>You can also check the permissions of a specific user by passing the username with the <code>name</code> parameter:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Syntax</span>
+</span></span><span class="line"><span class="cl">curl localhost:8091/user?name<span class="o">=</span>&lt;username&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
+</span></span><span class="line"><span class="cl">curl localhost:8091/user?name<span class="o">=</span>bob</span></span></code></pre></div>
+
+<p>The JSON output will include user information and permissions:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;users&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;bob&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hash&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;permissions&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ViewAdmin&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ViewChronograf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;CreateDatabase&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;CreateUserAndRole&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;DropDatabase&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;DropData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ReadData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;WriteData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ManageShard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ManageContinuousQuery&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ManageQuery&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ManageSubscription&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;Monitor&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span></span></span></code></pre></div>
+
+<p><em>In the output above, <code>bob</code> does not have the required <code>AddRemoveNode</code> permissions
+and would not be able to add or remove nodes from the cluster.</em></p>
+<h4 id="check-the-network-connection-between-nodes">Check the network connection between nodes</h4>
+<p>Something may be interrupting the network connection between nodes.
+To check, <code>ping</code> the server or node you&rsquo;re trying to add or remove.
+If the ping is unsuccessful, something in the network is preventing communication.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping enterprise-data-03:8088</span></span></code></pre></div>
+
+<p><em>If pings are unsuccessful, be sure to ping from other meta nodes as well to determine
+if the communication issues are unique to specific nodes.</em></p>
 
 
 
@@ -2566,8 +2810,8 @@ and outputs the following error:</p>
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6950/enterprise_influxdb/v1/administration/manage/clusters/replacing-nodes/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

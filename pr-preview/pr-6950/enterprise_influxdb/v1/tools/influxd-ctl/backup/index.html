@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 14:52:47 -0500 -0500">
+<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2402,6 +2402,18 @@ the system automatically performs a full backup.</li>
       <tr>
           <td style="text-align: left"><code>-full</code></td>
           <td style="text-align: left">Perform a full backup <em>(deprecated in favor of <code>-strategy full</code>)</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>-gzipBlockCount</code></td>
+          <td style="text-align: left">Number of concurrent blocks for gzip compression. Default is the number of CPU cores. Recommended: 1-2x CPU cores. <em>v1.12.3+</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>-gzipBlockSize</code></td>
+          <td style="text-align: left">Block size (in bytes) for pgzip compression. Default is <code>1048576</code> (1 MB). Recommended &gt;1 MB for performance. <em>v1.12.3+</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>-gzipCompressionLevel</code></td>
+          <td style="text-align: left">Gzip compression level: <code>default</code>, <code>full</code>, <code>speedy</code>, or <code>none</code>. Default is <code>default</code>. <em>v1.12.3+</em></td>
       </tr>
       <tr>
           <td style="text-align: left"><code>-rp</code></td>

@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-03-31 16:02:07 -0600 -0600">
+<meta name="last-modified" content="2026-03-31 19:50:05 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2532,14 +2532,14 @@ next procedure, <a href="#update-the-data-node-configuration-file">Update the da
   <tbody>
       <tr>
           <td><code>[data]</code></td>
-          <td><ul><li>To use Time Series Index (TSI) disk-based indexing, add <a href="/enterprise_influxdb/v1/administration/config-data-nodes#index-version-inmem"><code>index-version = &quot;tsi1&quot;</code></a> <li>To use TSM in-memory index, add <a href="/enterprise_influxdb/v1/administration/config-data-nodes#index-version-inmem"><code>index-version = &quot;inmem&quot;</code></a> <li>Add <a href="/enterprise_influxdb/v1/administration/config-data-nodes#wal-fsync-delay-0s"><code>wal-fsync-delay = &quot;0s&quot;</code></a> <li>Add <a href="/enterprise_influxdb/v1/administration/config-data-nodes#max-concurrent-compactions-0"><code>max-concurrent-compactions = 0</code></a><li>Set<a href="/enterprise_influxdb/v1/administration/config-data-nodes#cache-max-memory-size-1g"><code>cache-max-memory-size</code></a> to <code>1073741824</code></td>
+          <td><ul><li>To use Time Series Index (TSI) disk-based indexing, add <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#index-version"><code>index-version = &quot;tsi1&quot;</code></a> <li>To use TSM in-memory index, add <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#index-version"><code>index-version = &quot;inmem&quot;</code></a> <li>Add <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#wal-fsync-delay"><code>wal-fsync-delay = &quot;0s&quot;</code></a> <li>Add <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-concurrent-compactions"><code>max-concurrent-compactions = 0</code></a><li>Set<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-max-memory-size"><code>cache-max-memory-size</code></a> to <code>1073741824</code></td>
       </tr>
       <tr>
           <td><code>[cluster]</code></td>
-          <td><ul><li>Add <a href="/enterprise_influxdb/v1/administration/config-data-nodes#pool-max-idle-streams-100"><code>pool-max-idle-streams = 100</code></a> <li>Add<a href="/enterprise_influxdb/v1/administration/config-data-nodes#pool-max-idle-time-60s"><code>pool-max-idle-time = &quot;1m0s&quot;</code></a> <li>Remove <code>max-remote-write-connections</code></td>
+          <td><ul><li>Add <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pool-max-idle-streams"><code>pool-max-idle-streams = 100</code></a> <li>Add<a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#pool-max-idle-time"><code>pool-max-idle-time = &quot;1m0s&quot;</code></a> <li>Remove <code>max-remote-write-connections</code></td>
       </tr>
       <tr>
-          <td><a href="/enterprise_influxdb/v1/administration/config-data-nodes#anti-entropy"><code>[anti-entropy]</code></a></td>
+          <td><a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#anti-entropy"><code>[anti-entropy]</code></a></td>
           <td><ul><li>Add <code>enabled = true</code> <li>Add <code>check-interval = &quot;30s&quot;</code> <li>Add <code>max-fetch = 10</code></td>
       </tr>
       <tr>
