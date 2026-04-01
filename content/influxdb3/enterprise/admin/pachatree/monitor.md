@@ -335,6 +335,9 @@ FROM system.pt_ingest_wal;
 
 **Solutions**:
 
+For a full list of replication options, see
+[Replication (query nodes)](/influxdb3/enterprise/admin/pachatree/configure/#replication-query-nodes).
+
 1. Increase replication concurrency:
    ```bash
    --pt-wal-replica-steady-concurrency 8
