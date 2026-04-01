@@ -1,8 +1,13 @@
 # Cleanup Ephemeral Planning Documents
 #
 # This workflow automatically removes PLAN.md and other ephemeral planning
-# documents when a PR is merged. This serves as a safety net in case the
+# documents from the main branch. It serves as a safety net in case the
 # /finish skill wasn't used before merging.
+#
+# Triggers:
+# 1. pull_request_target (closed+merged) - catches files merged via PR
+# 2. push to main branches - catches files pushed directly or via squash
+#    merge (path-filtered to only run when ephemeral files are present)
 #
 # Ephemeral documents are temporary files used during development that
 # shouldn't persist on the main branch:
@@ -12,16 +17,14 @@
 # These files are tracked on feature branches but should be deleted before
 # merge. If they slip through, this action cleans them up.
 #
+# The "Preserve plan details on PR" step only runs for PR merges (not
+# direct pushes) since there's no PR to comment on for direct pushes.
+#
 # Security Note: Uses pull_request_target to ensure write permissions for
 # PRs from forks. This is safe because:
 # 1. The workflow only checks out the base branch (not PR code)
 # 2. File paths are validated (hardcoded list of allowed files)
 # 3. No PR-controlled code is executed
-#
-# To use in your repo:
-# 1. Copy this file to .github/workflows/cleanup-ephemeral-docs.yml
-# 2. Update the 'branches' list to match your main branch (master or main)
-# 3. Commit and push
 
 name: Cleanup ephemeral docs
 
@@ -31,11 +34,20 @@ on:
     branches:
       - master
       - main
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'PLAN.md'
+      - 'HANDOVER.md'
 
 jobs:
   cleanup:
-    # Only run when PR is actually merged (not just closed)
-    if: github.event.pull_request.merged == true
+    # Run when PR is merged OR when ephemeral files are pushed directly
+    if: >-
+      (github.event_name == 'push') ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
 
     permissions:
@@ -46,7 +58,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.event.pull_request.base.ref || github.ref }}
           fetch-depth: 0
 
       - name: Check for ephemeral files
@@ -74,7 +86,9 @@ jobs:
           fi
 
       - name: Preserve plan details on PR
-        if: steps.check.outputs.has_files == 'true'
+        if: >-
+          steps.check.outputs.has_files == 'true' &&
+          github.event_name == 'pull_request_target'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -108,15 +122,17 @@ jobs:
       - name: Remove ephemeral files
         if: steps.check.outputs.has_files == 'true'
         run: |
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref || github.ref_name }}"
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Pull latest changes to avoid non-fast-forward errors
           # If rebase fails due to conflicts, fall back to regular merge
-          if ! git pull --rebase origin ${{ github.event.pull_request.base.ref }}; then
+          if ! git pull --rebase origin "$TARGET_BRANCH"; then
             echo "Rebase failed, falling back to merge"
             git rebase --abort
-            git pull --no-rebase --no-edit origin ${{ github.event.pull_request.base.ref }}
+            git pull --no-rebase --no-edit origin "$TARGET_BRANCH"
           fi
 
           # Remove files
@@ -128,7 +144,6 @@ jobs:
           Automated cleanup of development planning documents.
           These files are used during development but shouldn't
           persist on the main branch.
-          Plan details preserved as PR comment.
 
           Files removed:${{ steps.check.outputs.files }}"
 
