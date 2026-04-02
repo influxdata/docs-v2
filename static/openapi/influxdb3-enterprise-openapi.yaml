@@ -1814,8 +1814,8 @@ paths:
         Executes an InfluxQL query to retrieve data from the specified database.
 
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from both legacy Parquet and
-        new `.pt` storage (hybrid query mode).
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1873,8 +1873,8 @@ paths:
         Executes an InfluxQL query to retrieve data from the specified database.
 
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from both legacy Parquet and
-        new `.pt` storage (hybrid query mode).
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
@@ -1928,8 +1928,8 @@ paths:
         Executes an SQL query to retrieve data from the specified database.
 
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from both legacy Parquet and
-        new `.pt` storage (hybrid query mode). Use the
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
         [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
         a query to retrieve detailed execution statistics.
       parameters:
@@ -1982,8 +1982,8 @@ paths:
         Executes an SQL query to retrieve data from the specified database.
 
         With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
-        (`--use-pacha-tree` flag), queries automatically merge results from both legacy Parquet and
-        new `.pt` storage (hybrid query mode). Use the
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
         [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
         a query to retrieve detailed execution statistics.
       parameters:
