@@ -32,7 +32,7 @@ related:
 {{% product-name %}} includes a preview of major upgrades to the
 storage layer that improve how data is written, stored, compressed, compacted,
 and queried.
-These upgrades touch every layer of the storage path--from a new on-disk file
+These upgrades touch every layer of the storage path—from a new on-disk file
 format to how fields are organized into column families and how compaction
 manages resources.
 
@@ -48,17 +48,17 @@ maintaining full compatibility with InfluxDB 3's data model and query languages.
 
 Key improvements include:
 
-- **Faster single-series queries** -- Single-digit millisecond response times
+- **Faster single-series queries**: Single-digit millisecond response times
   for highly selective time-series queries.
-- **Consistent resource usage** -- Bounded CPU and memory during persistence
+- **Consistent resource usage**: Bounded CPU and memory during persistence
   and compaction, eliminating spikes during heavy ingestion or compaction bursts.
-- **Wide-and-sparse table support** -- Schemas with up to millions of columns
+- **Wide-and-sparse table support**: Schemas with up to millions of columns
   and dynamic schema evolution without expensive rewrites.
-- **Column families** -- Group related fields for efficient compression and I/O,
+- **Column families**: Group related fields for efficient compression and I/O,
   so queries only read the data they need.
-- **Bulk data export** -- Export compacted data as Parquet files for use with
+- **Bulk data export**: Export compacted data as Parquet files for use with
   external tools.
-- **Automatic Parquet upgrade** -- Seamlessly migrate existing data with
+- **Automatic Parquet upgrade**: Seamlessly migrate existing data with
   hybrid query mode during the transition.
 
 ## Enable the preview
@@ -66,7 +66,7 @@ Key improvements include:
 Include the `--use-pacha-tree` flag in your
 [`influxdb3 serve` startup command](/influxdb3/enterprise/get-started/setup/):
 
-  {{< code-callout "--use-pacha-tree" >}}
+{{< code-callout "--use-pacha-tree" >}}
 ```bash
 influxdb3 serve \
   --node-id host01 \
@@ -75,8 +75,8 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --use-pacha-tree
 ```
-  {{< /code-callout >}}
- 
+{{< /code-callout >}}
+
 You can also enable the preview with an environment variable:
 
 ```bash
@@ -105,7 +105,7 @@ for system tables and telemetry.
 
 ## What's changed
 
-These upgrades touch every layer of the storage path -- from the on-disk file
+These upgrades touch every layer of the storage path—from the on-disk file
 format to how data is compressed, organized, and compacted.
 
 ### New file format
@@ -117,8 +117,8 @@ All data within a file is sorted by column family key,
 timestamp, which enables efficient compaction, querying, and filtering.
 
 The format uses type-specific compression algorithms that adapt to data
-characteristics -- delta-delta RLE for timestamps, Gorilla encoding for floats,
-dictionary encoding for low-cardinality strings, and more -- typically
+characteristics—delta-delta RLE for timestamps, Gorilla encoding for floats,
+dictionary encoding for low-cardinality strings, and more—typically
 achieving 5-20x compression ratios.
 
 ### Column families
