@@ -18,6 +18,19 @@ docker pull influxdata/influxdb3-ui
 
 ## v1.7.0 {date="2026-04-14"}
 
+#### Breaking changes
+
+- **Container user change**: The Docker container now runs as non-root user `influxui` (uid 1500) instead of root for improved security.
+
+  **Action required for upgrades:** If you're upgrading from v1.6.x or earlier with mounted volumes (e.g., `/db`, `/app-root/config`), you must update file ownership before the container will start:
+
+  ```bash
+  sudo chown -R 1500:1500 /path/to/your/db
+  sudo chown -R 1500:1500 /path/to/your/config
+  ```
+
+  The container will exit with a clear error message and instructions if it detects root-owned files. Fresh installations are unaffected.
+
 #### Features
 
 - **Transform Data**: Rename tables (measurements), rename columns, transform values (such as unit conversions), and filter rows from a dedicated Transform Data page with dry-run testing.
@@ -28,6 +41,7 @@ docker pull influxdata/influxdb3-ui
 - **Line protocol validation**: Get clearer, inline validation when writing data with line protocol.
 - **TLS certificate management**: Generate and renew short-lived TLS certificates for IP-based deployments.
 - **Storage type display**: View the configured storage type for your InfluxDB instance in the metrics UI.
+- **Security**: Container now runs as non-root user (uid 1500) for improved security posture.
 
 #### Bug fixes
 
