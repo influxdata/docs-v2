@@ -216,7 +216,7 @@ docker-compose up -d
 > [!Warning]
 > #### Upgrade from Explorer v1.6.x or earlier
 >
-> Starting with v1.7.0, the Explorer container runs as a non-root user
+> In v1.7.0+, the Explorer container runs as a non-root user
 > (`influxui`, uid 1500) for improved security. Because earlier versions
 > ran as root, existing mounted volumes are owned by root — and the new
 > non-root process can't access them.
