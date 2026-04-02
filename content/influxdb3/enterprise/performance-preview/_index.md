@@ -267,8 +267,7 @@ For all available options, see
 
 ## Export to Parquet
 
-You can export compacted data as Parquet files for use with external tools like pandas
-or DuckDB.
+You can export compacted data as Parquet files for use with external tools.
 
 > [!Note]
 > Data must be compacted before it can be exported.
