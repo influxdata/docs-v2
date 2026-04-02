@@ -51,7 +51,7 @@ that balances resource usage and throughput.
 |:-------|:------------|:--------|
 | `--use-pacha-tree` | Enable the performance upgrade preview. Required for any other `--pt-` option to have effect. | Disabled |
 | `--pt-engine-path-prefix` | Optional path prefix for all engine data (WAL and compaction generations). Max 32 characters. Must start and end with alphanumeric; inner characters allow `[a-zA-Z0-9._-]`. Shorter paths improve partitioning in object stores. | No prefix |
-| `--pt-max-columns` | Maximum total columns across the entire instance. Must be at least 2. | ~6.5M |
+| `--pt-max-columns` | Maximum total columns across the entire instance. Must be at least 2. | `10,000,000` (10M) |
 | `--pt-enable-retention` | Enable retention enforcement. | `true` |
 | `--pt-disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
 | `--pt-enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
@@ -183,7 +183,7 @@ Configure data file caching for query performance.
 |:-------|:------------|:--------|
 | `--pt-file-cache-size` | Size of the data file cache (bytes or %). Set to `0` on dedicated ingest nodes. | Mirrors `--parquet-mem-cache-size` |
 | `--pt-disable-data-file-cache` | Disable data file caching. Set to `true` on dedicated ingest nodes. | `false` (automatically `true` if `--disable-parquet-mem-cache` is set) |
-| `--pt-file-cache-recency` | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. | Mirrors `--parquet-mem-cache-query-path-duration` |
+| `--pt-file-cache-recency` | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. | Mirrors `--parquet-mem-cache-query-path-duration` (`3d`) |
 | `--pt-file-cache-evict-after` | Evict cached files that have not been read within this duration. | `24h` |
 
 ### File cache size
