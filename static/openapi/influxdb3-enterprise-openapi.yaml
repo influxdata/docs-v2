@@ -142,7 +142,7 @@ tags:
         href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
   - name: Export data (beta)
     description: |
-      Export compacted data as Parquet files for use with external tools such as pandas or DuckDB.
+      Export compacted data as Parquet files for use with external tools.
 
       > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
       > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
