@@ -38,13 +38,13 @@ manages resources.
 
 ## Why these upgrades
 
-The existing storage layer in InfluxDB 3 was built around Apache Parquet and
-optimized for analytical workloads.
+The existing InfluxDB 3 storage layer uses [Apache Parquet](https://parquet.apache.org/)
+and is optimized for analytical workloads.
 Customers running high-cardinality, wide-schema, and query-intensive workloads
 need better single-series query performance, more predictable resource usage,
 and the schema flexibility that made InfluxDB v1 and v2 popular.
-These upgrades address those gaps while maintaining full compatibility with
-InfluxDB 3's data model and query languages.
+These upgrades extend the storage layer to support those workloads while
+maintaining full compatibility with InfluxDB 3's data model and query languages.
 
 Key improvements include:
 
@@ -111,7 +111,8 @@ format to how data is compressed, organized, and compacted.
 
 Data is stored in a new columnar file format (`.pt` files) optimized for
 time-series workloads.
-All data within a file is sorted by column family key, series key, and
+All data within a file is sorted by column family key,
+[series key](/influxdb3/enterprise/reference/glossary/#series-key), and
 timestamp, which enables efficient compaction, querying, and filtering.
 
 The format uses type-specific compression algorithms that adapt to data
@@ -126,7 +127,7 @@ the data they need.
 Fields in the same family are stored together on disk.
 For wide tables with hundreds of fields, this dramatically reduces I/O.
 
-When writing line protocol, use the `::` (double-colon) delimiter in field
+When writing [line protocol](/influxdb3/enterprise/reference/line-protocol/), use the `::` (double-colon) delimiter in field
 names to assign fields to a family.
 The portion before `::` is the family name; everything after is the field name.
 
@@ -158,8 +159,10 @@ workloads, but they're not required to achieve good results.
 
 ### Bounded compaction
 
+Incoming writes are buffered in the WAL, flushed to snapshots, and then merged
+into [Gen0 files](/influxdb3/enterprise/performance-preview/configure/#gen0).
 The upgraded storage layer organizes compacted data into 24-hour UTC windows
-and progresses data through four compaction levels (L1 through L4).
+and progresses Gen0 files through four [compaction levels (L1 through L4)](/influxdb3/enterprise/performance-preview/configure/#l1-l4-level-tuning).
 Compaction runs continuously in the background with a byte-based memory budget
 (default: 50% of system RAM), so it never causes resource spikes.
 
