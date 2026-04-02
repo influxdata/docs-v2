@@ -154,6 +154,8 @@ influxdb3 serve [OPTIONS]
 |                  | `--traces-jaeger-debug-name`                         | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-debug-name)_                         |
 |                  | `--traces-jaeger-max-msgs-per-second`                | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-max-msgs-per-second)_                |
 |                  | `--traces-jaeger-tags`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#traces-jaeger-tags)_                               |
+|                  | `--use-pacha-tree`                                   | Enable the [performance upgrade preview](/influxdb3/enterprise/performance-preview/). Required for any `--pt-*` option.         |
+|                  | `--pt-*`                                             | Performance upgrade preview tuning options. Requires `--use-pacha-tree`. _See [configuration reference](/influxdb3/enterprise/performance-preview/configure/)._ |
 |                  | `--virtual-env-location`                             | _See [configuration options](/influxdb3/enterprise/reference/config-options/#virtual-env-location)_                             |
 |                  | `--wait-for-running-ingestor`                        | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wait-for-running-ingestor)_                        |
 |                  | `--wal-flush-interval`                               | _See [configuration options](/influxdb3/enterprise/reference/config-options/#wal-flush-interval)_                               |
