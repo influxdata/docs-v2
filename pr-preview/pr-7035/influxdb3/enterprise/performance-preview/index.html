@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-01 20:16:42 -0400 -0400">
+<meta name="last-modified" content="2026-04-02 14:16:51 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -3026,6 +3026,58 @@ precedence.</p>
       </tr>
   </tbody>
 </table>
+<h2 id="downgrade-to-parquet">Downgrade to Parquet</h2>
+<p>If you need to revert from the performance preview back to standard Parquet
+storage, use the <code>influxdb3 downgrade-to-parquet</code> command.
+This command updates the catalog and deletes all PachaTree-specific files from
+object storage.</p>
+
+<div class="block note">
+  
+  
+  <h4 id="downgrade-impacts">Downgrade impacts</h4>
+<p>The downgrade deletes all <code>.pt</code> files, including data written
+after the upgrade.
+<strong>Only data that existed before the upgrade (original Parquet files) is preserved.</strong>
+You can re-enable the preview later by restarting with <code>--use-pacha-tree</code>.</p>
+</div>
+<h3 id="before-you-downgrade">Before you downgrade</h3>
+<ol>
+<li>
+<p><strong>Stop all nodes</strong> in the cluster before running the downgrade command.
+The command checks for running nodes and refuses to proceed if any are active.</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 stop node --node-id &lt;NODE_ID&gt;</span></span></code></pre></div>
+
+</li>
+<li>
+<p><strong>Verify table compatibility.</strong>
+The downgrade validates that all tables can be represented in Parquet format.
+Tables that exceed the Parquet column limit or contain columns without legacy
+Parquet column IDs block the downgrade.</p>
+</li>
+</ol>
+<h3 id="preview-the-downgrade">Preview the downgrade</h3>
+<p>Use the <code>--dry-run</code> flag to list files that would be deleted without making
+any changes:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 downgrade-to-parquet <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id cluster01 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --object-store file <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data-dir ~/.influxdb3 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dry-run</span></span></code></pre></div>
+
+<h3 id="run-the-downgrade">Run the downgrade</h3>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influxdb3 downgrade-to-parquet <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id cluster01 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --object-store file <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data-dir ~/.influxdb3</span></span></code></pre></div>
+
+<p>After the downgrade completes, restart nodes without the <code>--use-pacha-tree</code> flag
+to resume standard Parquet storage mode.</p>
+<p>For all available options, see
+<a href="/influxdb3/enterprise/performance-preview/configure/#downgrade-options">Downgrade options</a>.</p>
 <h2 id="export-to-parquet">Export to Parquet</h2>
 <p>You can export compacted data as Parquet files for use with external tools like pandas
 or DuckDB.</p>

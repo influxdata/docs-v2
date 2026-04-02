@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-02 10:54:15 -0500 -0500">
+<meta name="last-modified" content="2026-04-02 14:16:51 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -2869,6 +2869,7 @@ performance upgrade preview.</p>
 <li><a href="#compactor">Compactor</a></li>
 <li><a href="#l1-l4-level-tuning">L1-L4 level tuning</a></li>
 <li><a href="#example-configurations">Example configurations</a></li>
+<li><a href="#downgrade-options">Downgrade options</a></li>
 </ul>
 <h2 id="general">General</h2>
 <table>
@@ -3483,6 +3484,49 @@ based on run set count triggers.</p>
 </span></span></span><span class="line"><span class="cl">  --num-io-threads <span class="m">8</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --pt-compactor-input-size-budget 12GB</span></span></code></pre></div>
 
+<h2 id="downgrade-options">Downgrade options</h2>
+<p>The <code>influxdb3 downgrade-to-parquet</code> command reverts a cluster from the
+performance preview back to standard Parquet storage.
+For the downgrade procedure, see
+<a href="/influxdb3/enterprise/performance-preview/#downgrade-to-parquet">Downgrade to Parquet</a>.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Option</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--cluster-id</code></td>
+          <td style="text-align: left"><em>(Required)</em> Cluster identifier.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--object-store</code></td>
+          <td style="text-align: left"><em>(Required)</em> Object storage type (<code>file</code>, <code>s3</code>, <code>gcs</code>, <code>azure</code>).</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--data-dir</code></td>
+          <td style="text-align: left">Location of data files for a local (<code>file</code>) object store.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--bucket</code></td>
+          <td style="text-align: left">Object store bucket name (for <code>s3</code>, <code>gcs</code>, <code>azure</code>).</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--dry-run</code></td>
+          <td style="text-align: left">Preview mode&ndash;list files that would be deleted without making changes.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--yes</code></td>
+          <td style="text-align: left">Skip the confirmation prompt.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>--ignore-running</code></td>
+          <td style="text-align: left">Proceed even if nodes appear to be running. <strong>Warning:</strong> may cause data inconsistency if nodes are actively writing.</td>
+      </tr>
+  </tbody>
+</table>
 
 
 
