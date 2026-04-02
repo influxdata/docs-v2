@@ -38,13 +38,13 @@ manages resources.
 
 ## Why these upgrades
 
-The default InfluxDB 3 storage layer uses [Apache Parquet](https://parquet.apache.org/) and
-is optimized for analytical workloads.
+The existing InfluxDB 3 storage layer uses [Apache Parquet](https://parquet.apache.org/)
+and is optimized for analytical workloads.
 Customers running high-cardinality, wide-schema, and query-intensive workloads
 need better single-series query performance, more predictable resource usage,
 and the schema flexibility that made InfluxDB v1 and v2 popular.
-These upgrades address those gaps while maintaining full compatibility with
-InfluxDB 3's data model and query languages.
+These upgrades extend the storage layer to support those workloads while
+maintaining full compatibility with InfluxDB 3's data model and query languages.
 
 Key improvements include:
 
