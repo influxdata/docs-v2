@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-01 18:11:20 -0500 -0500">
+<meta name="last-modified" content="2026-04-01 20:16:42 -0400 -0400">
     
 <script type="text/javascript">
 (function() {
@@ -2927,8 +2927,8 @@ achieving 5-20x compression ratios.</p>
 the data they need.
 Fields in the same family are stored together on disk.
 For wide tables with hundreds of fields, this dramatically reduces I/O.</p>
-<p>Use the <code>::</code> (double-colon) delimiter in field names to assign fields to a
-family.
+<p>When writing line protocol, use the <code>::</code> (double-colon) delimiter in field
+names to assign fields to a family.
 The portion before <code>::</code> is the family name; everything after is the field name.</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,cpu::usage_idle=32.7 1000000000
@@ -3788,13 +3788,13 @@ InfluxDB 3.</p>
       </div>
       
       <div class="notification-slug">
-        InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
 with faster single-series queries, wide-and-sparse table support, and more.
       </div>
       
       
       <div class="notification-content">
-        <p>InfluxDB 3 Enterprise 3.9 includes a private preview of major performance and
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
 feature updates.</p>
 <p><strong>Key improvements:</strong></p>
 <ul>
