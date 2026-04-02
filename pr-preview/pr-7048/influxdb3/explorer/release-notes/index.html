@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-02 12:18:46 -0500 -0500">
+<meta name="last-modified" content="2026-04-02 12:57:50 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -837,19 +837,26 @@
 <h2 date="2026-04-02" id="v170">v1.7.0</h2>
 <h4 id="breaking-changes">Breaking changes</h4>
 <ul>
-<li>
-<p><strong>Container user change</strong>: The Docker container now runs as non-root user <code>influxui</code> (uid 1500) instead of root for improved security.</p>
-<p><strong>Action required for upgrades:</strong> If you&rsquo;re upgrading from v1.6.x or earlier with mounted volumes (e.g., <code>/db</code>, <code>/app-root/config</code>), you must update file ownership before the container will start:</p>
+<li><strong>Container user change</strong>: The Docker container now runs as non-root user <code>influxui</code> (uid 1500) instead of root for improved security.</li>
+</ul>
+
+<div class="block important">
+  
+  
+  <h4 id="action-required-for-upgrades">Action required for upgrades</h4>
+<p>If you&rsquo;re upgrading from v1.6.x or earlier with mounted volumes
+(for example, <code>/db</code> or <code>/app-root/config</code>), update file ownership
+before you start the container:</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/db
 </span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config</span></span></code></pre></div>
 
-<p>The container will exit with a clear error message and instructions if it detects root-owned files. Fresh installations are unaffected.</p>
-</li>
-</ul>
+<p>The container exits with an error message if it detects root-owned
+files. Fresh installations are unaffected.</p>
+</div>
 <h4 id="features">Features</h4>
 <ul>
-<li><strong>Security</strong>: Container now runs as non-root user (uid 1500) for improved security posture.</li>
+<li><strong>Non-root container</strong>: The container now runs as a non-root user (uid 1500) for improved security.</li>
 </ul>
 <h2 date="2026-02-19" id="v163">v1.6.3</h2>
 <h4 id="features-1">Features</h4>

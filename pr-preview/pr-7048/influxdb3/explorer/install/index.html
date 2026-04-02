@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-02 12:18:46 -0500 -0500">
+<meta name="last-modified" content="2026-04-02 12:57:50 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -1075,18 +1075,24 @@
 <div class="block warning">
   
   
-  <p><strong>Upgrading from Explorer v1.6.x or earlier?</strong></p>
-<p>Starting with v1.7.0, the Explorer container runs as a non-root user (<code>influxui</code>, uid 1500) for improved security. If you&rsquo;re upgrading from an older version with existing mounted volumes, you&rsquo;ll need to update file ownership.</p>
-<p>When you start the upgraded container, you may see an error like:</p>
+  <h4 id="upgrade-from-explorer-v16x-or-earlier">Upgrade from Explorer v1.6.x or earlier</h4>
+<p>Starting with v1.7.0, the Explorer container runs as a non-root user
+(<code>influxui</code>, uid 1500) for improved security. Because earlier versions
+ran as root, existing mounted volumes are owned by root — and the new
+non-root process can&rsquo;t access them.</p>
+<p>If you start the upgraded container without updating file ownership,
+it exits with the following error:</p>
 
 <pre tabindex="0"><code>ERROR: Directory &#39;/db&#39; is owned by root and not accessible to the &#39;influxui&#39; user.</code></pre>
 
-<p>To fix this, change ownership of your mounted directories to uid 1500:</p>
+<p>To prevent or resolve this error, change ownership of your mounted
+directories to uid 1500 before you start the container:</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/db
-</span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config  <span class="c1"># if using config volume</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config</span></span></code></pre></div>
 
-<p>After updating ownership, restart the container. Fresh installations are unaffected.</p>
+<p>After you update ownership, restart the container.
+Fresh installations are unaffected.</p>
 </div>
 <h3 id="pre-configure-influxdb-connections">Pre-configure InfluxDB connections</h3>
 <p>Instead of configuring connections through the UI, you can pre-define connection settings using a <code>config.json</code> file. This is useful for:</p>
