@@ -54,7 +54,7 @@ that balances resource usage and throughput.
 | `--pt-max-columns` | Maximum total columns across the entire instance. Must be at least 2. | ~6.5M |
 | `--pt-enable-retention` | Enable retention enforcement. | `true` |
 | `--pt-disable-hybrid-query` | Disable hybrid query mode. When the preview is enabled with existing Parquet data, queries normally merge results across both Parquet and `.pt` files. Set this flag to query only `.pt` data. | `false` |
-| `--enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. See [Auto-DVC](/influxdb3/enterprise/performance-preview/#automatic-distinct-value-caches). | Disabled |
+| `--pt-enable-auto-dvc` | Enable automatic distinct value caching for `SHOW TAG VALUES` queries and the `tag_values()` SQL function. | Disabled |
 | `--pt-upgrade-poll-interval` | Polling interval for Parquet-to-PachaTree upgrade status monitoring. See [Upgrade from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet). | `5s` |
 
 ### Engine path prefix

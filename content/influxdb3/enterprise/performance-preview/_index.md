@@ -126,8 +126,8 @@ the data they need.
 Fields in the same family are stored together on disk.
 For wide tables with hundreds of fields, this dramatically reduces I/O.
 
-Use the `::` (double-colon) delimiter in field names to assign fields to a
-family.
+When writing line protocol, use the `::` (double-colon) delimiter in field
+names to assign fields to a family.
 The portion before `::` is the family name; everything after is the field name.
 
 ```txt

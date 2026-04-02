@@ -48,11 +48,11 @@
     - /influxdb3/enterprise/performance-preview/
   title: 'InfluxDB 3.9: Performance upgrade preview'
   slug: |
-    InfluxDB 3 Enterprise 3.9 includes a private preview of major performance upgrades
+    InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
     with faster single-series queries, wide-and-sparse table support, and more.
 
   message: |
-    InfluxDB 3 Enterprise 3.9 includes a private preview of major performance and
+    InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
     feature updates.
 
     **Key improvements:**
