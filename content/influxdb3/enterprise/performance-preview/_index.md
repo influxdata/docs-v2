@@ -66,7 +66,8 @@ Key improvements include:
 Include the `--use-pacha-tree` flag in your
 [`influxdb3 serve` startup command](/influxdb3/enterprise/get-started/setup/):
 
-```bash {{< code-callout "--use-pacha-tree" >}}
+  {{< code-callout "--use-pacha-tree" >}}
+```bash
 influxdb3 serve \
   --node-id host01 \
   --cluster-id cluster01 \
@@ -74,7 +75,7 @@ influxdb3 serve \
   --data-dir ~/.influxdb3 \
   --use-pacha-tree
 ```
- {{< /code-callout >}}
+  {{< /code-callout >}}
  
 You can also enable the preview with an environment variable:
 
