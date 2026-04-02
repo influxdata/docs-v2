@@ -44,6 +44,7 @@ that balances resource usage and throughput.
 - [Compactor](#compactor)
 - [L1-L4 level tuning](#l1-l4-level-tuning)
 - [Example configurations](#example-configurations)
+- [Downgrade options](#downgrade-options)
 
 ## General
 
@@ -438,3 +439,20 @@ influxdb3 serve \
   --num-io-threads 8 \
   --pt-compactor-input-size-budget 12GB
 ```
+
+## Downgrade options
+
+The `influxdb3 downgrade-to-parquet` command reverts a cluster from the
+performance preview back to standard Parquet storage.
+For the downgrade procedure, see
+[Downgrade to Parquet](/influxdb3/enterprise/performance-preview/#downgrade-to-parquet).
+
+| Option | Description |
+|:-------|:------------|
+| `--cluster-id` | _(Required)_ Cluster identifier. |
+| `--object-store` | _(Required)_ Object storage type (`file`, `s3`, `gcs`, `azure`). |
+| `--data-dir` | Location of data files for a local (`file`) object store. |
+| `--bucket` | Object store bucket name (for `s3`, `gcs`, `azure`). |
+| `--dry-run` | Preview mode--list files that would be deleted without making changes. |
+| `--yes` | Skip the confirmation prompt. |
+| `--ignore-running` | Proceed even if nodes appear to be running. **Warning:** may cause data inconsistency if nodes are actively writing. |

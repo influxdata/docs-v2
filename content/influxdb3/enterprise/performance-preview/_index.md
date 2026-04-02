@@ -205,6 +205,63 @@ SELECT * FROM system.upgrade_parquet
 | `--pt-disable-hybrid-query` | Disable hybrid query mode. Queries return only data from the upgraded storage layer, even during migration. | `false` |
 | `--pt-upgrade-poll-interval` | Polling interval for upgrade status monitoring. | `5s` |
 
+## Downgrade to Parquet
+
+If you need to revert from the performance preview back to standard Parquet
+storage, use the `influxdb3 downgrade-to-parquet` command.
+This command updates the catalog and deletes all PachaTree-specific files from
+object storage.
+
+> [!Note]
+> #### Downgrade impacts
+>
+> The downgrade deletes all `.pt` files, including data written
+> after the upgrade.
+> **Only data that existed before the upgrade (original Parquet files) is preserved.**
+> You can re-enable the preview later by restarting with `--use-pacha-tree`.
+
+### Before you downgrade
+
+1. **Stop all nodes** in the cluster before running the downgrade command.
+   The command checks for running nodes and refuses to proceed if any are active.
+
+   ```bash
+   influxdb3 stop node --node-id <NODE_ID>
+   ```
+
+2. **Verify table compatibility.**
+   The downgrade validates that all tables can be represented in Parquet format.
+   Tables that exceed the Parquet column limit or contain columns without legacy
+   Parquet column IDs block the downgrade.
+
+### Preview the downgrade
+
+Use the `--dry-run` flag to list files that would be deleted without making
+any changes:
+
+```bash
+influxdb3 downgrade-to-parquet \
+  --cluster-id cluster01 \
+  --object-store file \
+  --data-dir ~/.influxdb3 \
+  --dry-run
+```
+
+### Run the downgrade
+
+```bash
+influxdb3 downgrade-to-parquet \
+  --cluster-id cluster01 \
+  --object-store file \
+  --data-dir ~/.influxdb3
+```
+
+After the downgrade completes, restart nodes without the `--use-pacha-tree` flag
+to resume standard Parquet storage mode.
+
+For all available options, see
+[Downgrade options](/influxdb3/enterprise/performance-preview/configure/#downgrade-options).
+
 ## Export to Parquet
 
 You can export compacted data as Parquet files for use with external tools like pandas
