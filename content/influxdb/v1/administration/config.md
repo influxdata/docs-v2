@@ -1086,6 +1086,15 @@ The log level to be emitted. Valid values are `error`, `warn`, `info` (default),
 and `debug`. Logs that are equal to, or above, the specified level will be 
 emitted.
 
+To change the log level without restarting InfluxDB, edit the `level` value in the configuration file and send `SIGHUP` to the process:
+
+```bash
+kill -SIGHUP <influxd_pid>
+```
+
+On receipt of `SIGHUP`, InfluxDB reloads the configuration and applies the new log level.
+`SIGHUP` also reloads TLS certificates. _v1.12.3+_
+
 **Default**: `info`  
 **Environment variable**: `INFLUXDB_LOGGING_LEVEL`
 
