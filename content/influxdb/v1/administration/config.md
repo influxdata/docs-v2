@@ -1093,7 +1093,11 @@ kill -SIGHUP <influxd_pid>
 ```
 
 On receipt of `SIGHUP`, InfluxDB reloads the configuration and applies the new log level.
-`SIGHUP` also reloads TLS certificates. _v1.12.3+_
+
+> [!Note]
+> #### TLS certificate reloading
+>
+> `SIGHUP` also reloads TLS certificates. _v1.12.3+_
 
 **Default**: `info`  
 **Environment variable**: `INFLUXDB_LOGGING_LEVEL`
