@@ -36,6 +36,7 @@
         {{ if eq $name "ApiKeyAuth" }}{{ $title = "API Key Authentication" }}{{ end }}
         {{/* Long names (v2+ specs) */}}
         {{ if eq $name "BasicAuthentication" }}{{ $title = "Basic Authentication" }}{{ end }}
+        {{ if eq $name "BearerAuthentication" }}{{ $title = "Bearer Authentication" }}{{ end }}
         {{ if eq $name "TokenAuthentication" }}{{ $title = "Token Authentication" }}{{ end }}
         {{ if eq $name "QuerystringAuthentication" }}{{ $title = "Query String Authentication" }}{{ end }}
 

@@ -93,6 +93,23 @@ $status-server-error: #9b2aff;
   &--head { background-color: $method-head; }
 }
 
+// Compatibility version badge (v1/v2) — inline with operation endpoint
+.api-operation-endpoint .api-compat-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+
+  &--v1 { background: #8b5cf6; color: white; }
+  &--v2 { background: #06b6d4; color: white; }
+  &--v3 { background: #10b981; color: white; }
+}
+
 .api-path {
   font-family: $code;
   font-size: 0.95rem;

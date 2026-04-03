@@ -32,6 +32,7 @@
     <div class="api-operation-endpoint">
       <span class="api-method api-method--{{ $method }}">{{ upper $method }}</span>
       <code class="api-path">{{ $path }}</code>
+      {{ with $operation.compatVersion }}<span class="api-compat-badge api-compat-badge--{{ . }}">{{ . }}</span>{{ end }}
     </div>
     <h3 class="api-operation-summary">{{ $operation.summary }}</h3>
   </div>
