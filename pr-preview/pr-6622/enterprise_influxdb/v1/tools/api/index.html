@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.83ae3ff53d05d5eec96ff6cd8650b262525e4d18325539835c70f9e11b7e06f6.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.0524d17963b25d4f92e1ad24060e0a8ce9dde3a56434314d397582ddb9d4d55f.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.b5916c5b8b43bad4882e1d641e2569bb90ce950993b863b3daa12ba07841167b.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.0ca36e2578df2e1ab5a40ea45d0bbb2f03f15cd9144c2fcd378be5e4a68fd442.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 12:48:23 -0600 -0600">
+<meta name="last-modified" content="2026-03-31 20:37:45 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3678,14 +3678,14 @@
 It uses HTTP response codes, authentication with username and password credentials or API tokens, and JSON-formatted response data.</p>
 <p>The following sections assume your InfluxDB instance is running on <code>localhost</code>
 port <code>8086</code> and HTTPS is not enabled.
-Those settings <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoints-settings">are configurable</a>.</p>
+Those settings <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoint-settings">are configurable</a>.</p>
 <ul>
-<li><a href="#influxdb-20-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</a></li>
+<li><a href="#influxdb-2x-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</a></li>
 <li><a href="#influxdb-1x-http-endpoints">InfluxDB  1.x HTTP endpoints</a></li>
 </ul>
 <h2 id="influxdb-2x-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</h2>
 <p>InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
-There are multiple reasons for introducing these:</p>
+These APIs serve several purposes:</p>
 <ul>
 <li><a href="/enterprise_influxdb/v1/tools/api_client_libraries/">InfluxDB 2.x client libraries</a>
 are built for the InfluxDB <code>/api/v2</code> API and work with <strong>InfluxDB 2.x</strong> and <strong>InfluxDB 1.8+</strong>.</li>
@@ -3729,13 +3729,13 @@ They allow you to easily move from InfluxDB 1.x to InfluxDB OSS 2.x or InfluxDB 
 </table>
 <h3 id="apiv2query-http-endpoint"><code>/api/v2/query/</code> HTTP endpoint</h3>
 <p>The <code>/api/v2/query</code> endpoint accepts <code>POST</code> HTTP requests.
-Use this endpoint to query data using <a href="/enterprise_influxdb/v1/flux/">Flux</a> and <a href="/influxdb/v2.x/api-guide/client-libraries/">InfluxDB 2.x client libraries</a>.
+Use this endpoint to query data using <a href="/enterprise_influxdb/v1/flux/">Flux</a> and <a href="/influxdb/v2/api-guide/client-libraries/">InfluxDB 2.x client libraries</a>.
 Flux is the primary language for working with data in InfluxDB 2.x.</p>
 <p><strong>Include the following HTTP headers:</strong></p>
 <ul>
 <li><code>Accept: application/csv</code></li>
 <li><code>Content-type: application/vnd.flux</code></li>
-<li>If <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization">authentication is enabled</a>,
+<li>If <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/">authentication is enabled</a>,
 provide your InfluxDB username and password:<br>
 <code>Authorization: Token USERNAME:PASSWORD</code></li>
 </ul>
@@ -4138,6 +4138,55 @@ For information about InfluxDB HTTP server metrics, see the <a href="/platform/m
 <p><strong>Note:</strong> The <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb">InfluxDB input plugin</a> is available to collect metrics (using the <code>/debug/vars</code> endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme">InfluxDB input plugin README</a>.</p>
 
 </blockquote>
+<h4 metadata="v1.12.3+" id="running-configuration">Running configuration</h4>
+<p>The <code>/debug/vars</code> response includes a <code>config</code> key that contains the running <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#data-settings">TSDB storage configuration</a>.
+Use this to inspect active server settings without direct access to configuration files.</p>
+<p>Values in the JSON output use the following representations:</p>
+<ul>
+<li>Size values (such as <code>cache-max-memory-size</code>) appear as integers in bytes.</li>
+<li>Duration values (such as <code>cache-snapshot-write-cold-duration</code>) appear as human-readable strings (for example, <code>&quot;10m0s&quot;</code>).</li>
+</ul>
+<p>The output is similar to the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-max-memory-size&#34;</span><span class="p">:</span> <span class="mi">1073741824</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-memory-size&#34;</span><span class="p">:</span> <span class="mi">26214400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;10m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-full-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;4h0m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput-burst&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/data&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-concurrent-compactions&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-index-log-file-size&#34;</span><span class="p">:</span> <span class="mi">1048576</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-series-per-database&#34;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-values-per-tag&#34;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;series-id-set-cache-size&#34;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/wal&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-fsync-delay&#34;</span><span class="p">:</span> <span class="s2">&#34;0s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+
+<div class="block note">
+  
+  
+  <p>InfluxDB Enterprise data nodes also expose <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster-settings">cluster configuration</a> fields through their own diagnostics, including <code>dial-timeout</code>, <code>shard-reader-timeout</code>, and <code>rpc-resettable-*-timeout</code> settings.</p>
+</div>
+<h4 metadata="v1.12.3+" id="continuous-query-statistics">Continuous query statistics</h4>
+<p>The <code>/debug/vars</code> response includes a <code>cq</code> key with continuous query execution counters:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cq&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryOk&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryFail&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<ul>
+<li><code>queryOk</code>: Number of CQ executions that completed successfully.</li>
+<li><code>queryFail</code>: Number of CQ executions that failed.</li>
+</ul>
 <h3 id="ping-http-endpoint"><code>/ping</code> HTTP endpoint</h3>
 <p>The ping endpoint accepts both <code>GET</code> and <code>HEAD</code> HTTP requests.
 Use this endpoint to check the status of your InfluxDB instance and your version
@@ -4164,7 +4213,7 @@ The <code>X-Influxdb-Version</code> header field displays the InfluxDB version.<
 </span></span><span class="line"><span class="cl">Content-Type: application/json
 </span></span><span class="line"><span class="cl">Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 </span></span><span class="line"><span class="cl">X-Influxdb-Build: OSS
-</span></span><span class="line"><span class="cl">X-Influxdb-Version: v1.12.2
+</span></span><span class="line"><span class="cl">X-Influxdb-Version: v1.12.3
 </span></span><span class="line"><span class="cl">X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 </span></span><span class="line"><span class="cl">Date: Tue, <span class="m">05</span> Nov <span class="m">2018</span> 16:08:32 GMT</span></span></code></pre></div>
 
@@ -4283,7 +4332,7 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
       </tr>
       <tr>
           <td style="text-align: left">p=&lt;password&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.**</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.**</td>
           <td style="text-align: left">Sets the password for authentication if you&rsquo;ve enabled authentication. Use with the query string parameter <code>u</code>.</td>
       </tr>
       <tr>
@@ -4297,8 +4346,13 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
           <td style="text-align: left">InfluxQL string to execute.  See also <a href="/enterprise_influxdb/v1/tools/api/#request-body">Request Body</a>.</td>
       </tr>
       <tr>
+          <td style="text-align: left">time_format=[epoch | rfc3339]</td>
+          <td style="text-align: left">Optional</td>
+          <td style="text-align: left">Sets the timestamp format in query responses. <code>epoch</code> <em>(default)</em> returns epoch timestamps (use with the <code>epoch</code> parameter to set precision). <code>rfc3339</code> returns timestamps as RFC3339Nano-formatted strings (for example, <code>2017-03-01T00:16:18.000000000Z</code>). Returns <code>400</code> if set to an invalid value. <em>Available in InfluxDB Enterprise v1.12.3+.</em></td>
+      </tr>
+      <tr>
           <td style="text-align: left">u=&lt;username&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the username for authentication if you&rsquo;ve enabled authentication. The user must have read access to the database. Use with the query string parameter <code>p</code>.</td>
       </tr>
   </tbody>
@@ -4307,7 +4361,7 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
 That behavior is configurable; see the <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-row-limit"><code>max-row-limit</code></a>
 configuration option for more information.</p>
 <p>** The InfluxDB API also supports basic authentication.
-Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>
+Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>
 and aren&rsquo;t using the query string parameters <code>u</code> and <code>p</code>.
 See below for an <a href="#create-a-database-using-basic-authentication">example</a> of basic authentication.</p>
 <h4 id="examples-2">Examples</h4>
@@ -4355,6 +4409,17 @@ See below for an <a href="#create-a-database-using-basic-authentication">example
 <p>The response body data is similar to the following:</p>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;results&#34;</span>:<span class="o">[{</span><span class="s2">&#34;statement_id&#34;</span>:0,<span class="s2">&#34;series&#34;</span>:<span class="o">[{</span><span class="s2">&#34;name&#34;</span>:<span class="s2">&#34;mymeas&#34;</span>,<span class="s2">&#34;columns&#34;</span>:<span class="o">[</span><span class="s2">&#34;time&#34;</span>,<span class="s2">&#34;myfield&#34;</span>,<span class="s2">&#34;mytag1&#34;</span>,<span class="s2">&#34;mytag2&#34;</span><span class="o">]</span>,<span class="s2">&#34;values&#34;</span>:<span class="o">[[</span>1488327378,33.1,null,null<span class="o">]</span>,<span class="o">[</span>1488327438,12.4,<span class="s2">&#34;12&#34;</span>,<span class="s2">&#34;14&#34;</span><span class="o">]]}]}]}</span></span></span></code></pre></div>
+
+<h5 metadata="v1.12.3+" id="query-data-with-a-select-statement-and-the-time_format-parameter">Query data with a <code>SELECT</code> statement and the <code>time_format</code> parameter</h5>
+<ul>
+<li><code>time_format=rfc3339</code>: Return timestamps as RFC3339Nano-formatted strings.</li>
+</ul>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s1">&#39;http://localhost:8086/query?db=mydb&amp;time_format=rfc3339&#39;</span> --data-urlencode <span class="s1">&#39;q=SELECT * FROM &#34;mymeas&#34;&#39;</span></span></span></code></pre></div>
+
+<p>The output is similar to the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;results&#34;</span><span class="p">:[{</span><span class="nt">&#34;statement_id&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&#34;series&#34;</span><span class="p">:[{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;mymeas&#34;</span><span class="p">,</span><span class="nt">&#34;columns&#34;</span><span class="p">:[</span><span class="s2">&#34;time&#34;</span><span class="p">,</span><span class="s2">&#34;myfield&#34;</span><span class="p">,</span><span class="s2">&#34;mytag1&#34;</span><span class="p">,</span><span class="s2">&#34;mytag2&#34;</span><span class="p">],</span><span class="nt">&#34;values&#34;</span><span class="p">:[[</span><span class="s2">&#34;2017-03-01T00:16:18Z&#34;</span><span class="p">,</span><span class="mf">33.1</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="kc">null</span><span class="p">],[</span><span class="s2">&#34;2017-03-01T00:17:18Z&#34;</span><span class="p">,</span><span class="mf">12.4</span><span class="p">,</span><span class="s2">&#34;12&#34;</span><span class="p">,</span><span class="s2">&#34;14&#34;</span><span class="p">]]}]}]}</span></span></span></code></pre></div>
 
 <h5 id="create-a-database-using-http-authentication">Create a database using HTTP authentication</h5>
 <p>The following example shows how to authenticate with v1.x credentials in the query string and
@@ -4547,7 +4612,7 @@ or pipe the response to a JSON-processor, such as <a href="https://stedolan.gith
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 19:22:54 GMT
 Transfer-Encoding: chunked
 
@@ -4563,7 +4628,7 @@ Transfer-Encoding: chunked
 Connection: close
 Content-Type: application/json
 Request-Id: [&hellip;]
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 19:23:48 GMT
 Transfer-Encoding: chunked</p>
 <p>{&ldquo;results&rdquo;:[{&ldquo;statement_id&rdquo;:0,&ldquo;error&rdquo;:&ldquo;database not found: mydb1&rdquo;}]}</p>
@@ -4580,7 +4645,7 @@ about the error:</p>
 <pre tabindex="0"><code>HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 19:24:25 GMT
 Content-Length: 76
 
@@ -4596,7 +4661,7 @@ Content-Length: 76
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm=&#34;InfluxDB&#34;
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 19:11:26 GMT
 Content-Length: 33
 
@@ -4631,7 +4696,7 @@ Use this endpoint to write data to a pre-existing database.</p>
       </tr>
       <tr>
           <td style="text-align: left">p=&lt;password&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the password for authentication if you&rsquo;ve enabled authentication. Use with the query string parameter <code>u</code>.</td>
       </tr>
       <tr>
@@ -4646,13 +4711,13 @@ Use this endpoint to write data to a pre-existing database.</p>
       </tr>
       <tr>
           <td style="text-align: left">u=&lt;username&gt;</td>
-          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
+          <td style="text-align: left">Optional if you haven&rsquo;t <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the username for authentication if you&rsquo;ve enabled authentication. The user must have write access to the database. Use with the query string parameter <code>p</code>.</td>
       </tr>
   </tbody>
 </table>
 <p>* The InfluxDB API also supports basic authentication.
-Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>
+Use basic authentication if you&rsquo;ve <a href="/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication">enabled authentication</a>
 and aren&rsquo;t using the query string parameters <code>u</code> and <code>p</code>.
 See below for an <a href="#write-a-point-to-the-database-mydb-using-basic-authentication">example</a> of basic authentication.</p>
 <p>** We recommend using the least precise precision possible as this can result
@@ -4667,7 +4732,7 @@ in significant improvements in compression.</p>
 <pre tabindex="0"><code>HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 17:33:23 GMT</code></pre>
 
 <h5 id="write-a-point-to-the-database-mydb-and-the-retention-policy-myrp">Write a point to the database <code>mydb</code> and the retention policy <code>myrp</code></h5>
@@ -4694,7 +4759,7 @@ and the response body contains the error message&ndash;for example:</p>
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm=&#34;InfluxDB&#34;
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 17:40:30 GMT
 Content-Length: 33
 
@@ -4715,7 +4780,7 @@ and the response body contains the error message&ndash;for example:</p>
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm=&#34;InfluxDB&#34;
-X-Influxdb-Version: 1.12.2
+X-Influxdb-Version: 1.12.3
 Date: Wed, 08 Nov 2017 17:46:40 GMT
 Content-Length: 33
 
@@ -5506,6 +5571,42 @@ A hot shard may or may not be idle.</p>
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 

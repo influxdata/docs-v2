@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.83ae3ff53d05d5eec96ff6cd8650b262525e4d18325539835c70f9e11b7e06f6.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.0524d17963b25d4f92e1ad24060e0a8ce9dde3a56434314d397582ddb9d4d55f.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.b5916c5b8b43bad4882e1d641e2569bb90ce950993b863b3daa12ba07841167b.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.0ca36e2578df2e1ab5a40ea45d0bbb2f03f15cd9144c2fcd378be5e4a68fd442.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 12:48:23 -0600 -0600">
+<meta name="last-modified" content="2026-03-31 20:37:45 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2796,11 +2796,11 @@ are built for the InfluxDB v2 API, but also work with <strong>InfluxDB 1.8+</str
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><a href="#api-v2-query-http-endpoint">/api/v2/query</a></td>
+          <td style="text-align: left"><a href="#apiv2query-http-endpoint">/api/v2/query</a></td>
           <td style="text-align: left">Query data in InfluxDB 1.8.0+ using the InfluxDB v2 API and <a href="/flux/latest/">Flux</a></td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#api-v2-write-http-endpoint">/api/v2/write</a></td>
+          <td style="text-align: left"><a href="#apiv2write-http-endpoint">/api/v2/write</a></td>
           <td style="text-align: left">Write data to InfluxDB 1.8.0+ using the InfluxDB v2 API <em>(compatible with InfluxDB v2 client libraries)</em></td>
       </tr>
       <tr>
@@ -3067,15 +3067,15 @@ Use this endpoint to check the health of your InfluxDB instance.</p>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><a href="#debug-pprof-http-endpoint">/debug/pprof </a></td>
+          <td style="text-align: left"><a href="#debugpprof-http-endpoint">/debug/pprof </a></td>
           <td style="text-align: left">Generate profiles for troubleshooting</td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#debug-requests-http-endpoint">/debug/requests</a></td>
+          <td style="text-align: left"><a href="#debugrequests-http-endpoint">/debug/requests</a></td>
           <td style="text-align: left">Track HTTP client requests to the <code>/write</code> and <code>/query</code> endpoints</td>
       </tr>
       <tr>
-          <td style="text-align: left"><a href="#debug-vars-http-endpoint">/debug/vars</a></td>
+          <td style="text-align: left"><a href="#debugvars-http-endpoint">/debug/vars</a></td>
           <td style="text-align: left">Collect internal InfluxDB statistics</td>
       </tr>
       <tr>
@@ -3228,6 +3228,49 @@ For information about InfluxDB HTTP server metrics, see the <a href="/platform/m
 <p><strong>Note:</strong> The <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb">InfluxDB input plugin</a> is available to collect metrics (using the <code>/debug/vars</code> endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the <a href="https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme">InfluxDB input plugin README</a>.</p>
 
 </blockquote>
+<h4 metadata="v1.12.3+" id="running-configuration">Running configuration</h4>
+<p>The <code>/debug/vars</code> response includes a <code>config</code> key that contains the running <a href="/influxdb/v1/administration/config/#data-settings">TSDB storage configuration</a>.
+Use this to inspect active server settings without direct access to configuration files.</p>
+<p>Values in the JSON output use the following representations:</p>
+<ul>
+<li>Size values (such as <code>cache-max-memory-size</code>) appear as integers in bytes.</li>
+<li>Duration values (such as <code>cache-snapshot-write-cold-duration</code>) appear as human-readable strings (for example, <code>&quot;10m0s&quot;</code>).</li>
+</ul>
+<p>The output is similar to the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-max-memory-size&#34;</span><span class="p">:</span> <span class="mi">1073741824</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-memory-size&#34;</span><span class="p">:</span> <span class="mi">26214400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cache-snapshot-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;10m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-full-write-cold-duration&#34;</span><span class="p">:</span> <span class="s2">&#34;4h0m0s&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;compact-throughput-burst&#34;</span><span class="p">:</span> <span class="mi">50331648</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/data&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-concurrent-compactions&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-index-log-file-size&#34;</span><span class="p">:</span> <span class="mi">1048576</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-series-per-database&#34;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max-values-per-tag&#34;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;series-id-set-cache-size&#34;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-dir&#34;</span><span class="p">:</span> <span class="s2">&#34;/var/lib/influxdb/wal&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;wal-fsync-delay&#34;</span><span class="p">:</span> <span class="s2">&#34;0s&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<h4 metadata="v1.12.3+" id="continuous-query-statistics">Continuous query statistics</h4>
+<p>The <code>/debug/vars</code> response includes a <code>cq</code> key with continuous query execution counters:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cq&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryOk&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;queryFail&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
+
+<ul>
+<li><code>queryOk</code>: Number of CQ executions that completed successfully.</li>
+<li><code>queryFail</code>: Number of CQ executions that failed.</li>
+</ul>
 <h3 id="ping-http-endpoint"><code>/ping</code> HTTP endpoint</h3>
 <p>The ping endpoint accepts both <code>GET</code> and <code>HEAD</code> HTTP requests.
 Use this endpoint to check the status of your InfluxDB instance and your version
@@ -3381,6 +3424,11 @@ Note that the system uses epoch 0 (<code>1970-01-01T00:00:00Z</code>) as a <a hr
           <td style="text-align: left">InfluxQL string to execute.  See also <a href="/influxdb/v1/tools/api/#request-body">Request Body</a>.</td>
       </tr>
       <tr>
+          <td style="text-align: left">time_format=[epoch | rfc3339]</td>
+          <td style="text-align: left">Optional</td>
+          <td style="text-align: left">Sets the timestamp format in query responses. <code>epoch</code> <em>(default)</em> returns epoch timestamps (use with the <code>epoch</code> parameter to set precision). <code>rfc3339</code> returns timestamps as RFC3339Nano-formatted strings (for example, <code>2017-03-01T00:16:18.000000000Z</code>). Returns <code>400</code> if set to an invalid value. <em>Available in InfluxDB v1.12.3+.</em></td>
+      </tr>
+      <tr>
           <td style="text-align: left">u=&lt;username&gt;</td>
           <td style="text-align: left">Optional if you haven&rsquo;t <a href="/influxdb/v1/administration/authentication_and_authorization/#set-up-authentication">enabled authentication</a>. Required if you&rsquo;ve enabled authentication.*</td>
           <td style="text-align: left">Sets the username for authentication if you&rsquo;ve enabled authentication. The user must have read access to the database. Use with the query string parameter <code>p</code>.</td>
@@ -3436,6 +3484,17 @@ See below for an <a href="#create-a-database-using-basic-authentication">example
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ curl -G <span class="s1">&#39;http://localhost:8086/query?db=mydb&amp;epoch=s&#39;</span> --data-urlencode <span class="s1">&#39;q=SELECT * FROM &#34;mymeas&#34;&#39;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;results&#34;</span>:<span class="o">[{</span><span class="s2">&#34;statement_id&#34;</span>:0,<span class="s2">&#34;series&#34;</span>:<span class="o">[{</span><span class="s2">&#34;name&#34;</span>:<span class="s2">&#34;mymeas&#34;</span>,<span class="s2">&#34;columns&#34;</span>:<span class="o">[</span><span class="s2">&#34;time&#34;</span>,<span class="s2">&#34;myfield&#34;</span>,<span class="s2">&#34;mytag1&#34;</span>,<span class="s2">&#34;mytag2&#34;</span><span class="o">]</span>,<span class="s2">&#34;values&#34;</span>:<span class="o">[[</span>1488327378,33.1,null,null<span class="o">]</span>,<span class="o">[</span>1488327438,12.4,<span class="s2">&#34;12&#34;</span>,<span class="s2">&#34;14&#34;</span><span class="o">]]}]}]}</span></span></span></code></pre></div>
+
+<h5 metadata="v1.12.3+" id="query-data-with-a-select-statement-and-the-time_format-parameter">Query data with a <code>SELECT</code> statement and the <code>time_format</code> parameter</h5>
+<ul>
+<li><code>time_format=rfc3339</code>: Return timestamps as RFC3339Nano-formatted strings.</li>
+</ul>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s1">&#39;http://localhost:8086/query?db=mydb&amp;time_format=rfc3339&#39;</span> --data-urlencode <span class="s1">&#39;q=SELECT * FROM &#34;mymeas&#34;&#39;</span></span></span></code></pre></div>
+
+<p>The output is similar to the following:</p>
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;results&#34;</span><span class="p">:[{</span><span class="nt">&#34;statement_id&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&#34;series&#34;</span><span class="p">:[{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;mymeas&#34;</span><span class="p">,</span><span class="nt">&#34;columns&#34;</span><span class="p">:[</span><span class="s2">&#34;time&#34;</span><span class="p">,</span><span class="s2">&#34;myfield&#34;</span><span class="p">,</span><span class="s2">&#34;mytag1&#34;</span><span class="p">,</span><span class="s2">&#34;mytag2&#34;</span><span class="p">],</span><span class="nt">&#34;values&#34;</span><span class="p">:[[</span><span class="s2">&#34;2017-03-01T00:16:18Z&#34;</span><span class="p">,</span><span class="mf">33.1</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="kc">null</span><span class="p">],[</span><span class="s2">&#34;2017-03-01T00:17:18Z&#34;</span><span class="p">,</span><span class="mf">12.4</span><span class="p">,</span><span class="s2">&#34;12&#34;</span><span class="p">,</span><span class="s2">&#34;14&#34;</span><span class="p">]]}]}]}</span></span></span></code></pre></div>
 
 <h5 id="create-a-database-using-http-authentication">Create a database using HTTP authentication</h5>
 <p>Valid credentials:</p>
@@ -4490,6 +4549,42 @@ Errors are returned in JSON.</p>
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
