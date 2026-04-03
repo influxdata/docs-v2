@@ -360,15 +360,13 @@ assets/
 ├── js/
 │   ├── main.js                    # Entry point, component registry
 │   ├── components/
-│   │   ├── api-nav.ts             # API navigation behavior
-│   │   ├── api-toc.ts             # Table of contents
-│   │   ├── api-tabs.ts            # Tab switching (if needed beyond CSS)
-│   │   └── api-rapidoc.ts         # RapiDoc integration
+│   │   └── api-toc.ts             # API table of contents behavior
 │   └── utils/
 │       └── dom-helpers.ts         # Shared DOM utilities
 └── styles/
     └── layouts/
-        └── _api-layout.scss       # API-specific styles
+        ├── _api-layout.scss       # API page layout (3-column, sidebar, TOC)
+        └── _api-operations.scss   # Operation rendering (methods, params, responses)
 ```
 
 ### TypeScript Component Checklist
@@ -450,9 +448,10 @@ pre-commit:
 4. **Use `isset` and `index`** for safe data access
 5. **Hyphenated keys require `index` function** - dot notation fails
 
-## Related Skills
+## Related Resources
 
-- **cypress-e2e-testing** - For E2E testing of UI components and pages
-- **docs-cli-workflow** - For creating/editing documentation content
-- **ts-component-dev** (agent) - TypeScript component behavior and interactivity
-- **ui-testing** (agent) - Cypress E2E testing for UI components
+- **`api-docs/README.md`** — API documentation workflow, tags.yml format, overlays, generation pipeline
+- **cypress-e2e-testing** skill — E2E testing of UI components and pages
+- **docs-cli-workflow** skill — Creating/editing documentation content
+- **ts-component-dev** agent — TypeScript component behavior and interactivity
+- **ui-testing** agent — Cypress E2E testing for UI components
