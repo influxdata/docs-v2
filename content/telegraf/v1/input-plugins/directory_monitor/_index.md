@@ -10,7 +10,7 @@ introduced: "v1.18.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.1/plugins/inputs/directory_monitor/README.md, Directory Monitor Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/directory_monitor/README.md, Directory Monitor Plugin Source
 ---
 
 # Directory Monitor Input Plugin
@@ -29,6 +29,14 @@ picked up yet.
 **Introduced in:** Telegraf v1.18.0
 **Tags:** system
 **OS support:** all
+
+## Tracking metric support <!-- @/docs/includes/plugin_tracking_metrics.md -->
+
+This plugin supports [tracking metrics](../../../docs/METRICS.md#tracking-metrics), which allows the plugin
+to be notified when metrics have been delivered to all outputs, enabling proper
+acknowledgment back to the source.
+
+[METRICS.md]: ../../../docs/METRICS.md#tracking-metrics
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 

@@ -16,15 +16,15 @@ It uses HTTP response codes, authentication with username and password credentia
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
-Those settings [are configurable](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoints-settings).
+Those settings [are configurable](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#http-endpoint-settings).
 
-- [InfluxDB 2.x API compatibility endpoints](#influxdb-20-api-compatibility-endpoints)
+- [InfluxDB 2.x API compatibility endpoints](#influxdb-2x-api-compatibility-endpoints)
 - [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
 ## InfluxDB 2.x API compatibility endpoints
 
 InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
-There are multiple reasons for introducing these:
+These APIs serve several purposes:
 
 - [InfluxDB 2.x client libraries](/enterprise_influxdb/v1/tools/api_client_libraries/)
   are built for the InfluxDB `/api/v2` API and work with **InfluxDB 2.x** and **InfluxDB 1.8+**.
@@ -49,14 +49,14 @@ The following forward compatible APIs are available:
 ### `/api/v2/query/` HTTP endpoint
 
 The `/api/v2/query` endpoint accepts `POST` HTTP requests.
-Use this endpoint to query data using [Flux](/enterprise_influxdb/v1/flux/) and [InfluxDB 2.x client libraries](/influxdb/v2.x/api-guide/client-libraries/).
+Use this endpoint to query data using [Flux](/enterprise_influxdb/v1/flux/) and [InfluxDB 2.x client libraries](/influxdb/v2/api-guide/client-libraries/).
  Flux is the primary language for working with data in InfluxDB 2.x.
 
 **Include the following HTTP headers:**
 
 - `Accept: application/csv`
 - `Content-type: application/vnd.flux`
-- If [authentication is enabled](/enterprise_influxdb/v1/administration/authentication_and_authorization),
+- If [authentication is enabled](/enterprise_influxdb/v1/administration/configure/security/authentication/),
   provide your InfluxDB username and password:  
   `Authorization: Token USERNAME:PASSWORD`
 
@@ -397,6 +397,58 @@ For information about InfluxDB HTTP server metrics, see the [`httpd` measurement
 
 >**Note:** The [InfluxDB input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb) is available to collect metrics (using the `/debug/vars` endpoint) from specified Kapacitor instances. For a list of the measurements and fields, see the [InfluxDB input plugin README](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/influxdb#readme).
 
+#### Running configuration {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `config` key that contains the running [TSDB storage configuration](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#data-settings).
+Use this to inspect active server settings without direct access to configuration files.
+
+Values in the JSON output use the following representations:
+
+- Size values (such as `cache-max-memory-size`) appear as integers in bytes.
+- Duration values (such as `cache-snapshot-write-cold-duration`) appear as human-readable strings (for example, `"10m0s"`).
+
+The output is similar to the following:
+
+```json
+{
+  "config": {
+    "cache-max-memory-size": 1073741824,
+    "cache-snapshot-memory-size": 26214400,
+    "cache-snapshot-write-cold-duration": "10m0s",
+    "compact-full-write-cold-duration": "4h0m0s",
+    "compact-throughput": 50331648,
+    "compact-throughput-burst": 50331648,
+    "dir": "/var/lib/influxdb/data",
+    "max-concurrent-compactions": 0,
+    "max-index-log-file-size": 1048576,
+    "max-series-per-database": 1000000,
+    "max-values-per-tag": 100000,
+    "series-id-set-cache-size": 100,
+    "wal-dir": "/var/lib/influxdb/wal",
+    "wal-fsync-delay": "0s"
+  }
+}
+```
+
+> [!Note]
+> InfluxDB Enterprise data nodes also expose [cluster configuration](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster-settings) fields through their own diagnostics, including `dial-timeout`, `shard-reader-timeout`, and `rpc-resettable-*-timeout` settings.
+
+#### Continuous query statistics {metadata="v1.12.3+"}
+
+The `/debug/vars` response includes a `cq` key with continuous query execution counters:
+
+```json
+{
+  "cq": {
+    "queryOk": 2,
+    "queryFail": 0
+  }
+}
+```
+
+- `queryOk`: Number of CQ executions that completed successfully.
+- `queryFail`: Number of CQ executions that failed.
+
 ### `/ping` HTTP endpoint
 
 The ping endpoint accepts both `GET` and `HEAD` HTTP requests.
@@ -537,17 +589,18 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1/query_language/ma
 | chunked=[true \| \<number_of_points>] | Optional | Returns points in streamed batches instead of in a single response. If set to `true`, InfluxDB chunks responses by series or by every 10,000 points, whichever occurs first. If set to a specific value, InfluxDB chunks responses by series or by that number of points.*  |
 | db=\<database_name> | Required for database-dependent queries (most [`SELECT`](/enterprise_influxdb/v1/query_language/spec/#select) queries and [`SHOW`](/enterprise_influxdb/v1/query_language/spec/#show-continuous-queries) queries require this parameter). | Sets the target [database](/enterprise_influxdb/v1/concepts/glossary/#database) for the query. |
 | epoch=[ns,u,µ,ms,s,m,h] | Optional | Returns epoch timestamps with the specified precision. By default, InfluxDB returns timestamps in RFC3339 format with nanosecond precision. Both `u` and `µ` indicate microseconds. |
-| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.** | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
+| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.** | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
 | pretty=true | Optional | Enables pretty-printed JSON output. While this is useful for debugging it is not recommended for production use as it consumes unnecessary network bandwidth. |
 | q=\<query> | Required | InfluxQL string to execute.  See also [Request Body](/enterprise_influxdb/v1/tools/api/#request-body). |
-| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
+| time_format=[epoch \| rfc3339] | Optional | Sets the timestamp format in query responses. `epoch` _(default)_ returns epoch timestamps (use with the `epoch` parameter to set precision). `rfc3339` returns timestamps as RFC3339Nano-formatted strings (for example, `2017-03-01T00:16:18.000000000Z`). Returns `400` if set to an invalid value. _Available in InfluxDB Enterprise v1.12.3+._ |
+| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
 That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#max-row-limit)
 configuration option for more information.
 
 \** The InfluxDB API also supports basic authentication.
-Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication)
+Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication)
 and aren't using the query string parameters `u` and `p`.
 See below for an [example](#create-a-database-using-basic-authentication) of basic authentication.
 
@@ -602,6 +655,20 @@ The response body data is similar to the following:
 
 ```bash
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[[1488327378,33.1,null,null],[1488327438,12.4,"12","14"]]}]}]}
+```
+
+##### Query data with a `SELECT` statement and the `time_format` parameter {metadata="v1.12.3+"}
+
+- `time_format=rfc3339`: Return timestamps as RFC3339Nano-formatted strings.
+
+```bash
+curl -G 'http://localhost:8086/query?db=mydb&time_format=rfc3339' --data-urlencode 'q=SELECT * FROM "mymeas"'
+```
+
+The output is similar to the following:
+
+```json
+{"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
 ##### Create a database using HTTP authentication
@@ -927,13 +994,13 @@ POST http://localhost:8086/write
 | :--------------------- | :---------------- | :---------- |
 | consistency=[any,one,quorum,all] | Optional, available with [InfluxDB Enterprise clusters](/enterprise_influxdb/v1/) only. | Sets the write consistency for the point. InfluxDB assumes that the write consistency is `one` if you do not specify `consistency`. See the [InfluxDB Enterprise documentation](/enterprise_influxdb/v1/concepts/clustering#write-consistency) for detailed descriptions of each consistency option. |
 | db=\<database> | Required | Sets the target [database](/enterprise_influxdb/v1/concepts/glossary/#database) for the write. |
-| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
+| p=\<password> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.* | Sets the password for authentication if you've enabled authentication. Use with the query string parameter `u`. |
 | precision=[ns,u,ms,s,m,h] | Optional | Sets the precision for the supplied Unix time values. InfluxDB assumes that timestamps are in nanoseconds if you do not specify `precision`.** |
 | rp=\<retention_policy_name> | Optional | Sets the target [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) for the write. InfluxDB writes to the `DEFAULT` retention policy if you do not specify a retention policy. |
-| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have write access to the database. Use with the query string parameter `p`. |
+| u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have write access to the database. Use with the query string parameter `p`. |
 
 \* The InfluxDB API also supports basic authentication.
-Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1/administration/authentication_and_authorization/#set-up-authentication)
+Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1/administration/configure/security/authentication/#enable-authentication)
 and aren't using the query string parameters `u` and `p`.
 See below for an [example](#write-a-point-to-the-database-mydb-using-basic-authentication) of basic authentication.
 
