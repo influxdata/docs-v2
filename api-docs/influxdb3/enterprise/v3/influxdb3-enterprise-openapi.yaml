@@ -18,7 +18,7 @@ info:
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
     [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
-  version: v3.8.0
+  version: v3.9.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -140,6 +140,31 @@ tags:
     x-related:
       - title: Use compatibility APIs to write data
         href: /influxdb3/enterprise/write-data/http-api/compatibility-apis/
+  - name: Export data (beta)
+    description: |
+      Export compacted data as Parquet files for use with external tools.
+
+      > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+      > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+      > and **should not be used for production workloads**.
+
+      Data must be compacted before it can be exported.
+      Uncompacted data is not available for export at this time.
+
+      #### Export workflow
+
+      1. [List databases](#operation/GetExportDatabases) available for export.
+      2. [List tables](#operation/GetExportTables) in a database.
+      3. [List compacted windows](#operation/GetExportWindows) (24-hour UTC windows) for a table.
+      4. [Download window data](#operation/GetExportWindowData) as Parquet files.
+
+      You can also use the [`influxdb3 export`](/influxdb3/enterprise/performance-preview/#export-to-parquet) CLI
+      commands, which call these endpoints.
+    x-related:
+      - title: Performance upgrade preview
+        href: /influxdb3/enterprise/performance-preview/
+      - title: Export to Parquet
+        href: /influxdb3/enterprise/performance-preview/#export-to-parquet
   - name: Database
     description: Manage databases
   - description: >
@@ -402,6 +427,124 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
+  /api/v3/export/databases:
+    get:
+      operationId: GetExportDatabases
+      summary: "List databases available for export (beta)"
+      description: |
+        Returns a list of databases that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      responses:
+        "200":
+          description: Success. Returns a list of database names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Export data (beta)
+  /api/v3/export/tables:
+    get:
+      operationId: GetExportTables
+      summary: "List tables available for export (beta)"
+      description: |
+        Returns a list of tables in a database that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+      responses:
+        "200":
+          description: Success. Returns a list of table names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database not found.
+      tags:
+        - Export data (beta)
+  /api/v3/export/windows:
+    get:
+      operationId: GetExportWindows
+      summary: "List compacted windows for a table (beta)"
+      description: |
+        Returns a list of compacted 24-hour UTC windows for a table.
+        Each window represents a time range of compacted data that can be exported as Parquet.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+      responses:
+        "200":
+          description: Success. Returns a list of compacted 24-hour windows.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      tags:
+        - Export data (beta)
+  /api/v3/export/window_data:
+    get:
+      operationId: GetExportWindowData
+      summary: "Export window data as Parquet (beta)"
+      description: |
+        Downloads compacted data for the specified windows as a tar archive containing Parquet files.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+        - name: windows
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Comma-separated list of window dates to export (for example, `2026-01-15,2026-01-16`).
+            If omitted, exports all available windows.
+      responses:
+        "200":
+          description: Success. Returns a tar archive containing Parquet files.
+          content:
+            application/x-tar:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database, table, or window not found.
+      tags:
+        - Export data (beta)
   /api/v3/configure/database:
     delete:
       operationId: DeleteConfigureDatabase
@@ -1667,7 +1810,12 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1721,7 +1869,12 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
@@ -1771,7 +1924,14 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       parameters:
         - $ref: "#/components/parameters/db"
         - $ref: "#/components/parameters/querySqlParam"
@@ -1818,12 +1978,124 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
       requestBody:
         $ref: "#/components/requestBodies/queryRequestBody"
+      tags:
+        - Query data
+  /api/v3/query_sql_telemetry:
+    get:
+      operationId: GetQuerySQLTelemetry
+      summary: "Get query telemetry (beta)"
+      description: |
+        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
+        cache hit rates, and timing breakdowns.
+
+        Use this endpoint after executing a query to analyze performance.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+
+        For more information, see
+        [Query telemetry](/influxdb3/enterprise/performance-preview/monitor/#query-telemetry).
+      responses:
+        "200":
+          description: Success. Returns query telemetry data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query_id:
+                    type: string
+                    description: Unique identifier for the query.
+                  execution_time_us:
+                    type: integer
+                    description: Total execution time in microseconds.
+                  chunks:
+                    type: array
+                    description: Per-chunk statistics.
+                    items:
+                      type: object
+                      properties:
+                        chunk_id:
+                          type: string
+                        files_scanned:
+                          type: integer
+                        blocks_processed:
+                          type: integer
+                        rows_read:
+                          type: integer
+                        rows_returned:
+                          type: integer
+                        bytes_read:
+                          type: integer
+                  cache_stats:
+                    type: object
+                    description: Cache hit rates by type.
+                    properties:
+                      gen0_hits:
+                        type: integer
+                      gen0_misses:
+                        type: integer
+                      compacted_hits:
+                        type: integer
+                      compacted_misses:
+                        type: integer
+              example:
+                query_id: "q_12345"
+                execution_time_us: 4523
+                chunks:
+                  - chunk_id: "c_1"
+                    files_scanned: 3
+                    blocks_processed: 12
+                    rows_read: 24000
+                    rows_returned: 150
+                    bytes_read: 1234567
+                cache_stats:
+                  gen0_hits: 5
+                  gen0_misses: 1
+                  compacted_hits: 8
+                  compacted_misses: 2
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query data
+    post:
+      operationId: PostQuerySQLTelemetry
+      summary: "Get query telemetry (beta)"
+      description: |
+        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
+        cache hit rates, and timing breakdowns.
+
+        Use this endpoint after executing a query to analyze performance.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/enterprise/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+
+        For more information, see
+        [Query telemetry](/influxdb3/enterprise/performance-preview/monitor/#query-telemetry).
+      responses:
+        "200":
+          description: Success. Returns query telemetry data.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
       tags:
         - Query data
   /api/v3/write_lp:
@@ -1875,53 +2147,52 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Write line protocol
-      description: >
+      description: |
         Writes line protocol to the specified database.
 
-
         This is the native InfluxDB 3 Enterprise write endpoint that provides enhanced control
-
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
-
         Use this endpoint to send data in [line protocol](/influxdb3/enterprise/reference/syntax/line-protocol/) format
-        to InfluxDB.
-
-        Use query parameters to specify options for writing data.
-
+        to InfluxDB. Use query parameters to specify options for writing data.
 
         #### Features
 
-
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
-
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
-        times but sacrificing durability guarantees
-
+          times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
 
+        #### Column families (performance upgrade preview)
+
+        With the [performance upgrade preview](/influxdb3/enterprise/performance-preview/) enabled
+        (`--use-pacha-tree` flag), you can assign fields to column families using the `::` delimiter
+        in field names. The portion before `::` is the family name; everything after is the field name.
+
+        ```txt
+        metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,mem::free=2048i 1000000000
+        ```
+
+        Fields in the same family are stored together on disk. For wide tables, this reduces I/O
+        by letting queries read only the families they need. Fields written without `::` are assigned
+        to auto-generated families.
+
+        For more information, see [Column families](/influxdb3/enterprise/performance-preview/#column-families).
 
         #### Auto precision detection
 
-
         When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
-
         the timestamp precision based on the magnitude of the timestamp value:
 
-
         - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
-
         - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
-
         - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
-
         - Larger timestamps → Nanosecond precision (no conversion needed)
-
 
         #### Related
 
-
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/enterprise/write-data/http-api/v3-write-lp/)
+        - [Performance upgrade preview](/influxdb3/enterprise/performance-preview/)
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
       tags:
@@ -3791,6 +4062,7 @@ x-tagGroups:
       - Response codes
       - Compatibility endpoints
       - Database
+      - Export data (beta)
       - Processing engine
       - Server information
       - Table
