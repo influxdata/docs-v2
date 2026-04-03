@@ -21,7 +21,7 @@ Rebalancing a cluster involves two primary goals:
 cluster
 * Ensure that every
 shard is on *n* number of nodes, where *n* is determined by the retention policy's
-[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor)
+[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf)
 
 Rebalancing a cluster is essential for cluster health.
 Perform a rebalance if you add a new data node to your cluster.
@@ -59,7 +59,7 @@ all meta nodes.
 
 For demonstration purposes, the next steps assume that you added a third
 data node to a previously two-data-node cluster that has a
-[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor) of
+[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf) of
 two.
 This rebalance procedure is applicable for different cluster sizes and
 replication factors, but some of the specific, user-provided values will depend
@@ -266,7 +266,7 @@ size on the original data nodes and increased the cluster's write throughput.
 
 For demonstration purposes, the next steps assume that you added a third
 data node to a previously two-data-node cluster that has a
-[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor) of
+[replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf) of
 two.
 This rebalance procedure is applicable for different cluster sizes and
 replication factors, but some of the specific, user-provided values will depend

@@ -6,6 +6,77 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.9.0 {date="2026-04-02"}
+
+### Core
+
+#### Features
+
+- **DataFusion upgrade**: Upgraded the embedded DataFusion query engine for more
+  efficient query execution.
+
+- **Python runtime upgrade**: Updated the bundled Python runtime for processing
+  engine plugins with the latest security and bug fixes.
+
+- **Product identity in HTTP responses**: Metrics, HTTP response headers, and
+  metadata now distinguish between Core and Enterprise builds.
+
+- **Database lifecycle hardening**: Background resources such as processing
+  engine triggers are now cleanly decommissioned when a database is removed.
+
+#### Bug fixes
+
+- Additional bug fixes and performance improvements.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific features and fixes:
+
+#### Features
+
+- **Performance upgrade preview (beta)**: Preview major storage layer upgrades
+  with the `--use-pacha-tree` flag. Includes a new columnar file format
+  (`.pt` files), column families for efficient wide-table I/O, bounded L1–L4
+  compaction, and automatic Parquet-to-PachaTree migration with hybrid query
+  mode.
+  See [Performance upgrade preview](/influxdb3/enterprise/performance-preview/).
+
+  > [!Warning]
+  > The performance upgrade preview is a beta feature for staging and test
+  > environments only. Do not use for production workloads.
+
+- **Bulk data export**: Export compacted data as Parquet files for use with
+  external tools. Use the new `influxdb3 export` subcommands to list databases,
+  tables, and compacted time windows, then export selected data.
+  See [Export to Parquet](/influxdb3/enterprise/performance-preview/#export-to-parquet).
+
+- **Automatic distinct value caching**: Enable automatic DVC creation for
+  `SHOW TAG VALUES` queries and the `tag_values()` SQL function with
+  `--pt-enable-auto-dvc`. Max cardinality and refresh intervals are configurable.
+
+- **Downgrade from performance preview**: Use
+  `influxdb3 downgrade-to-parquet` to revert from the performance preview back
+  to standard Parquet storage. Only data that existed before the upgrade
+  (original Parquet files) is preserved.
+  See [Downgrade to Parquet](/influxdb3/enterprise/performance-preview/#downgrade-to-parquet).
+
+- **Non-interactive delete confirmation**: Use the `--yes` (`-y`) flag with
+  delete commands to skip interactive confirmation prompts in automated and
+  headless environments.
+
+- **1MB default string field limit**: The maximum string field size defaults to
+  1MB (previously 64KB) to support v1 migration workloads. Writes exceeding 1MB
+  are rejected with a validation error.
+
+#### Bug fixes
+
+- **Compaction stability**: Multiple fixes to compaction scheduling, priority
+  handling, and resource management for improved stability in multi-node
+  clusters.
+
+- Additional bug fixes and performance improvements.
+
 ## v3.8.4 {date="2026-03-10"}
 
 ### Core

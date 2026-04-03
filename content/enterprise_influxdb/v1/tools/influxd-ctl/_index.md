@@ -58,6 +58,7 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 | `-k`         | Skip certificate verification _(ignored without `-bind-tls`)_            |
 | `-pwd`       | Password for basic authentication _(ignored without `-auth-type basic`)_ |
 | `-secret`    | JWT shared secret _(ignored without `-auth-type jwt`)_                   |
+| `-timeout`   | Override the default timeout of 10s for operations _(for example, `30s`, `1m`)_. _v1.12.3+_ |
 | `-user`      | Username _(ignored without `-auth-type basic` or `jwt`)_                 |
 
 ## Examples
@@ -65,6 +66,7 @@ influxd-ctl [global-flags] <command> [command-flags] [arguments]
 - [Bind to a remote meta node](#bind-to-a-remote-meta-node)
 - [Authenticate with JWT](#authenticate-with-jwt)
 - [Authenticate with basic authentication](#authenticate-with-basic-authentication)
+- [Override the default timeout](#override-the-default-timeout)
 
 ### Bind to a remote meta node
 
@@ -84,11 +86,17 @@ influxd-ctl -auth-type jwt -secret oatclusters
 influxd-ctl -auth-type basic -user admin -pwd passw0rd
 ```
 
+### Override the default timeout {metadata="v1.12.3+"}
+
+```sh
+influxd-ctl -timeout 30s show-shards
+```
+
 {{< expand-wrapper >}}
 {{% expand "Troubleshoot `influxd-ctl` authentication" %}}
 
 If authentication is enabled in the cluster's
-[meta node configuration files](/enterprise_influxdb/v1/administration/config-meta-nodes/#auth-enabled-false)
+[meta node configuration files](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#auth-enabled)
 and [data node configuration files](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-auth-enabled)
 and the `influxd-ctl` command does not include authentication details, the system returns:
 
