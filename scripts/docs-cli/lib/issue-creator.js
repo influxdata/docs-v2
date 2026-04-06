@@ -14,7 +14,10 @@
  * @module issue-creator
  */
 
-import { execSync, execFileSync } from 'child_process';
+import { execFileSync } from 'child_process';
+import { writeFileSync, unlinkSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
 import { scoreSeverity, deriveCategoryLabel } from './gap-severity.js';
 
 // ─── Label management ─────────────────────────────────────────────────────────
@@ -57,8 +60,17 @@ async function ensureLabels(dryRun) {
 
   for (const label of labelsToCreate) {
     try {
-      execSync(
-        `gh label create "${label.name}" --color "${label.color}" --description "${label.description}" 2>/dev/null || true`,
+      execFileSync(
+        'gh',
+        [
+          'label',
+          'create',
+          label.name,
+          '--color',
+          label.color,
+          '--description',
+          label.description,
+        ],
         { stdio: 'pipe' }
       );
     } catch {
@@ -275,18 +287,41 @@ export async function createGapIssues({
       console.log('─'.repeat(72));
       console.log(body);
     } else {
+      const bodyFile = join(tmpdir(), `doc-gap-${gap.operationId}.md`);
       try {
-        const labelArgs = labels.map((l) => `--label "${l}"`).join(' ');
-        execSync(
-          `gh issue create --title "${title.replace(/"/g, '\\"')}" --body "${body.replace(/"/g, '\\"').replace(/\n/g, '\\n')}" ${labelArgs}`,
+        writeFileSync(bodyFile, body, 'utf-8');
+        const labelFlags = labels.flatMap((l) => ['--label', l]);
+        execFileSync(
+          'gh',
+          [
+            'issue',
+            'create',
+            '--title',
+            title,
+            '--body-file',
+            bodyFile,
+            ...labelFlags,
+          ],
           { stdio: ['pipe', 'inherit', 'pipe'] }
         );
         console.log(`  ✓ Created: ${title}`);
       } catch (err) {
-        // If label doesn't exist in repo, retry without product labels
+        // If labels don't exist in repo, retry with only the core labels
         try {
-          execSync(
-            `gh issue create --title "${title.replace(/"/g, '\\"')}" --body "${body.replace(/"/g, '\\"').replace(/\n/g, '\\n')}" --label "documentation" --label "doc-gap"`,
+          execFileSync(
+            'gh',
+            [
+              'issue',
+              'create',
+              '--title',
+              title,
+              '--body-file',
+              bodyFile,
+              '--label',
+              'documentation',
+              '--label',
+              'doc-gap',
+            ],
             { stdio: ['pipe', 'inherit', 'pipe'] }
           );
           console.log(`  ✓ Created (without product labels): ${title}`);
@@ -294,6 +329,12 @@ export async function createGapIssues({
           console.error(
             `  ✗ Failed to create issue for ${gap.operationId}: ${err2.message}`
           );
+        }
+      } finally {
+        try {
+          unlinkSync(bodyFile);
+        } catch {
+          // ignore cleanup errors
         }
       }
     }

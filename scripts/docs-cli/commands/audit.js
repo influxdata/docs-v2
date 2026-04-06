@@ -255,6 +255,17 @@ export default async function audit(args) {
     }
   }
 
+  // Validate --create-issue requires --doc-location-map
+  if (createIssueFlag && !runDocLocationMapFlag) {
+    console.error(
+      'Error: --create-issue requires --doc-location-map to be set'
+    );
+    console.error(
+      'Example: docs audit --products influxdb3_core --doc-location-map --create-issue'
+    );
+    process.exit(1);
+  }
+
   // Validate mutual exclusion
   validateMutualExclusion({ products: productsInput, repos: reposInput });
 
@@ -495,12 +506,45 @@ export default async function audit(args) {
 
       const { runDocLocationMap, writeDocLocationMapReport } =
         await import('../lib/doc-location-map.js');
-      const { generateGapReport } = await import('../lib/gap-reporter.js');
+      const { generateGapReport, computeSpecDelta } = await import(
+        '../lib/gap-reporter.js'
+      );
 
       const outputDir = join(__dirname, '..', '..', 'output', 'gap-reports');
 
+      // When a previous version is given, limit the map to operations that
+      // changed between that version and HEAD so the report stays focused.
+      let filterOperationIds = null;
+      if (previousVersion) {
+        const SPEC_PATHS = {
+          core: 'api-docs/v3/openapi.json',
+          enterprise: 'api-docs/v3/enterprise/openapi.json',
+        };
+        const targetEditions =
+          influxProduct === 'both' ? ['core', 'enterprise'] : [influxProduct];
+        const deltaIds = new Set();
+        for (const ed of targetEditions) {
+          const specPath = SPEC_PATHS[ed];
+          if (specPath) {
+            try {
+              const delta = computeSpecDelta(specPath, previousVersion);
+              for (const id of [
+                ...delta.added,
+                ...delta.modified,
+                ...delta.removed,
+              ]) {
+                deltaIds.add(id);
+              }
+            } catch {
+              // spec path may not exist for this edition; skip silently
+            }
+          }
+        }
+        if (deltaIds.size > 0) filterOperationIds = deltaIds;
+      }
+
       const mapResult = await runDocLocationMap(influxProduct, {
-        ...(previousVersion && { previousVersion }),
+        ...(filterOperationIds && { filterOperationIds }),
       });
 
       await writeDocLocationMapReport(mapResult, outputDir);

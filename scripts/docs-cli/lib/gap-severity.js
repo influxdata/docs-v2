@@ -35,13 +35,19 @@ const PATH_TIER = [
 
   // Token management
   { prefix: '/api/v3/configure/token', tier: 'medium' },
-  { prefix: '/api/v3/configure/token', tier: 'medium' },
 
   // Caching
   { prefix: '/api/v3/configure/distinct_cache', tier: 'medium' },
   { prefix: '/api/v3/configure/last_cache', tier: 'medium' },
 
-  // Processing engine / triggers
+  // Plugin test endpoints — must come before the general trigger prefix
+  {
+    prefix: '/api/v3/configure/processing_engine_trigger/test',
+    tier: 'low',
+    cap: 'low',
+  },
+
+  // Processing engine / triggers (general — after more specific test prefix above)
   { prefix: '/api/v3/configure/processing_engine_trigger', tier: 'medium' },
   { prefix: '/api/v3/engine', tier: 'medium' },
 
@@ -59,12 +65,6 @@ const PATH_TIER = [
   { prefix: '/ping', tier: 'low', cap: 'low' },
   { prefix: '/metrics', tier: 'low', cap: 'low' },
 
-  // Plugin test endpoints — internal / developer tooling
-  {
-    prefix: '/api/v3/configure/processing_engine_trigger/test',
-    tier: 'low',
-    cap: 'low',
-  },
 ];
 
 /**
@@ -208,11 +208,7 @@ export function deriveCategoryLabel(path, tags = []) {
   if (path.startsWith('/api/v3/configure/database'))
     return 'Database management';
   if (path.startsWith('/api/v3/configure/table')) return 'Table management';
-  if (
-    path.startsWith('/api/v3/configure/token') ||
-    path.startsWith('/api/v3/configure/token')
-  )
-    return 'Token management';
+  if (path.startsWith('/api/v3/configure/token')) return 'Token management';
   if (path.startsWith('/api/v3/configure/distinct_cache'))
     return 'Distinct Value Cache';
   if (path.startsWith('/api/v3/configure/last_cache'))

@@ -305,7 +305,6 @@ async function scanContentFiles(
   filterOpIds
 ) {
   const results = new Map(); // operationId → [signal entries]
-  const orphanedRefs = []; // { docPath, operationId } where operationId not in spec
 
   for (const absFile of files) {
     const { frontmatter, body: stubBody } = await parseFrontmatter(absFile);
@@ -351,7 +350,7 @@ async function scanContentFiles(
     }
   }
 
-  return { coverageMap: results, orphanedRefs };
+  return { coverageMap: results };
 }
 
 async function readSharedBody(absPath) {

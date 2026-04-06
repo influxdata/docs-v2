@@ -15,7 +15,7 @@
  * @module gap-reporter
  */
 
-import { promises as fs } from 'fs';
+import { promises as fs, readFileSync } from 'fs';
 import { join, resolve } from 'path';
 import { execSync } from 'child_process';
 import yaml from 'js-yaml';
@@ -64,9 +64,7 @@ export function computeSpecDelta(
 
   try {
     if (toRef === 'HEAD') {
-      newContent = execSync(`cat "${join(repoRoot, specRelPath)}"`, {
-        encoding: 'utf-8',
-      });
+      newContent = readFileSync(join(repoRoot, specRelPath), 'utf-8');
     } else {
       newContent = execSync(
         `git -C "${repoRoot}" show "${toRef}:${specRelPath}"`,

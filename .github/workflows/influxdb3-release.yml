@@ -438,7 +438,7 @@ jobs:
             ${{ needs.audit-api-documentation.outputs.gap_report_generated == 'true' && format('🔴 Critical: **{0}** | 🟠 High: **{1}**', needs.audit-api-documentation.outputs.critical_count, needs.audit-api-documentation.outputs.high_count) || 'Gap analysis did not run or was skipped.' }}
 
             See the [gap report artifact](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for the full list of uncovered operations with severity scores and suggested doc locations.
-            High/critical gaps have been automatically filed as individual GitHub issues.
+            High/critical gaps will be filed as individual GitHub issues by the `create-audit-issue` job (runs after this PR is created).
 
             ### Artifacts:
             - [Release Notes](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
@@ -455,7 +455,7 @@ jobs:
 
   create-audit-issue:
     name: Create Audit Issue
-    needs: [audit-cli-documentation, audit-api-documentation]
+    needs: [audit-cli-documentation, audit-api-documentation, create-documentation-pr]
     runs-on: ubuntu-latest
     if: github.event.inputs.dry_run != 'true' && always() && (needs.audit-cli-documentation.result == 'success' || needs.audit-api-documentation.result == 'success')
 
