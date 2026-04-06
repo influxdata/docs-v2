@@ -1,0 +1,3199 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Back up and restore data in InfluxDB v1.11 | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="To prevent unexpected data loss, back up and restore InfluxDB OSS instances.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-7069/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7069/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/backup_and_restore/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7069/light-theme.bd9eb8e986048ec2ab172c75de9662858b949c77c74ab2ac5661016f160053be.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7069/dark-theme.7848f1471d74a77b1ce8305b8eee411db9d35bdb5baf287610f5890c819ba1f6.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7069/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-7069/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-7069/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-04-06 17:01:44 -0600 -0600">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    
+      <div class="selector-dropdowns">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/backup-restore/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' class="active">InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+        <li>
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/platform/#influxdb-cloud-1' >InfluxDB Cloud 1</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search InfluxDB v1 &amp; Flux'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/'>InfluxDB OSS v1</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/'>About the project</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/release-notes/'>Release notes</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/contributing/'>Contribute to InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/cla/'>Contributor license agreement</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/licenses/'>InfluxDB license</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/about_the_project/third-party/'>Third party software</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/introduction/'>Introduction</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/introduction/download/'>Download InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/introduction/install/'>Install InfluxDB</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/introduction/install/docker/'>Use Docker</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/introduction/get-started/'>Get started with InfluxDB</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/'>Concepts</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/key_concepts/'>Key concepts</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/glossary/'>Glossary</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/crosswalk/'>Compare InfluxDB to SQL databases</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/insights_tradeoffs/'>InfluxDB design insights and tradeoffs</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/schema_and_data_layout/'>Schema design and data layout</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/storage_engine/'>In-memory indexing with TSM</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/time-series-index/'>Time Series Index (TSI) overview</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/tsi-details/'>Time Series Index (TSI) details</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/concepts/file-system-layout/'>File system layout</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/'>Guides</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/write_data/'>Write data with the InfluxDB API</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/query_data/'>Query data with the InfluxDB API</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/downsample_and_retain/'>Downsample and retain data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/hardware_sizing/'>Hardware sizing guidelines</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/guides/calculate_percentages/'>Calculate percentages</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/enterprise_influxdb/v1/guides/migration/'>Migrate to InfluxDB Enterprise</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle open"></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/'>Administration</a>
+      
+        <ul class="children open">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/config/'>Configure InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/identify-version/'>Identify version</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/authentication_and_authorization/'>Manage authentication and authorization</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/upgrading/'>Upgrade InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/https_setup/'>Enable HTTPS</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/logs/'>Log and trace</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/ports/'>Ports</a>
+      
+    </li>
+  
+    <li class="nav-item active">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/backup_and_restore/'>Back up and restore</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/rebuild-tsi-index/'>Rebuild the TSI index</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/compact-series-file/'>Compact a series file</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/security/'>Manage security</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/server_monitoring/'>Monitor InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/stability_and_compatibility/'>Stability and compatibility</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/subscription-management/'>Manage subscriptions</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/'>Tools</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influx-cli/'>influx</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influx-cli/use-influx-cli/'>Use influx CLI</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/'>influxd</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/backup/'>influxd backup</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/config/'>influxd config</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/restore/'>influxd restore</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/run/'>influxd run</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influxd/version/'>influxd version</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/api/'>InfluxDB API reference</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/api_client_libraries/'>InfluxDB client libraries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/influx_inspect/'>Influx Inspect disk utility</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/inch/'>InfluxDB inch tool</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/grafana/'>Grafana</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/tools/mcp-server/'>Documentation MCP server</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/'>Influx Query Language (InfluxQL)</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/sample-data/'>Sample data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/explore-data/'>Explore data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/explore-schema/'>Explore your schema</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/manage-database/'>Manage your database</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/continuous_queries/'>Continuous Queries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/functions/'>Functions</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/math_operators/'>Mathematical operators</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/query_language/spec/'>InfluxQL reference</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/'>Flux</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/installation/'>Enable Flux</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/get-started/'>Get started with Flux</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/get-started/query-influxdb/'>Query InfluxDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/get-started/transform-data/'>Transform your data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/get-started/syntax-basics/'>Syntax basics</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/'>Query with Flux</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/execute-queries/'>Execute Flux queries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/query-fields/'>Query fields and tags</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/group-data/'>Group</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/sort-limit/'>Sort and limit</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/window-aggregate/'>Window &amp; aggregate</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/mathematic-operations/'>Transform data with math</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/calculate-percentages/'>Calculate percentages</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/cumulativesum/'>Cumulative sum</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/fill/'>Fill</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/first-last/'>First &amp; last</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/histograms/'>Histograms</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/increase/'>Increase</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/join/'>Join</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/median/'>Median</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/moving-average/'>Moving Average</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/percentile-quantile/'>Percentile &amp; quantile</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/rate/'>Rate</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/conditional-logic/'>Conditional logic</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/exists/'>Exists</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/scalar-values/'>Extract scalar values</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/geo/'>Geo-temporal data</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/geo/shape-geo-data/'>Shape geo-temporal data</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/geo/filter-by-region/'>Filter by region</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/geo/group-geo-data/'>Group geo-temporal data</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/manipulate-timestamps/'>Manipulate timestamps</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/monitor-states/'>Monitor states</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/sql/'>Query SQL data sources</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/regular-expressions/'>Regular expressions</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/optimize-queries/'>Optimize queries</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/guides/flux-in-dashboards/'>Use Flux in dashboards</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/flux/flux-vs-influxql/'>Flux vs InfluxQL</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/write_protocols/'>Write protocols</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/write_protocols/line_protocol_reference/'>InfluxDB line protocol reference</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/write_protocols/line_protocol_tutorial/'>InfluxDB line protocol tutorial</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/'>Supported protocols</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/collectd/'>CollectD</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/graphite/'>Graphite</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/opentsdb/'>OpenTSDB</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/prometheus/'>Prometheus</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/supported_protocols/udp/'>UDP</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/high_availability/'>High availability</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/troubleshooting/'>Troubleshoot</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/troubleshooting/systemd/'>systemd errors</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/troubleshooting/frequently-asked-questions/'>Frequently asked questions (FAQs)</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/troubleshooting/query_management/'>Query management</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/troubleshooting/errors/'>Error messages</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/influxdb/v1/additional_resources/additional_resources/'>Additional resources</a>
+      
+    </li>
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+    <h4 class="platform">InfluxData Platform</h4>
+    
+
+
+
+
+
+  
+  
+  
+  
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/'>Introduction</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/getting-started/'>Get started</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/'>Monitor</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/'>Monitor the InfluxData Platform</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/internal-vs-external/'>Configurations for monitoring</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/monitoring-dashboards/'>Monitoring dashboards</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/external-monitor-setup/'>Configure a watcher of watchers</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/tools/'>Other monitoring tools</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/tools/measurements-internal/'>InfluxDB _internal measurements</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/tools/kapacitor-measurements/'>Kapacitor measurements</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/tools/show-diagnostics/'>SHOW DIAGNOSTICS</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/influxdata-platform/tools/show-stats/'>SHOW STATS</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-item ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/containers/'>Monitor containers</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/monitoring/containers/kubernetes/'>Monitor Kubernetes</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      <a href="#" class="children-toggle "></a>
+      <a href='/docs-v2/pr-preview/pr-7069/platform/troubleshoot/'>Troubleshoot</a>
+      
+        <ul class="children ">
+        
+  
+  
+  
+  
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/troubleshoot/oom-loops/'>Out-of-memory loops</a>
+      
+    </li>
+  
+    <li class="nav-item ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/troubleshoot/disk-usage/'>Disk usage</a>
+      
+    </li>
+  
+
+        </ul>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/faq/'>Frequently asked questions</a>
+      
+    </li>
+  
+    <li class="nav-category ">
+      
+      <a href='/docs-v2/pr-preview/pr-7069/platform/identify-version/'>Identify version</a>
+      
+    </li>
+  
+
+
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Back up and restore data</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>Use the InfluxDB OSS <span class="current-version">1.12</span> <code>backup</code>, <code>restore</code>, <code>export</code>, and <code>import</code> utilities
+to prevent unexpected data loss and preserve the ability to restore data if it
+ever is lost.</p>
+<p>You can use these tools in your back up and restore procedures to:</p>
+<ul>
+<li>Provide disaster recovery due to unexpected events</li>
+<li>Migrate data to new environments or servers</li>
+<li>Restore instances to a consistent state</li>
+<li>Export and import data for debugging</li>
+</ul>
+<p>Depending on the volume of data to be protected and your application requirements, InfluxDB OSS <span class="current-version">1.12</span> offers two methods, described below, for managing backups and restoring data:</p>
+<ul>
+<li><a href="#backup-and-restore-utilities">Backup and restore utilities</a>: Use for most applications</li>
+<li><a href="#exporting-and-importing-data">Exporting and importing data</a>: Use for very large datasets and to debug data</li>
+</ul>
+
+<div class="block note">
+  
+  
+  <h4 id="back-up-and-restore-between-influxdb-enterprise-and-oss">Back up and restore between InfluxDB Enterprise and OSS</h4>
+<p>Use the <code>backup</code> and <code>restore</code> utilities in
+<a href="/enterprise_influxdb/v1/administration/backup-and-restore/">InfluxDB Enterprise</a> and
+<a href="#backup-and-restore-utilities">InfluxDB OSS (version 1.5 and later)</a> to:</p>
+<ul>
+<li>Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.</li>
+<li>Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.</li>
+</ul>
+</div>
+<h2 id="backup-and-restore-utilities">Backup and restore utilities</h2>
+<p>Use InfluxDB OSS <span class="current-version">1.12</span> <code>backup</code> and <code>restore</code> utilities to:</p>
+<ul>
+<li>Back up and restore multiple databases at a time.</li>
+<li>Back up specific time ranges.</li>
+<li>Create backup files compatible with InfluxDB Enterprise.</li>
+</ul>
+<p>Use the <code>backup</code> and <code>restore</code> utilities to back up and restore data for <code>influxd</code>
+instances of InfluxDB OSS version 1.4 and earlier, version 1.5 and later, and <a href="/enterprise_influxdb/v1/">InfluxDB Enterprise</a>.</p>
+<ul>
+<li><a href="#backup-formats">Backup formats</a>
+<ul>
+<li><a href="#specify-your-backup-format">Specify your backup format</a></li>
+<li><a href="#determine-your-backups-format">Determine your backup’s format</a></li>
+</ul>
+</li>
+<li><a href="#backup-and-restore-requirements">Backup and restore requirements</a></li>
+<li><a href="#important-notes">Important notes</a>
+<ul>
+<li><a href="#time-based-backups">Time-based backups</a></li>
+</ul>
+</li>
+<li><a href="#back-up-data">Back up data</a>
+<ul>
+<li><a href="?t=Portable+format#backup-examples">Backup examples (portable format)</a></li>
+<li><a href="?t=Legacy+format#legacy-backup-examples">Backup examples (legacy format)</a></li>
+</ul>
+</li>
+<li><a href="#restore-data">Restore data</a>
+<ul>
+<li><a href="#restore-examples">Restore examples (portable format)</a></li>
+<li><a href="?t=Legacy+format#online-legacy-restore">Online restore examples (legacy format)</a></li>
+<li><a href="?t=Legacy+format#offline-legacy-restore">Offline restore examples (legacy format)</a></li>
+<li><a href="#restore-data-to-an-existing-database">Restore data to an existing database</a></li>
+</ul>
+</li>
+<li><a href="#configure-backup-and-restore-services">Configure backup and restore services</a></li>
+</ul>
+<h2 id="backup-formats">Backup formats</h2>
+<p>The InfluxDB <code>backup</code> utility outputs data backups in one of two formats: <strong>legacy</strong> or <strong>portable</strong>.
+Each format provides different functionality and support for other versions of InfluxDB.
+The major difference between the formats is that the legacy format can only
+be used with InfluxDB OSS 1.x. The portable format is &ldquo;portable&rdquo; between
+InfluxDB 1.5–<span class="current-version">1.12</span> and <a href="/enterprise_influxdb/v1/">InfluxDB Enterprise</a>.</p>
+
+<div class="note block">
+  <h4 id="use-the-portable-format-for-influxdb-15-and-later">Use the portable format for InfluxDB 1.5 and later</h4>
+<p>Use the portable format unless you need to be able to restore
+the backup to InfluxDB 1.4 or earlier.</p>
+
+</div>
+
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Backup functionality</th>
+          <th style="text-align: center">Legacy format</th>
+          <th style="text-align: center">Portable format</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Back up single databases</td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Back up multiple databases</td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Back up single retention polices</td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Back up multiple retention policies</td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Back up specific time ranges</td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Back up remote databases</td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Restore to <strong>InfluxDB OSS 1.0–1.4</strong></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Restore to <strong>InfluxDB OSS 1.5–<span class="current-version">1.12</span></strong></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Restore to <strong>InfluxDB Enterprise</strong></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"><span class="inline v4 cf-icon Checkmark_New large"></span></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="specify-your-backup-format">Specify your backup format</h3>
+<p>By default, the <code>backup</code> and <code>restore</code> utilities create and restore backups in
+the legacy format.
+To create or restore from a backup or in the portable format, include the
+<code>-portable</code> flag with your backup command.</p>
+
+    
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Create a backup in the portable format</span>
+</span></span><span class="line"><span class="cl">influxd backup <span class='code-callout green'>-portable</span> /path/to/backup-destination
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Restore from a portable backup</span>
+</span></span><span class="line"><span class="cl">influxd restore <span class='code-callout green'>-portable</span> /path/to/backup-destination</span></span></code></pre></div><h3 id="determine-your-backups-format">Determine your backup&rsquo;s format</h3>
+<p>Use the directory structure of the backup directory to determine the format of the backup.</p>
+<h4 id="portable-format-directory-structure">Portable format directory structure</h4>
+
+<div class="fs-diagram">
+<ul>
+<li>backup-directory/
+<ul>
+<li>20060102T150405Z.meta
+<span style="opacity:.5">(InfluxDB metadata)</span></li>
+<li>20060102T150405Z.s00.tar.gz
+<span style="opacity:.5">(InfluxDB time series data <em>(shard)</em>)</span></li>
+<li>20060102T150405Z.s01.tar.gz
+<span style="opacity:.5">(InfluxDB time series data <em>(shard)</em>)</span></li>
+<li>20060102T150405Z.manifest
+<span style="opacity:.5">(Backup manifest)</span></li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h4 id="legacy-format-directory-structure">Legacy format directory structure</h4>
+
+<div class="fs-diagram">
+<ul>
+<li>backup-directory/
+<ul>
+<li>meta.00
+<span style="opacity:.5">(InfluxDB metadata)</span></li>
+<li>&lt;db-name&gt;.&lt;rp-name&gt;.00000.00
+<span style="opacity:.5">(InfluxDB time series data)</span></li>
+<li>&lt;db-name&gt;.&lt;rp-name&gt;.00001.00
+<span style="opacity:.5">(InfluxDB time series data)</span></li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h2 id="backup-and-restore-requirements">Backup and restore requirements</h2>
+<ul>
+<li>The InfluxDB service (<code>influxd</code>) must be running <em>except when performing an
+<a href="?t=Legacy+format#offline-legacy-restore">offline legacy restore</a></em>.</li>
+<li>Both the source and target InfluxDB instances must be the same InfluxDB version
+or differ by only a minor version.
+For example, you can back up data from InfluxDB 1.7 and restore it to an InfluxDB 1.8 instance.
+The only exception is restoring data from InfluxDB 1.8 into 1.11.</li>
+</ul>
+<h2 id="important-notes">Important notes</h2>
+<h3 id="time-based-backups">Time-based backups</h3>
+<p>When executing a backup with <code>-start</code> or <code>-end</code> flags, InfluxDB backs up
+shards, not individual points.
+Each shard is annotated with starting and ending timestamps for the time
+interval included in the shard.
+If a shard contains any points in the specified time range, the entire shard
+is included in the backup.</p>
+<p>Since most shards are highly compacted, extracting shards to inspect each point
+would be highly inefficient and add a significant burden to the underlying system.</p>
+<p>When restoring data from a time-based backup, you are likely to see data outside
+of the backed up time range.</p>
+<hr>
+<h2 id="back-up-data">Back up data</h2>
+<p>Use the <a href="/influxdb/v1/tools/influxd/backup/"><code>influxd backup</code> utility</a> to create
+a backup of time series data and metadata stored in InfluxDB.</p>
+
+<div class="note block">
+  <p><code>backup</code> ignores WAL files and in-memory cache data.</p>
+
+</div>
+
+<p>Provide the following for each <a href="#backup-formats">backup format</a>:</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs small">
+  <p><a href="#">Portable format</a>
+<a href="#">Legacy format</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <ul>
+<li><code>-portable</code>: (<span class="req  ">Required</span>) Specifies the portable backup format</li>
+<li><code>-host</code>: InfluxDB bind address <em>(Only required if creating a backup from a remote InfluxDB host)</em></li>
+<li><code>-db</code>: Database name <em>(If no database name is specified, the command backs up all databases)</em></li>
+<li><code>-rp</code>: Retention policy name
+<em>(If no retention policy is specified, the command backs up all retention policies)</em></li>
+<li><code>-shard</code>: Shard ID <em>(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)</em></li>
+<li><code>-start</code>: Start time <em>(If no start time is specified, the command backs up data from all time.)</em></li>
+<li><code>-stop</code>: Stop time <em>(If no stop time is specified, the command backs up data to now.)</em></li>
+<li>(<span class="req  ">Required</span>) <strong>Backup destination directory path</strong></li>
+</ul>
+<h3 id="backup-examples">Backup examples</h3>
+<ul>
+<li><a href="#back-up-all-databases">Back up all databases</a></li>
+<li><a href="#back-up-all-data-from-a-remote-influxdb-instance">Back up all data from a remote InfluxDB instance</a></li>
+<li><a href="#back-up-a-specific-time-range">Back up a specific time range</a></li>
+<li><a href="#back-up-data-from-a-specific-time-to-now">Back up data from a specific time to now</a></li>
+<li><a href="#back-up-a-specific-database">Back up a specific database</a></li>
+<li><a href="#back-up-a-specific-retention-policy">Back up a specific retention policy</a></li>
+<li><a href="#back-up-a-specific-shard">Back up a specific shard</a></li>
+</ul>
+<h4 id="back-up-all-databases">Back up all databases</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-all-data-from-a-remote-influxdb-instance">Back up all data from a remote InfluxDB instance</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -host 203.0.113.0:8088 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-specific-time-range">Back up a specific time range</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2022-01-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -stop 2022-02-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><p><em>For important information about how time-based backups work, see <a href="#time-based-backups">Time-based backups</a>.</em></p>
+<h4 id="back-up-data-from-a-specific-time-to-now">Back up data from a specific time to now</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2022-01-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><p><em>For important information about how time-based backups work, see <a href="#time-based-backups">Time-based backups</a>.</em></p>
+<h4 id="back-up-a-specific-database">Back up a specific database</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-specific-retention-policy">Back up a specific retention policy</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-specific-shard">Back up a specific shard</h4>
+<div class="note block">
+  <p>To view shard IDs, use the <a href="/influxdb/v1/query_language/spec/#show-shards"><code>SHOW SHARDS</code> InfluxQL statement</a>.</p>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -shard <span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div>
+</section>
+
+
+<section class="tab-content">
+  <ul>
+<li><code>-host</code>: InfluxDB bind address <em>(Only required if creating a backup from a remote InfluxDB host)</em></li>
+<li><code>-db</code>: (<span class="req  ">Required</span>) Database name</li>
+<li><code>-rp</code>: Retention policy name
+<em>(If no retention policy is specified, the command backs up all retention policies)</em></li>
+<li><code>-shard</code>: Shard ID <em>(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)</em></li>
+<li><code>-start</code>: Start time <em>(If no start time is specified, the command backs up data from all time.)</em></li>
+<li><code>-stop</code>: Stop time <em>(If no stop time is specified, the command backs up data to now.)</em></li>
+<li>(<span class="req  ">Required</span>) <strong>Backup destination directory path</strong></li>
+</ul>
+<h3 id="legacy-backup-examples">Legacy backup examples</h3>
+<ul>
+<li><a href="#back-up-a-database">Back up a database</a></li>
+<li><a href="#back-up-a-database-from-a-remote-influxdb-instance">Back up a database from a remote InfluxDB instance</a></li>
+<li><a href="#back-up-a-specific-time-range-legacy">Back up a specific time range</a></li>
+<li><a href="#back-up-data-from-a-specific-time-to-now-legacy">Back up data from a specific time to now</a></li>
+<li><a href="#back-up-a-specific-retention-policy-legacy">Back up a specific retention policy</a></li>
+<li><a href="#back-up-a-specific-shard-legacy">Back up a specific shard</a></li>
+</ul>
+<h4 id="back-up-a-database">Back up a database</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-database-from-a-remote-influxdb-instance">Back up a database from a remote InfluxDB instance</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -host 203.0.113.0:8088 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-specific-time-range-legacy">Back up a specific time range</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2022-01-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -stop 2022-02-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><p><em>For important information about how time-based backups work, see <a href="#time-based-backups">Time-based backups</a>.</em></p>
+<h4 id="back-up-data-from-a-specific-time-to-now-legacy">Back up data from a specific time to now</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2022-01-01T00:00:00Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><p><em>For important information about how time-based backups work, see <a href="#time-based-backups">Time-based backups</a>.</em></p>
+<h4 id="back-up-a-specific-retention-policy-legacy">Back up a specific retention policy</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="back-up-a-specific-shard-legacy">Back up a specific shard</h4>
+<div class="note block">
+  <p>To view shard IDs, use the <a href="/influxdb/v1/query_language/spec/#show-shards"><code>SHOW SHARDS</code> InfluxQL statement</a>.</p>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -shard <span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div>
+</section>
+
+
+</div>
+
+<hr>
+<h2 id="restore-data">Restore data</h2>
+<p>Use the <a href="/influxdb/v1/tools/influxd/restore/"><code>influxd restore</code> utility</a> to
+restore time series data and metadata to InfluxDB from an InfluxDB backup.</p>
+
+<div class="note block">
+  <h4 id="cannot-restore-to-an-existing-database">Cannot restore to an existing database</h4>
+<p>The InfluxDB OSS <span class="current-version">1.12</span> <code>restore</code> utility does <strong>not</strong> support incremental backups.
+When restoring data to a running InfluxDB instance, the <code>restore</code> utility performs a full restore.
+To preserve existing data, the <code>restore</code> utility does not allow restoring data
+to a database that already exists.<a href="#note-offline-restore"><span class="req  ">*</span></a></p>
+<p>If the target database already exists, the <code>restore</code> utility returns an error
+similar to the following:</p>
+<pre tabindex="0"><code>error updating meta: DB metadata not changed. database may already exist</code></pre><p>There is a workaround for restoring data to an existing database.
+For more information, see <a href="#restore-data-to-an-existing-database">Restore data to an existing database</a>.</p>
+<p><span id="note-offline-restore" style="display:inline-block;margin-top:-2rem;padding-top:2rem"></span>
+<span class="req asterisk ">*</span> <em>Offline legacy restores can be used to restore data to an
+existing database, but overwrite all data in the database.</em></p>
+
+</div>
+
+<p>Requirements and commands necessary to restore a backup depend on the
+<a href="#backup-formats">backup format</a>:</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs small">
+  <p><a href="#">Portable format</a>
+<a href="#">Legacy format</a></p>
+
+</div>
+
+
+<section class="tab-content">
+  <ul>
+<li><code>-portable</code>: (<span class="req  ">Required</span>) Specifies the portable backup format</li>
+<li><code>-host</code>: InfluxDB bind address <em>(Only required if restore a backup to a remote InfluxDB host)</em></li>
+<li><code>-db</code>: Database name <em>(If no database name is specified, the command restores all databases)</em></li>
+<li><code>-newdb</code>: New database name <em>(Required when restoring a database that already exists)</em></li>
+<li><code>-rp</code>: Retention policy name
+<em>(If no retention policy is specified, the command restores all retention policies)</em></li>
+<li><code>-newrp</code>: New retention policy name <em>(Required when restoring a retention policy that already exists)</em></li>
+<li><code>-shard</code>: Shard ID <em>(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)</em></li>
+<li>(<span class="req  ">Required</span>) <strong>Backup directory path</strong></li>
+</ul>
+<h3 id="restore-examples">Restore examples</h3>
+<ul>
+<li><a href="#restore-all-databases">Restore all databases</a></li>
+<li><a href="#restore-all-data-to-a-remote-influxdb-instance">Restore all data to a remote InfluxDB instance</a></li>
+<li><a href="#restore-a-specific-database">Restore a specific database</a></li>
+<li><a href="#restore-data-to-a-database-that-already-exists">Restore data to a database that already exists</a></li>
+<li><a href="#restore-a-specific-retention-policy">Restore a specific retention policy</a></li>
+<li><a href="#restore-data-to-a-retention-policy-that-already-exists">Restore data to a retention policy that already exists</a></li>
+<li><a href="#restore-a-specific-shard">Restore a specific shard</a></li>
+</ul>
+<h4 id="restore-all-databases">Restore all databases</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-all-data-to-a-remote-influxdb-instance">Restore all data to a remote InfluxDB instance</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -host 203.0.113.0:8088 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-a-specific-database">Restore a specific database</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-data-to-a-database-that-already-exists">Restore data to a database that already exists</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newdb example-new-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-a-specific-retention-policy">Restore a specific retention policy</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-data-to-a-retention-policy-that-already-exists">Restore data to a retention policy that already exists</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newrp example-new-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h4 id="restore-a-specific-shard">Restore a specific shard</h4>
+<p>To restore a specific shard, you must specify a database and retention policy.
+To view shard IDs, use the <a href="/influxdb/v1/query_language/spec/#show-shards"><code>SHOW SHARDS</code> InfluxQL statement</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -shard <span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div>
+</section>
+
+
+<section class="tab-content">
+  <p>Legacy backups can be restored to a running (online) or stopped (offline) InfluxDB instance.</p>
+<ul>
+<li><a href="#online-legacy-restore">Online legacy restore</a></li>
+<li><a href="#offline-legacy-restore">Offline legacy restore</a></li>
+</ul>
+<h3 id="online-legacy-restore">Online legacy restore</h3>
+<ul>
+<li><code>-online</code>: (<span class="req  ">Required</span>) Specifies that the target InfluxDB instance is running</li>
+<li><code>-host</code>: InfluxDB bind address <em>(Only required if restoring a backup from a remote InfluxDB host)</em></li>
+<li><code>-db</code>: (<span class="req  ">Required</span>) Database name</li>
+<li><code>-newdb</code>: New database name <em>(Required when restoring a database that already exists)</em></li>
+<li><code>-rp</code>: Retention policy name
+<em>(If no retention policy is specified, the command backs up all retention policies)</em></li>
+<li><code>-newrp</code>: New retention policy name <em>(Required when restoring a retention policy that already exists)</em></li>
+<li><code>-shard</code>: Shard ID <em>(If no shard ID is specified, the command restores all shards. Requires a retention policy.)</em></li>
+<li>(<span class="req  ">Required</span>) <strong>Backup destination directory path</strong></li>
+</ul>
+<h4 id="online-legacy-restore-examples">Online legacy restore examples</h4>
+<ul>
+<li><a href="#restore-a-database">Restore a database</a></li>
+<li><a href="#restore-a-database-to-a-remote-influxdb-instance">Restore a database to a remote InfluxDB instance</a></li>
+<li><a href="#restore-data-to-a-database-that-already-exists-legacy">Restore data to a database that already exists</a></li>
+<li><a href="#restore-a-specific-retention-policy-legacy">Restore a specific retention policy</a></li>
+<li><a href="#restore-data-to-a-retention-policy-that-already-exists-legacy">Restore data to a retention policy that already exists</a></li>
+<li><a href="#restore-a-specific-shard-legacy">Restore a specific shard</a></li>
+</ul>
+<h5 id="restore-a-database">Restore a database</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-a-database-to-a-remote-influxdb-instance">Restore a database to a remote InfluxDB instance</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -host 203.0.113.0:8088 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-data-to-a-database-that-already-exists-legacy">Restore data to a database that already exists</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newdb example-new-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-a-specific-retention-policy-legacy">Restore a specific retention policy</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-data-to-a-retention-policy-that-already-exists-legacy">Restore data to a retention policy that already exists</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newrp example-new-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-a-specific-shard-legacy">Restore a specific shard</h5>
+<p>To restore a specific shard, you must specify a database and retention policy.
+To view shard IDs, use the <a href="/influxdb/v1/query_language/spec/#show-shards"><code>SHOW SHARDS</code> InfluxQL statement</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup -online <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -shard <span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h3 id="offline-legacy-restore">Offline legacy restore</h3>
+<div class="warn block">
+  <h4 id="offline-restores-overwrite-data">Offline restores overwrite data</h4>
+<p>Offline restores are destructive and will overwrite all data in the destination database.</p>
+<h4 id="must-be-done-on-the-same-machine-as-influxdb">Must be done on the same machine as InfluxDB</h4>
+<p>Offline restores must be done from the machine where InfluxDB is running.
+They cannot be done remotely unless you console into the machine InfluxDB is
+running on and execute the restore process there.</p>
+</div>
+<ul>
+<li><code>-db</code>: (<span class="req  ">Required</span>) Database name</li>
+<li><code>-newdb</code>: New database name <em>(Required when restoring a database that already exists)</em></li>
+<li><code>-rp</code>: Retention policy name
+<em>(If no retention policy is specified, the command backs up all retention policies)</em></li>
+<li><code>-newrp</code>: New retention policy name <em>(Required when restoring a retention policy that already exists)</em></li>
+<li><code>-datadir</code>: (<span class="req  ">Required</span>) Location of destination data directory on disk <em>(See <a href="/influxdb/v1/concepts/file-system-layout/">InfluxDB file system layout</a>)</em></li>
+<li><code>-metadir</code>: (<span class="req  ">Required</span>) Location of destination meta directory on disk <em>(See <a href="/influxdb/v1/concepts/file-system-layout/">InfluxDB file system layout</a>)</em></li>
+<li><code>-shard</code>: Shard ID <em>(If no shard ID is specified, the command backs up all shards. Requires a retention policy.)</em></li>
+<li>(<span class="req  ">Required</span>) <strong>Backup destination directory path</strong></li>
+</ul>
+<h4 id="offline-legacy-restore-examples">Offline legacy restore examples</h4>
+<ul>
+<li><a href="#restore-a-database-offline">Restore a database</a></li>
+<li><a href="#restore-a-specific-retention-policy-offline">Restore a specific retention policy</a></li>
+<li><a href="#restore-a-specific-shard-offline">Restore a specific shard</a></li>
+</ul>
+<h5 id="restore-a-database-offline">Restore a database</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -datadir /path/to/data-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -metadir /path/to/meta-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-a-specific-retention-policy-offline">Restore a specific retention policy</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-retention-policy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -datadir /path/to/data-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -metadir /path/to/meta-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div><h5 id="restore-a-specific-shard-offline">Restore a specific shard</h5>
+<p>To restore a specific shard, you must specify a database and retention policy.
+To view shard IDs, use the <a href="/influxdb/v1/query_language/spec/#show-shards"><code>SHOW SHARDS</code> InfluxQL statement</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -rp example-rp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -shard <span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -datadir /path/to/data-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -metadir /path/to/meta-directory <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory</span></span></code></pre></div>
+</section>
+
+
+</div>
+
+<h3 id="restore-data-to-an-existing-database">Restore data to an existing database</h3>
+<p>While backups can&rsquo;t be restored directly to an existing database
+(except for <a href="?t=Legacy+format#offline-legacy-restore">offline legacy restores</a>),
+you can do the following to restore data to an existing database:</p>
+<ol>
+<li>
+<p>Restore a backup to a temporary database.</p>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Portable format</a>
+<a href="#">Legacy format</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore -portable <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newdb example-tmp-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory/</span></span></code></pre></div>
+</section>
+
+
+<section class="code-tab-content">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxd restore <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -db example-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -newdb example-tmp-db <span class="se">\
+</span></span></span><span class="line"><span class="cl">  /path/to/backup-directory/</span></span></code></pre></div>
+</section>
+
+    
+</div>
+
+</li>
+<li>
+<p>Use InfluxQL or Flux to query data from the temporary database and write it
+back to the existing database.</p>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">InfluxQL</a>
+<a href="#">Flux</a></p>
+
+</div>
+
+
+<section class="code-tab-content">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Repeat for each retention policy in the temporary database
+</span></span></span><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">INTO</span><span class="w"> </span><span class="s2">&#34;example-db&#34;</span><span class="p">.</span><span class="n">autogen</span><span class="p">.:</span><span class="n">MEASUREMENT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;example-tmp-db&#34;</span><span class="p">.</span><span class="n">autogen</span><span class="p">.</span><span class="o">/</span><span class="p">.</span><span class="o">*/</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="o">*</span></span></span></code></pre></div>
+</section>
+
+
+<section class="code-tab-content">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// Repeat for each retention policy in the temporary database
+</span></span></span><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-tmp-db/autogen&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-db/autogen&#34;</span><span class="p">)</span></span></span></code></pre></div>
+</section>
+
+    
+</div>
+
+<p>InfluxDB handles duplicate points added by this query as it normally does.
+For more information, see
+<a href="/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points">How does InfluxDB handle duplicate points?</a></p>
+</li>
+<li>
+<p>Use InfluxQL to delete the temporary database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;example-tmp-db&#34;</span></span></span></code></pre></div></li>
+</ol>
+<hr>
+<h2 id="configure-backup-and-restore-services">Configure backup and restore services</h2>
+<p>InfluxDB OSS <span class="current-version">1.12</span>  <code>backup</code> and <code>restore</code> utilities execute
+over a TCP connection.
+The default IP and port used for backup and restore remote procedure calls (RPCs)
+are <code>127.0.0.1:8088</code>.</p>
+<p><strong>To customize the TCP IP and port the backup and restore services use</strong>,
+uncomment and update the
+<a href="/influxdb/v1/administration/config#rpc-bind-address"><code>bind-address</code> configuration setting</a>
+at the root level of your InfluxDB configuration file (<code>influxdb.conf</code>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Bind address to use for the RPC service for backup and restore.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bind-address</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1:8088&#34;</span></span></span></code></pre></div><h2 id="exporting-and-importing-data">Exporting and importing data</h2>
+<p>For most applications, the <a href="#backup-and-restore-utilities">backup and restore utilities</a> provide the tools you need for your backup and restore strategy.
+However, in some cases, the standard backup and restore utilities might not adequately handle the volumes of data in your application.</p>
+<p>As an alternative to the standard backup and restore utilities, use the InfluxDB <code>influx_inspect export</code> and <code>influx -import</code> commands to create backup and restore procedures for your disaster recovery and backup strategy. These commands can be executed manually or included in shell scripts that run the export and import operations at scheduled intervals.
+You can use the commands to export and import data between an
+InfluxDB OSS <span class="current-version">1.12</span> instance and an <a href="/enterprise_influxdb/v1/">InfluxDB Enterprise</a> cluster.</p>
+<ul>
+<li><a href="#exporting-data">Exporting data</a></li>
+<li><a href="#importing-data">Importing data</a></li>
+<li><a href="#example-export-and-import-for-disaster-recovery">Example: export and import for disaster recovery</a></li>
+</ul>
+<h3 id="exporting-data">Exporting data</h3>
+<p>Use the <a href="/influxdb/v1/tools/influx_inspect#export"><code>influx_inspect export</code> command</a> to export data in line protocol format from your InfluxDB OSS <span class="current-version">1.12</span> instance.
+Options include the following:</p>
+<ul>
+<li><code>-database</code>: Export all or specific databases</li>
+<li><code>-start</code> and <code>-end</code>: Filter with starting and ending timestamps</li>
+<li><code>-compress</code>: Use GNU zip (gzip) compression for smaller files and faster exports</li>
+</ul>
+<p>The following example shows how to export data filtered to one day and compressed
+for optimal speed and file size:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influx_inspect <span class="nb">export</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -database DATABASE_NAME <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -compress <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -start 2019-05-19T00:00:00.000Z <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -end 2019-05-19T23:59:59.999Z</span></span></code></pre></div><p>The exported file contains the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># DDL</span>
+</span></span><span class="line"><span class="cl">CREATE DATABASE &lt;DATABASE_NAME&gt; WITH NAME &lt;RETENTION_POLICY&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># DML</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTEXT-DATABASE:&lt;DATABASE_NAME&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CONTEXT-RETENTION-POLICY:&lt;RETENTION_POLICY&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;LINE_PROTOCOL_DATA&gt;</span></span></code></pre></div><ul>
+<li><code>DDL</code>: an InfluxQL <code>CREATE</code> statement to create the target database when <a href="#importing-data">importing the data</a></li>
+<li><code>DML</code>: Context metadata that specifies the target database and retention policy
+for <a href="#importing-data">importing the data</a></li>
+<li>the line protocol data</li>
+</ul>
+<p>For details on optional settings and usage, see <a href="/influxdb/v1/tools/influx_inspect#export"><code>influx_inspect export</code> command</a>.</p>
+<h3 id="importing-data">Importing data</h3>
+<p>To import line protocol data from a file, use the <a href="/influxdb/v1/tools/influx-cli/use-influx-cli/#influx-arguments"><code>influx -import</code> CLI command</a>.</p>
+<p>In your import file, include the following sections:</p>
+<ul>
+<li><em>Optional</em>: <strong>DDL (Data Definition Language)</strong>: Contains the <a href="/influxdb/v1/query_language/manage-database/">InfluxQL commands</a> for creating the relevant <a href="/influxdb/v1/concepts/glossary/#database">database</a> and managing the <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
+If your database and retention policy already exist, your file can skip this section.</li>
+<li><strong>DML (Data Manipulation Language)</strong>: Context metadata that specifies the database and (if desired) retention policy for the import and contains the data in <a href="/influxdb/v1/concepts/glossary/#influxdb-line-protocol">line protocol</a>.</li>
+</ul>
+<p>In the following example, the compressed data file (in GNU zip format) is imported into the database
+specified in the file&rsquo;s <code>DML</code> metadata.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">influx -import -path -compressed</span></span></code></pre></div><p>For details on using the <code>influx -import</code> command, see <a href="/influxdb/v1/tools/influx-cli/use-influx-cli/#import-data-from-a-file">Import data from a file</a>.</p>
+<h3 id="example-export-and-import-for-disaster-recovery">Example: export and import for disaster recovery</h3>
+<p>For an example of using the exporting and importing data approach for disaster recovery, see the presentation from Influxdays 2019 on <a href="https://www.youtube.com/watch?v=LyQDhSdnm4A">&ldquo;Architecting for Disaster Recovery.&rdquo;</a>. In this presentation, Capital One discusses the following:</p>
+<ul>
+<li>Exporting data every 15 minutes from an active InfluxDB Enterprise cluster to an AWS S3 bucket.</li>
+<li>Replicating the export file in the S3 bucket using the AWS S3 copy command.</li>
+<li>Importing data every 15 minutes from the AWS S3 bucket to an InfluxDB Enterprise cluster available for disaster recovery.</li>
+<li>Advantages of the export-import approach over the standard backup and restore utilities for large volumes of data.</li>
+<li>Managing users and scheduled exports and imports with a custom administration tool.</li>
+</ul>
+
+
+
+    
+
+    
+    
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v1/administration/backup_and_restore.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7069/influxdb/v1/administration/backup_and_restore/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>What is your InfluxDB OSS URL?</h3>
+  <p>Customize your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll update code examples for you.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;ai_source_group_ids__v1&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud1&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;InfluxQL&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;cloud.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud 1&#34;,&#34;placeholder_host&#34;:&#34;cloud.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Enterprise now in public beta</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
+<ul>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag-apr" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>May 27, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
