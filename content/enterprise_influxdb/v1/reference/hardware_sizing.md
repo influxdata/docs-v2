@@ -96,7 +96,7 @@ The InfluxDB Enterprise web server is primarily an HTTP server with similar load
 
 ### Data nodes
 
-A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
+A cluster with one data node is valid but has no data redundancy. Redundancy is set by the [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf) on the retention policy the data is written to. Where `n` is the replication factor, a cluster can lose `n - 1` data nodes and return complete query results.
 
 >**Note:** For optimal data distribution within the cluster, use an even number of data nodes.
 

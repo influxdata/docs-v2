@@ -11,15 +11,15 @@ menu:
 weight: 203
 influxdb3/enterprise/tags: [storage, monitoring, beta, preview, system tables]
 related:
-  - /influxdb3/enterprise/admin/pachatree/
-  - /influxdb3/enterprise/admin/pachatree/configure/
+  - /influxdb3/enterprise/performance-preview/
+  - /influxdb3/enterprise/performance-preview/configure/
   - /influxdb3/enterprise/admin/query-system-data/
 ---
 
 > [!Warning]
-> #### Private preview beta
+> #### Performance preview beta
 > The performance upgrade preview is available to {{% product-name %}} Trial
-> and Commercial users as a private beta. These features are subject to breaking changes
+> and Commercial users as a beta. These features are subject to breaking changes
 > and **should not be used for production workloads**.
 
 {{% product-name %}} provides system tables and a query telemetry endpoint to
@@ -104,7 +104,7 @@ ORDER BY generation;
 
 ## Parquet upgrade status
 
-If you [upgraded from Parquet](/influxdb3/enterprise/admin/pachatree/#upgrade-from-parquet),
+If you [upgraded from Parquet](/influxdb3/enterprise/performance-preview/#upgrade-from-parquet),
 use these system tables to monitor migration progress.
 
 ### system.upgrade_parquet_node
@@ -315,7 +315,7 @@ FROM system.pt_ingest_wal;
    --pt-snapshot-size 125MB
    ```
 
-3. For distributed deployments, add dedicated compactor nodes:
+3. For distributed deployments, add a dedicated compactor node:
    ```bash
    influxdb3 serve \
      # ...
@@ -336,7 +336,7 @@ FROM system.pt_ingest_wal;
 **Solutions**:
 
 For a full list of replication options, see
-[Replication (query nodes)](/influxdb3/enterprise/admin/pachatree/configure/#replication-query-nodes).
+[Replication (query nodes)](/influxdb3/enterprise/performance-preview/configure/#replication-query-nodes).
 
 1. Increase replication concurrency:
    ```bash

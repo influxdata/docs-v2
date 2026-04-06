@@ -50,19 +50,41 @@ influxd-ctl backup [flags] <backup-dir>
 
 | Flag        | Description                                                         |
 | :---------- | :------------------------------------------------------------------ |
+| `-bufsize`  | Buffer size (in bytes) for writing gzip files. Default is `1048576` (1 MB). _v1.12.3+_ |
+| `-cpuprofile` | Write CPU profile to the specified file path. For debugging backup performance. _v1.12.3+_ |
 | `-db`       | Database to backup                                                  |
 | `-end`      | End date for backup _(RFC3339 timestamp)_                           |
 | `-estimate` | Estimate the size of the requested backup                           |
-| `-from`     | Data node TCP address to prefer when backing up                     |
-| `-full`     | Perform an full backup _(deprecated in favour of `-strategy full`)_ |
+| `-from`     | Data node TCP address to prefer when backing up. In v1.12.3+, the node must exist in the cluster or the command returns an error. When the preferred node doesn't own a shard, the command falls back to other owners sorted by most recent write. See [Node selection](#node-selection). |
+| `-full`     | Perform a full backup _(deprecated in favor of `-strategy full`)_ |
+| `-gzipBlockCount` | Number of concurrent blocks for gzip compression. Default is the number of CPU cores. Recommended: 1-2x CPU cores. _v1.12.3+_ |
+| `-gzipBlockSize` | Block size (in bytes) for pgzip compression. Default is `1048576` (1 MB). Recommended >1 MB for performance. _v1.12.3+_ |
+| `-gzipCompressionLevel` | Gzip compression level: `default`, `full`, `speedy`, or `none`. Default is `default`. _v1.12.3+_ |
 | `-rp`       | Retention policy to backup                                          |
 | `-shard`    | Shard ID to backup                                                  |
+| `-staleness-threshold` | For incremental backups, skip shards modified within this duration of the existing backup. Default is `10m` (matches [`cache-snapshot-write-cold-duration`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-snapshot-write-cold-duration)). _v1.12.3+_ |
 | `-start`    | Start date for backup _(RFC3339 timestamp)_                         |
 | `-strategy` | Backup strategy to use (`only-meta`, `full`, or `incremental`)      |
 
 {{% caption %}}
 _Also see [`influxd-ctl` global flags](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)._
 {{% /caption %}}
+
+## Backup behavior {metadata="v1.12.3+"}
+
+### Node selection
+
+When backing up a shard, the command selects the best data node to read from:
+
+1. Shard copies with zero bytes are skipped.
+2. Copies are sorted by most recent write time — the most recently written copy is tried first.
+3. If you specify `-from`, that node is preferred. If the preferred node doesn't own the shard, the command falls back to other owners.
+4. If the `-from` node doesn't exist in the cluster, the command fails with: `data node "<addr>" does not exist`.
+
+### Staleness threshold
+
+During incremental backups, the `-staleness-threshold` flag controls when a shard is considered current and can be skipped.
+A shard is skipped when the existing backup timestamp plus the staleness threshold is after the shard's last modification time.
 
 ## Examples
 
