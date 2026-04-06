@@ -31,7 +31,7 @@ list_code_example: |
       "token_name": "Read-write for DATABASE1, DATABASE2",
       "permissions": [{
         "resource_type": "db",
-        "resource_identifier": ["DATABASE1","DATABASE2"],
+        "resource_names": ["DATABASE1","DATABASE2"],
         "actions": ["read","write"]
        }],
        "expiry_secs": 300000
@@ -130,8 +130,8 @@ In the request body, provide the following parameters:
 
 - `token_name`: a description of the token, unique within the instance
 - `resource_type`: the resource type for the token, which is always `db`
-- `resource_identifier`: an array of database names to grant permissions to
-  - The resource identifier field supports the `*` wildcard, which grants read or write
+- `resource_names`: an array of database names to grant permissions to
+  - The `resource_names` field supports the `*` wildcard, which grants read or write
     permissions to all databases.
 - `permissions`: an array of token permission actions (`"read"`, `"write"`) for the database
 - `expiry_secs`: Specify the token expiration time in seconds.
@@ -149,7 +149,7 @@ The following example shows how to use the HTTP API to create a database token:
     "token_name": "Read-write for DATABASE1, DATABASE2",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["DATABASE1","DATABASE2"],
+      "resource_names": ["DATABASE1","DATABASE2"],
       "actions": ["read","write"]
      }],
      "expiry_secs": 300000
@@ -211,7 +211,7 @@ curl \
     "token_name": "Read/write token for DATABASE_NAME",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["DATABASE_NAME"],
+      "resource_names": ["DATABASE_NAME"],
       "actions": ["read","write"]
     }]
   }'
@@ -246,7 +246,7 @@ curl \
     "token_name": "Read/write token for all databases",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["*"],
+      "resource_names": ["*"],
       "actions": ["read","write"]
     }]
   }'
@@ -281,7 +281,7 @@ curl \
     "token_name": "Read-only token for DATABASE_NAME",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["DATABASE_NAME"],
+      "resource_names": ["DATABASE_NAME"],
       "actions": ["read"]
     }]
   }'
@@ -316,7 +316,7 @@ curl \
     "token_name": "Read-only token for DATABASE_NAME, DATABASE2_NAME",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["DATABASE_NAME","DATABASE2_NAME"],
+      "resource_names": ["DATABASE_NAME","DATABASE2_NAME"],
       "actions": ["read"]
     }]
   }'
@@ -352,7 +352,7 @@ curl \
     "token_name": "Read/write token for DATABASE_NAME with 7d expiration",
     "permissions": [{
       "resource_type": "db",
-      "resource_identifier": ["DATABASE_NAME"],
+      "resource_names": ["DATABASE_NAME"],
       "actions": ["read","write"]
     }],
     "expiry_secs": 604800
@@ -438,8 +438,8 @@ In the request body, provide the following parameters:
 
 - `token_name`: a description of the token, unique within the instance
 - `resource_type`: the resource type for the token, which is `system` for system tokens
-- `resource_identifier`: an array of system resource names to grant permissions to
-  - The resource identifier field supports the `*` wildcard, which grants read or write
+- `resource_names`: an array of system resource names to grant permissions to
+  - The `resource_names` field supports the `*` wildcard, which grants read or write
     permissions to all system information resources.
 - `permissions`: an array of token permission actions (only `"read"` for system tokens)
 - `expiry_secs`: Specify the token expiration time in seconds.
@@ -458,7 +458,7 @@ curl \
   "token_name": "System health token",
   "permissions": [{
   "resource_type": "system",
-  "resource_identifier": ["health"],
+  "resource_names": ["health"],
   "actions": ["read"]
    }],
    "expiry_secs": 300000
