@@ -9,10 +9,22 @@ menu:
 weight: 101
 ---
 
-## v0.0.5-beta {date="2026-03-26"}
+## v0.0.6-beta {date="TBD"}
 
 <!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v0.0.5-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v0.0.6-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+> [!Important]
+> #### Updated End User License Agreement (EULA)
+>
+> This release includes an updated
+> [EULA for {{% product-name %}}](/telegraf/controller/reference/eula/). After
+> upgrading to this release, **you are required to accept the updated EULA**
+> before {{% product-name %}} starts. For information about different ways to
+> accept the updated EULA, see
+> [Install {{% product-name %}}--Review the EULA](https://docs.influxdata.com/telegraf/controller/install/#review-the-eula).
+
+## v0.0.5-beta {date="2026-03-26"}
 
 ### Important changes
 
