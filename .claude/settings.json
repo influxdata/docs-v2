@@ -107,25 +107,13 @@
         ]
       }
     ],
-    "WorktreeCreate": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile 2>&1 | tail -3",
-            "timeout": 120,
-            "statusMessage": "Installing dependencies in new worktree"
-          }
-        ]
-      }
-    ],
     "SessionStart": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "[ ! -d node_modules ] && CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile 2>&1 | tail -3 || true",
-            "timeout": 120,
+            "command": "[ ! -d node_modules ] && CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_DOWNLOAD=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn install --frozen-lockfile 2>&1 | tail -3 || true",
+            "timeout": 300,
             "async": true,
             "statusMessage": "Checking dependencies"
           }
