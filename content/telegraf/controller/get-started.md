@@ -37,36 +37,88 @@ stdout and reports agent health back to {{% product-name %}}.
     "Getting Started."
 4.  In the **Code Editor**, enter the following TOML:
 
-    ```toml { .tc-dynamic-values }
-    [[inputs.internal]]
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux/macOS](#)
+[Windows](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!-------------------------- BEGIN LINUX/MACOS -------------------------->
 
-    [[outputs.file]]
-      files = ["stdout"]
-      data_format = "influx"
+```toml { .tc-dynamic-values }
+[[inputs.exec]]
+  commands = [
+    "echo 'Telegraf started using configuration from Telegraf Controller'"
+  ]
+  data_format = "value"
+  data_type = "string"
+
+[[outputs.file]]
+  files = ["stdout"]
+
+[[outputs.heartbeat]]
+  url = "http://localhost:8000/agents/heartbeat"
+  instance_id = "&{agent_id}"
+  interval = "1m"
+  include = ["hostname", "statistics", "configs", "status"]
+  token = "${INFLUX_TOKEN}"
+
+  [outputs.heartbeat.status]
+    default = "ok"
+```
+
+<!--------------------------- END LINUX/MACOS --------------------------->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-------------------------- BEGIN SECTION -------------------------->
+
+```toml { .tc-dynamic-values }
+[[inputs.exec]]
+  commands = [
+    "cmd /C echo Telegraf started using configuration from Telegraf Controller"
+  ]
+  data_format = "value"
+  data_type = "string"
+
+[[outputs.file]]
+  files = ["stdout"]
+
+[[outputs.heartbeat]]
+  url = "http://localhost:8000/agents/heartbeat"
+  instance_id = "&{agent_id}"
+  interval = "1m"
+  include = ["hostname", "statistics", "configs", "status"]
+  token = "${INFLUX_TOKEN}"
+
+  [outputs.heartbeat.status]
+    default = "ok"
+```
+
+<!--------------------------- END SECTION --------------------------->
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}    
+
+    This configuration does the following:
     
-    [[outputs.heartbeat]]
-      url = "http://localhost:8000/agents/heartbeat"
-      instance_id = "&{agent_id}"
-      interval = "1m"
-      include = ["hostname", "statistics", "configs", "status"]
-      token = "${INFLUX_TOKEN}"
+    - Uses the `exec` input plugin to execute an `echo` command to output a message.
+    - Uses the `file` output plugin to output the message to `stdout`, formatted
+      as InfluxDB line protocol (default).
+    - Uses the heartbeat plugin to periodically sends agent status information
+      back to {{% product-name %}}, which lets you monitor agent health, track
+      which configurations are loaded, and detect when agents stop reporting.
+    - Uses the `INFLUX_TOKEN` environment variable to authorize with
+      {{% product-name %}}.
+    - Uses the `agent_id` [parameter](/telegraf/controller/configs/dynamic-values/#parameters)
+      to set the `instance_id` which uniquely identifies the Telegraf agent.
 
-      [outputs.heartbeat.status]
-        default = "ok"
-    ```
-
-    Telegraf requires at least one input plugin and one output plugin.
-    This configuration uses the `internal` input plugin to collect Telegraf's
-    own metrics and writes them to stdout using the `file` output plugin.
+    > [!Important]
+    > #### Heartbeat URL and port
+    >
+    > The example above uses `http://localhost` and the default heartbeat port,
+    > `8000`. If you are using HTTPS or a custom domain and port, update the
+    > `url` setting in the Heartbeat output plugin accordingly.
 
 5.  Click **Create Configuration**.
-
-After creating the configuration, {{% product-name %}} automatically adds a
-[heartbeat output plugin](/telegraf/v1/output-plugins/heartbeat/) to the
-configuration.
-The heartbeat plugin periodically sends agent status information back to
-{{% product-name %}}, which lets you monitor agent health, track which
-configurations are loaded, and detect when agents stop reporting.
 
 ## Create an API token
 
@@ -74,9 +126,17 @@ API tokens authenticate Telegraf agents when they retrieve configurations and
 send heartbeats to {{% product-name %}}.
 
 1.  Navigate to the **API Tokens** page.
-2.  Click **Create Token**.
+2.  Click **+ Create API Token**.
 3.  Enter a description—for example, `Getting started agent token`.
-4.  Click **Create**.
+4.  Select a token **Expiration**.
+4.  Select the permissions to assign to the token. For convenience, you can
+    select the one of the available **Permission Presets**.
+    
+    > [!Tip]
+    > The **Telegraf Agent** preset includes all permissions a Telegraf agent
+    > needs to interact with {{% product-name %}}.
+
+5.  Click **Create Token**.
 
 > [!Important]
 > #### Copy and store your token
@@ -84,9 +144,7 @@ send heartbeats to {{% product-name %}}.
 > Copy your API token immediately after creation.
 > The full token value is only displayed once and cannot be retrieved later.
 
-The default token permissions are sufficient for this guide.
-For more information about token permissions, see
-[Manage API tokens](/telegraf/controller/tokens/).
+_For more information about token permissions, see [Manage API tokens](/telegraf/controller/tokens/)._
 
 ## Start a Telegraf agent
 
@@ -100,8 +158,19 @@ configuration from {{% product-name %}} and reports back via the heartbeat plugi
 1.  In {{% product-name %}}, select **Configurations** in the navigation bar.
 2.  Click the name of the configuration you created.
 3.  Click **Use this Configuration**.
-4.  In the command builder modal, enable **Auto-update** and set the interval to
-    `1m` (one minute).
+4.  In the command builder modal:
+    
+    1.  In the **Environment Variables** section, define the **INFLUX_TOKEN**
+        environment variable using the raw token string of the API token you
+        created. This authorizes the Telegraf agent to interact with
+        {{% product-name %}}.
+    2.  In the **Parameters** section, define the **agent_id** parameter with
+        a unique agent identifier.
+    3.  In the **Auto Update** section, enable auto-update and set the interval
+        to `30s`. This instructs Telegraf to check for configuration updates
+        every 30 seconds.
+
+    {{< img-hd src="/img/telegraf/controller-gs-command-builder.png" alt="Telegraf Controller Command Builder" />}}
 5.  Click **Copy Commands** to copy the generated command to your clipboard.
 6.  Paste and run the command in your terminal.
 
@@ -109,8 +178,8 @@ configuration from {{% product-name %}} and reports back via the heartbeat plugi
 
 Alternatively, start the agent manually by running the following commands in
 your terminal.
-Replace the placeholder values with your actual {{% product-name %}} URL,
-configuration ID, and API token:
+Replace the placeholder values with your actual {{% product-name %}} URL and
+port, configuration ID, API token, and agent ID:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -121,12 +190,12 @@ configuration ID, and API token:
 <!------------------- BEGIN LINUX/MACOS ------------------->
 
 <!--pytest.mark.skip-->
-```bash { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID" }
+```bash { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID|AGENT_ID" }
 export INFLUX_TOKEN=YOUR_TC_API_TOKEN
 
 telegraf \
-  --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml" \
-  --config-url-watch-interval 1m
+  --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml?agent_id=AGENT_ID" \
+  --config-url-watch-interval 30s
 ```
 
 <!-------------------- END LINUX/MACOS -------------------->
@@ -135,12 +204,12 @@ telegraf \
 <!-------------------- BEGIN WINDOWS ---------------------->
 
 <!--pytest.mark.skip-->
-```powershell { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID" }
+```powershell { placeholders="YOUR_TC_API_TOKEN|YOUR_CONFIG_ID|AGENT_ID" }
 $env:INFLUX_TOKEN="YOUR_TC_API_TOKEN"
 
 telegraf.exe `
-  --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml" `
-  --config-url-watch-interval 1m
+  --config "http://localhost:8888/api/configs/YOUR_CONFIG_ID/toml?agent_id=AGENT_ID" `
+  --config-url-watch-interval 30s
 ```
 
 <!---------------------- END WINDOWS ---------------------->
@@ -153,18 +222,20 @@ Replace the following:
   API token you created in the [previous step](#create-an-api-token)
 - {{% code-placeholder-key %}}`YOUR_CONFIG_ID`{{% /code-placeholder-key %}}:
   Configuration ID from your configuration's detail page in {{% product-name %}}
+- {{% code-placeholder-key %}}`AGENT_ID`{{% /code-placeholder-key %}}:
+  A unique ID for your Telegraf agent
 
 The `INFLUX_TOKEN` environment variable authorizes the agent to retrieve the
 configuration and send heartbeats to {{% product-name %}}.
 
 The `--config-url-watch-interval` flag tells Telegraf to check for configuration
 updates at the specified interval.
-In this example, the agent checks every minute and automatically reloads the
+In this example, the agent checks every 30 seconds and automatically reloads the
 configuration if it has changed.
 
 After starting, Telegraf retrieves the configuration from {{% product-name %}}
 and begins collecting metrics.
-You should see `internal` metrics printed to stdout.
+You should see `message` printed to stdout formatted as InfluxDB line protocol (default).
 
 ## View the reporting agent
 
@@ -180,30 +251,30 @@ in {{% product-name %}}.
 ## Update the configuration
 
 To see how configuration changes propagate to running agents, update the
-configuration to use a different output format.
+message generated by the `exec` input plugin.
 
 1.  In {{% product-name %}}, select **Configurations** in the navigation bar.
 2.  Click the name of the configuration you created.
-3.  In the **Code Editor**, change the `data_format` from `"influx"` to `"json"`:
+3.  Update the `echo` command to print a different message:
 
-    ```toml
+    ```toml { callout="AN UPDATED" }
     [[outputs.file]]
-      files = ["stdout"]
-      data_format = "json"
+      commands = ["echo 'Telegraf started using AN UPDATED configuration from Telegraf Controller'"]
+      # ...
     ```
 
 4.  Click **Save**.
 
 ## Verify the configuration update
 
-Because you started Telegraf with `--config-url-watch-interval 1m`, the agent
-checks for configuration updates every minute.
-After {{% product-name %}} saves the updated configuration, the agent detects
-the change and automatically reloads.
+Because you started Telegraf with `--config-url-watch-interval 30s`, the agent
+checks for configuration updates every 30 seconds.
+After you update the configuration in {{% product-name %}}, the agent detects
+the change on its next check interval and automatically reloads.
 
 Watch the terminal where Telegraf is running.
-Within one minute, the stdout output changes from InfluxDB line protocol format
-to JSON format, confirming that the agent picked up the updated configuration.
+Within 30 seconds, the message returned in the `stdout` output updates to the 
+new message, confirming that the agent picked up the updated configuration.
 
 ## Next steps
 
