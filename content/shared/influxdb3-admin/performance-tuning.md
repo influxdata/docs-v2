@@ -530,7 +530,7 @@ Control memory pressure from write buffers:
 
 # Configure WAL rotation
 --wal-flush-interval=10s \
---wal-snapshot-size=100MB
+--wal-snapshot-size=100
 ```
 
 ## Advanced tuning options
