@@ -64,7 +64,6 @@ const PATH_TIER = [
   { prefix: '/health', tier: 'low', cap: 'low' },
   { prefix: '/ping', tier: 'low', cap: 'low' },
   { prefix: '/metrics', tier: 'low', cap: 'low' },
-
 ];
 
 /**
