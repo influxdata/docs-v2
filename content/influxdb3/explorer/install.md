@@ -396,10 +396,9 @@ To configure Explorer to trust self-signed or custom CA certificates when connec
 [Docker](#)
 [Docker Compose](#)
 {{% /code-tabs %}}
-
 {{% code-tab-content %}}
-{{< code-callout "NODE_EXTRA_CA_CERTS" >}}
-```bash
+
+```bash { callout="NODE_EXTRA_CA_CERTS" }
 docker run --detach \
   --name influxdb3-explorer \
   --restart unless-stopped \
@@ -413,12 +412,11 @@ docker run --detach \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
-{{< /code-callout >}}
-{{% /code-tab-content %}}
 
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
-{{< code-callout "NODE_EXTRA_CA_CERTS" >}}
-```yaml
+
+```yaml { callout="NODE_EXTRA_CA_CERTS" }
 # docker-compose.yml
 version: '3.8'
 
@@ -440,7 +438,7 @@ services:
       NODE_EXTRA_CA_CERTS: /ca-certs/your-ca.pem
     restart: unless-stopped
 ```
-{{< /code-callout >}}
+
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 

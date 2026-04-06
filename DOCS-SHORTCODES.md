@@ -765,20 +765,6 @@ influx query --host http://localhost:8086 --database DATABASE_NAME
 ```
 ````
 
-> \[!Note]
-> The `{{< code-callout >}}` shortcode is also available for backward compatibility,
-> but the attribute syntax above is preferred for new content.
->
-> ````md
-> {{< code-callout "03a2bbf46249a000" >}}
->
-> ```sh
-> http://localhost:8086/orgs/03a2bbf46249a000/...
-> ```
->
-> {{< /code-callout >}}
-> ````
-
 ### Placeholders in code samples
 
 #### Best Practices
