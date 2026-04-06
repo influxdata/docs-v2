@@ -40,14 +40,18 @@ Documentation Coverage Audit
 Usage: docs audit [options]
 
 Options:
-  --products <keys>      Product keys or content paths (comma-separated)
-                         Examples: influxdb3_core, /influxdb3/core
-  --repos <paths>        Direct repo paths or URLs (alternative to --products)
-  --version <v>          Version/branch/tag to audit (default: main)
-  --categories <list>    Comma-separated categories to audit
-  --branch <name>        docs-v2 branch to compare against (default: master)
-  --output-format <fmt>  Output format: report | drafts | json (default: report)
-  --help, -h             Show this help message
+  --products <keys>       Product keys or content paths (comma-separated)
+                          Examples: influxdb3_core, /influxdb3/core
+  --repos <paths>         Direct repo paths or URLs (alternative to --products)
+  --version <v>           Version/branch/tag to audit (default: main)
+  --previous-version <v>  Previous version tag; scopes doc-location-map to spec delta
+  --categories <list>     Comma-separated categories to audit
+  --branch <name>         docs-v2 branch to compare against (default: master)
+  --output-format <fmt>   Output format: report | drafts | json (default: report)
+  --doc-location-map      Run inverted doc location map (content → spec coverage)
+  --create-issue          Create GitHub issues for high/critical gaps (requires --doc-location-map)
+  --dry-run               Print issue bodies to stdout instead of calling GitHub API
+  --help, -h              Show this help message
 
 Note: --products and --repos are mutually exclusive.
 
@@ -151,9 +155,13 @@ export default async function audit(args) {
   let productsInput = null;
   let reposInput = null;
   let version = 'main'; // Default to main
+  let previousVersion = null;
   let categoryFilter = null;
   let docsBranch = 'master';
   let outputFormat = 'report';
+  let runDocLocationMapFlag = false;
+  let createIssueFlag = false;
+  let dryRunFlag = false;
 
   for (let i = 0; i < positionals.length; i++) {
     const arg = positionals[i];
@@ -188,6 +196,22 @@ export default async function audit(args) {
       }
     } else if (arg.startsWith('--version=')) {
       version = arg.split('=')[1];
+    } else if (arg === '--previous-version') {
+      if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
+        previousVersion = positionals[i + 1];
+        i++;
+      } else {
+        console.error('Error: --previous-version requires a value');
+        process.exit(1);
+      }
+    } else if (arg.startsWith('--previous-version=')) {
+      previousVersion = arg.split('=')[1];
+    } else if (arg === '--doc-location-map') {
+      runDocLocationMapFlag = true;
+    } else if (arg === '--create-issue') {
+      createIssueFlag = true;
+    } else if (arg === '--dry-run') {
+      dryRunFlag = true;
     } else if (arg === '--categories') {
       if (i + 1 < positionals.length && !positionals[i + 1].startsWith('--')) {
         categoryFilter = positionals[i + 1]
@@ -456,6 +480,50 @@ export default async function audit(args) {
           '../lib/api-auditor.js'
         );
         await runAPIAuditFn(influxProduct, version, docsBranch, outputFormat);
+      }
+    }
+
+    // ── Doc location map (inverted: content → spec coverage) ──────────────
+    if (runDocLocationMapFlag && (hasCore || hasEnterprise)) {
+      const influxProduct =
+        hasCore && hasEnterprise ? 'both' : hasEnterprise ? 'enterprise' : 'core';
+
+      console.log(`\n📍 Running doc location map for ${influxProduct}...\n`);
+
+      const { runDocLocationMap, writeDocLocationMapReport } = await import(
+        '../lib/doc-location-map.js'
+      );
+      const { generateGapReport } = await import('../lib/gap-reporter.js');
+
+      const outputDir = join(__dirname, '..', '..', 'output', 'gap-reports');
+
+      const mapResult = await runDocLocationMap(influxProduct, {
+        ...(previousVersion && { previousVersion }),
+      });
+
+      await writeDocLocationMapReport(mapResult, outputDir);
+
+      // Generate severity-scored gap report when previous version is known
+      if (previousVersion) {
+        await generateGapReport({
+          product: influxProduct,
+          version,
+          previousVersion,
+          mapResult,
+          outputDir,
+        });
+      }
+
+      // Create GitHub issues for high/critical gaps
+      if (createIssueFlag) {
+        const { createGapIssues } = await import('../lib/issue-creator.js');
+        await createGapIssues({
+          mapResult,
+          product: influxProduct,
+          version,
+          previousVersion,
+          dryRun: dryRunFlag,
+        });
       }
     }
 

@@ -205,6 +205,87 @@ jobs:
           path: helper-scripts/output/cli-audit/
           retention-days: 90
 
+  audit-api-documentation:
+    name: Audit API Documentation Gaps
+    needs: generate-release-notes-core-enterprise
+    runs-on: ubuntu-latest
+    if: needs.generate-release-notes-core-enterprise.outputs.generated == 'true' && contains(fromJSON('["core", "enterprise"]'), github.event.inputs.product)
+    outputs:
+      gap_report_generated: ${{ steps.gap-analysis.outputs.gap_report_generated }}
+      critical_count: ${{ steps.gap-analysis.outputs.critical_count }}
+      high_count: ${{ steps.gap-analysis.outputs.high_count }}
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0  # Full history needed for spec delta via git diff
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run API gap analysis
+        id: gap-analysis
+        run: |
+          PRODUCT="${{ github.event.inputs.product }}"
+          VERSION="${{ github.event.inputs.version }}"
+          PREV_VERSION="${{ github.event.inputs.previous_version }}"
+
+          echo "Running API doc location map for ${PRODUCT} ${PREV_VERSION}→${VERSION}"
+
+          # Run the audit with doc-location-map and gap report (no GitHub auth needed for this)
+          # The doc-location-map reads only committed files; no source repo access required.
+          # We skip the regular CLI/API source audit (which needs repo access) and run only
+          # the location map by calling the underlying module directly.
+          node --input-type=module << 'SCRIPT'
+            import { runDocLocationMap, writeDocLocationMapReport } from './scripts/docs-cli/lib/doc-location-map.js';
+            import { generateGapReport } from './scripts/docs-cli/lib/gap-reporter.js';
+            import { mkdirSync } from 'fs';
+
+            const product = process.env.PRODUCT;
+            const version = process.env.VERSION;
+            const previousVersion = process.env.PREV_VERSION;
+            const outputDir = 'scripts/docs-cli/output/gap-reports';
+
+            mkdirSync(outputDir, { recursive: true });
+
+            const mapResult = await runDocLocationMap(product);
+            await writeDocLocationMapReport(mapResult, outputDir);
+
+            const report = await generateGapReport({
+              product,
+              version,
+              previousVersion,
+              mapResult,
+              outputDir,
+            });
+
+            // Output counts for downstream jobs
+            const { writeFileSync } = await import('fs');
+            writeFileSync(process.env.GITHUB_OUTPUT || '/dev/null',
+              `gap_report_generated=true\ncritical_count=${report.summary.critical}\nhigh_count=${report.summary.high}\n`,
+              { flag: 'a' }
+            );
+
+            console.log(`\nGap summary: ${JSON.stringify(report.summary)}`);
+          SCRIPT
+        env:
+          PRODUCT: ${{ github.event.inputs.product }}
+          VERSION: ${{ github.event.inputs.version }}
+          PREV_VERSION: ${{ github.event.inputs.previous_version }}
+
+      - name: Upload gap reports
+        uses: actions/upload-artifact@v7
+        with:
+          name: gap-report-${{ github.event.inputs.product }}-${{ github.event.inputs.version }}
+          path: scripts/docs-cli/output/gap-reports/
+          retention-days: 90
+
   # audit-distributed-documentation:
   #   name: Audit Distributed Products Documentation
   #   needs: generate-release-notes-distributed
@@ -266,7 +347,7 @@ jobs:
 
   create-documentation-pr:
     name: Create Documentation PR
-    needs: [generate-release-notes-core-enterprise, audit-cli-documentation]
+    needs: [generate-release-notes-core-enterprise, audit-cli-documentation, audit-api-documentation]
     runs-on: ubuntu-latest
     if: github.event.inputs.dry_run != 'true' && always() && (needs.generate-release-notes-core-enterprise.result == 'success')
 
@@ -349,16 +430,20 @@ jobs:
             This PR contains documentation updates for **${{ github.event.inputs.product }} v${{ github.event.inputs.version }}**
 
             ### Included Updates:
-            - [ ] Release notes
-            - [ ] Version updates
+            - [ ] Release notes (placeholder — replace with content from `docs release-notes ${{ github.event.inputs.previous_version }} ${{ github.event.inputs.version }} --products influxdb3_core,influxdb3_enterprise`)
+            - [ ] Version updates in `data/products.yml`
             - [ ] CLI documentation audit results
+
+            ### API Documentation Gaps
+            ${{ needs.audit-api-documentation.outputs.gap_report_generated == 'true' && format('🔴 Critical: **{0}** | 🟠 High: **{1}**', needs.audit-api-documentation.outputs.critical_count, needs.audit-api-documentation.outputs.high_count) || 'Gap analysis did not run or was skipped.' }}
+
+            See the [gap report artifact](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for the full list of uncovered operations with severity scores and suggested doc locations.
+            High/critical gaps have been automatically filed as individual GitHub issues.
 
             ### Artifacts:
             - [Release Notes](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - [CLI Audit Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-            ### Manual Review Needed:
-            Please review the CLI audit report for any missing or outdated documentation that needs to be updated.
+            - [API Gap Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
             ---
             *This PR was automatically generated by the release workflow.*
@@ -370,9 +455,9 @@ jobs:
 
   create-audit-issue:
     name: Create Audit Issue
-    needs: [audit-cli-documentation]
+    needs: [audit-cli-documentation, audit-api-documentation]
     runs-on: ubuntu-latest
-    if: github.event.inputs.dry_run != 'true' && always() && (needs.audit-cli-documentation.result == 'success')
+    if: github.event.inputs.dry_run != 'true' && always() && (needs.audit-cli-documentation.result == 'success' || needs.audit-api-documentation.result == 'success')
 
     steps:
       - uses: actions/checkout@v6
@@ -381,6 +466,124 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: audit-reports/
+
+      - name: Create per-gap issues for high/critical API gaps
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const product = '${{ github.event.inputs.product }}';
+            const version = '${{ github.event.inputs.version }}';
+
+            const gapReportDir = `audit-reports/gap-report-${product}-${version}`;
+            const gapReportFile = `${gapReportDir}/gap-report-${product}-${version}.json`;
+
+            if (!fs.existsSync(gapReportFile)) {
+              console.log('No gap report found — skipping per-gap issue creation');
+            } else {
+              const report = JSON.parse(fs.readFileSync(gapReportFile, 'utf8'));
+              const actionableGaps = report.gaps.filter(g =>
+                g.severity === 'critical' || g.severity === 'high'
+              );
+
+              console.log(`Creating issues for ${actionableGaps.length} high/critical gaps`);
+
+              for (const gap of actionableGaps) {
+                const severityEmoji = gap.severity === 'critical' ? '🔴' : '🟠';
+                const editionLabel = gap.editionScope === 'both'
+                  ? 'Core and Enterprise'
+                  : `InfluxDB 3 ${gap.editionScope.charAt(0).toUpperCase() + gap.editionScope.slice(1)}`;
+
+                const suggestedPaths = gap.suggestedDocPaths.length > 0
+                  ? gap.suggestedDocPaths.map(p => `- ${p}`).join('\n')
+                  : '- No adjacent documentation found; create a new page in the appropriate section';
+
+                const existingPages = gap.existingDocPages.length > 0
+                  ? gap.existingDocPages.map(p => `- \`${p}\``).join('\n')
+                  : '- None';
+
+                const issueBody = [
+                  `## ${severityEmoji} ${gap.severity.charAt(0).toUpperCase() + gap.severity.slice(1)} Priority Documentation Gap`,
+                  '',
+                  `**Release:** ${product} v${version}`,
+                  `**Category:** ${gap.category}`,
+                  `**Edition scope:** ${editionLabel}`,
+                  `**Change type:** ${gap.changeType}`,
+                  '',
+                  '## Spec Claim',
+                  '',
+                  `| Field | Value |`,
+                  `|-------|-------|`,
+                  `| Operation ID | \`${gap.operationId}\` |`,
+                  `| HTTP method | \`${gap.method}\` |`,
+                  `| API path | \`${gap.path}\` |`,
+                  `| Spec summary | ${gap.summary || '*(not provided)*'} |`,
+                  '',
+                  '## Severity Rationale',
+                  '',
+                  gap.severityRationale,
+                  '',
+                  '## Existing Documentation',
+                  '',
+                  existingPages,
+                  '',
+                  '## Suggested Documentation Location',
+                  '',
+                  suggestedPaths,
+                  '',
+                  gap.note ? `> **Note:** ${gap.note}\n` : '',
+                  '## Engineering Verification Ask',
+                  '',
+                  'Before writing documentation, please confirm:',
+                  '',
+                  `- [ ] Is \`${gap.operationId}\` (\`${gap.method} ${gap.path}\`) intended for public use in v${version}?`,
+                  '- [ ] Does this endpoint replace or extend an existing endpoint? If so, which one?',
+                  '- [ ] What are the primary use cases for end users?',
+                  '- [ ] Are there any known limitations, gotchas, or required prerequisites?',
+                  '- [ ] Is the behavior identical across Core and Enterprise, or are there differences?',
+                  '',
+                  '## Definition of Done',
+                  '',
+                  `- [ ] Engineering confirmed endpoint is public and stable in v${version}`,
+                  '- [ ] Doc page created or updated at suggested location',
+                  '- [ ] API reference entry updated (description, example, parameters)',
+                  '- [ ] Related guides updated if endpoint behavior changed',
+                  `- [ ] Tested against ${product} v${version} release binary`,
+                  gap.editionScope === 'both' || gap.editionScope === 'core'
+                    ? '- [ ] Core behavior documented' : '',
+                  gap.editionScope === 'both' || gap.editionScope === 'enterprise'
+                    ? '- [ ] Enterprise-specific behavior documented (if any)' : '',
+                  gap.editionScope === 'both'
+                    ? '- [ ] Superset relationship noted (Enterprise includes all Core changes)' : '',
+                  '',
+                  '---',
+                  `*Auto-generated by the release documentation pipeline for ${product} v${version}.*`,
+                ].filter(line => line !== '').join('\n');
+
+                const labels = [
+                  'documentation',
+                  'doc-gap',
+                  `doc-gap:${gap.severity}`,
+                  `product:${gap.editionScope === 'both' ? 'influxdb3-core' : 'influxdb3-' + gap.editionScope}`,
+                ].filter(Boolean);
+
+                // Add enterprise label too if both editions affected
+                if (gap.editionScope === 'both') {
+                  labels.push('product:influxdb3-enterprise');
+                }
+
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: `Doc gap [${gap.severity}]: ${gap.operationId} — ${product} v${version}`,
+                  body: issueBody,
+                  labels,
+                });
+
+                console.log(`Created issue for ${gap.operationId} (${gap.severity})`);
+              }
+            }
 
       - name: Create issue from audit
         uses: actions/github-script@v8
@@ -471,6 +674,7 @@ jobs:
       [
         generate-release-notes-core-enterprise,
         audit-cli-documentation,
+        audit-api-documentation,
         create-documentation-pr,
         create-audit-issue,
       ]
@@ -494,6 +698,7 @@ jobs:
           echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| Generate Release Notes (Core/Enterprise) | ${{ needs.generate-release-notes-core-enterprise.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| CLI Documentation Audit | ${{ needs.audit-cli-documentation.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| API Gap Analysis | ${{ needs.audit-api-documentation.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Create Documentation PR | ${{ needs.create-documentation-pr.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Create Audit Issue | ${{ needs.create-audit-issue.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
