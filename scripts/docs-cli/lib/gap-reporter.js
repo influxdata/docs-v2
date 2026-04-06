@@ -19,7 +19,11 @@ import { promises as fs } from 'fs';
 import { join, resolve } from 'path';
 import { execSync } from 'child_process';
 import yaml from 'js-yaml';
-import { scoreSeverity, deriveCategoryLabel, sortBySeverity } from './gap-severity.js';
+import {
+  scoreSeverity,
+  deriveCategoryLabel,
+  sortBySeverity,
+} from './gap-severity.js';
 
 // ─── Spec delta computation ───────────────────────────────────────────────────
 
@@ -35,17 +39,25 @@ import { scoreSeverity, deriveCategoryLabel, sortBySeverity } from './gap-severi
  * @param {string} repoRoot        - Absolute path to docs-v2 repo root
  * @returns {{ added: string[], modified: string[], removed: string[] }}
  */
-export function computeSpecDelta(specRelPath, fromRef, toRef = 'HEAD', repoRoot) {
+export function computeSpecDelta(
+  specRelPath,
+  fromRef,
+  toRef = 'HEAD',
+  repoRoot
+) {
   repoRoot = repoRoot || resolve(new URL('../../..', import.meta.url).pathname);
 
   let oldContent = '';
   let newContent = '';
 
   try {
-    oldContent = execSync(`git -C "${repoRoot}" show "${fromRef}:${specRelPath}"`, {
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
+    oldContent = execSync(
+      `git -C "${repoRoot}" show "${fromRef}:${specRelPath}"`,
+      {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      }
+    );
   } catch {
     // File didn't exist at fromRef — all operations are 'added'
   }
@@ -56,10 +68,13 @@ export function computeSpecDelta(specRelPath, fromRef, toRef = 'HEAD', repoRoot)
         encoding: 'utf-8',
       });
     } else {
-      newContent = execSync(`git -C "${repoRoot}" show "${toRef}:${specRelPath}"`, {
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'pipe'],
-      });
+      newContent = execSync(
+        `git -C "${repoRoot}" show "${toRef}:${specRelPath}"`,
+        {
+          encoding: 'utf-8',
+          stdio: ['pipe', 'pipe', 'pipe'],
+        }
+      );
     }
   } catch {
     // File doesn't exist at toRef — all operations are 'removed'
@@ -146,10 +161,12 @@ function suggestDocPaths(operationId, opInfo, confirmedMap, operationIdToPath) {
     if (coveredOp && coveredOp.path.startsWith(pathPrefix)) {
       for (const entry of entries) {
         // Convert content path to URL-style suggestion
-        const url = '/' + entry.docPath
-          .replace(/\/_index\.md$/, '/')
-          .replace(/\.md$/, '/')
-          .replace(/\/index\.md$/, '/');
+        const url =
+          '/' +
+          entry.docPath
+            .replace(/\/_index\.md$/, '/')
+            .replace(/\.md$/, '/')
+            .replace(/\/index\.md$/, '/');
         suggestions.add(url);
       }
     }
@@ -173,8 +190,18 @@ function buildGapEntries({ mapResult, specDelta }) {
   const gaps = [];
 
   for (const [edition, data] of Object.entries(mapResult.editions)) {
-    const { uncovered, orphaned, confirmedMap, operationIdToPath, specVersion } = data;
-    const editionDelta = specDelta?.[edition] || { added: [], modified: [], removed: [] };
+    const {
+      uncovered,
+      orphaned,
+      confirmedMap,
+      operationIdToPath,
+      specVersion,
+    } = data;
+    const editionDelta = specDelta?.[edition] || {
+      added: [],
+      modified: [],
+      removed: [],
+    };
 
     // Uncovered operations
     for (const opId of uncovered) {
@@ -189,12 +216,23 @@ function buildGapEntries({ mapResult, specDelta }) {
       let editionScope = edition;
       if (mapResult.editions.core && mapResult.editions.enterprise) {
         const inCore = mapResult.editions.core.operationIdToPath.has(opId);
-        const inEnterprise = mapResult.editions.enterprise.operationIdToPath.has(opId);
-        editionScope = inCore && inEnterprise ? 'both' : inCore ? 'core' : 'enterprise';
+        const inEnterprise =
+          mapResult.editions.enterprise.operationIdToPath.has(opId);
+        editionScope =
+          inCore && inEnterprise ? 'both' : inCore ? 'core' : 'enterprise';
       }
 
-      const { severity, rationale } = scoreSeverity(opInfo, editionScope, changeType);
-      const suggestedDocPaths = suggestDocPaths(opId, opInfo, confirmedMap, operationIdToPath);
+      const { severity, rationale } = scoreSeverity(
+        opInfo,
+        editionScope,
+        changeType
+      );
+      const suggestedDocPaths = suggestDocPaths(
+        opId,
+        opInfo,
+        confirmedMap,
+        operationIdToPath
+      );
       const category = deriveCategoryLabel(opInfo.path, opInfo.tags);
 
       gaps.push({
@@ -222,9 +260,14 @@ function buildGapEntries({ mapResult, specDelta }) {
         if (!opInfo) continue;
 
         const editionScope = edition;
-        const { severity, rationale } = scoreSeverity(opInfo, editionScope, 'modified');
+        const { severity, rationale } = scoreSeverity(
+          opInfo,
+          editionScope,
+          'modified'
+        );
         const category = deriveCategoryLabel(opInfo.path, opInfo.tags);
-        const existingPages = confirmedMap.get(opId)?.map((e) => e.docPath) || [];
+        const existingPages =
+          confirmedMap.get(opId)?.map((e) => e.docPath) || [];
 
         gaps.push({
           operationId: opId,
@@ -240,7 +283,9 @@ function buildGapEntries({ mapResult, specDelta }) {
           severity,
           severityRationale: rationale,
           existingDocPages: existingPages,
-          suggestedDocPaths: existingPages.map((p) => '/' + p.replace(/\/_index\.md$/, '/').replace(/\.md$/, '/')),
+          suggestedDocPaths: existingPages.map(
+            (p) => '/' + p.replace(/\/_index\.md$/, '/').replace(/\.md$/, '/')
+          ),
           note: 'Existing docs may need updates for this changed endpoint.',
         });
       }
@@ -260,7 +305,8 @@ function buildGapEntries({ mapResult, specDelta }) {
         specVersion,
         changeType: 'removed',
         severity: 'medium',
-        severityRationale: 'Doc page references a removed endpoint; page needs update or removal',
+        severityRationale:
+          'Doc page references a removed endpoint; page needs update or removal',
         existingDocPages: [ref.docPath],
         suggestedDocPaths: [],
       });
@@ -278,8 +324,16 @@ function buildGapEntries({ mapResult, specDelta }) {
       if (existing.editionScope !== gap.editionScope) {
         existing.editionScope = 'both';
         // Re-score with wider scope
-        const opInfo = { path: existing.path, method: existing.method, tags: existing.tags };
-        const { severity, rationale } = scoreSeverity(opInfo, 'both', existing.changeType);
+        const opInfo = {
+          path: existing.path,
+          method: existing.method,
+          tags: existing.tags,
+        };
+        const { severity, rationale } = scoreSeverity(
+          opInfo,
+          'both',
+          existing.changeType
+        );
         existing.severity = severity;
         existing.severityRationale = rationale;
       }
@@ -325,12 +379,15 @@ export async function generateGapReport({
     specDelta = {};
     const specFiles = {
       core: 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml',
-      enterprise: 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml',
+      enterprise:
+        'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml',
     };
 
     for (const edition of Object.keys(mapResult.editions)) {
       if (specFiles[edition]) {
-        console.log(`   Computing spec delta ${previousVersion}→${version} for ${edition}...`);
+        console.log(
+          `   Computing spec delta ${previousVersion}→${version} for ${edition}...`
+        );
         try {
           specDelta[edition] = computeSpecDelta(
             specFiles[edition],
@@ -343,7 +400,9 @@ export async function generateGapReport({
             `   Delta: +${d.added.length} added, ~${d.modified.length} modified, -${d.removed.length} removed`
           );
         } catch (err) {
-          console.warn(`   ⚠️  Could not compute spec delta for ${edition}: ${err.message}`);
+          console.warn(
+            `   ⚠️  Could not compute spec delta for ${edition}: ${err.message}`
+          );
           specDelta[edition] = { added: [], modified: [], removed: [] };
         }
       }
@@ -385,7 +444,8 @@ export async function generateGapReport({
 
 async function writeMdSummary(report, outputPath) {
   const lines = [];
-  const titleEdition = report.product.charAt(0).toUpperCase() + report.product.slice(1);
+  const titleEdition =
+    report.product.charAt(0).toUpperCase() + report.product.slice(1);
 
   lines.push(`# Documentation Gap Report — InfluxDB 3 ${titleEdition}`);
   lines.push('');
@@ -420,7 +480,9 @@ async function writeMdSummary(report, outputPath) {
     if (sevGaps.length === 0) continue;
 
     const emoji = { critical: '🔴', high: '🟠', medium: '🟡', low: '🔵' }[sev];
-    lines.push(`## ${emoji} ${sev.charAt(0).toUpperCase() + sev.slice(1)} Priority (${sevGaps.length})`);
+    lines.push(
+      `## ${emoji} ${sev.charAt(0).toUpperCase() + sev.slice(1)} Priority (${sevGaps.length})`
+    );
     lines.push('');
 
     for (const gap of sevGaps) {
@@ -433,10 +495,14 @@ async function writeMdSummary(report, outputPath) {
       lines.push(`- **Rationale:** ${gap.severityRationale}`);
       if (gap.summary) lines.push(`- **Summary:** ${gap.summary}`);
       if (gap.existingDocPages.length > 0) {
-        lines.push(`- **Existing docs:** ${gap.existingDocPages.map((p) => `\`${p}\``).join(', ')}`);
+        lines.push(
+          `- **Existing docs:** ${gap.existingDocPages.map((p) => `\`${p}\``).join(', ')}`
+        );
       }
       if (gap.suggestedDocPaths.length > 0) {
-        lines.push(`- **Suggested location:** ${gap.suggestedDocPaths.join(', ')}`);
+        lines.push(
+          `- **Suggested location:** ${gap.suggestedDocPaths.join(', ')}`
+        );
       }
       if (gap.note) lines.push(`- **Note:** ${gap.note}`);
       lines.push('');

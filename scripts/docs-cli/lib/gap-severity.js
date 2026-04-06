@@ -60,7 +60,11 @@ const PATH_TIER = [
   { prefix: '/metrics', tier: 'low', cap: 'low' },
 
   // Plugin test endpoints — internal / developer tooling
-  { prefix: '/api/v3/configure/processing_engine_trigger/test', tier: 'low', cap: 'low' },
+  {
+    prefix: '/api/v3/configure/processing_engine_trigger/test',
+    tier: 'low',
+    cap: 'low',
+  },
 ];
 
 /**
@@ -71,12 +75,12 @@ const TAG_TIER = {
   'Query data': 'high',
   'Manage databases': 'high',
   'Manage tables': 'high',
-  'Authenticate': 'medium',
+  Authenticate: 'medium',
   'Manage tokens': 'medium',
   'Cache data': 'medium',
   'Processing engine': 'medium',
   'Export data': 'medium',
-  'System': 'low',
+  System: 'low',
 };
 
 // Tier ordering for cap enforcement
@@ -100,7 +104,8 @@ function capTier(tier, cap) {
 function baseTierFromPathAndTags(path, tags = []) {
   // Check path prefixes (most specific first)
   for (const entry of PATH_TIER) {
-    if (path.startsWith(entry.prefix)) return { tier: entry.tier, cap: entry.cap };
+    if (path.startsWith(entry.prefix))
+      return { tier: entry.tier, cap: entry.cap };
   }
 
   // Fall back to tag-based lookup
@@ -186,23 +191,44 @@ export function scoreSeverity(operation, editionScope, changeType) {
  * Derive a human-readable category label for an operation.
  */
 export function deriveCategoryLabel(path, tags = []) {
-  if (path.startsWith('/write') || path.startsWith('/api/v2/write') || path.startsWith('/api/v3/write')) {
+  if (
+    path.startsWith('/write') ||
+    path.startsWith('/api/v2/write') ||
+    path.startsWith('/api/v3/write')
+  ) {
     return 'Write data';
   }
-  if (path.startsWith('/query') || path.startsWith('/api/v2/query') || path.startsWith('/api/v3/query')) {
+  if (
+    path.startsWith('/query') ||
+    path.startsWith('/api/v2/query') ||
+    path.startsWith('/api/v3/query')
+  ) {
     return 'Query data';
   }
-  if (path.startsWith('/api/v3/configure/database')) return 'Database management';
+  if (path.startsWith('/api/v3/configure/database'))
+    return 'Database management';
   if (path.startsWith('/api/v3/configure/table')) return 'Table management';
-  if (path.startsWith('/api/v3/configure/token') || path.startsWith('/api/v3/configure/token')) return 'Token management';
-  if (path.startsWith('/api/v3/configure/distinct_cache')) return 'Distinct Value Cache';
-  if (path.startsWith('/api/v3/configure/last_cache')) return 'Last Value Cache';
-  if (path.startsWith('/api/v3/configure/processing_engine_trigger')) return 'Processing engine triggers';
+  if (
+    path.startsWith('/api/v3/configure/token') ||
+    path.startsWith('/api/v3/configure/token')
+  )
+    return 'Token management';
+  if (path.startsWith('/api/v3/configure/distinct_cache'))
+    return 'Distinct Value Cache';
+  if (path.startsWith('/api/v3/configure/last_cache'))
+    return 'Last Value Cache';
+  if (path.startsWith('/api/v3/configure/processing_engine_trigger'))
+    return 'Processing engine triggers';
   if (path.startsWith('/api/v3/engine')) return 'Processing engine';
   if (path.startsWith('/api/v3/export')) return 'Export data';
   if (path.startsWith('/api/v3/enterprise')) return 'Enterprise administration';
   if (path.startsWith('/api/v3/plugins')) return 'Plugin management';
-  if (path.startsWith('/health') || path.startsWith('/ping') || path.startsWith('/metrics')) return 'System';
+  if (
+    path.startsWith('/health') ||
+    path.startsWith('/ping') ||
+    path.startsWith('/metrics')
+  )
+    return 'System';
 
   // Fall back to first tag
   if (tags.length > 0) return tags[0];
@@ -216,5 +242,7 @@ export function deriveCategoryLabel(path, tags = []) {
  */
 export function sortBySeverity(gaps) {
   const order = { critical: 0, high: 1, medium: 2, low: 3 };
-  return [...gaps].sort((a, b) => (order[a.severity] ?? 4) - (order[b.severity] ?? 4));
+  return [...gaps].sort(
+    (a, b) => (order[a.severity] ?? 4) - (order[b.severity] ?? 4)
+  );
 }

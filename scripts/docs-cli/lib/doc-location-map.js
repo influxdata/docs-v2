@@ -24,7 +24,8 @@ import yaml from 'js-yaml';
 
 const SPEC_PATHS = {
   core: 'api-docs/influxdb3/core/v3/influxdb3-core-openapi.yaml',
-  enterprise: 'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml',
+  enterprise:
+    'api-docs/influxdb3/enterprise/v3/influxdb3-enterprise-openapi.yaml',
 };
 
 const CONTENT_ROOTS = {
@@ -296,7 +297,13 @@ function resolveSourcePath(frontmatter, repoRoot) {
  * @param {Set|null} filterOpIds     - If set, only collect signals for these operationIds
  * @returns {Map<string, {docPath, signalType, confidence, editionScope}[]>}
  */
-async function scanContentFiles(files, pathToOpId, repoRoot, productEdition, filterOpIds) {
+async function scanContentFiles(
+  files,
+  pathToOpId,
+  repoRoot,
+  productEdition,
+  filterOpIds
+) {
   const results = new Map(); // operationId → [signal entries]
   const orphanedRefs = []; // { docPath, operationId } where operationId not in spec
 
@@ -333,7 +340,12 @@ async function scanContentFiles(files, pathToOpId, repoRoot, productEdition, fil
       if (!results.has(opId)) results.set(opId, []);
       // Avoid duplicate entries for same docPath + signalType
       const existing = results.get(opId);
-      if (!existing.some((e) => e.docPath === entry.docPath && e.signalType === entry.signalType)) {
+      if (
+        !existing.some(
+          (e) =>
+            e.docPath === entry.docPath && e.signalType === entry.signalType
+        )
+      ) {
         existing.push(entry);
       }
     }
@@ -413,7 +425,8 @@ function reconcile(coverageMap, operationIdToPath, pathToOpId) {
  * }>}
  */
 export async function runDocLocationMap(product, options = {}) {
-  const repoRoot = options.repoRoot || resolve(new URL('../../..', import.meta.url).pathname);
+  const repoRoot =
+    options.repoRoot || resolve(new URL('../../..', import.meta.url).pathname);
   const filterOpIds = options.filterOperationIds || null;
 
   const editions = product === 'both' ? ['core', 'enterprise'] : [product];
@@ -423,7 +436,9 @@ export async function runDocLocationMap(product, options = {}) {
     const specPath = join(repoRoot, SPEC_PATHS[edition]);
     const contentRoot = join(repoRoot, CONTENT_ROOTS[edition]);
 
-    console.log(`\n📍 Doc Location Map — InfluxDB 3 ${edition.charAt(0).toUpperCase() + edition.slice(1)}`);
+    console.log(
+      `\n📍 Doc Location Map — InfluxDB 3 ${edition.charAt(0).toUpperCase() + edition.slice(1)}`
+    );
     console.log(`   Spec:    ${SPEC_PATHS[edition]}`);
     console.log(`   Content: ${CONTENT_ROOTS[edition]}`);
 
@@ -461,7 +476,9 @@ export async function runDocLocationMap(product, options = {}) {
           : 0,
     };
 
-    console.log(`   Covered: ${stats.coveredCount}/${stats.totalOperations} (${stats.coveragePercent}%)`);
+    console.log(
+      `   Covered: ${stats.coveredCount}/${stats.totalOperations} (${stats.coveragePercent}%)`
+    );
     if (orphaned.length > 0) {
       console.log(`   Orphaned references: ${orphaned.length}`);
     }
@@ -489,13 +506,22 @@ export async function writeDocLocationMapReport(mapResult, outputDir) {
   await fs.mkdir(outputDir, { recursive: true });
 
   for (const [edition, data] of Object.entries(mapResult.editions)) {
-    const { confirmedMap, orphaned, uncovered, specVersion, operationIdToPath, stats } = data;
+    const {
+      confirmedMap,
+      orphaned,
+      uncovered,
+      specVersion,
+      operationIdToPath,
+      stats,
+    } = data;
     const timestamp = new Date().toISOString().split('T')[0];
     const filename = `doc-location-map-${edition}-${specVersion}.md`;
     const outputPath = join(outputDir, filename);
 
     const lines = [];
-    lines.push(`# Doc Location Map — InfluxDB 3 ${edition.charAt(0).toUpperCase() + edition.slice(1)}`);
+    lines.push(
+      `# Doc Location Map — InfluxDB 3 ${edition.charAt(0).toUpperCase() + edition.slice(1)}`
+    );
     lines.push('');
     lines.push(`**Spec version:** ${specVersion}`);
     lines.push(`**Generated:** ${timestamp}`);
@@ -506,7 +532,9 @@ export async function writeDocLocationMapReport(mapResult, outputDir) {
     lines.push(`| Metric | Count |`);
     lines.push(`|--------|-------|`);
     lines.push(`| Total operations in spec | ${stats.totalOperations} |`);
-    lines.push(`| Operations with doc coverage | ${stats.coveredCount} (${stats.coveragePercent}%) |`);
+    lines.push(
+      `| Operations with doc coverage | ${stats.coveredCount} (${stats.coveragePercent}%) |`
+    );
     lines.push(`| Operations with no coverage | ${stats.uncoveredCount} |`);
     lines.push(`| Orphaned doc references | ${stats.orphanedCount} |`);
     lines.push('');
@@ -534,14 +562,18 @@ export async function writeDocLocationMapReport(mapResult, outputDir) {
     if (uncovered.length > 0) {
       lines.push('## Uncovered Operations (No Doc Coverage)');
       lines.push('');
-      lines.push('These spec operations have no corresponding documentation page.');
+      lines.push(
+        'These spec operations have no corresponding documentation page.'
+      );
       lines.push('');
       lines.push('| Operation ID | Method | Path | Tags |');
       lines.push('|---|---|---|---|');
       for (const opId of uncovered) {
         const op = operationIdToPath.get(opId);
         const tags = op?.tags?.join(', ') || '';
-        lines.push(`| ${opId} | ${op?.method || ''} | \`${op?.path || ''}\` | ${tags} |`);
+        lines.push(
+          `| ${opId} | ${op?.method || ''} | \`${op?.path || ''}\` | ${tags} |`
+        );
       }
       lines.push('');
     }
@@ -550,7 +582,9 @@ export async function writeDocLocationMapReport(mapResult, outputDir) {
     if (orphaned.length > 0) {
       lines.push('## Orphaned References (Stale Doc Links)');
       lines.push('');
-      lines.push('These doc pages reference operationIds that are no longer in the spec.');
+      lines.push(
+        'These doc pages reference operationIds that are no longer in the spec.'
+      );
       lines.push('');
       lines.push('| Operation ID (missing from spec) | Doc Page |');
       lines.push('|---|---|');

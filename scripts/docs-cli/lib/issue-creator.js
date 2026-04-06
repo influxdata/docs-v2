@@ -26,11 +26,31 @@ import { scoreSeverity, deriveCategoryLabel } from './gap-severity.js';
  */
 async function ensureLabels(dryRun) {
   const labelsToCreate = [
-    { name: 'doc-gap', color: 'd93f0b', description: 'Documentation gap detected by automated pipeline' },
-    { name: 'doc-gap:critical', color: 'b60205', description: 'Critical priority documentation gap' },
-    { name: 'doc-gap:high', color: 'e4e669', description: 'High priority documentation gap' },
-    { name: 'doc-gap:medium', color: '0075ca', description: 'Medium priority documentation gap' },
-    { name: 'doc-gap:low', color: 'cfd3d7', description: 'Low priority documentation gap' },
+    {
+      name: 'doc-gap',
+      color: 'd93f0b',
+      description: 'Documentation gap detected by automated pipeline',
+    },
+    {
+      name: 'doc-gap:critical',
+      color: 'b60205',
+      description: 'Critical priority documentation gap',
+    },
+    {
+      name: 'doc-gap:high',
+      color: 'e4e669',
+      description: 'High priority documentation gap',
+    },
+    {
+      name: 'doc-gap:medium',
+      color: '0075ca',
+      description: 'Medium priority documentation gap',
+    },
+    {
+      name: 'doc-gap:low',
+      color: 'cfd3d7',
+      description: 'Low priority documentation gap',
+    },
   ];
 
   if (dryRun) return; // Skip label creation in dry-run mode
@@ -58,7 +78,9 @@ async function ensureLabels(dryRun) {
  * @returns {string}
  */
 function buildIssueBody(gap, product, version) {
-  const severityEmoji = { critical: '🔴', high: '🟠', medium: '🟡', low: '🔵' }[gap.severity] || '⚪';
+  const severityEmoji =
+    { critical: '🔴', high: '🟠', medium: '🟡', low: '🔵' }[gap.severity] ||
+    '⚪';
   const editionLabel =
     gap.editionScope === 'both'
       ? 'Core and Enterprise'
@@ -79,10 +101,14 @@ function buildIssueBody(gap, product, version) {
     editionDoneItems.push('- [ ] Core behavior documented');
   }
   if (gap.editionScope === 'both' || gap.editionScope === 'enterprise') {
-    editionDoneItems.push('- [ ] Enterprise-specific behavior documented (if any)');
+    editionDoneItems.push(
+      '- [ ] Enterprise-specific behavior documented (if any)'
+    );
   }
   if (gap.editionScope === 'both') {
-    editionDoneItems.push('- [ ] Superset relationship noted (Enterprise includes all Core changes)');
+    editionDoneItems.push(
+      '- [ ] Superset relationship noted (Enterprise includes all Core changes)'
+    );
   }
 
   const sections = [
@@ -177,12 +203,18 @@ export async function createGapIssues({
       let editionScope = edition;
       if (mapResult.editions.core && mapResult.editions.enterprise) {
         const inCore = mapResult.editions.core.operationIdToPath.has(opId);
-        const inEnterprise = mapResult.editions.enterprise.operationIdToPath.has(opId);
-        editionScope = inCore && inEnterprise ? 'both' : inCore ? 'core' : 'enterprise';
+        const inEnterprise =
+          mapResult.editions.enterprise.operationIdToPath.has(opId);
+        editionScope =
+          inCore && inEnterprise ? 'both' : inCore ? 'core' : 'enterprise';
       }
 
       const changeType = 'existing'; // Without delta info here; gap-reporter handles delta scoring
-      const { severity, rationale } = scoreSeverity(opInfo, editionScope, changeType);
+      const { severity, rationale } = scoreSeverity(
+        opInfo,
+        editionScope,
+        changeType
+      );
 
       if (!severities.includes(severity)) continue;
 
@@ -216,7 +248,9 @@ export async function createGapIssues({
     return;
   }
 
-  console.log(`\n📋 ${dryRun ? '[DRY RUN] Would create' : 'Creating'} ${deduped.length} issue(s) for ${severities.join('/')} gaps...`);
+  console.log(
+    `\n📋 ${dryRun ? '[DRY RUN] Would create' : 'Creating'} ${deduped.length} issue(s) for ${severities.join('/')} gaps...`
+  );
 
   if (!dryRun) {
     await ensureLabels(false);
@@ -226,11 +260,7 @@ export async function createGapIssues({
     const title = `Doc gap [${gap.severity}]: ${gap.operationId} — ${product} v${version}`;
     const body = buildIssueBody(gap, product, version);
 
-    const labels = [
-      'documentation',
-      'doc-gap',
-      `doc-gap:${gap.severity}`,
-    ];
+    const labels = ['documentation', 'doc-gap', `doc-gap:${gap.severity}`];
 
     if (gap.editionScope === 'both') {
       labels.push('product:influxdb3-core', 'product:influxdb3-enterprise');
@@ -261,7 +291,9 @@ export async function createGapIssues({
           );
           console.log(`  ✓ Created (without product labels): ${title}`);
         } catch (err2) {
-          console.error(`  ✗ Failed to create issue for ${gap.operationId}: ${err2.message}`);
+          console.error(
+            `  ✗ Failed to create issue for ${gap.operationId}: ${err2.message}`
+          );
         }
       }
     }
@@ -269,6 +301,8 @@ export async function createGapIssues({
 
   if (dryRun) {
     console.log('\n' + '─'.repeat(72));
-    console.log(`[DRY RUN] Would have created ${deduped.length} issue(s). Pass --create-issue without --dry-run to create them.`);
+    console.log(
+      `[DRY RUN] Would have created ${deduped.length} issue(s). Pass --create-issue without --dry-run to create them.`
+    );
   }
 }

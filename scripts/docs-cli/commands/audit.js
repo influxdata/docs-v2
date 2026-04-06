@@ -476,9 +476,8 @@ export default async function audit(args) {
 
       if (runAPIAudit) {
         console.log(`📋 Running API audit for ${influxProduct}...\n`);
-        const { runAPIAudit: runAPIAuditFn } = await import(
-          '../lib/api-auditor.js'
-        );
+        const { runAPIAudit: runAPIAuditFn } =
+          await import('../lib/api-auditor.js');
         await runAPIAuditFn(influxProduct, version, docsBranch, outputFormat);
       }
     }
@@ -486,13 +485,16 @@ export default async function audit(args) {
     // ── Doc location map (inverted: content → spec coverage) ──────────────
     if (runDocLocationMapFlag && (hasCore || hasEnterprise)) {
       const influxProduct =
-        hasCore && hasEnterprise ? 'both' : hasEnterprise ? 'enterprise' : 'core';
+        hasCore && hasEnterprise
+          ? 'both'
+          : hasEnterprise
+            ? 'enterprise'
+            : 'core';
 
       console.log(`\n📍 Running doc location map for ${influxProduct}...\n`);
 
-      const { runDocLocationMap, writeDocLocationMapReport } = await import(
-        '../lib/doc-location-map.js'
-      );
+      const { runDocLocationMap, writeDocLocationMapReport } =
+        await import('../lib/doc-location-map.js');
       const { generateGapReport } = await import('../lib/gap-reporter.js');
 
       const outputDir = join(__dirname, '..', '..', 'output', 'gap-reports');
