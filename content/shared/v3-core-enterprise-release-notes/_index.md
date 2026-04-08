@@ -37,9 +37,8 @@ Additional Enterprise-specific features and fixes:
 
 - **Performance upgrade preview (beta)**: Preview major storage layer upgrades
   with the `--use-pacha-tree` flag. Includes a new columnar file format
-  (`.pt` files), column families for efficient wide-table I/O, bounded L1–L4
-  compaction, and automatic Parquet-to-PachaTree migration with hybrid query
-  mode.
+  (`.pt` files), automatic Parquet migration with hybrid query mode,
+  column families for efficient wide-table I/O, and bounded compaction.
   See [Performance upgrade preview](/influxdb3/enterprise/performance-preview/).
 
   > [!Warning]

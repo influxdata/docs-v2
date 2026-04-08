@@ -247,8 +247,7 @@ If a column exists on both sides of the join and is used in the `SELECT`,
 sides of the join have a `time` column and you want to explicitly select a
 time column, you must specifiy which side of the join to use the time column from:
 
-{{% code-callout "prod_line.time" "green" %}}
-```
+```sql { callout="prod_line.time" callout-color="green" }
 SELECT
   prod_line.time,
   produced,
@@ -258,4 +257,3 @@ FROM
 INNER JOIN errors ON
   -- ...
 ```
-{{% /code-callout %}}

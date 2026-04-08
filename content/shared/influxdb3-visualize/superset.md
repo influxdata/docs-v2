@@ -214,17 +214,13 @@ a database connection.
     - **`?database`**: URL-encoded [database](/influxdb3/version/admin/databases/) name
     - **`?token`**: {{< product-name >}} {{% token-link %}}
 
-    {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
-{{< code-callout "localhost|8181|example-database|example-token" >}}
-```sh
-# Syntax
-datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
+    ```sh { callout="(&lt;(domain|port|database-name|token)&gt;)|localhost|8181|example-database|example-token" }
+    # Syntax
+    datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
 
-# Example
-datafusion+flightsql://{{< influxdb/host >}}?database=example-database&token=example-token
-```
-{{< /code-callout >}}
-    {{< /code-callout >}}
+    # Example
+    datafusion+flightsql://{{< influxdb/host >}}?database=example-database&token=example-token
+    ```
 
 6.  Click **Test Connection** to ensure the connection works.
 7.  Click **Connect** to save the database connection.

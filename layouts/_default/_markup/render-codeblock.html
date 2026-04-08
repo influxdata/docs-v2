@@ -1,13 +1,20 @@
 {{ $result := transform.HighlightCodeBlock . }}
-{{ if .Attributes.placeholders }}
-  {{ $elReplace := print "<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit $0' class='code-placeholder' data-code-var='$0' data-code-var-value='$0' data-code-var-escaped=\"$0\">$0<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>" }}
-  {{ $highlightedCode := highlight .Inner .Type }}
-  {{ $withPlaceholders := replaceRE .Attributes.placeholders $elReplace $highlightedCode }}
-  {{ $withPlaceholders | safeHTML }}
-{{ else }}
+{{- if or .Attributes.placeholders .Attributes.callout -}}
+  {{ $code := highlight .Inner .Type }}
+  {{- if .Attributes.placeholders -}}
+    {{ $placeholderReplace := print "<div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit $0' class='code-placeholder' data-code-var='$0' data-code-var-value='$0' data-code-var-escaped=\"$0\">$0<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>" }}
+    {{ $code = replaceRE .Attributes.placeholders $placeholderReplace $code }}
+  {{- end -}}
+  {{- if .Attributes.callout -}}
+    {{ $color := index .Attributes "callout-color" | default "green" }}
+    {{ $calloutReplace := print "<span class='code-callout " $color "'>$0</span>" }}
+    {{ $code = replaceRE .Attributes.callout $calloutReplace $code }}
+  {{- end -}}
+  {{ $code | safeHTML }}
+{{- else -}}
   {{- $wrapped := string $result.Wrapped -}}
   {{- if in $wrapped "tc-dynamic-values" -}}
     {{- $wrapped = replace $wrapped "tc-dynamic-values" "tc-dynamic-values\" data-component=\"tc-dynamic-values" -}}
   {{- end -}}
   {{ $wrapped | safeHTML }}
-{{ end }}
+{{- end -}}

@@ -21,8 +21,6 @@ If you belong to more than one organization with the same email address, you can
 
 After logging in to the InfluxDB UI, your organization ID appears in the URL--for example:
 
-{{< code-callout "03a2bbf46249a000" >}}
-```sh
+```sh { callout="03a2bbf46249a000" }
 https://{{< influxdb/host >}}/orgs/03a2bbf46249a000/...
 ```
-{{< /code-callout >}}

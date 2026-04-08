@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["hugo", "server"],
+      "port": 1313
+    },
+    {
+      "name": "docs-test",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["hugo", "server", "--environment", "testing", "--port", "1315", "--noHTTPCache"],
+      "port": 1315
+    }
+  ]
+}
