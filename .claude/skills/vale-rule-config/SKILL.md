@@ -152,12 +152,6 @@ tokens:
   - '(?<=\s)Internet(?! Service Provider| Protocol)'
 ```
 
-### Critical Limitation: Vale Cannot Match URLs
-
-`TokenIgnores` in `.vale.ini` strips all URLs before rules run. **No rule — `existence`, `substitution`, or `raw` — can match content inside a URL.** This applies globally and cannot be overridden per-rule.
-
-For URL pattern validation (e.g., enforcing canonical support URLs), use a shell script or pre-commit hook instead of a Vale rule. See `.ci/scripts/check-support-links.sh` for an example.
-
 ### tokens vs raw
 
 **tokens:**
@@ -265,7 +259,20 @@ BasedOnStyles = Google, InfluxDataDocs
 
 ### Product-Specific Config
 
-Product configs must mirror all disabled rules from root `.vale.ini` (rules disabled in root are NOT inherited). See the `vale-linting` skill for a complete product config example with all disabled rules.
+Example: `content/influxdb/cloud-dedicated/.vale.ini`
+
+```ini
+StylesPath = .ci/vale/styles
+MinAlertLevel = error
+Vocab = Cloud-Dedicated
+
+[*.md]
+BasedOnStyles = Google, InfluxDataDocs, Cloud-Dedicated
+
+# Disable specific rules for this product
+Google.Headings = NO
+InfluxDataDocs.TechnicalTerms = NO
+```
 
 ### Rule Configuration
 
