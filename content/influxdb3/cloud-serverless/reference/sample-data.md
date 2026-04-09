@@ -68,8 +68,7 @@ to {{< product-name >}}.
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
@@ -104,15 +103,13 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/write?db=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
@@ -146,7 +143,6 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
@@ -157,8 +153,8 @@ Replace the following in the sample script:
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
-  an [API token](/influxdb3/cloud-serverless/admin/tokens/) with _write_ pe
-  mission to the bucket
+  an [API token](/influxdb3/cloud-serverless/admin/tokens/) with _write_
+  permission to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -211,8 +207,7 @@ to {{< product-name >}}.
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
@@ -229,15 +224,13 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
 '
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/write?db=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
@@ -253,7 +246,6 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
 '
 ```
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
@@ -311,8 +303,7 @@ Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
@@ -320,20 +311,17 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -367,7 +355,7 @@ The dataset includes a hierarchical tag set of country, county, and city.
       - _20 countries_
     - county
       - _111 counties_
-    - city 
+    - city
       - _129 cities_
   - **fields**:
     - wind_speed <em style="opacity: .5">(float)</em>
@@ -466,8 +454,7 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
@@ -475,20 +462,17 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -537,8 +521,7 @@ Use the InfluxDB v2 or v1 API to write the random number sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
@@ -546,20 +529,17 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
-```sh
+```sh { placeholders="API_TOKEN|BUCKET_NAME" }
 curl --request POST \
   https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
