@@ -1471,3 +1471,108 @@ and all the rows with the `hum` field will be in another.
 ## Ask AI Link
 
 Can't access your InfluxDB instance? {{< ask-ai-link link-text="Ask InfluxData AI" query="What's my InfluxDB version?" >}} for help.
+
+## Render-regression fixtures
+
+The sections below exercise the code-block render hook combinations that
+were broken in influxdata/docs-v2#7079. They exist to give the
+`cypress/e2e/content/render-regression.cy.js` spec something to assert
+against and to make this page a meaningful smoke test for any PR that
+touches `layouts/_default/_markup/render-codeblock.html` or any wrapper
+shortcode that contains fenced code. When adding coverage for a new
+render-hook attribute combination, add a matching fixture here.
+
+### Placeholder fence attribute
+
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+curl --request POST \
+  http://localhost:8181/api/v3/write_lp?db=DATABASE_NAME \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data-raw "home,room=Kitchen temp=22.1"
+```
+
+### Placeholder fence attribute with regex group
+
+```sh { placeholders="DATABASE_(TOKEN|NAME)" }
+influxctl write --token DATABASE_TOKEN --database DATABASE_NAME
+```
+
+### Callout fence attribute
+
+```sh { callout="--host" }
+influx query --host http://localhost:8086
+```
+
+### Callout fence attribute with explicit color
+
+```sh { callout="--host" callout-color="magenta" }
+influx query --host http://localhost:8086
+```
+
+### Placeholder and callout on the same fence
+
+```sh { placeholders="DATABASE_NAME" callout="--host" callout-color="orange" }
+influx query --host http://localhost:8086 --database DATABASE_NAME
+```
+
+### Placeholder fence inside a custom-timestamps wrapper
+
+The `influxdb/custom-timestamps` wrapper was one of the shortcodes
+affected by #7079 — it wraps code blocks that include timestamps so the
+UI can rewrite them. This fixture exercises a placeholder code fence
+inside that wrapper.
+
+{{% influxdb/custom-timestamps %}}
+
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+influxdb3 write --token AUTH_TOKEN --database DATABASE_NAME \
+  'home,room=Kitchen temp=22.1 1641024000'
+```
+
+{{% /influxdb/custom-timestamps %}}
+
+### Placeholder fence inside code-tab-content and custom-timestamps
+
+The worst-case path: placeholders inside a code-tab-content section
+inside a code-tabs wrapper inside an expand wrapper. This is the exact
+shape that sample-data pages use.
+
+{{< expand-wrapper >}}
+{{% expand "Expand to see the tabbed, placeholder-enabled code block" %}}
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[influxdb3](#)
+[v2 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+influxdb3 write --token AUTH_TOKEN --database DATABASE_NAME \
+  'home,room=Kitchen temp=22.1 1641024000'
+```
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sh { placeholders="DATABASE_NAME|AUTH_TOKEN" }
+curl --request POST \
+  http://localhost:8086/api/v2/write?bucket=DATABASE_NAME \
+  --header "Authorization: Bearer AUTH_TOKEN" \
+  --data-binary "home,room=Kitchen temp=22.1 1641024000"
+```
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+

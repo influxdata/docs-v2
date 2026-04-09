@@ -1,4 +1,4 @@
-{{ $result := transform.HighlightCodeBlock . }}
+{{- $result := transform.HighlightCodeBlock . -}}
 {{- if or .Attributes.placeholders .Attributes.callout -}}
   {{- $code := highlight .Inner .Type -}}
   {{- if .Attributes.placeholders -}}
@@ -16,5 +16,5 @@
   {{- if in $wrapped "tc-dynamic-values" -}}
     {{- $wrapped = replace $wrapped "tc-dynamic-values" "tc-dynamic-values\" data-component=\"tc-dynamic-values" -}}
   {{- end -}}
-  {{ $wrapped | safeHTML }}
+  {{- $wrapped | safeHTML -}}
 {{- end -}}
