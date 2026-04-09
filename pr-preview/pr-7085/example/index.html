@@ -1,0 +1,4537 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>Example post | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="This is just an example post to show the format of new 2.0 posts">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-7085/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-7085/docs-v2/pr-preview/pr-7085/example/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7085/light-theme.bd9eb8e986048ec2ab172c75de9662858b949c77c74ab2ac5661016f160053be.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7085/dark-theme.7848f1471d74a77b1ce8305b8eee411db9d35bdb5baf287610f5890c819ba1f6.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7085/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-7085/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-7085/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-04-09 22:23:40 &#43;0000 UTC">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    
+      <div class="selector-dropdowns">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' >InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+        <li>
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/platform/#influxdb-cloud-1' >InfluxDB Cloud 1</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search the docs'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>Example post</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>This is a paragraph. Lorem ipsum dolor (<span class="inline icon-trash top small"></span>) sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.</p>
+<p><a href="https://docs.influxdata.com">Ref link</a></p>
+<p>This is <strong>bold</strong> text. This is <em>italic</em> text. This is <em><strong>bold and italic</strong></em>.</p>
+<h3 id="clockface-v2-icons">Clockface v2 icons</h3>
+<p>
+  
+
+  
+<div class="nav-items">
+  <div class="nav-item account small">
+    <div class="acct-inner">
+      <div class="acct-icon">
+        <span class="icon icon-user"></span>
+      </div>
+    </div>
+  </div>
+  <div class="nav-item account">
+    <div class="acct-inner">
+      <div class="acct-icon"><span class="icon icon-user"></span></div>
+      <div class="acct-label">
+        <div class="username">username</div>
+        <div class="orgname">org-name</div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-disks-nav"></span>
+      <div class="nav-icon-label">
+        Data
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-disks-nav"></span>
+      <div class="nav-icon-label">
+        Load Data
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-data-explorer"></span>
+      <div class="nav-icon-label">
+        Explore
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-data-explorer"></span>
+      <div class="nav-icon-label">
+        Data Explorer
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-users-trio"></span>
+      <div class="nav-icon-label">
+        Org
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-users-trio"></span>
+      <div class="nav-icon-label">
+        Organization
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-dashboards"></span>
+      <div class="nav-icon-label">
+        Boards
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-dashboards"></span>
+      <div class="nav-icon-label">
+        Dashboards
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-calendar"></span>
+      <div class="nav-icon-label">
+        Tasks
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-calendar"></span>
+      <div class="nav-icon-label">
+        Tasks
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-bell"></span>
+      <div class="nav-icon-label">
+        Alerts
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-bell"></span>
+      <div class="nav-icon-label">
+        Alerts
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-wrench-nav"></span>
+      <div class="nav-icon-label">
+        Settings
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-wrench-nav"></span>
+      <div class="nav-icon-label">
+        Settings
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+  
+    
+    
+    
+  
+
+  
+    
+    
+    
+<div class="nav-items">
+  <div class="nav-item">
+    <div class="nav-icon small">
+      <span class ="icon icon-book-pencil"></span>
+      <div class="nav-icon-label">
+        Books
+      </div>
+    </div>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon">
+      <span class ="icon icon-book-pencil"></span>
+      <div class="nav-icon-label">
+        Notebooks
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+</p>
+<p><span class="inline icon-add-cell small"></span> add-cell<br>
+<span class="inline add-btn-round">&#xe931;</span> add-label<br>
+<span class="inline icon-alert middle"></span> alert<br>
+<span class="inline icon-calendar"></span> calendar<br>
+<span class="inline icon-chat large"></span> chat<br>
+<span class="inline icon-checkmark middle"></span> checkmark<br>
+<span class="inline icon-duplicate middle small"></span> clone<br>
+<span class="inline icon-cloud large"></span> cloud<br>
+<span class="inline icon-cog-thick middle small"></span> cog<br>
+<span class="inline icon-cog-thick middle small"></span> config<br>
+<span class="inline icon-duplicate middle small"></span> copy<br>
+<span class="inline icon-crown large"></span> crown<br>
+<span class="inline icon-dashboards middle"></span> dashboard<br>
+<span class="inline icon-dashboards middle"></span> dashboards<br>
+<span class="inline icon-data-explorer middle large"></span> data-explorer<br>
+<span class="inline icon-trash top small"></span> delete<br>
+<span class="inline icon-download middle"></span> download<br>
+<span class="inline icon-duplicate middle small"></span> duplicate<br>
+<span class="inline icon-pencil middle small"></span> edit<br>
+<span class="inline icon-fullscreen middle large"></span> expand<br>
+<span class="inline icon-export middle small"></span> export<br>
+<span class="inline icon-eye-open large"></span> eye<br>
+<span class="inline icon-eye-closed large"></span> eye-closed<br>
+<span class="inline icon-eye-open large"></span> eye-open<br>
+<span class="inline icon-nav-chat large"></span> feedback<br>
+<span class="inline icon-fullscreen middle large"></span> fullscreen<br>
+<span class="inline icon-cog-thick middle small"></span> gear<br>
+<span class="inline icon-data-explorer middle large"></span> graph<br>
+<span class="inline icon-eye-closed large"></span> hide<br>
+<span class="inline icon-influx-icon middle"></span> influx<br>
+<span class="inline icon-influx-icon middle"></span> influx-icon<br>
+<span class="inline icon-influx-icon middle"></span> nav-admin<br>
+<span class="inline icon-wrench-2 middle large"></span> nav-config<br>
+<span class="inline icon-wrench-2 middle large"></span> nav-configuration<br>
+<span class="inline icon-dashboards middle"></span> nav-dashboards<br>
+<span class="inline icon-data-explorer middle large"></span> nav-data-explorer<br>
+<span class="inline icon-organizations middle"></span> nav-organizations<br>
+<span class="inline icon-organizations middle"></span> nav-orgs<br>
+<span class="inline icon-calendar"></span> nav-tasks<br>
+<span class="inline icon-note middle small"></span> note<br>
+<span class="inline icon-book-pencil"></span> notebook<br>
+<span class="inline icon-book-pencil"></span> notebooks<br>
+<span class="inline icon-organizations middle"></span> org<br>
+<span class="inline icon-organizations middle"></span> orgs<br>
+<span class="inline icon-pause middle"></span> pause<br>
+<span class="inline icon-pencil middle small"></span> pencil<br>
+<span class="inline icon-play middle small"></span> play<br>
+<span class="inline icon-ui-plus middle xsmall"></span> plus<br>
+<span class="inline icon-refresh middle small"></span> refresh<br>
+<span class="inline icon-remove top small"></span> remove<br>
+<span class="inline icon-refresh middle small"></span> replay<br>
+<span class="inline icon-export middle small"></span> save-as<br>
+<span class="inline icon-search middle small"></span> search<br>
+<span class="inline icon-cog-thick middle small"></span> settings<br>
+<span class="inline icon-calendar"></span> tasks<br>
+<span class="inline ui-toggle blue"><span class="circle"></span></span> toggle<br>
+<span class="inline icon-trash top small"></span> trash<br>
+<span class="inline icon-trash top small"></span> trashcan<br>
+<span class="inline icon-triangle middle"></span> triangle<br>
+<span class="inline icon-eye-open large"></span> view<br>
+<span class="inline icon-wrench-2 middle large"></span> wrench<br>
+<span class="inline icon-remove top small"></span> x</p>
+<h3 id="clockface-v3-icons">Clockface v3 icons</h3>
+<p>
+  
+
+    
+
+    
+
+  
+
+    
+<div class="nav-items-v3">
+  <div class="nav-item-v3 account">
+    <div class="acct-inner-v3">
+      <div class="acct-icon-v3"><span class="initial">u</span></div>
+    </div>
+  </div>
+  <div class="nav-item-v3 account">
+    <div class="acct-inner-v3">
+      <div class="acct-icon-v3"><span class="initial">u</span></div>
+      <div class="acct-label-v3">
+        <div class="username">username</div>
+        <div class="orgname">org-name</div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon ingest-new"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon ingest-new"></span>
+    </div>
+    <p class="nav-label-v3">Load Data</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon graphline-2"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon graphline-2"></span>
+    </div>
+    <p class="nav-label-v3">Data Explorer</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon graph-line-new"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon graph-line-new"></span>
+    </div>
+    <p class="nav-label-v3">Dashboards</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon calendar"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon calendar"></span>
+    </div>
+    <p class="nav-label-v3">Tasks</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon bell"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon bell"></span>
+    </div>
+    <p class="nav-label-v3">Alerts</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon wrench-nav"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon wrench-nav"></span>
+    </div>
+    <p class="nav-label-v3">Settings</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+
+  
+
+    
+      
+      
+<div class="nav-items-v3">
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon book-pencil"></span>
+    </div>
+  </div>
+  <div class="nav-item-v3">
+    <div class="nav-icon-v3">
+      <span class="v3 cf-icon book-pencil"></span>
+    </div>
+    <p class="nav-label-v3">Notebooks</p>
+  </div>
+</div>
+    
+
+</p>
+<p><span class="inline v3 cf-icon add-cell-new small"></span> add-cell<br>
+<span class="inline add-btn-round v3">&#xe931;</span> add-label<br>
+<span class="inline v3 cf-icon alert-triangle-new middle"></span> alert<br>
+<span class="inline v3 cf-icon annotate-new"></span> annotate<br>
+<span class="inline v3 cf-icon bar-chart-new top"></span> bar-chart<br>
+<span class="inline v3 cf-icon bar-chart-new top"></span> bar-graph<br>
+<span class="inline v3 cf-icon calendar"></span> calendar<br>
+<span class="inline icon-chat large"></span> chat<br>
+<span class="inline v3 cf-icon checkmark-new large"></span> checkmark<br>
+<span class="inline v3 cf-icon clock-new top small"></span> clock<br>
+<span class="inline v3 cf-icon duplicate middle small"></span> clone<br>
+<span class="inline icon-cloud large"></span> cloud<br>
+<span class="inline v3 cf-icon cog-solid-new middle small"></span> cog<br>
+<span class="inline v3 cf-icon cog-solid-new middle small"></span> config<br>
+<span class="inline v3 cf-icon duplicate middle small"></span> copy<br>
+<span class="inline v3 cf-icon crown-solid-new "></span> crown<br>
+<span class="inline v3 cf-icon graph-line-new"></span> dashboard<br>
+<span class="inline v3 cf-icon graph-line-new"></span> dashboards<br>
+<span class="inline v3 cf-icon graphline-2 middle large"></span> data-explorer<br>
+<span class="inline v3 cf-icon trash-new top small"></span> delete<br>
+<span class="inline v3 cf-icon download-new middle large"></span> download<br>
+<span class="inline v3 cf-icon duplicate middle small"></span> duplicate<br>
+<span class="inline v3 cf-icon pencil"></span> edit<br>
+<span class="inline v3 cf-icon expand-b middle"></span> expand<br>
+<span class="inline v3 cf-icon export-new middle"></span> export<br>
+<span class="inline v3 cf-icon eye-open-new"></span> eye<br>
+<span class="inline v3 cf-icon eye-closed large"></span> eye-closed<br>
+<span class="inline v3 cf-icon eye-open-new"></span> eye-open<br>
+<span class="inline icon-nav-chat large"></span> feedback<br>
+<span class="inline v3 cf-icon expand-b middle"></span> fullscreen<br>
+<span class="inline v3 cf-icon cog-solid-new middle small"></span> gear<br>
+<span class="inline v3 cf-icon graphline-2 middle large"></span> graph<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> handle<br>
+<span class="inline v3 cf-icon eye-closed large"></span> hide<br>
+<span class="inline v3 cf-icon cubo middle"></span> influx<br>
+<span class="inline v3 cf-icon cubo middle"></span> influx-icon<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> move<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> move-cell<br>
+<span class="inline v3 cf-icon cubo middle"></span> nav-admin<br>
+<span class="inline v3 cf-icon wrench-nav middle large"></span> nav-config<br>
+<span class="inline v3 cf-icon wrench-nav middle large"></span> nav-configuration<br>
+<span class="inline v3 cf-icon graph-line-new"></span> nav-dashboards<br>
+<span class="inline v3 cf-icon graphline-2 middle large"></span> nav-data-explorer<br>
+<span class="inline v3 cf-icon users-duo middle"></span> nav-organizations<br>
+<span class="inline v3 cf-icon users-duo middle"></span> nav-orgs<br>
+<span class="inline v3 cf-icon calendar"></span> nav-tasks<br>
+<span class="inline v3 cf-icon text-new middle"></span> note<br>
+<span class="inline v3 cf-icon book-pencil"></span> notebook<br>
+<span class="inline v3 cf-icon book-pencil"></span> notebooks<br>
+<span class="inline v3 cf-icon users-duo middle"></span> org<br>
+<span class="inline v3 cf-icon users-duo middle"></span> orgs<br>
+<span class="inline v3 cf-icon pause middle"></span> pause<br>
+<span class="inline v3 cf-icon pencil"></span> pencil<br>
+<span class="inline v3 cf-icon annotate-new"></span> pin<br>
+<span class="inline v3 cf-icon play middle small"></span> play<br>
+<span class="inline v3 cf-icon plus-new top"></span> plus<br>
+<span class="inline v3 cf-icon refresh-new middle"></span> refresh<br>
+<span class="inline v3 cf-icon remove-new large"></span> remove<br>
+<span class="inline v3 cf-icon refresh-new middle"></span> replay<br>
+<span class="inline v3 cf-icon export-new middle"></span> save-as<br>
+<span class="inline v3 cf-icon search middle small"></span> search<br>
+<span class="inline v3 cf-icon cog-solid-new middle small"></span> settings<br>
+<span class="inline v3 cf-icon calendar"></span> tasks<br>
+<span class="inline ui-toggle blue v3"><span class="circle"></span></span> toggle<br>
+<span class="inline v3 cf-icon trash-new top small"></span> trash<br>
+<span class="inline v3 cf-icon trash-new top small"></span> trashcan<br>
+<span class="inline v3 cf-icon triangle middle"></span> triangle<br>
+<span class="inline v3 cf-icon eye-open-new"></span> view<br>
+<span class="inline v3 cf-icon wrench-nav middle large"></span> wrench<br>
+<span class="inline v3 cf-icon remove-new large"></span> x</p>
+<h3 id="clockface-v4-icons">Clockface v4 icons</h3>
+<p>
+  
+
+    
+
+    
+  
+
+    
+<div class="nav-items-">
+  <div class="nav-item- account">
+    <div class="acct-inner-">
+      <div class="acct-icon-"><span class="initial">u</span></div>
+    </div>
+  </div>
+  <div class="nav-item- account">
+    <div class="acct-inner-">
+      <div class="acct-icon-"><span class="initial">u</span></div>
+      <div class="acct-label-">
+        <div class="username">username</div>
+        <div class="orgname">org-name</div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Upload_New"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Upload_New"></span>
+    </div>
+    <p class="nav-label-">Load Data</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon GraphLine_New"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon GraphLine_New"></span>
+    </div>
+    <p class="nav-label-">Data Explorer</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon DashH"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon DashH"></span>
+    </div>
+    <p class="nav-label-">Dashboards</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Calendar"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Calendar"></span>
+    </div>
+    <p class="nav-label-">Tasks</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Bell"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Bell"></span>
+    </div>
+    <p class="nav-label-">Alerts</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon CogOutline_New"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon CogOutline_New"></span>
+    </div>
+    <p class="nav-label-">Settings</p>
+  </div>
+</div>
+    
+
+
+
+  
+
+    
+
+    
+      
+      
+    
+  
+
+    
+      
+      
+<div class="nav-items-">
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Pencil"></span>
+    </div>
+  </div>
+  <div class="nav-item-">
+    <div class="nav-icon-">
+      <span class=" cf-icon Pencil"></span>
+    </div>
+    <p class="nav-label-">Notebooks</p>
+  </div>
+</div>
+    
+
+</p>
+<p><span class="inline  cf-icon AddCell_New small"></span> add-cell<br>
+<span class="inline add-btn-round ">&#xe931;</span> add-label<br>
+<span class="inline  cf-icon AlertTriangle middle"></span> alert<br>
+<span class="inline  cf-icon Annotate_New"></span> annotate<br>
+<span class="inline  cf-icon BarChart_New top"></span> bar-chart<br>
+<span class="inline  cf-icon BarChart_New top"></span> bar-graph<br>
+<span class="inline  cf-icon Calendar"></span> calendar<br>
+<span class="inline cf-icon Chat large"></span> chat<br>
+<span class="inline  cf-icon Checkmark_New large"></span> checkmark<br>
+<span class="inline  cf-icon Clock_New small"></span> clock<br>
+<span class="inline  cf-icon Duplicate_New middle small"></span> clone<br>
+<span class="inline cf-icon Cloud large"></span> cloud<br>
+<span class="inline  cf-icon CogSolid_New middle small"></span> cog<br>
+<span class="inline  cf-icon CogSolid_New middle small"></span> config<br>
+<span class="inline  cf-icon Duplicate_New middle small"></span> copy<br>
+<span class="inline  cf-icon CrownSolid_New "></span> crown<br>
+<span class="inline  cf-icon DashH"></span> dashboard<br>
+<span class="inline  cf-icon DashH"></span> dashboards<br>
+<span class="inline  cf-icon GraphLine_New middle large"></span> data-explorer<br>
+<span class="inline  cf-icon Trash_New small"></span> delete<br>
+<span class="inline  cf-icon Download_New middle large"></span> download<br>
+<span class="inline  cf-icon Duplicate_New middle small"></span> duplicate<br>
+<span class="inline  cf-icon Pencil"></span> edit<br>
+<span class="inline  cf-icon ExpandB middle"></span> expand<br>
+<span class="inline  cf-icon Export_New middle"></span> export<br>
+<span class="inline  cf-icon EyeOpen"></span> eye<br>
+<span class="inline  cf-icon EyeClosed large"></span> eye-closed<br>
+<span class="inline  cf-icon EyeOpen"></span> eye-open<br>
+<span class="inline df-icon Chat large"></span> feedback<br>
+<span class="inline  cf-icon ExpandB middle"></span> fullscreen<br>
+<span class="inline  cf-icon CogSolid_New middle small"></span> gear<br>
+<span class="inline  cf-icon GraphLine_New middle large"></span> graph<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> handle<br>
+<span class="inline  cf-icon EyeClosed large"></span> hide<br>
+<span class="inline  cf-icon CuboSolid middle"></span> influx<br>
+<span class="inline  cf-icon CuboSolid middle"></span> influx-icon<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> move<br>
+<span class="inline v3 cf-icon handle-new middle xsmall"></span> move-cell<br>
+<span class="inline  cf-icon CuboSolid middle"></span> nav-admin<br>
+<span class="inline  cf-icon DashH"></span> nav-dashboards<br>
+<span class="inline  cf-icon GraphLine_New middle large"></span> nav-data-explorer<br>
+<span class="inline  cf-icon User middle"></span> nav-organizations<br>
+<span class="inline  cf-icon User middle"></span> nav-orgs<br>
+<span class="inline  cf-icon Calendar"></span> nav-tasks<br>
+<span class="inline  cf-icon Text_New middle"></span> note<br>
+<span class="inline  cf-icon BookCode"></span> notebook<br>
+<span class="inline  cf-icon BookCode"></span> notebooks<br>
+<span class="inline  cf-icon User middle"></span> org<br>
+<span class="inline  cf-icon User middle"></span> orgs<br>
+<span class="inline  cf-icon Pause middle"></span> pause<br>
+<span class="inline  cf-icon Pencil"></span> pencil<br>
+<span class="inline  cf-icon Annotate_New"></span> pin<br>
+<span class="inline  cf-icon Play middle small"></span> play<br>
+<span class="inline  cf-icon Plus_New top"></span> plus<br>
+<span class="inline  cf-icon Refresh_New middle"></span> refresh<br>
+<span class="inline  cf-icon Remove_New large"></span> remove<br>
+<span class="inline  cf-icon Refresh_New middle"></span> replay<br>
+<span class="inline  cf-icon Export_New middle"></span> save-as<br>
+<span class="inline  cf-icon Search_New middle small"></span> search<br>
+<span class="inline  cf-icon CogSolid_New middle small"></span> settings<br>
+<span class="inline  cf-icon Calendar"></span> tasks<br>
+<span class="inline ui-toggle blue "><span class="circle"></span></span> toggle<br>
+<span class="inline  cf-icon Trash_New small"></span> trash<br>
+<span class="inline  cf-icon Trash_New small"></span> trashcan<br>
+<span class="inline  cf-icon EyeOpen"></span> view<br>
+<span class="inline  cf-icon Remove_New large"></span> x</p>
+<h2 id="h2-this-is-a-header2">h2 This is a header2</h2>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<h4 id="heres-a-title-for-this-codeblock">Here&rsquo;s a title for this codeblock</h4>
+
+<div class="code-tabs-wrapper">
+  
+
+<div class="code-tabs">
+  <p><a href="#">Flux</a>
+<a href="#">InfluxQL</a></p>
+
+</div>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">15</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;mem&#34;</span> <span class="nx">and</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;used_percent&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;used_percent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;telegraf&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="p">.</span><span class="s2">&#34;mem&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">WHERE</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">15</span><span class="n">m</span></span></span></code></pre></div></section>
+
+
+</div>
+
+<h3 id="h3-this-is-a-header3">h3 This is a header3</h3>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<h4 id="h4-this-is-a-header4">h4 This is a header4</h4>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo. <a href="#h2-this-is-a-header2">Link to h2</a></p>
+<h5 id="h5-this-is-a-header5">h5 This is a header5</h5>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<h6 id="h6-this-is-a-header6">h6 This is a header6</h6>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue
+enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum
+erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque,
+vel tempor odio dolor blandit justo.</p>
+<hr>
+<p>This line has a horizontal rule above and below.</p>
+<hr>
+<h4 id="inline-styles">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a>.
+This is an <a href="#"><code>inline code link</code> with text in the link</a>.
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3 <em>(this is just an li, no p tag)</em>
+<ol>
+<li>Ordered list item nested 1</li>
+<li>Ordered list item nested 2</li>
+<li>Ordered list item nested 3</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Ordered list line-item 1</p>
+</li>
+<li>
+<p>Ordered list line-item 2</p>
+<ol>
+<li>Ordered list line-item 2.1</li>
+<li>Ordered list line-item 2.2</li>
+<li>Ordered list line-item 2.3 <em>(this is just an li, no p tag)</em>
+<ul>
+<li>Unordered list item nested 1</li>
+<li>Unordered list item nested 2</li>
+<li>Unordered list item nested 3</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>Ordered list line-item 2.4 with hard return.</p>
+<ul>
+<li>
+<p>Unordered list item nested 1</p>
+</li>
+<li>
+<p>Unordered list item nested 2</p>
+</li>
+<li>
+<p>Unordered list item nested 3</p>
+<p>With Another paragraph.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Ordered list line-item 3</p>
+</li>
+<li>
+<p>Ordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Ordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">avg_cpu</span> <span class="o">=</span> <span class="nx">cpu</span> <span class="o">|&gt;</span> <span class="nb">window</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span><span class="mi">5</span><span class="nx">m</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nx">mean</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">avg_cpu</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">group</span><span class="p">(</span><span class="nx">none</span><span class="o">:</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="k">yield</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span></code></pre></div><h6 id="heres-a-codeblock-with-a-title">Here&rsquo;s a codeblock with a title</h6>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">avg_cpu</span> <span class="o">=</span> <span class="nx">cpu</span> <span class="o">|&gt;</span> <span class="nb">window</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span><span class="mi">5</span><span class="nx">m</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nx">mean</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">avg_cpu</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">group</span><span class="p">(</span><span class="nx">none</span><span class="o">:</span><span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="k">yield</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span></code></pre></div><hr>
+<h2 id="alert-blocks">Alert blocks</h2>
+
+<div class="block note">
+  
+  
+  <p>This is a <strong>Note</strong>.
+Useful information that users should know, even when skimming content.</p>
+</div>
+
+<div class="block tip">
+  
+  
+  <p>This is a <strong>Tip</strong>.
+Helpful advice for doing things better or more easily.</p>
+</div>
+
+<div class="block important">
+  
+  
+  <p>This is an <strong>Important</strong>.
+Key information users need to know to achieve their goal.</p>
+</div>
+
+<div class="block warning">
+  
+  
+  <p>This is a <strong>Warning</strong>.
+Urgent info that needs immediate user attention to avoid problems.</p>
+</div>
+
+<div class="block caution">
+  
+  
+  <p>This is a <strong>Caution</strong>.
+Advises about risks or negative outcomes of certain actions.</p>
+</div>
+<hr>
+
+<div class="block note">
+  
+  
+  <p>This is a basic note.</p>
+</div>
+
+<div class="block note">
+  
+  
+  <h2 id="h2-this-is-a-header2-1">h2 This is a header2</h2>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h3 id="h3-this-is-a-header3-1">h3 This is a header3</h3>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<h4 id="h4-this-is-a-header4-1">h4 This is a header4</h4>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h5 id="h5-this-is-a-header5-1">h5 This is a header5</h5>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h6 id="h6-this-is-a-header6-1">h6 This is a header6</h6>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+<blockquote>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+</blockquote>
+<h4 id="inline-styles-1">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a> .
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ol>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ol>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+
+<div class="code-tabs-wrapper">
+  
+> 
+<div class="code-tabs">
+  
+<blockquote>
+<p><a href="#">tab1</a>
+<a href="#">tab2</a></p>
+
+</blockquote>
+
+</div>
+
+> 
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;someReallyLongFieldName&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;my-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+</div>
+
+</div>
+
+<blockquote>
+<h6 id="this-is-a-table">This is a table</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+      </tr>
+      <tr>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+      </tr>
+      <tr>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+      </tr>
+      <tr>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+      </tr>
+  </tbody>
+</table>
+<h6 id="this-is-a-table-with-lots-of-stuff">This is a table with lots of stuff</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+  </tbody>
+</table>
+
+</blockquote>
+<hr>
+
+<div class="block tip">
+  
+  
+  <p>This is a basic tip.</p>
+</div>
+
+<div class="block tip">
+  
+  
+  <h2 id="h2-this-is-a-header2-2">h2 This is a header2</h2>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h3 id="h3-this-is-a-header3-2">h3 This is a header3</h3>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<h4 id="h4-this-is-a-header4-2">h4 This is a header4</h4>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h5 id="h5-this-is-a-header5-2">h5 This is a header5</h5>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h6 id="h6-this-is-a-header6-2">h6 This is a header6</h6>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+<blockquote>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+</blockquote>
+<h4 id="inline-styles-2">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a> .
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ol>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ol>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+
+<div class="code-tabs-wrapper">
+  
+> 
+<div class="code-tabs">
+  
+<blockquote>
+<p><a href="#">tab1</a>
+<a href="#">tab2</a></p>
+
+</blockquote>
+
+</div>
+
+> 
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;someReallyLongFieldName&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;my-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+</div>
+
+</div>
+
+<blockquote>
+<h6 id="this-is-a-table-1">This is a table</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+      </tr>
+      <tr>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+      </tr>
+      <tr>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+      </tr>
+      <tr>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+      </tr>
+  </tbody>
+</table>
+<h6 id="this-is-a-table-with-lots-of-stuff-1">This is a table with lots of stuff</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+  </tbody>
+</table>
+
+</blockquote>
+<hr>
+
+<div class="block important">
+  
+  
+  <p>This is a basic important block.</p>
+</div>
+
+<div class="block important">
+  
+  
+  <h2 id="h2-this-is-a-header2-3">h2 This is a header2</h2>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h3 id="h3-this-is-a-header3-3">h3 This is a header3</h3>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<h4 id="h4-this-is-a-header4-3">h4 This is a header4</h4>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h5 id="h5-this-is-a-header5-3">h5 This is a header5</h5>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h6 id="h6-this-is-a-header6-3">h6 This is a header6</h6>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+<blockquote>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+</blockquote>
+<h4 id="inline-styles-3">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a> .
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ol>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ol>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+
+<div class="code-tabs-wrapper">
+  
+> 
+<div class="code-tabs">
+  
+<blockquote>
+<p><a href="#">tab1</a>
+<a href="#">tab2</a></p>
+
+</blockquote>
+
+</div>
+
+> 
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;someReallyLongFieldName&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;my-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+</div>
+
+</div>
+
+<blockquote>
+<h6 id="this-is-a-table-2">This is a table</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+      </tr>
+      <tr>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+      </tr>
+      <tr>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+      </tr>
+      <tr>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+      </tr>
+  </tbody>
+</table>
+<h6 id="this-is-a-table-with-lots-of-stuff-2">This is a table with lots of stuff</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+  </tbody>
+</table>
+
+</blockquote>
+<hr>
+
+<div class="block warning">
+  
+  
+  <p>This is a basic warning.</p>
+</div>
+
+<div class="block warning">
+  
+  
+  <h2 id="h2-this-is-a-header2-4">h2 This is a header2</h2>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h3 id="h3-this-is-a-header3-4">h3 This is a header3</h3>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<h4 id="h4-this-is-a-header4-4">h4 This is a header4</h4>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h5 id="h5-this-is-a-header5-4">h5 This is a header5</h5>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h6 id="h6-this-is-a-header6-4">h6 This is a header6</h6>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+<blockquote>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+</blockquote>
+<h4 id="inline-styles-4">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a> .
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ol>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ol>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+
+<div class="code-tabs-wrapper">
+  
+> 
+<div class="code-tabs">
+  
+<blockquote>
+<p><a href="#">tab1</a>
+<a href="#">tab2</a></p>
+
+</blockquote>
+
+</div>
+
+> 
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;someReallyLongFieldName&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;my-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+</div>
+
+</div>
+
+<blockquote>
+<h6 id="this-is-a-table-3">This is a table</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+      </tr>
+      <tr>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+      </tr>
+      <tr>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+      </tr>
+      <tr>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+      </tr>
+  </tbody>
+</table>
+<h6 id="this-is-a-table-with-lots-of-stuff-3">This is a table with lots of stuff</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+  </tbody>
+</table>
+
+</blockquote>
+<hr>
+
+<div class="block caution">
+  
+  
+  <p>This is a basic caution.</p>
+</div>
+
+<div class="block caution">
+  
+  
+  <h2 id="h2-this-is-a-header2-5">h2 This is a header2</h2>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h3 id="h3-this-is-a-header3-5">h3 This is a header3</h3>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p><img src="/img/chronograf/1-6-alerts-conditions.png" alt="Test image"></p>
+
+
+
+
+
+
+
+<img src='/img/influxdb/2-0-controls-time-range.png' alt='Test Image' width='282' />
+
+
+
+<h4 id="h4-this-is-a-header4-5">h4 This is a header4</h4>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h5 id="h5-this-is-a-header5-5">h5 This is a header5</h5>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<h6 id="h6-this-is-a-header6-5">h6 This is a header6</h6>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+<blockquote>
+<p>Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+
+</blockquote>
+<h4 id="inline-styles-5">Inline Styles</h4>
+<p>This is an <a href="#">inline link</a>. This is <code>inline code</code>.
+This is an <a href="#"><code>inline code link</code></a> .
+This is <strong>bold</strong>. This is <em>italic</em>.</p>
+<ul>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ul>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ul>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Unordered list line-item 1</p>
+</li>
+<li>
+<p>Unordered list line-item 2</p>
+<ol>
+<li>Unordered list line-item 2.1</li>
+<li>Unordered list line-item 2.2</li>
+<li>Unordered list line-item 2.3</li>
+</ol>
+</li>
+<li>
+<p>Unordered list line-item 3</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+<li>
+<p>Unordered list line-item with multiple paragraphs.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nunc rutrum, metus id scelerisque euismod, erat ante, ac congue enim risus id est.
+Etiam tristique nisi et tristique auctor.</p>
+</li>
+</ol>
+
+<div class="code-tabs-wrapper">
+  
+> 
+<div class="code-tabs">
+  
+<blockquote>
+<p><a href="#">tab1</a>
+<a href="#">tab2</a></p>
+
+</blockquote>
+
+</div>
+
+> 
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;someReallyLongFieldName&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// This is a code block inside of a blockquote
+</span></span></span><span class="line"><span class="cl"><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span><span class="s2">&#34;my-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:-</span><span class="mi">30</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;cpu&#34;</span><span class="p">)</span></span></span></code></pre></div></section>
+
+
+</div>
+
+</div>
+
+<blockquote>
+<h6 id="this-is-a-table-4">This is a table</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+          <td>Row 1.1</td>
+          <td><code>Row 1.2</code></td>
+          <td>Row 1.3</td>
+          <td>Row 1.4</td>
+      </tr>
+      <tr>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+          <td>Row 2.1</td>
+          <td><code>Row 2.2</code></td>
+          <td>Row 2.3</td>
+          <td>Row 2.4</td>
+      </tr>
+      <tr>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+          <td>Row 3.1</td>
+          <td><code>Row 3.2</code></td>
+          <td>Row 3.3</td>
+          <td>Row 3.4</td>
+      </tr>
+      <tr>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+          <td>Row 4.1</td>
+          <td><code>Row 4.2</code></td>
+          <td>Row 4.3</td>
+          <td>Row 4.4</td>
+      </tr>
+  </tbody>
+</table>
+<h6 id="this-is-a-table-with-lots-of-stuff-4">This is a table with lots of stuff</h6>
+<table>
+  <thead>
+      <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+          <th>Column 4</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Row 1.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 1.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 2.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 2.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 3.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 3.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+      <tr>
+          <td>Row 4.1Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.2Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.3Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+          <td>Row 4.4Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+      </tr>
+  </tbody>
+</table>
+
+</blockquote>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">tab 1.1</a>
+<a href="#">tab 1.2</a>
+<a href="#">tab 1.3</a>
+<a href="#">tab 1.4</a></p>
+
+</div>
+
+
+
+<section class="tab-content">
+  <p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.</p>
+<h2 id="h2-this-is-a-header2">h2 This is a header2</h2>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.</p>
+<p>This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum, metus id scelerisque euismod, erat ante suscipit nibh, ac congue enim risus id est. Etiam tristique nisi et tristique auctor. Morbi eu bibendum erat. Sed ullamcorper, dui id lobortis efficitur, mauris odio pharetra neque, vel tempor odio dolor blandit justo.</p>
+<div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">Flux</a>
+<a href="#">InfluxQL</a></p>
+</div>
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">data</span> <span class="o">=</span> <span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">15</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;mem&#34;</span> <span class="nx">and</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;used_percent&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span></span></span></code></pre></div></section>
+<section class="code-tab-content"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="s2">&#34;used_percent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;telegraf&#34;</span><span class="p">.</span><span class="s2">&#34;autogen&#34;</span><span class="p">.</span><span class="s2">&#34;mem&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">WHERE</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">15</span><span class="n">m</span></span></span></code></pre></div></section>
+</div>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 1.2 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 1.3 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 1.4 content.</p>
+
+</section>
+
+
+
+</div>
+
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs">
+  <p><a href="#">tab 2.1</a>
+<a href="#">tab 2.2</a>
+<a href="#">tab 2.3</a>
+<a href="#">tab 2.4</a></p>
+
+</div>
+
+
+
+<section class="tab-content">
+  <p>This is tab 2.1 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 2.2 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 2.3 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is tab 2.4 content.</p>
+
+</section>
+
+
+
+</div>
+
+<div class="truncate closed" id="truncate-238">
+  <div class="truncate-content closed">
+<p>This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.<br>
+This is truncated content.\</p>
+  </div>
+  <div class="truncate-bottom">
+    <a class="truncate-toggle" href="#"></a>
+  </div>
+</div>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs small">
+  <p><a href="#">Small tab 2.1</a>
+<a href="#">Small tab 2.2</a>
+<a href="#">Small tab 2.3</a>
+<a href="#">Small tab 2.4</a></p>
+
+</div>
+
+
+
+<section class="tab-content">
+  <p>This is small tab 2.1 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is small tab 2.2 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is small tab 2.3 content.</p>
+
+</section>
+
+
+
+<section class="tab-content">
+  <p>This is small tab 2.4 content.</p>
+
+</section>
+
+
+
+</div>
+
+<h2 id="group-key-demo">Group key demo</h2>
+<p>Used to demonstrate Flux group keys</p>
+
+<div class="tabs-wrapper">
+  
+
+
+
+
+<div class="tabs small">
+  <p><a href="#">Input</a>
+<a href="#">Output</a> <span class="tab-view-output">Click to view output</span></p>
+
+</div>
+
+
+<section class="tab-content">
+  <p>The following data is output from the last <code>filter()</code> and piped forward into <code>group()</code>:</p>
+
+<div class="block note">
+  
+  
+  <p><code>_start</code> and <code>_stop</code> columns have been omitted.</p>
+</div>
+<p class="table-group-key">Group key instance = \[\_measurement=home, room=Kitchen, \_field=hum]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36.2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36.1</td>
+      </tr>
+  </tbody>
+</table>
+<p class="table-group-key">Group key instance = \[\_measurement=home, room=Living Room, \_field=hum]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36</td>
+      </tr>
+  </tbody>
+</table>
+<p class="table-group-key">Group key instance = \[\_measurement=home, room=Kitchen, \_field=temp]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">23</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">22.7</td>
+      </tr>
+  </tbody>
+</table>
+<p class="table-group-key">Group key instance = \[\_measurement=home, room=Living Room, \_field=temp]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.4</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.8</td>
+      </tr>
+  </tbody>
+</table>
+
+</section>
+
+
+<section class="tab-content">
+  <p>When grouped by <code>_field</code>, all rows with the <code>temp</code> field will be in one table
+and all the rows with the <code>hum</code> field will be in another.
+<code>_measurement</code> and <code>room</code> columns no longer affect how rows are grouped.</p>
+<div class="note block">
+  <p><code>_start</code> and <code>_stop</code> columns have been omitted.</p>
+</div>
+<p class="table-group-key">Group key instance = \[\_field=hum]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36.2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36.1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">35.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">hum</td>
+          <td style="text-align: left">36</td>
+      </tr>
+  </tbody>
+</table>
+<p class="table-group-key">Group key instance = \[\_field=temp]</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_time</th>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">room</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">23</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Kitchen</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">22.7</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T08:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.1</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T09:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.4</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2022-01-01T10:00:00Z</td>
+          <td style="text-align: left">home</td>
+          <td style="text-align: left">Living Room</td>
+          <td style="text-align: left">temp</td>
+          <td style="text-align: left">21.8</td>
+      </tr>
+  </tbody>
+</table>
+
+</section>
+
+
+</div>
+
+<h2 id="datetimecurrent-timestamp-shortcode">datetime/current-timestamp shortcode</h2>
+<h3 id="default-usage">Default usage</h3>
+<span class="current-timestamp nowrap">2021-01-01T00:00:00Z</span>
+<h3 id="format-yyyy-mm-dd-hhmmss">Format YYYY-MM-DD HH:mm:ss</h3>
+<span class="current-timestamp nowrap">2021-01-01T00:00:00Z</span>
+<h3 id="format-with-utc-timezone">Format with UTC timezone</h3>
+<span class="current-timestamp nowrap">2021-01-01T00:00:00Z</span>
+<h3 id="format-with-americanew_york-timezone">Format with America/New_York timezone</h3>
+<span class="current-timestamp nowrap">2021-01-01T00:00:00Z</span>
+<h2 id="ask-ai-link">Ask AI Link</h2>
+<p>Can&rsquo;t access your InfluxDB instance? <a href="#"
+  class="ask-ai-open"data-query="What&#39;s my InfluxDB version?"onclick="
+    if (window.gtag) {
+      window.gtag('event', 'ask_ai_link', {
+        'custom_map.interaction_type': 'inline_link',
+        'custom_map.section': location.pathname,
+        'custom_map.query': 'What\u0026#39;s my InfluxDB version?'
+      });
+    }
+    return false;
+  ">Ask InfluxData AI</a>
+ for help.</p>
+<h2 id="render-regression-fixtures">Render-regression fixtures</h2>
+<p>The sections below exercise the code-block render hook combinations that
+were broken in influxdata/docs-v2#7079. They exist to give the
+<code>cypress/e2e/content/render-regression.cy.js</code> spec something to assert
+against and to make this page a meaningful smoke test for any PR that
+touches <code>layouts/_default/_markup/render-codeblock.html</code> or any wrapper
+shortcode that contains fenced code. When adding coverage for a new
+render-hook attribute combination, add a matching fixture here.</p>
+<h3 id="placeholder-fence-attribute">Placeholder fence attribute</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --request POST <span class="se">\
+</span></span></span><span class="line"><span class="cl">  http://localhost:8181/api/v3/write_lp?db<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data-raw <span class="s2">&#34;home,room=Kitchen temp=22.1&#34;</span></span></span></code></pre></div><h3 id="placeholder-fence-attribute-with-regex-group">Placeholder fence attribute with regex group</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxctl write --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_TOKEN' class='code-placeholder' data-code-var='DATABASE_TOKEN' data-code-var-value='DATABASE_TOKEN' data-code-var-escaped="DATABASE_TOKEN">DATABASE_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><h3 id="callout-fence-attribute">Callout fence attribute</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx query <span class='code-callout green'>--host</span> http://localhost:8086</span></span></code></pre></div><h3 id="callout-fence-attribute-with-explicit-color">Callout fence attribute with explicit color</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx query <span class='code-callout magenta'>--host</span> http://localhost:8086</span></span></code></pre></div><h3 id="placeholder-and-callout-on-the-same-fence">Placeholder and callout on the same fence</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx query <span class='code-callout orange'>--host</span> http://localhost:8086 --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span></span></code></pre></div><h3 id="placeholder-fence-inside-a-custom-timestamps-wrapper">Placeholder fence inside a custom-timestamps wrapper</h3>
+<p>The <code>influxdb/custom-timestamps</code> wrapper was one of the shortcodes
+affected by #7079 — it wraps code blocks that include timestamps so the
+UI can rewrite them. This fixture exercises a placeholder code fence
+inside that wrapper.</p>
+<div class="custom-timestamps">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 write --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s1">&#39;home,room=Kitchen temp=22.1 1641024000&#39;</span></span></span></code></pre></div></div>
+<h3 id="placeholder-fence-inside-code-tab-content-and-custom-timestamps">Placeholder fence inside code-tab-content and custom-timestamps</h3>
+<p>The worst-case path: placeholders inside a code-tab-content section
+inside a code-tabs wrapper inside an expand wrapper. This is the exact
+shape that sample-data pages use.</p>
+<div class="expand-wrapper">
+  
+
+
+
+<div class="expand" id="expand-to-see-the-tabbed-placeholder-enabled-code-block">
+  <a class="expand-link" href="#expand-to-see-the-tabbed-placeholder-enabled-code-block"><span class="cf-icon Link"></span></a>
+  <p class="expand-label">
+      <span class="expand-toggle"></span><span>Expand to see the tabbed, placeholder-enabled code block</span>
+  </p>
+  <div class="expand-content" style="display: none;" >
+      <div class="code-tabs-wrapper">
+<div class="code-tabs">
+  <p><a href="#">influxdb3</a>
+<a href="#">v2 API</a></p>
+</div>
+<section class="code-tab-content"><div class="custom-timestamps"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influxdb3 write --token <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> --database <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s1">&#39;home,room=Kitchen temp=22.1 1641024000&#39;</span></span></span></code></pre></div></div>
+</section>
+<section class="code-tab-content"><div class="custom-timestamps"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl --request POST <span class="se">\
+</span></span></span><span class="line"><span class="cl">  http://localhost:8086/api/v2/write?bucket<span class="o">=</span><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit DATABASE_NAME' class='code-placeholder' data-code-var='DATABASE_NAME' data-code-var-value='DATABASE_NAME' data-code-var-escaped="DATABASE_NAME">DATABASE_NAME<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Bearer <div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit AUTH_TOKEN' class='code-placeholder' data-code-var='AUTH_TOKEN' data-code-var-value='AUTH_TOKEN' data-code-var-escaped="AUTH_TOKEN">AUTH_TOKEN<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div>&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --data-binary <span class="s2">&#34;home,room=Kitchen temp=22.1 1641024000&#34;</span></span></span></code></pre></div></div>
+</section>
+</div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+    
+
+    
+    
+
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+          <li><a href="/docs-v2/pr-preview/pr-7085/influxdb/v2/write-data/" >Write data to InfluxDB</a></li>
+        
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+        
+        
+      
+    
+      
+      
+
+      
+      
+        
+      
+
+      
+      
+
+      
+      
+        
+        
+        
+        <li><a href="https://influxdata.com" target="_blank">This is an external link</a></li>
+
+      
+      
+    
+    </ul>
+  </div>
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/example.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-7085/example/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>Where are you running InfluxDB?</h3>
+  <p>Select your <strong>InfluxDB Cloud region and cluster</strong> or your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll customize code examples for you. <em><a href="/influxdb/cloud/reference/regions/#regions-with-multiple-clusters">Identify your InfluxDB Cloud cluster</a></em>.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud regions</a> or <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;ai_source_group_ids__v1&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud1&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;InfluxQL&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;cloud.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud 1&#34;,&#34;placeholder_host&#34;:&#34;cloud.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+        
+
+
+
+
+<div class="modal-content" id="influxdb-gs-date-select">
+  <h3>Select a new date</h3>
+  <p><em>Select a date in your bucket's retention period.</em></p>
+  <div id="custom-date-selector"></div>
+  <a class="btn" id="submit-custom-date" onclick="">Update</a>
+</div>
+      
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Enterprise now in public beta</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
+<ul>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag-apr" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>May 27, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+<div data-component="custom-time-trigger" class="custom-time-trigger widget blue" data-tooltip="Select custom date for sample data">
+  <a role="button" class="custom-time-trigger__button" data-action="open">
+    <span class="cf-icon Clock_New"></span>
+  </a>
+</div>
+
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
