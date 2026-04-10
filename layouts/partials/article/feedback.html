@@ -26,8 +26,9 @@
 ` }}
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
 {{ if and (eq $product "influxdb3") (eq $version "enterprise") }}
-  {{ $pageGithubIssueLink = "https://support.influxdata.com/s/" }}
+  {{ .Scratch.Set "productGithubLink" "https://support.influxdata.com/s/" }}
 {{ end }}
+{{ $productGithubLink = .Scratch.Get "productGithubLink" }}
 
 <hr/>
 <div class="helpful">
