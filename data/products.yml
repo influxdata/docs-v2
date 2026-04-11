@@ -100,7 +100,7 @@ influxdb3_cloud_serverless:
   altname: InfluxDB Cloud
   namespace: influxdb
   content_path: influxdb3/cloud-serverless
-  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  product_issue_url: https://support.influxdata.com/s/
   label_group: v3-distributed
   menu_category: managed
   versions: [cloud-serverless]
@@ -136,7 +136,7 @@ influxdb3_cloud_dedicated:
   altname: InfluxDB Cloud
   namespace: influxdb
   content_path: influxdb3/cloud-dedicated
-  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  product_issue_url: https://support.influxdata.com/s/
   label_group: v3-distributed
   menu_category: managed
   versions: [cloud-dedicated]
@@ -170,7 +170,7 @@ influxdb3_clustered:
   altname: InfluxDB Clustered
   namespace: influxdb
   content_path: influxdb3/clustered
-  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  product_issue_url: https://support.influxdata.com/s/
   label_group: v3-distributed
   menu_category: self-managed
   versions: [clustered]
@@ -259,7 +259,7 @@ influxdb_cloud:
   altname: InfluxDB Cloud
   namespace: influxdb
   content_path: influxdb/cloud
-  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  product_issue_url: https://support.influxdata.com/s/
   label_group: v2-cloud
   menu_category: managed
   versions: [cloud]
@@ -354,7 +354,7 @@ enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
   namespace: enterprise_influxdb
   content_path: enterprise_influxdb
-  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  product_issue_url: https://support.influxdata.com/s/
   label_group: v1-enterprise
   menu_category: self-managed
   list_order: 5
