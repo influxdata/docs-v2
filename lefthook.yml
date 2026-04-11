@@ -33,6 +33,13 @@ pre-commit:
       glob: "layouts/_default/_markup/render-*.html"
       run: .ci/scripts/check-render-hook-whitespace.sh {staged_files}
       fail_text: "Render hook has bare {{ ... }} action(s). Use {{- ... -}} trimming to prevent whitespace leaks (see influxdata/docs-v2#7079)."
+    check-feedback-links:
+      tags: lint
+      glob:
+        - "data/products.yml"
+        - "layouts/partials/article/feedback.html"
+      run: node .ci/scripts/check-feedback-links.js
+      fail_text: "Feedback button check failed (see influxdata/docs-v2#7089). Every product with content_path needs product_issue_url in data/products.yml, and the template must not hardcode product URLs. CI also runs Layer 2 (rendered HTML grep)."
     eslint-debug-check:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}
