@@ -2,8 +2,9 @@
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
-{{ $productNamespace := cond (or (eq $product "influxdb3") (eq $product "enterprise_influxdb")) "influxdb" $product }}
-{{ $productName := (index .Site.Data.products $productKey).name }}
+{{ $productData := index .Site.Data.products $productKey }}
+{{ $productName := $productData.name }}
+{{ $productIssueUrl := $productData.product_issue_url }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
 {{ if .File }}
@@ -14,9 +15,7 @@
 {{ else }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
 {{ end }}
-{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $productNamespace "/issues/new/choose/") }}
 {{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
-{{ $productGithubLink := .Scratch.Get "productGithubLink" }}
 
 {{ $docsIssueLinkBody := print `_Describe the issue here._
 
@@ -25,10 +24,6 @@
 - _Provide other relevant URLs (project issues, community threads, etc.)_
 ` }}
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
-{{ if and (eq $product "influxdb3") (eq $version "enterprise") }}
-  {{ .Scratch.Set "productGithubLink" "https://support.influxdata.com/s/" }}
-{{ end }}
-{{ $productGithubLink = .Scratch.Get "productGithubLink" }}
 
 <hr/>
 <div class="helpful">
@@ -74,7 +69,7 @@
   <div class="actions">
     <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>
     <a href="{{ $pageGithubIssueLink }}" class="btn issue" target="_blank">Submit docs issue</a>
-    <a href="{{ $productGithubLink }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+    <a href="{{ $productIssueUrl }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
   </div>
 </div>
 
