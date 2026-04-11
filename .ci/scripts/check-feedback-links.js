@@ -40,12 +40,7 @@
  * static regressions are caught even when the build step is skipped.
  */
 
-import {
-  readFileSync,
-  readdirSync,
-  existsSync,
-  statSync,
-} from 'node:fs';
+import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
@@ -99,10 +94,7 @@ for (const [key, p] of Object.entries(products)) {
     continue;
   }
   if (typeof p.product_issue_url !== 'string') {
-    error(
-      `product '${key}' has a non-string product_issue_url`,
-      PRODUCTS_YAML
-    );
+    error(`product '${key}' has a non-string product_issue_url`, PRODUCTS_YAML);
     continue;
   }
   productsToCheck[key] = p;
@@ -128,7 +120,7 @@ const FORBIDDEN_LITERALS = [
   {
     pattern: '/issues/new/choose',
     reason:
-      "fingerprint of the old $productNamespace URL builder. Product issue URLs must come from data/products.yml (product_issue_url field), not string concatenation in the template.",
+      'fingerprint of the old $productNamespace URL builder. Product issue URLs must come from data/products.yml (product_issue_url field), not string concatenation in the template.',
   },
   {
     pattern: 'support.influxdata.com/s/',
@@ -247,13 +239,14 @@ for (const [key, p] of Object.entries(productsToCheck)) {
   const rel = relative(REPO_ROOT, sample);
 
   const docsHref = extractButtonHref(html, /^Submit docs issue$/);
-  const productLabelRe = new RegExp(
-    `^Submit ${escapeRegex(p.name)} issue$`
-  );
+  const productLabelRe = new RegExp(`^Submit ${escapeRegex(p.name)} issue$`);
   const productHref = extractButtonHref(html, productLabelRe);
 
   if (!docsHref) {
-    error(`'Submit docs issue' button not found on sample page for '${key}'`, sample);
+    error(
+      `'Submit docs issue' button not found on sample page for '${key}'`,
+      sample
+    );
   } else if (!docsHref.startsWith(DOCS_ISSUE_URL_PREFIX)) {
     error(
       `'Submit docs issue' button points to '${docsHref}', expected prefix '${DOCS_ISSUE_URL_PREFIX}' (product: ${key})`,
@@ -275,7 +268,9 @@ for (const [key, p] of Object.entries(productsToCheck)) {
 
   if (docsHref && productHref && productHref === p.product_issue_url) {
     console.log(`✅ ${key.padEnd(28)} ${rel}`);
-    console.log(`     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`);
+    console.log(
+      `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
+    );
     console.log(`     product → ${productHref}`);
   }
   checkedCount++;
