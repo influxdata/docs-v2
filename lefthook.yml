@@ -28,6 +28,11 @@ pre-commit:
       tags: lint
       glob: "content/**/*.md"
       run: .ci/scripts/check-support-links.sh {staged_files}
+    check-render-hook-whitespace:
+      tags: lint
+      glob: "layouts/_default/_markup/render-*.html"
+      run: .ci/scripts/check-render-hook-whitespace.sh {staged_files}
+      fail_text: "Render hook has bare {{ ... }} action(s). Use {{- ... -}} trimming to prevent whitespace leaks (see influxdata/docs-v2#7079)."
     eslint-debug-check:
       glob: "assets/js/*.js"
       run: yarn eslint {staged_files}

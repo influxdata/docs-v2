@@ -187,6 +187,15 @@ Configure data file caching for query performance.
 | `--pt-file-cache-recency` | Only cache files newer than this age. Pre-caching on all-in-one and query nodes is based on this value. | Mirrors `--parquet-mem-cache-query-path-duration` (`3d`) |
 | `--pt-file-cache-evict-after` | Evict cached files that have not been read within this duration. | `24h` |
 
+> [!Note]
+> #### Dedicated ingest nodes
+> On dedicated ingest nodes (`--mode ingest`), disable the data file cache to avoid
+> wasting memory on data that ingest nodes never query.
+> Set `--pt-file-cache-size 0` or use `--pt-disable-data-file-cache`.
+> These options must be explicitly set—they are not applied automatically when
+> `--mode ingest` is used.
+> See [Disable caching on ingest nodes](#disable-caching-on-ingest-nodes) for an example.
+
 ### File cache size
 
 Set the maximum size for the data file cache:

@@ -6,6 +6,26 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.9.1 {date="2026-04-09"}
+
+### Core
+
+Maintenance release: v3.9.1 Core includes only build and dependency updates—no user-facing changes.
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Configurable compactor snapshot loading**: The number of snapshots the Parquet compactor loads at startup is now externally configurable, making it easier to tune recovery behavior for large deployments.
+
+#### Bug Fixes and Performance Improvements
+
+- **Performance Improvements**: This release features faster multi-source query merges and improved retention scheduling with the new Performance Update Preview.
+
+- **Bug Fixes**: New updates fix issues where duplicate rows could be returned, Gen0 pruning safety, invalid status codes, and more.
+
 ## v3.9.0 {date="2026-04-02"}
 
 ### Core
@@ -37,9 +57,8 @@ Additional Enterprise-specific features and fixes:
 
 - **Performance upgrade preview (beta)**: Preview major storage layer upgrades
   with the `--use-pacha-tree` flag. Includes a new columnar file format
-  (`.pt` files), column families for efficient wide-table I/O, bounded L1–L4
-  compaction, and automatic Parquet-to-PachaTree migration with hybrid query
-  mode.
+  (`.pt` files), automatic Parquet migration with hybrid query mode,
+  column families for efficient wide-table I/O, and bounded compaction.
   See [Performance upgrade preview](/influxdb3/enterprise/performance-preview/).
 
   > [!Warning]

@@ -38,11 +38,9 @@ Use the URLs below to interact with your InfluxDB Cloud Serverless instances wit
 > and review your organization URL. The first subdomain identifies your 
 > InfluxDB Cloud Serverless cluster. For example:
 > 
-> {{< code-callout "us-west-2-1" >}}
-```sh
-https://us-west-2-1.aws.cloud2.influxdata.com/orgs/03a2bbf46249a000/...
-```
-{{< /code-callout >}}
+> ```sh { callout="us-west-2-1" }
+> https://us-west-2-1.aws.cloud2.influxdata.com/orgs/03a2bbf46249a000/...
+> ```
 -->
 
 {{< cloud_regions type="iox-table" >}}

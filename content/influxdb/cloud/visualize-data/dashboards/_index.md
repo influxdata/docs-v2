@@ -22,11 +22,9 @@ Use the InfluxDB UI or `influx` CLI to view your dashboard ID.
 
 When viewing a dashboard in the InfluxDB UI, your dashboard ID appears in the URL.
 
-{{< code-callout "04b6b15034cc000" >}}
-```sh
+```sh { callout="04b6b15034cc000" }
 https://cloud2.influxdata.com/orgs/03a2bbf46249a000/dashboards/04b6b15034cc000/...
 ```
-{{< /code-callout >}}
 
 ### Dashboard ID in the CLI
 Use [`influx dashboards`](/influxdb/cloud/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
