@@ -20,8 +20,6 @@ alt_links:
 - Fixed `fatal error: concurrent map iteration and map write` panic in the TSI
   index that could crash InfluxDB during concurrent read and write operations.
   This was a regression introduced in v1.12.3. The fix restores the original locking behavior.
-  [#27344](https://github.com/influxdata/influxdb/pull/27344),
-  [#27343](https://github.com/influxdata/influxdb/issues/27343)
 
 ---
 
