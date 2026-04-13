@@ -9,7 +9,7 @@ menu:
 weight: 101
 ---
 
-## v0.0.6-beta {date="TBD"}
+## v0.0.6-beta {date="2026-04-13"}
 
 <!-- Link only be on the latest version, update and move with new versions. -->
 [Download Telegraf Controller v0.0.6-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
@@ -23,6 +23,43 @@ weight: 101
 > before {{% product-name %}} starts. For information about different ways to
 > accept the updated EULA, see
 > [Install {{% product-name %}}--Review the EULA](https://docs.influxdata.com/telegraf/controller/install/#review-the-eula).
+
+### Features
+
+- Separate managed and external configurations on the agent detail page.
+- Enhance Heartbeat plugin with HTTP client configuration options for transport,
+  TLS, OAuth2, and Cookie Auth.
+- Add plugin support to the Telegraf Builder UI:
+  - Intel PMU (`inputs.intel_pmu`)
+  - Intel PowerStat (`inputs.intel_powerstat`)
+  - Intel RDT (`inputs.intel_rdt`)
+  - Internal (`inputs.internal`)
+  - Internet Speed (`inputs.internet_speed`)
+  - Interrupts (`inputs.interrupts`)
+  - IPMI Sensor (`inputs.ipmi_sensor`)
+  - Ipset (`inputs.ipset`)
+  - Iptables (`inputs.iptables`)
+  - Jenkins (`inputs.jenkins`)
+  - Jolokia2 Agent (`inputs.jolokia2_agent`)
+  - JTI OpenConfig Telemetry (`inputs.jti_openconfig_telemetry`)
+  - Kafka Consumer (`inputs.kafka_consumer`)
+  - Kapacitor (`inputs.kapacitor`)
+  - Kernel Vmstat (`inputs.kernel_vmstat`)
+  - IPVS (`inputs.ipvs`)
+  - Kibana (`inputs.kibana`)
+  - Kinesis Consumer (`inputs.kinesis_consumer`)
+  - KNX Listener (`inputs.knx_listener`)
+  - Kubernetes (`inputs.kubernetes`)
+  - Kubernetes Inventory (`inputs.kube_inventory`)
+  - Lanz (`inputs.lanz`)
+  - LDAP (`inputs.ldap`)
+  - LeoFS (`inputs.leofs`)
+
+### Bug fixes
+
+- Fix typo in TOML parsing rename configuration.
+
+---
 
 ## v0.0.5-beta {date="2026-03-26"}
 
