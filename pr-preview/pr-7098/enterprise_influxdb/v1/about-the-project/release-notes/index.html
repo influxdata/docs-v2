@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-13 14:44:00 &#43;0000 UTC">
+<meta name="last-modified" content="2026-04-13 09:48:47 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2345,11 +2345,7 @@
 <ul>
 <li>Fixed <code>fatal error: concurrent map iteration and map write</code> panic in the TSI
 index that could crash InfluxDB during concurrent read and write operations.
-This was a regression introduced in v1.12.3 by an unnecessary backport from
-the 2.x branch that released a read lock before the underlying map was fully
-iterated. The fix restores the original locking behavior.
-<a href="https://github.com/influxdata/influxdb/pull/27344">#27344</a>,
-<a href="https://github.com/influxdata/influxdb/issues/27343">#27343</a></li>
+This was a regression introduced in v1.12.3. The fix restores the original locking behavior.</li>
 </ul>
 <hr>
 <h2 date="2026-03-31" id="v1123">v1.12.3</h2>
