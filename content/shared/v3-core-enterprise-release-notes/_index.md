@@ -10,9 +10,7 @@
 
 ### Core
 
-Maintenance release. v3.9.1 Core contains only build and dependency
-updates; no user-facing changes.
-
+Maintenance release: v3.9.1 Core includes only build and dependency updates—no user-facing changes.
 ### Enterprise
 
 All Core updates are included in Enterprise.
