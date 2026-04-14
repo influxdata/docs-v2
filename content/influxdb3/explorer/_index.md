@@ -33,12 +33,12 @@ docker pull influxdata/influxdb3-ui
 # Run the Docker container
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
-  --publish 8889:8888 \
+  --publish 8080:8080 \
+  --publish 8443:8443 \
   influxdata/influxdb3-ui \
   --mode=admin
 
-# Visit http://localhost:8888 in your browser to begin using InfluxDB 3 Explorer
+# Visit http://localhost:8080 in your browser to begin using InfluxDB 3 Explorer
 ```
 
 

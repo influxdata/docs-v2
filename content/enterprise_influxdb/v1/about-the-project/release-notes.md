@@ -13,16 +13,32 @@ alt_links:
 
 <span id="v1.12.x"></span>
 
+## v1.12.4 {date="2026-04-13"}
+
+### Bug Fixes
+
+- Fixed `fatal error: concurrent map iteration and map write` panic in the TSI
+  index that could crash InfluxDB during concurrent read and write operations.
+  This was a regression introduced in v1.12.3. The fix restores the original locking behavior.
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4
+>
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4](/enterprise_influxdb/v1/administration/upgrading/).
+
+---
+
 ## v1.12.3 {date="2026-03-31"}
 
 InfluxDB Enterprise 1.12.3 delivers substantial efficiency gains in CPU, memory,
 and I/O usage, particularly in high-cardinality and large-scale environments.
 
 > [!Important]
-> #### We strongly recommend upgrading to v1.12.3
+> #### We strongly recommend upgrading to v1.12.4
 >
-> If you’re using any previous version of InfluxDB Enterprise v1, we strongly
-> recommend [upgrading to 1.12.3](/enterprise_influxdb/v1/administration/upgrading/).
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
+> recommend [upgrading to 1.12.4](/enterprise_influxdb/v1/administration/upgrading/).
 
 Highlights include:
 

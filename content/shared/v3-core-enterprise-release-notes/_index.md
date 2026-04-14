@@ -6,6 +6,26 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.9.1 {date="2026-04-09"}
+
+### Core
+
+Maintenance release: v3.9.1 Core includes only build and dependency updates—no user-facing changes.
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Features
+
+- **Configurable compactor snapshot loading**: The number of snapshots the Parquet compactor loads at startup is now externally configurable, making it easier to tune recovery behavior for large deployments.
+
+#### Bug Fixes and Performance Improvements
+
+- **Performance Improvements**: This release features faster multi-source query merges and improved retention scheduling with the new Performance Update Preview.
+
+- **Bug Fixes**: New updates fix issues where duplicate rows could be returned, Gen0 pruning safety, invalid status codes, and more.
+
 ## v3.9.0 {date="2026-04-02"}
 
 ### Core
