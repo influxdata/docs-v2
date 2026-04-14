@@ -83,8 +83,8 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.6.3
-  placeholder_host: localhost:8888
+  latest_patch: 1.7.0
+  placeholder_host: localhost:8080
   ai_sample_questions:
     - How do I install and run Explorer?
     - How do I query data using Explorer?
