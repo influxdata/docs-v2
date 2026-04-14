@@ -16,6 +16,26 @@ To upgrade, pull the latest Docker image:
 docker pull influxdata/influxdb3-ui
 ```
 
+## v1.7.0 {date="2026-04-14"}
+
+#### Features
+
+- **Transform Data**: Rename tables (measurements), rename columns, transform values (such as unit conversions), and filter rows from a dedicated Transform Data page with dry-run testing.
+- **Downsample**: Define and manage downsampling rules to reduce data resolution over time.
+- **Import from InfluxDB**: Import data from an existing InfluxDB v1, v2, or v3 instance with target selection, dry-run preview, and import monitoring.
+- **Table management page**: Create, manage, and delete tables in a dedicated Table Management page.
+- **Database management actions**: Manage databases from a new actions menu on a restyled Manage Databases page.
+- **Line protocol validation**: Get clearer, inline validation when writing data with line protocol.
+- **TLS certificate management**: Generate and renew short-lived TLS certificates for IP-based deployments.
+- **Storage type display**: View the configured storage type for your InfluxDB instance in the metrics UI.
+
+#### Bug fixes
+
+- **Databases**: Fix navigation when database names contain slashes; fix database selector width.
+- **Code snippets**: Add sticky headers and rename the "View code" button for clarity.
+- **Ask AI**: Fix serialization for renamed Anthropic provider fields.
+- **Deleted databases**: Auto-show deleted items when a deleted database is selected.
+
 ## v1.6.3 {date="2026-02-19"}
 
 #### Features

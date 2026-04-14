@@ -2,7 +2,7 @@ name: PR Preview
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, closed, ready_for_review]
+    types: [opened, reopened, synchronize, closed, ready_for_review, edited]
     paths:
       - 'content/**'
       - 'layouts/**'
@@ -39,6 +39,13 @@ jobs:
             // Check for draft PR
             if (pr?.draft) {
               core.info('Skipping draft PR');
+              core.setOutput('should-run', 'false');
+              return;
+            }
+
+            // For 'edited' events, skip if only the title changed (body unchanged)
+            if (context.payload.action === 'edited' && !context.payload.changes?.body) {
+              core.info('PR title edited (body unchanged) - skipping');
               core.setOutput('should-run', 'false');
               return;
             }
@@ -155,10 +162,24 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Fetch current PR body
+        id: fetch-pr-body
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            const fs = require('fs');
+            const bodyFile = `${process.env.RUNNER_TEMP}/pr-body.txt`;
+            fs.writeFileSync(bodyFile, pr.body || '');
+            core.exportVariable('PR_BODY_FILE', bodyFile);
+
       - name: Detect preview pages
         id: detect
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
           BASE_REF: origin/${{ github.base_ref }}
         run: node .github/scripts/detect-preview-pages.js
 
