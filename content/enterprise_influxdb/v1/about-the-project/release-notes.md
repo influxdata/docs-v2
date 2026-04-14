@@ -37,7 +37,7 @@ and I/O usage, particularly in high-cardinality and large-scale environments.
 > [!Important]
 > #### We strongly recommend upgrading to v1.12.4
 >
-> If you’re using any previous version of InfluxDB Enterprise v1, we strongly
+> If you’re using any previous InfluxDB Enterprise v1.x version, we strongly
 > recommend [upgrading to 1.12.4](/enterprise_influxdb/v1/administration/upgrading/).
 
 Highlights include:
