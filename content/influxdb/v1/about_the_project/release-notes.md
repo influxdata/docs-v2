@@ -14,6 +14,20 @@ alt_links:
 ---
 
 
+## v1.12.4 {date="2026-04-13"}
+
+### Bug Fixes
+
+- Fixed `fatal error: concurrent map iteration and map write` panic in the TSI
+  index that could crash InfluxDB during concurrent read and write operations.
+  This was a regression introduced in v1.12.3 by an unnecessary backport from
+  the 2.x branch that released a read lock before the underlying map was fully
+  iterated. The fix restores the original locking behavior.
+  [#27344](https://github.com/influxdata/influxdb/pull/27344),
+  [#27343](https://github.com/influxdata/influxdb/issues/27343)
+
+---
+
 ## v1.12.3 {date="2026-01-12"}
 
 ### Features

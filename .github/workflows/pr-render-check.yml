@@ -1,0 +1,101 @@
+name: Render Regression Check
+
+# Guards against the class of rendering bug reported in
+# influxdata/docs-v2#7079: whitespace leaks in Hugo render hooks or
+# wrapper shortcode templates that cause Goldmark to HTML-escape
+# highlighted code blocks on every affected page.
+#
+# Two layers:
+#
+#   1. check-artifacts: Site-wide grep of built HTML. Cheap, runs on
+#      every PR, catches regressions anywhere in the site even on pages
+#      nobody is thinking about. This is the backstop.
+#
+#   2. cypress-render: Cypress spec against content/example.md and a
+#      curated set of representative product pages. Runs only when a
+#      PR touches `layouts/` or `assets/` (i.e. the code paths that can
+#      cause this class of bug). Provides DOM-level verification that
+#      the pages actually look right, not just that they lack a string.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-artifacts:
+    name: Scan built HTML for forbidden render artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Build Hugo site
+        run: npx hugo --quiet
+
+      - name: Scan built HTML for render artifacts
+        run: .ci/scripts/check-render-artifacts.sh public
+
+  cypress-render:
+    name: Cypress render-regression spec
+    runs-on: ubuntu-latest
+    # Only run when a PR touches code that could regress rendering.
+    # Content-only PRs don't need this layer — the site-wide grep above
+    # already catches any page-level impact they could have.
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'render-regression') ||
+      github.event.pull_request.draft == false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Detect layout/asset changes
+        id: detect
+        run: |
+          # Only run Cypress when files under layouts/, assets/, or
+          # the render-regression spec itself have changed. Content-only
+          # PRs rely on the site-wide grep job above for coverage.
+          CHANGED=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files" \
+            | jq -r '.[].filename')
+
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          if echo "$CHANGED" | grep -qE '^(layouts/|assets/|cypress/e2e/content/render-regression\.cy\.js$|cypress/support/|\.ci/scripts/check-render-artifacts\.sh$|\.github/workflows/pr-render-check\.yml$)'; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            echo "✅ Layout, asset, or render-check file changed — running Cypress"
+          else
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  No layout/asset/render-check file changed — skipping Cypress"
+          fi
+
+      - name: Setup Node.js
+        if: steps.detect.outputs.should-run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        if: steps.detect.outputs.should-run == 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: Run render-regression spec
+        if: steps.detect.outputs.should-run == 'true'
+        run: |
+          node cypress/support/run-e2e-specs.js \
+            --spec "cypress/e2e/content/render-regression.cy.js" \
+            --no-mapping

@@ -10,7 +10,7 @@
  */
 
 import { execSync } from 'child_process';
-import { appendFileSync, existsSync } from 'fs';
+import { appendFileSync, existsSync, readFileSync } from 'fs';
 import { extractDocsUrls } from './parse-pr-urls.js';
 import {
   getChangedContentFiles,
@@ -18,7 +18,12 @@ import {
 } from '../../scripts/lib/content-utils.js';
 
 const GITHUB_OUTPUT = process.env.GITHUB_OUTPUT || '/dev/stdout';
-const PR_BODY = process.env.PR_BODY || '';
+// Read PR body from file (fetched fresh from API) or fall back to env var
+const PR_BODY_FILE = process.env.PR_BODY_FILE;
+const PR_BODY =
+  PR_BODY_FILE && existsSync(PR_BODY_FILE)
+    ? readFileSync(PR_BODY_FILE, 'utf-8')
+    : process.env.PR_BODY || '';
 const BASE_REF = process.env.BASE_REF || 'origin/master';
 const MAX_PAGES = 50; // Limit to prevent storage bloat
 
