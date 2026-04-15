@@ -1,0 +1,3793 @@
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWQ54SDD8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CNWQ54SDD8', {
+    'send_page_view': true,
+    'transport_type': 'beacon'
+  });
+</script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+  
+  
+  
+
+
+
+
+
+<title>InfluxDB line protocol tutorial | &lt;nil&gt; Documentation</title>
+
+
+    <meta name="description" content="Tutorial for using InfluxDB line protocol.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
+
+    
+
+
+
+
+
+
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+      <script type="module" src="/docs-v2/pr-preview/pr-6622/js/main.js"></script>
+    
+  
+
+    
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6622/docs-v2/pr-preview/pr-6622/influxdb/v1/write_protocols/line_protocol_tutorial/" />
+
+    
+<style>
+  body {
+    visibility: hidden;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.0524d17963b25d4f92e1ad24060e0a8ce9dde3a56434314d397582ddb9d4d55f.css">
+
+
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.0ca36e2578df2e1ab5a40ea45d0bbb2f03f15cd9144c2fcd378be5e4a68fd442.css">
+
+
+<link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-6622/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
+
+
+<link rel="alternate stylesheet" title="sidebar-closed" type="text/css" href="/docs-v2/pr-preview/pr-6622/light-theme.b9796198db2f4e595588f9612cc06faa5b6f61322119b20af095d82a792468f7.css">
+
+
+<link rel="stylesheet" type="text/css" href="/docs-v2/pr-preview/pr-6622/api.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;0,700;1,500;1,700&family=Rubik:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    
+
+
+
+
+
+
+
+
+  
+  
+    <meta name="docsearch:searchTag" content="docs-v2-pr-preview">
+  
+
+
+
+
+
+    
+
+
+
+
+
+<meta name="latest" content="false">
+<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+    
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('972-GDU-533');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+
+<img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=5581ee6b-3e7c-42b8-a507-38ea055c35ca"/>
+
+
+
+    <meta name="Copyright" content="InfluxData Inc." />
+  </head>
+  <body class='docs-v2' data-component="theme" data-theme-callback="setVisibility">
+    
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXRH9C" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+
+
+
+
+
+
+
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a class="influx-home" href="https://www.influxdata.com" title="InfluxData"><span
+        class="icon-influx-logo"></span><span class="icon-influx-logotype"></span></a>
+    <span class="divider"></span>
+    <a class="docs-home" href="/"><span class=short>Doc</span><span class="long">umentation</span></a>
+  </div>
+  <div class="topnav-right">
+    
+      <div class="selector-dropdowns">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-list" data-component="product-selector">
+  <div id="product-dropdown">
+    <p class="selected">Select product</p>
+  </div>
+  <div id="dropdown-items">
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 3</p></div>
+      <ul class="item-list products" data-category="Self-managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/core/' >InfluxDB 3 Core <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/enterprise/' >InfluxDB 3 Enterprise <span class="state">New</span></a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/clustered/' >InfluxDB Clustered</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Fully-Managed">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-serverless/' >InfluxDB Cloud Serverless</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/cloud-dedicated/' >InfluxDB Cloud Dedicated</a>
+</li>
+      </ul>
+      <ul class="item-list products" data-category="Tools">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb3/explorer/' >InfluxDB 3 Explorer <span class="state">New</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 2</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v2/reference/syntax/line-protocol/' >InfluxDB OSS v2</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/cloud/' >InfluxDB Cloud (TSM)</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/flux/v0/' >Flux</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>InfluxDB 1</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/influxdb/v1/' class="active">InfluxDB OSS v1</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/enterprise_influxdb/v1/' >InfluxDB Enterprise</a>
+</li>
+        <li>
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/platform/#influxdb-cloud-1' >InfluxDB Cloud 1</a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Telegraf</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/v1/' >Telegraf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/telegraf/controller/' >Telegraf Controller <span class="state">beta</span></a>
+</li>
+      </ul>
+    </div>
+    <div class="product-group">
+      <div class="group-title"><p>Other products</p></div>
+      <ul class="item-list products">
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/chronograf/v1/' >Chronograf</a>
+</li>
+        <li>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <a href='/kapacitor/v1/' >Kapacitor</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="buttons">
+        <div class="search-btn" data-component="search-button">
+          <button id="search-btn" data-action="toggle"><span class="cf-icon Search_New"></span></button>
+        </div>
+        <button class="url-trigger" href="#"><span class="cf-icon CogSolid_New"></span></button>
+        <span data-component="theme-switch">
+          <button class="theme-switch theme-switch-light">
+            <span class="cf-icon Lightmode_New"></span></button>
+          <button class="theme-switch theme-switch-dark">
+            <span class="cf-icon Darkmode_New"></span></button>
+        </span>
+      </div>
+    
+  </div>
+</div>
+
+<div class="page-wrapper">
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<aside class="sidebar">
+  <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="closed" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarClose"></span></a></div>
+  <div class="search-and-nav-toggle">
+    <div class="sidebar--search" data-component="sidebar-search">
+      <input  class="sidebar--search-field"
+              id="algolia-search-input"
+              type="text"
+              accesskey="s"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              dir="auto"
+              placeholder='Search InfluxDB v1 &amp; Flux'>
+    </div>
+    <a id="contents-toggle-btn" href="#">
+      <span class="toggle-hamburger"></span>
+    </a>
+  </div>
+  <ul id="nav-tree">
+
+  
+  
+  
+
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/'>InfluxDB OSS v1</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/'>About the project</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/release-notes/'>Release notes</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/contributing/'>Contribute to InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/cla/'>Contributor license agreement</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/licenses/'>InfluxDB license</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/about_the_project/third-party/'>Third party software</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/introduction/'>Introduction</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/introduction/download/'>Download InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/introduction/install/'>Install InfluxDB</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/introduction/install/docker/'>Use Docker</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/introduction/get-started/'>Get started with InfluxDB</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/'>Concepts</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/key_concepts/'>Key concepts</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/glossary/'>Glossary</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/crosswalk/'>Compare InfluxDB to SQL databases</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/insights_tradeoffs/'>InfluxDB design insights and tradeoffs</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/schema_and_data_layout/'>Schema design and data layout</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/storage_engine/'>In-memory indexing with TSM</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/time-series-index/'>Time Series Index (TSI) overview</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/tsi-details/'>Time Series Index (TSI) details</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/concepts/file-system-layout/'>File system layout</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/'>Guides</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/write_data/'>Write data with the InfluxDB API</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/query_data/'>Query data with the InfluxDB API</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/downsample_and_retain/'>Downsample and retain data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/hardware_sizing/'>Hardware sizing guidelines</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/guides/calculate_percentages/'>Calculate percentages</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/enterprise_influxdb/v1/guides/migration/'>Migrate to InfluxDB Enterprise</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/'>Administration</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/config/'>Configure InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/identify-version/'>Identify version</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/authentication_and_authorization/'>Manage authentication and authorization</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/upgrading/'>Upgrade InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/https_setup/'>Enable HTTPS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/logs/'>Log and trace</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/ports/'>Ports</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/backup_and_restore/'>Back up and restore</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/rebuild-tsi-index/'>Rebuild the TSI index</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/compact-series-file/'>Compact a series file</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/security/'>Manage security</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/server_monitoring/'>Monitor InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/stability_and_compatibility/'>Stability and compatibility</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/administration/subscription-management/'>Manage subscriptions</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/'>Tools</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influx-cli/'>influx</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influx-cli/use-influx-cli/'>Use influx CLI</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/'>influxd</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/backup/'>influxd backup</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/config/'>influxd config</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/restore/'>influxd restore</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/run/'>influxd run</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influxd/version/'>influxd version</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/api_client_libraries/'>InfluxDB client libraries</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/influx_inspect/'>Influx Inspect disk utility</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/inch/'>InfluxDB inch tool</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/grafana/'>Grafana</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/tools/mcp-server/'>Documentation MCP server</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/'>Influx Query Language (InfluxQL)</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/sample-data/'>Sample data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/explore-data/'>Explore data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/explore-schema/'>Explore your schema</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/manage-database/'>Manage your database</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/continuous_queries/'>Continuous Queries</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/functions/'>Functions</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/math_operators/'>Mathematical operators</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/query_language/spec/'>InfluxQL reference</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/'>Flux</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/installation/'>Enable Flux</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/get-started/'>Get started with Flux</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/get-started/query-influxdb/'>Query InfluxDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/get-started/transform-data/'>Transform your data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/get-started/syntax-basics/'>Syntax basics</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/'>Query with Flux</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/execute-queries/'>Execute Flux queries</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/query-fields/'>Query fields and tags</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/group-data/'>Group</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/sort-limit/'>Sort and limit</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/window-aggregate/'>Window &amp; aggregate</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/mathematic-operations/'>Transform data with math</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/calculate-percentages/'>Calculate percentages</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/cumulativesum/'>Cumulative sum</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/fill/'>Fill</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/first-last/'>First &amp; last</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/histograms/'>Histograms</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/increase/'>Increase</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/join/'>Join</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/median/'>Median</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/moving-average/'>Moving Average</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/percentile-quantile/'>Percentile &amp; quantile</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/rate/'>Rate</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/conditional-logic/'>Conditional logic</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/exists/'>Exists</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/scalar-values/'>Extract scalar values</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/geo/'>Geo-temporal data</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/geo/shape-geo-data/'>Shape geo-temporal data</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/geo/filter-by-region/'>Filter by region</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/geo/group-geo-data/'>Group geo-temporal data</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/manipulate-timestamps/'>Manipulate timestamps</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/monitor-states/'>Monitor states</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/sql/'>Query SQL data sources</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/regular-expressions/'>Regular expressions</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/optimize-queries/'>Optimize queries</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/guides/flux-in-dashboards/'>Use Flux in dashboards</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/flux/flux-vs-influxql/'>Flux vs InfluxQL</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle open"></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/write_protocols/'>Write protocols</a>
+        
+          <ul class="children open">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/write_protocols/line_protocol_reference/'>InfluxDB line protocol reference</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item active">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/write_protocols/line_protocol_tutorial/'>InfluxDB line protocol tutorial</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/'>Supported protocols</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/collectd/'>CollectD</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/graphite/'>Graphite</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/opentsdb/'>OpenTSDB</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/prometheus/'>Prometheus</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/supported_protocols/udp/'>UDP</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/high_availability/'>High availability</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/troubleshooting/'>Troubleshoot</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/troubleshooting/systemd/'>systemd errors</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/troubleshooting/frequently-asked-questions/'>Frequently asked questions (FAQs)</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/troubleshooting/query_management/'>Query management</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/troubleshooting/errors/'>Error messages</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/influxdb/v1/additional_resources/additional_resources/'>Additional resources</a>
+        
+      
+    </li>
+  
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+    <h4 class="platform">InfluxData Platform</h4>
+    
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/'>Introduction</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/getting-started/'>Get started</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/'>Monitor</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/'>Monitor the InfluxData Platform</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/internal-vs-external/'>Configurations for monitoring</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/monitoring-dashboards/'>Monitoring dashboards</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/external-monitor-setup/'>Configure a watcher of watchers</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/tools/'>Other monitoring tools</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/tools/measurements-internal/'>InfluxDB _internal measurements</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/tools/kapacitor-measurements/'>Kapacitor measurements</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/tools/show-diagnostics/'>SHOW DIAGNOSTICS</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/influxdata-platform/tools/show-stats/'>SHOW STATS</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/containers/'>Monitor containers</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/monitoring/containers/kubernetes/'>Monitor Kubernetes</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        <a href="#" class="children-toggle "></a>
+        <a href='/docs-v2/pr-preview/pr-6622/platform/troubleshoot/'>Troubleshoot</a>
+        
+          <ul class="children ">
+          
+  
+  
+  
+  
+  
+  
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/troubleshoot/oom-loops/'>Out-of-memory loops</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-item ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/troubleshoot/disk-usage/'>Disk usage</a>
+        
+      
+    </li>
+  
+
+          </ul>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/faq/'>Frequently asked questions</a>
+        
+      
+    </li>
+  
+    
+    
+
+    <li class="nav-category ">
+      
+        
+        
+        <a href='/docs-v2/pr-preview/pr-6622/platform/identify-version/'>Identify version</a>
+        
+      
+    </li>
+  
+
+
+  
+
+  
+  
+  
+  
+
+  </ul>
+</aside>
+
+  <div class="content-wrapper">
+    <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
+      class="cf-icon SidebarOpen"></span></a></div>
+    <div class="article">
+  <article class="article--content">
+    <div class="title">
+      <h1>InfluxDB line protocol tutorial</h1>
+      
+
+
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>The InfluxDB line protocol is a text-based format for writing points to the
+database.
+Points must be in line protocol format for InfluxDB to successfully parse and
+write points (unless you&rsquo;re using a <a href="/influxdb/v1/supported_protocols/">service plugin</a>).</p>
+<p>Using fictional temperature data, this page introduces InfluxDB line protocol.
+It covers:</p>
+<table style="width:100%">
+  <tr>
+    <td><a href="#syntax">Syntax</a></td>
+    <td><a href="#data-types">Data Types</a></td>
+    <td><a href="#quoting">Quoting</a></td>
+    <td><a href="#special-characters-and-keywords">Special Characters and Keywords</a></td>
+  </tr>
+</table>
+<p>The final section, <a href="#writing-data-to-influxdb">Writing data to InfluxDB</a>,
+describes how to get data into InfluxDB and how InfluxDB handles Line
+Protocol duplicates.</p>
+<h2 id="syntax">Syntax</h2>
+<p>A single line of text in line protocol format represents one data point in InfluxDB.
+It informs InfluxDB of the point&rsquo;s measurement, tag set, field set, and
+timestamp.
+The following code block shows a sample of line protocol and breaks it into its
+individual components:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=82 1465839830100400200
+  |    -------------------- --------------  |
+  |             |             |             |
+  |             |             |             |
++-----------+--------+-+---------+-+---------+
+|measurement|,tag_set| |field_set| |timestamp|
++-----------+--------+-+---------+-+---------+</code></pre><p>Moving across each element in the diagram:</p>
+<h3 id="measurement">Measurement</h3>
+<p>The name of the <a href="/influxdb/v1/concepts/glossary/#measurement">measurement</a>
+that you want to write your data to.
+The measurement is required in line protocol.</p>
+<p>In the example, the measurement name is <code>weather</code>.</p>
+<h3 id="tag-set">Tag set</h3>
+<p>The <a href="/influxdb/v1/concepts/glossary/#tag">tag(s)</a> that you want to include
+with your data point.
+Tags are optional in line protocol.</p>
+
+<blockquote>
+<p><strong>Note:</strong> Avoid using the reserved keys <code>_field</code>, <code>_measurement</code>, and <code>time</code>. If reserved keys are included as a tag or field key, the associated point is discarded.</p>
+
+</blockquote>
+<p>Notice that the measurement and tag set are separated by a comma and no spaces.</p>
+<p>Separate tag key-value pairs with an equals sign <code>=</code> and no spaces:</p>
+<pre tabindex="0"><code>&lt;tag_key&gt;=&lt;tag_value&gt;</code></pre><p>Separate multiple tag-value pairs with a comma and no spaces:</p>
+<pre tabindex="0"><code>&lt;tag_key&gt;=&lt;tag_value&gt;,&lt;tag_key&gt;=&lt;tag_value&gt;</code></pre><p>In the example, the tag set consists of one tag: <code>location=us-midwest</code>.
+Adding another tag (<code>season=summer</code>) to the example looks like this:</p>
+<pre tabindex="0"><code>weather,location=us-midwest,season=summer temperature=82 1465839830100400200</code></pre><p>When using quotes in tag sets, line protocol supports single and double quotes as described in the following table:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Element</th>
+          <th style="text-align: center">Double quotes</th>
+          <th style="text-align: center">Single quotes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Measurement</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag key</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tag value</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field key</td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+          <td style="text-align: center"><em>Limited</em> <sup class="required">*</sup></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Field value</td>
+          <td style="text-align: center"><strong>Strings only</strong></td>
+          <td style="text-align: center">Never</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Timestamp</td>
+          <td style="text-align: center">Never</td>
+          <td style="text-align: center">Never</td>
+      </tr>
+  </tbody>
+</table>
+<p><sup class="required">*</sup> <em>Line protocol accepts double and single quotes in
+measurement names, tag keys, tag values, and field keys, but interprets them as
+part of the name, key, or value.</em></p>
+
+<div class="note block">
+  <p><em>Always double quote string field values.</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">measurementName <span class="nv">fieldKey</span><span class="o">=</span><span class="s2">&#34;field string value&#34;</span> <span class="m">1556813561098000000</span></span></span></code></pre></div>
+</div>
+
+<p>For best performance you should sort tags by key before sending them to the
+database.
+The sort should match the results from the
+<a href="http://golang.org/pkg/bytes/#Compare">Go bytes.Compare function</a>.</p>
+<h3 id="whitespace-i">Whitespace I</h3>
+<p>Separate the measurement and the field set or, if you&rsquo;re including a tag set
+with your data point, separate the tag set and the field set with a whitespace.
+The whitespace is required in line protocol.</p>
+<p>Valid line protocol with no tag set:</p>
+<pre tabindex="0"><code>weather temperature=82 1465839830100400200</code></pre><h3 id="field-set">Field set</h3>
+<p>The <a href="/influxdb/v1/concepts/glossary/#field">field(s)</a> for your data point.
+Every data point requires at least one field in line protocol.</p>
+<p>Separate field key-value pairs with an equals sign <code>=</code> and no spaces:</p>
+<pre tabindex="0"><code>&lt;field_key&gt;=&lt;field_value&gt;</code></pre><p>Separate multiple field-value pairs with a comma and no spaces:</p>
+<pre tabindex="0"><code>&lt;field_key&gt;=&lt;field_value&gt;,&lt;field_key&gt;=&lt;field_value&gt;</code></pre><p>In the example, the field set consists of one field: <code>temperature=82</code>.
+Adding another field (<code>humidity=71</code>) to the example looks like this:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=82,humidity=71 1465839830100400200</code></pre><h3 id="whitespace-ii">Whitespace II</h3>
+<p>Separate the field set and the optional timestamp with a whitespace.
+The whitespace is required in line protocol if you&rsquo;re including a timestamp.</p>
+<h3 id="timestamp">Timestamp</h3>
+<p>The <a href="/influxdb/v1/concepts/glossary/#timestamp">timestamp</a> for your data
+point in nanosecond-precision Unix time.
+The timestamp is optional in line protocol.
+If you do not specify a timestamp for your data point InfluxDB uses the server&rsquo;s
+local nanosecond timestamp in UTC.</p>
+<p>In the example, the timestamp is <code>1465839830100400200</code> (that&rsquo;s
+<code>2016-06-13T17:43:50.1004002Z</code> in RFC3339 format).
+The line protocol below is the same data point but without the timestamp.
+When InfluxDB writes it to the database it uses your server&rsquo;s
+local timestamp instead of <code>2016-06-13T17:43:50.1004002Z</code>.</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=82</code></pre><p>Use the InfluxDB API to specify timestamps with a precision other than nanoseconds,
+such as microseconds, milliseconds, or seconds.
+We recommend using the coarsest precision possible as this can result in
+significant improvements in compression.
+See the <a href="/influxdb/v1/api/#write-http-endpoint">API Reference</a> for more information.</p>
+
+<div class="note block">
+  <h4 id="setup-tip">Setup Tip:</h4>
+<p>Use the Network Time Protocol (NTP) to synchronize time between hosts.
+InfluxDB uses a host&rsquo;s local time in UTC to assign timestamps to data; if
+hosts&rsquo; clocks aren&rsquo;t synchronized with NTP, the timestamps on the data written
+to InfluxDB can be inaccurate.</p>
+
+</div>
+
+<h2 id="data-types">Data types</h2>
+<p>This section covers the data types of line protocol&rsquo;s major components:
+<a href="/influxdb/v1/concepts/glossary/#measurement">measurements</a>,
+<a href="/influxdb/v1/concepts/glossary/#tag-key">tag keys</a>,
+<a href="/influxdb/v1/concepts/glossary/#tag-value">tag values</a>,
+<a href="/influxdb/v1/concepts/glossary/#field-key">field keys</a>,
+<a href="/influxdb/v1/concepts/glossary/#field-value">field values</a>, and
+<a href="/influxdb/v1/concepts/glossary/#timestamp">timestamps</a>.</p>
+<p>Measurements, tag keys, tag values, and field keys are always strings.</p>
+
+<blockquote>
+<p><strong>Note:</strong>
+Because InfluxDB stores tag values as strings, InfluxDB cannot perform math on
+tag values.
+In addition, InfluxQL <a href="/influxdb/v1/query_language/functions/">functions</a>
+do not accept a tag value as a primary argument.
+It&rsquo;s a good idea to take into account that information when designing your
+<a href="/influxdb/v1/concepts/glossary/#schema">schema</a>.</p>
+
+</blockquote>
+<p>Timestamps are UNIX timestamps.
+The minimum valid timestamp is <code>-9223372036854775806</code> or <code>1677-09-21T00:12:43.145224194Z</code>.
+The maximum valid timestamp is <code>9223372036854775806</code> or <code>2262-04-11T23:47:16.854775806Z</code>.
+As mentioned above, by default, InfluxDB assumes that timestamps have
+nanosecond precision.
+See the <a href="/influxdb/v1/api/#write-http-endpoint">API Reference</a> for how to specify
+alternative precisions.</p>
+<p>Field values can be floats, integers, strings, or Booleans:</p>
+<ul>
+<li>
+<p>Floats - by default, InfluxDB assumes all numerical field values are floats.</p>
+<p>Store the field value <code>82</code> as a float:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=82 1465839830100400200</code></pre></li>
+<li>
+<p>Integers - append an <code>i</code> to the field value to tell InfluxDB to store the
+number as an integer.</p>
+<p>Store the field value <code>82</code> as an integer:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=82i 1465839830100400200</code></pre></li>
+<li>
+<p>Strings - double quote string field values (more on quoting in line protocol
+<a href="#quoting">below</a>).</p>
+<p>Store the field value <code>too warm</code> as a string:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=&#34;too warm&#34; 1465839830100400200</code></pre></li>
+<li>
+<p>Booleans - specify TRUE with <code>t</code>, <code>T</code>, <code>true</code>, <code>True</code>, or <code>TRUE</code>. Specify
+FALSE with <code>f</code>, <code>F</code>, <code>false</code>, <code>False</code>, or <code>FALSE</code>.</p>
+<p>Store the field value <code>true</code> as a Boolean:</p>
+<pre tabindex="0"><code>weather,location=us-midwest too_hot=true 1465839830100400200</code></pre>
+<blockquote>
+<p><strong>Note:</strong> Acceptable Boolean syntax differs for data writes and data
+queries. See
+<a href="/influxdb/v1/troubleshooting/frequently-asked-questions/#why-can-t-i-query-boolean-field-values">Frequently Asked Questions</a>
+for more information.</p>
+
+</blockquote>
+</li>
+</ul>
+<p>Within a measurement, a field&rsquo;s type cannot differ within a
+<a href="/influxdb/v1/concepts/glossary/#shard">shard</a>, but it can differ across
+shards. For example, writing an integer to a field that previously accepted
+floats fails if InfluxDB attempts to store the integer in the same shard as the
+floats:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="n">weather</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temperature</span><span class="o">=</span><span class="mi">82</span><span class="w"> </span><span class="mi">1465839830100400200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="n">weather</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temperature</span><span class="o">=</span><span class="mi">81</span><span class="n">i</span><span class="w"> </span><span class="mi">1465839830100400300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ERR</span><span class="p">:</span><span class="w"> </span><span class="err">{</span><span class="s2">&#34;error&#34;</span><span class="p">:</span><span class="s2">&#34;field type conflict: input field \&#34;</span><span class="n">temperature</span><span class="err">\</span><span class="s2">&#34; on measurement \&#34;</span><span class="n">weather</span><span class="err">\</span><span class="s2">&#34; is type int64, already exists as type float&#34;</span><span class="err">}</span></span></span></code></pre></div><p>But, writing an integer to a field that previously accepted floats succeeds if
+InfluxDB stores the integer in a new shard:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="n">weather</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temperature</span><span class="o">=</span><span class="mi">82</span><span class="w"> </span><span class="mi">1465839830100400200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="n">weather</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temperature</span><span class="o">=</span><span class="mi">81</span><span class="n">i</span><span class="w"> </span><span class="mi">1467154750000000000</span></span></span></code></pre></div><p>See
+<a href="/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards">Frequently Asked Questions</a>
+for how field value type discrepancies can affect <code>SELECT *</code> queries.</p>
+<h2 id="quoting">Quoting</h2>
+<p>This section covers when not to and when to double (<code>&quot;</code>) or single (<code>'</code>)
+quote in line protocol.
+Moving from never quote to please do quote:</p>
+<ul>
+<li>
+<p>Never double or single quote the timestamp.
+It&rsquo;s not valid line protocol.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&gt; INSERT weather,location=us-midwest temperature=82 &#34;1465839830100400200&#34;
+ERR: {&#34;error&#34;:&#34;unable to parse &#39;weather,location=us-midwest temperature=82 \&#34;1465839830100400200\&#34;&#39;: bad timestamp&#34;}</code></pre></li>
+<li>
+<p>Never single quote field values (even if they&rsquo;re strings!).
+It&rsquo;s also not valid line protocol.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&gt; INSERT weather,location=us-midwest temperature=&#39;too warm&#39;
+ERR: {&#34;error&#34;:&#34;unable to parse &#39;weather,location=us-midwest temperature=&#39;too warm&#39;&#39;: invalid boolean&#34;}</code></pre></li>
+<li>
+<p>Do not double or single quote measurement names, tag keys, tag values, and field
+keys.
+It is valid line protocol but InfluxDB assumes that the quotes are part of the
+name.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&gt; INSERT weather,location=us-midwest temperature=82 1465839830100400200
+&gt; INSERT &#34;weather&#34;,location=us-midwest temperature=87 1465839830100400200
+&gt; SHOW MEASUREMENTS
+name: measurements
+------------------
+name
+&#34;weather&#34;
+weather</code></pre><p>To query data in <code>&quot;weather&quot;</code> you need to double quote the measurement name and
+escape the measurement&rsquo;s double quotes:</p>
+<pre tabindex="0"><code>&gt; SELECT * FROM &#34;\&#34;weather\&#34;&#34;
+name: &#34;weather&#34;
+---------------
+time				            location	 temperature
+2016-06-13T17:43:50.1004002Z	us-midwest	 87</code></pre></li>
+<li>
+<p>Do not double quote field values that are floats, integers, or Booleans.
+InfluxDB will assume that those values are strings.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&gt; INSERT weather,location=us-midwest temperature=&#34;82&#34;
+&gt; SELECT * FROM weather WHERE temperature &gt;= 70
+&gt;</code></pre></li>
+<li>
+<p>Do double quote field values that are strings.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&gt; INSERT weather,location=us-midwest temperature=&#34;too warm&#34;
+&gt; SELECT * FROM weather
+name: weather
+-------------
+time				            location	 temperature
+2016-06-13T19:10:09.995766248Z	us-midwest	 too warm</code></pre></li>
+</ul>
+<h2 id="special-characters-and-keywords">Special characters and keywords</h2>
+<h3 id="special-characters">Special characters</h3>
+<p>For tag keys, tag values, and field keys always use a backslash character <code>\</code>
+to escape:</p>
+<ul>
+<li>
+<p>commas <code>,</code></p>
+<pre tabindex="0"><code>weather,location=us\,midwest temperature=82 1465839830100400200</code></pre></li>
+<li>
+<p>equal signs <code>=</code></p>
+<pre tabindex="0"><code>weather,location=us-midwest temp\=rature=82 1465839830100400200</code></pre></li>
+<li>
+<p>spaces</p>
+<pre tabindex="0"><code>weather,location\ place=us-midwest temperature=82 1465839830100400200</code></pre></li>
+</ul>
+<p>For measurements always use a backslash character <code>\</code> to escape:</p>
+<ul>
+<li>
+<p>commas <code>,</code></p>
+<pre tabindex="0"><code>wea\,ther,location=us-midwest temperature=82 1465839830100400200</code></pre></li>
+<li>
+<p>spaces</p>
+<pre tabindex="0"><code>wea\ ther,location=us-midwest temperature=82 1465839830100400200</code></pre></li>
+</ul>
+<p>For string field values use a backslash character <code>\</code> to escape:</p>
+<ul>
+<li>
+<p>double quotes <code>&quot;</code></p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature=&#34;too\&#34;hot\&#34;&#34; 1465839830100400200</code></pre></li>
+</ul>
+<p>line protocol does not require users to escape the backslash character <code>\</code> but
+will not complain if you do. For example, inserting the following:</p>
+<pre tabindex="0"><code>weather,location=us-midwest temperature_str=&#34;too hot/cold&#34; 1465839830100400201
+weather,location=us-midwest temperature_str=&#34;too hot\cold&#34; 1465839830100400202
+weather,location=us-midwest temperature_str=&#34;too hot\\cold&#34; 1465839830100400203
+weather,location=us-midwest temperature_str=&#34;too hot\\\cold&#34; 1465839830100400204
+weather,location=us-midwest temperature_str=&#34;too hot\\\\cold&#34; 1465839830100400205
+weather,location=us-midwest temperature_str=&#34;too hot\\\\\cold&#34; 1465839830100400206</code></pre><p>Will be interpreted as follows (notice that a single and double backslash produce the same record):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;weather&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">weather</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">time</span><span class="w">                </span><span class="k">location</span><span class="w">   </span><span class="n">temperature_str</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">----                --------   ---------------
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400201</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="o">/</span><span class="n">cold</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400202</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="err">\</span><span class="n">cold</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400203</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="err">\</span><span class="n">cold</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400204</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="err">\\</span><span class="n">cold</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400205</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="err">\\</span><span class="n">cold</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400206</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">too</span><span class="w"> </span><span class="n">hot</span><span class="err">\\\</span><span class="n">cold</span></span></span></code></pre></div><p>All other special characters also do not require escaping.
+For example, line protocol handles emojis with no problem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="n">we</span><span class="err">⛅️</span><span class="n">ther</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temper</span><span class="err">🔥</span><span class="n">ture</span><span class="o">=</span><span class="mi">82</span><span class="w"> </span><span class="mi">1465839830100400200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s2">&#34;we⛅️ther&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">we</span><span class="err">⛅️</span><span class="n">ther</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">------------------
+</span></span></span><span class="line"><span class="cl"><span class="n">time</span><span class="w">			              </span><span class="k">location</span><span class="w">	   </span><span class="n">temper</span><span class="err">🔥</span><span class="n">ture</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mi">1465839830100400200</span><span class="w">	 </span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w">	 </span><span class="mi">82</span></span></span></code></pre></div><h3 id="keywords">Keywords</h3>
+<p>Line protocol accepts
+<a href="/influxdb/v1/query_language/spec/#keywords">InfluxQL keywords</a>
+as <a href="/influxdb/v1/concepts/glossary/#identifier">identifier</a> names.
+In general, we recommend avoiding using InfluxQL keywords in your schema as
+it can cause
+<a href="/influxdb/v1/troubleshooting/errors/#error-parsing-query-found-expected-identifier-at-line-char">confusion</a> when querying the data.</p>
+<p>The keyword <code>time</code> is a special case.
+<code>time</code> can be a
+<a href="/influxdb/v1/concepts/glossary/#continuous-query-cq">continuous query</a> name,
+database name,
+<a href="/influxdb/v1/concepts/glossary/#measurement">measurement</a> name,
+<a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a> name,
+<a href="/influxdb/v1/concepts/glossary/#subscription">subscription</a> name, and
+<a href="/influxdb/v1/concepts/glossary/#user">user</a> name.
+In those cases, <code>time</code> does not require double quotes in queries.
+<code>time</code> cannot be a <a href="/influxdb/v1/concepts/glossary/#field-key">field key</a> or
+<a href="/influxdb/v1/concepts/glossary/#tag-key">tag key</a>;
+InfluxDB rejects writes with <code>time</code> as a field key or tag key and returns an error.
+See <a href="/influxdb/v1/troubleshooting/frequently-asked-questions/#time">Frequently Asked Questions</a> for more information.</p>
+<h2 id="writing-data-to-influxdb">Writing data to InfluxDB</h2>
+<h3 id="getting-data-in-the-database">Getting data in the database</h3>
+<p>Now that you know all about the InfluxDB line protocol, how do you actually get the
+line protocol to InfluxDB?
+Here, we&rsquo;ll give two quick examples and then point you to the
+<a href="/influxdb/v1/tools/">Tools</a> sections for further
+information.</p>
+<h4 id="influxdb-api">InfluxDB API</h4>
+<p>Write data to InfluxDB using the InfluxDB API.
+Send a <code>POST</code> request to the <code>/write</code> endpoint and provide your line protocol in
+the request body:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -i -XPOST <span class="s2">&#34;http://localhost:8086/write?db=science_is_cool&#34;</span> --data-binary <span class="s1">&#39;weather,location=us-midwest temperature=82 1465839830100400200&#39;</span></span></span></code></pre></div><p>For in-depth descriptions of query string parameters, status codes, responses,
+and more examples, see the <a href="/influxdb/v1/api/#write-http-endpoint">API Reference</a>.</p>
+<h4 id="cli">CLI</h4>
+<p>Write data to InfluxDB using the InfluxDB command line interface (CLI).
+<a href="/influxdb/v1/tools/shell/#launch-influx">Launch</a> the CLI, use the relevant
+database, and put <code>INSERT</code> in
+front of your line protocol:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="n">weather</span><span class="p">,</span><span class="k">location</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">midwest</span><span class="w"> </span><span class="n">temperature</span><span class="o">=</span><span class="mi">82</span><span class="w"> </span><span class="mi">1465839830100400200</span></span></span></code></pre></div><p>You can also use the CLI to
+<a href="/influxdb/v1/tools/shell/#import-data-from-a-file-with-import">import</a> Line
+Protocol from a file.</p>
+<p>There are several ways to write data to InfluxDB.
+See the <a href="/influxdb/v1/tools/">Tools</a> section for more
+on the <a href="/influxdb/v1/api/#write-http-endpoint">InfluxDB API</a>, the
+<a href="/influxdb/v1/tools/shell/">CLI</a>, and the available Service Plugins (
+<a href="/influxdb/v1/tools/udp/">UDP</a>,
+<a href="/influxdb/v1/tools/graphite/">Graphite</a>,
+<a href="/influxdb/v1/tools/collectd/">CollectD</a>, and
+<a href="/influxdb/v1/tools/opentsdb/">OpenTSDB</a>).</p>
+<h3 id="duplicate-points">Duplicate points</h3>
+<p>A point is uniquely identified by the measurement name, tag set, and timestamp.
+If you submit line protocol with the same measurement, tag set, and timestamp,
+but with a different field set, the field set becomes the union of the old
+field set and the new field set, where any conflicts favor the new field set.</p>
+<p>For a complete example of this behavior and how to avoid it, see
+<a href="/influxdb/v1/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points">How does InfluxDB handle duplicate point?</a></p>
+
+
+
+    
+
+    
+    
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v1/write_protocols/line_protocol_tutorial.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6622/influxdb/v1/write_protocols/line_protocol_tutorial/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
+
+    <div class="copyright">© 2026 InfluxData, Inc.</div>
+  </div>
+</div>
+
+
+
+
+
+  
+  
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-wrapper">
+    <div class="modal-body">
+      <a id="modal-close"href="#"><span class="icon-remove"></span></a>
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<div class="modal-content" id="influxdb-url-list">
+  <h3>What is your InfluxDB OSS URL?</h3>
+  <p>Customize your <strong>InfluxDB OSS URL</strong> and we&rsquo;ll update code examples for you.</p>
+  <div class="products">
+    
+      <ul id="pref-tabs">
+        <li class="pref-tab active" id="pref-cloud"><span class="ephemeral">InfluxDB </span>Cloud</li>
+        <li class="pref-tab" id="pref-oss"><span class="ephemeral">InfluxDB </span>OSS or <span class="abbr">Ent</span><span class="ephemeral">erprise</span></li>
+      </ul>
+      
+  
+  
+  
+  
+  <div class="product active" id="cloud-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>AWS</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <p class="region">
+                    <span class="fake-radio"></span>
+                    US West (Oregon)
+                  </p>
+                  <ul class="clusters">
+                  
+                    <li>
+                      <label for="us-west-2-1" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-1" value="https://us-west-2-1.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-1
+                    </label>
+                    </li>
+                  
+                    <li>
+                      <label for="us-west-2-2" >
+                      <input type="radio" name="influxdb-cloud-url" id="us-west-2-2" value="https://us-west-2-2.aws.cloud2.influxdata.com" checked>
+                      <span class="radio"></span>
+                      us-west-2-2
+                    </label>
+                    </li>
+                  
+                  </ul>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="us-east-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-east-virginia" value="https://us-east-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US East (Virginia)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="eu-frankfurt" >
+                    <input type="radio" name="influxdb-cloud-url" id="eu-frankfurt" value="https://eu-central-1-1.aws.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    EU Frankfurt
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>GCP</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="us-central-iowa" >
+                    <input type="radio" name="influxdb-cloud-url" id="us-central-iowa" value="https://us-central1-1.gcp.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    US Central (Iowa)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Azure</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="west-europe-amsterdam" >
+                    <input type="radio" name="influxdb-cloud-url" id="west-europe-amsterdam" value="https://westeurope-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    West Europe (Amsterdam)
+                  </label>
+                
+              </li>
+            
+              <li class="region-group">
+                
+                  <label for="east-us-virginia" >
+                    <input type="radio" name="influxdb-cloud-url" id="east-us-virginia" value="https://eastus-1.azure.cloud2.influxdata.com" checked>
+                    <span class="radio"></span>
+                    East US (Virginia)
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+      
+  
+  
+  
+  
+  <div class="product inactive" id="oss-urls">
+    <div class="providers">
+      
+      
+        <div class="provider">
+          
+            <h5>Default</h5>
+            <ul>
+            
+            
+              <li class="region-group">
+                
+                  <label for="localhost8086" >
+                    <input type="radio" name="influxdb-oss-url" id="localhost8086" value="http://localhost:8086" checked>
+                    <span class="radio"></span>
+                    localhost:8086
+                  </label>
+                
+              </li>
+            
+          
+          </ul>
+        </div>
+      
+        <div class="provider">
+          
+            <h5>Custom</h5>
+            <ul>
+              <li class="custom">
+                <label for="custom">
+                  <input type="radio" name="influxdb-oss-url" id="custom" value="http://example.com:8080" checked>
+                  <span class="radio"></span>
+                </label>
+                <form action="#" id="custom-url" data-message="">
+                  <input type="text" name="custom-url-field" id="custom-url-field" placeholder="http://example.com:8080">
+                </form>
+              </li>
+            </ul>
+          
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+
+    
+  </div>
+  <p class="note">For more information, see <a href="/influxdb/v2/reference/urls/">InfluxDB OSS URLs</a>.</p>
+</div>
+
+
+      
+
+
+
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+    
+    
+    
+      
+    
+    
+      
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+
+
+<div class="modal-content" id="influxdb-version-detector">
+  <div data-component="influxdb-version-detector"
+       data-products='{&#34;enterprise_influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;}},&#34;name&#34;:&#34;InfluxDB Enterprise v1&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;User&#34;,&#34;Password&#34;,&#34;Default database&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}},&#34;influxdb&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;ai_source_group_ids__v1&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token or Username/Password&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;OSS&#34;,&#34;x-influxdb-version&#34;:&#34;^(1|2)\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8086&#34;]},&#34;name&#34;:&#34;InfluxDB&#34;,&#34;placeholder_host&#34;:&#34;localhost:8086&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Auth Type (Basic or Token)&#34;]}}},&#34;influxdb3_cloud_dedicated&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;influxdb.io&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Dedicated&#34;,&#34;placeholder_host&#34;:&#34;cluster-id.a.influxdb.io&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_cloud_serverless&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;All languages&#34;,&#34;Token&#34;,&#34;Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud Serverless&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Bucket&#34;,&#34;Token&#34;]}}},&#34;influxdb3_clustered&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-version&#34;:&#34;influxqlbridged-development&#34;}},&#34;name&#34;:&#34;InfluxDB Clustered&#34;,&#34;placeholder_host&#34;:&#34;cluster-host.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb3_core&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Free&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;No auth required&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Core&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Core&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;]}}},&#34;influxdb3_enterprise&#34;:{&#34;ai_source_group_ids&#34;:&#34;b650cf0b-4b52-42e8-bde7-a02738f27262&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Self-hosted&#34;,&#34;SQL/InfluxQL&#34;,&#34;Token&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;ping_headers&#34;:{&#34;x-influxdb-build&#34;:&#34;Enterprise&#34;,&#34;x-influxdb-version&#34;:&#34;^3\\.&#34;},&#34;url_contains&#34;:[&#34;localhost:8181&#34;]},&#34;name&#34;:&#34;InfluxDB 3 Enterprise&#34;,&#34;placeholder_host&#34;:&#34;localhost:8181&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]},&#34;SQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;Host&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud&#34;:{&#34;ai_source_group_ids&#34;:&#34;3e905caa-dd6f-464b-abf9-c3880e09f128&#34;,&#34;characteristics&#34;:[&#34;Paid/Free&#34;,&#34;Cloud&#34;,&#34;InfluxQL/Flux&#34;,&#34;Token&#34;,&#34;Databases/Buckets&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;us-west-2-1.aws.cloud2.influxdata.com&#34;,&#34;us-west-2-2.aws.cloud2.influxdata.com&#34;,&#34;us-east-1-1.aws.cloud2.influxdata.com&#34;,&#34;eu-central-1-1.aws.cloud2.influxdata.com&#34;,&#34;us-central1-1.gcp.cloud2.influxdata.com&#34;,&#34;westeurope-1.azure.cloud2.influxdata.com&#34;,&#34;eastus-1.azure.cloud2.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud (TSM)&#34;,&#34;placeholder_host&#34;:&#34;cloud2.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;Flux&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Organization&#34;,&#34;Token&#34;,&#34;Default bucket&#34;]},&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;Token&#34;]}}},&#34;influxdb_cloud1&#34;:{&#34;ai_source_group_ids&#34;:&#34;d809f67b-867d-4f17-95f0-c33dbadbf15f&#34;,&#34;characteristics&#34;:[&#34;Paid&#34;,&#34;Cloud&#34;,&#34;InfluxQL&#34;,&#34;Username/Password&#34;,&#34;Databases&#34;],&#34;detection&#34;:{&#34;url_contains&#34;:[&#34;cloud.influxdata.com&#34;]},&#34;name&#34;:&#34;InfluxDB Cloud 1&#34;,&#34;placeholder_host&#34;:&#34;cloud.influxdata.com&#34;,&#34;query_languages&#34;:{&#34;InfluxQL&#34;:{&#34;optional_params&#34;:[],&#34;required_params&#34;:[&#34;URL&#34;,&#34;Database&#34;,&#34;User&#34;,&#34;Password&#34;]}}}}'
+       data-influxdb-urls='#ZgotmplZ'></div>
+</div>
+
+      <div class="modal-content" id="page-feedback">
+  <h3>Thank you for your feedback!</h3>
+  <p>Let us know what we can do better:</p>
+  
+  <form id="pagefeedbacktext">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <div class="lifecycle-wrapper">
+      <textarea name="feedback-text"  placeholder="Missing information? Unclear explanations? Help us improve this page!"></textarea>
+      <div id="thank-you">
+        <p>Thank you!</p>
+      </div>
+      <div class="loader-wrapper">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div class="form-buttons">
+      <div id="no-thanks">
+        No thanks
+      </div>
+      <div class="submit-wrapper">
+        <input type="submit" value="Submit" onclick="return submitLifeCycleAndClose();">
+      </div>
+    </div>
+  </form>
+ 
+</div>
+
+      
+      
+      
+    </div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="fullscreen-code highlight">
+  <div id="fullscreen-code-placeholder"></div>
+  <a class="fullscreen-close"><span class="icon-x"></span></a>
+</div>
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div 
+  data-component="doc-search"
+  data-api-key="501434b53a46a92a7931aecc7c9672e2"
+  data-app-id="WHM9UWMP6M"
+  data-index-name="influxdata"
+  data-input-selector="#algolia-search-input"
+  data-search-tag="docs-v2-pr-preview"
+  data-include-flux="false"
+  data-include-resources="true"
+  data-debug="true"
+></div>
+
+
+  
+  <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb3-9-performance-preview" data-scope='/influxdb3/enterprise/' data-exclude='/influxdb3/enterprise/performance-preview/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB 3.9: Performance upgrade preview</h3>
+      </div>
+      
+      <div class="notification-slug">
+        InfluxDB 3 Enterprise 3.9 includes a beta of major performance upgrades
+with faster single-series queries, wide-and-sparse table support, and more.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>InfluxDB 3 Enterprise 3.9 includes a beta of major performance and
+feature updates.</p>
+<p><strong>Key improvements:</strong></p>
+<ul>
+<li>Faster single-series queries</li>
+<li>Consistent resource usage</li>
+<li>Wide-and-sparse table support</li>
+<li>Automatic distinct value caches for reduced latency with metadata queries</li>
+</ul>
+<p><em>Preview features are subject to breaking changes.</em></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="/influxdb3/enterprise/performance-preview/">Performance upgrade preview</a></li>
+<li><a href="/influxdb3/enterprise/release-notes/">InfluxDB 3 Enterprise release notes</a></li>
+<li><a href="https://www.influxdata.com/blog/influxdb-3-9/">InfluxData Blog post</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-enterprise-beta" data-scope='/' data-exclude='/platform/,/resources/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/,/influxdb/,/flux/'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Enterprise now in public beta</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Get early access to the <strong>Telegraf Controller</strong> and provide feedback to help
+shape the future of <strong>Telegraf Enterprise</strong>.</p>
+<p><a class="btn" href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the Blog Post</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>The upcoming Telegraf Enterprise offering is for organizations running
+Telegraf at scale and is comprised of two key components:</p>
+<ul>
+<li><strong>Telegraf Controller</strong>: A control plane (UI + API) that centralizes Telegraf configuration management and agent health visibility.</li>
+<li><strong>Telegraf Enterprise Support</strong>: Official support for Telegraf Controller and Telegraf plugins.</li>
+</ul>
+<p><a href="https://influxdata.com/products/telegraf-enterprise" target="_blank">Join the Telegraf Enterprise beta</a>
+to get early access to the Telegraf Controller and provide feedback to help
+shape the future of Telegraf Enterprise.</p>
+<p>For more information:</p>
+<ul>
+<li><a href="https://www.influxdata.com/blog/telegraf-enterprise-beta">See the announcement blog post</a></li>
+<li><a href="/telegraf/controller/">Telegraf Controller Documentation</a></li>
+<li><a href="/telegraf/controller/install/">Download and install Telegraf Controller</a></li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+    <div class="notification note min" id="telegraf-controller-0.0.6-beta" data-scope='/telegraf/controller/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>Telegraf Controller v0.0.6-beta now available</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Telegraf Controller v0.0.6-beta is now available with new features, improvements, and bug fixes.</p>
+<p><a href="/telegraf/controller/reference/release-notes/#v006-beta">View the release notes</a><br>
+<a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.6-beta</a></p>
+
+      </div>
+      
+           
+    </div>
+  
+    <div class="notification warn min" id="influxdb-docker-latest-tag-apr" data-scope='/' data-exclude='/telegraf/,/platform/,/kapacitor/,/chronograf/,/enterprise_influxdb/,/influxdb3/explorer/,/influxdb3/cloud,/influxdb/cloud'>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB Docker latest tag changing to InfluxDB 3 Core</h3>
+      </div>
+      
+      <div class="notification-slug">
+        On <strong>May 27, 2026</strong>, the <code>latest</code> tag for InfluxDB Docker images will
+point to InfluxDB 3 Core. To avoid unexpected upgrades, use specific version
+tags in your Docker deployments.
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>If using Docker to install and run InfluxDB, the <code>latest</code> tag will point to
+InfluxDB 3 Core. To avoid unexpected upgrades, use specific version tags in
+your Docker deployments. For example, if using Docker to run InfluxDB v2,
+replace the <code>latest</code> version tag with a specific version tag in your Docker
+pull command&ndash;for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdb:2</span></span></code></pre></div>
+      </div>
+      <span class="show"></span>
+           
+    </div>
+  
+</div>
+
+
+
+  
+  <div class="footer-widgets">
+  
+  
+  
+  <div class="ask-ai-trigger widget magenta" data-component="ask-ai-trigger" data-tooltip="Ask InfluxData AI for help" style="display: none;">
+  <a class="ask-ai-open" >
+    <div class="icon-influx-logo"></div>
+    Ask AI
+  </a>
+</div>
+</div>
+
+  
+  
+
+  </body>
+  
+<script type="text/javascript">
+  cloudUrls = ["https:\/\/us-west-2-1.aws.cloud2.influxdata.com", "https:\/\/us-east-1-1.aws.cloud2.influxdata.com", "https:\/\/eu-central-1-1.aws.cloud2.influxdata.com", "https:\/\/us-central1-1.gcp.cloud2.influxdata.com", "https:\/\/westeurope-1.azure.cloud2.influxdata.com", "https:\/\/eastus-1.azure.cloud2.influxdata.com", ]
+</script>
+
+</html>
+
