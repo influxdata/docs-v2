@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-02 12:57:50 -0500 -0500">
+<meta name="last-modified" content="2026-04-15 12:58:51 -0700 -0700">
     
 <script type="text/javascript">
 (function() {
@@ -840,13 +840,12 @@
 <div class="block important">
   
   
-  <h4 id="action-required-for-upgrades">Action required for upgrades</h4>
+  <h4 id="action-required-for-upgrades-on-linux-and-wsl2">Action required for upgrades on Linux and WSL2</h4>
 <p>If you&rsquo;re upgrading from v1.6.x or earlier with mounted volumes
-(for example, <code>/db</code> or <code>/app-root/config</code>), update file ownership
-before you start the container:</p>
+(for example, <code>/db</code> or <code>/app-root/config</code>) on <strong>Linux or Windows WSL2</strong>,
+update file ownership before you start the container:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/db
-</span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config</span></span></code></pre></div><p>The container exits with an error message if it detects root-owned
-files. Fresh installations are unaffected.</p>
+</span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config</span></span></code></pre></div><p>The container exits with an error message if it detects root-owned files.</p>
 </div>
 <h4 id="features">Features</h4>
 <ul>
