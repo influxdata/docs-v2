@@ -234,7 +234,8 @@ ERROR: Directory '/db' is owned by root and not accessible to the 'influxui' use
 ```
 
 To prevent or resolve this error, change ownership of your mounted directories
-to uid 1500 before you start the container--for example:
+to uid 1500 before you start the container.
+For example:
 
 ```bash
 sudo chown -R 1500:1500 /path/to/your/db
