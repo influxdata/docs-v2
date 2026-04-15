@@ -72,8 +72,10 @@ Available modes:
 - `process`: Data processing and transformations
 
 > [!Warning]
+> #### Don't use all mode in a multi-node cluster
+>
 > Use `all` mode for **single-node** Enterprise deployments only.
-> Avoid using `all` mode in a multi-node cluster—some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
+> Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
 > In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
 
 ## Allocate threads by node type
@@ -573,7 +575,7 @@ GROUP BY event_type;
 - Growing number of small Parquet files
 - Increasing query times due to file fragmentation
 
-**Solution:** For nodes using the default Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
+**Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
 The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
 
 ## Troubleshoot node configurations
@@ -641,26 +643,52 @@ free -h
 ### From single-node to specialized cluster
 
 > [!Note]
-> `all` mode is intended for single-node Enterprise deployments.
-> When scaling to a multi-node cluster, replace `all` with explicit modes and assign `compact` to exactly one node.
+> `all` mode is only for single-node Enterprise deployments.
+
+When scaling a single `all` node cluster to a multi-node cluster:
+
+- Replace the `all` node with nodes that have explicit, specialized modes
+- Assign `compact` mode to exactly one node that uses the same node-id as the `all` node being replaced
 
 ```bash
-# Phase 1: Baseline (single-node deployment)
-node1: --mode=all --num-io-threads=8
+# Phase 1: Single-node deployment
+influxdb3 serve \
+  --node-id=node0 \
+  --cluster-id=my-cluster \
+  --mode=all \
+  --num-io-threads=8
 
-# Phase 2: Expand to multi-node — replace all-in-one with explicit modes
-# Assign compact to exactly one node
-node1: --mode=ingest,query,compact --num-io-threads=8
-node2: --mode=ingest,query --num-io-threads=8
+# Phase 2: Scale to multi-node cluster
+# Stop the all-mode node and start specialized nodes.
+# The compact node MUST use the same --node-id as the replaced all-mode node.
 
-# Phase 3: Gradual specialization
-node1: --mode=ingest,query --num-io-threads=12
-node2: --mode=query,compact --num-io-threads=4
+# Compact node: reuses the same node-id as the replaced all-mode node
+influxdb3 serve \
+  --node-id=node0 \
+  --cluster-id=my-cluster \
+  --mode=compact
 
-# Phase 4: Full specialization
-node1: --mode=ingest --num-io-threads=16
-node2: --mode=query --num-io-threads=4
-node3: --mode=compact --num-io-threads=2
+# Ingest and query node
+influxdb3 serve \
+  --node-id=node1 \
+  --cluster-id=my-cluster \
+  --mode=ingest,query \
+  --num-io-threads=8
+
+# Phase 3: Full specialization (optional)
+# Dedicated ingest node
+influxdb3 serve \
+  --node-id=node1 \
+  --cluster-id=my-cluster \
+  --mode=ingest \
+  --num-io-threads=16
+
+# Dedicated query node
+influxdb3 serve \
+  --node-id=node2 \
+  --cluster-id=my-cluster \
+  --mode=query \
+  --num-io-threads=4
 ```
 
 ## Manage configurations
