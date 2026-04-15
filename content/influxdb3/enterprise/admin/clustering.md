@@ -71,6 +71,11 @@ Available modes:
 - `compact`: Background compaction and optimization
 - `process`: Data processing and transformations
 
+> [!Warning]
+> Only **one** node per cluster can run in a mode that includes compaction (`compact` or `all`).
+> Running multiple compactors causes data corruption.
+> In a cluster, assign `all` mode to at most one node, and ensure no other node uses the `compact` mode.
+
 ## Allocate threads by node type
 
 ### Critical concept: Thread pools
@@ -194,6 +199,11 @@ influxdb3 serve \
 
 Compactor nodes optimize stored data through background compaction processes.
 
+> [!Warning]
+> Only **one** compactor node can run per cluster.
+> Multiple compactors writing compacted data to the same location will cause data corruption.
+> Any node mode that includes compaction (`compact` or `all`) counts toward this limit.
+
 ### Dedicated compactor (32 cores)
 
 ```bash
@@ -298,21 +308,25 @@ influxdb3 \
 
 ### Small cluster (3 nodes)
 
+> [!Note]
+> Only one node per cluster can run compaction.
+> In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 run ingest and query only.
+
 ```yaml
-# Node 1: All-in-one primary
+# Node 1: All-in-one primary (includes compaction)
 mode: all
 cores: 32
 io_threads: 8
 datafusion_threads: 24
 
-# Node 2: All-in-one secondary
-mode: all
+# Node 2: Ingest and query (no compaction)
+mode: ingest,query
 cores: 32
 io_threads: 8
 datafusion_threads: 24
 
-# Node 3: All-in-one tertiary
-mode: all
+# Node 3: Ingest and query (no compaction)
+mode: ingest,query
 cores: 32
 io_threads: 8
 datafusion_threads: 24
@@ -333,8 +347,14 @@ cores: 48
 io_threads: 4
 datafusion_threads: 44
 
-# Nodes 5-6: Compactor + Process
-mode: compact,process
+# Node 5: Compactor (only one compactor per cluster)
+mode: compact
+cores: 32
+io_threads: 4
+datafusion_threads: 28
+
+# Node 6: Process node
+mode: process
 cores: 32
 io_threads: 4
 datafusion_threads: 28
@@ -355,13 +375,13 @@ cores: 64
 io_threads: 4
 datafusion_threads: 60
 
-# Nodes 9-10: Dedicated compactors
+# Node 9: Dedicated compactor (only one compactor per cluster)
 mode: compact
 cores: 32
 io_threads: 2
 datafusion_threads: 30
 
-# Nodes 11-12: Process nodes
+# Nodes 10-12: Process nodes
 mode: process
 cores: 32
 io_threads: 6
@@ -553,7 +573,7 @@ GROUP BY event_type;
 - Growing number of small Parquet files
 - Increasing query times due to file fragmentation
 
-**Solution:** Add compactor nodes or increase DataFusion threads (see [Compactor node issues](#compactor-node-issues))
+**Solution:** Increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues))
 
 ## Troubleshoot node configurations
 
@@ -602,7 +622,7 @@ free -h
 
 ```bash
 # Check: Compaction queue length
-# Solution: Add more compactor nodes or increase threads
+# Solution: Increase threads on the single compactor node (only one compactor is allowed per cluster)
 --datafusion-num-threads=30
 ```
 
@@ -619,9 +639,14 @@ free -h
 
 ### From all-in-one to specialized
 
+> [!Note]
+> If you're migrating a multi-node cluster, only one node should ever be in `all` mode.
+> In a baseline multi-node setup, additional nodes should use `ingest,query` instead of `all`
+> to avoid running multiple compactors.
+
 ```bash
-# Phase 1: Baseline (all nodes identical)
-all nodes: --mode=all --num-io-threads=8
+# Phase 1: Baseline (single all-in-one node for starting point)
+node1: --mode=all --num-io-threads=8
 
 # Phase 2: Identify workload patterns
 # Monitor which nodes handle most writes vs queries
