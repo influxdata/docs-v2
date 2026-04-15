@@ -23,19 +23,18 @@ docker pull influxdata/influxdb3-ui
 - **Container user change**: The Docker container now runs as non-root user `influxui` (uid 1500) instead of root for improved security.
 
 > [!Important]
-> #### Action required for upgrades
+> #### Action required for upgrades on Linux and WSL2
 >
 > If you're upgrading from v1.6.x or earlier with mounted volumes
-> (for example, `/db` or `/app-root/config`), update file ownership
-> before you start the container:
+> (for example, `/db` or `/app-root/config`) on **Linux or Windows WSL2**,
+> update file ownership before you start the container:
 >
 > ```bash
 > sudo chown -R 1500:1500 /path/to/your/db
 > sudo chown -R 1500:1500 /path/to/your/config
 > ```
 >
-> The container exits with an error message if it detects root-owned
-> files. Fresh installations are unaffected.
+> The container exits with an error message if it detects root-owned files.
 
 #### Features
 
