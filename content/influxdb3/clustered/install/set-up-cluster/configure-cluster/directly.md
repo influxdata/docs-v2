@@ -368,9 +368,7 @@ To configure ingress, provide values for the following fields in your
   > For more information, see Phase 4 of the InfluxDB Clustered installation
   > process, [Secure your cluster](/influxdb3/clustered/install/secure-cluster/).
 
-{{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
-
-```yaml
+```yaml { callout="ingress-tls|cluster-host\.com" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -383,8 +381,6 @@ ingress:
     - {{< influxdb/host >}}
   tlsSecretName: ingress-tls
 ```
-
-{{% /code-callout %}}
 
 #### Configure the object store
 
@@ -650,19 +646,15 @@ Replace the following:
 {{% expand "View percent-encoded DSN example" %}}
 To use the following DSN containing special characters:
 
-{{% code-callout "#" %}}
-```txt
+```txt { callout="#" }
 postgresql://postgres:meow#meow@my-fancy.cloud-database.party:5432/postgres
 ```
-{{% /code-callout %}}
 
 You must percent-encode the special characters in the connection string:
 
-{{% code-callout "%23" %}}
-```txt
+```txt { callout="%23" }
 postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 ```
-{{% /code-callout %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -674,11 +666,9 @@ postgresql://postgres:meow%23meow@my-fancy.cloud-database.party:5432/postgres
 > If your PostgreSQL-compatible instance runs without TLS or SSL, you must include
 > the `sslmode=disable` parameter in the DSN. For example:
 > 
-> {{% code-callout "sslmode=disable" %}}
-```
-postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
-```
-{{% /code-callout %}}
+> ```txt { callout="sslmode=disable" }
+> postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
+> ```
 
 #### Configure local storage for ingesters
 

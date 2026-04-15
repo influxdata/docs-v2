@@ -415,7 +415,7 @@ influxdb3 write \
   "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
 
-{{% /code-tabs %}}
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
@@ -511,7 +511,7 @@ influxdb3 write \
   "$(curl --request GET https://docs.influxdata.com/downloads/eu-wind-data.lp)"
 ```
 
-{{% /code-tabs %}}
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}
@@ -613,7 +613,7 @@ influxdb3 write \
   "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 
-{{% /code-tabs %}}
+{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 ```sh {placeholders="AUTH_TOKEN|DATABASE_NAME"}

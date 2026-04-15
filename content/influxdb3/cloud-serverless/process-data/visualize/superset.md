@@ -223,17 +223,13 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     - **`?database`**: URL-encoded InfluxDB [bucket name](/influxdb3/cloud-serverless/admin/buckets/view-buckets/)
     - **`?token`**: InfluxDB [API token](/influxdb3/cloud-serverless/get-started/setup/) with `READ` access to the specified bucket
 
-    {{< code-callout "&lt;(domain|port|database|token)&gt;" >}}
-{{< code-callout "us-east-1-1\.aws\.cloud2\.influxdata\.com|443|example-bucket|example-token" >}}
-```sh
-# Syntax
-datafusion+flightsql://<domain>:<port>?database=<database>&token=<token>
+    ```sh { callout="(&lt;(domain|port|database|token)&gt;)|us-east-1-1\.aws\.cloud2\.influxdata\.com|443|example-bucket|example-token"}
+    # Syntax
+    datafusion+flightsql://<domain>:<port>?database=<database>&token=<token>
 
-# Example
-datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?database=example-bucket&token=example-token
-```
-{{< /code-callout >}}
-    {{< /code-callout >}}
+    # Example
+    datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?database=example-bucket&token=example-token
+    ```
 
 6.  Click **Test Connection** to ensure the connection works.
 7.  Click **Connect** to save the database connection.

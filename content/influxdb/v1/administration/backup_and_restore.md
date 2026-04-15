@@ -100,15 +100,13 @@ the legacy format.
 To create or restore from a backup or in the portable format, include the
 `-portable` flag with your backup command.
 
-{{< code-callout "-portable" >}}
-```sh
+```sh { callout="-portable" }
 # Create a backup in the portable format
 influxd backup -portable /path/to/backup-destination
 
 # Restore from a portable backup
 influxd restore -portable /path/to/backup-destination
 ```
-{{< /code-callout >}}
 
 ### Determine your backup's format
 Use the directory structure of the backup directory to determine the format of the backup.

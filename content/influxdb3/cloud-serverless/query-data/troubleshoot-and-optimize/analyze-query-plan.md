@@ -196,15 +196,11 @@ The following steps summarize the [physical plan execution and data flow](#physi
 
 If your table doesn't contain data for the time range in your query, the physical plan starts with an `EmptyExec` leaf node--for example:
 
-{{% code-callout "EmptyExec"%}}
-
-```sql
+```sql { callout="EmptyExec" }
 ProjectionExec: expr=[temp@0 as temp]
     SortExec: expr=[time@1 ASC NULLS LAST]
         EmptyExec: produce_one_row=false
 ```
-
-{{% /code-callout %}}
 
 ## Analyze a query plan for leading edge data
 
@@ -617,13 +613,9 @@ The remaining ParquetExec_B expressions are similar to those in [ParquetExec_A](
 
 If you compare [`file_group`](#file_groups) paths in [ParquetExec_A](#parquetexec_a) to those in [ParquetExec_B](#parquetexec_b), you'll notice that both contain files from the same partition:
 
-{{% code-callout "b862a7e9b329ee6a4..." %}}
-
-```text
+```text { callout="b862a7e9b329ee6a4..." }
 1/1/b862a7e9b329ee6a4.../...
 ```
-
-{{% /code-callout %}}
 
 The planner may distribute files from the same partition to different scan nodes for several reasons, including optimizations for handling [overlaps](#how-a-query-plan-distributes-data-for-scanning)--for example:
 

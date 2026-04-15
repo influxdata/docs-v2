@@ -35,11 +35,9 @@ Use the InfluxDB UI or `influx` CLI to view your organization ID.
 
 After logging in to the InfluxDB UI, your organization ID appears in the URL.
 
-{{< code-callout "03a2bbf46249a000" >}}
-```sh
+```sh { callout="03a2bbf46249a000" }
 https://cloud2.influxdata.com/orgs/03a2bbf46249a000/...
 ```
-{{< /code-callout >}}
 
 ### Organization ID in the CLI
 
