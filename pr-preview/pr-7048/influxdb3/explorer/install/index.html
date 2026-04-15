@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-13 21:30:34 -0700 -0700">
+<meta name="last-modified" content="2026-04-15 15:24:51 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -1029,19 +1029,24 @@
 <div class="block warning">
   
   
-  <h4 id="upgrade-from-explorer-v16x-or-earlier">Upgrade from Explorer v1.6.x or earlier</h4>
-<p>In v1.7.0+, the Explorer container runs as a non-root user
-(<code>influxui</code>, uid 1500) for improved security. Because earlier versions
-ran as root, existing mounted volumes are owned by root — and the new
-non-root process can&rsquo;t access them.</p>
-<p>If you start the upgraded container without updating file ownership,
-it exits with the following error:</p>
-<pre tabindex="0"><code>ERROR: Directory &#39;/db&#39; is owned by root and not accessible to the &#39;influxui&#39; user.</code></pre><p>To prevent or resolve this error, change ownership of your mounted
-directories to uid 1500 before you start the container:</p>
+  <p>With v1.7.0+, the Explorer container runs as a non-root user.
+If you&rsquo;re upgrading from v1.6.x or earlier with mounted volumes, update file
+ownership before you start the container.
+The container exits with an error if mounted volumes have incorrect ownership.</p>
+</div>
+<h3 id="set-file-permissions-for-upgrades">Set file permissions for upgrades</h3>
+<p>In v1.7.0+, the Explorer container runs as a non-root user (<code>influxui</code>, uid
+1500) for improved security.
+Because earlier versions ran as root, existing mounted volumes are owned by
+root and the new non-root process can&rsquo;t access them.</p>
+<p>If you start the upgraded container without updating file ownership, it exits
+with the following error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">ERROR: Directory &#39;/db&#39; is owned by root and not accessible to the &#39;influxui&#39; user.</span></span></code></pre></div><p>To prevent or resolve this error, change ownership of your mounted directories
+to uid 1500 before you start the container.
+For example:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/db
 </span></span><span class="line"><span class="cl">sudo chown -R 1500:1500 /path/to/your/config</span></span></code></pre></div><p>After you update ownership, restart the container.
 Fresh installations are unaffected.</p>
-</div>
 <h3 id="pre-configure-influxdb-connections">Pre-configure InfluxDB connections</h3>
 <p>Instead of configuring connections through the UI, you can pre-define connection settings using a <code>config.json</code> file. This is useful for:</p>
 <ul>
