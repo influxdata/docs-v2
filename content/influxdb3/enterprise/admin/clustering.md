@@ -72,9 +72,14 @@ Available modes:
 - `process`: Data processing and transformations
 
 > [!Warning]
-> Only **one** node per cluster can run in a mode that includes compaction (`compact` or `all`).
-> Running multiple compactors causes data corruption.
-> In a cluster, assign `all` mode to at most one node, and ensure no other node uses the `compact` mode.
+>
+> #### Multi-node cluster constraints
+>
+> - **One compactor only**: Only one node per cluster can run in a mode that includes compaction (`compact`).
+>   Running multiple compactors causes data corruption.
+> - **Don't use `all` mode in multi-node clusters**: Use `--mode=all` only for single-node deployments.
+>   Nodes in `all` mode aren't designed to work with cluster features such as replication and catalog refresh.
+>   Instead, use explicit mode combinations like `ingest,query` and `compact,process`.
 
 ## Allocate threads by node type
 
@@ -202,7 +207,6 @@ Compactor nodes optimize stored data through background compaction processes.
 > [!Warning]
 > Only **one** compactor node can run per cluster.
 > Multiple compactors writing compacted data to the same location will cause data corruption.
-> Any node mode that includes compaction (`compact` or `all`) counts toward this limit.
 
 ### Dedicated compactor (32 cores)
 
@@ -310,11 +314,12 @@ influxdb3 \
 
 > [!Note]
 > Only one node per cluster can run compaction.
-> In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 run ingest and query only.
+> In this example, Node 1 handles compaction along with ingest, query, and process modes.
+> Nodes 2–3 run ingest and query only.
 
 ```yaml
-# Node 1: All-in-one primary (includes compaction)
-mode: all
+# Node 1: Primary node with compaction
+mode: ingest,query,compact,process
 cores: 32
 io_threads: 8
 datafusion_threads: 24
@@ -637,19 +642,20 @@ free -h
 
 ## Migrate to specialized nodes
 
-### From all-in-one to specialized
+### From single-node to multi-node cluster
 
 > [!Note]
-> If you're migrating a multi-node cluster, only one node should ever be in `all` mode.
-> In a baseline multi-node setup, additional nodes should use `ingest,query` instead of `all`
-> to avoid running multiple compactors.
+> `--mode=all` is intended for single-node deployments only.
+> When scaling to a multi-node cluster, use explicit mode combinations
+> to ensure cluster features work correctly.
 
 ```bash
-# Phase 1: Baseline (single all-in-one node for starting point)
+# Phase 1: Single-node baseline
 node1: --mode=all --num-io-threads=8
 
-# Phase 2: Identify workload patterns
-# Monitor which nodes handle most writes vs queries
+# Phase 2: Add nodes with explicit modes (not `all`)
+node1: --mode=ingest,query,compact --num-io-threads=8
+node2: --mode=ingest,query --num-io-threads=8
 
 # Phase 3: Gradual specialization
 node1: --mode=ingest,query --num-io-threads=12
