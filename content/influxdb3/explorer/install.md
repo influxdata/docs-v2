@@ -220,6 +220,7 @@ docker-compose up -d
 > ownership before you start the container.
 > The container exits with an error if mounted volumes have incorrect ownership.
 >
+
 ### Set file permissions for upgrades
 
 In v1.7.0+, the Explorer container runs as a non-root user (`influxui`, uid
