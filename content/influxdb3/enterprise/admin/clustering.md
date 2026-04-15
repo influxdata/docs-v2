@@ -339,6 +339,10 @@ datafusion_threads: 24
 
 ### Medium cluster (6 nodes)
 
+> [!Note]
+> Only one node can run compaction.
+> Node 5 handles compaction, and Node 6 handles processing separately.
+
 ```yaml
 # Nodes 1-2: Ingesters
 mode: ingest
@@ -366,6 +370,10 @@ datafusion_threads: 28
 ```
 
 ### Large cluster (12+ nodes)
+
+> [!Note]
+> Only one node runs compaction (Node 9).
+> Additional process nodes handle compute-intensive workloads without duplicating compaction.
 
 ```yaml
 # Nodes 1-4: High-throughput ingesters
