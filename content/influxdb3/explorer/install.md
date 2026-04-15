@@ -100,6 +100,7 @@ docker-compose up -d
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
+
 ### Production setup
 
 For production deployments with persistence, admin mode, and automatic image updates:
@@ -214,30 +215,34 @@ docker-compose up -d
 > Without a mounted `./db` directory, application data is lost when the container is deleted.
 
 > [!Warning]
-> #### Upgrade from Explorer v1.6.x or earlier
+> With v1.7.0+, the Explorer container runs as a non-root user.
+> If you're upgrading from v1.6.x or earlier with mounted volumes, update file
+> ownership before you start the container.
 >
-> In v1.7.0+, the Explorer container runs as a non-root user
-> (`influxui`, uid 1500) for improved security. Because earlier versions
-> ran as root, existing mounted volumes are owned by root — and the new
-> non-root process can't access them.
->
-> If you start the upgraded container without updating file ownership,
-> it exits with the following error:
->
-> ```
-> ERROR: Directory '/db' is owned by root and not accessible to the 'influxui' user.
-> ```
->
-> To prevent or resolve this error, change ownership of your mounted
-> directories to uid 1500 before you start the container:
->
-> ```bash
-> sudo chown -R 1500:1500 /path/to/your/db
-> sudo chown -R 1500:1500 /path/to/your/config
-> ```
->
-> After you update ownership, restart the container.
-> Fresh installations are unaffected.
+### Set file permissions for upgrades
+
+In v1.7.0+, the Explorer container runs as a non-root user (`influxui`, uid
+1500) for improved security.
+Because earlier versions ran as root, existing mounted volumes are owned by
+root and the new non-root process can't access them.
+
+If you start the upgraded container without updating file ownership, it exits
+with the following error:
+
+```txt
+ERROR: Directory '/db' is owned by root and not accessible to the 'influxui' user.
+```
+
+To prevent or resolve this error, change ownership of your mounted directories
+to uid 1500 before you start the container--for example:
+
+```bash
+sudo chown -R 1500:1500 /path/to/your/db
+sudo chown -R 1500:1500 /path/to/your/config
+```
+
+After you update ownership, restart the container.
+Fresh installations are unaffected.
 
 ### Pre-configure InfluxDB connections
 
@@ -674,4 +679,3 @@ services:
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
