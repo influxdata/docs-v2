@@ -831,7 +831,7 @@
 
 
   <p>To upgrade, pull the latest Docker image:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdata/influxdb3-ui</span></span></code></pre></div><h2 date="2026-04-02" id="v170">v1.7.0</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker pull influxdata/influxdb3-ui</span></span></code></pre></div><h2 date="2026-04-14" id="v170">v1.7.0</h2>
 <h4 id="breaking-changes">Breaking changes</h4>
 <ul>
 <li><strong>Container user change</strong>: The Docker container now runs as non-root user <code>influxui</code> (uid 1500) instead of root for improved security.</li>
@@ -850,7 +850,22 @@ files. Fresh installations are unaffected.</p>
 </div>
 <h4 id="features">Features</h4>
 <ul>
+<li><strong>Transform Data</strong>: Rename tables (measurements), rename columns, transform values (such as unit conversions), and filter rows from a dedicated Transform Data page with dry-run testing.</li>
+<li><strong>Downsample</strong>: Define and manage downsampling rules to reduce data resolution over time.</li>
+<li><strong>Import from InfluxDB</strong>: Import data from an existing InfluxDB v1, v2, or v3 instance with target selection, dry-run preview, and import monitoring.</li>
+<li><strong>Table management page</strong>: Create, manage, and delete tables in a dedicated Table Management page.</li>
+<li><strong>Database management actions</strong>: Manage databases from a new actions menu on a restyled Manage Databases page.</li>
+<li><strong>Line protocol validation</strong>: Get clearer, inline validation when writing data with line protocol.</li>
+<li><strong>TLS certificate management</strong>: Generate and renew short-lived TLS certificates for IP-based deployments.</li>
+<li><strong>Storage type display</strong>: View the configured storage type for your InfluxDB instance in the metrics UI.</li>
 <li><strong>Non-root container</strong>: The container now runs as a non-root user (uid 1500) for improved security.</li>
+</ul>
+<h4 id="bug-fixes">Bug fixes</h4>
+<ul>
+<li><strong>Databases</strong>: Fix navigation when database names contain slashes; fix database selector width.</li>
+<li><strong>Code snippets</strong>: Add sticky headers and rename the &ldquo;View code&rdquo; button for clarity.</li>
+<li><strong>Ask AI</strong>: Fix serialization for renamed Anthropic provider fields.</li>
+<li><strong>Deleted databases</strong>: Auto-show deleted items when a deleted database is selected.</li>
 </ul>
 <h2 date="2026-02-19" id="v163">v1.6.3</h2>
 <h4 id="features-1">Features</h4>
@@ -859,7 +874,7 @@ files. Fresh installations are unaffected.</p>
 <li><strong>Upgrade information for Core users</strong>: View Enterprise upgrade details directly in Explorer.</li>
 <li><strong>AI model updates</strong>: Updated AI model support for latest Anthropic models.</li>
 </ul>
-<h4 id="bug-fixes">Bug fixes</h4>
+<h4 id="bug-fixes-1">Bug fixes</h4>
 <ul>
 <li><strong>SQL</strong>: Fix handling of table names containing dashes and improve quoted identifier validation.</li>
 <li><strong>SQL</strong>: Improve validation for forbidden SQL keywords in queries.</li>
@@ -868,12 +883,12 @@ files. Fresh installations are unaffected.</p>
 <li><strong>Security</strong>: Update dependency versions (axios, qs, react-router, lodash-es).</li>
 </ul>
 <h2 date="2026-01-14" id="v162">v1.6.2</h2>
-<h4 id="bug-fixes-1">Bug fixes</h4>
+<h4 id="bug-fixes-2">Bug fixes</h4>
 <ul>
 <li><strong>Ask AI</strong>: Fix Ask AI service proxy routing over the InfluxData endpoint.</li>
 </ul>
 <h2 date="2026-01-09" id="v161">v1.6.1</h2>
-<h4 id="bug-fixes-2">Bug fixes</h4>
+<h4 id="bug-fixes-3">Bug fixes</h4>
 <ul>
 <li><strong>Charts</strong>: Fix date display in the chart component.</li>
 <li><strong>Forms</strong>: Fix validation logic for form inputs.</li>
@@ -886,7 +901,7 @@ files. Fresh installations are unaffected.</p>
 Custom instructions persist across sessions, users, and shared environments.</li>
 <li><strong>Improved line protocol experience</strong>: Clearer validation and more helpful feedback when writing data using line protocol.</li>
 </ul>
-<h4 id="bug-fixes-3">Bug fixes</h4>
+<h4 id="bug-fixes-4">Bug fixes</h4>
 <ul>
 <li><strong>Plugins</strong>: Fix plugin trigger error state not clearing after a successful run.</li>
 <li><strong>Charts</strong>: Reduce unnecessary chart re-renders for improved performance.</li>
@@ -900,7 +915,7 @@ Custom instructions persist across sessions, users, and shared environments.</li
 <li><strong>Timestamp precision detection</strong>: Automatically detect timestamp precision when writing data.</li>
 <li><strong>Updated charting library</strong>: Replace Recharts with ECharts for improved chart rendering and feature parity.</li>
 </ul>
-<h4 id="bug-fixes-4">Bug fixes</h4>
+<h4 id="bug-fixes-5">Bug fixes</h4>
 <ul>
 <li><strong>Dashboards</strong>: Fix dashboard display issues.</li>
 <li><strong>Write API</strong>: Fix timestamp precision handling in write requests.</li>
@@ -913,7 +928,7 @@ Custom instructions persist across sessions, users, and shared environments.</li
 A built-in dashboard tracks system metrics alongside database activity over time.</li>
 <li><strong>System overview dashboard</strong>: View memory pressure, query performance, and write performance metrics in a single dashboard to understand how your system performs under load.</li>
 </ul>
-<h4 id="bug-fixes-5">Bug fixes</h4>
+<h4 id="bug-fixes-6">Bug fixes</h4>
 <ul>
 <li><strong>Monitoring</strong>: Fix error handling in instant monitoring setup.</li>
 <li><strong>Monitoring</strong>: Fix monitoring SQL queries to use correct identifier quoting.</li>
@@ -928,7 +943,7 @@ Ask AI can also handle operational tasks such as database creation, token genera
 <li><strong>Dashboard import and export</strong>: Share dashboards between environments or move them between Explorer and Grafana using compatible JSON files.</li>
 <li><strong>TLS and CA certificate support</strong>: Configure custom CA certificates and skip verification for self-signed certificates.</li>
 </ul>
-<h4 id="bug-fixes-6">Bug fixes</h4>
+<h4 id="bug-fixes-7">Bug fixes</h4>
 <ul>
 <li><strong>SQL</strong>: Fix handling of capitalized table and column names.</li>
 <li><strong>Caching</strong>: Improve empty state handling in cache creation dialogs.</li>
@@ -947,13 +962,13 @@ Navigate between the data explorer and dashboards to build queries and save resu
 <li><strong>License information</strong>: View license details for your InfluxDB instance.</li>
 <li><strong>Server configuration editing</strong>: Edit server configuration settings directly from Explorer.</li>
 </ul>
-<h4 id="bug-fixes-7">Bug fixes</h4>
+<h4 id="bug-fixes-8">Bug fixes</h4>
 <ul>
 <li><strong>Databases</strong>: Fix database layout and request handling.</li>
 <li><strong>Caching</strong>: Fix cache query formatting and error handling.</li>
 </ul>
 <h2 date="2025-09-03" id="v121">v1.2.1</h2>
-<h4 id="bug-fixes-8">Bug fixes</h4>
+<h4 id="bug-fixes-9">Bug fixes</h4>
 <ul>
 <li><strong>Permissions</strong>: Restrict access to integrations, caches, and plugins in query mode.</li>
 <li><strong>Performance</strong>: Fix performance issues.</li>
@@ -967,14 +982,14 @@ Navigate between the data explorer and dashboards to build queries and save resu
 <li><strong>Grafana data source setup</strong>: Configure InfluxDB 3 as a Grafana data source directly from Explorer.</li>
 <li><strong>System overview improvements</strong>: Add a refetch button and full-length query tooltips to system overview query tables.</li>
 </ul>
-<h4 id="bug-fixes-9">Bug fixes</h4>
+<h4 id="bug-fixes-10">Bug fixes</h4>
 <ul>
 <li><strong>SQL</strong>: Fix SQL query ordering to sort results in ascending order by time.</li>
 <li><strong>Data types</strong>: Improve data type serialization for InfluxDB field types.</li>
 <li><strong>Navigation</strong>: Fix navigation logic.</li>
 </ul>
 <h2 date="2025-08-07" id="v111">v1.1.1</h2>
-<h4 id="bug-fixes-10">Bug fixes</h4>
+<h4 id="bug-fixes-11">Bug fixes</h4>
 <ul>
 <li><strong>Plugins</strong>: Fix plugin and trigger card layout and icon display.</li>
 <li><strong>Plugins</strong>: Fix trigger error status display.</li>
@@ -992,7 +1007,7 @@ Requires InfluxDB 3 Core or Enterprise 3.3 or later.</li>
 <li><strong>System health overview</strong>: View a high-level dashboard of your entire system covering memory pressure, query performance, and write performance metrics.</li>
 <li><strong>AI provider settings</strong>: Configure multiple AI providers (such as OpenAI) with API key management.</li>
 </ul>
-<h4 id="bug-fixes-11">Bug fixes</h4>
+<h4 id="bug-fixes-12">Bug fixes</h4>
 <ul>
 <li><strong>Charts</strong>: Fix date range selector.</li>
 <li><strong>Schema</strong>: Fix schema viewer display.</li>
@@ -1000,17 +1015,17 @@ Requires InfluxDB 3 Core or Enterprise 3.3 or later.</li>
 <li><strong>Data export</strong>: Fix system table data export.</li>
 </ul>
 <h2 date="2025-07-03" id="v103">v1.0.3</h2>
-<h4 id="bug-fixes-12">Bug fixes</h4>
+<h4 id="bug-fixes-13">Bug fixes</h4>
 <ul>
 <li><strong>Schema</strong>: Fix schema viewer display.</li>
 </ul>
 <h2 date="2025-07-03" id="v102">v1.0.2</h2>
-<h4 id="bug-fixes-13">Bug fixes</h4>
+<h4 id="bug-fixes-14">Bug fixes</h4>
 <ul>
 <li><strong>Performance</strong>: Fix browser caching issues with module federation assets.</li>
 </ul>
 <h2 date="2025-07-02" id="v101">v1.0.1</h2>
-<h4 id="bug-fixes-14">Bug fixes</h4>
+<h4 id="bug-fixes-15">Bug fixes</h4>
 <ul>
 <li><strong>Dependencies</strong>: Fix dependency compatibility issues.</li>
 </ul>
