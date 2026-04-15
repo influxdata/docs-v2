@@ -218,6 +218,7 @@ docker-compose up -d
 > With v1.7.0+, the Explorer container runs as a non-root user.
 > If you're upgrading from v1.6.x or earlier with mounted volumes, update file
 > ownership before you start the container.
+> The container exits with an error if mounted volumes have incorrect ownership.
 >
 ### Set file permissions for upgrades
 

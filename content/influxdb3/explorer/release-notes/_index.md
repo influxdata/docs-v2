@@ -21,7 +21,7 @@ docker pull influxdata/influxdb3-ui
 #### Breaking changes
 
 - **Container user change**: The Docker container now runs as non-root user `influxui` (uid 1500) instead of root for improved security.
-- **Upgrade action**: See [Install InfluxDB 3 Explorer](/influxdb3/explorer/install/)
+- **Upgrade action**: See [Install InfluxDB 3 Explorer](/influxdb3/explorer/install/#set-file-permissions-for-upgrades)
   for upgrade file permission steps.
 
 #### Features
