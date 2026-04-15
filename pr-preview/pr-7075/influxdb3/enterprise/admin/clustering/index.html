@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 15:48:38 &#43;0000 UTC">
+<meta name="last-modified" content="2026-04-15 22:08:51 &#43;0000 UTC">
     
 <script type="text/javascript">
 (function() {
@@ -2888,8 +2888,9 @@ cluster efficiency.</p>
 <div class="block warning">
   
   
-  <p>Use <code>all</code> mode for <strong>single-node</strong> Enterprise deployments only.
-Avoid using <code>all</code> mode in a multi-node cluster—some cluster features such as replication and catalog refresh aren&rsquo;t designed to work with <code>all</code>-mode nodes.
+  <h4 id="dont-use-all-mode-in-a-multi-node-cluster">Don&rsquo;t use all mode in a multi-node cluster</h4>
+<p>Use <code>all</code> mode for <strong>single-node</strong> Enterprise deployments only.
+Some cluster features such as replication and catalog refresh aren&rsquo;t designed to work with <code>all</code>-mode nodes.
 In a multi-node cluster, use explicit modes (<code>ingest</code>, <code>query</code>, <code>compact</code>, <code>process</code>) and assign <code>compact</code> to exactly one node.</p>
 </div>
 <h2 id="allocate-threads-by-node-type">Allocate threads by node type</h2>
@@ -3259,7 +3260,7 @@ In this example, Node 1 handles ingest, query, and compaction while Nodes 2–3 
 <li>Growing number of small Parquet files</li>
 <li>Increasing query times due to file fragmentation</li>
 </ul>
-<p><strong>Solution:</strong> For nodes using the default Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see <a href="#compactor-node-issues">Compactor node issues</a>).
+<p><strong>Solution:</strong> For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see <a href="#compactor-node-issues">Compactor node issues</a>).
 The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the <a href="/influxdb3/enterprise/performance-preview/">Performance Preview documentation</a> for tuning guidance.</p>
 <h2 id="troubleshoot-node-configurations">Troubleshoot node configurations</h2>
 <h3 id="ingest-node-issues">Ingest node issues</h3>
@@ -3298,25 +3299,51 @@ The Performance Preview with PachaTree storage does not use DataFusion for compa
 <div class="block note">
   
   
-  <p><code>all</code> mode is intended for single-node Enterprise deployments.
-When scaling to a multi-node cluster, replace <code>all</code> with explicit modes and assign <code>compact</code> to exactly one node.</p>
+  <p><code>all</code> mode is only for single-node Enterprise deployments.</p>
 </div>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Phase 1: Baseline (single-node deployment)</span>
-</span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>all --num-io-threads<span class="o">=</span><span class="m">8</span>
+<p>When scaling a single <code>all</code> node cluster to a multi-node cluster:</p>
+<ul>
+<li>Replace the <code>all</code> node with nodes that have explicit, specialized modes</li>
+<li>Assign <code>compact</code> mode to exactly one node that uses the same node-id as the <code>all</code> node being replaced</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Phase 1: Single-node deployment</span>
+</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --node-id<span class="o">=</span>node0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id<span class="o">=</span>my-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>all <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --num-io-threads<span class="o">=</span><span class="m">8</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Phase 2: Expand to multi-node — replace all-in-one with explicit modes</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Assign compact to exactly one node</span>
-</span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>ingest,query,compact --num-io-threads<span class="o">=</span><span class="m">8</span>
-</span></span><span class="line"><span class="cl">node2: --mode<span class="o">=</span>ingest,query --num-io-threads<span class="o">=</span><span class="m">8</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Phase 2: Scale to multi-node cluster</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Stop the all-mode node and start specialized nodes.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The compact node MUST use the same --node-id as the replaced all-mode node.</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Phase 3: Gradual specialization</span>
-</span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>ingest,query --num-io-threads<span class="o">=</span><span class="m">12</span>
-</span></span><span class="line"><span class="cl">node2: --mode<span class="o">=</span>query,compact --num-io-threads<span class="o">=</span><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Compact node: reuses the same node-id as the replaced all-mode node</span>
+</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --node-id<span class="o">=</span>node0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id<span class="o">=</span>my-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>compact
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Phase 4: Full specialization</span>
-</span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>ingest --num-io-threads<span class="o">=</span><span class="m">16</span>
-</span></span><span class="line"><span class="cl">node2: --mode<span class="o">=</span>query --num-io-threads<span class="o">=</span><span class="m">4</span>
-</span></span><span class="line"><span class="cl">node3: --mode<span class="o">=</span>compact --num-io-threads<span class="o">=</span><span class="m">2</span></span></span></code></pre></div><h2 id="manage-configurations">Manage configurations</h2>
+</span></span><span class="line"><span class="cl"><span class="c1"># Ingest and query node</span>
+</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --node-id<span class="o">=</span>node1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id<span class="o">=</span>my-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>ingest,query <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --num-io-threads<span class="o">=</span><span class="m">8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Phase 3: Full specialization (optional)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Dedicated ingest node</span>
+</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --node-id<span class="o">=</span>node1 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id<span class="o">=</span>my-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>ingest <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --num-io-threads<span class="o">=</span><span class="m">16</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Dedicated query node</span>
+</span></span><span class="line"><span class="cl">influxdb3 serve <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --node-id<span class="o">=</span>node2 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster-id<span class="o">=</span>my-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>query <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --num-io-threads<span class="o">=</span><span class="m">4</span></span></span></code></pre></div><h2 id="manage-configurations">Manage configurations</h2>
 <!--
 ### Use configuration files
 
