@@ -59,22 +59,22 @@ influxdb3 serve --mode=ingest
 # Multiple modes
 influxdb3 serve --mode=ingest,query
 
-# All modes (default)
+# All modes (default, for single-node Enterprise only)
 influxdb3 serve --mode=all
 ```
 
 Available modes:
 
-- `all`: All capabilities enabled (default)
+- `all`: All capabilities enabled (single-node Enterprise deployments only)
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
 - `process`: Data processing and transformations
 
 > [!Warning]
-> Only **one** node per cluster can run in a mode that includes compaction (`compact` or `all`).
-> Running multiple compactors causes data corruption.
-> In a cluster, assign `all` mode to at most one node, and ensure no other node uses the `compact` mode.
+> Use `all` mode for **single-node** Enterprise deployments only.
+> Avoid using `all` mode in a multi-node cluster—some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
+> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
 
 ## Allocate threads by node type
 
@@ -310,11 +310,11 @@ influxdb3 \
 
 > [!Note]
 > Only one node per cluster can run compaction.
-> In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 run ingest and query only.
+> In this example, Node 1 handles ingest, query, and compaction while Nodes 2–3 handle ingest and query only.
 
 ```yaml
-# Node 1: All-in-one primary (includes compaction)
-mode: all
+# Node 1: Ingest, query, and compactor
+mode: ingest,query,compact
 cores: 32
 io_threads: 8
 datafusion_threads: 24
@@ -573,7 +573,8 @@ GROUP BY event_type;
 - Growing number of small Parquet files
 - Increasing query times due to file fragmentation
 
-**Solution:** Increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues))
+**Solution:** For nodes using the default Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
+The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
@@ -637,19 +638,20 @@ free -h
 
 ## Migrate to specialized nodes
 
-### From all-in-one to specialized
+### From single-node to specialized cluster
 
 > [!Note]
-> If you're migrating a multi-node cluster, only one node should ever be in `all` mode.
-> In a baseline multi-node setup, additional nodes should use `ingest,query` instead of `all`
-> to avoid running multiple compactors.
+> `all` mode is intended for single-node Enterprise deployments.
+> When scaling to a multi-node cluster, replace `all` with explicit modes and assign `compact` to exactly one node.
 
 ```bash
-# Phase 1: Baseline (single all-in-one node for starting point)
+# Phase 1: Baseline (single-node deployment)
 node1: --mode=all --num-io-threads=8
 
-# Phase 2: Identify workload patterns
-# Monitor which nodes handle most writes vs queries
+# Phase 2: Expand to multi-node — replace all-in-one with explicit modes
+# Assign compact to exactly one node
+node1: --mode=ingest,query,compact --num-io-threads=8
+node2: --mode=ingest,query --num-io-threads=8
 
 # Phase 3: Gradual specialization
 node1: --mode=ingest,query --num-io-threads=12
