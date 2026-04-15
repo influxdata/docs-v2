@@ -117,7 +117,61 @@ tags:
   Quick start:
     x-traitTag: true
     description: |
-      Get started authenticating, writing, and querying data with the InfluxDB OSS v2 API.
+      Authenticate, write, and query with the InfluxDB OSS v2 API:
+
+      1. Create an API token with write and read permissions for a bucket.
+         For new installations, set up InfluxDB and create the initial admin
+         token during the [onboarding process](/influxdb/v2/install/).
+
+      2. Check the status of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:8086/health"
+         ```
+
+      3. Write data to a bucket using the `/api/v2/write` endpoint and
+         [line protocol](/influxdb/v2/reference/syntax/line-protocol/).
+
+         ```bash
+         curl --request POST \
+           "http://localhost:8086/api/v2/write?org=ORG&bucket=BUCKET&precision=s" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --header "Content-Type: text/plain; charset=utf-8" \
+           --data-raw "home,room=Kitchen temp=72.0 1640995200
+         home,room=Living\ Room temp=71.5 1640995200"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      4. Query data using the Flux `/api/v2/query` endpoint.
+
+         ```bash
+         curl --request POST \
+           "http://localhost:8086/api/v2/query?org=ORG" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --header "Content-Type: application/vnd.flux" \
+           --data 'from(bucket: "BUCKET") |> range(start: -1h) |> filter(fn: (r) => r._measurement == "home")'
+         ```
+
+         Alternatively, query with InfluxQL using the v1-compatible `/query`
+         endpoint. Target a v1 DBRP mapping (`database.retention_policy`) that
+         points to your bucket:
+
+         ```bash
+         curl --get "http://localhost:8086/query" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --data-urlencode "db=DATABASE" \
+           --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h"
+         ```
+
+      For more information, see [Get started with InfluxDB OSS v2](/influxdb/v2/get-started/).
+    x-related:
+      - title: Get started with InfluxDB OSS v2
+        href: /influxdb/v2/get-started/
+      - title: Write data
+        href: /influxdb/v2/write-data/
+      - title: Query data with Flux
+        href: /influxdb/v2/query-data/
   Ready:
     description: |
       Check whether an InfluxDB OSS v2 instance is ready to accept requests.

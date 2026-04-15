@@ -1,4 +1,14 @@
 tags:
+  Compatibility endpoints:
+    drop: true
+  Cache data:
+    reassign:
+      - paths: ["/api/v3/configure/distinct_cache"]
+        tag: Cache distinct values
+      - paths: ["/api/v3/configure/last_cache"]
+        tag: Cache last value
+  Token:
+    rename: Auth token
   Authentication:
     x-traitTag: true
     description: |

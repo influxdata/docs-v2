@@ -89,29 +89,25 @@
 
     <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
     {{ with $description }}
-    {{/* Extract first sentence/paragraph for the children listing.
-         Split on double newlines first. If the description has no double
-         newlines, split on single newlines and take the first non-heading,
-         non-list line. Truncate to 200 chars. */}}
-    {{ $firstPara := "" }}
-    {{ $paragraphs := split . "\n\n" }}
-    {{ range $paragraphs }}
-      {{ if and (not $firstPara) (not (hasPrefix (strings.TrimLeft " " .) "#")) (not (hasPrefix (strings.TrimLeft " " .) "-")) }}
-        {{ $firstPara = . }}
+    {{/* Extract a short intro for the children listing by collecting lines
+         until the first markdown heading or list marker. This avoids
+         pulling in headings (like "## Enterprise cluster parameters")
+         or bullet lists, which would render as child headings and break
+         the children-links layout. */}}
+    {{ $introLines := slice }}
+    {{ range split . "\n" }}
+      {{ $trimmed := strings.TrimLeft " " . }}
+      {{ if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") }}
+        {{/* Stop collecting on heading, list, or table */}}
+        {{ break }}
+      {{ end }}
+      {{ if ne $trimmed "" }}
+        {{ $introLines = $introLines | append . }}
       {{ end }}
     {{ end }}
-    {{/* If no double-newline split worked, try single newlines */}}
-    {{ if not $firstPara }}
-      {{ $lines := split . "\n" }}
-      {{ range $lines }}
-        {{ $trimmed := strings.TrimLeft " " . }}
-        {{ if and (not $firstPara) (ne $trimmed "") (not (hasPrefix $trimmed "#")) (not (hasPrefix $trimmed "-")) }}
-          {{ $firstPara = . }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-    {{ if $firstPara }}
-    {{ $truncated := $firstPara | truncate 200 "..." }}
+    {{ $intro := delimit $introLines " " }}
+    {{ if $intro }}
+    {{ $truncated := $intro | truncate 200 "..." }}
     <p>{{ $truncated | markdownify }}</p>
     {{ end }}
     {{ end }}

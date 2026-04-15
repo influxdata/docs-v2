@@ -1,0 +1,15 @@
+# Parent page content for the InfluxDB Cloud Dedicated API section landing page.
+description: >-
+  Use the InfluxDB HTTP API to write and query data, and manage databases,
+  tables, and tokens. InfluxDB Cloud Dedicated provides separate Data API
+  and Management API specifications.
+body_extra: |
+  {{% product-name %}} exposes two distinct HTTP APIs:
+
+  - **Data API** — write time series data to databases and query data using
+    SQL, InfluxQL, or v1/v2 compatibility endpoints.
+  - **Management API** — create and manage databases, database tokens,
+    tables, and cluster resources.
+
+  Each API has its own OpenAPI specification and download button.
+  Use the links below to navigate to each API reference.

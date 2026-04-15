@@ -106,32 +106,25 @@ interface ProductData {
 }
 
 /**
- * Load products with API paths from data/products.yml
- * Returns a map of alt_link_key to API path for alt_links generation
- * The alt_link_key matches what the Hugo product-selector template expects
+ * Load the cross-product API path map from data/api_products.yml.
+ * Returns a map of alt_link_key to API path for alt_links generation.
+ * The alt_link_key matches what the Hugo product-selector template expects.
  */
 function loadApiProducts(): Map<string, string> {
   const yaml = require('js-yaml');
-  const productsFile = path.join(DOCS_ROOT, 'data/products.yml');
+  const apiProductsFile = path.join(DOCS_ROOT, 'data/api_products.yml');
 
-  if (!fs.existsSync(productsFile)) {
-    console.warn('⚠️  products.yml not found, skipping alt_links generation');
+  if (!fs.existsSync(apiProductsFile)) {
+    console.warn(
+      '⚠️  data/api_products.yml not found, skipping alt_links generation'
+    );
     return new Map();
   }
 
-  const productsContent = fs.readFileSync(productsFile, 'utf8');
-  const products = yaml.load(productsContent) as Record<string, ProductData>;
+  const content = fs.readFileSync(apiProductsFile, 'utf8');
+  const productMap = yaml.load(content) as Record<string, string>;
 
-  const apiProducts = new Map<string, string>();
-
-  for (const [_key, product] of Object.entries(products)) {
-    if (product.api_path && product.alt_link_key) {
-      // Use alt_link_key as the key (matches Hugo template expectations)
-      apiProducts.set(product.alt_link_key, product.api_path);
-    }
-  }
-
-  return apiProducts;
+  return new Map(Object.entries(productMap || {}));
 }
 
 // Load API products at module initialization
@@ -626,7 +619,11 @@ function generateTagPagesFromArticleData(
       path.join('api-docs', contentRelPath, 'content', 'page.yml'),
       path.join('api-docs', contentRelPath, 'page.yml'),
     ];
-    let pageOverlay: { description?: string; body_extra?: string } = {};
+    let pageOverlay: {
+      description?: string;
+      body_extra?: string;
+      aliases?: string[];
+    } = {};
     for (const p of pageOverlayPaths) {
       if (fs.existsSync(p)) {
         pageOverlay = yaml.load(fs.readFileSync(p, 'utf8')) as typeof pageOverlay;
@@ -648,6 +645,11 @@ function generateTagPagesFromArticleData(
       type: 'api',
       specDownloadPath,
     };
+
+    // Add aliases from page.yml (e.g., redirects from legacy hand-written pages)
+    if (pageOverlay.aliases && pageOverlay.aliases.length > 0) {
+      parentFrontmatter.aliases = pageOverlay.aliases;
+    }
 
     // Add menu entry for parent page (menuParentName controls sidebar placement)
     if (menuKey && menuParentName) {
@@ -1619,9 +1621,6 @@ function processProduct(productKey: string, config: ProductConfig): void {
         );
 
         // Write the top-level api/_index.md (no specDownloadPath — each sub-section has its own)
-        const apiDescription =
-          config.description ||
-          'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
         const apiParentDir = path.join(config.pagesDir, 'api');
         const parentIndexFile = path.join(apiParentDir, '_index.md');
         if (!fs.existsSync(apiParentDir)) {
@@ -1629,6 +1628,28 @@ function processProduct(productKey: string, config: ProductConfig): void {
         }
         if (!fs.existsSync(parentIndexFile)) {
           const yaml = require('js-yaml');
+
+          // Load page.yml overlay if it exists (matches single-spec pattern)
+          const contentRelPath = getContentRelPath(config.pagesDir);
+          const pageOverlayPaths = [
+            path.join('api-docs', contentRelPath, 'content', 'page.yml'),
+            path.join('api-docs', contentRelPath, 'page.yml'),
+          ];
+          let pageOverlay: { description?: string; body_extra?: string } = {};
+          for (const p of pageOverlayPaths) {
+            if (fs.existsSync(p)) {
+              pageOverlay = yaml.load(
+                fs.readFileSync(p, 'utf8')
+              ) as typeof pageOverlay;
+              break;
+            }
+          }
+
+          // Default API description (not config.description, which is the product label)
+          const apiDescription =
+            pageOverlay.description ||
+            'Use the InfluxDB HTTP API to write data, query data, and manage databases, tables, and tokens.';
+
           const parentFrontmatter: Record<string, unknown> = {
             title: 'InfluxDB HTTP API',
             description: apiDescription,
@@ -1654,7 +1675,10 @@ function processProduct(productKey: string, config: ProductConfig): void {
             'InfluxDB',
             '{{% product-name %}}'
           );
-          const parentContent = `---\n${yaml.dump(parentFrontmatter)}---\n\n${introText}\n`;
+          const extraContent = pageOverlay.body_extra
+            ? `\n${pageOverlay.body_extra}\n`
+            : '';
+          const parentContent = `---\n${yaml.dump(parentFrontmatter)}---\n\n${introText}\n${extraContent}`;
           fs.writeFileSync(parentIndexFile, parentContent);
           console.log(`✓ Generated multi-spec parent index at ${parentIndexFile}`);
         }

@@ -44,4 +44,14 @@ tagDescription: >-
   | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
 
   | **Delete** | `DELETE` | Remove a resource. |
+alt_links:
+  core: /influxdb3/core/api/
+  enterprise: /influxdb3/enterprise/api/
+  cloud-serverless: /influxdb3/cloud-serverless/api/
+  cloud-dedicated: /influxdb3/cloud-dedicated/api/
+  clustered: /influxdb3/clustered/api/
+  v2: /influxdb/v2/api/
+  cloud: /influxdb/cloud/api/
+  v1: /influxdb/v1/api/
+  enterprise-v1: /enterprise_influxdb/v1/api/
 ---

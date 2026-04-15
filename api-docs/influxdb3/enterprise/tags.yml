@@ -1,4 +1,14 @@
 tags:
+  Compatibility endpoints:
+    drop: true
+  Export data (beta):
+    description: >
+      Export data from InfluxDB 3 Enterprise databases.
+      List databases, tables, export windows, and retrieve
+      window data for data migration and backup workflows.
+    x-related:
+      - title: Export data
+        href: /influxdb3/enterprise/admin/export/
   Authentication:
     x-traitTag: true
     description: |
