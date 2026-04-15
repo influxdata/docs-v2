@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-08 19:43:29 &#43;0000 UTC">
+<meta name="last-modified" content="2026-04-15 15:48:38 &#43;0000 UTC">
     
 <script type="text/javascript">
 (function() {
@@ -2875,10 +2875,10 @@ cluster efficiency.</p>
 </span></span><span class="line"><span class="cl"><span class="c1"># Multiple modes</span>
 </span></span><span class="line"><span class="cl">influxdb3 serve --mode<span class="o">=</span>ingest,query
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># All modes (default)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># All modes (default, for single-node Enterprise only)</span>
 </span></span><span class="line"><span class="cl">influxdb3 serve --mode<span class="o">=</span>all</span></span></code></pre></div><p>Available modes:</p>
 <ul>
-<li><code>all</code>: All capabilities enabled (default)</li>
+<li><code>all</code>: All capabilities enabled (single-node Enterprise deployments only)</li>
 <li><code>ingest</code>: Data ingestion and line protocol parsing</li>
 <li><code>query</code>: Query execution and data retrieval</li>
 <li><code>compact</code>: Background compaction and optimization</li>
@@ -2888,9 +2888,9 @@ cluster efficiency.</p>
 <div class="block warning">
   
   
-  <p>Only <strong>one</strong> node per cluster can run in a mode that includes compaction (<code>compact</code> or <code>all</code>).
-Running multiple compactors causes data corruption.
-In a cluster, assign <code>all</code> mode to at most one node, and ensure no other node uses the <code>compact</code> mode.</p>
+  <p>Use <code>all</code> mode for <strong>single-node</strong> Enterprise deployments only.
+Avoid using <code>all</code> mode in a multi-node cluster—some cluster features such as replication and catalog refresh aren&rsquo;t designed to work with <code>all</code>-mode nodes.
+In a multi-node cluster, use explicit modes (<code>ingest</code>, <code>query</code>, <code>compact</code>, <code>process</code>) and assign <code>compact</code> to exactly one node.</p>
 </div>
 <h2 id="allocate-threads-by-node-type">Allocate threads by node type</h2>
 <h3 id="critical-concept-thread-pools">Critical concept: Thread pools</h3>
@@ -3062,10 +3062,10 @@ If you do set <code>--mode=process</code>, you must also set <code>--plugin-dir<
   
   
   <p>Only one node per cluster can run compaction.
-In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 run ingest and query only.</p>
+In this example, Node 1 handles ingest, query, and compaction while Nodes 2–3 handle ingest and query only.</p>
 </div>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Node 1: All-in-one primary (includes compaction)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Node 1: Ingest, query, and compactor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">ingest,query,compact</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">cores</span><span class="p">:</span><span class="w"> </span><span class="m">32</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">io_threads</span><span class="p">:</span><span class="w"> </span><span class="m">8</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">datafusion_threads</span><span class="p">:</span><span class="w"> </span><span class="m">24</span><span class="w">
@@ -3259,7 +3259,8 @@ In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 ru
 <li>Growing number of small Parquet files</li>
 <li>Increasing query times due to file fragmentation</li>
 </ul>
-<p><strong>Solution:</strong> Increase DataFusion threads on your single compactor node (see <a href="#compactor-node-issues">Compactor node issues</a>)</p>
+<p><strong>Solution:</strong> For nodes using the default Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see <a href="#compactor-node-issues">Compactor node issues</a>).
+The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the <a href="/influxdb3/enterprise/performance-preview/">Performance Preview documentation</a> for tuning guidance.</p>
 <h2 id="troubleshoot-node-configurations">Troubleshoot node configurations</h2>
 <h3 id="ingest-node-issues">Ingest node issues</h3>
 <p><strong>Problem</strong>: Low throughput despite available CPU</p>
@@ -3292,20 +3293,21 @@ In this example, Node 1 runs all modes (including compaction) and Nodes 2–3 ru
 <li><strong>Capacity planning</strong>: Monitor trends and scale proactively</li>
 </ol>
 <h2 id="migrate-to-specialized-nodes">Migrate to specialized nodes</h2>
-<h3 id="from-all-in-one-to-specialized">From all-in-one to specialized</h3>
+<h3 id="from-single-node-to-specialized-cluster">From single-node to specialized cluster</h3>
 
 <div class="block note">
   
   
-  <p>If you&rsquo;re migrating a multi-node cluster, only one node should ever be in <code>all</code> mode.
-In a baseline multi-node setup, additional nodes should use <code>ingest,query</code> instead of <code>all</code>
-to avoid running multiple compactors.</p>
+  <p><code>all</code> mode is intended for single-node Enterprise deployments.
+When scaling to a multi-node cluster, replace <code>all</code> with explicit modes and assign <code>compact</code> to exactly one node.</p>
 </div>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Phase 1: Baseline (single all-in-one node for starting point)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Phase 1: Baseline (single-node deployment)</span>
 </span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>all --num-io-threads<span class="o">=</span><span class="m">8</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Phase 2: Identify workload patterns</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Monitor which nodes handle most writes vs queries</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Phase 2: Expand to multi-node — replace all-in-one with explicit modes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Assign compact to exactly one node</span>
+</span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>ingest,query,compact --num-io-threads<span class="o">=</span><span class="m">8</span>
+</span></span><span class="line"><span class="cl">node2: --mode<span class="o">=</span>ingest,query --num-io-threads<span class="o">=</span><span class="m">8</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Phase 3: Gradual specialization</span>
 </span></span><span class="line"><span class="cl">node1: --mode<span class="o">=</span>ingest,query --num-io-threads<span class="o">=</span><span class="m">12</span>
