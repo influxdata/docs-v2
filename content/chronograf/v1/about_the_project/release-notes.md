@@ -10,6 +10,17 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
+## v1.11.1 {date="2026-04-15"}
+
+> [!Warning]
+> Chronograf 1.11.1 add ssupport for Darwin arm64.
+
+### Maintenance updates
+
+- Various security updates.
+- Upgrade Go to 1.25.8.
+- Upgrade Flux to 0.200.
+
 ## v1.11.0 {date="2026-02-19"}
 
 > [!Warning]
