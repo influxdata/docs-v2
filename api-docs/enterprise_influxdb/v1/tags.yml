@@ -8,19 +8,6 @@ tags:
   Write:
     description: |
       Write time series data to InfluxDB Enterprise v1 in line protocol format using the `/write` endpoint.
-
-      ### Enterprise write consistency
-
-      In a cluster, the [`consistency`](/enterprise_influxdb/v1/concepts/clustering/#write-consistency) query parameter controls when `/write` returns success based on how many data nodes have acknowledged a write.
-
-      | Value            | Returns success when…                                                                                       |
-      | :--------------- | :---------------------------------------------------------------------------------------------------------- |
-      | `any`            | Any node acknowledges the write, **or** the receiving node queues it for [hinted handoff](/enterprise_influxdb/v1/concepts/clustering/#hinted-handoff). |
-      | `one` *(default)* | Any node acknowledges the write (hinted handoff alone does not count).                                      |
-      | `quorum`         | A majority of replicas acknowledge the write. Equivalent to `all` when replication factor ≤ 2.              |
-      | `all`            | All replicas acknowledge the write.                                                                         |
-
-      For replication-factor interactions and recovery semantics, see [Write consistency](/enterprise_influxdb/v1/concepts/clustering/#write-consistency).
   Debug:
     description: |
       Access debugging and profiling endpoints for troubleshooting and performance analysis of an InfluxDB Enterprise v1 instance.

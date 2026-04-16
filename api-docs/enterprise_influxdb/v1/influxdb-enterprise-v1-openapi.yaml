@@ -306,8 +306,18 @@ paths:
         Data must be sent as binary encoded line protocol in the request body.
         Use the `--data-binary` flag with curl to preserve newlines.
 
-        **Enterprise Feature**: Use the `consistency` parameter to control write
-        consistency across cluster nodes.
+        ### Enterprise write consistency
+
+        In a cluster, the [`consistency`](/enterprise_influxdb/v1/concepts/clustering/#write-consistency) query parameter controls when `/write` returns success based on how many data nodes have acknowledged a write.
+
+        | Value             | Returns success when…                                                                                       |
+        | :---------------- | :---------------------------------------------------------------------------------------------------------- |
+        | `any`             | Any node acknowledges the write, **or** the receiving node queues it for [hinted handoff](/enterprise_influxdb/v1/concepts/clustering/#hinted-handoff). |
+        | `one` *(default)* | Any node acknowledges the write (hinted handoff alone does not count).                                      |
+        | `quorum`          | A majority of replicas acknowledge the write. Equivalent to `all` when replication factor ≤ 2.              |
+        | `all`             | All replicas acknowledge the write.                                                                         |
+
+        For replication-factor interactions and recovery semantics, see [Write consistency](/enterprise_influxdb/v1/concepts/clustering/#write-consistency).
 
         **Best Practices:**
         - Write points in batches of 5,000 to 10,000 for optimal performance
