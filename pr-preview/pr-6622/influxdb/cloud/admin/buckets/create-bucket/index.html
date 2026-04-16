@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 11:34:43 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -6975,7 +6975,7 @@ and specify values for the following flags:</p>
 
 <section class="tab-content">
   <p>To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#post-/api/v2/buckets" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets/" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
 <p>Include the following in your request:</p>
 <ul>
 <li><strong>Headers:</strong>
@@ -7020,7 +7020,7 @@ with the following fields:
 </span></span></span><span class="line"><span class="cl"><span class="s1">      }
 </span></span></span><span class="line"><span class="cl"><span class="s1">    ]
 </span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div><p><em>For information about <strong>InfluxDB API options and response codes</strong>, see
-<a href="/influxdb3/cloud-serverless/api/#post-/api/v2/buckets">InfluxDB API Buckets reference documentation</a>.</em></p>
+<a href="/influxdb3/cloud-serverless/api/buckets/#operation/PostBuckets">InfluxDB API Buckets reference documentation</a>.</em></p>
 
 </section>
 
@@ -7058,9 +7058,9 @@ with the following fields:
 
 <section class="tab-content">
   <!----------------------------- BEGIN API CONTENT ----------------------------->
-<p>Use the HTTP API <a href="/influxdb/cloud/api/#post-/api/v2/buckets"><code>/api/v2/buckets</code></a>
+<p>Use the HTTP API <a href="/influxdb/cloud/api/buckets/"><code>/api/v2/buckets</code></a>
 endpoint and set the <code>schemaType</code> property value to <code>explicit</code> in the request body&ndash;for example:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#post-/api/v2/buckets" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets/" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;orgID&#34;</span><span class="o">:</span> <span class="s2">&#34;{INFLUX_ORG_ID}&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;my-explicit-bucket&#34;</span><span class="p">,</span>

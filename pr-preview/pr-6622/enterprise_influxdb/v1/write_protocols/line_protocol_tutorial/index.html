@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3708,7 +3708,7 @@ local timestamp instead of <code>2016-06-13T17:43:50.1004002Z</code>.</p>
 such as microseconds, milliseconds, or seconds.
 We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
-See the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">API Reference</a> for more information.</p>
+See the <a href="/enterprise_influxdb/v1/api/write/">API Reference</a> for more information.</p>
 
 <div class="note block">
   <h4 id="use-ntp-to-synchronize-time-between-hosts">Use NTP to synchronize time between hosts</h4>
@@ -3744,7 +3744,7 @@ The minimum valid timestamp is <code>-9223372036854775806</code> or <code>1677-0
 The maximum valid timestamp is <code>9223372036854775806</code> or <code>2262-04-11T23:47:16.854775806Z</code>.
 As mentioned above, by default, InfluxDB assumes that timestamps have
 nanosecond precision.
-See the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">API Reference</a> for how to specify
+See the <a href="/enterprise_influxdb/v1/api/write/">API Reference</a> for how to specify
 alternative precisions.</p>
 <p>Field values can be floats, integers, strings, or Booleans:</p>
 <ul>
@@ -3924,7 +3924,7 @@ information.</p>
 Send a <code>POST</code> request to the <code>/write</code> endpoint and provide your line protocol in
 the request body:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -i -XPOST <span class="s2">&#34;http://localhost:8086/write?db=science_is_cool&#34;</span> --data-binary <span class="s1">&#39;weather,location=us-midwest temperature=82 1465839830100400200&#39;</span></span></span></code></pre></div><p>For in-depth descriptions of query string parameters, status codes, responses,
-and more examples, see the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">API Reference</a>.</p>
+and more examples, see the <a href="/enterprise_influxdb/v1/api/write/">API Reference</a>.</p>
 <h4 id="cli">CLI</h4>
 <p>Write data to InfluxDB using the InfluxDB command line interface (CLI).
 <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx/#launch-influx">Launch</a> the CLI, use the relevant
@@ -3935,7 +3935,7 @@ front of your line protocol:</p>
 Protocol from a file.</p>
 <p>There are several ways to write data to InfluxDB.
 See the <a href="/enterprise_influxdb/v1/tools/">Tools</a> section for more
-on the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">InfluxDB API</a>, the
+on the <a href="/enterprise_influxdb/v1/api/write/">InfluxDB API</a>, the
 <a href="/enterprise_influxdb/v1/tools/influx-cli/use-influx/">CLI</a>, and the available Service Plugins (
 <a href="/enterprise_influxdb/v1/tools/udp/">UDP</a>,
 <a href="/enterprise_influxdb/v1/tools/graphite/">Graphite</a>,

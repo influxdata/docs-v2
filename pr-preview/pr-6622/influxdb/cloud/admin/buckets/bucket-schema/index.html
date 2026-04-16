@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 11:34:43 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -6974,14 +6974,14 @@ as in the following examples:
 </span></span></span><span class="line"><span class="cl">--columns-file sensor.ndjson     </span></span></code></pre></div></li>
 </ol>
 <h4 id="create-a-bucket-schema-using-the-influxdb-http-api">Create a bucket schema using the InfluxDB HTTP API</h4>
-<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/#post-/api/v2/buckets/-bucketID-/schema/measurements"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements</code> endpoint</a>
+<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/buckets//-bucketID-/schema/measurements"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements</code> endpoint</a>
 and set the following properties in the request body:</p>
 <ul>
 <li><code>name</code>: the measurement name.</li>
 <li><code>columns</code>: an array of <em>column definitions</em> for your measurement.</li>
 </ul>
 <p>For example, the following request defines the <em>explicit</em> bucket measurement schema for <code>airSensors</code> measurements:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#post-/api/v2/buckets/-bucketID-/schema/measurements" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets//-bucketID-/schema/measurements" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements</a></pre>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;airSensors&#34;</span><span class="p">,</span>
@@ -7044,8 +7044,8 @@ as in the following example:</p>
 <p>To list schemas for a bucket, use the <a href="/influxdb/cloud/reference/cli/influx/bucket-schema/list/"><code>influx bucket-schema list</code> command</a>.
 To view schema column definitions and metadata, specify the <code>--json</code> flag.</p>
 <h3 id="view-schema-type-and-schemas-using-the-influxdb-http-api">View schema type and schemas using the InfluxDB HTTP API</h3>
-<p>To list schemas for a bucket, send a request to the InfluxDB HTTP <a href="/influxdb/cloud/api/#get-/api/v2/buckets/-bucketID-/schema/measurements"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements</code> endpoint</a>:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#get-/api/v2/buckets/-bucketID-/schema/measurements" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements</a></pre>
+<p>To list schemas for a bucket, send a request to the InfluxDB HTTP <a href="/influxdb/cloud/api/buckets//-bucketID-/schema/measurements"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements</code> endpoint</a>:</p>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets//-bucketID-/schema/measurements" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements</a></pre>
 <h2 id="update-a-bucket-schema">Update a bucket schema</h2>
 <p>Use the <strong><code>influx</code> CLI</strong> or the <strong>InfluxDB HTTP API</strong> to add new columns to an explicit bucket schema.
 You can&rsquo;t modify or delete columns in bucket schemas.</p>
@@ -7081,9 +7081,9 @@ The following example appends column <code>CO2</code> to the original <em>sensor
 <p><a href="#view-schema-type-and-schemas-using-the-influxdb-http-api">View the existing measurement schema</a> and copy the <code>columns</code> list.</p>
 </li>
 <li>
-<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}</code> endpoint</a>.</p>
+<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/bucket-schemas/"><code>/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}</code> endpoint</a>.</p>
 <p>In the request body, set the <code>columns</code> property to a list of old and new column definitions for the measurement schema&ndash;for example, the following request appends the new column <code>CO2</code> to <code>columns</code> retrieved in the previous step:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-/schema/measurements/-measurementID-" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/bucket-schemas/" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}</a></pre>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;columns&#34;</span><span class="o">:</span> <span class="p">[</span>

@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2726,10 +2726,10 @@ to skip file permission checking for TLS certificate and private key files.</li>
 <li>Add <a href="/influxdb/v1/administration/config/#advanced-expiration"><code>advanced-expiration</code> TLS configuration option</a>
 to configure how far in advance to log warnings about TLS certificate expiration.</li>
 <li>Add TLS certificate reloading on <code>SIGHUP</code>.</li>
-<li>Add <a href="/influxdb/v1/api/#running-configuration"><code>config</code></a> and <a href="/influxdb/v1/api/#continuous-query-statistics"><code>cq</code> (continuous query) statistics</a> to the <code>/debug/vars</code> endpoint.</li>
+<li>Add <a href="/influxdb/v1/api/debug/"><code>config</code></a> and <a href="/influxdb/v1/api/debug/"><code>cq</code> (continuous query) statistics</a> to the <code>/debug/vars</code> endpoint.</li>
 <li>Improve dropped point logging.</li>
 <li><a href="/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries">Show user when displaying or logging queries</a>.</li>
-<li>Add <a href="/influxdb/v1/api/#query-data-with-a-select-statement-and-the-time_format-parameter"><code>time_format</code> parameter</a> for the HTTP API.</li>
+<li>Add <a href="/influxdb/v1/api/query/"><code>time_format</code> parameter</a> for the HTTP API.</li>
 <li>Use dynamic logging levels (<code>zap.AtomicLevel</code>).</li>
 <li><a href="/influxdb/v1/administration/config/#user-query-bytes-enabled">Report user query bytes</a>.</li>
 </ul>
@@ -2803,7 +2803,7 @@ and <a href="/influxdb/v1/query_language/manage-database/#past-limit"><code>PAST
 <h2 date="2024-11-15" id="v1118">v1.11.8</h2>
 <h3 id="bug-fixes-3">Bug Fixes</h3>
 <ul>
-<li>Strip double quotes from measurement names in the <a href="/influxdb/v1/api/#apiv2delete-http-endpoint"><code>/api/v2/delete</code>
+<li>Strip double quotes from measurement names in the <a href="/influxdb/v1/api/delete-v2-compatible/"><code>/api/v2/delete</code>
 compatibility API</a> before
 string comparisons (e.g. to allow special characters in measurement names).</li>
 </ul>
@@ -2894,9 +2894,9 @@ to improve Flux query performance.</li>
 <li><strong>InfluxDB v2 compatibility API updates:</strong>
 <ul>
 <li>Partially support create, retrieve, update, delete, and list operations in the
-<a href="/influxdb/v1/api/#influxdb-2x-api-compatibility-endpoints"><code>/v2/api/buckets</code> compatibility API</a>
+<a href="/influxdb/v1/api/buckets-v2-compatible/"><code>/v2/api/buckets</code> compatibility API</a>
 and correctly handle requests to unsupported <code>/v2/api/buckets</code> endpoints.</li>
-<li>Implement the <a href="/influxdb/v1/api/#apiv2delete-http-endpoint"><code>v2/api/delete</code> compatibility API</a>.</li>
+<li>Implement the <a href="/influxdb/v1/api/delete-v2-compatible/"><code>v2/api/delete</code> compatibility API</a>.</li>
 </ul>
 </li>
 <li><strong>Additional internal metrics:</strong>
@@ -3114,7 +3114,7 @@ To ensure Flux logging is enabled, set both <code>flux-enabled</code> and <code>
 <ul>
 <li>Use latest version of InfluxQL package.</li>
 <li>Add <code>-lponly</code> flag to <a href="/influxdb/v2/reference/cli/influx/export/"><code>influx export</code></a> sub-command.</li>
-<li>Add the ability to <a href="/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok">track number of values</a> written via the <a href="/influxdb/v1/api/#debugvars-http-endpoint"><code>/debug/vars</code> HTTP endpoint</a>.</li>
+<li>Add the ability to <a href="/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok">track number of values</a> written via the <a href="/influxdb/v1/api/debug/"><code>/debug/vars</code> HTTP endpoint</a>.</li>
 <li>Update UUID library from <a href="https://github.com/satori/go.uuid">github.com/satori/go.uuid</a> to <a href="https://github.com/gofrs/uuid">github.com/gofrs/uuid</a>.</li>
 </ul>
 <h3 id="bug-fixes-10">Bug fixes</h3>
@@ -3195,7 +3195,7 @@ InfluxDB Enterprise customers, please contact <a href="mailto:support@influxdata
 </div>
 <h4 id="forward-compatibility">Forward compatibility</h4>
 <ul>
-<li><a href="/influxdb/v1/api/#influxdb-2x-api-compatibility-endpoints">InfluxDB 2.x API compatibility endpoints</a> are now part of the InfluxDB 1.x line.<br>
+<li><a href="/influxdb/v1/api/buckets-v2-compatible/">InfluxDB 2.x API compatibility endpoints</a> are now part of the InfluxDB 1.x line.<br>
 This allows you to leverage the new InfluxDB 2.0 <a href="/influxdb/v1/tools/api_client_libraries/">client libraries</a>
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you&rsquo;re ready to scale.</li>

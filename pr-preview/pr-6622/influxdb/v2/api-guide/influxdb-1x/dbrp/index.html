@@ -46,10 +46,10 @@
 
 
 
-<title>Tags | &lt;nil&gt; Documentation</title>
+<title>Database and retention policy mapping | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="">
+    <meta name="description" content="The database and retention policy (DBRP) mapping service maps InfluxDB 1.x database and retention policy combinations to InfluxDB Cloud and InfluxDB OSS 2.x buckets.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -106,7 +106,7 @@
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6622/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/" />
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6622/docs-v2/pr-preview/pr-6622/influxdb/v2/api-guide/influxdb-1x/dbrp/" />
 
     
 <style>
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-08 09:19:14 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -865,10 +865,10 @@
     <li class="nav-category ">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-6622/influxdb/v2/api-guide/'>Develop with the API</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1183,10 +1183,10 @@
     <li class="nav-item ">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-6622/influxdb/v2/api-guide/influxdb-1x/'>v1 compatibility</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1222,7 +1222,7 @@
     
     
 
-    <li class="nav-item ">
+    <li class="nav-item active">
       
         
         
@@ -7538,386 +7538,299 @@
   <div class="content-wrapper">
     <div class="sidebar-toggle" data-component="sidebar-toggle" data-state="open" ><a data-action="toggle" href="#"><span
       class="cf-icon SidebarOpen"></span></a></div>
-
     <div class="article">
-      <article class="article--content">
-        <h1>Related to "Tags"</h1>
-        <div class="list-links">
+  <article class="article--content">
+    <div class="title">
+      <h1>Database and retention policy mapping</h1>
+      
 
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/aggregates/">Aggregates</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/ai/">AI</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/alert/">Alert</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/alerts/">Alerts</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/annotations/">Annotations</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/api/">Api</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/authentication/">Authentication</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/authorization/">Authorization</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/backup/">Backup</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/best-practices/">Best Practices</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/bucket-schema/">Bucket-Schema</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/buckets/">Buckets</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/cardinality/">Cardinality</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/check/">Check</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/checks/">Checks</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/cli/">Cli</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/client-libraries/">Client Libraries</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/conditionals/">Conditionals</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/config/">Config</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/counters/">Counters</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/cpu/">Cpu</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/csv/">Csv</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/cumulative-sum/">Cumulative Sum</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/custom/">Custom</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/dashboards/">Dashboards</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/dbrp/">Dbrp</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/delete/">Delete</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/design-principles/">Design Principles</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/development/">Development</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/email/">Email</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/endpoints/">Endpoints</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/errors/">Errors</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/exists/">Exists</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/export/">Export</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/fill/">Fill</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/flux/">Flux</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/functions/">Functions</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/get-started/">Get-Started</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/glossary/">Glossary</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/go/">Go</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/grafana/">Grafana</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/group/">Group</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/hardening/">Hardening</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/health/">Health</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/histogram/">Histogram</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/https/">Https</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/increase/">Increase</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/influx/">Influx</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/influxd/">Influxd</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/influxql/">Influxql</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/infrastructure/">Infrastructure</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/inspect/">Inspect</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/install/">Install</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/internals/">Internals</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/javascript/">Javascript</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/join/">Join</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/key-concepts/">Key Concepts</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/labels/">Labels</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/limit/">Limit</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/line-protocol/">Line Protocol</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/llm/">LLM</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/logs/">Logs</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/manually/">Manually</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/math/">Math</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/mcp/">MCP</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/median/">Median</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/members/">Members</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/memory/">Memory</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/metrics/">Metrics</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/monitor/">Monitor</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/moving-average/">Moving Average</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/mqtt/">Mqtt</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/networking/">Networking</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/networks/">Networks</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/nodejs/">Nodejs</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/notebooks/">Notebooks</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/notification/">Notification</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/notifications/">Notifications</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/organizations/">Organizations</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/percentile/">Percentile</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/performance/">Performance</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/ping/">Ping</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/plugin/">Plugin</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/prometheus/">Prometheus</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/python/">Python</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/quantile/">Quantile</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/queries/">Queries</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/query/">Query</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/rate/">Rate</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/regex/">Regex</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/replication/">Replication</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/restore/">Restore</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/scalar/">Scalar</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/schema/">Schema</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/scraper/">Scraper</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/scripts/">Scripts</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/secrets/">Secrets</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/security/">Security</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/select/">Select</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/shards/">Shards</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/sort/">Sort</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/sql/">Sql</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/ssl/">Ssl</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/states/">States</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/storage/">Storage</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/syntax/">Syntax</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tasks/">Tasks</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/telegraf/">Telegraf</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/templates/">Templates</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tls/">Tls</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tokens/">Tokens</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tools/">Tools</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/transform/">Transform</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tsi/">Tsi</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/tsm/">Tsm</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/upgrade/">Upgrade</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/usage/">Usage</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/users/">Users</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/variables/">Variables</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/visualize/">Visualize</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/wal/">Wal</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/where/">Where</a></h3>
-            
-          
-            <h3><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/tags/write/">Write</a></h3>
-            
-          
 
-        </div>
-      </article>
+
+
+
+
+      
+      <div
+  class="format-selector"
+  data-component="format-selector"
+  data-child-count="0"
+  data-estimated-tokens="0"data-mcp-docs-url="/influxdb3/core/admin/mcp-server/"
+>
+  
+  <button
+    class="format-selector__button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Copy page for AI - Access documentation in different formats"
+  >
+    <span class="format-selector__button-icon">
+      
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 1H3C2.44772 1 2 1.44772 2 2V14C2 14.5523 2.44772 15 3 15H13C13.5523 15 14 14.5523 14 14V6L9 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 1V6H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="format-selector__button-text" data-button-text>
+      Copy page for AI
+    </span>
+    <span class="format-selector__button-arrow">
+      
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </button>
+
+  
+  <div
+    class="format-selector__dropdown"
+    data-dropdown-menu
+    role="menu"
+    aria-label="Format options"
+  >
+    
+  </div>
+</div>
     </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    
+
+
+
+
+  <p>The InfluxDB 1.x data model includes <a href="/influxdb/v1/concepts/glossary/#database">databases</a>
+and <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policies</a>.
+InfluxDB <span class="current-version">2.8</span> replaces databases and retention policies with
+<a href="/influxdb/v2/reference/glossary/#bucket">buckets</a>.
+To support InfluxDB 1.x query and write patterns in InfluxDB <span class="current-version">2.8</span>,
+databases and retention policies are mapped to buckets using the
+<strong>database and retention policy (DBRP) mapping service</strong>.</p>
+<p>The DBRP mapping service uses the <strong>database</strong> and <strong>retention policy</strong> specified in
+<a href="/influxdb/v2/reference/api/influxdb-1x/">1.x compatibility API</a> requests to route operations to a bucket.</p>
+<h3 id="default-retention-policies">Default retention policies</h3>
+<p>A database can have multiple retention policies with one set as default.
+If no retention policy is specified in a query or write request, InfluxDB uses
+the default retention policy for the specified database.
+Use the <code>influx</code> CLI or the InfluxDB API to set a retention policy as the
+default retention policy for a database.</p>
+<h3 id="when-creating-a-bucket">When creating a bucket</h3>
+<p>When you <a href="/influxdb/v2/admin/buckets/create-bucket/">create a bucket</a>,
+InfluxDB <span class="current-version">2.8</span> automatically creates a &ldquo;virtual&rdquo; DBRP mapping.
+Virtual DBRP mappings are those that are created on your behalf.</p>
+<ul>
+<li><strong>If your bucket name includes a forward slash (<code>/</code>)</strong>, the virtual DBRP mapping
+uses everything before the forward slash as the database name and everything
+after the forward slash as the retention policy name.
+If the database does not already have a default retention policy, the parsed
+retention policy is set as the default.</li>
+<li><strong>If your bucket name does not include a forward slash (<code>/</code>)</strong>, the virtual DBRP
+mapping uses the bucket name as the database and <code>autogen</code> as the retention
+policy. The <code>autogen</code> retention policy is set as the default retention policy.</li>
+</ul>
+<h3 id="when-writing-data">When writing data</h3>
+<p>When writing data using the
+<a href="/influxdb/v2/reference/api/influxdb-1x/write/"><code>/write</code> compatibility endpoint</a>,
+the DBRP mapping service uses the database and retention policy specified
+in the request to write the data to the appropriate bucket.</p>
+<h3 id="when-querying-data">When querying data</h3>
+<p>When querying data from InfluxDB <span class="current-version">2.8</span>
+using the <a href="/influxdb/v2/reference/api/influxdb-1x/query/"><code>/query</code> compatibility endpoint</a>,
+the DBRP mapping service uses the database and retention policy specified in the
+request to query data from the appropriate bucket.
+If no retention policy is specified, the database&rsquo;s default retention policy is used.</p>
+
+<div class="note block">
+  <h4 id="a-dbrp-combination-can-only-be-mapped-to-a-single-bucket">A DBRP combination can only be mapped to a single bucket</h4>
+<p>Each unique DBRP combination can only be mapped to a single bucket.
+If you map a DBRP combination that is already mapped to another bucket,
+it will overwrite the existing DBRP mapping.</p>
+
+</div>
+
+
+
+
+    
+
+    
+    
+  <div class="related">
+    <h4 id="related">Related</h4>
+    <ul>
+    
+      
+      
+        
+        
+        
+          
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+          
+          <li><a href="/influxdb/v2/api/dbrps/%20InfluxDB%20v2%20API%20/dbrps%20endpoint" target="">/influxdb/v2/api/dbrps/ InfluxDB v2 API /dbrps endpoint</a></li>
+        
+      
+    
+      
+      
+        
+        
+        
+          
+          
+            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/v2/query-data/influxql/">Query data with InfluxQL</a></li>
+          
+        
+      
+    
+    </ul>
+  </div>
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+<hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
+<div class="feedback block">
+  <div class="support">
+    <h4 id="bug-reports-and-feedback">Support and feedback</h4>
+    <p>
+      Thank you for being part of our community!
+      We welcome and encourage your feedback and bug reports for  and this documentation.
+      To find support, use the following resources:
+    </p>
+    <ul>
+      
+        <li><a class="slack" href="https://influxdata.com/slack" target="_blank"><strong>InfluxDB Community Slack</strong>  <em style="opacity:.5">(Preferred)</em></a></li>
+        <li><a class="discord" href="https://discord.gg/9zaNCW2PRT" target="_blank">InfluxDB Discord Server</a></li>
+      
+      <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>
+      <li><a class="reddit" href="https://reddit.com/r/influxdb" target="_blank">InfluxDB Subreddit</a></li>
+    </ul>
+    
+      <p><strong>Customers with an annual or support contract</strong> can <a href="https://support.influxdata.com/">contact InfluxData Support</a>.
+         
+
+    
+  </div>
+  <div class="actions">
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/v2/api-guide/influxdb-1x/dbrp.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6622/influxdb/v2/api-guide/influxdb-1x/dbrp/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
+  </div>
+</div>
+
+
+
+  </article>
+</div>
 
     <div class="copyright">© 2026 InfluxData, Inc.</div>
   </div>

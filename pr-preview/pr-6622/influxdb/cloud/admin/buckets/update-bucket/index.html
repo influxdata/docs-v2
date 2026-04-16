@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 11:34:43 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -6965,7 +6965,7 @@
 
 <div class="note block">
   <p>Use the <a href="#update-a-buckets-retention-period"><code>influx bucket update</code> command</a>
-or the <a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-">InfluxDB HTTP API <code>PATCH /api/v2/buckets</code> endpoint</a> to set a custom retention period.</p>
+or the <a href="/influxdb/cloud/api/buckets/">InfluxDB HTTP API <code>PATCH /api/v2/buckets</code> endpoint</a> to set a custom retention period.</p>
 
 </div>
 
@@ -7023,7 +7023,7 @@ Updating a bucket requires the following:</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
 </span></span><span class="line"><span class="cl">influx bucket update -i 034ad714fdd6f000 -r 1209600000000000ns</span></span></code></pre></div><h2 id="update-a-bucket-using-the-http-api">Update a bucket using the HTTP API</h2>
-<p>Use the InfluxDB HTTP API <a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-"><code>PATCH /api/v2/buckets</code> endpoint</a>
+<p>Use the InfluxDB HTTP API <a href="/influxdb/cloud/api/buckets/"><code>PATCH /api/v2/buckets</code> endpoint</a>
 to update a bucket.</p>
 <p>Updating a bucket requires the following:</p>
 <ul>
@@ -7037,15 +7037,15 @@ to update a bucket.</p>
 </ul>
 <ol>
 <li>
-<p>To find the bucket ID, send a request to the HTTP API <a href="/influxdb/cloud/api/#get-/api/v2/buckets"><code>GET /api/v2/buckets/</code> endpoint</a> to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets --></p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#get-/api/v2/buckets" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
+<p>To find the bucket ID, send a request to the HTTP API <a href="/influxdb/cloud/api/buckets/"><code>GET /api/v2/buckets/</code> endpoint</a> to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets --></p>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets/" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/buckets</a></pre>
 
 </li>
 <li>
-<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-">PATCH <code>/api/v2/buckets/{BUCKET_ID}</code> endpoint</a>.</p>
+<p>Send a request to the HTTP API <a href="/influxdb/cloud/api/buckets/">PATCH <code>/api/v2/buckets/{BUCKET_ID}</code> endpoint</a>.</p>
 <p>In the URL path, specify the ID of the bucket from the previous step that you want to update.
 In the request body, set the properties that you want to update&ndash;for example:</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#patch-/api/v2/buckets/-bucketID-" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets/" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}</a></pre>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;air_sensor&#34;</span><span class="p">,</span>

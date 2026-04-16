@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2849,7 +2849,7 @@ If you&rsquo;re using the <a href="/influxdb/v1/tools/shell/">CLI</a> InfluxDB q
 <a href="/influxdb/v1/tools/shell/#commands"><code>USE</code>d</a>
 <a href="/influxdb/v1/concepts/glossary/#database">database</a> and the <code>DEFAULT</code> <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
 If you&rsquo;re using the <a href="/influxdb/v1/api/">InfluxDB API</a> InfluxDB queries the
-measurement in the database specified in the <a href="/influxdb/v1/api/#query-string-parameters"><code>db</code> query string parameter</a>
+measurement in the database specified in the <a href="/influxdb/v1/api/query/"><code>db</code> query string parameter</a>
 and the <code>DEFAULT</code> retention policy.</p>
 <p><code>FROM &lt;measurement_name&gt;,&lt;measurement_name&gt;</code>
           
@@ -2893,7 +2893,7 @@ Please review the <a href="/influxdb/v1/troubleshooting/frequently-asked-questio
 The CLI queries the data in the <code>USE</code>d database and the
 <code>DEFAULT</code> <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
 If you&rsquo;re using the <a href="/influxdb/v1/api/">InfluxDB API</a> be sure to set the
-<code>db</code> <a href="/influxdb/v1/api/#query-string-parameters">query string parameter</a>
+<code>db</code> <a href="/influxdb/v1/api/query/">query string parameter</a>
 to <code>NOAA_water_database</code>.
 If you do not set the <code>rp</code> query string parameter, the InfluxDB API automatically
 queries the database&rsquo;s <code>DEFAULT</code> retention policy.</p>
@@ -4249,7 +4249,7 @@ If you&rsquo;re using the <a href="/influxdb/v1/tools/shell/">CLI</a> InfluxDB w
 <a href="/influxdb/v1/tools/shell/#commands"><code>USE</code>d</a>
 <a href="/influxdb/v1/concepts/glossary/#database">database</a> and the <code>DEFAULT</code> <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
 If you&rsquo;re using the <a href="/influxdb/v1/api/">InfluxDB API</a> InfluxDB writes the data to the
-measurement in the database specified in the <a href="/influxdb/v1/api/#query-string-parameters"><code>db</code> query string parameter</a>
+measurement in the database specified in the <a href="/influxdb/v1/api/query/"><code>db</code> query string parameter</a>
 and the <code>DEFAULT</code> retention policy.</p>
 <p><code>INTO &lt;database_name&gt;.&lt;retention_policy_name&gt;.&lt;measurement_name&gt;</code>
           
@@ -4322,7 +4322,7 @@ If you&rsquo;re using the <a href="/influxdb/v1/tools/shell/">CLI</a>, InfluxDB 
 the <code>USE</code>d <a href="/influxdb/v1/concepts/glossary/#database">database</a> and the <code>DEFAULT</code> <a href="/influxdb/v1/concepts/glossary/#retention-policy-rp">retention policy</a>.
 If you&rsquo;re using the <a href="/influxdb/v1/api/">InfluxDB API</a>, InfluxDB writes the
 data to the database and retention policy specified in the <code>db</code> and <code>rp</code>
-<a href="/influxdb/v1/api/#query-string-parameters">query string parameters</a>.
+<a href="/influxdb/v1/api/query/">query string parameters</a>.
 If you do not set the <code>rp</code> query string parameter, the InfluxDB API automatically
 writes the data to the database&rsquo;s <code>DEFAULT</code> retention policy.</p>
 <p>The response shows the number of points (<code>7605</code>) that InfluxDB writes to <code>h2o_feet_copy_1</code>.
@@ -5009,7 +5009,7 @@ Specify alternative formats with the
 The <a href="/influxdb/v1/api/">InfluxDB API</a> returns timestamps
 in <a href="https://www.ietf.org/rfc/rfc3339.txt">RFC3339</a> format by default.
 Specify alternative formats with the
-<a href="/influxdb/v1/api/#query-string-parameters"><code>epoch</code> query string parameter</a>.</p>
+<a href="/influxdb/v1/api/query/"><code>epoch</code> query string parameter</a>.</p>
 <h2 id="regular-expressions">Regular expressions</h2>
 <p>InfluxQL supports using regular expressions when specifying:</p>
 <ul>

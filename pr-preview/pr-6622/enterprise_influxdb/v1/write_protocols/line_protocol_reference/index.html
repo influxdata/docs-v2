@@ -172,7 +172,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3673,7 +3673,7 @@
           <td style="text-align: left"><a href="/enterprise_influxdb/v1/concepts/glossary/#timestamp">Timestamp</a></td>
           <td style="text-align: left">Optional. InfluxDB uses the server&rsquo;s local nanosecond timestamp in UTC if the timestamp is not included with the point.</td>
           <td style="text-align: left">The timestamp for the data point. InfluxDB accepts one timestamp per point.</td>
-          <td style="text-align: left">Unix nanosecond timestamp. Specify alternative precisions with the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">InfluxDB API</a>.</td>
+          <td style="text-align: left">Unix nanosecond timestamp. Specify alternative precisions with the <a href="/enterprise_influxdb/v1/api/write/">InfluxDB API</a>.</td>
       </tr>
   </tbody>
 </table>
@@ -3683,7 +3683,7 @@
 <ul>
 <li>Before sending data to InfluxDB, sort by tag key to match the results from the
 <a href="http://golang.org/pkg/bytes/#Compare">Go bytes.Compare function</a>.</li>
-<li>To significantly improve compression, use the coarsest <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">precision</a> possible for timestamps.</li>
+<li>To significantly improve compression, use the coarsest <a href="/enterprise_influxdb/v1/api/write/">precision</a> possible for timestamps.</li>
 <li>Use the Network Time Protocol (NTP) to synchronize time between hosts. InfluxDB uses a host&rsquo;s local time in UTC to assign timestamps to data. If a host&rsquo;s clock isn&rsquo;t synchronized with NTP, the data that the host writes to InfluxDB may have inaccurate timestamps.</li>
 </ul>
 
@@ -3722,7 +3722,7 @@
       <tr>
           <td style="text-align: left">Timestamp</td>
           <td style="text-align: left">Timestamps</td>
-          <td style="text-align: left">A Unix time in nanoseconds since January 1, 1970 UTC. Specify alternative precisions with the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">InfluxDB API</a>. The minimum valid timestamp is <code>-9223372036854775806</code> or <code>1677-09-21T00:12:43.145224194Z</code>. The maximum valid timestamp is <code>9223372036854775806</code> or <code>2262-04-11T23:47:16.854775806Z</code>.</td>
+          <td style="text-align: left">A Unix time in nanoseconds since January 1, 1970 UTC. Specify alternative precisions with the <a href="/enterprise_influxdb/v1/api/write/">InfluxDB API</a>. The minimum valid timestamp is <code>-9223372036854775806</code> or <code>1677-09-21T00:12:43.145224194Z</code>. The maximum valid timestamp is <code>9223372036854775806</code> or <code>2262-04-11T23:47:16.854775806Z</code>.</td>
       </tr>
   </tbody>
 </table>

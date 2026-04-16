@@ -46,10 +46,10 @@
 
 
 
-<title>Set up InfluxDB | Get started with InfluxDB Cloud | &lt;nil&gt; Documentation</title>
+<title>Troubleshoot issues writing data | &lt;nil&gt; Documentation</title>
 
 
-    <meta name="description" content="Learn how to set up InfluxDB for the &ldquo;Get started with InfluxDB&rdquo; tutorial.">
+    <meta name="description" content="Troubleshoot issues writing data. Find response codes for failed writes. Discover how writes fail, from exceeding rate or payload limits, to syntax errors and schema conflicts. Find suggestions to fix failures.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/img/favicon.png" type="image/png" sizes="32x32">
 
@@ -103,10 +103,51 @@
 
 
 
+  
+  
+    
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+  
+    
+    
+               
+    
+               
+    
+               
+    
+               
+    
+               
+    
+      
+        
+               
+    
+               
+    
+  
 
 
 
-<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6622/docs-v2/pr-preview/pr-6622/influxdb/cloud/get-started/setup/" />
+
+<link rel="canonical" href="https://influxdata.github.io/docs-v2/pr-preview/pr-6622/docs-v2/pr-preview/pr-6622/influxdb/v2/write-data/troubleshoot/" />
 
     
 <style>
@@ -625,10 +666,10 @@
     <li class="nav-category ">
       
         
-        <a href="#" class="children-toggle open"></a>
+        <a href="#" class="children-toggle "></a>
         <a href='/docs-v2/pr-preview/pr-6622/influxdb/cloud/get-started/'>Get started</a>
         
-          <ul class="children open">
+          <ul class="children ">
           
   
   
@@ -640,7 +681,7 @@
     
     
 
-    <li class="nav-item active">
+    <li class="nav-item ">
       
         
         
@@ -1177,10 +1218,10 @@
     <li class="nav-category ">
       
         
-        <a href="#" class="children-toggle "></a>
+        <a href="#" class="children-toggle open"></a>
         <a href='/docs-v2/pr-preview/pr-6622/influxdb/cloud/write-data/'>Write data</a>
         
-          <ul class="children ">
+          <ul class="children open">
           
   
   
@@ -1636,7 +1677,7 @@
     
     
 
-    <li class="nav-item ">
+    <li class="nav-item active">
       
         
         
@@ -6746,7 +6787,7 @@
     <div class="article">
   <article class="article--content">
     <div class="title">
-      <h1>Set up InfluxDB</h1>
+      <h1>Troubleshoot issues writing data</h1>
       
 
 
@@ -6755,14 +6796,6 @@
 
 
       
-<ul class="metadata">
-
-  <li>1 / 5</li>
-  
-  
-  
-</ul>
-
       <div
   class="format-selector"
   data-component="format-selector"
@@ -6861,476 +6894,361 @@
 
 
 
-  <p>As you get started with this tutorial, do the following to make sure everything
-you need is in place.</p>
-<ol>
-<li>
-<p><span class="req  magenta">(Optional)</span> <strong>Download, install, and configure the <code>influx</code> CLI</strong>.</p>
-<p>The <code>influx</code> CLI provides a simple way to interact with InfluxDB from a
-command line. For detailed installation and setup instructions,
-see <a href="/influxdb/cloud/tools/influx-cli/">Use the influx CLI</a>.</p>
-</li>
-<li>
-<p><strong>Create an All-Access API token.</strong>
-<span id="create-an-all-access-api-token"></span></p>
-<p>Use the <strong>InfluxDB UI</strong>, <strong><code>influx</code> CLI</strong>, or <strong>InfluxDB API</strong> to create an
-All-Access token.</p>
-
-<div class="tabs-wrapper">
   
-
-
-
-
-<div class="tabs">
-  <p><a href="#">InfluxDB UI</a>
-<a href="#">influx CLI</a>
-<a href="#">InfluxDB API</a></p>
-
-</div>
-
-
-
-<section class="tab-content">
-  <!------------------------------ BEGIN UI CONTENT ----------------------------->
-<ol>
-<li>Visit <a href="https://cloud2.influxdata.com">cloud2.influxdata.com</a> in a browser to
-log in and access the InfluxDB UI.</li>
-<li>Navigate to <strong>Load Data</strong> &gt; <strong>API Tokens</strong> using the left navigation bar.</li>
-<li>Click <strong>+ <span class="all-caps">Generate API token</span></strong> and select
-<strong>All Access API Token</strong>.</li>
-<li>Enter a description for the API token and click <strong><span class="inline v4 cf-icon Checkmark_New large"></span> <span class="all-caps">Save</span></strong>.</li>
-<li>Copy the generated token and store it for safe keeping.</li>
-</ol>
-<!------------------------------- END UI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!---------------------------- BEGIN CLI CONTENT ----------------------------->
-<ol>
-<li>
-<p>If you haven&rsquo;t already, <a href="/influxdb/cloud/tools/influx-cli/">download, install, and configure the <code>influx</code> CLI</a>.</p>
-</li>
-<li>
-<p>Use the <a href="/influxdb/cloud/reference/cli/influx/auth/create/"><code>influx auth create</code> command</a>
-to create an All-Access token.</p>
-<p><strong>Provide the following</strong>:</p>
+  <p>Learn how to avoid unexpected results and recover from errors when writing to InfluxDB.</p>
 <ul>
-<li><code>--all-access</code> flag</li>
-<li><code>--host</code> flag with your <a href="/influxdb/cloud/reference/regions/">InfluxDB region URL</a></li>
-<li><code>-o, --org</code> or <code>--org-id</code> flags with your InfluxDB organization name or
-<a href="/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id">ID</a></li>
-<li><code>-t, --token</code> flag with your Operator token</li>
+<li><a href="#handle-write-and-delete-responses">Handle <code>write</code> and <code>delete</code> responses</a></li>
+<li><a href="#troubleshoot-failures">Troubleshoot failures</a></li>
+<li><a href="#troubleshoot-rejected-points">Troubleshoot rejected points</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx auth create <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --all-access <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --host http://cloud2.influxdata.com <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --org &lt;YOUR_INFLUXDB_ORG_NAME&gt; <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token &lt;YOUR_INFLUXDB_OPERATOR_TOKEN&gt;</span></span></code></pre></div></li>
-<li>
-<p>Copy the generated token and store it for safe keeping.</p>
-</li>
-</ol>
-<!------------------------------ END CLI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!----------------------------- BEGIN API CONTENT ----------------------------->
-<p>Send a request to the InfluxDB API <code>/api/v2/authorizations</code> endpoint using the <code>POST</code> request method.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/authorizations-api-tokens/" target="_blank"><span class="api post">POST</span> http://cloud2.influxdata.com/api/v2/authorizations</a></pre>
-<p>Include the following with your request:</p>
+<h2 id="handle-write-and-delete-responses">Handle <code>write</code> and <code>delete</code> responses</h2>
+<p>In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
+Once InfluxDB validates your request and <a href="/influxdb/cloud/reference/internals/durability/#backup-on-write">queues</a> the write or delete, it sends a <em>success</em> response (HTTP <code>204</code> status code) as an acknowledgement.
+To ensure that InfluxDB handles writes and deletes in the order you request them, wait for the acknowledgement before you send the next request.
+Because writes are asynchronous, keep the following in mind:</p>
 <ul>
-<li><strong>Headers</strong>:
-<ul>
-<li><strong>Authorization</strong>: Token &lt;INFLUX_OPERATOR_TOKEN&gt;</li>
-<li><strong>Content-Type</strong>: application/json</li>
+<li>Data might not yet be queryable when you receive <em>success</em> (HTTP <code>204</code> status code).</li>
+<li>InfluxDB may still reject points after you receive <em>success</em> (HTTP <code>204</code> status code).</li>
 </ul>
-</li>
-<li><strong>Request body</strong>: JSON body with the following properties:
+<h3 id="review-http-status-codes">Review HTTP status codes</h3>
+<p>InfluxDB uses conventional HTTP status codes to indicate the success or failure of a request.
+Write requests return the following status codes:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">HTTP response code</th>
+          <th style="text-align: left">Message</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>204 &quot;Success&quot;</code></td>
+          <td style="text-align: left"></td>
+          <td style="text-align: left">If InfluxDB validated the request data format and queued the data for writing to the bucket</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>400 &quot;Bad request&quot;</code></td>
+          <td style="text-align: left"><code>message</code> contains the first malformed line</td>
+          <td style="text-align: left">If data is malformed</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>401 &quot;Unauthorized&quot;</code></td>
+          <td style="text-align: left"></td>
+          <td style="text-align: left">If the <a href="/influxdb/cloud/api-guide/api_intro/#authentication"><code>Authorization: Token</code> header</a> is missing or malformed or if the <a href="/influxdb/cloud/api-guide/api_intro/#authentication">API token</a> doesn&rsquo;t have <a href="/influxdb/cloud/admin/tokens/">permission</a> to write to the bucket</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>404 &quot;Not found&quot;</code></td>
+          <td style="text-align: left">requested <strong>resource type</strong> (for example, &ldquo;organization&rdquo;) and <strong>resource name</strong></td>
+          <td style="text-align: left">If a requested resource, such as an organization or bucket, wasn&rsquo;t found</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>413 &quot;Request too large&quot;</code></td>
+          <td style="text-align: left">cannot read data: points in batch is too large</td>
+          <td style="text-align: left">If a <strong>write</strong> request exceeds the maximum <a href="/influxdb/cloud/account-management/limits/#global-limits">global limit</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>429 “Too many requests”</code></td>
+          <td style="text-align: left"><code>Retry-After</code> header: xxx (seconds to wait before retrying the request)</td>
+          <td style="text-align: left">If a <strong>read</strong> or <strong>write</strong> request exceeds your plan&rsquo;s <a href="/influxdb/cloud/account-management/limits/#adjustable-service-quotas">adjustable service quotas</a> or if a <strong>delete</strong> request exceeds the maximum <a href="/influxdb/cloud/account-management/limits/#global-limits">global limit</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>500 &quot;Internal server error&quot;</code></td>
+          <td style="text-align: left"></td>
+          <td style="text-align: left">Default status for an error</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>503 “Service unavailable“</code></td>
+          <td style="text-align: left">Series cardinality exceeds your plan&rsquo;s service quota</td>
+          <td style="text-align: left">If <strong>series cardinality</strong> exceeds your plan&rsquo;s <a href="/influxdb/cloud/account-management/limits/#adjustable-service-quotas">adjustable service quotas</a></td>
+      </tr>
+  </tbody>
+</table>
+<p>The <code>message</code> property of the response body may contain additional details about the error.
+If some of your data did not write to the bucket, see how to <a href="#troubleshoot-rejected-points">troubleshoot rejected points</a>.</p>
+<h3 id="troubleshoot-partial-writes">Troubleshoot partial writes</h3>
+<p>For example, a partial write may occur when InfluxDB writes all points that conform to the bucket schema, but rejects points that have the wrong data type in a field.
+To check for writes that fail asynchronously, create a <a href="/influxdb/cloud/process-data/manage-tasks/">task</a> to <a href="#review-rejected-points">check the _monitoring bucket for rejected points</a>.
+To resolve partial writes and rejected points, see <a href="#troubleshoot-failures">troubleshoot failures</a>.</p>
+<h2 id="troubleshoot-failures">Troubleshoot failures</h2>
+<p>If you notice data is missing in your bucket, do the following:</p>
 <ul>
-<li><strong>status</strong>: <code>&quot;active&quot;</code></li>
-<li><strong>description</strong>: API token description</li>
-<li><strong>orgID</strong>: <a href="/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id">InfluxDB organization ID</a></li>
-<li><strong>permissions</strong>: Array of objects where each object represents permissions
-for an InfluxDB resource type or a specific resource. Each permission contains the following properties:
-<ul>
-<li><strong>action</strong>: &ldquo;read&rdquo; or &ldquo;write&rdquo;</li>
-<li><strong>resource</strong>: JSON object that represents the InfluxDB resource to grant
-permission to. Each resource contains at least the following properties:
-<ul>
-<li><strong>orgID</strong>: <a href="/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id">InfluxDB organization ID</a></li>
-<li><strong>type</strong>: Resource type.
-<em>For information about what InfluxDB resource types exist, use the
-<a href="/influxdb/cloud/api/resources/"><code>/api/v2/resources</code> endpoint</a>.</em></li>
+<li>Check the <code>message</code> property in the response body for details about the error&ndash;for example, <code>partial write error</code> indicates <a href="#troubleshoot-rejected-points">rejected points</a>.</li>
+<li>Check for <a href="#troubleshoot-rejected-points">rejected points</a> in your organization&rsquo;s <code>_monitoring</code> bucket.</li>
+<li>Verify all lines contain valid syntax (<a href="/influxdb/cloud/reference/syntax/line-protocol/">line protocol</a> or <a href="/influxdb/cloud/reference/syntax/annotated-csv/">CSV</a>). See how to <a href="#find-parsing-errors">find parsing errors</a>.</li>
+<li>Verify the data types match the <a href="/influxdb/cloud/reference/key-concepts/data-elements/#series">series</a> or <a href="/influxdb/cloud/admin/buckets/bucket-schema/">bucket schema</a>. See how to resolve <a href="#resolve-explicit-schema-rejections">explicit schema rejections</a>.</li>
+<li>Verify the timestamps match the <a href="/influxdb/cloud/write-data/#timestamp-precision">precision parameter</a>.</li>
+<li>Minimize payload size and network errors by <a href="/influxdb/cloud/write-data/best-practices/optimize-writes/">optimizing writes</a>.</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>The following example uses cURL and the InfluxDB API to generate an All-Access token:</p>
-<div class="truncate closed" id="truncate-1">
-  <div class="truncate-content closed">
-    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_HOST</span><span class="o">=</span>http://cloud2.influxdata.com
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG_ID</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_ID&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_TOKEN</span><span class="o">=</span>&lt;YOUR_INFLUXDB_OPERATOR_TOKEN&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">curl --request POST <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$INFLUX_HOST</span><span class="s2">/api/v2/authorizations&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Token </span><span class="nv">$INFLUX_TOKEN</span><span class="s2">&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: text/plain; charset=utf-8&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;status&#34;: &#34;active&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;description&#34;: &#34;All access token for get started tutorial&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;permissions&#34;: [
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;authorizations&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;authorizations&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;buckets&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;buckets&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;dashboards&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;dashboards&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;orgs&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;orgs&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;sources&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;sources&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;tasks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;tasks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;telegrafs&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;telegrafs&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;users&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;users&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;variables&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;variables&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;scrapers&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;scrapers&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;secrets&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;secrets&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;labels&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;labels&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;views&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;views&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;documents&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;documents&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notificationRules&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notificationRules&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notificationEndpoints&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notificationEndpoints&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;checks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;checks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;dbrp&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;dbrp&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notebooks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;notebooks&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;annotations&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;annotations&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;remotes&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;remotes&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;read&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;replications&#34;}},
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {&#34;action&#34;: &#34;write&#34;, &#34;resource&#34;: {&#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;, &#34;type&#34;: &#34;replications&#34;}}
-</span></span></span><span class="line"><span class="cl"><span class="s1">    ]
-</span></span></span><span class="line"><span class="cl"><span class="s1">  }
-</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;</span></span></span></code></pre></div>
-  </div>
-  <div class="truncate-bottom">
-    <a class="truncate-toggle" href="#"></a>
-  </div>
-</div>
-<p>The response body contains a JSON object with the following properties:</p>
+<h2 id="troubleshoot-rejected-points">Troubleshoot rejected points</h2>
+<p>When you receive an HTTP <code>204</code> (Success) status code, InfluxDB has validated your request format and queued your data for writing.
+However, InfluxDB Cloud (TSM) processes data asynchronously, which means points may still be rejected after you receive a success response.</p>
+<p>InfluxDB may reject points for several reasons:</p>
 <ul>
-<li><strong>id</strong>: API Token ID</li>
-<li><strong>token</strong>: API Token (<span class="req  ">Important</span>)</li>
-<li><strong>status</strong>: Token status</li>
-<li><strong>description</strong>: Token description</li>
-<li><strong>orgID</strong>: InfluxDB organization ID the token is associated with</li>
-<li><strong>org</strong>: InfluxDB organization name the token is associated with</li>
-<li><strong>userID</strong>: User ID the token is associated with</li>
-<li><strong>user</strong>: Username the token is associated with</li>
-<li><strong>permissions</strong>: List of permissions for organization resources</li>
+<li>Line protocol parsing errors</li>
+<li>Invalid timestamps</li>
+<li>Data type conflicts with existing schema</li>
+<li>Retention policy violations</li>
+<li>Series cardinality exceeding your plan&rsquo;s limits</li>
 </ul>
-<p><strong>Copy the generated <code>token</code> and store it for safe keeping.</strong></p>
-<!------------------------------ END API CONTENT ------------------------------>
-
-</section>
-
-    
-</div>
-
-
-<div class="note block">
-  <p>We recommend using a password manager or a secret store to securely store
-sensitive tokens.</p>
-
-</div>
-
-</li>
-<li>
-<p><strong>Configure authentication credentials</strong>. <span id="configure-authentication-credentials"></span></p>
-<p>As you go through this tutorial, interactions with InfluxDB Cloud
-require your InfluxDB <strong>host</strong>, <strong>organization name or ID</strong>, and your <strong>API token</strong>.
-There are different methods for providing these credentials depending on
-which client you use to interact with InfluxDB.</p>
-
-<div class="note block">
-  <p>When configuring your token, use the <a href="#create-an-all-access-api-token">All-Access token you created</a>.</p>
-
-</div>
-
-
-<div class="tabs-wrapper">
-  
-
-
-
-
-<div class="tabs">
-  <p><a href="#">InfluxDB UI</a>
-<a href="#">influx CLI</a>
-<a href="#">InfluxDB API</a></p>
-
-</div>
-
-
-
-<section class="tab-content">
-  <!------------------------------ BEGIN UI CONTENT ----------------------------->
-<p>When managing InfluxDB through the InfluxDB UI, authentication credentials are
-provided automatically using credentials associated with the user you log in with.</p>
-<!------------------------------- END UI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!---------------------------- BEGIN CLI CONTENT ----------------------------->
-<p>There are three ways to provided authentication credentials to the <code>influx</code> CLI:</p>
-<div class="expand-wrapper">
-<div class="expand" id="cli-connection-configurations-recommended">
-  <a class="expand-link" href="#cli-connection-configurations-recommended"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>CLI connection configurations <em>(<span class="req">Recommended</span>)</em></span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <p>The <code>influx</code> CLI lets you specify connection configuration presets that let
-you store and quickly switch between multiple sets of InfluxDB connection
-credentials. Use the <a href="/influxdb/cloud/reference/cli/influx/config/create/"><code>influx config create</code> command</a>
-to create a new CLI connection configuration. Include the following flags:</p>
+<p>To verify if your data was successfully written, query your data or check the <code>_monitoring</code> bucket for rejected points.</p>
 <ul>
-<li><code>-n, --config-name</code>: Connection configuration name. This examples uses <code>get-started</code>.</li>
-<li><code>-u, --host-url</code>: <a href="/influxdb/cloud/reference/regions/">InfluxDB region URL</a>.</li>
-<li><code>-o, --org</code>: InfluxDB organization name.</li>
-<li><code>-t, --token</code>: InfluxDB API token.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx config create <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --config-name get-started <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --host-url http://cloud2.influxdata.com <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --org &lt;YOUR_INFLUXDB_ORG_NAME&gt; <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --token &lt;YOUR_INFLUXDB_API_TOKEN&gt;</span></span></code></pre></div><p><em>For more information about CLI connection configurations, see
-<a href="/influxdb/cloud/tools/influx-cli/#set-up-the-influx-cli">Install and use the <code>influx</code> CLI</a>.</em></p>
-  </div>
-</div>
-<div class="expand" id="environment-variables">
-  <a class="expand-link" href="#environment-variables"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>Environment variables</span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <p>The <code>influx</code> CLI checks for specific environment variables and, if present,
-uses those environment variables to populate authentication credentials.
-Set the following environment variables in your command line session:</p>
+<li><a href="#review-rejected-points">Review rejected points</a>
 <ul>
-<li><code>INFLUX_HOST</code>: <a href="/influxdb/cloud/reference/urls/">InfluxDB region URL</a>.</li>
-<li><code>INFLUX_ORG</code>: InfluxDB organization name.</li>
-<li><code>INFLUX_ORG_ID</code>: InfluxDB <a href="/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id">organization ID</a>.</li>
-<li><code>INFLUX_TOKEN</code>: InfluxDB API token.</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_HOST</span><span class="o">=</span>http://cloud2.influxdata.com
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_NAME&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG_ID</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_ID&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_TOKEN</span><span class="o">=</span>&lt;YOUR_INFLUXDB_API_TOKEN&gt;</span></span></code></pre></div>
-  </div>
-</div>
-<div class="expand" id="command-flags">
-  <a class="expand-link" href="#command-flags"><span class="cf-icon Link"></span></a>
-  <p class="expand-label">
-      <span class="expand-toggle"></span><span>Command flags</span>
-  </p>
-  <div class="expand-content" style="display: none;" >
-      <p>Use the following <code>influx</code> CLI flags to provide required credentials to commands:</p>
-<ul>
-<li><code>--host</code>: <a href="/influxdb/cloud/reference/regions/">InfluxDB region URL</a>.</li>
-<li><code>-o</code>, <code>--org</code> or <code>--org-id</code>: InfluxDB organization name or
-<a href="/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id">ID</a>.</li>
-<li><code>-t</code>, <code>--token</code>: InfluxDB API token.</li>
-</ul>
-  </div>
-</div>
-</div>
-<div class="note block">
-  <p>All <code>influx</code> CLI examples in this getting started tutorial assume your InfluxDB
-<strong>host</strong>, <strong>organization</strong>, and <strong>token</strong> are provided by either the
-<a href="/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials">active <code>influx</code> CLI configuration</a>
-or by environment variables.</p>
-</div>
-<!------------------------------ END CLI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!----------------------------- BEGIN API CONTENT ----------------------------->
-<p>When using the InfluxDB API, provide the required connection credentials in the
-following ways:</p>
-<ul>
-<li><strong>InfluxDB host</strong>: Your <a href="/influxdb/cloud/reference/regions/">InfluxDB Cloud region URL</a>.</li>
-<li><strong>InfluxDB API Token</strong>: Include an <code>Authorization</code> header that uses either
-<code>Bearer</code> or <code>Token</code> scheme and your InfluxDB API token. For example:<br>
-<code>Authorization: Bearer 0xxx0o0XxXxx00Xxxx000xXXxoo0==</code>.</li>
-<li><strong>InfluxDB organization name or ID</strong>: Depending on the API endpoint used, pass
-this as part of the URL path, query string, or in the request body.</li>
-</ul>
-<p>All API examples in this tutorial use <strong>cURL</strong> from a command line.
-To provide all the necessary credentials to the example cURL commands, set
-the following environment variables in your command line session.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_HOST</span><span class="o">=</span>http://cloud2.influxdata.com
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_NAME&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG_ID</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_ID&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_TOKEN</span><span class="o">=</span>&lt;YOUR_INFLUXDB_API_TOKEN&gt;</span></span></code></pre></div><!------------------------------ END API CONTENT ------------------------------>
-
-</section>
-
-    
-</div>
-
-</li>
-<li>
-<p><strong>Create a bucket</strong>.</p>
-<p>Use the <strong>InfluxDB UI</strong>, <strong><code>influx</code> CLI</strong>, or <strong>InfluxDB API</strong> to create a
-new bucket.</p>
-
-<div class="tabs-wrapper">
-  
-
-
-
-
-<div class="tabs">
-  <p><a href="#">InfluxDB UI</a>
-<a href="#">influx CLI</a>
-<a href="#">InfluxDB API</a></p>
-
-</div>
-
-
-
-<section class="tab-content">
-  <!------------------------------ BEGIN UI CONTENT ----------------------------->
-<ol>
-<li>Visit <a href="https://cloud2.influxdata.com">cloud2.influxdata.com</a> in a browser to
-log in and access the InfluxDB UI.</li>
-<li>Navigate to <strong>Load Data</strong> &gt; <strong>Buckets</strong> using the left navigation bar.</li>
-<li>Click <strong>+ <span class="all-caps">Create bucket</span></strong>.</li>
-<li>Provide a bucket name (get-started) and select <span class="all-caps">Never</span>
-to create a bucket with an infinite <a href="/influxdb/cloud/reference/glossary/#retention-period">retention period</a>.</li>
-<li>Click <strong><span class="all-caps">Create</span></strong>.</li>
-</ol>
-<!------------------------------- END UI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!---------------------------- BEGIN CLI CONTENT ----------------------------->
-<ol>
-<li>
-<p>If you haven&rsquo;t already, <a href="/influxdb/cloud/tools/influx-cli/">download, install, and configure the <code>influx</code> CLI</a>.</p>
-</li>
-<li>
-<p>Use the <a href="/influxdb/cloud/reference/cli/influx/bucket/create/"><code>influx bucket create</code> command</a>
-to create a new bucket.</p>
-<p><strong>Provide the following</strong>:</p>
-<ul>
-<li><code>-n, --name</code> flag with the bucket name.</li>
-<li><a href="#configure-authentication-credentials">Connection and authentication credentials</a></li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">influx bucket create --name get-started</span></span></code></pre></div></li>
-</ol>
-<!------------------------------ END CLI CONTENT ------------------------------>
-
-</section>
-
-
-<section class="tab-content">
-  <!----------------------------- BEGIN API CONTENT ----------------------------->
-<p>To create a bucket using the InfluxDB HTTP API, send a request to
-the InfluxDB API <code>/api/v2/buckets</code> endpoint using the <code>POST</code> request method.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/buckets/" target="_blank"><span class="api post">POST</span> http://cloud2.influxdata.com/api/v2/buckets</a></pre>
-<p>Include the following with your request:</p>
-<ul>
-<li><strong>Headers</strong>:
-<ul>
-<li><strong>Authorization</strong>: Token <code>INFLUX_TOKEN</code></li>
-<li><strong>Content-Type</strong>: <code>application/json</code></li>
+<li><a href="#find-parsing-errors">Find parsing errors</a></li>
+<li><a href="#find-data-type-conflicts-and-schema-rejections">Find data type conflicts and schema rejections</a></li>
 </ul>
 </li>
-<li><strong>Request body</strong>: JSON object with the following properties:
+<li><a href="#resolve-data-type-conflicts">Resolve data type conflicts</a></li>
+<li><a href="#resolve-explicit-schema-rejections">Resolve explicit schema rejections</a></li>
+</ul>
+<h3 id="review-rejected-points">Review rejected points</h3>
+<p>To get a log of rejected points, query the <a href="/influxdb/cloud/reference/internals/system-buckets/#_monitoring-bucket-schema"><code>rejected_points</code> measurement</a> in your organization&rsquo;s <code>_monitoring</code> bucket.
+To more quickly locate <code>rejected_points</code>, keep the following in mind:</p>
 <ul>
-<li><strong>org</strong>: InfluxDB organization name</li>
-<li><strong>name</strong>: Bucket name</li>
-<li><strong>retentionRules</strong>: List of retention rule objects that define the bucket&rsquo;s retention period.
-Each retention rule object has the following properties:
+<li>If your line protocol batch contains single lines with multiple <a href="/influxdb/cloud/reference/syntax/line-protocol/#field-set">fields</a>, InfluxDB logs an entry for each point (each unique field) that is rejected.</li>
+<li>Each entry contains a <code>reason</code> tag that describes why the point was rejected.</li>
+<li>Entries for <a href="#find-data-type-conflicts-and-schema-rejections">data type conflicts and schema rejections</a> have a <code>count</code> field value of <code>1</code>.</li>
+<li>Entries for <a href="#find-parsing-errors">parsing errors</a> contain an <code>error</code> field (and don&rsquo;t contain a <code>count</code> field).</li>
+</ul>
+<h4 id="rejected_points-schema">rejected_points schema</h4>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>_measurement</code></td>
+          <td style="text-align: left"><code>rejected_points</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>_field</code></td>
+          <td style="text-align: left"><a href="#find-data-type-conflicts-and-schema-rejections"><code>count</code></a> or <a href="#find-parsing-errors"><code>error</code></a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>_value</code></td>
+          <td style="text-align: left"><a href="#find-data-type-conflicts-and-schema-rejections"><code>1</code></a> or <a href="#find-parsing-errors">error details</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bucket</code></td>
+          <td style="text-align: left">ID of the bucket that rejected the point</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>measurement</code></td>
+          <td style="text-align: left">Measurement name of the point</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>field</code></td>
+          <td style="text-align: left">Name of the field that caused the rejection</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>reason</code></td>
+          <td style="text-align: left">Brief description of the problem. See specific reasons in <a href="#find-data-type-conflicts-and-schema-rejections">data type conflicts and schema rejections</a></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>gotType</code></td>
+          <td style="text-align: left">Received <a href="/influxdb/cloud/reference/key-concepts/data-elements/#field-value">field</a> type: <code>Boolean</code>, <code>Float</code>, <code>Integer</code>, <code>String</code>, or <code>UnsignedInteger</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>wantType</code></td>
+          <td style="text-align: left">Expected <a href="/influxdb/cloud/reference/key-concepts/data-elements/#field-value">field</a> type: <code>Boolean</code>, <code>Float</code>, <code>Integer</code>, <code>String</code>, or <code>UnsignedInteger</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>&lt;timestamp&gt;</code></td>
+          <td style="text-align: left">Time the rejected point was logged</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="find-parsing-errors">Find parsing errors</h4>
+<p>If InfluxDB can&rsquo;t parse a line (for example, due to syntax problems), the response <code>message</code> might not provide details.
+To find parsing error details, query <code>rejected_points</code> entries that contain the <code>error</code> field.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;_monitoring&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="nx">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;rejected_points&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;error&#34;</span><span class="p">)</span></span></span></code></pre></div><h4 id="find-data-type-conflicts-and-schema-rejections">Find data type conflicts and schema rejections</h4>
+<p>To find <code>rejected_points</code> caused by <a href="#resolve-data-type-conflicts">data type conflicts</a> or <a href="#resolve-explicit-schema-rejections">schema rejections</a>,
+query for the <code>count</code> field.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;_monitoring&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="nx">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;rejected_points&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_field</span> <span class="o">==</span> <span class="s2">&#34;count&#34;</span><span class="p">)</span></span></span></code></pre></div><h3 id="resolve-data-type-conflicts">Resolve data type conflicts</h3>
+<p>When you write to a bucket that has the <code>implicit</code> schema type, InfluxDB compares new points to points that have the same <a href="/influxdb/cloud/reference/key-concepts/data-elements/#series">series</a>.
+If a point has a field with a different data type than the series, InfluxDB rejects the point and logs a <code>rejected_points</code> entry.
+The <code>rejected_points</code> entry contains one of the following reasons:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Reason</th>
+          <th style="text-align: left">Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>type conflict in batch write</code></td>
+          <td style="text-align: left">The <strong>batch</strong> contains another point with the same series, but one of the fields has a different value type.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>type conflict with existing data</code></td>
+          <td style="text-align: left">The <strong>bucket</strong> contains another point with the same series, but one of the fields has a different value type.</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="resolve-explicit-schema-rejections">Resolve explicit schema rejections</h3>
+<p>If you write to a bucket with an
+<a href="/influxdb/cloud/admin/buckets/bucket-schema/">explicit schema</a>,
+the data must conform to the schema. Otherwise, InfluxDB rejects the data.</p>
+<p>Do the following to interpret explicit schema rejections:</p>
 <ul>
-<li><strong>type</strong>: <code>&quot;expire&quot;</code></li>
-<li><strong>everySeconds</strong>: Retention period duration in seconds.
-<code>0</code> indicates the retention period is infinite.</li>
+<li><a href="#detect-a-measurement-mismatch">Detect a measurement mismatch</a></li>
+<li><a href="#detect-a-field-type-mismatch">Detect a field type mismatch</a></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_HOST</span><span class="o">=</span>http://cloud2.influxdata.com
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_ORG_ID</span><span class="o">=</span>&lt;YOUR_INFLUXDB_ORG_ID&gt;
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INFLUX_TOKEN</span><span class="o">=</span>&lt;YOUR_INFLUXDB_API_TOKEN&gt;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">curl --request POST <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$INFLUX_HOST</span><span class="s2">/api/v2/buckets&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Authorization: Token </span><span class="nv">$INFLUX_TOKEN</span><span class="s2">&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --header <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --data <span class="s1">&#39;{
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;orgID&#34;: &#34;&#39;</span><span class="s2">&#34;</span><span class="nv">$INFLUX_ORG_ID</span><span class="s2">&#34;</span><span class="s1">&#39;&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;name&#34;: &#34;get-started&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;retentionRules&#34;: [
-</span></span></span><span class="line"><span class="cl"><span class="s1">      {
-</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;type&#34;: &#34;expire&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">        &#34;everySeconds&#34;: 0
-</span></span></span><span class="line"><span class="cl"><span class="s1">      }
-</span></span></span><span class="line"><span class="cl"><span class="s1">    ]
-</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span></span></span></code></pre></div><!------------------------------ END API CONTENT ------------------------------>
-
-</section>
-
-    
-</div>
-
-</li>
-</ol>
-
-
-
-
-
-
-
-
-<div class="page-nav-btns">
-<a class="btn prev keep-tab" href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/get-started/">Get started</a>
-<a class="btn next keep-tab" href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/get-started/write/">Write data</a>
-</div>
+<h4 id="detect-a-measurement-mismatch">Detect a measurement mismatch</h4>
+<p>InfluxDB rejects a point if the <a href="/influxdb/cloud/reference/key-concepts/data-elements/#measurement">measurement</a> doesn&rsquo;t match the <strong>name</strong> of a <a href="/influxdb/cloud/admin/buckets/bucket-schema/">bucket schema</a>.
+The <code>rejected_points</code> entry contains the following <code>reason</code> tag value:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Reason</th>
+          <th style="text-align: left">Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>measurement not allowed by schema</code></td>
+          <td style="text-align: left">The <strong>bucket</strong> is configured to use explicit schemas and none of the schemas matches the <strong>measurement</strong> of the point.</td>
+      </tr>
+  </tbody>
+</table>
+<p>Consider the following <a href="/influxdb/cloud/reference/syntax/line-protocol">line protocol</a> data.</p>
+<pre tabindex="0"><code>airSensors,sensorId=TLM0201 temperature=73.97,humidity=35.23,co=0.48 1637014074</code></pre><p>The line has an <code>airSensors</code> measurement and three fields (<code>temperature</code>, <code>humidity</code>, and <code>co</code>).
+If you try to write this data to a bucket that has the <a href="/influxdb/cloud/admin/buckets/bucket-schema/"><code>explicit</code> schema type</a> and doesn&rsquo;t have an <code>airSensors</code> schema, the <code>/api/v2/write</code> InfluxDB API returns an error and the following data:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;code&#34;</span><span class="p">:</span> <span class="s2">&#34;invalid&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;3 out of 3 points rejected (check rejected_points in your _monitoring bucket for further information)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>InfluxDB logs three <code>rejected_points</code> entries, one for each field.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+          <th style="text-align: left">field</th>
+          <th style="text-align: left">measurement</th>
+          <th style="text-align: left">reason</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">rejected_points</td>
+          <td style="text-align: left">count</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">humidity</td>
+          <td style="text-align: left">airSensors</td>
+          <td style="text-align: left">measurement not allowed by schema</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">rejected_points</td>
+          <td style="text-align: left">count</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">co</td>
+          <td style="text-align: left">airSensors</td>
+          <td style="text-align: left">measurement not allowed by schema</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">rejected_points</td>
+          <td style="text-align: left">count</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">temperature</td>
+          <td style="text-align: left">airSensors</td>
+          <td style="text-align: left">measurement not allowed by schema</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="detect-a-field-type-mismatch">Detect a field type mismatch</h4>
+<p>InfluxDB rejects a point if the <a href="/influxdb/cloud/reference/key-concepts/data-elements/#measurement">measurement</a> matches the <strong>name</strong> of a bucket schema and the field data types don&rsquo;t match.
+The <code>rejected_points</code> entry contains the following reason:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Reason</th>
+          <th style="text-align: left">Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>field type mismatch with schema</code></td>
+          <td style="text-align: left">The point has the same measurement as a configured schema and they have different field value types.</td>
+      </tr>
+  </tbody>
+</table>
+<p>Consider a bucket that has the following <code>airSensors</code> <a href="/influxdb/cloud/admin/buckets/bucket-schema/"><code>explicit bucket schema</code></a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;airSensors&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&#34;columns&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;time&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timestamp&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;sensorId&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;tag&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;temperature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;field&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;dataType&#34;</span><span class="p">:</span> <span class="s2">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;humidity&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;field&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;dataType&#34;</span><span class="p">:</span> <span class="s2">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;co&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;field&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;dataType&#34;</span><span class="p">:</span> <span class="s2">&#34;float&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>The following <a href="/influxdb/cloud/reference/syntax/line-protocol/">line protocol</a> data has an <code>airSensors</code> measurement, a <code>sensorId</code> tag, and three fields (<code>temperature</code>, <code>humidity</code>, and <code>co</code>).</p>
+<pre tabindex="0"><code>airSensors,sensorId=L1 temperature=90.5,humidity=70.0,co=0.2 1637014074
+airSensors,sensorId=L1 temperature=&#34;90.5&#34;,humidity=70.0,co=0.2 1637014074</code></pre><p>In the example data above, the second point has a <code>temperature</code> field value with the <em>string</em> data type.
+Because the <code>airSensors</code> schema requires <code>temperature</code> to have the <em>float</em> data type,
+InfluxDB returns a <code>400</code> error and a message that describes the result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;code&#34;</span><span class="p">:</span> <span class="s2">&#34;invalid&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;partial write error (5 accepted): 1 out of 6 points rejected (check rejected_points in your _monitoring bucket for further information)&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>InfluxDB logs the following <code>rejected_points</code> entry to the <code>_monitoring</code> bucket:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">_measurement</th>
+          <th style="text-align: left">_field</th>
+          <th style="text-align: left">_value</th>
+          <th style="text-align: left">bucket</th>
+          <th style="text-align: left">field</th>
+          <th style="text-align: left">gotType</th>
+          <th style="text-align: left">measurement</th>
+          <th style="text-align: left">reason</th>
+          <th style="text-align: left">wantType</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">rejected_points</td>
+          <td style="text-align: left">count</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">a7d5558b880a93da</td>
+          <td style="text-align: left">temperature</td>
+          <td style="text-align: left">String</td>
+          <td style="text-align: left">airSensors</td>
+          <td style="text-align: left">field type mismatch with schema</td>
+          <td style="text-align: left">Float</td>
+      </tr>
+  </tbody>
+</table>
 
 
 
@@ -7359,7 +7277,7 @@ Each retention rule object has the following properties:
         
           
           
-            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/admin/tokens/">Manage API tokens</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/reference/internals/">InfluxDB Cloud internals</a></li>
           
         
       
@@ -7371,17 +7289,7 @@ Each retention rule object has the following properties:
         
           
           
-        
-      
-    
-      
-      
-        
-        
-        
-          
-          
-            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/tools/influx-cli/">Install and use the influx CLI</a></li>
+            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/reference/cli/influx/write/">influx write</a></li>
           
         
       
@@ -7392,6 +7300,8 @@ Each retention rule object has the following properties:
         
         
           
+          
+            <li><a href="/docs-v2/pr-preview/pr-6622/influxdb/cloud/account-management/limits/">InfluxDB Cloud limits and adjustable quotas</a></li>
           
         
       
@@ -7416,6 +7326,8 @@ Each retention rule object has the following properties:
 
 
   
+  
+    
   
 
 
@@ -7465,8 +7377,8 @@ Each retention rule object has the following properties:
     
   </div>
   <div class="actions">
-    <a href="https://github.com/influxdata/docs-v2/edit/master/content/influxdb/cloud/get-started/setup.md" class="btn edit" target="_blank">Edit this page</a>
-    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6622/influxdb/cloud/get-started/setup/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
+    <a href="https://github.com/influxdata/docs-v2/edit/master/content/shared/influxdb-v2/write-data/troubleshoot.md" class="btn edit" target="_blank">Edit this page</a>
+    <a href="https://github.com/influxdata/docs-v2/issues/new?body=_Describe%20the%20issue%20here._%0a%0a%23%23%23%23%23%20Relevant%20URLs%0a-%20https://influxdata.github.io/docs-v2/pr-preview/pr-6622/influxdb/cloud/write-data/troubleshoot/%0a-%20_Provide%20other%20relevant%20URLs%20%28project%20issues,%20community%20threads,%20etc.%29_%0a" class="btn issue" target="_blank">Submit docs issue</a>
     <a href="https://github.com/influxdata/docs-v2/issues/new/choose/" class="btn issue" target="_blank">Submit  issue</a>
   </div>
 </div>

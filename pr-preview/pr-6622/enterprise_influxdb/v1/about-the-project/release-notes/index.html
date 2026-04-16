@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3710,12 +3710,12 @@ to include expired shards in output (expired shards are filtered by default).</l
 and <a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#rpc-resettable-write-timeout"><code>rpc-resettable-write-timeout</code></a>
 configuration options for inactivity timeouts on RPC connections between data nodes.</li>
 <li>Add TLS certificate reloading on <code>SIGHUP</code>.</li>
-<li>Add <a href="/enterprise_influxdb/v1/api/#running-configuration"><code>config</code></a> and
-<a href="/enterprise_influxdb/v1/api/#continuous-query-statistics"><code>cq</code> (continuous query) statistics</a>
+<li>Add <a href="/enterprise_influxdb/v1/api/debug/"><code>config</code></a> and
+<a href="/enterprise_influxdb/v1/api/debug/"><code>cq</code> (continuous query) statistics</a>
 to the <code>/debug/vars</code> endpoint.</li>
 <li>Improve dropped point logging.</li>
 <li><a href="/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries">Show user when displaying or logging queries</a>.</li>
-<li>Add <a href="/enterprise_influxdb/v1/api/#query-data-with-a-select-statement-and-the-time_format-parameter"><code>time_format</code> parameter</a> for the HTTP API.</li>
+<li>Add <a href="/enterprise_influxdb/v1/api/query/"><code>time_format</code> parameter</a> for the HTTP API.</li>
 <li>Use dynamic logging levels (<code>zap.AtomicLevel</code>).</li>
 <li><a href="/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-query-bytes-enabled">Report user query bytes</a>.</li>
 </ul>
@@ -3831,7 +3831,7 @@ InfluxDB Enterprise builds are available. For more information, see
 </ul>
 <h3 id="bug-fixes-3">Bug Fixes</h3>
 <ul>
-<li>Strip double quotes from measurement names in the <a href="/enterprise_influxdb/v1/api/#apiv2delete-http-endpoint"><code>/api/v2/delete</code> compatibility
+<li>Strip double quotes from measurement names in the <a href="/enterprise_influxdb/v1/api/delete-v2-compatible/"><code>/api/v2/delete</code> compatibility
 API</a> before
 string comparisons (e.g. to allow special characters in measurement names).</li>
 <li>Enable SHA256 for FIPS RPMs.</li>
@@ -4133,8 +4133,8 @@ package to convert any timeable into datetime.</li>
 <h2 date="2022-09-07" id="v1100">v1.10.0</h2>
 <h3 id="features-8">Features</h3>
 <ul>
-<li>Add <a href="/enterprise_influxdb/v1/api/#apiv2buckets-http-endpoint">/api/v2/buckets</a> support for create, delete, list, retrieve, and update operations.</li>
-<li>Add <a href="/enterprise_influxdb/v1/api/#apiv2delete-http-endpoint">/api/v2/delete</a> support.</li>
+<li>Add <a href="/enterprise_influxdb/v1/api/buckets-v2-compatible/">/api/v2/buckets</a> support for create, delete, list, retrieve, and update operations.</li>
+<li>Add <a href="/enterprise_influxdb/v1/api/delete-v2-compatible/">/api/v2/delete</a> support.</li>
 <li>Add  wildcard support for retention policies in <code>SHOW MEASUREMENTS</code>.</li>
 <li>Log slow queries even when query logging is not enabled.</li>
 <li>Add  <code>--start</code> and <code>--end</code> <a href="/enterprise_influxdb/v1/administration/backup-and-restore/#backup-flags">backup flags</a> to specify the time to include in backup.</li>
@@ -4299,7 +4299,7 @@ to request an license key to <a href="/enterprise_influxdb/v1/introduction/insta
 </ul>
 <h4 id="profiling">Profiling</h4>
 <ul>
-<li>Resolve issue to enable <a href="/enterprise_influxdb/v1/api/#debugpprof-http-endpoint">mutex profiling</a>.</li>
+<li>Resolve issue to enable <a href="/enterprise_influxdb/v1/api/debug/">mutex profiling</a>.</li>
 </ul>
 <h4 id="influxd-ctl-updates">influxd-ctl updates</h4>
 <ul>
@@ -4329,7 +4329,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.</p>
 <h4 id="operational-enhancements">Operational enhancements</h4>
 <ul>
 <li>Allow specification and filtering of <a href="/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-values"><code>SHOW TAG VALUES</code></a> by retention policy.</li>
-<li>Add <code>memUsage</code> metrics to <a href="/enterprise_influxdb/v1/api/#debugvars-http-endpoint"><code>/debug/vars</code></a> endpoint
+<li>Add <code>memUsage</code> metrics to <a href="/enterprise_influxdb/v1/api/debug/"><code>/debug/vars</code></a> endpoint
 to measure memory usage in bytes across all subscriptions.</li>
 </ul>
 <h4 id="performance-enhancement">Performance enhancement</h4>

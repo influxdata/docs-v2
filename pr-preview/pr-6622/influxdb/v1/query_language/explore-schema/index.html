@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -2744,7 +2744,7 @@ This InfluxDB instance has two databases: <code>NOAA_water_database</code> and <
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
 database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query
-string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.</p>
+string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.</p>
 <h3 id="examples-1">Examples</h3>
 <h4 id="run-a-show-retention-policies-query-with-the-on-clause">Run a <code>SHOW RETENTION POLICIES</code> query with the <code>ON</code> clause</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">RETENTION</span><span class="w"> </span><span class="n">POLICIES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">NOAA_water_database</span><span class="w">
@@ -2831,7 +2831,7 @@ the specified <a href="/influxdb/v1/concepts/glossary/#database">database</a>.</
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
 database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query
-string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.
+string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.
 <code>SHOW SERIES</code> only returns series in the database&rsquo;s default retention policy,
 and fails if there is no default retention policy.</p>
 <p>The <code>FROM</code>, <code>WHERE</code>, <code>LIMIT</code>, and <code>OFFSET</code> clauses are optional.
@@ -3031,7 +3031,7 @@ for the specified <a href="/influxdb/v1/concepts/glossary/#database">database</a
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
 database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query
-string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.</p>
+string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.</p>
 <p>The <code>WITH</code>, <code>WHERE</code>, <code>LIMIT</code> and <code>OFFSET</code> clauses are optional.
 The <code>WHERE</code> clause supports tag comparisons; field comparisons are not valid for the <code>SHOW MEASUREMENTS</code> query.</p>
 <p>Supported operators in the <code>WHERE</code> clause:
@@ -3162,7 +3162,7 @@ associated with the specified <a href="/influxdb/v1/concepts/glossary/#database"
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
 database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query
-string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.</p>
+string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.</p>
 <p>The <code>FROM</code> clause and the <code>WHERE</code> clause are optional.
 The <code>WHERE</code> clause supports tag comparisons; field comparisons are not
 valid for the <code>SHOW TAG KEYS</code> query.</p>
@@ -3353,7 +3353,7 @@ for the specified <a href="/influxdb/v1/concepts/glossary/#tag-key">tag key(s)</
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">TAG</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">[</span><span class="k">ON</span><span class="w"> </span><span class="o">&lt;</span><span class="n">database_name</span><span class="o">&gt;</span><span class="p">][</span><span class="n">FROM_clause</span><span class="p">]</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">[</span><span class="o">&lt;</span><span class="k">operator</span><span class="o">&gt;</span><span class="w"> </span><span class="s2">&#34;&lt;tag_key&gt;&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;</span><span class="n">regular_expression</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">[</span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s2">&#34;&lt;tag_key1&gt;&#34;</span><span class="p">,</span><span class="s2">&#34;&lt;tag_key2&#34;</span><span class="p">)]]</span><span class="w"> </span><span class="p">[</span><span class="k">WHERE</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tag_key</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="k">operator</span><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;&lt;tag_value&gt;&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;</span><span class="n">regular_expression</span><span class="o">&gt;</span><span class="p">]]</span><span class="w"> </span><span class="p">[</span><span class="n">LIMIT_clause</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">OFFSET_clause</span><span class="p">]</span></span></span></code></pre></div><h3 id="description-of-syntax-4">Description of syntax</h3>
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
-database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.</p>
+database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.</p>
 <p>The <code>WITH</code> clause is required.
 It supports specifying a single tag key, a regular expression, and multiple tag keys.</p>
 <p>The <code>FROM</code>, <code>WHERE</code>, <code>LIMIT</code>, and <code>OFFSET</code> clauses are optional.
@@ -3473,7 +3473,7 @@ The <code>LIMIT</code> clause limits the number of tag values returned to three.
 <p><code>ON &lt;database_name&gt;</code> is optional.
 If the query does not include <code>ON &lt;database_name&gt;</code>, you must specify the
 database with <code>USE &lt;database_name&gt;</code> in the <a href="/influxdb/v1/tools/shell/">CLI</a> or with the <code>db</code> query
-string parameter in the <a href="/influxdb/v1/api/#query-string-parameters">InfluxDB API</a> request.</p>
+string parameter in the <a href="/influxdb/v1/api/query/">InfluxDB API</a> request.</p>
 <p>The <code>FROM</code> clause is also optional.
 See the Data Exploration page for documentation on the
 <a href="/influxdb/v1/query_language/explore-data/#the-basic-select-statement"><code>FROM</code> clause</a>.</p>

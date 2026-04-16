@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 11:34:43 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -7800,7 +7800,7 @@ For information about connection configurations, see <a href="/influxdb/v2/refer
 
 <section class="tab-content">
   <p>Send a request to the following HTTP API endpoint:</p>
-<pre class="api-endpoint"><a href="/influxdb/v2/api/#post-/api/v2/authorizations" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/setup</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/v2/api/authorizations-api-tokens/" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/setup</a></pre>
 <div class="warn block">
   <p>The <code>POST /api/v2/setup</code> API endpoint doesn&rsquo;t require authentication</p>
 </div>
@@ -7827,7 +7827,7 @@ If you don&rsquo;t include this flag, InfluxDB generates a token for you.</li>
   <p>We recommend using a password manager or a secret store to securely store
 sensitive tokens.</p>
 </div>
-<p>For more options and details, see the <a href="/influxdb/v2/api/#post-/api/v2/setup"><code>POST /api/v2/setup</code> API endpoint documentation</a>.</p>
+<p>For more options and details, see the <a href="/influxdb/v2/api/setup/"><code>POST /api/v2/setup</code> API endpoint documentation</a>.</p>
 
 </section>
 
@@ -7922,7 +7922,7 @@ to create an All Access token.</p>
 <section class="tab-content">
   <!----------------------------- BEGIN API CONTENT ----------------------------->
 <p>Send a request to the InfluxDB API <code>/api/v2/authorizations</code> endpoint using the <code>POST</code> request method.</p>
-<pre class="api-endpoint"><a href="/influxdb/v2/api/#post-/api/v2/authorizations" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/authorizations</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/v2/api/authorizations-api-tokens/" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/authorizations</a></pre>
 <p>Include the following with your request:</p>
 <ul>
 <li><strong>Headers</strong>:
@@ -7946,7 +7946,7 @@ permission to. Each resource contains at least the following properties:
 <li><strong>orgID</strong>: <a href="/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id">InfluxDB organization ID</a></li>
 <li><strong>type</strong>: Resource type.
 <em>For information about what InfluxDB resource types exist, use the
-<a href="/influxdb/v2/api/#get-/api/v2/resources"><code>/api/v2/resources</code> endpoint</a>.</em></li>
+<a href="/influxdb/v2/api/resources/"><code>/api/v2/resources</code> endpoint</a>.</em></li>
 </ul>
 </li>
 </ul>
@@ -8290,7 +8290,7 @@ to create a bucket with an infinite <a href="/influxdb/v2/reference/glossary/#re
   <!----------------------------- BEGIN API CONTENT ----------------------------->
 <p>To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API <code>/api/v2/buckets</code> endpoint using the <code>POST</code> request method.</p>
-<pre class="api-endpoint"><a href="/influxdb/v2/api/#post-/api/v2/buckets" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/buckets</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/v2/api/buckets/" target="_blank"><span class="api post">POST</span> http://localhost:8086/api/v2/buckets</a></pre>
 <p>Include the following with your request:</p>
 <ul>
 <li><strong>Headers</strong>:

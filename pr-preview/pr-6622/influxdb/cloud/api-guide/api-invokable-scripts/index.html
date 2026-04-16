@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-04 12:56:35 -0600 -0600">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -6867,7 +6867,7 @@
 <p>To create an API-invokable script
 for your <a href="/influxdb/v2/reference/glossary/#organization">organization</a>,
 send a request using the <code>POST</code> method to the <code>/api/v2/scripts</code> InfluxDB API endpoint.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#post-/api/v2/scripts" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/scripts</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/invokable-scripts/" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/scripts</a></pre>
 
 <p>Provide the following in your API request:</p>
 <h4 id="request-headers">Request headers</h4>
@@ -6928,7 +6928,7 @@ If you don&rsquo;t provide a value for a referenced parameter, InfluxDB returns 
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;updatedAt&#34;</span><span class="p">:</span> <span class="s2">&#34;2021-10-15T20:32:04.172938Z&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="invoke-a-script">Invoke a script</h2>
 <p>To invoke a script, send a request using the <code>POST</code> method to the <code>/api/v2/scripts/SCRIPT_ID/invoke</code> InfluxDB API endpoint.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#post-/api/v2/scripts/-scriptID-/invoke" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID/invoke</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/invokable-scripts//-scriptID-/invoke" target="_blank"><span class="api post">POST</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID/invoke</a></pre>
 
 <p>Replace <em><code>SCRIPT_ID</code></em> with the ID of the script you want to execute. To find the script ID, see how to <a href="#list-scripts">list scripts</a>.</p>
 <p>Provide the following in your request:</p>
@@ -7055,7 +7055,7 @@ Each unique <code>table</code> value represents a group.</p>
 </span></span></span><span class="line"><span class="cl">  --header <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;org=</span><span class="si">${</span><span class="nv">INFLUX_ORG</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --data-urlencode <span class="s2">&#34;limit=10&#34;</span></span></span></code></pre></div><p>To find a specific script for an organization, send a request using the <code>GET</code> method to the <code>/api/v2/scripts/SCRIPT_ID</code> InfluxDB API endpoint.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#get-/api/v2/scripts/-scriptID-" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/invokable-scripts/" target="_blank"><span class="api get">GET</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
 
 <p>Replace <em><code>SCRIPT_ID</code></em> with the ID of the script you want to find.</p>
 <p>Provide the following in your request:</p>
@@ -7077,7 +7077,7 @@ Each unique <code>table</code> value represents a group.</p>
 </ul>
 <p>To update an existing script for an organization, send a request using the <code>PATCH</code> method to the <code>/api/v2/scripts/SCRIPT_ID</code> InfluxDB API endpoint.
 Replace <em><code>SCRIPT_ID</code></em> with the ID of the script you want to update.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#patch-/api/v2/scripts/-scriptID-" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/invokable-scripts/" target="_blank"><span class="api patch">PATCH</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
 
 <p>Provide the following in your request:</p>
 <h4 id="request-headers-4">Request headers</h4>
@@ -7123,7 +7123,7 @@ replaces the date with a new parameter, and updates the invokable script.</p>
 <h2 id="delete-an-invokable-script">Delete an invokable script</h2>
 <p>To delete a script, send a request using the <code>DELETE</code> method to the <code>/api/v2/scripts/SCRIPT_ID</code> InfluxDB API endpoint.
 Replace <em><code>SCRIPT_ID</code></em> with the ID of the script you want to update.</p>
-<pre class="api-endpoint"><a href="/influxdb/cloud/api/#delete-/api/v2/scripts/-scriptID-" target="_blank"><span class="api delete">DELETE</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
+<pre class="api-endpoint"><a href="/influxdb/cloud/api/invokable-scripts/" target="_blank"><span class="api delete">DELETE</span> https://cloud2.influxdata.com/api/v2/scripts/SCRIPT_ID</a></pre>
 
 <p>Provide the following in your request:</p>
 <h4 id="request-headers-5">Request headers</h4>

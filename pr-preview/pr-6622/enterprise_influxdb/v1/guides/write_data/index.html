@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-15 11:28:32 -0500 -0500">
+<meta name="last-modified" content="2026-04-16 07:45:13 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3646,14 +3646,14 @@
 <li><strong><code>rp=RETENTION_POLICY</code></strong> query parameter: <em>Optional</em>. If set, InfluxDB uses the specified retention policy; otherwise, uses the <em>default</em> retention policy.</li>
 <li>A request body that contains time series data in <a href="/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol">InfluxDB line protocol</a> format.</li>
 </ul>
-<p>For a complete list of the available query parameters, see the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">InfluxDB API Reference</a> documentation.</p>
+<p>For a complete list of the available query parameters, see the <a href="/enterprise_influxdb/v1/api/write/">InfluxDB API Reference</a> documentation.</p>
 <p>The following example shows how to write a single point to the <code>mydb</code> database:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -i -XPOST <span class="s1">&#39;http://localhost:8086/write?db=mydb&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">--data-binary <span class="s1">&#39;cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000&#39;</span></span></span></code></pre></div><p>The following example shows how to write a point to the <code>mydb</code> database and the <code>90d</code> retention policy:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -i -XPOST <span class="s1">&#39;http://localhost:8086/write?db=mydb&amp;rp=90d&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">--data-binary <span class="s1">&#39;cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000&#39;</span></span></span></code></pre></div></li>
 <li>
-<p>To <strong>write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)</strong>, send a <code>POST</code> request to the <a href="/enterprise_influxdb/v1/api/#api-v2-write-http-endpoint"><code>/api/v2/write</code> endpoint</a> and include the <code>?bucket=DATABASE_NAME/RETENTION_POLICY</code> query parameter&ndash;for example:</p>
+<p>To <strong>write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)</strong>, send a <code>POST</code> request to the <a href="/enterprise_influxdb/v1/api/write/"><code>/api/v2/write</code> endpoint</a> and include the <code>?bucket=DATABASE_NAME/RETENTION_POLICY</code> query parameter&ndash;for example:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -i -XPOST <span class="s1">&#39;http://localhost:8086/api/v2/write?bucket=db/rp&amp;precision=ns&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">--header <span class="s1">&#39;Authorization: Token username:password&#39;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">--data-raw <span class="s1">&#39;cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000&#39;</span></span></span></code></pre></div></li>
@@ -3809,7 +3809,7 @@ However, the v1 API architecture doesn&rsquo;t aim to be completely RESTful.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;error&#34;</span>:<span class="s2">&#34;database not found: \&#34;atlantis\&#34;&#34;</span><span class="o">}</span></span></span></code></pre></div><h3 id="next-steps">Next steps</h3>
 <p>Learn how to query your data stored in InfluxDB with the <a href="/enterprise_influxdb/v1/guides/querying_data/">Querying data</a> guide!
-To learn more about using the InfluxDB API, see the <a href="/enterprise_influxdb/v1/api/#write-http-endpoint">InfluxDB API reference</a>.</p>
+To learn more about using the InfluxDB API, see the <a href="/enterprise_influxdb/v1/api/write/">InfluxDB API reference</a>.</p>
 
 
 
