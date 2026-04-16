@@ -290,6 +290,7 @@
       &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
       &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
       &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
+      &--head { border-color: #00897B; color: #00897B; }                // teal - matches HEAD badge in operation blocks
     }
 
     // Compatibility version badge (v1 or v2)

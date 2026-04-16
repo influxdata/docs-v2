@@ -123,6 +123,7 @@
       &--put { background-color: $y-pineapple; color: #fff; }      // #FFB94A - bright yellow (distinct from red)
       &--patch { background-color: $br-new-purple; color: #fff; }  // #9b2aff - distinctive brand purple
       &--delete { background-color: $r-curacao; color: #fff; }     // #F95F53 - bright brand red
+      &--head { background-color: #00897B; color: #fff; }          // teal - matches HEAD badge in operation blocks
     }
 
     .api-path {
@@ -218,6 +219,7 @@
     &--put { border-color: $y-pineapple; color: $y-pineapple; }       // #FFB94A - bright yellow (distinct from red)
     &--patch { border-color: $br-new-purple; color: $br-new-purple; } // #9b2aff - distinctive brand purple
     &--delete { border-color: $r-curacao; color: $r-curacao; }        // #F95F53 - bright brand red
+    &--head { border-color: #00897B; color: #00897B; }                // teal - matches HEAD badge in operation blocks
   }
 
   // API path in monospace
