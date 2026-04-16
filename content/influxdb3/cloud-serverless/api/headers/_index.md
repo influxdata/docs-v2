@@ -1,9 +1,38 @@
 ---
 title: Headers
 description: >-
-  Standard HTTP request headers used by InfluxDB 3 Cloud Serverless API
-  endpoints, including `Accept`, `Authorization`, `Content-Length`, and
-  `Content-Type`.
+  InfluxDB Cloud Serverless API endpoints use standard HTTP request and
+
+  response headers. The following table shows common headers used by many
+
+  InfluxDB Cloud Serverless API endpoints. Some endpoints may use other
+
+  headers for functions specific to those endpoints--for example, the
+
+  write endpoints accept the `Content-Encoding` header to indicate that
+
+  line protocol is compressed in the request body.
+
+
+  | Header             | Value type |
+  Description                                           |
+
+  |:-------------------|:-----------|:------------------------------------------------------|
+
+  | `Accept`           | string     | The content type that the client can
+  understand.     |
+
+  | `Authorization`    | string     | The authorization scheme and
+  credential.             |
+
+  | `Content-Encoding` | string     | Compression applied to the request body
+  (e.g., gzip). |
+
+  | `Content-Length`   | integer    | The size of the entity-body, in
+  bytes.               |
+
+  | `Content-Type`     | string     | The format of the data in the request
+  body.         |
 type: api
 layout: single
 staticFilePath: >-
@@ -13,9 +42,38 @@ weight: 100
 tag: Headers
 isConceptual: true
 tagDescription: >-
-  Standard HTTP request headers used by InfluxDB 3 Cloud Serverless API
-  endpoints, including `Accept`, `Authorization`, `Content-Length`, and
-  `Content-Type`.
+  InfluxDB Cloud Serverless API endpoints use standard HTTP request and
+
+  response headers. The following table shows common headers used by many
+
+  InfluxDB Cloud Serverless API endpoints. Some endpoints may use other
+
+  headers for functions specific to those endpoints--for example, the
+
+  write endpoints accept the `Content-Encoding` header to indicate that
+
+  line protocol is compressed in the request body.
+
+
+  | Header             | Value type |
+  Description                                           |
+
+  |:-------------------|:-----------|:------------------------------------------------------|
+
+  | `Accept`           | string     | The content type that the client can
+  understand.     |
+
+  | `Authorization`    | string     | The authorization scheme and
+  credential.             |
+
+  | `Content-Encoding` | string     | Compression applied to the request body
+  (e.g., gzip). |
+
+  | `Content-Length`   | integer    | The size of the entity-body, in
+  bytes.               |
+
+  | `Content-Type`     | string     | The format of the data in the request
+  body.         |
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

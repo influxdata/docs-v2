@@ -252,10 +252,10 @@ from(bucket: "get-started")
 <!-------------------------- BEGIN FLUX API CONTENT --------------------------->
 
 To query data from InfluxDB using Flux and the InfluxDB HTTP API, send a request
-to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/version/api/#post-/api/v2/query)
+to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/version/api/query-data/)
 using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" api-ref="/influxdb/version/api/#post-/api/v2/query" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" api-ref="/influxdb/version/api/query-data/" >}}
 
 Include the following with your request:
 

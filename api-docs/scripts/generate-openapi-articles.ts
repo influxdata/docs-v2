@@ -97,6 +97,57 @@ const noClean = process.argv.includes('--no-clean');
 const dryRun = process.argv.includes('--dry-run');
 
 /**
+ * File patterns to preserve (skip overwriting) during generation.
+ * Set via --preserve=<glob> (may repeat). Patterns are matched against the
+ * absolute path of each would-be-written file. Uses simple glob matching:
+ * `*` matches any character except `/`, `**` matches across directories.
+ *
+ * Default is empty — all generated files are overwritten on each run.
+ */
+const preservePatterns: string[] = process.argv
+  .filter((a) => a.startsWith('--preserve='))
+  .map((a) => a.slice('--preserve='.length));
+
+/**
+ * Test whether a file path matches any --preserve glob pattern.
+ * Returns true when the file should be skipped (preserved).
+ */
+function shouldPreserve(filePath: string): boolean {
+  if (preservePatterns.length === 0) return false;
+  const normalized = path.resolve(filePath);
+  return preservePatterns.some((pattern) => {
+    const absPattern = pattern.startsWith('/')
+      ? pattern
+      : path.resolve(pattern);
+    // Convert glob to regex: ** → .*, * → [^/]*, . → \.
+    const regex = new RegExp(
+      '^' +
+        absPattern
+          .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+          .replace(/\*\*/g, '\x00')
+          .replace(/\*/g, '[^/]*')
+          .replace(/\x00/g, '.*') +
+        '$'
+    );
+    return regex.test(normalized);
+  });
+}
+
+/**
+ * Write a generated file, respecting --preserve patterns.
+ * Always overwrites unless the path matches a preserve pattern.
+ * Returns true if the file was written, false if preserved.
+ */
+function writeGeneratedFile(filePath: string, content: string): boolean {
+  if (shouldPreserve(filePath)) {
+    console.log(`⏭  Preserved (not overwritten): ${filePath}`);
+    return false;
+  }
+  fs.writeFileSync(filePath, content);
+  return true;
+}
+
+/**
  * Product data from products.yml with api_path
  */
 interface ProductData {
@@ -377,7 +428,7 @@ function generatePagesFromArticleData(options: GeneratePagesOptions): void {
       fs.mkdirSync(apiParentDir, { recursive: true });
     }
 
-    if (!fs.existsSync(parentIndexFile)) {
+    {
       // Build description - use product description or generate from product name
       const apiDescription =
         productDescription ||
@@ -411,8 +462,9 @@ ${yaml.dump(parentFrontmatter)}---
 ${introText}
 `;
 
-      fs.writeFileSync(parentIndexFile, parentContent);
-      console.log(`✓ Generated parent index at ${parentIndexFile}`);
+      if (writeGeneratedFile(parentIndexFile, parentContent)) {
+        console.log(`✓ Generated parent index at ${parentIndexFile}`);
+      }
     }
   }
 
@@ -475,7 +527,7 @@ ${introText}
 ${yaml.dump(frontmatter)}---
 `;
 
-    fs.writeFileSync(pageFile, pageContent);
+    writeGeneratedFile(pageFile, pageContent);
   }
 
   console.log(
@@ -606,13 +658,14 @@ function generateTagPagesFromArticleData(
   // - multi-spec sub-section: derived from per-spec slug
   //   (e.g., /openapi/influxdb-cloud-dedicated-management-api.yml)
   const specSlugFromPath = path.basename(articlesPath); // e.g., "data-api" or "management-api"
-  const specDownloadPath = explicitSpecDownloadPath
-    ?? (subSection
+  const specDownloadPath =
+    explicitSpecDownloadPath ??
+    (subSection
       ? `/openapi/${options.staticDirName || path.dirname(articlesPath)}-${specSlugFromPath}.yml`
       : `/openapi/${options.staticDirName || path.basename(articlesPath)}.yml`);
 
   // Write api/_index.md only for single-spec products (multi-spec caller writes it)
-  if (!subSection && !fs.existsSync(parentIndexFile)) {
+  if (!subSection) {
     // Load page.yml overlay if it exists (for custom description and body content)
     const contentRelPath = getContentRelPath(contentPath);
     const pageOverlayPaths = [
@@ -626,7 +679,9 @@ function generateTagPagesFromArticleData(
     } = {};
     for (const p of pageOverlayPaths) {
       if (fs.existsSync(p)) {
-        pageOverlay = yaml.load(fs.readFileSync(p, 'utf8')) as typeof pageOverlay;
+        pageOverlay = yaml.load(
+          fs.readFileSync(p, 'utf8')
+        ) as typeof pageOverlay;
         break;
       }
     }
@@ -682,8 +737,9 @@ ${yaml.dump(parentFrontmatter)}---
 ${introText}
 ${extraContent}`;
 
-    fs.writeFileSync(parentIndexFile, parentContent);
-    console.log(`✓ Generated parent index at ${parentIndexFile}`);
+    if (writeGeneratedFile(parentIndexFile, parentContent)) {
+      console.log(`✓ Generated parent index at ${parentIndexFile}`);
+    }
   }
 
   // For sub-sections, write a sub-section _index.md
@@ -694,7 +750,9 @@ ${extraContent}`;
     const subSectionTitle = subSection
       .split('-')
       .map((w) =>
-        UPPERCASE_WORDS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)
+        UPPERCASE_WORDS.has(w)
+          ? w.toUpperCase()
+          : w.charAt(0).toUpperCase() + w.slice(1)
       )
       .join(' ');
 
@@ -718,8 +776,9 @@ ${extraContent}`;
     const subSectionContent = `---
 ${yaml.dump(subSectionFrontmatter)}---
 `;
-    fs.writeFileSync(subSectionIndexFile, subSectionContent);
-    console.log(`✓ Generated sub-section index at ${subSectionIndexFile}`);
+    if (writeGeneratedFile(subSectionIndexFile, subSectionContent)) {
+      console.log(`✓ Generated sub-section index at ${subSectionIndexFile}`);
+    }
   }
 
   // Generate "All endpoints" page (under tagPagesDir, not apiParentDir)
@@ -765,8 +824,9 @@ ${yaml.dump(allEndpointsFrontmatter)}---
 All {{% product-name %}} API endpoints, sorted by path.
 `;
 
-  fs.writeFileSync(allEndpointsFile, allEndpointsContent);
-  console.log(`✓ Generated all-endpoints page at ${allEndpointsFile}`);
+  if (writeGeneratedFile(allEndpointsFile, allEndpointsContent)) {
+    console.log(`✓ Generated all-endpoints page at ${allEndpointsFile}`);
+  }
 
   // Generate a page for each article (tag).
   // For sub-section mode, article.path is "api/<tag-slug>"; we rewrite it to
@@ -869,7 +929,7 @@ All {{% product-name %}} API endpoints, sorted by path.
 ${yaml.dump(frontmatter)}---
 `;
 
-    fs.writeFileSync(pageFile, pageContent);
+    writeGeneratedFile(pageFile, pageContent);
   }
 
   console.log(
@@ -1626,7 +1686,7 @@ function processProduct(productKey: string, config: ProductConfig): void {
         if (!fs.existsSync(apiParentDir)) {
           fs.mkdirSync(apiParentDir, { recursive: true });
         }
-        if (!fs.existsSync(parentIndexFile)) {
+        {
           const yaml = require('js-yaml');
 
           // Load page.yml overlay if it exists (matches single-spec pattern)
@@ -1679,8 +1739,11 @@ function processProduct(productKey: string, config: ProductConfig): void {
             ? `\n${pageOverlay.body_extra}\n`
             : '';
           const parentContent = `---\n${yaml.dump(parentFrontmatter)}---\n\n${introText}\n${extraContent}`;
-          fs.writeFileSync(parentIndexFile, parentContent);
-          console.log(`✓ Generated multi-spec parent index at ${parentIndexFile}`);
+          if (writeGeneratedFile(parentIndexFile, parentContent)) {
+            console.log(
+              `✓ Generated multi-spec parent index at ${parentIndexFile}`
+            );
+          }
         }
 
         // Generate per-spec sub-section pages

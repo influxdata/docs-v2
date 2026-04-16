@@ -5,17 +5,19 @@
   Links point to tag pages with hash anchors (e.g., /api/cache-data/#operation/PostConfigureDistinctCache)
   Excludes conceptual/trait tag operations.
 
-  Data path derived from parent page URL: data/article_data/{url segments}/articles.yml
-  Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
+  Data path derived from parent section URL (current URL minus last segment):
+  - /influxdb3/core/api/all-endpoints/       → article_data.influxdb3.core.api.articles.articles
+  - /.../cloud-dedicated/api/data-api/all-endpoints/ → article_data.influxdb3.cloud-dedicated.data-api.articles.articles
 */}}
 {{ $currentPage := . }}
 
-{{/* Derive data lookup path from the parent section URL.
-     Supports both 3-segment (/influxdb3/core/api/) and 4-segment
-     (/influxdb3/cloud-dedicated/api/data-api/) parent URLs. */}}
-{{ $sectionUrl := .Parent.RelPermalink }}
-{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" $sectionUrl) }}
-{{ $segments := split $urlPath "/" }}
+{{/* Derive the parent section URL by trimming the last segment from the
+     current page's URL. Hugo's `.Parent.RelPermalink` is unreliable for leaf
+     bundles under `type: api` sections. */}}
+{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
+{{ $allSegments := split $urlPath "/" }}
+{{ $segments := first (sub (len $allSegments) 1) $allSegments }}
+{{ $sectionUrl := printf "/%s/" (delimit $segments "/") }}
 
 {{/* Get article data.
      URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)

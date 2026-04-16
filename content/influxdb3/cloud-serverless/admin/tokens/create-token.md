@@ -181,13 +181,13 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2/api/#post-/api/v2/authorizations" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2/api/authorizations-api-tokens/" >}}
 
 Include the following in your request:
 
 - **Headers**
   - **Authorization**: `Token API_TOKEN`
-    (API token with the [`write: authorizations`](/influxdb3/cloud-serverless/api/#post-/api/v2/authorizations) permission)
+    (API token with the [`write: authorizations`](/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 - **Request body**: JSON object with the following properties:
   - **status**: Token status (active or inactive)
@@ -218,7 +218,7 @@ body.
 {{% /code-placeholders %}}
 
 See the
-[`POST /api/v2/authorizations` documentation](/influxdb/v2/api/#post-/api/v2/authorizations)
+[`POST /api/v2/authorizations` documentation](/influxdb/v2/api/authorizations-api-tokens/)
 for more information about options.
 
 {{% /tab-content %}}

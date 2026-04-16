@@ -3,7 +3,7 @@ InfluxDB offers a rich API and [client libraries](/influxdb/version/api-guide/cl
 
 This section guides you through the most commonly used API methods.
 
-For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/version/reference/api/#influxdb-v2-api-documentation).
+For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/version/api/).
 
 > [!Tip]
 > #### Use InfluxDB 1.x API clients with {{< current-version >}}

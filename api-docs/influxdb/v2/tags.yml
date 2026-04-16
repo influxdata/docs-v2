@@ -41,7 +41,20 @@ tags:
   Common parameters:
     x-traitTag: true
     description: |
-      Common query parameters used by InfluxDB OSS v2 API endpoints, including `bucket`, `bucketID`, `org`, and `orgID`.
+      Most InfluxDB OSS v2 API endpoints require parameters in the request--for
+      example, to specify the bucket or organization.
+
+      The following table shows common query parameters used by many
+      InfluxDB OSS v2 API endpoints.
+
+      | Query parameter | Value type | Description                                  |
+      |:----------------|:-----------|:---------------------------------------------|
+      | `bucket`        | string     | The bucket name.                             |
+      | `bucketID`      | string     | The bucket ID.                               |
+      | `org`           | string     | The organization name.                       |
+      | `orgID`         | string     | The organization ID.                         |
+      | `precision`     | string     | Timestamp precision: `ns`, `us`, `ms`, `s`.  |
+      | `db`            | string     | The database (for v1-compatible endpoints).  |
   Compatibility endpoints:
     x-traitTag: true
     description: |
@@ -70,7 +83,20 @@ tags:
   Headers:
     x-traitTag: true
     description: |
-      Standard HTTP request headers used by InfluxDB OSS v2 API endpoints, including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
+      InfluxDB OSS v2 API endpoints use standard HTTP request and response
+      headers. The following table shows common headers used by many
+      InfluxDB OSS v2 API endpoints. Some endpoints may use other headers for
+      functions specific to those endpoints--for example, the write endpoints
+      accept the `Content-Encoding` header to indicate that line protocol is
+      compressed in the request body.
+
+      | Header             | Value type | Description                                           |
+      |:-------------------|:-----------|:------------------------------------------------------|
+      | `Accept`           | string     | The content type that the client can understand.     |
+      | `Authorization`    | string     | The authorization scheme and credential.             |
+      | `Content-Encoding` | string     | Compression applied to the request body (e.g., gzip). |
+      | `Content-Length`   | integer    | The size of the entity-body, in bytes.               |
+      | `Content-Type`     | string     | The format of the data in the request body.         |
   Health:
     description: |
       Check the health and readiness of an InfluxDB OSS v2 instance.
@@ -98,7 +124,18 @@ tags:
   Pagination:
     x-traitTag: true
     description: |
-      Query parameters for paginating results from list operations in the InfluxDB OSS v2 API.
+      List endpoints in the InfluxDB OSS v2 API support pagination via query
+      parameters. Use these parameters to page through large result sets.
+
+      | Query parameter | Value type | Description                                         |
+      |:----------------|:-----------|:----------------------------------------------------|
+      | `limit`         | integer    | Maximum number of records to return (default: 20). |
+      | `offset`        | integer    | Number of records to skip before returning results. |
+      | `after`         | string     | Return records created after the specified record ID. |
+      | `descending`    | boolean    | Sort results in descending order.                   |
+
+      List responses include pagination metadata (such as total count or links
+      to the next page) to help navigate through result pages.
   Ping:
     description: |
       Check the availability of an InfluxDB OSS v2 instance.
@@ -187,7 +224,23 @@ tags:
   Response codes:
     x-traitTag: true
     description: |
-      Standard HTTP status codes returned by InfluxDB OSS v2 API endpoints and their meanings.
+      InfluxDB OSS v2 API endpoints return standard HTTP status codes. The
+      following table summarizes the most common response codes.
+
+      | Status code | Meaning                                                                 |
+      |:------------|:------------------------------------------------------------------------|
+      | `200 OK`    | Success.                                                                |
+      | `201 Created` | The resource was created.                                             |
+      | `204 No Content` | Success with no response body (typically after write or delete).  |
+      | `400 Bad Request` | Request parameters or body are malformed or invalid.              |
+      | `401 Unauthorized` | Missing or invalid credentials.                                  |
+      | `403 Forbidden` | Credentials lack permission for the requested resource.             |
+      | `404 Not Found` | The requested resource does not exist.                              |
+      | `413 Payload Too Large` | Request body exceeds the maximum allowed size.              |
+      | `422 Unprocessable Entity` | Request body is well-formed but semantically invalid.    |
+      | `429 Too Many Requests` | Rate limit exceeded.                                        |
+      | `500 Internal Server Error` | Unexpected server error.                                |
+      | `503 Service Unavailable` | Server is overloaded or under maintenance.                |
   Restore:
     description: |
       Restore InfluxDB OSS v2 data from a backup, including time series data and metadata.

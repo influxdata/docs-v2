@@ -144,4 +144,4 @@ node write.js
 ### Response codes
 
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/influxdb3/cloud-serverless/api/#post-/api/v2/write)._
+[InfluxDB API Write documentation](/influxdb3/cloud-serverless/api/write-data/#operation/PostWrite)._

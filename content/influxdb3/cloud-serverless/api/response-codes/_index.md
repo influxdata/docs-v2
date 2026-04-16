@@ -1,8 +1,51 @@
 ---
 title: Response codes
 description: >-
-  Standard HTTP status codes returned by InfluxDB 3 Cloud Serverless API
-  endpoints and their meanings.
+  InfluxDB Cloud Serverless API endpoints return standard HTTP status
+
+  codes. The following table summarizes the most common response codes.
+
+
+  | Status code |
+  Meaning                                                                 |
+
+  |:------------|:------------------------------------------------------------------------|
+
+  | `200 OK`    |
+  Success.                                                                |
+
+  | `201 Created` | The resource was
+  created.                                             |
+
+  | `204 No Content` | Success with no response body (typically after write or
+  delete).  |
+
+  | `400 Bad Request` | Request parameters or body are malformed or
+  invalid.              |
+
+  | `401 Unauthorized` | Missing or invalid
+  credentials.                                  |
+
+  | `403 Forbidden` | Credentials lack permission for the requested
+  resource.             |
+
+  | `404 Not Found` | The requested resource does not
+  exist.                              |
+
+  | `413 Payload Too Large` | Request body exceeds the maximum allowed
+  size.              |
+
+  | `422 Unprocessable Entity` | Request body is well-formed but semantically
+  invalid.    |
+
+  | `429 Too Many Requests` | Rate limit
+  exceeded.                                        |
+
+  | `500 Internal Server Error` | Unexpected server
+  error.                                |
+
+  | `503 Service Unavailable` | Server is overloaded or under
+  maintenance.                |
 type: api
 layout: single
 staticFilePath: >-
@@ -12,8 +55,51 @@ weight: 100
 tag: Response codes
 isConceptual: true
 tagDescription: >-
-  Standard HTTP status codes returned by InfluxDB 3 Cloud Serverless API
-  endpoints and their meanings.
+  InfluxDB Cloud Serverless API endpoints return standard HTTP status
+
+  codes. The following table summarizes the most common response codes.
+
+
+  | Status code |
+  Meaning                                                                 |
+
+  |:------------|:------------------------------------------------------------------------|
+
+  | `200 OK`    |
+  Success.                                                                |
+
+  | `201 Created` | The resource was
+  created.                                             |
+
+  | `204 No Content` | Success with no response body (typically after write or
+  delete).  |
+
+  | `400 Bad Request` | Request parameters or body are malformed or
+  invalid.              |
+
+  | `401 Unauthorized` | Missing or invalid
+  credentials.                                  |
+
+  | `403 Forbidden` | Credentials lack permission for the requested
+  resource.             |
+
+  | `404 Not Found` | The requested resource does not
+  exist.                              |
+
+  | `413 Payload Too Large` | Request body exceeds the maximum allowed
+  size.              |
+
+  | `422 Unprocessable Entity` | Request body is well-formed but semantically
+  invalid.    |
+
+  | `429 Too Many Requests` | Rate limit
+  exceeded.                                        |
+
+  | `500 Internal Server Error` | Unexpected server
+  error.                                |
+
+  | `503 Service Unavailable` | Server is overloaded or under
+  maintenance.                |
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

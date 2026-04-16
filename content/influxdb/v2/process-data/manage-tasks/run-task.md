@@ -12,8 +12,8 @@ related:
   - /influxdb/v2/reference/cli/influx/task/run
   - /influxdb/v2/reference/cli/influx/task/run/retry
   - /influxdb/v2/reference/cli/influx/task/retry-failed
-  - /influxdb/v2/api/#post-/api/v2/tasks/-taskID-/runs
-  - /influxdb/v2/api/#post-/api/v2/tasks/-taskID-/runs/-runID-/retry
+  - /influxdb/v2/api/tasks/
+  - /influxdb/v2/api/tasks/
 source: /shared/influxdb-v2/process-data/manage-tasks/run-task.md
 ---
 

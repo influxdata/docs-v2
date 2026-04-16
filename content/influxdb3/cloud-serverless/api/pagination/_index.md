@@ -1,8 +1,32 @@
 ---
 title: Pagination
 description: >-
-  Query parameters for paginating results from list operations in the InfluxDB 3
-  Cloud Serverless API.
+  List endpoints in the InfluxDB Cloud Serverless API support pagination via
+
+  query parameters. Use these parameters to page through large result sets.
+
+
+  | Query parameter | Value type |
+  Description                                         |
+
+  |:----------------|:-----------|:----------------------------------------------------|
+
+  | `limit`         | integer    | Maximum number of records to return (default:
+  20). |
+
+  | `offset`        | integer    | Number of records to skip before returning
+  results. |
+
+  | `after`         | string     | Return records created after the specified
+  record ID. |
+
+  | `descending`    | boolean    | Sort results in descending
+  order.                   |
+
+
+  List responses include pagination metadata (such as total count or links
+
+  to the next page) to help navigate through result pages.
 type: api
 layout: single
 staticFilePath: >-
@@ -12,8 +36,32 @@ weight: 100
 tag: Pagination
 isConceptual: true
 tagDescription: >-
-  Query parameters for paginating results from list operations in the InfluxDB 3
-  Cloud Serverless API.
+  List endpoints in the InfluxDB Cloud Serverless API support pagination via
+
+  query parameters. Use these parameters to page through large result sets.
+
+
+  | Query parameter | Value type |
+  Description                                         |
+
+  |:----------------|:-----------|:----------------------------------------------------|
+
+  | `limit`         | integer    | Maximum number of records to return (default:
+  20). |
+
+  | `offset`        | integer    | Number of records to skip before returning
+  results. |
+
+  | `after`         | string     | Return records created after the specified
+  record ID. |
+
+  | `descending`    | boolean    | Sort results in descending
+  order.                   |
+
+
+  List responses include pagination metadata (such as total count or links
+
+  to the next page) to help navigate through result pages.
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

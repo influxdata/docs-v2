@@ -68,7 +68,7 @@ tags:
     name: DBRPs
     x-related:
       - title: Database and retention policy mapping
-        href: /influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/
+        href: /influxdb3/cloud-serverless/guides/api-compatibility/v1/
   - description: Delete time series data from an InfluxDB 3 Cloud Serverless bucket by specifying a time range and optional predicate.
     name: Delete
   - description: Standard HTTP request headers used by InfluxDB 3 Cloud Serverless API endpoints, including `Accept`, `Authorization`, `Content-Length`, and `Content-Type`.
@@ -2099,570 +2099,427 @@ paths:
   # /api/v2/dashboards/{dashboardID}/members/{userID}: {}
   # /api/v2/dashboards/{dashboardID}/owners: {}
   # /api/v2/dashboards/{dashboardID}/owners/{userID}: {}
-  # /api/v2/dbrps:
-  # get:
-  # description: |
-  # Lists database retention policy (DBRP) mappings.
+  /api/v2/dbrps:
+    get:
+      description: |
+        Lists database retention policy (DBRP) mappings.
 
-  # #### Related guide
+      operationId: GetDBRPs
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: |
+            An organization ID.
+            Only returns DBRP mappings for the specified organization.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: |
+            An organization name.
+            Only returns DBRP mappings for the specified organization.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: |
+            A DBPR mapping ID.
+            Only returns the specified DBRP mapping.
+          in: query
+          name: id
+          schema:
+            type: string
+        - description: |
+            A bucket ID.
+            Only returns DBRP mappings that belong to the specified bucket.
+          in: query
+          name: bucketID
+          schema:
+            type: string
+        - description: Specifies filtering on default
+          in: query
+          name: default
+          schema:
+            type: boolean
+        - description: |
+            A database.
+            Only returns DBRP mappings that belong to the 1.x database.
+          in: query
+          name: db
+          schema:
+            type: string
+        - description: |
+            A [retention policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
+            Specifies the 1.x retention policy to filter on.
+          in: query
+          name: rp
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                successResponse:
+                  value:
+                    content:
+                      - bucketID: 4d4d9d5b61dee751
+                        database: example_database_1
+                        default: true
+                        id: 0a3cbb5dd526a000
+                        orgID: bea7ea952287f70d
+                        retention_policy: autogen
+                      - bucketID: 4d4d9d5b61dee751
+                        database: example_database_2
+                        default: false
+                        id: 0a3cbcde20e38000
+                        orgID: bea7ea952287f70d
+                        retention_policy: example_retention_policy
+              schema:
+                $ref: '#/components/schemas/DBRPs'
+          description: Success. The response body contains a list of database retention policy mappings.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidRequest:
+                  description: |
+                    The query parameters contain invalid values.
+                  value:
+                    code: invalid
+                    message: invalid ID
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request. The request has one or more invalid parameters.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: List database retention policy mappings
+      tags:
+        - DBRPs
+    post:
+      description: |
+        Creates a database retention policy (DBRP) mapping and returns the mapping.
 
-  # - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
-  # operationId: GetDBRPs
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # - description: |
-  # An organization ID.
-  # Only returns DBRP mappings for the specified organization.
-  # in: query
-  # name: orgID
-  # schema:
-  # type: string
-  # - description: |
-  # An organization name.
-  # Only returns DBRP mappings for the specified organization.
-  # in: query
-  # name: org
-  # schema:
-  # type: string
-  # - description: |
-  # A DBPR mapping ID.
-  # Only returns the specified DBRP mapping.
-  # in: query
-  # name: id
-  # schema:
-  # type: string
-  # - description: |
-  # A bucket ID.
-  # Only returns DBRP mappings that belong to the specified bucket.
-  # in: query
-  # name: bucketID
-  # schema:
-  # type: string
-  # - description: Specifies filtering on default
-  # in: query
-  # name: default
-  # schema:
-  # type: boolean
-  # - description: |
-  # A database.
-  # Only returns DBRP mappings that belong to the 1.x database.
-  # in: query
-  # name: db
-  # schema:
-  # type: string
-  # - description: |
-  # A [retention policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp).
-  # Specifies the 1.x retention policy to filter on.
-  # in: query
-  # name: rp
-  # schema:
-  # type: string
-  # responses:
-  # '200':
-  # content:
-  # application/json:
-  # examples:
-  # successResponse:
-  # value:
-  # content:
-  # - bucketID: 4d4d9d5b61dee751
-  # database: example_database_1
-  # default: true
-  # id: 0a3cbb5dd526a000
-  # orgID: bea7ea952287f70d
-  # retention_policy: autogen
-  # - bucketID: 4d4d9d5b61dee751
-  # database: example_database_2
-  # default: false
-  # id: 0a3cbcde20e38000
-  # orgID: bea7ea952287f70d
-  # retention_policy: example_retention_policy
-  # schema:
-  # $ref: '#/components/schemas/DBRPs'
-  # description: Success. The response body contains a list of database retention policy mappings.
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # invalidRequest:
-  # description: |
-  # The query parameters contain invalid values.
-  # value:
-  # code: invalid
-  # message: invalid ID
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Bad request. The request has one or more invalid parameters.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Unexpected error
-  # summary: List database retention policy mappings
-  # tags:
-  # - DBRPs
-  # post:
-  # description: |
-  # Creates a database retention policy (DBRP) mapping and returns the mapping.
+        Use this endpoint to add InfluxDB 1.x API compatibility to your
+        InfluxDB Cloud or InfluxDB OSS 2.x buckets. Your buckets must contain a
+        DBRP mapping in order to query and write using the InfluxDB 1.x API.
+        object.
 
-  # Use this endpoint to add InfluxDB 1.x API compatibility to your
-  # InfluxDB Cloud or InfluxDB OSS 2.x buckets. Your buckets must contain a
-  # DBRP mapping in order to query and write using the InfluxDB 1.x API.
-  # object.
+      operationId: PostDBRP
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBRPCreate'
+        description: |
+          The database retention policy mapping to add.
 
-  # #### Related guide
+          Note that _`retention_policy`_ is a required parameter in the request body.
+          The value of _`retention_policy`_ can be any arbitrary `string` name or
+          value, with the default value commonly set as `autogen`.
+          The value of _`retention_policy`_ isn't a [retention_policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp)
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              examples:
+                successResponse:
+                  value:
+                    bucketID: 4d4d9d5b61dee751
+                    database: example_database
+                    default: true
+                    id: 0a3cbb5dd526a000
+                    orgID: bea7ea952287f70d
+                    retention_policy: autogen
+              schema:
+                $ref: '#/components/schemas/DBRP'
+          description: Created. The response body contains the database retention policy mapping.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidRequest:
+                  description: |
+                    The query parameters contain invalid values.
+                  value:
+                    code: invalid
+                    message: invalid ID
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request. The mapping in the request has one or more invalid IDs.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Add a database retention policy mapping
+      tags:
+        - DBRPs
+      x-codeSamples:
+        - label: 'cURL: create a database retention policy mapping'
+          lang: Shell
+          source: |
+            curl --request POST \
+               "http://localhost:8086/api/v2/dbrp/" \
+              --header 'Content-type: application/json' \
+              --header "Authorization: Token INFLUXDB_TOKEN" \
+              --data-binary @- << EOF
+                { \
+                  "bucketID": "INFLUXDB_BUCKET_ID", \
+                  "orgID": "INFLUXDB_ORG_ID", \
+                  "database": "database_name", \
+                  "default": true, \
+                  "retention_policy": "example_retention_policy_name" \
+                }
+            EOF
+  /api/v2/dbrps/{dbrpID}:
+    delete:
+      description: |
+        Deletes the specified database retention policy (DBRP) mapping.
 
-  # - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
-  # operationId: PostDBRP
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # requestBody:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/DBRPCreate'
-  # description: |
-  # The database retention policy mapping to add.
+      operationId: DeleteDBRPID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: |
+            An organization name.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: |
+            A DBRP mapping ID.
+            Only returns the specified DBRP mapping.
+          in: path
+          name: dbrpID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success. The delete is accepted.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidRequest:
+                  description: |
+                    The query parameters contain invalid values.
+                  value:
+                    code: invalid
+                    message: invalid ID
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request. Query parameters contain invalid values.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Delete a database retention policy
+      tags:
+        - DBRPs
+    get:
+      description: |
+        Retrieves the specified retention policy (DBRP) mapping.
 
-  # Note that _`retention_policy`_ is a required parameter in the request body.
-  # The value of _`retention_policy`_ can be any arbitrary `string` name or
-  # value, with the default value commonly set as `autogen`.
-  # The value of _`retention_policy`_ isn't a [retention_policy](/influxdb3/cloud-serverless/reference/glossary/#retention-policy-rp)
-  # required: true
-  # responses:
-  # '201':
-  # content:
-  # application/json:
-  # examples:
-  # successResponse:
-  # value:
-  # bucketID: 4d4d9d5b61dee751
-  # database: example_database
-  # default: true
-  # id: 0a3cbb5dd526a000
-  # orgID: bea7ea952287f70d
-  # retention_policy: autogen
-  # schema:
-  # $ref: '#/components/schemas/DBRP'
-  # description: Created. The response body contains the database retention policy mapping.
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # invalidRequest:
-  # description: |
-  # The query parameters contain invalid values.
-  # value:
-  # code: invalid
-  # message: invalid ID
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Bad request. The mapping in the request has one or more invalid IDs.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '404':
-  # $ref: '#/components/responses/ResourceNotFoundError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Unexpected error
-  # summary: Add a database retention policy mapping
-  # tags:
-  # - DBRPs
-  # x-codeSamples:
-  # - label: 'cURL: create a database retention policy mapping'
-  # lang: Shell
-  # source: |
-  # curl --request POST \
-  # "http://localhost:8086/api/v2/dbrp/" \
-  # --header 'Content-type: application/json' \
-  # --header "Authorization: Token INFLUXDB_TOKEN" \
-  # --data-binary @- << EOF
-  # { \
-  # "bucketID": "INFLUXDB_BUCKET_ID", \
-  # "orgID": "INFLUXDB_ORG_ID", \
-  # "database": "database_name", \
-  # "default": true, \
-  # "retention_policy": "example_retention_policy_name" \
-  # }
-  # EOF
-  # /api/v2/dbrps/{dbrpID}:
-  # delete:
-  # description: |
-  # Deletes the specified database retention policy (DBRP) mapping.
+      operationId: GetDBRPsID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: |
+            An organization name.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: |
+            A DBRP mapping ID.
+            Specifies the DBRP mapping.
+          in: path
+          name: dbrpID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                successResponse:
+                  value:
+                    content:
+                      bucketID: 4d4d9d5b61dee751
+                      database: example_database_1
+                      default: true
+                      id: 0a3cbb5dd526a000
+                      orgID: bea7ea952287f70d
+                      retention_policy: autogen
+              schema:
+                $ref: '#/components/schemas/DBRPGet'
+          description: Success. The response body contains the DBRP mapping.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidRequest:
+                  description: |
+                    The query parameters contain invalid values.
+                  value:
+                    code: invalid
+                    message: invalid ID
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request. Query parameters contain invalid values.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Retrieve a database retention policy mapping
+      tags:
+        - DBRPs
+    patch:
+      operationId: PatchDBRPID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: orgID
+          schema:
+            type: string
+        - description: |
+            An organization name.
+            Specifies the organization that owns the DBRP mapping.
+          in: query
+          name: org
+          schema:
+            type: string
+        - description: |
+            A DBRP mapping ID.
+            Specifies the DBRP mapping.
+          in: path
+          name: dbrpID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBRPUpdate'
+        description: |
+          Updates the database retention policy (DBRP) mapping and returns the mapping.
 
-  # #### Related guide
+          Use this endpoint to modify the _retention policy_ (`retention_policy` property) of a DBRP mapping.
 
-  # - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
-  # operationId: DeleteDBRPID
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # - description: |
-  # An organization ID.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: orgID
-  # schema:
-  # type: string
-  # - description: |
-  # An organization name.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: org
-  # schema:
-  # type: string
-  # - description: |
-  # A DBRP mapping ID.
-  # Only returns the specified DBRP mapping.
-  # in: path
-  # name: dbrpID
-  # required: true
-  # schema:
-  # type: string
-  # responses:
-  # '204':
-  # description: Success. The delete is accepted.
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # invalidRequest:
-  # description: |
-  # The query parameters contain invalid values.
-  # value:
-  # code: invalid
-  # message: invalid ID
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Bad Request. Query parameters contain invalid values.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '404':
-  # $ref: '#/components/responses/ResourceNotFoundError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Unexpected error
-  # summary: Delete a database retention policy
-  # tags:
-  # - DBRPs
-  # get:
-  # description: |
-  # Retrieves the specified retention policy (DBRP) mapping.
-
-  # #### Related guide
-
-  # - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
-  # operationId: GetDBRPsID
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # - description: |
-  # An organization ID.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: orgID
-  # schema:
-  # type: string
-  # - description: |
-  # An organization name.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: org
-  # schema:
-  # type: string
-  # - description: |
-  # A DBRP mapping ID.
-  # Specifies the DBRP mapping.
-  # in: path
-  # name: dbrpID
-  # required: true
-  # schema:
-  # type: string
-  # responses:
-  # '200':
-  # content:
-  # application/json:
-  # examples:
-  # successResponse:
-  # value:
-  # content:
-  # bucketID: 4d4d9d5b61dee751
-  # database: example_database_1
-  # default: true
-  # id: 0a3cbb5dd526a000
-  # orgID: bea7ea952287f70d
-  # retention_policy: autogen
-  # schema:
-  # $ref: '#/components/schemas/DBRPGet'
-  # description: Success. The response body contains the DBRP mapping.
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # invalidRequest:
-  # description: |
-  # The query parameters contain invalid values.
-  # value:
-  # code: invalid
-  # message: invalid ID
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Bad Request. Query parameters contain invalid values.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '404':
-  # $ref: '#/components/responses/ResourceNotFoundError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Unexpected error
-  # summary: Retrieve a database retention policy mapping
-  # tags:
-  # - DBRPs
-  # patch:
-  # operationId: PatchDBRPID
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # - description: |
-  # An organization ID.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: orgID
-  # schema:
-  # type: string
-  # - description: |
-  # An organization name.
-  # Specifies the organization that owns the DBRP mapping.
-  # in: query
-  # name: org
-  # schema:
-  # type: string
-  # - description: |
-  # A DBRP mapping ID.
-  # Specifies the DBRP mapping.
-  # in: path
-  # name: dbrpID
-  # required: true
-  # schema:
-  # type: string
-  # requestBody:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/DBRPUpdate'
-  # description: |
-  # Updates the database retention policy (DBRP) mapping and returns the mapping.
-
-  # Use this endpoint to modify the _retention policy_ (`retention_policy` property) of a DBRP mapping.
-
-  # #### Related guide
-
-  # - [Database and retention policy mapping](/influxdb3/cloud-serverless/reference/api/influxdb-1x/dbrp/)
-  # required: true
-  # responses:
-  # '200':
-  # content:
-  # application/json:
-  # examples:
-  # successResponse:
-  # value:
-  # content:
-  # bucketID: 4d4d9d5b61dee751
-  # database: example_database
-  # default: false
-  # id: 0a3cbb5dd526a000
-  # orgID: bea7ea952287f70d
-  # retention_policy: example_retention_policy
-  # schema:
-  # $ref: '#/components/schemas/DBRPGet'
-  # description: An updated mapping
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # invalidRequest:
-  # description: |
-  # The query parameters contain invalid values.
-  # value:
-  # code: invalid
-  # message: invalid ID
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Bad Request. Query parameters contain invalid values.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '404':
-  # $ref: '#/components/responses/ResourceNotFoundError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: Unexpected error
-  # summary: Update a database retention policy mapping
-  # tags:
-  # - DBRPs
-  # x-codeSamples:
-  # - label: 'cURL: Update a DBRP mapping'
-  # lang: Shell
-  # source: |
-  # curl --request PATCH \
-  # "http://localhost:8086/api/v2/dbrp/DBRP_ID" \
-  # --header 'Content-type: application/json' \
-  # --header "Authorization: Token INFLUX_API_TOKEN" \
-  # --data-binary @- << EOF
-  # {
-  # "default": true,
-  # "retention_policy": "example_retention_policy_name"
-  # }
-  # EOF
-  # /api/v2/delete:
-  # post:
-  # description: |
-  # Deletes data from a bucket.
-
-  # **NOTE**: This endpoint has been **disabled** for InfluxDB 3 Cloud Serverless organizations.
-  # See how to [**delete data**](/influxdb3/cloud-serverless/write-data/delete-data/).
-
-  # #### Related guides
-
-  # - [Delete data](/influxdb3/cloud-serverless/write-data/delete-data/)
-  # operationId: PostDelete
-  # parameters:
-  # - $ref: '#/components/parameters/TraceSpan'
-  # - description: |
-  # An organization name or ID.
-
-  # #### InfluxDB 3 Cloud Serverless
-
-  # - Doesn't use the `org` parameter or `orgID` parameter.
-  # in: query
-  # name: org
-  # schema:
-  # description: The organization name or ID.
-  # type: string
-  # - description: |
-  # A bucket name or ID.
-  # Specifies the bucket to delete data from.
-  # If you pass both `bucket` and `bucketID`, `bucketID` takes precedence.
-  # in: query
-  # name: bucket
-  # schema:
-  # description: The bucket name or ID.
-  # type: string
-  # - description: |
-  # An organization ID.
-
-  # #### InfluxDB 3 Cloud Serverless
-
-  # - Doesn't use the `org` parameter or `orgID` parameter.
-  # in: query
-  # name: orgID
-  # schema:
-  # description: The organization ID.
-  # type: string
-  # - description: |
-  # A bucket ID.
-  # Specifies the bucket to delete data from.
-  # If you pass both `bucket` and `bucketID`, `bucketID` takes precedence.
-  # in: query
-  # name: bucketID
-  # schema:
-  # description: The bucket ID.
-  # type: string
-  # requestBody:
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/DeletePredicateRequest'
-  # description: |
-  # Time range parameters and an optional **delete predicate expression**.
-
-  # To select points to delete within the specified time range, pass a
-  # **delete predicate expression** in the `predicate` property of the request body.
-  # If you don't pass a `predicate`, InfluxDB deletes all data with timestamps
-  # in the specified time range.
-  # required: true
-  # responses:
-  # '204':
-  # description: |
-  # **NOTE**: This endpoint has been **disabled** for InfluxDB 3 Cloud Serverless organizations.
-  # See how to [**delete data**](/influxdb3/cloud-serverless/write-data/delete-data/).
-  # '400':
-  # content:
-  # application/json:
-  # examples:
-  # orgNotFound:
-  # summary: Organization not found
-  # value:
-  # code: invalid
-  # message: 'failed to decode request body: organization not found'
-  # schema:
-  # $ref: '#/components/schemas/Error'
-  # description: |
-  # Bad request.
-  # The response body contains detail about the error.
-  # '401':
-  # $ref: '#/components/responses/AuthorizationError'
-  # '404':
-  # $ref: '#/components/responses/ResourceNotFoundError'
-  # '500':
-  # $ref: '#/components/responses/InternalServerError'
-  # default:
-  # $ref: '#/components/responses/GeneralServerError'
-  # summary: Delete data
-  # tags:
-  # - Delete
-  # /api/v2/flags: {}
-  # /api/v2/labels: {}
-  # /api/v2/labels/{labelID}: {}
-  # /api/v2/maps/mapToken:
-  # get:
-  # operationId: getMapboxToken
-  # responses:
-  # '200':
-  # content:
-  # application/json:
-  # schema:
-  # $ref: '#/components/schemas/Token'
-  # description: Temporary token for Mapbox.
-  # '401':
-  # $ref: '#/components/responses/ServerError'
-  # '500':
-  # $ref: '#/components/responses/ServerError'
-  # default:
-  # $ref: '#/components/responses/ServerError'
-  # summary: Get a mapbox token
-  # /api/v2/me: {}
-  # /api/v2/me/password: {}
-  # /api/v2/notificationEndpoints: {}
-  # /api/v2/notificationEndpoints/{endpointID}: {}
-  # /api/v2/notificationEndpoints/{endpointID}/labels: {}
-  # /api/v2/notificationEndpoints/{endpointID}/labels/{labelID}: {}
-  # /api/v2/notificationRules: {}
-  # /api/v2/notificationRules/{ruleID}: {}
-  # /api/v2/notificationRules/{ruleID}/labels: {}
-  # /api/v2/notificationRules/{ruleID}/labels/{labelID}: {}
-  # /api/v2/notificationRules/{ruleID}/query: {}
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                successResponse:
+                  value:
+                    content:
+                      bucketID: 4d4d9d5b61dee751
+                      database: example_database
+                      default: false
+                      id: 0a3cbb5dd526a000
+                      orgID: bea7ea952287f70d
+                      retention_policy: example_retention_policy
+              schema:
+                $ref: '#/components/schemas/DBRPGet'
+          description: An updated mapping
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidRequest:
+                  description: |
+                    The query parameters contain invalid values.
+                  value:
+                    code: invalid
+                    message: invalid ID
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request. Query parameters contain invalid values.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Update a database retention policy mapping
+      tags:
+        - DBRPs
+      x-codeSamples:
+        - label: 'cURL: Update a DBRP mapping'
+          lang: Shell
+          source: |
+            curl --request PATCH \
+               "http://localhost:8086/api/v2/dbrp/DBRP_ID" \
+              --header 'Content-type: application/json' \
+              --header "Authorization: Token INFLUX_API_TOKEN" \
+              --data-binary @- << EOF
+                {
+                  "default": true,
+                  "retention_policy": "example_retention_policy_name"
+                }
+            EOF
   /api/v2/orgs:
     get:
       description: |
@@ -2670,9 +2527,6 @@ paths:
 
         InfluxDB 3 Cloud Serverless only returns the organization that owns the token passed in the request.
 
-        #### Related guides
-
-        - [View organizations](/influxdb3/cloud-serverless/admin/organizations/view-orgs/)
       operationId: GetOrgs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'

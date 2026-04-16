@@ -1,8 +1,38 @@
 ---
 title: Common parameters
 description: >-
-  Common query parameters used by InfluxDB 3 Cloud Serverless API endpoints,
-  including `bucket`, `bucketID`, `org`, and `orgID`.
+  Most InfluxDB Cloud Serverless API endpoints require parameters in the
+
+  request--for example, to specify the bucket or organization.
+
+
+  The following table shows common query parameters used by many
+
+  InfluxDB Cloud Serverless API endpoints.
+
+
+  | Query parameter | Value type | Description                                 
+  |
+
+  |:----------------|:-----------|:---------------------------------------------|
+
+  | `bucket`        | string     | The bucket name.                            
+  |
+
+  | `bucketID`      | string     | The bucket ID.                              
+  |
+
+  | `org`           | string     | The organization name.                      
+  |
+
+  | `orgID`         | string     | The organization ID.                        
+  |
+
+  | `precision`     | string     | Timestamp precision: `ns`, `us`, `ms`, `s`. 
+  |
+
+  | `db`            | string     | The database (for v1-compatible endpoints). 
+  |
 type: api
 layout: single
 staticFilePath: >-
@@ -12,8 +42,38 @@ weight: 100
 tag: Common parameters
 isConceptual: true
 tagDescription: >-
-  Common query parameters used by InfluxDB 3 Cloud Serverless API endpoints,
-  including `bucket`, `bucketID`, `org`, and `orgID`.
+  Most InfluxDB Cloud Serverless API endpoints require parameters in the
+
+  request--for example, to specify the bucket or organization.
+
+
+  The following table shows common query parameters used by many
+
+  InfluxDB Cloud Serverless API endpoints.
+
+
+  | Query parameter | Value type | Description                                 
+  |
+
+  |:----------------|:-----------|:---------------------------------------------|
+
+  | `bucket`        | string     | The bucket name.                            
+  |
+
+  | `bucketID`      | string     | The bucket ID.                              
+  |
+
+  | `org`           | string     | The organization name.                      
+  |
+
+  | `orgID`         | string     | The organization ID.                        
+  |
+
+  | `precision`     | string     | Timestamp precision: `ns`, `us`, `ms`, `s`. 
+  |
+
+  | `db`            | string     | The database (for v1-compatible endpoints). 
+  |
 alt_links:
   core: /influxdb3/core/api/
   enterprise: /influxdb3/enterprise/api/

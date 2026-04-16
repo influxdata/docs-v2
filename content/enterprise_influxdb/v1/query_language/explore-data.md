@@ -147,7 +147,7 @@ If you're using the [CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/) 
 [`USE`d](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#commands)
 [database](/enterprise_influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1/api/) InfluxDB queries the
-measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1/api/#query-string-parameters)
+measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `FROM <measurement_name>,<measurement_name>`
@@ -202,7 +202,7 @@ If you're using the [CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/) 
 The CLI queries the data in the `USE`d database and the
 `DEFAULT` [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1/api/) be sure to set the
-`db` [query string parameter](/enterprise_influxdb/v1/api/#query-string-parameters)
+`db` [query string parameter](/enterprise_influxdb/v1/api/query/)
 to `NOAA_water_database`.
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 queries the database's `DEFAULT` retention policy.
@@ -1697,7 +1697,7 @@ If you're using the [CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/) 
 [`USE`d](/enterprise_influxdb/v1/tools/influx-cli/use-influx/#commands)
 [database](/enterprise_influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1/api/) InfluxDB writes the data to the
-measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1/api/#query-string-parameters)
+measurement in the database specified in the [`db` query string parameter](/enterprise_influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `INTO <database_name>.<retention_policy_name>.<measurement_name>`
@@ -1790,7 +1790,7 @@ If you're using the [CLI](/enterprise_influxdb/v1/tools/influx-cli/use-influx/),
 the `USE`d [database](/enterprise_influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp).
 If you're using the [InfluxDB API](/enterprise_influxdb/v1/api/), InfluxDB writes the
 data to the database and retention policy specified in the `db` and `rp`
-[query string parameters](/enterprise_influxdb/v1/api/#query-string-parameters).
+[query string parameters](/enterprise_influxdb/v1/api/query/).
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 writes the data to the database's `DEFAULT` retention policy.
 
@@ -2734,7 +2734,7 @@ Specify alternative formats with the
 The [InfluxDB API](/enterprise_influxdb/v1/api/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
-[`epoch` query string parameter](/enterprise_influxdb/v1/api/#query-string-parameters).
+[`epoch` query string parameter](/enterprise_influxdb/v1/api/query/).
 
 ## Regular expressions
 

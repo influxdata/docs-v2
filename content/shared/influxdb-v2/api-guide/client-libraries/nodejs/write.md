@@ -99,4 +99,4 @@ node write.js
 
 ### Response codes
 _For information about **InfluxDB API response codes**, see
-[InfluxDB API Write documentation](/influxdb/cloud/api/#post-/api/v2/write)._
+[InfluxDB API Write documentation](/influxdb/cloud/api/write-data/)._
