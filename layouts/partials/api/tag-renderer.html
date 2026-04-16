@@ -53,24 +53,14 @@
   </section>
   {{ end }}
 
-  {{/* Sort operations: /api/v3 first, /api/v2 second, other paths last */}}
-  {{ $sortedOps := slice }}
-  {{ range $operations }}
-    {{ $sortKey := "2" }}
-    {{ if hasPrefix .path "/api/v3" }}
-      {{ $sortKey = "0" }}
-    {{ else if hasPrefix .path "/api/v2" }}
-      {{ $sortKey = "1" }}
-    {{ end }}
-    {{ $sortedOps = $sortedOps | append (dict "sortKey" (printf "%s %s" $sortKey .path) "op" .) }}
-  {{ end }}
-  {{ $sortedOps = sort $sortedOps "sortKey" }}
+  {{/* Sort native first, then by compat version (see sort-operations.html). */}}
+  {{ $sortedOps := partial "api/sort-operations.html" $operations }}
 
   {{/* Operations List */}}
   <section class="api-operations">
     {{ range $sortedOps }}
       {{ partial "api/operation.html" (dict
-        "operation" .op
+        "operation" .
         "spec" $spec
         "context" $page
       ) }}

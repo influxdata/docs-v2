@@ -64,8 +64,9 @@
       </article>
     </div>
 
-    {{/* ON THIS PAGE TOC - Generated from operations array */}}
-    {{ $operations := .Params.operations }}
+    {{/* ON THIS PAGE TOC - Generated from operations array.
+         Use the same sort as the page body so order matches. */}}
+    {{ $operations := partial "api/sort-operations.html" .Params.operations }}
     {{ $hasTag := isset .Params "tag" }}
     {{ $isConceptual := .Params.isConceptual | default false }}
     {{ if and $hasTag (not $isConceptual) }}

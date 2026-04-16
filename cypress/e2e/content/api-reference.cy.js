@@ -348,6 +348,50 @@ describe('API section pages', () => {
   });
 });
 
+// ── Operation ordering (native first, body matches TOC) ─────────────
+
+/**
+ * Assert that the body-rendered operations and the on-this-page TOC
+ * list the same operationIds in the same sequence.
+ */
+function assertBodyAndTocOrderMatch() {
+  cy.get('.api-operation[data-operation-id]').then(($ops) => {
+    const bodyOrder = [...$ops].map((el) =>
+      el.getAttribute('data-operation-id')
+    );
+    expect(bodyOrder.length, 'body has operations').to.be.greaterThan(0);
+
+    cy.get('.api-toc .api-toc-link--operation').then(($tocLinks) => {
+      const tocOrder = [...$tocLinks].map((el) =>
+        (el.getAttribute('href') || '').replace('#operation/', '')
+      );
+      expect(tocOrder, 'TOC operationIds match body order').to.deep.equal(
+        bodyOrder
+      );
+    });
+  });
+}
+
+describe('API operation ordering', () => {
+  it('Enterprise v1 Write: native /write before /api/v2/write', () => {
+    cy.visit('/enterprise_influxdb/v1/api/write/');
+    // Native unversioned path is first, v2-compat follows.
+    cy.get('.api-operation[data-operation-id]')
+      .then(($ops) => [...$ops].map((el) => el.getAttribute('data-operation-id')))
+      .should('deep.equal', ['PostWrite', 'PostApiV2Write']);
+    assertBodyAndTocOrderMatch();
+  });
+
+  it('Core Write: v3 native before v2-compat before v1-compat', () => {
+    cy.visit('/influxdb3/core/api/write-data/');
+    // /api/v3/write_lp (native), /api/v2/write (v2-compat), /write (v1-compat).
+    cy.get('.api-operation[data-operation-id]')
+      .then(($ops) => [...$ops].map((el) => el.getAttribute('data-operation-id')))
+      .should('deep.equal', ['PostWriteLP', 'PostV2Write', 'PostV1Write']);
+    assertBodyAndTocOrderMatch();
+  });
+});
+
 // ── All endpoints page ───────────────────────────────────────────────
 
 describe('All endpoints page', () => {
