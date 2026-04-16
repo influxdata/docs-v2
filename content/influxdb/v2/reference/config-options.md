@@ -2192,7 +2192,7 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ---
 
 ### storage-compact-throughput
-Rate limit (in bytes per second) that TSM compactions can write to disk.
+Rate (in bytes per second) that TSM compactions can write to disk.
 
 > [!Note]
 > The CLI flag for this option will be available in a future release.
