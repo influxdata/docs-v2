@@ -5,7 +5,11 @@
   margin: $api-spacing-lg 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: $api-border-radius;
-  overflow: hidden;
+  // Intentionally no `overflow: hidden`: the absolutely-positioned
+  // `.code-controls` dropdown (Copy / Ask AI / Fill window) is appended
+  // inside `.codeblock` by code-controls.js and would be clipped here.
+  // Rounded corners are achieved by matching radii on the inner header
+  // and `<pre>` instead.
 
   .dark-theme & {
     border-color: rgba(255, 255, 255, 0.1);
@@ -20,6 +24,8 @@
   padding: $api-spacing-sm $api-spacing-md;
   background: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: $api-border-radius;
+  border-top-right-radius: $api-border-radius;
 
   .dark-theme & {
     background: rgba(255, 255, 255, 0.03);
@@ -40,7 +46,10 @@ pre.api-code-block {
   color: $article-code;
   font-size: 0.8rem;
   line-height: 1.5;
-  border-radius: 0;
+  border-bottom-left-radius: $api-border-radius;
+  border-bottom-right-radius: $api-border-radius;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 
   code {
     background: none;
