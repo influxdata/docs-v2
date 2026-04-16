@@ -170,6 +170,7 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-cache-snapshot-memory-size](#storage-cache-snapshot-memory-size)
 - [storage-cache-snapshot-write-cold-duration](#storage-cache-snapshot-write-cold-duration)
 - [storage-compact-full-write-cold-duration](#storage-compact-full-write-cold-duration)
+- [storage-compact-throughput](#storage-compact-throughput)
 - [storage-compact-throughput-burst](#storage-compact-throughput-burst)
 - [storage-max-concurrent-compactions](#storage-max-concurrent-compactions)
 - [storage-max-index-log-file-size](#storage-max-index-log-file-size)
@@ -2183,6 +2184,51 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ```json
 {
   "storage-compact-full-write-cold-duration": "4h0m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### storage-compact-throughput
+Rate limit (in bytes per second) that TSM compactions can write to disk.
+
+> [!Note]
+> The CLI flag for this option will be available in a future release.
+
+**Default:** `50331648`
+
+| influxd flag | Environment variable | Configuration key |
+| :----------- | :------------------- | :---------------- |
+| _Not yet available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+
+###### Environment variable
+```sh
+export INFLUXD_STORAGE_COMPACT_THROUGHPUT=50331648
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+storage-compact-throughput: 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+storage-compact-throughput = 50331648
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "storage-compact-throughput": 50331648
 }
 ```
 {{% /code-tab-content %}}
