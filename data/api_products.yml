@@ -13,4 +13,4 @@ clustered: /influxdb3/clustered/api/
 v2: /influxdb/v2/api/
 cloud: /influxdb/cloud/api/
 v1: /influxdb/v1/api/
-enterprise-v1: /enterprise_influxdb/v1/api/
+enterprise_v1: /enterprise_influxdb/v1/api/
