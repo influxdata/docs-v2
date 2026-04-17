@@ -477,8 +477,8 @@ Replace the following:
 ### License files
 
 > [!Important]
-> License files are tied to the complete object store configuration, not just the bucket or container name.
-> Changing any component of your object store configuration invalidates your license.
+> License files are tied to the complete object store configuration and the cluster ID, not just the bucket or container name.
+> Changing any component of your object store configuration or restoring to a different cluster invalidates your license.
 
 License binding varies by cloud provider:
 
@@ -492,8 +492,7 @@ License binding varies by cloud provider:
 For disaster recovery planning:
 
 - **Pre-provision a DR license**: Request a license for your DR storage configuration before an incident occurs.
-- **Use provider-native replication**: Azure GRS/ZRS or S3 Cross-Region Replication preserves the storage account or endpoint identity, so your existing license remains valid.
-- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, or bucket, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
+- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
 {{% /show-in %}}
 
 ### Docker considerations
