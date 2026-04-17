@@ -305,6 +305,7 @@ paths:
   /api/v2/write:
     post:
       operationId: PostV2Write
+      x-compatibility-version: v2
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
@@ -1853,6 +1854,7 @@ paths:
   /query:
     get:
       operationId: GetV1ExecuteQuery
+      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -1998,6 +2000,7 @@ paths:
         - Compatibility endpoints
     post:
       operationId: PostExecuteV1Query
+      x-compatibility-version: v1
       responses:
         "200":
           description: |
@@ -2197,6 +2200,7 @@ paths:
   /write:
     post:
       operationId: PostV1Write
+      x-compatibility-version: v1
       responses:
         "204":
           description: Success ("No Content"). All data in the batch is written and queryable.
