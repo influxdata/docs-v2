@@ -685,7 +685,7 @@ paths:
                     type: string
                   description: |
                     A list of Python package names to install.
-                    Can include version specifiers (e.g., "scipy==1.9.0").
+                    Can include version specifiers (for example, "scipy==1.9.0").
                   example:
                     - influxdb3-python
                     - scipy
