@@ -3228,8 +3228,8 @@ Because copying files during periods of activity is a transient process, we high
 <div class="block important">
   
   
-  <p>License files are tied to the complete object store configuration, not just the bucket or container name.
-Changing any component of your object store configuration invalidates your license.</p>
+  <p>License files are tied to the complete object store configuration and the cluster ID, not just the bucket or container name.
+Changing any component of your object store configuration or restoring to a different cluster invalidates your license.</p>
 </div>
 <p>License binding varies by cloud provider:</p>
 <table>
@@ -3261,8 +3261,7 @@ Changing any component of your object store configuration invalidates your licen
 <p>For disaster recovery planning:</p>
 <ul>
 <li><strong>Pre-provision a DR license</strong>: Request a license for your DR storage configuration before an incident occurs.</li>
-<li><strong>Use provider-native replication</strong>: Azure GRS/ZRS or S3 Cross-Region Replication preserves the storage account or endpoint identity, so your existing license remains valid.</li>
-<li><strong>Contact support for migrations</strong>: If you need to restore to a different storage account, endpoint, or bucket, <a href="https://support.influxdata.com">contact InfluxData support</a> to obtain a new license.</li>
+<li><strong>Contact support for migrations</strong>: If you need to restore to a different storage account, endpoint, bucket, or cluster, <a href="https://support.influxdata.com">contact InfluxData support</a> to obtain a new license.</li>
 </ul>
 <h3 id="docker-considerations">Docker considerations</h3>
 <p>When running InfluxDB 3 Enterprise in containers:</p>
