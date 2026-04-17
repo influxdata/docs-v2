@@ -62,6 +62,7 @@ tmp
 .context/*
 !.context/README.md
 .task.md
+.claude/scheduled_tasks.lock
 
 # External repos
 .ext/*
