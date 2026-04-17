@@ -12,11 +12,11 @@ to write points as line protocol data to {{% product-name %}}.
 > [InfluxDB HTTP API `/api/v3/write_lp` endpoint](/influxdb3/version/write-data/http-api/v3-write-lp/)
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
-> When bringing existing v1 write workloads, use the {{% product-name %}}
-> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#post-/write).
+> When bringing existing v1 write workloads, use the
+> [v1-compatible `/write` endpoint](#influxdb-v1-compatibility).
 >
-> When bringing existing v2 write workloads, use the {{% product-name %}}
-> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#post-/api/v2/write).
+> When bringing existing v2 write workloads, use the
+> [v2-compatible `/api/v2/write` endpoint](#influxdb-v2-compatibility).
 >
 > **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
 > See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).
