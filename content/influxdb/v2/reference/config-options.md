@@ -2192,16 +2192,23 @@ storage-compact-full-write-cold-duration = "4h0m0s"
 ---
 
 ### storage-compact-throughput
-Rate (in bytes per second) that TSM compactions can write to disk.
+Sustained rate limit (in bytes per second) that TSM compactions can write to disk.
 
-> [!Note]
-> The CLI flag for this option will be available in a future release.
+InfluxDB also supports a separate burst limit (`storage-compact-throughput-burst`).
+In InfluxDB OSS v2, the sustained and burst compaction throughput values are currently the same.
+To tune compaction write throughput, set `storage-compact-throughput-burst` and verify the effective values in the `Compaction settings` log entry at startup.
+
+Example log entry:
+
+```text
+Compaction settings {"max_concurrent_compactions": 7, "throughput_bytes_per_second": 50331648, "throughput_bytes_per_second_burst": 50331648}
+```
 
 **Default:** `50331648`
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |
-| _Not yet available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
+| _Not available_ | `INFLUXD_STORAGE_COMPACT_THROUGHPUT` | `storage-compact-throughput` |
 
 ###### Environment variable
 ```sh
@@ -2237,7 +2244,25 @@ storage-compact-throughput = 50331648
 ---
 
 ### storage-compact-throughput-burst
-Rate limit (in bytes per second) that TSM compactions can write to disk.
+Maximum rate limit (in bytes per second) that TSM compactions can write to disk.
+
+In InfluxDB OSS v2, this setting also effectively controls the sustained compaction throughput.
+
+#### Scale compaction throughput
+
+If you scale to larger machines and faster storage, increase this value to let compactions keep up with ingest.
+If you set this too high, compactions can compete with writes and queries for disk I/O and hurt performance.
+
+To identify a compaction bottleneck, monitor the following:
+
+- `storage_compactions_queued` and `storage_compactions_active` from the `/metrics` endpoint
+- Disk I/O utilization and throughput from your OS or infrastructure metrics
+
+Example values:
+
+- `50331648` (default, about 48 MiB/s)
+- `100663296` (about 96 MiB/s)
+- `201326592` (about 192 MiB/s)
 
 **Default:** `50331648`
 
