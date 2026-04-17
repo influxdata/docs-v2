@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "Bash(link-checker:*)",
       "Bash(pkill:*)",
       "Bash(pgrep:*)",
       "Bash(ps:*)",
