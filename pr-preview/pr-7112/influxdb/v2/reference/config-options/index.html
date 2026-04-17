@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-16 09:22:59 -0500 -0500">
+<meta name="last-modified" content="2026-04-17 12:59:56 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -6744,14 +6744,12 @@ shard if it hasn&rsquo;t received writes or deletes.</p>
 
 <hr>
 <h3 id="storage-compact-throughput">storage-compact-throughput</h3>
-<p>Rate (in bytes per second) that TSM compactions can write to disk.</p>
-
-<div class="block note">
-  
-  
-  <p>The CLI flag for this option will be available in a future release.</p>
-</div>
-<p><strong>Default:</strong> <code>50331648</code></p>
+<p>Sustained rate limit (in bytes per second) that TSM compactions can write to disk.</p>
+<p>InfluxDB also supports a separate burst limit (<code>storage-compact-throughput-burst</code>).
+In InfluxDB OSS v2, the sustained and burst compaction throughput values are currently the same.
+To tune compaction write throughput, set <code>storage-compact-throughput-burst</code> and verify the effective values in the <code>Compaction settings</code> log entry at startup.</p>
+<p>Example log entry:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Compaction settings {&#34;max_concurrent_compactions&#34;: 7, &#34;throughput_bytes_per_second&#34;: 50331648, &#34;throughput_bytes_per_second_burst&#34;: 50331648}</span></span></code></pre></div><p><strong>Default:</strong> <code>50331648</code></p>
 <table>
   <thead>
       <tr>
@@ -6762,7 +6760,7 @@ shard if it hasn&rsquo;t received writes or deletes.</p>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><em>Not yet available</em></td>
+          <td style="text-align: left"><em>Not available</em></td>
           <td style="text-align: left"><code>INFLUXD_STORAGE_COMPACT_THROUGHPUT</code></td>
           <td style="text-align: left"><code>storage-compact-throughput</code></td>
       </tr>
@@ -6797,7 +6795,22 @@ shard if it hasn&rsquo;t received writes or deletes.</p>
 
 <hr>
 <h3 id="storage-compact-throughput-burst">storage-compact-throughput-burst</h3>
-<p>Rate limit (in bytes per second) that TSM compactions can write to disk.</p>
+<p>Maximum rate limit (in bytes per second) that TSM compactions can write to disk.</p>
+<p>In InfluxDB OSS v2, this setting also effectively controls the sustained compaction throughput.</p>
+<h4 id="scale-compaction-throughput">Scale compaction throughput</h4>
+<p>If you scale to larger machines and faster storage, increase this value to let compactions keep up with ingest.
+If you set this too high, compactions can compete with writes and queries for disk I/O and hurt performance.</p>
+<p>To identify a compaction bottleneck, monitor the following:</p>
+<ul>
+<li><code>storage_compactions_queued</code> and <code>storage_compactions_active</code> from the <code>/metrics</code> endpoint</li>
+<li>Disk I/O utilization and throughput from your OS or infrastructure metrics</li>
+</ul>
+<p>Example values:</p>
+<ul>
+<li><code>50331648</code> (default, about 48 MiB/s)</li>
+<li><code>100663296</code> (about 96 MiB/s)</li>
+<li><code>201326592</code> (about 192 MiB/s)</li>
+</ul>
 <p><strong>Default:</strong> <code>50331648</code></p>
 <table>
   <thead>
