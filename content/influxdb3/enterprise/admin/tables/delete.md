@@ -22,7 +22,7 @@ list_code_example: |
   ```
 related:
   - /influxdb3/enterprise/reference/cli/influxdb3/delete/table/
-  - /influxdb3/enterprise/api/v3/#delete-/api/v3/configure/table, Delete table API
+  - /influxdb3/enterprise/api/table/#operation/DeleteConfigureTable, Delete table API
 source: /shared/influxdb3-admin/tables/delete.md
 ---
 

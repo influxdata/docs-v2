@@ -34,7 +34,7 @@ to write points as line protocol data to {{% product-name %}}.
 The `/api/v2/write` InfluxDB v2 compatibility endpoint provides backwards
 compatibility with clients that can write data to InfluxDB OSS v2.x and Cloud 2 (TSM).
 
-{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#post-/write" >}}
+{{<api-endpoint endpoint="/api/v2/write?bucket=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/write-data/" >}}
 
 ### Authenticate v2 API requests
 
@@ -108,7 +108,7 @@ Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 The `/write` InfluxDB v1 compatibility endpoint provides backwards compatibility with clients that can write data to InfluxDB v1.x.
 
-{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/v3/#post-/api/v2/write" >}}
+{{<api-endpoint endpoint="/write?db=mydb&precision=ns" method="post" api-ref="/influxdb3/version/api/write-data/" >}}
 
 ### Authenticate v1 API requests
 
