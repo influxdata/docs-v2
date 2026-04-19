@@ -13,7 +13,7 @@ Upgrade your {{% product-name %}} version.
 ## Before you upgrade
 
 {{% show-in "core" %}}
-Before upgrading your {{% product-name %}} instance, review the [release notes](/influxdb3/core/release-notes/) for compatibility requirements and then plan your upgrade strategy.
+Before upgrading your {{% product-name %}} instance, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
 {{% /show-in %}}
 {{% show-in "enterprise" %}}
 Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/enterprise/release-notes/) for compatibility requirements and then plan your upgrade strategy.
