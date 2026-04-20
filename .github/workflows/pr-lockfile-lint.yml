@@ -1,0 +1,40 @@
+name: Lockfile Lint
+
+# Prevents lockfile injection attacks by validating that every `resolved`
+# URL in yarn.lock uses HTTPS and points to a trusted registry host
+# (registry.yarnpkg.com). See:
+# https://github.com/lirantal/lockfile-lint
+
+on:
+  pull_request:
+    paths:
+      - 'yarn.lock'
+
+permissions:
+  contents: read
+
+jobs:
+  lockfile-lint:
+    name: Validate yarn.lock
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            yarn.lock
+          sparse-checkout-cone-mode: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f  # v6.3.0
+        with:
+          node-version: '22'
+
+      - name: Run lockfile-lint
+        run: |
+          npx --yes lockfile-lint@5.0.0 \
+            --path yarn.lock \
+            --type yarn \
+            --allowed-hosts yarn \
+            --validate-https
