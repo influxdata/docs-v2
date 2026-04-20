@@ -1695,7 +1695,11 @@ function processProduct(productKey: string, config: ProductConfig): void {
             path.join('api-docs', contentRelPath, 'content', 'page.yml'),
             path.join('api-docs', contentRelPath, 'page.yml'),
           ];
-          let pageOverlay: { description?: string; body_extra?: string; aliases?: string[] } = {};
+          let pageOverlay: {
+            description?: string;
+            body_extra?: string;
+            aliases?: string[];
+          } = {};
           for (const p of pageOverlayPaths) {
             if (fs.existsSync(p)) {
               pageOverlay = yaml.load(
