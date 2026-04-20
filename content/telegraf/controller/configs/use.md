@@ -84,12 +84,10 @@ values—for example:
 
 ##### Set the parameter value in the configuration URL
 
-{{% code-callout "agent_id=my-agent-123" "magenta" %}}
-```bash
+```bash { callout="agent_id=my-agent-123" callout-color="magenta" }
 telegraf \
   --config "http://localhost:8888/api/configs/xxxxxx/toml?agent_id=my-agent-123"
 ```
-{{% /code-callout %}}
 
 > [!Important]
 > If you request a configuration without providing values for required

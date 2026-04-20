@@ -359,10 +359,7 @@ other OAuth2 providers should work as well:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-callout "keycloak" "green" %}}
-{{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
-
-```yaml
+```yaml { placeholders="KEYCLOAK_(HOST|REALM|USER_ID)" callout="keycloak" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -382,9 +379,6 @@ spec:
             email: mcfly@influxdata.com
 ```
 
-{{% /code-placeholders %}}
-{{% /code-callout %}}
-
 ---
 
 Replace the following:
@@ -401,10 +395,7 @@ Replace the following:
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "auth0" "green" %}}
-{{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
-
-```yaml
+```yaml { placeholders="AUTH0_(HOST|USER_ID)" callout="auth0" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -424,9 +415,6 @@ spec:
             email: mcfly@influxdata.com
 ```
 
-{{% /code-placeholders %}}
-{{% /code-callout %}}
-
 ---
 
 Replace the following:
@@ -441,10 +429,7 @@ Replace the following:
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "azure" "green" %}}
-{{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
-
-```yaml
+```yaml { placeholders="AZURE_(USER|TENANT)_ID" allout="azure" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -463,9 +448,6 @@ spec:
             lastName: McFly
             email: mcfly@influxdata.com
 ```
-
-{{% /code-placeholders %}}
-{{% /code-callout %}}
 
 ---
 
@@ -510,10 +492,7 @@ other OAuth2 providers should work as well:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-callout "keycloak" "green" %}}
-{{% code-placeholders "KEYCLOAK_(HOST|REALM|USER_ID)" %}}
-
-```yaml
+```yaml { placeholders="KEYCLOAK_(HOST|REALM|USER_ID)" callout="keycloak" callout-color="green" }
 admin:
   # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
   # Note for Azure Active Directory it must be exactly "azure"
@@ -531,9 +510,6 @@ admin:
       email: mcfly@influxdata.com
 ```
 
-{{% /code-placeholders %}}
-{{% /code-callout %}}
-
 ---
 
 Replace the following:
@@ -550,10 +526,7 @@ Replace the following:
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "auth0" "green" %}}
-{{% code-placeholders "AUTH0_(HOST|USER_ID)" %}}
-
-```yaml
+```yaml { placeholders="AUTH0_(HOST|USER_ID)" callout="auth0" callout-color="green" }
 admin:
   # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
   # Note for Azure Active Directory it must be exactly "azure"
@@ -571,9 +544,6 @@ admin:
       email: mcfly@influxdata.com
 ```
 
-{{% /code-placeholders %}}
-{{% /code-callout %}}
-
 ---
 
 Replace the following:
@@ -588,10 +558,7 @@ Replace the following:
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "azure" "green" %}}
-{{% code-placeholders "AZURE_(USER|TENANT)_ID" %}}
-
-```yaml
+```yaml { placeholders="AZURE_(USER|TENANT)_ID" callout="azure" callout-color="green" }
 admin:
   # The identity provider to be used e.g. "keycloak", "auth0", "azure", etc
   # Note for Azure Active Directory it must be exactly "azure"
@@ -608,9 +575,6 @@ admin:
       lastName: McFly
       email: mcfly@influxdata.com
 ```
-
-{{% /code-placeholders %}}
-{{% /code-callout %}}
 
 ---
 

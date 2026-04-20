@@ -174,7 +174,7 @@ To receive outage alerts and updates, subscribe to our status page.
 #### Where can I see the current status of my InfluxDB instance?
 InfluxDB {{< current-version >}} provides different ways to monitor its status:
 
-- The [`/health` API endpoint](/influxdb/version/api/#tag/Health) returns a JSON
+- The [`/health` API endpoint](/influxdb/version/api/system-information-endpoints/) returns a JSON
   body with a summary of the current status of your InfluxDB instance.
 
 {{% expand-wrapper %}}
@@ -192,7 +192,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 {{% /expand %}}
 {{% /expand-wrapper %}}
 
-- The [`/metrics` API endpoint](/influxdb/version/api/#tag/Metrics) provides internal
+- The [`/metrics` API endpoint](/influxdb/version/api/system-information-endpoints/) provides internal
   InfluxDB metrics in Prometheus exposition format. Use [Telegraf](/telegraf/v1/),
   [InfluxDB scrapers](/influxdb/version/write-data/no-code/scrape-data/), or the Flux
   [`prometheus.scrape()` function](/flux/v0/stdlib/experimental/prometheus/scrape/)

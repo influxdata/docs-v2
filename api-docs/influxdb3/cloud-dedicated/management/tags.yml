@@ -1,0 +1,103 @@
+tags:
+  Database tokens:
+    description: |
+      Create and manage database tokens that authorize read and write access to InfluxDB 3 Cloud Dedicated databases.
+    externalDocs:
+      description: Manage database tokens
+      url: /influxdb3/cloud-dedicated/admin/tokens/database/
+    x-related:
+      - title: Manage database tokens
+        href: /influxdb3/cloud-dedicated/admin/tokens/database/
+      - title: Delete a database token
+        href: /influxdb3/cloud-dedicated/admin/tokens/database/delete/
+      - title: Authenticate Telegraf using tokens in your OS secret store
+        href: https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os
+  Databases:
+    description: |
+      Create and manage databases in an InfluxDB 3 Cloud Dedicated cluster, including setting retention periods and custom partition templates.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/cloud-dedicated/admin/databases/
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/cloud-dedicated/admin/databases/
+      - title: Custom partitions
+        href: /influxdb3/cloud-dedicated/admin/custom-partitions/
+      - title: Partition templates
+        href: /influxdb3/cloud-dedicated/admin/custom-partitions/partition-templates/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Use the InfluxDB 3 Cloud Dedicated Management API to create databases, issue
+      database tokens, and configure your cluster programmatically.
+
+      **Prerequisites**: A management token. Generate one with `influxctl`:
+
+      ```bash
+      influxctl management create --format=json
+      ```
+
+      Set environment variables for the examples below:
+
+      ```bash
+      export ACCOUNT_ID="ACCOUNT_ID"
+      export CLUSTER_ID="CLUSTER_ID"
+      export MANAGEMENT_TOKEN="MANAGEMENT_TOKEN"
+      ```
+
+      1. List databases in your cluster.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/accounts/${ACCOUNT_ID}/clusters/${CLUSTER_ID}/databases" \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}"
+         ```
+
+      2. Create a database.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/accounts/${ACCOUNT_ID}/clusters/${CLUSTER_ID}/databases" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{"name": "sensors"}'
+         ```
+
+      3. Create a database token with read and write access.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/accounts/${ACCOUNT_ID}/clusters/${CLUSTER_ID}/tokens" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{
+             "description": "Read/write token for sensors",
+             "permissions": [
+               {"action": "read", "resource": "sensors"},
+               {"action": "write", "resource": "sensors"}
+             ]
+           }'
+         ```
+
+      Use the database token returned in step 3 to authenticate writes and queries
+      to the [Data API](#operation/PostWrite).
+    externalDocs:
+      description: Get started with Cloud Dedicated
+      url: /influxdb3/cloud-dedicated/get-started/
+    x-related:
+      - title: Get started with Cloud Dedicated
+        href: /influxdb3/cloud-dedicated/get-started/
+      - title: Set up your cluster
+        href: /influxdb3/cloud-dedicated/get-started/setup/
+  Tables:
+    description: |
+      Manage tables in an InfluxDB 3 Cloud Dedicated database, including creating tables with custom column schemas.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/cloud-dedicated/admin/tables/
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/cloud-dedicated/admin/tables/
+      - title: Create a table with custom partitioning
+        href: /influxdb3/cloud-dedicated/admin/tables/#create-a-table-with-custom-partitioning
+      - title: Custom partitions
+        href: /influxdb3/cloud-dedicated/admin/custom-partitions/

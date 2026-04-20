@@ -79,7 +79,7 @@ When you enable authentication, InfluxDB only executes HTTP requests that are se
 
 #### Authenticate with the InfluxDB API
 
-There are two options for authenticating with the [InfluxDB API](/influxdb/v1/tools/api/).
+There are two options for authenticating with the [InfluxDB API](/influxdb/v1/api/).
 
 If you authenticate with both Basic Authentication **and** the URL query parameters, the user credentials specified in the query parameters take precedence.
 The queries in the following examples assume that the user is an [admin user](#admin-users).
@@ -156,7 +156,7 @@ password:
 
 #### Authenticate using JWT tokens
 For a more secure alternative to using passwords, include JWT tokens with requests to the InfluxDB API.
-This is currently only possible through the [InfluxDB HTTP API](/influxdb/v1/tools/api/).
+This is currently only possible through the [InfluxDB HTTP API](/influxdb/v1/api/).
 
 1. [Add a shared secret in your InfluxDB configuration file](#add-a-shared-secret-in-your-influxdb-configuration-file)
 2. [Generate your JWT token](#generate-your-jwt-token)

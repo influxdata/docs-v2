@@ -1,0 +1,71 @@
+{{/*
+  Tag Page Renderer
+
+  Renders all operations for a tag page using Hugo templates.
+  Parses the OpenAPI spec file and renders each operation natively.
+
+  Required page params:
+    - staticFilePath: Path to the OpenAPI specification file (YAML)
+    - operations: Array of operation metadata from frontmatter
+
+  Usage:
+    {{ partial "api/tag-renderer.html" . }}
+*/}}
+
+{{ $page := . }}
+{{ $specPath := .Params.staticFilePath }}
+{{ $operations := .Params.operations | default slice }}
+
+{{/* Load and parse the OpenAPI spec from static/ directory */}}
+{{ $spec := dict }}
+{{ if $specPath }}
+  {{/* Build path to static file (staticFilePath has leading slash, e.g. /openapi/...) */}}
+  {{ $staticFile := printf "static%s" $specPath }}
+
+  {{/* Use os.ReadFile (Hugo 0.121+) to read from static directory */}}
+  {{ with os.ReadFile $staticFile }}
+    {{ $spec = . | transform.Unmarshal }}
+  {{ else }}
+    {{/* Fallback: try unmounted resources (for assets mount configuration) */}}
+    {{ $cleanPath := strings.TrimPrefix "/" $specPath }}
+    {{ with resources.Get $cleanPath }}
+      {{ $spec = .Content | transform.Unmarshal }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Tag description from spec */}}
+{{ $tagDescription := "" }}
+{{ $tagName := .Params.tag | default "" }}
+{{ range $spec.tags }}
+  {{ if eq .name $tagName }}
+    {{ $tagDescription = .description | default "" }}
+  {{ end }}
+{{ end }}
+
+<div class="api-hugo-native">
+  {{/* Tag Overview/Description */}}
+  {{ if $tagDescription }}
+  <section class="api-tag-overview">
+    <div class="api-tag-description">
+      {{ $tagDescription | markdownify }}
+    </div>
+  </section>
+  {{ end }}
+
+  {{/* Sort native first, then by compat version (see sort-operations.html). */}}
+  {{ $sortedOps := partial "api/sort-operations.html" $operations }}
+
+  {{/* Operations List */}}
+  <section class="api-operations">
+    {{ range $sortedOps }}
+      {{ partial "api/operation.html" (dict
+        "operation" .
+        "spec" $spec
+        "context" $page
+      ) }}
+    {{ end }}
+  </section>
+
+  {{/* Related links rendered via frontmatter + article/related.html */}}
+</div>

@@ -1,0 +1,559 @@
+// API Operations Styles
+// Renders OpenAPI operations, parameters, schemas, and responses
+
+// Variables
+$api-border-radius: 6px;
+$api-spacing-sm: 0.5rem;
+$api-spacing-md: 1rem;
+$api-spacing-lg: 1.5rem;
+$api-spacing-xl: 2rem;
+
+// Method colors
+$method-get: #00A3FF;
+$method-post: #34BB55;
+$method-put: #FFB94A;
+$method-delete: #D63031;
+$method-patch: #9b2aff;
+$method-head: #00897B;
+
+// Status code colors — intentionally distinct from method colors
+$status-success: #34BB55;
+$status-redirect: #FFB94A;
+$status-client-error: #E17055;
+$status-server-error: #9b2aff;
+
+// ============================================
+// Operation Block
+// ============================================
+
+.api-hugo-native {
+  width: 100%;
+}
+
+.api-operation {
+  margin-bottom: $api-spacing-xl;
+  padding-top: $api-spacing-xl;
+  border-top: 2px solid $nav-border;
+
+  // Keep inline code proportional to surrounding text
+  code {
+    font-size: inherit;
+  }
+
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  &:target {
+    animation: highlight-operation 1.5s ease-out;
+  }
+}
+
+@keyframes highlight-operation {
+  0% {
+    outline: 2px solid rgba($method-get, 0.4);
+    outline-offset: 8px;
+  }
+  100% {
+    outline-color: transparent;
+  }
+}
+
+// Operation Header
+.api-operation-header {
+  margin-bottom: $api-spacing-md;
+}
+
+.api-operation-endpoint {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: $api-spacing-md;
+  padding-bottom: $api-spacing-md;
+  border-bottom: 1px solid $nav-border;
+}
+
+.api-method {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: #fff;
+
+  &--get { background-color: $method-get; }
+  &--post { background-color: $method-post; }
+  &--put { background-color: $method-put; }
+  &--delete { background-color: $method-delete; }
+  &--patch { background-color: $method-patch; }
+  &--head { background-color: $method-head; }
+}
+
+// Compatibility version badge (v1/v2) — inline with operation endpoint
+.api-operation-endpoint .api-compat-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+
+  &--v1 { background: #8b5cf6; color: white; }
+  &--v2 { background: #06b6d4; color: white; }
+  &--v3 { background: #10b981; color: white; }
+}
+
+.api-path {
+  font-family: $code;
+  font-size: 0.95rem;
+  color: $article-text;
+  background: $article-code-bg;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.api-operation-summary {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $article-heading;
+}
+
+.api-operation-description {
+  margin: $api-spacing-md 0;
+  color: $article-text;
+  line-height: 1.6;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// Section Titles
+// ============================================
+
+.api-section-title {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin: $api-spacing-lg 0 $api-spacing-md;
+  padding-bottom: $api-spacing-sm;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $article-heading;
+  border-bottom: 1px solid $nav-border;
+}
+
+// ============================================
+// Parameters Section
+// ============================================
+
+.api-parameters {
+  margin: $api-spacing-lg 0;
+}
+
+.api-param-group {
+  margin-bottom: $api-spacing-md;
+}
+
+.api-param-group-title {
+  margin: $api-spacing-sm 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba($article-text, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.api-param-list {
+  // Flat list — no outer border, rows separated by dividers
+}
+
+.api-param-row {
+  padding: $api-spacing-md 0;
+  border-bottom: 1px solid $nav-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.api-param-name-line {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: 0.25rem;
+}
+
+.api-param-name {
+  font-family: $code;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $article-heading;
+}
+
+.api-param-type {
+  font-size: 0.8rem;
+  color: rgba($article-text, 0.6);
+}
+
+.api-param-description {
+  margin-top: 0.25rem;
+  color: $article-text;
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.api-param-enum,
+.api-param-default {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.api-param-enum-label,
+.api-param-default-label {
+  color: rgba($article-text, 0.6);
+}
+
+.api-param-enum-value,
+.api-param-default-value {
+  font-family: $code;
+  font-size: 0.8rem;
+  background: $article-code-bg;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+}
+
+// ============================================
+// Badges
+// ============================================
+
+.api-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 3px;
+
+  &--required {
+    background: rgba($method-delete, 0.1);
+    color: $method-delete;
+  }
+}
+
+// ============================================
+// Request Body Section
+// ============================================
+
+.api-request-body {
+  margin: $api-spacing-lg 0;
+}
+
+.api-request-body-description {
+  margin: $api-spacing-sm 0;
+  color: $article-text;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.api-content-type {
+  margin: $api-spacing-sm 0;
+  font-size: 0.85rem;
+
+  code {
+    font-family: $code;
+    background: $article-code-bg;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+  }
+}
+
+.api-content-type-label {
+  color: rgba($article-text, 0.6);
+}
+
+// ============================================
+// Schema Section
+// ============================================
+
+.api-schema {
+  margin: $api-spacing-md 0;
+
+  &--nested {
+    margin-left: $api-spacing-lg;
+    padding-left: $api-spacing-md;
+    border-left: 2px solid $nav-border;
+  }
+}
+
+.api-schema-properties {
+  // Flat list — no outer border, rows separated by dividers
+}
+
+.api-schema-property {
+  padding: $api-spacing-md 0;
+  border-bottom: 1px solid $nav-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &--required {
+    .api-schema-property-name {
+      &::after {
+        content: '*';
+        color: $method-delete;
+        margin-left: 0.25rem;
+      }
+    }
+  }
+}
+
+.api-schema-property-header {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+  margin-bottom: 0.25rem;
+}
+
+.api-schema-property-name {
+  font-family: $code;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $article-heading;
+}
+
+.api-schema-property-type {
+  font-size: 0.8rem;
+  color: rgba($article-text, 0.6);
+}
+
+.api-schema-property-description {
+  margin-top: 0.25rem;
+  color: $article-text;
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.api-schema-property-enum,
+.api-schema-property-default,
+.api-schema-property-example {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.api-enum-label,
+.api-default-label,
+.api-example-label {
+  color: rgba($article-text, 0.6);
+}
+
+.api-enum-value,
+.api-default-value,
+.api-example-value {
+  font-family: $code;
+  font-size: 0.8rem;
+  background: $article-code-bg;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+}
+
+// Schema Example Block
+.api-schema-example {
+  margin-top: $api-spacing-md;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: $api-border-radius;
+  overflow: hidden;
+
+  .dark-theme & {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.api-schema-example-title {
+  display: block;
+  margin: 0;
+  padding: $api-spacing-sm $api-spacing-md;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .dark-theme & {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+pre.api-schema-example-code {
+  margin: 0;
+  padding: $api-spacing-sm $api-spacing-md;
+  background: $article-code-bg;
+  overflow-x: auto;
+
+  code {
+    font-family: $code;
+    font-size: 0.85rem;
+  }
+}
+
+// ============================================
+// Responses Section
+// ============================================
+
+.api-responses {
+  margin: $api-spacing-lg 0;
+}
+
+.api-response-list {
+  display: flex;
+  flex-direction: column;
+  gap: $api-spacing-sm;
+}
+
+.api-response {
+  padding: $api-spacing-sm 0;
+}
+
+.api-response-header {
+  display: flex;
+  align-items: center;
+  gap: $api-spacing-sm;
+}
+
+.api-response-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 4px;
+  color: #fff;
+
+  &--success { background-color: $status-success; }
+  &--redirect { background-color: $status-redirect; }
+  &--client-error { background-color: $status-client-error; }
+  &--server-error { background-color: $status-server-error; }
+  &--info { background-color: rgba($article-text, 0.6); }
+}
+
+.api-response-description {
+  color: $article-text;
+}
+
+.api-response-body {
+  margin-top: $api-spacing-sm;
+  margin-left: $api-spacing-lg;
+  padding: $api-spacing-sm 0 $api-spacing-sm $api-spacing-md;
+  border-left: 2px solid rgba($article-text, 0.1);
+}
+
+// ============================================
+// Tag Overview
+// ============================================
+
+.api-tag-overview {
+  margin-bottom: $api-spacing-xl;
+  padding-bottom: $api-spacing-lg;
+  border-bottom: 1px solid $nav-border;
+}
+
+.api-tag-description {
+  color: $article-text;
+  line-height: 1.7;
+
+  h4, h5 {
+    margin-top: $api-spacing-lg;
+    margin-bottom: $api-spacing-sm;
+    color: $article-heading;
+  }
+
+  ul, ol {
+    padding-left: $api-spacing-lg;
+  }
+
+  a {
+    color: $article-link;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================
+// Related Guides Section
+// ============================================
+
+.api-related-guides {
+  margin-top: $api-spacing-xl;
+  padding-top: $api-spacing-lg;
+  border-top: 1px solid $nav-border;
+}
+
+.api-related-title {
+  margin: 0 0 $api-spacing-md;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $article-heading;
+}
+
+.api-related-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin-bottom: $api-spacing-sm;
+  }
+
+  a {
+    color: $article-link;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============================================
+// Responsive Adjustments
+// ============================================
+
+@media (max-width: 768px) {
+  .api-operation-endpoint {
+    flex-wrap: wrap;
+  }
+
+  .api-path {
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  .api-param-name-line,
+  .api-schema-property-header {
+    flex-wrap: wrap;
+  }
+}

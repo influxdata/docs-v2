@@ -112,9 +112,7 @@ When using the InfluxDB API `/api/v2/write` endpoint to write data,
 compress the data with `gzip` and set the `Content-Encoding` header to `gzip`--for example:
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "(DATABASE)_(TOKEN|NAME)" %}}
-{{% code-callout "Content-Encoding: gzip" "orange" %}}
-```bash
+```bash { placeholders="(DATABASE)_(TOKEN|NAME)" callout="Content-Encoding: gzip" callout-color="orange" }
 echo "mem,host=host1 used_percent=23.43234543 1641024000
 mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
@@ -126,9 +124,6 @@ curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&buck
   --header "Content-Encoding: gzip" \
   --data-binary @system.gzip
 ```
-
-{{% /code-callout %}}
-{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 Replace the following:

@@ -223,7 +223,7 @@ node cypress/support/run-e2e-specs.js content/influxdb3/core/admin/databases/_in
 # Test API reference pages (requires yarn build:api-docs first)
 node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/api-reference.cy.js" \
-  content/influxdb3/core/reference/api/_index.md
+  content/influxdb3/core/api/_index.md
 ```
 
 **Important prerequisites:**
