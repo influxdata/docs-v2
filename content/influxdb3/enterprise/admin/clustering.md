@@ -74,6 +74,8 @@ Available modes:
 > [!Warning]
 > #### Don't use all mode in a multi-node cluster
 >
+> #### Don't use all mode in a multi-node cluster
+>
 > Use `all` mode for **single-node** Enterprise deployments only.
 > Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
 > In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
