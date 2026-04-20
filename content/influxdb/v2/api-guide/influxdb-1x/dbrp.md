@@ -11,7 +11,7 @@ weight: 302
 related:
   - /influxdb/v2/reference/api/influxdb-1x/query
   - /influxdb/v2/reference/api/influxdb-1x/write
-  - /influxdb/v2/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
+  - /influxdb/v2/api/dbrps/ InfluxDB v2 API /dbrps endpoint
   - /influxdb/v2/query-data/influxql/
 aliases:
   - /influxdb/v2/reference/api/influxdb-1x/dbrp/
@@ -116,7 +116,7 @@ the DBRP mapping service checks for the specified database and retention policy
 - If no mapped bucket exists, InfluxDB returns an error.
   See how to [Create DBRP mappings](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings).
 
-_For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2/api/#tag/DBRPs)._
+_For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2/api/dbrps/)._
 
 {{% /show-in %}}
 

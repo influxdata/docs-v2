@@ -38,7 +38,7 @@ curl -i -XPOST 'http://localhost:8086/write?db=mydb'
 --data-binary 'cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000'
 ```
 
-- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/influxdb/v1/tools/api/#api-v2-write-http-endpoint):
+- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send `POST` requests to the [`/api/v2/write` endpoint](/influxdb/v1/api/write/):
 
 ```bash
 curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
@@ -48,7 +48,7 @@ curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
 
 When writing points, you must specify an existing database in the `db` query parameter.
 Points will be written to `db`'s default retention policy if you do not supply a retention policy via the `rp` query parameter.
-See the [InfluxDB API Reference](/influxdb/v1/tools/api/#write-http-endpoint) documentation for a complete list of the available query parameters.
+See the [InfluxDB API Reference](/influxdb/v1/api/write/) documentation for a complete list of the available query parameters.
 
 The body of the POST or [InfluxDB line protocol](/influxdb/v1/concepts/glossary/#influxdb-line-protocol) contains the time series data that you want to store. Data includes:
 
@@ -189,4 +189,4 @@ Content-Length: 45
 ### Next steps
 
 Now that you know how to write data with the InfluxDB API, discover how to query them with the [Querying data](/influxdb/v1/guides/querying_data/) guide!
-For more information about writing data with the InfluxDB API, please see the [InfluxDB API reference](/influxdb/v1/tools/api/#write-http-endpoint).
+For more information about writing data with the InfluxDB API, please see the [InfluxDB API reference](/influxdb/v1/api/write/).

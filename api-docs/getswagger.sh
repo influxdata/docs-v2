@@ -1,68 +1,71 @@
 #!/bin/bash -e
 
-# Use this script to retrieve the following InfluxData API specifications:
-# - the latest, fully resolved openapi (OAS, OpenAPI Specification) contract files from the influxdata/openapi repo
+# Fetch and post-process InfluxData API specifications.
 #
-# Specify a product to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, v2, v1-compatibility, all).
-# Optionally specify:
-# - an OSS version as the second argument or using the -o flag.
-#   The version specifies where to write the updated openapi.
-#   The default version is the latest OSS version directory in the api-docs directory.
-# - a base URL using the -b flag.
-#   The baseURL specifies where to retrieve the openapi files from.
-#   The default baseUrl (used for InfluxDB Cloud) is the master branch of influxdata/openapi.
-#   The default baseUrl for OSS is the docs-release/influxdb-oss branch of influxdata/openapi.
-#   For local development, pass your openapi directory using the file:/// protocol.
-#   To use the existing ref.yml and prevent fetching any openapi files, use the -B flag.
+# Retrieves fully resolved OpenAPI (OAS) contract files from influxdata/openapi
+# (or a custom base URL), then runs Redocly bundle with custom decorators.
+#
 # Syntax:
 #   sh ./getswagger.sh <product>
 #   sh ./getswagger.sh <product> -b <baseUrl>
-#   sh ./getswagger.sh -c <product> -o <version> -b <baseUrl>
-#   sh ./getswagger.sh -c <product> -o <version> -B
+#   sh ./getswagger.sh <product> -o <version> -b <baseUrl>
+#   sh ./getswagger.sh <product> -o <version> -B
 #
 # Examples:
-#   sh ./getswagger.sh cloud-serverless
-#   sh ./getswagger.sh clustered -B
-#   sh ./getswagger.sh cloud
-#   sh ./getswagger.sh -c v2 -o v2.0 -b file:///Users/johnsmith/github/openapi
-
-versionDirs=($(ls -d */))
-latestOSS=${versionDirs[${#versionDirs[@]}-1]}
+#   sh ./getswagger.sh cloud-serverless-v2
+#   sh ./getswagger.sh clustered-v2 -B
+#   sh ./getswagger.sh cloud-v2
+#   sh ./getswagger.sh v2 -o v2.0 -b file:///Users/johnsmith/github/openapi
 
 # Use openapi master branch as the default base URL.
 baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
 
 # Use openapi docs-release/influxdb-oss branch for the OSS base URL.
 baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
-ossVersion=${latestOSS%/}
+ossVersion=""
 verbose=""
 product=""
 
 function showHelp {
-  echo "Usage: ./getswagger.sh <product>"
-  echo "    With optional arguments:"
-  echo "       ./getswagger.sh <product> -b <baseUrl> -V"
-  echo "       ./getswagger.sh cloud"
-  echo "       ./getswagger.sh cloud-dedicated"
-  echo "       ./getswagger.sh cloud-serverless"
-  echo "       ./getswagger.sh oss -o <ossVersion> -V"
-  echo "       ./getswagger.sh all -o <ossVersion>"
-  echo "Commands:"
-  echo "-b <URL> The base URL to fetch from."
-  echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
-  echo "      The default is the influxdata/openapi repo master branch."
-  echo "-B Use the existing ref.yml and prevent fetching any openapi files."
-  echo "-h Show this help."
-  echo "-o <semantic version> The OSS Version to fetch."
-  echo "      ex. ./getswagger.sh oss -o v2.0"
-  echo "      The default is the latest OSS version directory in the api-docs directory."
-  echo "-V Verbose. Print the processed arguments and verbose Curl output."
+  cat <<'USAGE'
+Usage: ./getswagger.sh <product> [options]
+
+Products:
+  cloud-v2                  InfluxDB Cloud v2
+  cloud-dedicated-v2        InfluxDB Cloud Dedicated (data API)
+  cloud-dedicated-management  InfluxDB Cloud Dedicated (management API)
+  cloud-serverless-v2       InfluxDB Cloud Serverless (data API)
+  clustered-v2              InfluxDB Clustered (data API)
+  clustered-management      InfluxDB Clustered (management API)
+  core-v3                   InfluxDB 3 Core
+  enterprise-v3             InfluxDB 3 Enterprise
+  v2                        InfluxDB OSS v2
+  oss-v1                    InfluxDB OSS v1
+  enterprise-v1             InfluxDB Enterprise v1
+  all                       All products
+
+Options:
+  -b <URL>  Base URL to fetch from (default: influxdata/openapi master branch).
+            ex. ./getswagger.sh cloud-v2 -b file:///Users/you/github/openapi
+  -B        Use existing spec files — don't fetch.
+  -o <ver>  OSS version to fetch (ex. v2.0).
+  -V        Verbose mode.
+  -h        Show this help.
+USAGE
 }
 
 subcommand=$1
 
+# Handle -h before product dispatch (product is normally the first arg)
+if [[ "$subcommand" == "-h" ]]; then
+  showHelp
+  exit 0
+fi
+
 case "$subcommand" in
-  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|clustered-management|clustered-v2|cloud-v2|v2|v1-compat|core-v3|enterprise-v3|all)
+  cloud-dedicated-v2|cloud-dedicated-management|cloud-serverless-v2|\
+  clustered-management|clustered-v2|cloud-v2|v2|\
+  oss-v1|enterprise-v1|core-v3|enterprise-v3|all)
     product=$1
     shift
 
@@ -103,227 +106,195 @@ case "$subcommand" in
 esac
 
 function showArgs {
-  echo "product: $product";
-  echo "baseUrl: $baseUrl";
-  echo "ossVersion: $ossVersion";
+  echo "product: $product"
+  echo "baseUrl: $baseUrl"
+  echo "ossVersion: $ossVersion"
 }
+
+# ---------------------------------------------------------------------------
+# Shared helpers
+# ---------------------------------------------------------------------------
 
 function postProcess() {
-  # Use npx to install and run the specified version of openapi-cli.
-  # npm_config_yes=true npx overrides the prompt
-  # and (vs. npx --yes) is compatible with npm@6 and npm@7.
-  specPath="$1"
-  configPath="$2"
-  api="$3"
+  local specPath="$1"
+  local configPath="$2"
+  local api="$3"
 
-  openapiCLI=" @redocly/cli"
+  local openapiCLI="@redocly/cli"
+  local currentPath
   currentPath=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-  # TODO: Move some of this into the plugin:
-
-  # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
-  # If you want to lint the source contract (before bundling),
-  # pass `--lint` to the `bundle` command.
-  # If you set environment variables (for example, INFLUXDB_PRODUCT=)
-  # preceding the command name, you can then access the variables
-  # in the NodeJS process.env global object.
-#  INFLUXDB_API_VERSION=$apiVersion \
-  npx --version
   INFLUXDB_PRODUCT=$(dirname "$configPath") \
-  INFLUXDB_API_NAME=$(echo "$api" | sed 's/@.*//g;') \
-  API_DOCS_ROOT_PATH=$currentPath \
+  INFLUXDB_API_NAME="${api%%@*}" \
+  API_DOCS_ROOT_PATH="$currentPath" \
   npm_config_yes=true \
-  npx $openapiCLI bundle $specPath \
-    -o $specPath \
-    --config=$configPath
+  npx "$openapiCLI" bundle "$specPath" \
+    -o "$specPath" \
+    --config="$configPath"
 }
 
- function updateCloudV2 {
-  outFile="influxdb/cloud/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
+# Fetch a spec from a URL and run postProcess.
+# Usage: fetchAndProcess <outFile> <sourceUrl> <configPath> <api>
+function fetchAndProcess() {
+  local outFile="$1" sourceUrl="$2" configPath="$3" api="$4"
+  if [[ -z "$sourceUrl" ]]; then
     echo "Using existing $outFile"
   else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+    # shellcheck disable=SC2086 # UPDATE_OPTIONS intentionally word-splits
+    curl $UPDATE_OPTIONS "$sourceUrl" -o "$outFile"
   fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' v2@2
+  postProcess "$outFile" "$configPath" "$api"
 }
 
-function updateCloudDedicatedManagement {
-  outFile="influxdb3/cloud-dedicated/management/openapi.yml"
-  if [[ -z "$baseUrl" ]];
-  then
+# Clone influxdata/granite (cached across calls) and copy openapi.yaml.
+# Usage: fetchManagementSpec <outFile>
+_granite_dir=""
+function fetchManagementSpec() {
+  local outFile="$1"
+  if [[ -z "$baseUrl" ]]; then
     echo "Using existing $outFile"
-  else
-    # Clone influxdata/granite and fetch the latest openapi.yaml file.
-    echo "Fetching the latest openapi.yaml file from influxdata/granite"
-    tmp_dir=$(mktemp -d)
-    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
-    cp "$tmp_dir/openapi.yaml" "$outFile"
-    rm -rf "$tmp_dir"
+    return
   fi
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' management@0
+  if [[ -z "$_granite_dir" ]]; then
+    echo "Fetching latest openapi.yaml from influxdata/granite"
+    _granite_dir=$(mktemp -d)
+    git clone --depth 1 --branch main \
+      https://github.com/influxdata/granite.git "$_granite_dir"
+  fi
+  cp "$_granite_dir/openapi.yaml" "$outFile"
 }
 
-function updateCloudDedicatedV2 {
-  outFile="influxdb3/cloud-dedicated/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
- postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' v2@2
-}
-
-function updateCloudServerlessV2 {
-  outFile="influxdb3/cloud-serverless/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' v2@2
-}
-
-function updateClusteredManagement {
-  outFile="influxdb3/clustered/management/openapi.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    # Clone influxdata/granite and fetch the latest openapi.yaml file.
-    echo "Fetching the latest openapi.yaml file from influxdata/granite"
-    tmp_dir=$(mktemp -d)
-    git clone --depth 1 --branch main https://github.com/influxdata/granite.git "$tmp_dir"
-    cp "$tmp_dir/openapi.yaml" "$outFile"
-    rm -rf "$tmp_dir"
-  fi
-  postProcess $outFile 'influxdb3/clustered/.config.yml' management@0
-}
-
-function updateClusteredV2 {
-  outFile="influxdb3/clustered/v2/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  fi
- postProcess $outFile 'influxdb3/clustered/.config.yml' v2@2
-}
-
-function updateCoreV3 {
-  outFile="influxdb3/core/v3/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    local url="${baseUrl}/TO_BE_DECIDED"
-    curl $UPDATE_OPTIONS $url -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/core/.config.yml' v3@3
-}
-
-function updateEnterpriseV3 {
-  outFile="influxdb3/enterprise/v3/ref.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    local url="${baseUrl}/TO_BE_DECIDED"
-    curl $UPDATE_OPTIONS $url -o $outFile
-  fi
-  postProcess $outFile 'influxdb3/enterprise/.config.yml' v3@3
-}
-
-function updateOSSV2 {
-  outFile="influxdb/v2/v2/ref.yml"
-  if [[ -z "$baseUrlOSS" ]];
-  then
-    echo "Using existing $outFile"
-  else
-    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v2@2'
-}
-
-function updateV1Compat {
-  outFile="influxdb/cloud/v1-compatibility/swaggerV1Compat.yml"
-  if [[ -z "$baseUrl" ]];
-  then
-    echo "Using existing $outFile"
-  else
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
-  fi
-  postProcess $outFile 'influxdb/cloud/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb/v2/v1-compatibility/swaggerV1Compat.yml"
-  cp influxdb/cloud/v1-compatibility/swaggerV1Compat.yml $outFile
-  postProcess $outFile 'influxdb/v2/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-dedicated/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-dedicated/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/cloud-serverless/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/cloud-serverless/.config.yml' 'v1-compatibility'
-
-  outFile="influxdb3/clustered/v1-compatibility/swaggerV1Compat.yml"
-  postProcess $outFile 'influxdb3/clustered/.config.yml' 'v1-compatibility'
-}
+# ---------------------------------------------------------------------------
+# Build UPDATE_OPTIONS and optionally show args
+# ---------------------------------------------------------------------------
 
 UPDATE_OPTIONS="--fail"
 
-if [ ! -z ${verbose} ];
-then
+if [[ -n "$verbose" ]]; then
   UPDATE_OPTIONS="-v $UPDATE_OPTIONS"
   showArgs
   echo ""
 fi
 
-if [ "$product" = "cloud-v2" ];
-then
-  updateCloudV2
-elif [ "$product" = "cloud-dedicated-v2" ];
-then
-  updateCloudDedicatedV2
-elif [ "$product" = "cloud-dedicated-management" ];
-then
-  updateCloudDedicatedManagement
-elif [ "$product" = "cloud-serverless-v2" ];
-then
-  updateCloudServerlessV2
-elif [ "$product" = "clustered-management" ];
-then
-  updateClusteredManagement
-elif [ "$product" = "clustered-v2" ];
-then
-  updateClusteredV2
-elif [ "$product" = "core-v3" ];
-then
-  updateCoreV3
-elif [ "$product" = "enterprise-v3" ];
-then
-  updateEnterpriseV3
-elif [ "$product" = "v2" ];
-then
-  updateOSSV2
-elif [ "$product" = "v1-compat" ];
-then
-  updateV1Compat
-elif [ "$product" = "all" ];
-then
-  updateCloudV2
-  updateCloudDedicatedV2
-  updateCloudDedicatedManagement
-  updateCloudServerlessV2
-  updateClusteredV2
-  updateCoreV3
-  updateEnterpriseV3
-  updateOSSV2
-  updateV1Compat
-else
-  echo "Provide a product argument: cloud-v2, cloud-serverless-v2, cloud-dedicated-v2, cloud-dedicated-management, clustered-management, clustered-v2, core-v3, enterprise-v3, v2, v1-compat, or all."
-  showHelp
+# ---------------------------------------------------------------------------
+# Dispatch
+# ---------------------------------------------------------------------------
+
+case "$product" in
+  cloud-v2)
+    fetchAndProcess \
+      "influxdb/cloud/influxdb-cloud-v2-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb/cloud/.config.yml' 'v2@2'
+    ;;
+  cloud-dedicated-v2)
+    fetchAndProcess \
+      "influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/cloud-dedicated/.config.yml' 'data@2'
+    ;;
+  cloud-dedicated-management)
+    fetchManagementSpec \
+      "influxdb3/cloud-dedicated/management/openapi.yml"
+    ;;
+  cloud-serverless-v2)
+    fetchAndProcess \
+      "influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/cloud-serverless/.config.yml' 'data@2'
+    ;;
+  clustered-v2)
+    fetchAndProcess \
+      "influxdb3/clustered/influxdb3-clustered-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/clustered/.config.yml' 'data@2'
+    ;;
+  clustered-management)
+    fetchManagementSpec \
+      "influxdb3/clustered/management/openapi.yml"
+    ;;
+  core-v3)
+    fetchAndProcess \
+      "influxdb3/core/influxdb3-core-openapi.yaml" \
+      "$baseUrl${baseUrl:+/TO_BE_DECIDED}" \
+      'influxdb3/core/.config.yml' 'v3@3'
+    ;;
+  enterprise-v3)
+    fetchAndProcess \
+      "influxdb3/enterprise/influxdb3-enterprise-openapi.yaml" \
+      "$baseUrl${baseUrl:+/TO_BE_DECIDED}" \
+      'influxdb3/enterprise/.config.yml' 'v3@3'
+    ;;
+  v2)
+    fetchAndProcess \
+      "influxdb/v2/influxdb-oss-v2-openapi.yaml" \
+      "$baseUrlOSS${baseUrlOSS:+/contracts/ref/oss.yml}" \
+      'influxdb/v2/.config.yml' 'v2@2'
+    ;;
+  oss-v1)
+    echo "Processing influxdb/v1/influxdb-oss-v1-openapi.yaml with decorators"
+    postProcess \
+      "influxdb/v1/influxdb-oss-v1-openapi.yaml" \
+      'influxdb/v1/.config.yml' 'v1@1'
+    ;;
+  enterprise-v1)
+    echo "Processing enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml with decorators"
+    postProcess \
+      "enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml" \
+      'enterprise_influxdb/v1/.config.yml' 'v1@1'
+    ;;
+  all)
+    fetchAndProcess \
+      "influxdb/cloud/influxdb-cloud-v2-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb/cloud/.config.yml' 'v2@2'
+    fetchAndProcess \
+      "influxdb3/cloud-dedicated/influxdb3-cloud-dedicated-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/cloud-dedicated/.config.yml' 'data@2'
+    fetchManagementSpec \
+      "influxdb3/cloud-dedicated/management/openapi.yml"
+    fetchAndProcess \
+      "influxdb3/cloud-serverless/influxdb3-cloud-serverless-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/cloud-serverless/.config.yml' 'data@2'
+    fetchAndProcess \
+      "influxdb3/clustered/influxdb3-clustered-openapi.yaml" \
+      "$baseUrl${baseUrl:+/contracts/ref/cloud.yml}" \
+      'influxdb3/clustered/.config.yml' 'data@2'
+    fetchManagementSpec \
+      "influxdb3/clustered/management/openapi.yml"
+    fetchAndProcess \
+      "influxdb3/core/influxdb3-core-openapi.yaml" \
+      "$baseUrl${baseUrl:+/TO_BE_DECIDED}" \
+      'influxdb3/core/.config.yml' 'v3@3'
+    fetchAndProcess \
+      "influxdb3/enterprise/influxdb3-enterprise-openapi.yaml" \
+      "$baseUrl${baseUrl:+/TO_BE_DECIDED}" \
+      'influxdb3/enterprise/.config.yml' 'v3@3'
+    fetchAndProcess \
+      "influxdb/v2/influxdb-oss-v2-openapi.yaml" \
+      "$baseUrlOSS${baseUrlOSS:+/contracts/ref/oss.yml}" \
+      'influxdb/v2/.config.yml' 'v2@2'
+    postProcess \
+      "influxdb/v1/influxdb-oss-v1-openapi.yaml" \
+      'influxdb/v1/.config.yml' 'v1@1'
+    postProcess \
+      "enterprise_influxdb/v1/influxdb-enterprise-v1-openapi.yaml" \
+      'enterprise_influxdb/v1/.config.yml' 'v1@1'
+    ;;
+  "")
+    showHelp
+    exit 1
+    ;;
+  *)
+    echo "Unknown product: $product"
+    showHelp
+    exit 22
+    ;;
+esac
+
+# Clean up granite clone if created
+if [[ -n "$_granite_dir" ]]; then
+  rm -rf "$_granite_dir"
 fi

@@ -1,0 +1,53 @@
+{{/*
+  OpenAPI Spec Download Button
+
+  Renders a download button for the product's OpenAPI spec.
+  Uses specDownloadPath from frontmatter, falling back to parent section.
+  Derives button label from product name in data/products.yml.
+
+  For multi-spec sub-sections (data-api, management-api), uses the
+  product short name (e.g., "Cloud Dedicated Data API Spec").
+  For single-spec products, uses the full product name (e.g.,
+  "InfluxDB 3 Core API Spec").
+*/}}
+{{- $specPath := .Params.specDownloadPath -}}
+{{- if not $specPath -}}{{- with .Parent -}}{{- $specPath = .Params.specDownloadPath -}}{{- end -}}{{- end -}}
+{{- if $specPath -}}
+  {{- $productName := "" -}}
+  {{- with .Params.product -}}
+    {{- with index site.Data.products . -}}
+      {{- $productName = .name -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Detect multi-spec sub-sections by URL path segment after /api/. */ -}}
+  {{- $subSectionLabels := dict "data-api" "Data API" "management-api" "Management API" -}}
+  {{- $productShortNames := dict
+        "cloud-dedicated" "Cloud Dedicated"
+        "clustered" "Clustered"
+  -}}
+  {{- $isMultiSpec := false -}}
+  {{- $apiLabel := "API" -}}
+  {{- $multiSpecProduct := "" -}}
+  {{- $segments := split (strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink)) "/" -}}
+  {{- if and (ge (len $segments) 4) (eq (index $segments 2) "api") -}}
+    {{- with index $subSectionLabels (index $segments 3) -}}
+      {{- $apiLabel = . -}}
+      {{- $isMultiSpec = true -}}
+    {{- end -}}
+    {{- if $isMultiSpec -}}
+      {{- with index $productShortNames (index $segments 1) -}}
+        {{- $multiSpecProduct = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  <a href="{{ $specPath }}" class="btn api-spec-download" download
+    aria-label="Download {{ if $isMultiSpec }}{{ with $multiSpecProduct }}{{ . }} {{ end }}{{ $apiLabel }}{{ else }}{{ with $productName }}{{ . }} {{ end }}{{ $apiLabel }}{{ end }} spec">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 12L3 7h3V2h4v5h3L8 12z"/>
+      <path d="M1 14h14v2H1v-2z"/>
+    </svg>
+    Download {{ if $isMultiSpec }}{{ with $multiSpecProduct }}{{ . }} {{ end }}{{ $apiLabel }}{{ else }}{{ with $productName }}{{ . }} {{ end }}{{ $apiLabel }}{{ end }} Spec
+  </a>
+{{- end -}}

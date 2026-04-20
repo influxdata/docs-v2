@@ -21,13 +21,13 @@ function makeHeadersLinkable() {
   const headingElements = headingWhiteList.not(headingBlackList);
 
   headingElements.each(function () {
-    function getLink(element) {
-      return element.attr('href') === undefined
-        ? $(element).attr('id')
-        : element.attr('href');
-    }
-    var link = '<a href="#' + getLink($(this)) + '"></a>';
-    $(this).wrapInner(link);
+    var $heading = $(this);
+    // Skip headings without an id attribute — linking to "#undefined" is
+    // never useful. API operation summaries (`.api-operation-summary`) are
+    // anchored by their parent `.api-operation` element instead.
+    var id = $heading.attr('id');
+    if (!id) return;
+    $heading.wrapInner('<a href="#' + id + '"></a>');
   });
 }
 
@@ -50,7 +50,13 @@ function smoothScroll() {
 }
 
 function scrollToAnchor(target) {
-  var $target = $(target);
+  // Use getElementById so IDs containing "/" or other CSS-special chars
+  // (e.g., "operation/GetPing" on API tag pages) resolve correctly.
+  var id = typeof target === 'string' && target.charAt(0) === '#'
+    ? target.slice(1)
+    : target;
+  var el = id ? document.getElementById(id) : null;
+  var $target = el ? $(el) : $();
   if ($target && $target.length > 0) {
     $('html, body')
       .stop()
@@ -122,21 +128,31 @@ function expandAccordions() {
 
   // Expand accordions on load based on URL anchor
   function openAccordionByHash() {
-    var anchor = window.location.hash.split('?')[0];
+    var hash = window.location.hash.split('?')[0];
+    if (!hash || hash === '#') return;
+
+    // Use getElementById to safely handle IDs containing characters that
+    // jQuery's selector parser treats as special (e.g., "/" in
+    // "operation/GetPing" or unescaped "."). Then wrap in jQuery.
+    var id = hash.slice(1);
+    var el = document.getElementById(id);
+    if (!el) return;
+    var $anchor = $(el);
 
     function expandElement() {
-      if ($(anchor).parents('.expand').length > 0) {
-        return $(anchor).closest('.expand').children('.expand-label');
-      } else if ($(anchor).hasClass('expand')) {
-        return $(anchor).children('.expand-label');
+      if ($anchor.parents('.expand').length > 0) {
+        return $anchor.closest('.expand').children('.expand-label');
+      } else if ($anchor.hasClass('expand')) {
+        return $anchor.children('.expand-label');
       }
     }
 
-    if (expandElement() != null) {
-      if (expandElement().children('.expand-toggle').hasClass('open')) {
+    var $expand = expandElement();
+    if ($expand != null) {
+      if ($expand.children('.expand-toggle').hasClass('open')) {
         // Do nothing?
       } else {
-        expandElement().children('.expand-toggle').trigger('click');
+        $expand.children('.expand-toggle').trigger('click');
       }
     }
   }

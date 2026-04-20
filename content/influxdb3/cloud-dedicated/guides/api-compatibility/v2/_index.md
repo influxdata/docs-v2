@@ -102,7 +102,7 @@ Replace the following:
 
 ## Responses
 
-InfluxDB HTTP API responses use standard [HTTP status codes](/influxdb3/cloud-dedicated/api/#tag/Response-codes).
+InfluxDB HTTP API responses use standard [HTTP status codes](/influxdb3/cloud-dedicated/api/data-api/response-codes/).
 The response body for [partial writes](/influxdb3/cloud-dedicated/write-data/troubleshoot/#troubleshoot-rejected-points) and errors contains a JSON object with `code` and `message` properties that describe the error.
 Response body messages may differ across {{% product-name %}} v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
 

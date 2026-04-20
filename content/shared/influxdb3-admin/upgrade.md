@@ -12,7 +12,12 @@ Upgrade your {{% product-name %}} version.
 
 ## Before you upgrade
 
-Before upgrading your {{% product-name %}} {{% show-in "core" %}}instance{{% /show-in %}}{{% show-in "enterprise" %}}cluster{{% /show-in %}}, review the [release notes](/influxdb3/enterprise/reference/release-notes/) for compatibility requirements and then plan your upgrade strategy.
+{{% show-in "core" %}}
+Before upgrading your {{% product-name %}} instance, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
+{{% /show-in %}}
+{{% show-in "enterprise" %}}
+Before upgrading your {{% product-name %}} cluster, review the [release notes](/influxdb3/version/release-notes/) for compatibility requirements and then plan your upgrade strategy.
+{{% /show-in %}}
 
 ### Verify your current version
 
@@ -351,14 +356,14 @@ If you upgrade nodes out of the [recommended order](#recommended-node-upgrade-or
 If nodes fail to communicate after an upgrade, verify that all nodes are running compatible versions.
 
 1. **Connect to each node** and [verify the version](#verify-your-current-version)
-2. Review the [release notes](/influxdb3/enterprise/reference/release-notes/) for your target version to identify any breaking changes or compatibility requirements.
+2. Review the [release notes](/influxdb3/enterprise/release-notes/) for your target version to identify any breaking changes or compatibility requirements.
 
 #### Catalog version constraints
 
 Different version transitions may have different catalog version constraints.
 The v3.3.x → v3.4.x transition has specific constraints, but other version transitions may differ.
 
-**Before upgrading**, review the [release notes](/influxdb3/enterprise/reference/release-notes/) for your target version to understand:
+**Before upgrading**, review the [release notes](/influxdb3/enterprise/release-notes/) for your target version to understand:
 
 - Whether the upgrade crosses a catalog version boundary
 - How long catalog modifications may be blocked during the upgrade

@@ -148,8 +148,8 @@ Returns data from a single measurement.
 If you're using the [CLI](/influxdb/v1/tools/shell/) InfluxDB queries the measurement in the
 [`USE`d](/influxdb/v1/tools/shell/#commands)
 [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) InfluxDB queries the
-measurement in the database specified in the [`db` query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) InfluxDB queries the
+measurement in the database specified in the [`db` query string parameter](/influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `FROM <measurement_name>,<measurement_name>`
@@ -203,8 +203,8 @@ If you're using the [CLI](/influxdb/v1/tools/shell/) be sure to enter
 `USE NOAA_water_database` before you run the query.
 The CLI queries the data in the `USE`d database and the
 `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) be sure to set the
-`db` [query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) be sure to set the
+`db` [query string parameter](/influxdb/v1/api/query/)
 to `NOAA_water_database`.
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 queries the database's `DEFAULT` retention policy.
@@ -1699,8 +1699,8 @@ Writes data to the specified measurement.
 If you're using the [CLI](/influxdb/v1/tools/shell/) InfluxDB writes the data to the measurement in the
 [`USE`d](/influxdb/v1/tools/shell/#commands)
 [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) InfluxDB writes the data to the
-measurement in the database specified in the [`db` query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) InfluxDB writes the data to the
+measurement in the database specified in the [`db` query string parameter](/influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `INTO <database_name>.<retention_policy_name>.<measurement_name>`
@@ -1796,9 +1796,9 @@ time                   water_level
 The query writes its results a new [measurement](/influxdb/v1/concepts/glossary/#measurement): `h2o_feet_copy_1`.
 If you're using the [CLI](/influxdb/v1/tools/shell/), InfluxDB writes the data to
 the `USE`d [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/), InfluxDB writes the
+If you're using the [InfluxDB API](/influxdb/v1/api/), InfluxDB writes the
 data to the database and retention policy specified in the `db` and `rp`
-[query string parameters](/influxdb/v1/tools/api/#query-string-parameters).
+[query string parameters](/influxdb/v1/api/query/).
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 writes the data to the database's `DEFAULT` retention policy.
 
@@ -2739,10 +2739,10 @@ The [CLI](/influxdb/v1/tools/shell/) returns timestamps in
 nanosecond epoch format by default.
 Specify alternative formats with the
 [`precision <format>` command](/influxdb/v1/tools/shell/#influx-commands).
-The [InfluxDB API](/influxdb/v1/tools/api/) returns timestamps
+The [InfluxDB API](/influxdb/v1/api/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
-[`epoch` query string parameter](/influxdb/v1/tools/api/#query-string-parameters).
+[`epoch` query string parameter](/influxdb/v1/api/query/).
 
 ## Regular expressions
 
@@ -3089,7 +3089,7 @@ time                   water_level
 
 {{% tab-content %}}
 
-With the [InfluxDB API](/influxdb/v1/tools/api/):
+With the [InfluxDB API](/influxdb/v1/api/):
 
 ```json
 {
