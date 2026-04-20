@@ -10,7 +10,7 @@ introduced: "v1.31.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/smartctl/README.md, smartctl JSON Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/smartctl/README.md, smartctl JSON Plugin Source
 ---
 
 # smartctl JSON Input Plugin
@@ -23,7 +23,7 @@ package to collect additional information about NVMe devices.
 
 > [!NOTE]
 > This plugin requires [`smartmontools`]() to be installed on your
-> system. The `smartctl` command must to be executable by Telegraf and must
+> system. The `smartctl` command must be executable by Telegraf and must
 > supporting JSON output. JSON output was added in v7.0 and improved in
 > subsequent releases
 
@@ -92,7 +92,8 @@ Users need the following in the Telegraf config:
   use_sudo = true
 ```
 
-And to update the `/etc/sudoers` file to allow running smartctl:
+and to update the `/etc/sudoers` file (or add a file in `/etc/sudoers.d/`)
+to allow running smartctl:
 
 ```bash
 $ visudo
@@ -101,6 +102,12 @@ Cmnd_Alias SMARTCTL = /usr/sbin/smartctl
 telegraf  ALL=(ALL) NOPASSWD: SMARTCTL
 Defaults!SMARTCTL !logfile, !syslog, !pam_session
 ```
+
+> [!NOTE]
+> 🪲 If you are using `sudo-rs` instead of GNU `sudo`, the `Defaults!SMARTCTL`
+> line has to be removed as these logging options are not currently supported
+> and will cause errors running sudo until that is resolved.
+> See trifectatechfoundation/sudo-rs#1181.
 
 ## Troubleshooting
 
