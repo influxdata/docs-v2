@@ -3,7 +3,7 @@ InfluxDB offers a rich API and [client libraries](/influxdb/version/api-guide/cl
 
 This section guides you through the most commonly used API methods.
 
-For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/version/reference/api/#influxdb-v2-api-documentation).
+For detailed documentation on the entire API, see the [InfluxDB v2 API Reference](/influxdb/version/api/).
 
 > [!Tip]
 > #### Use InfluxDB 1.x API clients with {{< current-version >}}
@@ -89,7 +89,7 @@ function listBuckets() {
 Before writing data you'll need to create a bucket in your InfluxDB instance.
 To use the API to create a bucket, send a request to the following endpoint:
 
-{{% api-endpoint method="POST" endpoint="/api/v2/buckets" api-ref="/influxdb/version/api/v2/#operation/PostBuckets" %}}
+{{% api-endpoint method="POST" endpoint="/api/v2/buckets" api-ref="/influxdb/version/api/buckets/#operation/PostBuckets" %}}
 
 {{% code-placeholders "API_TOKEN|ORG_ID|BUCKET_NAME|RETENTION_PERIOD_SECONDS" %}}
 

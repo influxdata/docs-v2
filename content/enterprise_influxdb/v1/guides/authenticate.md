@@ -16,7 +16,7 @@ _To require valid credentials for cluster access, see ["Enable authentication"](
 
 ### Authenticate with the InfluxDB API
 
-Authenticate with the [InfluxDB API](/enterprise_influxdb/v1/tools/api/) using one of the following options:
+Authenticate with the [InfluxDB API](/enterprise_influxdb/v1/api/) using one of the following options:
 
 - [Authenticate with basic authentication](#authenticate-with-basic-authentication)
 - [Authenticate with query parameters in the URL or request body](#authenticate-with-query-parameters-in-the-url-or-request-body)
@@ -103,7 +103,7 @@ password:
 
 ### Authenticate using JWT tokens
 For a more secure alternative to using passwords, include JWT tokens with requests to the InfluxDB API.
-This is currently only possible through the [InfluxDB HTTP API](/enterprise_influxdb/v1/tools/api/).
+This is currently only possible through the [InfluxDB HTTP API](/enterprise_influxdb/v1/api/).
 
 1. **Add a shared secret in your InfluxDB Enterprise configuration file**.
 

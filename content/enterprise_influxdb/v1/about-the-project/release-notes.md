@@ -95,12 +95,12 @@ Other updates include:
   and [`rpc-resettable-write-timeout`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#rpc-resettable-write-timeout)
   configuration options for inactivity timeouts on RPC connections between data nodes.
 - Add TLS certificate reloading on `SIGHUP`.
-- Add [`config`](/enterprise_influxdb/v1/tools/api/#running-configuration) and
-  [`cq` (continuous query) statistics](/enterprise_influxdb/v1/tools/api/#continuous-query-statistics)
+- Add [`config`](/enterprise_influxdb/v1/api/debug/) and
+  [`cq` (continuous query) statistics](/enterprise_influxdb/v1/api/debug/)
   to the `/debug/vars` endpoint.
 - Improve dropped point logging.
 - [Show user when displaying or logging queries](/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#list-currently-running-queries-with-show-queries).
-- Add [`time_format` parameter](/enterprise_influxdb/v1/tools/api/#query-data-with-a-select-statement-and-the-time_format-parameter) for the HTTP API.
+- Add [`time_format` parameter](/enterprise_influxdb/v1/api/query/) for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
 - [Report user query bytes](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#user-query-bytes-enabled).
 
@@ -211,7 +211,7 @@ Other updates include:
 ### Bug Fixes
 
 - Strip double quotes from measurement names in the [`/api/v2/delete` compatibility
-  API](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
+  API](/enterprise_influxdb/v1/api/delete-v2-compatible/) before
   string comparisons (e.g. to allow special characters in measurement names).
 - Enable SHA256 for FIPS RPMs.
 
@@ -522,8 +522,8 @@ Other updates include:
 ## v1.10.0 {date="2022-09-07"}
 
 ### Features
-- Add [/api/v2/buckets](/enterprise_influxdb/v1/tools/api/#apiv2buckets-http-endpoint) support for create, delete, list, retrieve, and update operations.
-- Add [/api/v2/delete](/enterprise_influxdb/v1/tools/api/#apiv2delete-http-endpoint) support.
+- Add [/api/v2/buckets](/enterprise_influxdb/v1/api/buckets-v2-compatible/) support for create, delete, list, retrieve, and update operations.
+- Add [/api/v2/delete](/enterprise_influxdb/v1/api/delete-v2-compatible/) support.
 - Add  wildcard support for retention policies in `SHOW MEASUREMENTS`.
 - Log slow queries even when query logging is not enabled.
 - Add  `--start` and `--end` [backup flags](/enterprise_influxdb/v1/administration/backup-and-restore/#backup-flags) to specify the time to include in backup.
@@ -671,7 +671,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 #### Profiling
 
-- Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1/tools/api/#debugpprof-http-endpoint).
+- Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1/api/debug/).
 
 #### influxd-ctl updates
 
@@ -695,7 +695,7 @@ An edge case regression was introduced into this version that may cause a consta
   - Specify a destination shard when restoring a specific shard.
 #### Operational enhancements
 - Allow specification and filtering of [`SHOW TAG VALUES`](/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-values) by retention policy.
-- Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1/tools/api/#debugvars-http-endpoint) endpoint
+- Add `memUsage` metrics to [`/debug/vars`](/enterprise_influxdb/v1/api/debug/) endpoint
   to measure memory usage in bytes across all subscriptions.
 #### Performance enhancement
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.

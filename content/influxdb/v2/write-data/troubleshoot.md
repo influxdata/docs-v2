@@ -10,8 +10,8 @@ menu:
     parent: Write data
 influxdb/v2/tags: [write, line protocol, errors]
 related:
-  - /influxdb/v2/api/v2/#operation/PostLegacyWrite, InfluxDB v1 API /write endpoint
-  - /influxdb/v2/api/v2/#operation/PostWrite, InfluxDB API /api/v2/write endpoint
+  - /influxdb/v2/api/write-data-v1-compatible/#operation/PostLegacyWrite, InfluxDB v1 API /write endpoint
+  - /influxdb/v2/api/write-data/#operation/PostWrite, InfluxDB API /api/v2/write endpoint
   - /influxdb/v2/reference/internals
   - /influxdb/v2/reference/cli/influx/write
 source: /shared/influxdb-v2/write-data/troubleshoot.md

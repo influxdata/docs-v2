@@ -34,7 +34,7 @@ The InfluxDB API is the primary means of writing data into InfluxDB.
   - **`rp=RETENTION_POLICY`** query parameter: _Optional_. If set, InfluxDB uses the specified retention policy; otherwise, uses the _default_ retention policy.
   - A request body that contains time series data in [InfluxDB line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) format.
 
-  For a complete list of the available query parameters, see the [InfluxDB API Reference](/enterprise_influxdb/v1/tools/api/#write-http-endpoint) documentation.
+  For a complete list of the available query parameters, see the [InfluxDB API Reference](/enterprise_influxdb/v1/api/write/) documentation.
 
   The following example shows how to write a single point to the `mydb` database:
 
@@ -50,7 +50,7 @@ The InfluxDB API is the primary means of writing data into InfluxDB.
   --data-binary 'cpu_load_short,host=server01,region=us-west value=0.64 1434055562000000000'
   ```
 
-- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send a `POST` request to the [`/api/v2/write` endpoint](/enterprise_influxdb/v1/tools/api/#api-v2-write-http-endpoint) and include the `?bucket=DATABASE_NAME/RETENTION_POLICY` query parameter--for example:
+- To **write to a database using the InfluxDB 2.0 API (compatible with InfluxDB 1.8+)**, send a `POST` request to the [`/api/v2/write` endpoint](/enterprise_influxdb/v1/api/write/) and include the `?bucket=DATABASE_NAME/RETENTION_POLICY` query parameter--for example:
 
   ```bash
   curl -i -XPOST 'http://localhost:8086/api/v2/write?bucket=db/rp&precision=ns' \
@@ -254,4 +254,4 @@ Content-Length: 45
 ### Next steps
 
 Learn how to query your data stored in InfluxDB with the [Querying data](/enterprise_influxdb/v1/guides/querying_data/) guide!
-To learn more about using the InfluxDB API, see the [InfluxDB API reference](/enterprise_influxdb/v1/tools/api/#write-http-endpoint).
+To learn more about using the InfluxDB API, see the [InfluxDB API reference](/enterprise_influxdb/v1/api/write/).

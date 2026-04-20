@@ -1,0 +1,95 @@
+tags:
+  Database tokens:
+    description: |
+      Create and manage database tokens that authorize read and write access to InfluxDB 3 Clustered databases.
+    externalDocs:
+      description: Manage database tokens
+      url: /influxdb3/clustered/admin/tokens/database/
+    x-related:
+      - title: Manage database tokens
+        href: /influxdb3/clustered/admin/tokens/database/
+      - title: Delete a database token
+        href: /influxdb3/clustered/admin/tokens/database/delete/
+      - title: Authenticate Telegraf using tokens in your OS secret store
+        href: https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os
+  Databases:
+    description: |
+      Create and manage databases in an InfluxDB 3 Clustered cluster, including setting retention periods and custom partition templates.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/clustered/admin/databases/
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/clustered/admin/databases/
+      - title: Custom partitions
+        href: /influxdb3/clustered/admin/custom-partitions/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Use the InfluxDB 3 Clustered Management API to create databases, issue
+      database tokens, and configure your cluster programmatically.
+
+      **Prerequisites**: A management token. Generate one with `influxctl`:
+
+      ```bash
+      influxctl management create --format=json
+      ```
+
+      Set an environment variable for the examples below:
+
+      ```bash
+      export MANAGEMENT_TOKEN="MANAGEMENT_TOKEN"
+      ```
+
+      1. List databases in your cluster.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/databases" \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}"
+         ```
+
+      2. Create a database.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/databases" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{"name": "sensors"}'
+         ```
+
+      3. Create a database token with read and write access.
+
+         ```bash
+         curl "https://console.influxdata.com/api/v0/tokens" \
+           --request POST \
+           --header "Authorization: Bearer ${MANAGEMENT_TOKEN}" \
+           --header "Content-Type: application/json" \
+           --data '{
+             "description": "Read/write token for sensors",
+             "permissions": [
+               {"action": "read", "resource": "sensors"},
+               {"action": "write", "resource": "sensors"}
+             ]
+           }'
+         ```
+
+      Use the database token returned in step 3 to authenticate writes and queries
+      to the [Data API](#operation/PostWrite).
+    externalDocs:
+      description: Get started with Clustered
+      url: /influxdb3/clustered/get-started/
+    x-related:
+      - title: Get started with Clustered
+        href: /influxdb3/clustered/get-started/
+  Tables:
+    description: |
+      Manage tables in an InfluxDB 3 Clustered database, including creating tables with custom column schemas.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/clustered/admin/tables/
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/clustered/admin/tables/
+      - title: Custom partitions
+        href: /influxdb3/clustered/admin/custom-partitions/

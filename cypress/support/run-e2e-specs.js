@@ -86,6 +86,31 @@ async function isPortInUse(port) {
 }
 
 /**
+ * Remove screenshot directories for the specs about to run so old failure
+ * screenshots don't linger. Cypress only writes to `cypress/screenshots/<spec>/`
+ * on failures; cleaning up-front makes the current run's artifacts
+ * unambiguous.
+ * @param {string[]} specArgs - Spec file paths passed via --spec
+ */
+function cleanSpecScreenshots(specArgs) {
+  const screenshotsRoot = path.resolve('cypress/screenshots');
+  if (!fs.existsSync(screenshotsRoot)) return;
+
+  const targets =
+    specArgs.length > 0
+      ? specArgs.map((spec) => path.basename(spec))
+      : fs.readdirSync(screenshotsRoot);
+
+  for (const name of targets) {
+    const dir = path.join(screenshotsRoot, name);
+    if (fs.existsSync(dir)) {
+      fs.rmSync(dir, { recursive: true, force: true });
+      console.log(`Cleaned screenshots: ${dir}`);
+    }
+  }
+}
+
+/**
  * Ensures a directory exists, creating it if necessary
  * Also creates an empty file to ensure the directory is not empty
  * @param {string} dirPath - The directory path to ensure exists
@@ -148,6 +173,10 @@ async function main() {
   });
 
   const { fileArgs, specArgs, noMapping } = parseArgs(process.argv);
+
+  // Clean up screenshots for the specs we're about to run so operators aren't
+  // hunting through stale failures from previous runs.
+  cleanSpecScreenshots(specArgs);
 
   // If --no-mapping is used, file paths are optional
   if (!noMapping && fileArgs.length === 0) {

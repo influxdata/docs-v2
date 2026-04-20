@@ -1,0 +1,38 @@
+title: InfluxDB Cloud Serverless HTTP API
+x-influxdata-short-title: HTTP API
+x-influxdata-short-description: The InfluxDB HTTP API provides a programmatic interface for writing, querying, and managing data stored in InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+description: |
+  The InfluxDB HTTP API provides a programmatic interface for writing, querying, and managing data stored in InfluxDB Cloud Serverless (powered by the InfluxDB 3 storage engine).
+
+  Access the InfluxDB HTTP API using the `/api/v2/` or InfluxDB v1 endpoints.
+
+  ### InfluxDB v2-compatible endpoints
+
+  InfluxDB v2-compatible endpoints work with InfluxDB Cloud Serverless and with InfluxDB 2.x client libraries and third-party integrations.
+
+  The following v2-compatible endpoints are supported for Cloud Serverless:
+
+  - `/api/v2/write` — write data
+  - `/api/v2/authorizations` — manage API tokens
+  - `/api/v2/buckets` — manage buckets
+  - `/api/v2/orgs` — manage organizations
+
+  ### InfluxDB v1-compatible endpoints
+
+  InfluxDB v1-compatible endpoints work with InfluxDB Cloud Serverless and with InfluxDB 1.x client libraries and third-party integrations.
+
+  - `/write` — write data
+  - `/query` — query data with InfluxQL
+
+  ### Other endpoints
+
+  Other endpoints in this reference are for the InfluxDB Cloud (TSM) API.
+  These endpoints may be accessible but are not supported or recommended for use with InfluxDB Cloud Serverless, which is powered by the InfluxDB 3 storage engine.
+  For Cloud Serverless-specific functionality, see the [InfluxDB Cloud Serverless documentation](https://docs.influxdata.com/influxdb3/cloud-serverless/).
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
+  email: support@influxdata.com

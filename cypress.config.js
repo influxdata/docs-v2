@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 import { cwd as _cwd } from 'process';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as yaml from 'js-yaml';
 
 export default defineConfig({
@@ -38,6 +39,44 @@ export default defineConfig({
               reject(e);
             }
           });
+        },
+
+        // Read and parse an articles.yml file, returning tag names in order
+        readArticleData(filePath) {
+          try {
+            const cwd = _cwd();
+            const fullPath = filePath.startsWith('/')
+              ? filePath
+              : `${cwd}/${filePath}`;
+            if (!fs.existsSync(fullPath)) return null;
+            const parsed = yaml.load(fs.readFileSync(fullPath, 'utf8'));
+            return (parsed.articles || []).map((a) => a.fields.tag);
+          } catch (e) {
+            console.error(`Error reading article data ${filePath}: ${e.message}`);
+            return { error: e.message };
+          }
+        },
+
+        // Read an articles.yml file and return { tag, slug } pairs for
+        // conceptual (x-traitTag) articles only.
+        readConceptualTags(filePath) {
+          try {
+            const cwd = _cwd();
+            const fullPath = filePath.startsWith('/')
+              ? filePath
+              : `${cwd}/${filePath}`;
+            if (!fs.existsSync(fullPath)) return [];
+            const parsed = yaml.load(fs.readFileSync(fullPath, 'utf8'));
+            return (parsed.articles || [])
+              .filter((a) => a.fields.isConceptual === true)
+              .map((a) => ({
+                tag: a.fields.tag,
+                slug: path.basename(a.path),
+              }));
+          } catch (e) {
+            console.error(`Error reading conceptual tags ${filePath}: ${e.message}`);
+            return { error: e.message };
+          }
         },
 
         // Log task for reporting

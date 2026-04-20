@@ -1,0 +1,6 @@
+x-influxdata-short-title: InfluxDB 3 API
+x-influxdata-version-matrix:
+  v1: Compatibility layer for InfluxDB 1.x clients (supported)
+  v2: Compatibility layer for InfluxDB 2.x clients (supported)
+  v3: Native API for InfluxDB 3.x (current)
+x-influxdata-short-description: The InfluxDB 3 HTTP API provides a programmatic interface for interactions with InfluxDB, including writing, querying, and processing data, and managing an InfluxDB 3 instance.

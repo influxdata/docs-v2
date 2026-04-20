@@ -85,9 +85,9 @@ Table: keys: []
 {{% tab-content %}}
 
 To return the version of Flux installed with InfluxDB using the InfluxDB API,
-use the [`/api/v2/query` endpoint](/influxdb/version/api/#tag/Query).
+use the [`/api/v2/query` endpoint](/influxdb/version/api/query-data/).
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/query" api-ref="/influxdb/version/api/#operation/PostQuery" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/query" api-ref="/influxdb/version/api/query-data/" >}}
 Provide the following:
 
 - InfluxDB {{% show-in "cloud,cloud-serverless" %}}Cloud{{% /show-in %}} host

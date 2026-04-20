@@ -201,6 +201,14 @@ jobs:
           echo "No pages to deploy - skipping preview"
           echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
 
+      - name: Build API docs
+        # API reference pages under content/{product}/api/ are gitignored
+        # and generated at build time from OpenAPI specs. Without this
+        # step, Hugo builds a site with no API pages and preview URLs for
+        # any /api/ route 404 (see #7123 for the symptom).
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        run: yarn build:api-docs
+
       - name: Build Hugo site
         if: steps.detect.outputs.pages-to-deploy != '[]'
         id: build

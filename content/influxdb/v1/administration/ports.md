@@ -15,7 +15,7 @@ The default port that runs the InfluxDB HTTP service.
 [Configure this port](/influxdb/v1/administration/config#http-bind-address)
 in the configuration file.
 
-**Resources** [API Reference](/influxdb/v1/tools/api/)
+**Resources** [API Reference](/influxdb/v1/api/)
 
 ### 8088
 The default port used by the RPC service for RPC calls made by the CLI for backup and restore operations (`influxdb backup` and `influxd restore`).

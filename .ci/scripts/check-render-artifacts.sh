@@ -93,6 +93,44 @@ for entry in "${PATTERNS[@]}"; do
   fi
 done
 
+# Flattened-markdown patterns. These appear when a template extracts a
+# "teaser" from a structured markdown description and joins multiple
+# lines into a single paragraph before passing to `markdownify`. The
+# canonical case is influxdata/docs-v2#7122, where the API section
+# children partial flattened a numbered list with embedded code fences
+# into one <p>. Unlike the chroma patterns above, these are regex
+# matches and require `grep -rlE`.
+#
+# Patterns are intentionally strict (3+ ordered-list markers) to keep
+# false positives near zero on prose that legitimately enumerates.
+PATTERNS_REGEX=(
+  "<p[^>]*>.*\\s[0-9]+\\.\\s.*\\s[0-9]+\\.\\s.*\\s[0-9]+\\.|Flattened ordered list in prose — three or more 'N.' markers in one paragraph. Likely cause: a template joined multi-line markdown with ' ' before markdownify (see #7122)."
+  "<p[^>]*>[^<]*\`\`\`|Raw markdown code fence inside a prose paragraph. Likely cause: a template passed a description containing code fences to markdownify after flattening newlines."
+)
+
+for entry in "${PATTERNS_REGEX[@]}"; do
+  pattern="${entry%%|*}"
+  description="${entry#*|}"
+
+  if [[ -d "$TARGET" ]]; then
+    hits=$(grep -rlE --include='*.html' "$pattern" "$TARGET" 2>/dev/null || true)
+  else
+    hits=$(grep -lE "$pattern" "$TARGET" 2>/dev/null || true)
+  fi
+
+  if [[ -n "$hits" ]]; then
+    count=$(printf '%s\n' "$hits" | wc -l | tr -d ' ')
+    total_hits=$((total_hits + count))
+    failed=1
+
+    echo "::error::Found forbidden render artifact in $count file(s): '$pattern'"
+    echo "   Cause: $description"
+    echo "   First 10 affected files:"
+    printf '%s\n' "$hits" | head -10 | sed 's/^/     /'
+    echo ""
+  fi
+done
+
 if [[ $failed -eq 0 ]]; then
   echo "✅ check-render-artifacts: no forbidden patterns found in '$TARGET'."
   exit 0
@@ -100,9 +138,11 @@ fi
 
 echo "❌ check-render-artifacts: found $total_hits rendering artifact(s) across the built site."
 echo ""
-echo "These signatures appear only when a render hook or wrapper shortcode leaks"
-echo "whitespace into its output and Goldmark re-wraps highlighted code as an"
-echo "indented code block. The fix is almost always to add {{- ... -}} whitespace"
-echo "trimming to every action tag in the offending template. See"
-echo "influxdata/docs-v2#7079 for the canonical case and fix pattern."
+echo "See the '::error::' lines above for the specific patterns and their causes."
+echo "Two canonical cases:"
+echo "  - Chroma re-escape (&lt;div class=&quot;highlight&quot; etc.): whitespace"
+echo "    leak in a render hook. Fix: add {{- ... -}} trimming. See #7079."
+echo "  - Flattened markdown in prose (numbered-list markers or code fences"
+echo "    inside <p>): a template joined multi-line markdown with ' ' before"
+echo "    markdownify. Fix: stop at paragraph boundaries. See #7122."
 exit 1
