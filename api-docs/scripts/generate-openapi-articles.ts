@@ -1695,7 +1695,11 @@ function processProduct(productKey: string, config: ProductConfig): void {
             path.join('api-docs', contentRelPath, 'content', 'page.yml'),
             path.join('api-docs', contentRelPath, 'page.yml'),
           ];
-          let pageOverlay: { description?: string; body_extra?: string } = {};
+          let pageOverlay: {
+            description?: string;
+            body_extra?: string;
+            aliases?: string[];
+          } = {};
           for (const p of pageOverlayPaths) {
             if (fs.existsSync(p)) {
               pageOverlay = yaml.load(
@@ -1730,6 +1734,10 @@ function processProduct(productKey: string, config: ProductConfig): void {
               altLinks[productName] = apiPath;
             });
             parentFrontmatter.alt_links = altLinks;
+          }
+          // Add aliases from page.yml (e.g., redirects from legacy hand-written pages)
+          if (pageOverlay.aliases && pageOverlay.aliases.length > 0) {
+            parentFrontmatter.aliases = pageOverlay.aliases;
           }
           const introText = apiDescription.replace(
             'InfluxDB',
