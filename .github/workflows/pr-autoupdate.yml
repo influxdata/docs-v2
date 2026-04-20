@@ -5,7 +5,7 @@
 # and reduces merge conflicts.
 #
 # Features:
-# - Triggers on push to master (main) branch
+# - Triggers on push to master branch
 # - Includes hourly schedule as a fallback for missed webhooks
 # - Skips draft PRs by default (configurable via PR_READY_STATE)
 # - Supports label filtering via PR_FILTER and PR_LABELS
@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - name: Auto-update PR branches
-        # chinthakagodawita/autoupdate-action@v1.7.0
+        # Uses Docker image for faster startup (no checkout/build required)
         uses: docker://chinthakagodawita/autoupdate-action:v1.7.0
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
