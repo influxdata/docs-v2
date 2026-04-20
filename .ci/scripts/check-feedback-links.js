@@ -193,19 +193,29 @@ function findFirstFeedbackPage(dir) {
 
 /**
  * Extract the href of a feedback button by its visible label.
- * Matches both `href="..." class="btn issue"` and
- * `class="btn issue" ... href="..."` attribute orders.
+ *
+ * Handles both attribute orders (href first or class first) and both
+ * quoted and unquoted attribute values — Hugo's minifier drops quotes
+ * around attribute values that don't contain special characters, so
+ * `class="btn issue"` and `target=_blank` coexist on the same element.
  */
 function extractButtonHref(html, labelRegex) {
   const anchorRe = /<a\b([^>]*)>([^<]*)<\/a>/g;
+  // Matches href="value", href='value', or href=value (unquoted — value
+  // terminates at whitespace, '>', or end of attrs).
+  const hrefRe = /\bhref=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/;
+  const classRe = /\bclass=(?:"([^"]*)"|'([^']*)'|([^\s>]+))/;
   let m;
   while ((m = anchorRe.exec(html)) !== null) {
     const attrs = m[1];
     const text = m[2].trim();
     if (!labelRegex.test(text)) continue;
-    if (!/class="btn issue"/.test(attrs)) continue;
-    const hrefMatch = attrs.match(/href="([^"]+)"/);
-    if (hrefMatch) return hrefMatch[1];
+    const classMatch = attrs.match(classRe);
+    if (!classMatch) continue;
+    const classVal = classMatch[1] || classMatch[2] || classMatch[3] || '';
+    if (!/\bbtn\b/.test(classVal) || !/\bissue\b/.test(classVal)) continue;
+    const hrefMatch = attrs.match(hrefRe);
+    if (hrefMatch) return hrefMatch[1] || hrefMatch[2] || hrefMatch[3];
   }
   return null;
 }
@@ -213,67 +223,87 @@ function extractButtonHref(html, labelRegex) {
 let checkedCount = 0;
 let skippedCount = 0;
 
+// Build [version, contentPath] pairs. Products with a string content_path
+// have one entry (version=null). Products with a map (e.g. influxdb →
+// {v2: influxdb/v2, v1: influxdb/v1}) have one entry per version so we can
+// expect the corresponding version-specific name (name__v2, name__v1) in
+// the rendered label.
+function contentPathEntries(p) {
+  if (typeof p.content_path === 'string') return [[null, p.content_path]];
+  return Object.entries(p.content_path);
+}
+
+function expectedProductName(p, version) {
+  if (version) {
+    const versioned = p[`name__${version}`];
+    if (versioned) return versioned;
+  }
+  return p.name;
+}
+
 for (const [key, p] of Object.entries(productsToCheck)) {
-  const contentPaths =
-    typeof p.content_path === 'string'
-      ? [p.content_path]
-      : Object.values(p.content_path);
+  const entries = contentPathEntries(p);
 
-  let sample = null;
-  for (const cp of contentPaths) {
+  for (const [version, cp] of entries) {
     const productPublic = join(PUBLIC_DIR, cp);
-    if (!existsSync(productPublic)) continue;
-    sample = findFirstFeedbackPage(productPublic);
-    if (sample) break;
+    let sample = null;
+    if (existsSync(productPublic)) {
+      sample = findFirstFeedbackPage(productPublic);
+    }
+
+    const label = `${key}${version ? ` (${version})` : ''}`;
+
+    if (!sample) {
+      console.log(
+        `⚠️  ${label}: no rendered page with feedback section found under ${cp} — skipped`
+      );
+      skippedCount++;
+      continue;
+    }
+
+    const html = readFileSync(sample, 'utf8');
+    const rel = relative(REPO_ROOT, sample);
+    const productName = expectedProductName(p, version);
+
+    const docsHref = extractButtonHref(html, /^Submit docs issue$/);
+    const productLabelRe = new RegExp(
+      `^Submit ${escapeRegex(productName)} issue$`
+    );
+    const productHref = extractButtonHref(html, productLabelRe);
+
+    if (!docsHref) {
+      error(
+        `'Submit docs issue' button not found on sample page for '${label}'`,
+        sample
+      );
+    } else if (!docsHref.startsWith(DOCS_ISSUE_URL_PREFIX)) {
+      error(
+        `'Submit docs issue' button points to '${docsHref}', expected prefix '${DOCS_ISSUE_URL_PREFIX}' (product: ${label})`,
+        sample
+      );
+    }
+
+    if (!productHref) {
+      error(
+        `'Submit ${productName} issue' button not found on sample page for '${label}'`,
+        sample
+      );
+    } else if (productHref !== p.product_issue_url) {
+      error(
+        `'Submit ${productName} issue' button points to '${productHref}', expected '${p.product_issue_url}' from data/products.yml`,
+        sample
+      );
+    }
+
+    if (docsHref && productHref && productHref === p.product_issue_url) {
+      console.log(`✅ ${label.padEnd(28)} ${rel}`);
+      console.log(
+        `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
+      );
+      console.log(`     product → ${productHref}`);
+    }
+    checkedCount++;
   }
-
-  if (!sample) {
-    console.log(
-      `⚠️  ${key}: no rendered page with feedback section found under content_path — skipped`
-    );
-    skippedCount++;
-    continue;
-  }
-
-  const html = readFileSync(sample, 'utf8');
-  const rel = relative(REPO_ROOT, sample);
-
-  const docsHref = extractButtonHref(html, /^Submit docs issue$/);
-  const productLabelRe = new RegExp(`^Submit ${escapeRegex(p.name)} issue$`);
-  const productHref = extractButtonHref(html, productLabelRe);
-
-  if (!docsHref) {
-    error(
-      `'Submit docs issue' button not found on sample page for '${key}'`,
-      sample
-    );
-  } else if (!docsHref.startsWith(DOCS_ISSUE_URL_PREFIX)) {
-    error(
-      `'Submit docs issue' button points to '${docsHref}', expected prefix '${DOCS_ISSUE_URL_PREFIX}' (product: ${key})`,
-      sample
-    );
-  }
-
-  if (!productHref) {
-    error(
-      `'Submit ${p.name} issue' button not found on sample page for '${key}'`,
-      sample
-    );
-  } else if (productHref !== p.product_issue_url) {
-    error(
-      `'Submit ${p.name} issue' button points to '${productHref}', expected '${p.product_issue_url}' from data/products.yml`,
-      sample
-    );
-  }
-
-  if (docsHref && productHref && productHref === p.product_issue_url) {
-    console.log(`✅ ${key.padEnd(28)} ${rel}`);
-    console.log(
-      `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
-    );
-    console.log(`     product → ${productHref}`);
-  }
-  checkedCount++;
 }
 
 console.log('::endgroup::');

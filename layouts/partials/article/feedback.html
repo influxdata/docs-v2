@@ -1,9 +1,19 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $version := index $productPathData 1 }}
-{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
+{{ $productKey := $product }}
+{{ if eq $product "influxdb3" }}
+  {{ $productKey = print "influxdb3_" (replaceRE "-" "_" $version) }}
+{{ else if and (eq $product "influxdb") (eq $version "cloud") }}
+  {{/* /influxdb/cloud/* is Cloud (TSM), a separate product entry. */}}
+  {{ $productKey = "influxdb_cloud" }}
+{{ end }}
 {{ $productData := index .Site.Data.products $productKey }}
 {{ $productName := $productData.name }}
+{{/* Prefer version-specific name (name__v2, name__v1) when available. */}}
+{{ with (index $productData (print "name__" $version)) }}
+  {{ $productName = . }}
+{{ end }}
 {{ $productIssueUrl := $productData.product_issue_url }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
