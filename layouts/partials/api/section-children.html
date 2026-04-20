@@ -89,20 +89,25 @@
 
     <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
     {{ with $description }}
-    {{/* Extract a short intro for the children listing by collecting lines
-         until the first markdown heading or list marker. This avoids
-         pulling in headings (like "## Enterprise cluster parameters")
-         or bullet lists, which would render as child headings and break
-         the children-links layout. */}}
+    {{/* Extract a short intro for the children listing: the first
+         markdown paragraph. Stop at the first blank line after content
+         (paragraph boundary) or at any structural marker (heading,
+         list, ordered list, table, code fence, blockquote) that can
+         appear without a preceding blank line in YAML-embedded
+         markdown. This prevents the loop from flattening code blocks
+         and numbered steps (see influxdata/docs-v2#7122) into a single
+         paragraph, which markdownify would then HTML-encode. */}}
     {{ $introLines := slice }}
+    {{ $foundContent := false }}
     {{ range split . "\n" }}
       {{ $trimmed := strings.TrimLeft " " . }}
-      {{ if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") }}
-        {{/* Stop collecting on heading, list, or table */}}
+      {{ if eq $trimmed "" }}
+        {{ if $foundContent }}{{ break }}{{ end }}
+      {{ else if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") (hasPrefix $trimmed "```") (hasPrefix $trimmed ">") (findRE `^\d+\.\s` $trimmed 1) }}
         {{ break }}
-      {{ end }}
-      {{ if ne $trimmed "" }}
+      {{ else }}
         {{ $introLines = $introLines | append . }}
+        {{ $foundContent = true }}
       {{ end }}
     {{ end }}
     {{ $intro := delimit $introLines " " }}
