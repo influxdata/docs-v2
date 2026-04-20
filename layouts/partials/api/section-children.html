@@ -11,9 +11,14 @@
 
 {{/* Derive data lookup path from the page URL.
      Supports both 3-segment (/influxdb3/core/api/) and 4-segment
-     (/influxdb3/cloud-dedicated/api/data-api/) URLs. */}}
+     (/influxdb3/cloud-dedicated/api/data-api/) URLs.
+     When deployed under a subdirectory baseURL (e.g., PR previews at
+     /docs-v2/pr-preview/pr-N/…), apply prPreviewPathOffset to skip
+     the extra leading segments. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
 {{ $segments := split $urlPath "/" }}
+{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{/* Get article data.
      URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)
@@ -21,18 +26,18 @@
      URL: /influxdb3/core/api/ (3 segments)
      Data: article_data/influxdb3/core/api/                  (segments 0, 1, 2) */}}
 {{ $articles := slice }}
-{{ if ge (len $segments) 4 }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg3 := index $segments 3 }}
+{{ if ge $productSegments 4 }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg3 := index $segments (add $pathOffset 3) }}
   {{ with index site.Data.article_data $seg0 $seg1 $seg3 "articles" "articles" }}
     {{ $articles = . }}
   {{ end }}
 {{ end }}
-{{ if and (eq (len $articles) 0) (ge (len $segments) 3) }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg2 := index $segments 2 }}
+{{ if and (eq (len $articles) 0) (ge $productSegments 3) }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg2 := index $segments (add $pathOffset 2) }}
   {{ with index site.Data.article_data $seg0 $seg1 $seg2 "articles" "articles" }}
     {{ $articles = . }}
   {{ end }}
