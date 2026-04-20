@@ -10,7 +10,7 @@ introduced: "v1.11.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/cisco_telemetry_mdt/README.md, Cisco Model-Driven Telemetry (MDT) Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/cisco_telemetry_mdt/README.md, Cisco Model-Driven Telemetry (MDT) Plugin Source
 ---
 
 # Cisco Model-Driven Telemetry (MDT) Input Plugin
@@ -113,6 +113,14 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## help if this plugin is closing connections with ENHANCE_YOUR_CALM (too_many_pings).
   # keepalive_minimum_time = "5m"
 ```
+
+### Unit Conversion
+
+For converting between units or types please use the [scale](/telegraf/v1/plugins/#processor-scale)
+and [converter](/telegraf/v1/plugins/#processor-converter) processor plugins, respectively.
+
+[scale_plugin]: /plugins/processors/scale/README.md
+[converter_plugin]: /plugins/processors/converter/README.md
 
 ## Metrics
 
