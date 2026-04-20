@@ -1,0 +1,72 @@
+# Auto-update PR branches
+#
+# Automatically updates pull request branches whenever changes land on
+# their base branch. This keeps PRs up-to-date with the latest changes
+# and reduces merge conflicts.
+#
+# Features:
+# - Triggers on push to master branch
+# - Includes hourly schedule as a fallback for missed webhooks
+# - Skips draft PRs by default (configurable via PR_READY_STATE)
+# - Supports label filtering via PR_FILTER and PR_LABELS
+# - Supports excluding PRs by label via EXCLUDED_LABELS
+#
+# Configuration options:
+# - PR_FILTER: "all" | "labelled" | "protected" | "auto_merge"
+# - PR_LABELS: comma-separated labels (when PR_FILTER="labelled")
+# - EXCLUDED_LABELS: comma-separated labels to exclude
+# - PR_READY_STATE: "all" | "ready_for_review" | "draft"
+# - MERGE_CONFLICT_ACTION: "fail" | "ignore"
+#
+# See: https://github.com/chinthakagodawita/autoupdate-action
+
+name: Auto-update PR branches
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    # Run every hour as a fallback for missed push events
+    - cron: '17 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  autoupdate:
+    name: autoupdate
+    runs-on: ubuntu-latest
+
+    # Required permissions for updating PR branches
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Auto-update PR branches
+        # Uses Docker image for faster startup (no checkout/build required)
+        uses: docker://chinthakagodawita/autoupdate-action:v1.7.0
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+          # Only update PRs that are ready for review (skip drafts)
+          PR_READY_STATE: 'ready_for_review'
+
+          # Filter options:
+          # - "all": Update all PRs (default)
+          # - "labelled": Only update PRs with specific labels (requires PR_LABELS)
+          # - "protected": Only update PRs targeting protected branches
+          # - "auto_merge": Only update PRs with auto-merge enabled
+          PR_FILTER: 'all'
+
+          # Exclude PRs with these labels from auto-update
+          # Uncomment and customize as needed:
+          # EXCLUDED_LABELS: 'do-not-update,on-hold'
+
+          # How to handle merge conflicts:
+          # - "fail": Report failure (default)
+          # - "ignore": Silently skip PRs with conflicts
+          MERGE_CONFLICT_ACTION: 'fail'
+
+          # Retry settings for transient failures
+          RETRY_COUNT: '5'
+          RETRY_SLEEP: '300'
