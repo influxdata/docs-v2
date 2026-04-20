@@ -79,7 +79,9 @@
   <div class="actions">
     <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>
     <a href="{{ $pageGithubIssueLink }}" class="btn issue" target="_blank">Submit docs issue</a>
-    <a href="{{ $productIssueUrl }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+    {{ with $productIssueUrl }}
+      <a href="{{ . }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+    {{ end }}
   </div>
 </div>
 

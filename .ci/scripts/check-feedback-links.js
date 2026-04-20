@@ -83,27 +83,30 @@ console.log('::group::Layer 1a — products.yml schema');
 const products = yaml.load(readFileSync(PRODUCTS_YAML, 'utf8'));
 const productsToCheck = {};
 
+// product_issue_url is opt-in: its presence means "render a Submit <product>
+// issue button pointing here"; its absence means "render no product button"
+// (licensed products get only the docs issue button — support info is in the
+// left column of the feedback block).
 for (const [key, p] of Object.entries(products)) {
   if (!p || typeof p !== 'object') continue;
   if (!p.content_path) continue;
-  if (!p.product_issue_url) {
-    error(
-      `product '${key}' is missing 'product_issue_url' (required for all products with content_path)`,
-      PRODUCTS_YAML
-    );
-    continue;
-  }
-  if (typeof p.product_issue_url !== 'string') {
+  if (
+    p.product_issue_url !== undefined &&
+    typeof p.product_issue_url !== 'string'
+  ) {
     error(`product '${key}' has a non-string product_issue_url`, PRODUCTS_YAML);
     continue;
   }
   productsToCheck[key] = p;
 }
 
-const productCount = Object.keys(productsToCheck).length;
+const withUrl = Object.values(productsToCheck).filter(
+  (p) => p.product_issue_url
+).length;
+const withoutUrl = Object.keys(productsToCheck).length - withUrl;
 if (!failed) {
   console.log(
-    `✅ ${productCount} product(s) with content_path declare product_issue_url`
+    `✅ ${withUrl} product(s) declare product_issue_url; ${withoutUrl} intentionally omit it (licensed)`
   );
 }
 console.log('::endgroup::');
@@ -121,11 +124,6 @@ const FORBIDDEN_LITERALS = [
     pattern: '/issues/new/choose',
     reason:
       'fingerprint of the old $productNamespace URL builder. Product issue URLs must come from data/products.yml (product_issue_url field), not string concatenation in the template.',
-  },
-  {
-    pattern: 'support.influxdata.com/s/',
-    reason:
-      "fingerprint of the #7089 Enterprise override. Use products.yml (product_issue_url) to point a product's issue button at the support site.",
   },
 ];
 
@@ -266,10 +264,6 @@ for (const [key, p] of Object.entries(productsToCheck)) {
     const productName = expectedProductName(p, version);
 
     const docsHref = extractButtonHref(html, /^Submit docs issue$/);
-    const productLabelRe = new RegExp(
-      `^Submit ${escapeRegex(productName)} issue$`
-    );
-    const productHref = extractButtonHref(html, productLabelRe);
 
     if (!docsHref) {
       error(
@@ -283,24 +277,49 @@ for (const [key, p] of Object.entries(productsToCheck)) {
       );
     }
 
-    if (!productHref) {
-      error(
-        `'Submit ${productName} issue' button not found on sample page for '${label}'`,
-        sample
+    if (p.product_issue_url) {
+      // Opt-in: button must render with the expected label and href.
+      const productLabelRe = new RegExp(
+        `^Submit ${escapeRegex(productName)} issue$`
       );
-    } else if (productHref !== p.product_issue_url) {
-      error(
-        `'Submit ${productName} issue' button points to '${productHref}', expected '${p.product_issue_url}' from data/products.yml`,
-        sample
-      );
-    }
+      const productHref = extractButtonHref(html, productLabelRe);
 
-    if (docsHref && productHref && productHref === p.product_issue_url) {
-      console.log(`✅ ${label.padEnd(28)} ${rel}`);
-      console.log(
-        `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
+      if (!productHref) {
+        error(
+          `'Submit ${productName} issue' button not found on sample page for '${label}'`,
+          sample
+        );
+      } else if (productHref !== p.product_issue_url) {
+        error(
+          `'Submit ${productName} issue' button points to '${productHref}', expected '${p.product_issue_url}' from data/products.yml`,
+          sample
+        );
+      } else if (docsHref) {
+        console.log(`✅ ${label.padEnd(28)} ${rel}`);
+        console.log(
+          `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
+        );
+        console.log(`     product → ${productHref}`);
+      }
+    } else {
+      // Opt-out: no "Submit <anything> issue" button other than docs may
+      // appear. Regression guard against a future hardcoded URL.
+      const anyProductButton = extractButtonHref(
+        html,
+        /^Submit (?!docs issue$).* issue$/
       );
-      console.log(`     product → ${productHref}`);
+      if (anyProductButton) {
+        error(
+          `'${label}' has no product_issue_url but the rendered page has a product issue button pointing to '${anyProductButton}' — did a hardcoded URL slip into the template?`,
+          sample
+        );
+      } else if (docsHref) {
+        console.log(`✅ ${label.padEnd(28)} ${rel}`);
+        console.log(
+          `     docs    → ${docsHref.slice(0, 80)}${docsHref.length > 80 ? '...' : ''}`
+        );
+        console.log(`     product → (hidden — licensed product)`);
+      }
     }
     checkedCount++;
   }
