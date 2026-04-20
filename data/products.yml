@@ -2,6 +2,9 @@ influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
   namespace: influxdb3
+  oss_repo:
+    name: influxdb
+    branch: main
   content_path: influxdb3/core
   label_group: v3-monolith
   menu_category: self-managed
@@ -200,6 +203,11 @@ influxdb:
   name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
+  oss_repo:
+    name: influxdb
+    branch:
+      v2: main-2.x
+      v1: master-1.x
   content_path:
     v2: influxdb/v2
     v1: influxdb/v1
@@ -282,6 +290,9 @@ influxdb_cloud:
 telegraf:
   name: Telegraf
   namespace: telegraf
+  oss_repo:
+    name: telegraf
+    branch: master
   content_path: telegraf
   label_group: telegraf
   menu_category: other
@@ -308,6 +319,9 @@ telegraf_controller:
 chronograf:
   name: Chronograf
   namespace: chronograf
+  oss_repo:
+    name: chronograf
+    branch: master
   content_path: chronograf
   label_group: chronograf
   menu_category: other
@@ -325,6 +339,9 @@ chronograf:
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
+  oss_repo:
+    name: kapacitor
+    branch: master
   content_path: kapacitor
   label_group: kapacitor
   menu_category: other
@@ -398,6 +415,9 @@ influxdb_cloud1:
 flux:
   name: Flux
   namespace: flux
+  oss_repo:
+    name: flux
+    branch: master
   content_path: flux
   label_group: flux
   menu_category: languages
