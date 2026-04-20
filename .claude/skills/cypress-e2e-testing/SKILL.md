@@ -142,7 +142,7 @@ node cypress/support/run-e2e-specs.js \
 
 | Spec File                                               | Purpose                                       |
 | ------------------------------------------------------- | --------------------------------------------- |
-| `cypress/e2e/content/api-reference.cy.js`               | API reference pages (RapiDoc, layouts, links) |
+| `cypress/e2e/content/api-reference.cy.js`               | API reference pages (Hugo-native templates, layouts, links) |
 | `cypress/e2e/content/index.cy.js`                       | General content validation                    |
 | `cypress/e2e/content/markdown-content-validation.cy.js` | LLM markdown generation                       |
 | `cypress/e2e/page-context.cy.js`                        | Page context and navigation                   |

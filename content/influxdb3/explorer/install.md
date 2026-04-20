@@ -36,7 +36,7 @@ Get {{% product-name %}} running in minutes:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8888:8080 \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
 
@@ -71,7 +71,7 @@ Install [Docker](https://docs.docker.com/engine/) or [Docker Desktop](https://do
 ```bash
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -86,7 +86,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:80"
+      - "8888:8080"
     volumes:
       - ./config:/app-root/config:ro
     restart: unless-stopped
@@ -99,6 +99,7 @@ docker-compose up -d
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
 
 ### Production setup
 
@@ -115,7 +116,7 @@ For production deployments with persistence, admin mode, and automatic image upd
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:80 \
+  --publish 8888:8080 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --env SESSION_SECRET_KEY=$(openssl rand -hex 32) \
@@ -137,7 +138,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:80"
+      - "8888:8080"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -187,7 +188,7 @@ docker-compose up -d
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8888:8080 \
      --volume $(pwd)/db:/db:rw \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -202,7 +203,7 @@ docker-compose up -d
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:80"
+         - "8888:8080"
        volumes:
          - ./db:/db:rw
        restart: unless-stopped
@@ -212,6 +213,38 @@ docker-compose up -d
 
 > [!Important]
 > Without a mounted `./db` directory, application data is lost when the container is deleted.
+
+> [!Warning]
+> With v1.7.0+, the Explorer container runs as a non-root user.
+> If you're upgrading from v1.6.x or earlier with mounted volumes, update file
+> ownership before you start the container.
+> The container exits with an error if mounted volumes have incorrect ownership.
+
+### Set file permissions for upgrades
+
+In v1.7.0+, the Explorer container runs as a non-root user (`influxui`, uid
+1500) for improved security.
+Because earlier versions ran as root, existing mounted volumes are owned by
+root and the new non-root process can't access them.
+
+If you start the upgraded container without updating file ownership, it exits
+with the following error:
+
+```txt
+ERROR: Directory '/db' is owned by root and not accessible to the 'influxui' user.
+```
+
+To prevent or resolve this error, change ownership of your mounted directories
+to uid 1500 before you start the container.
+For example:
+
+```bash
+sudo chown -R 1500:1500 /path/to/your/db
+sudo chown -R 1500:1500 /path/to/your/config
+```
+
+After you update ownership, restart the container.
+Fresh installations are unaffected.
 
 ### Pre-configure InfluxDB connections
 
@@ -269,7 +302,7 @@ Instead of configuring connections through the UI, you can pre-define connection
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:80 \
+     --publish 8888:8080 \
      --volume $(pwd)/config:/app-root/config:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -284,7 +317,7 @@ Instead of configuring connections through the UI, you can pre-define connection
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:80"
+         - "8888:8080"
        volumes:
          - ./config:/app-root/config:ro
        restart: unless-stopped
@@ -321,7 +354,7 @@ To enable TLS/SSL for secure connections:
    ```bash
    docker run --detach \
      --name influxdb3-explorer \
-     --publish 8888:443 \
+     --publish 8888:8443 \
      --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
      influxdata/influxdb3-ui:{{% latest-patch %}}
    ```
@@ -336,7 +369,7 @@ To enable TLS/SSL for secure connections:
        image: influxdata/influxdb3-ui:{{% latest-patch %}}
        container_name: influxdb3-explorer
        ports:
-         - "8888:443"
+         - "8888:8443"
        volumes:
          - ./ssl:/etc/nginx/ssl:ro
        restart: unless-stopped
@@ -402,7 +435,7 @@ To configure Explorer to trust self-signed or custom CA certificates when connec
 docker run --detach \
   --name influxdb3-explorer \
   --restart unless-stopped \
-  --publish 8888:443 \
+  --publish 8888:8443 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
@@ -427,7 +460,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:443"
+      - "8888:8443"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -465,14 +498,14 @@ Set the mode using the `--mode` parameter:
 # Query mode (default)
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=query
 
 # Admin mode
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}} \
   --mode=admin
 ```
@@ -490,7 +523,7 @@ services:
     # For admin mode, add:
     command: ["--mode=admin"]
     ports:
-      - "8888:80"
+      - "8888:8080"
     restart: unless-stopped
 ```
 {{% /code-tab-content %}}
@@ -532,8 +565,8 @@ services:
 
 | Container Port | Protocol | Purpose | Common Host Mapping |
 |----------------|----------|---------|---------------------|
-| 80 | HTTP | Web UI (unencrypted) | 8888 |
-| 443 | HTTPS | Web UI (encrypted) | 8888 |
+| 8080 | HTTP | Web UI (unencrypted) | 8888 |
+| 8443 | HTTPS | Web UI (encrypted) | 8888 |
 
 ---
 
@@ -570,7 +603,7 @@ EOF
 docker run --detach \
   --name influxdb3-explorer \
   --pull always \
-  --publish 8888:443 \
+  --publish 8888:8443 \
   --volume $(pwd)/db:/db:rw \
   --volume $(pwd)/config:/app-root/config:ro \
   --volume $(pwd)/ssl:/etc/nginx/ssl:ro \
@@ -593,7 +626,7 @@ services:
     pull_policy: always
     command: ["--mode=admin"]
     ports:
-      - "8888:443"
+      - "8888:8443"
     volumes:
       - ./db:/db:rw
       - ./config:/app-root/config:ro
@@ -629,7 +662,7 @@ docker-compose up -d
 ```bash
 docker run --rm \
   --name influxdb3-explorer \
-  --publish 8888:80 \
+  --publish 8888:8080 \
   influxdata/influxdb3-ui:{{% latest-patch %}}
 ```
 {{% /code-tab-content %}}
@@ -644,8 +677,7 @@ services:
     image: influxdata/influxdb3-ui:{{% latest-patch %}}
     container_name: influxdb3-explorer
     ports:
-      - "8888:80"
+      - "8888:8080"
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-

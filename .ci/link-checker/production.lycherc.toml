@@ -51,6 +51,14 @@ exclude = [
   # TODO: Remove after fixing canonical URL generation or link-checker domain replacement
   "^https://docs\\.influxdata\\.com/",
 
+  # InfluxData GitHub org URLs.
+  # Most matches are the template-generated "Edit this page" and "Submit
+  # issue" footer links that appear on every doc page — checking them
+  # 6000x only surfaces GitHub rate-limit noise (~30k warnings per run).
+  # Any genuinely broken link to an influxdata/ repo would affect every
+  # page at once, which is obvious without a link checker.
+  "^https?://github\\.com/influxdata/",
+
   # Local file URLs with fragments — lychee resolves /path/to/page#fragment to
   # file:///path/to/page#fragment, but the actual file is at /path/to/page/index.html.
   # This causes false "Cannot find file" errors for valid pages with Hugo pretty URLs.

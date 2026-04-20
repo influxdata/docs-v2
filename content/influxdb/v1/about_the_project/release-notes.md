@@ -43,10 +43,10 @@ alt_links:
 - Add [`advanced-expiration` TLS configuration option](/influxdb/v1/administration/config/#advanced-expiration)
   to configure how far in advance to log warnings about TLS certificate expiration.
 - Add TLS certificate reloading on `SIGHUP`.
-- Add [`config`](/influxdb/v1/tools/api/#running-configuration) and [`cq` (continuous query) statistics](/influxdb/v1/tools/api/#continuous-query-statistics) to the `/debug/vars` endpoint.
+- Add [`config`](/influxdb/v1/api/debug/) and [`cq` (continuous query) statistics](/influxdb/v1/api/debug/) to the `/debug/vars` endpoint.
 - Improve dropped point logging.
 - [Show user when displaying or logging queries](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries).
-- Add [`time_format` parameter](/influxdb/v1/tools/api/#query-data-with-a-select-statement-and-the-time_format-parameter) for the HTTP API.
+- Add [`time_format` parameter](/influxdb/v1/api/query/) for the HTTP API.
 - Use dynamic logging levels (`zap.AtomicLevel`).
 - [Report user query bytes](/influxdb/v1/administration/config/#user-query-bytes-enabled).
 
@@ -122,7 +122,7 @@ alt_links:
 ### Bug Fixes
 
 - Strip double quotes from measurement names in the [`/api/v2/delete`
-  compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
+  compatibility API](/influxdb/v1/api/delete-v2-compatible/) before
   string comparisons (e.g. to allow special characters in measurement names).
 
 ---
@@ -198,9 +198,9 @@ of InfluxDB v1 workloads to InfluxDB 3.
     to improve Flux query performance.
 - **InfluxDB v2 compatibility API updates:**
   - Partially support create, retrieve, update, delete, and list operations in the
-    [`/v2/api/buckets` compatibility API](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints)
+    [`/v2/api/buckets` compatibility API](/influxdb/v1/api/buckets-v2-compatible/)
     and correctly handle requests to unsupported `/v2/api/buckets` endpoints.
-  - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint).
+  - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/api/delete-v2-compatible/).
 - **Additional internal metrics:**
   - Ingress metrics by measurement.
   - Measurement metrics by login.
@@ -404,7 +404,7 @@ reporting an earlier error.
 
 - Use latest version of InfluxQL package.
 - Add `-lponly` flag to [`influx export`](/influxdb/v2/reference/cli/influx/export/) sub-command.
-- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/tools/api/#debugvars-http-endpoint).
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/api/debug/).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 
 ### Bug fixes
@@ -479,7 +479,7 @@ to enable the Flux REPL shell for creating Flux queries.
 
 #### Forward compatibility
 
-- [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/api/buckets-v2-compatible/) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.

@@ -69,6 +69,9 @@ export async function startHugoServer({
     hugoArgs.push('--noHTTPCache');
   }
 
+  // Disable fast render to avoid Hugo panic on rebuild with generated API pages
+  hugoArgs.push('--disableFastRender');
+
   return new Promise((resolve, reject) => {
     try {
       // Use yarn to find and execute Hugo, which will work regardless of installation method

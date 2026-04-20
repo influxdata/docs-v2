@@ -23,7 +23,7 @@ Clients include the CLI, Chronograf, InfluxDB client libraries, Grafana, curl, o
 [Configure this port](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#bind-address)
 in the data node configuration file.
 
-_See also: [API Reference](/enterprise_influxdb/v1/tools/api/)._
+_See also: [API Reference](/enterprise_influxdb/v1/api/)._
 
 ### 8088
 

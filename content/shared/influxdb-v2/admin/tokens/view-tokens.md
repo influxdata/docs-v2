@@ -62,13 +62,13 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
-{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" api-ref="/influxdb/version/api/#operation/GetAuthorizations" >}}
+{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" api-ref="/influxdb/version/api/authorizations-api-tokens/" >}}
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`read: authorizations`](/influxdb/version/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| API token with the [`read: authorizations`](/influxdb/version/api/authorizations-api-tokens/) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
@@ -78,7 +78,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/version/api/#operation/GetAuthorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/version/api/authorizations-api-tokens/" %}}
 
 ### Filter the token list
 
@@ -96,4 +96,4 @@ To filter authorizations by organization when using an operator token, include a
 
 {{% /show-in %}}
 
-See the [`/authorizations` endpoint documentation](/influxdb/version/api/#tag/Authorizations-(API-tokens)) for more information about available parameters.
+See the [`/authorizations` endpoint documentation](/influxdb/version/api/authorizations-api-tokens/) for more information about available parameters.

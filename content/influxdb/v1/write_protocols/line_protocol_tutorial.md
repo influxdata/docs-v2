@@ -180,7 +180,7 @@ Use the InfluxDB API to specify timestamps with a precision other than nanosecon
 such as microseconds, milliseconds, or seconds.
 We recommend using the coarsest precision possible as this can result in
 significant improvements in compression.
-See the [API Reference](/influxdb/v1/tools/api/#write-http-endpoint) for more information.
+See the [API Reference](/influxdb/v1/api/write/) for more information.
 
 {{% note %}}
 #### Setup Tip: 
@@ -217,7 +217,7 @@ The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.14
 The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`.
 As mentioned above, by default, InfluxDB assumes that timestamps have
 nanosecond precision.
-See the [API Reference](/influxdb/v1/tools/api/#write-http-endpoint) for how to specify
+See the [API Reference](/influxdb/v1/api/write/) for how to specify
 alternative precisions.
 
 Field values can be floats, integers, strings, or Booleans:
@@ -494,7 +494,7 @@ curl -i -XPOST "http://localhost:8086/write?db=science_is_cool" --data-binary 'w
 ```
 
 For in-depth descriptions of query string parameters, status codes, responses,
-and more examples, see the [API Reference](/influxdb/v1/tools/api/#write-http-endpoint).
+and more examples, see the [API Reference](/influxdb/v1/api/write/).
 
 #### CLI
 
@@ -513,7 +513,7 @@ Protocol from a file.
 
 There are several ways to write data to InfluxDB.
 See the [Tools](/influxdb/v1/tools/) section for more
-on the [InfluxDB API](/influxdb/v1/tools/api/#write-http-endpoint), the
+on the [InfluxDB API](/influxdb/v1/api/write/), the
 [CLI](/influxdb/v1/tools/shell/), and the available Service Plugins (
 [UDP](/influxdb/v1/tools/udp/),
 [Graphite](/influxdb/v1/tools/graphite/),
