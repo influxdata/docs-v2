@@ -477,12 +477,22 @@ Replace the following:
 ### License files
 
 > [!Important]
-> License files are tied to:
-> - The specific cloud provider (AWS, Azure, GCS)
-> - The specific bucket name
-> - For file storage: the exact file path
-> 
-> You cannot restore a license file to a different bucket or path. Contact InfluxData support if you need to migrate to a different bucket.
+> License files are tied to the complete object store configuration and the cluster ID, not just the bucket or container name.
+> Changing any component of your object store configuration or restoring to a different cluster invalidates your license.
+
+License binding varies by cloud provider:
+
+| Provider | License bound to |
+| -------- | ---------------- |
+| **AWS S3** | Endpoint + bucket name + region + cluster ID |
+| **Azure Blob Storage** | Storage account name + container name + cluster ID |
+| **Google Cloud Storage** | GCS base URL + bucket name + cluster ID |
+| **File storage** | Exact file path + cluster ID |
+
+For disaster recovery planning:
+
+- **Pre-provision a DR license**: Request a license for your DR storage configuration before an incident occurs.
+- **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
 {{% /show-in %}}
 
 ### Docker considerations
