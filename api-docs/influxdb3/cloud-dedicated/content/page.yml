@@ -13,3 +13,6 @@ body_extra: |
 
   Each API has its own OpenAPI specification and download button.
   Use the links below to navigate to each API reference.
+aliases:
+  - /influxdb3/cloud-dedicated/reference/api/
+  - /influxdb3/cloud-dedicated/api/v2/
