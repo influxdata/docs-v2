@@ -12,8 +12,7 @@ aliases:
 
 ## v1.11.1 {date="2026-04-15"}
 
-> [!Important]
-> Chronograf 1.11.1 adds support for Darwin arm64.
+- Adds support for Darwin arm64.
 
 ### Maintenance updates
 
