@@ -12,3 +12,6 @@ body_extra: |
   > {{% product-name %}}.
   > For TSM endpoint documentation, see the
   > [InfluxDB Cloud API reference](/influxdb/cloud/api/).
+aliases:
+  - /influxdb3/cloud-serverless/reference/api/
+  - /influxdb3/cloud-serverless/api/v2/

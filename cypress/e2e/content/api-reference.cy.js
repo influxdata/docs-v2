@@ -416,3 +416,39 @@ describe('All endpoints page', () => {
       .and('match', /\/api\/.*\/#operation\//);
   });
 });
+
+// ── Legacy URL redirects ─────────────────────────────────────────────
+// Covers URLs that 404'd on production before Hugo aliases were added
+// via api-docs/<product>/content/page.yml. See
+// docs/superpowers/specs/2026-04-20-broken-api-link-redirects-design.md.
+
+describe('Legacy API URL redirects', () => {
+  const redirects = [
+    // /reference/api/ stubs (5 products)
+    ['/influxdb3/cloud-dedicated/reference/api/',  '/influxdb3/cloud-dedicated/api/'],
+    ['/influxdb3/cloud-serverless/reference/api/', '/influxdb3/cloud-serverless/api/'],
+    ['/influxdb3/clustered/reference/api/',        '/influxdb3/clustered/api/'],
+    ['/influxdb/v2/reference/api/',                '/influxdb/v2/api/'],
+    ['/influxdb/cloud/reference/api/',             '/influxdb/cloud/api/'],
+    // Redoc-era /api/vN/ URLs (8 URLs across 7 products)
+    ['/influxdb3/core/api/v3/',                    '/influxdb3/core/api/'],
+    ['/influxdb3/enterprise/api/v3/',              '/influxdb3/enterprise/api/'],
+    ['/influxdb3/cloud-dedicated/api/v2/',         '/influxdb3/cloud-dedicated/api/'],
+    ['/influxdb3/cloud-serverless/api/v2/',        '/influxdb3/cloud-serverless/api/'],
+    ['/influxdb3/clustered/api/v2/',               '/influxdb3/clustered/api/'],
+    ['/influxdb/v2/api/v2/',                       '/influxdb/v2/api/'],
+    ['/influxdb/v2/api/v1/',                       '/influxdb/v2/api/'],
+    ['/influxdb/cloud/api/v2/',                    '/influxdb/cloud/api/'],
+  ];
+
+  redirects.forEach(([from, to]) => {
+    it(`${from} → ${to}`, () => {
+      cy.visit(from);
+      // Hugo aliases return HTML with <meta http-equiv="refresh" content="0; url=..."/>.
+      // Cypress's cy.visit waits for page-load events including the refresh,
+      // so cy.location after the visit reflects the final URL. Use .should (retry)
+      // to give the meta-refresh time to fire.
+      cy.location('pathname', { timeout: 10000 }).should('eq', to);
+    });
+  });
+});
