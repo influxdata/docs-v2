@@ -1,0 +1,39 @@
+tags:
+  System Information:
+    description: |
+      Check server status, health, and version information for an InfluxDB Enterprise v1 instance.
+  Query:
+    description: |
+      Query data using InfluxQL via the `/query` endpoint, supporting both read queries (SELECT, SHOW) and management queries (CREATE, DROP, ALTER).
+  Write:
+    description: |
+      Write time series data to InfluxDB Enterprise v1 in line protocol format using the `/write` endpoint.
+  Debug:
+    description: |
+      Access debugging and profiling endpoints for troubleshooting and performance analysis of an InfluxDB Enterprise v1 instance.
+  Buckets (v2 compatible):
+    description: |
+      Manage databases as buckets using InfluxDB v2-compatible endpoints. Provides forward compatibility with InfluxDB 2.x client libraries and InfluxDB Enterprise 1.8+.
+  Delete (v2 compatible):
+    description: |
+      Delete data using InfluxDB v2-compatible predicate expressions. Provides forward compatibility with InfluxDB 2.x client libraries and InfluxDB Enterprise 1.8+.
+  Authentication:
+    x-traitTag: true
+    description: |
+      Authentication is **disabled by default** in InfluxDB Enterprise v1.
+      When disabled, the database accepts any request without checking
+      credentials—supplied credentials are silently ignored.
+      When enabled, every HTTP request must include valid credentials.
+
+      Use one of the following schemes to authenticate to the InfluxDB Enterprise v1 API:
+
+      - [Basic authentication](#section/Authentication/BasicAuth)
+      - [Query string authentication](#section/Authentication/QueryAuth)
+      - [Token authentication](#section/Authentication/TokenAuth)
+      <!-- ReDoc-Inject: <security-definitions> -->
+    externalDocs:
+      description: Configure authentication
+      url: /enterprise_influxdb/v1/administration/configure/security/authentication/
+    x-related:
+      - title: Configure authentication
+        href: /enterprise_influxdb/v1/administration/configure/security/authentication/

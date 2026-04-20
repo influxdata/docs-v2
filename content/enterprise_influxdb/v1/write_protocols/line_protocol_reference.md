@@ -35,14 +35,14 @@ InfluxDB line protocol informs InfluxDB of the data's measurement, tag set, fiel
 | [Measurement](/enterprise_influxdb/v1/concepts/glossary/#measurement) | Required | The measurement name. InfluxDB accepts one measurement per point. | String
 | [Tag set](/enterprise_influxdb/v1/concepts/glossary/#tag-set) | Optional | All tag key-value pairs for the point.  | [Tag keys](/enterprise_influxdb/v1/concepts/glossary/#tag-key) and [tag values](/enterprise_influxdb/v1/concepts/glossary/#tag-value) are both strings.
 | [Field set](/enterprise_influxdb/v1/concepts/glossary/#field-set) | Required. Points must have at least one field. | All field key-value pairs for the point. | [Field keys](/enterprise_influxdb/v1/concepts/glossary/#field-key) are strings. [Field values](/enterprise_influxdb/v1/concepts/glossary/#field-value) can be floats, integers, strings, or Booleans.
-| [Timestamp](/enterprise_influxdb/v1/concepts/glossary/#timestamp) | Optional. InfluxDB uses the server's local nanosecond timestamp in UTC if the timestamp is not included with the point. | The timestamp for the data point. InfluxDB accepts one timestamp per point. | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1/tools/api/#write-http-endpoint).
+| [Timestamp](/enterprise_influxdb/v1/concepts/glossary/#timestamp) | Optional. InfluxDB uses the server's local nanosecond timestamp in UTC if the timestamp is not included with the point. | The timestamp for the data point. InfluxDB accepts one timestamp per point. | Unix nanosecond timestamp. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1/api/write/).
 
 {{% note %}}
 #### Performance tips:
 
 - Before sending data to InfluxDB, sort by tag key to match the results from the
 [Go bytes.Compare function](http://golang.org/pkg/bytes/#Compare).
-- To significantly improve compression, use the coarsest [precision](/enterprise_influxdb/v1/tools/api/#write-http-endpoint) possible for timestamps.
+- To significantly improve compression, use the coarsest [precision](/enterprise_influxdb/v1/api/write/) possible for timestamps.
 - Use the Network Time Protocol (NTP) to synchronize time between hosts. InfluxDB uses a host's local time in UTC to assign timestamps to data. If a host's clock isn't synchronized with NTP, the data that the host writes to InfluxDB may have inaccurate timestamps.
 {{% /note %}}
 
@@ -54,7 +54,7 @@ InfluxDB line protocol informs InfluxDB of the data's measurement, tag set, fiel
 | Integer | Field values | Signed 64-bit integers (-9223372036854775808 to 9223372036854775807). Specify an integer with a trailing `i` on the number. Example: `1i`. |
 | String | Measurements, tag keys, tag values, field keys, field values | Length limit 64KB. |
 | Boolean | Field values | Stores TRUE or FALSE values.<br><br>TRUE write syntax:`[t, T, true, True, TRUE]`.<br><br>FALSE write syntax:`[f, F, false, False, FALSE]` |
-| Timestamp | Timestamps |  A Unix time in nanoseconds since January 1, 1970 UTC. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1/tools/api/#write-http-endpoint). The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`. The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`. |
+| Timestamp | Timestamps |  A Unix time in nanoseconds since January 1, 1970 UTC. Specify alternative precisions with the [InfluxDB API](/enterprise_influxdb/v1/api/write/). The minimum valid timestamp is `-9223372036854775806` or `1677-09-21T00:12:43.145224194Z`. The maximum valid timestamp is `9223372036854775806` or `2262-04-11T23:47:16.854775806Z`. |
 
 #### Boolean syntax for writes and queries
 

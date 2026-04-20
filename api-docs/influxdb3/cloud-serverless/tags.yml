@@ -1,0 +1,269 @@
+tags:
+  API compatibility:
+    x-traitTag: true
+    description: |
+      InfluxDB Cloud Serverless supports a subset of the InfluxDB v2 API.
+      Other endpoints in this reference are for the InfluxDB Cloud (TSM) API —
+      they may be accessible, but are not supported or recommended for use with
+      InfluxDB Cloud Serverless, which is powered by the InfluxDB 3 storage engine.
+
+      ### Write data
+
+      InfluxDB Cloud Serverless provides the following HTTP API endpoints for writing data:
+
+      - **Recommended**: `/api/v2/write` endpoint
+        for new write workloads or for bringing existing InfluxDB v2 write workloads.
+      - `/write` endpoint for bringing existing InfluxDB v1 write workloads.
+
+      Both endpoints accept line protocol format and process data in the same way.
+
+      ### Query data
+
+      InfluxDB Cloud Serverless provides the following protocols for executing a query:
+
+      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query.
+      - HTTP API `/query` request that contains an InfluxQL query.
+        Use this endpoint when bringing existing InfluxDB v1 query workloads.
+
+      ### Management endpoints
+
+      Use the following endpoints to manage Cloud Serverless resources:
+
+      - API tokens (authorizations) — create and manage API tokens
+      - Buckets — create and manage storage buckets
+      - Organizations — view and manage organizations
+      - Accounts — manage account information
+
+      ### InfluxDB v2 compatibility
+
+      The `/api/v2/write` endpoint works with the Token authentication scheme and existing InfluxDB 2.x tools and code.
+
+      ### InfluxDB v1 compatibility
+
+      The `/write` and `/query` endpoints work with InfluxDB 1.x username/password authentication and existing InfluxDB 1.x tools and code.
+    externalDocs:
+      description: Write data
+      url: /influxdb3/cloud-serverless/write-data/
+    x-related:
+      - title: Write data
+        href: /influxdb3/cloud-serverless/write-data/
+      - title: Get started querying InfluxDB
+        href: /influxdb3/cloud-serverless/get-started/query/
+      - title: Manage API tokens
+        href: /influxdb3/cloud-serverless/security/tokens/
+      - title: Manage buckets
+        href: /influxdb3/cloud-serverless/admin/buckets/
+      - title: Use the v2 HTTP API with Cloud Serverless
+        href: /influxdb3/cloud-serverless/guides/api-compatibility/v2/
+      - title: Use the v1 HTTP API with Cloud Serverless
+        href: /influxdb3/cloud-serverless/guides/api-compatibility/v1/
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB Cloud Serverless API:
+
+      - Token authentication
+      - Basic authentication
+  Authorizations (API tokens):
+    description: |
+      Create and manage API token authorizations that grant read and write permissions to InfluxDB 3 Cloud Serverless organization resources.
+    externalDocs:
+      description: Manage API tokens
+      url: /influxdb3/cloud-serverless/security/tokens/
+    x-related:
+      - title: Manage API tokens
+        href: /influxdb3/cloud-serverless/security/tokens/
+  Bucket Schemas:
+    drop: true
+  Buckets:
+    description: |
+      Create and manage named storage locations (buckets) in InfluxDB 3 Cloud Serverless, each with a configurable retention period.
+    externalDocs:
+      description: Manage buckets
+      url: /influxdb3/cloud-serverless/admin/buckets/
+    x-related:
+      - title: Manage buckets
+        href: /influxdb3/cloud-serverless/admin/buckets/
+  Cells:
+    drop: true
+  Checks:
+    drop: true
+  Common parameters:
+    x-traitTag: true
+    description: |
+      Most InfluxDB Cloud Serverless API endpoints require parameters in the
+      request--for example, to specify the bucket or organization.
+
+      The following table shows common query parameters used by many
+      InfluxDB Cloud Serverless API endpoints.
+
+      | Query parameter | Value type | Description                                  |
+      |:----------------|:-----------|:---------------------------------------------|
+      | `bucket`        | string     | The bucket name.                             |
+      | `bucketID`      | string     | The bucket ID.                               |
+      | `org`           | string     | The organization name.                       |
+      | `orgID`         | string     | The organization ID.                         |
+      | `precision`     | string     | Timestamp precision: `ns`, `us`, `ms`, `s`.  |
+      | `db`            | string     | The database (for v1-compatible endpoints).  |
+  Config:
+    drop: true
+  Dashboards:
+    drop: true
+  DBRPs:
+    description: >
+      Create and manage database retention policy (DBRP) mappings
+      for InfluxDB Cloud Serverless. DBRP mappings associate v1-compatible
+      database and retention policy combinations with Cloud Serverless buckets,
+      enabling queries and writes using InfluxDB v1 API endpoints.
+    x-related:
+      - title: Use v1 API compatibility endpoints
+        href: /influxdb3/cloud-serverless/guides/api-compatibility/v1/
+  Delete:
+    drop: true
+  Headers:
+    x-traitTag: true
+    description: |
+      InfluxDB Cloud Serverless API endpoints use standard HTTP request and
+      response headers. The following table shows common headers used by many
+      InfluxDB Cloud Serverless API endpoints. Some endpoints may use other
+      headers for functions specific to those endpoints--for example, the
+      write endpoints accept the `Content-Encoding` header to indicate that
+      line protocol is compressed in the request body.
+
+      | Header             | Value type | Description                                           |
+      |:-------------------|:-----------|:------------------------------------------------------|
+      | `Accept`           | string     | The content type that the client can understand.     |
+      | `Authorization`    | string     | The authorization scheme and credential.             |
+      | `Content-Encoding` | string     | Compression applied to the request body (e.g., gzip). |
+      | `Content-Length`   | integer    | The size of the entity-body, in bytes.               |
+      | `Content-Type`     | string     | The format of the data in the request body.         |
+  Invokable Scripts:
+    drop: true
+  Labels:
+    drop: true
+  Legacy Authorizations:
+    drop: true
+  Limits:
+    description: |
+      Retrieve rate limits and usage quotas for an InfluxDB 3 Cloud Serverless organization.
+  NotificationEndpoints:
+    drop: true
+  NotificationRules:
+    drop: true
+  Organizations:
+    description: |
+      View and manage InfluxDB 3 Cloud Serverless organizations, which are workspaces that group users, buckets, and resources.
+    externalDocs:
+      description: View and manage organizations
+      url: /influxdb3/cloud-serverless/admin/
+    x-related:
+      - title: View and manage organizations
+        href: /influxdb3/cloud-serverless/admin/
+  Pagination:
+    x-traitTag: true
+    description: |
+      List endpoints in the InfluxDB Cloud Serverless API support pagination via
+      query parameters. Use these parameters to page through large result sets.
+
+      | Query parameter | Value type | Description                                         |
+      |:----------------|:-----------|:----------------------------------------------------|
+      | `limit`         | integer    | Maximum number of records to return (default: 20). |
+      | `offset`        | integer    | Number of records to skip before returning results. |
+      | `after`         | string     | Return records created after the specified record ID. |
+      | `descending`    | boolean    | Sort results in descending order.                   |
+
+      List responses include pagination metadata (such as total count or links
+      to the next page) to help navigate through result pages.
+  Ping:
+    drop: true
+  Query data:
+    description: |
+      Query data stored in InfluxDB 3 Cloud Serverless using InfluxQL via the v1-compatible `/query` endpoint, or using SQL and InfluxQL via Flight+gRPC clients.
+    externalDocs:
+      description: Get started querying InfluxDB
+      url: /influxdb3/cloud-serverless/get-started/query/
+    x-related:
+      - title: Get started querying InfluxDB
+        href: /influxdb3/cloud-serverless/get-started/query/
+      - title: Execute queries
+        href: /influxdb3/cloud-serverless/query-data/execute-queries/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Get started writing and querying data with the InfluxDB 3 Cloud Serverless API.
+  Resources:
+    drop: true
+  Response codes:
+    x-traitTag: true
+    description: |
+      InfluxDB Cloud Serverless API endpoints return standard HTTP status
+      codes. The following table summarizes the most common response codes.
+
+      | Status code | Meaning                                                                 |
+      |:------------|:------------------------------------------------------------------------|
+      | `200 OK`    | Success.                                                                |
+      | `201 Created` | The resource was created.                                             |
+      | `204 No Content` | Success with no response body (typically after write or delete).  |
+      | `400 Bad Request` | Request parameters or body are malformed or invalid.              |
+      | `401 Unauthorized` | Missing or invalid credentials.                                  |
+      | `403 Forbidden` | Credentials lack permission for the requested resource.             |
+      | `404 Not Found` | The requested resource does not exist.                              |
+      | `413 Payload Too Large` | Request body exceeds the maximum allowed size.              |
+      | `422 Unprocessable Entity` | Request body is well-formed but semantically invalid.    |
+      | `429 Too Many Requests` | Rate limit exceeded.                                        |
+      | `500 Internal Server Error` | Unexpected server error.                                |
+      | `503 Service Unavailable` | Server is overloaded or under maintenance.                |
+  Routes:
+    drop: true
+  Rules:
+    drop: true
+  Secrets:
+    drop: true
+  Security and access endpoints:
+    drop: true
+  Setup:
+    drop: true
+  Signin:
+    drop: true
+  Signout:
+    drop: true
+  Supported operations:
+    x-traitTag: true
+    description: |
+      The InfluxDB 3 Cloud Serverless API supports create, read, update, and delete
+      operations on resources. Most endpoints follow standard HTTP method conventions:
+
+      | Operation | HTTP Method | Description |
+      |:----------|:------------|:------------|
+      | **Write** | `POST` | Send data or create a resource. |
+      | **Read** | `GET` | Retrieve a resource or list resources. |
+      | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
+      | **Delete** | `DELETE` | Remove a resource. |
+  System information endpoints:
+    drop: true
+  Tasks:
+    drop: true
+  Telegraf Plugins:
+    drop: true
+  Telegrafs:
+    drop: true
+  Templates:
+    drop: true
+  Usage:
+    description: |
+      Retrieve usage metrics and cardinality data for an InfluxDB 3 Cloud Serverless organization.
+  Users:
+    drop: true
+  Variables:
+    drop: true
+  Views:
+    drop: true
+  Write data:
+    description: |
+      Write time series data to InfluxDB 3 Cloud Serverless buckets using the v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write` endpoint with line protocol.
+    externalDocs:
+      description: Write data
+      url: /influxdb3/cloud-serverless/write-data/
+    x-related:
+      - title: Write data
+        href: /influxdb3/cloud-serverless/write-data/

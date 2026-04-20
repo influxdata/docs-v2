@@ -132,6 +132,9 @@ pre-commit:
       glob: "assets/js/*.ts"
       run: yarn build:ts
       stage_fixed: true
+    build-api-docs-scripts:
+      glob: "api-docs/scripts/**/*.ts"
+      run: yarn build:api-docs:scripts
     prettier:
       tags: [frontend, style]
       glob: '*.{css,js,ts,jsx,tsx}'

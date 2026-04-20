@@ -1,0 +1,72 @@
+{{/*
+  Sort operations: native first, then compatibility versions descending.
+
+  Used by both the tag page body (tag-renderer.html) and the on-this-page
+  TOC (list.html) so the two always agree on order.
+
+  Ranking (lower = shown first):
+    0 — native for the product
+    1 — v2 compatibility
+    2 — v1 compatibility
+    3 — future / unknown compat version
+
+  Two signals feed the rank:
+    - `compatVersion` (from `x-compatibility-version` in the spec).
+      Used when present. v1 specs mark their compat ops explicitly.
+    - Path prefix (`/api/v3/…`, `/api/v2/…`, `/api/v1/…`). Used when
+      `compatVersion` is absent. v3 specs typically don't mark.
+
+  Unversioned paths (no `/api/vN/` prefix — e.g. `/write`, `/ping`)
+  are ambiguous: in v1 products they're native; in v3 products they're
+  v1-compat. Decided per tag: if any operation in the slice carries a
+  `compatVersion`, the product is marker-aware (v1 style) — unversioned
+  paths count as native. Otherwise (v3 style) — unversioned paths count
+  as v1-compat.
+
+  Within the same rank, operations are sorted by path alphabetically.
+
+  Returns a sorted slice of operation objects (same shape as input).
+
+  Usage:
+    {{ $sorted := partial "api/sort-operations.html" $operations }}
+    {{ range $sorted }}...{{ end }}
+*/}}
+{{- $operations := . | default slice -}}
+
+{{/* Detect whether this tag uses explicit compatVersion markers. */}}
+{{- $hasAnyCompatMarker := false -}}
+{{- range $operations -}}
+  {{- if .compatVersion -}}{{- $hasAnyCompatMarker = true -}}{{- end -}}
+{{- end -}}
+
+{{- $keyed := slice -}}
+{{- range $operations -}}
+  {{- $rank := "0" -}}
+  {{- with .compatVersion -}}
+    {{- if eq . "v3" -}}{{- $rank = "0" -}}
+    {{- else if eq . "v2" -}}{{- $rank = "1" -}}
+    {{- else if eq . "v1" -}}{{- $rank = "2" -}}
+    {{- else -}}{{- $rank = "3" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $path := .path | default "" -}}
+    {{- if hasPrefix $path "/api/v3/" -}}{{- $rank = "0" -}}
+    {{- else if hasPrefix $path "/api/v2/" -}}{{- $rank = "1" -}}
+    {{- else if hasPrefix $path "/api/v1/" -}}{{- $rank = "2" -}}
+    {{- else -}}
+      {{/* Unversioned path. In a marker-aware tag it's native; in a
+           path-prefix tag it's v1-compat. */}}
+      {{- if $hasAnyCompatMarker -}}{{- $rank = "0" -}}
+      {{- else -}}{{- $rank = "2" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $sortKey := printf "%s %s" $rank (.path | default "") -}}
+  {{- $keyed = $keyed | append (dict "sortKey" $sortKey "op" .) -}}
+{{- end -}}
+
+{{- $sorted := slice -}}
+{{- range sort $keyed "sortKey" -}}
+  {{- $sorted = $sorted | append .op -}}
+{{- end -}}
+{{- return $sorted -}}

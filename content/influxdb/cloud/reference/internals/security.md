@@ -231,7 +231,7 @@ For users needing stricter security around data access and risk mitigation measu
 - **Periodic API Token rotation**.
    We recommend that users periodically connect directly from their applications
    and automatically delete their current API tokens and create new tokens programmatically.
-   Please refer to our [API documentation](/influxdb/cloud/api/#tag/Authorizations)
+   Please refer to our [API documentation](/influxdb/cloud/api/authorizations-api-tokens/)
    for information on creating and deleting tokens programmatically.
 
 ## Compliance and auditing

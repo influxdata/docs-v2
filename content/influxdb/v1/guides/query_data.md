@@ -53,7 +53,7 @@ The header row defines column labels for the table. The `cpu` [measurement](/inf
 ### Flux
 
 Check out the [Get started with Flux](/influxdb/v2/query-data/get-started/) to learn more about building queries with Flux.
-For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints).
+For more information about querying data with the InfluxDB API using Flux, see the [API reference documentation](/influxdb/v1/api/buckets-v2-compatible/).
 
 ## Query data with InfluxQL
 
@@ -107,4 +107,4 @@ While this is useful for debugging or when querying directly with tools like `cu
 ### InfluxQL
 
 Check out the [Data Exploration page](/influxdb/v1/query_language/explore-data/) to get acquainted with InfluxQL.
-For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/influxdb/v1/tools/api/#influxdb-1-x-http-endpoints).
+For more information about querying data with the InfluxDB API using InfluxQL, see the [API reference documentation](/influxdb/v1/api/).

@@ -10,7 +10,7 @@ introduced: "v1.1.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.2/plugins/inputs/kubernetes/README.md, Kubernetes Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/kubernetes/README.md, Kubernetes Plugin Source
 ---
 
 # Kubernetes Input Plugin
@@ -53,16 +53,8 @@ plugin ordering. See [CONFIGURATION.md](/telegraf/v1/configuration/#plugins) for
   ## URL for the kubelet, if empty read metrics from all nodes in the cluster
   url = "http://127.0.0.1:10255"
 
-  ## Use bearer token for authorization. ('bearer_token' takes priority)
-  ## If both of these are empty, we'll use the default serviceaccount:
-  ## at: /var/run/secrets/kubernetes.io/serviceaccount/token
-  ##
-  ## To re-read the token at each interval, please use a file with the
-  ## bearer_token option. If given a string, Telegraf will always use that
-  ## token.
+  ## Use bearer token for authorization.
   # bearer_token = "/var/run/secrets/kubernetes.io/serviceaccount/token"
-  ## OR
-  # bearer_token_string = "abc_123"
 
   ## Kubernetes Node Metric Name
   ## The default Kubernetes node metric name (kubernetes_node) is the same

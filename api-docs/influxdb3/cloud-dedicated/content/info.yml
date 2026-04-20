@@ -1,0 +1,18 @@
+title: InfluxDB Cloud Dedicated Data HTTP API
+x-influxdata-short-description: The InfluxDB Cloud Dedicated Data HTTP API provides a programmatic interface for writing and querying data stored in an InfluxDB 3 Cloud Dedicated database.
+description: |
+  The InfluxDB Cloud Dedicated Data HTTP API provides a programmatic interface for writing and querying data stored in an InfluxDB Cloud Dedicated database.
+
+  The Data API includes:
+
+  - InfluxDB v1- and v2-compatible endpoints for writing data
+  - InfluxDB v1-compatible endpoint for querying data using InfluxQL
+
+  This reference guide describes the supported data representations, HTTP methods, routes, and authentication schemes of the Data HTTP API.
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com
+  email: support@influxdata.com

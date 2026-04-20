@@ -160,6 +160,7 @@ export default [
   },
   {
     files: ['**/*.ts'],
+    ignores: ['api-docs/scripts/**/*.ts'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -171,6 +172,34 @@ export default [
     rules: {
       // TypeScript-specific rules
       'no-unused-vars': 'off', // Disable base rule for TS files
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  // API docs generation scripts — separate tsconfig, Node environment
+  {
+    files: ['api-docs/scripts/**/*.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        project: './api-docs/scripts/tsconfig.json',
+      },
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-undef': 'off', // TypeScript handles this; avoids false positives on Node types
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

@@ -1,0 +1,102 @@
+{{/* API Documentation Layout
+  Two modes:
+  1. Section index (no 'tag' param) - lists tag pages from article data
+  2. Tag page (has 'tag' param) - shows operations via Hugo-native templates
+  Conceptual pages (isConceptual: true) show content without operations.
+*/}}
+
+{{ partial "header.html" . }} {{ partial "topnav.html" . }}
+
+<div class="page-wrapper">
+  {{ partial "sidebar.html" . }}
+
+  <div class="content-wrapper api-content">
+    <div class="api-main">
+      <article class="article article--content api-reference" role="main">
+        <header class="article--header">
+          <h1 class="article--title">{{ .Title }}</h1>
+        </header>
+
+        <div class="api-header-actions">
+          {{ partial "article/format-selector.html" . }}
+          {{ partial "api/spec-download-button.html" . }}
+        </div>
+
+        {{ $hasTag := isset .Params "tag" }}
+        {{ if not $hasTag }}
+        {{/* SECTION INDEX - Show intro content then tag-based children */}}
+
+        {{ with .Content }}
+        <section class="api-section-content">{{ . }}</section>
+        {{ end }}
+        {{ partial "api/section-children.html" . }}
+
+        {{ else }}
+        {{/* TAG PAGE - Show operations or conceptual content */}}
+        {{ $isConceptual := .Params.isConceptual | default false }}
+        {{ if $isConceptual }}
+
+        <section class="api-conceptual-content">
+          {{ with .Content }} {{ . }} {{ else }}
+            {{ with .Params.tagDescription }}{{ . | markdownify }}{{ end }}
+          {{ end }}
+        </section>
+
+        {{ else }}
+        {{/* Operational Page - Show all operations */}}
+
+        {{/* Hugo page content if any (for custom intro content) */}}
+        {{ with .Content }}
+        <section class="api-content-body">{{ . }}</section>
+        {{ end }}
+
+        {{/* Render operations using Hugo-native templates */}}
+        {{ with .Params.staticFilePath }}
+        <section class="api-operations-section">
+          {{ partial "api/tag-renderer.html" $ }}
+        </section>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{ partial "article/related.html" . }}
+        {{ partial "article/feedback.html" . }}
+      </article>
+    </div>
+
+    {{/* ON THIS PAGE TOC - Generated from operations array.
+         Use the same sort as the page body so order matches. */}}
+    {{ $operations := partial "api/sort-operations.html" .Params.operations }}
+    {{ $hasTag := isset .Params "tag" }}
+    {{ $isConceptual := .Params.isConceptual | default false }}
+    {{ if and $hasTag (not $isConceptual) }}
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav">
+        {{ range $operations }}
+        {{ $anchor := printf "#operation/%s" .operationId }}
+        <a
+          href="{{ $anchor | safeURL }}"
+          class="api-toc-link api-toc-link--operation"
+        >
+          <span
+            class="api-method api-method--{{ lower .method }} api-method--small"
+            >{{ upper .method }}</span
+          >
+          <span class="api-toc-summary"
+            >{{ with .summary }}{{ . }}{{ else }}{{ .path }}{{ end }}</span
+          >
+        </a>
+        {{ end }}
+      </nav>
+    </aside>
+    {{ else }}
+    <aside class="api-toc" data-component="api-toc">
+      <h4 class="api-toc-header">ON THIS PAGE</h4>
+      <nav class="api-toc-nav"></nav>
+    </aside>
+    {{ end }}
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

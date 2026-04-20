@@ -1,6 +1,15 @@
 {
   "permissions": {
     "allow": [
+      "Bash(link-checker:*)",
+      "Bash(pkill:*)",
+      "Bash(pgrep:*)",
+      "Bash(ps:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(timeout:*)",
+      "Bash(trash:*)",
+      "Bash(stat:*)",
       "Bash(.ci/vale/vale.sh:*)",
       "Bash(npm:*)",
       "Bash(yarn:*)",

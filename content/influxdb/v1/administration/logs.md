@@ -127,7 +127,7 @@ Note: One or more password `p` values are replaced by a single `[REDACTED]`.
 |User agent                    |`Baz Service`                                                                                                                 |
 |Request ID                    |`d4ca9a10-ab63-11e9-8942-000000000000`                                                                                        |
 |Response time in microseconds |`9357049`                                                                                                                     |
-&ast; This field shows the database being accessed and the query being run. For more details, see [InfluxDB API reference](/influxdb/v1/tools/api/). Note that this field is URL-encoded.  
+&ast; This field shows the database being accessed and the query being run. For more details, see [InfluxDB API reference](/influxdb/v1/api/). Note that this field is URL-encoded.  
 
 ### Redirecting HTTP access logging
 

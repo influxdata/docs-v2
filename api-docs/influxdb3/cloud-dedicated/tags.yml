@@ -1,0 +1,187 @@
+tags:
+  API compatibility:
+    x-traitTag: true
+    description: |
+      ### Write data
+
+      InfluxDB 3 Cloud Dedicated provides the following HTTP API endpoints for writing data:
+
+      - **Recommended**: [`/api/v2/write` endpoint](#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to InfluxDB 3.
+      - [`/write` endpoint](#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to InfluxDB 3.
+
+      Both endpoints accept the same line protocol format and process data in the same way.
+
+      ### Query data
+
+      InfluxDB 3 Cloud Dedicated provides the following protocols for executing a query:
+
+      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query.
+      - HTTP API [`/query` request](#operation/GetLegacyQuery) that contains an InfluxQL query.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to InfluxDB 3.
+
+      ### InfluxDB v2 compatibility
+
+      The HTTP API [`/api/v2/write` endpoint](#operation/PostWrite) works with the [`Bearer`](#section/Authentication/BearerAuthentication) and [`Token`](#section/Authentication/TokenAuthentication) authentication schemes and existing InfluxDB 2.x tools and code.
+
+      ### InfluxDB v1 compatibility
+
+      The HTTP API [`/write` endpoint](#operation/PostLegacyWrite) and [`/query` endpoint](#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
+    externalDocs:
+      description: Get started querying InfluxDB
+      url: /influxdb3/cloud-dedicated/get-started/query/
+    x-related:
+      - title: Get started querying InfluxDB
+        href: /influxdb3/cloud-dedicated/get-started/query/
+      - title: Write data
+        href: /influxdb3/cloud-dedicated/write-data/
+      - title: Use the v2 HTTP API with Cloud Dedicated
+        href: /influxdb3/cloud-dedicated/guides/api-compatibility/v2/
+      - title: Use the v1 HTTP API with Cloud Dedicated
+        href: /influxdb3/cloud-dedicated/guides/api-compatibility/v1/
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Cloud Dedicated API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+  Common parameters:
+    x-traitTag: true
+    description: |
+      Most InfluxDB API endpoints require parameters in the request — for example,
+      specifying the database to write to or query from.
+
+      ### Common parameters
+
+      The following table shows common parameters used by many InfluxDB 3 Cloud Dedicated
+      API endpoints.
+      Some endpoints require additional parameters in the query string or request body.
+
+      | Query parameter | Value type | Description                                       |
+      |:--------------- |:---------- |:--------------------------------------------------|
+      | `db`            | string     | The database name (v1 and v3 endpoints)           |
+      | `bucket`        | string     | The database name (v2 `/api/v2/write` endpoint)   |
+      | `org`           | string     | Ignored; included for v2 client compatibility     |
+      | `precision`     | string     | Timestamp precision for writes (`ns`, `us`, `ms`, `s`) |
+      | `epoch`         | string     | Timestamp precision for query responses (`ns`, `u`, `ms`, `s`, `m`, `h`) |
+  Headers:
+    x-traitTag: true
+    description: |
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB 3 Cloud Dedicated
+      API endpoints.
+      Some endpoints use additional headers specific to their function — for example,
+      write endpoints accept `Content-Encoding` to indicate that line protocol
+      is compressed in the request body.
+
+      | Header           | Value type | Description                                        |
+      |:---------------- |:---------- |:---------------------------------------------------|
+      | `Accept`         | string     | The content type that the client can understand.   |
+      | `Authorization`  | string     | The authorization scheme and credential.           |
+      | `Content-Length` | integer    | The size of the entity-body, in bytes.             |
+      | `Content-Type`   | string     | The format of the data in the request body.        |
+  Ping:
+    description: |
+      Check the availability of the InfluxDB 3 Cloud Dedicated instance.
+  Query data:
+    description: |
+      Query data stored in InfluxDB 3 Cloud Dedicated using InfluxQL via the v1-compatible `/query` endpoint. Use Flight+gRPC for SQL or InfluxQL queries with Arrow format output.
+    externalDocs:
+      description: Get started querying InfluxDB
+      url: /influxdb3/cloud-dedicated/get-started/query/
+    x-related:
+      - title: Get started querying InfluxDB
+        href: /influxdb3/cloud-dedicated/get-started/query/
+      - title: Execute queries
+        href: /influxdb3/cloud-dedicated/query-data/execute-queries/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Authenticate, write, and query with the InfluxDB 3 Cloud Dedicated API.
+
+      **Prerequisites**: A database token with write permission for the target database.
+      Use the Management API or `influxctl` to create tokens before writing data.
+
+      1. Check that the instance is available.
+
+         ```bash
+         curl "https://cluster-id.a.influxdb.io/ping"
+         ```
+
+         A `204 No Content` response indicates the querier is available.
+
+      2. Write data to InfluxDB.
+
+         ```bash
+         curl "https://cluster-id.a.influxdb.io/api/v2/write?bucket=sensors&precision=ns" \
+           --header "Authorization: Bearer DATABASE_TOKEN" \
+           --header "Content-Type: text/plain; charset=utf-8" \
+           --data-raw "home,room=Kitchen temp=72.0
+         home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      3. Query data from InfluxDB using InfluxQL.
+
+         ```bash
+         curl "https://cluster-id.a.influxdb.io/query" \
+           --get \
+           --header "Authorization: Bearer DATABASE_TOKEN" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "epoch=ns"
+         ```
+
+      For SQL queries and Arrow-format output, use the Flight+gRPC protocol.
+      For more information, see the [get started](/influxdb3/cloud-dedicated/get-started/) guide.
+  Response codes:
+    x-traitTag: true
+    description: |
+      InfluxDB 3 Cloud Dedicated API endpoints return standard HTTP status codes.
+
+      | Status code              | Description                                                                                 |
+      |:------------------------ |:------------------------------------------------------------------------------------------- |
+      | `200 OK`                 | Request succeeded. Response body contains the requested data.                               |
+      | `204 No Content`         | Request succeeded. No response body (common for successful writes).                         |
+      | `400 Bad Request`        | Malformed request — check syntax, query, or line protocol for errors.                       |
+      | `401 Unauthorized`       | Missing or invalid token. Verify the `Authorization` header and token permissions.          |
+      | `403 Forbidden`          | Valid token but insufficient permissions for the requested operation.                       |
+      | `404 Not Found`          | The requested resource does not exist — check the database name and endpoint path.          |
+      | `422 Unprocessable Entity`| The request body is syntactically valid but semantically incorrect.                        |
+      | `429 Too Many Requests`  | Request rate exceeds cluster limits. Retry with exponential backoff.                        |
+      | `500 Internal Server Error`| Server error. If the error persists, contact InfluxData support.                          |
+  System information endpoints:
+    x-traitTag: true
+    description: |
+      InfluxDB 3 Cloud Dedicated provides system endpoints for checking instance
+      availability and retrieving version information.
+
+      | Endpoint       | Method        | Description                                        |
+      |:-------------- |:------------- |:---------------------------------------------------|
+      | `/ping`        | `GET`, `HEAD` | Returns `204` if the querier is available. Response headers include `X-Influxdb-Version` and `X-Influxdb-Build`. Does not require authentication. Checks querier health only; does not check ingesters. |
+
+      To verify ingester availability before writing data, send a request to one
+      of the [write endpoints](#operation/PostWrite).
+  Usage:
+    x-traitTag: true
+    description: |
+      InfluxDB 3 Cloud Dedicated tracks storage usage for your cluster.
+      The Usage endpoints let you retrieve stored data size metrics
+      to monitor capacity consumption.
+
+      Usage data is available at the cluster and database level.
+      Queries return storage size in bytes for the data stored in your cluster
+      at the time of the request.
+  Write data:
+    description: |
+      Write time series data to InfluxDB 3 Cloud Dedicated databases using the v2-compatible `/api/v2/write` endpoint or the v1-compatible `/write` endpoint with line protocol.
+    externalDocs:
+      description: Write data
+      url: /influxdb3/cloud-dedicated/write-data/
+    x-related:
+      - title: Write data
+        href: /influxdb3/cloud-dedicated/write-data/

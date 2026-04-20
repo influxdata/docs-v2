@@ -1,0 +1,200 @@
+{{/*
+  API Reference Menu Items for Hugo Navigation
+
+  Generates <li class="nav-item"> elements matching Hugo's menu structure.
+  Used by nested-menu.html when rendering "InfluxDB HTTP API" menu item.
+
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Parameters:
+  - page: Current page context
+  - url: URL of the API parent page (e.g., /influxdb3/core/api/)
+  - siteData: site.Data reference
+
+  Data path derived from URL: data/article_data/{url segments}/articles.yml
+  Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
+*/}}
+
+{{ $currentPage := .page }}
+{{ $apiUrl := .url }}
+{{ $siteData := .siteData }}
+
+{{/* Derive data lookup path from the API section URL.
+     Split "/influxdb3/core/api/" into segments and index into site.Data.
+     Single-spec: /influxdb3/core/api/ → article_data.influxdb3.core.api
+     Multi-spec:  /influxdb3/cloud-dedicated/api/ → article_data.influxdb3.cloud-dedicated */}}
+{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" $apiUrl) }}
+{{ $segments := split $urlPath "/" }}
+
+{{ $dataNode := dict }}
+{{ if ge (len $segments) 3 }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $seg2 := index $segments 2 }}
+  {{ with index $siteData.article_data $seg0 $seg1 $seg2 }}
+    {{ $dataNode = . }}
+  {{ end }}
+{{ end }}
+
+{{/* Check for multi-spec sub-sections (data-api, management-api).
+     For multi-spec products the data lives one level up:
+     article_data.influxdb3.cloud-dedicated.{data-api,management-api}
+     rather than under the 'api' key, so fall back to the 2-segment node
+     when the 3-segment lookup yields no sub-section data. */}}
+{{ $subSectionSlugs := slice "data-api" "management-api" }}
+{{ $subSections := slice }}
+{{ range $subSectionSlugs }}
+  {{ $slug := . }}
+  {{ with index $dataNode $slug "articles" "articles" }}
+    {{ $subSections = $subSections | append (dict "slug" $slug "articles" .) }}
+  {{ end }}
+{{ end }}
+
+{{/* If no sub-sections found under the 3-segment node, try 2-segment lookup
+     (product family + product, e.g. influxdb3/cloud-dedicated). */}}
+{{ if and (eq (len $subSections) 0) (ge (len $segments) 2) }}
+  {{ $seg0 := index $segments 0 }}
+  {{ $seg1 := index $segments 1 }}
+  {{ $dataNode2 := dict }}
+  {{ with index $siteData.article_data $seg0 $seg1 }}
+    {{ $dataNode2 = . }}
+  {{ end }}
+  {{ range $subSectionSlugs }}
+    {{ $slug := . }}
+    {{ with index $dataNode2 $slug "articles" "articles" }}
+      {{ $subSections = $subSections | append (dict "slug" $slug "articles" .) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $subSections) 0 }}
+  {{/*
+    Multi-spec product: render nested spec sub-sections.
+    Each sub-section gets its own group header and tag list.
+  */}}
+  {{ range $subSections }}
+    {{ $specSlug := .slug }}
+    {{ $specArticles := .articles }}
+    {{ $specUrl := printf "%s%s/" $apiUrl $specSlug }}
+    {{/* Convert slug to display label using a known-slug map.
+         Falls back to title-cased slug for unknown slugs. */}}
+    {{ $slugLabels := dict "data-api" "Data API" "management-api" "Management API" }}
+    {{ $specLabel := $specSlug | replaceRE "-" " " | title }}
+    {{ with index $slugLabels $specSlug }}
+      {{ $specLabel = . }}
+    {{ end }}
+
+    {{/* Is any page in this sub-section currently active? */}}
+    {{ $specActive := hasPrefix $currentPage.RelPermalink $specUrl }}
+
+    <li class="nav-item{{ if $specActive }} active{{ end }}">
+      <a href="#" class="children-toggle{{ if $specActive }} open{{ end }}"></a>
+      <a href="{{ $specUrl | relURL }}">{{ $specLabel }}</a>
+      <ul class="children{{ if $specActive }} open{{ end }}">
+        {{/* Separate conceptual and non-conceptual articles */}}
+        {{ $conceptualArticles := slice }}
+        {{ $operationArticles := slice }}
+        {{ range $specArticles }}
+          {{ if and (reflect.IsMap .) (isset . "fields") }}
+            {{ $fields := index . "fields" }}
+            {{ if reflect.IsMap $fields }}
+              {{ $isConceptual := false }}
+              {{ if isset $fields "isConceptual" }}
+                {{ $isConceptual = index $fields "isConceptual" }}
+              {{ end }}
+              {{ if $isConceptual }}
+                {{ $conceptualArticles = $conceptualArticles | append . }}
+              {{ else }}
+                {{ $operationArticles = $operationArticles | append . }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+        {{ $operationArticles = sort $operationArticles "fields.weight" }}
+        {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+        {{ range $sortedArticles }}
+          {{ $articlePath := index . "path" }}
+          {{ $fields := index . "fields" }}
+          {{ $tag := index $fields "tag" }}
+          {{/* Article path is "api/<tag-slug>"; build URL as api/<subSection>/<tag-slug>/ */}}
+          {{ $tagSlug := path.Base $articlePath }}
+          {{ $tagPageUrl := printf "%s%s/" $specUrl $tagSlug | relURL }}
+          {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $specUrl $tagSlug) }}
+
+          <li class="nav-item{{ if $isActive }} active{{ end }}">
+            <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
+          </li>
+        {{ end }}
+
+        {{/* ALL ENDPOINTS for this sub-section */}}
+        {{ $allEndpointsUrl := printf "%sall-endpoints/" $specUrl | relURL }}
+        {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $specUrl) }}
+        <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+          <a href="{{ $allEndpointsUrl }}">All endpoints</a>
+        </li>
+      </ul>
+    </li>
+  {{ end }}
+
+{{ else }}
+  {{/* Single-spec product: flat tag list */}}
+  {{ $articles := slice }}
+  {{ with index $dataNode "articles" "articles" }}
+    {{ $articles = . }}
+  {{ end }}
+
+  {{ if gt (len $articles) 0 }}
+    {{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+    {{ $conceptualArticles := slice }}
+    {{ $operationArticles := slice }}
+
+    {{ range $articles }}
+      {{ if and (reflect.IsMap .) (isset . "fields") }}
+        {{ $fields := index . "fields" }}
+        {{ if reflect.IsMap $fields }}
+          {{ $isConceptual := false }}
+          {{ if isset $fields "isConceptual" }}
+            {{ $isConceptual = index $fields "isConceptual" }}
+          {{ end }}
+          {{ if $isConceptual }}
+            {{ $conceptualArticles = $conceptualArticles | append . }}
+          {{ else }}
+            {{ $operationArticles = $operationArticles | append . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    {{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+    {{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+    {{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+    {{/* Combine: conceptual first, then operations */}}
+    {{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+    {{/* Render each tag as a nav item */}}
+    {{ range $sortedArticles }}
+      {{ $articlePath := index . "path" }}
+      {{ $fields := index . "fields" }}
+      {{ $tag := index $fields "tag" }}
+      {{/* Build URL relative to the API section page */}}
+      {{ $tagSlug := path.Base $articlePath }}
+      {{ $tagPageUrl := printf "%s%s/" $apiUrl $tagSlug | relURL }}
+      {{ $isActive := eq $currentPage.RelPermalink (printf "%s%s/" $apiUrl $tagSlug) }}
+
+      <li class="nav-item{{ if $isActive }} active{{ end }}">
+        <a href="{{ $tagPageUrl }}">{{ $tag }}</a>
+      </li>
+    {{ end }}
+
+    {{/* ALL ENDPOINTS - Link to all-endpoints page */}}
+    {{ $allEndpointsUrl := printf "%sall-endpoints/" $apiUrl | relURL }}
+    {{ $allEndpointsActive := eq $currentPage.RelPermalink (printf "%sall-endpoints/" $apiUrl) }}
+    <li class="nav-item{{ if $allEndpointsActive }} active{{ end }}">
+      <a href="{{ $allEndpointsUrl }}">All endpoints</a>
+    </li>
+  {{ end }}
+{{ end }}

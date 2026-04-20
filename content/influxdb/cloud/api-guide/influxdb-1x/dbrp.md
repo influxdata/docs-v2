@@ -11,7 +11,7 @@ weight: 302
 related:
   - /influxdb/cloud/reference/api/influxdb-1x/query
   - /influxdb/cloud/reference/api/influxdb-1x/write
-  - /influxdb/cloud/api/#tag/DBRPs, InfluxDB v2 API /dbrps endpoint
+  - /influxdb/cloud/api/dbrps/ InfluxDB v2 API /dbrps endpoint
   - /influxdb/cloud/query-data/influxql/
 aliases:
   - /influxdb/cloud/reference/api/influxdb-1x/dbrp/

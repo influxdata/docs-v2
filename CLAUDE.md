@@ -49,3 +49,21 @@ testing, link validation, style linting, and advanced testing procedures.
 
 See @api-docs/README.md for information about the API reference documentation, how to
 generate it, and how to contribute to it.
+
+## Design docs and implementation plans (superpowers skills)
+
+The `superpowers:brainstorming` and `superpowers:writing-plans` skills default to
+writing output under `docs/superpowers/specs/` and `docs/superpowers/plans/`.
+Do **not** use those paths in this repo. Instead:
+
+- **Implementation plan** → `PLAN.md` at the repo root. A CI workflow deletes
+  `PLAN.md` before merging to `master`, so the plan stays visible on the branch
+  during review but never lands in `master`.
+- **Design spec** → if a design doc is genuinely useful post-merge, put it in
+  an existing docs location (for example, `DOCS-*.md` or product-specific
+  `content/` frontmatter). Otherwise skip committing it; keep the spec in the
+  session only, or save it alongside `PLAN.md` on the branch so it gets
+  scrubbed by the same workflow.
+
+When a superpowers skill asks where to save a plan or spec, use `PLAN.md` (or
+ask the user) — never write to `docs/superpowers/`.
