@@ -11,9 +11,14 @@
 
 {{/* Derive data lookup path from the page URL.
      Supports both 3-segment (/influxdb3/core/api/) and 4-segment
-     (/influxdb3/cloud-dedicated/api/data-api/) URLs. */}}
+     (/influxdb3/cloud-dedicated/api/data-api/) URLs.
+     When deployed under a subdirectory baseURL (e.g., PR previews at
+     /docs-v2/pr-preview/pr-N/…), apply prPreviewPathOffset to skip
+     the extra leading segments. */}}
 {{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
 {{ $segments := split $urlPath "/" }}
+{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $productSegments := sub (len $segments) $pathOffset }}
 
 {{/* Get article data.
      URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)
@@ -21,18 +26,18 @@
      URL: /influxdb3/core/api/ (3 segments)
      Data: article_data/influxdb3/core/api/                  (segments 0, 1, 2) */}}
 {{ $articles := slice }}
-{{ if ge (len $segments) 4 }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg3 := index $segments 3 }}
+{{ if ge $productSegments 4 }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg3 := index $segments (add $pathOffset 3) }}
   {{ with index site.Data.article_data $seg0 $seg1 $seg3 "articles" "articles" }}
     {{ $articles = . }}
   {{ end }}
 {{ end }}
-{{ if and (eq (len $articles) 0) (ge (len $segments) 3) }}
-  {{ $seg0 := index $segments 0 }}
-  {{ $seg1 := index $segments 1 }}
-  {{ $seg2 := index $segments 2 }}
+{{ if and (eq (len $articles) 0) (ge $productSegments 3) }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg2 := index $segments (add $pathOffset 2) }}
   {{ with index site.Data.article_data $seg0 $seg1 $seg2 "articles" "articles" }}
     {{ $articles = . }}
   {{ end }}
@@ -89,20 +94,25 @@
 
     <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
     {{ with $description }}
-    {{/* Extract a short intro for the children listing by collecting lines
-         until the first markdown heading or list marker. This avoids
-         pulling in headings (like "## Enterprise cluster parameters")
-         or bullet lists, which would render as child headings and break
-         the children-links layout. */}}
+    {{/* Extract a short intro for the children listing: the first
+         markdown paragraph. Stop at the first blank line after content
+         (paragraph boundary) or at any structural marker (heading,
+         list, ordered list, table, code fence, blockquote) that can
+         appear without a preceding blank line in YAML-embedded
+         markdown. This prevents the loop from flattening code blocks
+         and numbered steps (see influxdata/docs-v2#7122) into a single
+         paragraph, which markdownify would then HTML-encode. */}}
     {{ $introLines := slice }}
+    {{ $foundContent := false }}
     {{ range split . "\n" }}
       {{ $trimmed := strings.TrimLeft " " . }}
-      {{ if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") }}
-        {{/* Stop collecting on heading, list, or table */}}
+      {{ if eq $trimmed "" }}
+        {{ if $foundContent }}{{ break }}{{ end }}
+      {{ else if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") (hasPrefix $trimmed "```") (hasPrefix $trimmed ">") (findRE `^\d+\.\s` $trimmed 1) }}
         {{ break }}
-      {{ end }}
-      {{ if ne $trimmed "" }}
+      {{ else }}
         {{ $introLines = $introLines | append . }}
+        {{ $foundContent = true }}
       {{ end }}
     {{ end }}
     {{ $intro := delimit $introLines " " }}
