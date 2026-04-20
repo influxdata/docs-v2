@@ -2436,7 +2436,7 @@ input:
 
       > [!NOTE]
       > This plugin requires [`smartmontools`]() to be installed on your system.
-      > The `smartctl` command must to be executable by Telegraf and must
+      > The `smartctl` command must be executable by Telegraf and must
       > supporting JSON output. JSON output was added in v7.0 and improved in
       > subsequent releases
     introduced: v1.31.0
