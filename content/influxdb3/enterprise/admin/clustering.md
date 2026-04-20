@@ -59,17 +59,26 @@ influxdb3 serve --mode=ingest
 # Multiple modes
 influxdb3 serve --mode=ingest,query
 
-# All modes (default)
+# All modes (default, for single-node Enterprise only)
 influxdb3 serve --mode=all
 ```
 
 Available modes:
 
-- `all`: All capabilities enabled (default)
+- `all`: All capabilities enabled (single-node Enterprise deployments only)
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
 - `process`: Data processing and transformations
+
+> [!Warning]
+> #### Don't use all mode in a multi-node cluster
+>
+> #### Don't use all mode in a multi-node cluster
+>
+> Use `all` mode for **single-node** Enterprise deployments only.
+> Some cluster features such as replication and catalog refresh aren't designed to work with `all`-mode nodes.
+> In a multi-node cluster, use explicit modes (`ingest`, `query`, `compact`, `process`) and assign `compact` to exactly one node.
 
 ## Allocate threads by node type
 
@@ -194,6 +203,11 @@ influxdb3 serve \
 
 Compactor nodes optimize stored data through background compaction processes.
 
+> [!Warning]
+> Only **one** compactor node can run per cluster.
+> Multiple compactors writing compacted data to the same location will cause data corruption.
+> Any node mode that includes compaction (`compact` or `all`) counts toward this limit.
+
 ### Dedicated compactor (32 cores)
 
 ```bash
@@ -298,21 +312,25 @@ influxdb3 \
 
 ### Small cluster (3 nodes)
 
+> [!Note]
+> Only one node per cluster can run compaction.
+> In this example, Node 1 handles ingest, query, and compaction while Nodes 2–3 handle ingest and query only.
+
 ```yaml
-# Node 1: All-in-one primary
-mode: all
+# Node 1: Ingest, query, and compactor
+mode: ingest,query,compact
 cores: 32
 io_threads: 8
 datafusion_threads: 24
 
-# Node 2: All-in-one secondary
-mode: all
+# Node 2: Ingest and query (no compaction)
+mode: ingest,query
 cores: 32
 io_threads: 8
 datafusion_threads: 24
 
-# Node 3: All-in-one tertiary
-mode: all
+# Node 3: Ingest and query (no compaction)
+mode: ingest,query
 cores: 32
 io_threads: 8
 datafusion_threads: 24
@@ -333,8 +351,14 @@ cores: 48
 io_threads: 4
 datafusion_threads: 44
 
-# Nodes 5-6: Compactor + Process
-mode: compact,process
+# Node 5: Compactor (only one compactor per cluster)
+mode: compact
+cores: 32
+io_threads: 4
+datafusion_threads: 28
+
+# Node 6: Process node
+mode: process
 cores: 32
 io_threads: 4
 datafusion_threads: 28
@@ -355,13 +379,13 @@ cores: 64
 io_threads: 4
 datafusion_threads: 60
 
-# Nodes 9-10: Dedicated compactors
+# Node 9: Dedicated compactor (only one compactor per cluster)
 mode: compact
 cores: 32
 io_threads: 2
 datafusion_threads: 30
 
-# Nodes 11-12: Process nodes
+# Nodes 10-12: Process nodes
 mode: process
 cores: 32
 io_threads: 6
@@ -553,7 +577,8 @@ GROUP BY event_type;
 - Growing number of small Parquet files
 - Increasing query times due to file fragmentation
 
-**Solution:** Add compactor nodes or increase DataFusion threads (see [Compactor node issues](#compactor-node-issues))
+**Solution:** For nodes using the Parquet-backed storage engine, increase DataFusion threads on your single compactor node (see [Compactor node issues](#compactor-node-issues)).
+The Performance Preview with PachaTree storage does not use DataFusion for compaction—refer to the [Performance Preview documentation](/influxdb3/enterprise/performance-preview/) for tuning guidance.
 
 ## Troubleshoot node configurations
 
@@ -602,7 +627,7 @@ free -h
 
 ```bash
 # Check: Compaction queue length
-# Solution: Add more compactor nodes or increase threads
+# Solution: Increase threads on the single compactor node (only one compactor is allowed per cluster)
 --datafusion-num-threads=30
 ```
 
@@ -617,23 +642,55 @@ free -h
 
 ## Migrate to specialized nodes
 
-### From all-in-one to specialized
+### From single-node to specialized cluster
+
+> [!Note]
+> `all` mode is only for single-node Enterprise deployments.
+
+When scaling a single `all` node cluster to a multi-node cluster:
+
+- Replace the `all` node with nodes that have explicit, specialized modes
+- Assign `compact` mode to exactly one node that uses the same node-id as the `all` node being replaced
 
 ```bash
-# Phase 1: Baseline (all nodes identical)
-all nodes: --mode=all --num-io-threads=8
+# Phase 1: Single-node deployment
+influxdb3 serve \
+  --node-id=node0 \
+  --cluster-id=my-cluster \
+  --mode=all \
+  --num-io-threads=8
 
-# Phase 2: Identify workload patterns
-# Monitor which nodes handle most writes vs queries
+# Phase 2: Scale to multi-node cluster
+# Stop the all-mode node and start specialized nodes.
+# The compact node MUST use the same --node-id as the replaced all-mode node.
 
-# Phase 3: Gradual specialization
-node1: --mode=ingest,query --num-io-threads=12
-node2: --mode=query,compact --num-io-threads=4
+# Compact node: reuses the same node-id as the replaced all-mode node
+influxdb3 serve \
+  --node-id=node0 \
+  --cluster-id=my-cluster \
+  --mode=compact
 
-# Phase 4: Full specialization
-node1: --mode=ingest --num-io-threads=16
-node2: --mode=query --num-io-threads=4
-node3: --mode=compact --num-io-threads=2
+# Ingest and query node
+influxdb3 serve \
+  --node-id=node1 \
+  --cluster-id=my-cluster \
+  --mode=ingest,query \
+  --num-io-threads=8
+
+# Phase 3: Full specialization (optional)
+# Dedicated ingest node
+influxdb3 serve \
+  --node-id=node1 \
+  --cluster-id=my-cluster \
+  --mode=ingest \
+  --num-io-threads=16
+
+# Dedicated query node
+influxdb3 serve \
+  --node-id=node2 \
+  --cluster-id=my-cluster \
+  --mode=query \
+  --num-io-threads=4
 ```
 
 ## Manage configurations
