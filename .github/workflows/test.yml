@@ -395,10 +395,11 @@ jobs:
 
           docker compose up -d influxdb3-core
 
-          # Wait for the server to accept requests. /ping returns 200 without
-          # auth; any TCP-level response (even errors) proves the port is up.
+          # Wait for the server to accept authenticated requests. /ping
+          # requires auth unless --disable-authz=ping is set; a successful
+          # authenticated call also verifies the admin token was loaded.
           for i in {1..60}; do
-            if curl -fsS http://localhost:8282/ping >/dev/null 2>&1; then
+            if curl -fsS -H "Authorization: Bearer ${TOKEN}" http://localhost:8282/ping >/dev/null 2>&1; then
               echo "✅ InfluxDB 3 Core ready after ${i}s"
               break
             fi
