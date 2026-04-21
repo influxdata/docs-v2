@@ -380,10 +380,10 @@ jobs:
           # its catalog files. CI-only — not a pattern for production.
           chmod -R 0777 test/.influxdb3
           TOKEN="apiv3_$(openssl rand -hex 32)"
-          (umask 077 && cat > test/.influxdb3/core/.token <<EOF
+          cat > test/.influxdb3/core/.token <<EOF
           {"token":"${TOKEN}","name":"_admin","description":"CI admin token"}
           EOF
-          )
+          chmod 0644 test/.influxdb3/core/.token
 
           # Replace mock .env.test with live credentials. The pytest container
           # shares the compose network, so it reaches the server by service name.
