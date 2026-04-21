@@ -368,6 +368,44 @@ jobs:
 
           echo "✅ Mock test credentials created"
 
+      - name: Start InfluxDB 3 Core for live testing
+        if: matrix.product == 'influxdb3_core'
+        run: |
+          # Use a preconfigured "offline" admin token so pytest and the server
+          # agree on the token before the server starts. Same mechanism the
+          # compose service already expects at /run/secrets/influxdb3-core-token.
+          mkdir -p test/.influxdb3/core/data test/.influxdb3/core/plugins test/.influxdb3/plugins
+          TOKEN="apiv3_$(openssl rand -hex 32)"
+          (umask 077 && cat > test/.influxdb3/core/.token <<EOF
+          {"token":"${TOKEN}","name":"_admin","description":"CI admin token"}
+          EOF
+          )
+
+          # Replace mock .env.test with live credentials. The pytest container
+          # shares the compose network, so it reaches the server by service name.
+          cat > content/influxdb3/core/.env.test <<EOF
+          INFLUX_HOST=http://influxdb3-core:8181
+          INFLUX_TOKEN=${TOKEN}
+          INFLUX_DATABASE=ci_test
+          EOF
+
+          docker compose up -d influxdb3-core
+
+          # Wait for the server to accept requests. /ping returns 200 without
+          # auth; any TCP-level response (even errors) proves the port is up.
+          for i in {1..60}; do
+            if curl -fsS http://localhost:8282/ping >/dev/null 2>&1; then
+              echo "✅ InfluxDB 3 Core ready after ${i}s"
+              break
+            fi
+            if [[ $i -eq 60 ]]; then
+              echo "❌ InfluxDB 3 Core did not become ready"
+              docker compose logs influxdb3-core
+              exit 1
+            fi
+            sleep 1
+          done
+
       - name: Run ${{ matrix.product }} code block tests
         id: test
         continue-on-error: true
@@ -435,6 +473,24 @@ jobs:
             echo "test-status=passed" >> $GITHUB_OUTPUT
             echo "exit-code=0" >> $GITHUB_OUTPUT
           fi
+
+      - name: Capture InfluxDB 3 Core logs
+        if: always() && matrix.product == 'influxdb3_core'
+        run: |
+          mkdir -p /tmp/server-logs
+          docker compose logs influxdb3-core > /tmp/server-logs/influxdb3-core.log 2>&1 || true
+
+      - name: Upload InfluxDB 3 Core logs
+        if: always() && matrix.product == 'influxdb3_core'
+        uses: actions/upload-artifact@v4
+        with:
+          name: influxdb3-core-server-logs
+          path: /tmp/server-logs/
+          retention-days: 7
+
+      - name: Stop InfluxDB 3 Core
+        if: always() && matrix.product == 'influxdb3_core'
+        run: docker compose down -v --remove-orphans || true
 
       - name: Generate test summary
         if: always()
