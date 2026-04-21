@@ -375,6 +375,10 @@ jobs:
           # agree on the token before the server starts. Same mechanism the
           # compose service already expects at /run/secrets/influxdb3-core-token.
           mkdir -p test/.influxdb3/core/data test/.influxdb3/core/plugins test/.influxdb3/plugins
+          # The influxdb:3-core image runs as a non-root user; make the
+          # bind-mounted data dir world-writable so the server can create
+          # its catalog files. CI-only — not a pattern for production.
+          chmod -R 0777 test/.influxdb3
           TOKEN="apiv3_$(openssl rand -hex 32)"
           (umask 077 && cat > test/.influxdb3/core/.token <<EOF
           {"token":"${TOKEN}","name":"_admin","description":"CI admin token"}
