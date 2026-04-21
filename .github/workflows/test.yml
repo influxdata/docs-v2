@@ -221,10 +221,34 @@ jobs:
 
           EOF
 
-          # Parse JSON array and list products
-          echo "$PRODUCTS" | jq -r '.[]' | while read -r product; do
-            echo "- \`$product\`" >> $GITHUB_STEP_SUMMARY
-          done
+          # Products with runnable pytest services (matches compose.yaml).
+          # Products without services get a separate labeled section so users
+          # don't run no-op scripts expecting real test execution.
+          TESTABLE='influxdb3_core influxdb3_enterprise cloud cloud-dedicated cloud-serverless clustered telegraf v2'
+
+          TESTABLE_HITS=()
+          NOT_YET_HITS=()
+          while read -r product; do
+            if [[ " $TESTABLE " == *" $product "* ]]; then
+              TESTABLE_HITS+=("$product")
+            else
+              NOT_YET_HITS+=("$product")
+            fi
+          done < <(echo "$PRODUCTS" | jq -r '.[]')
+
+          if [[ ${#TESTABLE_HITS[@]} -gt 0 ]]; then
+            for p in "${TESTABLE_HITS[@]}"; do
+              echo "- \`$p\`" >> $GITHUB_STEP_SUMMARY
+            done
+          fi
+
+          if [[ ${#NOT_YET_HITS[@]} -gt 0 ]]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Not yet runnable in CI** (no pytest service configured):" >> $GITHUB_STEP_SUMMARY
+            for p in "${NOT_YET_HITS[@]}"; do
+              echo "- \`$p\`" >> $GITHUB_STEP_SUMMARY
+            done
+          fi
 
           cat >> $GITHUB_STEP_SUMMARY << 'EOF'
 
@@ -412,19 +436,38 @@ jobs:
           done
 
       - name: Start InfluxDB 3 Enterprise for live testing
+        id: start-ent
         if: matrix.product == 'influxdb3_enterprise'
         env:
           INFLUXDB3_ENTERPRISE_LICENSE_EMAIL: ${{ secrets.INFLUXDB3_ENTERPRISE_LICENSE_EMAIL }}
+          INFLUXDB3_ENTERPRISE_LICENSE_BLOB: ${{ secrets.INFLUXDB3_ENTERPRISE_LICENSE_BLOB }}
         run: |
+          # Trial-license activation requires out-of-band email verification,
+          # which can't complete headlessly. Enterprise CI needs a pre-verified
+          # license blob (base64-encoded contents of
+          # /var/lib/influxdb3/data/cluster0/trial_or_home_license from a
+          # manually-activated instance) stashed as INFLUXDB3_ENTERPRISE_LICENSE_BLOB.
+          if [[ -z "${INFLUXDB3_ENTERPRISE_LICENSE_BLOB}" ]]; then
+            echo "::notice::INFLUXDB3_ENTERPRISE_LICENSE_BLOB secret not set; skipping Enterprise pytest."
+            echo "::notice::To enable: activate Enterprise once manually, base64-encode the trial_or_home_license file, and add it as a repo secret."
+            echo "skip-pytest=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
           if [[ -z "${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}" ]]; then
-            echo "❌ INFLUXDB3_ENTERPRISE_LICENSE_EMAIL repo secret is not set"
+            echo "❌ INFLUXDB3_ENTERPRISE_LICENSE_EMAIL secret is required alongside the license blob"
             exit 1
           fi
 
           # Paths the compose service expects (see compose.yaml influxdb3-enterprise)
           ENT_DIR="$HOME/influxdata-docs/.influxdb3/enterprise"
-          mkdir -p "$ENT_DIR/data" "$HOME/influxdata-docs/.influxdb3/plugins"
+          mkdir -p "$ENT_DIR/data/cluster0" "$HOME/influxdata-docs/.influxdb3/plugins"
           chmod -R 0777 "$HOME/influxdata-docs/.influxdb3"
+
+          # Drop the pre-verified license into the object store path so the
+          # server skips the email-verification activation flow.
+          echo "${INFLUXDB3_ENTERPRISE_LICENSE_BLOB}" | base64 -d \
+            > "$ENT_DIR/data/cluster0/trial_or_home_license"
+          chmod 0644 "$ENT_DIR/data/cluster0/trial_or_home_license"
 
           # License email file consumed by compose env_file directive
           echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}" > "$ENT_DIR/.env"
@@ -474,6 +517,12 @@ jobs:
               TEST_CMD="yarn test:codeblocks:influxdb3_core"
               ;;
             influxdb3_enterprise)
+              if [[ "${{ steps.start-ent.outputs.skip-pytest }}" == "true" ]]; then
+                echo "⏭️ Enterprise pytest skipped - license not provisioned"
+                echo "test-status=skipped" >> $GITHUB_OUTPUT
+                echo "exit-code=0" >> $GITHUB_OUTPUT
+                exit 0
+              fi
               TEST_CMD="yarn test:codeblocks:influxdb3_enterprise"
               ;;
             telegraf)
