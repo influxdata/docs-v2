@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -42,7 +42,7 @@ jobs:
           node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js core $VERSION
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cli-audit-3-core-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/cli-audit/
@@ -53,10 +53,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -76,7 +76,7 @@ jobs:
           node ./helper-scripts/influxdb3-monolith/audit-cli-documentation.js enterprise $VERSION
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cli-audit-3-enterprise-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/cli-audit/
@@ -87,10 +87,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '18'
           cache: 'yarn'
@@ -122,7 +122,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cli-audit-3-influxctl-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/cli-audit/
@@ -133,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Core API audit
         run: |
@@ -159,7 +159,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-audit-3-core-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/api-audit/
@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Enterprise API audit
         run: |
@@ -197,7 +197,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-audit-3-enterprise-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/api-audit/
@@ -208,7 +208,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Cloud Dedicated API audit
         run: |
@@ -235,7 +235,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-audit-3-cloud-dedicated-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/api-audit/
@@ -246,7 +246,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Clustered API audit
         run: |
@@ -273,7 +273,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-audit-3-clustered-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/api-audit/
@@ -284,7 +284,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Cloud Serverless API audit
         run: |
@@ -311,7 +311,7 @@ jobs:
           EOF
       
       - name: Upload audit reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-audit-3-cloud-serverless-${{ github.event.inputs.version || 'local' }}
           path: helper-scripts/output/api-audit/
@@ -333,15 +333,15 @@ jobs:
     if: always() && (github.event_name == 'schedule' || github.event.inputs.create_issue == 'true')
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Download all audit reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: audit-reports/
       
       - name: Create issues from audit results
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -396,10 +396,10 @@ jobs:
     if: always()
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: audit-artifacts/
       
@@ -422,7 +422,7 @@ jobs:
           done
       
       - name: Upload summary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: audit-summary
           path: summary.md

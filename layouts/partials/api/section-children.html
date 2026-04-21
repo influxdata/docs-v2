@@ -1,0 +1,134 @@
+{{/*
+  API Section Children
+
+  Renders tag pages from article data as a children list.
+  Sort order: conceptual tags (traitTags) first, then other tags alphabetically.
+
+  Data path derived from page URL: data/article_data/{url segments}/articles.yml
+  Example: /influxdb3/core/api/ → article_data.influxdb3.core.api.articles.articles
+*/}}
+{{ $currentPage := . }}
+
+{{/* Derive data lookup path from the page URL.
+     Supports both 3-segment (/influxdb3/core/api/) and 4-segment
+     (/influxdb3/cloud-dedicated/api/data-api/) URLs.
+     When deployed under a subdirectory baseURL (e.g., PR previews at
+     /docs-v2/pr-preview/pr-N/…), apply prPreviewPathOffset to skip
+     the extra leading segments. */}}
+{{ $urlPath := strings.TrimPrefix "/" (strings.TrimSuffix "/" .RelPermalink) }}
+{{ $segments := split $urlPath "/" }}
+{{ $pathOffset := .Site.Params.prPreviewPathOffset | default 0 }}
+{{ $productSegments := sub (len $segments) $pathOffset }}
+
+{{/* Get article data.
+     URL: /influxdb3/cloud-dedicated/api/data-api/ (4 segments)
+     Data: article_data/influxdb3/cloud-dedicated/data-api/  (segments 0, 1, 3 — skip "api")
+     URL: /influxdb3/core/api/ (3 segments)
+     Data: article_data/influxdb3/core/api/                  (segments 0, 1, 2) */}}
+{{ $articles := slice }}
+{{ if ge $productSegments 4 }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg3 := index $segments (add $pathOffset 3) }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg3 "articles" "articles" }}
+    {{ $articles = . }}
+  {{ end }}
+{{ end }}
+{{ if and (eq (len $articles) 0) (ge $productSegments 3) }}
+  {{ $seg0 := index $segments (add $pathOffset 0) }}
+  {{ $seg1 := index $segments (add $pathOffset 1) }}
+  {{ $seg2 := index $segments (add $pathOffset 2) }}
+  {{ with index site.Data.article_data $seg0 $seg1 $seg2 "articles" "articles" }}
+    {{ $articles = . }}
+  {{ end }}
+{{ end }}
+
+{{/* Separate conceptual (traitTag) and non-conceptual articles */}}
+{{ $conceptualArticles := slice }}
+{{ $operationArticles := slice }}
+
+{{ range $articles }}
+  {{ if and (reflect.IsMap .) (isset . "fields") }}
+    {{ $fields := index . "fields" }}
+    {{ if reflect.IsMap $fields }}
+      {{ $isConceptual := false }}
+      {{ if isset $fields "isConceptual" }}
+        {{ $isConceptual = index $fields "isConceptual" }}
+      {{ end }}
+      {{ if $isConceptual }}
+        {{ $conceptualArticles = $conceptualArticles | append . }}
+      {{ else }}
+        {{ $operationArticles = $operationArticles | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Sort each group by weight (default 100), then alphabetically by tag name */}}
+{{ $conceptualArticles = sort $conceptualArticles "fields.weight" }}
+{{ $operationArticles = sort $operationArticles "fields.weight" }}
+
+{{/* Combine: conceptual first, then operations */}}
+{{ $sortedArticles := $conceptualArticles | append $operationArticles }}
+
+{{/* Also include static API pages (HTML files) not in article data */}}
+{{/* These are compatibility API pages like v1-compatibility, v2, management */}}
+{{ $staticApiPages := slice }}
+{{ range $currentPage.Pages }}
+  {{/* Skip pages that are in article data (have tag param) or are all-endpoints */}}
+  {{ if and (not (isset .Params "tag")) (not .Params.isAllEndpoints) }}
+    {{ $staticApiPages = $staticApiPages | append . }}
+  {{ end }}
+{{ end }}
+{{ $staticApiPages = sort $staticApiPages "Weight" }}
+
+<div class="children-links">
+  {{/* Render article-based pages */}}
+  {{ range $sortedArticles }}
+    {{ $path := index . "path" }}
+    {{ $fields := index . "fields" }}
+    {{ $tag := index $fields "tag" }}
+    {{ $description := index $fields "description" | default "" }}
+    {{/* Build URL relative to the current section page */}}
+    {{ $tagPageUrl := print $currentPage.RelPermalink (path.Base $path) "/" | relURL }}
+
+    <h3 id="{{ $tag | urlize }}"><a href="{{ $tagPageUrl }}">{{ $tag }}</a></h3>
+    {{ with $description }}
+    {{/* Extract a short intro for the children listing: the first
+         markdown paragraph. Stop at the first blank line after content
+         (paragraph boundary) or at any structural marker (heading,
+         list, ordered list, table, code fence, blockquote) that can
+         appear without a preceding blank line in YAML-embedded
+         markdown. This prevents the loop from flattening code blocks
+         and numbered steps (see influxdata/docs-v2#7122) into a single
+         paragraph, which markdownify would then HTML-encode. */}}
+    {{ $introLines := slice }}
+    {{ $foundContent := false }}
+    {{ range split . "\n" }}
+      {{ $trimmed := strings.TrimLeft " " . }}
+      {{ if eq $trimmed "" }}
+        {{ if $foundContent }}{{ break }}{{ end }}
+      {{ else if or (hasPrefix $trimmed "#") (hasPrefix $trimmed "-") (hasPrefix $trimmed "*") (hasPrefix $trimmed "|") (hasPrefix $trimmed "```") (hasPrefix $trimmed ">") (findRE `^\d+\.\s` $trimmed 1) }}
+        {{ break }}
+      {{ else }}
+        {{ $introLines = $introLines | append . }}
+        {{ $foundContent = true }}
+      {{ end }}
+    {{ end }}
+    {{ $intro := delimit $introLines " " }}
+    {{ if $intro }}
+    {{ $truncated := $intro | truncate 200 "..." }}
+    <p>{{ $truncated | markdownify }}</p>
+    {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Render static API pages (compatibility APIs) */}}
+  {{ range $staticApiPages }}
+    <h3 id="{{ .Title | urlize }}"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    {{ with .Description }}
+    {{ $truncated := . | truncate 200 "..." }}
+    <p>{{ $truncated | markdownify }}</p>
+    {{ end }}
+  {{ end }}
+</div>

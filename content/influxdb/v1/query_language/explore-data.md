@@ -148,8 +148,8 @@ Returns data from a single measurement.
 If you're using the [CLI](/influxdb/v1/tools/shell/) InfluxDB queries the measurement in the
 [`USE`d](/influxdb/v1/tools/shell/#commands)
 [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) InfluxDB queries the
-measurement in the database specified in the [`db` query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) InfluxDB queries the
+measurement in the database specified in the [`db` query string parameter](/influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `FROM <measurement_name>,<measurement_name>`
@@ -203,8 +203,8 @@ If you're using the [CLI](/influxdb/v1/tools/shell/) be sure to enter
 `USE NOAA_water_database` before you run the query.
 The CLI queries the data in the `USE`d database and the
 `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) be sure to set the
-`db` [query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) be sure to set the
+`db` [query string parameter](/influxdb/v1/api/query/)
 to `NOAA_water_database`.
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 queries the database's `DEFAULT` retention policy.
@@ -382,8 +382,8 @@ The following query returns no data because it specifies a single tag key (`loca
 the `SELECT` clause:
 
 ```sql
-> SELECT "location" FROM "h2o_feet"
->
+SELECT "location" FROM "h2o_feet"
+
 ```
 
 To return any data associated with the `location` tag key, the query's `SELECT`
@@ -599,7 +599,7 @@ separating logic with parentheses.
 #### Select data that have specific timestamps
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE time > now() - 7d
+SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
 The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v1/concepts/glossary/#timestamp)
@@ -1594,8 +1594,8 @@ the query's time range.
 Note that `fill(800)` has no effect on the query results.
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2015-09-18T22:00:00Z' AND time <= '2015-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
->
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2015-09-18T22:00:00Z' AND time <= '2015-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
+
 ```
 
 ##### Queries with `fill(previous)` when the previous result falls outside the query's time range
@@ -1699,8 +1699,8 @@ Writes data to the specified measurement.
 If you're using the [CLI](/influxdb/v1/tools/shell/) InfluxDB writes the data to the measurement in the
 [`USE`d](/influxdb/v1/tools/shell/#commands)
 [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/) InfluxDB writes the data to the
-measurement in the database specified in the [`db` query string parameter](/influxdb/v1/tools/api/#query-string-parameters)
+If you're using the [InfluxDB API](/influxdb/v1/api/) InfluxDB writes the data to the
+measurement in the database specified in the [`db` query string parameter](/influxdb/v1/api/query/)
 and the `DEFAULT` retention policy.
 
 `INTO <database_name>.<retention_policy_name>.<measurement_name>`
@@ -1796,9 +1796,9 @@ time                   water_level
 The query writes its results a new [measurement](/influxdb/v1/concepts/glossary/#measurement): `h2o_feet_copy_1`.
 If you're using the [CLI](/influxdb/v1/tools/shell/), InfluxDB writes the data to
 the `USE`d [database](/influxdb/v1/concepts/glossary/#database) and the `DEFAULT` [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v1/tools/api/), InfluxDB writes the
+If you're using the [InfluxDB API](/influxdb/v1/api/), InfluxDB writes the
 data to the database and retention policy specified in the `db` and `rp`
-[query string parameters](/influxdb/v1/tools/api/#query-string-parameters).
+[query string parameters](/influxdb/v1/api/query/).
 If you do not set the `rp` query string parameter, the InfluxDB API automatically
 writes the data to the database's `DEFAULT` retention policy.
 
@@ -2646,7 +2646,7 @@ The whitespace between `-` or `+` and the [duration literal](/influxdb/v1/query_
 #### Specify a time range with relative time
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
+SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
 ```
 
 The query returns data with timestamps that occur within the past hour.
@@ -2693,7 +2693,7 @@ a `GROUP BY time()` clause must provide an alternative upper bound in the
 Use the [CLI](/influxdb/v1/tools/shell/) to write a point to the `NOAA_water_database` that occurs after `now()`:
 
 ```sql
-> INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
+INSERT h2o_feet,location=santa_monica water_level=3.1 1587074400000000000
 ```
 
 Run a `GROUP BY time()` query that covers data with timestamps between
@@ -2729,8 +2729,8 @@ the lower bound to `now()` such that the query's time range is between
 `now()` and `now()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
->
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
+
 ```
 
 ### Configuring the returned timestamps
@@ -2739,10 +2739,10 @@ The [CLI](/influxdb/v1/tools/shell/) returns timestamps in
 nanosecond epoch format by default.
 Specify alternative formats with the
 [`precision <format>` command](/influxdb/v1/tools/shell/#influx-commands).
-The [InfluxDB API](/influxdb/v1/tools/api/) returns timestamps
+The [InfluxDB API](/influxdb/v1/api/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
-[`epoch` query string parameter](/influxdb/v1/tools/api/#query-string-parameters).
+[`epoch` query string parameter](/influxdb/v1/api/query/).
 
 ## Regular expressions
 
@@ -2838,8 +2838,8 @@ includes an `m` and `water_level` is greater than three.
 #### Use a regular expression to specify a tag with no value in the WHERE clause
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "location" !~ /./
->
+SELECT * FROM "h2o_feet" WHERE "location" !~ /./
+
 ```
 
 The query selects all data from the `h2o_feet` measurement where the `location`
@@ -2996,8 +2996,8 @@ The query returns the integer form of `water_level`'s float [field values](/infl
 #### Cast float field values to strings (this functionality is not supported)
 
 ```sql
-> SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
->
+SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
+
 ```
 
 The query returns no data as casting a float field value to a string is not
@@ -3089,7 +3089,7 @@ time                   water_level
 
 {{% tab-content %}}
 
-With the [InfluxDB API](/influxdb/v1/tools/api/):
+With the [InfluxDB API](/influxdb/v1/api/):
 
 ```json
 {

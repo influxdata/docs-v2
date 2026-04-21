@@ -2,7 +2,7 @@ name: PR Preview
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, closed]
+    types: [opened, reopened, synchronize, closed, ready_for_review, edited]
     paths:
       - 'content/**'
       - 'layouts/**'
@@ -20,20 +20,91 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Skip draft PRs entirely
+  # Skip draft PRs and check for re-runs that would overwrite successful status
   check-draft:
     runs-on: ubuntu-latest
+    permissions:
+      checks: read
+      pull-requests: read
     outputs:
       should-run: ${{ steps.check.outputs.should-run }}
     steps:
       - id: check
-        run: |
-          if [[ "${{ github.event.pull_request.draft }}" == "true" ]]; then
-            echo "should-run=false" >> $GITHUB_OUTPUT
-            echo "Skipping draft PR"
-          else
-            echo "should-run=true" >> $GITHUB_OUTPUT
-          fi
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT) || 1;
+
+            // Check for draft PR
+            if (pr?.draft) {
+              core.info('Skipping draft PR');
+              core.setOutput('should-run', 'false');
+              return;
+            }
+
+            // For 'edited' events, skip if only the title changed (body unchanged)
+            if (context.payload.action === 'edited' && !context.payload.changes?.body) {
+              core.info('PR title edited (body unchanged) - skipping');
+              core.setOutput('should-run', 'false');
+              return;
+            }
+
+            // First attempts always proceed (after draft check)
+            if (runAttempt === 1) {
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // This is a re-run. Check if jobs would actually run or skip.
+            const isFork = pr?.head?.repo?.full_name !== pr?.base?.repo?.full_name;
+            const isClosed = context.payload.action === 'closed';
+
+            // For preview job: needs non-fork, non-closed
+            // For cleanup job: needs closed
+            // For fork-notice: needs fork, non-closed
+            // At least one job would run in most cases unless PR state changed
+            const previewWouldRun = !isFork && !isClosed;
+            const cleanupWouldRun = isClosed;
+            const forkNoticeWouldRun = isFork && !isClosed;
+            const anyJobWouldRun = previewWouldRun || cleanupWouldRun || forkNoticeWouldRun;
+
+            if (anyJobWouldRun) {
+              core.info('Re-run would execute jobs - proceeding');
+              core.setOutput('should-run', 'true');
+              return;
+            }
+
+            // Jobs would skip. Check for existing successful runs.
+            core.info('Re-run would skip jobs - checking for existing successful runs');
+
+            try {
+              const { data: checkRuns } = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: context.sha,
+                per_page: 100,
+              });
+
+              const previewJobs = ['check-draft', 'preview', 'cleanup', 'fork-notice'];
+              const successfulOtherRuns = checkRuns.check_runs.filter(cr => {
+                const isOurJob = previewJobs.includes(cr.name);
+                const isSuccessful = cr.conclusion === 'success';
+                const fromDifferentRun = cr.html_url && !cr.html_url.includes(`/runs/${context.runId}/`);
+                return isOurJob && isSuccessful && fromDifferentRun;
+              });
+
+              if (successfulOtherRuns.length > 0) {
+                core.info(`Found ${successfulOtherRuns.length} successful runs - aborting to preserve status`);
+                core.setOutput('should-run', 'false');
+                return;
+              }
+            } catch (error) {
+              core.warning(`Could not check existing runs: ${error.message}`);
+            }
+
+            core.info('No existing successful runs - proceeding');
+            core.setOutput('should-run', 'true');
 
   # Notify fork PRs that preview is not available
   fork-notice:
@@ -45,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post fork notice comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { data: comments } = await github.rest.issues.listComments({
@@ -58,11 +129,12 @@ jobs:
             const existing = comments.find(c => c.body.includes(marker));
 
             if (!existing) {
+              const timestamp = new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `${marker}\n## 📝 PR Preview Not Available\n\nPR previews are not available for pull requests from forks due to GitHub Actions security restrictions.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
+                body: `${marker}\n## 📦 PR Preview — Preview Bot\n\n| Status | Details |\n|--------|----------|\n| **Result** | ⏭️ NOT AVAILABLE |\n| **Reason** | Fork PR (security restriction) |\n| **Checked** | ${timestamp} |\n\n### Local Preview\n\nPR previews are not available for pull requests from forks due to GitHub Actions security restrictions.\n\nTo preview your changes locally, run:\n\`\`\`bash\nnpx hugo server\n\`\`\`\n\nOnce merged, your changes will be visible on the production site.`
               });
             }
 
@@ -77,12 +149,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'yarn'
@@ -90,16 +162,30 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Fetch current PR body
+        id: fetch-pr-body
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            const fs = require('fs');
+            const bodyFile = `${process.env.RUNNER_TEMP}/pr-body.txt`;
+            fs.writeFileSync(bodyFile, pr.body || '');
+            core.exportVariable('PR_BODY_FILE', bodyFile);
+
       - name: Detect preview pages
         id: detect
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
           BASE_REF: origin/${{ github.base_ref }}
         run: node .github/scripts/detect-preview-pages.js
 
       - name: Post pending comment (needs input)
         if: steps.detect.outputs.needs-author-input == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -114,6 +200,14 @@ jobs:
         run: |
           echo "No pages to deploy - skipping preview"
           echo "Reason: ${{ steps.detect.outputs.skip-reason || steps.detect.outputs.change-summary }}"
+
+      - name: Build API docs
+        # API reference pages under content/{product}/api/ are gitignored
+        # and generated at build time from OpenAPI specs. Without this
+        # step, Hugo builds a site with no API pages and preview URLs for
+        # any /api/ route 404 (see #7123 for the symptom).
+        if: steps.detect.outputs.pages-to-deploy != '[]'
+        run: yarn build:api-docs
 
       - name: Build Hugo site
         if: steps.detect.outputs.pages-to-deploy != '[]'
@@ -139,6 +233,8 @@ jobs:
 
       - name: Deploy preview
         if: steps.detect.outputs.pages-to-deploy != '[]'
+        id: deploy-preview
+        continue-on-error: true
         uses: rossjrw/pr-preview-action@v1.4.8
         with:
           source-dir: ./preview-staging
@@ -146,9 +242,28 @@ jobs:
           umbrella-dir: pr-preview
           action: deploy
 
-      - name: Post success comment
+      - name: Validate preview deployment
         if: steps.detect.outputs.pages-to-deploy != '[]'
-        uses: actions/github-script@v7
+        id: validate-deploy
+        run: |
+          DEPLOY_OUTCOME="${{ steps.deploy-preview.outcome }}"
+          DEPLOY_URL="${{ steps.deploy-preview.outputs.deployment-url }}"
+
+          if [ -z "$DEPLOY_URL" ]; then
+            echo "Deployment step did not produce a preview URL. Failing preview job."
+            exit 1
+          fi
+
+          if [ "$DEPLOY_OUTCOME" != "success" ]; then
+            echo "Deployment reported outcome: $DEPLOY_OUTCOME"
+            echo "Preview URL exists; treating as transient post-deploy comment error."
+          fi
+
+          echo "status=ok" >> "$GITHUB_OUTPUT"
+
+      - name: Post success comment
+        if: steps.detect.outputs.pages-to-deploy != '[]' && steps.validate-deploy.outputs.status == 'ok'
+        uses: actions/github-script@v8
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -164,7 +279,7 @@ jobs:
 
       - name: Post skipped comment
         if: steps.detect.outputs.pages-to-deploy == '[]' && steps.detect.outputs.needs-author-input != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { upsertPreviewComment } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js');
@@ -180,7 +295,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gh-pages
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: gh-pages
 
@@ -200,12 +315,12 @@ jobs:
           fi
 
       - name: Checkout scripts for comment deletion
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: scripts-checkout
 
       - name: Delete preview comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const { deletePreviewComment } = await import('${{ github.workspace }}/scripts-checkout/.github/scripts/preview-comment.js');

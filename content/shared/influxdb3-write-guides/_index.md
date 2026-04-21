@@ -1,5 +1,4 @@
-Use tools like the {{% show-in "cloud-dedicated,clustered" %}}`influxctl`{{% /show-in %}}{{% show-in "cloud-serverless" %}}`influx`{{% /show-in %}}{{% show-in "core,enterprise" %}}`influxdb3`{{% /show-in %}}
-CLI, Telegraf, and InfluxDB client libraries
+Use tools like the {{% show-in "cloud-dedicated,clustered" %}}`influxctl`{{% /show-in %}}{{% show-in "cloud-serverless" %}}`influx`{{% /show-in %}}{{% show-in "core,enterprise" %}}`influxdb3`{{% /show-in %}} CLI, Telegraf, and InfluxDB client libraries
 to write time series data to {{< product-name >}}.
 [line protocol](#line-protocol)
 is the text-based format used to write data to InfluxDB.
@@ -28,10 +27,10 @@ is the text-based format used to write data to InfluxDB.
 > and [client libraries](/influxdb3/version/write-data/client-libraries/).
 >
 > When bringing existing *v1* write workloads, use the {{% product-name %}}
-> HTTP API [`/write` endpoint](/influxdb3/core/api/v3/#operation/PostV1Write).
+> HTTP API [`/write` endpoint](/influxdb3/core/api/write-data/#operation/PostV1Write).
 >
 > When bringing existing *v2* write workloads, use the {{% product-name %}}
-> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/v3/#operation/PostV2Write).
+> HTTP API [`/api/v2/write` endpoint](/influxdb3/version/api/write-data/).
 >
 > **For Telegraf**, use the InfluxDB v1.x [`outputs.influxdb`](/telegraf/v1/output-plugins/influxdb/) or v2.x [`outputs.influxdb_v2`](/telegraf/v1/output-plugins/influxdb_v2/) output plugins.
 > See how to [use Telegraf to write data](/influxdb3/version/write-data/use-telegraf/).

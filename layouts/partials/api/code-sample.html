@@ -1,0 +1,235 @@
+{{/*
+  API Code Sample
+
+  Renders an inline curl example for an API operation, constructed from the
+  OpenAPI spec at Hugo build time. The existing influxdb-url.js replaces
+  the default host in <pre> elements if the user has a custom URL set.
+
+  Params:
+    - opDef: The operation definition from the parsed spec
+    - operation: Operation metadata from frontmatter (method, path, summary, operationId)
+    - spec: The full OpenAPI spec object for resolving $ref
+    - context: The page context
+*/}}
+
+{{ $opDef := .opDef }}
+{{ $operation := .operation }}
+{{ $spec := .spec }}
+{{ $method := upper $operation.method }}
+{{ $path := $operation.path }}
+
+{{/* --- Resolve server URL --- */}}
+{{ $serverUrl := "" }}
+{{ with index ($spec.servers | default slice) 0 }}
+  {{ $serverUrl = .url | default "" }}
+  {{/* Resolve {variable} placeholders using variable defaults */}}
+  {{ range $varName, $varDef := .variables | default dict }}
+    {{ $placeholder := printf "{%s}" $varName }}
+    {{ $serverUrl = replace $serverUrl $placeholder ($varDef.default | default "") }}
+  {{ end }}
+{{ end }}
+{{ if not $serverUrl }}
+  {{ $serverUrl = "http://localhost:8086" }}
+{{ end }}
+
+{{/* --- Resolve parameters (handle $ref) --- */}}
+{{ $params := $opDef.parameters | default slice }}
+{{ $resolvedParams := slice }}
+{{ range $params }}
+  {{ $param := . }}
+  {{ if isset . "$ref" }}
+    {{ $refPath := index . "$ref" }}
+    {{ $refParts := split $refPath "/" }}
+    {{ if ge (len $refParts) 4 }}
+      {{ $paramName := index $refParts 3 }}
+      {{ with index $spec.components.parameters $paramName }}
+        {{ $param = . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $resolvedParams = $resolvedParams | append $param }}
+{{ end }}
+
+{{/* --- Build query string from required query parameters --- */}}
+{{ $queryParts := slice }}
+{{ range $resolvedParams }}
+  {{ if and (eq .in "query") .required }}
+    {{ $value := "" }}
+    {{ with .schema }}
+      {{ if .example }}
+        {{ $value = .example | string }}
+      {{ else if .default }}
+        {{ $value = .default | string }}
+      {{ end }}
+    {{ end }}
+    {{ if not $value }}
+      {{ $value = .name | upper | replaceRE "[^A-Z0-9]" "_" }}
+    {{ end }}
+    {{ $queryParts = $queryParts | append (printf "%s=%s" .name $value) }}
+  {{ end }}
+{{ end }}
+
+{{ $fullUrl := printf "%s%s" $serverUrl $path }}
+{{ if gt (len $queryParts) 0 }}
+  {{ $fullUrl = printf "%s?%s" $fullUrl (delimit $queryParts "&") }}
+{{ end }}
+
+{{/* --- Resolve request body (handle $ref) --- */}}
+{{ $requestBody := $opDef.requestBody | default dict }}
+{{ if isset $requestBody "$ref" }}
+  {{ $refPath := index $requestBody "$ref" }}
+  {{ $refParts := split $refPath "/" }}
+  {{ if ge (len $refParts) 4 }}
+    {{ $rbName := index $refParts 3 }}
+    {{ with index $spec.components.requestBodies $rbName }}
+      {{ $requestBody = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* --- Determine content type and body --- */}}
+{{ $contentType := "" }}
+{{ $bodyFlag := "" }}
+{{ $rbContent := $requestBody.content | default dict }}
+{{ if gt (len $rbContent) 0 }}
+  {{/* Get first content type key */}}
+  {{ range $ct, $_ := $rbContent }}
+    {{ if not $contentType }}
+      {{ $contentType = $ct }}
+    {{ end }}
+  {{ end }}
+
+  {{ $mediaType := index $rbContent $contentType | default dict }}
+
+  {{ if hasPrefix $contentType "text/plain" }}
+    {{/* Line protocol — use first example value or a default sample */}}
+    {{ $lpSample := "measurement,tag=value field=1.0" }}
+    {{ with $mediaType.examples }}
+      {{ range $_, $ex := . }}
+        {{ if not $bodyFlag }}
+          {{ $lpSample = $ex.value | string }}
+          {{/* Take only the first line for single-line display */}}
+          {{ $lines := split $lpSample "\n" }}
+          {{ $lpSample = index $lines 0 }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ $bodyFlag = printf "--data-raw '%s'" $lpSample }}
+  {{ else if hasPrefix $contentType "application/json" }}
+    {{/* JSON — use schema.example, or build from properties */}}
+    {{ with $mediaType.schema }}
+      {{/* Resolve schema $ref */}}
+      {{ $schema := . }}
+      {{ if isset . "$ref" }}
+        {{ $refPath := index . "$ref" }}
+        {{ $refParts := split $refPath "/" }}
+        {{ if ge (len $refParts) 4 }}
+          {{ $schemaName := index $refParts 3 }}
+          {{ with index $spec.components.schemas $schemaName }}
+            {{ $schema = . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if $schema.example }}
+        {{ $bodyFlag = printf "--data-raw '%s'" (jsonify $schema.example) }}
+      {{ else if $schema.properties }}
+        {{/* Build example JSON from schema properties */}}
+        {{ $bodyObj := dict }}
+        {{ $requiredList := $schema.required | default slice }}
+        {{ range $propName, $propDef := $schema.properties }}
+          {{/* Resolve property $ref */}}
+          {{ $prop := $propDef }}
+          {{ if isset $propDef "$ref" }}
+            {{ $pRefPath := index $propDef "$ref" }}
+            {{ $pRefParts := split $pRefPath "/" }}
+            {{ if ge (len $pRefParts) 4 }}
+              {{ $pSchemaName := index $pRefParts 3 }}
+              {{ with index $spec.components.schemas $pSchemaName }}
+                {{ $prop = . }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{/* Use example → default → enum[0] → type placeholder */}}
+          {{ $val := "" }}
+          {{ if ne $prop.example nil }}
+            {{ $val = $prop.example }}
+          {{ else if ne $prop.default nil }}
+            {{ $val = $prop.default }}
+          {{ else if $prop.enum }}
+            {{ $val = index $prop.enum 0 }}
+          {{ else if eq $prop.type "string" }}
+            {{ $val = printf "%s" ($propName | upper) }}
+          {{ else if eq $prop.type "integer" }}
+            {{ $val = 0 }}
+          {{ else if eq $prop.type "number" }}
+            {{ $val = 0 }}
+          {{ else if eq $prop.type "boolean" }}
+            {{ $val = false }}
+          {{ else if eq $prop.type "array" }}
+            {{ if $prop.items }}
+              {{ if eq $prop.items.type "string" }}
+                {{ $val = slice "example" }}
+              {{ else }}
+                {{ $val = slice }}
+              {{ end }}
+            {{ else }}
+              {{ $val = slice }}
+            {{ end }}
+          {{ else if eq $prop.type "object" }}
+            {{ $val = dict }}
+          {{ else }}
+            {{ $val = printf "%s" ($propName | upper) }}
+          {{ end }}
+          {{ $bodyObj = merge $bodyObj (dict $propName $val) }}
+        {{ end }}
+        {{ $bodyFlag = printf "--data-raw '%s'" (jsonify (dict "indent" "  ") $bodyObj) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* --- Assemble curl command --- */}}
+{{ $lines := slice }}
+{{ $lines = $lines | append (printf "curl --request %s \\" $method) }}
+{{ $lines = $lines | append (printf "  \"%s\" \\" $fullUrl) }}
+{{ $lines = $lines | append "  --header \"Authorization: Bearer INFLUX_TOKEN\" \\" }}
+{{ if $contentType }}
+  {{ $lines = $lines | append (printf "  --header \"Content-Type: %s\" \\" $contentType) }}
+{{ end }}
+{{ if $bodyFlag }}
+  {{/* Last line — no trailing backslash */}}
+  {{ $lines = $lines | append (printf "  %s" $bodyFlag) }}
+{{ else }}
+  {{/* Remove trailing backslash from last header line */}}
+  {{ $lastIdx := sub (len $lines) 1 }}
+  {{ $lastLine := index $lines $lastIdx }}
+  {{ $lastLine = strings.TrimSuffix " \\" $lastLine }}
+  {{ $newLines := slice }}
+  {{ range $i, $line := $lines }}
+    {{ if eq $i $lastIdx }}
+      {{ $newLines = $newLines | append $lastLine }}
+    {{ else }}
+      {{ $newLines = $newLines | append $line }}
+    {{ end }}
+  {{ end }}
+  {{ $lines = $newLines }}
+{{ end }}
+
+{{ $curlCommand := delimit $lines "\n" }}
+
+{{/* --- Build Ask AI query --- */}}
+{{ $aiQuery := printf "Explain this %s %s API request and its response: %s" $method $path ($operation.summary | default "") }}
+
+{{/* --- Render --- */}}
+<div class="api-code-sample">
+  <div class="api-code-sample-header">
+    <span class="api-code-sample-title">Example request</span>
+    <a href="#" class="ask-ai-open api-code-ask-ai"
+       data-query="{{ $aiQuery }}">
+      Ask AI about this
+    </a>
+  </div>
+  <div class="api-code-sample-body">
+    <pre class="api-code-block"><code class="language-sh">{{ $curlCommand }}</code></pre>
+  </div>
+</div>

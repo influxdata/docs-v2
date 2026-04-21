@@ -102,7 +102,6 @@ level: warning
 
 ### Critical: Vale Uses regexp2, Not RE2
 
-
 Vale uses the [regexp2](https://pkg.go.dev/github.com/dlclark/regexp2) library, **not** Go's standard `regexp` package (which uses RE2). This is a common source of confusion because Vale is written in Go.
 
 ### Supported Regex Features
@@ -152,14 +151,22 @@ tokens:
   - '(?<=\s)Internet(?! Service Provider| Protocol)'
 ```
 
+### Critical Limitation: Vale Cannot Match URLs
+
+`TokenIgnores` in `.vale.ini` strips all URLs before rules run. **No rule — `existence`, `substitution`, or `raw` — can match content inside a URL.** This applies globally and cannot be overridden per-rule.
+
+For URL pattern validation (e.g., enforcing canonical support URLs), use a shell script or pre-commit hook instead of a Vale rule. See `.ci/scripts/check-support-links.sh` for an example.
+
 ### tokens vs raw
 
 **tokens:**
+
 - Automatically wrapped in word boundaries
 - Converted to non-capturing groups
 - Good for simple patterns
 
 **raw:**
+
 - Full control over the pattern
 - No automatic processing
 - Use for complex regex
@@ -259,20 +266,7 @@ BasedOnStyles = Google, InfluxDataDocs
 
 ### Product-Specific Config
 
-Example: `content/influxdb/cloud-dedicated/.vale.ini`
-
-```ini
-StylesPath = .ci/vale/styles
-MinAlertLevel = error
-Vocab = Cloud-Dedicated
-
-[*.md]
-BasedOnStyles = Google, InfluxDataDocs, Cloud-Dedicated
-
-# Disable specific rules for this product
-Google.Headings = NO
-InfluxDataDocs.TechnicalTerms = NO
-```
+Product configs must mirror all disabled rules from root `.vale.ini` (rules disabled in root are NOT inherited). See the `vale-linting` skill for a complete product config example with all disabled rules.
 
 ### Rule Configuration
 
@@ -333,16 +327,19 @@ print(matches2)  # Should be empty
 ### Common Issues
 
 **Pattern not matching:**
+
 1. Check if you need `nonword: true` for punctuation
 2. Verify scope is appropriate (`sentence`, `heading`, etc.)
 3. Test with `raw` instead of `tokens` for complex patterns
 
 **Too many false positives:**
+
 1. Add exceptions using negative lookahead/lookbehind
 2. Adjust scope to be more specific
 3. Consider using substitution rule with exceptions
 
 **Pattern works in Python but not Vale:**
+
 - Unlikely if you're using PCRE features (Vale supports them)
 - Check for differences in whitespace handling
 - Try `raw` field for exact pattern control

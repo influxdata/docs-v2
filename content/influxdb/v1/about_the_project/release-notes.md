@@ -14,6 +14,70 @@ alt_links:
 ---
 
 
+## v1.12.4 {date="2026-04-13"}
+
+### Bug Fixes
+
+- Fixed `fatal error: concurrent map iteration and map write` panic in the TSI
+  index that could crash InfluxDB during concurrent read and write operations.
+  This was a regression introduced in v1.12.3 by an unnecessary backport from
+  the 2.x branch that released a read lock before the underlying map was fully
+  iterated. The fix restores the original locking behavior.
+  [#27344](https://github.com/influxdata/influxdb/pull/27344),
+  [#27343](https://github.com/influxdata/influxdb/issues/27343)
+
+> [!Important]
+> #### We strongly recommend upgrading to v1.12.4
+>
+> If you’re using any previous InfluxDB v1.x version, we strongly
+> recommend [upgrading to 1.12.4](/influxdb/v1/administration/upgrading/).
+
+---
+
+## v1.12.3 {date="2026-01-12"}
+
+### Features
+
+- Add [`https-insecure-certificate` configuration option](/influxdb/v1/administration/config/#https-insecure-certificate)
+  to skip file permission checking for TLS certificate and private key files.
+- Add [`advanced-expiration` TLS configuration option](/influxdb/v1/administration/config/#advanced-expiration)
+  to configure how far in advance to log warnings about TLS certificate expiration.
+- Add TLS certificate reloading on `SIGHUP`.
+- Add [`config`](/influxdb/v1/api/debug/) and [`cq` (continuous query) statistics](/influxdb/v1/api/debug/) to the `/debug/vars` endpoint.
+- Improve dropped point logging.
+- [Show user when displaying or logging queries](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries).
+- Add [`time_format` parameter](/influxdb/v1/api/query/) for the HTTP API.
+- Use dynamic logging levels (`zap.AtomicLevel`).
+- [Report user query bytes](/influxdb/v1/administration/config/#user-query-bytes-enabled).
+
+### Bug fixes
+
+- Fix `FUTURE LIMIT` and `PAST LIMIT`
+  [clause order](/influxdb/v1/query_language/manage-database/#future-limit)
+  in retention policy statements.
+- Add locking in `ClearBadShardList`.
+- Stop noisy logging about phantom shards that do not belong to a node.
+- Resolve `RLock()` leakage in `Store.DeleteSeries()`.
+- Fix condition check for optimization of array cursor (tsm1).
+- Run `init.sh` `buildtsi` as `influxdb` user.
+- Reduce unnecessary purger operations and logging.
+- Sort files for adjacency testing.
+- Fix operator in host detection (systemd).
+- Use correct path in open WAL error message.
+- Handle nested low-level files in compaction.
+- Correct error logic for writing empty index files.
+- Reduce lock contention and races in purger.
+- Fix bug with authorizer leakage in `SHOW QUERIES`.
+- Rename compact throughput logging keys.
+- Fix `https-insecure-certificate` not handled properly in httpd.
+- Prevent level regression when compacting mixed-level TSM files.
+
+### Other
+
+- Update Go to 1.24.13.
+
+---
+
 ## v1.12.2 {date="2025-09-15"}
 
 ### Features
@@ -58,7 +122,7 @@ alt_links:
 ### Bug Fixes
 
 - Strip double quotes from measurement names in the [`/api/v2/delete`
-  compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint) before
+  compatibility API](/influxdb/v1/api/delete-v2-compatible/) before
   string comparisons (e.g. to allow special characters in measurement names).
 
 ---
@@ -134,9 +198,9 @@ of InfluxDB v1 workloads to InfluxDB 3.
     to improve Flux query performance.
 - **InfluxDB v2 compatibility API updates:**
   - Partially support create, retrieve, update, delete, and list operations in the
-    [`/v2/api/buckets` compatibility API](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints)
+    [`/v2/api/buckets` compatibility API](/influxdb/v1/api/buckets-v2-compatible/)
     and correctly handle requests to unsupported `/v2/api/buckets` endpoints.
-  - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/tools/api/#apiv2delete-http-endpoint).
+  - Implement the [`v2/api/delete` compatibility API](/influxdb/v1/api/delete-v2-compatible/).
 - **Additional internal metrics:**
   - Ingress metrics by measurement.
   - Measurement metrics by login.
@@ -340,7 +404,7 @@ reporting an earlier error.
 
 - Use latest version of InfluxQL package.
 - Add `-lponly` flag to [`influx export`](/influxdb/v2/reference/cli/influx/export/) sub-command.
-- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1/tools/api/#debug-vars-http-endpoint).
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [`/debug/vars` HTTP endpoint](/influxdb/v1/api/debug/).
 - Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
 
 ### Bug fixes
@@ -415,7 +479,7 @@ to enable the Flux REPL shell for creating Flux queries.
 
 #### Forward compatibility
 
-- [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/api/buckets-v2-compatible/) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.
@@ -637,7 +701,7 @@ Support for the Flux language and queries has been added in this release. To beg
 
 - Enable Flux using the new configuration setting
   [`[http] flux-enabled = true`](/influxdb/v1/administration/config/#flux-enabled).
-- Use the new [`influx -type=flux`](/influxdb/v1/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
+- Use the new [`influx -type=flux`](/influxdb/v1/tools/influx-cli/) option to enable the Flux REPL shell for creating Flux queries.
 - Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
 #### Time Series Index (TSI) query performance and throughputs improvements

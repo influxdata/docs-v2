@@ -21,8 +21,8 @@ For Flux query management settings, see [Flux query management](/enterprise_infl
 
 ## List currently-running queries with `SHOW QUERIES`
 
-`SHOW QUERIES` lists the query id, query text, relevant database, and duration
-of all currently-running queries on your InfluxDB instance.
+`SHOW QUERIES` lists the query id, node id, TCP host, query text, relevant database, duration,
+status, and user of all currently-running queries on your InfluxDB Enterprise cluster.
 
 #### Syntax
 
@@ -34,17 +34,19 @@ SHOW QUERIES
 
 ```
 > SHOW QUERIES
-qid	  query                              database   duration   status
----   -----                              --------   --------   ------
-37    SHOW QUERIES                                  100368u    running
-36    SELECT mean(myfield) FROM mymeas   mydb       3s         running
+qid   node_id   tcp_host       query                              database   duration   status    user
+---   -------   --------       -----                              --------   --------   ------    ----
+37    26        data1:8088     SHOW QUERIES                                  100368u    running   admin
+36    33        data3:8088     SELECT mean(myfield) FROM mymeas   mydb       3s         running   jdoe
 ```
 
 ##### Explanation of the output
 
-- `qid`: Query ID. Use this ID with [`KILL - QUERY`](/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query).  
-- `query`: The query text.  
-- `database`: The database targeted by the query.  
+- `qid`: Query ID. Use this ID with [`KILL QUERY`](/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query).
+- `node_id`: The data node ID where the query is running.
+- `tcp_host`: The TCP host address of the data node. Use this value with [`KILL QUERY ... ON`](/enterprise_influxdb/v1/troubleshooting/query_management/influxql_query_management/#stop-currently-running-queries-with-kill-query) to kill queries on a specific node.
+- `query`: The query text.
+- `database`: The database targeted by the query.
 - `duration`: The length of time that the query has been running.
   See [Query Language Reference](/enterprise_influxdb/v1/query_language/spec/#durations)
   for an explanation of time units in InfluxDB databases.
@@ -55,6 +57,7 @@ until the query record is cleared from memory.
     {{% /note %}}
 
 - `status`: The current status of the query.
+- `user`: The user who initiated the query. Empty if authentication is not enabled. _v1.12.3+_
 
 ## Stop currently-running queries with `KILL QUERY`
 
@@ -95,7 +98,7 @@ A successful `KILL QUERY` query returns no results.
 ## Configuration settings for query management
 
 The following configuration settings are in the
-[coordinator](/enterprise_influxdb/v1/administration/config-data-nodes/#influxql-query-management-settings) section of the
+[\[cluster\]](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cluster) section of the
 configuration file.
 
 ### `max-concurrent-queries`

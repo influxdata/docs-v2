@@ -1,0 +1,16 @@
+# API product cross-reference map.
+# Maps alt_link_key to the product's API section URL.
+# Used by generate-openapi-articles.ts for alt_links frontmatter and by
+# the Hugo product-selector template for cross-product API navigation.
+#
+# Keep in sync when adding or moving a product's API reference.
+
+core: /influxdb3/core/api/
+enterprise: /influxdb3/enterprise/api/
+cloud-serverless: /influxdb3/cloud-serverless/api/
+cloud-dedicated: /influxdb3/cloud-dedicated/api/
+clustered: /influxdb3/clustered/api/
+v2: /influxdb/v2/api/
+cloud: /influxdb/cloud/api/
+v1: /influxdb/v1/api/
+enterprise_v1: /enterprise_influxdb/v1/api/

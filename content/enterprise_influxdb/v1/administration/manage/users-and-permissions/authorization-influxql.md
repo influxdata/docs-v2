@@ -124,11 +124,11 @@ CREATE USER <username> WITH PASSWORD '<password>'
 
 ###### CLI example
 ```js
-> CREATE USER todd WITH PASSWORD 'influxdb41yf3'
-> CREATE USER alice WITH PASSWORD 'wonder\'land'
-> CREATE USER "rachel_smith" WITH PASSWORD 'asdf1234!'
-> CREATE USER "monitoring-robot" WITH PASSWORD 'XXXXX'
-> CREATE USER "$savyadmin" WITH PASSWORD 'm3tr1cL0v3r'
+CREATE USER todd WITH PASSWORD 'influxdb41yf3'
+CREATE USER alice WITH PASSWORD 'wonder\'land'
+CREATE USER "rachel_smith" WITH PASSWORD 'asdf1234!'
+CREATE USER "monitoring-robot" WITH PASSWORD 'XXXXX'
+CREATE USER "$savyadmin" WITH PASSWORD 'm3tr1cL0v3r'
 ```
 
 {{% note %}}
@@ -169,13 +169,13 @@ CLI examples:
 `GRANT` `READ` access to `todd` on the `NOAA_water_database` database:
 
 ```sql
-> GRANT READ ON "NOAA_water_database" TO "todd"
+GRANT READ ON "NOAA_water_database" TO "todd"
 ```
 
 `GRANT` `ALL` access to `todd` on the `NOAA_water_database` database:
 
 ```sql
-> GRANT ALL ON "NOAA_water_database" TO "todd"
+GRANT ALL ON "NOAA_water_database" TO "todd"
 ```
 
 ##### `REVOKE` `READ`, `WRITE`, or `ALL` database privileges from an existing user
@@ -189,13 +189,13 @@ CLI examples:
 `REVOKE` `ALL` privileges from `todd` on the `NOAA_water_database` database:
 
 ```sql
-> REVOKE ALL ON "NOAA_water_database" FROM "todd"
+REVOKE ALL ON "NOAA_water_database" FROM "todd"
 ```
 
 `REVOKE` `WRITE` privileges from `todd` on the `NOAA_water_database` database:
 
 ```sql
-> REVOKE WRITE ON "NOAA_water_database" FROM "todd"
+REVOKE WRITE ON "NOAA_water_database" FROM "todd"
 ```
 
 {{% note %}}
@@ -230,7 +230,7 @@ SET PASSWORD FOR <username> = '<password>'
 CLI example:
 
 ```sql
-> SET PASSWORD FOR "todd" = 'password4todd'
+SET PASSWORD FOR "todd" = 'password4todd'
 ```
 
 {{% note %}}
@@ -250,6 +250,6 @@ DROP USER <username>
 CLI example:
 
 ```sql
-> DROP USER "todd"
+DROP USER "todd"
 ```
 

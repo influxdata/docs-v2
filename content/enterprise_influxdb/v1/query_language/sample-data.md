@@ -50,9 +50,9 @@ digits, or underscores and do not begin with a digit.
 
 Throughout the query language exploration, we'll use the database name `NOAA_water_database`:
 
-```
-> CREATE DATABASE NOAA_water_database
-> exit
+```sql
+CREATE DATABASE NOAA_water_database
+exit
 ```
 
 ### Download and write the data to InfluxDB

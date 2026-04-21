@@ -150,7 +150,11 @@ myTable fieldKey=12485903u
 ### String
 
 Plain text string.
-Length limit 64KB.
+
+| Element | Maximum length |
+|:--------|:---------------|
+| Table name, tag key, tag value, field key | 64KB |
+| Field value | 1MB |
 
 ##### String example
 

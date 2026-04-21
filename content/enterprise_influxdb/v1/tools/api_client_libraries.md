@@ -22,7 +22,7 @@ Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1/tools/api_client_li
 
 ## Client libraries for InfluxDB 2.x and 1.8+
 
-InfluxDB 2.x client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+InfluxDB 2.x client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/api/buckets-v2-compatible/).
 Functionality varies among client libraries.
 For specifics about a client library, see the library's GitHub repository.
 

@@ -1,0 +1,317 @@
+tags:
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB Cloud API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+  Authorizations (API tokens):
+    description: |
+      Create and manage API token authorizations that grant read and write permissions to InfluxDB Cloud organization resources.
+    externalDocs:
+      description: Manage API tokens
+      url: /influxdb/cloud/security/tokens/
+    x-related:
+      - title: Manage API tokens
+        href: /influxdb/cloud/security/tokens/
+  Bucket Schemas:
+    description: |
+      Manage explicit schemas for InfluxDB Cloud buckets to enforce column names and data types for measurement data.
+  Buckets:
+    description: |
+      Create and manage named storage locations (buckets) in InfluxDB Cloud, each with a configurable retention period.
+    externalDocs:
+      description: Manage buckets
+      url: /influxdb/cloud/organizations/buckets/
+    x-related:
+      - title: Manage buckets
+        href: /influxdb/cloud/organizations/buckets/
+  Cells:
+    description: |
+      Manage cells within InfluxDB Cloud dashboards.
+  Checks:
+    description: |
+      Create and manage monitoring checks that query data on a schedule and generate notification statuses in InfluxDB Cloud.
+  Common parameters:
+    x-traitTag: true
+    description: |
+      Most InfluxDB Cloud API endpoints require parameters in the request--for
+      example, to specify the bucket or organization.
+
+      The following table shows common query parameters used by many
+      InfluxDB Cloud API endpoints.
+
+      | Query parameter | Value type | Description                                  |
+      |:----------------|:-----------|:---------------------------------------------|
+      | `bucket`        | string     | The bucket name.                             |
+      | `bucketID`      | string     | The bucket ID.                               |
+      | `org`           | string     | The organization name.                       |
+      | `orgID`         | string     | The organization ID.                         |
+      | `precision`     | string     | Timestamp precision: `ns`, `us`, `ms`, `s`.  |
+      | `db`            | string     | The database (for v1-compatible endpoints).  |
+  Config:
+    description: |
+      Retrieve configuration information for an InfluxDB Cloud instance.
+  Dashboards:
+    description: |
+      Create and manage dashboards in InfluxDB Cloud.
+  DBRPs:
+    description: |
+      Manage database and retention policy (DBRP) mappings that route InfluxDB v1-compatible requests to InfluxDB Cloud buckets.
+    externalDocs:
+      description: Database and retention policy mapping
+      url: /influxdb/cloud/reference/api/influxdb-1x/dbrp/
+    x-related:
+      - title: Database and retention policy mapping
+        href: /influxdb/cloud/reference/api/influxdb-1x/dbrp/
+  Delete:
+    description: |
+      Delete time series data from an InfluxDB Cloud bucket by specifying a time range and optional tag predicate.
+  Headers:
+    x-traitTag: true
+    description: |
+      InfluxDB Cloud API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB Cloud API
+      endpoints. Some endpoints may use other headers for functions specific to
+      those endpoints--for example, the write endpoints accept the
+      `Content-Encoding` header to indicate that line protocol is compressed in
+      the request body.
+
+      | Header             | Value type | Description                                           |
+      |:-------------------|:-----------|:------------------------------------------------------|
+      | `Accept`           | string     | The content type that the client can understand.     |
+      | `Authorization`    | string     | The authorization scheme and credential.             |
+      | `Content-Encoding` | string     | Compression applied to the request body (e.g., gzip). |
+      | `Content-Length`   | integer    | The size of the entity-body, in bytes.               |
+      | `Content-Type`     | string     | The format of the data in the request body.         |
+  Invokable Scripts:
+    description: |
+      Store, manage, and execute custom Flux scripts in InfluxDB Cloud. Scripts accept runtime parameters and can be invoked via dedicated endpoints.
+  Labels:
+    description: |
+      Create and manage labels for organizing InfluxDB Cloud resources such as dashboards, tasks, and buckets.
+  Legacy Authorizations:
+    description: |
+      Manage legacy (v1-compatible) authorization credentials in InfluxDB Cloud.
+  Legacy Query:
+    description: |
+      Query data using InfluxQL via the v1-compatible `/query` endpoint in InfluxDB Cloud.
+  Legacy Write:
+    description: |
+      Write data using the v1-compatible `/write` endpoint in InfluxDB Cloud.
+  Limits:
+    description: |
+      Retrieve rate limits and usage quotas for an InfluxDB Cloud organization.
+  NotificationEndpoints:
+    description: |
+      Create and manage notification endpoints that receive alert notifications from InfluxDB Cloud monitoring checks.
+  NotificationRules:
+    description: |
+      Create and manage notification rules that define when and how InfluxDB Cloud sends notifications to configured endpoints.
+  Organizations:
+    description: |
+      View and manage InfluxDB Cloud organizations, which are workspaces that group users, buckets, and resources.
+    externalDocs:
+      description: View and manage organizations
+      url: /influxdb/cloud/organizations/
+    x-related:
+      - title: View and manage organizations
+        href: /influxdb/cloud/organizations/
+  Pagination:
+    x-traitTag: true
+    description: |
+      List endpoints in the InfluxDB Cloud API support pagination via query
+      parameters. Use these parameters to page through large result sets.
+
+      | Query parameter | Value type | Description                                         |
+      |:----------------|:-----------|:----------------------------------------------------|
+      | `limit`         | integer    | Maximum number of records to return (default: 20). |
+      | `offset`        | integer    | Number of records to skip before returning results. |
+      | `after`         | string     | Return records created after the specified record ID. |
+      | `descending`    | boolean    | Sort results in descending order.                   |
+
+      List responses include pagination metadata (such as total count or links
+      to the next page) to help navigate through result pages.
+  Ping:
+    description: |
+      Check the availability of the InfluxDB Cloud instance.
+  Query data:
+    description: |
+      Retrieve data, analyze queries, and get query suggestions using the InfluxDB Cloud query API.
+    externalDocs:
+      description: Query data
+      url: /influxdb/cloud/query-data/
+    x-related:
+      - title: Query data
+        href: /influxdb/cloud/query-data/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Authenticate, write, and query with the InfluxDB Cloud API:
+
+      1. Create an API token with write and read permissions for a bucket.
+         Create tokens in the InfluxDB Cloud UI or via the
+         Authorizations (API tokens) endpoints.
+
+      2. Check the status of your InfluxDB Cloud region.
+
+         ```bash
+         curl "https://REGION.aws.cloud2.influxdata.com/health"
+         ```
+
+      3. Write data to a bucket using the `/api/v2/write` endpoint and
+         [line protocol](/influxdb/cloud/reference/syntax/line-protocol/).
+
+         ```bash
+         curl --request POST \
+           "https://REGION.aws.cloud2.influxdata.com/api/v2/write?org=ORG&bucket=BUCKET&precision=s" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --header "Content-Type: text/plain; charset=utf-8" \
+           --data-raw "home,room=Kitchen temp=72.0 1640995200
+         home,room=Living\ Room temp=71.5 1640995200"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      4. Query data using the Flux `/api/v2/query` endpoint.
+
+         ```bash
+         curl --request POST \
+           "https://REGION.aws.cloud2.influxdata.com/api/v2/query?org=ORG" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --header "Content-Type: application/vnd.flux" \
+           --data 'from(bucket: "BUCKET") |> range(start: -1h) |> filter(fn: (r) => r._measurement == "home")'
+         ```
+
+         Alternatively, query with InfluxQL using the v1-compatible `/query`
+         endpoint. Target a v1 DBRP mapping (`database.retention_policy`) that
+         points to your bucket:
+
+         ```bash
+         curl --get "https://REGION.aws.cloud2.influxdata.com/query" \
+           --header "Authorization: Token YOUR_API_TOKEN" \
+           --data-urlencode "db=DATABASE" \
+           --data-urlencode "q=SELECT * FROM home WHERE time > now() - 1h"
+         ```
+
+      For more information, see [Get started with InfluxDB Cloud](/influxdb/cloud/get-started/).
+    x-related:
+      - title: Get started with InfluxDB Cloud
+        href: /influxdb/cloud/get-started/
+      - title: Write data
+        href: /influxdb/cloud/write-data/
+      - title: Query data with Flux
+        href: /influxdb/cloud/query-data/
+  Resources:
+    description: |
+      Retrieve a list of top-level resource types available in the InfluxDB Cloud API.
+  Response codes:
+    x-traitTag: true
+    description: |
+      InfluxDB Cloud API endpoints return standard HTTP status codes. The
+      following table summarizes the most common response codes.
+
+      | Status code | Meaning                                                                 |
+      |:------------|:------------------------------------------------------------------------|
+      | `200 OK`    | Success.                                                                |
+      | `201 Created` | The resource was created.                                             |
+      | `204 No Content` | Success with no response body (typically after write or delete).  |
+      | `400 Bad Request` | Request parameters or body are malformed or invalid.              |
+      | `401 Unauthorized` | Missing or invalid credentials.                                  |
+      | `403 Forbidden` | Credentials lack permission for the requested resource.             |
+      | `404 Not Found` | The requested resource does not exist.                              |
+      | `413 Payload Too Large` | Request body exceeds the maximum allowed size.              |
+      | `422 Unprocessable Entity` | Request body is well-formed but semantically invalid.    |
+      | `429 Too Many Requests` | Rate limit exceeded.                                        |
+      | `500 Internal Server Error` | Unexpected server error.                                |
+      | `503 Service Unavailable` | Server is overloaded or under maintenance.                |
+  Routes:
+    description: |
+      Retrieve top-level routes for the InfluxDB Cloud API.
+  Rules:
+    description: |
+      Manage notification rules in InfluxDB Cloud.
+  Secrets:
+    description: |
+      Create and manage secrets (key-value pairs) for use in InfluxDB Cloud Flux scripts and tasks.
+  Security and access endpoints:
+    description: |
+      Endpoints for managing authentication and access control in InfluxDB Cloud.
+  Setup:
+    description: |
+      Configure an initial InfluxDB Cloud instance, including creating the initial user, organization, and bucket.
+  Signin:
+    description: |
+      Create a user session by signing in with username and password credentials.
+  Signout:
+    description: |
+      End a user session by signing out.
+  Supported operations:
+    x-traitTag: true
+    description: |
+      The InfluxDB Cloud API supports create, read, update, and delete operations
+      on resources. Most endpoints follow standard HTTP method conventions:
+
+      | Operation | HTTP Method | Description |
+      |:----------|:------------|:------------|
+      | **Write** | `POST` | Send data or create a resource. |
+      | **Read** | `GET` | Retrieve a resource or list resources. |
+      | **Update** | `PUT`, `PATCH` | Replace or modify an existing resource. |
+      | **Delete** | `DELETE` | Remove a resource. |
+  System information endpoints:
+    description: |
+      Endpoints for retrieving system-level information about the InfluxDB Cloud instance.
+  Tasks:
+    description: |
+      Schedule and manage Flux tasks that process and transform data on a recurring basis in InfluxDB Cloud.
+    externalDocs:
+      description: Get started with tasks
+      url: /influxdb/cloud/process-data/get-started/
+    x-related:
+      - title: Get started with tasks
+        href: /influxdb/cloud/process-data/get-started/
+  Telegraf Plugins:
+    description: |
+      Retrieve available Telegraf plugin configuration templates for use with InfluxDB Cloud.
+  Telegrafs:
+    description: |
+      Create and manage Telegraf agent configurations that collect and write data to InfluxDB Cloud.
+  Templates:
+    description: |
+      Export and apply InfluxDB templates, and manage template stacks for InfluxDB Cloud.
+    externalDocs:
+      description: InfluxDB templates
+      url: /influxdb/cloud/influxdb-templates/
+    x-related:
+      - title: InfluxDB templates
+        href: /influxdb/cloud/influxdb-templates/
+  Usage:
+    description: |
+      Retrieve usage metrics and cardinality data for an InfluxDB Cloud organization.
+  Users:
+    description: |
+      View specific users that are members of your InfluxDB Cloud organization.
+    externalDocs:
+      description: Manage users
+      url: /influxdb/cloud/organizations/users/
+    x-related:
+      - title: Manage users
+        href: /influxdb/cloud/organizations/users/
+  Variables:
+    description: |
+      Create and manage variables for use in InfluxDB Cloud dashboards.
+  Views:
+    description: |
+      Manage cell views within InfluxDB Cloud dashboards.
+  Write data:
+    description: |
+      Write time series data to InfluxDB Cloud buckets in line protocol format using the `/api/v2/write` endpoint.
+    externalDocs:
+      description: Write data
+      url: /influxdb/cloud/write-data/
+    x-related:
+      - title: Write data
+        href: /influxdb/cloud/write-data/

@@ -56,13 +56,9 @@ kubectl get appinstances.kubecfg.dev influxdb -n influxdb -o jsonpath='{.spec.pa
 
 The package version number is at the end of the returned string (after `influxdb:`):
 
-{{% code-callout "PACKAGE_VERSION" "orange" %}}
-
-```
+```sh { callout="PACKAGE_VERSION" callout-color="orange" }
 us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:PACKAGE_VERSION
 ```
-
-{{% /code-callout %}}
 
 ### Identify the version to upgrade to
 

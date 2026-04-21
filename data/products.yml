@@ -2,11 +2,17 @@ influxdb3_core:
   name: InfluxDB 3 Core
   altname: InfluxDB 3 Core
   namespace: influxdb3
+  oss_repo:
+    name: influxdb
+    branch: main
+  content_path: influxdb3/core
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  label_group: v3-monolith
   menu_category: self-managed
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.8.3
+  latest_patch: 3.9.1
   placeholder_host: localhost:8181
   limits:
     database: 5
@@ -38,11 +44,13 @@ influxdb3_enterprise:
   name: InfluxDB 3 Enterprise
   altname: InfluxDB 3 Enterprise
   namespace: influxdb3
+  content_path: influxdb3/enterprise
+  label_group: v3-monolith
   menu_category: self-managed
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.8.3
+  latest_patch: 3.9.1
   placeholder_host: localhost:8181
   limits:
     database: 100
@@ -74,11 +82,14 @@ influxdb3_explorer:
   name: InfluxDB 3 Explorer
   altname: Explorer
   namespace: influxdb3_explorer
+  content_path: influxdb3/explorer
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  label_group: explorer
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.6.2
-  placeholder_host: localhost:8888
+  latest_patch: 1.7.0
+  placeholder_host: localhost:8080
   ai_sample_questions:
     - How do I install and run Explorer?
     - How do I query data using Explorer?
@@ -90,6 +101,8 @@ influxdb3_cloud_serverless:
   name: InfluxDB Cloud Serverless
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb3/cloud-serverless
+  label_group: v3-distributed
   menu_category: managed
   versions: [cloud-serverless]
   list_order: 2
@@ -123,6 +136,8 @@ influxdb3_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb3/cloud-dedicated
+  label_group: v3-distributed
   menu_category: managed
   versions: [cloud-dedicated]
   list_order: 3
@@ -154,6 +169,8 @@ influxdb3_clustered:
   name: InfluxDB Clustered
   altname: InfluxDB Clustered
   namespace: influxdb
+  content_path: influxdb3/clustered
+  label_group: v3-distributed
   menu_category: self-managed
   versions: [clustered]
   list_order: 3
@@ -188,6 +205,18 @@ influxdb:
   name__v1: InfluxDB OSS v1
   altname: InfluxDB OSS
   namespace: influxdb
+  oss_repo:
+    name: influxdb
+    branch:
+      v2: main-2.x
+      v1: master-1.x
+  content_path:
+    v2: influxdb/v2
+    v1: influxdb/v1
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
+  label_group:
+    v2: v2
+    v1: v1
   succeeded_by: influxdb3_core
   menu_category: self-managed
   list_order: 1
@@ -198,7 +227,7 @@ influxdb:
   latest: v2.8
   latest_patches:
     v2: 2.8.0
-    v1: 1.12.2
+    v1: 1.12.4
   latest_cli:
     v2: 2.7.5
   detector_config:
@@ -233,6 +262,8 @@ influxdb_cloud:
   name__vcloud: InfluxDB Cloud (TSM)
   altname: InfluxDB Cloud
   namespace: influxdb
+  content_path: influxdb/cloud
+  label_group: v2-cloud
   menu_category: managed
   versions: [cloud]
   list_order: 1
@@ -262,12 +293,18 @@ influxdb_cloud:
 telegraf:
   name: Telegraf
   namespace: telegraf
+  oss_repo:
+    name: telegraf
+    branch: master
+  content_path: telegraf
+  product_issue_url: https://github.com/influxdata/telegraf/issues/new/choose/
+  label_group: telegraf
   menu_category: other
   list_order: 6
   versions: [v1]
-  latest: v1.37
+  latest: v1.38
   latest_patches:
-    v1: 1.37.3
+    v1: 1.38.3
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -281,17 +318,23 @@ telegraf_controller:
   menu_category: other
   versions: [v1]
   latest: 0.0
-  latest_patch: 0.0.0
+  latest_patch: 0.0.5-beta
 
 chronograf:
   name: Chronograf
   namespace: chronograf
+  oss_repo:
+    name: chronograf
+    branch: master
+  content_path: chronograf
+  product_issue_url: https://github.com/influxdata/chronograf/issues/new/choose/
+  label_group: chronograf
   menu_category: other
   list_order: 7
   versions: [v1]
   latest: v1.11
   latest_patches:
-    v1: 1.11.0
+    v1: 1.11.1
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -301,12 +344,18 @@ chronograf:
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
+  oss_repo:
+    name: kapacitor
+    branch: master
+  content_path: kapacitor
+  product_issue_url: https://github.com/influxdata/kapacitor/issues/new/choose/
+  label_group: kapacitor
   menu_category: other
   list_order: 7
   versions: [v1]
   latest: v1.8
   latest_patches:
-    v1: 1.8.2
+    v1: 1.8.4
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?
@@ -316,12 +365,14 @@ kapacitor:
 enterprise_influxdb:
   name: 'InfluxDB Enterprise v1'
   namespace: enterprise_influxdb
+  content_path: enterprise_influxdb
+  label_group: v1-enterprise
   menu_category: self-managed
   list_order: 5
   versions: [v1]
   latest: v1.12
   latest_patches:
-    v1: 1.12.2
+    v1: 1.12.4
   detector_config:
     query_languages:
       InfluxQL:
@@ -370,6 +421,12 @@ influxdb_cloud1:
 flux:
   name: Flux
   namespace: flux
+  oss_repo:
+    name: flux
+    branch: master
+  content_path: flux
+  product_issue_url: https://github.com/influxdata/flux/issues/new/choose/
+  label_group: flux
   menu_category: languages
   list_order: 8
   versions: [v0]

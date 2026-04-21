@@ -104,6 +104,16 @@ init_enterprise() {
         exit 1
     fi
 
+    # Validate the email is not a placeholder
+    LICENSE_EMAIL=$(grep "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL" "$ENV_FILE" | head -1 | cut -d= -f2 | tr -d ' "'"'"'')
+    if [[ -z "$LICENSE_EMAIL" || "$LICENSE_EMAIL" == *"example.com"* || "$LICENSE_EMAIL" == *"placeholder"* ]]; then
+        log_error "License email appears to be a placeholder: $LICENSE_EMAIL"
+        log_info "Replace with your real InfluxDB 3 Enterprise trial license email in $ENV_FILE"
+        log_info "Request a trial license at https://www.influxdata.com/products/influxdb/"
+        exit 1
+    fi
+    log_info "License email: $LICENSE_EMAIL"
+
     # Generate admin token if not exists
     ADMIN_TOKEN_FILE="$ENTERPRISE_DATA_DIR/admin-token.json"
     if [[ ! -f "$ADMIN_TOKEN_FILE" ]]; then
@@ -130,6 +140,25 @@ EOF
     log_info "Starting influxdb3-enterprise..."
     cd "$PROJECT_ROOT"
     docker compose --profile shared up -d influxdb3-enterprise
+
+    # Wait for Enterprise to become healthy (license validation happens at startup)
+    log_info "Waiting for Enterprise to start (license validation)..."
+    RETRIES=0
+    MAX_RETRIES=15
+    while [[ $RETRIES -lt $MAX_RETRIES ]]; do
+        if curl -sf http://localhost:8181/ping > /dev/null 2>&1; then
+            break
+        fi
+        RETRIES=$((RETRIES + 1))
+        sleep 2
+    done
+
+    if [[ $RETRIES -eq $MAX_RETRIES ]]; then
+        log_error "Enterprise failed to start within 30 seconds."
+        log_error "Common causes: expired or invalid license email, port conflict."
+        log_info "Check container logs: docker compose --profile shared logs influxdb3-enterprise"
+        exit 1
+    fi
 
     log_info "Enterprise initialized successfully!"
     log_info "  - Data: $ENTERPRISE_DATA_DIR/data"

@@ -1,0 +1,104 @@
+/////////////////// Styles for inline TC download links ////////////////////////
+
+#tc-downloads-area {
+  margin: 0 0 2rem;
+
+  #tc-download-btn {
+    display: inline-block;
+  }
+
+  .tc-version {
+    font-size: 1rem;
+    color: rgba($article-text, .6);
+    margin-bottom: .5rem;
+  }
+
+  .tc-build-table {
+    margin-bottom: 1rem;
+  }
+  
+
+  .tc-build-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $article-hr;
+
+    &:first-child {
+      border-top: 1px solid $article-hr;
+    }
+  }
+
+  .tc-build-download {
+    flex: 1 1 auto;
+    margin-right: 1rem;
+  }
+
+  .tc-download-link {
+    font-size: 1rem;
+    padding: .35rem 1rem;
+    white-space: nowrap;
+  }
+
+  .tc-build-sha {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: .1rem;
+    min-width: 0;
+    max-width: 25rem;
+
+    code {
+      font-size: .8rem;
+      padding: .15rem .65rem;
+      color: $article-code;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tc-copy-sha {
+      flex-shrink: 0;
+      background: $article-code-bg;
+      border: none;
+      border-radius: $radius;
+      padding: .2rem .6rem;
+      font-family: 'icomoon-v4';
+      font-size: .9rem;
+      color: rgba($article-code, .85);
+      cursor: pointer;
+      transition: color .2s;
+
+      &:hover {
+        color: $article-code-link-hover;
+      }
+    }
+  }
+}
+
+//////////////////////////////// MEDIA QUERIES /////////////////////////////////
+
+@include media(small) {
+  #tc-downloads-area {
+    .tc-build-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .5rem;
+    }
+
+    .tc-build-download {
+      margin-right: 0;
+      width: 100%;
+    }
+
+    .tc-download-link {
+      width: 100%;
+      text-align: center;
+    }
+
+    .tc-build-sha {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: .5rem;
+    }
+  }
+}

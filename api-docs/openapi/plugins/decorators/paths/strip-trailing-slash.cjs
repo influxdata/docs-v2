@@ -1,7 +1,7 @@
-module.exports = StripVersionPrefix;
+module.exports = StripTrailingSlash;
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
-function StripVersionPrefix() {
+function StripTrailingSlash() {
   return {
     PathMap: {
       leave(paths, ctx) {
