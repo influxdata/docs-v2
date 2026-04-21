@@ -86,7 +86,7 @@
     "test": "echo \"Run 'yarn test:e2e', 'yarn test:links', 'yarn test:codeblocks:all' or a specific test command. e2e and links test commands can take a glob of file paths to test. Some commands run automatically during the git pre-commit and pre-push hooks.\" && exit 0",
     "test:codeblocks": "echo \"Run a specific codeblocks test command (e.g., yarn test:codeblocks:influxdb3_core)\" && exit 0",
     "test:codeblocks:all": "docker compose --profile test up",
-    "test:codeblocks:default": "echo 'Running default test group (core + telegraf)...' && yarn test:codeblocks:influxdb3_core && yarn test:codeblocks:telegraf",
+    "test:codeblocks:default": "yarn test:codeblocks:influxdb3_core & P1=$! ; yarn test:codeblocks:telegraf & P2=$! ; wait $P1 ; E1=$? ; wait $P2 ; E2=$? ; exit $((E1 | E2))",
     "test:codeblocks:parallel": "docker compose run --rm cloud-pytest & docker compose run --rm v2-pytest & docker compose run --rm telegraf-pytest & wait",
     "test:codeblocks:influxdb3_core": "docker compose run --rm --name influxdb3-core-pytest influxdb3-core-pytest",
     "test:codeblocks:influxdb3_enterprise": "docker compose run --rm --name influxdb3-enterprise-pytest influxdb3-enterprise-pytest",
