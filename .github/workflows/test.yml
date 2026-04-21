@@ -142,18 +142,38 @@ jobs:
             exit 0
           fi
 
-          # For PRs, check if content files changed
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }} | grep '^content/.*\.md$' || true)
+          # For PRs, check for content changes and test-harness changes separately.
+          # The workflow triggers on both; detection must handle both.
+          ALL_CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }})
+          CHANGED_FILES=$(echo "$ALL_CHANGED" | grep '^content/.*\.md$' || true)
+          CHANGED_HARNESS=$(echo "$ALL_CHANGED" | grep -E '^(test/|Dockerfile\.pytest$|compose\.yaml$)' || true)
 
-          if [[ -z "$CHANGED_FILES" ]]; then
+          if [[ -z "$CHANGED_FILES" && -z "$CHANGED_HARNESS" ]]; then
             echo "has-changes=false" >> $GITHUB_OUTPUT
-            echo "📝 No content changes detected"
+            echo "📝 No content or harness changes detected"
             exit 0
           fi
 
           echo "has-changes=true" >> $GITHUB_OUTPUT
-          echo "📝 Changed content files:"
-          echo "$CHANGED_FILES"
+
+          if [[ -n "$CHANGED_FILES" ]]; then
+            echo "📝 Changed content files:"
+            echo "$CHANGED_FILES"
+          fi
+          if [[ -n "$CHANGED_HARNESS" ]]; then
+            echo "🔧 Changed test-harness files:"
+            echo "$CHANGED_HARNESS"
+          fi
+
+          # When only harness files changed (no content), suggest the default group
+          # since harness changes can affect any product's tests.
+          if [[ -z "$CHANGED_FILES" ]]; then
+            echo "📦 Harness-only change - suggesting default group: ${DEFAULT_PRODUCTS[*]}"
+            PRODUCTS_JSON=$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)
+            echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
           # Use Node.js script to detect products (handles shared content resolution)
           # The script expands shared content changes to find all affected product pages
@@ -167,6 +187,13 @@ jobs:
           if [[ "$PRODUCT_COUNT" -eq 0 ]]; then
             echo "📦 No specific products detected - using default group"
             PRODUCTS_JSON=$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)
+          fi
+
+          # If harness also changed, ensure default group is included
+          if [[ -n "$CHANGED_HARNESS" ]]; then
+            echo "🔧 Harness changed - merging default group into product list"
+            MERGED=$(echo "$PRODUCTS_JSON" | jq -c --argjson defaults "$(printf '%s\n' "${DEFAULT_PRODUCTS[@]}" | jq -R . | jq -s -c .)" '. + $defaults | unique')
+            PRODUCTS_JSON="$MERGED"
           fi
 
           echo "test-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
