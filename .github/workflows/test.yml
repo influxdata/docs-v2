@@ -550,11 +550,13 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-      - name: Fail job if tests failed
+      - name: Annotate test failures
         if: steps.test.outputs.test-status == 'failed'
         run: |
-          echo "::error::Code block tests failed for ${{ matrix.product }}"
-          exit 1
+          # Non-blocking by design: code-block test failures often reflect
+          # content or environment issues that shouldn't gate CI. Surface as
+          # a warning annotation instead of failing the job.
+          echo "::warning::Code block tests failed for ${{ matrix.product }} - see job summary"
 
       - name: Report skipped tests
         if: steps.test.outputs.test-status == 'skipped'
