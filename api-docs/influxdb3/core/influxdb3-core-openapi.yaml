@@ -17,8 +17,8 @@ info:
     - `/`: Compatibility endpoints for InfluxDB v1 workloads and clients
     - `/api/v2/write`: Compatibility endpoint for InfluxDB v2 workloads and clients
 
-    [Download the OpenAPI specification](/openapi/influxdb3-core-openapi.yaml)
-  version: v3.8.0
+    [Download the OpenAPI specification](/openapi/influxdb3-enterprise-openapi.yaml)
+  version: v3.9.0
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -26,7 +26,8 @@ info:
     name: InfluxData
     url: https://www.influxdata.com
     email: support@influxdata.com
-  x-source-hash: sha256:1259b96096eab6c8dbf3f76c974924f124e9b3e08eedc6b0c9a66d3108857c52
+  x-source-hash: sha256:43e3c894089ec10c37be15550043a8159b8669f67e9635a4b97a9f6393bed728
+  x-influxdata-download-url: /openapi/influxdb3-core-openapi.yaml
 servers:
   - url: https://{baseurl}
     description: InfluxDB 3 Core API URL
@@ -140,6 +141,31 @@ tags:
     x-related:
       - title: Use compatibility APIs to write data
         href: /influxdb3/core/write-data/http-api/compatibility-apis/
+  - name: Export data (beta)
+    description: |
+      Export compacted data as Parquet files for use with external tools.
+
+      > **Beta**: Export endpoints require the [performance upgrade preview](/influxdb3/core/performance-preview/)
+      > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+      > and **should not be used for production workloads**.
+
+      Data must be compacted before it can be exported.
+      Uncompacted data is not available for export at this time.
+
+      #### Export workflow
+
+      1. [List databases](#operation/GetExportDatabases) available for export.
+      2. [List tables](#operation/GetExportTables) in a database.
+      3. [List compacted windows](#operation/GetExportWindows) (24-hour UTC windows) for a table.
+      4. [Download window data](#operation/GetExportWindowData) as Parquet files.
+
+      You can also use the [`influxdb3 export`](/influxdb3/core/performance-preview/#export-to-parquet) CLI
+      commands, which call these endpoints.
+    x-related:
+      - title: Performance upgrade preview
+        href: /influxdb3/core/performance-preview/
+      - title: Export to Parquet
+        href: /influxdb3/core/performance-preview/#export-to-parquet
   - name: Database
     description: Manage databases
   - description: >
@@ -302,6 +328,7 @@ paths:
       tags:
         - Server information
         - Compatibility endpoints
+      x-docs-v2-operationId: GetHealthV1
   /api/v2/write:
     post:
       operationId: PostV2Write
@@ -402,6 +429,7 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
+      x-docs-v2-operationId: PostV2Write
   /api/v3/configure/database:
     delete:
       operationId: DeleteConfigureDatabase
@@ -463,6 +491,7 @@ paths:
         Use the `data_only` parameter to delete data while preserving the database schema and resources.
       tags:
         - Database
+      x-docs-v2-operationId: DeleteConfigureDatabase
     get:
       operationId: GetConfigureDatabase
       responses:
@@ -493,6 +522,7 @@ paths:
             By default, only active databases are returned.
       tags:
         - Database
+      x-docs-v2-operationId: GetConfigureDatabase
     post:
       operationId: PostConfigureDatabase
       responses:
@@ -514,6 +544,7 @@ paths:
               $ref: "#/components/schemas/CreateDatabaseRequest"
       tags:
         - Database
+      x-docs-v2-operationId: PostConfigureDatabase
     put:
       operationId: update_database
       responses:
@@ -536,6 +567,7 @@ paths:
               $ref: "#/components/schemas/UpdateDatabaseRequest"
       tags:
         - Database
+      x-docs-v2-operationId: update_database
   /api/v3/configure/database/retention_period:
     delete:
       operationId: DeleteDatabaseRetentionPeriod
@@ -553,6 +585,7 @@ paths:
           description: Database not found.
       tags:
         - Database
+      x-docs-v2-operationId: DeleteDatabaseRetentionPeriod
   /api/v3/configure/distinct_cache:
     delete:
       operationId: DeleteConfigureDistinctCache
@@ -584,6 +617,7 @@ paths:
       tags:
         - Cache data
         - Table
+      x-docs-v2-operationId: DeleteConfigureDistinctCache
     post:
       operationId: PostConfigureDistinctCache
       responses:
@@ -609,6 +643,7 @@ paths:
       tags:
         - Cache data
         - Table
+      x-docs-v2-operationId: PostConfigureDistinctCache
   /api/v3/configure/last_cache:
     delete:
       operationId: DeleteConfigureLastCache
@@ -640,6 +675,7 @@ paths:
       tags:
         - Cache data
         - Table
+      x-docs-v2-operationId: DeleteConfigureLastCache
     post:
       operationId: PostConfigureLastCache
       responses:
@@ -662,6 +698,7 @@ paths:
       tags:
         - Cache data
         - Table
+      x-docs-v2-operationId: PostConfigureLastCache
   /api/v3/configure/plugin_environment/install_packages:
     post:
       operationId: PostInstallPluginPackages
@@ -708,6 +745,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostInstallPluginPackages
   /api/v3/configure/plugin_environment/install_requirements:
     post:
       operationId: PostInstallPluginRequirements
@@ -754,6 +792,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostInstallPluginRequirements
   /api/v3/configure/processing_engine_trigger:
     post:
       operationId: PostConfigureProcessingEngineTrigger
@@ -898,6 +937,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostConfigureProcessingEngineTrigger
     delete:
       operationId: DeleteConfigureProcessingEngineTrigger
       summary: Delete processing engine trigger
@@ -929,6 +969,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: DeleteConfigureProcessingEngineTrigger
   /api/v3/configure/processing_engine_trigger/disable:
     post:
       operationId: PostDisableProcessingEngineTrigger
@@ -958,6 +999,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostDisableProcessingEngineTrigger
   /api/v3/configure/processing_engine_trigger/enable:
     post:
       operationId: PostEnableProcessingEngineTrigger
@@ -987,6 +1029,7 @@ paths:
           description: Trigger not found.
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostEnableProcessingEngineTrigger
   /api/v3/configure/table:
     delete:
       operationId: DeleteConfigureTable
@@ -1043,6 +1086,7 @@ paths:
         Once a table is deleted, data stored in that table cannot be recovered.
       tags:
         - Table
+      x-docs-v2-operationId: DeleteConfigureTable
     post:
       operationId: PostConfigureTable
       responses:
@@ -1064,6 +1108,7 @@ paths:
               $ref: "#/components/schemas/CreateTableRequest"
       tags:
         - Table
+      x-docs-v2-operationId: PostConfigureTable
   /api/v3/configure/token:
     delete:
       operationId: DeleteToken
@@ -1087,6 +1132,7 @@ paths:
       tags:
         - Authentication
         - Token
+      x-docs-v2-operationId: DeleteToken
   /api/v3/configure/token/admin:
     post:
       operationId: PostCreateAdminToken
@@ -1108,6 +1154,7 @@ paths:
       tags:
         - Authentication
         - Token
+      x-docs-v2-operationId: PostCreateAdminToken
   /api/v3/configure/token/admin/regenerate:
     post:
       operationId: PostRegenerateAdminToken
@@ -1127,6 +1174,7 @@ paths:
       tags:
         - Authentication
         - Token
+      x-docs-v2-operationId: PostRegenerateAdminToken
   /api/v3/configure/token/named_admin:
     post:
       operationId: PostCreateNamedAdminToken
@@ -1166,6 +1214,7 @@ paths:
                   nullable: true
               required:
                 - token_name
+      x-docs-v2-operationId: PostCreateNamedAdminToken
   /api/v3/engine/{request_path}:
     get:
       operationId: GetProcessingEnginePluginRequest
@@ -1201,6 +1250,7 @@ paths:
         The response depends on the plugin implementation.
       tags:
         - Processing engine
+      x-docs-v2-operationId: GetProcessingEnginePluginRequest
     post:
       operationId: PostProcessingEnginePluginRequest
       responses:
@@ -1244,6 +1294,7 @@ paths:
               additionalProperties: true
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostProcessingEnginePluginRequest
     parameters:
       - name: request_path
         description: |
@@ -1264,6 +1315,128 @@ paths:
         required: true
         schema:
           type: string
+  /api/v3/export/databases:
+    get:
+      operationId: GetExportDatabases
+      summary: List databases available for export (beta)
+      description: |
+        Returns a list of databases that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      responses:
+        "200":
+          description: Success. Returns a list of database names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Export data (beta)
+      x-docs-v2-operationId: GetExportDatabases
+  /api/v3/export/tables:
+    get:
+      operationId: GetExportTables
+      summary: List tables available for export (beta)
+      description: |
+        Returns a list of tables in a database that have compacted data available for Parquet export.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+      responses:
+        "200":
+          description: Success. Returns a list of table names.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database not found.
+      tags:
+        - Export data (beta)
+      x-docs-v2-operationId: GetExportTables
+  /api/v3/export/window_data:
+    get:
+      operationId: GetExportWindowData
+      summary: Export window data as Parquet (beta)
+      description: |
+        Downloads compacted data for the specified windows as a tar archive containing Parquet files.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+        - name: windows
+          in: query
+          required: false
+          schema:
+            type: string
+          description: |
+            Comma-separated list of window dates to export (for example, `2026-01-15,2026-01-16`).
+            If omitted, exports all available windows.
+      responses:
+        "200":
+          description: Success. Returns a tar archive containing Parquet files.
+          content:
+            application/x-tar:
+              schema:
+                type: string
+                format: binary
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database, table, or window not found.
+      tags:
+        - Export data (beta)
+      x-docs-v2-operationId: GetExportWindowData
+  /api/v3/export/windows:
+    get:
+      operationId: GetExportWindows
+      summary: List compacted windows for a table (beta)
+      description: |
+        Returns a list of compacted 24-hour UTC windows for a table.
+        Each window represents a time range of compacted data that can be exported as Parquet.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+      parameters:
+        - $ref: "#/components/parameters/db"
+        - name: table
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The table name.
+      responses:
+        "200":
+          description: Success. Returns a list of compacted 24-hour windows.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Database or table not found.
+      tags:
+        - Export data (beta)
+      x-docs-v2-operationId: GetExportWindows
   /api/v3/plugin_test/schedule:
     post:
       operationId: PostTestSchedulingPlugin
@@ -1286,6 +1459,7 @@ paths:
               $ref: "#/components/schemas/SchedulePluginTestRequest"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostTestSchedulingPlugin
   /api/v3/plugin_test/wal:
     post:
       operationId: PostTestWALPlugin
@@ -1308,6 +1482,7 @@ paths:
               $ref: "#/components/schemas/WALPluginTestRequest"
       tags:
         - Processing engine
+      x-docs-v2-operationId: PostTestWALPlugin
   /api/v3/plugins/directory:
     put:
       operationId: PutPluginDirectory
@@ -1339,6 +1514,7 @@ paths:
       tags:
         - Processing engine
       x-security-note: Requires an admin token
+      x-docs-v2-operationId: PutPluginDirectory
   /api/v3/plugins/files:
     post:
       operationId: create_plugin_file
@@ -1364,6 +1540,7 @@ paths:
       tags:
         - Processing engine
       x-security-note: Requires an admin token
+      x-docs-v2-operationId: create_plugin_file
     put:
       operationId: PutPluginFile
       summary: Update a plugin file
@@ -1394,6 +1571,7 @@ paths:
       tags:
         - Processing engine
       x-security-note: Requires an admin token
+      x-docs-v2-operationId: PutPluginFile
   /api/v3/query_influxql:
     get:
       operationId: GetExecuteInfluxQLQuery
@@ -1426,7 +1604,12 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/dbQueryParam"
         - name: q
@@ -1449,6 +1632,7 @@ paths:
           description: JSON-encoded query parameters for parameterized queries.
       tags:
         - Query data
+      x-docs-v2-operationId: GetExecuteInfluxQLQuery
     post:
       operationId: PostExecuteQueryInfluxQL
       responses:
@@ -1480,7 +1664,12 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute InfluxQL query
-      description: Executes an InfluxQL query to retrieve data from the specified database.
+      description: |
+        Executes an InfluxQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode).
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
@@ -1488,6 +1677,7 @@ paths:
         $ref: "#/components/requestBodies/queryRequestBody"
       tags:
         - Query data
+      x-docs-v2-operationId: PostExecuteQueryInfluxQL
   /api/v3/query_sql:
     get:
       operationId: GetExecuteQuerySQL
@@ -1530,7 +1720,14 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       parameters:
         - $ref: "#/components/parameters/db"
         - $ref: "#/components/parameters/querySqlParam"
@@ -1546,6 +1743,7 @@ paths:
           description: JSON-encoded query parameters for parameterized queries.
       tags:
         - Query data
+      x-docs-v2-operationId: GetExecuteQuerySQL
     post:
       operationId: PostExecuteQuerySQL
       responses:
@@ -1577,7 +1775,14 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Execute SQL query
-      description: Executes an SQL query to retrieve data from the specified database.
+      description: |
+        Executes an SQL query to retrieve data from the specified database.
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), queries automatically merge results from Parquet and
+        `.pt` files (hybrid query mode). Use the
+        [`/api/v3/query_sql_telemetry`](#operation/GetQuerySQLTelemetry) endpoint after executing
+        a query to retrieve detailed execution statistics.
       parameters:
         - $ref: "#/components/parameters/AcceptQueryHeader"
         - $ref: "#/components/parameters/ContentType"
@@ -1585,6 +1790,114 @@ paths:
         $ref: "#/components/requestBodies/queryRequestBody"
       tags:
         - Query data
+      x-docs-v2-operationId: PostExecuteQuerySQL
+  /api/v3/query_sql_telemetry:
+    get:
+      operationId: GetQuerySQLTelemetry
+      summary: Get query telemetry (beta)
+      description: |
+        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
+        cache hit rates, and timing breakdowns.
+
+        Use this endpoint after executing a query to analyze performance.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+
+        For more information, see
+        [Query telemetry](/influxdb3/core/performance-preview/monitor/#query-telemetry).
+      responses:
+        "200":
+          description: Success. Returns query telemetry data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query_id:
+                    type: string
+                    description: Unique identifier for the query.
+                  execution_time_us:
+                    type: integer
+                    description: Total execution time in microseconds.
+                  chunks:
+                    type: array
+                    description: Per-chunk statistics.
+                    items:
+                      type: object
+                      properties:
+                        chunk_id:
+                          type: string
+                        files_scanned:
+                          type: integer
+                        blocks_processed:
+                          type: integer
+                        rows_read:
+                          type: integer
+                        rows_returned:
+                          type: integer
+                        bytes_read:
+                          type: integer
+                  cache_stats:
+                    type: object
+                    description: Cache hit rates by type.
+                    properties:
+                      gen0_hits:
+                        type: integer
+                      gen0_misses:
+                        type: integer
+                      compacted_hits:
+                        type: integer
+                      compacted_misses:
+                        type: integer
+              example:
+                query_id: q_12345
+                execution_time_us: 4523
+                chunks:
+                  - chunk_id: c_1
+                    files_scanned: 3
+                    blocks_processed: 12
+                    rows_read: 24000
+                    rows_returned: 150
+                    bytes_read: 1234567
+                cache_stats:
+                  gen0_hits: 5
+                  gen0_misses: 1
+                  compacted_hits: 8
+                  compacted_misses: 2
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query data
+      x-docs-v2-operationId: GetQuerySQLTelemetry
+    post:
+      operationId: PostQuerySQLTelemetry
+      summary: Get query telemetry (beta)
+      description: |
+        Returns detailed execution statistics for the most recent SQL query, including per-chunk I/O,
+        cache hit rates, and timing breakdowns.
+
+        Use this endpoint after executing a query to analyze performance.
+
+        > **Beta**: This endpoint requires the [performance upgrade preview](/influxdb3/core/performance-preview/)
+        > (`--use-pacha-tree` flag). The performance upgrade preview is a beta feature
+        > and **should not be used for production workloads**.
+
+        For more information, see
+        [Query telemetry](/influxdb3/core/performance-preview/monitor/#query-telemetry).
+      responses:
+        "200":
+          description: Success. Returns query telemetry data.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      tags:
+        - Query data
+      x-docs-v2-operationId: PostQuerySQLTelemetry
   /api/v3/write_lp:
     post:
       operationId: PostWriteLP
@@ -1634,53 +1947,52 @@ paths:
         "422":
           description: Unprocessable entity.
       summary: Write line protocol
-      description: >
+      description: |
         Writes line protocol to the specified database.
 
-
         This is the native InfluxDB 3 Core write endpoint that provides enhanced control
-
         over write behavior with advanced parameters for high-performance and fault-tolerant operations.
 
-
-        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format to
-        InfluxDB.
-
-        Use query parameters to specify options for writing data.
-
+        Use this endpoint to send data in [line protocol](/influxdb3/core/reference/syntax/line-protocol/) format
+        to InfluxDB. Use query parameters to specify options for writing data.
 
         #### Features
 
-
         - **Partial writes**: Use `accept_partial=true` to allow partial success when some lines in a batch fail
-
         - **Asynchronous writes**: Use `no_sync=true` to skip waiting for WAL synchronization, allowing faster response
-        times but sacrificing durability guarantees
-
+          times but sacrificing durability guarantees
         - **Flexible precision**: Automatic timestamp precision detection with `precision=auto` (default)
 
+        #### Column families (performance upgrade preview)
+
+        With the [performance upgrade preview](/influxdb3/core/performance-preview/) enabled
+        (`--use-pacha-tree` flag), you can assign fields to column families using the `::` delimiter
+        in field names. The portion before `::` is the family name; everything after is the field name.
+
+        ```txt
+        metrics,host=sA cpu::usage_user=55.2,cpu::usage_sys=12.1,mem::free=2048i 1000000000
+        ```
+
+        Fields in the same family are stored together on disk. For wide tables, this reduces I/O
+        by letting queries read only the families they need. Fields written without `::` are assigned
+        to auto-generated families.
+
+        For more information, see [Column families](/influxdb3/core/performance-preview/#column-families).
 
         #### Auto precision detection
 
-
         When you use `precision=auto` or omit the precision parameter, InfluxDB 3 automatically detects
-
         the timestamp precision based on the magnitude of the timestamp value:
 
-
         - Timestamps < 5e9 → Second precision (multiplied by 1,000,000,000 to convert to nanoseconds)
-
         - Timestamps < 5e12 → Millisecond precision (multiplied by 1,000,000)
-
         - Timestamps < 5e15 → Microsecond precision (multiplied by 1,000)
-
         - Larger timestamps → Nanosecond precision (no conversion needed)
-
 
         #### Related
 
-
         - [Use the InfluxDB v3 write_lp API to write data](/influxdb3/core/write-data/http-api/v3-write-lp/)
+        - [Performance upgrade preview](/influxdb3/core/performance-preview/)
       requestBody:
         $ref: "#/components/requestBodies/lineProtocolRequestBody"
       tags:
@@ -1718,6 +2030,7 @@ paths:
               --data-raw "cpu,host=server01,region=us-west usage=85.2,load=0.75 1638360000000000000
             memory,host=server01,region=us-west used=4096,free=12288 1638360000000000000
             disk,host=server01,region=us-west,device=/dev/sda1 used=50.5,free=49.5 1638360000000000000"
+      x-docs-v2-operationId: PostWriteLP
   /health:
     get:
       operationId: GetHealth
@@ -1743,6 +2056,7 @@ paths:
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Core.
       tags:
         - Server information
+      x-docs-v2-operationId: GetHealth
   /metrics:
     get:
       operationId: GetMetrics
@@ -1753,6 +2067,7 @@ paths:
       description: Retrieves Prometheus-compatible server metrics.
       tags:
         - Server information
+      x-docs-v2-operationId: GetMetrics
   /ping:
     get:
       operationId: GetPing
@@ -1808,6 +2123,7 @@ paths:
         > **Note**: This endpoint requires authentication by default in InfluxDB 3 Core.
       tags:
         - Server information
+      x-docs-v2-operationId: GetPing
     post:
       operationId: ping
       responses:
@@ -1851,6 +2167,7 @@ paths:
       description: Returns version information for the server. Accepts POST in addition to GET.
       tags:
         - Server information
+      x-docs-v2-operationId: ping
   /query:
     get:
       operationId: GetV1ExecuteQuery
@@ -1998,6 +2315,7 @@ paths:
       tags:
         - Query data
         - Compatibility endpoints
+      x-docs-v2-operationId: GetV1ExecuteQuery
     post:
       operationId: PostExecuteV1Query
       x-compatibility-version: v1
@@ -2197,6 +2515,7 @@ paths:
       tags:
         - Query data
         - Compatibility endpoints
+      x-docs-v2-operationId: PostExecuteV1Query
   /write:
     post:
       operationId: PostV1Write
@@ -2325,6 +2644,7 @@ paths:
       tags:
         - Compatibility endpoints
         - Write data
+      x-docs-v2-operationId: PostV1Write
 components:
   parameters:
     AcceptQueryHeader:
