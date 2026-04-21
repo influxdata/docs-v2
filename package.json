@@ -89,7 +89,7 @@
     "test:codeblocks:default": "echo 'Running default test group (core + telegraf)...' && yarn test:codeblocks:influxdb3_core && yarn test:codeblocks:telegraf",
     "test:codeblocks:parallel": "docker compose run --rm cloud-pytest & docker compose run --rm v2-pytest & docker compose run --rm telegraf-pytest & wait",
     "test:codeblocks:influxdb3_core": "docker compose run --rm --name influxdb3-core-pytest influxdb3-core-pytest",
-    "test:codeblocks:influxdb3_enterprise": "echo '⚠️ InfluxDB 3 Enterprise pytest service not yet configured. Add influxdb3-enterprise-pytest to compose.yaml.' && exit 0",
+    "test:codeblocks:influxdb3_enterprise": "docker compose run --rm --name influxdb3-enterprise-pytest influxdb3-enterprise-pytest",
     "test:codeblocks:cloud": "docker compose run --rm --name cloud-pytest cloud-pytest",
     "test:codeblocks:cloud-dedicated": "./test/scripts/monitor-tests.sh start cloud-dedicated-pytest && docker compose run --name cloud-dedicated-pytest cloud-dedicated-pytest",
     "test:codeblocks:cloud-serverless": "docker compose run --rm --name cloud-serverless-pytest cloud-serverless-pytest",

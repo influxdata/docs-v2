@@ -411,6 +411,56 @@ jobs:
             sleep 1
           done
 
+      - name: Start InfluxDB 3 Enterprise for live testing
+        if: matrix.product == 'influxdb3_enterprise'
+        env:
+          INFLUXDB3_ENTERPRISE_LICENSE_EMAIL: ${{ secrets.INFLUXDB3_ENTERPRISE_LICENSE_EMAIL }}
+        run: |
+          if [[ -z "${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}" ]]; then
+            echo "❌ INFLUXDB3_ENTERPRISE_LICENSE_EMAIL repo secret is not set"
+            exit 1
+          fi
+
+          # Paths the compose service expects (see compose.yaml influxdb3-enterprise)
+          ENT_DIR="$HOME/influxdata-docs/.influxdb3/enterprise"
+          mkdir -p "$ENT_DIR/data" "$HOME/influxdata-docs/.influxdb3/plugins"
+          chmod -R 0777 "$HOME/influxdata-docs/.influxdb3"
+
+          # License email file consumed by compose env_file directive
+          echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=${INFLUXDB3_ENTERPRISE_LICENSE_EMAIL}" > "$ENT_DIR/.env"
+
+          # Preconfigured offline admin token — same schema as Core
+          TOKEN="apiv3_$(openssl rand -hex 32)"
+          cat > "$ENT_DIR/admin-token.json" <<EOF
+          {"token":"${TOKEN}","name":"_admin","description":"CI admin token"}
+          EOF
+          chmod 0644 "$ENT_DIR/admin-token.json"
+
+          # Live credentials for pytest; pytest container reaches server by service name
+          mkdir -p content/influxdb3/enterprise
+          cat > content/influxdb3/enterprise/.env.test <<EOF
+          INFLUX_HOST=http://influxdb3-enterprise:8181
+          INFLUX_TOKEN=${TOKEN}
+          INFLUX_DATABASE=ci_test
+          EOF
+
+          # Enterprise service is in the `shared` profile
+          docker compose --profile shared up -d influxdb3-enterprise
+
+          # Wait for the server. Enterprise activation can take longer than Core.
+          for i in {1..120}; do
+            if curl -fsS -H "Authorization: Bearer ${TOKEN}" http://localhost:8181/ping >/dev/null 2>&1; then
+              echo "✅ InfluxDB 3 Enterprise ready after ${i}s"
+              break
+            fi
+            if [[ $i -eq 120 ]]; then
+              echo "❌ InfluxDB 3 Enterprise did not become ready"
+              docker compose logs influxdb3-enterprise
+              exit 1
+            fi
+            sleep 1
+          done
+
       - name: Run ${{ matrix.product }} code block tests
         id: test
         continue-on-error: true
@@ -424,10 +474,7 @@ jobs:
               TEST_CMD="yarn test:codeblocks:influxdb3_core"
               ;;
             influxdb3_enterprise)
-              echo "⚠️ InfluxDB 3 Enterprise tests not yet configured - skipping"
-              echo "test-status=skipped" >> $GITHUB_OUTPUT
-              echo "exit-code=0" >> $GITHUB_OUTPUT
-              exit 0
+              TEST_CMD="yarn test:codeblocks:influxdb3_enterprise"
               ;;
             telegraf)
               TEST_CMD="yarn test:codeblocks:telegraf"
@@ -496,6 +543,24 @@ jobs:
       - name: Stop InfluxDB 3 Core
         if: always() && matrix.product == 'influxdb3_core'
         run: docker compose down -v --remove-orphans || true
+
+      - name: Capture InfluxDB 3 Enterprise logs
+        if: always() && matrix.product == 'influxdb3_enterprise'
+        run: |
+          mkdir -p /tmp/server-logs
+          docker compose logs influxdb3-enterprise > /tmp/server-logs/influxdb3-enterprise.log 2>&1 || true
+
+      - name: Upload InfluxDB 3 Enterprise logs
+        if: always() && matrix.product == 'influxdb3_enterprise'
+        uses: actions/upload-artifact@v4
+        with:
+          name: influxdb3-enterprise-server-logs
+          path: /tmp/server-logs/
+          retention-days: 7
+
+      - name: Stop InfluxDB 3 Enterprise
+        if: always() && matrix.product == 'influxdb3_enterprise'
+        run: docker compose --profile shared down -v --remove-orphans || true
 
       - name: Generate test summary
         if: always()
