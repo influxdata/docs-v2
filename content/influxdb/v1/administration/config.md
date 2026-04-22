@@ -350,7 +350,7 @@ The size (in bytes) of the tar buffer window while running tar streaming operati
 such as renaming and copying tar files during backups.
 
 > [!Note]
-> Only change if backups have performance issues. Understand that this is a heuristic
+> Only change `tar-stream-buffer-size` from the default if backups have performance issues. Understand that this is a heuristic
 > and may require experimentation on your system.
 
 **Default**: `"1048576"`  
