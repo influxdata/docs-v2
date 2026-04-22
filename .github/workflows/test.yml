@@ -61,8 +61,10 @@ jobs:
       - name: Analyze changes and determine products
         id: check
         run: |
-          # Default product group: core + telegraf
-          DEFAULT_PRODUCTS=("influxdb3_core" "telegraf")
+          # Default product group: all products that run live in CI.
+          # Enterprise skips gracefully when INFLUXDB3_ENTERPRISE_LICENSE_BLOB
+          # is not set, so listing it is safe even when the secret is absent.
+          DEFAULT_PRODUCTS=("influxdb3_core" "influxdb3_enterprise" "telegraf")
 
           # For workflow_dispatch, use specified products or default
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
