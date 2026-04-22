@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-22 14:34:42 -0500 -0500">
+<meta name="last-modified" content="2026-04-22 14:39:56 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3027,13 +3027,13 @@ every key must be checked. This will not validate field keys.</p>
 <p><strong>Default</strong>: <code>false</code><br>
 <strong>Environment variable</strong>: <code>INFLUXDB_VALIDATE_KEYS</code></p>
 <h3 id="tar-stream-buffer-size">tar-stream-buffer-size</h3>
-<p>The size of tar buffer window size in bytes while running tar streaming operations
+<p>The size (in bytes) of the tar buffer window while running tar streaming operations,
 such as renaming and copying tar files during backups.</p>
 
 <div class="block note">
   
   
-  <p>Only change if backups have performance issues. Understand that this is a heuristic
+  <p>Only change <code>tar-stream-buffer-size</code> from the default if backups have performance issues. Understand that this is a heuristic
 and may require experimentation on your system.</p>
 </div>
 <p><strong>Default</strong>: <code>&quot;1048576&quot;</code><br>
