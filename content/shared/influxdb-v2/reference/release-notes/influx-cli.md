@@ -11,7 +11,7 @@
 ### Features
 
 - Add `--operator-token` flag to restore subcommand
-- Adds gzip compression level configuration to backups for v2
+- Adds gzip compression level configuration to backups for v2 (requires InfluxDB v2.9+)
 
 ### Maintenance
 
