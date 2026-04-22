@@ -1,19 +1,17 @@
-{{- $cli := .Get "cli" | default false }}
-{{- $productPathData := split .Page.RelPermalink "/" -}}
-{{- /* Support deployments (such as CI tools) with subdirectory baseURL */ -}}
-{{- $pathOffset := .Site.Params.prPreviewPathOffset | default 0 -}}
-{{- $parsedProduct := index $productPathData (add $pathOffset 1) | default "influxdb" -}}
-{{- $parsedVersion := index $productPathData (add $pathOffset 2) -}}
+{{- $cli := .Get "cli" | default false -}}
 {{- $productArg := .Get "product" | default "" -}}
 {{- $versionArg := .Get "version" | default "" -}}
-{{- $product := cond (gt (len $productArg) 0) $productArg $parsedProduct -}}
-{{- $latestVersion := replaceRE `\..*$` "" (index (index .Site.Data.products $product) "latest") -}}
-{{- $version := cond (gt (len $versionArg) 0) $versionArg $parsedVersion  -}}
-{{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}
-{{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
-{{- $isInfluxDB3 := eq $product "influxdb3" -}}
-{{- if $cli }}
-  {{- /* For CLI versions, use influxdb's latest version as the lookup key for cloud products */ -}}
+{{- /* Use shortcode product arg if provided, otherwise cascade */ -}}
+{{- $productData := dict -}}
+{{- if gt (len $productArg) 0 -}}
+  {{- $productData = index .Site.Data.products $productArg -}}
+{{- else -}}
+  {{- $productData = partial "product/get-data.html" . -}}
+{{- end -}}
+{{- $version := cond (gt (len $versionArg) 0) $versionArg .Page.Params.version -}}
+{{- if $cli -}}
+  {{- /* CLI versions use influxdb's latest_cli map */ -}}
+  {{- $cliVersions := index .Site.Data.products.influxdb "latest_cli" -}}
   {{- $influxdbLatest := replaceRE `\..*$` "" (index .Site.Data.products.influxdb "latest") -}}
   {{- if or (eq $version "cloud") (eq $version "cloud-serverless") -}}
     {{- .Store.Set "patchVersion" (index $cliVersions $influxdbLatest) -}}
@@ -21,12 +19,14 @@
     {{- .Store.Set "patchVersion" (index $cliVersions $version) -}}
   {{- end -}}
 {{- else -}}
-  {{- if eq $version "cloud" -}}
-    {{- .Store.Set "patchVersion" (index $patchVersions $latestVersion) -}}
-  {{- else if $isInfluxDB3 -}}
-    {{- .Store.Set "patchVersion" (index .Site.Data.products (print $product "_" $version)).latest_patch -}}
+  {{- /* For products with a single latest_patch (influxdb3), use it directly */ -}}
+  {{- with $productData.latest_patch -}}
+    {{- $.Store.Set "patchVersion" . -}}
   {{- else -}}
-    {{- .Store.Set "patchVersion" (index $patchVersions $version) -}}
+    {{- /* For multi-version products, look up by version key */ -}}
+    {{- with $productData.latest_patches -}}
+      {{- $.Store.Set "patchVersion" (index . $version) -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- .Store.Get "patchVersion" -}}

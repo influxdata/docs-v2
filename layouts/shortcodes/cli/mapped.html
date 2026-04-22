@@ -1,6 +1,7 @@
-{{ $product := (index (findRE "[^/]+.*?" .Page.RelPermalink) 0) }}
-{{ $currentVersion := (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
+{{- $productData := partial "product/get-data.html" . -}}
+{{- $namespace := $productData.namespace -}}
+{{- $currentVersion := .Page.Params.version -}}
 {{ $cli := replaceRE "/cli/" "" (index (findRE "/cli/[a-z]*" .Page.RelPermalink) 0) }}
-{{ $link := print "/" $product "/" $currentVersion "/reference/cli/" $cli "/#view-mapped-environment-variables"}}
+{{ $link := print "/" $namespace "/" $currentVersion "/reference/cli/" $cli "/#view-mapped-environment-variables"}}
 
 Maps to <a class="q-link" href="{{ $link }}">?</a>

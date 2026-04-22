@@ -146,7 +146,7 @@ Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
 - **api-ref**: Link the endpoint to a specific place in the API documentation
-- **influxdb_host**: Specify which InfluxDB product host to use *if the `endpoint` contains the `influxdb/host` shortcode*. Uses the current InfluxDB product as default. Supports the following product values:
+- **influxdb\_host**: Specify which InfluxDB product host to use *if the `endpoint` contains the `influxdb/host` shortcode*. Uses the current InfluxDB product as default. Supports the following product values:
   - oss
   - cloud
   - serverless
@@ -737,16 +737,32 @@ InfluxDB 3 Enterprise and InfluxDB 3 Core support different kinds of tokens. The
 
 ### Code callouts
 
-Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific piece of code (for example, a variable, placeholder, or value) in a code block. Provide the string to highlight in the code block. Include a syntax for the codeblock to properly style the called out code.
+Use the `callout` code fence attribute to highlight and emphasize specific code (for example, a variable, placeholder, or value) in a code block.
+Provide a regular expression pattern to match the text to highlight.
+Use the optional `callout-color` attribute to specify the highlight color (defaults to `green`).
+
+**Available colors:** `green` (default), `magenta`, `orange`, `delete`/`strike`
 
 ````md
-{{< code-callout "03a2bbf46249a000" >}}
-
-```sh
+```sh { callout="03a2bbf46249a000" }
 http://localhost:8086/orgs/03a2bbf46249a000/...
 ```
+````
 
-{{< /code-callout >}}
+With an explicit color:
+
+````md
+```sh { callout="--host" callout-color="orange" }
+influx query --host http://localhost:8086
+```
+````
+
+You can use both `callout` and `placeholders` attributes on the same code block:
+
+````md
+```sh { placeholders="DATABASE_NAME" callout="--host" callout-color="magenta" }
+influx query --host http://localhost:8086 --database DATABASE_NAME
+```
 ````
 
 ### Placeholders in code samples

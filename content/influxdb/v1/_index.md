@@ -5,6 +5,9 @@ menu:
   influxdb_v1:
     name: InfluxDB OSS v1
 weight: 1
+cascade:
+  product: influxdb
+  version: v1
 ---
 
 InfluxDB is a [time series database](https://www.influxdata.com/time-series-database/) designed to handle high write and query loads.

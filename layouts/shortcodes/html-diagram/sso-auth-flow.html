@@ -1,14 +1,4 @@
-{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentProduct := index $productPathData 1 -}}
-{{- $scratch := newScratch -}}
-{{- if eq $currentProduct "cloud-serverless" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_serverless -}}
-{{- else if eq $currentProduct "cloud-dedicated" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_cloud_dedicated -}}
-{{- else if eq $currentProduct "clustered" -}}
-  {{- $scratch.Set "productData" .Site.Data.products.influxdb3_clustered -}}
-{{- end -}}
-{{- $productData := $scratch.Get "productData" -}}
+{{- $productData := partial "product/get-data.html" . -}}
 {{ $productName := $productData.name }}
 
 <div id="sso-auth-flow">

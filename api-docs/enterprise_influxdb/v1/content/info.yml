@@ -1,0 +1,25 @@
+title: InfluxDB Enterprise v1 HTTP API
+x-influxdata-short-title: InfluxDB Enterprise v1 API
+x-influxdata-short-description: >-
+  The InfluxDB Enterprise v1 HTTP API provides a programmatic interface for writing,
+  querying, and managing InfluxDB Enterprise v1 clusters.
+version: 1.12.2
+description: |
+  The InfluxDB Enterprise v1 HTTP API provides a simple way to interact with the database.
+  It uses HTTP response codes, authentication with username and password credentials
+  or API tokens, and JSON-formatted response data.
+
+  ## InfluxDB 3 Compatibility
+
+  InfluxDB 3 supports the v1 `/write` and `/query` HTTP API endpoints.
+
+  For more information, see the following:
+
+  - [Use compatibility APIs to write data in InfluxDB 3](/influxdb3/enterprise/write-data/http-api/compatibility-apis/)
+  - [Get started using using InfluxQL in InfluxDB 3](/influxdb3/enterprise/get-started/query/#influxql)
+license:
+  name: Proprietary
+  url: https://www.influxdata.com/legal/slsa/
+contact:
+  name: InfluxData
+  url: https://www.influxdata.com

@@ -54,10 +54,15 @@ If you haven't completed these steps, see [Set up {{% product-name %}}](/influxd
 
 ## Activate the processing engine
 
-To activate the processing engine, include the `--plugin-dir <PLUGIN_DIR>` option
-when starting the {{% product-name %}} server.
-`PLUGIN_DIR` is your file system location for storing [plugin](#plugin) files for
-the processing engine to run.
+To activate the processing engine, include the `--plugin-dir <PLUGIN_DIR>` option when starting the {{% product-name %}} server.
+`PLUGIN_DIR` is your file system location for storing [plugin](#plugin) files for the processing engine to run.
+{{% show-in "enterprise" %}}
+In a cluster, `--plugin-dir` automatically adds `process` mode to the node.
+{{% /show-in %}}
+
+> [!Note]
+> **Docker and DEB/RPM installations**: The Processing Engine is already enabled—no additional configuration needed.
+> To disable it, see [Enable and disable the Processing Engine](/influxdb3/version/reference/processing-engine/#enable-and-disable-the-processing-engine).
 
 > [!Note]
 > If you manually installed {{% product-name %}} from a tar archive, ensure the `influxdb3` binary and `python/` directory remain in the same parent directory. The install script handles this automatically.

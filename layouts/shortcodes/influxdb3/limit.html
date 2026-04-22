@@ -1,8 +1,4 @@
-{{- $productPathData := split .Page.RelPermalink "/" -}}
-{{- $product := index $productPathData 2 -}}
+{{- $productData := partial "product/get-data.html" . -}}
 {{- $limit := .Get 0 | default "database" -}}
 {{- $modifier := .Get 1 | default 0 -}}
-{{- $coreLimits := dict "database" 5 "table" 2000 "column" 500 -}}
-{{- $enterpriseLimits := dict "database" 100 "table" 10000 "column" 500 -}}
-{{- $productLimits := cond (eq $product "core") $coreLimits $enterpriseLimits -}}
-{{ add (index $productLimits $limit) $modifier }}
+{{ add (index $productData.limits $limit) $modifier }}

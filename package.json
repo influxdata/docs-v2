@@ -13,17 +13,17 @@
   },
   "resolutions": {
     "serialize-javascript": "^6.0.2",
-    "tar": "7.5.7",
-    "lodash-es": "^4.17.23"
+    "tar": "7.5.11",
+    "lodash-es": "^4.17.23",
+    "dompurify": ">=3.3.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^10.0.1",
     "@evilmartians/lefthook": "^1.7.1",
     "@types/js-yaml": "^4.0.9",
-    "@vvago/vale": "^3.12.0",
     "autoprefixer": ">=10.2.5",
     "cypress": "^14.0.1",
-    "eslint": "^9.18.0",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsdoc": "^50.6.17",
@@ -48,8 +48,8 @@
   },
   "dependencies": {
     "@types/turndown": "^5.0.6",
-    "axios": "^1.13.5",
-    "glob": "^10.3.10",
+    "axios": "^1.15.0",
+    "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
@@ -72,7 +72,8 @@
     "docs:add-placeholders": "node scripts/docs-cli/docs-cli.js add-placeholders",
     "docs:audit": "node scripts/docs-cli/docs-cli.js audit",
     "docs:release-notes": "node scripts/docs-cli/docs-cli.js release-notes",
-    "build:api-docs": "cd api-docs && sh generate-api-docs.sh",
+    "build:api-docs": "cd api-docs && bash generate-api-docs.sh",
+    "build:api-docs:scripts": "tsc --project api-docs/scripts/tsconfig.json",
     "build:pytest:image": "docker build -t influxdata/docs-pytest:latest -f Dockerfile.pytest .",
     "build:agent:instructions": "node ./helper-scripts/build-agent-instructions.js",
     "build:ts": "tsc --project tsconfig.json --outDir dist",
@@ -107,6 +108,8 @@
     "test:cache:clear": "./test/scripts/manage-test-cache.sh clear",
     "test:cache:list": "./test/scripts/manage-test-cache.sh list",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
+    "test:render-regression": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/render-regression.cy.js\" --no-mapping",
+    "test:render-artifacts": ".ci/scripts/check-render-artifacts.sh public",
     "test:shortcode-examples": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/index.cy.js\" content/example.md",
     "sync-plugins": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js",
     "sync-plugins:dry-run": "cd helper-scripts/influxdb3-plugins && node port_to_docs.js --dry-run",
@@ -129,7 +132,5 @@
   },
   "keywords": [],
   "author": "",
-  "optionalDependencies": {
-    "copilot": "^0.0.2"
-  }
+  "optionalDependencies": {}
 }

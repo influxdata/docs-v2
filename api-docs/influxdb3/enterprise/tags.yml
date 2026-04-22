@@ -1,0 +1,228 @@
+tags:
+  Compatibility endpoints:
+    drop: true
+  Export data (beta):
+    description: >
+      Export data from InfluxDB 3 Enterprise databases.
+      List databases, tables, export windows, and retrieve
+      window data for data migration and backup workflows.
+    x-related:
+      - title: Export data
+        href: /influxdb3/enterprise/admin/export/
+  Authentication:
+    x-traitTag: true
+    description: |
+      Use one of the following schemes to authenticate to the InfluxDB 3 Enterprise API:
+
+      - [Token authentication](#section/Authentication/TokenAuthentication)
+      - [Bearer authentication](#section/Authentication/BearerAuthentication)
+      - [Basic authentication](#section/Authentication/BasicAuthentication)
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+      <!-- ReDoc-Inject: <security-definitions> -->
+  Token:
+    rename: Auth token
+    description: |
+      Create and manage tokens used for authenticating and authorizing access to InfluxDB 3 Enterprise resources.
+    externalDocs:
+      description: Manage tokens
+      url: /influxdb3/enterprise/admin/tokens/
+    x-related:
+      - title: Manage tokens
+        href: /influxdb3/enterprise/admin/tokens/
+  Cache data:
+    reassign:
+      - paths: ["/api/v3/configure/distinct_cache"]
+        tag: Cache distinct values
+      - paths: ["/api/v3/configure/last_cache"]
+        tag: Cache last value
+  Cache distinct values:
+    description: |
+      The Distinct Value Cache (DVC) lets you cache distinct
+      values of one or more columns in a table, improving the performance of
+      queries that return distinct tag and field values.
+
+      The DVC is an in-memory cache that stores distinct values for specific columns
+      in a table. When you create a DVC, you can specify what columns' distinct
+      values to cache, the maximum number of distinct value combinations to cache, and
+      the maximum age of cached values. A DVC is associated with a table, which can
+      have multiple DVCs.
+    externalDocs:
+      description: Manage the Distinct Value Cache
+      url: /influxdb3/enterprise/admin/distinct-value-cache/
+    x-related:
+      - title: Manage the Distinct Value Cache
+        href: /influxdb3/enterprise/admin/distinct-value-cache/
+  Cache last value:
+    description: |
+      The Last Value Cache (LVC) lets you cache the most recent
+      values for specific fields in a table, improving the performance of queries that
+      return the most recent value of a field for specific series or the last N values
+      of a field.
+
+      The LVC is an in-memory cache that stores the last N number of values for
+      specific fields of series in a table. When you create an LVC, you can specify
+      what fields to cache, what tags to use to identify each series, and the
+      number of values to cache for each unique series.
+      An LVC is associated with a table, which can have multiple LVCs.
+    externalDocs:
+      description: Manage the Last Value Cache
+      url: /influxdb3/enterprise/admin/last-value-cache/
+    x-related:
+      - title: Manage the Last Value Cache
+        href: /influxdb3/enterprise/admin/last-value-cache/
+  Migrate from InfluxDB v1 or v2:
+    x-traitTag: true
+    description: |
+      Migrate your existing InfluxDB v1 or v2 workloads to InfluxDB 3 Enterprise.
+
+      InfluxDB 3 provides compatibility endpoints that work with InfluxDB 1.x and 2.x client libraries and tools.
+      Operations marked with <span class="api-compat-badge api-compat-badge--v1">v1</span> or <span class="api-compat-badge api-compat-badge--v2">v2</span> badges are compatible with the respective InfluxDB version.
+
+      ### Migration guides
+
+      - [Migrate from InfluxDB v1](/influxdb3/enterprise/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
+      - [Migrate from InfluxDB v2](/influxdb3/enterprise/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
+      - [Use compatibility APIs to write data](/influxdb3/enterprise/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
+      - [Use the v1 HTTP query API](/influxdb3/enterprise/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
+  Database:
+    description: |
+      Create, list, and delete databases in InfluxDB 3 Enterprise.
+    externalDocs:
+      description: Manage databases
+      url: /influxdb3/enterprise/admin/databases/
+    x-related:
+      - title: Manage databases
+        href: /influxdb3/enterprise/admin/databases/
+  Headers and parameters:
+    x-traitTag: true
+    description: |
+      Most InfluxDB API endpoints require parameters in the request--for example, specifying the database to use.
+
+      ### Common parameters
+
+      The following table shows common parameters used by many InfluxDB API endpoints.
+      Many endpoints may require other parameters in the query string or in the
+      request body that perform functions specific to those endpoints.
+
+      | Query parameter          | Value type            | Description                                |
+      |:------------------------ |:--------------------- |:-------------------------------------------|
+      | `db`                 | string                | The database name |
+
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB API endpoints.
+      Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
+      the write endpoints accept the `Content-Encoding` header to indicate that line protocol is compressed in the request body.
+
+      | Header                   | Value type            | Description                                |
+      |:------------------------ |:--------------------- |:-------------------------------------------|
+      | `Accept`                 | string                | The content type that the client can understand. |
+      | `Authorization`          | string                | The authorization scheme and credential. |
+      | `Content-Length`         | integer               | The size of the entity-body, in bytes. |
+      | `Content-Type`           | string                | The format of the data in the request body. |
+  Processing engine:
+    description: |
+      Manage Processing engine triggers, test plugins, and send requests to trigger On Request plugins.
+
+      InfluxDB 3 Enterprise provides the InfluxDB 3 processing engine, an embedded Python VM that can dynamically load and trigger Python plugins in response to events in your database.
+      Use Processing engine plugins and triggers to run code and perform tasks for different database events.
+    externalDocs:
+      description: Processing engine and Python plugins
+      url: /influxdb3/enterprise/processing-engine/
+    x-related:
+      - title: Processing engine and Python plugins
+        href: /influxdb3/enterprise/processing-engine/
+  Query data:
+    description: |
+      Query data stored in InfluxDB 3 Enterprise using SQL or InfluxQL.
+    externalDocs:
+      description: Query data
+      url: /influxdb3/enterprise/query-data/
+    x-related:
+      - title: Query data
+        href: /influxdb3/enterprise/query-data/
+  Quick start:
+    x-traitTag: true
+    description: |
+      Authenticate, write, and query with the API:
+
+      1. Create an admin token to authorize API requests.
+
+         ```bash
+         curl -X POST "http://localhost:8181/api/v3/configure/token/admin"
+         ```
+      2. Check the status of the InfluxDB server.
+
+         ```bash
+         curl "http://localhost:8181/health" \
+            --header "Authorization: Bearer ADMIN_TOKEN"
+         ```
+
+      3. Write data to InfluxDB.
+
+         ```bash
+         curl "http://localhost:8181/api/v3/write_lp?db=sensors&precision=auto"
+           --header "Authorization: Bearer ADMIN_TOKEN" \
+           --data-raw "home,room=Kitchen temp=72.0
+          home,room=Living\ room temp=71.5"
+         ```
+
+         If all data is written, the response is `204 No Content`.
+
+      4. Query data from InfluxDB.
+
+         ```bash
+         curl -G "http://localhost:8181/api/v3/query_sql" \
+           --header "Authorization: Bearer ADMIN_TOKEN" \
+           --data-urlencode "db=sensors" \
+           --data-urlencode "q=SELECT * FROM home WHERE room='Living room'" \
+           --data-urlencode "format=jsonl"
+         ```
+
+         Output:
+
+         ```jsonl
+         {"room":"Living room","temp":71.5,"time":"2025-02-25T20:19:34.984098"}
+         ```
+
+      For more information, see the [Get started](/influxdb3/enterprise/get-started/) guide.
+  Server information:
+    description: |
+      Retrieve server metrics, health status, and version information for InfluxDB 3 Enterprise.
+  Table:
+    description: |
+      Manage table schemas in an InfluxDB 3 Enterprise database.
+    externalDocs:
+      description: Manage tables
+      url: /influxdb3/enterprise/admin/tables/
+    x-related:
+      - title: Manage tables
+        href: /influxdb3/enterprise/admin/tables/
+  Write data:
+    description: |
+      Write data to InfluxDB 3 Enterprise using line protocol format.
+
+      #### Timestamp precision across write APIs
+
+      InfluxDB 3 provides multiple write endpoints for compatibility with different InfluxDB versions.
+      The following table compares timestamp precision support across v1, v2, and v3 write APIs:
+
+      | Precision | v1 (`/write`) | v2 (`/api/v2/write`) | v3 (`/api/v3/write_lp`) |
+      |-----------|---------------|----------------------|-------------------------|
+      | **Auto detection** | ❌ No | ❌ No | ✅ `auto` (default) |
+      | **Seconds** | ✅ `s` | ✅ `s` | ✅ `second` |
+      | **Milliseconds** | ✅ `ms` | ✅ `ms` | ✅ `millisecond` |
+      | **Microseconds** | ✅ `u` or `µ` | ✅ `us` | ✅ `microsecond` |
+      | **Nanoseconds** | ✅ `ns` | ✅ `ns` | ✅ `nanosecond` |
+      | **Minutes** | ✅ `m` | ❌ No | ❌ No |
+      | **Hours** | ✅ `h` | ❌ No | ❌ No |
+      | **Default** | Nanosecond | Nanosecond | **Auto** (guessed) |
+
+      All timestamps are stored internally as nanoseconds.
+    externalDocs:
+      description: Write data using HTTP APIs
+      url: /influxdb3/enterprise/write-data/http-api/
+    x-related:
+      - title: Write data using HTTP APIs
+        href: /influxdb3/enterprise/write-data/http-api/
+      - title: Line protocol reference
+        href: /influxdb3/enterprise/reference/syntax/line-protocol/

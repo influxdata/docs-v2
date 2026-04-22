@@ -189,12 +189,10 @@ to install a recent version of the Python programming language for your system.
     {{< /tabs-wrapper >}}
 
 When a virtual environment is activated, the name displays at the beginning of your terminal command line--for example:
-  
-{{% code-callout "(virtualenv-1)"%}}
-```sh
+
+```sh { callout="(virtualenv-1)" }
 (virtualenv-1) $ PROJECT_DIRECTORY
 ```
-{{% /code-callout %}}
 
 ## Query InfluxDB
 
@@ -264,9 +262,7 @@ If using a non-POSIX-compliant operating system (such as Windows), specify the r
 
 The following code sample shows how to use the Python `certifi` package and client library options to pass the certificate path:
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
-{{< code-callout "flight_client_options|tls_root_certs|(cert\b)" >}}
-```py
+```py { placeholders="BUCKET_NAME|API_TOKEN" callout="flight_client_options|tls_root_certs|(cert\b)" }
 from influxdb_client_3 import InfluxDBClient3, flight_client_options
 import certifi
 
@@ -275,15 +271,15 @@ cert = fh.read()
 fh.close()
 
 client = InfluxDBClient3(
-host="{{< influxdb/host >}}",
-token='API_TOKEN',
-database='BUCKET_NAME',
-flight_client_options=flight_client_options(
-tls_root_certs=cert))
+    host="{{< influxdb/host >}}",
+    token='API_TOKEN',
+    database='BUCKET_NAME',
+    flight_client_options=flight_client_options(
+        tls_root_certs=cert
+    )
+)
 ...
 ```
-{{< /code-callout >}}
-{{% /code-placeholders %}}
 
 For more information, see [`influxdb_client_3` query exceptions](/influxdb3/cloud-serverless/reference/client-libraries/v3/python/#query-exceptions).
 

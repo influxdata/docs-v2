@@ -1,32 +1,25 @@
-{{ $scratch := newScratch }}
 {{ if .Params.related }}
   <div class="related">
     <h4 id="related">Related</h4>
     <ul>
     {{ range .Params.related }}
-      {{ $scratch.Set "relatedItem" . }}
-      {{ $relatedItem := $scratch.Get "relatedItem" }}
-
-      {{ $scratch.Set "title" ""}}
-      {{ if in $relatedItem "," }}
-        {{ $scratch.Set "title" (replaceRE `^.+?, ` "" $relatedItem) }}
-      {{ end }}
-
-      {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
-      {{ $title := $scratch.Get "title" }}
-
-      {{ $isExternal := gt (len (findRE `^http` $relatedItem)) 0 }}
-      {{ if or ($isExternal) (in $relatedItem "/v2/api") (in $relatedItem ",")}}
-        {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
-        {{ $title := replaceRE `^(\S*\,\s)` "" $relatedItem }}
-        {{ $target := cond ($isExternal) "_blank" "" }}
-        <li><a href="{{ $link }}" target="{{ $target }}">{{ $title }}</a></li>
-
-      <!-- Automatically get page title and link from path -->
+      {{/* Handle {title, href} objects */}}
+      {{ if reflect.IsMap . }}
+        <li><a href="{{ .href }}">{{ .title }}</a></li>
+      {{/* Handle string items: "url, title" or plain path */}}
       {{ else }}
-        {{ $sanitizedPath := replaceRE `\/$` "" (print $relatedItem) }}
-        {{ with $.Page.GetPage $sanitizedPath }}
-          <li><a href="{{ .RelPermalink }}" >{{ .Title | .RenderString }}</a></li>
+        {{ $relatedItem := . }}
+        {{ $isExternal := gt (len (findRE `^http` $relatedItem)) 0 }}
+        {{ if or ($isExternal) (in $relatedItem "/v2/api") (in $relatedItem ",")}}
+          {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
+          {{ $title := replaceRE `^(\S*\,\s)` "" $relatedItem }}
+          {{ $target := cond ($isExternal) "_blank" "" }}
+          <li><a href="{{ $link }}" target="{{ $target }}">{{ $title }}</a></li>
+        {{ else }}
+          {{ $sanitizedPath := replaceRE `\/$` "" (print $relatedItem) }}
+          {{ with $.Page.GetPage $sanitizedPath }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title | .RenderString }}</a></li>
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}

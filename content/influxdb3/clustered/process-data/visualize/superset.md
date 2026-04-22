@@ -227,17 +227,14 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     - **`?database`**: URL-encoded InfluxDB [database name](/influxdb3/clustered/admin/databases/list/)
     - **`?token`**: InfluxDB [API token](/influxdb3/clustered/get-started/setup/) with `READ` access to the specified database
 
-    {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
-{{< code-callout "cluster-id\.influxdb\.io|443|example-database|example-token" >}}
-```sh
-# Syntax
-datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
 
-# Example
-datafusion+flightsql://{{< influxdb/host >}}:443?database=example-database&token=example-token
-```
-{{< /code-callout >}}
-    {{< /code-callout >}}
+    ```sh { callout="(&lt;(domain|port|database-name|token)&gt;)|cluster-id\.influxdb\.io|443|example-database|example-token" }
+    # Syntax
+    datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
+
+    # Example
+    datafusion+flightsql://{{< influxdb/host >}}:443?database=example-database&token=example-token
+    ```
 
 6.  Click **Test Connection** to ensure the connection works.
 7.  Click **Connect** to save the database connection.

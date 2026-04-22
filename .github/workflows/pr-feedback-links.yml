@@ -1,0 +1,95 @@
+name: Feedback Button Link Check
+
+# Guards against the class of bug reported in influxdata/docs-v2#7089:
+# a conditional override in layouts/partials/article/feedback.html routed
+# the wrong feedback button to the support site for InfluxDB 3 Enterprise.
+#
+# The fix was structural — product issue URLs now live in data/products.yml
+# (product_issue_url field) and the template reads them directly, removing
+# every conditional and string-munged URL builder. This workflow protects
+# the refactored architecture from regressing to the broken pattern.
+#
+# Two layers, both enforced as PR gates (cannot be bypassed by --no-verify):
+#
+#   1. Static check (no Hugo build required). Runs on every PR that touches
+#      data/products.yml, the feedback partial, or the check script itself.
+#      Validates:
+#        - Every product with a content_path has product_issue_url set.
+#        - feedback.html contains no hardcoded product URLs.
+#
+#   2. Rendered HTML check (with Hugo build). For each product, picks a
+#      representative rendered page under public/<content_path>/ and
+#      verifies the two feedback button hrefs match the expected values
+#      from products.yml. Runs only when static check passes.
+#
+# The check script itself is .ci/scripts/check-feedback-links.js. It can
+# be run locally with `node .ci/scripts/check-feedback-links.js` after a
+# Hugo build to reproduce CI behavior.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'data/products.yml'
+      - 'layouts/partials/article/feedback.html'
+      - '.ci/scripts/check-feedback-links.js'
+      - '.github/workflows/pr-feedback-links.yml'
+
+jobs:
+  check-feedback-links:
+    name: Verify feedback button URLs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: yarn install --frozen-lockfile
+
+      - name: Static check (Layer 1)
+        run: node .ci/scripts/check-feedback-links.js
+
+      - name: Build Hugo site
+        run: npx hugo --quiet
+
+      - name: Rendered HTML check (Layer 2)
+        run: node .ci/scripts/check-feedback-links.js public
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Feedback Button Link Check"
+            echo ""
+            if [[ "${{ job.status }}" == "success" ]]; then
+              echo "✅ Both layers passed — feedback buttons resolve to the correct URLs for every product."
+            else
+              echo "❌ Feedback button link check failed. See annotations above for the specific product(s) and file(s) affected."
+              echo ""
+              echo "### Common causes"
+              echo ""
+              echo "- A new product was added to \`data/products.yml\` without a \`product_issue_url\` field."
+              echo "- Someone reintroduced conditional URL logic in \`layouts/partials/article/feedback.html\`."
+              echo "- A product's \`product_issue_url\` in \`data/products.yml\` doesn't match what the rendered page shows."
+              echo ""
+              echo "### How to fix"
+              echo ""
+              echo "- **Missing field:** add \`product_issue_url: <url>\` to the product entry in \`data/products.yml\`."
+              echo "- **Hardcoded URL in template:** remove the string literal and read from \`\$productData.product_issue_url\` in the template."
+              echo "- **URL mismatch:** update \`data/products.yml\` to reflect the intended URL for that product."
+              echo ""
+              echo "Run locally to reproduce:"
+              echo '\`\`\`sh'
+              echo "npx hugo --quiet"
+              echo "node .ci/scripts/check-feedback-links.js public"
+              echo '\`\`\`'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

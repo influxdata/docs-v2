@@ -10,7 +10,7 @@ introduced: "v0.10.3"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.37.1/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/mqtt_consumer/README.md, MQTT Consumer Plugin Source
 ---
 
 # MQTT Consumer Input Plugin
@@ -35,6 +35,14 @@ normal plugins:
 1. The global or plugin specific `interval` setting may not apply
 2. The CLI options of `--test`, `--test-wait`, and `--once` may not produce
    output for this plugin
+
+## Tracking metric support <!-- @/docs/includes/plugin_tracking_metrics.md -->
+
+This plugin supports [tracking metrics](../../../docs/METRICS.md#tracking-metrics), which allows the plugin
+to be notified when metrics have been delivered to all outputs, enabling proper
+acknowledgment back to the source.
+
+[METRICS.md]: ../../../docs/METRICS.md#tracking-metrics
 
 ## Global configuration options <!-- @/docs/includes/plugin_config.md -->
 
@@ -104,6 +112,12 @@ to use them.
 
   ## Connection timeout for initial connection in seconds
   # connection_timeout = "30s"
+
+  ## Maximum interval between reconnection attempts after a connection loss.
+  ## The MQTT library uses exponential backoff starting at 1 second up to this
+  ## ceiling. The library default is 10 minutes, which can cause long delays
+  ## before message flow resumes after a network outage.
+  # max_reconnect_interval = "30s"
 
   ## Interval and ping timeout for keep-alive messages
   ## The sum of those options defines when a connection loss is detected.

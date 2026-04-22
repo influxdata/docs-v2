@@ -6,6 +6,9 @@ menu:
   influxdb3_explorer:
     name: InfluxDB 3 Explorer
 weight: 1
+cascade:
+  product: influxdb3_explorer
+  version: explorer
 ---
 
 InfluxDB 3 Explorer is the standalone web application designed for visualizing, querying, and managing your data stored in InfluxDB 3 Core and Enterprise.
@@ -30,12 +33,12 @@ docker pull influxdata/influxdb3-ui
 # Run the Docker container
 docker run --detach \
   --name influxdb3-explorer \
-  --publish 8888:80 \
-  --publish 8889:8888 \
+  --publish 8080:8080 \
+  --publish 8443:8443 \
   influxdata/influxdb3-ui \
   --mode=admin
 
-# Visit http://localhost:8888 in your browser to begin using InfluxDB 3 Explorer
+# Visit http://localhost:8080 in your browser to begin using InfluxDB 3 Explorer
 ```
 
 

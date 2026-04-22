@@ -7,6 +7,7 @@ processing engine.
 <!--pytest.mark.skip-->
 
 ```bash
+# Syntax
 influxdb3 create trigger [OPTIONS] \
   --database <DATABASE_NAME> \
   --token <AUTH_TOKEN> \
@@ -39,7 +40,8 @@ influxdb3 create trigger [OPTIONS] \
 |        | `--error-behavior`  | Error handling behavior: `log`, `retry`, or `disable` |
 |        | `--run-asynchronous` | Run the trigger asynchronously, allowing multiple triggers to run simultaneously (default is synchronous)                                                 |
 {{% show-in "enterprise" %}}|        | `--node-spec`       | Which node(s) the trigger should be configured on. Two value formats are supported: `all` (default) - applies to all nodes, or `nodes:<node-id>[,<node-id>..]` - applies only to specified comma-separated list of nodes |{{% /show-in %}}
-|        | `--tls-ca`          | Path to a custom TLS certificate authority (for testing or self-signed certificates)                     |
+|        | `--tls-ca`          | Path to a custom TLS certificate authority (for self-signed or internal certificates)                    |
+|        | `--tls-no-verify`   | Disable TLS certificate verification (**Not recommended in production**, useful for self-signed certificates) |
 | `-h`   | `--help`            | Print help information                                                                                   |
 |        | `--help-all`        | Print detailed help information                                                                          |
 
@@ -51,11 +53,12 @@ For example, to use the [System Metrics](https://github.com/influxdata/influxdb3
 
 You can use the following environment variables to set command options:
 
-| Environment Variable      | Option       |
-| :------------------------ | :----------- |
-| `INFLUXDB3_HOST_URL`      | `--host`     |
-| `INFLUXDB3_DATABASE_NAME` | `--database` |
-| `INFLUXDB3_AUTH_TOKEN`    | `--token`    |
+| Environment Variable      | Option            |
+| :------------------------ | :---------------- |
+| `INFLUXDB3_HOST_URL`      | `--host`          |
+| `INFLUXDB3_DATABASE_NAME` | `--database`      |
+| `INFLUXDB3_AUTH_TOKEN`    | `--token`         |
+| `INFLUXDB3_TLS_NO_VERIFY` | `--tls-no-verify` |
 
 ## Examples
 
@@ -81,9 +84,7 @@ Replace the following placeholders with your values:
 - {{% code-placeholder-key %}}`TRIGGER_NAME`{{% /code-placeholder-key %}}:
 Name of the trigger to create
 - {{% code-placeholder-key %}}`TABLE_NAME`{{% /code-placeholder-key %}}:
-Name of the table to trigger on
-
-{{% code-placeholders "(DATABASE|TRIGGER)_NAME|AUTH_TOKEN|TABLE_NAME" %}}
+  Name of the table to trigger on
 
 ### Create a trigger for a specific table
 
@@ -91,7 +92,7 @@ Create a trigger that processes data from a specific table.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -108,7 +109,7 @@ Create a trigger that applies to all tables in the specified database.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -125,7 +126,7 @@ This is useful when you want a trigger to apply to any table in the database, re
 
 Create a trigger that runs at a specific interval using a duration. Supported duration units: `s` (seconds), `m` (minutes), `h` (hours), `d` (days), `w` (weeks), `M` (months), `y` (years). Maximum interval is 1 year.
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -150,7 +151,7 @@ Fields:
 
 Example: Run at 6:00 AM every weekday (Monday-Friday):
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -165,7 +166,7 @@ influxdb3 create trigger \
 
 Create a trigger that provides an API endpoint and processes HTTP requests.
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|REQUEST_PATH|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -182,7 +183,7 @@ Create a trigger using a plugin organized in multiple files. The plugin director
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -208,7 +209,7 @@ Upload plugin files from your local machine and create a trigger in a single com
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|TABLE_NAME|TRIGGER_NAME" }
 # Upload single-file plugin
 influxdb3 create trigger \
   --database DATABASE_NAME \
@@ -237,7 +238,7 @@ For more information, see [Upload plugins from local machine](/influxdb3/version
 
 ### Create a trigger with additional arguments
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -253,7 +254,7 @@ Create a trigger in a disabled state.
 
 <!--pytest.mark.skip-->
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --disabled \
   --database DATABASE_NAME \
@@ -269,7 +270,7 @@ Creating a trigger in a disabled state prevents it from running immediately. You
 
 Log the error to the service output and the `system.processing_engine_logs` table:
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -281,7 +282,7 @@ influxdb3 create trigger \
 
 Rerun the trigger if it fails:
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -293,7 +294,7 @@ influxdb3 create trigger \
 
 Disable the trigger if it fails:
 
-```bash
+```bash { placeholders="AUTH_TOKEN|DATABASE_NAME|PLUGIN_FILENAME|TABLE_NAME|TRIGGER_NAME" }
 influxdb3 create trigger \
   --database DATABASE_NAME \
   --token AUTH_TOKEN \
@@ -302,5 +303,3 @@ influxdb3 create trigger \
   --error-behavior disable \
   TRIGGER_NAME
 ```
-
-{{% /code-placeholders %}}

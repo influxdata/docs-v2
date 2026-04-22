@@ -93,15 +93,13 @@ InfluxDB installer operator. The operator lets you to add annotations
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-{{% code-callout "ingress-tls|cluster-host\.com" "green" %}}
-
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [AppInstance](#)
 [Helm](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```yaml
+```yaml { callout="ingress-tls|cluster-host\.com" callout-color="green" }
 apiVersion: kubecfg.dev/v1alpha1
 kind: AppInstance
 # ...
@@ -116,7 +114,7 @@ spec:
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
-```yaml
+```yaml { callout="ingress-tls|cluster-host\.com" callout-color="green" }
 ingress:
   hosts:
     - {{< influxdb/host >}}
@@ -124,8 +122,6 @@ ingress:
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-{{% /code-callout %}}
 
 ## Require HTTPS on the object store
 
@@ -179,11 +175,9 @@ installing TLS certificates and ensuring secure connections.
 If currently using an unsecure connection to your Catalog store database, update your
 Catalog store data source name (DSN) to **remove the `sslmode=disable` query parameter**:
 
-{{% code-callout "\?sslmode=disable" "magenta delete" %}}
-```txt
+```txt { callout="\?sslmode=disable" callout-color="magenta delete" }
 postgres://username:passw0rd@mydomain:5432/influxdb?sslmode=disable
 ```
-{{% /code-callout %}}
 
 ## Provide a custom certificate authority bundle {note="Optional"}
 

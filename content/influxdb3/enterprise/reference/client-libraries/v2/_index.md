@@ -1,7 +1,7 @@
 ---
 title: InfluxDB v2 API client libraries
 description: >
-  InfluxDB v2 client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/tools/api/#influxdb-2x-api-compatibility-endpoints).
+  InfluxDB v2 client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.x API compatibility endpoints](/influxdb/v1/api/buckets-v2-compatible/).
   View the list of available client libraries.
 weight: 101
 menu:

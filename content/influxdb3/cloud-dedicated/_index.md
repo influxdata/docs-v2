@@ -10,6 +10,9 @@ menu:
   influxdb3_cloud_dedicated:
     name: InfluxDB Cloud Dedicated
 weight: 1
+cascade:
+  product: influxdb3_cloud_dedicated
+  version: cloud-dedicated
 ---
 
 InfluxDB Cloud Dedicated is a hosted and managed InfluxDB Cloud cluster

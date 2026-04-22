@@ -222,6 +222,29 @@ influxdb3_core, influxdb3_enterprise, telegraf
 /influxdb3/core, /influxdb3/enterprise, /telegraf
 ```
 
+## v1 Release Workflow
+
+**InfluxDB v1 releases require separate PRs for OSS and Enterprise.**
+
+1. **OSS PR** — publish immediately when the GitHub release tag is available.
+2. **Enterprise PR** — create as a draft; merge only after the v1 codeowner signals readiness (e.g., applies a release label) and the release artifact is GA in the InfluxData portal.
+
+Each PR should bump only its own product version in `data/products.yml`:
+- OSS: `influxdb > latest_patches > v1`
+- Enterprise: `enterprise_influxdb > latest_patches > v1`
+
+Use the PR template `.github/pull_request_template/influxdb_v1_release.md` and select the appropriate release type.
+
+### Examples for v1
+
+```bash
+# Generate OSS v1 release notes
+docs release-notes v1.12.2 v1.12.3 --repos ~/github/influxdata/influxdb
+
+# Generate Enterprise v1 release notes (separate PR)
+# Use the Enterprise changelog at https://dl.influxdata.com/enterprise/nightlies/master/CHANGELOG.md
+```
+
 ## Related
 
 - **docs-cli-workflow** skill - When to use CLI tools

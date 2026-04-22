@@ -106,7 +106,7 @@ downsamples it, and then sends it to an output topic which is later written back
     ```
 
 2.  Configure the Quix Streams built-in windowing function to create a tumbling
-    window that continously downsamples the data into 1-minute buckets. 
+    window that continuously downsamples the data into 1-minute buckets. 
 
     ```py
     # ...

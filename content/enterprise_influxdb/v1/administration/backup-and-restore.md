@@ -59,14 +59,14 @@ For example, you can backup from {{< latest-patch version="1.10" >}} and restore
 - [Exporting and importing data](#exporting-and-importing-data)
   - [Exporting data](#exporting-data)
   - [Importing data](#importing-data)
-  - [Example](#example)
+  - [Example](#example-export-and-import-for-disaster-recovery)
 
 ### Backup utility
 
 A backup creates a copy of the [metastore](/enterprise_influxdb/v1/concepts/glossary/#metastore) and [shard](/enterprise_influxdb/v1/concepts/glossary/#shard) data at that point in time and stores the copy in the specified directory.
 
 To back up **only the cluster metastore**, use the `-strategy only-meta` backup option.
-For more information, see how to [perform a metastore only backup](#perform-a-metastore-only-backup).
+For more information, see how to [perform a metadata only backup](#perform-a-metadata-only-backup).
 
 All backups include a manifest, a JSON file describing what was collected during the backup.
 The filenames reflect the UTC timestamp of when the backup was created, for example:
@@ -263,7 +263,7 @@ Backed up to backup_dir in 51.388233ms, transferred 481 bytes
 ##### Restore a backup
 
 Restore a backup to an existing cluster or a new cluster.
-By default, a restore writes to databases using the backed-up data's [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor).
+By default, a restore writes to databases using the backed-up data's [replication factor](/enterprise_influxdb/v1/concepts/glossary/#replication-factor-rf).
 An alternate replication factor can be specified with the `-newrf` flag when restoring a single database.
 Restore supports both `-full` backups and incremental backups; the syntax for
 a restore differs depending on the backup type.
@@ -501,7 +501,7 @@ The unintended data, however, include only the metastore information, not the sh
 
 InfluxDB Enterprise introduced incremental backups in version 1.2.0.
 To restore a backup created prior to version 1.2.0, be sure to follow the syntax
-for [restoring from a full backup](#restore-from-a-full-backup).
+for [restoring from a `-full` backup](#restore-from-a--full-backup).
 
 ## Exporting and importing data
 

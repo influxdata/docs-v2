@@ -170,6 +170,14 @@ Use either:
 
 Environment variable: `INFLUXDB_META_HTTPS_PRIVATE_KEY`
 
+#### https-insecure-certificate {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_META_HTTPS_INSECURE_CERTIFICATE`
+
 #### https-insecure-tls
 
 Default is `false`.
@@ -341,7 +349,7 @@ The shared secret used by the internal API for JWT authentication for
 inter-node communication within the cluster.
 Set this to a long pass phrase.
 This value must be the same value as the
-[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1/administration/config-data-nodes#meta-internal-shared-secret) in the data node configuration file.
+[`[meta] meta-internal-shared-secret`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#meta-internal-shared-secret) in the data node configuration file.
 To use this option, set [`auth-enabled`](#auth-enabled) to `true`.
 
 Environment variable: `INFLUXDB_META_INTERNAL_SHARED_SECRET`
@@ -452,7 +460,7 @@ Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 Default is `false`.
 
 Require Raft clients to authenticate with server using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
+[`meta-internal-shared-secret`](#internal-shared-secret).
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+ and
 are configured with the correct `meta-internal-shared-secret`.
 
@@ -465,7 +473,7 @@ Environment variable: `INFLUXDB_META_RAFT_PORTAL_AUTH_REQUIRED`
 Default is `false`.
 
 Require Raft servers to authenticate Raft clients using the
-[`meta-internal-shared-secret`](#meta-internal-shared-secret).
+[`meta-internal-shared-secret`](#internal-shared-secret).
 This requires that all meta nodes are running InfluxDB Enterprise v1.12.0+, have
 `raft-portal-auth-required=true`, and are configured with the correct
 `meta-internal-shared-secret`. For existing clusters, it is recommended to enable `raft-portal-auth-required` and restart
@@ -477,7 +485,7 @@ Environment variable: `INFLUXDB_META_RAFT_DIALER_AUTH_REQUIRED`
 
 ### TLS settings
 
-For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1/administration/config-data-nodes#tls-settings).
+For more information, see [TLS settings for data nodes](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#tls-settings).
 
 #### Recommended "modern compatibility" cipher settings
 

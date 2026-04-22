@@ -65,16 +65,28 @@ configuration with a [Telegraf heartbeat output plugin](/telegraf/v1/output-plug
 This plugin reports agent information back to the {{% product-name %}} heartbeat
 API and lets you monitor the health of your deployed Telegraf agents.
 
-```toml
+```toml { .tc-dynamic-values }
 [[outputs.heartbeat]]
 url = "http://localhost:8000/agents/heartbeat"
 instance_id = "&{agent_id}"
 interval = "1m"
 include = ["hostname", "statistics", "configs"]
+token = "${INFLUX_TOKEN}"
 ```
 
 To monitor agents with {{% product-name %}}, include a heartbeat plugin in
 your Telegraf configurations.
+
+> [!Important]
+> #### Authorize heartbeats using an API token
+>
+> If {{% product-name %}} requires authorization on the **Heartbeat** API,
+> include the `token` option in your heartbeat plugin configuration.
+> Provide a {{% product-name %}} token with **write** permissions on the
+> **Heartbeat** API.
+>
+> We recommend defining the `INFLUX_TOKEN` environment variable when starting
+> Telegraf and using that to define the token in your heartbeat plugin.
 
 ## Next steps
 

@@ -1,8 +1,7 @@
 {{ $scratch := newScratch }}
 {{ $type := .Get "type" }}
-{{ $pathData := findRE "[^/]+.*?" .Page.RelPermalink }}
 {{ $latestTelegrafVersion := replaceRE `\.[0-9]+$` "" .Site.Data.products.telegraf.latest_patches.v1 }}
-{{ $externalPluginLink := print "/telegraf/" (index $pathData 1) "/configure_plugins/external_plugins/" }}
+{{ $externalPluginLink := print "/telegraf/" .Page.Params.version "/configure_plugins/external_plugins/" }}
 
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}

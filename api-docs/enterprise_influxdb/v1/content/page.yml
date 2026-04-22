@@ -1,0 +1,6 @@
+# Parent page content for the InfluxDB Enterprise v1 API section landing page.
+description: >-
+  Use the InfluxDB HTTP API to write data, query data,
+  and check server status.
+aliases:
+  - /enterprise_influxdb/v1/tools/api/

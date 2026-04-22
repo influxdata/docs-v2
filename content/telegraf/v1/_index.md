@@ -11,7 +11,9 @@ related:
   - /resources/videos/intro-to-telegraf/
   - /telegraf/v1/install/
   - /telegraf/v1/get_started/
-
+cascade:
+  product: telegraf
+  version: v1
 ---
 
 Telegraf, a server-based agent, collects and sends metrics and events from databases, systems, and IoT sensors.

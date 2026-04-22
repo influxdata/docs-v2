@@ -598,6 +598,26 @@ The time in which a query connection must return its response after which the sy
 
 Environment variable: `INFLUXDB_CLUSTER_SHARD_READER_TIMEOUT`
 
+#### rpc-resettable-read-timeout {metadata="v1.12.3+"}
+
+Default is `"15m"`.
+
+Read inactivity timeout for incoming RPC connections between data nodes.
+The timeout resets on each successful read operation, so it detects stalled connections rather than slow queries.
+Set to `"0"` to disable.
+
+Environment variable: `INFLUXDB_CLUSTER_RPC_RESETTABLE_READ_TIMEOUT`
+
+#### rpc-resettable-write-timeout {metadata="v1.12.3+"}
+
+Default is `"15m"`.
+
+Write inactivity timeout for incoming RPC connections between data nodes.
+The timeout resets on each successful write operation, so it detects stalled connections rather than slow writes.
+Set to `"0"` to disable.
+
+Environment variable: `INFLUXDB_CLUSTER_RPC_RESETTABLE_WRITE_TIMEOUT`
+
 #### https-enabled
 
 Default is `false`.
@@ -632,6 +652,14 @@ Whether data nodes will skip certificate validation communicating with each othe
 This is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_TLS`
+
+#### https-insecure-certificate {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_CERTIFICATE`
 
 #### cluster-tracing
 
@@ -1145,6 +1173,17 @@ This setting has no effect if either
 
 Environment variable: `INFLUXDB_HTTP_PPROF_AUTH_ENABLED`
 
+#### user-query-bytes-enabled {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Enables per-user query response byte tracking.
+When enabled, InfluxDB records the number of bytes returned by queries for each user in the `userquerybytes` measurement, available through `SHOW STATS FOR 'userquerybytes'`, the `_internal` database, and the `/debug/vars` endpoint.
+
+Unauthenticated queries are attributed to `(anonymous)`.
+
+Environment variable: `INFLUXDB_HTTP_USER_QUERY_BYTES_ENABLED`
+
 #### https-enabled
 
 Default is `false`.
@@ -1170,6 +1209,14 @@ Default is `""`.
 The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-certificate {metadata="v1.12.3+"}
+
+Default is `false`.
+
+Skips file permission checking for `https-certificate` and `https-private-key` when `true`.
+
+Environment variable: `INFLUXDB_HTTP_HTTPS_INSECURE_CERTIFICATE`
 
 #### shared-secret
 
@@ -1273,6 +1320,15 @@ Environment variable: `INFLUXDB_LOGGING_FORMAT`
 Default is `"info"`.
 
 Determines which level of logs will be emitted.
+
+To change the log level without restarting the data node, edit the `level` value in the configuration file and send `SIGHUP` to the process:
+
+```bash
+kill -SIGHUP <influxd_pid>
+```
+
+On receipt of `SIGHUP`, the data node reloads the configuration and applies the new log level.
+`SIGHUP` also reloads TLS certificates, entitlements, and the anti-entropy service configuration. _v1.12.3+_
 
 Environment variable: `INFLUXDB_LOGGING_LEVEL`
 
@@ -1647,7 +1703,7 @@ Use the `SHOW DIAGNOSTICS` command to see the version of Go used to build Influx
 ### Recommended server configuration for "modern compatibility"
 
 InfluxData recommends configuring your InfluxDB server's TLS settings for "modern compatibility" that provides a higher level of security and assumes that backward compatibility is not required.
-Our recommended TLS configuration settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's "modern compatibility" TLS server configuration described in [Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS#Modern_compatibility).
+Our recommended TLS configuration settings for `ciphers`, `min-version`, and `max-version` are based on Mozilla's "modern compatibility" TLS server configuration described in [Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 InfluxData's recommended TLS settings for "modern compatibility" are specified in the following configuration settings example.
 
@@ -1691,6 +1747,14 @@ If not specified, `max-version` is the maximum TLS version specified in the [Go 
 In the preceding example, `max-version = "tls1.3"` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
+
+#### advanced-expiration {metadata="v1.12.3+"}
+
+Sets how far in advance to log warnings about TLS certificate expiration.
+
+Default is `"5d"`.
+
+Environment variable: `INFLUXDB_TLS_ADVANCED_EXPIRATION`
 
 ## Flux query management settings
 

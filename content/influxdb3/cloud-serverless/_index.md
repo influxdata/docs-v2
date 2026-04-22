@@ -9,6 +9,9 @@ menu:
   influxdb3_cloud_serverless:
     name: InfluxDB Cloud Serverless
 weight: 1
+cascade:
+  product: influxdb3_cloud_serverless
+  version: cloud-serverless
 ---
 
 > [!Note]

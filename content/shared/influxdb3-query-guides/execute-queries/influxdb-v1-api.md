@@ -15,7 +15,7 @@ but you can use any HTTP client.
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="http://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/version/api/#tag/Query" >}}
+{{< api-endpoint endpoint="http://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb3/version/api/query-data/" >}}
 
 ## Authenticate API requests
 
