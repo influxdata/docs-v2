@@ -346,7 +346,7 @@ every key must be checked. This will not validate field keys.
 
 ### tar-stream-buffer-size
 
-The size of tar buffer window size in bytes while running tar streaming operations 
+The size (in bytes) of the tar buffer window while running tar streaming operations,
 such as renaming and copying tar files during backups.
 
 > [!Note]
