@@ -1,6 +1,6 @@
 ## v2.8.0 {date="2026-04-22"}
 
-Bug Fixes
+### Bug Fixes
 
 - Check for all available cookies instead of the count
 - Don't import non-existent/unused GPG private key
@@ -8,12 +8,12 @@ Bug Fixes
 - Avoid panic on empty tag value
 - Dbrp correct json output
 
-Features
+### Features
 
 - Add `--operator-token` flag to restore subcommand
 - Adds gzip compression level configuration to backups for v2
 
-Maintenance
+### Maintenance
 
 - Bump `golang.org/x/text` from 0.3.7 to 0.3.8
 - Bump `google.golang.org/protobuf` from 1.30.0 to 1.33.0
