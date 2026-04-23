@@ -2,11 +2,13 @@
 import { readFileSync } from 'node:fs';
 import { extractCodeBlocks } from '../lib/codeblock-extractor.mjs';
 import * as jsonValidator from '../lib/codeblock-validators/json.mjs';
+import * as yamlValidator from '../lib/codeblock-validators/yaml.mjs';
 
 const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml']);
 const VALIDATORS = {
   json: (b) => jsonValidator.validate(b.value),
   jsonl: (b) => jsonValidator.validate(b.value, { jsonl: true }),
+  yaml: (b) => yamlValidator.validate(b.value),
 };
 
 function gh(severity, file, line, message) {
