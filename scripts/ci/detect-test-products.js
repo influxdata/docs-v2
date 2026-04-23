@@ -16,7 +16,7 @@
  * 4. Outputs JSON with products array and expanded files array
  */
 
-import { expandSharedContentChanges } from '../lib/content-utils.js';
+import { expandSharedContentChanges, resolveCanonicalSource } from '../lib/content-utils.js';
 
 // Product path mappings
 const PRODUCT_PATTERNS = [
@@ -69,7 +69,7 @@ async function main() {
     .filter((f) => f && f.endsWith('.md'));
 
   if (changedFiles.length === 0) {
-    console.log(JSON.stringify({ products: [], files: [] }));
+    console.log(JSON.stringify({ products: [], files: [], canonical: [] }));
     process.exit(0);
   }
 
@@ -86,10 +86,19 @@ async function main() {
     }
   }
 
+  // Compute canonical sources (deduped) for the lint-codeblocks job.
+  // Resolves any consumer page with `source:` frontmatter to its shared
+  // source, so the linter runs once per underlying content file.
+  const canonicalSet = new Set();
+  for (const file of changedFiles) {
+    canonicalSet.add(resolveCanonicalSource(file));
+  }
+
   // Output JSON result
   const result = {
     products: Array.from(products).sort(),
     files: expandedFiles.sort(),
+    canonical: Array.from(canonicalSet).sort(),
   };
 
   console.log(JSON.stringify(result));
