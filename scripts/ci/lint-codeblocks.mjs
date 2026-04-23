@@ -3,23 +3,9 @@ import { readFileSync } from 'node:fs';
 import { cpus } from 'node:os';
 import pLimit from 'p-limit';
 import { extractCodeBlocks } from '../lib/codeblock-extractor.mjs';
-import * as jsonValidator from '../lib/codeblock-validators/json.mjs';
-import * as yamlValidator from '../lib/codeblock-validators/yaml.mjs';
-import * as tomlValidator from '../lib/codeblock-validators/toml.mjs';
-import * as bashValidator from '../lib/codeblock-validators/bash.mjs';
-import * as pythonValidator from '../lib/codeblock-validators/python.mjs';
-import * as jsValidator from '../lib/codeblock-validators/javascript.mjs';
+import { validateWithNormalization } from '../lib/codeblock-normalizer.mjs';
 
 const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml']);
-const VALIDATORS = {
-  json: (b) => jsonValidator.validate(b.value),
-  jsonl: (b) => jsonValidator.validate(b.value, { jsonl: true }),
-  yaml: (b) => yamlValidator.validate(b.value),
-  toml: (b) => tomlValidator.validate(b.value),
-  bash: (b) => bashValidator.validate(b.value),
-  python: (b) => pythonValidator.validate(b.value),
-  javascript: (b) => jsValidator.validate(b.value),
-};
 
 function gh(severity, file, line, message) {
   process.stdout.write(`::${severity} file=${file},line=${line}::${message}\n`);
@@ -33,23 +19,23 @@ async function main(files) {
     const blocks = extractCodeBlocks(md);
     process.stdout.write(`::group::${file}\n`);
     for (const block of blocks) {
-      const lang = block.lang;
-      const validator = lang ? VALIDATORS[lang] : null;
-      if (!validator) {
+      const res = await limit(() => validateWithNormalization(block));
+      if (res.skipped) {
         process.stdout.write(
           `  - line ${block.startLine}  ${block.rawLang ?? '(no lang)'}  skipped (out of scope)\n`,
         );
         continue;
       }
-      const { ok, errors } = await limit(() => validator(block));
-      if (ok) {
-        process.stdout.write(`  ✓ line ${block.startLine}  ${lang}  passed\n`);
+      if (res.ok) {
+        const suffix = res.notice ? ` (${res.notice})` : '';
+        process.stdout.write(`  ✓ line ${block.startLine}  ${block.lang}  passed${suffix}\n`);
+        if (res.notice) gh('notice', file, block.startLine, res.notice);
       } else {
-        const severity = BLOCKING_LANGS.has(lang) ? 'error' : 'warning';
-        for (const e of errors) {
+        const severity = BLOCKING_LANGS.has(block.lang) ? 'error' : 'warning';
+        for (const e of res.errors) {
           const absLine = block.startLine + (e.line ?? 1) - 1;
-          process.stdout.write(`  ✗ line ${absLine}  ${lang}  failed: ${e.message}\n`);
-          gh(severity, file, absLine, `${lang}: ${e.message}`);
+          process.stdout.write(`  ✗ line ${absLine}  ${block.lang}  failed: ${e.message}\n`);
+          gh(severity, file, absLine, `${block.lang}: ${e.message}`);
           if (severity === 'error') errorCount++;
         }
       }
