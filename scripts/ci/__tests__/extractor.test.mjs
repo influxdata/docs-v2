@@ -19,3 +19,15 @@ test('extracts fenced blocks with language and start line', () => {
   assert.equal(blocks[1].value, 'echo hi');
   assert.equal(blocks[1].startLine, 11);
 });
+
+test('normalizes language aliases to canonical keys', () => {
+  const blocks = extractCodeBlocks(fx('aliases.md'));
+  const langs = blocks.map((b) => b.lang);
+  assert.deepEqual(langs, ['bash', 'python', 'yaml', null]);
+});
+
+test('flags unsupported langs as null (out of scope)', () => {
+  const blocks = extractCodeBlocks(fx('aliases.md'));
+  assert.equal(blocks[3].lang, null);
+  assert.equal(blocks[3].rawLang, 'go');
+});
