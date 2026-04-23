@@ -24,6 +24,10 @@ function parsePlaceholders(meta) {
   return m[1].split('|').map((s) => s.trim()).filter(Boolean);
 }
 
+function stripHtmlComments(s) {
+  return s.replace(/<!--[\s\S]*?-->/g, '').replace(/^\n+/, '').trimEnd();
+}
+
 /**
  * Extract fenced code blocks from a Markdown string.
  * @param {string} markdown
@@ -38,7 +42,7 @@ export function extractCodeBlocks(markdown) {
         rawLang: node.lang ?? null,
         lang: normalizeLang(node.lang),
         meta: node.meta ?? null,
-        value: node.value ?? '',
+        value: stripHtmlComments(node.value ?? ''),
         placeholders: parsePlaceholders(node.meta),
         startLine: node.position?.start?.line ?? 0,
       });

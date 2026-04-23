@@ -37,3 +37,8 @@ test('parses placeholders attribute into array', () => {
   assert.deepEqual(blocks[0].placeholders, ['TOKEN_NAME', 'DURATION']);
   assert.deepEqual(blocks[1].placeholders, []);
 });
+
+test('strips HTML comments from block body', () => {
+  const blocks = extractCodeBlocks(fx('html-comments.md'));
+  assert.equal(blocks[0].value, 'echo hi');
+});
