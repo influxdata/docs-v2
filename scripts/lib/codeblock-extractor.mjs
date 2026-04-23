@@ -13,6 +13,7 @@ const LANG_ALIASES = {
 };
 
 const CONT_RE = /^<!--\s*pytest-codeblocks:cont\s*-->$/;
+const EXPECTED_RE = /^<!--\s*pytest-codeblocks:expected-output\s*-->$/;
 
 function normalizeLang(raw) {
   if (!raw) return null;
@@ -55,13 +56,19 @@ export function extractCodeBlocks(markdown) {
       });
     } else if (node.type === 'html' && CONT_RE.test((node.value ?? '').trim())) {
       items.push({ kind: 'cont' });
+    } else if (node.type === 'html' && EXPECTED_RE.test((node.value ?? '').trim())) {
+      items.push({ kind: 'expected' });
     }
   }
-  // Second pass: fold continuation fences into their preceding code unit.
+  // Second pass: fold continuation fences into their preceding code unit,
+  // and skip fences that immediately follow an expected-output marker.
   const out = [];
+  let skipNext = false;
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
+    if (item.kind === 'expected') { skipNext = true; continue; }
     if (item.kind === 'cont') continue;
+    if (skipNext) { skipNext = false; continue; }
     const prevItem = items[i - 1];
     const prev = out[out.length - 1];
     if (prev && prevItem && prevItem.kind === 'cont') {

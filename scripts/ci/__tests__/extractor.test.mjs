@@ -53,3 +53,10 @@ test('joins continuation-marked fences into one logical unit', () => {
   assert.equal(blocks[1].value, 'z = 3');
   assert.equal(blocks[1].startLine, 11);
 });
+
+test('skips fences that follow expected-output marker', () => {
+  const blocks = extractCodeBlocks(fx('expected-output.md'));
+  assert.equal(blocks.length, 2);
+  assert.equal(blocks[0].value, 'print("hi")');
+  assert.equal(blocks[1].value, '{"ok": true}');
+});
