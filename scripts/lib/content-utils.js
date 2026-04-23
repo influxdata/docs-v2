@@ -249,3 +249,16 @@ export function getSourceFromFrontmatter(filePath) {
     return null;
   }
 }
+
+/**
+ * Resolve a content file path to its canonical source for deduplication.
+ * - If the file has `source: /shared/...` frontmatter, canonical is `content/shared/...`.
+ * - Otherwise, canonical is the file itself.
+ * Use this to avoid reporting the same diagnostic against multiple consumer pages.
+ * @param {string} filePath - Path to a content file
+ * @returns {string} Canonical source path
+ */
+export function resolveCanonicalSource(filePath) {
+  const source = getSourceFromFrontmatter(filePath);
+  return source ?? filePath;
+}
