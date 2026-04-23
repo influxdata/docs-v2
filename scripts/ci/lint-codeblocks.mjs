@@ -6,6 +6,7 @@ import * as yamlValidator from '../lib/codeblock-validators/yaml.mjs';
 import * as tomlValidator from '../lib/codeblock-validators/toml.mjs';
 import * as bashValidator from '../lib/codeblock-validators/bash.mjs';
 import * as pythonValidator from '../lib/codeblock-validators/python.mjs';
+import * as jsValidator from '../lib/codeblock-validators/javascript.mjs';
 
 const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml']);
 const VALIDATORS = {
@@ -15,6 +16,7 @@ const VALIDATORS = {
   toml: (b) => tomlValidator.validate(b.value),
   bash: (b) => bashValidator.validate(b.value),
   python: (b) => pythonValidator.validate(b.value),
+  javascript: (b) => jsValidator.validate(b.value),
 };
 
 function gh(severity, file, line, message) {
