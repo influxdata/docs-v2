@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
+import { readFileSync, appendFileSync } from 'node:fs';
 import { cpus } from 'node:os';
 import pLimit from 'p-limit';
 import { extractCodeBlocks } from '../lib/codeblock-extractor.mjs';
@@ -24,9 +24,41 @@ function consumerAttribution(file, knownConsumers) {
   return ` (referenced by ${refs.length} pages: ${shown.join(', ')}${suffix})`;
 }
 
+function escapeCell(s) {
+  return String(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
+}
+
+function writeStepSummary({ canonicalCount, passed, passedWithNormalization, errorRows, warningRows, noticeRows }) {
+  const summaryPath = process.env.GITHUB_STEP_SUMMARY;
+  if (!summaryPath) return;
+  const total = passed + passedWithNormalization + warningRows.length + errorRows.length;
+  const lines = [];
+  lines.push('## Code-block lint', '');
+  lines.push(`**Checked:** ${total} blocks across ${canonicalCount} canonical sources`);
+  lines.push(`**Passed:** ${passed + passedWithNormalization} (${passedWithNormalization} required normalization)`);
+  lines.push(`**Warnings:** ${warningRows.length}`);
+  lines.push(`**Errors:** ${errorRows.length}`);
+  lines.push('');
+  if (errorRows.length) {
+    lines.push('### Errors', '', '| File | Line | Language | Message |', '| --- | --- | --- | --- |');
+    for (const r of errorRows) lines.push(`| ${r.file} | ${r.line} | ${r.lang} | ${escapeCell(r.message)} |`);
+    lines.push('');
+  }
+  if (warningRows.length) {
+    lines.push('### Warnings', '', '| File | Line | Language | Message |', '| --- | --- | --- | --- |');
+    for (const r of warningRows) lines.push(`| ${r.file} | ${r.line} | ${r.lang} | ${escapeCell(r.message)} |`);
+    lines.push('');
+  }
+  if (noticeRows.length) {
+    lines.push('### Normalization applied', '', '| File | Line | Language | Rules |', '| --- | --- | --- | --- |');
+    for (const r of noticeRows) lines.push(`| ${r.file} | ${r.line} | ${r.lang} | ${escapeCell(r.rules)} |`);
+    lines.push('');
+  }
+  appendFileSync(summaryPath, lines.join('\n') + '\n');
+}
+
 async function main(files) {
   const limit = pLimit(Math.max(1, cpus().length));
-  let errorCount = 0;
 
   // Dedupe: map each input to its canonical source; track consumer paths
   // passed on the CLI so we can attribute shared-source failures.
@@ -36,6 +68,12 @@ async function main(files) {
     if (!canonical.has(c)) canonical.set(c, []);
     if (c !== input) canonical.get(c).push(input);
   }
+
+  const errorRows = [];
+  const warningRows = [];
+  const noticeRows = [];
+  let passed = 0;
+  let passedWithNormalization = 0;
 
   for (const [file, consumers] of canonical) {
     process.stdout.write(`::group::${file}\n`);
@@ -57,9 +95,15 @@ async function main(files) {
         continue;
       }
       if (res.ok) {
-        const suffix = res.notice ? ` (${res.notice})` : '';
-        process.stdout.write(`  ✓ line ${block.startLine}  ${block.lang}  passed${suffix}\n`);
-        if (res.notice) gh('notice', file, block.startLine, res.notice);
+        if (res.notice) {
+          passedWithNormalization++;
+          noticeRows.push({ file, line: block.startLine, lang: block.lang, rules: res.notice });
+          process.stdout.write(`  ✓ line ${block.startLine}  ${block.lang}  passed (${res.notice})\n`);
+          gh('notice', file, block.startLine, res.notice);
+        } else {
+          passed++;
+          process.stdout.write(`  ✓ line ${block.startLine}  ${block.lang}  passed\n`);
+        }
       } else {
         const severity = BLOCKING_LANGS.has(block.lang) ? 'error' : 'warning';
         for (const e of res.errors) {
@@ -67,13 +111,25 @@ async function main(files) {
           process.stdout.write(`  ✗ line ${absLine}  ${block.lang}  failed: ${e.message}\n`);
           const attribution = consumerAttribution(file, consumers);
           gh(severity, file, absLine, `${block.lang}: ${e.message}${attribution}`);
-          if (severity === 'error') errorCount++;
+          const row = { file, line: absLine, lang: block.lang, message: e.message };
+          if (severity === 'error') errorRows.push(row);
+          else warningRows.push(row);
         }
       }
     }
     process.stdout.write(`::endgroup::\n`);
   }
-  process.exit(errorCount > 0 ? 1 : 0);
+
+  writeStepSummary({
+    canonicalCount: canonical.size,
+    passed,
+    passedWithNormalization,
+    errorRows,
+    warningRows,
+    noticeRows,
+  });
+
+  process.exit(errorRows.length > 0 ? 1 : 0);
 }
 
 main(process.argv.slice(2));

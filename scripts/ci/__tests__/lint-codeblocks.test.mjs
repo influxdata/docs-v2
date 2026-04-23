@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const cli = join(__dirname, '../lint-codeblocks.mjs');
@@ -34,4 +36,16 @@ test('dedupes inputs that resolve to the same canonical source', () => {
   assert.equal(r.status, 0, r.stderr);
   // The grouped log shows the canonical (shared) path, not the consumer.
   assert.match(r.stdout, /content\/shared\/example\.md/);
+});
+
+test('writes a step summary when GITHUB_STEP_SUMMARY is set', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'lint-summary-'));
+  const summaryPath = join(dir, 'summary.md');
+  writeFileSync(summaryPath, '');
+  const r = run([fx('bad-json.md')], { GITHUB_STEP_SUMMARY: summaryPath });
+  assert.equal(r.status, 1);
+  const summary = readFileSync(summaryPath, 'utf8');
+  assert.match(summary, /## Code-block lint/);
+  assert.match(summary, /\| File \| Line \| Language \| Message \|/);
+  assert.match(summary, /bad-json\.md/);
 });
