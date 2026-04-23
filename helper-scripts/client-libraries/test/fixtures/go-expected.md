@@ -1,0 +1,23 @@
+---
+title: influxdb3-go release notes
+description: Release notes for the influxdb3-go Go client library for InfluxDB 3.
+latest_version: 2.14.0
+latest_release_date: 2026-04-23
+source_repo: https://github.com/InfluxCommunity/influxdb3-go
+source_file: CHANGELOG.md
+generated: true
+---
+
+<!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->
+
+## v2.14.0 {date="2026-04-23"}
+
+### Added
+
+- Context-aware cancellation for long queries.
+
+## v2.13.0 {date="2026-02-14"}
+
+### Fixed
+
+- Retry backoff calculation.

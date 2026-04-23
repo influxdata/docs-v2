@@ -1,6 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import { transformChangelog } from '../transform-changelog.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const FIXTURES = join(__dirname, 'fixtures');
+
+function readFixture(name) {
+  return readFileSync(join(FIXTURES, name), 'utf8');
+}
 
 test('rewrites bracketed version heading to Hugo date-attribute form', () => {
   const input = `# Changelog\n\n## [0.19.0] - 2026-04-23\n### Added\n- New feature.\n`;
@@ -93,4 +103,26 @@ test('renders full page with frontmatter when client metadata is provided', () =
     /<!-- Generated from CHANGELOG\.md\. Edit upstream and re-sync; do not edit here\. -->/
   );
   assert.match(result.page, /## v0\.19\.0 \{date="2026-04-23"\}/);
+});
+
+test('python fixture produces expected full-page output', () => {
+  const input = readFixture('python-CHANGELOG.md');
+  const expected = readFixture('python-expected.md');
+  const { page } = transformChangelog(input, {
+    displayName: 'influxdb3-python',
+    language: 'Python',
+    repo: 'InfluxCommunity/influxdb3-python',
+  });
+  assert.equal(page.trim(), expected.trim());
+});
+
+test('go fixture produces expected full-page output', () => {
+  const input = readFixture('go-CHANGELOG.md');
+  const expected = readFixture('go-expected.md');
+  const { page } = transformChangelog(input, {
+    displayName: 'influxdb3-go',
+    language: 'Go',
+    repo: 'InfluxCommunity/influxdb3-go',
+  });
+  assert.equal(page.trim(), expected.trim());
 });
