@@ -35,10 +35,19 @@ function escapeCell(s) {
   return String(s).replace(/\|/g, '\\|').replace(/\n/g, ' ');
 }
 
-function writeStepSummary({ canonicalCount, passed, passedWithNormalization, errorRows, warningRows, noticeRows }) {
+function writeStepSummary({
+  canonicalCount,
+  lintedBlockCount,
+  passed,
+  passedWithNormalization,
+  errorRows,
+  warningRows,
+  noticeRows,
+}) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY;
   if (!summaryPath) return;
-  const total = passed + passedWithNormalization + warningRows.length + errorRows.length;
+  const total =
+    lintedBlockCount ?? (passed + passedWithNormalization + warningRows.length + errorRows.length);
   const lines = [];
   lines.push('## Code-block lint', '');
   lines.push(`**Checked:** ${total} blocks across ${canonicalCount} canonical sources`);
