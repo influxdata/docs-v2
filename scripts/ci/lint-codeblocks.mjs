@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
+import { cpus } from 'node:os';
+import pLimit from 'p-limit';
 import { extractCodeBlocks } from '../lib/codeblock-extractor.mjs';
 import * as jsonValidator from '../lib/codeblock-validators/json.mjs';
 import * as yamlValidator from '../lib/codeblock-validators/yaml.mjs';
@@ -24,6 +26,7 @@ function gh(severity, file, line, message) {
 }
 
 async function main(files) {
+  const limit = pLimit(Math.max(1, cpus().length));
   let errorCount = 0;
   for (const file of files) {
     const md = readFileSync(file, 'utf8');
@@ -38,7 +41,7 @@ async function main(files) {
         );
         continue;
       }
-      const { ok, errors } = await validator(block);
+      const { ok, errors } = await limit(() => validator(block));
       if (ok) {
         process.stdout.write(`  ✓ line ${block.startLine}  ${lang}  passed\n`);
       } else {
