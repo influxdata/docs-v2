@@ -42,3 +42,14 @@ test('strips HTML comments from block body', () => {
   const blocks = extractCodeBlocks(fx('html-comments.md'));
   assert.equal(blocks[0].value, 'echo hi');
 });
+
+test('joins continuation-marked fences into one logical unit', () => {
+  const blocks = extractCodeBlocks(fx('continuation.md'));
+  assert.equal(blocks.length, 2);
+  assert.equal(blocks[0].value, 'x = 1\ny = x + 1');
+  assert.equal(blocks[0].lang, 'python');
+  assert.equal(blocks[0].startLine, 1);
+  assert.deepEqual(blocks[0].partLines, [1, 7]);
+  assert.equal(blocks[1].value, 'z = 3');
+  assert.equal(blocks[1].startLine, 11);
+});
