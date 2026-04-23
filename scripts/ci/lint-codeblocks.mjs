@@ -11,8 +11,15 @@ import {
 
 const BLOCKING_LANGS = new Set(['json', 'jsonl', 'yaml', 'toml']);
 
+function escapeGitHubCommandMessage(message) {
+  return String(message)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A');
+}
+
 function gh(severity, file, line, message) {
-  process.stdout.write(`::${severity} file=${file},line=${line}::${message}\n`);
+  process.stdout.write(`::${severity} file=${file},line=${line}::${escapeGitHubCommandMessage(message)}\n`);
 }
 
 function consumerAttribution(file, knownConsumers) {
