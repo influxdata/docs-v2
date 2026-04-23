@@ -90,6 +90,7 @@ async function main(files) {
   const noticeRows = [];
   let passed = 0;
   let passedWithNormalization = 0;
+  let lintedBlockCount = 0;
 
   for (const [file, consumers] of canonical) {
     process.stdout.write(`::group::${file}\n`);
@@ -102,9 +103,18 @@ async function main(files) {
       continue;
     }
     const blocks = extractCodeBlocks(md);
-    for (const block of blocks) {
-      const res = await limit(() => validateWithNormalization(block));
+    // Run validators concurrently under p-limit, then report results in
+    // document order. Awaiting each call inside the loop serialized the
+    // subprocess validators (bash/python/js), which this fixes.
+    const results = await Promise.all(
+      blocks.map((block) => limit(() => validateWithNormalization(block))),
+    );
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      const res = results[i];
+      lintedBlockCount++;
       if (res.skipped) {
+        lintedBlockCount--; // skipped blocks aren't "linted"
         process.stdout.write(
           `  - line ${block.startLine}  ${block.rawLang ?? '(no lang)'}  skipped (out of scope)\n`,
         );
@@ -138,6 +148,7 @@ async function main(files) {
 
   writeStepSummary({
     canonicalCount: canonical.size,
+    lintedBlockCount,
     passed,
     passedWithNormalization,
     errorRows,
