@@ -95,7 +95,7 @@
     "test:codeblocks:telegraf": "docker compose run --rm --name telegraf-pytest telegraf-pytest",
     "test:codeblocks:v2": "docker compose run --rm --name v2-pytest v2-pytest",
     "test:codeblocks:stop-monitors": "./test/scripts/monitor-tests.sh stop cloud-dedicated-pytest && ./test/scripts/monitor-tests.sh stop clustered-pytest",
-    "test:lint-codeblocks": "node --test scripts/ci/__tests__/",
+    "test:lint-codeblocks": "node --test 'scripts/ci/__tests__/**/*.test.mjs'",
     "lint-codeblocks": "node scripts/ci/lint-codeblocks.mjs",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
     "test:render-regression": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/render-regression.cy.js\" --no-mapping",
