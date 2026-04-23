@@ -1,10 +1,11 @@
 ---
 title: Use the InfluxDB 3 MCP server
+seotitle: InfluxDB 3 Model Context Protocol (MCP) server
 description: >
-  Use the **InfluxDB MCP server** to interact with and manage {{% product-name %}}
+  Use the **InfluxDB Model Context Protocol (MCP) server** to interact with and manage {{% product-name %}}
   using natural language with LLM agents to query and analyze data, manage databases
   and more. Query {{% product-name %}} documentation from your IDE using the InfluxDB documentation
-  MCP server.
+  Model Context Protocol (MCP) server.
 menu:
   influxdb3_cloud_dedicated:
     name: Use the InfluxDB MCP server
@@ -19,6 +20,8 @@ alt_links:
   core: /influxdb3/core/admin/mcp-server/
   enterprise: /influxdb3/enterprise/admin/mcp-server/
 source: /shared/influxdb3-admin/mcp-server.md
+aliases:
+  - /influxdb3/cloud-dedicated/mcp/server/
 ---
 
 <!-- //SOURCE content/shared/influxdb3-admin/mcp-server.md -->
