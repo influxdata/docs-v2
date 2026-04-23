@@ -15,22 +15,37 @@ export function validate(code) {
     });
     let stderr = '';
     let timedOut = false;
-    const timer = setTimeout(() => { timedOut = true; proc.kill('SIGKILL'); }, TIMEOUT_MS);
-    proc.stderr.on('data', (d) => { stderr += d; });
-    proc.on('close', (exitCode) => {
+    let settled = false;
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
       clearTimeout(timer);
       rmSync(dir, { recursive: true, force: true });
+      resolve(result);
+    };
+    const timer = setTimeout(() => { timedOut = true; proc.kill('SIGKILL'); }, TIMEOUT_MS);
+    proc.stderr.on('data', (d) => { stderr += d; });
+    proc.on('error', (err) => {
+      finish({
+        ok: false,
+        errors: [{
+          line: 1,
+          message: err?.message || 'node --check: failed to start validator',
+        }],
+      });
+    });
+    proc.on('close', (exitCode) => {
       if (timedOut) {
-        return resolve({
+        return finish({
           ok: false,
           errors: [{ line: 1, message: 'node --check: validator timeout' }],
         });
       }
-      if (exitCode === 0) return resolve({ ok: true, errors: [] });
+      if (exitCode === 0) return finish({ ok: true, errors: [] });
       // Node prints either `path:line` or `path:line:column` in stderr.
       const lineMatch = stderr.match(/:(\d+):\d+/) || stderr.match(/:(\d+)\b/);
       const msgMatch = stderr.match(/SyntaxError: ([^\n]+)/);
-      resolve({
+      finish({
         ok: false,
         errors: [{
           line: lineMatch ? Number(lineMatch[1]) : 1,
