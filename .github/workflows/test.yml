@@ -45,6 +45,7 @@ jobs:
       has-changes: ${{ steps.check.outputs.has-changes }}
       test-products: ${{ steps.check.outputs.test-products }}
       suggested-products: ${{ steps.check.outputs.suggested-products }}
+      canonical-sources: ${{ steps.check.outputs.canonical-sources }}
 
     steps:
       - name: Checkout repository
@@ -202,7 +203,41 @@ jobs:
           echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
           echo "affected-files=$FILES_JSON" >> $GITHUB_OUTPUT
 
+          # Emit canonical sources (deduped via shared-source frontmatter)
+          # so the lint-codeblocks job can run once per underlying content file.
+          CANONICAL_JSON=$(echo "$RESULT" | jq -c '.canonical // []')
+          echo "canonical-sources=$CANONICAL_JSON" >> $GITHUB_OUTPUT
+
           echo "📋 Suggested products for testing: $(echo "$PRODUCTS_JSON" | jq -r 'join(", ")')"
+
+  # Parse/compile-only lint for code blocks in changed content.
+  # Runs on every PR that touches content. Fails the job for JSON/YAML/TOML
+  # parse errors; bash/python/javascript failures emit ::warning:: annotations.
+  # See PLAN_CODE_BLOCK_LINTING.md for the design.
+  lint-codeblocks:
+    name: Lint code blocks
+    needs: detect-changes
+    if: github.event_name == 'pull_request' && needs.detect-changes.outputs.canonical-sources != '' && needs.detect-changes.outputs.canonical-sources != '[]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
+      - name: Run lint-codeblocks
+        run: |
+          FILES=$(echo '${{ needs.detect-changes.outputs.canonical-sources }}' | jq -r '.[]' | tr '\n' ' ')
+          if [[ -z "$FILES" ]]; then
+            echo "No canonical sources to lint."
+            exit 0
+          fi
+          echo "Linting $FILES"
+          node scripts/ci/lint-codeblocks.mjs $FILES
 
   # Informational job for PRs - suggests tests but doesn't run them
   suggest-tests:
