@@ -1,3 +1,24 @@
+## v2.8.0 {date="2026-04-22"}
+
+### Bug Fixes
+
+- Check for all available cookies instead of the count
+- Don't import non-existent/unused GPG private key
+- Create errors-file if it does not exist
+- Avoid panic on empty tag value
+- Dbrp correct json output
+
+### Features
+
+- Add `--operator-token` flag to restore subcommand
+- Adds gzip compression level configuration to backups for v2 (requires InfluxDB v2.9+)
+
+### Maintenance
+
+- Bump `golang.org/x/text` from 0.3.7 to 0.3.8
+- Bump `google.golang.org/protobuf` from 1.30.0 to 1.33.0
+- Update to go 1.25.9
+
 
 ## v2.7.5 {date="2024-04-16"}
 
