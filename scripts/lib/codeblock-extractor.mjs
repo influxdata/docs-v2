@@ -17,6 +17,13 @@ function normalizeLang(raw) {
   return LANG_ALIASES[raw.toLowerCase()] ?? null;
 }
 
+function parsePlaceholders(meta) {
+  if (!meta) return [];
+  const m = meta.match(/\bplaceholders="([^"]+)"/);
+  if (!m) return [];
+  return m[1].split('|').map((s) => s.trim()).filter(Boolean);
+}
+
 /**
  * Extract fenced code blocks from a Markdown string.
  * @param {string} markdown
@@ -32,6 +39,7 @@ export function extractCodeBlocks(markdown) {
         lang: normalizeLang(node.lang),
         meta: node.meta ?? null,
         value: node.value ?? '',
+        placeholders: parsePlaceholders(node.meta),
         startLine: node.position?.start?.line ?? 0,
       });
     }

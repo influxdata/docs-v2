@@ -31,3 +31,9 @@ test('flags unsupported langs as null (out of scope)', () => {
   assert.equal(blocks[3].lang, null);
   assert.equal(blocks[3].rawLang, 'go');
 });
+
+test('parses placeholders attribute into array', () => {
+  const blocks = extractCodeBlocks(fx('placeholders.md'));
+  assert.deepEqual(blocks[0].placeholders, ['TOKEN_NAME', 'DURATION']);
+  assert.deepEqual(blocks[1].placeholders, []);
+});
