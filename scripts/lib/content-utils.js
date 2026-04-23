@@ -221,7 +221,11 @@ export function categorizeContentFiles(files) {
 
 /**
  * Extract the source path from a file's frontmatter
- * Used to find the shared content file that a page includes
+ * Used to find the shared content file that a page includes.
+ * Matches only within the top-of-file frontmatter block (between `---`
+ * delimiters) to avoid false positives from `source:` lines inside fenced
+ * YAML or prose examples. Normalizes both `/shared/...` and `shared/...`
+ * forms to `content/shared/...`.
  * @param {string} filePath - Path to the content file
  * @returns {string|null} The source path (e.g., 'content/shared/sql-reference/_index.md') or null
  */
@@ -233,17 +237,32 @@ export function getSourceFromFrontmatter(filePath) {
   try {
     const content = readFileSync(filePath, 'utf8');
 
-    // Quick regex check for source: in frontmatter (avoids full YAML parsing)
-    const sourceMatch = content.match(/^source:\s*(.+)$/m);
-    if (sourceMatch) {
-      const sourcePath = sourceMatch[1].trim();
-      // Normalize to content/ prefix format
-      if (sourcePath.startsWith('/')) {
-        return `content${sourcePath}`;
-      }
+    // Extract the frontmatter block (--- to ---) from the top of the file.
+    // Only match within that block to avoid catching `source:` lines inside
+    // fenced YAML, code examples, or prose.
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!frontmatterMatch) return null;
+
+    const frontmatter = frontmatterMatch[1];
+    const sourceMatch = frontmatter.match(/^source:\s*["']?(\S+)["']?\s*$/m);
+    if (!sourceMatch) return null;
+
+    const sourcePath = sourceMatch[1].trim();
+    // Normalize to content/ prefix format:
+    // - `/shared/foo.md` → `content/shared/foo.md`
+    // - `shared/foo.md`  → `content/shared/foo.md`
+    // - `content/shared/foo.md` → unchanged
+    if (sourcePath.startsWith('/')) {
+      return `content${sourcePath}`;
+    }
+    if (sourcePath.startsWith('shared/')) {
+      return `content/${sourcePath}`;
+    }
+    if (sourcePath.startsWith('content/')) {
       return sourcePath;
     }
-
+    // Unexpected shape (e.g., absolute filesystem path, URL). Ignore rather
+    // than returning a misleading canonical path.
     return null;
   } catch {
     return null;

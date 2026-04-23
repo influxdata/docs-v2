@@ -89,9 +89,15 @@ async function main() {
   // Compute canonical sources (deduped) for the lint-codeblocks job.
   // Resolves any consumer page with `source:` frontmatter to its shared
   // source, so the linter runs once per underlying content file.
+  // Only include paths under content/ — if frontmatter parsing returns
+  // something outside that, skip it rather than hand the linter an
+  // unreadable path.
   const canonicalSet = new Set();
   for (const file of changedFiles) {
-    canonicalSet.add(resolveCanonicalSource(file));
+    const canonical = resolveCanonicalSource(file);
+    if (canonical.startsWith('content/')) {
+      canonicalSet.add(canonical);
+    }
   }
 
   // Output JSON result
