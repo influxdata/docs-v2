@@ -1,5 +1,6 @@
 ---
 title: Use the InfluxDB 3 MCP server
+seotitle: InfluxDB 3 Model Context Protocol (MCP) server
 description: >
   Use the **InfluxDB Model Context Protocol (MCP) server** to interact with and manage {{% product-name %}}
   using natural language with LLM agents to query and analyze data, manage databases
