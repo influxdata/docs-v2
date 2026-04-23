@@ -124,6 +124,179 @@ Potential causes:
   # This is ignored
   ```
 
+### Performance Optimization
+
+Code block testing can be time-consuming for large documentation sets. Several optimization strategies are available:
+
+#### Parallel Test Execution by Language
+
+Test specific programming languages independently:
+
+```bash
+# Test only Python code blocks
+yarn test:codeblocks:python
+
+# Test only Bash/Shell code blocks
+yarn test:codeblocks:bash
+
+# Test only SQL code blocks
+yarn test:codeblocks:sql
+```
+
+**Benefits:**
+- Faster feedback for specific language changes
+- Easier debugging of language-specific issues
+- Enables parallel execution in CI
+
+#### Test Result Caching
+
+Cache successful test results to avoid retesting unchanged content:
+
+```bash
+# Inside test container
+./test/scripts/cached-test.sh content/influxdb/cloud/get-started/
+
+# View cache statistics
+yarn test:cache:stats
+
+# Clean expired cache entries
+yarn test:cache:clean
+```
+
+**How it works:**
+- Creates content hash for files/directories
+- Caches successful test results for 7 days
+- Skips tests if content unchanged and cache valid
+- Bypasses cache with `TEST_CACHE_BYPASS=1`
+
+#### Cache Management Commands
+
+```bash
+yarn test:cache:stats   # Show cache statistics
+yarn test:cache:list    # List all cached results
+yarn test:cache:clean   # Remove expired entries (>7 days)
+yarn test:cache:clear   # Remove all entries
+```
+
+#### Performance Comparison
+
+**Without optimization:** ~45 minutes (sequential)
+**With parallel execution:** ~18 minutes (59% faster)
+**With caching (2nd run):** ~5 seconds (97% faster)
+
+For comprehensive performance optimization documentation, see [test/TEST-PERFORMANCE.md](test/TEST-PERFORMANCE.md).
+
+### Code block testing in CI
+
+The `Test Code Blocks` GitHub Actions workflow
+(`.github/workflows/test.yml`) runs code block tests on demand. Pull
+requests trigger a detection-only pass that suggests which products
+to test; actual test execution runs via `workflow_dispatch`.
+
+**On pull requests:**
+
+- Detects changed content and test-harness files (`content/**/*.md`,
+  `test/**`, `Dockerfile.pytest`, `compose.yaml`)
+- Resolves shared content changes to the consuming products
+- Posts a summary with suggested products, partitioned into
+  "runnable" (products with a pytest service in `compose.yaml`) and
+  "not yet runnable"
+- Does not run tests or block the PR
+
+**Manual runs (`workflow_dispatch`):**
+
+- Trigger from the Actions UI or with `gh workflow run`:
+  ```bash
+  gh workflow run "Test Code Blocks" \
+    --repo influxdata/docs-v2 \
+    -f products=core,telegraf \
+    -f use_default_group=false
+  ```
+- The default group is `influxdb3_core` and `telegraf`
+- Content failures surface as `::warning::` annotations and in the
+  job summary; they do not fail the matrix job
+
+**Products that run against a live server in CI:**
+
+| Product | Status | How |
+| --- | --- | --- |
+| `influxdb3_core` | Runs live | Started via `docker compose up influxdb3-core` with a preconfigured offline admin token generated at job start |
+| `influxdb3_enterprise` | Gated on license blob | Requires `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` repo secret (see below). When unset, Enterprise is skipped with an informational notice |
+| `telegraf`, `v2`, `cloud`, `cloud-dedicated`, `cloud-serverless`, `clustered` | Mock credentials | Tests that hit real endpoints may fail; content-only checks still run |
+
+### Provision InfluxDB 3 Enterprise for CI
+
+Enterprise trial-license activation requires email verification, which
+can't complete in a headless CI environment. CI therefore expects a
+pre-activated license blob stored as a repository secret. Produce it
+once locally, then upload.
+
+**1. Register the verification email.**
+
+Choose an email address you control and have InfluxData approve it for
+trial licensing. The email is stored in the repo secret
+`INFLUXDB3_ENTERPRISE_LICENSE_EMAIL`.
+
+**2. Activate Enterprise locally with that email.**
+
+```bash
+# Create the directory Docker Compose expects
+mkdir -p ~/influxdata-docs/.influxdb3/enterprise/data
+
+# Point compose at the verified email
+echo "INFLUXDB3_ENTERPRISE_LICENSE_EMAIL=<verified-email>" \
+  > ~/influxdata-docs/.influxdb3/enterprise/.env
+
+# Generate an admin token file (compose mounts it as a secret)
+TOKEN="apiv3_$(openssl rand -hex 32)"
+cat > ~/influxdata-docs/.influxdb3/enterprise/admin-token.json <<EOF
+{"token":"${TOKEN}","name":"_admin","description":"Local admin token"}
+EOF
+chmod 0600 ~/influxdata-docs/.influxdb3/enterprise/admin-token.json
+
+# Start Enterprise. Watch the logs until activation completes.
+docker compose --profile shared up -d influxdb3-enterprise
+docker compose logs -f influxdb3-enterprise
+```
+
+The first activation with a pre-approved email should skip the
+"Waiting for verification..." stall and persist a license file at
+`~/influxdata-docs/.influxdb3/enterprise/data/cluster0/trial_or_home_license`.
+After you see activation succeed, stop the server:
+
+```bash
+docker compose --profile shared down
+```
+
+**3. Upload the license blob as a repo secret.**
+
+```bash
+LICENSE=~/influxdata-docs/.influxdb3/enterprise/data/cluster0/trial_or_home_license
+base64 -i "$LICENSE" | gh secret set INFLUXDB3_ENTERPRISE_LICENSE_BLOB \
+  --repo influxdata/docs-v2
+```
+
+**4. Verify CI picks it up.**
+
+```bash
+gh workflow run "Test Code Blocks" \
+  --repo influxdata/docs-v2 \
+  -f products=enterprise \
+  -f use_default_group=false
+```
+
+The Enterprise job should now decode the blob into
+`/var/lib/influxdb3/data/cluster0/trial_or_home_license`, start the
+server, and run pytest against it.
+
+> \[!Note]
+> #### License expiration
+>
+> Trial licenses have a finite validity window. When the license
+> encoded in `INFLUXDB3_ENTERPRISE_LICENSE_BLOB` expires, Enterprise
+> CI jobs will fail to start. Re-run the activation locally and
+> upload a fresh blob.
+
 ## LLM-Friendly Markdown Generation
 
 The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.

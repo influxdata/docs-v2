@@ -1,9 +1,36 @@
-{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $product := index $productPathData 0 }}
-{{ $version := index $productPathData 1 }}
-{{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
-{{ $productNamespace := cond (or (eq $product "influxdb3") (eq $product "enterprise_influxdb")) "influxdb" $product }}
-{{ $productName := (index .Site.Data.products $productKey).name }}
+{{/*
+  Derive product and version from the content path. Prefer .File.Dir
+  (content-relative, immune to baseURL subpaths like /pr-preview/pr-N/);
+  fall back to .RelPermalink only for virtual pages that have no source
+  file. Using .RelPermalink under a subpath-mounted baseURL would pick
+  up `pr-preview`/`pr-N` as `$product`, breaking every product lookup.
+*/}}
+{{ $productPath := .RelPermalink }}
+{{ with .File }}
+  {{ $productPath = .Dir }}
+{{ end }}
+{{ $productPathData := findRE "[^/]+" $productPath }}
+{{ $product := "" }}
+{{ $version := "" }}
+{{ if gt (len $productPathData) 0 }}{{ $product = index $productPathData 0 }}{{ end }}
+{{ if gt (len $productPathData) 1 }}{{ $version = index $productPathData 1 }}{{ end }}
+{{ $productKey := $product }}
+{{ if eq $product "influxdb3" }}
+  {{ $productKey = print "influxdb3_" (replaceRE "-" "_" $version) }}
+{{ else if and (eq $product "influxdb") (eq $version "cloud") }}
+  {{/* /influxdb/cloud/* is Cloud (TSM), a separate product entry. */}}
+  {{ $productKey = "influxdb_cloud" }}
+{{ end }}
+{{ $productData := dict }}
+{{ if $productKey }}
+  {{ with index .Site.Data.products $productKey }}{{ $productData = . }}{{ end }}
+{{ end }}
+{{ $productName := $productData.name }}
+{{/* Prefer version-specific name (name__v2, name__v1) when available. */}}
+{{ with (index $productData (print "name__" $version)) }}
+  {{ $productName = . }}
+{{ end }}
+{{ $productIssueUrl := $productData.product_issue_url }}
 {{ $supportBlacklist := slice "chronograf" "kapacitor" }}
 
 {{ if .File }}
@@ -14,9 +41,7 @@
 {{ else }}
   {{ .Scratch.Set "pageGithubLink" (print "https://github.com/influxdata/docs-v2/edit/master/content/") }}
 {{ end }}
-{{ .Scratch.Set "productGithubLink" (print "https://github.com/influxdata/" $productNamespace "/issues/new/choose/") }}
 {{ $pageGithubLink := .Scratch.Get "pageGithubLink" }}
-{{ $productGithubLink := .Scratch.Get "productGithubLink" }}
 
 {{ $docsIssueLinkBody := print `_Describe the issue here._
 
@@ -25,9 +50,6 @@
 - _Provide other relevant URLs (project issues, community threads, etc.)_
 ` }}
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
-{{ if and (eq $product "influxdb3") (eq $version "enterprise") }}
-  {{ $pageGithubIssueLink = "https://support.influxdata.com/s/" }}
-{{ end }}
 
 <hr/>
 <div class="helpful">
@@ -73,7 +95,9 @@
   <div class="actions">
     <a href="{{ $pageGithubLink }}" class="btn edit" target="_blank">Edit this page</a>
     <a href="{{ $pageGithubIssueLink }}" class="btn issue" target="_blank">Submit docs issue</a>
-    <a href="{{ $productGithubLink }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+    {{ with $productIssueUrl }}
+      <a href="{{ . }}" class="btn issue" target="_blank">Submit {{ $productName }} issue</a>
+    {{ end }}
   </div>
 </div>
 
