@@ -32,18 +32,15 @@ function stripHtmlComments(s) {
 }
 
 /**
- * Extract fenced code blocks from a Markdown string.
- * Joins fences separated by <!--pytest-codeblocks:cont--> into one logical
- * unit; the unit inherits the first fence's language and tracks per-part
- * line numbers in `partLines`.
- * @param {string} markdown
- * @returns {Array<{rawLang: string|null, lang: string|null, meta: string|null, value: string, placeholders: string[], startLine: number, partLines: number[]}>}
+ * Walk the mdast tree depth-first and collect `code` nodes and `html` nodes
+ * matching our continuation/expected-output markers. We need DFS (not just
+ * top-level `tree.children`) because this repo uses fenced blocks inside
+ * blockquotes, lists, and callout shortcodes.
  */
-export function extractCodeBlocks(markdown) {
-  const tree = parser.parse(markdown);
-  // First pass: linearize code + continuation markers in document order.
+function collectItems(tree) {
   const items = [];
-  for (const node of tree.children) {
+  function walk(node) {
+    if (!node) return;
     if (node.type === 'code') {
       items.push({
         kind: 'code',
@@ -54,12 +51,40 @@ export function extractCodeBlocks(markdown) {
         placeholders: parsePlaceholders(node.meta),
         startLine: node.position?.start?.line ?? 0,
       });
-    } else if (node.type === 'html' && CONT_RE.test((node.value ?? '').trim())) {
-      items.push({ kind: 'cont' });
-    } else if (node.type === 'html' && EXPECTED_RE.test((node.value ?? '').trim())) {
-      items.push({ kind: 'expected' });
+      return; // code nodes don't have children to walk
+    }
+    if (node.type === 'html') {
+      const trimmed = (node.value ?? '').trim();
+      if (CONT_RE.test(trimmed)) {
+        items.push({ kind: 'cont', startLine: node.position?.start?.line ?? 0 });
+      } else if (EXPECTED_RE.test(trimmed)) {
+        items.push({ kind: 'expected', startLine: node.position?.start?.line ?? 0 });
+      }
+      return; // html nodes are leaves
+    }
+    if (Array.isArray(node.children)) {
+      for (const child of node.children) walk(child);
     }
   }
+  walk(tree);
+  // DFS order can still leave nodes at the same depth in the wrong relative
+  // order across siblings when children span lines; sort by start line to
+  // guarantee document order for continuation/expected-output adjacency.
+  items.sort((a, b) => a.startLine - b.startLine);
+  return items;
+}
+
+/**
+ * Extract fenced code blocks from a Markdown string.
+ * Joins fences separated by <!--pytest-codeblocks:cont--> into one logical
+ * unit; the unit inherits the first fence's language and tracks per-part
+ * line numbers in `partLines`.
+ * @param {string} markdown
+ * @returns {Array<{rawLang: string|null, lang: string|null, meta: string|null, value: string, placeholders: string[], startLine: number, partLines: number[]}>}
+ */
+export function extractCodeBlocks(markdown) {
+  const tree = parser.parse(markdown);
+  const items = collectItems(tree);
   // Second pass: fold continuation fences into their preceding code unit,
   // and skip fences that immediately follow an expected-output marker.
   const out = [];
@@ -75,8 +100,8 @@ export function extractCodeBlocks(markdown) {
       prev.value = prev.value + '\n' + item.value;
       prev.partLines.push(item.startLine);
     } else {
-      out.push({ ...item, partLines: [item.startLine] });
-      delete out[out.length - 1].kind;
+      const { kind, ...rest } = item;
+      out.push({ ...rest, partLines: [item.startLine] });
     }
   }
   return out;

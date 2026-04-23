@@ -60,3 +60,12 @@ test('skips fences that follow expected-output marker', () => {
   assert.equal(blocks[0].value, 'print("hi")');
   assert.equal(blocks[1].value, '{"ok": true}');
 });
+
+test('finds fences inside blockquotes and lists (DFS walk)', () => {
+  const blocks = extractCodeBlocks(fx('in-blockquote.md'));
+  const langs = blocks.map((b) => b.lang);
+  assert.ok(langs.includes('json'), `expected json among langs, got ${JSON.stringify(langs)}`);
+  assert.ok(langs.includes('bash'), `expected bash among langs, got ${JSON.stringify(langs)}`);
+  const json = blocks.find((b) => b.lang === 'json');
+  assert.equal(json.value, '{"inside": "quote"}');
+});
