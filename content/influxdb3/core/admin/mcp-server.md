@@ -19,6 +19,8 @@ alt_links:
   clustered: /influxdb3/clustered/reference/mcp-server/
   enterprise: /influxdb3/enterprise/admin/mcp-server/
 source: /shared/influxdb3-admin/mcp-server.md
+aliases:
+  - /influxdb3/core/mcp/server/
 ---
 
 <!-- //SOURCE content/shared/influxdb3-admin/mcp-server.md -->
