@@ -2,7 +2,7 @@
 title: Use the InfluxDB documentation MCP server
 description: >
   Query {{% product-name %}} documentation from your IDE using the InfluxDB documentation
-  MCP server.
+  Model Context Protocol (MCP) server.
 menu:
   influxdb_v2:
     name: Documentation MCP server
