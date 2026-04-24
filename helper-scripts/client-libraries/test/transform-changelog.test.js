@@ -106,8 +106,8 @@ test('renders full page with frontmatter when client metadata is provided', () =
 });
 
 test('python fixture produces expected full-page output', () => {
-  const input = readFixture('python-CHANGELOG.md');
-  const expected = readFixture('python-expected.md');
+  const input = readFixture('python-CHANGELOG.txt');
+  const expected = readFixture('python-expected.txt');
   const { page } = transformChangelog(input, {
     displayName: 'influxdb3-python',
     language: 'Python',
@@ -117,8 +117,8 @@ test('python fixture produces expected full-page output', () => {
 });
 
 test('go fixture produces expected full-page output', () => {
-  const input = readFixture('go-CHANGELOG.md');
-  const expected = readFixture('go-expected.md');
+  const input = readFixture('go-CHANGELOG.txt');
+  const expected = readFixture('go-expected.txt');
   const { page } = transformChangelog(input, {
     displayName: 'influxdb3-go',
     language: 'Go',
