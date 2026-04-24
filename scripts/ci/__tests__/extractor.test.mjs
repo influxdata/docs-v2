@@ -93,6 +93,14 @@ test('HTML comment strip is line-preserving: code after a comment maps to the ri
   assert.equal(mapCodeLineToFileLine(block, 2), 3); // echo hi is on MD line 3
 });
 
+test('expected-output skip does not fire when fence is too far from the marker', () => {
+  // Marker is separated from the unlabeled fence by many prose lines.
+  // The fence must NOT be skipped — it is not the expected output block.
+  const blocks = extractCodeBlocks(fx('expected-output-distant.md'));
+  assert.equal(blocks.length, 1);
+  assert.equal(blocks[0].rawLang, null); // unlabeled fence was kept
+});
+
 test('expected-output skip does not swallow a subsequent labeled fence', () => {
   // After an expected-output marker, only the immediately following unlabeled
   // fence should be skipped. A labeled fence later must still be included.

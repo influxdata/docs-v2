@@ -6,10 +6,18 @@ import { join } from 'node:path';
 const TIMEOUT_MS = 5000;
 
 export function validate(code) {
+  let dir;
+  try {
+    dir = mkdtempSync(join(tmpdir(), 'lint-js-'));
+    writeFileSync(join(dir, 'snippet.js'), code, 'utf8');
+  } catch (err) {
+    return Promise.resolve({
+      ok: false,
+      errors: [{ line: 1, message: `js validator setup failed: ${err.message}` }],
+    });
+  }
+  const file = join(dir, 'snippet.js');
   return new Promise((resolve) => {
-    const dir = mkdtempSync(join(tmpdir(), 'lint-js-'));
-    const file = join(dir, 'snippet.js');
-    writeFileSync(file, code, 'utf8');
     const proc = spawn(process.execPath, ['--check', file], {
       stdio: ['ignore', 'ignore', 'pipe'],
     });
@@ -20,7 +28,7 @@ export function validate(code) {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
-      rmSync(dir, { recursive: true, force: true });
+      try { rmSync(dir, { recursive: true, force: true }); } catch { /* best-effort */ }
       resolve(result);
     };
     const timer = setTimeout(() => { timedOut = true; proc.kill('SIGKILL'); }, TIMEOUT_MS);

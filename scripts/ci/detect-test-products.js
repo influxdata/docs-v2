@@ -16,6 +16,7 @@
  * 4. Outputs JSON with products array and expanded files array
  */
 
+import { existsSync } from 'node:fs';
 import { expandSharedContentChanges, resolveCanonicalSource } from '../lib/content-utils.js';
 
 // Product path mappings
@@ -95,7 +96,7 @@ async function main() {
   const canonicalSet = new Set();
   for (const file of changedFiles) {
     const canonical = resolveCanonicalSource(file);
-    if (canonical.startsWith('content/')) {
+    if (canonical.startsWith('content/') && existsSync(canonical)) {
       canonicalSet.add(canonical);
     }
   }

@@ -101,15 +101,25 @@ export function extractCodeBlocks(markdown) {
   // Second pass: fold continuation fences into their preceding code unit,
   // and skip fences that immediately follow an expected-output marker.
   const out = [];
-  let skipNext = false;
+  let skipAfterLine = -1; // MD line of the expected-output marker, or -1 if none pending
+  // Only skip an unlabeled fence that starts within this many lines of the marker.
+  // Real usage: marker → blank line → fence = distance 2. Allow up to 3 for
+  // edge cases (e.g., a Hugo comment between marker and fence).
+  const EXPECTED_PROXIMITY = 3;
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    if (item.kind === 'expected') { skipNext = true; continue; }
+    if (item.kind === 'expected') { skipAfterLine = item.startLine; continue; }
     if (item.kind === 'cont') continue;
-    // Only skip unlabeled fences (rawLang == null): expected-output fences are
-    // always unlabeled, so this avoids accidentally skipping a real labeled
-    // code block that appears later in the file.
-    if (skipNext) { skipNext = false; if (item.rawLang == null) continue; }
+    if (
+      skipAfterLine >= 0 &&
+      item.rawLang == null &&
+      item.startLine - skipAfterLine <= EXPECTED_PROXIMITY
+    ) {
+      skipAfterLine = -1;
+      continue;
+    }
+    // Marker not consumed: clear it so it doesn't affect later fences.
+    skipAfterLine = -1;
     const prevItem = items[i - 1];
     const prev = out[out.length - 1];
     if (prev && prevItem && prevItem.kind === 'cont') {
