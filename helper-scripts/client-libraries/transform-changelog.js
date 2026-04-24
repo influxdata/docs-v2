@@ -50,31 +50,14 @@ export function transformChangelog(rawChangelog, meta) {
   const result = { body, latestVersion, latestReleaseDate };
 
   if (meta) {
-    result.page = renderPage(body, { ...meta, latestVersion, latestReleaseDate });
+    result.page = renderPage(body);
   }
 
   return result;
 }
 
-function renderPage(body, meta) {
-  const frontmatter = [
-    '---',
-    `title: ${meta.displayName} release notes`,
-    `description: Release notes for the ${meta.displayName} ${meta.language} client library for InfluxDB 3.`,
-    meta.latestVersion !== null ? `latest_version: ${meta.latestVersion}` : null,
-    meta.latestReleaseDate !== null
-      ? `latest_release_date: ${meta.latestReleaseDate}`
-      : null,
-    `source_repo: https://github.com/${meta.repo}`,
-    `source_file: CHANGELOG.md`,
-    `generated: true`,
-    '---',
-  ]
-    .filter((line) => line !== null)
-    .join('\n');
-
+function renderPage(body) {
   const comment =
     '<!-- Generated from CHANGELOG.md. Edit upstream and re-sync; do not edit here. -->';
-
-  return `${frontmatter}\n\n${comment}\n\n${body.trimStart()}`;
+  return `${comment}\n\n${body.trimStart()}`;
 }

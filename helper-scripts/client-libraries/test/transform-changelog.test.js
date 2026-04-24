@@ -82,25 +82,17 @@ test('returns null latestVersion when no version heading present', () => {
   assert.equal(result.latestReleaseDate, null);
 });
 
-test('renders full page with frontmatter when client metadata is provided', () => {
+test('renders body-only page (no frontmatter) when metadata is provided', () => {
   const input = `## [0.19.0] - 2026-04-23\n### Added\n- Thing.\n`;
   const result = transformChangelog(input, {
     displayName: 'influxdb3-python',
     language: 'Python',
     repo: 'InfluxCommunity/influxdb3-python',
   });
-  assert.match(result.page, /^---\n/);
-  assert.match(result.page, /title: influxdb3-python release notes/);
-  assert.match(result.page, /latest_version: 0\.19\.0/);
-  assert.match(result.page, /latest_release_date: 2026-04-23/);
+  assert.doesNotMatch(result.page, /^---$/m);
   assert.match(
     result.page,
-    /source_repo: https:\/\/github\.com\/InfluxCommunity\/influxdb3-python/
-  );
-  assert.match(result.page, /generated: true/);
-  assert.match(
-    result.page,
-    /<!-- Generated from CHANGELOG\.md\. Edit upstream and re-sync; do not edit here\. -->/
+    /^<!-- Generated from CHANGELOG\.md\. Edit upstream and re-sync; do not edit here\. -->/
   );
   assert.match(result.page, /## v0\.19\.0 \{date="2026-04-23"\}/);
 });

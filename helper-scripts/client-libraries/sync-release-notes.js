@@ -8,6 +8,51 @@ import { parseArgs } from 'node:util';
 import { CLIENTS, getClient } from './clients.js';
 import { transformChangelog } from './transform-changelog.js';
 
+const PRODUCTS = [
+  'core',
+  'enterprise',
+  'cloud-dedicated',
+  'cloud-serverless',
+  'clustered',
+];
+
+function setFrontmatterFields(content, fields) {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+  if (!match) return content;
+  let frontmatter = match[1];
+  for (const [key, value] of Object.entries(fields)) {
+    const keyRe = new RegExp(`^${key}:.*$`, 'm');
+    const line = `${key}: ${value}`;
+    if (keyRe.test(frontmatter)) {
+      frontmatter = frontmatter.replace(keyRe, line);
+    } else {
+      frontmatter += `\n${line}`;
+    }
+  }
+  return `---\n${frontmatter}\n---\n` + content.slice(match[0].length);
+}
+
+function updateStubFrontmatter(docsRoot, slug, latestVersion, latestReleaseDate) {
+  const updated = [];
+  for (const product of PRODUCTS) {
+    const stubPath = resolve(
+      docsRoot,
+      `content/influxdb3/${product}/reference/client-libraries/v3/${slug}/release-notes.md`
+    );
+    if (!existsSync(stubPath)) continue;
+    const raw = readFileSync(stubPath, 'utf8');
+    const next = setFrontmatterFields(raw, {
+      latest_version: latestVersion,
+      latest_release_date: latestReleaseDate,
+    });
+    if (next !== raw) {
+      writeFileSync(stubPath, next);
+      updated.push(product);
+    }
+  }
+  return updated;
+}
+
 function parseCliArgs() {
   const { values } = parseArgs({
     options: {
@@ -46,7 +91,7 @@ function syncOne(client, sourcePath, docsRoot) {
   }
 
   const raw = readFileSync(changelogPath, 'utf8');
-  const { page, latestVersion } = transformChangelog(raw, {
+  const { page, latestVersion, latestReleaseDate } = transformChangelog(raw, {
     displayName: client.displayName,
     language: client.language,
     repo: client.repo,
@@ -64,16 +109,28 @@ function syncOne(client, sourcePath, docsRoot) {
   mkdirSync(dirname(outPath), { recursive: true });
 
   const previous = existsSync(outPath) ? readFileSync(outPath, 'utf8') : null;
-  if (previous === page) {
+  const bodyChanged = previous !== page;
+  if (bodyChanged) {
+    writeFileSync(outPath, page);
+  }
+
+  const stubsUpdated = updateStubFrontmatter(
+    docsRoot,
+    client.slug,
+    latestVersion,
+    latestReleaseDate
+  );
+
+  if (!bodyChanged && stubsUpdated.length === 0) {
     return { client: client.slug, status: 'unchanged', latestVersion };
   }
 
-  writeFileSync(outPath, page);
   return {
     client: client.slug,
     status: 'updated',
     latestVersion,
     outputPath: client.outputPath,
+    stubsUpdated,
   };
 }
 

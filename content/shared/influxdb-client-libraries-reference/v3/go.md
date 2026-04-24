@@ -1,6 +1,8 @@
 The InfluxDB 3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications
 to write and query data stored in an {{% product-name %}} database.
 
+{{< client-latest-version >}}
+
 ## Installation
 
 ```sh
