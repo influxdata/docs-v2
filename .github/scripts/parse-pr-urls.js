@@ -2,6 +2,9 @@
  * Parse Documentation URLs from PR Description
  * Extracts docs.influxdata.com URLs and relative paths from PR body text.
  * Used when layout/asset changes require author-specified preview pages.
+ *
+ * IMPORTANT: Code blocks are stripped before URL extraction to prevent
+ * example URLs (e.g., showing broken link formats) from being deployed.
  */
 
 import { readFileSync } from 'fs';
@@ -10,6 +13,32 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Strip code blocks from text to prevent extracting example URLs
+ * that appear in code blocks (e.g., showing broken link formats).
+ *
+ * Removes:
+ * - Fenced code blocks (```...``` or ~~~...~~~)
+ * - Inline code (`...`)
+ *
+ * @param {string} text - Text that may contain code blocks
+ * @returns {string} - Text with code blocks removed
+ */
+function stripCodeBlocks(text) {
+  if (!text) return '';
+
+  // First, remove fenced code blocks (``` or ~~~)
+  // Match opening fence, optional language identifier, content (non-greedy), closing fence
+  // Uses multiline and dotall flags to match across lines
+  let result = text.replace(/^(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\1$/gm, '');
+
+  // Remove inline code (backtick-delimited)
+  // This handles single backticks (`code`) and multiple backticks (``code``)
+  result = result.replace(/`+[^`]*`+/g, '');
+
+  return result;
+}
 
 /**
  * Load valid product namespaces from products.yml
@@ -100,6 +129,10 @@ const RELATIVE_PATTERN = buildRelativePattern();
 export function extractDocsUrls(text) {
   if (!text) return [];
 
+  // Strip code blocks to prevent extracting example URLs
+  // (e.g., URLs shown as examples of broken link formats)
+  const cleanText = stripCodeBlocks(text);
+
   const urls = new Set();
 
   // Pattern 1: Full production URLs
@@ -107,7 +140,7 @@ export function extractDocsUrls(text) {
   // https://docs.influxdata.com/ (home page)
   const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']*)/g;
   let match;
-  while ((match = prodUrlPattern.exec(text)) !== null) {
+  while ((match = prodUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -118,7 +151,7 @@ export function extractDocsUrls(text) {
   // http://localhost:1313/influxdb3/core/
   // http://localhost:1313/ (home page)
   const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']*)/g;
-  while ((match = localUrlPattern.exec(text)) !== null) {
+  while ((match = localUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -129,7 +162,7 @@ export function extractDocsUrls(text) {
   // /influxdb3/core/admin/ or /telegraf/v1/plugins/
   // Reset lastIndex to ensure fresh matching
   RELATIVE_PATTERN.lastIndex = 0;
-  while ((match = RELATIVE_PATTERN.exec(text)) !== null) {
+  while ((match = RELATIVE_PATTERN.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
