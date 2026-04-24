@@ -1,5 +1,5 @@
 name: Documentation Gap
-description: Track a documentation gap identified from API spec delta analysis. For gaps auto-detected by the release pipeline, use the auto-generated issue instead of this form.
+description: Track a documentation gap identified from API spec delta analysis.
 title: "Doc gap [SEVERITY]: [OPERATION_ID] — [PRODUCT] [VERSION]"
 labels:
   - source:manual
