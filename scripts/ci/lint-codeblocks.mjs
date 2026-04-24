@@ -163,4 +163,4 @@ async function main(files) {
   process.exit(errorRows.length > 0 ? 1 : 0);
 }
 
-main(process.argv.slice(2));
+main(process.argv.slice(2)).catch((err) => { console.error(err); process.exit(1); });
