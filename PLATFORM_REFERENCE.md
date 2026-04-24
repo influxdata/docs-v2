@@ -61,5 +61,5 @@ Kapacitor:
   - Documentation: https://docs.influxdata.com/kapacitor/v1.8/
 
 Flux:
-  - Documentation: https://docs.influxdata.com/flux/v0.x/
+  - Documentation: https://docs.influxdata.com/flux/v0/
 
