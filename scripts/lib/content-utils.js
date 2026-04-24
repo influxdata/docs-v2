@@ -26,9 +26,10 @@ export function findPagesReferencingSharedContent(sharedFilePath) {
     // Remove leading "content/" to match frontmatter format (source: /shared/...)
     const relativePath = sharedFilePath.replace(/^content\//, '');
 
-    // Use grep to find files with source: <path> in frontmatter
-    // Include both .md and .html files for compatibility
-    const grepCmd = `grep -l "source: .*${relativePath}" --include="*.md" --include="*.html" -r content/`;
+    // Use fixed-string matching (-F) to avoid treating path characters (dots,
+    // slashes) as regex metacharacters. Match both source: /shared/... and
+    // source: shared/... forms with two -e patterns.
+    const grepCmd = `grep -rFl -e "source: /${relativePath}" -e "source: ${relativePath}" --include="*.md" --include="*.html" content/`;
 
     const result = execSync(grepCmd, {
       encoding: 'utf-8',
@@ -240,7 +241,9 @@ export function getSourceFromFrontmatter(filePath) {
     // Extract the frontmatter block (--- to ---) from the top of the file.
     // Only match within that block to avoid catching `source:` lines inside
     // fenced YAML, code examples, or prose.
-    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    // Require the closing --- to be on its own line (followed by \n or EOF)
+    // so a literal --- inside a YAML value doesn't terminate the block early.
+    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     if (!frontmatterMatch) return null;
 
     const frontmatter = frontmatterMatch[1];
