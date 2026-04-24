@@ -28,14 +28,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 function stripCodeBlocks(text) {
   if (!text) return '';
 
-  // First, remove fenced code blocks (``` or ~~~)
-  // Match opening fence, optional language identifier, content (non-greedy), closing fence
-  // Uses multiline and dotall flags to match across lines
-  let result = text.replace(/^(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\1$/gm, '');
+  // Remove fenced code blocks with backticks (```...```)
+  // Matches opening fence of 3+ backticks, optional language id, content, closing fence of 3+ backticks
+  let result = text.replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}$/gm, '');
 
-  // Remove inline code (backtick-delimited)
-  // This handles single backticks (`code`) and multiple backticks (``code``)
-  result = result.replace(/`+[^`]*`+/g, '');
+  // Remove fenced code blocks with tildes (~~~...~~~)
+  // Same pattern but for tilde fences
+  result = result.replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}$/gm, '');
+
+  // Remove inline code with balanced backticks
+  // Match 1-3 backticks, non-greedy content (no backticks), same number of closing backticks
+  // Process from longest to shortest to handle ``` before `` before `
+  result = result.replace(/```[^`]+```/g, '');
+  result = result.replace(/``[^`]+``/g, '');
+  result = result.replace(/`[^`]+`/g, '');
 
   return result;
 }
