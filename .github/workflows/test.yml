@@ -231,13 +231,13 @@ jobs:
         run: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
       - name: Run lint-codeblocks
         run: |
-          FILES=$(echo '${{ needs.detect-changes.outputs.canonical-sources }}' | jq -r '.[]' | tr '\n' ' ')
-          if [[ -z "$FILES" ]]; then
+          mapfile -t files < <(echo '${{ needs.detect-changes.outputs.canonical-sources }}' | jq -r '.[]')
+          if [[ ${#files[@]} -eq 0 ]]; then
             echo "No canonical sources to lint."
             exit 0
           fi
-          echo "Linting $FILES"
-          node scripts/ci/lint-codeblocks.mjs $FILES
+          printf 'Linting %s\n' "${files[@]}"
+          node scripts/ci/lint-codeblocks.mjs "${files[@]}"
 
   # Informational job for PRs - suggests tests but doesn't run them
   suggest-tests:
