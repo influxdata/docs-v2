@@ -2,6 +2,9 @@
  * Parse Documentation URLs from PR Description
  * Extracts docs.influxdata.com URLs and relative paths from PR body text.
  * Used when layout/asset changes require author-specified preview pages.
+ *
+ * IMPORTANT: Code blocks are stripped before URL extraction to prevent
+ * example URLs (e.g., showing broken link formats) from being deployed.
  */
 
 import { readFileSync } from 'fs';
@@ -10,6 +13,38 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Strip code blocks from text to prevent extracting example URLs
+ * that appear in code blocks (e.g., showing broken link formats).
+ *
+ * Removes:
+ * - Fenced code blocks (```...``` or ~~~...~~~)
+ * - Inline code (`...`)
+ *
+ * @param {string} text - Text that may contain code blocks
+ * @returns {string} - Text with code blocks removed
+ */
+function stripCodeBlocks(text) {
+  if (!text) return '';
+
+  // Remove fenced code blocks with backticks (```...```)
+  // Matches opening fence of 3+ backticks, optional language id, content, closing fence of 3+ backticks
+  let result = text.replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}$/gm, '');
+
+  // Remove fenced code blocks with tildes (~~~...~~~)
+  // Same pattern but for tilde fences
+  result = result.replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}$/gm, '');
+
+  // Remove inline code with balanced backticks
+  // Match 1-3 backticks, non-greedy content (no backticks), same number of closing backticks
+  // Process from longest to shortest to handle ``` before `` before `
+  result = result.replace(/```[^`]+```/g, '');
+  result = result.replace(/``[^`]+``/g, '');
+  result = result.replace(/`[^`]+`/g, '');
+
+  return result;
+}
 
 /**
  * Load valid product namespaces from products.yml
@@ -100,6 +135,10 @@ const RELATIVE_PATTERN = buildRelativePattern();
 export function extractDocsUrls(text) {
   if (!text) return [];
 
+  // Strip code blocks to prevent extracting example URLs
+  // (e.g., URLs shown as examples of broken link formats)
+  const cleanText = stripCodeBlocks(text);
+
   const urls = new Set();
 
   // Pattern 1: Full production URLs
@@ -107,7 +146,7 @@ export function extractDocsUrls(text) {
   // https://docs.influxdata.com/ (home page)
   const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']*)/g;
   let match;
-  while ((match = prodUrlPattern.exec(text)) !== null) {
+  while ((match = prodUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -118,7 +157,7 @@ export function extractDocsUrls(text) {
   // http://localhost:1313/influxdb3/core/
   // http://localhost:1313/ (home page)
   const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']*)/g;
-  while ((match = localUrlPattern.exec(text)) !== null) {
+  while ((match = localUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -129,7 +168,7 @@ export function extractDocsUrls(text) {
   // /influxdb3/core/admin/ or /telegraf/v1/plugins/
   // Reset lastIndex to ensure fresh matching
   RELATIVE_PATTERN.lastIndex = 0;
-  while ((match = RELATIVE_PATTERN.exec(text)) !== null) {
+  while ((match = RELATIVE_PATTERN.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
