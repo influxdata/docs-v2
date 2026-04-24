@@ -1,7 +1,8 @@
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import remarkFrontmatter from 'remark-frontmatter';
 
-const parser = unified().use(remarkParse);
+const parser = unified().use(remarkParse).use(remarkFrontmatter);
 
 const LANG_ALIASES = {
   bash: 'bash', sh: 'bash', shell: 'bash', zsh: 'bash',

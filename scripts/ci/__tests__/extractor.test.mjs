@@ -72,6 +72,15 @@ test('finds fences inside blockquotes and lists (DFS walk)', () => {
   assert.equal(json.value, '{"inside": "quote"}');
 });
 
+test('does not pick up fenced blocks inside YAML frontmatter', () => {
+  // A description: | scalar with a ```json fence inside must not be linted.
+  // Only the real code block in the page body should be extracted.
+  const blocks = extractCodeBlocks(fx('frontmatter-code.md'));
+  assert.equal(blocks.length, 1);
+  assert.equal(blocks[0].lang, 'json');
+  assert.equal(blocks[0].value, '{"ok": true}');
+});
+
 test('HTML comment strip is line-preserving: code after a comment maps to the right MD line', () => {
   // Block content: line 1 = comment, line 2 = real code.
   // Without line-preserving strip, line 2 would map to MD line = openFence+1
