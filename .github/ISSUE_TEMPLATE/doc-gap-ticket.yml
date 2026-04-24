@@ -12,8 +12,6 @@ body:
         Use this template to file documentation gaps identified through API spec analysis,
         user feedback, or manual review.
 
-        **Tip:** Gaps auto-detected by the release pipeline are filed automatically with
-        pre-populated fields. Use this template only for gaps discovered outside the pipeline.
 
   - type: dropdown
     id: severity
