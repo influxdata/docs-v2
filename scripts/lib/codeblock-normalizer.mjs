@@ -24,7 +24,14 @@ function identifierSub(code, token) {
 }
 
 function quotedSub(code, token) {
-  return code.replace(new RegExp(`\\b${escapeRegex(token)}\\b`, 'g'), `"${token}_placeholder_ci"`);
+  const escaped = escapeRegex(token);
+  // Match "TOKEN" (already quoted) OR bare TOKEN, replacing with a quoted
+  // sentinel in both cases. This avoids producing ""TOKEN_ci"" when the token
+  // already appears inside a JSON/YAML/TOML string value.
+  return code.replace(
+    new RegExp(`"${escaped}"|\\b${escaped}\\b`, 'g'),
+    `"${token}_placeholder_ci"`,
+  );
 }
 
 const PLACEHOLDER_SUB = {
@@ -51,10 +58,14 @@ const SHORTCODE_REPLACEMENT = {
   bash: ': SHORTCODE',
   python: '__SHORTCODE__',
   javascript: '__SHORTCODE__',
-  json: '"__SHORTCODE__"',
-  jsonl: '"__SHORTCODE__"',
-  yaml: '"__SHORTCODE__"',
-  toml: '"__SHORTCODE__"',
+  // Use an unquoted literal (0) for strict-parse languages so the replacement
+  // is valid both as a bare value and inside an existing quoted string.
+  // "{{< host >}}/api" → "0/api" (still a valid string),
+  // not ""__SHORTCODE__"/api" (double-quoted, invalid).
+  json: '0',
+  jsonl: '0',
+  yaml: '0',
+  toml: '0',
 };
 
 function stripShortcodes(code, lang) {

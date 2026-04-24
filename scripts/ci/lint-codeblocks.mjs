@@ -99,6 +99,7 @@ async function main(files) {
       md = readFileSync(file, 'utf8');
     } catch (err) {
       process.stdout.write(`  - canonical source not readable: ${err.message}\n`);
+      gh('warning', file, 1, `canonical source not readable: ${err.message}`);
       process.stdout.write(`::endgroup::\n`);
       continue;
     }

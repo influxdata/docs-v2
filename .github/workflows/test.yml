@@ -213,7 +213,7 @@ jobs:
   # Parse/compile-only lint for code blocks in changed content.
   # Runs on every PR that touches content. Fails the job for JSON/YAML/TOML
   # parse errors; bash/python/javascript failures emit ::warning:: annotations.
-  # See PLAN_CODE_BLOCK_LINTING.md for the design.
+  # See DOCS-TESTING.md § "Parse/compile code-block lint" for the design.
   lint-codeblocks:
     name: Lint code blocks
     needs: detect-changes

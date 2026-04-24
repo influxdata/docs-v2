@@ -331,7 +331,9 @@ the full picture.
 
 - Fence attributes like `{ placeholders="TOKEN_NAME|DURATION" }` —
   declared tokens are substituted with language-safe stand-ins before
-  parsing.
+  parsing. `|` is the literal delimiter between token names; regex-style
+  groupings like `DATABASE_(TOKEN|NAME)` are not supported — list each
+  token name separately: `placeholders="DATABASE_TOKEN|DATABASE_NAME"`.
 - Hugo shortcodes inside fences (`{{% foo %}}`) — stripped with a
   language-safe replacement.
 
