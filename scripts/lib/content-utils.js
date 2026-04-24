@@ -244,7 +244,8 @@ export function getSourceFromFrontmatter(filePath) {
     if (!frontmatterMatch) return null;
 
     const frontmatter = frontmatterMatch[1];
-    const sourceMatch = frontmatter.match(/^source:\s*["']?(\S+)["']?\s*$/m);
+    // Allow optional trailing inline YAML comment: source: /shared/x.md # note
+    const sourceMatch = frontmatter.match(/^source:\s*["']?(\S+?)["']?\s*(?:#.*)?$/m);
     if (!sourceMatch) return null;
 
     const sourcePath = sourceMatch[1].trim();

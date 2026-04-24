@@ -38,9 +38,11 @@ test('parses placeholders attribute into array', () => {
   assert.deepEqual(blocks[1].placeholders, []);
 });
 
-test('strips HTML comments from block body', () => {
+test('strips HTML comments from block body, preserving line count', () => {
   const blocks = extractCodeBlocks(fx('html-comments.md'));
-  assert.equal(blocks[0].value, 'echo hi');
+  // Comment is on its own line; replaced with '' (0 newlines in comment).
+  // The newline after the comment is preserved, so value starts with '\n'.
+  assert.equal(blocks[0].value, '\necho hi');
 });
 
 test('joins continuation-marked fences into one logical unit', () => {
@@ -68,6 +70,29 @@ test('finds fences inside blockquotes and lists (DFS walk)', () => {
   assert.ok(langs.includes('bash'), `expected bash among langs, got ${JSON.stringify(langs)}`);
   const json = blocks.find((b) => b.lang === 'json');
   assert.equal(json.value, '{"inside": "quote"}');
+});
+
+test('HTML comment strip is line-preserving: code after a comment maps to the right MD line', () => {
+  // Block content: line 1 = comment, line 2 = real code.
+  // Without line-preserving strip, line 2 would map to MD line = openFence+1
+  // instead of openFence+2, producing a wrong annotation.
+  const md = '```bash\n<!--pytest.mark.skip-->\necho hi\n```\n';
+  const [block] = extractCodeBlocks(md);
+  // After line-preserving strip the comment becomes '\n', so block.value
+  // is '\necho hi'. Code line 2 (echo hi) must map to MD line 3.
+  assert.equal(block.startLine, 1);       // opening fence
+  assert.equal(mapCodeLineToFileLine(block, 2), 3); // echo hi is on MD line 3
+});
+
+test('expected-output skip does not swallow a subsequent labeled fence', () => {
+  // After an expected-output marker, only the immediately following unlabeled
+  // fence should be skipped. A labeled fence later must still be included.
+  const md = fx('expected-output-then-labeled.md');
+  const blocks = extractCodeBlocks(md);
+  assert.equal(blocks.length, 2);
+  assert.equal(blocks[0].lang, 'python');
+  assert.equal(blocks[1].lang, 'json');  // must not be skipped
+  assert.equal(blocks[1].value, '{"ok": true}');
 });
 
 import { mapCodeLineToFileLine } from '../../lib/codeblock-extractor.mjs';

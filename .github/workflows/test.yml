@@ -57,7 +57,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Analyze changes and determine products
         id: check
@@ -333,7 +333,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Install dependencies

@@ -28,7 +28,9 @@ function parsePlaceholders(meta) {
 }
 
 function stripHtmlComments(s) {
-  return s.replace(/<!--[\s\S]*?-->/g, '').replace(/^\n+/, '').trimEnd();
+  // Replace each comment with the same number of newlines it contained so
+  // that content line offsets are preserved for mapCodeLineToFileLine.
+  return s.replace(/<!--[\s\S]*?-->/g, (match) => '\n'.repeat((match.match(/\n/g) || []).length));
 }
 
 function countLines(s) {
@@ -103,7 +105,10 @@ export function extractCodeBlocks(markdown) {
     const item = items[i];
     if (item.kind === 'expected') { skipNext = true; continue; }
     if (item.kind === 'cont') continue;
-    if (skipNext) { skipNext = false; continue; }
+    // Only skip unlabeled fences (rawLang == null): expected-output fences are
+    // always unlabeled, so this avoids accidentally skipping a real labeled
+    // code block that appears later in the file.
+    if (skipNext) { skipNext = false; if (item.rawLang == null) continue; }
     const prevItem = items[i - 1];
     const prev = out[out.length - 1];
     if (prev && prevItem && prevItem.kind === 'cont') {
