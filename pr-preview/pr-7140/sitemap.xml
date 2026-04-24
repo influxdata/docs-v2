@@ -27305,7 +27305,7 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/core/tags/api/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/enterprise/tags/api/</loc>
         <lastmod>2026-04-20T11:26:19-05:00</lastmod>
       </url>
     
@@ -27319,7 +27319,7 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/enterprise/tags/api/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/core/tags/api/</loc>
         <lastmod>2026-04-20T11:26:19-05:00</lastmod>
       </url>
     
@@ -27753,15 +27753,15 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/core/tags/cli/</loc>
-        <lastmod>2025-09-11T16:18:12-05:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/clustered/tags/cli/</loc>
+        <lastmod>2025-08-13T14:19:54+00:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/clustered/tags/cli/</loc>
-        <lastmod>2025-08-13T14:19:54+00:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/core/tags/cli/</loc>
+        <lastmod>2025-09-11T16:18:12-05:00</lastmod>
       </url>
     
   
@@ -28278,14 +28278,14 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/dbrp/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/dbrp/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/dbrp/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/dbrp/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
@@ -30126,8 +30126,8 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/influxql/</loc>
-        <lastmod>2025-04-02T15:54:32-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/influxql/</loc>
+        <lastmod>2025-07-08T00:31:49-05:00</lastmod>
       </url>
     
   
@@ -30147,15 +30147,15 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/influxql/</loc>
-        <lastmod>2025-07-08T00:31:49-05:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/enterprise/tags/influxql/</loc>
+        <lastmod>2025-12-27T15:01:20-06:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb3/enterprise/tags/influxql/</loc>
-        <lastmod>2025-12-27T15:01:20-06:00</lastmod>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/influxql/</loc>
+        <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
   
@@ -30476,14 +30476,14 @@
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/javascript/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/javascript/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
   
     
       <url>
-        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/v2/tags/javascript/</loc>
+        <loc>https://influxdata.github.io/docs-v2/pr-preview/pr-7140/influxdb/cloud/tags/javascript/</loc>
         <lastmod>2025-04-02T15:54:32-06:00</lastmod>
       </url>
     
