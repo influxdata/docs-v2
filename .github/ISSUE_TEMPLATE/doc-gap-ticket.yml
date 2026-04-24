@@ -1,0 +1,162 @@
+name: Documentation Gap
+description: Track a documentation gap identified from API spec delta analysis.
+title: "Doc gap [SEVERITY]: [OPERATION_ID] — [PRODUCT] [VERSION]"
+labels:
+  - source:manual
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## About this template
+
+        Use this template to file documentation gaps identified through API spec analysis,
+        user feedback, or manual review.
+
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How urgently does this gap need to be addressed?
+      options:
+        - "🔴 Critical — write/query path affecting all users"
+        - "🟠 High — core workflow, affects many users"
+        - "🟡 Medium — common feature, affects some users"
+        - "🔵 Low — edge case or rarely-used feature"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: edition_scope
+    attributes:
+      label: Edition scope
+      description: Which InfluxDB 3 editions does this gap affect?
+      options:
+        - Both Core and Enterprise
+        - Core only
+        - Enterprise only
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change_type
+    attributes:
+      label: Change type
+      description: What kind of change created this gap?
+      options:
+        - New endpoint (added in this release)
+        - Modified endpoint (behavior changed in this release)
+        - Removed endpoint (doc page references a deleted endpoint)
+        - Existing gap (endpoint has been undocumented across releases)
+    validations:
+      required: true
+
+  - type: input
+    id: operation_id
+    attributes:
+      label: Operation ID
+      description: The OpenAPI operationId for the affected endpoint.
+      placeholder: "e.g. PostConfigureDatabase"
+    validations:
+      required: true
+
+  - type: input
+    id: api_path
+    attributes:
+      label: API path and method
+      description: The HTTP method and path for the endpoint.
+      placeholder: "e.g. POST /api/v3/configure/database"
+    validations:
+      required: true
+
+  - type: input
+    id: release_version
+    attributes:
+      label: Release version
+      description: The InfluxDB 3 release version where this gap was identified.
+      placeholder: "e.g. v3.9.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: spec_claim
+    attributes:
+      label: Spec claim
+      description: |
+        What does the OpenAPI spec say about this endpoint?
+        Copy the relevant summary/description from the spec, or paste a link to the spec operation.
+      placeholder: |
+        From the spec:
+        > Creates a new database with the specified name and optional retention period.
+        > Parameters: db (required), retention_period (optional)
+    validations:
+      required: true
+
+  - type: textarea
+    id: existing_coverage
+    attributes:
+      label: Existing doc coverage
+      description: |
+        Links to any existing documentation pages that partially cover this endpoint.
+        Leave blank if no existing coverage.
+      placeholder: |
+        - /influxdb3/core/admin/databases/create/ (mentions endpoint but lacks parameter docs)
+
+  - type: textarea
+    id: suggested_location
+    attributes:
+      label: Suggested documentation location
+      description: |
+        Where should the documentation for this endpoint live?
+        For shared Core/Enterprise content, use the shared content path.
+      placeholder: |
+        - content/shared/influxdb3-admin/databases/create.md (existing shared page to update)
+        - content/influxdb3/core/admin/new-feature/ (new page needed)
+
+  - type: textarea
+    id: engineering_verification
+    attributes:
+      label: Engineering verification ask
+      description: |
+        What do you need engineering to confirm before writing documentation?
+        Pre-populated with standard questions — edit as needed.
+      value: |
+        Please confirm before documentation is written:
+
+        - [ ] Is this endpoint intended for public use in the identified release version?
+        - [ ] Does this endpoint replace or extend an existing endpoint? If so, which one?
+        - [ ] What are the primary use cases for end users?
+        - [ ] Are there any known limitations, gotchas, or required prerequisites?
+        - [ ] Is the behavior identical across Core and Enterprise, or are there edition-specific differences?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: definition_of_done
+    attributes:
+      label: Definition of done
+      description: Check off each item as it is completed. All items must be checked before closing this issue.
+      options:
+        - label: Engineering confirmed the endpoint is public and stable in the identified release
+          required: false
+        - label: Doc page created or updated at the suggested location
+          required: false
+        - label: API reference entry updated (description, parameters, example request/response)
+          required: false
+        - label: Related guides updated if endpoint behavior changed
+          required: false
+        - label: Tested against the release binary (not just the spec)
+          required: false
+
+  - type: checkboxes
+    id: edition_done
+    attributes:
+      label: Edition checklist
+      description: Complete the applicable items for the affected editions.
+      options:
+        - label: Core behavior documented
+          required: false
+        - label: Enterprise-specific behavior documented (if any differences from Core)
+          required: false
+        - label: Superset relationship noted where applicable (Enterprise includes all Core changes)
+          required: false
