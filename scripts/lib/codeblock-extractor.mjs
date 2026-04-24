@@ -31,6 +31,12 @@ function stripHtmlComments(s) {
   return s.replace(/<!--[\s\S]*?-->/g, '').replace(/^\n+/, '').trimEnd();
 }
 
+function countLines(s) {
+  if (!s) return 0;
+  // Number of newline-delimited lines (matches validator line-1-indexed semantics).
+  return s.split('\n').length;
+}
+
 /**
  * Walk the mdast tree depth-first and collect `code` nodes and `html` nodes
  * matching our continuation/expected-output markers. We need DFS (not just
@@ -42,12 +48,14 @@ function collectItems(tree) {
   function walk(node) {
     if (!node) return;
     if (node.type === 'code') {
+      const value = stripHtmlComments(node.value ?? '');
       items.push({
         kind: 'code',
         rawLang: node.lang ?? null,
         lang: normalizeLang(node.lang),
         meta: node.meta ?? null,
-        value: stripHtmlComments(node.value ?? ''),
+        value,
+        contentLines: countLines(value),
         placeholders: parsePlaceholders(node.meta),
         startLine: node.position?.start?.line ?? 0,
       });
@@ -77,10 +85,12 @@ function collectItems(tree) {
 /**
  * Extract fenced code blocks from a Markdown string.
  * Joins fences separated by <!--pytest-codeblocks:cont--> into one logical
- * unit; the unit inherits the first fence's language and tracks per-part
- * line numbers in `partLines`.
+ * unit; the unit inherits the first fence's language. Each part's MD opening-
+ * fence line goes in `partLines`, each part's content-line count in
+ * `partContentLines`. Use `mapCodeLineToFileLine` to translate a validator's
+ * 1-based line (into the joined `value`) back to the original MD file line.
  * @param {string} markdown
- * @returns {Array<{rawLang: string|null, lang: string|null, meta: string|null, value: string, placeholders: string[], startLine: number, partLines: number[]}>}
+ * @returns {Array<{rawLang: string|null, lang: string|null, meta: string|null, value: string, placeholders: string[], startLine: number, partLines: number[], partContentLines: number[]}>}
  */
 export function extractCodeBlocks(markdown) {
   const tree = parser.parse(markdown);
@@ -99,10 +109,45 @@ export function extractCodeBlocks(markdown) {
     if (prev && prevItem && prevItem.kind === 'cont') {
       prev.value = prev.value + '\n' + item.value;
       prev.partLines.push(item.startLine);
+      prev.partContentLines.push(item.contentLines);
     } else {
-      const { kind, ...rest } = item;
-      out.push({ ...rest, partLines: [item.startLine] });
+      const { kind, contentLines, ...rest } = item;
+      out.push({
+        ...rest,
+        partLines: [item.startLine],
+        partContentLines: [contentLines],
+      });
     }
   }
   return out;
+}
+
+/**
+ * Map a validator's 1-based content line (into `block.value`) to the
+ * corresponding line in the original Markdown file.
+ *
+ * For a single-fence block: `partLines[0]` is the opening fence line, so
+ *   content line N lands at `partLines[0] + N`.
+ *
+ * For a continuation-joined block: walk the parts in order, accumulating
+ * content-line counts. The part whose cumulative range contains `codeLine`
+ * owns the mapping; offset = codeLine - cumulative-before-this-part.
+ *
+ * @param {{partLines: number[], partContentLines: number[]}} block
+ * @param {number} codeLine - 1-based line within block.value
+ * @returns {number} 1-based MD file line
+ */
+export function mapCodeLineToFileLine(block, codeLine) {
+  const n = Math.max(1, codeLine ?? 1);
+  let cumulative = 0;
+  for (let i = 0; i < block.partLines.length; i++) {
+    const partSize = block.partContentLines?.[i] ?? 0;
+    if (n <= cumulative + partSize || i === block.partLines.length - 1) {
+      // Opening fence is at partLines[i]; first content line is partLines[i] + 1.
+      const withinPart = n - cumulative;
+      return block.partLines[i] + withinPart;
+    }
+    cumulative += partSize;
+  }
+  return block.partLines[0] + n;
 }

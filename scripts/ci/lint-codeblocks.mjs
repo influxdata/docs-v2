@@ -2,7 +2,7 @@
 import { readFileSync, appendFileSync } from 'node:fs';
 import { cpus } from 'node:os';
 import pLimit from 'p-limit';
-import { extractCodeBlocks } from '../lib/codeblock-extractor.mjs';
+import { extractCodeBlocks, mapCodeLineToFileLine } from '../lib/codeblock-extractor.mjs';
 import { validateWithNormalization } from '../lib/codeblock-normalizer.mjs';
 import {
   resolveCanonicalSource,
@@ -133,7 +133,7 @@ async function main(files) {
       } else {
         const severity = BLOCKING_LANGS.has(block.lang) ? 'error' : 'warning';
         for (const e of res.errors) {
-          const absLine = block.startLine + (e.line ?? 1) - 1;
+          const absLine = mapCodeLineToFileLine(block, e.line ?? 1);
           process.stdout.write(`  ✗ line ${absLine}  ${block.lang}  failed: ${e.message}\n`);
           const attribution = consumerAttribution(file, consumers);
           gh(severity, file, absLine, `${block.lang}: ${e.message}${attribution}`);

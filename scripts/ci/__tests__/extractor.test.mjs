@@ -69,3 +69,44 @@ test('finds fences inside blockquotes and lists (DFS walk)', () => {
   const json = blocks.find((b) => b.lang === 'json');
   assert.equal(json.value, '{"inside": "quote"}');
 });
+
+import { mapCodeLineToFileLine } from '../../lib/codeblock-extractor.mjs';
+
+test('mapCodeLineToFileLine: code line 1 maps to startLine + 1 (not startLine)', () => {
+  const md = '# x\n\n```python\nx = 1\ny = 2\n```\n';
+  const [block] = extractCodeBlocks(md);
+  // Opening fence is at MD line 3 per remark; first content line is MD line 4.
+  assert.equal(block.startLine, 3);
+  assert.equal(mapCodeLineToFileLine(block, 1), 4);
+  assert.equal(mapCodeLineToFileLine(block, 2), 5);
+});
+
+test('mapCodeLineToFileLine: handles continuation-joined parts at non-contiguous lines', () => {
+  // Part 1 opens at MD 1, 2 content lines.
+  // Part 2 opens at MD 7 (after the cont marker and blank lines), 2 content lines.
+  const md = [
+    '```python',   // MD 1  (opens part 1)
+    'a = 1',       // MD 2
+    'b = 2',       // MD 3
+    '```',         // MD 4
+    '',            // MD 5
+    '<!--pytest-codeblocks:cont-->', // MD 6
+    '',            // MD 7
+    '```python',   // MD 8  (opens part 2)
+    'c = 3',       // MD 9
+    'd = 4',       // MD 10
+    '```',         // MD 11
+    '',
+  ].join('\n');
+  const [block] = extractCodeBlocks(md);
+  assert.equal(block.partLines.length, 2);
+  // Joined value is "a = 1\nb = 2\nc = 3\nd = 4" — 4 content lines.
+  assert.equal(block.value, 'a = 1\nb = 2\nc = 3\nd = 4');
+  // Code lines 1-2 belong to part 1 (MD 2-3).
+  assert.equal(mapCodeLineToFileLine(block, 1), block.partLines[0] + 1);
+  assert.equal(mapCodeLineToFileLine(block, 2), block.partLines[0] + 2);
+  // Code lines 3-4 belong to part 2 — NOT partLines[0] + 3/4 (which would
+  // land on the closing fence / cont marker, not the content).
+  assert.equal(mapCodeLineToFileLine(block, 3), block.partLines[1] + 1);
+  assert.equal(mapCodeLineToFileLine(block, 4), block.partLines[1] + 2);
+});
