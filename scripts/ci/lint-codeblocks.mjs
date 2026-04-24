@@ -78,6 +78,9 @@ async function main(files) {
 
   // Dedupe: map each input to its canonical source; track consumer paths
   // passed on the CLI so we can attribute shared-source failures.
+  // Consumer pages with `source:` frontmatter are stubs with no body fences,
+  // so linting only the shared canonical is sufficient. If that invariant
+  // drifts, see resolveCanonicalSource() in scripts/lib/content-utils.js.
   const canonical = new Map();
   for (const input of files) {
     const c = resolveCanonicalSource(input);

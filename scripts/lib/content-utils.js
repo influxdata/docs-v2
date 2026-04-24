@@ -275,6 +275,14 @@ export function getSourceFromFrontmatter(filePath) {
  * - If the file has `source: /shared/...` frontmatter, canonical is `content/shared/...`.
  * - Otherwise, canonical is the file itself.
  * Use this to avoid reporting the same diagnostic against multiple consumer pages.
+ *
+ * ASSUMPTION: consumer pages that declare `source:` are pure stubs — they
+ * contain no body fences of their own, only the frontmatter pointer. Linting
+ * only the shared canonical source is therefore sufficient; no consumer-page
+ * fences are silently skipped. If this invariant ever breaks (a consumer gains
+ * its own code blocks), those fences will not be linted and a drift warning
+ * should be added here.
+ *
  * @param {string} filePath - Path to a content file
  * @returns {string} Canonical source path
  */
