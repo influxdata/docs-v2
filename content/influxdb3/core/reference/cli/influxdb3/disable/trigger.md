@@ -7,7 +7,7 @@ menu:
     parent: influxdb3 disable
     name: influxdb3 disable trigger
 weight: 400
-source: content/shared/influxdb3-cli/disable/trigger.md
+source: /shared/influxdb3-cli/disable/trigger.md
 ---
 
 <!--

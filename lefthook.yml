@@ -28,6 +28,11 @@ pre-commit:
       tags: lint
       glob: "content/**/*.md"
       run: .ci/scripts/check-support-links.sh {staged_files}
+    check-source-paths:
+      tags: lint
+      glob: "content/**/*.md"
+      run: .ci/scripts/check-source-paths.sh {staged_files}
+      fail_text: "source: values must start with /shared/ (see DOCS-CONTRIBUTING.md § Shared Content)"
     check-render-hook-whitespace:
       tags: lint
       glob: "layouts/_default/_markup/render-*.html"

@@ -7,7 +7,7 @@ menu:
     parent: influxdb3 create
     name: influxdb3 create distinct_cache
 weight: 400
-source: content/shared/influxdb3-cli/create/distinct_cache.md
+source: /shared/influxdb3-cli/create/distinct_cache.md
 ---
 
 <!-- 

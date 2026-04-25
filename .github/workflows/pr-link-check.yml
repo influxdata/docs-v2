@@ -77,6 +77,12 @@ jobs:
           echo "${{ steps.detect.outputs.changed-content }}" | tr ' ' '\n' | \
             xargs -r .ci/scripts/check-support-links.sh
 
+      - name: Validate source frontmatter paths
+        if: steps.detect.outputs.has-changes == 'true'
+        run: |
+          echo "${{ steps.detect.outputs.changed-content }}" | tr ' ' '\n' | \
+            xargs -r .ci/scripts/check-source-paths.sh
+
       - name: Setup Node.js
         if: steps.detect.outputs.has-changes == 'true'
         uses: actions/setup-node@v6
