@@ -39,10 +39,14 @@ for file in "${md_files[@]}"; do
     in_fm && /^---[[:space:]]*$/ { exit }
     in_fm && /^source:/ {
       sub(/^source:[[:space:]]*/, "")
+      # Strip trailing inline YAML comment (# ...) BEFORE quote-stripping,
+      # so quoted values with trailing comments leave the closing quote
+      # adjacent to the value rather than separated by the comment.
+      sub(/[[:space:]]+#.*$/, "")
+      # Trim trailing whitespace
+      sub(/[[:space:]]+$/, "")
       # Strip optional surrounding quotes
       gsub(/^["'"'"']|["'"'"']$/, "")
-      # Strip trailing inline YAML comment (# ...)
-      sub(/[[:space:]]+#.*$/, "")
       print
       exit
     }
