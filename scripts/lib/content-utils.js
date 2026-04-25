@@ -13,7 +13,7 @@
  * - cypress/support/map-files-to-urls.js (test file mapping)
  */
 
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 import { existsSync, readFileSync } from 'fs';
 
 /**
@@ -21,17 +21,23 @@ import { existsSync, readFileSync } from 'fs';
  * @param {string} sharedFilePath - Path to shared file (e.g., 'content/shared/sql-reference/_index.md')
  * @returns {string[]} Array of content file paths that reference this shared file
  */
-export function findPagesReferencingSharedContent(sharedFilePath) {
+export function findPagesReferencingSharedContent(sharedFilePath, { searchRoot = 'content/' } = {}) {
   try {
     // Remove leading "content/" to match frontmatter format (source: /shared/...)
     const relativePath = sharedFilePath.replace(/^content\//, '');
 
-    // Use fixed-string matching (-F) to avoid treating path characters (dots,
-    // slashes) as regex metacharacters. Match both source: /shared/... and
-    // source: shared/... forms with two -e patterns.
-    const grepCmd = `grep -rFl -e "source: /${relativePath}" -e "source: ${relativePath}" --include="*.md" --include="*.html" content/`;
-
-    const result = execSync(grepCmd, {
+    // Use execFileSync with an explicit args array to avoid shell-quoting
+    // issues with unusual filenames. Fixed-string matching (-F) avoids
+    // treating path characters (dots, slashes) as regex metacharacters.
+    // Two -e patterns cover both source: /shared/... and source: shared/... forms.
+    const result = execFileSync('grep', [
+      '-rFl',
+      '-e', `source: /${relativePath}`,
+      '-e', `source: ${relativePath}`,
+      '--include=*.md',
+      '--include=*.html',
+      searchRoot,
+    ], {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();

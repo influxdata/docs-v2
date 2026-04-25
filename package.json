@@ -128,7 +128,7 @@
     "not IE 11"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
   },
   "directories": {
     "test": "test"

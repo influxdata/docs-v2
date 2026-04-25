@@ -39,28 +39,25 @@ test('does not match source: inside fenced YAML blocks', async () => {
   assert.equal(r, file, 'should return self, not the bogus in-fence match');
 });
 
-test('findPagesReferencingSharedContent excludes prose mentions of source:', async () => {
-  // grep -rFl matches anywhere in the file; post-filtering must discard files
-  // where "source: /shared/x.md" appears only in prose or code examples.
+test('findPagesReferencingSharedContent returns true consumers and excludes prose mentions', async () => {
+  // Verifies the full function: grep coarse-filters, getSourceFromFrontmatter
+  // post-filters so prose/code mentions of source: are not counted as consumers.
+  const { findPagesReferencingSharedContent } = await import('../../lib/content-utils.js');
   const dir = mkdtempSync(join(tmpdir(), 'find-consumers-'));
   try {
+    // Real consumer: source: in frontmatter resolving to the shared file.
+    // The shared path must start with content/shared/ for normalization to work.
     const sharedPath = 'content/shared/example.md';
-
-    // Real consumer: source: in frontmatter
     const consumer = join(dir, 'consumer.md');
     writeFileSync(consumer, `---\nsource: /shared/example.md\n---\n\nBody.\n`);
 
-    // False positive: source: only in prose, not frontmatter
+    // False positive: source: appears only in prose, not in frontmatter.
     const prose = join(dir, 'prose.md');
-    writeFileSync(prose, `---\ntitle: Example\n---\n\nSee \`source: /shared/example.md\` for details.\n`);
+    writeFileSync(prose, `---\ntitle: Example\n---\n\nSee \`source: /shared/example.md\` in the docs.\n`);
 
-    // findPagesReferencingSharedContent greps inside content/ — we need to
-    // mock its grep scope. Since it hard-codes "content/", we test the
-    // post-filter logic indirectly via getSourceFromFrontmatter equality:
-    // a file whose getSourceFromFrontmatter !== sharedPath must be excluded.
-    const { getSourceFromFrontmatter } = await import('../../lib/content-utils.js');
-    assert.equal(getSourceFromFrontmatter(consumer), sharedPath, 'consumer resolves correctly');
-    assert.notEqual(getSourceFromFrontmatter(prose), sharedPath, 'prose file does not resolve to shared path');
+    const results = findPagesReferencingSharedContent(sharedPath, { searchRoot: dir });
+    assert.ok(results.includes(consumer), 'true consumer should be returned');
+    assert.ok(!results.includes(prose), 'prose mention should be excluded');
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

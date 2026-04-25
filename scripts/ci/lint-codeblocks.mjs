@@ -22,7 +22,7 @@ function gh(severity, file, line, message) {
   process.stdout.write(`::${severity} file=${file},line=${line}::${escapeGitHubCommandMessage(message)}\n`);
 }
 
-function consumerAttribution(file, knownConsumers) {
+function buildAttribution(file, knownConsumers) {
   if (!file.startsWith('content/shared/')) return '';
   const refs = knownConsumers.length ? knownConsumers : findPagesReferencingSharedContent(file);
   if (!refs.length) return '';
@@ -106,6 +106,8 @@ async function main(files) {
       process.stdout.write(`::endgroup::\n`);
       continue;
     }
+    // Compute once per file — shared-file grep can be expensive.
+    const attribution = buildAttribution(file, consumers);
     const blocks = extractCodeBlocks(md);
     // Run validators concurrently under p-limit, then report results in
     // document order. Awaiting each call inside the loop serialized the
@@ -139,7 +141,6 @@ async function main(files) {
         for (const e of res.errors) {
           const absLine = mapCodeLineToFileLine(block, e.line ?? 1);
           process.stdout.write(`  ✗ line ${absLine}  ${block.lang}  failed: ${e.message}\n`);
-          const attribution = consumerAttribution(file, consumers);
           gh(severity, file, absLine, `${block.lang}: ${e.message}${attribution}`);
           const row = { file, line: absLine, lang: block.lang, message: e.message };
           if (severity === 'error') errorRows.push(row);
