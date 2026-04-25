@@ -41,6 +41,8 @@ for file in "${md_files[@]}"; do
       sub(/^source:[[:space:]]*/, "")
       # Strip optional surrounding quotes
       gsub(/^["'"'"']|["'"'"']$/, "")
+      # Strip trailing inline YAML comment (# ...)
+      sub(/[[:space:]]+#.*$/, "")
       print
       exit
     }

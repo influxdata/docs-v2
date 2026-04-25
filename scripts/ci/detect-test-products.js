@@ -16,7 +16,6 @@
  * 4. Outputs JSON with products array and expanded files array
  */
 
-import { existsSync } from 'node:fs';
 import { expandSharedContentChanges, resolveCanonicalSource } from '../lib/content-utils.js';
 
 // Product path mappings
@@ -93,10 +92,15 @@ async function main() {
   // Only include paths under content/ — if frontmatter parsing returns
   // something outside that, skip it rather than hand the linter an
   // unreadable path.
+  //
+  // NOTE: we intentionally do NOT filter by existsSync here. A missing
+  // canonical (broken source: path, or a file deleted in this PR) should
+  // reach lint-codeblocks.mjs, which already emits ::warning:: for
+  // unreadable sources. Filtering here would silently suppress that signal.
   const canonicalSet = new Set();
   for (const file of changedFiles) {
     const canonical = resolveCanonicalSource(file);
-    if (canonical.startsWith('content/') && existsSync(canonical)) {
+    if (canonical.startsWith('content/')) {
       canonicalSet.add(canonical);
     }
   }

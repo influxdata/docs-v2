@@ -94,7 +94,7 @@ content/
 ```yaml
 ---
 title: Database Management
-source: /content/shared/influxdb3/admin/databases.md
+source: /shared/influxdb3/admin/databases.md
 ---
 ```
 
@@ -145,7 +145,7 @@ function isSharedContent(filePath) {
 function getSharedSource(filePath) {
   const content = readFileSync(filePath, 'utf8');
   const { data } = matter(content);
-  return data.source; // e.g., "/content/shared/influxdb3/admin/databases.md"
+  return data.source; // e.g., "/shared/influxdb3/admin/databases.md"
 }
 ```
 
@@ -542,7 +542,7 @@ yarn hugo
 
 ```bash
 # Find pages that reference the shared file
-grep -r "source: /content/shared/path/to/file.md" content/
+grep -r "source: /shared/path/to/file.md" content/
 
 # Touch each one
 touch content/influxdb3/core/path/to/file.md
