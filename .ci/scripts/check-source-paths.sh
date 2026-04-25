@@ -39,14 +39,24 @@ for file in "${md_files[@]}"; do
     in_fm && /^---[[:space:]]*$/ { exit }
     in_fm && /^source:/ {
       sub(/^source:[[:space:]]*/, "")
-      # Strip trailing inline YAML comment (# ...) BEFORE quote-stripping,
-      # so quoted values with trailing comments leave the closing quote
-      # adjacent to the value rather than separated by the comment.
-      sub(/[[:space:]]+#.*$/, "")
-      # Trim trailing whitespace
       sub(/[[:space:]]+$/, "")
-      # Strip optional surrounding quotes
-      gsub(/^["'"'"']|["'"'"']$/, "")
+      # Quote-aware extraction:
+      #   "value"  [# trailing comment]   → keep inner text verbatim
+      #   'value'  [# trailing comment]   → keep inner text verbatim
+      #   value    [# trailing comment]   → strip trailing comment
+      # Only strip surrounding quotes when both ends match — leaves
+      # malformed quoting (missing closing quote) intact so it surfaces
+      # as a violation rather than being silently "repaired".
+      if (match($0, /^"[^"]*"([[:space:]]+#.*)?$/)) {
+        sub(/^"/, "")
+        sub(/"([[:space:]]+#.*)?$/, "")
+      } else if (match($0, /^'"'"'[^'"'"']*'"'"'([[:space:]]+#.*)?$/)) {
+        sub(/^'"'"'/, "")
+        sub(/'"'"'([[:space:]]+#.*)?$/, "")
+      } else {
+        sub(/[[:space:]]+#.*$/, "")
+        sub(/[[:space:]]+$/, "")
+      }
       print
       exit
     }
