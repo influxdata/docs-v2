@@ -36,7 +36,13 @@ export function findPagesReferencingSharedContent(sharedFilePath) {
       stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
 
-    return result ? result.split('\n').filter(Boolean) : [];
+    const candidates = result ? result.split('\n').filter(Boolean) : [];
+
+    // Post-filter: grep matches anywhere in the file; verify the match is
+    // actually in the frontmatter source: field, not prose or a code example.
+    return candidates.filter(
+      (f) => getSourceFromFrontmatter(f) === sharedFilePath
+    );
   } catch (err) {
     // grep returns exit code 1 when no matches found
     if (err.status === 1) {
