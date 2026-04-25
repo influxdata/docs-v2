@@ -29,11 +29,15 @@ export function findPagesReferencingSharedContent(sharedFilePath, { searchRoot =
     // Use execFileSync with an explicit args array to avoid shell-quoting
     // issues with unusual filenames. Fixed-string matching (-F) avoids
     // treating path characters (dots, slashes) as regex metacharacters.
-    // Two -e patterns cover both source: /shared/... and source: shared/... forms.
+    // Three -e patterns cover all known source: variants:
+    //   source: /shared/...          (common)
+    //   source: shared/...           (unslashed)
+    //   source: /content/shared/...  (repo-relative with leading /content)
     const result = execFileSync('grep', [
       '-rFl',
       '-e', `source: /${relativePath}`,
       '-e', `source: ${relativePath}`,
+      '-e', `source: /content/${relativePath}`,
       '--include=*.md',
       '--include=*.html',
       searchRoot,
@@ -237,8 +241,9 @@ export function categorizeContentFiles(files) {
  * Used to find the shared content file that a page includes.
  * Matches only within the top-of-file frontmatter block (between `---`
  * delimiters) to avoid false positives from `source:` lines inside fenced
- * YAML or prose examples. Normalizes both `/shared/...` and `shared/...`
- * forms to `content/shared/...`.
+ * YAML or prose examples. Normalizes all known source: forms to
+ * `content/shared/...`: `/shared/...`, `shared/...`, `content/shared/...`,
+ * and `/content/shared/...`.
  * @param {string} filePath - Path to the content file
  * @returns {string|null} The source path (e.g., 'content/shared/sql-reference/_index.md') or null
  */
@@ -264,12 +269,15 @@ export function getSourceFromFrontmatter(filePath) {
     if (!sourceMatch) return null;
 
     const sourcePath = sourceMatch[1].trim();
-    // Normalize to content/ prefix format:
-    // - `/shared/foo.md` → `content/shared/foo.md`
-    // - `shared/foo.md`  → `content/shared/foo.md`
-    // - `content/shared/foo.md` → unchanged
+    // Normalize to content/ prefix format. Known variants in this repo:
+    // - `/shared/foo.md`         → `content/shared/foo.md`
+    // - `/content/shared/foo.md` → `content/shared/foo.md`  (strip leading /)
+    // - `shared/foo.md`          → `content/shared/foo.md`
+    // - `content/shared/foo.md`  → unchanged
     if (sourcePath.startsWith('/')) {
-      return `content${sourcePath}`;
+      // Strip the leading slash; the remainder is already repo-relative.
+      const stripped = sourcePath.slice(1);
+      return stripped.startsWith('content/') ? stripped : `content/${stripped}`;
     }
     if (sourcePath.startsWith('shared/')) {
       return `content/${sourcePath}`;

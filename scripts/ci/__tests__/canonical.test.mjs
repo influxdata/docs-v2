@@ -63,6 +63,20 @@ test('findPagesReferencingSharedContent returns true consumers and excludes pros
   }
 });
 
+test('normalizes source: /content/shared/... to content/shared/... (not content/content/)', async () => {
+  // Regression: sourcePath.startsWith('/') was blindly prepending 'content',
+  // turning /content/shared/x into content/content/shared/x (nonexistent).
+  const { writeFileSync, mkdtempSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const { tmpdir } = await import('node:os');
+  const dir = mkdtempSync(join(tmpdir(), 'canonical-'));
+  const file = join(dir, 'page.md');
+  writeFileSync(file, '---\nsource: /content/shared/v3-process-data/downsample/quix.md\n---\n\nBody.\n');
+  const r = resolveCanonicalSource(file);
+  assert.equal(r, 'content/shared/v3-process-data/downsample/quix.md');
+  assert.ok(!r.includes('content/content/'), 'must not double-prefix with content/content/');
+});
+
 test('handles unslashed source: shared/... form', async () => {
   const { writeFileSync, mkdtempSync } = await import('node:fs');
   const { join } = await import('node:path');
