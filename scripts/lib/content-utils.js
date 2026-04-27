@@ -29,19 +29,29 @@ export function findPagesReferencingSharedContent(sharedFilePath, { searchRoot =
     // Use execFileSync with an explicit args array to avoid shell-quoting
     // issues with unusual filenames. Fixed-string matching (-F) avoids
     // treating path characters (dots, slashes) as regex metacharacters.
-    // Three -e patterns cover all known source: variants:
-    //   source: /shared/...          (common)
-    //   source: shared/...           (unslashed)
-    //   source: /content/shared/...  (repo-relative with leading /content)
-    const result = execFileSync('grep', [
-      '-rFl',
-      '-e', `source: /${relativePath}`,
-      '-e', `source: ${relativePath}`,
-      '-e', `source: /content/${relativePath}`,
-      '--include=*.md',
-      '--include=*.html',
-      searchRoot,
-    ], {
+    // Patterns cover all known source: variants — unquoted and quoted
+    // forms in both single and double quotes — across the three known
+    // path shapes:
+    //   /shared/...          (canonical, common)
+    //   shared/...           (unslashed)
+    //   /content/shared/...  (repo-relative with leading /content)
+    // The post-filter (getSourceFromFrontmatter ===) is the source of
+    // truth; grep is just a coarse prefilter to avoid scanning every
+    // file's frontmatter. Missing a quoted form here would silently
+    // drop true consumers, so cover all combinations.
+    const grepArgs = ['-rFl'];
+    for (const path of [
+      `/${relativePath}`,
+      relativePath,
+      `/content/${relativePath}`,
+    ]) {
+      grepArgs.push('-e', `source: ${path}`);
+      grepArgs.push('-e', `source: "${path}"`);
+      grepArgs.push('-e', `source: '${path}'`);
+    }
+    grepArgs.push('--include=*.md', '--include=*.html', searchRoot);
+
+    const result = execFileSync('grep', grepArgs, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();

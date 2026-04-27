@@ -40,6 +40,31 @@ test('does not match source: inside fenced YAML blocks', async () => {
   assert.equal(r, file, 'should return self, not the bogus in-fence match');
 });
 
+test('findPagesReferencingSharedContent finds consumers using quoted source: values', () => {
+  // Regression: the grep prefilter previously matched only unquoted
+  // `source: /shared/...`, missing pages that quote the value:
+  //   source: "/shared/foo.md"
+  //   source: '/shared/foo.md'
+  // No content pages currently use quoted source values, but the
+  // prefilter must cover them so adding one in the future doesn't
+  // silently drop the consumer from shared-content expansion.
+  const sharedPath = 'content/shared/example.md';
+  const dir = mkdtempSync(join(tmpdir(), 'quoted-consumers-'));
+  try {
+    const dq = join(dir, 'double-quoted.md');
+    writeFileSync(dq, `---\nsource: "/shared/example.md"\n---\n\nBody.\n`);
+
+    const sq = join(dir, 'single-quoted.md');
+    writeFileSync(sq, `---\nsource: '/shared/example.md'\n---\n\nBody.\n`);
+
+    const results = findPagesReferencingSharedContent(sharedPath, { searchRoot: dir });
+    assert.ok(results.includes(dq), 'double-quoted consumer should be found');
+    assert.ok(results.includes(sq), 'single-quoted consumer should be found');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('findPagesReferencingSharedContent returns true consumers and excludes prose mentions', async () => {
   // Verifies the full function: grep coarse-filters, getSourceFromFrontmatter
   // post-filters so prose/code mentions of source: are not counted as consumers.
@@ -168,6 +193,10 @@ test('CONTRACT: bash and JS source: parsers agree on YAML shape acceptance', () 
     { name: 'plain with trailing comment', fm: '---\nsource: /shared/foo.md  # note\n---\n', expectPath: 'content/shared/foo.md' },
     { name: 'quoted with literal #', fm: '---\nsource: "/shared/has#hash.md"\n---\n', expectPath: 'content/shared/has#hash.md' },
     { name: 'plain with mid-value #', fm: '---\nsource: /shared/has#hash.md\n---\n', expectPath: 'content/shared/has#hash.md' },
+    // Lenient YAML: js-yaml accepts no-space before # after a closing quote.
+    // Both implementations must follow that lenient interpretation.
+    { name: 'double-quoted, no-space comment', fm: '---\nsource: "/shared/foo.md"#note\n---\n', expectPath: 'content/shared/foo.md' },
+    { name: 'single-quoted, no-space comment', fm: "---\nsource: '/shared/foo.md'#note\n---\n", expectPath: 'content/shared/foo.md' },
   ];
 
   // YAML-invalid shapes: both must reject.

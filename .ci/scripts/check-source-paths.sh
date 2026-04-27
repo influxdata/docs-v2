@@ -47,18 +47,29 @@ for file in "${md_files[@]}"; do
       sub(/^source:[[:space:]]*/, "")
       sub(/[[:space:]]+$/, "")
       # Quote-aware extraction:
-      #   "value"  [# trailing comment]   → keep inner text verbatim
-      #   'value'  [# trailing comment]   → keep inner text verbatim
-      #   value    [# trailing comment]   → strip trailing comment
-      # Only strip surrounding quotes when both ends match — leaves
-      # malformed quoting (missing closing quote) intact so it surfaces
-      # as a violation rather than being silently "repaired".
-      if (match($0, /^"[^"]*"([[:space:]]+#.*)?$/)) {
+      #   "value"[ws]?[# trailing comment]   → keep inner text verbatim
+      #   'value'[ws]?[# trailing comment]   → keep inner text verbatim
+      #   value   [ws]+[# trailing comment]  → strip trailing comment
+      #
+      # For quoted values, whitespace before # is optional (matches the
+      # lenient behavior of js-yaml and the JS regex in
+      # scripts/lib/content-utils.js getSourceFromFrontmatter — both
+      # accept `source: "/shared/foo.md"#note`).
+      #
+      # For unquoted plain scalars, whitespace before # is REQUIRED —
+      # foo#bar is a literal value, foo #bar has trailing comment #bar.
+      #
+      # Quotes are only stripped when both ends match — malformed quoting
+      # (missing closing quote) falls through to the unquoted branch,
+      # leaving the leading quote intact so the canonical-form check
+      # below flags it as a violation rather than silently "repairing"
+      # broken YAML.
+      if (match($0, /^"[^"]*"([[:space:]]*#.*)?$/)) {
         sub(/^"/, "")
-        sub(/"([[:space:]]+#.*)?$/, "")
-      } else if (match($0, /^'"'"'[^'"'"']*'"'"'([[:space:]]+#.*)?$/)) {
+        sub(/"([[:space:]]*#.*)?$/, "")
+      } else if (match($0, /^'"'"'[^'"'"']*'"'"'([[:space:]]*#.*)?$/)) {
         sub(/^'"'"'/, "")
-        sub(/'"'"'([[:space:]]+#.*)?$/, "")
+        sub(/'"'"'([[:space:]]*#.*)?$/, "")
       } else {
         sub(/[[:space:]]+#.*$/, "")
         sub(/[[:space:]]+$/, "")
