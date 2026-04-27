@@ -64,8 +64,7 @@ tags:
 
       ### Migration guides
 
-      - [Migrate from InfluxDB v1](/influxdb3/core/guides/migrate/influxdb-1x/) - For users migrating from InfluxDB 1.x
-      - [Migrate from InfluxDB v2](/influxdb3/core/guides/migrate/influxdb-2x/) - For users migrating from InfluxDB 2.x or Cloud
+      - [Migrate from InfluxDB v1 or v2](/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/) - For users migrating from InfluxDB 1.x, 2.x, or Cloud
       - [Use compatibility APIs to write data](/influxdb3/core/write-data/http-api/compatibility-apis/) - v1 and v2 write endpoints
       - [Use the v1 HTTP query API](/influxdb3/core/query-data/execute-queries/influxdb-v1-api/) - InfluxQL queries via HTTP
   Database:

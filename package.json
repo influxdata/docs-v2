@@ -32,7 +32,7 @@
     "hugo-extended": ">=0.101.0",
     "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
-    "postcss": ">=8.4.31",
+    "postcss": ">=8.5.10",
     "postcss-cli": ">=9.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-sql": "^0.18.0",
