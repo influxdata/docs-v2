@@ -12,7 +12,15 @@ export function validate(code) {
       resolve(result);
     };
 
-    const proc = spawn('bash', ['-n', '/dev/stdin'], { stdio: ['pipe', 'ignore', 'pipe'] });
+    // Use `-s` to read the script from stdin rather than the `/dev/stdin`
+    // path. The `/dev/stdin` form is unreliable in some Linux CI
+    // environments (notably the GitHub Actions Ubuntu runner), where it
+    // errors with `bash: /dev/stdin: No such device or address` —
+    // masking the real syntax-error output and producing a misleading
+    // ::warning:: annotation on every bash block. `-ns` is the portable
+    // equivalent: `-s` reads the script from stdin, `-n` parses without
+    // executing. Works identically on macOS and Linux.
+    const proc = spawn('bash', ['-ns'], { stdio: ['pipe', 'ignore', 'pipe'] });
     let stderr = '';
     let timedOut = false;
     const timer = setTimeout(() => {
