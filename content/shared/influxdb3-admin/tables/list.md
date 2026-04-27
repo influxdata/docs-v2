@@ -89,7 +89,7 @@ Replace the following:
       "series": [
         {
           "name": "tables",
-          "columns": ["table_catalog", "table_schema", "table_name", "table_type"],
+          "columns": ["table_catalog", "table_schema", "table_name", "table_type",],
           "values": [
             ["public", "iox", "home", "BASE TABLE"],
             ["public", "iox", "sensors", "BASE TABLE"]
