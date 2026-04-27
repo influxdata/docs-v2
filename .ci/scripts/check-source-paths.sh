@@ -25,7 +25,13 @@ if [[ $# -gt 0 ]]; then
     exit 0
   fi
 else
-  mapfile -t md_files < <(find content/ -name "*.md" -type f)
+  # Portable across bash 3.2 (macOS system bash) — `mapfile`/`readarray` is
+  # bash 4+. Read NUL-delimited paths so filenames with embedded newlines
+  # (rare but possible) don't split incorrectly.
+  md_files=()
+  while IFS= read -r -d '' f; do
+    md_files+=("$f")
+  done < <(find content/ -name "*.md" -type f -print0)
 fi
 
 violations=()

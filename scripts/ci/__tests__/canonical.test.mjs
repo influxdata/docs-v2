@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
-import { resolveCanonicalSource, findPagesReferencingSharedContent } from '../../lib/content-utils.js';
+import { dirname, join, resolve } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { resolveCanonicalSource, findPagesReferencingSharedContent, getSourceFromFrontmatter } from '../../lib/content-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fx = (name) => join(__dirname, 'fixtures/lint', name);
@@ -118,6 +119,79 @@ test('preserves # inside quoted source: values', () => {
     const file = join(dir, 'page.md');
     writeFileSync(file, '---\nsource: "/shared/has#hash.md"\n---\n');
     assert.equal(resolveCanonicalSource(file), 'content/shared/has#hash.md');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('preserves # in unquoted plain scalars (YAML rule: # only starts a comment after whitespace)', () => {
+  // Plain scalar `foo#bar` is a literal value; `foo #bar` has trailing comment.
+  const dir = mkdtempSync(join(tmpdir(), 'hash-plain-'));
+  try {
+    const file1 = join(dir, 'inline-hash.md');
+    writeFileSync(file1, '---\nsource: /shared/has#hash.md\n---\n');
+    assert.equal(resolveCanonicalSource(file1), 'content/shared/has#hash.md');
+
+    const file2 = join(dir, 'inline-hash-with-comment.md');
+    writeFileSync(file2, '---\nsource: /shared/has#hash.md  # note\n---\n');
+    assert.equal(resolveCanonicalSource(file2), 'content/shared/has#hash.md');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('CONTRACT: bash and JS source: parsers agree on YAML shape acceptance', () => {
+  // Bash (.ci/scripts/check-source-paths.sh) and JS (getSourceFromFrontmatter)
+  // are intentionally divergent on canonical-form enforcement: bash is the
+  // stricter CI gate that requires `/shared/...`, while JS is the forgiving
+  // runtime that normalizes any recognized form. They MUST agree, however,
+  // on:
+  //   1. parsing valid YAML scalar shapes (any of: plain, single-quoted,
+  //      double-quoted, with optional inline # comments)
+  //   2. rejecting malformed quoting (missing close quote, etc.)
+  //
+  // Drift here would let one accept what the other rejects on the same
+  // syntactic input, producing inconsistent behavior between commit-time
+  // validation and runtime canonicalization.
+  const repoRoot = resolve(__dirname, '../../..');
+  const script = join(repoRoot, '.ci/scripts/check-source-paths.sh');
+
+  // YAML-valid shapes: bash should accept (canonical /shared/...) AND JS
+  // should extract a non-null path. The path string each produces should
+  // also agree (modulo bash returning the raw value, JS returning the
+  // normalized content/shared/... form).
+  const valid = [
+    { name: 'plain canonical', fm: '---\nsource: /shared/foo.md\n---\n', expectPath: 'content/shared/foo.md' },
+    { name: 'double-quoted', fm: '---\nsource: "/shared/foo.md"\n---\n', expectPath: 'content/shared/foo.md' },
+    { name: 'single-quoted', fm: "---\nsource: '/shared/foo.md'\n---\n", expectPath: 'content/shared/foo.md' },
+    { name: 'quoted with trailing comment', fm: '---\nsource: "/shared/foo.md"  # note\n---\n', expectPath: 'content/shared/foo.md' },
+    { name: 'plain with trailing comment', fm: '---\nsource: /shared/foo.md  # note\n---\n', expectPath: 'content/shared/foo.md' },
+    { name: 'quoted with literal #', fm: '---\nsource: "/shared/has#hash.md"\n---\n', expectPath: 'content/shared/has#hash.md' },
+    { name: 'plain with mid-value #', fm: '---\nsource: /shared/has#hash.md\n---\n', expectPath: 'content/shared/has#hash.md' },
+  ];
+
+  // YAML-invalid shapes: both must reject.
+  const invalid = [
+    { name: 'malformed (missing close quote)', fm: '---\nsource: "/shared/foo.md\n---\n' },
+    { name: 'malformed (mismatched quotes)', fm: "---\nsource: \"/shared/x.md'\n---\n" },
+  ];
+
+  const dir = mkdtempSync(join(tmpdir(), 'contract-'));
+  try {
+    for (const { name, fm, expectPath } of valid) {
+      const file = join(dir, `valid_${name.replace(/\W+/g, '_')}.md`);
+      writeFileSync(file, fm);
+      const bash = spawnSync('/bin/bash', [script, file], { encoding: 'utf8' });
+      assert.equal(bash.status, 0, `bash rejected valid YAML: ${name}\nstdout: ${bash.stdout}\nstderr: ${bash.stderr}`);
+      assert.equal(getSourceFromFrontmatter(file), expectPath, `JS extracted wrong path for: ${name}`);
+    }
+    for (const { name, fm } of invalid) {
+      const file = join(dir, `invalid_${name.replace(/\W+/g, '_')}.md`);
+      writeFileSync(file, fm);
+      const bash = spawnSync('/bin/bash', [script, file], { encoding: 'utf8' });
+      assert.notEqual(bash.status, 0, `bash accepted malformed YAML: ${name}`);
+      assert.equal(getSourceFromFrontmatter(file), null, `JS extracted from malformed YAML: ${name}`);
+    }
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

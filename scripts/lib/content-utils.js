@@ -265,14 +265,22 @@ export function getSourceFromFrontmatter(filePath) {
 
     const frontmatter = frontmatterMatch[1];
     // Match one of three shapes, with optional trailing inline YAML comment:
-    //   source: "value"  [# note]   → group 1
-    //   source: 'value'  [# note]   → group 2
-    //   source: value    [# note]   → group 3 (no whitespace or # in value)
+    //   source: "value"  [# note]   → group 1 (literal #, spaces allowed inside)
+    //   source: 'value'  [# note]   → group 2 (literal #, spaces allowed inside)
+    //   source: value    [# note]   → group 3 (plain scalar)
+    //
+    // For plain scalars, YAML treats `#` as a comment delimiter ONLY when
+    // preceded by whitespace. So `foo#bar` is a valid plain scalar value;
+    // `foo #bar` has trailing comment `#bar`. The unquoted alternative
+    // therefore allows # mid-value but disallows # as the first character
+    // (which would itself be a comment). The optional trailing
+    // `\s+#.*$` consumes whitespace-preceded comments.
+    //
     // Quotes must match on both ends — malformed quoting falls through to
     // null rather than being silently "repaired", matching the stricter
     // behavior of .ci/scripts/check-source-paths.sh.
     const sourceMatch = frontmatter.match(
-      /^source:\s*(?:"([^"]+)"|'([^']+)'|([^\s"'#][^\s#]*))\s*(?:#.*)?$/m
+      /^source:\s*(?:"([^"]+)"|'([^']+)'|([^\s"'#][^\s]*))\s*(?:#.*)?$/m
     );
     if (!sourceMatch) return null;
 
