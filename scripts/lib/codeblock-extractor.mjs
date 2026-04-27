@@ -29,9 +29,18 @@ function parsePlaceholders(meta) {
 }
 
 function stripHtmlComments(s) {
-  // Replace each comment with the same number of newlines it contained so
+  // Strip only whole-line HTML comments — those whose opening `<!--` and
+  // closing `-->` both sit on their own lines (with optional surrounding
+  // whitespace). This targets pytest directives like `<!--pytest.mark.skip-->`
+  // without altering inline `<!-- ... -->` literals that may legitimately
+  // appear inside code (e.g., HTML/Markdown examples).
+  //
+  // Replace each match with the same number of newlines it contained so
   // that content line offsets are preserved for mapCodeLineToFileLine.
-  return s.replace(/<!--[\s\S]*?-->/g, (match) => '\n'.repeat((match.match(/\n/g) || []).length));
+  return s.replace(
+    /^[ \t]*<!--[\s\S]*?-->[ \t]*$/gm,
+    (match) => '\n'.repeat((match.match(/\n/g) || []).length)
+  );
 }
 
 function countLines(s) {

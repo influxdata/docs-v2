@@ -81,6 +81,15 @@ test('does not pick up fenced blocks inside YAML frontmatter', () => {
   assert.equal(blocks[0].value, '{"ok": true}');
 });
 
+test('preserves inline HTML comments (only whole-line comments are stripped)', () => {
+  // Whole-line `<!--pytest.mark.skip-->` should be stripped; inline
+  // `<!-- ... -->` embedded in source must be preserved verbatim so that
+  // HTML/Markdown examples render the comment as literal content.
+  const md = '```html\n<div><!-- inline note --></div>\n```\n';
+  const [block] = extractCodeBlocks(md);
+  assert.equal(block.value, '<div><!-- inline note --></div>');
+});
+
 test('HTML comment strip is line-preserving: code after a comment maps to the right MD line', () => {
   // Block content: line 1 = comment, line 2 = real code.
   // Without line-preserving strip, line 2 would map to MD line = openFence+1

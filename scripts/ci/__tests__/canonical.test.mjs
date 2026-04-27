@@ -87,3 +87,38 @@ test('handles unslashed source: shared/... form', async () => {
   const r = resolveCanonicalSource(file);
   assert.equal(r, 'content/shared/foo.md');
 });
+
+test('rejects malformed quoting rather than silently repairing it', () => {
+  // getSourceFromFrontmatter previously stripped quotes independently
+  // (["']?...["']?), so `source: "/shared/foo.md` (missing close quote)
+  // would canonicalize as content/shared/foo.md. Now requires both ends
+  // to match — malformed quoting falls through to null.
+  const dir = mkdtempSync(join(tmpdir(), 'malformed-'));
+  try {
+    const cases = [
+      ['missing-close.md', '---\nsource: "/shared/foo.md\n---\n'],
+      ['mismatched.md', '---\nsource: "/shared/x.md\'\n---\n'],
+    ];
+    for (const [name, content] of cases) {
+      const file = join(dir, name);
+      writeFileSync(file, content);
+      // resolveCanonicalSource falls back to file itself when source: is unparseable.
+      assert.equal(resolveCanonicalSource(file), file, `${name}: malformed source: should not canonicalize`);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('preserves # inside quoted source: values', () => {
+  // # is only a YAML comment delimiter when preceded by whitespace and
+  // outside quotes. Quoted values may legitimately contain literal #.
+  const dir = mkdtempSync(join(tmpdir(), 'hash-in-quote-'));
+  try {
+    const file = join(dir, 'page.md');
+    writeFileSync(file, '---\nsource: "/shared/has#hash.md"\n---\n');
+    assert.equal(resolveCanonicalSource(file), 'content/shared/has#hash.md');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -264,11 +264,19 @@ export function getSourceFromFrontmatter(filePath) {
     if (!frontmatterMatch) return null;
 
     const frontmatter = frontmatterMatch[1];
-    // Allow optional trailing inline YAML comment: source: /shared/x.md # note
-    const sourceMatch = frontmatter.match(/^source:\s*["']?(\S+?)["']?\s*(?:#.*)?$/m);
+    // Match one of three shapes, with optional trailing inline YAML comment:
+    //   source: "value"  [# note]   → group 1
+    //   source: 'value'  [# note]   → group 2
+    //   source: value    [# note]   → group 3 (no whitespace or # in value)
+    // Quotes must match on both ends — malformed quoting falls through to
+    // null rather than being silently "repaired", matching the stricter
+    // behavior of .ci/scripts/check-source-paths.sh.
+    const sourceMatch = frontmatter.match(
+      /^source:\s*(?:"([^"]+)"|'([^']+)'|([^\s"'#][^\s#]*))\s*(?:#.*)?$/m
+    );
     if (!sourceMatch) return null;
 
-    const sourcePath = sourceMatch[1].trim();
+    const sourcePath = (sourceMatch[1] ?? sourceMatch[2] ?? sourceMatch[3]).trim();
     // Normalize to content/ prefix format. Known variants in this repo:
     // - `/shared/foo.md`         → `content/shared/foo.md`
     // - `/content/shared/foo.md` → `content/shared/foo.md`  (strip leading /)
