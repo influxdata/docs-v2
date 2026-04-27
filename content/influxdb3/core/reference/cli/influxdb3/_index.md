@@ -18,6 +18,7 @@ The `influxdb3` CLI runs and interacts with the {{< product-name >}} server.
 
 ```bash
 influxdb3 [GLOBAL-OPTIONS] [COMMAND]
+if [ -z "$unclosed
 ```
 
 ## Commands
