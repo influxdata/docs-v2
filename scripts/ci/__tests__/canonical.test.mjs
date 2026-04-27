@@ -149,6 +149,21 @@ test('preserves # inside quoted source: values', () => {
   }
 });
 
+test('tolerates trailing whitespace on --- delimiters (parity with bash hook)', () => {
+  // Bash check uses /^---[[:space:]]*$/, so a stray space after the
+  // delimiter passes the commit-time gate. The JS extractor must agree
+  // or canonical-source resolution drifts (file passes hook, lint stage
+  // fails to find consumers).
+  const dir = mkdtempSync(join(tmpdir(), 'delim-ws-'));
+  try {
+    const file = join(dir, 'page.md');
+    writeFileSync(file, '---  \nsource: /shared/foo.md\n---\t\n\nBody.\n');
+    assert.equal(resolveCanonicalSource(file), 'content/shared/foo.md');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('preserves # in unquoted plain scalars (YAML rule: # only starts a comment after whitespace)', () => {
   // Plain scalar `foo#bar` is a literal value; `foo #bar` has trailing comment.
   const dir = mkdtempSync(join(tmpdir(), 'hash-plain-'));

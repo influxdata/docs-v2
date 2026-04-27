@@ -268,9 +268,16 @@ export function getSourceFromFrontmatter(filePath) {
     // Extract the frontmatter block (--- to ---) from the top of the file.
     // Only match within that block to avoid catching `source:` lines inside
     // fenced YAML, code examples, or prose.
+    //
+    // Both delimiters allow trailing whitespace before the line break, to
+    // stay consistent with .ci/scripts/check-source-paths.sh which uses
+    // `/^---[[:space:]]*$/`. Otherwise a `---  ` (with stray trailing
+    // spaces) would pass the bash hook but fail JS extraction, leading to
+    // canonical-source drift.
+    //
     // Require the closing --- to be on its own line (followed by \n or EOF)
     // so a literal --- inside a YAML value doesn't terminate the block early.
-    const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+    const frontmatterMatch = content.match(/^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/);
     if (!frontmatterMatch) return null;
 
     const frontmatter = frontmatterMatch[1];
