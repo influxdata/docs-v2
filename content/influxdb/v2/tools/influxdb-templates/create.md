@@ -229,7 +229,7 @@ metadata:
   "metadata": {
     "name": {
       "envRef": {
-        "key": "bucket-name-1"
+        "key": "bucket-name-1",
       }
     }
   }
