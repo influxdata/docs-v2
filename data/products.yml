@@ -430,7 +430,8 @@ flux:
   menu_category: languages
   list_order: 8
   versions: [v0]
-  latest: v0.x
+  latest: v0
+  version_label: 0.x
   ai_sample_questions:
     - How do I query with Flux?
     - How do I transform data with Flux?
