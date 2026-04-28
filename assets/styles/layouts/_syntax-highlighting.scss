@@ -72,7 +72,19 @@ pre[class*="language-"] {
 					{ color: $article-code-accent1; }
 
 	.gi 		/* Generic.Inserted */
-					{ background-color: $article-code-accent1; }
+					{
+						/* Use a green tint with a strong left border for diff +
+						   lines. The previous `background-color: accent1` was
+						   the same value as the comment foreground color, so
+						   any comment-class text inside the inserted line was
+						   invisible (fg == bg). It also rendered as a flat
+						   purple block that was hard to read in dark theme.
+						   Distinct fg/bg keeps text legible across themes. */
+						background-color: rgba(0, 159, 95, 0.18);
+						border-left: 3px solid #009f5f;
+						display: block;
+						margin-left: -3px;
+					}
 
 	.k, 		/* Keyword */
 	.kc, 		/* Keyword.Constant */
@@ -115,8 +127,17 @@ pre[class*="language-"] {
 	.si 		/* Literal.String.Interpol */
 					{ color: $article-code-accent4 }
 	
-	.gd     /* Generic.Deleted strike-through*/
-					{ text-decoration: line-through; }
+	.gd     /* Generic.Deleted */
+					{
+						/* Red tint background + left border for diff - lines.
+						   Drop the line-through styling — it doesn't match
+						   GitHub-style diff rendering and combined with
+						   syntax-colored text it actively hurts readability. */
+						background-color: rgba(191, 61, 94, 0.15);
+						border-left: 3px solid #bf3d5e;
+						display: block;
+						margin-left: -3px;
+					}
 
 	.m,  		/* Literal.Number */
 	.ni, 		/* Name.Entity */
