@@ -4944,6 +4944,7 @@ Because copying files during periods of activity is a transient process, we high
   <p>Recovery succeeds to a consistent point in time, which is the <strong>latest snapshot included</strong> in the backup. Data written after that snapshot may not be present if its WAL was deleted after the backup. Any Parquet files without a snapshot reference are ignored.</p>
 </div>
 <h2 id="object-storage-features-and-backup-planning">Object storage features and backup planning</h2>
+<h3 id="versioning">Versioning</h3>
 <p>If your object storage provider supports it, consider enabling short-term object versioning on the object store backing InfluxDB 3 Enterprise — typically 1–2 days — to protect against errant writes or accidental deletions.
 With versioning enabled, the object store retains distinct versions of each updated object, which can be used to recover from these incidents.</p>
 <p>InfluxDB 3 Enterprise writes mostly immutable Parquet files and rarely updates existing objects, so versioning helps most with recovering specific accidentally deleted files.
@@ -4951,6 +4952,7 @@ If many files are affected at once, recovering them through individual version r
 <p>Versioning costs grow with object update frequency.
 InfluxDB 3 Enterprise&rsquo;s compaction process generates new Parquet files over time, so each compaction pass adds to the retained version count in a versioned bucket.
 Use the shortest retention window that meets your recovery needs, and treat versioning as a short-window safety net rather than a long-term backup substitute.</p>
+<h3 id="periodic-backups">Periodic backups</h3>
 <p>Provider-side features like versioning, soft delete, and point-in-time recovery protect against many failure modes but do <strong>not</strong> replace backups.
 Periodic backups to a separate object store remain the only predictable, repeatable way to recover from:</p>
 <ul>
