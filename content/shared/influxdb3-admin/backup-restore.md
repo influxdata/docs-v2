@@ -485,6 +485,8 @@ Versioning costs grow with object update frequency.
 {{% product-name %}}'s compaction process generates new Parquet files over time, so each compaction pass adds to the retained version count in a versioned bucket.
 Use the shortest retention window that meets your recovery needs, and treat versioning as a short-window safety net rather than a long-term backup substitute.
 
+### Periodic backups
+
 Provider-side features like versioning, soft delete, and point-in-time recovery protect against many failure modes but do **not** replace backups.
 Periodic backups to a separate object store remain the only predictable, repeatable way to recover from:
 
