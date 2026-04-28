@@ -13,7 +13,7 @@
  * - cypress/support/map-files-to-urls.js (test file mapping)
  */
 
-import { execSync } from 'child_process';
+import { execSync, execFileSync } from 'child_process';
 import { existsSync, readFileSync } from 'fs';
 
 /**
@@ -21,21 +21,48 @@ import { existsSync, readFileSync } from 'fs';
  * @param {string} sharedFilePath - Path to shared file (e.g., 'content/shared/sql-reference/_index.md')
  * @returns {string[]} Array of content file paths that reference this shared file
  */
-export function findPagesReferencingSharedContent(sharedFilePath) {
+export function findPagesReferencingSharedContent(sharedFilePath, { searchRoot = 'content/' } = {}) {
   try {
     // Remove leading "content/" to match frontmatter format (source: /shared/...)
     const relativePath = sharedFilePath.replace(/^content\//, '');
 
-    // Use grep to find files with source: <path> in frontmatter
-    // Include both .md and .html files for compatibility
-    const grepCmd = `grep -l "source: .*${relativePath}" --include="*.md" --include="*.html" -r content/`;
+    // Use execFileSync with an explicit args array to avoid shell-quoting
+    // issues with unusual filenames. Fixed-string matching (-F) avoids
+    // treating path characters (dots, slashes) as regex metacharacters.
+    // Patterns cover all known source: variants — unquoted and quoted
+    // forms in both single and double quotes — across the three known
+    // path shapes:
+    //   /shared/...          (canonical, common)
+    //   shared/...           (unslashed)
+    //   /content/shared/...  (repo-relative with leading /content)
+    // The post-filter (getSourceFromFrontmatter ===) is the source of
+    // truth; grep is just a coarse prefilter to avoid scanning every
+    // file's frontmatter. Missing a quoted form here would silently
+    // drop true consumers, so cover all combinations.
+    const grepArgs = ['-rFl'];
+    for (const path of [
+      `/${relativePath}`,
+      relativePath,
+      `/content/${relativePath}`,
+    ]) {
+      grepArgs.push('-e', `source: ${path}`);
+      grepArgs.push('-e', `source: "${path}"`);
+      grepArgs.push('-e', `source: '${path}'`);
+    }
+    grepArgs.push('--include=*.md', '--include=*.html', searchRoot);
 
-    const result = execSync(grepCmd, {
+    const result = execFileSync('grep', grepArgs, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
 
-    return result ? result.split('\n').filter(Boolean) : [];
+    const candidates = result ? result.split('\n').filter(Boolean) : [];
+
+    // Post-filter: grep matches anywhere in the file; verify the match is
+    // actually in the frontmatter source: field, not prose or a code example.
+    return candidates.filter(
+      (f) => getSourceFromFrontmatter(f) === sharedFilePath
+    );
   } catch (err) {
     // grep returns exit code 1 when no matches found
     if (err.status === 1) {
@@ -221,7 +248,12 @@ export function categorizeContentFiles(files) {
 
 /**
  * Extract the source path from a file's frontmatter
- * Used to find the shared content file that a page includes
+ * Used to find the shared content file that a page includes.
+ * Matches only within the top-of-file frontmatter block (between `---`
+ * delimiters) to avoid false positives from `source:` lines inside fenced
+ * YAML or prose examples. Normalizes all known source: forms to
+ * `content/shared/...`: `/shared/...`, `shared/...`, `content/shared/...`,
+ * and `/content/shared/...`.
  * @param {string} filePath - Path to the content file
  * @returns {string|null} The source path (e.g., 'content/shared/sql-reference/_index.md') or null
  */
@@ -233,19 +265,84 @@ export function getSourceFromFrontmatter(filePath) {
   try {
     const content = readFileSync(filePath, 'utf8');
 
-    // Quick regex check for source: in frontmatter (avoids full YAML parsing)
-    const sourceMatch = content.match(/^source:\s*(.+)$/m);
-    if (sourceMatch) {
-      const sourcePath = sourceMatch[1].trim();
-      // Normalize to content/ prefix format
-      if (sourcePath.startsWith('/')) {
-        return `content${sourcePath}`;
-      }
+    // Extract the frontmatter block (--- to ---) from the top of the file.
+    // Only match within that block to avoid catching `source:` lines inside
+    // fenced YAML, code examples, or prose.
+    //
+    // Both delimiters allow trailing whitespace before the line break, to
+    // stay consistent with .ci/scripts/check-source-paths.sh which uses
+    // `/^---[[:space:]]*$/`. Otherwise a `---  ` (with stray trailing
+    // spaces) would pass the bash hook but fail JS extraction, leading to
+    // canonical-source drift.
+    //
+    // Require the closing --- to be on its own line (followed by \n or EOF)
+    // so a literal --- inside a YAML value doesn't terminate the block early.
+    const frontmatterMatch = content.match(/^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/);
+    if (!frontmatterMatch) return null;
+
+    const frontmatter = frontmatterMatch[1];
+    // Match one of three shapes, with optional trailing inline YAML comment:
+    //   source: "value"  [# note]   → group 1 (literal #, spaces allowed inside)
+    //   source: 'value'  [# note]   → group 2 (literal #, spaces allowed inside)
+    //   source: value    [# note]   → group 3 (plain scalar)
+    //
+    // For plain scalars, YAML treats `#` as a comment delimiter ONLY when
+    // preceded by whitespace. So `foo#bar` is a valid plain scalar value;
+    // `foo #bar` has trailing comment `#bar`. The unquoted alternative
+    // therefore allows # mid-value but disallows # as the first character
+    // (which would itself be a comment). The optional trailing
+    // `\s+#.*$` consumes whitespace-preceded comments.
+    //
+    // Quotes must match on both ends — malformed quoting falls through to
+    // null rather than being silently "repaired", matching the stricter
+    // behavior of .ci/scripts/check-source-paths.sh.
+    const sourceMatch = frontmatter.match(
+      /^source:\s*(?:"([^"]+)"|'([^']+)'|([^\s"'#][^\s]*))\s*(?:#.*)?$/m
+    );
+    if (!sourceMatch) return null;
+
+    const sourcePath = (sourceMatch[1] ?? sourceMatch[2] ?? sourceMatch[3]).trim();
+    // Normalize to content/ prefix format. Known variants in this repo:
+    // - `/shared/foo.md`         → `content/shared/foo.md`
+    // - `/content/shared/foo.md` → `content/shared/foo.md`  (strip leading /)
+    // - `shared/foo.md`          → `content/shared/foo.md`
+    // - `content/shared/foo.md`  → unchanged
+    if (sourcePath.startsWith('/')) {
+      // Strip the leading slash; the remainder is already repo-relative.
+      const stripped = sourcePath.slice(1);
+      return stripped.startsWith('content/') ? stripped : `content/${stripped}`;
+    }
+    if (sourcePath.startsWith('shared/')) {
+      return `content/${sourcePath}`;
+    }
+    if (sourcePath.startsWith('content/')) {
       return sourcePath;
     }
-
+    // Unexpected shape (e.g., absolute filesystem path, URL). Ignore rather
+    // than returning a misleading canonical path.
     return null;
   } catch {
     return null;
   }
+}
+
+/**
+ * Resolve a content file path to its canonical source for deduplication.
+ * - If the file has `source: /shared/...` frontmatter, canonical is `content/shared/...`.
+ * - Otherwise, canonical is the file itself.
+ * Use this to avoid reporting the same diagnostic against multiple consumer pages.
+ *
+ * ASSUMPTION: consumer pages that declare `source:` are pure stubs — they
+ * contain no body fences of their own, only the frontmatter pointer. Linting
+ * only the shared canonical source is therefore sufficient; no consumer-page
+ * fences are silently skipped. If this invariant ever breaks (a consumer gains
+ * its own code blocks), those fences will not be linted and a drift warning
+ * should be added here.
+ *
+ * @param {string} filePath - Path to a content file
+ * @returns {string} Canonical source path
+ */
+export function resolveCanonicalSource(filePath) {
+  const source = getSourceFromFrontmatter(filePath);
+  return source ?? filePath;
 }

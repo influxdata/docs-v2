@@ -297,6 +297,70 @@ server, and run pytest against it.
 > CI jobs will fail to start. Re-run the activation locally and
 > upload a fresh blob.
 
+### Parse/compile code-block lint
+
+The `lint-codeblocks` job runs on every PR that changes content or
+shared content. It parses fenced code blocks in the changed canonical
+sources and reports syntax errors — without executing any code, without
+needing credentials, without touching the network. The check complements
+pytest-based code-block execution, which remains scoped to a smaller
+allowlisted subset of runnable examples.
+
+**Blocking policy:**
+
+| Language | Policy on parse failure |
+| --- | --- |
+| JSON, YAML, TOML | `::error::` — fails the PR check |
+| bash, python, javascript | `::warning::` — does not fail the PR check |
+
+Languages outside this set (go, java, sql, powershell, text, etc.) are
+skipped. SQL and InfluxQL are planned follow-ups once dialect detection
+is designed.
+
+**Run locally:**
+
+```sh
+yarn lint-codeblocks content/influxdb3/core/admin/tokens/admin/*.md
+```
+
+Exit code is 1 if any JSON/YAML/TOML block fails to parse. The step log
+groups output per file; every block's status is reported so you can see
+the full picture.
+
+**Pretty summary (large runs):**
+
+For a condensed report — counts by severity, failures by language, and
+the top files with blocking errors — use the pretty wrapper. Output is
+GitHub-flavored Markdown so it pastes cleanly into PRs and issues.
+
+```sh
+yarn lint-codeblocks:pretty content/**/*.md
+```
+
+Exit code matches `lint-codeblocks` (0 if no parse errors, 1 otherwise),
+so the wrapper can stand in for the raw command in scripts.
+
+**Normalization:** The linter handles some common docs patterns:
+
+- Fence attributes like `{ placeholders="TOKEN_NAME|DURATION" }` —
+  declared tokens are substituted with language-safe stand-ins before
+  parsing. `|` is the literal delimiter between token names; regex-style
+  groupings like `DATABASE_(TOKEN|NAME)` are not supported — list each
+  token name separately: `placeholders="DATABASE_TOKEN|DATABASE_NAME"`.
+- Hugo shortcodes inside fences (`{{% foo %}}`) — stripped with a
+  language-safe replacement.
+
+When normalization makes a block parse that wouldn't parse raw, the
+linter emits a `::notice::` annotation listing which rules fired. This
+is an audit signal: over time, rarely-fired rules get removed and
+often-fired patterns get fixed at the content source.
+
+**Run the linter's own tests:**
+
+```sh
+yarn test:lint-codeblocks
+```
+
 ## LLM-Friendly Markdown Generation
 
 The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.
