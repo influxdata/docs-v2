@@ -473,6 +473,8 @@ Replace the following:
 
 ## Object storage features and backup planning
 
+### Versioning
+
 If your object storage provider supports it, consider enabling short-term object versioning on the object store backing {{% product-name %}} — typically 1–2 days — to protect against errant writes or accidental deletions.
 With versioning enabled, the object store retains distinct versions of each updated object, which can be used to recover from these incidents.
 
