@@ -1,14 +1,13 @@
 name: Test Code Blocks
 
 on:
-  # Pull requests: detection only (informational, non-blocking)
-  # Detects changed content and suggests which products to test
+  # Pull requests: detection-only on the test-execution side, but the
+  # `Lint code blocks` job is a required status check on master. A
+  # required check that never reports blocks merge forever, so the
+  # workflow MUST run on every PR — even ones that touch no content.
+  # The lint job's own `if:` gate skips it when there are no canonical
+  # sources to lint; GitHub treats a skipped required check as success.
   pull_request:
-    paths:
-      - 'content/**/*.md'
-      - 'test/**'
-      - 'Dockerfile.pytest'
-      - 'compose.yaml'
     types: [opened, synchronize, reopened]
   # Manual dispatch: actually runs tests
   workflow_dispatch:
