@@ -466,15 +466,40 @@ Replace the following:
 - {{% code-placeholder-key %}}`BACKUP_DATE`{{% /code-placeholder-key %}}: backup directory timestamp
 {{% /show-in %}}
 
-## Important considerations
-
-### Recovery expectations
+## Recovery expectations
 
 > [!Warning]
 > Recovery succeeds to a consistent point in time, which is the **latest snapshot included** in the backup. Data written after that snapshot may not be present if its WAL was deleted after the backup. Any Parquet files without a snapshot reference are ignored.
 
+## Object storage features and backup planning
+
+If your object storage provider supports it, consider enabling short-term object versioning on the object store backing {{% product-name %}} — typically 1–2 days — to protect against errant writes or accidental deletions.
+With versioning enabled, the object store retains distinct versions of each updated object, which can be used to recover from these incidents.
+
+{{% product-name %}} writes mostly immutable Parquet files and rarely updates existing objects, so versioning helps most with recovering specific accidentally deleted files.
+If many files are affected at once, recovering them through individual version restores becomes impractical.
+
+Versioning costs grow with object update frequency.
+{{% product-name %}}'s compaction process generates new Parquet files over time, so each compaction pass adds to the retained version count in a versioned bucket.
+Use the shortest retention window that meets your recovery needs, and treat versioning as a short-window safety net rather than a long-term backup substitute.
+
+Provider-side features like versioning, soft delete, and point-in-time recovery protect against many failure modes but do **not** replace backups.
+Periodic backups to a separate object store remain the only predictable, repeatable way to recover from:
+
+- Corruption or compromise of the primary object store.
+- Accidental or malicious deletion of data.
+- Bad data written into the primary store (a replica of bad data is not a valid recovery point).
+
+The [backup process](#backup-process) above is provider-agnostic — you can use any provider-native tool to copy to a separate bucket, container, or account, as long as you preserve the documented directory structure and file ordering.
+Schedule copies during low-load periods or downtime windows when possible.
+
 {{% show-in "enterprise" %}}
-### License files
+> [!Note]
+> Restoring to a different bucket, container, or storage account requires a new license — see [Licensing and disaster recovery](#licensing-and-disaster-recovery) below for binding details and DR planning.
+{{% /show-in %}}
+
+{{% show-in "enterprise" %}}
+## Licensing and disaster recovery
 
 > [!Important]
 > License files are tied to the complete object store configuration and the cluster ID, not just the bucket or container name.
@@ -495,7 +520,7 @@ For disaster recovery planning:
 - **Contact support for migrations**: If you need to restore to a different storage account, endpoint, bucket, or cluster, [contact InfluxData support](https://support.influxdata.com) to obtain a new license.
 {{% /show-in %}}
 
-### Docker considerations
+## Containerized deployments
 
 When running {{% product-name %}} in containers:
 - **Volume consistency**: Use the same volume mounts for backup and restore operations
@@ -503,14 +528,14 @@ When running {{% product-name %}} in containers:
 - **Backup access**: Mount a backup directory to copy files from containers to the host
 {{% show-in "enterprise" %}}- **Node coordination**: Stop and start all Enterprise nodes (querier, ingester, compactor) in the correct order{{% /show-in %}}
 
-### Table snapshot files
+## Excluded files
 
 Files in `<node_id>/table-snapshots/` are intentionally excluded from backup:
 - These files are periodically overwritten
 - They regenerate automatically on server restart
 - Including them doesn't harm but increases backup size unnecessarily
 
-### Timing recommendations
+## Backup timing
 
 - Perform backups during downtime or minimal load periods
 - Copying files while the database is active may create inconsistent backups
