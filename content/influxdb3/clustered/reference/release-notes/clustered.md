@@ -701,13 +701,13 @@ spec:
     image: <IMAGE>
     apiVersion: influxdata.com/v1alpha1
     spec:
-      ## ...snip
+      # ... other spec fields elided ...
       admin:
         users:
-          - ...
+          # - ... user entries elided ...
         dsn:
           valueFrom:
-            ...
+            # ... dsn source elided ...
         identityProvider: <PROVIDER>
         jwksEndpoint: <JWKS_ENDPOINT>
 ```
