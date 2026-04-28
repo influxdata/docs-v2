@@ -6,6 +6,7 @@ influxdb3_core:
     name: influxdb
     branch: main
   content_path: influxdb3/core
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
   label_group: v3-monolith
   menu_category: self-managed
   versions: [core]
@@ -82,6 +83,7 @@ influxdb3_explorer:
   altname: Explorer
   namespace: influxdb3_explorer
   content_path: influxdb3/explorer
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
   label_group: explorer
   menu_category: tools
   list_order: 1
@@ -211,6 +213,7 @@ influxdb:
   content_path:
     v2: influxdb/v2
     v1: influxdb/v1
+  product_issue_url: https://github.com/influxdata/influxdb/issues/new/choose/
   label_group:
     v2: v2
     v1: v1
@@ -294,6 +297,7 @@ telegraf:
     name: telegraf
     branch: master
   content_path: telegraf
+  product_issue_url: https://github.com/influxdata/telegraf/issues/new/choose/
   label_group: telegraf
   menu_category: other
   list_order: 6
@@ -323,6 +327,7 @@ chronograf:
     name: chronograf
     branch: master
   content_path: chronograf
+  product_issue_url: https://github.com/influxdata/chronograf/issues/new/choose/
   label_group: chronograf
   menu_category: other
   list_order: 7
@@ -343,6 +348,7 @@ kapacitor:
     name: kapacitor
     branch: master
   content_path: kapacitor
+  product_issue_url: https://github.com/influxdata/kapacitor/issues/new/choose/
   label_group: kapacitor
   menu_category: other
   list_order: 7
@@ -419,11 +425,13 @@ flux:
     name: flux
     branch: master
   content_path: flux
+  product_issue_url: https://github.com/influxdata/flux/issues/new/choose/
   label_group: flux
   menu_category: languages
   list_order: 8
   versions: [v0]
-  latest: v0.x
+  latest: v0
+  version_label: 0.x
   ai_sample_questions:
     - How do I query with Flux?
     - How do I transform data with Flux?

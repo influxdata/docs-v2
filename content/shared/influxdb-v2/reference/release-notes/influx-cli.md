@@ -1,3 +1,24 @@
+## v2.8.0 {date="2026-04-22"}
+
+### Bug Fixes
+
+- Check for all available cookies instead of the count
+- Don't import non-existent/unused GPG private key
+- Create errors-file if it does not exist
+- Avoid panic on empty tag value
+- Dbrp correct json output
+
+### Features
+
+- Add `--operator-token` flag to restore subcommand
+- Adds gzip compression level configuration to backups for v2 (requires InfluxDB v2.9+)
+
+### Maintenance
+
+- Bump `golang.org/x/text` from 0.3.7 to 0.3.8
+- Bump `google.golang.org/protobuf` from 1.30.0 to 1.33.0
+- Update to go 1.25.9
+
 
 ## v2.7.5 {date="2024-04-16"}
 
@@ -96,8 +117,8 @@
 - Add the [InfluxQL Shell (REPL)](/influxdb/version/reference/cli/influx/v1/shell/).
 - **(InfluxDB Cloud only)** Manage [InfluxDB Cloud Invokable Scripts](/influxdb/cloud/api-guide/api-invokable-scripts/)
   with [`influx scripts`](/influxdb/version/reference/cli/influx/scripts/). 
-- **(InfluxDB OSS only)** Add [username and password support](/influxdb/version/reference/cli/influx/config/create/#create-a-connection-configuration-that-uses-a-username-and-password)
-  to `influx` CLI connection configurations as alternative to API tokens when using the CLI.
+{{% show-in "v2" %}}- **(InfluxDB OSS only)** Add [username and password support](/influxdb/version/reference/cli/influx/config/create/#create-a-connection-configuration-that-uses-a-username-and-password)
+  to `influx` CLI connection configurations as alternative to API tokens when using the CLI.{{% /show-in %}}
 
 ### Maintenance
 - Upgrade to Go 1.18.3

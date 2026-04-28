@@ -9,7 +9,7 @@ weight: 205
 related:
   - /influxdb3/cloud-dedicated/reference/client-libraries/v3/
   - /influxdb3/cloud-dedicated/query-data/execute-queries/influxctl-cli/
-source: shared/influxdb3-query-guides/query-timeout-best-practices.md
+source: /shared/influxdb3-query-guides/query-timeout-best-practices.md
 ---
 
 <!--
