@@ -327,6 +327,19 @@ Exit code is 1 if any JSON/YAML/TOML block fails to parse. The step log
 groups output per file; every block's status is reported so you can see
 the full picture.
 
+**Pretty summary (large runs):**
+
+For a condensed report — counts by severity, failures by language, and
+the top files with blocking errors — use the pretty wrapper. Output is
+GitHub-flavored Markdown so it pastes cleanly into PRs and issues.
+
+```sh
+yarn lint-codeblocks:pretty content/**/*.md
+```
+
+Exit code matches `lint-codeblocks` (0 if no parse errors, 1 otherwise),
+so the wrapper can stand in for the raw command in scripts.
+
 **Normalization:** The linter handles some common docs patterns:
 
 - Fence attributes like `{ placeholders="TOKEN_NAME|DURATION" }` —

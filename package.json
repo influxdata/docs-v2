@@ -110,6 +110,7 @@
     "test:cache:list": "./test/scripts/manage-test-cache.sh list",
     "test:lint-codeblocks": "node --test 'scripts/ci/__tests__/**/*.test.mjs'",
     "lint-codeblocks": "node scripts/ci/lint-codeblocks.mjs",
+    "lint-codeblocks:pretty": "scripts/ci/lint-codeblocks-pretty.sh",
     "test:e2e": "node cypress/support/run-e2e-specs.js",
     "test:render-regression": "node cypress/support/run-e2e-specs.js --spec \"cypress/e2e/content/render-regression.cy.js\" --no-mapping",
     "test:render-artifacts": ".ci/scripts/check-render-artifacts.sh public",
