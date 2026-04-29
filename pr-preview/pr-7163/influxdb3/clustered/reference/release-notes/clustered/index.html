@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-02-28 14:24:23 -0600 -0600">
+<meta name="last-modified" content="2026-04-29 10:50:34 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4790,17 +4790,43 @@ directory. This new directory contains artifacts associated with the specified r
   <span class="show-more">Show more</span>
 </div>
 <hr>
-<h2 date="2025-12-18" id="20251218-1946608">20251218-1946608</h2>
+<h2 date="2026-04-21" id="20260421-2022186">20260421-2022186</h2>
 <h3 id="quickstart">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20251218-1946608</span></span></span></code></pre></div><h4 id="release-artifacts">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20260421-2022186</span></span></span></code></pre></div><h4 id="release-artifacts">Release artifacts</h4>
+<ul>
+<li><a href="/downloads/clustered-release-artifacts/20260421-2022186/app-instance-schema.json">app-instance-schema.json</a></li>
+<li><a href="/downloads/clustered-release-artifacts/20260421-2022186/example-customer.yml">example-customer.yml</a></li>
+<li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
+</ul>
+<h3 id="highlights">Highlights</h3>
+<ul>
+<li>Add <code>derivative</code> and <code>difference</code> SQL functions</li>
+<li>Include the number of returned rows in query log entries</li>
+<li>Reduce ingester memory usage during persistence</li>
+<li>Self-adjust garbage collector delays based on delete rate</li>
+<li>Increase max stream resets for the catalog from 4,000 to 16,000</li>
+<li>Enable proactive memory backpressure</li>
+</ul>
+<h3 id="security-and-bug-fixes">Security and Bug Fixes</h3>
+<ul>
+<li>Fix a non-negative integer implementation bug</li>
+<li>Return 503 for auth service communication errors</li>
+<li>Always apply overlap filtering in TargetLevel compaction</li>
+<li>Dependency updates and miscellaneous security fixes</li>
+</ul>
+<h2 date="2025-12-18" id="20251218-1946608">20251218-1946608</h2>
+<h3 id="quickstart-1">Quickstart</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20251218-1946608</span></span></span></code></pre></div><h4 id="release-artifacts-1">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20251218-1946608/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20251218-1946608/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights">Highlights</h3>
+<h3 id="highlights-1">Highlights</h3>
 <ul>
 <li>The garbage collector has been fixed to support customers who specify the S3 bucket in <code>spec.package.spec.objectStore.s3.endpoint</code> (for example, <code>&quot;https://$BUCKET.$REGION.amazonaws.com&quot;</code>) and an additional prefix in <code>spec.package.spec.objectStore.bucket</code>; if you previously disabled <code>INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</code> and <code>INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</code> to work around the bug, you can remove those overrides now.</li>
 <li>Add support for both &lsquo;postgres&rsquo; and &lsquo;postgresql&rsquo; URI schemes in catalog DSN parsing.</li>
@@ -4816,16 +4842,16 @@ directory. This new directory contains artifacts associated with the specified r
 <li>Dependency updates and miscellaneous security fixes.</li>
 </ul>
 <h2 date="2025-09-25" id="20250925-1878107">20250925-1878107</h2>
-<h3 id="quickstart-1">Quickstart</h3>
+<h3 id="quickstart-2">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250925-1878107</span></span></span></code></pre></div><h4 id="release-artifacts-1">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250925-1878107</span></span></span></code></pre></div><h4 id="release-artifacts-2">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250925-1878107/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250925-1878107/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-1">Highlights</h3>
+<h3 id="highlights-2">Highlights</h3>
 <h4 id="rename-and-undelete-tables">Rename and undelete tables</h4>
 <p>Tables can now be renamed and undeleted with <a href="https://docs.influxdata.com/influxdb3/clustered/reference/release-notes/influxctl/#2105">influxctl v2.10.5</a> or later.</p>
 <p>To enable hard delete of soft-deleted databases:</p>
@@ -4876,10 +4902,10 @@ directory. This new directory contains artifacts associated with the specified r
 </span></span></span><span class="line"><span class="cl"><span class="nt">+                env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">+                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">+                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span></span></span></code></pre></div><h2 date="2025-08-14" id="20250814-1819052">20250814-1819052</h2>
-<h3 id="quickstart-2">Quickstart</h3>
+<h3 id="quickstart-3">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052</span></span></span></code></pre></div><h4 id="release-artifacts-2">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250814-1819052</span></span></span></code></pre></div><h4 id="release-artifacts-3">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250814-1819052/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250814-1819052/example-customer.yml">example-customer.yml</a></li>
@@ -4899,16 +4925,16 @@ directory. This new directory contains artifacts associated with the specified r
 </ul>
 <hr>
 <h2 date="2025-07-21" id="20250721-1796368">20250721-1796368</h2>
-<h3 id="quickstart-3">Quickstart</h3>
+<h3 id="quickstart-4">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250721-1796368</span></span></span></code></pre></div><h4 id="release-artifacts-3">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250721-1796368</span></span></span></code></pre></div><h4 id="release-artifacts-4">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250721-1796368/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250721-1796368/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-2">Highlights</h3>
+<h3 id="highlights-3">Highlights</h3>
 <h4 id="support-for-influxql-integral">Support for InfluxQL INTEGRAL()</h4>
 <p>InfluxQL <code>INTEGRAL()</code> function is now supported in the InfluxDB 3.0 database engine.</p>
 <h3 id="bug-fixes-1">Bug Fixes</h3>
@@ -4917,16 +4943,16 @@ directory. This new directory contains artifacts associated with the specified r
 </ul>
 <hr>
 <h2 date="2025-07-07" id="20250707-1777929">20250707-1777929</h2>
-<h3 id="quickstart-4">Quickstart</h3>
+<h3 id="quickstart-5">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250707-1777929</span></span></span></code></pre></div><h4 id="release-artifacts-4">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250707-1777929</span></span></span></code></pre></div><h4 id="release-artifacts-5">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250707-1777929/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250707-1777929/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-3">Highlights</h3>
+<h3 id="highlights-4">Highlights</h3>
 <h4 id="database-rename-and-undelete">Database rename and undelete</h4>
 <p>Databases can now be renamed and undeleted with <a href="/influxdb3/clustered/reference/release-notes/influxctl/#v2102">influxctl v2.10.2</a> or later.</p>
 <h4 id="table-delete-and-list">Table delete and list</h4>
@@ -4940,10 +4966,10 @@ directory. This new directory contains artifacts associated with the specified r
 </ul>
 <hr>
 <h2 date="2025-06-18" id="20250618-1758428">20250618-1758428</h2>
-<h3 id="quickstart-5">Quickstart</h3>
+<h3 id="quickstart-6">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250618-1758428</span></span></span></code></pre></div><h4 id="release-artifacts-5">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250618-1758428</span></span></span></code></pre></div><h4 id="release-artifacts-6">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250618-1758428/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250618-1758428/example-customer.yml">example-customer.yml</a></li>
@@ -4960,10 +4986,10 @@ directory. This new directory contains artifacts associated with the specified r
 </ul>
 <hr>
 <h2 date="2025-06-11" id="20250613-1754010">20250613-1754010</h2>
-<h3 id="quickstart-6">Quickstart</h3>
+<h3 id="quickstart-7">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250613-1754010</span></span></span></code></pre></div><h4 id="release-artifacts-6">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250613-1754010</span></span></span></code></pre></div><h4 id="release-artifacts-7">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250613-1754010/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250613-1754010/example-customer.yml">example-customer.yml</a></li>
@@ -5006,10 +5032,10 @@ be modified unnecessarily.</p>
 </ul>
 <hr>
 <h2 date="2025-05-08" id="20250508-1719206">20250508-1719206</h2>
-<h3 id="quickstart-7">Quickstart</h3>
+<h3 id="quickstart-8">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206</span></span></span></code></pre></div><h4 id="release-artifacts-7">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250508-1719206</span></span></span></code></pre></div><h4 id="release-artifacts-8">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250508-1719206/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250508-1719206/example-customer.yml">example-customer.yml</a></li>
@@ -5028,10 +5054,10 @@ be modified unnecessarily.</p>
 </ul>
 <hr>
 <h2 date="2025-02-12" id="20250212-1570743">20250212-1570743</h2>
-<h3 id="quickstart-8">Quickstart</h3>
+<h3 id="quickstart-9">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743</span></span></span></code></pre></div><h4 id="release-artifacts-8">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20250212-1570743</span></span></span></code></pre></div><h4 id="release-artifacts-9">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20250212-1570743/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20250212-1570743/example-customer.yml">example-customer.yml</a></li>
@@ -5053,10 +5079,10 @@ retention period for Prometheus metrics.</li>
 </ul>
 <hr>
 <h2 date="2024-12-17" id="20241217-1494922">20241217-1494922</h2>
-<h3 id="quickstart-9">Quickstart</h3>
+<h3 id="quickstart-10">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241217-1494922</span></span></span></code></pre></div><h4 id="release-artifacts-9">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241217-1494922</span></span></span></code></pre></div><h4 id="release-artifacts-10">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20241217-1494922/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20241217-1494922/example-customer.yml">example-customer.yml</a></li>
@@ -5082,10 +5108,10 @@ that CR&rsquo;s <code>spec</code>.</li>
 </ul>
 <hr>
 <h2 date="2024-10-24" class="checkpoint" id="20241024-1354148">20241024-1354148</h2>
-<h3 id="quickstart-10">Quickstart</h3>
+<h3 id="quickstart-11">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953</span></span></span></code></pre></div><h4 id="release-artifacts-10">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20241022-1346953</span></span></span></code></pre></div><h4 id="release-artifacts-11">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20241024-1354148/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20241024-1354148/example-customer.yml">example-customer.yml</a></li>
@@ -5147,7 +5173,7 @@ service to point to the new <code>core</code> service by adding the following <c
 </span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">clustered-auth</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">AUTHZ_TOKEN_SVC_ADDRESS</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;http://core:8091/&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c"># ...remaining configuration...</span></span></span></code></pre></div><h3 id="highlights-4">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="c"># ...remaining configuration...</span></span></span></code></pre></div><h3 id="highlights-5">Highlights</h3>
 <h4 id="appinstance-image-override-bug-fix">AppInstance image override bug fix</h4>
 <p>In 20240925-1257864, the AppInstance image override was
 broken with the introduction of strict always-on license enforcement.
@@ -5284,16 +5310,16 @@ scheduler&rsquo;s default behavior. For further details, see the
 </ul>
 <hr>
 <h2 date="2024-08-19" class="checkpoint" id="20240819-1176644">20240819-1176644</h2>
-<h3 id="quickstart-11">Quickstart</h3>
+<h3 id="quickstart-12">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240819-1176644</span></span></span></code></pre></div><h4 id="release-artifacts-11">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240819-1176644</span></span></span></code></pre></div><h4 id="release-artifacts-12">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240819-1176644/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240819-1176644/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-5">Highlights</h3>
+<h3 id="highlights-6">Highlights</h3>
 <h4 id="admin-section-is-no-longer-required"><code>admin</code> section is no longer required</h4>
 <p>Previously, an identity provider setup was required through the <code>admin</code> section
 of the <code>AppInstance</code> resource, for example:</p>
@@ -5354,16 +5380,16 @@ for further details.</li>
 </ul>
 <hr>
 <h2 date="2024-07-17" id="20240717-1117630">20240717-1117630</h2>
-<h3 id="quickstart-12">Quickstart</h3>
+<h3 id="quickstart-13">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240717-1117630</span></span></span></code></pre></div><h4 id="release-artifacts-12">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240717-1117630</span></span></span></code></pre></div><h4 id="release-artifacts-13">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240717-1117630/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240717-1117630/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-6">Highlights</h3>
+<h3 id="highlights-7">Highlights</h3>
 <h4 id="experimental-license-enforcement">Experimental license enforcement</h4>
 <p>This release introduces a new feature flag, <code>useLicensedBinaries</code>, that causes
 InfluxDB to execute IOx components a container image implementing a new license
@@ -5457,16 +5483,16 @@ memory limits.</li>
 </ul>
 <hr>
 <h2 date="2024-06-05" class="checkpoint" id="20240605-1035562">20240605-1035562</h2>
-<h3 id="quickstart-13">Quickstart</h3>
+<h3 id="quickstart-14">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240605-1035562</span></span></span></code></pre></div><h4 id="release-artifacts-13">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240605-1035562</span></span></span></code></pre></div><h4 id="release-artifacts-14">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240605-1035562/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240605-1035562/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-7">Highlights</h3>
+<h3 id="highlights-8">Highlights</h3>
 <p>Multiple improvements to compaction, pruning, and performance of concurrent queries.</p>
 <h4 id="feature-flag-noprometheus">Feature flag: <code>noPrometheus</code></h4>
 <p>The introduction of the <code>noPrometheus</code> feature flag removes the <code>StatefulSet</code>
@@ -5514,16 +5540,16 @@ variable.</li>
 </ul>
 <hr>
 <h2 date="2024-04-30" id="20240430-976585">20240430-976585</h2>
-<h3 id="quickstart-14">Quickstart</h3>
+<h3 id="quickstart-15">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240430-976585</span></span></span></code></pre></div><h4 id="release-artifacts-14">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240430-976585</span></span></span></code></pre></div><h4 id="release-artifacts-15">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240430-976585/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240430-976585/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-8">Highlights</h3>
+<h3 id="highlights-9">Highlights</h3>
 <ul>
 <li>
 <p>Added configuration settings for an optional Prometheus <code>ServiceMonitor</code>
@@ -5551,16 +5577,16 @@ resource that was provided by the feature flag.</p>
 </ul>
 <hr>
 <h2 date="2024-04-18" id="20240418-955990">20240418-955990</h2>
-<h3 id="quickstart-15">Quickstart</h3>
+<h3 id="quickstart-16">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240418-955990</span></span></span></code></pre></div><h4 id="release-artifacts-15">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240418-955990</span></span></span></code></pre></div><h4 id="release-artifacts-16">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240418-955990/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240418-955990/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-9">Highlights</h3>
+<h3 id="highlights-10">Highlights</h3>
 <h4 id="minimum-influxctl-version">Minimum <code>influxctl</code> version</h4>
 <p>If a user observes an unimplemented gRPC error when running <code>influxctl database</code>
 commands, then the user should upgrade to <code>influxctl</code> v2.8.0 or later and
@@ -5591,16 +5617,16 @@ immediately via gossip.
 </ul>
 <hr>
 <h2 date="2024-03-26" id="20240326-922145">20240326-922145</h2>
-<h3 id="quickstart-16">Quickstart</h3>
+<h3 id="quickstart-17">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240326-922145</span></span></span></code></pre></div><h4 id="release-artifacts-16">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240326-922145</span></span></span></code></pre></div><h4 id="release-artifacts-17">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240326-922145/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240326-922145/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-10">Highlights</h3>
+<h3 id="highlights-11">Highlights</h3>
 <h4 id="lower-defaults-for-garbage-collection">Lower defaults for garbage collection</h4>
 <p>Prior to this release, the garbage collector was set at 100 days before objects,
 that were no longer returned by queries, were deleted from object store.
@@ -5647,10 +5673,10 @@ does run that gRPC service.</p>
 </ul>
 <hr>
 <h2 date="2024-02-27" id="20240227-883344">20240227-883344</h2>
-<h3 id="quickstart-17">Quickstart</h3>
+<h3 id="quickstart-18">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240227-883344</span></span></span></code></pre></div><h4 id="release-artifacts-17">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240227-883344</span></span></span></code></pre></div><h4 id="release-artifacts-18">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240227-883344/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240227-883344/example-customer.yml">example-customer.yml</a></li>
@@ -5673,16 +5699,16 @@ has a large number of measurements.</li>
 </ul>
 <hr>
 <h2 date="2024-02-14" class="checkpoint" id="20240214-863513">20240214-863513</h2>
-<h3 id="quickstart-18">Quickstart</h3>
+<h3 id="quickstart-19">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240214-863513</span></span></span></code></pre></div><h4 id="release-artifacts-18">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240214-863513</span></span></span></code></pre></div><h4 id="release-artifacts-19">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240214-863513/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240214-863513/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-11">Highlights</h3>
+<h3 id="highlights-12">Highlights</h3>
 <h4 id="grafana-dashboards-by-default">Grafana dashboards by default</h4>
 <p>Previously, the <code>grafana</code> feature flag had to be enabled in order to have these
 dashboards created. This now occurs by default and the feature flag is reserved
@@ -5722,16 +5748,16 @@ of <code>google</code>.</li>
 </ul>
 <hr>
 <h2 date="2024-01-11" id="20240111-824437">20240111-824437</h2>
-<h3 id="quickstart-19">Quickstart</h3>
+<h3 id="quickstart-20">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240111-824437</span></span></span></code></pre></div><h4 id="release-artifacts-19">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20240111-824437</span></span></span></code></pre></div><h4 id="release-artifacts-20">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20240111-824437/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20240111-824437/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-12">Highlights</h3>
+<h3 id="highlights-13">Highlights</h3>
 <h4 id="ingress-improvements">Ingress improvements</h4>
 <ul>
 <li>Ingress no longer requires a host name to be specified.</li>
@@ -5766,16 +5792,16 @@ This requires a migration which may take some time to complete.</li>
 </ul>
 <hr>
 <h2 date="2023-12-13" id="20231213-791734">20231213-791734</h2>
-<h3 id="quickstart-20">Quickstart</h3>
+<h3 id="quickstart-21">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231213-791734</span></span></span></code></pre></div><h4 id="release-artifacts-20">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231213-791734</span></span></span></code></pre></div><h4 id="release-artifacts-21">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20231213-791734/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20231213-791734/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-13">Highlights</h3>
+<h3 id="highlights-14">Highlights</h3>
 <h4 id="labelsannotations">Labels/annotations</h4>
 <ul>
 <li>You can now add custom annotations and labels in pods by specifying them under
@@ -5801,16 +5827,16 @@ the workload to requirements of your specific execution environment.</li>
 </ul>
 <hr>
 <h2 date="2023-11-17" id="20231117-750011">20231117-750011</h2>
-<h3 id="quickstart-21">Quickstart</h3>
+<h3 id="quickstart-22">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231117-750011</span></span></span></code></pre></div><h4 id="release-artifacts-21">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231117-750011</span></span></span></code></pre></div><h4 id="release-artifacts-22">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20231117-750011/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20231117-750011/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-14">Highlights</h3>
+<h3 id="highlights-15">Highlights</h3>
 
 <blockquote>
 <p>![Important]
@@ -5826,16 +5852,16 @@ the workload to requirements of your specific execution environment.</li>
 </ul>
 <hr>
 <h2 date="2023-11-15" id="20231115-746129">20231115-746129</h2>
-<h3 id="quickstart-22">Quickstart</h3>
+<h3 id="quickstart-23">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231115-746129</span></span></span></code></pre></div><h4 id="release-artifacts-22">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231115-746129</span></span></span></code></pre></div><h4 id="release-artifacts-23">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20231115-746129/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20231115-746129/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-15">Highlights</h3>
+<h3 id="highlights-16">Highlights</h3>
 <h4 id="ingress-templating">Ingress templating</h4>
 <p>This update enables custom annotations on the <code>Ingress</code> resources.
 This is useful when configuration ingress alongside third-party software, such
@@ -5911,16 +5937,16 @@ when <a href="#eks-irsa">EKS IRSA</a> is enabled.</li>
 </ul>
 <hr>
 <h2 date="2023-10-24" id="20231024-711448">20231024-711448</h2>
-<h3 id="quickstart-23">Quickstart</h3>
+<h3 id="quickstart-24">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231024-711448</span></span></span></code></pre></div><h4 id="release-artifacts-23">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231024-711448</span></span></span></code></pre></div><h4 id="release-artifacts-24">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20231024-711448/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20231024-711448/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-16">Highlights</h3>
+<h3 id="highlights-17">Highlights</h3>
 <h4 id="additional-appinstance-parameters">Additional <code>AppInstance</code> parameters</h4>
 <p>This includes an addition to the <code>AppInstance</code> <code>package</code> specification with a
 new key: <code>hostingEnvironment</code>.
@@ -5958,16 +5984,16 @@ manifests regarding the ingress resources.</p>
 </ul>
 <hr>
 <h2 date="2023-10-04" class="checkpoint" id="20231004-666907">20231004-666907</h2>
-<h3 id="quickstart-24">Quickstart</h3>
+<h3 id="quickstart-25">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231004-666907</span></span></span></code></pre></div><h4 id="release-artifacts-24">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20231004-666907</span></span></span></code></pre></div><h4 id="release-artifacts-25">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20231004-666907/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20231004-666907/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-17">Highlights</h3>
+<h3 id="highlights-18">Highlights</h3>
 <h4 id="object-store-custom-certificates">Object store custom certificates</h4>
 <p>Support for custom certificates has been implemented since version
 <a href="#20230912-619813">20230912-619813</a>.
@@ -6010,16 +6036,16 @@ cluster running pods with different versions will impact write availability.</p>
 </ul>
 <hr>
 <h2 date="2023-09-22" id="20230922-650371">20230922-650371</h2>
-<h3 id="quickstart-25">Quickstart</h3>
+<h3 id="quickstart-26">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230922-650371</span></span></span></code></pre></div><h4 id="release-artifacts-25">Release artifacts</h4>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230922-650371</span></span></span></code></pre></div><h4 id="release-artifacts-26">Release artifacts</h4>
 <ul>
 <li><a href="/downloads/clustered-release-artifacts/20230922-650371/app-instance-schema.json">app-instance-schema.json</a></li>
 <li><a href="/downloads/clustered-release-artifacts/20230922-650371/example-customer.yml">example-customer.yml</a></li>
 <li><a href="/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt">InfluxDB Clustered README EULA July 2024.txt</a></li>
 </ul>
-<h3 id="highlights-18">Highlights</h3>
+<h3 id="highlights-19">Highlights</h3>
 <h4 id="configuration-simplification">Configuration simplification</h4>
 <p>This release simplifies the configuration of the admin interface.
 The <code>internalSigningKey</code> configuration section is now optional and is
@@ -6055,10 +6081,10 @@ point to the <code>gateway</code> service&ndash;for example:
 </ul>
 <hr>
 <h2 date="2023-09-15" id="20230915-630658">20230915-630658</h2>
-<h3 id="quickstart-26">Quickstart</h3>
+<h3 id="quickstart-27">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230915-630658</span></span></span></code></pre></div><h3 id="highlights-19">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230915-630658</span></span></span></code></pre></div><h3 id="highlights-20">Highlights</h3>
 <h4 id="persistent-volume-fixes">Persistent volume fixes</h4>
 <p>This release fixes am issue involving volume permissions in some volume
 provisioners (for example, EBS).
@@ -6071,10 +6097,10 @@ documentation.</li>
 </ul>
 <hr>
 <h2 date="2023-09-14" id="20230914-628600">20230914-628600</h2>
-<h3 id="quickstart-27">Quickstart</h3>
+<h3 id="quickstart-28">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230914-628600</span></span></span></code></pre></div><h3 id="highlights-20">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230914-628600</span></span></span></code></pre></div><h3 id="highlights-21">Highlights</h3>
 <h4 id="updated-azure-ad-documentation">Updated Azure AD documentation</h4>
 <p>The <code>Appendix</code> / <code>Configuring Identity Provider</code> / <code>Azure</code> section of the
 &ldquo;Getting started&rdquo; documentation has been updated:</p>
@@ -6092,10 +6118,10 @@ documentation.</li>
 </ul>
 <hr>
 <h2 date="2023-09-12" id="20230912-619813">20230912-619813</h2>
-<h3 id="quickstart-28">Quickstart</h3>
+<h3 id="quickstart-29">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230912-619813</span></span></span></code></pre></div><h3 id="highlights-21">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230912-619813</span></span></span></code></pre></div><h3 id="highlights-22">Highlights</h3>
 <h4 note="(Optional)" id="custom-ca-certificates">Custom CA certificates</h4>
 <p>InfluxDB processes inbound API requests (<em>ingress</em>) and issues outbound API
 request to external services (<em>egress</em>).
@@ -6139,10 +6165,10 @@ certificate file can contain one or more PEM encoded CA certificates.</p>
 </ul>
 <hr>
 <h2 date="2023-09-11" id="20230911-604209">20230911-604209</h2>
-<h3 id="quickstart-29">Quickstart</h3>
+<h3 id="quickstart-30">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230911-604209</span></span></span></code></pre></div><h3 id="highlights-22">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230911-604209</span></span></span></code></pre></div><h3 id="highlights-23">Highlights</h3>
 <p>This release contains a breaking change to the monitoring subsystem that
 requires manual intervention to unblock.
 More details in the Upgrade notes section below.</p>
@@ -6170,10 +6196,10 @@ The operator will then automatically re-create the resources.</p>
 </ul>
 <hr>
 <h2 date="2023-09-08" id="20230908-600131">20230908-600131</h2>
-<h3 id="quickstart-30">Quickstart</h3>
+<h3 id="quickstart-31">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230908-600131</span></span></span></code></pre></div><h3 id="highlights-23">Highlights</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230908-600131</span></span></span></code></pre></div><h3 id="highlights-24">Highlights</h3>
 <h4 id="default-storage-class">Default storage class</h4>
 <p>The <code>storageClassName</code> parameters are no longer required.
 InfluxDB uses the cluster&rsquo;s default storage class unless you override it in your
@@ -6186,7 +6212,7 @@ configuration.</p>
 </ul>
 <hr>
 <h2 date="2023-09-07" id="20230907-597343">20230907-597343</h2>
-<h3 id="quickstart-31">Quickstart</h3>
+<h3 id="quickstart-32">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20230907-597343</span></span></span></code></pre></div><h3 id="upgrade-notes-8">Upgrade Notes</h3>
