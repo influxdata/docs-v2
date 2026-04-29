@@ -33,7 +33,7 @@ docker pull influxdata/influxdb3-ui
 
 - **Line protocol writes**: Improve handling of write size limits with clearer error messages.
 - **Triggers**: Fix trigger name resolution and trigger-to-plugin mapping in the plugins UI.
-- **Errors**: Improve error handling and surface clearer messages for failed InfluxDB requests.
+- **Errors**: Improve error handling and output clearer messages for failed InfluxDB requests.
 - **System databases**: Restore visibility of the `_internal` database in the Data Explorer, Tables page, and Tokens page.
 - **Timestamps**: Support ISO-8601 timestamp strings during value serialization.
 - **Query tool**: Fix the query tool redirect after switching server configurations.
