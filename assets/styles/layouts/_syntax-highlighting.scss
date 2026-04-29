@@ -73,17 +73,9 @@ pre[class*="language-"] {
 
 	.gi 		/* Generic.Inserted */
 					{
-						/* Use a green tint with a strong left border for diff +
-						   lines. The previous `background-color: accent1` was
-						   the same value as the comment foreground color, so
-						   any comment-class text inside the inserted line was
-						   invisible (fg == bg). It also rendered as a flat
-						   purple block that was hard to read in dark theme.
-						   Distinct fg/bg keeps text legible across themes. */
-						background-color: rgba(0, 159, 95, 0.18);
-						border-left: 3px solid #009f5f;
 						display: block;
-						margin-left: -3px;
+						background-color: rgba(0, 134, 88, 0.35);
+						border-left: 3px solid #009f5f;
 					}
 
 	.k, 		/* Keyword */
@@ -129,14 +121,9 @@ pre[class*="language-"] {
 	
 	.gd     /* Generic.Deleted */
 					{
-						/* Red tint background + left border for diff - lines.
-						   Drop the line-through styling — it doesn't match
-						   GitHub-style diff rendering and combined with
-						   syntax-colored text it actively hurts readability. */
-						background-color: rgba(191, 61, 94, 0.15);
-						border-left: 3px solid #bf3d5e;
 						display: block;
-						margin-left: -3px;
+						background-color: rgba(191, 61, 94, 0.25);
+						border-left: 3px solid #bf3d5e;
 					}
 
 	.m,  		/* Literal.Number */
