@@ -47,7 +47,7 @@
     - /influxdb3/explorer/
     - /influxdb3/core/
     - /influxdb3/enterprise/
-  title: 'Key enhancements in Explorer 1.8'
+  title: Key enhancements in Explorer 1.8
   slug: |
     Explorer 1.8 is now available with streaming data subscriptions (beta),
     line protocol preview, and query history & saved queries.
