@@ -76,7 +76,7 @@ For example: `"Kapacitor"`.
 Map Kapacitor alert levels to [Zenoss event severity levels](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).
 
 ```toml
-{ OK = "Clear", Info = "Info", Warning = "Warning", Critical = "Critical" }
+severity-map = { OK = "Clear", Info = "Info", Warning = "Warning", Critical = "Critical" }
 ```
 
 #### global
