@@ -40,6 +40,33 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
+- id: explorer-1-8-key-enhancements
+  level: note
+  scope:
+    - /
+    - /influxdb3/explorer/
+    - /influxdb3/core/
+    - /influxdb3/enterprise/
+  title: Key enhancements in Explorer 1.8
+  slug: |
+    Explorer 1.8 is now available with streaming data subscriptions (beta),
+    line protocol preview, and query history & saved queries.
+
+    <a class="btn" href="/influxdb3/explorer/release-notes/#v180">View Explorer 1.8 release notes</a>
+  message: |
+    Explorer 1.8 includes new features and improvements that make it easier to ingest,
+    explore, and manage data.
+
+    **Highlights:**
+
+    - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources.
+    - **Line protocol preview**: Preview line protocol, schema, and parse errors before data is written.
+    - **Custom sample data**: Generate custom sample datasets with line protocol and schema preview.
+    - **Query history and saved queries**: Browse query history and save/re-run named queries.
+    - **Retention period management**: Set, update, or clear retention periods on databases and tables.
+
+    For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
+
 - id: influxdb3-9-performance-preview
   level: note
   scope:
