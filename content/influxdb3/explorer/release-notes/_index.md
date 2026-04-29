@@ -22,7 +22,7 @@ docker pull influxdata/influxdb3-ui
 
 - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources with field mapping, message format configuration, and contextual help for each provider.
 - **Line protocol preview**: Get a live schema preview and inline parse-error surfacing while writing line protocol, so problems show up before you submit.
-- **Query history and saved queries**: Improved history viewer with query metadata, with surfaced ability to save, manage, and re-run named queries from the query tool.
+- **Query history and saved queries**: Browse query history with query metadata, then save, manage, and re-run named queries from the query tool.
 - **Interactive sample data**: Browse a redesigned sample data page with dataset descriptions, line protocol preview, and schema mapping.
 - **Custom sample data with AI**: Generate custom sample datasets from a natural-language prompt to quickly write familiar sample data into a database.
 - **Live sample data plugins**: Configure and run processing engine plugins that continuously generate live sample data, with editable trigger arguments and advanced options.
