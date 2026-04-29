@@ -64,10 +64,7 @@
     - **Query history and saved queries**: Browse query history and save/re-run named queries.
     - **Retention period management**: Set, update, or clear retention periods on databases and tables.
 
-    For more details, see:
-
-    - [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
-
+    For more details, see [Explorer 1.8 release notes](/influxdb3/explorer/release-notes/#v180)
 - id: influxdb3-9-performance-preview
   level: note
   scope:
