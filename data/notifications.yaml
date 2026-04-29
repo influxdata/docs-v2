@@ -60,7 +60,8 @@
     **Highlights:**
 
     - **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources.
-    - **Line protocol preview**: Live schema preview and inline parse-error surfacing while writing line protocol.
+    - **Line protocol preview**: Preview line protocol, schema, and parse errors before data is written.
+    - **Custom sample data**: Generate custom sample datasets with line protocol and schema preview.
     - **Query history and saved queries**: Browse query history and save/re-run named queries.
     - **Retention period management**: Set, update, or clear retention periods on databases and tables.
 
