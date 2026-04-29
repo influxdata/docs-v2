@@ -267,11 +267,11 @@ curl --location-trusted --negotiate -u "admin:changeit" -s https://cluster_node_
 {
     "roles": [
         {
-            "name": "djinn",
+            "name": "djinn"
         },
         {
             "name": "spectre"
-        },
+        }
     ]
 }
 

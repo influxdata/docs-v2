@@ -184,7 +184,7 @@ A zero (`0`) retention period means data won't expire.
     "retention_period_ns": 86400000000000,
     "max_tables": 100,
     "max_columns_per_table": 200
-  },
+  }
 ]
 ```
 

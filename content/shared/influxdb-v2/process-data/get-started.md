@@ -46,7 +46,7 @@ The InfluxDB UI provides a form for defining task options.
 Use the InfluxDB Cloud API to create tasks that reference and run [invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
 When you create or update the task, pass task options as properties in the request body--for example:
 
-```json
+```text
   {
    "name": "30-day-avg-temp",
    "description": "IoT Center 30d environment average.",
@@ -145,7 +145,7 @@ You can use tasks to schedule script runs with options and parameters.
 
 The following sample `POST /api/v2/scripts` request body defines a new invokable script with the Flux from the previous example:
 
-```json
+```text
 {
    "name": "aggregate-intervals",
    "description": "Group points into 5 minute windows and calculate the average of each
@@ -223,7 +223,7 @@ from(bucket: "example-bucket")
 The following sample code shows a `POST /api/v2/scripts` request body that
 combines the components described in this guide:
 
-```json
+```text
 {
    "name": "aggregate-intervals-and-export",
    "description": "Group points into 5 minute windows and calculate the average of each

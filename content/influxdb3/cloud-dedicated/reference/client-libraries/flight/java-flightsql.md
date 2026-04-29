@@ -432,7 +432,7 @@ In the `FlightQuery.main()` method, do the following to create an SQL client tha
     that inserts the following Flight request metadata header property:
 
     ```json
-    "database": "DATABASE_NAME"
+    { "database": "DATABASE_NAME" }
     ```
 
 3. Instantiate a `BufferAllocator` that sets the memory allowed for the client.

@@ -437,7 +437,7 @@ curl localhost:8091/user?name=bob
 
 The JSON output will include user information and permissions:
 
-```json
+```text
 "users": [
   {
     "name": "bob",
