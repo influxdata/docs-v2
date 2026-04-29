@@ -61,6 +61,37 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20260421-2022186 {date="2026-04-21"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20260421-2022186
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20260421-2022186/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20260421-2022186/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+- Add `derivative` and `difference` SQL functions
+- Include the number of returned rows in query log entries
+- Reduce ingester memory usage during persistence
+- Self-adjust garbage collector delays based on delete rate
+- Increase max stream resets for the catalog from 4,000 to 16,000
+- Enable proactive memory backpressure
+
+### Security and Bug Fixes
+
+- Fix a non-negative integer implementation bug
+- Return 503 for auth service communication errors
+- Always apply overlap filtering in TargetLevel compaction
+- Dependency updates and miscellaneous security fixes
+
 ## 20251218-1946608 {date="2025-12-18"}
 
 ### Quickstart
