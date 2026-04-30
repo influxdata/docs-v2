@@ -1,8 +1,9 @@
 ---
 title: Use the InfluxDB documentation MCP server
+seotitle: InfluxDB docs Model Context Protocol (MCP) server
 description: >
   Query {{% product-name %}} documentation from your IDE using the InfluxDB documentation
-  MCP server.
+  Model Context Protocol (MCP) server.
 menu:
   enterprise_influxdb_v1:
     name: Documentation MCP server
@@ -15,6 +16,8 @@ alt_links:
   cloud-dedicated: /influxdb3/cloud-dedicated/admin/mcp-server/
   cloud-serverless: /influxdb3/cloud-serverless/reference/mcp-server/
 source: /shared/influxdb3-admin/mcp-server-docs-only.md
+aliases:
+  - /enterprise_influxdb/v1/mcp/server/
 ---
 
 <!-- //SOURCE content/shared/influxdb3-admin/mcp-server-docs-only.md -->

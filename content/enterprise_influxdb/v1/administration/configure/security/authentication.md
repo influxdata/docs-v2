@@ -12,7 +12,7 @@ weight: 10
 To configure authentication, do one of the following: 
 
 - [Enable authentication](#enable-authentication)
-- [Configure authentication using JWT tokens](#configure-authentication-using-jwt-tokens) ([InfluxDB HTTP API](/enterprise_influxdb/v1/tools/api/) only)
+- [Configure authentication using JWT tokens](#configure-authentication-using-jwt-tokens) ([InfluxDB HTTP API](/enterprise_influxdb/v1/api/) only)
 
 ## Enable authentication
 

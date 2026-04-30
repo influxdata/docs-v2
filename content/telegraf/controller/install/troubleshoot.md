@@ -7,6 +7,8 @@ menu:
     name: Troubleshoot installation 
     parent: Install Telegraf Controller
 weight: 101
+related:
+  - /telegraf/controller/reference/config-options/
 ---
 
 Resolve common installation and startup issues with {{% product-name %}}.
@@ -14,7 +16,7 @@ Check the symptoms below and apply the recommended fix before continuing with
 configuration.
 
 - [Port Already in Use](#port-already-in-use)
-- [Permission Denied (Linux/macOS)](#permission-denied-linux-macos)
+- [Permission Denied (Linux/macOS)](#permission-denied-linuxmacos)
 - [Database Connection Issues](#database-connection-issues)
 - [Firewall Configuration](#firewall-configuration)
 - [Security Considerations](#security-considerations)
@@ -26,8 +28,11 @@ configuration options to specify alternative ports:
 
 | Description           | Environment Variable | Command Flag       |
 | :-------------------- | -------------------- | ------------------ |
-| Web Interface and API | `PORT`               | `--port`           |
+| Web Interface and API | `APP_PORT`           | `--port`           |
 | Heartbeat server      | `HEARTBEAT_PORT`     | `--heartbeat-port` |
+
+_For more information, see the
+[General section of the configuration options reference](/telegraf/controller/reference/config-options/#general)._
 
 {{< tabs-wrapper >}}
 {{% tabs "medium" %}}
@@ -46,7 +51,7 @@ configuration options to specify alternative ports:
 <!------------------------- BEGIN LINUX/MACOS ------------------------->
 
 ```sh
-PORT=3000
+APP_PORT=3000
 HEARTBEAT_PORT=3001
 
 telegraf_controller
@@ -58,7 +63,7 @@ telegraf_controller
 <!--------------------- BEGIN WINDOWS POWERSHELL ---------------------->
 
 ```powershell
-$env:PORT=3000
+$env:APP_PORT=3000
 $env:HEARTBEAT_PORT=3001
 
 ./telegraf_controller.exe
@@ -154,7 +159,8 @@ Ensure the following ports are open in your network Firewall configuration:
 
 ## Security considerations
 
-- **SSL/TLS**: Use `--ssl-cert` and `--ssl-key` options for production deployments
+- **SSL/TLS**: Set the [`SSL_CERT_PATH` and `SSL_KEY_PATH`](/telegraf/controller/reference/config-options/#tls)
+  environment variables for production deployments
 - **Firewall**: Restrict access to the web interface and heartbeat ports
 - **Database Security**:
   - **PostgreSQL**: Use strong passwords

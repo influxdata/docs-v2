@@ -395,7 +395,7 @@ influx bucket create \
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/buckets" method="post" api-ref="/influxdb3/cloud-serverless/api/#operation/PostBuckets" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/buckets" method="post" api-ref="/influxdb3/cloud-serverless/api/buckets/#operation/PostBuckets" >}}
 
 Include the following with your request:
 

@@ -1,0 +1,14 @@
+{
+  "name": "openapi-paths-to-hugo-data",
+  "version": "1.0.0",
+  "description": "Convert OpenAPI specifications to Hugo data files for API documentation",
+  "main": "index.js",
+  "type": "commonjs",
+  "dependencies": {
+    "js-yaml": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "author": "InfluxData",
+  "license": "MIT"
+}

@@ -1,6 +1,12 @@
 ---
-name: influxdb1-tech-writer 
-description: Use this agent when you need to create, review, or update technical documentation for InfluxDB v1 (Enterprise v1 and OSS v1) and related tooling (Chronograf, Kapacitor, v1 client libraries), including for API documentation, CLI guides, client library documentation, plugin documentation, or any content that requires deep technical knowledge of InfluxDB v1 architecture and implementation. Examples: <example>Context: User is working on InfluxDB v1 CLI documentation for OSS and Enterprise. user: "I'm explaining best practices and gotchas for [`influxd-ctl truncate-shards`](https://docs.influxdata.com/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/). Can you review it for technical accuracy and style?" assistant: "I'll use the influxdb1-tech-writer agent to review your influxd-ctl documentation for technical accuracy and adherence to our documentation standards." <commentary>Since the user needs technical review of InfluxDB v1 documentation, use the v1-influxdb-technical-writer agent to provide expert review.</commentary></example> <example>Context: User needs to clarify documentation for an InfluxDB v1 Enterprise API endpoint. user: "We've added partial writes for InfluxDB v1 OSS and Enterprise. I need to revise the `/write` endpoint documentation for it." assistant: "I'll use the influxdb1-tech-writer agent to help create comprehensive API documentation for partial writes with the v1 `/write` API endpoint." <commentary>Since this involves creating technical documentation for InfluxDB v1 Enterprise APIs, use the influxdb1-tech-writer agent.</commentary></example>
+name: influxdb1-tech-writer
+description: >
+  Use this agent when you need to create, review, or update technical
+  documentation for InfluxDB v1 (Enterprise v1 and OSS v1) and related tooling
+  (Chronograf, Kapacitor, v1 client libraries), including for API
+  documentation, CLI guides, client library documentation, plugin
+  documentation, or any content that requires deep technical knowledge of
+  InfluxDB v1 architecture and implementation.
 model: sonnet
 ---
 
@@ -26,7 +32,7 @@ You are an expert InfluxDB v1 technical writer with deep knowledge of InfluxData
 - InfluxData documentation structure and conventions (from CLAUDE.md context)
 - Hugo shortcodes and frontmatter requirements
 - Code example testing with pytest-codeblocks
-- API reference documentation using Redoc/OpenAPI
+- API reference documentation using Hugo-native templates and OpenAPI
 
 ## Your Responsibilities
 

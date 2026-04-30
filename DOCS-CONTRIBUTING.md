@@ -353,8 +353,7 @@ Test shortcodes with working examples in **[content/example.md](content/example.
 
 docs-v2 includes the InfluxDB API reference documentation in the `/api-docs` directory. The files are written in YAML and use [OpenAPI 3.0](https://swagger.io/specification/) standard.
 
-InfluxData uses [Redoc](https://github.com/Redocly/redoc) to build and generate the full
-InfluxDB API documentation when documentation is deployed.
+InfluxData uses Hugo-native templates to render API reference pages from OpenAPI specs.
 For more information about editing and generating InfluxDB API documentation, see the
 [API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 

@@ -16,6 +16,55 @@ To upgrade, pull the latest Docker image:
 docker pull influxdata/influxdb3-ui
 ```
 
+## v1.8.0 {date="2026-04-29"}
+
+#### Features
+
+- **Streaming data subscriptions (beta)**: Stream data into Explorer from MQTT, Kafka, and AMQP sources with field mapping, message format configuration, and contextual help for each provider.
+- **Line protocol preview**: Get a live schema preview and inline parse-error surfacing while writing line protocol, so problems show up before you submit.
+- **Query history and saved queries**: Browse query history with query metadata, then save, manage, and re-run named queries from the query tool.
+- **Interactive sample data**: Browse a redesigned sample data page with dataset descriptions, line protocol preview, and schema mapping.
+- **Custom sample data with AI**: Generate custom sample datasets from a natural-language prompt to quickly write familiar sample data into a database.
+- **Live sample data plugins**: Configure and run processing engine plugins that continuously generate live sample data, with editable trigger arguments and advanced options.
+- **Retention period management**: Set, update, or clear retention periods on both databases and individual tables. Duration fields accept flexible humantime values.
+- **Write-to-Explore navigation**: Jump directly from a successful write to the Data Explorer to immediately query the data.
+
+#### Bug fixes
+
+- **Line protocol writes**: Improve handling of write size limits with clearer error messages.
+- **Triggers**: Fix trigger name resolution and trigger-to-plugin mapping in the plugins UI.
+- **Errors**: Improve error handling and output clearer messages for failed InfluxDB requests.
+- **System databases**: Restore visibility of the `_internal` database in the Data Explorer, Tables page, and Tokens page.
+- **Timestamps**: Support ISO-8601 timestamp strings during value serialization.
+- **Query tool**: Fix the query tool redirect after switching server configurations.
+
+## v1.7.0 {date="2026-04-14"}
+
+#### Breaking changes
+
+- **Container user change**: The Docker container now runs as non-root user `influxui` (uid 1500) instead of root for improved security.
+- **Upgrade action**: See [Install InfluxDB 3 Explorer](/influxdb3/explorer/install/#set-file-permissions-for-upgrades)
+  for upgrade file permission steps.
+
+#### Features
+
+- **Transform Data**: Rename tables (measurements), rename columns, transform values (such as unit conversions), and filter rows from a dedicated Transform Data page with dry-run testing.
+- **Downsample**: Define and manage downsampling rules to reduce data resolution over time.
+- **Import from InfluxDB**: Import data from an existing InfluxDB v1, v2, or v3 instance with target selection, dry-run preview, and import monitoring.
+- **Table management page**: Create, manage, and delete tables in a dedicated Table Management page.
+- **Database management actions**: Manage databases from a new actions menu on a restyled Manage Databases page.
+- **Line protocol validation**: Get clearer, inline validation when writing data with line protocol.
+- **TLS certificate management**: Generate and renew short-lived TLS certificates for IP-based deployments.
+- **Storage type display**: View the configured storage type for your InfluxDB instance in the metrics UI.
+- **Non-root container**: The container now runs as a non-root user (uid 1500) for improved security.
+
+#### Bug fixes
+
+- **Databases**: Fix navigation when database names contain slashes; fix database selector width.
+- **Code snippets**: Add sticky headers and rename the "View code" button for clarity.
+- **Ask AI**: Fix serialization for renamed Anthropic provider fields.
+- **Deleted databases**: Auto-show deleted items when a deleted database is selected.
+
 ## v1.6.3 {date="2026-02-19"}
 
 #### Features

@@ -344,6 +344,18 @@ every key must be checked. This will not validate field keys.
 **Default**: `false`  
 **Environment variable**: `INFLUXDB_VALIDATE_KEYS`
 
+### tar-stream-buffer-size
+
+The size (in bytes) of the tar buffer window while running tar streaming operations,
+such as renaming and copying tar files during backups.
+
+> [!Note]
+> Only change `tar-stream-buffer-size` from the default if backups have performance issues. Understand that this is a heuristic
+> and may require experimentation on your system.
+
+**Default**: `"1048576"`  
+**Environment variable**: `INFLUXDB_TAR_STREAM_BUFFER_SIZE`
+
 ### Settings for the TSM engine
 
 #### cache-max-memory-size

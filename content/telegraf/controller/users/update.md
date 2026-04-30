@@ -8,6 +8,9 @@ menu:
     name: Update users
     parent: Manage users
 weight: 103
+related:
+  - /telegraf/controller/reference/config-options/
+  - /telegraf/controller/reference/authorization/
 ---
 
 Owners and administrators can reset passwords and change roles for other users in {{% product-name %}}.
@@ -48,8 +51,8 @@ If the owner account is locked out or the owner has forgotten their password,
 you can reset it using environment variables.
 
 1. Set the following environment variables:
-   - `RESET_OWNER_PASSWORD=true`
-   - `OWNER_PASSWORD` to the desired new password
+   - [`RESET_OWNER_PASSWORD=true`](/telegraf/controller/reference/config-options/#reset-owner-password)
+   - [`OWNER_PASSWORD`](/telegraf/controller/reference/config-options/#owner-password) to the desired new password
 2. Restart the {{% product-name %}} application.
 3. Log in with the new password.
 4. Remove the `RESET_OWNER_PASSWORD` and `OWNER_PASSWORD` environment variables.

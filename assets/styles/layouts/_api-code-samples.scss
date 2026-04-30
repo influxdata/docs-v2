@@ -1,0 +1,76 @@
+// API Code Samples
+// Styles for inline curl examples and Ask AI links within API operations
+
+.api-code-sample {
+  margin: $api-spacing-lg 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: $api-border-radius;
+  // Intentionally no `overflow: hidden`: the absolutely-positioned
+  // `.code-controls` dropdown (Copy / Ask AI / Fill window) is appended
+  // inside `.codeblock` by code-controls.js and would be clipped here.
+  // Rounded corners are achieved by matching radii on the inner header
+  // and `<pre>` instead.
+
+  .dark-theme & {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.api-code-sample-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: $api-spacing-sm $api-spacing-md;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: $api-border-radius;
+  border-top-right-radius: $api-border-radius;
+
+  .dark-theme & {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .api-code-sample-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+}
+
+pre.api-code-block {
+  margin: 0;
+  padding: $api-spacing-md;
+  overflow-x: auto;
+  background: $article-code-bg;
+  color: $article-code;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  border-bottom-left-radius: $api-border-radius;
+  border-bottom-right-radius: $api-border-radius;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    white-space: pre;
+  }
+}
+
+.api-code-ask-ai {
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: $article-link;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 1;
+  }
+}

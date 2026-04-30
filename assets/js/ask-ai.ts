@@ -16,20 +16,17 @@ declare global {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
 type KapaFunction = (command: string, options?: unknown) => void;
 
 // Preinitialize Kapa widget to queue commands before script loads
 (function () {
   const k = window.Kapa;
   if (!k) {
-    /* eslint-disable no-unused-vars */
     interface KapaQueue {
       (...args: unknown[]): void;
       q?: unknown[][];
       c?: (args: unknown[]) => void;
     }
-    /* eslint-enable no-unused-vars */
     const i = function (...args: unknown[]) {
       if (i.c) {
         i.c(args);
@@ -87,8 +84,6 @@ function initializeChat({
    * available configuration options.
    * All values are strings.
    */
-  // If you make changes to data attributes here, you also need to
-  // port the changes to the api-docs/template.hbs API reference template.
   const requiredAttributes = {
     websiteId: 'a02bca75-1dd3-411e-95c0-79ee1139be4d',
     projectName: 'InfluxDB',

@@ -304,6 +304,49 @@ services:
         source: test-content
         target: /app/content
     working_dir: /app
+  influxdb3-enterprise-pytest:
+    container_name: influxdb3-enterprise-pytest
+    image: influxdata/docs-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.pytest
+    entrypoint:
+      - /bin/bash
+      - /src/test/scripts/run-tests.sh
+      - pytest
+    command:
+      - content/influxdb3/enterprise/**/*.md
+      - content/shared/**/*.md
+    environment:
+      - CONTENT_PATH=content/influxdb3/enterprise
+    profiles:
+      - test
+      - influxdb3
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+      - type: bind
+        source: ./test/shared
+        target: /shared
+      - type: bind
+        source: ./content/influxdb3/enterprise/.env.test
+        target: /app/.env.test
+        read_only: true
+      - type: bind
+        source: ./static/downloads
+        target: /app/data
+        read_only: true
+      - type: volume
+        source: influxdb3-enterprise-tmp
+        target: /app/iot-starter
+      - type: volume
+        source: test-content
+        target: /app/content
+    working_dir: /app
   # ============================================================================
   # InfluxDB 3 Core - PER-WORKTREE INSTANCE
   # ============================================================================
@@ -625,6 +668,8 @@ services:
         read_only: false
 volumes:
   test-content:
+  influxdb3-core-tmp:
+  influxdb3-enterprise-tmp:
   cloud-tmp:
   cloud-dedicated-tmp:
   cloud-serverless-tmp:

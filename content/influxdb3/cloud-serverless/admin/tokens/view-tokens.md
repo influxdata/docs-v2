@@ -79,7 +79,7 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
-{{< api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations" api-ref="/influxdb3/cloud-serverless/api/#operation/GetAuthorizations" >}}
+{{< api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations" api-ref="/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/GetAuthorizations" >}}
 
 - [View a single token](#view-a-single-token)
 - [Filter the token list](#filter-the-token-list)
@@ -88,7 +88,7 @@ Include the following in your request:
 
 - **Headers**:
   - **Authorization**: `Token API_TOKEN`
-    (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/#operation/PostAuthorizations) permission)
+    (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
 {{% code-placeholders "API_TOKEN" %}}
@@ -101,13 +101,13 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{authID}" api-ref="/influxdb3/cloud-serverless/api/#operation/GetAuthorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{authID}" api-ref="/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/GetAuthorizationsID" %}}
 
 Include the following in your request:
 
 - **Headers**:
   - **Authorization**: `Token API_TOKEN`
-    (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/#operation/PostAuthorizations) permission)
+    (API token with the [`read: authorizations`](/influxdb3/cloud-serverless/api/authorizations-api-tokens/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
 {{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
@@ -130,7 +130,7 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 ```
 {{% /code-placeholders %}}
 
-See the [`/authorizations` endpoint documentation](/influxdb3/cloud-serverless/api/#tag/Authorizations-(API-tokens))
+See the [`/authorizations` endpoint documentation](/influxdb3/cloud-serverless/api/authorizations-api-tokens/))
 for more information about available parameters.
 
 {{% /tab-content %}}
