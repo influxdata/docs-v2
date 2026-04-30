@@ -16,7 +16,7 @@ Check the symptoms below and apply the recommended fix before continuing with
 configuration.
 
 - [Port Already in Use](#port-already-in-use)
-- [Permission Denied (Linux/macOS)](#permission-denied-linux-macos)
+- [Permission Denied (Linux/macOS)](#permission-denied-linuxmacos)
 - [Database Connection Issues](#database-connection-issues)
 - [Firewall Configuration](#firewall-configuration)
 - [Security Considerations](#security-considerations)
