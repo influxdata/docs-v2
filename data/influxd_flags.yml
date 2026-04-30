@@ -203,6 +203,9 @@
 - flag: "--ui-disabled"
   added: 2.0
 
+- flag: "--use-hashed-tokens"
+  added: 2.8
+
 - flag: "--vault-addr"
   added: 2.0
 

@@ -13,10 +13,25 @@ influxdb/v2/tags: [restore]
 related:
   - /influxdb/v2/admin/backup-restore/backup/
   - /influxdb/v2/reference/cli/influxd/restore/
+  - /influxdb/v2/admin/tokens/#token-hashing
 ---
 
 > [!Important]
 > Restores **not supported in InfluxDB Cloud**.
+
+> [!Important]
+> #### Restoring a backup with hashed tokens
+>
+> If the backup was taken from an instance with [token
+> hashing](/influxdb/v2/admin/tokens/#token-hashing) enabled (the
+> default in **InfluxDB OSS 2.9.0+**), the backup does not contain a
+> plaintext operator token. To run a full restore of that backup, supply
+> the operator token to the CLI with the `--operator-token <token>`
+> flag (`influx-cli` v2.8.0+):
+>
+> ```sh
+> influx restore --full --operator-token <OPERATOR_TOKEN> /path/to/backup
+> ```
 
 Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.
 
