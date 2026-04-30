@@ -36,8 +36,10 @@ weight: 101
 
 ### Features
 
-- Preserve raw TOML in code editor mode.
-- Redesign the configuration detail page info card layout.
+- Preserve in raw TOML in code editor mode. TOML is no longer reformatted on
+  save when using the code editor.
+- Redesign the configuration detail page to be more compact and make
+  **Use this configuration** more prominent.
 - Add plugin support to the Telegraf Builder UI:
   - Libvirt (`inputs.libvirt`)
   - Linux CPU (`inputs.linux_cpu`)
