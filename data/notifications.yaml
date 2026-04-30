@@ -133,16 +133,16 @@
     - [Telegraf Controller Documentation](/telegraf/controller/)
     - [Download and install Telegraf Controller](/telegraf/controller/install/)
 
-- id: telegraf-controller-0.0.6-beta
+- id: telegraf-controller-0.0.7-beta
   level: note
   scope:
     - /telegraf/controller/
-  title: Telegraf Controller v0.0.6-beta now available
+  title: Telegraf Controller v0.0.7-beta now available
   slug: |
-    Telegraf Controller v0.0.6-beta is now available with new features, improvements, and bug fixes.
+    Telegraf Controller v0.0.7-beta is now available with new features, improvements, bug fixes, and an important breaking change.
     
-    <a href="/telegraf/controller/reference/release-notes/#v006-beta">View the release notes</a>  
-    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.6-beta</a>
+    <a href="/telegraf/controller/reference/release-notes/#v007-beta">View the release notes</a>  
+    <a href="/telegraf/controller/install/#download-and-install-telegraf-controller">Download Telegraf Controller v0.0.7-beta</a>
 
 # - id: influxdb3.8-explorer-1.6
 #   level: note
