@@ -77,11 +77,17 @@ jobs:
           echo "${{ steps.detect.outputs.changed-content }}" | tr ' ' '\n' | \
             xargs -r .ci/scripts/check-support-links.sh
 
+      - name: Validate source frontmatter paths
+        if: steps.detect.outputs.has-changes == 'true'
+        run: |
+          echo "${{ steps.detect.outputs.changed-content }}" | tr ' ' '\n' | \
+            xargs -r .ci/scripts/check-source-paths.sh
+
       - name: Setup Node.js
         if: steps.detect.outputs.has-changes == 'true'
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -91,6 +97,15 @@ jobs:
       - name: Build Hugo site
         if: steps.detect.outputs.has-changes == 'true'
         run: npx hugo --minify
+
+      - name: Install lychee
+        if: steps.detect.outputs.has-changes == 'true'
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
+        with:
+          # Skip actual link checking - we just want to install lychee for link-checker to use
+          args: --version
+          # Don't fail if version check fails - we just need lychee installed
+          fail: false
 
       - name: Download link-checker binary
         if: steps.detect.outputs.has-changes == 'true'

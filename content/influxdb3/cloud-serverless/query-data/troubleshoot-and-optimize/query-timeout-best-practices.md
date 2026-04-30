@@ -9,7 +9,7 @@ menu:
 weight: 201
 related:
   - /influxdb3/cloud-serverless/reference/client-libraries/v3/
-source: shared/influxdb3-query-guides/query-timeout-best-practices.md
+source: /shared/influxdb3-query-guides/query-timeout-best-practices.md
 ---
 
 <!--

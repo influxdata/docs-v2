@@ -27,7 +27,8 @@ Need to decide when to use CLI vs direct editing?
 Made content changes?
 ├─ To shared content? Touch sourcing files! (See Part 1: Shared Content)
 ├─ Run Vale linting (See Part 3: Vale Style Linting)
-└─ Run tests (See Part 2: Testing)
+├─ Run code-block lint (See Part 2: Testing, section 3)
+└─ Run full code block tests (See Part 2: Testing)
 
 Need to verify technical accuracy?
 └─ Use documentation MCP server (See Part 4: Fact-Checking)
@@ -93,7 +94,7 @@ content/
 ```yaml
 ---
 title: Database Management
-source: /content/shared/influxdb3/admin/databases.md
+source: /shared/influxdb3/admin/databases.md
 ---
 ```
 
@@ -144,7 +145,7 @@ function isSharedContent(filePath) {
 function getSharedSource(filePath) {
   const content = readFileSync(filePath, 'utf8');
   const { data } = matter(content);
-  return data.source; // e.g., "/content/shared/influxdb3/admin/databases.md"
+  return data.source; // e.g., "/shared/influxdb3/admin/databases.md"
 }
 ```
 
@@ -200,7 +201,28 @@ yarn test:links
 # - Anchor links
 ```
 
-### 3. Code Block Testing (For Pages with Examples)
+### 3. Code Block Syntax Lint (Fast — Runs on Every PR)
+
+Parse/compile-only check for fenced code blocks. No credentials, no network, no Docker needed.
+
+```bash
+# Lint changed content files (exits 1 if any JSON/YAML/TOML block fails)
+yarn lint-codeblocks content/influxdb3/core/admin/tokens/*.md
+
+# Run the linter's own test suite
+yarn test:lint-codeblocks
+```
+
+**Blocking policy (mirrors CI):**
+
+| Language | On failure |
+| --- | --- |
+| JSON, YAML, TOML | `::error::` — fails the PR check |
+| bash, python, javascript | `::warning::` — informational only |
+
+**Normalization:** declared `placeholders="TOKEN|DURATION"` fence attributes and Hugo shortcodes (`{{< >}}`, `{{% %}}`) are substituted before parsing. See `DOCS-TESTING.md § "Parse/compile code-block lint"` for details.
+
+### 4. Code Block Execution Testing (For Pages with Runnable Examples)
 
 ```bash
 # Test all code examples in documentation
@@ -212,7 +234,7 @@ yarn test:codeblocks:all
 # - Can execute examples (for supported languages)
 ```
 
-### 4. E2E Testing (For Specific Pages)
+### 5. E2E Testing (For Specific Pages)
 
 Use the **cypress-e2e-testing** skill for comprehensive page testing:
 
@@ -233,7 +255,7 @@ node cypress/support/run-e2e-specs.js \
 
 See **cypress-e2e-testing** skill for detailed test workflow.
 
-### 5. Style Linting (Pre-commit)
+### 6. Style Linting (Pre-commit)
 
 Vale style linting runs automatically via pre-commit hooks, but you can run it manually:
 
@@ -256,7 +278,7 @@ Vale style linting runs automatically via pre-commit hooks, but you can run it m
 
 See **vale-linting** skill for comprehensive Vale workflow.
 
-### 6. Visual Preview (Optional)
+### 7. Visual Preview (Optional)
 
 ```bash
 # Start Hugo development server
@@ -520,7 +542,7 @@ yarn hugo
 
 ```bash
 # Find pages that reference the shared file
-grep -r "source: /content/shared/path/to/file.md" content/
+grep -r "source: /shared/path/to/file.md" content/
 
 # Touch each one
 touch content/influxdb3/core/path/to/file.md
@@ -567,6 +589,7 @@ ls content/influxdb3/core/api/
 | Build Hugo site            | `yarn hugo --quiet`                                                               |
 | Run Vale linting           | `.ci/vale/vale.sh --config=.vale.ini content/path/`                               |
 | Test links                 | `yarn test:links`                                                                 |
+| Lint code block syntax     | `yarn lint-codeblocks content/path/*.md`                                          |
 | Test code blocks           | `yarn test:codeblocks:all`                                                        |
 | Test specific page         | `yarn test:e2e content/path/file.md`                                              |
 | Fact-check with MCP        | Ask AI assistant with `search_influxdb_knowledge_sources` tool configured         |

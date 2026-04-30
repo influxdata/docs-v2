@@ -409,6 +409,36 @@ test('Home page: relative root path / in text', () => {
   );
 });
 
+test('Filesystem-style /content/ prefix is normalized to URL path', () => {
+  // Authors frequently paste filesystem paths like
+  // `/content/influxdb3/clustered/...` into the PR description; the
+  // preview should treat them equivalently to the corresponding URL
+  // `/influxdb3/clustered/...`. The leading `/content` is stripped
+  // by normalizeUrlPath.
+  const text = 'See /content/influxdb3/clustered/reference/release-notes/clustered/';
+  const result = extractDocsUrls(text);
+  assertEquals(
+    result,
+    ['/influxdb3/clustered/reference/release-notes/clustered/'],
+    'Should strip leading /content/ filesystem-path prefix'
+  );
+});
+
+test('/content/ prefix dedupes with the equivalent URL path', () => {
+  // If the description names both forms of the same page, the result
+  // set should contain it only once.
+  const text = `
+    - /content/influxdb3/core/admin/
+    - /influxdb3/core/admin/
+  `;
+  const result = extractDocsUrls(text);
+  assertEquals(
+    result,
+    ['/influxdb3/core/admin/'],
+    'Both forms should resolve to the same URL and dedupe'
+  );
+});
+
 // Print summary
 console.log('\n=== Test Summary ===');
 console.log(`Total: ${totalTests}`);

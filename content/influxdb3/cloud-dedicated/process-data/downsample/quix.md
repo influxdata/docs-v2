@@ -12,5 +12,5 @@ menu:
 weight: 102
 aliases:
   - /influxdb3/cloud-dedicated/process-data/downsample-quix/
-source: /content/shared/v3-process-data/downsample/quix.md
+source: /shared/v3-process-data/downsample/quix.md
 ---
