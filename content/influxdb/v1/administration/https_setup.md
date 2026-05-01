@@ -225,7 +225,7 @@ setting and set it to `true`.
     ###############################################################################
     #                            OUTPUT PLUGINS                                   #
     ###############################################################################
->
+
     # Configuration for InfluxDB server to send metrics to
     [[outputs.influxdb]]
       ## The full HTTP or UDP endpoint URL for your InfluxDB instance.
@@ -233,11 +233,11 @@ setting and set it to `true`.
       ## this means that only ONE of the urls will be written to each interval.
       # urls = ["udp://localhost:8089"] # UDP endpoint example
       urls = ["https://<domain_name>.com:8086"]
->
-    [...]
->
+
+      # ... other output options elided ...
+
       ## Optional SSL Config
-      [...]
+      # ... other SSL options elided ...
       insecure_skip_verify = true # <-- Update only if you're using a self-signed certificate
 ```
 
