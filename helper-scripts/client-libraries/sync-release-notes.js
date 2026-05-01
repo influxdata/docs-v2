@@ -32,7 +32,12 @@ function setFrontmatterFields(content, fields) {
   return `---\n${frontmatter}\n---\n` + content.slice(match[0].length);
 }
 
-function updateStubFrontmatter(docsRoot, slug, latestVersion, latestReleaseDate) {
+function updateStubFrontmatter(
+  docsRoot,
+  slug,
+  latestVersion,
+  latestReleaseDate
+) {
   const updated = [];
   for (const product of PRODUCTS) {
     const stubPath = resolve(
@@ -42,8 +47,8 @@ function updateStubFrontmatter(docsRoot, slug, latestVersion, latestReleaseDate)
     if (!existsSync(stubPath)) continue;
     const raw = readFileSync(stubPath, 'utf8');
     const next = setFrontmatterFields(raw, {
-      latest_version: latestVersion,
-      latest_release_date: latestReleaseDate,
+      latest_version: JSON.stringify(latestVersion),
+      latest_release_date: JSON.stringify(latestReleaseDate),
     });
     if (next !== raw) {
       writeFileSync(stubPath, next);

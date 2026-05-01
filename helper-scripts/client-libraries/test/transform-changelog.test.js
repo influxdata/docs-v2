@@ -18,6 +18,12 @@ test('rewrites bracketed version heading to Hugo date-attribute form', () => {
   assert.match(result.body, /## v0\.19\.0 \{date="2026-04-23"\}/);
 });
 
+test('rewrites date-in-brackets version heading', () => {
+  const input = `# Change Log\n\n## 0.19.0 [2026-04-23]\n### Features\n- Thing.\n`;
+  const result = transformChangelog(input);
+  assert.match(result.body, /## v0\.19\.0 \{date="2026-04-23"\}/);
+});
+
 test('rewrites unbracketed version heading', () => {
   const input = `## 2.14.0 - 2026-04-23\n### Fixed\n- Bug.\n`;
   const result = transformChangelog(input);
@@ -44,6 +50,13 @@ test('strips leading `# Changelog` H1', () => {
   assert.match(result.body, /Some preamble\./);
 });
 
+test('strips leading `# Change Log` H1', () => {
+  const input = `# Change Log\n\nSome preamble.\n\n## 0.19.0 [2026-04-23]\n`;
+  const result = transformChangelog(input);
+  assert.doesNotMatch(result.body, /^# Change Log/m);
+  assert.match(result.body, /Some preamble\./);
+});
+
 test('strips `## [Unreleased]` section through to next version heading', () => {
   const input = [
     '## [Unreleased]',
@@ -66,6 +79,28 @@ test('strips `## [Unreleased]` section through EOF when no later version', () =>
   const result = transformChangelog(input);
   assert.doesNotMatch(result.body, /Unreleased/);
   assert.doesNotMatch(result.body, /Only speculative/);
+});
+
+test('strips `## <version> [unreleased]` section through to next version heading', () => {
+  const input = [
+    '# Change Log',
+    '',
+    '## 0.20.0 [unreleased]',
+    '',
+    '### Features',
+    '- Speculative feature.',
+    '',
+    '## 0.19.0 [2026-04-23]',
+    '',
+    '### Features',
+    '- Real feature.',
+    '',
+  ].join('\n');
+  const result = transformChangelog(input);
+  assert.doesNotMatch(result.body, /0\.20\.0 \[unreleased\]/i);
+  assert.doesNotMatch(result.body, /Speculative feature/);
+  assert.match(result.body, /## v0\.19\.0 \{date="2026-04-23"\}/);
+  assert.match(result.body, /Real feature/);
 });
 
 test('extracts latest version and date to return value', () => {
