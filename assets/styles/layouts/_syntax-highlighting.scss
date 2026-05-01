@@ -73,7 +73,15 @@ pre[class*="language-"] {
 
 	.gi 		/* Generic.Inserted */
 					{
-						display: block;
+						/* inline-block + min-width:100% extends the highlight
+						   to either the container width (line shorter than
+						   visible area) OR the line's natural content width
+						   (line overflows horizontally). Plain `display: block`
+						   binds the highlight to the visible parent width, so
+						   text that overflows the code-block to the right
+						   renders outside the green tint. */
+						display: inline-block;
+						min-width: 100%;
 						background-color: rgba(0, 134, 88, 0.35);
 						border-left: 3px solid #009f5f;
 					}
@@ -121,7 +129,10 @@ pre[class*="language-"] {
 	
 	.gd     /* Generic.Deleted */
 					{
-						display: block;
+						/* See .gi above for the inline-block + min-width
+						   reasoning — same overflow handling. */
+						display: inline-block;
+						min-width: 100%;
 						background-color: rgba(191, 61, 94, 0.25);
 						border-left: 3px solid #bf3d5e;
 					}
