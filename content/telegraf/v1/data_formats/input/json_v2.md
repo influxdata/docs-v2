@@ -61,7 +61,7 @@ In the sections that follow these configuration keys are defined in more detail.
             timestamp_key = "" # A JSON key (for a nested key, prepend the parent keys with underscores) to a valid timestamp
             timestamp_format = "" # A string with a valid timestamp format (see below for possible values)
             timestamp_timezone = "" # A string with with a valid timezone (see below for possible values)
-            disable_prepend_keys = false (or true, just not both)
+            disable_prepend_keys = false # or true, just not both
             included_keys = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) that should be only included in result
             excluded_keys = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) that shouldn't be included in result
             tags = [] # List of JSON keys (for a nested key, prepend the parent keys with underscores) to be a tag instead of a field

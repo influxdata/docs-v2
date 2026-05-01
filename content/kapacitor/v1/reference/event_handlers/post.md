@@ -30,7 +30,7 @@ Below is an example configuration:
   basic-auth = { username = "my-user", password = "my-pass" }
   alert-template = "{{.Message}}:{{range .Data.Series}}{{.Tags}},{{range .Values}}{{.}}{{end}}{{end}}"
   alert-template-file = "/path/to/template/file"
-  row-template = "{{.Name}} host={{index .Tags \"host\"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}"
+  row-template = '{{.Name}} host={{index .Tags "host"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}'
   row-template-file = "/path/to/template/file"
 ```
 
@@ -327,7 +327,7 @@ _**kapacitor.conf**_
 ```toml
 [[httppost]]
   endpoint = "host"
-  url = "host={{index .ID \"host\"}}{{index . "time"}}{{end}}}"
+  url = 'host={{index .ID "host"}}{{index . "time"}}{{end}}}'
   alert-template = "{{.Message}}:{{range .Data.Series}}{{.Tags}},{{range .Values}}{{.}}{{end}}{{end}}"
 ```
 
@@ -337,7 +337,7 @@ _**kapacitor.conf**_
 ```toml
 [[httppost]]
   endpoint = "host"
-  url = "host={{index .ID \"host\"}}{{index . "time"}}{{end}}}"
+  url = 'host={{index .ID "host"}}{{index . "time"}}{{end}}}'
   alert-template-file = "/etc/templates/alert.html"
 ```
 
@@ -370,7 +370,7 @@ _**kapacitor.conf**_
 ```toml
 [[httppost]]
   endpoint = "host"
-  url = "host={{index .Tags \"host\"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}"
+  url = 'host={{index .Tags "host"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}'
   row-template = '{{.Name}} host={{index .Tags "host"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}'
 ```
 
@@ -380,7 +380,7 @@ _**kapacitor.conf**_
 ```toml
 [[httppost]]
   endpoint = "host"
-  url = "host={{index .Tags \"host\"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}"
+  url = 'host={{index .Tags "host"}}{{range .Values}} {{index . "time"}} {{index . "value"}}{{end}}'
   row-template-file = "/etc/templates/row.html"
 ```
 

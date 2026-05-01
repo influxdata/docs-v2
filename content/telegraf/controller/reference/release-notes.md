@@ -9,10 +9,72 @@ menu:
 weight: 101
 ---
 
-## v0.0.6-beta {date="2026-04-13"}
+## v0.0.7-beta {date="2026-04-30"}
 
 <!-- Link only be on the latest version, update and move with new versions. -->
-[Download Telegraf Controller v0.0.6-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+[Download Telegraf Controller v0.0.7-beta](/telegraf/controller/install/#download-and-install-telegraf-controller)
+
+> [!Warning]
+> #### Breaking change: Only allow endpoint authorization control on startup
+>
+> The `disabledAuthEndpoints` setting has been removed from the API and Settings
+> UI. Authentication bypass is now controlled exclusively via the
+> `DISABLED_AUTH_ENDPOINTS` environment variable or the
+> `--disable-auth-endpoints` command line flag, read once at startup and
+> immutable at runtime.
+>
+> **Why:** Runtime-configurable authentication bypass was a security weakness.
+> Anyone with admin access to the UI or API or direct access to the underlying
+> database could disable authentication on critical endpoints without restarting
+> the service or leaving an infrastructure-level audit trail. Auth policy now
+> belongs to whoever deploys the service, not whoever logs into it.
+>
+> **Action required:** By default, authentication is required on all endpoints.
+> If you previously relied on the old `*` default or disabled specific endpoints
+> via the UI, set `DISABLED_AUTH_ENDPOINTS` in your deployment environment
+> before upgrading.
+
+### Features
+
+- Preserve in raw TOML in code editor mode. TOML is no longer reformatted on
+  save when using the code editor.
+- Redesign the configuration detail page to be more compact and make
+  **Use this configuration** more prominent.
+- Add plugin support to the Telegraf Builder UI:
+  - Libvirt (`inputs.libvirt`)
+  - Linux CPU (`inputs.linux_cpu`)
+  - Linux Sysctl FS (`inputs.linux_sysctl_fs`)
+  - LogQL (`inputs.logql`)
+  - Logstash (`inputs.logstash`)
+  - Lustre2 (`inputs.lustre2`)
+  - LVM (`inputs.lvm`)
+  - Mailchimp (`inputs.mailchimp`)
+  - MarkLogic (`inputs.marklogic`)
+  - MAVLink (`inputs.mavlink`)
+  - Mcrouter (`inputs.mcrouter`)
+  - Mdstat (`inputs.mdstat`)
+  - Memcached (`inputs.memcached`)
+  - Mesos (`inputs.mesos`)
+  - Minecraft (`inputs.minecraft`)
+  - Mock (`inputs.mock`)
+  - Modbus (`inputs.modbus`)
+  - MongoDB (`inputs.mongodb`)
+  - Monit (`inputs.monit`)
+
+### Security
+
+- Only allow endpoint authorization control on startup using the 
+  `DISABLED_AUTH_ENDPOINTS` environment variable or `--disable-auth-endpoints`
+  command flag. _For more information, see the
+  [breaking change](#breaking-change-only-allow-endpoint-authorization-control-on-startup)._
+
+### Bug fixes
+
+- Add missing permission resources to the token creation UI.
+
+---
+
+## v0.0.6-beta {date="2026-04-13"}
 
 > [!Important]
 > #### Updated End User License Agreement (EULA)
