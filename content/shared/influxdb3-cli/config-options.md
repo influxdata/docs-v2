@@ -8,7 +8,7 @@
 Pass configuration options using either command options or environment variables.
 Command options take precedence over environment variables.
 
-### TOML configuration files (DEB/RPM installs)
+### TOML configuration files
 
 DEB and RPM installs include a TOML configuration file at
 `/etc/influxdb3/influxdb3-{{< product-key >}}.conf`.

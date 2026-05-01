@@ -23,7 +23,7 @@
 > #### Upgrading from InfluxDB 3 Core?
 >
 > If you're currently running InfluxDB 3 Core and want to upgrade to {{% product-name %}},
-> see [Upgrade from Core](/influxdb3/version/admin/license/upgrade-from-core/)
+> see [Upgrade from Core](/influxdb3/version/admin/upgrade-from-core/)
 > for step-by-step instructions.
 
 > [!Note]
@@ -90,7 +90,7 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 
 ### Download and install the latest build artifacts
 
-You can also download and install [{{% product-name %}} build artifacts](/influxdb3/version/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
+You can also download and install {{% product-name %}} build artifacts directly:
 
 {{< expand-wrapper >}}
 {{% expand "Linux binaries" %}}
@@ -303,7 +303,7 @@ The TOML file is read by the systemd launcher and converted to
 `INFLUXDB3_*` environment variables before `influxdb3 serve` runs;
 CLI flags still override values from the TOML file.
 For details, see
-[TOML configuration files](/influxdb3/version/reference/config-options/#toml-configuration-files-deb-rpm-installs).
+[TOML configuration files](/influxdb3/version/reference/config-options/#toml-configuration-files).
 
 ##### Run using SysV
 
