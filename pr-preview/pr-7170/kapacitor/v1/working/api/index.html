@@ -127,10 +127,10 @@ collect troubleshooting data and more.">
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.ca49342472638455c0f63e0809f0d567fa101debc411a3497c90a4a9a023a1b2.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.88d562dcd8daeb15662bc1ae289aae1273bfdb188f8613c0f66bb8b94ac1d315.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.dfefc9a72e7664fa3df2dab1824fd71af47647584546f0dd3a0f1f18d938472f.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.ceaaafa9d95efca66e11c2cd18bf47d997cc9b4f89f0478e3ef7e4dfb0eda065.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -169,7 +169,7 @@ collect troubleshooting data and more.">
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-29 13:54:50 -0500 -0500">
+<meta name="last-modified" content="2026-05-01 16:30:59 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3580,16 +3580,16 @@ The task must be disabled and re-enabled for changes to take effect.</p>
 
 <h5 id="vars">Vars</h5>
 <p>The vars object has the form:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">    &#34;field_name&#34; : {
-</span></span><span class="line"><span class="cl">        &#34;value&#34;: &lt;VALUE&gt;,
-</span></span><span class="line"><span class="cl">        &#34;type&#34;: &lt;TYPE&gt;
-</span></span><span class="line"><span class="cl">    },
-</span></span><span class="line"><span class="cl">    &#34;another_field&#34; : {
-</span></span><span class="line"><span class="cl">        &#34;value&#34;: &lt;VALUE&gt;,
-</span></span><span class="line"><span class="cl">        &#34;type&#34;: &lt;TYPE&gt;
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><p>The following is a table of valid types and example values.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;field_name&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="err"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit VALUE' class='code-placeholder' data-code-var='VALUE' data-code-var-value='VALUE' data-code-var-escaped="VALUE">VALUE<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="err"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TYPE' class='code-placeholder' data-code-var='TYPE' data-code-var-value='TYPE' data-code-var-escaped="TYPE">TYPE<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;another_field&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;value&#34;</span><span class="p">:</span> <span class="err"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit VALUE' class='code-placeholder' data-code-var='VALUE' data-code-var-value='VALUE' data-code-var-escaped="VALUE">VALUE<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="err"><div data-component='code-placeholder' class='code-placeholder-wrapper'><var title='Edit TYPE' class='code-placeholder' data-code-var='TYPE' data-code-var-value='TYPE' data-code-var-escaped="TYPE">TYPE<span class='code-placeholder-edit-icon cf-icon Pencil'></span></var></div></span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>The following is a table of valid types and example values.</p>
 <table>
   <thead>
       <tr>
@@ -6915,6 +6915,40 @@ For example, to look at the heap profile of a Kapacitor instance using this tool
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="explorer-1-8-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 

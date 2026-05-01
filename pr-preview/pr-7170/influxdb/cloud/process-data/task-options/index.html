@@ -167,10 +167,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.ca49342472638455c0f63e0809f0d567fa101debc411a3497c90a4a9a023a1b2.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.88d562dcd8daeb15662bc1ae289aae1273bfdb188f8613c0f66bb8b94ac1d315.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.dfefc9a72e7664fa3df2dab1824fd71af47647584546f0dd3a0f1f18d938472f.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.ceaaafa9d95efca66e11c2cd18bf47d997cc9b4f89f0478e3ef7e4dfb0eda065.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -6955,11 +6955,10 @@ The following task options are available:</p>
 </span></span><span class="line"><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;taskName&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>In a <code>/api/v2/tasks</code> request body with <code>scriptID</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;scriptID&#34;: &#34;SCRIPT_ID&#34;,
-</span></span><span class="line"><span class="cl">  &#34;name&#34;: &#34;TASK_NAME&#34;
-</span></span><span class="line"><span class="cl">  ...
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><p>Replace <code>SCRIPT_ID</code> with the ID of your InfluxDB invokable script.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scriptID&#34;</span><span class="p">:</span> <span class="s2">&#34;SCRIPT_ID&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;TASK_NAME&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Replace <code>SCRIPT_ID</code> with the ID of your InfluxDB invokable script.</p>
 <h2 id="every">every</h2>
 <p>The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in <a href="/flux/v0/spec/lexical-elements/#duration-literals">duration literal</a>).</p>
 <p><em><strong>Data type:</strong> Duration</em></p>
@@ -6971,11 +6970,10 @@ The following task options are available:</p>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl">    <span class="nx">every</span><span class="o">:</span> <span class="mi">1</span><span class="nx">h</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>In a <code>/api/v2/tasks</code> request body with <code>scriptID</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;scriptID&#34;: &#34;SCRIPT_ID&#34;,
-</span></span><span class="line"><span class="cl">  &#34;every&#34;: &#34;1h&#34;
-</span></span><span class="line"><span class="cl">  ...
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scriptID&#34;</span><span class="p">:</span> <span class="s2">&#34;SCRIPT_ID&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;every&#34;</span><span class="p">:</span> <span class="s2">&#34;1h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
 <div class="note block">
   <p>In the InfluxDB UI, use the <strong>Interval</strong> field to set this option.</p>
 
@@ -6991,11 +6989,10 @@ Cron scheduling is based on system time.</p>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl">    <span class="nx">cron</span><span class="o">:</span> <span class="s2">&#34;0 * * * *&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>In a <code>/api/v2/tasks</code> request body with <code>scriptID</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;scriptID&#34;: &#34;SCRIPT_ID&#34;,
-</span></span><span class="line"><span class="cl">  &#34;cron&#34;: &#34;0 * * * *&#34;,
-</span></span><span class="line"><span class="cl">  ...
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><h2 id="offset">offset</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scriptID&#34;</span><span class="p">:</span> <span class="s2">&#34;SCRIPT_ID&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 * * * *&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="offset">offset</h2>
 <p>Delays the execution of the task but preserves the original time range.
 For example, if a task is to run on the hour, a <code>10m</code> offset will delay it to 10
 minutes after the hour, but all time ranges defined in the task are relative to
@@ -7007,11 +7004,10 @@ A common use case is offsetting execution to account for data that may arrive la
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl">    <span class="nx">offset</span><span class="o">:</span> <span class="mi">10</span><span class="nx">m</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>In a <code>/api/v2/tasks</code> request body with <code>scriptID</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  &#34;scriptID&#34;: &#34;SCRIPT_ID&#34;,
-</span></span><span class="line"><span class="cl">  &#34;offset&#34;: &#34;10m&#34;,
-</span></span><span class="line"><span class="cl">  ...
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;scriptID&#34;</span><span class="p">:</span> <span class="s2">&#34;SCRIPT_ID&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;offset&#34;</span><span class="p">:</span> <span class="s2">&#34;10m&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div>
 
 
     
@@ -7596,6 +7592,40 @@ A common use case is offsetting execution to account for data that may arrive la
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="explorer-1-8-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 

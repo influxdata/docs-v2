@@ -167,10 +167,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.ca49342472638455c0f63e0809f0d567fa101debc411a3497c90a4a9a023a1b2.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.88d562dcd8daeb15662bc1ae289aae1273bfdb188f8613c0f66bb8b94ac1d315.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.dfefc9a72e7664fa3df2dab1824fd71af47647584546f0dd3a0f1f18d938472f.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.ceaaafa9d95efca66e11c2cd18bf47d997cc9b4f89f0478e3ef7e4dfb0eda065.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -6963,13 +6963,12 @@ for detailed information on task service-level agreements (SLAs).</em></p>
 <h3 id="task-options-for-invokable-scripts">Task options for invokable scripts</h3>
 <p>Use the InfluxDB Cloud API to create tasks that reference and run <a href="/influxdb/cloud/api-guide/api-invokable-scripts/">invokable scripts</a>.
 When you create or update the task, pass task options as properties in the request body&ndash;for example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">   &#34;name&#34;: &#34;30-day-avg-temp&#34;,
-</span></span><span class="line"><span class="cl">   &#34;description&#34;: &#34;IoT Center 30d environment average.&#34;,
-</span></span><span class="line"><span class="cl">   &#34;every&#34;: &#34;1d&#34;,
-</span></span><span class="line"><span class="cl">   &#34;offset&#34;: &#34;0m&#34;
-</span></span><span class="line"><span class="cl">   ...
-</span></span><span class="line"><span class="cl">  }</span></span></code></pre></div><p>To learn more about creating tasks that run invokable scripts, see how to <a href="/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script">create a task that references a script</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;30-day-avg-temp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;IoT Center 30d environment average.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;every&#34;</span><span class="p">:</span> <span class="s2">&#34;1d&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;offset&#34;</span><span class="p">:</span> <span class="s2">&#34;0m&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>To learn more about creating tasks that run invokable scripts, see how to <a href="/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script">create a task that references a script</a>.</p>
 <h2 id="retrieve-and-filter-data">Retrieve and filter data</h2>
 <p>A minimal Flux script uses the following functions to retrieve a specified amount
 of data from a data source
@@ -7076,21 +7075,23 @@ to write the transformed data back to another InfluxDB bucket:</p>
 </span></span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="mi">5</span><span class="nx">m</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Data destination
 </span></span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-downsampled&#34;</span><span class="p">)</span></span></span></code></pre></div><h2 id="full-example-task-with-invokable-script">Full example task with invokable script</h2>
-<p>The following sample code shows a <code>POST /api/v2/scripts</code> request body that
-combines the components described in this guide:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">   &#34;name&#34;: &#34;aggregate-intervals-and-export&#34;,
-</span></span><span class="line"><span class="cl">   &#34;description&#34;: &#34;Group points into 5 minute windows and calculate the average of each
-</span></span><span class="line"><span class="cl">   window.&#34;,
-</span></span><span class="line"><span class="cl">   &#34;script&#34;: &#34;from(bucket: &#34;example-bucket&#34;)\
-</span></span><span class="line"><span class="cl">                |&gt; range(start: -task.every)\
-</span></span><span class="line"><span class="cl">                |&gt; filter(fn: (r) =&gt; r._measurement == &#34;mem&#34; and r.host == &#34;myHost&#34;)\
-</span></span><span class="line"><span class="cl">                // Data processing\
-</span></span><span class="line"><span class="cl">                |&gt; aggregateWindow(every: 5m, fn: mean)\
-</span></span><span class="line"><span class="cl">                // Data destination\
-</span></span><span class="line"><span class="cl">                |&gt; to(bucket: &#34;example-downsampled&#34;)&#34;,
-</span></span><span class="line"><span class="cl">    &#34;language&#34;: &#34;flux&#34;
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></div><p>The following sample code shows a <code>POST /api/v2/tasks</code> request body to
+<p>The following sample code combines the components described in this guide
+into a <code>POST /api/v2/scripts</code> request body.</p>
+<p>The Flux for the <code>script</code> field:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">from</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-bucket&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="o">:</span> <span class="o">-</span><span class="nx">task</span><span class="p">.</span><span class="nx">every</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="s2">&#34;mem&#34;</span> <span class="nx">and</span> <span class="nx">r</span><span class="p">.</span><span class="nx">host</span> <span class="o">==</span> <span class="s2">&#34;myHost&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Data processing
+</span></span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">aggregateWindow</span><span class="p">(</span><span class="nx">every</span><span class="o">:</span> <span class="mi">5</span><span class="nx">m</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nx">mean</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Data destination
+</span></span></span><span class="line"><span class="cl">    <span class="o">|&gt;</span> <span class="nx">to</span><span class="p">(</span><span class="nx">bucket</span><span class="o">:</span> <span class="s2">&#34;example-downsampled&#34;</span><span class="p">)</span></span></span></code></pre></div><p>The full request body, with the script encoded as a JSON string
+(inner quotes escaped as <code>\&quot;</code>, line breaks as <code>\n</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;aggregate-intervals-and-export&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Group points into 5 minute windows and calculate the average of each window.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;script&#34;</span><span class="p">:</span> <span class="s2">&#34;from(bucket: \&#34;example-bucket\&#34;)\n  |&gt; range(start: -task.every)\n  |&gt; filter(fn: (r) =&gt; r._measurement == \&#34;mem\&#34; and r.host == \&#34;myHost\&#34;)\n  // Data processing\n  |&gt; aggregateWindow(every: 5m, fn: mean)\n  // Data destination\n  |&gt; to(bucket: \&#34;example-downsampled\&#34;)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;language&#34;</span><span class="p">:</span> <span class="s2">&#34;flux&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>The following sample code shows a <code>POST /api/v2/tasks</code> request body to
 schedule the script:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="nt">&#34;every&#34;</span><span class="p">:</span> <span class="s2">&#34;1h&#34;</span><span class="p">,</span>
@@ -7733,6 +7734,40 @@ schedule the script:</p>
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="explorer-1-8-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 

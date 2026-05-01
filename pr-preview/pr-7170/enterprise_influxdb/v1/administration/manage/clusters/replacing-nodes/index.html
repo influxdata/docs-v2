@@ -126,10 +126,10 @@
 
 
 
-<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.ca49342472638455c0f63e0809f0d567fa101debc411a3497c90a4a9a023a1b2.css">
+<link rel="stylesheet" title="light-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/light-theme.88d562dcd8daeb15662bc1ae289aae1273bfdb188f8613c0f66bb8b94ac1d315.css">
 
 
-<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.dfefc9a72e7664fa3df2dab1824fd71af47647584546f0dd3a0f1f18d938472f.css">
+<link rel="alternate stylesheet" title="dark-theme" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.ceaaafa9d95efca66e11c2cd18bf47d997cc9b4f89f0478e3ef7e4dfb0eda065.css">
 
 
 <link rel="stylesheet" title="sidebar-open" type="text/css" href="/docs-v2/pr-preview/pr-7170/dark-theme.56ede7c71d3385876a1c762e207372a1699e829612d789f952885f820d50394a.css">
@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-29 13:54:50 -0500 -0500">
+<meta name="last-modified" content="2026-05-01 16:30:59 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -3969,29 +3969,31 @@ in a timeout with no accompanying error.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Example</span>
 </span></span><span class="line"><span class="cl">curl localhost:8091/user?name<span class="o">=</span>bob</span></span></code></pre></div><p>The JSON output will include user information and permissions:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#34;users&#34;: [
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    &#34;name&#34;: &#34;bob&#34;,
-</span></span><span class="line"><span class="cl">    &#34;hash&#34;: &#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;,
-</span></span><span class="line"><span class="cl">    &#34;permissions&#34;: {
-</span></span><span class="line"><span class="cl">      &#34;&#34;: [
-</span></span><span class="line"><span class="cl">        &#34;ViewAdmin&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ViewChronograf&#34;,
-</span></span><span class="line"><span class="cl">        &#34;CreateDatabase&#34;,
-</span></span><span class="line"><span class="cl">        &#34;CreateUserAndRole&#34;,
-</span></span><span class="line"><span class="cl">        &#34;DropDatabase&#34;,
-</span></span><span class="line"><span class="cl">        &#34;DropData&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ReadData&#34;,
-</span></span><span class="line"><span class="cl">        &#34;WriteData&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ManageShard&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ManageContinuousQuery&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ManageQuery&#34;,
-</span></span><span class="line"><span class="cl">        &#34;ManageSubscription&#34;,
-</span></span><span class="line"><span class="cl">        &#34;Monitor&#34;
-</span></span><span class="line"><span class="cl">      ]
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">]</span></span></code></pre></div><p><em>In the output above, <code>bob</code> does not have the required <code>AddRemoveNode</code> permissions
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;users&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;bob&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;hash&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;permissions&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ViewAdmin&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ViewChronograf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;CreateDatabase&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;CreateUserAndRole&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;DropDatabase&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;DropData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ReadData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;WriteData&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ManageShard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ManageContinuousQuery&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ManageQuery&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;ManageSubscription&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Monitor&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><em>In the output above, <code>bob</code> does not have the required <code>AddRemoveNode</code> permissions
 and would not be able to add or remove nodes from the cluster.</em></p>
 <h4 id="check-the-network-connection-between-nodes">Check the network connection between nodes</h4>
 <p>Something may be interrupting the network connection between nodes.
@@ -4577,6 +4579,40 @@ if the communication issues are unique to specific nodes.</em></p>
 
   
   <div id="docs-notifications">
+  
+    <div class="notification note min" id="influxdb-v2-9-token-hashing-default" data-scope='/influxdb/v2/' data-exclude=''>
+      <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
+      <div class="notification-title">
+        
+        <h3>InfluxDB OSS 2.9.0: API tokens are hashed by default</h3>
+      </div>
+      
+      <div class="notification-slug">
+        <p>Stronger token security in <strong>InfluxDB OSS 2.9.0</strong> — tokens are
+hashed on disk by default. Existing tokens are hashed on first
+startup and can&rsquo;t be recovered afterward. <strong>Capture any plaintext
+tokens you still need before you upgrade.</strong></p>
+<p><a href="/influxdb/v2/reference/release-notes/influxdb/#v290">View InfluxDB OSS 2.9.0 release notes</a></p>
+
+      </div>
+      
+      
+      <div class="notification-content">
+        <p>Hashed tokens authenticate exactly like unhashed tokens — clients
+and integrations keep working.</p>
+<p><strong>Also new in 2.9.0:</strong></p>
+<ul>
+<li>Configurable backup compression</li>
+<li>Restore support for backups containing hashed tokens</li>
+<li>Tighter Edge Data Replication queue validation</li>
+<li>Flux upgrade</li>
+<li>Compaction reliability improvements</li>
+</ul>
+
+      </div>
+      <span class="show"></span>
+           
+    </div>
   
     <div class="notification note min" id="explorer-1-8-key-enhancements" data-scope='/,/influxdb3/explorer/,/influxdb3/core/,/influxdb3/enterprise/' data-exclude=''>
       <div class="close-notification"><span class="cf-icon Remove_New"></span></div> 
