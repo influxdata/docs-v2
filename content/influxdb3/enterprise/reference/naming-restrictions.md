@@ -12,7 +12,7 @@ related:
   - /influxdb3/enterprise/reference/line-protocol/
   - /influxdb3/enterprise/reference/sql/
   - /influxdb3/enterprise/reference/influxql/
-source: content/shared/influxdb3-reference/naming-restrictions.md
+source: /shared/influxdb3-reference/naming-restrictions.md
 ---
 
 <!-- //SOURCE - content/shared/influxdb3-reference/naming-restrictions.md -->

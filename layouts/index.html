@@ -4,7 +4,7 @@
 {{ $telegrafVersion := replaceRE "v" "" .Site.Data.products.telegraf.latest }}
 {{ $chronografVersion := replaceRE "v" "" .Site.Data.products.chronograf.latest }}
 {{ $kapacitorVersion := replaceRE "v" "" .Site.Data.products.kapacitor.latest }}
-{{ $fluxVersion := replaceRE "v" "" .Site.Data.products.flux.latest }}
+{{ $fluxVersion := cond (isset .Site.Data.products.flux "version_label") .Site.Data.products.flux.version_label (replaceRE "v" "" .Site.Data.products.flux.latest) }}
 
 <!--
   Show the page if:
