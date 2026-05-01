@@ -7,6 +7,9 @@ menu:
   telegraf_controller:
     name: Install Telegraf Controller
 weight: 2
+related:
+  - /telegraf/controller/reference/config-options/
+  - /telegraf/controller/reference/eula/
 ---
 
 Telegraf Controller is a web-based configuration management system for Telegraf
@@ -350,15 +353,23 @@ Use the following command line options to configure {{% product-name %}}.
 
 ### Configuration options
 
-| Command Flag       | Environment Variable       | Description                   | Default              |
-| :----------------- | :------------------------- | :---------------------------- | :------------------- |
-| `--port`           | `PORT`                     | Web interface and API port    | `8888`               |
-| `--heartbeat-port` | `HEARTBEAT_PORT`           | Agent heartbeat service port  | `8000`               |
-| `--database`       | `DATABASE`                 | Database connection string    | Auto-detected SQLite |
-| `--ssl-cert`       | `SSL_CERT`                 | SSL certificate file path     | None                 |
-| `--ssl-key`        | `SSL_KEY`                  | SSL private key file path     | None                 |
-| `--no-interactive` |                            | Skip prompts and use defaults | None                 |
-| `--eula-accept`    | `TELEGRAF_CONTROLLER_EULA` | Accept EULA non-interactively | None                 |
+| Command Flag                | Environment Variable       | Description                                  | Default              |
+| :-------------------------- | :------------------------- | :------------------------------------------- | :------------------- |
+| `--port`                    | `APP_PORT`                 | Web interface and API port                   | `8888`               |
+| `--heartbeat-port`          | `HEARTBEAT_PORT`           | Agent heartbeat service port                 | `8000`               |
+| `--database`                | `DATABASE_URL`             | Database connection string                   | Auto-detected SQLite |
+| `--logs-dir`                | `LOGS_DIR`                 | Absolute path for agent logs                 | System temp dir      |
+|                             | `SSL_CERT_PATH`            | SSL certificate file path                    | None                 |
+|                             | `SSL_KEY_PATH`             | SSL private key file path                    | None                 |
+| `--owner-email`             | `OWNER_EMAIL`              | Bootstrap owner email address                | None                 |
+| `--owner-username`          | `OWNER_USERNAME`           | Bootstrap owner username                     | None                 |
+| `--owner-password`          | `OWNER_PASSWORD`           | Bootstrap owner password                     | None                 |
+| `--disable-auth-endpoints`  | `DISABLED_AUTH_ENDPOINTS`  | Endpoint groups to skip authentication for   | None                 |
+| `--no-interactive`          |                            | Skip prompts and use defaults                | None                 |
+| `--eula-accept`             | `TELEGRAF_CONTROLLER_EULA` | Accept EULA non-interactively                | None                 |
+
+_For a full list of options, see the
+[{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._
 
 #### Examples
 
@@ -390,11 +401,6 @@ telegraf_controller \
 telegraf_controller \
   --database="/path/to/custom/database.db"
 
-# Enable HTTPS
-telegraf_controller \
-  --ssl-cert="/path/to/cert.pem" \
-  --ssl-key="/path/to/key.pem"
-
 # Accept the EULA non-interactively
 telegraf_controller \
   --no-interactive \
@@ -417,11 +423,6 @@ telegraf_controller \
 # Use custom SQLite database location
 ./telegraf_controller.exe `
   --database="C:\path\to\custom\database.db"
-
-# Enable HTTPS
-./telegraf_controller.exe `
-  --ssl-cert="C:\path\to\cert.pem" `
-  --ssl-key="C:\path\to\key.pem"
 
 # Accept the EULA non-interactively
 ./telegraf_controller.exe `
@@ -448,18 +449,18 @@ telegraf_controller \
 
 ```bash
 # Use custom ports
-PORT=3000
+APP_PORT=3000
 HEARTBEAT_PORT=9000
 
 # Use PostgreSQL database
-DATABASE=postgresql://user:password@localhost:5432/telegraf_db
+DATABASE_URL=postgresql://user:password@localhost:5432/telegraf_db
 
 # Use custom SQLite database location
-DATABASE=/path/to/custom/database.db
+DATABASE_URL=/path/to/custom/database.db
 
 # Enable HTTPS
-SSL_CERT=/path/to/cert.pem
-SSL_KEY=/path/to/key.pem
+SSL_CERT_PATH=/path/to/cert.pem
+SSL_KEY_PATH=/path/to/key.pem
 
 # Accept the EULA
 TELEGRAF_CONTROLLER_EULA=accept
@@ -474,18 +475,18 @@ telegraf_controller
 
 ```powershell
 # Use custom ports
-$env:PORT=3000
+$env:APP_PORT=3000
 $env:HEARTBEAT_PORT=9000
 
 # Use PostgreSQL database
-$env:DATABASE=postgresql://user:password@localhost:5432/telegraf_db
+$env:DATABASE_URL=postgresql://user:password@localhost:5432/telegraf_db
 
 # Use custom SQLite database location
-$env:DATABASE=C:\path\to\custom\database.db
+$env:DATABASE_URL=C:\path\to\custom\database.db
 
 # Enable HTTPS
-$env:SSL_CERT=C:\path\to\cert.pem
-$env:SSL_KEY=C:\path\to\key.pem
+$env:SSL_CERT_PATH=C:\path\to\cert.pem
+$env:SSL_KEY_PATH=C:\path\to\key.pem
 
 # Accept the EULA
 $env:TELEGRAF_CONTROLLER_EULA=accept
@@ -531,6 +532,9 @@ This method is useful for automated deployments and containerized environments.
 | `OWNER_EMAIL`        | Owner email address |
 | `OWNER_USERNAME`     | Owner username      |
 | `OWNER_PASSWORD`     | Owner password      |
+
+_For detailed descriptions, see the
+[Owner account section in the configuration options reference](/telegraf/controller/reference/config-options/#owner-account)._
 
 Set all three environment variables and then start the application:
 
