@@ -4891,17 +4891,18 @@ directory. This new directory contains artifacts associated with the specified r
 (for example: &ldquo;https://$BUCKET.$REGION.amazonaws.com&rdquo;) and the bucket in
 <code>spec.package.spec.objectStore.bucket</code> need to disable the
 <code>CATALOG_BACKUP_DATA_SNAPSHOT</code> feature:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">package</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+      components</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+        garbage-collector</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+          template</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+            containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+              iox</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+                env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">+                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span></span></span></code></pre></div><h2 date="2025-08-14" id="20250814-1819052">20250814-1819052</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> spec:
+</span></span><span class="line"><span class="cl">   package:
+</span></span><span class="line"><span class="cl">     spec:
+</span></span><span class="line"><span class="cl"><span class="gi">+      components:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        garbage-collector:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+          template:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            containers:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+              iox:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                env:
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                  INFLUXDB_IOX_CREATE_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: &#39;false&#39;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+                  INFLUXDB_IOX_DELETE_USING_CATALOG_BACKUP_DATA_SNAPSHOT_FILES: &#39;false&#39;
+</span></span></span></code></pre></div><h2 date="2025-08-14" id="20250814-1819052">20250814-1819052</h2>
 <h3 id="quickstart-3">Quickstart</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
@@ -5333,13 +5334,13 @@ of the <code>AppInstance</code> resource, for example:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;IMAGE&gt;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">influxdata.com/v1alpha1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">## ...snip</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># ... other spec fields elided ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">admin</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">users</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="c"># - ... user entries elided ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">dsn</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># ... dsn source elided ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">identityProvider</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;PROVIDER&gt;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">jwksEndpoint</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;JWKS_ENDPOINT&gt;</span></span></span></code></pre></div><p>This section is no longer required and will no longer result in a schema
 validation error when omitted.
@@ -5439,11 +5440,11 @@ in the <code>AppInstance</code> resource, it is no longer required:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">influxdb</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">influxdb</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="l">...</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">querier</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c">#replicas: 3 # No longer required!</span></span></span></code></pre></div><p>If you wish to keep the number of queriers to 1, you must override the
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># ... other spec fields elided ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">querier</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c">#replicas: 3 # No longer required!</span></span></span></code></pre></div><p>If you wish to keep the number of queriers to 1, you must override the
 <code>replicas</code> as shown above.
 Refer to the schema for further details.</p>
 <p>This new configuration serves as a scalable default installation for
@@ -6140,19 +6141,20 @@ issues their own certificates.</p>
 list. The custom CA replaces the standard set of CA certificates. The custom
 certificate file can contain one or more PEM encoded CA certificates.</p>
 <!-- pytest.mark.skip -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl -n influxdb create  configmap custom-ca  --from-file<span class="o">=</span>ca.pem</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="l">.</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl -n influxdb create  configmap custom-ca  --from-file<span class="o">=</span>ca.pem</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># ... other top-level fields elided ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">AppInstance</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># ... other spec fields elided ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># ... other package.spec fields elided ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">egress</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="nt">customCertificates</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ca.pem</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">custom-ca</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="l">...</span></span></span></code></pre></div><h3 id="changes-25">Changes</h3>
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">customCertificates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ca.pem</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">custom-ca</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># ... more package.spec fields elided ...</span></span></span></code></pre></div><h3 id="changes-25">Changes</h3>
 <h4 id="deployment-19">Deployment</h4>
 <ul>
 <li>Allow users to specify custom certificate authorities for egress calls.</li>
