@@ -8,6 +8,25 @@
 Pass configuration options using either command options or environment variables.
 Command options take precedence over environment variables.
 
+### TOML configuration files (DEB/RPM installs)
+
+DEB and RPM installs include a TOML configuration file at
+`/etc/influxdb3/influxdb3-{{< product-key >}}.conf`.
+The systemd launcher reads this file and converts each entry to an
+`INFLUXDB3_*` environment variable (the pattern is `INFLUXDB3_<KEY>`
+with hyphens replaced by underscores and uppercased) before invoking
+`influxdb3 serve`.
+
+`influxdb3 serve` does not natively read TOML; the file's effect is
+applied through the environment variables the launcher sets.
+CLI flags passed to `influxdb3 serve` still override values defined in
+the TOML file because they override the environment variables that
+file becomes.
+
+For day-to-day systemd operation — including the edit-and-restart
+workflow for applying changes — see
+[Run as a system service (Linux)](/influxdb3/version/install/#run-as-a-system-service-linux).
+
 ### Global vs serve-specific options
 
 Some options are **global** (specified before the command) while others are **serve-specific** (specified after `serve`):

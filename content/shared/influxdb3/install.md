@@ -299,6 +299,12 @@ journalctl --unit influxdb3-{{< product-key >}} -n 100 --no-pager
 `influxdb3 serve` does not support configuration reload; a restart is
 required after editing the TOML file or changing environment variables.
 
+The TOML file is read by the systemd launcher and converted to
+`INFLUXDB3_*` environment variables before `influxdb3 serve` runs;
+CLI flags still override values from the TOML file.
+For details, see
+[TOML configuration files](/influxdb3/version/reference/config-options/#toml-configuration-files-deb-rpm-installs).
+
 ##### Run using SysV
 
 On SysV init systems, `influxdb3-{{< product-key >}}` is disabled on install
