@@ -148,7 +148,7 @@ To configure the v1.x output plugin for writing to {{% product-name %}}, add the
   retention_policy = "RETENTION_POLICY"
   username = "ignored"
   password = "API_TOKEN"
-  content_encoding = "gzip”
+  content_encoding = "gzip"
 ```
 {{% /code-placeholders %}}
 
