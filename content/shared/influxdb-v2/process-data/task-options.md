@@ -30,11 +30,10 @@ option task = {
 {{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
-```text
+```json
 {
   "scriptID": "SCRIPT_ID",
   "name": "TASK_NAME"
-  ...
 }
 ```
 
@@ -65,11 +64,10 @@ option task = {
 {{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
-```text
+```json
 {
   "scriptID": "SCRIPT_ID",
   "every": "1h"
-  ...
 }
 ```
 
@@ -99,11 +97,10 @@ option task = {
 {{% show-in "cloud,cloud-serverless" %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
-```text
+```json
 {
   "scriptID": "SCRIPT_ID",
-  "cron": "0 * * * *",
-  ...
+  "cron": "0 * * * *"
 }
 ```
 
@@ -132,11 +129,10 @@ option task = {
 
 In a `/api/v2/tasks` request body with `scriptID`:
 
-```text
+```json
 {
   "scriptID": "SCRIPT_ID",
-  "offset": "10m",
-  ...
+  "offset": "10m"
 }
 ```
 

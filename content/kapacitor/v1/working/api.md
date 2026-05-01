@@ -185,15 +185,15 @@ The task must be disabled and re-enabled for changes to take effect.
 
 The vars object has the form:
 
-```text
+```json { placeholders="VALUE|TYPE" }
 {
     "field_name" : {
-        "value": <VALUE>,
-        "type": <TYPE>
+        "value": VALUE,
+        "type": TYPE
     },
     "another_field" : {
-        "value": <VALUE>,
-        "type": <TYPE>
+        "value": VALUE,
+        "type": TYPE
     }
 }
 ```

@@ -437,30 +437,32 @@ curl localhost:8091/user?name=bob
 
 The JSON output will include user information and permissions:
 
-```text
-"users": [
-  {
-    "name": "bob",
-    "hash": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "permissions": {
-      "": [
-        "ViewAdmin",
-        "ViewChronograf",
-        "CreateDatabase",
-        "CreateUserAndRole",
-        "DropDatabase",
-        "DropData",
-        "ReadData",
-        "WriteData",
-        "ManageShard",
-        "ManageContinuousQuery",
-        "ManageQuery",
-        "ManageSubscription",
-        "Monitor"
-      ]
+```json
+{
+  "users": [
+    {
+      "name": "bob",
+      "hash": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "permissions": {
+        "": [
+          "ViewAdmin",
+          "ViewChronograf",
+          "CreateDatabase",
+          "CreateUserAndRole",
+          "DropDatabase",
+          "DropData",
+          "ReadData",
+          "WriteData",
+          "ManageShard",
+          "ManageContinuousQuery",
+          "ManageQuery",
+          "ManageSubscription",
+          "Monitor"
+        ]
+      }
     }
-  }
-]
+  ]
+}
 ```
 
 _In the output above, `bob` does not have the required `AddRemoveNode` permissions
