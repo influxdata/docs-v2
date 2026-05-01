@@ -4528,18 +4528,18 @@ configuration.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Restart the service (use after configuration changes)</span>
 </span></span><span class="line"><span class="cl">sudo systemctl restart influxdb3-core</span></span></code></pre></div><h6 id="check-status-and-logs">Check status and logs</h6>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Check status</span>
-</span></span><span class="line"><span class="cl">systemctl status influxdb3-core
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Check status (sudo to ensure full journal output)</span>
+</span></span><span class="line"><span class="cl">sudo systemctl status influxdb3-core
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Quick state checks</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Quick state checks (no sudo needed)</span>
 </span></span><span class="line"><span class="cl">systemctl is-enabled influxdb3-core
 </span></span><span class="line"><span class="cl">systemctl is-active  influxdb3-core
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Recent logs</span>
-</span></span><span class="line"><span class="cl">journalctl --unit influxdb3-core -n <span class="m">200</span> --no-pager
+</span></span><span class="line"><span class="cl">sudo journalctl --unit influxdb3-core -n <span class="m">200</span> --no-pager
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Follow logs</span>
-</span></span><span class="line"><span class="cl">journalctl --unit influxdb3-core -f</span></span></code></pre></div><h6 id="inspect-the-packaged-unit">Inspect the packaged unit</h6>
+</span></span><span class="line"><span class="cl">sudo journalctl --unit influxdb3-core -f</span></span></code></pre></div><h6 id="inspect-the-packaged-unit">Inspect the packaged unit</h6>
 <p>The packaged unit configures security sandboxing for typical deployments
 (see <a href="/influxdb3/version/admin/security/">Manage security</a>).
 To inspect the packaged unit and its resolved properties:</p>
@@ -4553,7 +4553,7 @@ changes:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudoedit /etc/influxdb3/influxdb3-core.conf
 </span></span><span class="line"><span class="cl">sudo systemctl restart influxdb3-core
 </span></span><span class="line"><span class="cl">sudo systemctl status  influxdb3-core
-</span></span><span class="line"><span class="cl">journalctl --unit influxdb3-core -n <span class="m">100</span> --no-pager</span></span></code></pre></div><p><code>influxdb3 serve</code> does not support configuration reload; a restart is
+</span></span><span class="line"><span class="cl">sudo journalctl --unit influxdb3-core -n <span class="m">100</span> --no-pager</span></span></code></pre></div><p><code>influxdb3 serve</code> does not support configuration reload; a restart is
 required after editing the TOML file or changing environment variables.</p>
 <p>The TOML file is read by the systemd launcher and converted to
 <code>INFLUXDB3_*</code> environment variables before <code>influxdb3 serve</code> runs;
