@@ -72,7 +72,11 @@ pre[class*="language-"] {
 					{ color: $article-code-accent1; }
 
 	.gi 		/* Generic.Inserted */
-					{ background-color: $article-code-accent1; }
+					{
+						display: block;
+						background-color: rgba(0, 134, 88, 0.35);
+						border-left: 3px solid #009f5f;
+					}
 
 	.k, 		/* Keyword */
 	.kc, 		/* Keyword.Constant */
@@ -115,8 +119,12 @@ pre[class*="language-"] {
 	.si 		/* Literal.String.Interpol */
 					{ color: $article-code-accent4 }
 	
-	.gd     /* Generic.Deleted strike-through*/
-					{ text-decoration: line-through; }
+	.gd     /* Generic.Deleted */
+					{
+						display: block;
+						background-color: rgba(191, 61, 94, 0.25);
+						border-left: 3px solid #bf3d5e;
+					}
 
 	.m,  		/* Literal.Number */
 	.ni, 		/* Name.Entity */

@@ -62,8 +62,8 @@ files and scripts.
 ## Endpoint authentication
 
 By default, {{% product-name %}} requires authentication for API endpoints.
-Administrators can selectively require authentication for individual endpoint
-groups:
+Operators can selectively disable authentication for individual endpoint groups
+at startup:
 
 - **Agents** --- agent management endpoints
 - **Configs** --- configuration management endpoints
@@ -74,6 +74,8 @@ groups:
 When authentication is enabled for an endpoint group, every request to that
 group must include a valid API token or an active session.
 
-> [!Note]
-> To configure which endpoint groups require authentication, see
-> [Manage settings](/telegraf/controller/settings/).
+Authentication policy is controlled exclusively by the
+[`--disable-auth-endpoints` CLI flag or `DISABLED_AUTH_ENDPOINTS` environment
+variable](/telegraf/controller/reference/config-options/#disable-auth-endpoints),
+read once at startup and immutable at runtime. To change which endpoint groups
+skip authentication, update the value and restart {{% product-name %}}.

@@ -1,81 +1,21 @@
 ---
 title: Manage settings
 description: >
-  Configure authentication requirements, login security, and password
-  policies in Telegraf Controller.
+  Configure login security and password policies in Telegraf Controller.
 menu:
   telegraf_controller:
     name: Manage settings
 weight: 9
+related:
+  - /telegraf/controller/reference/config-options/
+  - /telegraf/controller/reference/authorization/
 ---
 
-Owners and administrators can configure authentication, login security, and
-password requirements for {{% product-name %}}.
+Owners and administrators can configure login security and password requirements
+for {{% product-name %}}.
 
 Navigate to the **Settings** page from the left navigation menu to view and
 modify these settings.
-
-{{< img-hd src="/img/telegraf/controller-settings.png" alt="Telegraf Controller settings page" />}}
-
-## Require authentication per endpoint
-
-{{% product-name %}} organizes API endpoints into groups.
-Authentication can be required or disabled for each group independently, giving
-you fine-grained control over which resources require credentials.
-
-| Endpoint group    | Covers                          |
-| :---------------- | :------------------------------ |
-| `agents`          | Agent monitoring and management |
-| `configs`         | Configuration management        |
-| `labels`          | Label management                |
-| `reporting-rules` | Reporting rule management       |
-| `heartbeat`       | Agent heartbeat requests        |
-
-When authentication is disabled for a group, anyone with network access can use
-those endpoints without an API token.
-When enabled, requests require valid authentication.
-
-> [!Note]
-> By default, authentication is required for all endpoints.
-
-To toggle authentication for endpoint groups:
-
-1. Navigate to the **Settings** page.
-2. Toggle authentication on or off for each endpoint group.
-3. Click **Save**.
-
-> [!Warning]
-> Disabling authentication for endpoints means anyone with network access to
-> {{% product-name %}} can access those resources without credentials.
-
-### Environment variable and CLI flag
-
-You can configure disabled authentication endpoints at startup using the
-`DISABLED_AUTH_ENDPOINTS` environment variable or the `--disable-auth-endpoints`
-CLI flag.
-The value is a comma-separated list of endpoint groups, or `"*"` to disable
-authentication for all endpoints.
-
-```bash
-# Disable auth for agents and heartbeat only
-export DISABLED_AUTH_ENDPOINTS="agents,heartbeat"
-
-# Disable auth for all endpoints
-export DISABLED_AUTH_ENDPOINTS="*"
-```
-
-Using the CLI flag:
-
-```bash
-# Disable auth for agents and heartbeat only
-./telegraf_controller --disable-auth-endpoints=agents,heartbeat
-
-# Disable auth for all endpoints
-./telegraf_controller --disable-auth-endpoints="*"
-```
-
-These values are used as initial defaults when {{% product-name %}} creates its settings record for the first time.
-After that, changes made through the **Settings** page take precedence.
 
 ## Login security
 
@@ -141,3 +81,6 @@ Changes made on the **Settings** page override initialized settings.
 | `LOGIN_LOCKOUT_ATTEMPTS` | Failed attempts before lockout             |   `5`   |
 | `LOGIN_LOCKOUT_MINUTES`  | Minutes to lock account                    |  `15`   |
 | `PASSWORD_COMPLEXITY`    | Complexity level (`low`, `medium`, `high`) |  `low`  |
+
+_For detailed descriptions and bootstrap behavior, see the
+[Authentication and security section in the configuration options reference](/telegraf/controller/reference/config-options/#authentication-and-security)._

@@ -19,10 +19,9 @@ echo "Creating release directory: $TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
 echo "Fetching manifest digest..."
-DIGEST=$(DOCKER_CONFIG=/tmp/influxdbsecret crane manifest "$IMAGE" | jq -r '.layers[1].digest')
+DIGEST=$(crane manifest "$IMAGE" | jq -r '.layers[1].digest')
 
 echo "Downloading and extracting assets..."
-DOCKER_CONFIG=/tmp/influxdbsecret \
 crane blob "$IMAGE@$DIGEST" | tar -xvzf - -C "$WORKDIR"
 
 # Find the top-level extracted directory
