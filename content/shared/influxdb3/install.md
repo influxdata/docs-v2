@@ -256,18 +256,18 @@ sudo systemctl restart influxdb3-{{< product-key >}}
 ###### Check status and logs
 
 ```bash
-# Check status
-systemctl status influxdb3-{{< product-key >}}
+# Check status (sudo to ensure full journal output)
+sudo systemctl status influxdb3-{{< product-key >}}
 
-# Quick state checks
+# Quick state checks (no sudo needed)
 systemctl is-enabled influxdb3-{{< product-key >}}
 systemctl is-active  influxdb3-{{< product-key >}}
 
 # Recent logs
-journalctl --unit influxdb3-{{< product-key >}} -n 200 --no-pager
+sudo journalctl --unit influxdb3-{{< product-key >}} -n 200 --no-pager
 
 # Follow logs
-journalctl --unit influxdb3-{{< product-key >}} -f
+sudo journalctl --unit influxdb3-{{< product-key >}} -f
 ```
 
 ###### Inspect the packaged unit
@@ -293,7 +293,7 @@ changes:
 sudoedit /etc/influxdb3/influxdb3-{{< product-key >}}.conf
 sudo systemctl restart influxdb3-{{< product-key >}}
 sudo systemctl status  influxdb3-{{< product-key >}}
-journalctl --unit influxdb3-{{< product-key >}} -n 100 --no-pager
+sudo journalctl --unit influxdb3-{{< product-key >}} -n 100 --no-pager
 ```
 
 `influxdb3 serve` does not support configuration reload; a restart is
