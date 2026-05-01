@@ -322,13 +322,13 @@ mode: ingest,query,compact
 cores: 32
 io_threads: 8
 datafusion_threads: 24
-
+---
 # Node 2: Ingest and query (no compaction)
 mode: ingest,query
 cores: 32
 io_threads: 8
 datafusion_threads: 24
-
+---
 # Node 3: Ingest and query (no compaction)
 mode: ingest,query
 cores: 32
@@ -344,19 +344,19 @@ mode: ingest
 cores: 48
 io_threads: 16
 datafusion_threads: 32
-
+---
 # Nodes 3-4: Query nodes
 mode: query
 cores: 48
 io_threads: 4
 datafusion_threads: 44
-
+---
 # Node 5: Compactor (only one compactor per cluster)
 mode: compact
 cores: 32
 io_threads: 4
 datafusion_threads: 28
-
+---
 # Node 6: Process node
 mode: process
 cores: 32
@@ -372,19 +372,19 @@ mode: ingest
 cores: 96
 io_threads: 20
 datafusion_threads: 76
-
+---
 # Nodes 5-8: Query nodes
 mode: query
 cores: 64
 io_threads: 4
 datafusion_threads: 60
-
+---
 # Node 9: Dedicated compactor (only one compactor per cluster)
 mode: compact
 cores: 32
 io_threads: 2
 datafusion_threads: 30
-
+---
 # Nodes 10-12: Process nodes
 mode: process
 cores: 32

@@ -77,6 +77,51 @@ function stripShortcodes(code, lang) {
   return { code: code.replace(SHORTCODE_RE, replacement), applied: true };
 }
 
+// Match standalone "elide" markers used in docs to indicate omitted
+// content: a line containing only whitespace + `...` (3+ dots) or
+// `[...]`. These are pervasive in Telegraf/InfluxDB TOML examples and
+// in YAML config snippets, but neither parses as valid TOML/YAML —
+// `...` is the YAML doc-end marker (only meaningful at column 0) and
+// `[...]` is an empty TOML bare key.
+const ELIDE_LINE_RE = /^([ \t]*)(\[\.{3,}\]|\.{3,})([ \t]*)$/gm;
+
+const ELIDE_COMMENT_PREFIX = {
+  yaml: '#',
+  toml: '#',
+  bash: '#',
+  python: '#',
+  javascript: '//',
+  // JSON/JSONL don't allow comments; can't safely substitute, so
+  // ellipsis markers in JSON fences must be removed at the source.
+};
+
+function stripElideMarkers(code, lang) {
+  const prefix = ELIDE_COMMENT_PREFIX[lang];
+  if (!prefix) return { code, applied: false };
+  ELIDE_LINE_RE.lastIndex = 0;
+  if (!ELIDE_LINE_RE.test(code)) return { code, applied: false };
+  ELIDE_LINE_RE.lastIndex = 0;
+  // For YAML, leave column-0 `...` alone — that's the document-end
+  // marker in a YAML stream, not an ellipsis. Only substitute when the
+  // marker is indented (which is unambiguous ellipsis usage).
+  if (lang === 'yaml') {
+    return {
+      code: code.replace(ELIDE_LINE_RE, (match, leading, marker, trailing) => {
+        if (leading.length === 0) return match;
+        return `${leading}${prefix} ${marker}${trailing}`;
+      }),
+      applied: true,
+    };
+  }
+  return {
+    code: code.replace(
+      ELIDE_LINE_RE,
+      (_match, leading, marker, trailing) => `${leading}${prefix} ${marker}${trailing}`,
+    ),
+    applied: true,
+  };
+}
+
 /**
  * Validate a code block with hybrid two-phase normalization.
  * Phase 1: parse as-is. If OK, return.
@@ -107,6 +152,12 @@ export async function validateWithNormalization(block) {
   if (stripped.applied) {
     candidate = stripped.code;
     rules.push('shortcode strip');
+  }
+
+  const elided = stripElideMarkers(candidate, block.lang);
+  if (elided.applied) {
+    candidate = elided.code;
+    rules.push('elide marker comment-out');
   }
 
   if (rules.length === 0) return { ok: false, errors: phase1.errors };
