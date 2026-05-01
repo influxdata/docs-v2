@@ -4555,6 +4555,11 @@ changes:</p>
 </span></span><span class="line"><span class="cl">sudo systemctl status  influxdb3-core
 </span></span><span class="line"><span class="cl">journalctl --unit influxdb3-core -n <span class="m">100</span> --no-pager</span></span></code></pre></div><p><code>influxdb3 serve</code> does not support configuration reload; a restart is
 required after editing the TOML file or changing environment variables.</p>
+<p>The TOML file is read by the systemd launcher and converted to
+<code>INFLUXDB3_*</code> environment variables before <code>influxdb3 serve</code> runs;
+CLI flags still override values from the TOML file.
+For details, see
+<a href="/influxdb3/version/reference/config-options/#toml-configuration-files-deb-rpm-installs">TOML configuration files</a>.</p>
 <h5 id="run-using-sysv">Run using SysV</h5>
 <p>On SysV init systems, <code>influxdb3-core</code> is disabled on install
 and can be enabled by adjusting <code>/etc/default/influxdb3-core</code> to
