@@ -1499,9 +1499,7 @@ For more information, see [CollectD protocol support in InfluxDB](/enterprise_in
 ### [[collectd]]
 
 ```toml
-# enabled`
-
-Default is `false.
+# enabled = false  # default
 # bind-address = ":25826"
 # database = "collectd"
 # retention-policy = ""
