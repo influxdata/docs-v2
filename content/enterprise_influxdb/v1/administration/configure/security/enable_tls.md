@@ -290,7 +290,7 @@ uncomment the `insecure_skip_verify` setting and set it to `true`.
   insecure_skip_verify = true # <-- Update only if you're using a self-signed certificate
 ```
 
-Next, restart Telegraf and you're all set!
+Next, restart Telegraf to begin collecting InfluxDB metrics over SSL.
 
 ```sh
 sudo systemctl restart telegraf
