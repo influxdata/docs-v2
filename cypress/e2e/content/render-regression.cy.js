@@ -144,7 +144,11 @@ describe('Diff fence highlighting', () => {
       .find('pre.chroma .gd')
       .should('have.length', 3)
       .then(($spans) => {
-        const tops = new Set($spans.toArray().map((el) => Math.round(el.getBoundingClientRect().top)));
+        const tops = new Set(
+          $spans
+            .toArray()
+            .map((el) => Math.round(el.getBoundingClientRect().top))
+        );
         expect(
           tops.size,
           'each .gd span must render on its own row (no inline-block concatenation)'
