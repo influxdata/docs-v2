@@ -113,14 +113,18 @@ function isValidUrlPath(path) {
  */
 function buildRelativePattern() {
   const namespaceAlternation = PRODUCT_NAMESPACES.join('|');
-  // Match relative paths starting with known product prefixes
-  // Captures paths in various contexts: markdown links, parentheses, backticks, etc.
-  // Delimiters: start of string, whitespace, ], ), (, or `
-  // Note: Backtick appears in both the delimiter list and negated character class
-  // for defense-in-depth - delimiter stops extraction, character class prevents
-  // any edge cases where backticks might slip through
+  // Match relative paths starting with known product prefixes, in either
+  // URL form (`/influxdb3/core/...`) or filesystem form
+  // (`/content/influxdb3/core/...`). The `/content/` prefix is stripped
+  // by normalizeUrlPath so both shapes resolve to the same canonical
+  // URL path.
+  // Captures paths in various contexts: markdown links, parentheses,
+  // backticks, etc. Delimiters: start of string, whitespace, ], ), (, or `.
+  // Note: Backtick appears in both the delimiter list and negated character
+  // class for defense-in-depth — delimiter stops extraction, character class
+  // prevents any edge cases where backticks might slip through.
   return new RegExp(
-    `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
+    `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:content\\/)?(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
     'gm'
   );
 }
@@ -188,6 +192,14 @@ function normalizeUrlPath(urlPath) {
   let normalized = urlPath.split('#')[0];
   // Remove query strings
   normalized = normalized.split('?')[0];
+  // Strip a leading `/content/` prefix when present. Authors frequently
+  // copy filesystem paths (e.g. `/content/influxdb3/core/admin/...`)
+  // into the PR description; the docs site URL for the same page is
+  // `/influxdb3/core/admin/...`. Treat the two equivalently so the
+  // extractor doesn't silently drop the path.
+  if (normalized.startsWith('/content/')) {
+    normalized = normalized.slice('/content'.length);
+  }
   // Remove wildcard characters (* is often used to indicate "all pages")
   // Do this BEFORE collapsing slashes to handle patterns like /path/*/
   normalized = normalized.replace(/\*/g, '');
