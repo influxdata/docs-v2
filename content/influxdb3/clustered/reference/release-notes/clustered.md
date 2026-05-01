@@ -61,6 +61,37 @@ directory. This new directory contains artifacts associated with the specified r
 
 ---
 
+## 20260421-2022186 {date="2026-04-21"}
+
+### Quickstart
+
+```yaml
+spec:
+  package:
+    image: us-docker.pkg.dev/influxdb2-artifacts/clustered/influxdb:20260421-2022186
+```
+
+#### Release artifacts
+- [app-instance-schema.json](/downloads/clustered-release-artifacts/20260421-2022186/app-instance-schema.json)
+- [example-customer.yml](/downloads/clustered-release-artifacts/20260421-2022186/example-customer.yml)
+- [InfluxDB Clustered README EULA July 2024.txt](/downloads/clustered-release-artifacts/InfluxDB%20Clustered%20README%20EULA%20July%202024.txt)
+
+### Highlights
+
+- Add `derivative` and `difference` SQL functions
+- Include the number of returned rows in query log entries
+- Reduce ingester memory usage during persistence
+- Self-adjust garbage collector delays based on delete rate
+- Increase max stream resets for the catalog from 4,000 to 16,000
+- Enable proactive memory backpressure
+
+### Security and Bug Fixes
+
+- Fix a non-negative integer implementation bug
+- Return 503 for auth service communication errors
+- Always apply overlap filtering in TargetLevel compaction
+- Dependency updates and miscellaneous security fixes
+
 ## 20251218-1946608 {date="2025-12-18"}
 
 ### Quickstart
@@ -141,7 +172,7 @@ Customers who specify the S3 bucket in `spec.package.spec.objectStore.s3.endpoin
 `spec.package.spec.objectStore.bucket` need to disable the
 `CATALOG_BACKUP_DATA_SNAPSHOT` feature:
 
-```yaml
+```diff
  spec:
    package:
      spec:
@@ -701,13 +732,13 @@ spec:
     image: <IMAGE>
     apiVersion: influxdata.com/v1alpha1
     spec:
-      ## ...snip
+      # ... other spec fields elided ...
       admin:
         users:
-          - ...
+          # - ... user entries elided ...
         dsn:
           valueFrom:
-            ...
+            # ... dsn source elided ...
         identityProvider: <PROVIDER>
         jwksEndpoint: <JWKS_ENDPOINT>
 ```
@@ -819,11 +850,11 @@ metadata:
   name: influxdb
   namespace: influxdb
 spec:
-   ...
-      resources:
-        querier:
-          requests:
-            #replicas: 3 # No longer required!
+  # ... other spec fields elided ...
+  resources:
+    querier:
+      requests:
+        #replicas: 3 # No longer required!
 ```
 
 If you wish to keep the number of queriers to 1, you must override the
@@ -1743,19 +1774,20 @@ kubectl -n influxdb create  configmap custom-ca  --from-file=ca.pem
 ```
 
 ```yaml
-....
+# ... other top-level fields elided ...
 kind: AppInstance
 spec:
-    ...
+  # ... other spec fields elided ...
+  package:
     spec:
-      ...
+      # ... other package.spec fields elided ...
       egress:
-         customCertificates:
-            valueFrom:
-              configMapKeyRef:
-                key: ca.pem
-                name: custom-ca
-      ...
+        customCertificates:
+          valueFrom:
+            configMapKeyRef:
+              key: ca.pem
+              name: custom-ca
+      # ... more package.spec fields elided ...
 ```
 
 ### Changes
