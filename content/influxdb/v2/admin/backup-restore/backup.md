@@ -10,9 +10,22 @@ weight: 101
 related:
   - /influxdb/v2/admin/backup-restore/restore/
   - /influxdb/v2/reference/cli/influx/backup/
+  - /influxdb/v2/admin/tokens/#token-hashing
 aliases:
   - /influxdb/v2/backup-restore/backup/
 ---
+
+> [!Important]
+> #### Token hashing affects backup contents in InfluxDB 2.9.0+
+>
+> A backup taken from a 2.9.0+ instance with the default settings
+> doesn't contain a plaintext operator token. To run a full restore of
+> that backup, supply the operator token via
+> [`influx restore --operator-token`](/influxdb/v2/reference/cli/influx/restore/#restore-a-backup-that-contains-hashed-tokens)
+> (`influx-cli` v2.8.0+).
+>
+> [Capture the operator token](/influxdb/v2/admin/tokens/#before-upgrading-to-290)
+> you'll use for restores **before** the first 2.9.0 startup.
 
 Use the [`influx backup` command](/influxdb/v2/reference/cli/influx/backup/) to back up
 data and metadata stored in InfluxDB.

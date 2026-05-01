@@ -11,6 +11,17 @@ weight: 1
 cascade:
   product: influxdb
   version: v2
+  prepend: |
+    > [!Important]
+    > #### API token hashing is enabled by default in InfluxDB OSS 2.9.0
+    >
+    > Stronger token security: tokens are stored as hashes on disk, so a
+    > copy of the database file doesn't expose usable tokens. Existing
+    > tokens are hashed on first startup and the original strings can't
+    > be recovered afterward — **capture any plaintext tokens you still
+    > need before you upgrade**.
+    >
+    > For more information, see [Token hashing](/influxdb/v2/admin/tokens/#token-hashing).
 ---
 
 #### Welcome
