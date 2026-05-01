@@ -240,18 +240,64 @@ On `systemd` systems, the `influxdb3-{{< product-key >}}` unit file is
 `enabled` on install, but the unit is not started in order to allow
 configuration.
 
-To start the database, enter the following commands:
+###### Start, stop, and restart
 
 ```bash
 # Start the service
-systemctl start influxdb3-{{< product-key >}}
+sudo systemctl start influxdb3-{{< product-key >}}
 
-# View status
+# Stop the service
+sudo systemctl stop influxdb3-{{< product-key >}}
+
+# Restart the service (use after configuration changes)
+sudo systemctl restart influxdb3-{{< product-key >}}
+```
+
+###### Check status and logs
+
+```bash
+# Check status
 systemctl status influxdb3-{{< product-key >}}
 
-# View logs
-journalctl --unit influxdb3-{{< product-key >}}
+# Quick state checks
+systemctl is-enabled influxdb3-{{< product-key >}}
+systemctl is-active  influxdb3-{{< product-key >}}
+
+# Recent logs
+journalctl --unit influxdb3-{{< product-key >}} -n 200 --no-pager
+
+# Follow logs
+journalctl --unit influxdb3-{{< product-key >}} -f
 ```
+
+###### Inspect the packaged unit
+
+The packaged unit configures security sandboxing for typical deployments
+(see [Manage security](/influxdb3/version/admin/security/)).
+To inspect the packaged unit and its resolved properties:
+
+```bash
+# Show the unit file
+systemctl cat influxdb3-{{< product-key >}}
+
+# Show all resolved properties (paths, environment, sandboxing options)
+systemctl show influxdb3-{{< product-key >}}
+```
+
+###### Apply configuration changes
+
+Edit the TOML configuration file and restart the service to apply
+changes:
+
+```bash
+sudoedit /etc/influxdb3/influxdb3-{{< product-key >}}.conf
+sudo systemctl restart influxdb3-{{< product-key >}}
+sudo systemctl status  influxdb3-{{< product-key >}}
+journalctl --unit influxdb3-{{< product-key >}} -n 100 --no-pager
+```
+
+`influxdb3 serve` does not support configuration reload; a restart is
+required after editing the TOML file or changing environment variables.
 
 ##### Run using SysV
 
