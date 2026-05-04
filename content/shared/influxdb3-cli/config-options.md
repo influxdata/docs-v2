@@ -1072,7 +1072,7 @@ Specifies the header name used for force sampling in tracing.
 
 | influxdb3 serve option       | Environment variables                |
 | :--------------------------- | :---------------------------------- |
-| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
+| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1082,7 +1082,7 @@ Defines a set of `key=value` pairs to annotate tracing spans with.
 
 | influxdb3 serve option | Environment variables          |
 | :--------------------- | :---------------------------- |
-| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
+| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
 
 ***
 
