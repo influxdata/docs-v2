@@ -5551,9 +5551,12 @@ to Azure Blob Storage.</p>
 <li><a href="#object-store-connection-limit">object-store-connection-limit</a></li>
 <li><a href="#object-store-http2-only">object-store-http2-only</a></li>
 <li><a href="#object-store-http2-max-frame-size">object-store-http2-max-frame-size</a></li>
+<li><a href="#object-store-request-timeout">object-store-request-timeout</a></li>
 <li><a href="#object-store-max-retries">object-store-max-retries</a></li>
 <li><a href="#object-store-retry-timeout">object-store-retry-timeout</a></li>
 <li><a href="#object-store-cache-endpoint">object-store-cache-endpoint</a></li>
+<li><a href="#object-store-tls-allow-insecure">object-store-tls-allow-insecure</a></li>
+<li><a href="#object-store-tls-ca">object-store-tls-ca</a></li>
 </ul>
 <h4 id="bucket">bucket</h4>
 <p>Sets the name of the object storage bucket to use. Must also set
@@ -5626,6 +5629,24 @@ this value.</p>
   </tbody>
 </table>
 <hr>
+<h4 id="object-store-request-timeout">object-store-request-timeout</h4>
+<p>Sets the HTTP request timeout for object store requests.</p>
+<p><strong>Default:</strong> <code>30s</code></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">influxdb3 serve option</th>
+          <th style="text-align: left">Environment variables</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--object-store-request-timeout</code></td>
+          <td style="text-align: left"><code>INFLUXDB3_OBJECT_STORE_REQUEST_TIMEOUT</code> (preferred)<br><code>OBJECT_STORE_REQUEST_TIMEOUT</code> (deprecated; supported for backward compatibility)</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
 <h4 id="object-store-max-retries">object-store-max-retries</h4>
 <p>Defines the maximum number of times to retry a request.</p>
 <table>
@@ -5674,6 +5695,48 @@ further retries are be attempted.</p>
       <tr>
           <td style="text-align: left"><code>--object-store-cache-endpoint</code></td>
           <td style="text-align: left"><code>INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT</code> (preferred)<br><code>OBJECT_STORE_CACHE_ENDPOINT</code> (deprecated; supported for backward compatibility)</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="object-store-tls-allow-insecure">object-store-tls-allow-insecure</h4>
+<p>Allows invalid TLS certificates when connecting to object storage.</p>
+
+<div class="warn block">
+  <p>This disables TLS certificate verification and should only be used for testing.</p>
+
+</div>
+
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">influxdb3 serve option</th>
+          <th style="text-align: left">Environment variables</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--object-store-tls-allow-insecure</code></td>
+          <td style="text-align: left"><code>INFLUXDB3_OBJECT_STORE_TLS_ALLOW_INSECURE</code> (preferred)<br><code>OBJECT_STORE_TLS_ALLOW_INSECURE</code> (deprecated; supported for backward compatibility)</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h4 id="object-store-tls-ca">object-store-tls-ca</h4>
+<p>Specifies the path to a custom CA certificate file (PEM format) for verifying
+object store connections. Use this when your object store uses a certificate
+signed by a private CA.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">influxdb3 serve option</th>
+          <th style="text-align: left">Environment variables</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>--object-store-tls-ca</code></td>
+          <td style="text-align: left"><code>INFLUXDB3_OBJECT_STORE_TLS_CA</code> (preferred)<br><code>OBJECT_STORE_TLS_CA</code> (deprecated; supported for backward compatibility)</td>
       </tr>
   </tbody>
 </table>
