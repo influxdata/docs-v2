@@ -180,7 +180,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Enables only data processing capabilities
+- `process`: Activates the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/) so the node can execute trigger plugins. `process` has no API surface of its own — it doesn't accept writes or serve queries. Setting [`--plugin-dir`](#plugin-dir) implicitly adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a multi-node cluster, combine `process` with another mode (typically `query`) so plugins can call `influxdb3_local.query()` locally.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
