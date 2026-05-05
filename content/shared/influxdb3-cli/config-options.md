@@ -17,7 +17,7 @@ The systemd launcher reads this file and converts each entry to an
 with hyphens replaced by underscores and uppercased) before invoking
 `influxdb3 serve`.
 
-`influxdb3 serve` does not natively read TOML; the file's effect is
+`influxdb3 serve` does not yet natively read TOML; the file's effect is
 applied through the environment variables the launcher sets.
 CLI flags passed to `influxdb3 serve` still override values defined in
 the TOML file because they override the environment variables that
