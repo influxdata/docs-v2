@@ -242,6 +242,10 @@ configuration.
 
 ###### Start, stop, and restart
 
+> [!Note]
+> The following examples use `sudo` for systems that require elevated privileges.
+> On some systems (such as Amazon Linux or other RHEL-based distributions where you may already be running as root), you can omit `sudo` from the commands.
+
 ```bash
 # Start the service
 sudo systemctl start influxdb3-{{< product-key >}}
