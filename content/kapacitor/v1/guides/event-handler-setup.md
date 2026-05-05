@@ -341,7 +341,7 @@ This setting only applies if the `global` setting is also set to `true`.
   url = "https://api.telegram.org/bot"
   token = "abcdefghi:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   chat-id = "123456789"
-  parse-mode = Markdown
+  parse-mode = "Markdown"
   disable-web-page-preview = true
   disable-notification = false
   global = true

@@ -6,6 +6,24 @@
 > All updates to Core are automatically included in Enterprise.
 > The Enterprise sections below only list updates exclusive to Enterprise.
 
+## v3.9.2 {date="2026-04-30"}
+
+### Core
+
+Maintenance release: v3.9.2 Core includes only build and dependency updates—no user-facing changes.
+
+### Enterprise
+
+All Core updates are included in Enterprise.
+Additional Enterprise-specific updates:
+
+#### Bug fixes
+
+- **Gen1 file deduplication in compactor**: Fixed an issue where stale snapshot markers after `CompactionSummary` recovery could leave duplicate gen1 file entries and cause recompaction to abort.
+- **Empty series key handling**: Fixed compaction for tables with no tags (empty series key).
+- **Catalog token hash lookup**: Fixed a case where a failed `add_token` insert could leave a stale entry in the token hash lookup map. The lookup is now only updated after the underlying repository insert succeeds.
+- Other bug fixes and performance improvements
+
 ## v3.9.1 {date="2026-04-09"}
 
 ### Core

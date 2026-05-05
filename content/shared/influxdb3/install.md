@@ -23,7 +23,7 @@
 > #### Upgrading from InfluxDB 3 Core?
 >
 > If you're currently running InfluxDB 3 Core and want to upgrade to {{% product-name %}},
-> see [Upgrade from Core](/influxdb3/version/admin/license/upgrade-from-core/)
+> see [Upgrade from Core](/influxdb3/version/admin/upgrade-from-core/)
 > for step-by-step instructions.
 
 > [!Note]
@@ -90,7 +90,7 @@ curl -O https://www.influxdata.com/d/install_influxdb3.sh \
 
 ### Download and install the latest build artifacts
 
-You can also download and install [{{% product-name %}} build artifacts](/influxdb3/version/install/#download-influxdb-3-{{< product-key >}}-binaries) directly:
+You can also download and install {{% product-name %}} build artifacts directly:
 
 {{< expand-wrapper >}}
 {{% expand "Linux binaries" %}}
@@ -240,18 +240,74 @@ On `systemd` systems, the `influxdb3-{{< product-key >}}` unit file is
 `enabled` on install, but the unit is not started in order to allow
 configuration.
 
-To start the database, enter the following commands:
+###### Start, stop, and restart
+
+> [!Note]
+> The following examples use `sudo` for systems that require elevated privileges.
+> On some systems (such as Amazon Linux or other RHEL-based distributions where you may already be running as root), you can omit `sudo` from the commands.
 
 ```bash
 # Start the service
-systemctl start influxdb3-{{< product-key >}}
+sudo systemctl start influxdb3-{{< product-key >}}
 
-# View status
-systemctl status influxdb3-{{< product-key >}}
+# Stop the service
+sudo systemctl stop influxdb3-{{< product-key >}}
 
-# View logs
-journalctl --unit influxdb3-{{< product-key >}}
+# Restart the service (use after configuration changes)
+sudo systemctl restart influxdb3-{{< product-key >}}
 ```
+
+###### Check status and logs
+
+```bash
+# Check status (sudo to ensure full journal output)
+sudo systemctl status influxdb3-{{< product-key >}}
+
+# Quick state checks (no sudo needed)
+systemctl is-enabled influxdb3-{{< product-key >}}
+systemctl is-active  influxdb3-{{< product-key >}}
+
+# Recent logs
+sudo journalctl --unit influxdb3-{{< product-key >}} -n 200 --no-pager
+
+# Follow logs
+sudo journalctl --unit influxdb3-{{< product-key >}} -f
+```
+
+###### Inspect the packaged unit
+
+The packaged unit configures security sandboxing for typical deployments
+(see [Manage security](/influxdb3/version/admin/security/)).
+To inspect the packaged unit and its resolved properties:
+
+```bash
+# Show the unit file
+systemctl cat influxdb3-{{< product-key >}}
+
+# Show all resolved properties (paths, environment, sandboxing options)
+systemctl show influxdb3-{{< product-key >}}
+```
+
+###### Apply configuration changes
+
+Edit the TOML configuration file and restart the service to apply
+changes:
+
+```bash
+sudoedit /etc/influxdb3/influxdb3-{{< product-key >}}.conf
+sudo systemctl restart influxdb3-{{< product-key >}}
+sudo systemctl status  influxdb3-{{< product-key >}}
+sudo journalctl --unit influxdb3-{{< product-key >}} -n 100 --no-pager
+```
+
+`influxdb3 serve` does not support configuration reload; a restart is
+required after editing the TOML file or changing environment variables.
+
+The TOML file is read by the systemd launcher and converted to
+`INFLUXDB3_*` environment variables before `influxdb3 serve` runs;
+CLI flags still override values from the TOML file.
+For details, see
+[TOML configuration files](/influxdb3/version/reference/config-options/#toml-configuration-files).
 
 ##### Run using SysV
 

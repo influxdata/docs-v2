@@ -12,5 +12,5 @@ menu:
 weight: 202
 related:
   - /influxdb3/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
-source: /content/shared/v3-process-data/downsample/quix.md
+source: /shared/v3-process-data/downsample/quix.md
 ---

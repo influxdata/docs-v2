@@ -187,7 +187,7 @@ influxdb3 query \
 {{% /expand %}}
 {{% expand "View example JSON-line-formatted results" %}}
 {{% influxdb/custom-timestamps %}}
-```json
+```jsonl
 {"co":0,"hum":35.9,"room":"Living Room","temp":21.1,"time":"2022-01-01T08:00:00"}
 {"co":0,"hum":35.9,"room":"Kitchen","temp":21.0,"time":"2022-01-01T08:00:00"}
 {"co":0,"hum":35.9,"room":"Living Room","temp":21.4,"time":"2022-01-01T09:00:00"}

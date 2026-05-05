@@ -2,6 +2,9 @@
  * Parse Documentation URLs from PR Description
  * Extracts docs.influxdata.com URLs and relative paths from PR body text.
  * Used when layout/asset changes require author-specified preview pages.
+ *
+ * IMPORTANT: Code blocks are stripped before URL extraction to prevent
+ * example URLs (e.g., showing broken link formats) from being deployed.
  */
 
 import { readFileSync } from 'fs';
@@ -10,6 +13,38 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Strip code blocks from text to prevent extracting example URLs
+ * that appear in code blocks (e.g., showing broken link formats).
+ *
+ * Removes:
+ * - Fenced code blocks (```...``` or ~~~...~~~)
+ * - Inline code (`...`)
+ *
+ * @param {string} text - Text that may contain code blocks
+ * @returns {string} - Text with code blocks removed
+ */
+function stripCodeBlocks(text) {
+  if (!text) return '';
+
+  // Remove fenced code blocks with backticks (```...```)
+  // Matches opening fence of 3+ backticks, optional language id, content, closing fence of 3+ backticks
+  let result = text.replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}$/gm, '');
+
+  // Remove fenced code blocks with tildes (~~~...~~~)
+  // Same pattern but for tilde fences
+  result = result.replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}$/gm, '');
+
+  // Remove inline code with balanced backticks
+  // Match 1-3 backticks, non-greedy content (no backticks), same number of closing backticks
+  // Process from longest to shortest to handle ``` before `` before `
+  result = result.replace(/```[^`]+```/g, '');
+  result = result.replace(/``[^`]+``/g, '');
+  result = result.replace(/`[^`]+`/g, '');
+
+  return result;
+}
 
 /**
  * Load valid product namespaces from products.yml
@@ -78,14 +113,18 @@ function isValidUrlPath(path) {
  */
 function buildRelativePattern() {
   const namespaceAlternation = PRODUCT_NAMESPACES.join('|');
-  // Match relative paths starting with known product prefixes
-  // Captures paths in various contexts: markdown links, parentheses, backticks, etc.
-  // Delimiters: start of string, whitespace, ], ), (, or `
-  // Note: Backtick appears in both the delimiter list and negated character class
-  // for defense-in-depth - delimiter stops extraction, character class prevents
-  // any edge cases where backticks might slip through
+  // Match relative paths starting with known product prefixes, in either
+  // URL form (`/influxdb3/core/...`) or filesystem form
+  // (`/content/influxdb3/core/...`). The `/content/` prefix is stripped
+  // by normalizeUrlPath so both shapes resolve to the same canonical
+  // URL path.
+  // Captures paths in various contexts: markdown links, parentheses,
+  // backticks, etc. Delimiters: start of string, whitespace, ], ), (, or `.
+  // Note: Backtick appears in both the delimiter list and negated character
+  // class for defense-in-depth — delimiter stops extraction, character class
+  // prevents any edge cases where backticks might slip through.
   return new RegExp(
-    `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
+    `(?:^|\\s|\\]|\\)|\\(|\`)(\\/(?:content\\/)?(?:${namespaceAlternation})[^\\s)\\]>"'\`]*)`,
     'gm'
   );
 }
@@ -100,6 +139,10 @@ const RELATIVE_PATTERN = buildRelativePattern();
 export function extractDocsUrls(text) {
   if (!text) return [];
 
+  // Strip code blocks to prevent extracting example URLs
+  // (e.g., URLs shown as examples of broken link formats)
+  const cleanText = stripCodeBlocks(text);
+
   const urls = new Set();
 
   // Pattern 1: Full production URLs
@@ -107,7 +150,7 @@ export function extractDocsUrls(text) {
   // https://docs.influxdata.com/ (home page)
   const prodUrlPattern = /https?:\/\/docs\.influxdata\.com(\/[^\s)\]>"']*)/g;
   let match;
-  while ((match = prodUrlPattern.exec(text)) !== null) {
+  while ((match = prodUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -118,7 +161,7 @@ export function extractDocsUrls(text) {
   // http://localhost:1313/influxdb3/core/
   // http://localhost:1313/ (home page)
   const localUrlPattern = /https?:\/\/localhost:\d+(\/[^\s)\]>"']*)/g;
-  while ((match = localUrlPattern.exec(text)) !== null) {
+  while ((match = localUrlPattern.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -129,7 +172,7 @@ export function extractDocsUrls(text) {
   // /influxdb3/core/admin/ or /telegraf/v1/plugins/
   // Reset lastIndex to ensure fresh matching
   RELATIVE_PATTERN.lastIndex = 0;
-  while ((match = RELATIVE_PATTERN.exec(text)) !== null) {
+  while ((match = RELATIVE_PATTERN.exec(cleanText)) !== null) {
     const path = normalizeUrlPath(match[1]);
     if (isValidUrlPath(path)) {
       urls.add(path);
@@ -149,6 +192,14 @@ function normalizeUrlPath(urlPath) {
   let normalized = urlPath.split('#')[0];
   // Remove query strings
   normalized = normalized.split('?')[0];
+  // Strip a leading `/content/` prefix when present. Authors frequently
+  // copy filesystem paths (e.g. `/content/influxdb3/core/admin/...`)
+  // into the PR description; the docs site URL for the same page is
+  // `/influxdb3/core/admin/...`. Treat the two equivalently so the
+  // extractor doesn't silently drop the path.
+  if (normalized.startsWith('/content/')) {
+    normalized = normalized.slice('/content'.length);
+  }
   // Remove wildcard characters (* is often used to indicate "all pages")
   // Do this BEFORE collapsing slashes to handle patterns like /path/*/
   normalized = normalized.replace(/\*/g, '');

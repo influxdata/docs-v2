@@ -1,14 +1,13 @@
 name: Test Code Blocks
 
 on:
-  # Pull requests: detection only (informational, non-blocking)
-  # Detects changed content and suggests which products to test
+  # Pull requests: detection-only on the test-execution side, but the
+  # `Lint code blocks` job is a required status check on master. A
+  # required check that never reports blocks merge forever, so the
+  # workflow MUST run on every PR — even ones that touch no content.
+  # The lint job's own `if:` gate skips it when there are no canonical
+  # sources to lint; GitHub treats a skipped required check as success.
   pull_request:
-    paths:
-      - 'content/**/*.md'
-      - 'test/**'
-      - 'Dockerfile.pytest'
-      - 'compose.yaml'
     types: [opened, synchronize, reopened]
   # Manual dispatch: actually runs tests
   workflow_dispatch:
@@ -45,6 +44,7 @@ jobs:
       has-changes: ${{ steps.check.outputs.has-changes }}
       test-products: ${{ steps.check.outputs.test-products }}
       suggested-products: ${{ steps.check.outputs.suggested-products }}
+      canonical-sources: ${{ steps.check.outputs.canonical-sources }}
 
     steps:
       - name: Checkout repository
@@ -56,7 +56,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Analyze changes and determine products
         id: check
@@ -202,7 +202,41 @@ jobs:
           echo "suggested-products=$PRODUCTS_JSON" >> $GITHUB_OUTPUT
           echo "affected-files=$FILES_JSON" >> $GITHUB_OUTPUT
 
+          # Emit canonical sources (deduped via shared-source frontmatter)
+          # so the lint-codeblocks job can run once per underlying content file.
+          CANONICAL_JSON=$(echo "$RESULT" | jq -c '.canonical // []')
+          echo "canonical-sources=$CANONICAL_JSON" >> $GITHUB_OUTPUT
+
           echo "📋 Suggested products for testing: $(echo "$PRODUCTS_JSON" | jq -r 'join(", ")')"
+
+  # Parse/compile-only lint for code blocks in changed content.
+  # Runs on every PR that touches content. Fails the job for JSON/YAML/TOML
+  # parse errors; bash/python/javascript failures emit ::warning:: annotations.
+  # See DOCS-TESTING.md § "Parse/compile code-block lint" for the design.
+  lint-codeblocks:
+    name: Lint code blocks
+    needs: detect-changes
+    if: github.event_name == 'pull_request' && needs.detect-changes.outputs.canonical-sources != '' && needs.detect-changes.outputs.canonical-sources != '[]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: CYPRESS_INSTALL_BINARY=0 yarn install --frozen-lockfile
+      - name: Run lint-codeblocks
+        run: |
+          mapfile -t files < <(echo '${{ needs.detect-changes.outputs.canonical-sources }}' | jq -r '.[]')
+          if [[ ${#files[@]} -eq 0 ]]; then
+            echo "No canonical sources to lint."
+            exit 0
+          fi
+          printf 'Linting %s\n' "${files[@]}"
+          node scripts/ci/lint-codeblocks.mjs "${files[@]}"
 
   # Informational job for PRs - suggests tests but doesn't run them
   suggest-tests:
@@ -298,7 +332,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Install dependencies

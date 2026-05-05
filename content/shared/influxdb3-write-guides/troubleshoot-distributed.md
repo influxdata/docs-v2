@@ -99,10 +99,7 @@ The following example shows a response body for a write request that contains tw
 {
   "code": "invalid",
   "line": 2,
-  "message": "failed to parse line protocol:
-              errors encountered on line(s):
-              error parsing line 2 (1-based): Invalid measurement was provided
-              error parsing line 4 (1-based): Unable to parse timestamp value '123461000000000000000000000000'"
+  "message": "failed to parse line protocol:\n  errors encountered on line(s):\n  error parsing line 2 (1-based): Invalid measurement was provided\n  error parsing line 4 (1-based): Unable to parse timestamp value '123461000000000000000000000000'"
 }
 ```
 

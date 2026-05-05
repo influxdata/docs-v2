@@ -34,7 +34,6 @@ In a `/api/v2/tasks` request body with `scriptID`:
 {
   "scriptID": "SCRIPT_ID",
   "name": "TASK_NAME"
-  ...
 }
 ```
 
@@ -69,7 +68,6 @@ In a `/api/v2/tasks` request body with `scriptID`:
 {
   "scriptID": "SCRIPT_ID",
   "every": "1h"
-  ...
 }
 ```
 
@@ -102,8 +100,7 @@ In a `/api/v2/tasks` request body with `scriptID`:
 ```json
 {
   "scriptID": "SCRIPT_ID",
-  "cron": "0 * * * *",
-  ...
+  "cron": "0 * * * *"
 }
 ```
 
@@ -135,8 +132,7 @@ In a `/api/v2/tasks` request body with `scriptID`:
 ```json
 {
   "scriptID": "SCRIPT_ID",
-  "offset": "10m",
-  ...
+  "offset": "10m"
 }
 ```
 
