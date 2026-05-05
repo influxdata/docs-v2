@@ -3472,7 +3472,9 @@ ui-disabled = true
 ---
 
 ### use-hashed-tokens
-Enable storing hashed API tokens on disk. Hashed tokens are disabled by default in version 2.8. Hashed tokens will be enabled by default in a future version.
+Enable storing hashed API tokens on disk. Token hashing is **enabled by
+default in InfluxDB 2.9.0 and later**. In InfluxDB 2.8.0–2.8.x, token
+hashing was available but disabled by default.
 
 Storing hashed tokens increases security by storing API tokens as hashes on disk. When enabled, all unhashed tokens are converted to hashed tokens on every startup leaving no unhashed tokens on disk. Newly created tokens are also stored as hashes. Lost tokens must be replaced when token hashing is enabled because the hashing prevents them from being recovered.
 
@@ -3480,7 +3482,11 @@ If token hashing is disabled after being enabled, any hashed tokens on disk rema
 
 Hashed token support is available in versions 2.8.0 and newer. Downgrading to older versions is not recommended after enabling hashed tokens because the downgrade process deletes all stored hashed tokens. All hashed tokens must be replaced on a downgrade after hashed tokens are enabled.
 
-**Default:** `false`
+To opt out of the default and continue storing tokens unhashed (for
+example, to preserve compatibility with a possible downgrade to
+InfluxDB 2.7 or earlier), set `use-hashed-tokens` to `false`.
+
+**Default:** `true` _(in InfluxDB 2.9.0 and later; `false` in 2.8.x)_
 
 | influxd flag    | Environment variable  | Configuration key |
 | :-------------- | :-------------------- | :---------------- |
@@ -3490,12 +3496,14 @@ Hashed token support is available in versions 2.8.0 and newer. Downgrading to ol
 <!--pytest.mark.skip-->
 
 ```sh
-influxd --use-hashed-tokens
+# Disable token hashing (opt out of the 2.9.0 default)
+influxd --use-hashed-tokens=false
 ```
 
 ###### Environment variable
 ```sh
-export INFLUXD_USE_HASHED_TOKENS=true
+# Disable token hashing (opt out of the 2.9.0 default)
+export INFLUXD_USE_HASHED_TOKENS=false
 ```
 
 ###### Configuration file
@@ -3507,18 +3515,18 @@ export INFLUXD_USE_HASHED_TOKENS=true
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-use-hashed-tokens: true
+use-hashed-tokens: false
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-use-hashed-tokens = true
+use-hashed-tokens = false
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "use-hashed-tokens": true
+  "use-hashed-tokens": false
 }
 ```
 {{% /code-tab-content %}}

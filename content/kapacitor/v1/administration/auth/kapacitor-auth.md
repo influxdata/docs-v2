@@ -78,7 +78,7 @@ authenticate requests to the Kapacitor HTTP API.
     ```toml
     [http]
       #...
-      auth-enabled: true
+      auth-enabled = true
       #...
     ```
 

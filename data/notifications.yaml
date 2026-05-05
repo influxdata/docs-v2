@@ -40,6 +40,30 @@
 #     - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
 #     - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
+- id: influxdb-v2-9-token-hashing-default
+  level: note
+  scope:
+    - /influxdb/v2/
+  title: 'InfluxDB OSS 2.9.0: API tokens are hashed by default'
+  slug: |
+    Stronger token security in **InfluxDB OSS 2.9.0** — tokens are
+    hashed on disk by default. Existing tokens are hashed on first
+    startup and can't be recovered afterward. **Capture any plaintext
+    tokens you still need before you upgrade.**
+
+    [View InfluxDB OSS 2.9.0 release notes](/influxdb/v2/reference/release-notes/influxdb/#v290)
+  message: |
+    Hashed tokens authenticate exactly like unhashed tokens — clients
+    and integrations keep working.
+
+    **Also new in 2.9.0:**
+
+    - Configurable backup compression
+    - Restore support for backups containing hashed tokens
+    - Tighter Edge Data Replication queue validation
+    - Flux upgrade
+    - Compaction reliability improvements
+
 - id: explorer-1-8-key-enhancements
   level: note
   scope:

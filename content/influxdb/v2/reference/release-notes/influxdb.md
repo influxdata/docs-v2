@@ -8,6 +8,105 @@ menu:
 weight: 101
 ---
 
+## v2.9.0 {date="2026-04-30"}
+
+### Features
+
+#### Token hashing enabled by default
+
+InfluxDB OSS 2.9.0 enables [API token hashing](/influxdb/v2/admin/tokens/#token-hashing) by default.
+Tokens are stored as hashes on disk, which improves security: a copy of the
+underlying database file doesn't expose usable tokens.
+
+When you start `influxd` 2.9.0 with the default settings, any existing
+unhashed tokens are migrated to hashed form on startup. After migration,
+the original token strings cannot be recovered.
+
+> [!Important]
+> ##### Before you upgrade
+>
+> - Capture any tokens you still need in plaintext form, including the
+>   operator token. Once `influxd` starts with hashing on, the original
+>   strings are unrecoverable.
+> - If you may need to downgrade to a version earlier than 2.8.0, start
+>   `influxd` 2.9.0 with `--use-hashed-tokens=false`. See
+>   [Disable token hashing](/influxdb/v2/admin/tokens/#disable-token-hashing)
+>   for env-var and config-file equivalents.
+
+##### Disable token hashing
+
+To opt out of the new default — for example, while validating an upgrade or
+preserving downgrade compatibility — pass `--use-hashed-tokens=false` to
+`influxd`. Hashing remains optional and reversible for *new* tokens
+(disabling hashing later means newly created tokens are stored unhashed),
+but tokens that have already been hashed on disk remain hashed.
+
+##### `influxd upgrade` change
+
+The `--use-hashed-tokens` flag has been removed from `influxd upgrade`.
+Tokens are converted to hashed form only when `influxd` itself runs with
+token hashing enabled — not as part of the upgrade step.
+
+##### Recommended workflow for backup and restore
+
+A backup taken from a 2.9.0 instance with the default settings does not
+contain a plaintext operator token. To restore that backup with
+`influx restore --full`, supply the operator token via the new
+`influx restore --operator-token <token>` flag (`influx-cli` v2.8.0+).
+
+#### Backup gzip compression level (server and CLI)
+
+You can now configure the gzip compression level used during backup
+downloads, separately from the local snapshot file compression that
+`--compression` controls.
+
+- HTTP API (`GET /api/v2/backup/shards/{shardID}` and
+  `GET /api/v2/backup/metadata`): set the `Gzip-Compression-Level` request
+  header to `default`, `full` (best compression), `speedy` (fastest), or
+  `none`.
+- `influx backup` CLI (`influx-cli` v2.8.0+):
+  `--gzip-compression-level <default|full|speedy|none>`.
+
+The pre-existing `--compression` flag continues to control whether the
+CLI gzips snapshot files written to local disk. If you set
+`--gzip-compression-level=none` and do not explicitly set `--compression`,
+local compression is also disabled.
+
+#### Edge data replication: `maxAgeSeconds` validation
+
+The replication API (`POST /api/v2/replications` and
+`PATCH /api/v2/replications/{id}`) now validates `maxAgeSeconds`:
+
+- Minimum: 60 seconds (1 minute).
+- Maximum: 5,184,000 seconds (60 days).
+- `0` is accepted as a sentinel meaning "use the default" (1 week).
+
+Out-of-range values return HTTP 400 with
+`maxAgeSeconds must be 0 (use default) or between 60 and 5184000`.
+
+#### Restore: `--operator-token` flag
+
+`influx restore --full` accepts a new `--operator-token <token>` flag
+(`influx-cli` v2.8.0+). The CLI uses this token to authenticate
+post-restore requests when the restored backup contains a hashed (rather
+than plaintext) operator token.
+
+#### Flux upgrade
+
+Flux upgraded to v0.200.0.
+
+#### Compaction reliability and performance
+
+InfluxDB 2.9.0 includes the compaction improvements ported from
+InfluxDB 1.12.3 and 1.12.4 — locking, scheduling, logging, and edge-case
+fixes across the TSM and series-file compaction paths. These changes are
+mostly internal; expect lower lock contention and steadier compaction
+behavior under load.
+
+### Bug Fixes
+
+- Return InfluxQL JSON marshaling errors correctly.
+
 ## v2.8.0 {date="2025-12-12"}
 
 ### Features
