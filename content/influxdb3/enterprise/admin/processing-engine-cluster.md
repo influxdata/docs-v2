@@ -32,7 +32,7 @@ The cluster-specific behavior described here applies when you run more than one 
 
 Three independent factors determine whether a Processing Engine trigger runs on a given node:
 
-1. The node has [`--plugin-dir`](/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir) configured.
+1. The node has [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured.
 2. The trigger's [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) includes the node — by default, `all` (every node with `--plugin-dir`).
 3. The trigger's plugin imports modules that are available in that node's per-node Python virtual environment.
 

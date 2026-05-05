@@ -308,7 +308,7 @@ influxdb3 create trigger \
 
 ### Pin a trigger to specific nodes in a cluster
 
-In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir) configured try to execute the trigger.
+In a multi-node {{% product-name %}} cluster, the default `--node-spec all` makes every node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured try to execute the trigger.
 For schedule triggers, this causes duplicate execution on every plugin-capable node.
 For request triggers, the route exists only on the node receiving the HTTP request, and other nodes return `404 not found` — there's no internal cross-node routing.
 

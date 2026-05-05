@@ -2,7 +2,7 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 
 ## Enable and disable the Processing Engine
 
-The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
+The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/config-options/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
 When not configured, the Python environment and PyO3 bindings aren't initialized, and the server runs without Processing Engine functionality.
 
 {{% show-in "enterprise" %}}

@@ -69,7 +69,7 @@ Available modes:
 - `ingest`: Data ingestion and line protocol parsing
 - `query`: Query execution and data retrieval
 - `compact`: Background compaction and optimization
-- `process`: Activates the Processing Engine. `process` has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting [`--plugin-dir`](/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir) implies `process` mode, so you rarely need to set `process` explicitly. In a multi-node cluster, combine `process` with another mode (typically `query`, so plugins can call `influxdb3_local.query()` against the local engine) — see [Configure process-capable nodes](#configure-process-capable-nodes).
+- `process`: Activates the Processing Engine. `process` has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) implies `process` mode, so you rarely need to set `process` explicitly. In a multi-node cluster, combine `process` with another mode (typically `query`, so plugins can call `influxdb3_local.query()` against the local engine) — see [Configure process-capable nodes](#configure-process-capable-nodes).
 
 > [!Warning]
 > #### Don't use all mode in a multi-node cluster
@@ -87,11 +87,11 @@ Available modes:
 Every node has two thread pools that must be properly configured:
 
 1. **IO threads**: Parse line protocol, handle HTTP requests
-2. **DataFusion threads**: Execute queries, create data snapshots (convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal) to Parquet files), perform compaction
+2. **DataFusion threads**: Execute queries, create data snapshots (convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal-persistence) to Parquet files), perform compaction
 
 > [!Note]
 > Even specialized nodes need both thread types. Ingest nodes use DataFusion threads
-> for creating data snapshots that convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal) to Parquet files, and query nodes use IO threads for handling requests.
+> for creating data snapshots that convert [WAL data](/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal-persistence) to Parquet files, and query nodes use IO threads for handling requests.
 
 ## Configure ingest nodes
 
@@ -246,7 +246,7 @@ You can adjust compaction strategies to balance performance and resource usage:
 
 ## Configure process-capable nodes
 
-Any node with [`--plugin-dir`](/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir) configured can execute Processing Engine plugins.
+Any node with [`--plugin-dir`](/influxdb3/enterprise/reference/config-options/#plugin-dir) configured can execute Processing Engine plugins.
 Setting `--plugin-dir` implicitly adds `process` mode regardless of the node's other modes; explicit `--mode=process` requires `--plugin-dir` to be set.
 
 > [!Important]
