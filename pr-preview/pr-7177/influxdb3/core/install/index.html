@@ -4520,6 +4520,13 @@ a managed system service on Linux:</p>
 <code>enabled</code> on install, but the unit is not started in order to allow
 configuration.</p>
 <h6 id="start-stop-and-restart">Start, stop, and restart</h6>
+
+<div class="block note">
+  
+  
+  <p>The following examples use <code>sudo</code> for systems that require elevated privileges.
+On some systems (such as Amazon Linux or other RHEL-based distributions where you may already be running as root), you can omit <code>sudo</code> from the commands.</p>
+</div>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Start the service</span>
 </span></span><span class="line"><span class="cl">sudo systemctl start influxdb3-core
 </span></span><span class="line"><span class="cl">
