@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-05 14:43:50 -0500 -0500">
+<meta name="last-modified" content="2026-05-05 15:48:12 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4615,7 +4615,7 @@ cluster efficiency.</p>
 <li><code>ingest</code>: Data ingestion and line protocol parsing</li>
 <li><code>query</code>: Query execution and data retrieval</li>
 <li><code>compact</code>: Background compaction and optimization</li>
-<li><code>process</code>: Activates the Processing Engine. <code>process</code> has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting <a href="/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir"><code>--plugin-dir</code></a> implies <code>process</code> mode, so you rarely need to set <code>process</code> explicitly. In a multi-node cluster, combine <code>process</code> with another mode (typically <code>query</code>, so plugins can call <code>influxdb3_local.query()</code> against the local engine) — see <a href="#configure-process-capable-nodes">Configure process-capable nodes</a>.</li>
+<li><code>process</code>: Activates the Processing Engine. <code>process</code> has no API surface of its own — it activates the Python virtual machine that runs trigger plugins. Setting <a href="/influxdb3/enterprise/reference/config-options/#plugin-dir"><code>--plugin-dir</code></a> implies <code>process</code> mode, so you rarely need to set <code>process</code> explicitly. In a multi-node cluster, combine <code>process</code> with another mode (typically <code>query</code>, so plugins can call <code>influxdb3_local.query()</code> against the local engine) — see <a href="#configure-process-capable-nodes">Configure process-capable nodes</a>.</li>
 </ul>
 
 <div class="block warning">
@@ -4632,14 +4632,14 @@ In a multi-node cluster, use explicit modes (<code>ingest</code>, <code>query</c
 <p>Every node has two thread pools that must be properly configured:</p>
 <ol>
 <li><strong>IO threads</strong>: Parse line protocol, handle HTTP requests</li>
-<li><strong>DataFusion threads</strong>: Execute queries, create data snapshots (convert <a href="/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal">WAL data</a> to Parquet files), perform compaction</li>
+<li><strong>DataFusion threads</strong>: Execute queries, create data snapshots (convert <a href="/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal-persistence">WAL data</a> to Parquet files), perform compaction</li>
 </ol>
 
 <div class="block note">
   
   
   <p>Even specialized nodes need both thread types. Ingest nodes use DataFusion threads
-for creating data snapshots that convert <a href="/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal">WAL data</a> to Parquet files, and query nodes use IO threads for handling requests.</p>
+for creating data snapshots that convert <a href="/influxdb3/enterprise/reference/internals/durability/#write-ahead-log-wal-persistence">WAL data</a> to Parquet files, and query nodes use IO threads for handling requests.</p>
 </div>
 <h2 id="configure-ingest-nodes">Configure ingest nodes</h2>
 <p>Ingest nodes handle high-volume data writes and require significant IO thread allocation
@@ -4752,7 +4752,7 @@ Any node mode that includes compaction (<code>compact</code> or <code>all</code>
 </span></span><span class="line"><span class="cl">--compaction-multipliers<span class="o">=</span>4,8,16 <span class="se">\
 </span></span></span><span class="line"><span class="cl">--compaction-max-num-files-per-plan<span class="o">=</span><span class="m">100</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">--compaction-cleanup-wait<span class="o">=</span>10m</span></span></code></pre></div><h2 id="configure-process-capable-nodes">Configure process-capable nodes</h2>
-<p>Any node with <a href="/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir"><code>--plugin-dir</code></a> configured can execute Processing Engine plugins.
+<p>Any node with <a href="/influxdb3/enterprise/reference/config-options/#plugin-dir"><code>--plugin-dir</code></a> configured can execute Processing Engine plugins.
 Setting <code>--plugin-dir</code> implicitly adds <code>process</code> mode regardless of the node&rsquo;s other modes; explicit <code>--mode=process</code> requires <code>--plugin-dir</code> to be set.</p>
 
 <div class="block important">

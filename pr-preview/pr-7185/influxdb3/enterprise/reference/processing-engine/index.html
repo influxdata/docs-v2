@@ -4614,7 +4614,7 @@
   
   <p>The Processing engine is an embedded Python virtual machine that runs inside an InfluxDB 3 Enterprise database server. It executes Python code in response to triggers and database events without requiring external application servers or middleware.</p>
 <h2 id="enable-and-disable-the-processing-engine">Enable and disable the Processing Engine</h2>
-<p>The Processing Engine activates when <a href="/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir"><code>--plugin-dir</code></a> or <code>INFLUXDB3_PLUGIN_DIR</code> is configured.
+<p>The Processing Engine activates when <a href="/influxdb3/version/reference/config-options/#plugin-dir"><code>--plugin-dir</code></a> or <code>INFLUXDB3_PLUGIN_DIR</code> is configured.
 When not configured, the Python environment and PyO3 bindings aren&rsquo;t initialized, and the server runs without Processing Engine functionality.</p>
 <h3 id="process-mode-and---plugin-dir">Process mode and <code>--plugin-dir</code></h3>
 <p>Setting <code>--plugin-dir</code> automatically adds <code>process</code> mode to any node, regardless of the <a href="/influxdb3/enterprise/reference/config-options/#mode"><code>--mode</code></a> setting.

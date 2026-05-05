@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-05-05 14:43:50 -0500 -0500">
+<meta name="last-modified" content="2026-05-05 15:48:12 -0500 -0500">
     
 <script type="text/javascript">
 (function() {
@@ -4582,7 +4582,7 @@ The cluster-specific behavior described here applies when you run more than one 
 <h2 id="how-trigger-execution-works-in-a-cluster">How trigger execution works in a cluster</h2>
 <p>Three independent factors determine whether a Processing Engine trigger runs on a given node:</p>
 <ol>
-<li>The node has <a href="/influxdb3/enterprise/reference/cli/influxdb3/serve/#plugin-dir"><code>--plugin-dir</code></a> configured.</li>
+<li>The node has <a href="/influxdb3/enterprise/reference/config-options/#plugin-dir"><code>--plugin-dir</code></a> configured.</li>
 <li>The trigger&rsquo;s <a href="/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options"><code>--node-spec</code></a> includes the node — by default, <code>all</code> (every node with <code>--plugin-dir</code>).</li>
 <li>The trigger&rsquo;s plugin imports modules that are available in that node&rsquo;s per-node Python virtual environment.</li>
 </ol>
