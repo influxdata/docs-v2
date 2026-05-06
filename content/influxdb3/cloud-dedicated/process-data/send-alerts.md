@@ -66,7 +66,7 @@ Provide the following credentials:
 
 - **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
 - **org**: InfluxDB organization name
-- **token**: [InfluxDB database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+- **token**: [InfluxDB database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   read permissions on the database you want to query
 - **database**: InfluxDB database name
 

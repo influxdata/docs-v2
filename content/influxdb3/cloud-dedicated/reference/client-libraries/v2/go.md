@@ -56,7 +56,7 @@ Use the Go library to write and query data from InfluxDB.
    )
    ```
 
-2. Define variables for your InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
+2. Define variables for your InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
 
    ```go
    bucket := "DATABASE_NAME"

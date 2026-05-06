@@ -70,7 +70,7 @@ Provide the following:
 
 - The [database](/influxdb3/cloud-dedicated/admin/databases/) name using the
   `--database` flag
-- A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+- A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   (with write permissions on the target database) using the `--token` flag
 - The timestamp precision as seconds (`s`) using the `--precision` flag
 - [Line protocol](#construct-line-protocol).

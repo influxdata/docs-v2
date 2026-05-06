@@ -93,7 +93,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with sufficient permissions to the specified database
 
 {{% /expand %}}

@@ -90,7 +90,7 @@ To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and 
     
     - **Dialect**: PostgreSQL
     - **Username**: _Leave empty_
-    - **Password**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+    - **Password**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
       with read access to the specified database
     - **Properties File**: _Leave empty_
 

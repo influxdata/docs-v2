@@ -127,7 +127,7 @@ SHOW MEASUREMENTS
 
 Provide the following with your command:
 
-- **Database token**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: [Database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permissions on the queried database. Uses the `token` setting from
   the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.

@@ -61,7 +61,7 @@ and SQL to query system tables.
 Provide the following:
 
 - **Enable system tables** with the `--enable-system-tables` command flag.
-- **Database token**: A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permissions on the specified database. Uses the `token` setting from
   the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.

@@ -99,11 +99,11 @@ To write to {{% product-name %}}, include your {{% product-name omit=" Clustered
 
 ##### `token`
 
-Your {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+Your {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
 with _write_ permission to the database.
 
 In the examples, **`INFLUX_TOKEN`** is an environment variable assigned to a
-[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) that
+[database token](/influxdb3/cloud-dedicated/admin/tokens/database/) that
 has _write_ permission to the database.
 
 ##### `organization`

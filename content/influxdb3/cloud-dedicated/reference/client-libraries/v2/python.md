@@ -47,7 +47,7 @@ You'll need the following prerequisites:
     https://{{< influxdb/host >}}
     ```
 3. Name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to write to.
-4. InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+4. InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
    with permission to write to the database.
    _For security reasons, we recommend setting an environment variable to store your token and avoid exposing the raw token value in your script._
 
@@ -64,7 +64,7 @@ Follow the steps to write [line protocol](/influxdb3/cloud-dedicated/reference/s
    import os
    ```
 
-3. Define variables for your [database name](/influxdb3/cloud-dedicated/admin/databases/), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
+3. Define variables for your [database name](/influxdb3/cloud-dedicated/admin/databases/), organization (required, but ignored), and [database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
 
    ```python
    database = "DATABASE_NAME"

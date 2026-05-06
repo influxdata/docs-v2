@@ -52,12 +52,12 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 ## Authenticate API requests
 
 InfluxDB API endpoints require each request to be authenticated with a
-[database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens).
+[database token](/influxdb3/cloud-dedicated/admin/tokens/database/).
 
 ### Authenticate with a token
 
 Use the `Authorization: Bearer` scheme or the `Authorization: Token` scheme to
-pass a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+pass a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
 that has the necessary permissions for the operation.
 
 `Bearer` and `Token` are equivalent in InfluxDB Cloud Dedicated.
@@ -97,7 +97,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with sufficient permissions to the specified database
 
 ## Responses

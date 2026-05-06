@@ -613,7 +613,7 @@ fi
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
-  [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens) with
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with
   sufficient permissions to the specified database
 
 If successful, the output is an HTTP `204 No Content` status code; otherwise,
@@ -747,7 +747,7 @@ dependencies to your current project.
       - **`org`**: an empty or arbitrary string (InfluxDB ignores this
         parameter)
       - **`token`**: a
-        [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+        [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
         with write access to the specified database. _Store this in a secret
         store or environment variable to avoid exposing the raw token string._
       - **`database`**: the name of the {{% product-name %}} database to write
@@ -919,7 +919,7 @@ To write data to {{% product-name %}} using Go, use the InfluxDB 3
             - **`Host`**: the {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: The name of your {{% product-name %}} database
             - **`Token`**: a
-              [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+              [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with _write_ access to the specified database. _Store this in a
               secret store or environment variable to avoid exposing the raw
               token string._
@@ -1095,7 +1095,7 @@ the failure message.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1287,7 +1287,7 @@ the failure message.
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 
@@ -1512,7 +1512,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         - **`database`**: the name of the {{% product-name %}} database to write
           to
         - **`token`**: a
-          [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+          [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with _write_ access to the specified database. _Store this in a secret
           store or environment variable to avoid exposing the raw token string._
 

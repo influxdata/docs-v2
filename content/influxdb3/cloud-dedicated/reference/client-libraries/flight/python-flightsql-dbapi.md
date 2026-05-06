@@ -94,7 +94,7 @@ client = FlightSQLClient(host='{{< influxdb/host >}}',
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an
-  {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permissions on the databases you want to query
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 

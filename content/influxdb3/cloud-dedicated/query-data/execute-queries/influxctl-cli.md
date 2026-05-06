@@ -30,7 +30,7 @@ to query data in {{< product-name >}} with SQL or InfluxQL.
 
 Provide the following with your command:
 
-- **Database token**: A [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+- **Database token**: A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permissions on the queried database. By default, this uses
   the `database` setting from the [`influxctl` connection profile](/influxdb3/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
   or the `--token` command flag.

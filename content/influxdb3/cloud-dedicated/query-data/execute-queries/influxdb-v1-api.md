@@ -66,7 +66,7 @@ Replace the following configuration values:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of the [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with _read_ access to the specified database.
 
 > [!Note]
@@ -76,7 +76,7 @@ Replace the following configuration values:
 > to interact with the v1 HTTP query API, provide the following credentials:
 > 
 > - **username**: an arbitrary string _({{< product-name >}} ignores the username)_
-> - **password**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+> - **password**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
 >   with _read_ access to the specified database.
 > 
 > {{< code-tabs-wrapper >}}

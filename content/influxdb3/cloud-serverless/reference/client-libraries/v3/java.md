@@ -27,11 +27,8 @@ in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, req
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 - [Installation](#installation)
-  - [Using Maven](#using-maven)
-  - [Using Gradle](#using-gradle)
 - [Importing the client](#importing-the-client)
 - [API reference](#api-reference)
-- [Classes](#classes)
 - [InfluxDBClient interface](#influxdbclient-interface)
   - [Initialize with credential parameters](#initialize-with-credential-parameters)
   - [InfluxDBClient instance methods](#influxdbclient-instance-methods)
@@ -144,8 +141,8 @@ Replace the following:
 
    Include the following in your command:
 
-   - [`--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED`](https://arrow.apache.org/docs/java/install.html#id3): with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
-   For more options, see the [Apache Arrow Java install documentation](https://arrow.apache.org/docs/java/install.html).
+   - [`--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED`](https://arrow.apache.org/java/install.html): with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
+   For more options, see the [Apache Arrow Java install documentation](https://arrow.apache.org/java/install.html).
    - `-jar target/PROJECT_NAME.jar`: your `.jar` file to run.
 
 The output is the newly written data from your {{< product-name >}} bucket.

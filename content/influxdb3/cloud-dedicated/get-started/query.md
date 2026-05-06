@@ -346,7 +346,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
     Replace the following:
 
-    - **`DATABASE_TOKEN`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+    - **`DATABASE_TOKEN`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
       with read access to the **get-started** database
     - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
@@ -499,7 +499,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
       - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL
         (without `https://` protocol or trailing slash)
-      - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+      - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
         with read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing
         the raw token string._
@@ -661,7 +661,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`Database`**: the name of your {{% product-name %}} database
-            - **`Token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`Token`**:  a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid
               exposing the raw token string._
@@ -779,7 +779,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
-        - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+        - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
           with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing
           the raw token string._
@@ -906,7 +906,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL.
             - **`database`**: the name of the {{% product-name %}} database to query
-            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
@@ -1035,7 +1035,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
             - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`database`**: the name of the {{% product-name %}} database to write to
-            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+            - **`token`**: a [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
               with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.

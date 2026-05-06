@@ -96,7 +96,7 @@ print(querySQL())
 2.  Replace the following configuration values:
 
     - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-      An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+      An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
       with read permissions on the databases you want to query.
     - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
 
@@ -156,7 +156,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  An InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permissions on the databases you want to query.
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   The name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query.
