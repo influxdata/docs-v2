@@ -8,6 +8,25 @@
 Pass configuration options using either command options or environment variables.
 Command options take precedence over environment variables.
 
+### TOML configuration files
+
+DEB and RPM installs include a TOML configuration file at
+`/etc/influxdb3/influxdb3-{{< product-key >}}.conf`.
+The systemd launcher reads this file and converts each entry to an
+`INFLUXDB3_*` environment variable (the pattern is `INFLUXDB3_<KEY>`
+with hyphens replaced by underscores and uppercased) before invoking
+`influxdb3 serve`.
+
+`influxdb3 serve` does not yet natively read TOML; the file's effect is
+applied through the environment variables the launcher sets.
+CLI flags passed to `influxdb3 serve` still override values defined in
+the TOML file because they override the environment variables that
+file becomes.
+
+For day-to-day systemd operation — including the edit-and-restart
+workflow for applying changes — see
+[Run as a system service (Linux)](/influxdb3/version/install/#run-as-a-system-service-linux).
+
 ### Global vs serve-specific options
 
 Some options are **global** (specified before the command) while others are **serve-specific** (specified after `serve`):
@@ -180,7 +199,7 @@ This option supports the following values:
 - `ingest`: Enables only data ingest capabilities
 - `query`: Enables only query capabilities
 - `compact`: Enables only compaction processes
-- `process`: Enables only data processing capabilities
+- `process`: Activates the [Processing Engine](/influxdb3/enterprise/reference/processing-engine/) so the node can execute trigger plugins. `process` has no API surface of its own — it doesn't accept writes or serve queries. Setting [`--plugin-dir`](#plugin-dir) implicitly adds `process` mode regardless of `--mode`. Conversely, `--mode=process` requires `--plugin-dir`. In a multi-node cluster, combine `process` with another mode (typically `query`) so plugins can call `influxdb3_local.query()` locally.
 
 You can specify multiple modes using a comma-delimited list (for example, `ingest,query`).
 
@@ -767,9 +786,12 @@ to Azure Blob Storage.
 - [object-store-connection-limit](#object-store-connection-limit)
 - [object-store-http2-only](#object-store-http2-only)
 - [object-store-http2-max-frame-size](#object-store-http2-max-frame-size)
+- [object-store-request-timeout](#object-store-request-timeout)
 - [object-store-max-retries](#object-store-max-retries)
 - [object-store-retry-timeout](#object-store-retry-timeout)
 - [object-store-cache-endpoint](#object-store-cache-endpoint)
+- [object-store-tls-allow-insecure](#object-store-tls-allow-insecure)
+- [object-store-tls-ca](#object-store-tls-ca)
 
 #### bucket
 
@@ -815,6 +837,18 @@ Sets the maximum frame size (in bytes/octets) for HTTP/2 connections.
 
 ***
 
+#### object-store-request-timeout
+
+Sets the HTTP request timeout for object store requests.
+
+**Default:** `30s`
+
+| influxdb3 serve option           | Environment variables           |
+| :------------------------------- | :----------------------------- |
+| `--object-store-request-timeout` | `INFLUXDB3_OBJECT_STORE_REQUEST_TIMEOUT` (preferred)<br>`OBJECT_STORE_REQUEST_TIMEOUT` (deprecated; supported for backward compatibility) |
+
+***
+
 #### object-store-max-retries
 
 Defines the maximum number of times to retry a request.
@@ -843,6 +877,32 @@ Sets the endpoint of an S3-compatible, HTTP/2-enabled object store cache.
 | influxdb3 serve option          | Environment variables          |
 | :------------------------------ | :---------------------------- |
 | `--object-store-cache-endpoint` | `INFLUXDB3_OBJECT_STORE_CACHE_ENDPOINT` (preferred)<br>`OBJECT_STORE_CACHE_ENDPOINT` (deprecated; supported for backward compatibility) |
+
+***
+
+#### object-store-tls-allow-insecure
+
+Allows invalid TLS certificates when connecting to object storage.
+
+{{% warn %}}
+This disables TLS certificate verification and should only be used for testing.
+{{% /warn %}}
+
+| influxdb3 serve option              | Environment variables              |
+| :---------------------------------- | :-------------------------------- |
+| `--object-store-tls-allow-insecure` | `INFLUXDB3_OBJECT_STORE_TLS_ALLOW_INSECURE` (preferred)<br>`OBJECT_STORE_TLS_ALLOW_INSECURE` (deprecated; supported for backward compatibility) |
+
+***
+
+#### object-store-tls-ca
+
+Specifies the path to a custom CA certificate file (PEM format) for verifying
+object store connections. Use this when your object store uses a certificate
+signed by a private CA.
+
+| influxdb3 serve option  | Environment variables  |
+| :---------------------- | :-------------------- |
+| `--object-store-tls-ca` | `INFLUXDB3_OBJECT_STORE_TLS_CA` (preferred)<br>`OBJECT_STORE_TLS_CA` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1072,7 +1132,7 @@ Specifies the header name used for force sampling in tracing.
 
 | influxdb3 serve option       | Environment variables                |
 | :--------------------------- | :---------------------------------- |
-| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
+| `--traces-jaeger-debug-name` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_DEBUG_NAME` (preferred)<br>`TRACES_EXPORTER_JAEGER_DEBUG_NAME` (deprecated; supported for backward compatibility) |
 
 ***
 
@@ -1082,7 +1142,7 @@ Defines a set of `key=value` pairs to annotate tracing spans with.
 
 | influxdb3 serve option | Environment variables          |
 | :--------------------- | :---------------------------- |
-| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
+| `--traces-jaeger-tags` | `INFLUXDB3_TRACES_EXPORTER_JAEGER_TAGS` (preferred)<br>`TRACES_EXPORTER_JAEGER_TAGS` (deprecated; supported for backward compatibility) |
 
 ***
 

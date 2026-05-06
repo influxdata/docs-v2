@@ -277,7 +277,7 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:DeleteObject",
                 "s3:AbortMultipartUpload"
             ],
-            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*"
         },
         {
             "Sid": "",
@@ -286,13 +286,13 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:ListBucket",
                 "s3:GetBucketLocation"
             ],
-            "Resource": "arn:aws:s3:::S3_BUCKET_NAME",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME"
         },
         {
             "Sid": "",
             "Effect": "Allow",
             "Action": "s3:ListAllMyBuckets",
-            "Resource": "*",
+            "Resource": "*"
         }
     ]
 }

@@ -232,7 +232,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb1"
       }
-    ],
+    ]
   },
   {
     "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
@@ -245,7 +245,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb2"
       }
-  ],
+    ]
   },
   {
     "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
@@ -258,7 +258,7 @@ The output is a JSON array of token objects that include additional fields such 
         "action": "read",
         "resource": "mydb3"
       }
-  ],
+    ]
   }
 ]
 ```
