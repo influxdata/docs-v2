@@ -153,14 +153,47 @@ function syncOne(client, sourcePath, docsRoot) {
 const FATAL_STATUSES = new Set(['warning', 'error']);
 const ATTENTION_STATUSES = new Set(['skipped', 'warning', 'error']);
 
+/**
+ * Escape special characters in GitHub Actions workflow command properties
+ * (title, etc.). Colons and commas delimit command metadata fields.
+ */
+function escapeWorkflowCommandProperty(s) {
+  return String(s)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A')
+    .replace(/:/g, '%3A')
+    .replace(/,/g, '%2C');
+}
+
+/**
+ * Escape special characters in GitHub Actions workflow command message bodies.
+ */
+function escapeWorkflowCommandData(s) {
+  return String(s)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A');
+}
+
+/**
+ * Sanitize a value for use inside a GitHub Flavored Markdown table cell.
+ * Pipe characters would break the column structure; newlines would break the row.
+ */
+function sanitizeTableCell(s) {
+  return String(s ?? '')
+    .replace(/\|/g, '\\|')
+    .replace(/\r?\n/g, ' ');
+}
+
 function formatSummary(results) {
   const rows = results.map((r) => {
     const detail =
       r.status === 'updated'
-        ? `latest: \`${r.latestVersion}\``
+        ? `latest: \`${sanitizeTableCell(r.latestVersion)}\``
         : r.status === 'unchanged'
-          ? `latest: \`${r.latestVersion}\``
-          : (r.reason ?? '');
+          ? `latest: \`${sanitizeTableCell(r.latestVersion)}\``
+          : sanitizeTableCell(r.reason ?? '');
     return `| \`${r.client}\` | ${r.status} | ${detail} |`;
   });
   return [
@@ -174,11 +207,11 @@ function emitAnnotations(results) {
   for (const r of results) {
     if (r.status === 'error' || r.status === 'warning') {
       console.log(
-        `::error title=Client release-notes sync (${r.client})::${r.reason}`
+        `::error title=${escapeWorkflowCommandProperty(`Client release-notes sync (${r.client})`)}::${escapeWorkflowCommandData(r.reason)}`
       );
     } else if (r.status === 'skipped') {
       console.log(
-        `::warning title=Client release-notes sync (${r.client})::${r.reason}`
+        `::warning title=${escapeWorkflowCommandProperty(`Client release-notes sync (${r.client})`)}::${escapeWorkflowCommandData(r.reason)}`
       );
     }
   }
