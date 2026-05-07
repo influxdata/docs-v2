@@ -28,12 +28,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout docs-v2
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: docs-v2
 
       - name: Checkout influxdb3-python
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: InfluxCommunity/influxdb3-python
           path: sources/influxdb3-python
@@ -41,7 +41,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-go
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: InfluxCommunity/influxdb3-go
           path: sources/influxdb3-go
@@ -49,7 +49,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-js
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: InfluxCommunity/influxdb3-js
           path: sources/influxdb3-js
@@ -57,7 +57,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-csharp
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: InfluxCommunity/influxdb3-csharp
           path: sources/influxdb3-csharp
@@ -65,7 +65,7 @@ jobs:
             CHANGELOG.md
 
       - name: Checkout influxdb3-java
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: InfluxCommunity/influxdb3-java
           path: sources/influxdb3-java
@@ -73,9 +73,9 @@ jobs:
             CHANGELOG.md
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Run sync
         id: sync
@@ -99,28 +99,55 @@ jobs:
               --docs-root "$GITHUB_WORKSPACE/docs-v2"
           fi
 
+      - name: Compose PR body
+        id: body
+        env:
+          NEEDS_ATTENTION: ${{ steps.sync.outputs.needs_attention }}
+          SUMMARY: ${{ steps.sync.outputs.summary }}
+        run: |
+          BODY_FILE="$RUNNER_TEMP/pr-body.md"
+          {
+            if [ "$NEEDS_ATTENTION" = "true" ]; then
+              echo '> [!Warning]'
+              echo '> One or more client libraries were skipped or failed to parse.'
+              echo '> Investigate upstream CHANGELOG changes (rename, format change)'
+              echo '> before merging — assigned to @Copilot for triage.'
+              echo
+            fi
+            echo 'Automated sync from the v3 client library CHANGELOGs.'
+            echo
+            echo '## Sync results'
+            echo
+            printf '%s\n' "$SUMMARY"
+            echo
+            echo '## Sources'
+            echo
+            echo '- https://github.com/InfluxCommunity/influxdb3-python/blob/main/CHANGELOG.md'
+            echo '- https://github.com/InfluxCommunity/influxdb3-go/blob/main/CHANGELOG.md'
+            echo '- https://github.com/InfluxCommunity/influxdb3-js/blob/main/CHANGELOG.md'
+            echo '- https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/CHANGELOG.md'
+            echo '- https://github.com/InfluxCommunity/influxdb3-java/blob/main/CHANGELOG.md'
+            echo
+            echo 'Changed files include body-only release notes under'
+            echo '`content/shared/influxdb-client-libraries-reference/v3/release-notes/`'
+            echo 'and `latest_version` / `latest_release_date` frontmatter updates'
+            echo 'on the per-product stubs under'
+            echo '`content/influxdb3/*/reference/client-libraries/v3/*/release-notes.md`.'
+          } > "$BODY_FILE"
+          echo "path=$BODY_FILE" >> "$GITHUB_OUTPUT"
+
       - name: Create or update pull request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           path: docs-v2
           branch: sync/client-library-release-notes
           commit-message: 'sync(client-libs): update release notes'
           title: 'sync(client-libs): update release notes'
-          body: |
-            Automated sync from the v3 client library CHANGELOGs.
-
-            Sources:
-            - https://github.com/InfluxCommunity/influxdb3-python/blob/main/CHANGELOG.md
-            - https://github.com/InfluxCommunity/influxdb3-go/blob/main/CHANGELOG.md
-            - https://github.com/InfluxCommunity/influxdb3-js/blob/main/CHANGELOG.md
-            - https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/CHANGELOG.md
-            - https://github.com/InfluxCommunity/influxdb3-java/blob/main/CHANGELOG.md
-
-            Changed files include body-only release notes under
-            `content/shared/influxdb-client-libraries-reference/v3/release-notes/`
-            and `latest_version` / `latest_release_date` frontmatter updates
-            on the per-product stubs under
-            `content/influxdb3/*/reference/client-libraries/v3/*/release-notes.md`.
+          body-path: ${{ steps.body.outputs.path }}
+          # Assign the Copilot coding agent only when a client was skipped or
+          # failed to parse, so it can investigate upstream CHANGELOG drift.
+          # Requires Copilot coding agent to be enabled on the repository.
+          assignees: ${{ steps.sync.outputs.needs_attention == 'true' && 'Copilot' || '' }}
           labels: |
             sync
             client-libraries
