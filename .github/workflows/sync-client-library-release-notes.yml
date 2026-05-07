@@ -1,0 +1,126 @@
+name: Sync client library release notes
+
+on:
+  schedule:
+    # 06:00 UTC daily — quiet hours for US reviewers, PR ready by morning.
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      client:
+        description: 'Client to sync (python, go, javascript, csharp, java, or all)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - python
+          - go
+          - javascript
+          - csharp
+          - java
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs-v2
+        uses: actions/checkout@v4
+        with:
+          path: docs-v2
+
+      - name: Checkout influxdb3-python
+        uses: actions/checkout@v4
+        with:
+          repository: InfluxCommunity/influxdb3-python
+          path: sources/influxdb3-python
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Checkout influxdb3-go
+        uses: actions/checkout@v4
+        with:
+          repository: InfluxCommunity/influxdb3-go
+          path: sources/influxdb3-go
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Checkout influxdb3-js
+        uses: actions/checkout@v4
+        with:
+          repository: InfluxCommunity/influxdb3-js
+          path: sources/influxdb3-js
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Checkout influxdb3-csharp
+        uses: actions/checkout@v4
+        with:
+          repository: InfluxCommunity/influxdb3-csharp
+          path: sources/influxdb3-csharp
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Checkout influxdb3-java
+        uses: actions/checkout@v4
+        with:
+          repository: InfluxCommunity/influxdb3-java
+          path: sources/influxdb3-java
+          sparse-checkout: |
+            CHANGELOG.md
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run sync
+        id: sync
+        working-directory: docs-v2
+        run: |
+          CLIENT="${{ github.event.inputs.client || 'all' }}"
+          if [ "$CLIENT" = "all" ]; then
+            node helper-scripts/client-libraries/sync-release-notes.js \
+              --all \
+              --source-root "$GITHUB_WORKSPACE/sources" \
+              --docs-root "$GITHUB_WORKSPACE/docs-v2"
+          else
+            # Map client slug to repo directory (javascript -> influxdb3-js).
+            case "$CLIENT" in
+              javascript) REPO_DIR=influxdb3-js ;;
+              *) REPO_DIR="influxdb3-$CLIENT" ;;
+            esac
+            node helper-scripts/client-libraries/sync-release-notes.js \
+              --client "$CLIENT" \
+              --source-path "$GITHUB_WORKSPACE/sources/$REPO_DIR" \
+              --docs-root "$GITHUB_WORKSPACE/docs-v2"
+          fi
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: docs-v2
+          branch: sync/client-library-release-notes
+          commit-message: 'sync(client-libs): update release notes'
+          title: 'sync(client-libs): update release notes'
+          body: |
+            Automated sync from the v3 client library CHANGELOGs.
+
+            Sources:
+            - https://github.com/InfluxCommunity/influxdb3-python/blob/main/CHANGELOG.md
+            - https://github.com/InfluxCommunity/influxdb3-go/blob/main/CHANGELOG.md
+            - https://github.com/InfluxCommunity/influxdb3-js/blob/main/CHANGELOG.md
+            - https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/CHANGELOG.md
+            - https://github.com/InfluxCommunity/influxdb3-java/blob/main/CHANGELOG.md
+
+            Changed files include body-only release notes under
+            `content/shared/influxdb-client-libraries-reference/v3/release-notes/`
+            and `latest_version` / `latest_release_date` frontmatter updates
+            on the per-product stubs under
+            `content/influxdb3/*/reference/client-libraries/v3/*/release-notes.md`.
+          labels: |
+            sync
+            client-libraries

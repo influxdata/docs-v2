@@ -1,6 +1,8 @@
 The InfluxDB 3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates
 with Java application code to write and query data stored in {{% product-name %}}.
 
+{{< client-latest-version >}}
+
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Use client libraries to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.

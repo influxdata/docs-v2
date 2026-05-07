@@ -2,16 +2,14 @@
 title: Java client library for InfluxDB 3
 list_title: Java
 description: >
-  The InfluxDB 3 `influxdb3-java` Java client library integrates with application code to write and query data stored in an InfluxDB Cloud Serverless bucket.
+  The InfluxDB 3 `influxdb3-java` Java client library integrates with application code to write and query data stored in an InfluxDB Cloud Dedicated database.
 menu:
-  influxdb3_cloud_serverless:
+  influxdb3_cloud_dedicated:
     name: Java
     parent: v3 client libraries
     identifier: influxdb3-java
-influxdb3/cloud-serverless/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
+influxdb3/cloud-dedicated/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
-aliases:
-  - /cloud-serverless/query-data/sql/execute-queries/java/
 ---
 
 The InfluxDB 3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates
@@ -27,11 +25,8 @@ in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, req
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 - [Installation](#installation)
-  - [Using Maven](#using-maven)
-  - [Using Gradle](#using-gradle)
 - [Importing the client](#importing-the-client)
 - [API reference](#api-reference)
-- [Classes](#classes)
 - [InfluxDBClient interface](#influxdbclient-interface)
   - [Initialize with credential parameters](#initialize-with-credential-parameters)
   - [InfluxDBClient instance methods](#influxdbclient-instance-methods)
@@ -43,7 +38,7 @@ server metadata, and retrieving data from {{% product-name %}} using the Flight 
 
 The following example shows how to use `influxdb3-java` to write and query data stored in {{% product-name %}}.
 
-{{% code-placeholders "DATABASE_NAME | API_TOKEN" %}}
+{{% code-placeholders "DATABASE_NAME | DATABASE_TOKEN" %}}
 
 ```java
 package com.influxdata.demo;
@@ -57,11 +52,11 @@ import java.time.Instant;
 import java.util.stream.Stream;
 
 public class HelloInfluxDB {
-  private static final String HOST_URL = "https://{{< influxdb/host >}}"; // your Cloud Serverless region URL
-  private static final String DATABASE = "DATABASE_NAME"; // your InfluxDB bucket
-  private static final char[] TOKEN = System.getenv("API_TOKEN"); // a local environment variable that stores your API token
+  private static final String HOST_URL = "https://{{< influxdb/host >}}"; // your cluster URL
+  private static final String DATABASE = "DATABASE_NAME"; // your InfluxDB database name 
+  private static final char[] TOKEN = System.getenv("DATABASE_TOKEN"); // a local environment variable that stores your database token
 
-  // Create a client instance that writes and queries data in your bucket.
+  // Create a client instance that writes and queries data in your database.
   public static void main(String[] args) {
     // Instantiate the client with your InfluxDB credentials
     try (InfluxDBClient client = InfluxDBClient.getInstance(HOST_URL, TOKEN, DATABASE)) {
@@ -82,10 +77,10 @@ public class HelloInfluxDB {
                        .setTimestamp(Instant.now().minusSeconds(10));
     try {
       client.writePoint(point);
-      System.out.println("Data is written to the bucket.");
+      System.out.println("Data is written to the database.");
     }
     catch (Exception e) {
-      System.err.println("Failed to write data to the bucket.");
+      System.err.println("Failed to write data to the database.");
       e.printStackTrace();
     }
   }
@@ -101,7 +96,7 @@ public class HelloInfluxDB {
       stream.forEach(row -> System.out.printf("| %-8s | %-8s | %-30s |%n", row[1], row[2], row[0]));
     }
     catch (Exception e) {
-      System.err.println("Failed to query data from the bucket.");
+      System.err.println("Failed to query data from the database.");
       e.printStackTrace();
     }
   }
@@ -116,11 +111,11 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of your {{% product-name %}}
-  [bucket](/influxdb3/cloud-serverless/admin/buckets/) to read and write data to
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a local
-  environment variable that stores your
-  [token](/influxdb3/cloud-serverless/admin/tokens/)--the token must have read
-  and write permissions on the specified bucket.
+  [database](/influxdb3/cloud-dedicated/admin/databases/) to read and write data to
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
+  local environment variable that stores your
+  [token](/influxdb3/cloud-dedicated/admin/tokens/database/)--the token must have
+  read and write permissions on the specified database.
 
 ### Run the example to write and query data
 
@@ -132,7 +127,7 @@ Replace the following:
    mvn package
    ```
    
-2. In your terminal, run the `java` command to write and query data in your bucket:
+2. In your terminal, run the `java` command to write and query data in your database:
 
    <!--pytest.mark.skip-->
 
@@ -144,11 +139,11 @@ Replace the following:
 
    Include the following in your command:
 
-   - [`--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED`](https://arrow.apache.org/docs/java/install.html#id3): with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
-   For more options, see the [Apache Arrow Java install documentation](https://arrow.apache.org/docs/java/install.html).
+   - [`--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED`](https://arrow.apache.org/java/current/install.html): with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
+   For more options, see the [Apache Arrow Java install documentation](https://arrow.apache.org/java/current/install.html).
    - `-jar target/PROJECT_NAME.jar`: your `.jar` file to run.
 
-The output is the newly written data from your {{< product-name >}} bucket.
+The output is the newly written data from your {{< product-name >}} database.
 
 ## Installation
 
@@ -188,7 +183,7 @@ stored in {{< product-name >}}.
 
 ## API reference
 
-- [Interface InfluxDBClient](#interface-influxdbclient)
+- [Interface InfluxDBClient](#influxdbclient-interface)
   - [Initialize with credential parameters](#initialize-with-credential-parameters)
   - [InfluxDBClient instance methods](#influxdbclient-instance-methods)
   - [InfluxDBClient.writePoint](#influxdbclientwritepoint)
@@ -201,8 +196,8 @@ stored in {{< product-name >}}.
 
 The `InfluxDBClient.getInstance` constructor initializes and returns a client instance with the following:
 
-- A _write client_ configured for writing to the bucket.
-- An Arrow _Flight client_ configured for querying the bucket.
+- A _write client_ configured for writing to the database.
+- An Arrow _Flight client_ configured for querying the database.
 
 To initialize a client, call `getInstance` and pass your credentials as one of
 the following types:
@@ -224,12 +219,12 @@ static InfluxDBClient getInstance(@Nonnull final String host,
 {{% /code-placeholders %}}
 
 - {{% code-placeholder-key %}}`host`{{% /code-placeholder-key %}} (string): The host URL of the InfluxDB instance.
-- {{% code-placeholder-key %}}`database`{{% /code-placeholder-key %}} (string): The [bucket](/influxdb3/cloud-serverless/admin/buckets/) to use for writing and querying.
-- {{% code-placeholder-key %}}`token`{{% /code-placeholder-key %}} (char array): A [token](/influxdb3/cloud-serverless/admin/tokens/) with read/write permissions.
+- {{% code-placeholder-key %}}`database`{{% /code-placeholder-key %}} (string): The [database](/influxdb3/cloud-dedicated/admin/databases/) to use for writing and querying.
+- {{% code-placeholder-key %}}`token`{{% /code-placeholder-key %}} (char array): A [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) with read/write permissions.
 
 #### Example: initialize with credential parameters
 
-{{% code-placeholders "DATABASE_NAME | API_TOKEN" %}}
+{{% code-placeholders "DATABASE_NAME | DATABASE_TOKEN" %}}
 
 ```java
 package com.influxdata.demo;
@@ -245,16 +240,16 @@ import java.util.stream.Stream;
 public class HelloInfluxDB {
   private static final String HOST_URL = "https://{{< influxdb/host >}}";
   private static final String DATABASE = "DATABASE_NAME";
-  private static final char[] API_TOKEN = System.getenv("API_TOKEN");
+  private static final char[] TOKEN = System.getenv("DATABASE_TOKEN");
 
   // Create a client instance, and then write and query data in InfluxDB.
   public static void main(String[] args) {
-    try (InfluxDBClient client = InfluxDBClient.getInstance(HOST_URL, API_TOKEN, DATABASE)) {
+    try (InfluxDBClient client = InfluxDBClient.getInstance(HOST_URL, DATABASE_TOKEN, DATABASE)) {
       writeData(client);
       queryData(client);
     }
     catch (Exception e) {
-      System.err.println("An error occurred while connecting with the serverless InfluxDB!");
+      System.err.println("An error occurred while connecting to InfluxDB!");
       e.printStackTrace();
     }
   }
@@ -266,15 +261,14 @@ public class HelloInfluxDB {
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your {{% product-name %}} [bucket](/influxdb3/cloud-serverless/admin/buckets/)
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a local
-  environment variable that stores your
-  [token](/influxdb3/cloud-serverless/admin/tokens/)--the token must have the
-  necessary permissions on the specified bucket.
+  your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) that has
+  the necessary permissions on the specified database.
 
 #### Default tags
 
-To include default [tags](/influxdb3/cloud-serverless/reference/glossary/#tag) in
+To include default [tags](/influxdb3/cloud-dedicated/reference/glossary/#tag) in
 all written data, pass a `Map` of tag keys and values.
 
 ```java
@@ -290,7 +284,7 @@ InfluxDBClient getInstance(@Nonnull final String host,
 
 ```java
 "https://{{< influxdb/host >}}"
-+ "?token=API_TOKEN&amp;database=DATABASE_NAME"
++ "?token=DATABASE_TOKEN&amp;database=DATABASE_NAME"
 ```
 
 {{% /code-placeholders %}}
@@ -298,26 +292,26 @@ InfluxDBClient getInstance(@Nonnull final String host,
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  your {{% product-name %}} [bucket](/influxdb3/cloud-serverless/admin/buckets/)
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a
-  [token](/influxdb3/cloud-serverless/admin/tokens/) that has the
-  necessary permissions on the specified bucket.
+  your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a
+  [database token](/influxdb3/cloud-dedicated/admin/tokens/database/) that has
+  the necessary permissions on the specified database.
 
 ### InfluxDBClient instance methods
 
 #### InfluxDBClient.writePoint
 
-To write points as line protocol to a bucket:
+To write points as line protocol to a database:
 
 1. [Initialize the `client`](#initialize-with-credential-parameters)--your
-   token must have write permission on the specified bucket.
+   token must have write permission on the specified database.
 2. Use the `com.influxdb.v3.client.Point` class to create time series data.
 3. Call the `client.writePoint()` method to write points as line protocol in your
-   bucket.
+   database.
 
 ```java
   // Use the Point class to construct time series data.
-  // Call client.writePoint to write the point in your bucket.
+  // Call client.writePoint to write the point in your database.
   private static void writeData(InfluxDBClient client) {
     Point point = Point.measurement("temperature")
                        .setTag("location", "London")
@@ -325,10 +319,10 @@ To write points as line protocol to a bucket:
                        .setTimestamp(Instant.now().minusSeconds(10));
     try {
       client.writePoint(point);
-      System.out.println("Data written to the bucket.");
+      System.out.println("Data written to the database.");
     }
     catch (Exception e) {
-      System.err.println("Failed to write data to the bucket.");
+      System.err.println("Failed to write data to the database.");
       e.printStackTrace();
     }
   }
@@ -338,8 +332,8 @@ To write points as line protocol to a bucket:
 
 To query data and process the results:
 
-1. [Initialize the `client`](#initialize-with-credential-parameters)--your
-   token must have read permission on the bucket you want to query.
+1. [Initialize the `client`](#initialize-with-credential-parameters)--the
+   token must have read permission on the database you want to query.
 2. Call `client.query()` and provide your SQL query as a string.
 3. Use the result stream's built-in iterator to process row data. 
 
@@ -355,7 +349,7 @@ To query data and process the results:
       stream.forEach(row -> System.out.printf("| %-8s | %-8s | %-30s |%n", row[1], row[2], row[0]));
     }
     catch (Exception e) {
-      System.err.println("Failed to query data from the bucket.");
+      System.err.println("Failed to query data from the database.");
       e.printStackTrace();
     }
   }

@@ -3,15 +3,15 @@ title: Go client library for InfluxDB 3
 list_title: Go
 description: The InfluxDB 3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an {{% product-name %}} database.
 menu:
-  influxdb3_cloud_dedicated:
+  influxdb3_clustered:
     name: Go
     parent: v3 client libraries
     identifier: influxdb3-go
-influxdb3/cloud-dedicated/tags: [Flight client, go, InfluxQL, SQL, Flight, client libraries]
+influxdb3/clustered/tags: [Flight client, go, InfluxQL, SQL, Flight, client libraries]
 weight: 201
 aliases:
-  - /influxdb3/cloud-dedicated/reference/api/client-libraries/go/
-  - /influxdb3/cloud-dedicated/tools/client-libraries/go/
+  - /influxdb3/clustered/reference/api/client-libraries/go/
+  - /influxdb3/clustered/tools/client-libraries/go/
 ---
 
 The InfluxDB 3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications
@@ -101,10 +101,8 @@ func main() {
 
 Replace the following configuration values:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
-  with _read_ permission on the specified database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the [database](/influxdb3/clustered/admin/databases/) to query
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb3/clustered/admin/tokens/database/) with _read_ permission on the specified database
 
 ## Class influxdb3.Client
 
