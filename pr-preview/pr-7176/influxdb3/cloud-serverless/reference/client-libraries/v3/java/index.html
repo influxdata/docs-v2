@@ -168,7 +168,7 @@
 
 
 <meta name="latest" content="false">
-<meta name="last-modified" content="2026-04-24 12:26:37 -0500 -0500">
+<meta name="last-modified" content="2026-05-07 13:42:05 &#43;0000 UTC">
     
 <script type="text/javascript">
 (function() {
@@ -5437,15 +5437,9 @@ The <code>influxdb3-java</code> Java client library wraps the Apache Arrow <code
 in a convenient InfluxDB 3 interface for executing SQL and InfluxQL queries, requesting
 server metadata, and retrieving data from InfluxDB Cloud Serverless using the Flight protocol with gRPC.</p>
 <ul>
-<li><a href="#installation">Installation</a>
-<ul>
-<li><a href="#using-maven">Using Maven</a></li>
-<li><a href="#using-gradle">Using Gradle</a></li>
-</ul>
-</li>
+<li><a href="#installation">Installation</a></li>
 <li><a href="#importing-the-client">Importing the client</a></li>
 <li><a href="#api-reference">API reference</a></li>
-<li><a href="#classes">Classes</a></li>
 <li><a href="#influxdbclient-interface">InfluxDBClient interface</a>
 <ul>
 <li><a href="#initialize-with-credential-parameters">Initialize with credential parameters</a></li>
@@ -5540,8 +5534,8 @@ and write permissions on the specified bucket.</li>
 </span></span></span><span class="line"><span class="cl">--add-opens<span class="o">=</span>java.base/java.nio<span class="o">=</span>org.apache.arrow.memory.core,ALL-UNNAMED <span class="se">\
 </span></span></span><span class="line"><span class="cl">-jar target/PROJECT_NAME.jar</span></span></code></pre></div><p>Include the following in your command:</p>
 <ul>
-<li><a href="https://arrow.apache.org/docs/java/install.html#id3"><code>--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED</code></a>: with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
-For more options, see the <a href="https://arrow.apache.org/docs/java/install.html">Apache Arrow Java install documentation</a>.</li>
+<li><a href="https://arrow.apache.org/java/current/install.html"><code>--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED</code></a>: with Java version 9 or later and Apache Arrow version 16 or later, exposes JDK internals for Arrow.
+For more options, see the <a href="https://arrow.apache.org/java/current/install.html">Apache Arrow Java install documentation</a>.</li>
 <li><code>-jar target/PROJECT_NAME.jar</code>: your <code>.jar</code> file to run.</li>
 </ul>
 </li>
@@ -5583,7 +5577,7 @@ For more options, see the <a href="https://arrow.apache.org/docs/java/install.ht
 stored in InfluxDB Cloud Serverless.</p>
 <h2 id="api-reference">API reference</h2>
 <ul>
-<li><a href="#interface-influxdbclient">Interface InfluxDBClient</a>
+<li><a href="#influxdbclient-interface">Interface InfluxDBClient</a>
 <ul>
 <li><a href="#initialize-with-credential-parameters">Initialize with credential parameters</a></li>
 <li><a href="#influxdbclient-instance-methods">InfluxDBClient instance methods</a></li>
