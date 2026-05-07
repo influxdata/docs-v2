@@ -103,7 +103,7 @@ Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb3/cloud-dedicated/admin/databases/) to query
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an InfluxDB [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with _read_ permission on the specified database
 
 ## Class influxdb3.Client

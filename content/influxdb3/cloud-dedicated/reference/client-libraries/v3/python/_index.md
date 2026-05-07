@@ -198,7 +198,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read/write permissions on the specified database
 
 To explicitly specify synchronous mode, create a client with `write_options=SYNCHRONOUS`--for example:
@@ -230,7 +230,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 #### Batch writing
@@ -312,7 +312,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 ### InfluxDBClient3 instance methods
@@ -378,7 +378,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 #### Example: write data using points
@@ -428,7 +428,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 ##### Example: write data using a dict
@@ -480,7 +480,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 ### InfluxDBClient3.write_file
@@ -599,7 +599,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with write permissions on the specified database
 
 ### InfluxDBClient3.query
@@ -654,7 +654,7 @@ In the examples, replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permission on the specified database
 
 #### Example: query using InfluxQL
@@ -963,7 +963,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   the name of your {{% product-name %}} [database](/influxdb3/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/#database-tokens)
+  an {{% product-name %}} [database token](/influxdb3/cloud-dedicated/admin/tokens/database/)
   with read permission on the specified database
 
 ## Constants
