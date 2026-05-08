@@ -46,7 +46,7 @@ influxd-ctl backup [flags] <backup-dir>
 
 - **backup-dir**: Directory to store backup files in
 
-## Flags
+## Flags {.no-shorthand}
 
 | Flag        | Description                                                         |
 | :---------- | :------------------------------------------------------------------ |
@@ -59,7 +59,7 @@ influxd-ctl backup [flags] <backup-dir>
 | `-full`     | Perform a full backup _(deprecated in favor of `-strategy full`)_ |
 | `-gzipBlockCount` | Number of concurrent blocks for gzip compression. Default is the number of CPU cores. Recommended: 1-2x CPU cores. _v1.12.3+_ |
 | `-gzipBlockSize` | Block size (in bytes) for pgzip compression. Default is `1048576` (1 MB). Recommended >1 MB for performance. _v1.12.3+_ |
-| `-gzipCompressionLevel` | Gzip compression level (`default`, `full`, `speedy`, or `none`). Default is `default`. _v1.12.3+_ |
+| `-gzipCompressionLevel` | Gzip compression level: `default`, `full`, `speedy`, or `none`. Default is `default`. _v1.12.3+_ |
 | `-rp`       | Retention policy to backup                                          |
 | `-shard`    | Shard ID to backup                                                  |
 | `-staleness-threshold` | For incremental backups, skip shards modified within this duration of the existing backup. Default is `10m` (matches [`cache-snapshot-write-cold-duration`](/enterprise_influxdb/v1/administration/configure/config-data-nodes/#cache-snapshot-write-cold-duration)). _v1.12.3+_ |
