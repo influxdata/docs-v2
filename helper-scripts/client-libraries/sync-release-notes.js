@@ -2,7 +2,14 @@
 // Reads a client repo's CHANGELOG.md, runs the transform, and writes the
 // shared source file. Designed to run from the docs-v2 repo root.
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import {
+  readFileSync,
+  writeFileSync,
+  appendFileSync,
+  existsSync,
+  mkdirSync,
+} from 'node:fs';
+import { randomBytes } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import { CLIENTS, getClient } from './clients.js';
@@ -139,6 +146,98 @@ function syncOne(client, sourcePath, docsRoot) {
   };
 }
 
+// `warning` and `error` indicate likely upstream drift (renamed CHANGELOG,
+// changed heading format) and must fail the job. `skipped` means the source
+// file is genuinely absent — surfaced but non-fatal so onboarding a new client
+// before its first CHANGELOG ships doesn't break the nightly.
+const FATAL_STATUSES = new Set(['warning', 'error']);
+const ATTENTION_STATUSES = new Set(['skipped', 'warning', 'error']);
+
+/**
+ * Escape special characters in GitHub Actions workflow command properties
+ * (title, etc.). Colons and commas delimit command metadata fields.
+ */
+function escapeWorkflowCommandProperty(s) {
+  return String(s)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A')
+    .replace(/:/g, '%3A')
+    .replace(/,/g, '%2C');
+}
+
+/**
+ * Escape special characters in GitHub Actions workflow command message bodies.
+ */
+function escapeWorkflowCommandData(s) {
+  return String(s)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A');
+}
+
+/**
+ * Sanitize a value for use inside a GitHub Flavored Markdown table cell.
+ * Pipe characters would break the column structure; newlines would break the row.
+ */
+function sanitizeTableCell(s) {
+  return String(s ?? '')
+    .replace(/\|/g, '\\|')
+    .replace(/\r?\n/g, ' ');
+}
+
+function formatSummary(results) {
+  const rows = results.map((r) => {
+    const detail =
+      r.status === 'updated'
+        ? `latest: \`${sanitizeTableCell(r.latestVersion)}\``
+        : r.status === 'unchanged'
+          ? `latest: \`${sanitizeTableCell(r.latestVersion)}\``
+          : sanitizeTableCell(r.reason ?? '');
+    return `| \`${r.client}\` | ${r.status} | ${detail} |`;
+  });
+  return [
+    '| Client | Status | Detail |',
+    '| --- | --- | --- |',
+    ...rows,
+  ].join('\n');
+}
+
+function emitAnnotations(results) {
+  for (const r of results) {
+    if (r.status === 'error' || r.status === 'warning') {
+      console.log(
+        `::error title=${escapeWorkflowCommandProperty(`Client release-notes sync (${r.client})`)}::${escapeWorkflowCommandData(r.reason)}`
+      );
+    } else if (r.status === 'skipped') {
+      console.log(
+        `::warning title=${escapeWorkflowCommandProperty(`Client release-notes sync (${r.client})`)}::${escapeWorkflowCommandData(r.reason)}`
+      );
+    }
+  }
+}
+
+function writeStepOutputs(outputs) {
+  const file = process.env.GITHUB_OUTPUT;
+  if (!file) return;
+  const lines = [];
+  for (const [key, value] of Object.entries(outputs)) {
+    if (typeof value === 'string' && value.includes('\n')) {
+      const delim = `EOF_${randomBytes(8).toString('hex')}`;
+      lines.push(`${key}<<${delim}`, value, delim);
+    } else {
+      lines.push(`${key}=${value}`);
+    }
+  }
+  appendFileSync(file, lines.join('\n') + '\n');
+}
+
+function writeStepSummary(markdown) {
+  const file = process.env.GITHUB_STEP_SUMMARY;
+  if (!file) return;
+  appendFileSync(file, markdown + '\n');
+}
+
 function main() {
   const args = parseCliArgs();
   const results = [];
@@ -164,8 +263,18 @@ function main() {
 
   console.log(JSON.stringify(results, null, 2));
 
-  const hadError = results.some((r) => r.status === 'error');
-  process.exit(hadError ? 1 : 0);
+  const summary = formatSummary(results);
+  const needsAttention = results.some((r) => ATTENTION_STATUSES.has(r.status));
+
+  emitAnnotations(results);
+  writeStepSummary(`## Client library release-notes sync\n\n${summary}`);
+  writeStepOutputs({
+    needs_attention: needsAttention ? 'true' : 'false',
+    summary,
+  });
+
+  const hadFatal = results.some((r) => FATAL_STATUSES.has(r.status));
+  process.exit(hadFatal ? 1 : 0);
 }
 
 main();
