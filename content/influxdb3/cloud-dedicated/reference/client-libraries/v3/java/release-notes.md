@@ -10,6 +10,8 @@ menu:
 weight: 301
 canonical: /influxdb3/core/reference/client-libraries/v3/java/release-notes/
 source: /shared/influxdb-client-libraries-reference/v3/release-notes/java.md
+latest_version: "1.9.0"
+latest_release_date: "2026-04-23"
 ---
 
 <!-- Content sourced from content/shared/influxdb-client-libraries-reference/v3/release-notes/java.md -->
