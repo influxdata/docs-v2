@@ -1,9 +1,9 @@
-# Design: Fix Core canonical routing (AI-visibility Phase 0, item 1)
+# Design: Markdown autodiscovery (AI-visibility Phase 0 item 2 + Phase 1 § 5.4)
 
 **Status:** Spec — pending approval.
-**Branch:** `fix/claude-worktree-hook` (worktree `fix-canonical-partial`)
-**Source plan:** `AI-visibility-for-InfluxDB.md` § 5.1, § 7.2 (Phase 0).
-**Scope:** Phase 0 item 1 only (canonical fix). Items 2–6 sketched as follow-up backlog at the end of this document.
+**Branch:** `fix-markdown-autodiscovery`
+**Source plan:** `AI-visibility-for-InfluxDB.md` § 5.4, § 7.2 (Phase 0 item 2), § 7.3 (Phase 1).
+**Scope:** Close all three Markdown discoverability gaps in § 5.4 in one PR — head `<link>` alternate, per-product `llms-full.txt`, separate `sitemap-md.xml`.
 
 ---
 
@@ -11,313 +11,497 @@
 
 ### 1.1 Goal
 
-Stop the unwanted Enterprise-canonical override on the three Core pages whose narrative is Core-owned (landing, install, get-started), without disturbing the intentional shared-source priority routing that correctly canonicalizes engine-concept pages to Enterprise.
+Give AI agents three independent paths to discover the Markdown twins of InfluxData docs:
+
+- **On a specific page** → `<link rel="alternate" type="text/markdown">` in `<head>` points to that page's `.md` twin.
+- **Through `/robots.txt` → sitemap** → a separate `/sitemap-md.xml` enumerates every page's `.md` URL.
+- **Through `/llms.txt` for a corpus** → per-product `/<product>/llms-full.txt` provides a flattened Markdown corpus, advertised from the existing `/llms.txt` table of contents.
+
+This closes the three gaps documented in AI-visibility plan § 5.4 (`Markdown surface area for agents`).
 
 ### 1.2 LLM-visibility rationale
 
-`rel="canonical"` is honored by crawlers and retrievers for deduplication and citation-equity routing. Today, Core's product-identity pages (`/influxdb3/core/`, `/influxdb3/core/install/`, `/influxdb3/core/get-started/`) point their canonical at Enterprise. The effect: when an LLM is asked "how do I install InfluxDB Core?", retrievers find the Core page, see the canonical → Enterprise, and surface the Enterprise install page instead.
+Markdown twins (`public/**/index.md`) are already built at Hugo time by `scripts/build-llm-markdown.js`. Today, agents must know the path convention (`<page>index.md`) or check `/llms.txt` to find them. Closing the autodiscovery gaps removes the need for special-case agent knowledge:
 
-The fix isn't adding visibility for Core — it's stopping Core from leaking its own. RAG/agent effect: next crawl. Base-model effect: next training cut.
+- The head link lets an agent fetching one HTML page pivot to clean Markdown without lossy HTML→Markdown conversion.
+- The sitemap-md lets AI/RAG crawlers enumerate the corpus without scraping the HTML sitemap and converting URL patterns.
+- Per-product `llms-full.txt` matches the `llmstxt.org` convention and gives an agent a self-contained corpus per SKU — important for focused questions ("how do I write to InfluxDB 3 Core?" should not pull Telegraf's docs into context).
+
+Effect is immediate for agent / RAG paths; base-model training-corpus effect lands at the next training cut.
 
 ### 1.3 Approach
 
-Extend the existing `canonical:` frontmatter to accept the sentinel string `"self"`. Update `layouts/partials/header/canonical.html` to short-circuit on that sentinel **before** the shared-source priority loop runs. Add the sentinel to a tight list of Core pages whose narrative is Core-owned.
+Three independent template / build-time changes, shared eligibility predicate, single PR.
 
-### 1.4 Why not the doc's proposed approach
+### 1.4 Out of scope
 
-The AI-visibility doc proposes adding a *new* `canonical_url:` frontmatter field and replacing the partial with a simple "if frontmatter then else self" pattern. That proposal mis-describes the current partial: the partial is **not** the Hugo default. It already supports a `canonical:` field (line 8) and implements a deliberate shared-source priority chain (lines 23–41) that encodes which product is canonical for shared engine content (Enterprise > Core > Cloud Dedicated > Clustered > Cloud Serverless > v2 > Cloud).
+- Site-root `/llms-full.txt` (single concatenated file). With per-product corpora totaling ~30–50 MB, a single root-level file would overflow agent context windows. Discoverability is delegated to `/llms.txt`.
+- Changes to `scripts/build-llm-markdown.js` itself. The existing Markdown generation is the input; we don't alter it.
+- Cross-product canonical or Markdown-twin URL conventions beyond what already exists.
+- The other Phase 0 follow-up items (noindex `__tests__`, decision page, robots AI-bot policy, `ref-card` shortcode).
 
-Removing the priority chain would:
+### 1.5 Shared eligibility predicate
 
-- Force every shared engine-concept page to self-canonical, fragmenting citation/training equity across 5+ product URLs.
-- Conflict with the doc's own § 5.1 principle that Enterprise is canonical for shared content.
-- Cause a much larger blast radius than the bug warrants.
+All three surfaces apply the same rule to decide whether a page gets a Markdown alternate:
 
-The bug is narrower than the doc claims: it's that the priority routing is applied uniformly to all source-using Core pages, including product-narrative pages. The fix is an escape hatch, not a rewrite.
+```
+eligible = (.Kind in ("page", "section"))
+       AND (not .Params.omit_from_sitemap)
+       AND (not .Params.noindex)
+       AND (.Layout != "feature-board")
+```
 
-### 1.5 Out of scope
-
-- Phase 0 items 2–6 (markdown alternate link, `noindex` on `/__tests__/`, decision page, robots.txt AI-bot policy, `ref-card` shortcode) — sketched as follow-up backlog only.
-- Renaming `canonical:` → `canonical_url:` (doc's proposal; current field name stays).
-- Cross-product canonical correctness for Cloud Dedicated / Serverless / Clustered / v2 / Telegraf / Flux — the doc states these self-canonical correctly today.
-- Broader IA migration under § 5.2.
+Centralizing this rule is critical — if the head link points to `index.md`, the sitemap-md entry exists, and the `llms-full.txt` includes the same page, the three surfaces stay coherent. Implement as a Hugo template helper or duplicate-and-test the rule in three places (see § 6 for testing).
 
 ---
 
-## 2. Template change
+## 2. Head `<link rel="alternate" type="text/markdown">`
 
-**File:** `layouts/partials/header/canonical.html`
+### 2.1 New partial
 
-### 2.1 Logic order (after change)
-
-1. Default canonical = page's own permalink (unchanged).
-2. If `Params.canonical == "self"` → keep self-permalink, **skip remaining branches**. _(new)_
-3. Else if `Params.canonical` is a non-empty string → use it as an absolute path (unchanged behavior).
-4. Else if `Params.source` is set → apply shared-source priority routing (unchanged).
-5. Emit `<link rel="canonical" href="...">`.
-
-### 2.2 Why branch order matters
-
-The `canonical: "self"` check must run **before** the `source:` branch. Otherwise a page with both `source:` and `canonical: self` would still be routed by the priority loop, defeating the fix.
-
-The check must also run **before** the URL-string branch — though `"self"` is unlikely to be a valid URL path, an explicit sentinel check avoids any chance of `<link rel="canonical" href="<baseURL>self">` being emitted on typo.
-
-### 2.3 Diff
-
-Replace lines 7–41 with:
+**File:** `layouts/partials/header/markdown-alternate.html`
 
 ```go-html-template
-{{ if eq .Page.Params.canonical "self" }}
-  {{/* Explicit self-canonical; overrides shared-source priority routing.
-       Use for product-narrative pages (landings, install, quickstart)
-       whose `source:` would otherwise route them to a sibling product. */}}
-{{ else if .Page.Params.canonical }}
-  {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
-{{ else if .Page.Params.source }}
-  {{ $productPriority := slice
-    "/enterprise/"
-    "/core/"
-    "/cloud-dedicated/"
-    "/clustered/"
-    "/cloud-serverless/"
-    "/v2/"
-    "/cloud/"
-  }}
-  {{ range where (sort .Site.Pages "Section" "desc") "Params.source" "eq" .Page.Params.source }}
-    {{ $pagePath := .RelPermalink }}
-    {{ range $productPriority }}
-      {{ if in $pagePath . }}
-        {{ $scratch.Set "canonicalURL" (print $baseURL $pagePath) }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+{{/*
+  Emit a <link rel="alternate" type="text/markdown"> pointing to this page's
+  Markdown twin at <page>index.md. The twin is generated by
+  scripts/build-llm-markdown.js at build time.
+
+  Eligibility rule mirrors layouts/sitemap-md.xml and
+  scripts/build-llms-full-txt.js so the three autodiscovery surfaces stay
+  coherent.
+*/}}
+{{ $kindOk := or (eq .Kind "page") (eq .Kind "section") }}
+{{ $isFeatureBoard := eq .Layout "feature-board" }}
+{{ $allowed := and $kindOk
+                   (not .Params.omit_from_sitemap)
+                   (not .Params.noindex)
+                   (not $isFeatureBoard) }}
+{{ if $allowed }}
+  <link rel="alternate" type="text/markdown" href="{{ .Permalink }}index.md">
 {{ end }}
 ```
 
+### 2.2 Wire-in
+
+**Modify:** `layouts/partials/header.html`
+
+Add `{{ partial "header/markdown-alternate.html" . }}` next to the existing canonical include:
+
+```diff
+   {{ partial "header/canonical.html" . }}
++  {{ partial "header/markdown-alternate.html" . }}
+   {{ partial "header/stylesheets.html" }}
+```
+
+### 2.3 Why one alternate per page, not two for section pages
+
+Section pages have two `.md` artifacts on disk (`index.md` and `index.section.md`). Only `index.md` is emitted as the alternate, because:
+
+- `<link rel="alternate">` semantics: "alternate representation of *this page*," not "aggregate of this page and its descendants."
+- Section corpora are better served by `llms-full.txt` (§ 3).
+- Emitting both would force agents to choose; emitting one defers the choice to the corpus path.
+
 ### 2.4 Backward compatibility
 
-- 10 existing pages set `canonical:` to a URL path (e.g., `/influxdb3/core/reference/client-libraries/v3/go/release-notes/` on Enterprise client-lib release-notes). All continue to work via branch 3.
-- 242 Core pages use `source:` without `canonical:`. All continue to route via branch 4 (shared-source priority), exactly as today.
-- Verified: no existing content sets `canonical: self` (grep returned zero hits), so the sentinel is unambiguous to introduce.
-
-### 2.5 Edge case: case sensitivity
-
-`canonical: Self` or `canonical: SELF` would fall through to branch 3 and emit a broken `<link rel="canonical" href="<baseURL>Self">`. Mitigation: documentation in `DOCS-FRONTMATTER.md` (case-sensitive value). Silent normalization (`lower`) is rejected because it would mask the same typo class elsewhere.
+Additive. No existing `<link rel="alternate" type="text/markdown">` exists in the codebase (grep confirms on baseline).
 
 ---
 
-## 3. Per-page audit list
+## 3. Per-product `/<product>/llms-full.txt`
 
-### 3.1 Pages that receive `canonical: self`
+### 3.1 New build script
 
-| Page                  | File                                              | `source:` set? | Rationale                                                                                                                              |
-| --------------------- | ------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Core landing          | `content/influxdb3/core/_index.md`                | yes            | Product landing — URL marks SKU identity even when body is shared.                                                                     |
-| Install               | `content/influxdb3/core/install.md`               | yes            | `/shared/influxdb3/install.md` uses `{{% show-in %}}` blocks — rendered HTML differs per product. Self-canonical reflects that.        |
-| Get-started (landing) | `content/influxdb3/core/get-started/_index.md`    | yes            | Quickstart landing; Core on-ramp entry point.                                                                                          |
+**File:** `scripts/build-llms-full-txt.js`
 
-Total scope: **3 file edits + 1 partial change**.
+**Inputs:**
 
-### 3.2 Pages in doc § 5.1 taxonomy that need no action
+- `data/products.yml` — product namespace mapping (e.g., `influxdb3_core` → `/influxdb3/core/`)
+- `public/<product-path>/**/index.md` — already-built Markdown twins from `scripts/build-llm-markdown.js`
 
-| Page                                                          | Why no action                                                                                                                                                  |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `content/influxdb3/core/admin/upgrade-to-enterprise.md`       | No `source:` set → already self-canonical by default. Doc lists it for completeness; the partial does not break it.                                            |
-
-### 3.3 Pages explicitly excluded (canonical → Enterprise is correct)
-
-| Page                                                                  | Reason                                                                                                                                          |
-| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `content/influxdb3/core/release-notes/_index.md`                       | Shared file (`/shared/v3-core-enterprise-release-notes/`), shared version line, no cadence drift between Core and Enterprise.                  |
-| `content/influxdb3/core/get-started/setup.md`                          | Enterprise twin exists at `content/influxdb3/enterprise/get-started/setup.md` sourcing the same shared content. Shared on-ramp, not Core-only.  |
-| `content/influxdb3/core/get-started/migrate-from-influxdb-v1-v2.md`    | Enterprise twin exists at `content/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2.md`. Applies to both products.                  |
-| All other 230+ Core pages with `source:` (engine concepts)             | Engine documentation lives once, under Enterprise (doc § 5.1 principle). Current priority routing is the intended behavior.                    |
-
-### 3.4 Frontmatter snippet to apply
-
-For each of the three files in § 3.1, add a single key in the existing YAML frontmatter:
-
-```yaml
-canonical: self
-```
-
-Place it adjacent to `source:` to make the relationship visible to future editors.
-
----
-
-## 4. Verification and testing
-
-### 4.1 Local spot-check before commit
-
-```sh
-npx hugo --quiet
-for p in \
-  influxdb3/core/index.html \
-  influxdb3/core/install/index.html \
-  influxdb3/core/get-started/index.html \
-  influxdb3/core/write-data/index.html \
-  influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/index.html ; do
-  echo "=== $p ==="
-  grep -o '<link rel="canonical"[^>]*>' "public/$p"
-done
-```
-
-Expected output:
-
-| Path                                                                                  | Expected canonical                                                                       |
-| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `influxdb3/core/index.html`                                                            | `/influxdb3/core/`                                                                       |
-| `influxdb3/core/install/index.html`                                                    | `/influxdb3/core/install/`                                                               |
-| `influxdb3/core/get-started/index.html`                                                | `/influxdb3/core/get-started/`                                                           |
-| `influxdb3/core/write-data/index.html`                                                 | a `/influxdb3/enterprise/...` URL (priority routing intact)                              |
-| `influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/index.html`       | `/influxdb3/core/reference/client-libraries/v3/go/release-notes/` (URL branch intact)    |
-
-### 4.2 Cypress e2e test (new file)
-
-**Path:** `cypress/e2e/content/canonical.cy.js`
-
-**Test matrix (6 cases, covers all 4 partial branches):**
-
-| Test name                                | URL                                                                                | Expected canonical                                                              | Partial branch exercised |
-| ---------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------ |
-| Core landing self-canonicals             | `/influxdb3/core/`                                                                 | self                                                                            | new sentinel branch      |
-| Core install self-canonicals             | `/influxdb3/core/install/`                                                         | self                                                                            | new sentinel branch      |
-| Core quickstart self-canonicals          | `/influxdb3/core/get-started/`                                                     | self                                                                            | new sentinel branch      |
-| Engine concept routes to Enterprise      | `/influxdb3/core/write-data/`                                                      | starts-with `/influxdb3/enterprise/`                                            | source priority branch   |
-| Explicit canonical URL honored           | `/influxdb3/enterprise/reference/client-libraries/v3/go/release-notes/`            | `/influxdb3/core/reference/client-libraries/v3/go/release-notes/`               | URL string branch        |
-| Default self-canonical when no overrides | `/influxdb3/core/admin/upgrade-to-enterprise/`                                     | self                                                                            | default branch           |
-
-### 4.3 Production diff evidence in PR description
-
-Include a before/after table for the three changed pages — production HTML's current canonical vs. local-build canonical after the fix:
+**Per-product output (`public/<product-path>/llms-full.txt`):**
 
 ```text
-| Page                          | Before (production)            | After (local build)            |
-|-------------------------------|--------------------------------|--------------------------------|
-| /influxdb3/core/              | /influxdb3/enterprise/         | /influxdb3/core/               |
-| /influxdb3/core/install/      | /influxdb3/enterprise/install/ | /influxdb3/core/install/       |
-| /influxdb3/core/get-started/  | /influxdb3/enterprise/get-...  | /influxdb3/core/get-started/   |
+# {{ product display name }} — full Markdown corpus
+
+> Generated {{ ISO 8601 UTC timestamp }} from https://docs.influxdata.com{{ product path }}
+> See https://docs.influxdata.com/llms.txt for the cross-product table of contents.
+
+---
+
+# {{ page 1 title }}
+
+Source: https://docs.influxdata.com{{ page 1 path }}
+
+{{ page 1 markdown body }}
+
+---
+
+# {{ page 2 title }}
+
+Source: https://docs.influxdata.com{{ page 2 path }}
+
+{{ page 2 markdown body }}
+
+...
 ```
 
-The "Before" column is captured once from `https://docs.influxdata.com` using `curl -s <url> | grep canonical`. The "After" column comes from the local Hugo build in § 4.1. This gives reviewers concrete evidence without asking them to diff HTML themselves.
+**Why each header field:**
 
-### 4.4 Test command
+- Generation timestamp — corpus freshness signal.
+- `/llms.txt` cross-link — anchor for agents that found `llms-full.txt` without seeing `/llms.txt`.
+- Per-page `Source:` line — lets the agent attribute claims back to canonical HTML URLs for citations.
+- `---` separator — Markdown-standard between pages so the corpus is one valid Markdown document.
 
-This is a functionality test (no per-file content mapping), so pass `--no-mapping`:
+**Ordering:** Sort by URL path then alphabetical. Deterministic ordering matters for diff-friendly output and build-cache stability.
+
+**Exclusions** (mirror § 1.5):
+
+- `omit_from_sitemap: true` pages
+- `noindex: true` pages
+- `layout: feature-board` pages
+- Hugo alias / redirect-only pages (`scripts/build-llm-markdown.js` already skips them via its 1 KB threshold; if no `.md` exists for a page, the script skips that page silently)
+
+### 3.2 Pipeline integration
+
+- **New npm script:** `"build:llms-full": "node scripts/build-llms-full-txt.js"`
+- **Run order:** `npx hugo --quiet && yarn build:md && yarn build:llms-full`
+- **Update deploy steps** (CI workflow and `deploy/ci-install-s3deploy.sh` or equivalent) to include `build:llms-full` after `build:md`.
+- **Incremental mode:** mirror the pattern in `scripts/build-llm-markdown.js` — if only one product's pages changed, rebuild only that product's `llms-full.txt`. Important if the corpus is large enough that a full rebuild slows CI noticeably.
+
+### 3.3 Advertise per-product corpora in `/llms.txt`
+
+**Modify:** `layouts/_default/landing-influxdb.llmstxt.txt`
+
+Add a new block after the existing per-product index entries:
+
+```
+## Full corpora (flattened Markdown)
+
+- [InfluxDB 3 Core full corpus](influxdb3/core/llms-full.txt)
+- [InfluxDB 3 Enterprise full corpus](influxdb3/enterprise/llms-full.txt)
+- [InfluxDB Cloud Dedicated full corpus](influxdb3/cloud-dedicated/llms-full.txt)
+- [InfluxDB Cloud Serverless full corpus](influxdb3/cloud-serverless/llms-full.txt)
+- [InfluxDB Clustered full corpus](influxdb3/clustered/llms-full.txt)
+- [InfluxDB OSS v2 full corpus](influxdb/v2/llms-full.txt)
+- [InfluxDB Cloud (TSM) full corpus](influxdb/cloud/llms-full.txt)
+- [InfluxDB OSS v1 full corpus](influxdb/v1/llms-full.txt)
+- [InfluxDB Enterprise v1 full corpus](enterprise_influxdb/v1/llms-full.txt)
+- [Telegraf full corpus](telegraf/v1/llms-full.txt)
+- [Chronograf full corpus](chronograf/v1/llms-full.txt)
+- [Kapacitor full corpus](kapacitor/v1/llms-full.txt)
+```
+
+The list is generated from `data/products.yml` so it stays in sync when products are added or renamed. (Implementation: range over the products data, emit one line per product that has a Markdown corpus.)
+
+### 3.4 Site-root `/llms-full.txt`
+
+Not published. The convention (`llmstxt.org`) puts a single concatenated corpus at the site root, but with ~30–50 MB across products that file would overflow typical agent context windows. Strict-convention agents that probe `/llms-full.txt` get a 404 and fall back to `/llms.txt` (which now lists every per-product corpus). Documented as a deliberate choice in this PR's body.
+
+### 3.5 Estimated size
+
+Per product, the corpus is roughly the sum of `index.md` byte sizes (already in `public/`):
+
+- Telegraf v1: ~3–8 MB
+- Core / Enterprise: ~4–6 MB each
+- Distributed v3 variants: ~4–6 MB each
+- Smaller surfaces (Chronograf, Kapacitor, Cloud TSM, OSS v1, Enterprise v1): ~1–3 MB each
+
+Total addition to `public/`: ~30–50 MB. Acceptable. Single-product fetch stays within typical agent context windows.
+
+---
+
+## 4. `/sitemap-md.xml`
+
+### 4.1 Hugo output-format declaration
+
+**Modify:** `config/_default/hugo.yml`
+
+Under `outputFormats:` add:
+
+```yaml
+  sitemapmd:
+    mediaType: application/xml
+    baseName: sitemap-md
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+    suffixes:
+      - xml
+```
+
+Add `sitemapmd` to the `home` output (the home page is where Hugo emits site-wide artifacts; existing `llmstxt` follows the same pattern):
+
+```yaml
+outputs:
+  home:
+    - HTML
+    - llmstxt
+    - sitemapmd   # new
+```
+
+### 4.2 New layout
+
+**File:** `layouts/sitemap-md.xml`
+
+Mirrors `layouts/sitemap.xml` shape, applies the shared eligibility predicate, emits `.md` URLs:
+
+```go-html-template
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{ range .Data.Pages }}
+    {{ $kindOk := or (eq .Kind "page") (eq .Kind "section") }}
+    {{ $isFeatureBoard := eq .Layout "feature-board" }}
+    {{ $allowed := and $kindOk
+                       (not .Params.omit_from_sitemap)
+                       (not .Params.noindex)
+                       (not $isFeatureBoard) }}
+    {{ if $allowed }}
+      <url>
+        <loc>{{ .Permalink }}index.md</loc>{{ if not .Lastmod.IsZero }}
+        <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}
+      </url>
+    {{ end }}
+  {{ end }}
+</urlset>
+```
+
+**Differences from `sitemap.xml`:**
+
+- Drops `changefreq`, `priority`, and `xhtml:link` hreflang blocks. Those are SEO-crawler hints for the canonical HTML; they don't apply to the alternate `.md`.
+- `<loc>` is `{{ .Permalink }}index.md`.
+- Same `lastmod` source so freshness signals stay aligned.
+
+### 4.3 Robots.txt update
+
+**Modify:** `layouts/robots.txt`
+
+One added line:
+
+```diff
+ Sitemap: {{ .Site.BaseURL }}sitemap.xml
++Sitemap: {{ .Site.BaseURL }}sitemap-md.xml
+```
+
+The staging `Disallow: /` block above continues to apply to both sitemaps' URLs (correct: staging shouldn't be crawled).
+
+### 4.4 Why separate `sitemap-md.xml`, not extending `sitemap.xml`
+
+- Two distinct sitemaps map cleanly to two audiences (SEO crawlers vs AI / markdown crawlers).
+- Keeps `sitemap.xml` byte-for-byte unchanged — no regression risk on Google / Bing indexing.
+- AI-visibility doc § 5.4 explicitly suggests this approach.
+- `xhtml:link rel="alternate"` inside existing `<url>` entries supports `hreflang` (translations) but not `type="text/markdown"` — that variant isn't a documented sitemap extension; crawler support is uncertain.
+
+---
+
+## 5. Hugo config cleanup
+
+**Modify:** `config/_default/hugo.yml`
+
+Remove or rewrite the stale comment at line 72 ("`llmstxt disabled for sections - using .md files via Lambda@Edge instead`"). The actual generation lives in `scripts/build-llm-markdown.js` at build time; no Lambda is involved. Replace with:
+
+```yaml
+outputs:
+  page:
+    - HTML
+  section:
+    - HTML
+    # .md twins for sections are emitted by scripts/build-llm-markdown.js
+    # (post-Hugo build). See DOCS-TESTING.md "LLM-Friendly Markdown Generation".
+  home:
+    - HTML
+    - llmstxt
+    - sitemapmd
+```
+
+---
+
+## 6. Verification and testing
+
+### 6.1 Cypress e2e (new file)
+
+**Path:** `cypress/e2e/content/markdown-autodiscovery.cy.js`
+
+Tests run against `hugo server` (port 1315). Path-only assertions via `new URL(href).pathname` so the dev-server `baseURL` rewrite doesn't break expectations (lesson from the canonical PR's test).
+
+| Test name | URL | Assertion | Branch exercised |
+|---|---|---|---|
+| Page emits Markdown alternate | `/influxdb3/core/install/` | `link[rel="alternate"][type="text/markdown"]` href ends with `/install/index.md` | head link, eligible page |
+| Section emits Markdown alternate | `/influxdb3/core/` | href ends with `/influxdb3/core/index.md` | head link, eligible section |
+| Telegraf page emits Markdown alternate | `/telegraf/v1/configuration/` | href ends with `/configuration/index.md` | head link, not Core-specific |
+| feature-board has no Markdown alternate | `/influxdb3/core/feature-board/` | `link[rel="alternate"][type="text/markdown"]` not present | exclusion (layout) |
+| `noindex: true` page has no Markdown alternate | `/telegraf/v1/__tests__/shortcodes/` | not present | exclusion (frontmatter) |
+| `/sitemap-md.xml` parses as XML | `/sitemap-md.xml` | status 200, root element `urlset`, content-type `application/xml` | sitemap-md exists |
+| `/sitemap-md.xml` URL count is close to `/sitemap.xml` | `/sitemap-md.xml` vs `/sitemap.xml` | URL counts match within a small delta (excluded-layout pages) | sitemap-md eligibility |
+| `/robots.txt` lists both sitemaps | `/robots.txt` | body contains `Sitemap:` line ending in `sitemap.xml` AND `sitemap-md.xml` | robots.txt update |
+
+### 6.2 CI guard: head-link targets must exist
+
+The head-link partial and `scripts/build-llm-markdown.js` apply eligibility rules independently. If they ever drift (e.g., a layout exclusion is added to one and not the other), the head will emit `<link rel="alternate" href=".../index.md">` for pages whose `.md` was never generated — a silent 404 from the agent's perspective.
+
+**New CI step (`test:autodiscovery-coherence`):** after `npx hugo --quiet && yarn build:md`, run a small Node script that:
+
+1. Reads every `public/**/index.html` that emits a Markdown alternate link.
+2. For each, derives the expected `.md` target from the `href`.
+3. Asserts the `.md` file exists in `public/`.
+4. Fails CI on any missing target.
+
+This catches the drift class in `§ 7.1` row 3.
+
+### 6.3 `llms-full.txt` verification (separate from Cypress)
+
+`llms-full.txt` is post-Hugo; `hugo server` doesn't run it. Two paths:
+
+**a. Unit test on the build script**
+
+**Path:** `scripts/__tests__/build-llms-full-txt.test.mjs`
+
+- Fixture: small `tmp/public/foo/{a,b,c}/index.md` tree.
+- Run script with `--root tmp/public --product foo`.
+- Assertions:
+  - Output file `tmp/public/foo/llms-full.txt` exists.
+  - Header contains generation timestamp, source URL, `/llms.txt` cross-link.
+  - Each page's body appears with the right `Source:` line and `---` separator.
+  - Pages are sorted by URL path (deterministic ordering).
+  - Eligibility exclusions respected (test with one fixture page that has `omit_from_sitemap: true` in its source).
+
+**b. CI smoke check after full build**
+
+New CI step: `test:llms-full` runs a small Node script that asserts each expected product's `llms-full.txt` exists, exceeds a sanity floor (10 KB), and starts with the expected header prefix.
+
+### 6.4 Local spot-check before commit
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/canonical.cy.js" --no-mapping
+npx hugo --quiet && yarn build:md && yarn build:llms-full
+
+# Head link on a representative page
+grep 'rel="alternate" type="text/markdown"' public/influxdb3/core/install/index.html
+
+# llms-full.txt exists per product (sample)
+ls -lh public/influxdb3/core/llms-full.txt public/telegraf/v1/llms-full.txt
+
+# Sitemap-md.xml
+xmllint --xpath 'count(/*[local-name()="urlset"]/*[local-name()="url"])' public/sitemap-md.xml
+xmllint --xpath 'count(/*[local-name()="urlset"]/*[local-name()="url"])' public/sitemap.xml
+# Counts should be close; sitemap-md may be slightly lower (feature-board, noindex)
+
+# Robots.txt
+grep 'Sitemap:' public/robots.txt
+# Both sitemap.xml and sitemap-md.xml present
+
+# /llms.txt has Full corpora block
+grep -A 2 "Full corpora" public/llms.txt
+```
+
+### 6.5 PR preview pages
+
+Following the convention now documented in `DOCS-TESTING.md`, list affected URLs in the PR body so the preview workflow targets them. The URL extractor in `.github/scripts/parse-pr-urls.js` only matches paths under a product namespace, so root-level files (`/sitemap-md.xml`, `/robots.txt`, `/llms.txt`) need manual checks at `<preview-base>/<path>`.
+
+**Preview URLs (covered by extractor):**
+
+| URL | Expected (paired with the URL in the PR body) |
+|---|---|
+| /influxdb3/core/ | `<link rel="alternate" type="text/markdown">` present; href ends with `/influxdb3/core/index.md` |
+| /influxdb3/core/get-started/setup/ | head link href ends with `/setup/index.md` |
+| /influxdb3/enterprise/admin/ | head link href ends with `/admin/index.md` |
+| /telegraf/v1/configuration/ | head link href ends with `/configuration/index.md` |
+| /influxdb3/core/feature-board/ | head link **not** present (excluded by layout) |
+| /influxdb3/core/llms-full.txt | served; starts with `# InfluxDB 3 Core — full Markdown corpus`; size > 1 MB |
+| /influxdb3/enterprise/llms-full.txt | served; starts with `# InfluxDB 3 Enterprise — full Markdown corpus` |
+| /telegraf/v1/llms-full.txt | served; size > 1 MB |
+
+**Manual preview checks (not extractor-eligible — instructions in PR body):**
+
+- `<preview-base>/sitemap-md.xml` — parses as XML; `<url>` count is close to `/sitemap.xml`'s
+- `<preview-base>/robots.txt` — contains both `Sitemap:` lines
+- `<preview-base>/llms.txt` — has the new `## Full corpora` block linking each product's `llms-full.txt`
+
+### 6.6 Test commands
+
+```sh
+# Cypress
+node cypress/support/run-e2e-specs.js \
+  --spec "cypress/e2e/content/markdown-autodiscovery.cy.js" \
+  --no-mapping
+
+# Build script unit test
+node --test scripts/__tests__/build-llms-full-txt.test.mjs
 ```
 
 ---
 
-## 5. Risks and rollout
+## 7. Risks and rollout
 
-### 5.1 Risk register
+### 7.1 Risks
 
-| Risk                                                                                                              | Severity     | Mitigation                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reviewer wants a 4th or 6th page added to the self-canonical list                                                 | Low          | PR description states the 3-page rationale and links to § 5.1 of the AI-visibility doc; editorial debate happens against that doc, not in this PR.               |
-| Frontmatter typo (`canonical: Self`) falls through to URL branch and emits `/Self`                                | Low          | Add a one-line note in `DOCS-FRONTMATTER.md`; case-sensitivity is consistent with Hugo conventions elsewhere.                                                    |
-| Short-term SEO/citation regression on the 3 changed pages                                                         | Low–medium   | This is the *intended* effect — the doc accepts the trade. Re-audit per doc § 6 (4–6 weeks post-merge) confirms Core-specific search presence is being built up. |
-| Retriever caches lag the new canonical                                                                            | Low          | Time, not code. Re-audit per doc § 6.                                                                                                                            |
-| Some other shared-source page also needs self-canonical that this audit missed                                    | Medium       | Acknowledge in PR description; this PR fixes the doc's stated list only. Additional pages get added in follow-up PRs as editorial review identifies them.        |
+| Risk | Severity | Mitigation |
+|---|---|---|
+| `build:llms-full` adds a post-Hugo pass that slows CI | Low | Script concatenates already-built `.md` files — measured in seconds. Make it incremental (mirror `build-llm-markdown.js`). |
+| Deployed `public/` grows ~30–50 MB | Low–medium | Accepted. S3 storage is cheap; CloudFront caches aggressively. Revisit if corpus crosses 100 MB. |
+| Head link points to a `.md` that doesn't exist (small page below 1 KB threshold, special layout) | Medium | Mirror `build-llm-markdown.js` eligibility in the Hugo predicate. Add a CI guard: after `build:md`, grep `public/` for HTML files containing `rel="alternate" type="text/markdown"` whose target `.md` is missing; CI fails if any are found. |
+| `index.section.md` and `llms-full.txt` overlap at product roots | Low | Accept the duplication. Different content-types, different discovery paths, different shapes. |
+| `sitemap-md.xml` exceeds 50,000-URL / 50 MB sitemap protocol limits | Low | Site is well under 50k URLs. If we ever cross, split per-product (mirror what `sitemap.xml` would need to do). |
+| Stale Lambda comment misleads future readers | n/a | Removed in this PR (§ 5). |
+| Some agent strictly probes `/llms-full.txt` at the site root and falls back poorly on 404 | Low | Documented in this PR's body that the site-root file is intentionally absent. Per-product corpora are advertised via `/llms.txt` (§ 3.3) which the same agent likely also probes. |
 
-### 5.2 Rollout
+### 7.2 Rollout
 
-Single PR. After merge:
+Single PR. No feature flag — deterministic build-time generation.
 
-1. Manual production check: curl the 3 URLs, grep `<link rel="canonical">`, confirm the new canonical is live.
-2. Re-audit per AI-visibility doc § 6 in 4–6 weeks: monitor whether Core-specific URLs start surfacing in LLM citations and search engines for `InfluxDB 3 Core install`-shaped queries.
+**Post-merge verification:**
 
-No feature flag, no staged rollout — this is a template change with deterministic output.
+```sh
+# Head link
+curl -s https://docs.influxdata.com/influxdb3/core/ | grep 'rel="alternate" type="text/markdown"'
 
-### 5.3 Commit / PR structure
+# llms-full.txt
+curl -sI https://docs.influxdata.com/influxdb3/core/llms-full.txt
+# Expect: 200, content-type text/plain (or text/markdown if the deploy sets it)
 
-Single PR, two commits (or one):
+# Sitemap-md
+curl -s https://docs.influxdata.com/sitemap-md.xml | head -5
 
-1. `fix(canonical): add 'self' sentinel to canonical partial` — template change only, includes Cypress test
-2. `fix(canonical): self-canonical Core landing, install, get-started` — three frontmatter edits
+# Robots.txt
+curl -s https://docs.influxdata.com/robots.txt | grep Sitemap
+```
 
-Branch is already `fix/claude-worktree-hook` in the `fix-canonical-partial` worktree.
+Re-audit 4–6 weeks post-merge per AI-visibility doc § 6: monitor whether RAG citations to docs.influxdata.com increase, and whether retrievers begin surfacing `.md` URLs in citations.
+
+### 7.3 Commit structure
+
+Three logical units, one PR:
+
+1. `feat(autodiscovery): add Markdown alternate link in head` — partial + wire-in + Cypress tests for the head link.
+2. `feat(autodiscovery): publish per-product llms-full.txt` — build script + npm script + `/llms.txt` "Full corpora" block + unit test + CI smoke check.
+3. `feat(autodiscovery): add sitemap-md.xml and reference it from robots.txt` — Hugo output format declaration + new layout + robots.txt update + Cypress tests + Hugo config comment cleanup.
+
+Each commit is independently mergeable (no inter-dependencies), but they ship together because they're three views of one feature.
 
 ---
 
-## 6. Phase 0 follow-up backlog (items 2–6)
+## 8. File-by-file change list
 
-These are **not** designed in this spec. Each is sketched with enough detail to file as a separate issue / PR. Impact estimates are from the LLM-visibility assessment that informed scoping.
+**New files:**
 
-### 6.1 Item 2 — `<link rel="alternate" type="text/markdown">` in `<head>`
+- `layouts/partials/header/markdown-alternate.html`
+- `scripts/build-llms-full-txt.js`
+- `scripts/__tests__/build-llms-full-txt.test.mjs`
+- `layouts/sitemap-md.xml`
+- `cypress/e2e/content/markdown-autodiscovery.cy.js`
 
-**LLM-visibility impact: medium–high (agent / RAG layer).** Markdown twins already exist; this just makes them discoverable from any HTML page without round-tripping through `/llms.txt`.
+**Modified files:**
 
-**Implementation:** one branch in the head partial (likely `layouts/partials/header/head.html`, or wherever head meta currently emits) pointing to the page's `.md` alternate.
+- `layouts/partials/header.html` — wire in `markdown-alternate.html`
+- `layouts/_default/landing-influxdb.llmstxt.txt` — add `## Full corpora` block (derive list from `data/products.yml`)
+- `layouts/robots.txt` — add second `Sitemap:` line
+- `config/_default/hugo.yml` — add `sitemapmd` output format, add to `home` outputs, replace stale Lambda comment
+- `package.json` — add `build:llms-full` npm script; update any aggregate build script that should call it
+- CI workflow / deploy script — add `yarn build:llms-full` after `yarn build:md`
+- `DOCS-TESTING.md` — extend the LLM-Friendly Markdown section to mention `llms-full.txt` and `sitemap-md.xml`
+- `AI-visibility-for-InfluxDB.md` § 5.4 — mark the three checklist items closed (or leave for separate doc update)
 
-**Effort:** ~1 hour template edit + Cypress test verifying the link is emitted with the correct href.
+**Unchanged:**
 
-**Risk:** low — additive only.
-
-### 6.2 Item 3 — `noindex` or 404 on `/__tests__/shortcodes/` in production
-
-**LLM-visibility impact: low (training-corpus hygiene).** Robots.txt already disallows but the paths return 200, so any crawler that doesn't strictly honor robots.txt may still ingest shortcode test fixtures.
-
-**Implementation:** conditional `<meta name="robots" content="noindex">` when the path starts with `/__tests__/`. Simpler and more reversible than 404'ing in production.
-
-**Effort:** ~1 hour template change + Cypress test.
-
-**Risk:** low.
-
-### 6.3 Item 4 — "Which InfluxDB 3 should I use?" decision page
-
-**LLM-visibility impact: high — potentially the single biggest editorial bet in Phase 0.** Decision pages collapse the most common LLM-prompt shape ("which X should I use?") into one canonical answer. SKU sprawl is one of the largest visibility taxes today.
-
-**Implementation:** content work (not a template fix). Steps:
-
-- Write the page (honest "when to pick each" matrix across Core / Enterprise / Cloud Dedicated / Cloud Serverless / Clustered).
-- Add `FAQPage` JSON-LD inline.
-- Add to `llms.txt` as a top-level entry.
-- Cross-link from Core/Enterprise landings and from any comparison content.
-
-**Effort:** 1–3 days editorial + ~half-day engineering for the JSON-LD plumbing.
-
-**Risk: quality-dependent.** A perfunctory page is worse than none — LLMs will learn the bad version. Coordinate with marketing's tracker item 16 (competitive language overhaul). Highest leverage, highest variance in Phase 0.
-
-**Dependency on this PR:** the new page should be self-canonical from day one, which depends on the canonical sentinel landing first.
-
-### 6.4 Item 5 — Explicit AI-bot policy in `robots.txt`
-
-**LLM-visibility impact: low direct, medium strategic.** Current file is silent on AI bots. Named `User-agent:` stanzas for GPTBot, OAI-SearchBot, ClaudeBot, anthropic-ai, PerplexityBot, CCBot, Google-Extended — even if all are `Allow:` — document intent and buy optionality for future training-vs-grounding distinction.
-
-**Implementation:** edit `layouts/robots.txt`.
-
-**Effort:** ~1 hour.
-
-**Risk:** low — make sure not to accidentally `Disallow` anything currently allowed.
-
-### 6.5 Item 6 — `ref-card` shortcode + editorial guideline
-
-**LLM-visibility impact: low directly; compounds slowly.** Section-level inline callout listing 3–4 canonical reference links. Per doc § 5.1.1, `ref-card` is "look up while reading" and complements the existing `related:` frontmatter mechanism ("browse after reading").
-
-**Implementation:**
-
-- New shortcode at `layouts/shortcodes/ref-card.html`.
-- Editorial guideline in `DOCS-SHORTCODES.md` distinguishing it from `related:`.
-- Optional: working examples in `content/example.md`.
-
-**Effort:** ~half-day shortcode + docs.
-
-**Risk:** low.
-
-### 6.6 Dependency graph
-
-```
-Item 1 (canonical fix)   ──── independent  ← THIS SPEC
-Item 2 (markdown alt)    ──── independent
-Item 3 (noindex tests)   ──── independent
-Item 5 (robots AI)       ──── independent
-Item 6 (ref-card)        ──── independent
-Item 4 (decision page)   ──── depends on doc § 5.1 being settled
-                                + benefits from Item 1 (canonical correct from day one)
-```
-
-Items 1, 2, 3, 5, 6 ship in any order. Item 4 should follow item 1.
+- `scripts/build-llm-markdown.js` — already generates the `.md` twins this PR depends on.
+- `layouts/sitemap.xml` — kept byte-for-byte identical.
+- All content under `content/` — no per-page frontmatter changes.
