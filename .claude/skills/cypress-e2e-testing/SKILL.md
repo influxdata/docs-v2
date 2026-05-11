@@ -369,7 +369,7 @@ Before concluding test analysis:
 
 ## Related Skills
 
-- **hugo-template-dev** - For Hugo template syntax, data access patterns, and runtime testing
+- **hugo-template-dev** - For Hugo template syntax, data access patterns, and runtime testing. Includes the **PR preview-pages mechanism** — when the change is visual or structural (canonical/meta tags, JSON-LD, head fragments, layout reflows) and Cypress is overkill, list affected URLs in the PR description so the preview workflow lands reviewers on the exact pages without local setup.
 - **docs-cli-workflow** - For creating/editing documentation content with CLI tools
 - **ts-component-dev** (agent) - TypeScript component behavior and interactivity
 - **hugo-ui-dev** (agent) - Hugo templates and SASS/CSS styling

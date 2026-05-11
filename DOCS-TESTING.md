@@ -11,13 +11,14 @@ This guide covers all testing procedures for the InfluxData documentation, inclu
 
 ## Test Types Overview
 
-| Test Type               | Purpose                             | Command                    |
-| ----------------------- | ----------------------------------- | -------------------------- |
-| **Code blocks**         | Validate shell/Python code examples | `yarn test:codeblocks:all` |
-| **Link validation**     | Check internal/external links       | `yarn test:links`          |
-| **Style linting**       | Enforce writing standards           | `.ci/vale/vale.sh`         |
-| **Markdown generation** | Generate LLM-friendly Markdown      | `yarn build:md`            |
-| **E2E tests**           | UI and functionality testing        | `yarn test:e2e`            |
+| Test Type               | Purpose                                                                 | Command                    |
+| ----------------------- | ----------------------------------------------------------------------- | -------------------------- |
+| **Code blocks**         | Validate shell/Python code examples                                     | `yarn test:codeblocks:all` |
+| **Link validation**     | Check internal/external links                                           | `yarn test:links`          |
+| **Style linting**       | Enforce writing standards                                               | `.ci/vale/vale.sh`         |
+| **Markdown generation** | Generate LLM-friendly Markdown                                          | `yarn build:md`            |
+| **E2E tests**           | UI and functionality testing                                            | `yarn test:e2e`            |
+| **PR preview pages**    | Reviewer-facing hosted preview of pages listed in the PR description    | List URLs in the PR body   |
 
 ## Code Block Testing
 
@@ -880,6 +881,53 @@ Vale runs automatically on pull requests that modify markdown files. The workflo
 - `.github/**/*.md`, `.claude/**/*.md`
 
 The CI check uses the same product-specific configs as local development, ensuring consistency between local and CI linting.
+
+## PR Preview Pages
+
+The PR preview workflow (`.github/workflows/pr-preview.yml`) deploys only the pages listed in the PR description to a stable GitHub Pages preview URL. Reviewers verify rendered output on the exact pages the author tested without checking out the branch or running `npx hugo server` locally.
+
+### When to use
+
+List preview pages in the PR description whenever the change is visual or structural and a reviewer would otherwise need a local build to verify it:
+
+- `layouts/**` template changes (canonical tags, `<head>` fragments, partials, shortcodes)
+- `assets/**` CSS or component changes
+- `data/**` changes that affect rendered pages
+
+For interactive UI or JavaScript behavior, complement the preview with Cypress E2E tests — the preview gives static HTML; Cypress exercises runtime behavior.
+
+### How URLs are extracted
+
+`.github/scripts/parse-pr-urls.js` scans the PR body for:
+
+- Production URLs: `https://docs.influxdata.com/<path>`
+- Localhost URLs: `http://localhost:1313/<path>`
+- Bare paths starting with a product namespace from `data/products.yml` (`/influxdb3/...`, `/telegraf/...`, etc.)
+
+**URLs inside fenced code blocks are stripped** before extraction so example URLs in code samples don't get deployed. List preview URLs as bare paths or markdown links — not inside backtick fences.
+
+### Convention: pair each URL with an "Expected" column
+
+For each preview URL, document what the reviewer should verify (DOM element, attribute value, copy, layout, etc.). This replaces "does this look right?" with concrete pass/fail criteria.
+
+Example PR body fragment:
+
+```markdown
+## Pages to preview
+
+| URL | Expected |
+| --- | --- |
+| /influxdb3/core/ | `<link rel=canonical>` points to `/influxdb3/core/` |
+| /influxdb3/core/write-data/ | `<link rel=canonical>` starts with `/influxdb3/enterprise/` |
+```
+
+Note that the example URLs above appear inside a fenced code block for illustration. In a real PR description, list them outside the fence so the URL extractor picks them up.
+
+### Related workflow files
+
+- `.github/workflows/pr-preview.yml` — the workflow itself
+- `.github/scripts/parse-pr-urls.js` — URL extractor (matches three patterns, strips code blocks)
+- `.github/scripts/detect-preview-pages.js` — change detector that decides whether the preview deploys at all
 
 ## Pre-commit Hooks
 
