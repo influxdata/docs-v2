@@ -14,6 +14,7 @@ related:
   - /influxdb3/core/write-data/
   - /influxdb3/core/query-data/
 source: /shared/influxdb3-get-started/_index.md
+canonical: self
 prepend: |
   > [!Note] 
   > InfluxDB 3 Core is purpose-built for real-time data monitoring and recent data.
