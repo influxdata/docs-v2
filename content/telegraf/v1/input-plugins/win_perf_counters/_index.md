@@ -10,7 +10,7 @@ introduced: "v0.10.2"
 os_support: "windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/win_perf_counters/README.md, Windows Performance Counters Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/win_perf_counters/README.md, Windows Performance Counters Plugin Source
 ---
 
 # Windows Performance Counters Input Plugin

@@ -10,7 +10,7 @@ introduced: "v1.7.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/burrow/README.md, Burrow Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/burrow/README.md, Burrow Plugin Source
 ---
 
 # Burrow Input Plugin
