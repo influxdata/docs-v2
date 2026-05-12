@@ -44,6 +44,10 @@ jobs:
             - /home/circleci/bin
       - run:
           name: Hugo Build
+          # Hugo's render phase can take 10+ minutes on resource-constrained CI
+          # without producing stdout/stderr, so increase the timeout from the
+          # default 10 minutes.
+          no_output_timeout: 20m
           command: yarn hugo --environment production --logLevel info --gc --destination workspace/public
       - run:
           name: Generate LLM-friendly Markdown
