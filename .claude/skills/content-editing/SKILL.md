@@ -1,40 +1,20 @@
 ---
 name: content-editing
-description: Complete workflow for creating, editing, and validating InfluxData documentation content
+description: "Create, edit, and validate InfluxData documentation. Manages Hugo shared content across InfluxDB products, runs Vale style linting and Hugo builds, validates frontmatter and code blocks, and fact-checks via the documentation MCP server. Use when creating new doc pages, editing markdown .md files, managing shared content, running Vale or Hugo builds, or testing InfluxDB, Telegraf, or Flux documentation."
 author: InfluxData
 version: "1.0"
 ---
 
 # Content Editing Workflow
 
-## Purpose
-
-This skill guides the complete workflow for creating and editing InfluxData documentation, from initial content creation through testing and validation. It integrates docs CLI tools, MCP server fact-checking, shared content management, and comprehensive testing.
-
-**Use this skill when:**
-
-- Creating new documentation pages
-- Editing existing documentation
-- Working with shared content that affects multiple pages
-- Validating documentation accuracy and functionality
-
 ## Quick Decision Tree
 
 ```
-Need to decide when to use CLI vs direct editing?
-└─ See docs-cli-workflow skill for decision guidance
-
-Made content changes?
-├─ To shared content? Touch sourcing files! (See Part 1: Shared Content)
-├─ Run Vale linting (See Part 3: Vale Style Linting)
-├─ Run code-block lint (See Part 2: Testing, section 3)
-└─ Run full code block tests (See Part 2: Testing)
-
-Need to verify technical accuracy?
-└─ Use documentation MCP server (See Part 4: Fact-Checking)
-
-Need to write/debug Vale rules?
-└─ See vale-rule-config skill (for CI/Quality Engineers)
+CLI vs direct editing? → See docs-cli-workflow skill
+Shared content changes? → Touch sourcing files (Part 1)
+Run tests? → Hugo build, Vale, code-block lint, E2E (Part 2)
+Verify technical accuracy? → MCP server (Part 3)
+Write/debug Vale rules? → See vale-linting and vale-rule-config skills
 ```
 
 ## Using `docs create` and `docs edit`
@@ -69,8 +49,6 @@ docs placeholders <file.md>
 ```
 
 ## Part 1: Shared Content Management
-
-### What is Shared Content?
 
 Content that appears in multiple products uses Hugo's **content adapter** pattern:
 
@@ -125,27 +103,17 @@ touch content/influxdb3/enterprise/admin/databases.md
 docs edit /influxdb3/core/admin/databases/
 ```
 
-### Programmatic Detection
+### Detecting Shared Content Programmatically
 
-If you need to handle this in code:
+A sourcing file has `source:` frontmatter and minimal/no body content. Parse with `gray-matter`:
 
 ```javascript
-// Check if a file is a sourcing file (frontmatter only)
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 
 function isSharedContent(filePath) {
-  const content = readFileSync(filePath, 'utf8');
-  const { data, content: body } = matter(content);
-  
-  // If has source: frontmatter and minimal/no body content
+  const { data, content: body } = matter(readFileSync(filePath, 'utf8'));
   return data.source && body.trim().length < 50;
-}
-
-function getSharedSource(filePath) {
-  const content = readFileSync(filePath, 'utf8');
-  const { data } = matter(content);
-  return data.source; // e.g., "/shared/influxdb3/admin/databases.md"
 }
 ```
 
@@ -288,81 +256,31 @@ yarn hugo server
 # Preview your changes in browser
 ```
 
-## Part 3: Vale Style Linting
+## Part 3: Vale Style Linting Quick Reference
 
-Vale checks documentation for style guide violations, spelling errors, and branding consistency.
-
-**For writing Vale rules and understanding regex patterns**, see the **vale-rule-config** skill.
-
-### Running Vale
+For comprehensive Vale workflows, see the **vale-linting** skill. For writing custom rules, see **vale-rule-config**.
 
 ```bash
-# Basic linting (all markdown files)
+# Lint all markdown files
 .ci/vale/vale.sh content/**/*.md
 
-# Lint specific product
-.ci/vale/vale.sh content/influxdb3/core/**/*.md
-
-# With specific config and alert level
+# Lint specific product with config and alert level
 .ci/vale/vale.sh \
   --config=content/influxdb/cloud-dedicated/.vale.ini \
   --minAlertLevel=error \
   content/influxdb/cloud-dedicated/write-data/**/*.md
 ```
 
-### Understanding Vale Alerts
+**Fixing common issues:**
 
-Vale reports three alert levels:
-
-- **Error** (red): Critical issues - branding violations, broken style rules, rejected terms
-- **Warning** (yellow): Style guide recommendations - should be fixed
-- **Suggestion** (blue): Optional improvements - consider fixing
-
-### Fixing Common Vale Issues
-
-**Spelling/vocabulary errors:**
-
-```bash
-# If Vale flags a legitimate term, add it to vocabulary
-echo "YourTerm" >> .ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt
-```
-
-**Style violations:**
-Vale will suggest the correct form. For example:
-
-```
-content/file.md:25:1: Use 'InfluxDB 3' instead of 'InfluxDB v3'
-```
-
-Simply make the suggested change.
-
-**False positives:**
-If Vale incorrectly flags something:
-
-1. Check if it's a new technical term that should be in vocabulary
-2. See if the rule needs refinement (consult **vale-rule-config** skill)
-3. Add inline comments to disable specific rules if necessary:
-
-```markdown
-<!-- vale InfluxDataDocs.TechnicalTerms = NO -->
-This paragraph contains technical terms that Vale might flag.
-<!-- vale InfluxDataDocs.TechnicalTerms = YES -->
-```
-
-### When to Run Vale
-
-- **Before committing**: Pre-commit hooks run Vale automatically
-- **After content changes**: Run manually to catch issues early
-- **In CI/CD**: Automated on pull requests
+- **Spelling**: Add legitimate terms to `.ci/vale/styles/config/vocabularies/InfluxDataDocs/accept.txt`
+- **False positives**: Disable inline with `<!-- vale InfluxDataDocs.RuleName = NO -->` / `YES`
+- **`admin` flagged**: Use "administrator" in prose; code contexts are fine
+- **Duration literals (`30d`)**: Valid InfluxDB syntax — no change needed
 
 ## Part 4: Fact-Checking with the Documentation MCP Server
 
-The **InfluxDB documentation MCP server** lets you search InfluxDB documentation (the rendered `content` managed in this repository) and related InfluxData references (source code READMEs, community forums, and some third-party tool documentation) directly from your AI assistant.
-
-### When to Use the Documentation MCP Server
-
-The primary source of content in the Documentation MCP Server is the fully rendered `public` HTML from this repository.
-Use the Documentation MCP Server when the information here is inconclusive, when you need to deepen your understanding of InfluxData products and integrations, or when identifying content gaps in the documentation.
+The **InfluxDB documentation MCP server** lets you search InfluxDB documentation and related InfluxData references directly from your AI assistant via the `search_influxdb_knowledge_sources` tool.
 
 **Use for:**
 
@@ -388,195 +306,57 @@ Already configured in [`.mcp.json`](/.mcp.json). Two server entries are availabl
 - **`influxdb-docs`** (API key) — Set `INFLUXDATA_DOCS_KAPA_API_KEY` env var. 60 req/min.
 - **`influxdb-docs-oauth`** (OAuth) — No setup. Authenticates via Google or GitHub on first use. 40 req/hr, 200 req/day.
 
-### Available Tool
-
-The MCP server exposes a semantic search tool:
-
-```text
-search_influxdb_knowledge_sources
-```
-
-**What it does:**
-
-- Searches all InfluxDB documentation for a given query
-- Returns relevant chunks in descending order of relevance
-- Each chunk includes `source_url` and Markdown `content`
-
-**Example queries:**
+### Example queries
 
 - "How do I create a database in InfluxDB 3 Core?"
 - "What's the difference between InfluxDB 3 Core and Enterprise clustering?"
 - "Show me InfluxQL SELECT syntax for filtering by time range"
 
-### Example Workflow: Fact-Checking During Editing
+Always cross-check MCP results against source URLs returned — it searches rendered docs, not live systems.
 
-```markdown
-## Scenario: Editing database management documentation
+## Part 4: Example Workflows
 
-1. Draft claims: "InfluxDB 3 supports up to 10,000 databases per instance"
-
-2. Ask your AI assistant to verify using the MCP server:
-   "What are the database limits in InfluxDB 3 Core and Enterprise?"
-
-3. MCP response returns documentation chunks with actual limits
-
-4. Update draft with accurate information
-
-5. Cite the source_url in documentation if needed
-```
-
-### Best Practices
-
-**DO:**
-
-- Ask specific, focused questions
-- Verify claims about features, limits, syntax
-- Cross-check answers with source URLs provided
-- Use for understanding complex interactions
-
-**DON'T:**
-
-- Rely solely on MCP without reviewing source docs
-- Use for subjective style decisions
-- Expect real-time product behavior (it searches documentation, not live systems)
-- Use as a replacement for testing (always test code examples)
-
-## Part 5: Complete Example Workflows
-
-### Example 1: Creating New Multi-Product Documentation
+### Creating New Multi-Product Documentation
 
 ```bash
-# Step 1: Create content from draft
 docs create database-tutorial.md --products influxdb3-core,influxdb3-enterprise
-
-# CLI scaffolds files:
-# - content/shared/influxdb3/guides/database-tutorial.md
-# - content/influxdb3/core/guides/database-tutorial.md (frontmatter)
-# - content/influxdb3/enterprise/guides/database-tutorial.md (frontmatter)
-
-# Step 2: Verify technical accuracy
-# Ask your AI assistant (with MCP configured) to verify claims:
-# "Verify database creation syntax for InfluxDB 3"
-
-# Step 3: Test Hugo build
+# Fact-check with MCP, then validate
 yarn hugo --quiet
-
-# Step 4: Run E2E tests
-node cypress/support/run-e2e-specs.js \
-  content/influxdb3/core/guides/database-tutorial.md
-
-# Step 5: Validate links
+node cypress/support/run-e2e-specs.js content/influxdb3/core/guides/database-tutorial.md
 yarn test:links
-
-# Step 6: Test code examples (if tutorial has code blocks)
 yarn test:codeblocks:all
 ```
 
-### Example 2: Editing Shared Content
+### Editing Shared Content
 
 ```bash
-# Step 1: Find and edit the content
+# CLI finds shared source + all sourcing files, touches them automatically
 docs edit https://docs.influxdata.com/influxdb3/core/reference/sql/
-
-# CLI automatically:
-# - Finds content/shared/influxdb3/reference/sql/_index.md
-# - Finds ALL frontmatter files referencing it:
-#   * content/influxdb3/core/reference/sql/_index.md
-#   * content/influxdb3/enterprise/reference/sql/_index.md
-#   * content/influxdb3/cloud-dedicated/reference/sql/_index.md
-# - Opens all files (sourcing files will be touched when saved)
-
-# Step 2: Make edits to the shared source file
-
-# Step 3: Fact-check changes with MCP
-# Ask your AI assistant: "Verify SQL WHERE clause syntax in InfluxDB 3"
-
-# Step 4: Test the build
+# Fact-check with MCP, then validate
 yarn hugo --quiet
-
-# Step 5: Test affected pages
 node cypress/support/run-e2e-specs.js \
-  content/influxdb3/core/reference/sql/_index.md \
-  content/influxdb3/enterprise/reference/sql/_index.md
-
-# Step 6: Validate links in SQL reference
+  content/influxdb3/core/reference/sql/_index.md
 yarn test:links
 ```
 
-### Example 3: Quick Fix Without CLI
+### Quick Fix (No CLI Needed)
 
 ```bash
-# Step 1: Fix typo directly (you know the file)
-# Edit content/influxdb3/core/get-started/_index.md
-
-# Step 2: Test Hugo build
+# Edit file directly, then build-test
 yarn hugo --quiet
-
-# Step 3: Quick visual check
-yarn hugo server
-# Visit http://localhost:1313/influxdb3/core/get-started/
-
-# Done! (No need for comprehensive testing on typo fixes)
+yarn hugo server  # Preview at http://localhost:1313
 ```
 
-## Part 6: Troubleshooting
+## Part 5: Troubleshooting
 
-### Hugo Build Fails
+| Problem | Solution |
+| --- | --- |
+| Hugo build fails | Run `yarn hugo` (no `--quiet`) for detailed errors — check frontmatter YAML, shortcode tags, partial refs |
+| Shared content edits not appearing | Touch sourcing files: `grep -r "source: /shared/path" content/` then `touch` each, or use `docs edit` |
+| MCP not responding | Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set, check rate limits (60 req/min API key, 40 req/hr OAuth) |
+| Cypress tests fail | See **cypress-e2e-testing** skill; check `cat /tmp/hugo_server.log`, run `yarn build:api-docs` if API content missing |
 
-```bash
-# Check for detailed errors
-yarn hugo
-
-# Common issues:
-# - Invalid frontmatter YAML
-# - Missing closing shortcode tags
-# - Broken partial references
-# - Invalid template syntax
-```
-
-### Tests Fail After Editing Shared Content
-
-**Problem:** Edited shared file, but test shows old content
-
-**Solution:** Touch the sourcing files manually
-
-```bash
-# Find pages that reference the shared file
-grep -r "source: /shared/path/to/file.md" content/
-
-# Touch each one
-touch content/influxdb3/core/path/to/file.md
-touch content/influxdb3/enterprise/path/to/file.md
-
-# Or use docs edit (it does this automatically)
-```
-
-### MCP Server Not Responding
-
-**Troubleshooting steps:**
-
-- **API key auth** (`influxdb-docs`): Verify `INFLUXDATA_DOCS_KAPA_API_KEY` is set. Rate limit: 60 req/min.
-- **OAuth auth** (`influxdb-docs-oauth`): Sign in with Google or GitHub on first use. Rate limits: 40 req/hr, 200 req/day.
-- Verify your network allows connections to `*.kapa.ai`
-- Check if you've exceeded rate limits (wait and retry)
-
-### Cypress Tests Fail
-
-See **cypress-e2e-testing** skill for comprehensive debugging:
-
-```bash
-# Check Hugo server logs
-cat /tmp/hugo_server.log | tail -50
-
-# Run tests interactively
-yarn cypress open
-
-# Check if API content was generated (for API tests)
-ls content/influxdb3/core/api/
-# If empty: yarn build:api-docs
-```
-
-## Part 7: Quick Reference
+## Part 6: Quick Reference
 
 | Task                       | Command                                                                           |
 | -------------------------- | --------------------------------------------------------------------------------- |
