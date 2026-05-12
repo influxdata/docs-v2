@@ -146,3 +146,11 @@ It then updates the [Catalog](#catalog) with locations of compacted data.
 The Garbage collector runs background jobs that evict expired or deleted data,
 remove obsolete compaction files, and reclaim space in both the [Catalog](#catalog) and the
 [Object store](#object-store).
+
+##### Garbage collector scaling strategies
+
+The Garbage collector is not designed for distributed load and should _not_ be
+scaled horizontally. The Garbage collector does not perform CPU- or
+memory-intensive work, so vertical scaling should only be
+considered if you observe very high CPU usage or if the container regularly
+runs out of memory.

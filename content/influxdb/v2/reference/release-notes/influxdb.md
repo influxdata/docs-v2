@@ -8,6 +8,15 @@ menu:
 weight: 101
 ---
 
+## v2.9.1 {date="2026-05-11"}
+
+### Bug Fixes
+- Fixed an issue where level 3 compactions would stop occurring. 
+- Split compaction queue depth from active running count to fix bug which stopped compaction on resource constrained systems. 
+
+### Maintenance
+- Updated Go to 1.25.10. 
+
 ## v2.9.0 {date="2026-04-30"}
 
 ### Features
