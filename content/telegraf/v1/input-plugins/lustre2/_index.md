@@ -10,7 +10,7 @@ introduced: "v0.1.5"
 os_support: "linux"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/inputs/lustre2/README.md, Lustre Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/inputs/lustre2/README.md, Lustre Plugin Source
 ---
 
 # Lustre Input Plugin
@@ -88,9 +88,15 @@ From `/proc/fs/lustre/obdfilter/*/stats` and
     - write_calls
     - read_bytes
     - read_calls
-    - cache_hit
-    - cache_miss
-    - cache_access
+    - cache_hit (samples, retained for backward compatibility)
+    - cache_hit_samples
+    - cache_hit_pages
+    - cache_miss (samples, retained for backward compatibility)
+    - cache_miss_samples
+    - cache_miss_pages
+    - cache_access (samples, retained for backward compatibility)
+    - cache_access_samples
+    - cache_access_pages
 
 From `/proc/fs/lustre/obdfilter/*/exports/*/stats`:
 
