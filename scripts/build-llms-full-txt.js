@@ -21,9 +21,11 @@
 
 import { glob } from 'glob';
 import fs from 'fs/promises';
+import { readFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
+import { getCorpusPaths } from './lib/corpus-paths.js';
 
 /**
  * Resolve --public-dir <path> from argv, defaulting to ./public.
@@ -44,28 +46,25 @@ const PUBLIC_ROOT = parsePublicDir();
 const SITE_URL = 'https://docs.influxdata.com';
 
 /**
- * Per-product corpora to build. Path is relative to `public/`. Name is the
- * display name used in the corpus header.
+ * Load and derive the per-product corpus list from data/products.yml.
  *
- * Keep this list in sync with the "Full corpora" block in
- * layouts/index.llmstxt.txt.
+ * Single source of truth: this list and the "Full corpora" block in
+ * layouts/index.llmstxt.txt both derive from products.yml. The Hugo
+ * template applies the same content_path + versions logic via Hugo
+ * template functions; scripts/check-md-alternate-coherence.js verifies
+ * the two surfaces agree.
+ *
+ * @returns {Array<{ path: string, name: string }>}
  */
-const PRODUCT_PATHS = [
-  { path: 'influxdb3/core', name: 'InfluxDB 3 Core' },
-  { path: 'influxdb3/enterprise', name: 'InfluxDB 3 Enterprise' },
-  { path: 'influxdb3/cloud-dedicated', name: 'InfluxDB Cloud Dedicated' },
-  { path: 'influxdb3/cloud-serverless', name: 'InfluxDB Cloud Serverless' },
-  { path: 'influxdb3/clustered', name: 'InfluxDB Clustered' },
-  { path: 'influxdb3/explorer', name: 'InfluxDB 3 Explorer' },
-  { path: 'influxdb/v2', name: 'InfluxDB OSS v2' },
-  { path: 'influxdb/cloud', name: 'InfluxDB Cloud (TSM)' },
-  { path: 'influxdb/v1', name: 'InfluxDB OSS v1' },
-  { path: 'enterprise_influxdb/v1', name: 'InfluxDB Enterprise v1' },
-  { path: 'telegraf/v1', name: 'Telegraf' },
-  { path: 'chronograf/v1', name: 'Chronograf' },
-  { path: 'kapacitor/v1', name: 'Kapacitor' },
-  { path: 'flux/v0', name: 'Flux' },
-];
+function loadProductPaths() {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const productsPath = path.resolve(__dirname, '..', 'data', 'products.yml');
+  const products = yaml.load(readFileSync(productsPath, 'utf-8'));
+  return getCorpusPaths(products).map(({ path: p, name }) => ({ path: p, name }));
+}
+
+const PRODUCT_PATHS = loadProductPaths();
 
 /**
  * Parse a Markdown twin's YAML frontmatter. Returns null if the file lacks
