@@ -12,7 +12,7 @@ influxdb3_core:
   versions: [core]
   list_order: 2
   latest: core
-  latest_patch: 3.9.1
+  latest_patch: 3.9.2
   placeholder_host: localhost:8181
   limits:
     database: 5
@@ -50,7 +50,7 @@ influxdb3_enterprise:
   versions: [enterprise]
   list_order: 2
   latest: enterprise
-  latest_patch: 3.9.1
+  latest_patch: 3.9.2
   placeholder_host: localhost:8181
   limits:
     database: 100
@@ -88,7 +88,7 @@ influxdb3_explorer:
   menu_category: tools
   list_order: 1
   latest: explorer
-  latest_patch: 1.7.0
+  latest_patch: 1.8.0
   placeholder_host: localhost:8080
   ai_sample_questions:
     - How do I install and run Explorer?
@@ -224,12 +224,12 @@ influxdb:
   versions:
     - v2
     - v1
-  latest: v2.8
+  latest: v2.9
   latest_patches:
-    v2: 2.8.0
+    v2: 2.9.1
     v1: 1.12.4
   latest_cli:
-    v2: 2.7.5
+    v2: 2.8.0
   detector_config:
     query_languages:
       InfluxQL:
@@ -304,7 +304,7 @@ telegraf:
   versions: [v1]
   latest: v1.38
   latest_patches:
-    v1: 1.38.3
+    v1: 1.38.4
   ai_sample_questions:
     - How do I configure Telegraf for InfluxDB 3?
     - How do I write a custom Telegraf plugin?
@@ -334,7 +334,7 @@ chronograf:
   versions: [v1]
   latest: v1.11
   latest_patches:
-    v1: 1.11.1
+    v1: 1.11.2
   ai_sample_questions:
     - How do I configure Chronograf for InfluxDB v1?
     - How do I create a dashboard in Chronograf?
@@ -355,7 +355,7 @@ kapacitor:
   versions: [v1]
   latest: v1.8
   latest_patches:
-    v1: 1.8.4
+    v1: 1.8.5
   ai_sample_questions:
     - How do I configure Kapacitor for InfluxDB v1?
     - How do I write a custom task for Kapacitor?

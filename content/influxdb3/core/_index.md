@@ -10,6 +10,7 @@ menu:
     name: InfluxDB 3 Core
 weight: 1
 source: /shared/influxdb3/_index.md
+canonical: self
 cascade:
   product: influxdb3_core
   version: core

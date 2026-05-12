@@ -107,7 +107,7 @@ If empty, Kapacitor will subscribe to all databases and retention policies excep
 ```toml
 [influxdb.subscriptions]
   # Pattern:
-  db_name = <list of retention policies>
+  # db_name = [<list of retention policies>]
 
   # Example:
   my_database = [ "default", "longterm" ]
@@ -119,7 +119,7 @@ Defines a set of databases and retention policies to exclude from subscriptions.
 ```toml
 [influxdb.excluded-subscriptions]
   # Pattern:
-  db_name = <list of retention policies>
+  # db_name = [<list of retention policies>]
 
   # Example:
   my_database = [ "default", "longterm" ]

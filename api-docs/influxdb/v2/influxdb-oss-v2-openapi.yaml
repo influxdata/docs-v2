@@ -622,6 +622,16 @@ paths:
               - gzip
               - identity
             type: string
+        - description: The gzip compression level to use when compressing the response.
+          in: header
+          name: Gzip-Compression-Level
+          schema:
+            enum:
+              - none
+              - default
+              - speedy
+              - full
+            type: string
         - description: The shard ID.
           in: path
           name: shardID

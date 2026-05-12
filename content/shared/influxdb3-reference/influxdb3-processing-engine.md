@@ -2,7 +2,7 @@ The Processing engine is an embedded Python virtual machine that runs inside an 
 
 ## Enable and disable the Processing Engine
 
-The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/cli/influxdb3/serve/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
+The Processing Engine activates when [`--plugin-dir`](/influxdb3/version/reference/config-options/#plugin-dir) or `INFLUXDB3_PLUGIN_DIR` is configured.
 When not configured, the Python environment and PyO3 bindings aren't initialized, and the server runs without Processing Engine functionality.
 
 {{% show-in "enterprise" %}}
@@ -14,7 +14,16 @@ You don't need to explicitly set `--mode=process` when `--plugin-dir` is configu
 Conversely, if you explicitly set `--mode=process`, you **must** also set `--plugin-dir`.
 A node with `--mode=process` but no `--plugin-dir` won't function correctly.
 
-For cluster node configuration examples, see [Configure process nodes](/influxdb3/enterprise/admin/clustering/#configure-process-nodes).
+#### Cluster behavior
+
+In a multi-node cluster, configure `--plugin-dir` on **every** node, regardless of the node's other modes.
+The Enterprise catalog registers triggers cluster-wide and every node validates them at startup; if the plugin file referenced by a registered trigger is missing on a node, the engine panics on startup.
+
+`--mode` does not gate trigger execution.
+A trigger executes on the node(s) that match its [`--node-spec`](/influxdb3/enterprise/reference/cli/influxdb3/create/trigger/#options) — by default, every node with `--plugin-dir` configured.
+For schedule and request triggers in a cluster, pin execution explicitly with `--node-spec nodes:<node-id>` so that only one node runs the trigger.
+
+For cluster node configuration examples, see [Configure process-capable nodes](/influxdb3/enterprise/admin/clustering/#configure-process-capable-nodes).
 {{% /show-in %}}
 
 ### Default behavior by deployment type

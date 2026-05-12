@@ -60,7 +60,7 @@ influxdb3 show databases --format json
 {{% /expand %}}
 {{% expand "View example JSON-line-formatted output" %}}
 {{% influxdb/custom-timestamps %}}
-```json
+```jsonl
 {"iox::database":"home"}
 {"iox::database":"home_actions"}
 {"iox::database":"noaa"}

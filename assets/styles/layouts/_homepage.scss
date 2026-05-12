@@ -301,6 +301,11 @@
       & + p {margin-top: .65rem;}
     }
 
+    .product .product-info {
+      h3, h3 a {color: $g20-white;}
+      p {color: rgba($g20-white, .8);}
+    }
+
     ul.product-links {
 
       li:not(:last-child) {margin-bottom: .35rem;}

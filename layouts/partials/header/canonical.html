@@ -4,8 +4,19 @@
 <!-- Set the current page as the default canonical URL -->
 {{ $scratch.Set "canonicalURL" (print $baseURL .RelPermalink) }}
 
-<!-- Set canonical URL using 'canonical' frontmatter -->
-{{ if .Page.Params.canonical }}
+<!--
+Set canonical URL from 'canonical' frontmatter.
+
+The literal value "self" is a sentinel: short-circuit and keep the page's own
+permalink. Use it on product-narrative pages (landings, install, quickstart)
+whose `source:` would otherwise route them to a sibling product via the
+shared-source priority loop below.
+
+Any other non-empty value is treated as a URL path appended to the site
+baseURL.
+-->
+{{ if eq .Page.Params.canonical "self" }}
+{{ else if .Page.Params.canonical }}
   {{ $scratch.Set "canonicalURL" (print $baseURL .Page.Params.canonical) }}
 
 <!--

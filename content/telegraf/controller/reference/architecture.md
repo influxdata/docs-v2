@@ -7,6 +7,8 @@ menu:
     name: Architectural overview
     parent: Reference
 weight: 105
+related:
+  - /telegraf/controller/reference/config-options/
 ---
 
 {{% product-name %}} is a standalone application that provides centralized
@@ -51,11 +53,14 @@ environment variables.
 
 | Command Option     | Environment Variable | Description                                                                                                      |
 | :----------------- | :------------------- | :--------------------------------------------------------------------------------------------------------------- |
-| `--port`           | `PORT`               | API server port (default is `8888`)                                                                              |
+| `--port`           | `APP_PORT`           | API server port (default is `8888`)                                                                              |
 | `--heartbeat-port` | `HEARTBEAT_PORT`     | Heartbeat service port (default: `8000`)                                                                         |
-| `--database`       | `DATABASE`           | Database filepath or URL (default is [SQLite path](/telegraf/controller/install/#default-sqlite-data-locations)) |
-| `--ssl-cert`       | `SSL_CERT`           | Path to SSL certificate                                                                                          |
-| `--ssl-key`        | `SSL_KEY`            | Path to SSL private key                                                                                          |
+| `--database`       | `DATABASE_URL`       | Database filepath or URL (default is [SQLite path](/telegraf/controller/install/#default-sqlite-data-locations)) |
+| _(none)_           | `SSL_CERT_PATH`      | Path to SSL certificate                                                                                          |
+| _(none)_           | `SSL_KEY_PATH`       | Path to SSL private key                                                                                          |
+
+_For a full list of options, see the
+[{{% product-name %}} configuration options reference](/telegraf/controller/reference/config-options/)._
 
 To use environment variables, create a `.env` file in the same directory as the
 binary or export these environment variables in your terminal session.
@@ -63,7 +68,7 @@ binary or export these environment variables in your terminal session.
 ### Database Selection
 
 {{% product-name %}} automatically selects the database type based on the
-`DATABASE` string:
+`DATABASE_URL` string:
 
 - **SQLite** (default): Best for development and small deployments with less
   than 1000 agents. Database file created automatically.
@@ -72,7 +77,7 @@ binary or export these environment variables in your terminal session.
 Example PostgreSQL configuration:
 
 ```bash
-DATABASE="postgresql://user:password@localhost:5432/telegraf_controller"
+DATABASE_URL="postgresql://user:password@localhost:5432/telegraf_controller"
 ```
 
 ## Data Flow

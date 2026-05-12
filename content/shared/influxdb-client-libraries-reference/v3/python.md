@@ -1,6 +1,8 @@
 The InfluxDB 3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
 integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
+{{< client-latest-version >}}
+
 InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.
