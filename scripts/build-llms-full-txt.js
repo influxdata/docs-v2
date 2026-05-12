@@ -25,7 +25,22 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
 
-const PUBLIC_ROOT = path.resolve(process.cwd(), 'public');
+/**
+ * Resolve --public-dir <path> from argv, defaulting to ./public.
+ * Matches the CLI convention used by scripts/build-llm-markdown.js so
+ * CircleCI can pass `--public-dir workspace/public` consistently.
+ */
+function parsePublicDir() {
+  const args = process.argv.slice(2);
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--public-dir' && args[i + 1]) {
+      return path.resolve(process.cwd(), args[i + 1]);
+    }
+  }
+  return path.resolve(process.cwd(), 'public');
+}
+
+const PUBLIC_ROOT = parsePublicDir();
 const SITE_URL = 'https://docs.influxdata.com';
 
 /**
