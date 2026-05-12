@@ -392,7 +392,7 @@ node cypress/support/run-e2e-specs.js \
 
 ### Per-product full corpora
 
-`scripts/build-llms-full-txt.js` produces `public/<product>/llms-full.txt` for each product listed in its `PRODUCT_PATHS` config. Each corpus is the concatenation of every eligible page's Markdown (eligibility comes from `/sitemap-md.xml` — the single source of truth across all three autodiscovery surfaces).
+`scripts/build-llms-full-txt.js` produces `public/<product>/llms-full.txt` for each product. The corpus list is derived from `data/products.yml` via `scripts/lib/corpus-paths.js` — a shared utility mirrored by the Hugo template at `layouts/index.llmstxt.txt`. Eligibility per page comes from `/sitemap-md.xml`, which is also the source of the corpus origin (so staging builds produce staging URLs, production builds produce production URLs).
 
 ```bash
 # After build:md, generate the per-product corpora
@@ -403,21 +403,25 @@ ls -lh public/influxdb3/core/llms-full.txt public/telegraf/v1/llms-full.txt
 head -5 public/influxdb3/core/llms-full.txt
 ```
 
-Unit test:
+Unit tests:
 
 ```bash
-yarn test:build-llms-full
+yarn test:build-llms-full   # build script behavior
+yarn test:corpus-paths      # data/products.yml -> corpus path derivation
 ```
 
-### Markdown alternate coherence
+### Autodiscovery coherence guard
 
-Every HTML page that emits `<link rel="alternate" type="text/markdown">` must have a corresponding `.md` file on disk. The check is mechanical:
+`yarn check:md-coherence` runs two checks after the full build, catching drift across the three autodiscovery surfaces:
+
+1. **Head-link → `.md` exists.** Every HTML page that emits `<link rel="alternate" type="text/markdown">` must have a corresponding `.md` file on disk. Catches drift between the Hugo eligibility predicate and `build-llm-markdown.js` output.
+2. **Hugo `/llms.txt` ↔ `getCorpusPaths()`.** The corpus list rendered into `/llms.txt` by the Hugo template must match what `scripts/lib/corpus-paths.js` derives from `data/products.yml`. Catches logic drift between the two surfaces that consume products.yml. Also verifies each linked `llms-full.txt` file exists on disk.
 
 ```bash
 yarn check:md-coherence
 ```
 
-This runs after `yarn build:md` in the staging deploy pipeline (`scripts/deploy-staging.sh`). It catches drift between the Hugo head-link eligibility predicate and the `build-llm-markdown.js` output.
+Runs automatically after `yarn build:md` in the staging deploy pipeline (`scripts/deploy-staging.sh`) and on master in CircleCI (`.circleci/config.yml`). Skipped on PR builds where `build:md --only-changed` produces only a partial `.md` set.
 
 ### Comprehensive Documentation
 
