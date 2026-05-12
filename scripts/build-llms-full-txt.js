@@ -43,7 +43,15 @@ function parsePublicDir() {
 }
 
 const PUBLIC_ROOT = parsePublicDir();
-const SITE_URL = 'https://docs.influxdata.com';
+
+/**
+ * Production fallback used only if sitemap-md.xml lacks a usable origin.
+ * In a normal build, the origin is derived from the sitemap (which Hugo
+ * generates with the active environment's baseURL — staging vs production
+ * vs pr-preview vs local). Hardcoding the production URL as the corpus
+ * source would put production URLs into staging artifacts (#7211 review).
+ */
+const FALLBACK_SITE_URL = 'https://docs.influxdata.com';
 
 /**
  * Load and derive the per-product corpus list from data/products.yml.
@@ -89,43 +97,51 @@ export function parseFrontmatter(content) {
 }
 
 /**
- * Read public/sitemap-md.xml and return a Set of eligible page paths (the
- * pathname portion of each <loc>, without leading slash).
+ * Read public/sitemap-md.xml and return:
+ *   - urls:   Set of eligible page paths (pathname of each <loc>)
+ *   - origin: the site origin (https://<host>) extracted from any <loc>.
+ *             This reflects the baseURL of whichever Hugo environment built
+ *             public/ (production, staging, pr-preview, local). Used as the
+ *             source of `Source:` lines and the corpus header URL so staging
+ *             artifacts don't carry production URLs.
  *
- * This is the single source of truth for which pages get a Markdown twin —
- * sitemap-md.xml, the head <link rel="alternate"> partial, and this script
- * all agree by construction (sitemap-md is generated from the same
- * eligibility predicate; this script reads it).
+ * Single source of truth for both "which pages are eligible" and "what
+ * origin to use for absolute URLs" — sitemap-md.xml, the head
+ * <link rel="alternate"> partial, and this script all agree by construction.
  *
- * @returns {Promise<Set<string>>}
+ * @returns {Promise<{ urls: Set<string>, origin: string }>}
  */
 export async function loadEligibleUrls(publicRoot = PUBLIC_ROOT) {
   const sitemapPath = path.join(publicRoot, 'sitemap-md.xml');
   const xml = await fs.readFile(sitemapPath, 'utf-8');
   const urls = new Set();
+  let origin = null;
   const matches = xml.matchAll(/<loc>([^<]+)<\/loc>/g);
   for (const match of matches) {
     try {
-      urls.add(new URL(match[1]).pathname);
+      const url = new URL(match[1]);
+      urls.add(url.pathname);
+      if (!origin) origin = url.origin;
     } catch {
       /* skip malformed URL */
     }
   }
-  return urls;
+  return { urls, origin: origin || FALLBACK_SITE_URL };
 }
 
 /**
  * Build a single product's corpus.
  *
  * @param {{ path: string, name: string }} product
- * @param {Set<string>} eligibleUrls - pathnames eligible per sitemap-md.xml
+ * @param {{ urls: Set<string>, origin: string }} eligible - sitemap-md.xml data
  * @returns {Promise<{ product: string, pageCount: number, bytes: number }>}
  */
 export async function buildProduct(
   product,
-  eligibleUrls,
+  eligible,
   publicRoot = PUBLIC_ROOT
 ) {
+  const { urls: eligibleUrls, origin } = eligible;
   const productRoot = path.join(publicRoot, product.path);
   const pattern = path.join(productRoot, '**', 'index.md');
   const files = await glob(pattern, { nodir: true });
@@ -155,13 +171,13 @@ export async function buildProduct(
   const header = [
     `# ${product.name} — full Markdown corpus`,
     '',
-    `> Generated ${timestamp} from ${SITE_URL}/${product.path}/`,
-    `> See ${SITE_URL}/llms.txt for the cross-product table of contents.`,
+    `> Generated ${timestamp} from ${origin}/${product.path}/`,
+    `> See ${origin}/llms.txt for the cross-product table of contents.`,
     '',
   ].join('\n');
 
   const sections = pages.map((p) => {
-    return `---\n\n# ${p.title}\n\nSource: ${SITE_URL}${p.pagePath}\n\n${p.body}\n`;
+    return `---\n\n# ${p.title}\n\nSource: ${origin}${p.pagePath}\n\n${p.body}\n`;
   });
 
   const corpus = header + sections.join('\n');
@@ -177,13 +193,15 @@ export async function buildProduct(
 
 async function main() {
   const t0 = Date.now();
-  const eligibleUrls = await loadEligibleUrls();
-  console.log(`Loaded ${eligibleUrls.size} eligible URLs from sitemap-md.xml`);
+  const eligible = await loadEligibleUrls();
+  console.log(
+    `Loaded ${eligible.urls.size} eligible URLs from sitemap-md.xml (origin: ${eligible.origin})`
+  );
 
   const results = [];
   for (const product of PRODUCT_PATHS) {
     try {
-      const result = await buildProduct(product, eligibleUrls);
+      const result = await buildProduct(product, eligible);
       results.push(result);
     } catch (err) {
       console.error(`Failed to build ${product.path}: ${err.message}`);

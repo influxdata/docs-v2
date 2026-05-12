@@ -65,14 +65,34 @@ test('parseFrontmatter parses YAML and returns body', () => {
   assert.equal(result.body.trim(), 'Body text.');
 });
 
-test('loadEligibleUrls returns Set of pathnames from sitemap-md.xml', async () => {
+test('loadEligibleUrls returns urls Set and origin from sitemap-md.xml', async () => {
   const { root } = setupFixture();
   try {
-    const urls = await loadEligibleUrls(root);
-    assert.ok(urls.has('/foo/v1/alpha/index.md'));
-    assert.ok(urls.has('/foo/v1/gamma/index.md'));
-    assert.ok(!urls.has('/foo/v1/beta/index.md'));
-    assert.equal(urls.size, 2);
+    const result = await loadEligibleUrls(root);
+    assert.ok(result.urls.has('/foo/v1/alpha/index.md'));
+    assert.ok(result.urls.has('/foo/v1/gamma/index.md'));
+    assert.ok(!result.urls.has('/foo/v1/beta/index.md'));
+    assert.equal(result.urls.size, 2);
+    assert.equal(result.origin, 'https://docs.influxdata.com');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('loadEligibleUrls picks up staging origin when sitemap uses staging URLs', async () => {
+  const { root } = setupFixture();
+  try {
+    // Overwrite the sitemap with staging-style URLs
+    writeFileSync(
+      join(root, 'sitemap-md.xml'),
+      `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://test2.docs.influxdata.com/foo/v1/alpha/index.md</loc></url>
+  <url><loc>https://test2.docs.influxdata.com/foo/v1/gamma/index.md</loc></url>
+</urlset>`
+    );
+    const result = await loadEligibleUrls(root);
+    assert.equal(result.origin, 'https://test2.docs.influxdata.com');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -81,10 +101,10 @@ test('loadEligibleUrls returns Set of pathnames from sitemap-md.xml', async () =
 test('buildProduct excludes pages not in sitemap-md.xml', async () => {
   const { root, productPath } = setupFixture();
   try {
-    const eligibleUrls = await loadEligibleUrls(root);
+    const eligible = await loadEligibleUrls(root);
     const result = await buildProduct(
       { path: productPath, name: 'Foo v1' },
-      eligibleUrls,
+      eligible,
       root
     );
 
@@ -106,13 +126,37 @@ test('buildProduct excludes pages not in sitemap-md.xml', async () => {
   }
 });
 
+test('buildProduct uses staging origin from sitemap when present', async () => {
+  const { root, productPath } = setupFixture();
+  try {
+    // Overwrite the sitemap with staging-style URLs
+    writeFileSync(
+      join(root, 'sitemap-md.xml'),
+      `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://test2.docs.influxdata.com/foo/v1/alpha/index.md</loc></url>
+  <url><loc>https://test2.docs.influxdata.com/foo/v1/gamma/index.md</loc></url>
+</urlset>`
+    );
+    const eligible = await loadEligibleUrls(root);
+    await buildProduct({ path: productPath, name: 'Foo v1' }, eligible, root);
+
+    const corpus = readFileSync(join(root, productPath, 'llms-full.txt'), 'utf-8');
+    assert.match(corpus, /> Generated \d{4}-\d{2}-\d{2}T[^\n]*test2\.docs\.influxdata\.com/);
+    assert.match(corpus, /Source: https:\/\/test2\.docs\.influxdata\.com\/foo\/v1\/alpha\//);
+    assert.doesNotMatch(corpus, /https:\/\/docs\.influxdata\.com/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('buildProduct sorts pages by URL path', async () => {
   const { root, productPath } = setupFixture();
   try {
-    const eligibleUrls = await loadEligibleUrls(root);
+    const eligible = await loadEligibleUrls(root);
     await buildProduct(
       { path: productPath, name: 'Foo v1' },
-      eligibleUrls,
+      eligible,
       root
     );
 
