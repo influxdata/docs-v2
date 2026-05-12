@@ -45,3 +45,22 @@ This documentation covers all InfluxDB versions and ecosystem tools. Each sectio
 ## API References
 
 For API documentation, see the API reference section within each product's documentation.
+
+## Full corpora (flattened Markdown)
+
+Per-product Markdown corpora. Fetch a single file for the full documentation of one product.
+
+- [InfluxDB 3 Core full corpus](influxdb3/core/llms-full.txt)
+- [InfluxDB 3 Enterprise full corpus](influxdb3/enterprise/llms-full.txt)
+- [InfluxDB Cloud Dedicated full corpus](influxdb3/cloud-dedicated/llms-full.txt)
+- [InfluxDB Cloud Serverless full corpus](influxdb3/cloud-serverless/llms-full.txt)
+- [InfluxDB Clustered full corpus](influxdb3/clustered/llms-full.txt)
+- [InfluxDB 3 Explorer full corpus](influxdb3/explorer/llms-full.txt)
+- [InfluxDB OSS v2 full corpus](influxdb/v2/llms-full.txt)
+- [InfluxDB Cloud (TSM) full corpus](influxdb/cloud/llms-full.txt)
+- [InfluxDB OSS v1 full corpus](influxdb/v1/llms-full.txt)
+- [InfluxDB Enterprise v1 full corpus](enterprise_influxdb/v1/llms-full.txt)
+- [Telegraf full corpus](telegraf/v1/llms-full.txt)
+- [Chronograf full corpus](chronograf/v1/llms-full.txt)
+- [Kapacitor full corpus](kapacitor/v1/llms-full.txt)
+- [Flux full corpus](flux/v0/llms-full.txt)

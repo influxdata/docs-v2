@@ -364,7 +364,15 @@ yarn test:lint-codeblocks
 
 ## LLM-Friendly Markdown Generation
 
-The documentation includes tooling to generate LLM-friendly Markdown versions of documentation pages, both locally via CLI and on-demand via Lambda\@Edge in production.
+The documentation generates LLM-friendly Markdown alongside HTML at build time. Three layers of artifacts:
+
+| Artifact | Granularity | Generator | Discoverable via |
+|---|---|---|---|
+| `public/<path>/index.md` | per page | `scripts/build-llm-markdown.js` | `<link rel="alternate" type="text/markdown">` in HTML head; `/sitemap-md.xml` |
+| `public/<path>/index.section.md` | per section (page + descendants) | `scripts/build-llm-markdown.js` | `/llms.txt` "Main documentation sections" block |
+| `public/<product>/llms-full.txt` | per product (flattened corpus) | `scripts/build-llms-full-txt.js` | `/llms.txt` "Full corpora" block |
+
+Agents pick a layer based on the question: a focused question fetches one page's `.md`; a corpus-grounded question fetches one product's `llms-full.txt`.
 
 ### Quick Start
 
@@ -381,6 +389,35 @@ node scripts/html-to-markdown.js --path influxdb3/core/get-started --limit 10
 node cypress/support/run-e2e-specs.js \
   --spec "cypress/e2e/content/markdown-content-validation.cy.js"
 ```
+
+### Per-product full corpora
+
+`scripts/build-llms-full-txt.js` produces `public/<product>/llms-full.txt` for each product listed in its `PRODUCT_PATHS` config. Each corpus is the concatenation of every eligible page's Markdown (eligibility comes from `/sitemap-md.xml` — the single source of truth across all three autodiscovery surfaces).
+
+```bash
+# After build:md, generate the per-product corpora
+yarn build:llms-full
+
+# Spot-check
+ls -lh public/influxdb3/core/llms-full.txt public/telegraf/v1/llms-full.txt
+head -5 public/influxdb3/core/llms-full.txt
+```
+
+Unit test:
+
+```bash
+yarn test:build-llms-full
+```
+
+### Markdown alternate coherence
+
+Every HTML page that emits `<link rel="alternate" type="text/markdown">` must have a corresponding `.md` file on disk. The check is mechanical:
+
+```bash
+yarn check:md-coherence
+```
+
+This runs after `yarn build:md` in the staging deploy pipeline (`scripts/deploy-staging.sh`). It catches drift between the Hugo head-link eligibility predicate and the `build-llm-markdown.js` output.
 
 ### Comprehensive Documentation
 
