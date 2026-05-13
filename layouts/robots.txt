@@ -5,3 +5,4 @@ Disallow: {{ .RelPermalink }}
 {{ end -}}
 {{ end -}}
 Sitemap: {{ .Site.BaseURL }}sitemap.xml
+Sitemap: {{ .Site.BaseURL }}sitemap-md.xml

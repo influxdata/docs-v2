@@ -10,7 +10,7 @@ introduced: "v1.1.0"
 os_support: "freebsd, linux, macos, solaris, windows"
 related:
   - /telegraf/v1/configure_plugins/
-  - https://github.com/influxdata/telegraf/tree/v1.38.3/plugins/outputs/nats/README.md, NATS Plugin Source
+  - https://github.com/influxdata/telegraf/tree/v1.38.4/plugins/outputs/nats/README.md, NATS Plugin Source
 ---
 
 # NATS Output Plugin

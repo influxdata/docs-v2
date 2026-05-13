@@ -63,16 +63,26 @@ outputFormats:
     permalinkable: true
     suffixes:
       - txt
+  sitemapmd:
+    mediaType: application/xml
+    baseName: sitemap-md
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+    suffixes:
+      - xml
 
 outputs:
   page:
     - HTML
   section:
     - HTML
-    # llmstxt disabled for sections - using .md files via Lambda@Edge instead
+    # .md twins for sections are emitted by scripts/build-llm-markdown.js
+    # (post-Hugo build). See DOCS-TESTING.md "LLM-Friendly Markdown Generation".
   home:
     - HTML
-    - llmstxt  # Root /llms.txt for AI agent discovery
+    - llmstxt    # Root /llms.txt for AI agent discovery
+    - sitemapmd  # /sitemap-md.xml lists .md twins for AI/markdown crawlers
 
 # Asset processing configuration for development
 build:

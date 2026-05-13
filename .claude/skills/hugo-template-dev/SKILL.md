@@ -77,6 +77,48 @@ timeout 15 npx hugo server --port 1315 2>&1 | grep -E "(error|Error|ERROR|fail|F
 
 If output is empty, no errors were detected.
 
+## Preparing template changes for PR review
+
+The repo's preview workflow (`.github/workflows/pr-preview.yml`) deploys only
+the pages listed in the PR description to a stable GitHub Pages preview URL —
+a targeted hosted preview that replaces "check out my branch and run
+`npx hugo server`" for reviewers.
+
+**When you change `layouts/`, `assets/`, or `data/`, list every page the
+reviewer should verify in the PR body.** The URL extractor
+(`.github/scripts/parse-pr-urls.js`) matches:
+
+- Production URLs (`https://docs.influxdata.com/<path>`)
+- Localhost URLs (`http://localhost:1313/<path>`)
+- Bare paths with a known product namespace from `data/products.yml`
+  (`/influxdb3/...`, `/telegraf/...`, etc.)
+
+**URLs inside fenced code blocks are stripped** before extraction — list them
+as bare paths or markdown links, not inside backtick fences. Pair each URL
+with an "Expected" column (DOM element, attribute value, copy) so the
+reviewer knows what to verify rather than guessing.
+
+For wider behavioral coverage (interactive UI, JS errors, navigation), prefer
+the cypress-e2e-testing skill. The preview-pages mechanism is the right tool
+for **visual / structural** verification — exactly the cases where Cypress is
+overkill or doesn't cover what changed.
+
+### Autodiscovery coherence guard (when touching Markdown-alternate paths)
+
+If your template change affects `<link rel="alternate" type="text/markdown">`,
+the `/sitemap-md.xml` layout, the `/llms.txt` template, or any of the inputs
+to `scripts/lib/corpus-paths.js` (notably `data/products.yml`), run after the
+full build:
+
+```bash
+npx hugo --quiet && yarn build:md && yarn build:llms-full && yarn check:md-coherence
+```
+
+`check:md-coherence` runs two coherence checks: head-link → `.md` file
+existence, and Hugo `/llms.txt` ↔ `getCorpusPaths()` agreement. Catches drift
+between Hugo template logic and the JS derivation from `products.yml`.
+See `DOCS-TESTING.md` "Autodiscovery coherence guard" for details.
+
 ## Common Hugo Template Errors
 
 ### 1. Accessing Hyphenated Keys
