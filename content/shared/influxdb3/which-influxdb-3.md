@@ -21,6 +21,7 @@ for migration guidance.
 | New production deployment | InfluxDB 3 Enterprise (Trial or Home license for evaluation) |
 | Free, open source, single-node | InfluxDB 3 Core |
 | Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
+| Hosted, managed, single-tenant InfluxDB 3 | See [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) (current managed single-tenant service) |
 | Running InfluxDB 1 or InfluxDB 2 today | Plan migration to InfluxDB 3 Enterprise |
 
 ## InfluxDB 3 Enterprise—the production answer
@@ -28,12 +29,15 @@ for migration guidance.
 InfluxDB 3 Enterprise is a diskless, object-storage-backed time series
 database delivered as a single binary. Deploy it where it fits:
 
-- **Self-managed**—your hardware or VMs, single or multi-node
-- **Managed** (currently [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/))—InfluxData operates it for you
-- **Kubernetes** (currently [InfluxDB Clustered](/influxdb3/clustered/))—you operate it on Kubernetes
+- **Self-managed on hardware or VMs**—single-node or multi-node
+- **Self-managed on Kubernetes**—your Kubernetes cluster
 
-All three deployment options run the same engine, the same APIs, and the same
+Both deployment options run the same engine, the same APIs, and the same
 Processing Engine.
+
+For a managed, single-tenant InfluxDB 3 service today, see
+[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) — a separate
+v3 product InfluxData operates for you.
 
 Choose Enterprise when you need:
 

@@ -38,7 +38,7 @@
     Choose Cloud Serverless for a multi-tenant, self-service cloud for
     smaller workloads (pay for what you use) or for continuity from
     InfluxDB Cloud (TSM). Choose Enterprise for the full v3 API surface,
-    Processing Engine, and dedicated deployment.
+    Processing Engine, and single-tenant deployment.
 
 - question: "Which query languages does InfluxDB 3 support?"
   answer: |

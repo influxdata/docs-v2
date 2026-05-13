@@ -10,7 +10,10 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
   beforeEach(() => cy.visit(url));
 
   it('uses the InfluxDB 3 documentation title (not <nil>)', function () {
-    cy.title().should('eq', 'Which InfluxDB 3 should I use? | InfluxDB 3 Documentation');
+    cy.title().should(
+      'eq',
+      'Which InfluxDB 3 should I use? | InfluxDB 3 Documentation'
+    );
   });
 
   it('renders the H1', function () {
@@ -21,7 +24,8 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
     const questions = [
       {
         text: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?",
-        anchor: 'whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3',
+        anchor:
+          'whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3',
       },
       {
         text: 'Should I start a new project on InfluxDB 1 or InfluxDB 2?',
@@ -37,7 +41,8 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       },
       {
         text: 'Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?',
-        anchor: 'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
+        anchor:
+          'is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise',
       },
       {
         text: 'Which query languages does InfluxDB 3 support?',
@@ -75,20 +80,23 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       .and('match', /\/influxdb3\/which-influxdb-3\/?$/);
   });
 
-  it('renders the decision table with the four "Your situation" rows', function () {
+  it('renders the decision table rows', function () {
     cy.contains('th', 'Your situation').should('exist');
     [
       'New production deployment',
       'Free, open source, single-node',
       'Multi-tenant, self-service cloud for smaller workloads',
+      'Hosted, managed, single-tenant InfluxDB 3',
       'Running InfluxDB 1 or InfluxDB 2 today',
     ].forEach((row) => cy.contains('td', row).should('exist'));
   });
 
   it('links to verified migration guide URLs', function () {
-    cy.get('a[href="/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/"]')
-      .should('exist');
-    cy.get('a[href="/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/"]')
-      .should('exist');
+    cy.get(
+      'a[href="/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/"]'
+    ).should('exist');
+    cy.get(
+      'a[href="/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/"]'
+    ).should('exist');
   });
 });
