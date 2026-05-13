@@ -76,7 +76,7 @@ Choose Cloud Serverless when:
 
 InfluxDB 1 and InfluxDB 2 are in maintenance and receive no new features.
 For new projects and for production workloads that need v3 features
-(SQL, Apache Arrow/Parquet, unlimited cardinality, Processing Engine),
+(SQL, object storage, unlimited cardinality, Processing Engine),
 plan a migration to InfluxDB 3 Enterprise.
 
 - [Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/)

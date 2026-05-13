@@ -1,21 +1,21 @@
 - question: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?"
   answer: |
     InfluxDB 3 is the current generation — a rewritten storage and query engine
-    based on Apache Arrow and Parquet, with SQL and InfluxQL as query languages.
-    InfluxDB 1 and InfluxDB 2 are previous generations in maintenance: v1 uses
-    the TSM storage engine and InfluxQL; v2 adds a new API surface. For new
-    projects, use InfluxDB 3.
+    based on Apache Arrow, DataFusion, and object storage, with SQL and InfluxQL
+    as query languages. InfluxDB 1 and InfluxDB 2 are previous generations in
+    maintenance: v1 uses the TSM storage engine and InfluxQL; v2 adds a new
+    API surface. For new projects, use InfluxDB 3.
 
 - question: "Should I start a new project on InfluxDB 1 or InfluxDB 2?"
   answer: |
     No. Start new projects on InfluxDB 3. InfluxDB 1 and 2 remain supported
-    for existing deployments but receive no new features. InfluxDB 3
-    Enterprise is the recommended target for production workloads.
+    for existing deployments. They receive improvements, but no new features.
+    InfluxDB 3 Enterprise is the recommended target for production workloads.
 
 - question: "I run InfluxDB 2 today — should I migrate to InfluxDB 3?"
   answer: |
-    Plan a migration when you need features only available in v3 (SQL, Apache
-    Arrow/Parquet storage, unlimited cardinality, the Processing Engine), or
+    Plan a migration when you need features only available in v3 (SQL,
+    object storage, unlimited cardinality, the Processing Engine), or
     when v2's maintenance status becomes a constraint. Migration paths exist
     from both InfluxDB 2 OSS and InfluxDB Cloud (TSM) to InfluxDB 3 Enterprise.
 
