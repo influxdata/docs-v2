@@ -16,6 +16,18 @@
  * See `.context/Screenshot 2025-11-13 at 11.39.13 AM.png` for reference.
  */
 
+import { getProductKeyFromPath } from '../utils/product-mappings.js';
+
+declare global {
+  interface Window {
+    gtag?: (
+      _command: 'event' | 'config' | 'set',
+      _targetId: string,
+      _config?: Record<string, unknown>
+    ) => void;
+  }
+}
+
 interface FormatSelectorConfig {
   pageType: 'leaf' | 'branch'; // Leaf = single page, Branch = section with children
   markdownUrl: string;
@@ -80,6 +92,27 @@ export default function FormatSelector(options: ComponentOptions) {
   if (!button || !dropdownMenu) {
     console.error('Format selector: Missing required elements');
     return;
+  }
+
+  const INTENT_EVENT_MAP: Record<string, string> = {
+    'open-chatgpt': 'open_chatgpt',
+    'open-claude': 'open_claude',
+    'connect-mcp-docs': 'connect_mcp',
+  };
+
+  function emitFormatEvent(
+    action: string,
+    extras: Record<string, unknown> = {}
+  ): void {
+    if (typeof window.gtag === 'undefined') return;
+    const pagePath = window.location.pathname;
+    window.gtag('event', 'ai_format_action', {
+      action,
+      page_type: config.pageType,
+      page_path: pagePath,
+      product: getProductKeyFromPath(pagePath) ?? null,
+      ...extras,
+    });
   }
 
   /**
