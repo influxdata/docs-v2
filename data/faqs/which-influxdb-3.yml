@@ -38,7 +38,9 @@
 - question: "Which query languages does InfluxDB 3 support?"
   answer: |
     SQL and InfluxQL. SQL is the primary query language; InfluxQL is supported
-    for compatibility with InfluxDB 1 and 2 workloads.
+    for compatibility with InfluxDB 1 and 2 workloads. **Flux is not a
+    supported query language in InfluxDB 3.** If you currently use Flux on
+    InfluxDB 2, plan to migrate your queries to SQL.
 
 - question: "Where does InfluxDB 3 Explorer fit?"
   answer: |

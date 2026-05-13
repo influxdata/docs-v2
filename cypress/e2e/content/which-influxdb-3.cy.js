@@ -78,9 +78,9 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
   it('renders the decision table with the four "Your situation" rows', function () {
     cy.contains('th', 'Your situation').should('exist');
     [
-      'Building a new production deployment',
-      'Evaluating v3, single node, open source',
-      'Existing InfluxDB Cloud (TSM) customer',
+      'New production deployment',
+      'Free, open source, single-node',
+      'Managed multi-tenant cloud',
       'Running InfluxDB 1 or InfluxDB 2 today',
     ].forEach((row) => cy.contains('td', row).should('exist'));
   });

@@ -2,20 +2,25 @@
 {{< children type="articles" hlevel="h2" filterOut="Which InfluxDB 3 should I use?" >}}
 
 For new production workloads, use **InfluxDB 3 Enterprise**.
-Start with **InfluxDB 3 Core** to evaluate the v3 engine.
-Choose **Cloud Serverless** only if you are an existing InfluxDB Cloud (TSM)
-customer or need pay-as-you-go multi-tenant cloud usage.
-InfluxDB 1 and InfluxDB 2 are in maintenance—migrate new and existing
-production workloads to InfluxDB 3.
+A Trial or Home license lets you evaluate Enterprise before purchasing.
+
+**InfluxDB 3 Core** is the free, open-source, single-node release of the v3
+engine. Choose Core for non-production, edge, or single-node deployments.
+
+Choose **InfluxDB 3 Cloud Serverless** for managed multi-tenant cloud usage,
+or to continue from InfluxDB Cloud (TSM).
+
+**InfluxDB 1 and InfluxDB 2** are in maintenance. Build new workloads on
+InfluxDB 3 and plan migrations for existing v1 and v2 deployments.
 
 ## The short answer
 
 | Your situation | Use this |
 |---|---|
-| Building a new production deployment | InfluxDB 3 Enterprise |
-| Evaluating v3, single node, open source | InfluxDB 3 Core |
-| Existing InfluxDB Cloud (TSM) customer | InfluxDB 3 Cloud Serverless |
-| Running InfluxDB 1 or InfluxDB 2 today | Migrate to InfluxDB 3 Enterprise |
+| New production deployment | InfluxDB 3 Enterprise (Trial or Home license for evaluation) |
+| Free, open source, single-node | InfluxDB 3 Core |
+| Managed multi-tenant cloud, or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
+| Running InfluxDB 1 or InfluxDB 2 today | Plan migration to InfluxDB 3 Enterprise |
 
 ## InfluxDB 3 Enterprise—the production answer
 
@@ -40,9 +45,9 @@ Choose Enterprise when you need:
 
 ## InfluxDB 3 Core—open source, single-node
 
-InfluxDB 3 Core is the open source, single-node release of the v3 engine.
-Use Core to evaluate v3, run edge or non-critical workloads, or develop
-against the v3 APIs before deploying Enterprise.
+InfluxDB 3 Core is the free, open-source, single-node release of the v3
+engine. Use Core for edge or non-critical workloads, or to develop against
+the v3 APIs.
 
 Choose Core when:
 
@@ -50,8 +55,9 @@ Choose Core when:
 - A single node meets your throughput and availability requirements
 - You want to develop and test against the native v3 write and query APIs
 
-Upgrade to Enterprise when you need high availability, replicas, or
-long-range compaction.
+If you want to evaluate Enterprise features (high availability, replicas,
+long-range compaction), use an Enterprise Trial or Home license instead.
+Upgrade from Core to Enterprise when you need those features in production.
 
 [Get started with InfluxDB 3 Core](/influxdb3/core/get-started/)
 
@@ -74,9 +80,9 @@ Choose Cloud Serverless when:
 
 ## Coming from InfluxDB 1 or InfluxDB 2?
 
-InfluxDB 1 and InfluxDB 2 are in maintenance and receive no new features.
-For new projects and for production workloads that need v3 features
-(SQL, object storage, unlimited cardinality, Processing Engine),
+InfluxDB 1 and InfluxDB 2 are in maintenance and don't receive InfluxDB 3
+features. For new projects and for production workloads that need v3
+features (SQL, object storage, unlimited cardinality, Processing Engine),
 plan a migration to InfluxDB 3 Enterprise.
 
 - [Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/)
