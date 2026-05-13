@@ -785,11 +785,13 @@
 
 
 <p>For new production workloads, use <strong>InfluxDB 3 Enterprise</strong>.
-Start with <strong>InfluxDB 3 Core</strong> to evaluate the v3 engine.
-Choose <strong>Cloud Serverless</strong> only if you are an existing InfluxDB Cloud (TSM)
-customer or need pay-as-you-go multi-tenant cloud usage.
-InfluxDB 1 and InfluxDB 2 are in maintenance—migrate new and existing
-production workloads to InfluxDB 3.</p>
+A Trial or Home license lets you evaluate Enterprise before purchasing.</p>
+<p><strong>InfluxDB 3 Core</strong> is the free, open-source, single-node release of the v3
+engine. Choose Core for non-production, edge, or single-node deployments.</p>
+<p>Choose <strong>InfluxDB 3 Cloud Serverless</strong> for managed multi-tenant cloud usage,
+or to continue from InfluxDB Cloud (TSM).</p>
+<p><strong>InfluxDB 1 and InfluxDB 2</strong> are in maintenance. Build new workloads on
+InfluxDB 3 and plan migrations for existing v1 and v2 deployments.</p>
 <h2 id="the-short-answer">The short answer</h2>
 <table>
   <thead>
@@ -800,20 +802,20 @@ production workloads to InfluxDB 3.</p>
   </thead>
   <tbody>
       <tr>
-          <td>Building a new production deployment</td>
-          <td>InfluxDB 3 Enterprise</td>
+          <td>New production deployment</td>
+          <td>InfluxDB 3 Enterprise (Trial or Home license for evaluation)</td>
       </tr>
       <tr>
-          <td>Evaluating v3, single node, open source</td>
+          <td>Free, open source, single-node</td>
           <td>InfluxDB 3 Core</td>
       </tr>
       <tr>
-          <td>Existing InfluxDB Cloud (TSM) customer</td>
+          <td>Managed multi-tenant cloud, or continuing from InfluxDB Cloud (TSM)</td>
           <td>InfluxDB 3 Cloud Serverless</td>
       </tr>
       <tr>
           <td>Running InfluxDB 1 or InfluxDB 2 today</td>
-          <td>Migrate to InfluxDB 3 Enterprise</td>
+          <td>Plan migration to InfluxDB 3 Enterprise</td>
       </tr>
   </tbody>
 </table>
@@ -836,17 +838,18 @@ Processing Engine.</p>
 </ul>
 <p><a href="/influxdb3/enterprise/get-started/">Get started with InfluxDB 3 Enterprise</a></p>
 <h2 id="influxdb-3-coreopen-source-single-node">InfluxDB 3 Core—open source, single-node</h2>
-<p>InfluxDB 3 Core is the open source, single-node release of the v3 engine.
-Use Core to evaluate v3, run edge or non-critical workloads, or develop
-against the v3 APIs before deploying Enterprise.</p>
+<p>InfluxDB 3 Core is the free, open-source, single-node release of the v3
+engine. Use Core for edge or non-critical workloads, or to develop against
+the v3 APIs.</p>
 <p>Choose Core when:</p>
 <ul>
 <li>You need a free, open source v3 database</li>
 <li>A single node meets your throughput and availability requirements</li>
 <li>You want to develop and test against the native v3 write and query APIs</li>
 </ul>
-<p>Upgrade to Enterprise when you need high availability, replicas, or
-long-range compaction.</p>
+<p>If you want to evaluate Enterprise features (high availability, replicas,
+long-range compaction), use an Enterprise Trial or Home license instead.
+Upgrade from Core to Enterprise when you need those features in production.</p>
 <p><a href="/influxdb3/core/get-started/">Get started with InfluxDB 3 Core</a></p>
 <h2 id="influxdb-3-cloud-serverlessmulti-tenant-usage-based">InfluxDB 3 Cloud Serverless—multi-tenant, usage-based</h2>
 <p>InfluxDB 3 Cloud Serverless is a multi-tenant cloud service. It runs on the
@@ -864,10 +867,16 @@ v3 storage engine but exposes a different API surface than Core and Enterprise:<
 </ul>
 <p><a href="/influxdb3/cloud-serverless/get-started/">Get started with InfluxDB 3 Cloud Serverless</a></p>
 <h2 id="coming-from-influxdb-1-or-influxdb-2">Coming from InfluxDB 1 or InfluxDB 2?</h2>
-<p>InfluxDB 1 and InfluxDB 2 are in maintenance and receive no new features.
-For new projects and for production workloads that need v3 features
-(SQL, object storage, unlimited cardinality, Processing Engine),
+<p>InfluxDB 1 and InfluxDB 2 are in maintenance and don&rsquo;t receive InfluxDB 3
+features. For new projects and for production workloads that need v3
+features (SQL, object storage, unlimited cardinality, Processing Engine),
 plan a migration to InfluxDB 3 Enterprise.</p>
+<p>If you rely on <strong>Flux</strong> queries today, your migration target affects
+compatibility: InfluxDB 3 Cloud Serverless preserves Flux query support,
+while Core, Enterprise, Cloud Dedicated, and Clustered support SQL and
+InfluxQL only. See
+<a href="#which-query-languages-does-influxdb-3-support">Which query languages does InfluxDB 3 support?</a>
+for the full picture.</p>
 <ul>
 <li><a href="/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/">Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise</a></li>
 <li><a href="/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/">Migrate from InfluxDB 1 to InfluxDB 3 Core</a></li>
@@ -877,10 +886,12 @@ plan a migration to InfluxDB 3 Enterprise.</p>
 <h2 id="whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3">What&#39;s the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?</h2>
 <div class="faq-answer">
 <p>InfluxDB 3 is the current generation — a rewritten storage and query engine
-based on Apache Arrow, DataFusion, and object storage, with SQL and InfluxQL
-as query languages. InfluxDB 1 and InfluxDB 2 are previous generations in
-maintenance: v1 uses the TSM storage engine and InfluxQL; v2 adds a new
-API surface. For new projects, use InfluxDB 3.</p>
+based on Apache Arrow, DataFusion, and object storage. v3 supports SQL and
+InfluxQL; InfluxDB 3 Cloud Serverless additionally supports Flux for
+InfluxDB Cloud (TSM) compatibility. InfluxDB 1 and InfluxDB 2 are previous
+generations in maintenance: v1 uses the TSM storage engine and supports
+InfluxQL and Flux; v2 adds a new API surface and also supports InfluxQL
+and Flux. For new projects, use InfluxDB 3.</p>
 
 </div>
 <h2 id="should-i-start-a-new-project-on-influxdb-1-or-influxdb-2">Should I start a new project on InfluxDB 1 or InfluxDB 2?</h2>
@@ -908,18 +919,25 @@ compatible. Migration guides cover InfluxDB 1 OSS and InfluxDB Enterprise
 </div>
 <h2 id="is-influxdb-3-cloud-serverless-the-same-as-influxdb-3-enterprise">Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?</h2>
 <div class="faq-answer">
-<p>No. Cloud Serverless runs on the v3 storage engine but exposes a different
-API surface — it does not provide the native v3 write API or the Processing
-Engine, and uses v1/v2-compatible endpoints. Choose Cloud Serverless for
-pay-as-you-go multi-tenant cloud usage or continuity from InfluxDB Cloud
-(TSM). Choose Enterprise for the full v3 API surface, Processing Engine,
-and dedicated deployment.</p>
+<p>No. Cloud Serverless runs on the v3 storage engine but has a different
+API surface: it uses v1/v2-compatible write endpoints (no native v3
+write API), has no Processing Engine, and supports <strong>SQL, InfluxQL,
+and Flux</strong>. InfluxDB 3 Enterprise supports SQL and InfluxQL (no Flux),
+provides the native v3 write API, and includes the Processing Engine.
+Choose Cloud Serverless for managed multi-tenant cloud or continuity
+from InfluxDB Cloud (TSM). Choose Enterprise for the full v3 API surface,
+Processing Engine, and dedicated deployment.</p>
 
 </div>
 <h2 id="which-query-languages-does-influxdb-3-support">Which query languages does InfluxDB 3 support?</h2>
 <div class="faq-answer">
-<p>SQL and InfluxQL. SQL is the primary query language; InfluxQL is supported
-for compatibility with InfluxDB 1 and 2 workloads.</p>
+<p>SQL and InfluxQL on InfluxDB 3 Core, Enterprise, Cloud Dedicated, and
+Clustered. <strong>InfluxDB 3 Cloud Serverless</strong> also supports Flux for
+compatibility with InfluxDB Cloud (TSM). SQL is the primary query
+language across all InfluxDB 3 products.</p>
+<p>If you use Flux on InfluxDB Cloud (TSM) or InfluxDB 2 OSS and want
+to preserve Flux query compatibility, migrate to InfluxDB 3 Cloud
+Serverless. Otherwise, rewrite Flux queries to SQL or InfluxQL.</p>
 
 </div>
 <h2 id="where-does-influxdb-3-explorer-fit">Where does InfluxDB 3 Explorer fit?</h2>
