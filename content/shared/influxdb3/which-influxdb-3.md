@@ -7,11 +7,12 @@ A Trial or Home license lets you evaluate Enterprise before purchasing.
 **InfluxDB 3 Core** is the free, open-source, single-node release of the v3
 engine. Choose Core for non-production, edge, or single-node deployments.
 
-Choose **InfluxDB 3 Cloud Serverless** for managed multi-tenant cloud usage,
-or to continue from InfluxDB Cloud (TSM).
+Choose **InfluxDB 3 Cloud Serverless** for a multi-tenant, self-service
+cloud — pay for what you use — or to continue from InfluxDB Cloud (TSM).
 
 **InfluxDB 1 and InfluxDB 2** are in maintenance. Build new workloads on
-InfluxDB 3 and plan migrations for existing v1 and v2 deployments.
+InfluxDB 3; see [Coming from InfluxDB 1 or InfluxDB 2?](#coming-from-influxdb-1-or-influxdb-2)
+for migration guidance.
 
 ## The short answer
 
@@ -19,7 +20,7 @@ InfluxDB 3 and plan migrations for existing v1 and v2 deployments.
 |---|---|
 | New production deployment | InfluxDB 3 Enterprise (Trial or Home license for evaluation) |
 | Free, open source, single-node | InfluxDB 3 Core |
-| Managed multi-tenant cloud, or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
+| Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
 | Running InfluxDB 1 or InfluxDB 2 today | Plan migration to InfluxDB 3 Enterprise |
 
 ## InfluxDB 3 Enterprise—the production answer
@@ -61,10 +62,11 @@ Upgrade from Core to Enterprise when you need those features in production.
 
 [Get started with InfluxDB 3 Core](/influxdb3/core/get-started/)
 
-## InfluxDB 3 Cloud Serverless—multi-tenant, usage-based
+## InfluxDB 3 Cloud Serverless—multi-tenant, self-service cloud
 
-InfluxDB 3 Cloud Serverless is a multi-tenant cloud service. It runs on the
-v3 storage engine but exposes a different API surface than Core and Enterprise:
+InfluxDB 3 Cloud Serverless is a multi-tenant, self-service cloud for
+smaller workloads — pay for what you use. It runs on the v3 storage engine
+but exposes a different API surface than Core and Enterprise:
 
 - No native v3 write API—use v1 and v2 compatibility endpoints
 - No Processing Engine
@@ -73,7 +75,8 @@ v3 storage engine but exposes a different API surface than Core and Enterprise:
 Choose Cloud Serverless when:
 
 - You are an existing InfluxDB Cloud (TSM) customer
-- You want pay-as-you-go multi-tenant cloud usage
+- You want a multi-tenant, self-service cloud and pay only for what you use
+- Your workload is small enough for a multi-tenant environment
 - You do not need the native v3 API surface or the Processing Engine
 
 [Get started with InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/get-started/)

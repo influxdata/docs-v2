@@ -35,8 +35,9 @@
     write API), has no Processing Engine, and supports **SQL, InfluxQL,
     and Flux**. InfluxDB 3 Enterprise supports SQL and InfluxQL (no Flux),
     provides the native v3 write API, and includes the Processing Engine.
-    Choose Cloud Serverless for managed multi-tenant cloud or continuity
-    from InfluxDB Cloud (TSM). Choose Enterprise for the full v3 API surface,
+    Choose Cloud Serverless for a multi-tenant, self-service cloud for
+    smaller workloads (pay for what you use) or for continuity from
+    InfluxDB Cloud (TSM). Choose Enterprise for the full v3 API surface,
     Processing Engine, and dedicated deployment.
 
 - question: "Which query languages does InfluxDB 3 support?"
