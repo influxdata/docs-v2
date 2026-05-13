@@ -286,4 +286,32 @@ describe('LLM Format Selector', () => {
         });
     });
   });
+
+  describe('GA4 events (ai_format_action)', () => {
+    function stubGtag(win) {
+      win.gtag = cy.stub().as('gtag');
+    }
+
+    function stubClipboardSuccess(win) {
+      cy.stub(win.navigator.clipboard, 'writeText').resolves();
+    }
+
+    it('emits copy_page_md on successful page copy', () => {
+      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
+      cy.window().then(stubClipboardSuccess);
+      cy.get('[data-component="format-selector"] button').click();
+      cy.get('[data-option="copy-page"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_page_md',
+          page_type: 'leaf',
+          page_path: LEAF_PAGE_URL,
+          product: 'influxdb3_core',
+        })
+      );
+    });
+  });
 });
