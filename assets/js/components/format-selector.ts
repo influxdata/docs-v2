@@ -244,6 +244,7 @@ export default function FormatSelector(options: ComponentOptions) {
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
       showNotification('Failed to copy to clipboard', 'error');
+      throw error;
     }
   }
 

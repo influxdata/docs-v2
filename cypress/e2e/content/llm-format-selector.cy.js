@@ -288,18 +288,30 @@ describe('LLM Format Selector', () => {
   });
 
   describe('GA4 events (ai_format_action)', () => {
-    function stubGtag(win) {
-      win.gtag = cy.stub().as('gtag');
+    // Stub window.gtag AFTER page load so GA4's own gtag.js doesn't overwrite it.
+    function stubGtag() {
+      cy.window().then((win) => {
+        win.gtag = cy.stub().as('gtag');
+      });
     }
 
-    function stubClipboardSuccess(win) {
-      cy.stub(win.navigator.clipboard, 'writeText').resolves();
+    function stubClipboardSuccess() {
+      cy.window().then((win) => {
+        cy.stub(win.navigator.clipboard, 'writeText').resolves();
+      });
+    }
+
+    function openDropdown() {
+      cy.get(
+        '[data-component="format-selector"] .format-selector__button'
+      ).click();
     }
 
     it('emits copy_page_md on successful page copy', () => {
-      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
-      cy.window().then(stubClipboardSuccess);
-      cy.get('[data-component="format-selector"] button').click();
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      stubClipboardSuccess();
+      openDropdown();
       cy.get('[data-option="copy-page"]').click();
       cy.get('@gtag').should(
         'have.been.calledWith',
@@ -315,10 +327,11 @@ describe('LLM Format Selector', () => {
     });
 
     it('emits copy_section_md on successful section copy', () => {
-      cy.visit(SMALL_SECTION_URL, { onBeforeLoad: stubGtag });
+      cy.visit(SMALL_SECTION_URL);
       cy.intercept('GET', '**/index.section.md', { body: '# stub\n' });
-      cy.window().then(stubClipboardSuccess);
-      cy.get('[data-component="format-selector"] button').click();
+      stubGtag();
+      stubClipboardSuccess();
+      openDropdown();
       cy.get('[data-option="copy-section"]').click();
       cy.get('@gtag').should(
         'have.been.calledWith',
@@ -332,13 +345,14 @@ describe('LLM Format Selector', () => {
     });
 
     it('emits copy_failed when clipboard write rejects', () => {
-      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
       cy.window().then((win) => {
         cy.stub(win.navigator.clipboard, 'writeText').rejects(
           new Error('denied')
         );
       });
-      cy.get('[data-component="format-selector"] button').click();
+      openDropdown();
       cy.get('[data-option="copy-page"]').click();
       cy.get('@gtag').should(
         'have.been.calledWith',
@@ -352,8 +366,9 @@ describe('LLM Format Selector', () => {
     });
 
     it('emits open_chatgpt when ChatGPT option is clicked', () => {
-      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
-      cy.get('[data-component="format-selector"] button').click();
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
       cy.get('[data-option="open-chatgpt"]').then(($el) => {
         // Prevent actual navigation; we only care about the emit.
         $el.on('click', (e) => e.preventDefault());
@@ -368,8 +383,9 @@ describe('LLM Format Selector', () => {
     });
 
     it('emits open_claude when Claude option is clicked', () => {
-      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
-      cy.get('[data-component="format-selector"] button').click();
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
       cy.get('[data-option="open-claude"]').then(($el) => {
         $el.on('click', (e) => e.preventDefault());
       });
