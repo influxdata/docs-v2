@@ -313,5 +313,42 @@ describe('LLM Format Selector', () => {
         })
       );
     });
+
+    it('emits copy_section_md on successful section copy', () => {
+      cy.visit(SMALL_SECTION_URL, { onBeforeLoad: stubGtag });
+      cy.intercept('GET', '**/index.section.md', { body: '# stub\n' });
+      cy.window().then(stubClipboardSuccess);
+      cy.get('[data-component="format-selector"] button').click();
+      cy.get('[data-option="copy-section"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_section_md',
+          page_type: 'branch',
+        })
+      );
+    });
+
+    it('emits copy_failed when clipboard write rejects', () => {
+      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
+      cy.window().then((win) => {
+        cy.stub(win.navigator.clipboard, 'writeText').rejects(
+          new Error('denied')
+        );
+      });
+      cy.get('[data-component="format-selector"] button').click();
+      cy.get('[data-option="copy-page"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({
+          action: 'copy_failed',
+          action_target: 'copy_page_md',
+        })
+      );
+    });
   });
 });

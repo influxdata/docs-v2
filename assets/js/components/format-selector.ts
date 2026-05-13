@@ -305,10 +305,12 @@ export default function FormatSelector(options: ComponentOptions) {
 
       const markdown = await response.text();
       await copyToClipboard(markdown);
+      emitFormatEvent('copy_section_md');
       showNotification('Section copied to clipboard', 'success');
       closeDropdown();
     } catch (error) {
       console.error('Failed to copy section:', error);
+      emitFormatEvent('copy_failed', { action_target: 'copy_section_md' });
       showNotification('Failed to copy section', 'error');
     }
   }
