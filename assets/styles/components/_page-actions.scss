@@ -1,0 +1,76 @@
+/**
+ * Page Actions
+ *
+ * Container for article-level action UI (format selector, plugin links, etc.)
+ * shown in the page title area. All children — `<button>`, `<a>`, or component
+ * roots — share a single visual language inspired by `.format-selector__button`:
+ * neutral background, subtle border, light shadow, small text.
+ *
+ * The container is right-aligned and wraps to a column on narrow viewports.
+ */
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+
+  // The format selector has its own auto-margin for right-alignment in other
+  // contexts. Inside `.page-actions`, the flex container does the alignment.
+  .format-selector {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  // Restyle the legacy `a.btn` used by Telegraf plugin links so it matches
+  // the subtle look of `.format-selector__button`. Specificity beats
+  // `a.btn` (article/_buttons.scss); the `!important` on `color` is required
+  // to override `color: $article-btn-text !important` set there.
+  a.btn {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    background: $sidebar-search-bg;
+    color: $article-text !important;
+    border: 1px solid $nav-border;
+    border-radius: 2rem;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px $sidebar-search-shadow;
+    transition: all 0.2s ease;
+
+    // Neutralize the gradient overlay from `a.btn:after`.
+    &:after {
+      display: none;
+    }
+
+    &:hover {
+      border-color: $sidebar-search-highlight;
+      box-shadow: 1px 1px 6px rgba($sidebar-search-highlight, 0.5);
+    }
+
+    &:focus {
+      outline: 2px solid $sidebar-search-highlight;
+      outline-offset: 2px;
+    }
+
+    // Tone the icomoon icons (`.btn.github:before`, `.btn.download:before`)
+    // down to match the smaller button scale.
+    &:before {
+      font-size: 1rem;
+      margin-right: 0;
+      color: $nav-item;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-actions {
+    justify-content: flex-start;
+    margin-top: 1rem;
+  }
+}
