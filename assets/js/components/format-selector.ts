@@ -280,9 +280,11 @@ export default function FormatSelector(options: ComponentOptions) {
     try {
       const markdown = await fetchMarkdownContent();
       await copyToClipboard(markdown);
+      emitFormatEvent('copy_page_md');
       closeDropdown();
     } catch (error) {
       console.error('Failed to copy page:', error);
+      emitFormatEvent('copy_failed', { action_target: 'copy_page_md' });
     }
   }
 
