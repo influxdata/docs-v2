@@ -350,5 +350,36 @@ describe('LLM Format Selector', () => {
         })
       );
     });
+
+    it('emits open_chatgpt when ChatGPT option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
+      cy.get('[data-component="format-selector"] button').click();
+      cy.get('[data-option="open-chatgpt"]').then(($el) => {
+        // Prevent actual navigation; we only care about the emit.
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="open-chatgpt"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'open_chatgpt' })
+      );
+    });
+
+    it('emits open_claude when Claude option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL, { onBeforeLoad: stubGtag });
+      cy.get('[data-component="format-selector"] button').click();
+      cy.get('[data-option="open-claude"]').then(($el) => {
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="open-claude"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'open_claude' })
+      );
+    });
   });
 });

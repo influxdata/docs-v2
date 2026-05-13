@@ -536,6 +536,10 @@ export default function FormatSelector(options: ComponentOptions) {
       `;
 
       optionEl.addEventListener('click', (e) => {
+        const intentEvent = INTENT_EVENT_MAP[option.dataAttribute];
+        if (intentEvent) {
+          emitFormatEvent(intentEvent);
+        }
         if (!option.href) {
           e.preventDefault();
           option.action();
