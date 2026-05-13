@@ -107,7 +107,7 @@ describe('GA4 events (ai_format_action)', () => {
 Run:
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js" --grep "emits copy_page_md"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js" --grep "emits copy_page_md"
 ```
 
 Expected: FAIL — gtag stub is never invoked because `emitFormatEvent` does not exist yet.
@@ -220,7 +220,7 @@ async function handleCopyPage(): Promise<void> {
 - [ ] **Step 2: Run the Cypress test from Task 1 to verify it now passes**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js" --grep "emits copy_page_md"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js" --grep "emits copy_page_md"
 ```
 
 Expected: PASS.
@@ -286,7 +286,7 @@ Inside the `describe('GA4 events (ai_format_action)', ...)` block from Task 1, a
 - [ ] **Step 2: Run the new tests to verify they fail**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js"
 ```
 
 Expected: FAIL — `copy_section_md` never emitted; `copy_failed` already passes for page-copy because Task 3 wired it (note this in commit if so — the section/failure test pair is bundled because they share the catch-path code).
@@ -323,7 +323,7 @@ async function handleCopySection(): Promise<void> {
 - [ ] **Step 4: Run tests again to verify both pass**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js"
 ```
 
 Expected: all three GA4 tests so far (`copy_page_md`, `copy_section_md`, `copy_failed`) PASS.
@@ -385,7 +385,7 @@ Append to the `describe('GA4 events (ai_format_action)', ...)` block:
 - [ ] **Step 2: Verify the new tests fail**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js"
 ```
 
 Expected: the two new tests FAIL — `gtag` stub never invoked for these options.
@@ -433,7 +433,7 @@ const INTENT_EVENT_MAP: Record<string, string> = {
 - [ ] **Step 4: Run all GA4 tests to verify everything passes**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js"
 ```
 
 Expected: all GA4 tests PASS; existing non-GA4 tests in the spec continue to PASS.
@@ -480,7 +480,7 @@ Especially: clicking "Copy page" should produce exactly one `ai_format_action` e
 - [ ] **Step 5: Stop Hugo, run the full Cypress GA4 suite one last time**
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/llm-format-selector.cy.js"
 ```
 
 Expected: all tests in the spec PASS.
@@ -490,7 +490,11 @@ Expected: all tests in the spec PASS.
 Run the broader Cypress suite (or at minimum the spec files that touch overlapping UI):
 
 ```sh
-node cypress/support/run-e2e-specs.js --spec "cypress/e2e/content/code-controls.cy.js,cypress/e2e/content/llm-format-selector.cy.js"
+node cypress/support/run-e2e-specs.js --no-mapping --spec "cypress/e2e/content/code-controls.cy.js,cypress/e2e/content/llm-format-selector.cy.js"
+
+# Fallback if port 1315 is occupied (bypass the harness's Hugo auto-start):
+npx hugo server --environment testing --port 1322 --noHTTPCache --disableFastRender &
+npx cypress run --spec "cypress/e2e/content/llm-format-selector.cy.js" --config baseUrl=http://localhost:1322
 ```
 
 Expected: all PASS.

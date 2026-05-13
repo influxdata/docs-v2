@@ -397,5 +397,21 @@ describe('LLM Format Selector', () => {
         Cypress.sinon.match({ action: 'open_claude' })
       );
     });
+
+    it('emits connect_mcp when MCP option is clicked', () => {
+      cy.visit(LEAF_PAGE_URL);
+      stubGtag();
+      openDropdown();
+      cy.get('[data-option="connect-mcp-docs"]').then(($el) => {
+        $el.on('click', (e) => e.preventDefault());
+      });
+      cy.get('[data-option="connect-mcp-docs"]').click();
+      cy.get('@gtag').should(
+        'have.been.calledWith',
+        'event',
+        'ai_format_action',
+        Cypress.sinon.match({ action: 'connect_mcp' })
+      );
+    });
   });
 });
