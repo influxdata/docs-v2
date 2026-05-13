@@ -866,7 +866,7 @@ v3 storage engine but exposes a different API surface than Core and Enterprise:<
 <h2 id="coming-from-influxdb-1-or-influxdb-2">Coming from InfluxDB 1 or InfluxDB 2?</h2>
 <p>InfluxDB 1 and InfluxDB 2 are in maintenance and receive no new features.
 For new projects and for production workloads that need v3 features
-(SQL, Apache Arrow/Parquet, unlimited cardinality, Processing Engine),
+(SQL, object storage, unlimited cardinality, Processing Engine),
 plan a migration to InfluxDB 3 Enterprise.</p>
 <ul>
 <li><a href="/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/">Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise</a></li>
@@ -877,23 +877,23 @@ plan a migration to InfluxDB 3 Enterprise.</p>
 <h2 id="whats-the-difference-between-influxdb-1-influxdb-2-and-influxdb-3">What&#39;s the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?</h2>
 <div class="faq-answer">
 <p>InfluxDB 3 is the current generation — a rewritten storage and query engine
-based on Apache Arrow and Parquet, with SQL and InfluxQL as query languages.
-InfluxDB 1 and InfluxDB 2 are previous generations in maintenance: v1 uses
-the TSM storage engine and InfluxQL; v2 adds a new API surface. For new
-projects, use InfluxDB 3.</p>
+based on Apache Arrow, DataFusion, and object storage, with SQL and InfluxQL
+as query languages. InfluxDB 1 and InfluxDB 2 are previous generations in
+maintenance: v1 uses the TSM storage engine and InfluxQL; v2 adds a new
+API surface. For new projects, use InfluxDB 3.</p>
 
 </div>
 <h2 id="should-i-start-a-new-project-on-influxdb-1-or-influxdb-2">Should I start a new project on InfluxDB 1 or InfluxDB 2?</h2>
 <div class="faq-answer">
 <p>No. Start new projects on InfluxDB 3. InfluxDB 1 and 2 remain supported
-for existing deployments but receive no new features. InfluxDB 3
-Enterprise is the recommended target for production workloads.</p>
+for existing deployments. They receive improvements, but no new features.
+InfluxDB 3 Enterprise is the recommended target for production workloads.</p>
 
 </div>
 <h2 id="i-run-influxdb-2-today--should-i-migrate-to-influxdb-3">I run InfluxDB 2 today — should I migrate to InfluxDB 3?</h2>
 <div class="faq-answer">
-<p>Plan a migration when you need features only available in v3 (SQL, Apache
-Arrow/Parquet storage, unlimited cardinality, the Processing Engine), or
+<p>Plan a migration when you need features only available in v3 (SQL,
+object storage, unlimited cardinality, the Processing Engine), or
 when v2&rsquo;s maintenance status becomes a constraint. Migration paths exist
 from both InfluxDB 2 OSS and InfluxDB Cloud (TSM) to InfluxDB 3 Enterprise.</p>
 
