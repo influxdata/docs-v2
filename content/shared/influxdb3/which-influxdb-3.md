@@ -85,6 +85,13 @@ features. For new projects and for production workloads that need v3
 features (SQL, object storage, unlimited cardinality, Processing Engine),
 plan a migration to InfluxDB 3 Enterprise.
 
+If you rely on **Flux** queries today, your migration target affects
+compatibility: InfluxDB 3 Cloud Serverless preserves Flux query support,
+while Core, Enterprise, Cloud Dedicated, and Clustered support SQL and
+InfluxQL only. See
+[Which query languages does InfluxDB 3 support?](#which-query-languages-does-influxdb-3-support)
+for the full picture.
+
 - [Migrate from InfluxDB 1 or 2 to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/)
 - [Migrate from InfluxDB 1 to InfluxDB 3 Core](/influxdb3/core/get-started/migrate-from-influxdb-v1-v2/)
 

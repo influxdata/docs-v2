@@ -1,10 +1,12 @@
 - question: "What's the difference between InfluxDB 1, InfluxDB 2, and InfluxDB 3?"
   answer: |
     InfluxDB 3 is the current generation — a rewritten storage and query engine
-    based on Apache Arrow, DataFusion, and object storage, with SQL and InfluxQL
-    as query languages. InfluxDB 1 and InfluxDB 2 are previous generations in
-    maintenance: v1 uses the TSM storage engine and InfluxQL; v2 adds a new
-    API surface. For new projects, use InfluxDB 3.
+    based on Apache Arrow, DataFusion, and object storage. v3 supports SQL and
+    InfluxQL; InfluxDB 3 Cloud Serverless additionally supports Flux for
+    InfluxDB Cloud (TSM) compatibility. InfluxDB 1 and InfluxDB 2 are previous
+    generations in maintenance: v1 uses the TSM storage engine and supports
+    InfluxQL and Flux; v2 adds a new API surface and also supports InfluxQL
+    and Flux. For new projects, use InfluxDB 3.
 
 - question: "Should I start a new project on InfluxDB 1 or InfluxDB 2?"
   answer: |
@@ -28,19 +30,25 @@
 
 - question: "Is InfluxDB 3 Cloud Serverless the same as InfluxDB 3 Enterprise?"
   answer: |
-    No. Cloud Serverless runs on the v3 storage engine but exposes a different
-    API surface — it does not provide the native v3 write API or the Processing
-    Engine, and uses v1/v2-compatible endpoints. Choose Cloud Serverless for
-    pay-as-you-go multi-tenant cloud usage or continuity from InfluxDB Cloud
-    (TSM). Choose Enterprise for the full v3 API surface, Processing Engine,
-    and dedicated deployment.
+    No. Cloud Serverless runs on the v3 storage engine but has a different
+    API surface: it uses v1/v2-compatible write endpoints (no native v3
+    write API), has no Processing Engine, and supports **SQL, InfluxQL,
+    and Flux**. InfluxDB 3 Enterprise supports SQL and InfluxQL (no Flux),
+    provides the native v3 write API, and includes the Processing Engine.
+    Choose Cloud Serverless for managed multi-tenant cloud or continuity
+    from InfluxDB Cloud (TSM). Choose Enterprise for the full v3 API surface,
+    Processing Engine, and dedicated deployment.
 
 - question: "Which query languages does InfluxDB 3 support?"
   answer: |
-    SQL and InfluxQL. SQL is the primary query language; InfluxQL is supported
-    for compatibility with InfluxDB 1 and 2 workloads. **Flux is not a
-    supported query language in InfluxDB 3.** If you currently use Flux on
-    InfluxDB 2, plan to migrate your queries to SQL.
+    SQL and InfluxQL on InfluxDB 3 Core, Enterprise, Cloud Dedicated, and
+    Clustered. **InfluxDB 3 Cloud Serverless** also supports Flux for
+    compatibility with InfluxDB Cloud (TSM). SQL is the primary query
+    language across all InfluxDB 3 products.
+
+    If you use Flux on InfluxDB Cloud (TSM) or InfluxDB 2 OSS and want
+    to preserve Flux query compatibility, migrate to InfluxDB 3 Cloud
+    Serverless. Otherwise, rewrite Flux queries to SQL or InfluxQL.
 
 - question: "Where does InfluxDB 3 Explorer fit?"
   answer: |
