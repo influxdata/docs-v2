@@ -7,7 +7,7 @@
     <a class="btn github" href="https://github.com/influxdata/telegraf/tree/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/" target="_blank">Plugin source</a>
     <a class="btn download"
        data-component="download-external"
-       data-filename="sample.conf"
+       data-filename="telegraf-{{ index $plugin_data 0 }}-{{ $plugin_id }}.sample.conf"
        href="https://raw.githubusercontent.com/influxdata/telegraf/refs/tags/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/sample.conf">Download sample.conf</a>
   {{ end }}
 {{ end }}
