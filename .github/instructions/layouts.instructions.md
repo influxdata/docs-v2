@@ -73,3 +73,4 @@ See [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md) for complete shortcode docume
 - **Complete Hugo template workflow**: [.claude/skills/hugo-template-dev/SKILL.md](../../.claude/skills/hugo-template-dev/SKILL.md)
 - **Shortcodes reference**: [DOCS-SHORTCODES.md](../../DOCS-SHORTCODES.md)
 - **Test examples**: [content/example.md](../../content/example.md)
+- **Article-level page actions** (buttons/links next to the page title — when to use, how to add a new one): [DOCS-PAGE-ACTIONS.md](../../DOCS-PAGE-ACTIONS.md)
