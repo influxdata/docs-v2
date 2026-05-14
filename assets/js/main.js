@@ -36,7 +36,7 @@ import DocSearch from './components/doc-search.js';
 import DownloadExternal from './components/download-external.ts';
 import FeatureCallout from './feature-callouts.js';
 import FluxGroupKeysDemo from './flux-group-keys.js';
-import FluxInfluxDBVersionsTrigger from './flux-influxdb-versions.js';
+import FluxInfluxDBVersionsTrigger from './components/flux-influxdb-versions.ts';
 import FormatSelector from './components/format-selector.ts';
 import InfluxDBVersionDetector from './influxdb-version-detector.ts';
 import KeyBinding from './keybindings.js';
