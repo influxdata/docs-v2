@@ -1,0 +1,33 @@
+{{- /*
+  Emits a schema.org FAQPage JSON-LD <script> for a page whose frontmatter
+  declares both faq_data (data file key under data/faqs/) and
+  faq_canonical: true. The canonical gate prevents duplicate-emission on
+  pages that transclude the same shared body.
+
+  Inside <script>, Go's html/template applies JS-context escaping that
+  re-serializes string output as JSON. safeJS opts out so jsonify's output
+  is emitted verbatim.
+*/ -}}
+{{- if and .Params.faq_data .Params.faq_canonical -}}
+  {{- $faqs := index .Site.Data.faqs .Params.faq_data -}}
+  {{- if $faqs -}}
+    {{- $entities := slice -}}
+    {{- range $faqs -}}
+      {{- $entity := dict
+          "@type" "Question"
+          "name" .question
+          "acceptedAnswer" (dict
+            "@type" "Answer"
+            "text" (.answer | markdownify | plainify | strings.TrimSpace)
+          )
+      -}}
+      {{- $entities = $entities | append $entity -}}
+    {{- end -}}
+    {{- $jsonld := dict
+        "@context" "https://schema.org"
+        "@type" "FAQPage"
+        "mainEntity" $entities
+    -}}
+    <script type="application/ld+json">{{ $jsonld | jsonify | safeJS }}</script>
+  {{- end -}}
+{{- end -}}
