@@ -86,7 +86,8 @@ describe('Which InfluxDB 3 decision page (canonical)', function () {
       'New production deployment',
       'Free, open source, single-node',
       'Multi-tenant, self-service cloud for smaller workloads',
-      'Hosted, managed, single-tenant InfluxDB 3',
+      'Managed single-tenant cloud',
+      'Kubernetes',
       'Running InfluxDB 1 or InfluxDB 2 today',
     ].forEach((row) => cy.contains('td', row).should('exist'));
   });
