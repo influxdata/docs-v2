@@ -21,7 +21,7 @@ for migration guidance.
 | New production deployment | InfluxDB 3 Enterprise (Trial or Home license for evaluation) |
 | Free, open source, single-node | InfluxDB 3 Core |
 | Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
-| Hosted, managed, single-tenant InfluxDB 3 | See [InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) (current managed single-tenant service) |
+| Hosted, managed, single-tenant InfluxDB 3 | See [InfluxDB 3 Cloud](/influxdb3/cloud-dedicated/) |
 | Running InfluxDB 1 or InfluxDB 2 today | Plan migration to InfluxDB 3 Enterprise |
 
 ## InfluxDB 3 Enterprise—the production answer
@@ -36,7 +36,7 @@ Both deployment options run the same engine, the same APIs, and the same
 Processing Engine.
 
 For a managed, single-tenant InfluxDB 3 service today, see
-[InfluxDB Cloud Dedicated](/influxdb3/cloud-dedicated/) — a separate
+[InfluxDB 3 Cloud](/influxdb3/cloud-dedicated/) — a separate
 v3 product InfluxData operates for you.
 
 Choose Enterprise when you need:
@@ -94,7 +94,7 @@ plan a migration to InfluxDB 3 Enterprise.
 
 If you rely on **Flux** queries today, your migration target affects
 compatibility: InfluxDB 3 Cloud Serverless preserves Flux query support,
-while Core, Enterprise, Cloud Dedicated, and Clustered support SQL and
+while Core, Enterprise, InfluxDB 3 Cloud, and Clustered support SQL and
 InfluxQL only. See
 [Which query languages does InfluxDB 3 support?](#which-query-languages-does-influxdb-3-support)
 for the full picture.

@@ -42,7 +42,7 @@
 
 - question: "Which query languages does InfluxDB 3 support?"
   answer: |
-    SQL and InfluxQL on InfluxDB 3 Core, Enterprise, Cloud Dedicated, and
+    SQL and InfluxQL on InfluxDB 3 Core, Enterprise, InfluxDB 3 Cloud, and
     Clustered. **InfluxDB 3 Cloud Serverless** also supports Flux for
     compatibility with InfluxDB Cloud (TSM). SQL is the primary query
     language across all InfluxDB 3 products.
