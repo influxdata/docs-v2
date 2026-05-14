@@ -20,8 +20,7 @@
       display: inline-block;
 
       &.updated-in,
-      &.date,
-      &.flux-influxdb {
+      &.date {
         padding: 0 0 0 .4em;
         background: none;
         font-weight: normal;
@@ -36,13 +35,7 @@
       margin-right: .5rem;
     }
 
-    .flux-influxdb a {
-      cursor: pointer;
-      opacity: .9;
-      transition: color .2s, opacity .2s;
-      &:hover {opacity: 1;}
-    }
-  }  
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
