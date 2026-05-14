@@ -3,14 +3,10 @@
 {{ $version := index $productPathData 1 }}
 {{ $productKey := cond (eq $product "influxdb3") (print "influxdb3_" (replaceRE "-" "_" $version)) $product }}
 {{ $productName := print (index .Site.Data.products $productKey).name }}
-{{ $inStdlib := and (in .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/all-functions/") }}
 {{ if .Page.Params.introduced }}
 <ul class="metadata">
   <li>
     {{ $productName }} {{ .Page.Params.introduced }}{{ if .Page.Params.deprecated }}{{ print " – " .Page.Params.deprecated }}{{ else if .Page.Params.removed }}{{ print " – " .Page.Params.removed }}{{ else }}+{{ end }}
   </li>
-  {{ if $inStdlib }}
-  <li class="flux-influxdb" data-component="flux-influxdb-versions-trigger"><a data-action="open">View InfluxDB support</a></li>
-  {{ end }}
 </ul>
 {{ end }}

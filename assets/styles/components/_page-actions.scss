@@ -66,6 +66,46 @@
       color: $nav-item;
     }
   }
+
+  // Shared visual language for <button> page actions. Mirrors the
+  // a.btn rule above and the format-selector__button rule
+  // (components/_format-selector.scss) so any new page-action button
+  // — applied directly or via the shared .page-actions__button class
+  // on a nested element — picks up the same look without bespoke CSS.
+  > button,
+  .page-actions__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    background: $sidebar-search-bg;
+    color: $article-text;
+    border: 1px solid $nav-border;
+    border-radius: 2rem;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 1px 1px 3px $sidebar-search-shadow;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $sidebar-search-highlight;
+      box-shadow: 1px 1px 6px rgba($sidebar-search-highlight, 0.5);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $sidebar-search-highlight;
+      outline-offset: 2px;
+    }
+  }
+
+  .page-actions__button-icon {
+    display: inline-flex;
+    color: $nav-item;
+  }
 }
 
 @media (max-width: 768px) {
