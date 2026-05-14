@@ -11,7 +11,7 @@
 - question: "Should I start a new project on InfluxDB 1 or InfluxDB 2?"
   answer: |
     No. Start new projects on InfluxDB 3. InfluxDB 1 and 2 remain supported
-    for existing deployments. They receive improvements, but no new features.
+    for existing deployments. They receive improvements, but don't receive v3 features.
     InfluxDB 3 Enterprise is the recommended target for production workloads.
 
 - question: "I run InfluxDB 2 today — should I migrate to InfluxDB 3?"
