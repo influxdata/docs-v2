@@ -18,11 +18,11 @@ for migration guidance.
 
 | Your situation | Use this |
 |---|---|
-| New production deployment | InfluxDB 3 Enterprise (Trial or Home license for evaluation) |
-| Free, open source, single-node | InfluxDB 3 Core |
-| Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | InfluxDB 3 Cloud Serverless |
+| New production deployment | [InfluxDB 3 Enterprise](/influxdb3/enterprise/) (Trial or Home license for evaluation) |
+| Free, open source, single-node | [InfluxDB 3 Core](/influxdb3/core/) |
+| Multi-tenant, self-service cloud for smaller workloads (pay for what you use), or continuing from InfluxDB Cloud (TSM) | [InfluxDB 3 Cloud Serverless](/influxdb3/cloud-serverless/) |
 | Hosted, managed, single-tenant InfluxDB 3 | See [InfluxDB 3 Cloud](/influxdb3/cloud-dedicated/) |
-| Running InfluxDB 1 or InfluxDB 2 today | Plan migration to InfluxDB 3 Enterprise |
+| Running InfluxDB 1 or InfluxDB 2 today | [Plan migration to InfluxDB 3 Enterprise](/influxdb3/enterprise/get-started/migrate-from-influxdb-v1-v2/) |
 
 ## InfluxDB 3 Enterprise—the production answer
 
