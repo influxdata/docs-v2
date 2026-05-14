@@ -1,0 +1,13 @@
+{{ if (eq .Params.product "telegraf") }}
+  {{ $telegraf_latest := .Site.Data.products.telegraf.latest_patches.v1 }} 
+  {{ if .Parent.HasShortcode "telegraf/plugins" }}
+    {{ $plugin_data := split .Params.menu.telegraf_v1_ref.identifier "-" }}
+    {{ $plugin_category := print (index $plugin_data 0) "s" }}
+    {{ $plugin_id := index $plugin_data 1 }}
+    <a class="btn github" href="https://github.com/influxdata/telegraf/tree/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/" target="_blank">Plugin source</a>
+    <a class="btn download"
+       data-component="download-external"
+       data-filename="telegraf-{{ index $plugin_data 0 }}-{{ $plugin_id }}.sample.conf"
+       href="https://raw.githubusercontent.com/influxdata/telegraf/refs/tags/v{{$telegraf_latest}}/plugins/{{ $plugin_category }}/{{ $plugin_id }}/sample.conf">Download sample.conf</a>
+  {{ end }}
+{{ end }}
