@@ -118,6 +118,55 @@ export function reindentRegion(region, width) {
   return out;
 }
 
+const SHORTCODE_LINE_RE = /^\s*\{\{[%<].*[%>]\}\}\s*$/;
+
+/**
+ * Insert a blank line between a Hugo shortcode line and an adjacent
+ * fenced code block so goldmark parses the fence. Only Hugo shortcode
+ * lines trigger separation — HTML comments (e.g.
+ * <!--pytest-codeblocks:cont-->) must stay attached to their fence.
+ * @param {string[]} region @returns {string[]}
+ */
+export function separateShortcodeAdjacentFences(region) {
+  const result = [];
+  let marker = null; // { char, len } when inside a fence
+  for (let k = 0; k < region.length; k++) {
+    const line = region[k];
+    const fm = line.match(/^\s*(`{3,}|~{3,})(.*)$/);
+    const isFenceOpen = !marker && !!fm;
+    const isFenceClose =
+      !!marker &&
+      !!fm &&
+      fm[1][0] === marker.char &&
+      fm[1].length >= marker.len &&
+      fm[2].trim() === '';
+    if (isFenceOpen) {
+      if (
+        result.length > 0 &&
+        result[result.length - 1].trim() !== '' &&
+        SHORTCODE_LINE_RE.test(result[result.length - 1])
+      ) {
+        result.push('');
+      }
+      result.push(line);
+      marker = { char: fm[1][0], len: fm[1].length };
+    } else if (isFenceClose) {
+      result.push(line);
+      marker = null;
+      if (
+        k + 1 < region.length &&
+        region[k + 1].trim() !== '' &&
+        SHORTCODE_LINE_RE.test(region[k + 1])
+      ) {
+        result.push('');
+      }
+    } else {
+      result.push(line);
+    }
+  }
+  return result;
+}
+
 /**
  * Indices (within `region`) of fence-OPEN lines at top level
  * (not inside another fence). Handles ``` and ~~~, length-aware close.
@@ -244,6 +293,8 @@ export function migrate(source, opts = {}) {
     while (region.length && region[0].trim() === '') region.shift();
     while (region.length && region[region.length - 1].trim() === '')
       region.pop();
+
+    region = separateShortcodeAdjacentFences(region);
 
     if (open.indent.length > 0) {
       region = reindentRegion(region, open.indent.length);

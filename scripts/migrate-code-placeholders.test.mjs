@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { injectAttr } from './migrate-code-placeholders.mjs';
+import { separateShortcodeAdjacentFences } from './migrate-code-placeholders.mjs';
 
 test('injectAttr: bare language fence', () => {
   const r = injectAttr('```py', 'API_TOKEN');
@@ -409,4 +410,67 @@ test('migrate: does not add blank line when separation already exists', () => {
       'Following paragraph.',
     ].join(NL)
   );
+});
+
+test('separateShortcodeAdjacentFences: blank between shortcode and fence', () => {
+  const out = separateShortcodeAdjacentFences([
+    '{{% influxdb/custom-timestamps %}}',
+    '```sh',
+    'x',
+    '```',
+    '{{% /influxdb/custom-timestamps %}}',
+  ]);
+  assert.deepEqual(out, [
+    '{{% influxdb/custom-timestamps %}}',
+    '',
+    '```sh',
+    'x',
+    '```',
+    '',
+    '{{% /influxdb/custom-timestamps %}}',
+  ]);
+});
+
+test('separateShortcodeAdjacentFences: leaves pytest comment attached', () => {
+  const out = separateShortcodeAdjacentFences([
+    '<!--pytest-codeblocks:cont-->',
+    '```sh',
+    'x',
+    '```',
+  ]);
+  assert.deepEqual(out, ['<!--pytest-codeblocks:cont-->', '```sh', 'x', '```']);
+});
+
+test('migrate: inner shortcode-wrapped fence inside region is separated', () => {
+  const src = [
+    'Intro:',
+    '',
+    '{{% code-placeholders "DB_NAME" %}}',
+    '{{% influxdb/custom-timestamps %}}',
+    '```sh',
+    'q DB_NAME',
+    '```',
+    '{{% /influxdb/custom-timestamps %}}',
+    '{{% /code-placeholders %}}',
+    '',
+    'Outro.',
+  ].join(NL);
+  const { content, report } = migrate(src, { file: 'o.md' });
+  assert.equal(
+    content,
+    [
+      'Intro:',
+      '',
+      '{{% influxdb/custom-timestamps %}}',
+      '',
+      '```sh { placeholders="DB_NAME" }',
+      'q DB_NAME',
+      '```',
+      '',
+      '{{% /influxdb/custom-timestamps %}}',
+      '',
+      'Outro.',
+    ].join(NL)
+  );
+  assert.equal(report.transformed, 1);
 });
