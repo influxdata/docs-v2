@@ -1,3 +1,7 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { glob } from 'glob';
+
 // THROWAWAY codemod. Removed before merge with PLAN.md.
 // Converts {{% code-placeholders "RE" %}} ... wrappers to the
 // ```lang { placeholders="RE" } fenced-code attribute.
@@ -235,4 +239,50 @@ export function migrate(source, opts = {}) {
   }
 
   return { content: out.join('\n'), report };
+}
+
+async function main(argv) {
+  const dryRun = argv.includes('--dry-run');
+  const files = await glob('content/**/*.md', { nodir: true });
+  const summary = {
+    filesScanned: 0,
+    filesChanged: 0,
+    transformed: 0,
+    alreadyPresent: 0,
+    skipped: [],
+  };
+
+  for (const f of files.sort()) {
+    const src = await readFile(f, 'utf8');
+    if (!/\{\{[%<]\s*code-placeholders\s+"/.test(src)) continue;
+    summary.filesScanned++;
+    const { content, report } = migrate(src, { file: f });
+    summary.transformed += report.transformed;
+    summary.alreadyPresent += report.alreadyPresent;
+    summary.skipped.push(...report.skipped);
+    if (content !== src) {
+      summary.filesChanged++;
+      if (!dryRun) await writeFile(f, content, 'utf8');
+    }
+  }
+
+  console.log(JSON.stringify(summary, null, 2));
+  console.log(
+    `\n${dryRun ? '[DRY RUN] ' : ''}scanned=${summary.filesScanned} ` +
+      `changed=${summary.filesChanged} transformed=${summary.transformed} ` +
+      `alreadyPresent=${summary.alreadyPresent} ` +
+      `skipped=${summary.skipped.length}`
+  );
+  if (summary.skipped.length) {
+    console.log('\nSkipped (manual handling required):');
+    for (const s of summary.skipped)
+      console.log(`  ${s.file}:${s.line}  (${s.reason})`);
+  }
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main(process.argv.slice(2)).catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
 }
