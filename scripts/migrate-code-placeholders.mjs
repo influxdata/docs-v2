@@ -34,3 +34,26 @@ export function injectAttr(line, regex) {
     status: 'injected',
   };
 }
+
+const OPEN_RE =
+  /^(\s*)\{\{[%<]\s*code-placeholders\s+"([^"]*)"(?:\s+\S+)*\s*[%>]\}\}\s*$/;
+const CLOSE_RE =
+  /^\s*\{\{[%<]\s*\/\s*code-placeholders\s*[%>]\}\}\s*$/;
+const OPEN_ANY_RE =
+  /^\s*\{\{[%<]\s*code-placeholders\s+"[^"]*"(?:\s+\S+)*\s*[%>]\}\}\s*$/;
+
+/** @returns {{indent:string, regex:string}|null} */
+export function parseOpenTag(line) {
+  const m = line.match(OPEN_RE);
+  return m ? { indent: m[1], regex: m[2] } : null;
+}
+
+/** @returns {boolean} */
+export function isCloseTag(line) {
+  return CLOSE_RE.test(line);
+}
+
+/** @returns {boolean} */
+export function isOpenTagAny(line) {
+  return OPEN_ANY_RE.test(line);
+}

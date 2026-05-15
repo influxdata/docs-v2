@@ -55,3 +55,45 @@ test('injectAttr: already has placeholders -> present, unchanged', () => {
   assert.equal(r.line, original);
   assert.equal(r.status, 'present');
 });
+
+import {
+  parseOpenTag,
+  isCloseTag,
+  isOpenTagAny,
+} from './migrate-code-placeholders.mjs';
+
+test('parseOpenTag: percent delimiter, no indent', () => {
+  const r = parseOpenTag('{{% code-placeholders "API_TOKEN" %}}');
+  assert.deepEqual(r, { indent: '', regex: 'API_TOKEN' });
+});
+
+test('parseOpenTag: angle delimiter, indented', () => {
+  const r = parseOpenTag('    {{< code-placeholders "DB|AUTH" >}}');
+  assert.deepEqual(r, { indent: '    ', regex: 'DB|AUTH' });
+});
+
+test('parseOpenTag: complex regex with nested groups', () => {
+  const r = parseOpenTag(
+    '{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}'
+  );
+  assert.equal(r.regex, '(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)');
+});
+
+test('parseOpenTag: non-open returns null', () => {
+  assert.equal(parseOpenTag('```py'), null);
+  assert.equal(parseOpenTag('{{% code-placeholder-key %}}'), null);
+});
+
+test('isCloseTag: both delimiters, indented, spaced slash', () => {
+  assert.equal(isCloseTag('{{% /code-placeholders %}}'), true);
+  assert.equal(isCloseTag('   {{< /code-placeholders >}}'), true);
+  assert.equal(isCloseTag('{{% / code-placeholders %}}'), true);
+  assert.equal(isCloseTag('{{% code-placeholders "X" %}}'), false);
+});
+
+test('isOpenTagAny: detects any open regardless of regex', () => {
+  assert.equal(isOpenTagAny('{{% code-placeholders "X" %}}'), true);
+  assert.equal(isOpenTagAny('{{< code-placeholders "Y" >}}'), true);
+  assert.equal(isOpenTagAny('{{% /code-placeholders %}}'), false);
+  assert.equal(isOpenTagAny('plain text'), false);
+});
