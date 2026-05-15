@@ -82,3 +82,6 @@ deploy/llm-markdown/lambda-edge/markdown-generator/config.json
 *.js.map
 .eslintcache
 .worktrees/
+
+# Planning docs (kept locally, not tracked)
+docs/plans/
