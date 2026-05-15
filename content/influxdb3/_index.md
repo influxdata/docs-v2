@@ -17,6 +17,7 @@ If you currently run InfluxDB 1 or InfluxDB 2,
 {{< children type="articles" hlevel="h2" filterOut="Which InfluxDB 3 should I use?" >}}
 
 > [!Tip]
-> **Not sure which product fits your use case?**
+> #### Not sure which product fits your use case?
+>
 > See [Which InfluxDB 3 should I use?](/influxdb3/which-influxdb-3/) for a
 > full comparison of all InfluxDB 3 products and migration guidance.
